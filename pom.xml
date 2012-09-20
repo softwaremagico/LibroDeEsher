@@ -56,25 +56,6 @@
                 </os>
             </activation>
             <build>
-                <!-- <resources>
-        
-                    <resource>
-                        <directory>${linux.origin}</directory>
-                        <filtering>true</filtering>
-                        <includes>
-                            <include>**/control</include>
-                            <include>**/*.desktop</include>
-                        </includes>
-                    </resource>
-                    <resource>
-                        <directory>${linux.origin}</directory>
-                        <filtering>false</filtering>
-                        <excludes>
-                            <exclude>**/control</exclude>
-                            <exclude>**/*.desktop</exclude>
-                        </excludes>
-                    </resource>
-                </resources> -->
                 <plugins>
                     <plugin>
                         <artifactId>maven-antrun-plugin</artifactId>

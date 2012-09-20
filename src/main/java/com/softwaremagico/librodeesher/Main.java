@@ -42,15 +42,15 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.gui.AñadirAdiestramientoGUI;
-import com.softwaremagico.librodeesher.gui.AleatorioGUI;
 import com.softwaremagico.librodeesher.gui.AdiestramientoGUI;
+import com.softwaremagico.librodeesher.gui.AleatorioGUI;
+import com.softwaremagico.librodeesher.gui.AñadirAdiestramientoGUI;
 import com.softwaremagico.librodeesher.gui.CaracteristicasGUI;
 import com.softwaremagico.librodeesher.gui.CategoriasYHabilidadesGUI;
-import com.softwaremagico.librodeesher.gui.SeleccionarHabilidadGUI;
-import com.softwaremagico.librodeesher.gui.OpcionesGUI;
-import com.softwaremagico.librodeesher.gui.ObjetoMagicoGUI;
 import com.softwaremagico.librodeesher.gui.MainGUI;
+import com.softwaremagico.librodeesher.gui.ObjetoMagicoGUI;
+import com.softwaremagico.librodeesher.gui.OpcionesGUI;
+import com.softwaremagico.librodeesher.gui.SeleccionarHabilidadGUI;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
