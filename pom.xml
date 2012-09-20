@@ -5,7 +5,7 @@
   <groupId>com.softwaremagico</groupId>
   <artifactId>LibroDeEsher</artifactId>
   <version>0.9.9.0</version>
-  <packaging>pom</packaging>
+  <packaging>jar</packaging>
   <name>Libro de Esher</name>
     <url>http://maven.apache.org</url>
     <repositories>
@@ -59,7 +59,7 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.4</version>
+                        <version>1.7</version>
                         <executions>
                             <execution>
                                 <phase>install</phase>
@@ -97,6 +97,9 @@
                                         </copy>
                                         <copy todir="${linux.releasedir}${linux.destination-folder}" overwrite="true" flatten="true" >
                                             <fileset dir="./" includes="**/Readme.txt" />
+                                        </copy>
+					<copy todir="${linux.releasedir}${linux.destination-folder}/manual" overwrite="true" >
+                                            <fileset dir="./manual" includes="**/*.pdf" />
                                         </copy>
                                     </tasks>
                                 </configuration>
