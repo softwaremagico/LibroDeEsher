@@ -1,0 +1,110 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS	115
+####################################
+Ag	2
+Co	10
+Me	-2
+Ra	-2
+Ad	0
+Em	-4
+In	-4
+Pr	-2
+Rp	0
+Fu	8
+Ap	-70
+
+#MODIFICACIÓN A LA TR	205
+####################################
+Canalización	0
+Esencia	0
+Mentalismo	0
+Veneno	20
+Enfermedad	10
+Psiónico	0
+Frío	100
+Calor	100
+Miedo	0
+
+#PROGRESIÓN	-75
+####################################
+Desarrollo Físico	0/11/9/7/5
+PP Arcano	0/2/1/1/1
+PP Canalización	0/2/1/1/1
+PP Esencia	0/2/1/1/1
+PP Mentalismo	0/2/1/1/1
+PP Psiónico	0/2/1/1/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Mago, Hechicero, Ilusionista, Clérigo, Paladín, Mentalista, Vidente, Sanador, Animista, Bardo, Indagador, Montaraz, Lord del Caos, Monje, Monje Zen, Monje Taoísta, Alquimista de Canalización, Alquimista de Esencia, Alquimista de Mentalismo, Elementalista
+
+#PARTIDA DEL ALMA	-25
+####################################
+1
+
+#TIPO DE RAZA	5
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}	20
+####################################
+Grande
+
+#RECUPERACIÓN	10
+####################################
+0.5
+
+#IDIOMAS	-5
+####################################
+1
+
+#HISTORIAL
+####################################
+6
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Habla Troll	5/0	8/0
+
+#HABILIDADES COMUNES	1
+####################################
+Armas·2manos
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Subterránea, Aérea
+
+#ESPECIALES	54
+####################################
+11	TA	Armadura Natural
+Visión Nocturna
+Regeneración (3PV por asalto)
+-10	Subterfugio·Sigilo
+-15	Acechar
+-15	Esconderse
+Glotón	Pagina 93 del Manual de Personajes 
+Descoordinación	Sufres un crítico A de Desequilibrio siempre que falles una maniobra. Pagina 85 del Manual de Personajes.
+Sin Concentración	-25 a todas las habilidades que duren más de medio minuto. Pagina 97 del Manual de Personajes.
+Ciego al Color	Ves en blanco y negro. Pagina 84 del Manual de Personajes.
+Ataque natural a distancia: Rocas. Utiliza la Categoría de Arrojadizas. Alcance 15m. Pagina 68 del Manual de Personajes.
+
+#TALENTOS
+####################################
+15
+
+#NOMBRES MASCULINOS
+####################################
+Estulmodiac, Glimflick, Grimkost, Gunob, Grond
+
+#NOMBRES FEMENINOS
+####################################
+Pomona
+
+#APELLIDOS
+####################################
+Corazóndepiedra
+
+#### FIN RAZA ####

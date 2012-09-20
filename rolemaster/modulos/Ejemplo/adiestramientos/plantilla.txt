@@ -1,0 +1,34 @@
+# TIEMPO (meses)
+####################################
+
+# EXCLUSIVO RAZA
+####################################
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+
+#AUMENTOS CARACTERÍSTICAS //Una linea por caracteristica. Si permite elegir incluir el par entre llaves: {Ca, Ca}
+####################################
+{Fu; Co}	//Elige entre Fuerza y Constitución
+{In; Em; Co}	//Elige entre Intuición y Empatía. No se puede volver a elegir Constitución si ha sido elegida previamente.
+Em		//Sube Empatía. 
+
+#REQUISITOS PROFESIONALES
+####################################
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+
+#HABILIDADES COMUNES
+####################################
+
+#HABILIDADES PROFESIONALES
+####################################
+
+#HABILIDADES RESTRINGIDAS
+####################################
+
+### FIN ADIESTRAMIENTO  ###

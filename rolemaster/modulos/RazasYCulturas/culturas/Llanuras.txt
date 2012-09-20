@@ -1,0 +1,76 @@
+# ARMAS TÍPICAS
+####################
+Espada, Hacha de Batalla, Arco Corto, Arco Largo, Arco Compuesto, Ballesta Ligera, Ballesta Pesada, Daga Arrojadiza, Lanza
+
+# ARMADURAS TÍPICAS
+####################
+Cuero Blando, Cuero Endurecido
+
+# RANGOS
+####################
+Armadura·Ligera	1
+  *  Cuero Blando	0
+  *  Cuero Endurecido	0
+Armadura·Media	0
+  *  Cota de Mallas	0
+Armas·Contundentes	0
+  *  Arma	0
+Armas·Filo	1
+  *  Arma	1
+Armas·2manos	0
+  *  Arma	0
+Armas·Proyectiles	2
+  *  Arma	2
+Armas·Asta	2
+  *  Arma	2
+Armas·Arrojadizas	1
+  *  Arma	1
+Atletismo·Gimnasia	1
+  *  Trepar	0
+Atletismo·Potencia	1
+Atletismo·Resistencia	1
+  *  Nadar	0
+Ciencia/Analítica·Básica	0
+Comunicación	1
+  *  Idiomas	6
+Conocimiento·General	3
+  *  Conocimiento Regional	3
+  *  Conocimiento Cultural	3
+Exteriores·Animales	3
+  *  Montar: Caballos	3
+Exteriores·Entorno	3
+Percepción de Poder	0
+Percepción·Búsqueda	1
+Percepción·Perspicacia	0
+  *  Alerta	2
+Subterfugio·Sigilo	0
+  *  Acechar	0
+  *  Esconderse	0
+Técnica/comercio·General	1
+Urbana	0
+Desarrollo Físico	0
+  *  Desarrollo Físico	3
+Listas Abiertas de Hechizos	0
+  *  Lista de Hechizos	0
+
+# PUNTOS AFICIONES
+####################
+12
+
+# AFICIONES
+####################
+Acechar, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas
+Armadura·Ligera, Cuero Blando, Carrera de Fondo, Cazar, Cocinar, Conducir
+Conocimiento Regional, Historia, Leer Huellas, Manejo de los Animales, Manejo de Cuerdas
+Montar: Lobos, Montar: Caballos, Observación, Orientación Celeste, Predicción del Clima, Rastrear
+Supervivencia, Trabajar el Cuero, Trabajar la Madera
+
+# IDIOMAS
+####################
+Habla Común	8/8
+Habla Alta	6/6
+Habla de las Llanuras	8/8
+Habla del Norte	6/6
+Habla del Sur	6/6
+
+### FIN CULTURA ###

@@ -1,0 +1,63 @@
+# ARMAS TÍPICAS
+####################
+
+# ARMADURAS TÍPICAS
+####################
+
+# RANGOS
+####################
+Armadura·Ligera	
+  *  Cuero Blando	
+  *  Cuero Endurecido	
+Armadura·Media	
+  *  Cota de Mallas	
+Armas·Contundentes	
+  *  Arma	
+Armas·Filo	
+  *  Arma	
+Armas·2manos	
+  *  Arma	
+Armas·Proyectiles	
+  *  Arma	
+Armas·Asta	
+  *  Arma	
+Armas·Arrojadizas	
+  *  Arma	
+Atletismo·Gimnasia	
+  *  Trepar	
+Atletismo·Potencia	
+Atletismo·Resistencia	
+  *  Nadar	
+Ciencia/Analítica·Básica	
+Comunicación	
+  *  Idiomas	
+Conocimiento·General	
+  *  Conocimiento Regional	
+  *  Conocimiento Cultural	
+Exteriores·Animales	
+  *  Montar: Caballos	
+Exteriores·Entorno	
+Percepción de Poder	
+Percepción·Búsqueda	
+Percepción·Perspicacia	
+  *  Alerta	
+Subterfugio·Sigilo	
+  *  Acechar	
+  *  Esconderse	
+Técnica/comercio·General	
+Urbana	
+Desarrollo Físico	
+  *  Desarrollo Físico	
+Listas Abiertas de Hechizos	
+  *  Lista de Hechizos	
+
+# PUNTOS AFICIONES
+####################
+
+# AFICIONES
+####################
+
+# IDIOMAS
+####################
+
+### FIN CULTURA ###

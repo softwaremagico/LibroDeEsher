@@ -1,0 +1,7 @@
+#Generalizaciones: Arcos, Ballestas
+Arco Compuesto
+Arco Corto
+Arco Largo
+Ballesta Ligera
+Ballesta Pesada
+Honda

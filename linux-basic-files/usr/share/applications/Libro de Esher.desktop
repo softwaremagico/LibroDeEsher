@@ -1,0 +1,15 @@
+
+[Desktop Entry]
+Version=@version@
+Encoding=@encoding@
+Name=@projectname@
+Type=Application
+Categories=Application;Utility;
+Terminal=false
+Icon[es_ES]=/usr/share/icons/hicolor/64x64/apps/librodeesher.ico
+Icon=/usr/share/icons/hicolor/64x64/apps/librodeesher.ico
+Exec=/usr/bin/librodeesher
+Name[es_ES]=Librodeesher
+Comment[es_ES]=Generador de Personajes para Rolemaster.
+Comment=Generador de Personajes para Rolemaster.
+GenericName[es_ES]=

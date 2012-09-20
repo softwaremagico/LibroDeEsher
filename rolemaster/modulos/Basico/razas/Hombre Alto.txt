@@ -1,0 +1,127 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	-2
+Co	4
+Me	0
+Ra	0
+Ad	0
+Em	0
+In	0
+Pr	4
+Rp	-2
+Fu	4
+Ap	5
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-5
+Esencia	-5
+Mentalismo	-5
+Veneno	0
+Enfermedad	0
+Psiónico	-5
+Frío	0
+Calor	0
+Miedo	0
+
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/7/5/3/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/6/5/4/3
+PP Mentalismo	0/7/6/5/4
+PP Psiónico	0/7/6/5/4
+
+#PROFESIONES RESTRINGIDAS
+####################################
+ninguna
+
+#PARTIDA DEL ALMA
+####################################
+10
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA
+####################################
+Normal
+
+#RECUPERACIÓN
+####################################
+0.7
+
+#IDIOMAS
+####################################
+3
+
+#HISTORIAL
+####################################
+4
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Habla Alta	8/6	10/10
+Habla Común	8/6	10/10
+Habla de las Llanuras	0/0	6/6
+Habla de las Colinas	0/0	6/6
+Habla de los Mares	0/0	8/8
+Habla Pequeña	0/0	6/6
+Habla de los Bosques	0/0	8/8
+Élfico Gris	6/6	8/8
+Élfico Alto	2/2	8/8
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Acuática, Aérea, Ártica, Llanuras, Tierras Altas, Desierto, Litoral, Minera, Rural
+
+#ESPECIALES
+####################################
+Ninguno
+
+#TALENTOS
+####################################
+50
+
+#NOMBRES MASCULINOS
+####################################
+Lidor, Virtus, Goloch, Baulk, Maug, Pelagus, Jerod, Oberoth, Grurt, Dagon, Dihuval
+Mauthar, Deliah, Falogisto, Herzli, Dargos, Shur-Ikail, Kash-Tar, Hor-Dulkar
+Aberbysion, Bhaltair, Biagio, Earric, Esdros, Abartiaigis, Armitalsko, Bagarok, Sasu
+Turibas, Redukeno, Sakarisker, Sakarbik, Baitesir, Balkar, Brajdu, Sush, Meredith, Talus
+Shu-wikikik, Caraartuk, Za-kin, Ba-Min, Trask-Ban, Gunthor, Gurn, Dolf, Conn, Ulf, Cheyn
+Torrek, Jaggot, Cheyk, Rymolf, Uller, Qarl, Skye, Eldiss, Euron, Rolfe, Shagga, Grigg
+Errok, Shallor, Daario
+
+#NOMBRES FEMENINOS
+####################################
+Leth, Sidhia, Uk-Rhiz, Shardana, Lukka, Teresh, Danuna, Nisunin
+Ashida, Bhreana, Eloka, Elvire, Elya, Elye, Sicounin, Sicedunin, Asha
+Stena, Ama, Aretaunin, Auruningica, Canine, Daleninar, Edereta, Himilce
+Deborbratah, Divecha, Chella, Shota, Esgred, Ygritte, Rugiada
+Adele, Aeldra, Magumela, Roscelyne, Shel-la
+
+#APELLIDOS
+####################################
+Tragoinfinito, Rocafuerte, Bulthorp, Bergh, Chaumber, Clay, Cotes
+Cotesse, Dyk, Fall, Forge, Gayr, Grene, Hill, Akhlamu, Amurru, Elamtu
+Pole, Spayne, Stabyl, Durato, Sosinbiuru, Urcebas, Urcaildu, Aibekeres
+Caikonbe, Indikortes, Nabarsosin, Lulubi, Saka, Hiksu, Terahu, Sutu, Hanni
+Kashshu, Mushki, Haunebu, Meshewesh, Denyen,  Thnu, Madai, Gasgas
+Urartu, Sekelesh, Ekwesh, Tjeker, Tesalioi, Dardanioi, Lelex, Pelasgoi
+Thrakios, Osci, Umbri, Getae, Garamantes, Nasamones, Sarmatae, Scythae
+Kushan, Pyus, Ordu, Bebetormentas, Dienteazul, Susurrante, Pelajo, Barbarrota
+Forúnculo, Tresdedos
+
+#### FIN RAZA ####

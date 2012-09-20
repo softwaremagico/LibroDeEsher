@@ -1,0 +1,75 @@
+# ARMAS TÍPICAS
+####################
+Garrote, Espada Ancha, Machete, Hacha de Mano, Espada Cortea, Hacha de Batalla, Hacha de Leñador, Honda, Arco Corto, Arco Compuesto, Jabalina
+
+# ARMADURAS TÍPICAS
+####################
+Cuero Blando, Cuero Endurecido
+
+# RANGOS
+####################
+Armadura·Ligera	1
+  *  Cuero Blando	1
+  *  Cuero Endurecido	0
+Armadura·Media	0
+  *  Cota de Mallas	0
+Armas·Contundentes	1
+  *  Arma	1
+Armas·Filo	1
+  *  Arma	1
+Armas·2manos	0
+  *  Arma	0
+Armas·Proyectiles	1
+  *  Arma	1
+Armas·Asta	0
+  *  Arma	0
+Armas·Arrojadizas	1
+  *  Arma	1
+Atletismo·Gimnasia	2
+  *  Trepar	5
+Atletismo·Potencia	0
+Atletismo·Resistencia	2
+  *  Nadar	1
+Ciencia/Analítica·Básica	0
+Comunicación	3
+  *  Idiomas	8
+Conocimiento·General	3
+  *  Conocimiento Regional	3
+  *  Conocimiento Cultural	3
+Exteriores·Animales	1
+  *  Montar: Caballos	0
+Exteriores·Entorno	2
+Percepción de Poder	0
+Percepción·Búsqueda	1
+Percepción·Perspicacia	0
+  *  Alerta	2
+Subterfugio·Sigilo	1
+  *  Acechar	1
+  *  Esconderse	1
+Técnica/comercio·General	1
+Urbana	0
+Desarrollo Físico	0
+  *  Desarrollo Físico	0
+Listas Abiertas de Hechizos	0
+  *  Lista de Hechizos	0
+
+# PUNTOS AFICIONES
+####################
+12
+
+# AFICIONES
+####################
+Acrobacias, Armadura·Ligera, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas
+Caminar por la Cuerda Floja, Camuflaje, Cantar, Carrera de Fondo
+Conocimiento de la Fauna, Desarrollo Físico, Escalar, Forrajear, Manejo de Cuerdas, Observación
+Predicción del Clima, Rappeling, Supervivencia (Montañas), Trepar
+
+# IDIOMAS
+####################
+Habla Común	8/8
+Habla Alta	6/6
+Habla de las Colinas	6/6
+Gigante	4/4
+Titán	4/4
+
+### FIN CULTURA ###

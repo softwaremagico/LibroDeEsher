@@ -1,0 +1,35 @@
+Defensas Elementales	Mago de Luz/Mago de la Tierra/Mago del Agua/Mago del Fuego/Mago del Hielo/Mago del Aire
+Desvíos Elementales	Mago de Luz/Mago de la Tierra/Mago del Agua/Mago del Fuego/Mago del Hielo/Mago del Aire
+Invocaciones Elementales	Mago de la Luz/Mago de la Tierra/Mago del Agua/Mago del Fuego/Mago del Hielo/Mago del Aire
+Control del Aire	Mago del Aire
+Maestría del Viento	Mago del Aire
+Campos Terrestres	Mago de la Tierra
+Maestría de la Tierra	Mago de la Tierra
+Camino de las Llamas	Mago del Fuego
+Sendas del Fuego	Mago del Fuego
+Maestría del Frío	Mago del Hielo
+Maestría del Hielo	Mago del Hielo
+Maestría de la Luz	Mago de la Luz
+Maestría de la Oscuridad	Mago de la Luz
+Maestría del Agua	Mago del Agua
+Sendas Acuosas	Mago del Agua
+Canalizaciones Elementales	Sacerdote Elemental
+Curación Elemental	Sacerdote Elemental
+Maestría de los Portales Elementales	Sacerdote Elemental
+Mejora en Combate Elemental	Sacerdote Elemental
+Restauración Elemental	Sacerdote Elemental
+Transformaciones Elemental	Sacerdote Elemental
+Arma Elemental	Campeón Elemental
+Armadura Elemental	Campeón Elemental
+Cambio Elemental Menor	Campeón Elemental
+Compañeros Elementales	Campeón Elemental
+Protecciones Elementales Menores	Campeón Elemental
+Vínculos de Combate	Campeón Elemental
+Energía Elemental Verdadera	Mago Arcano
+Fluídos Elementales Verdaderos	Mago Arcano
+Maestría del Eter	Elementalista Arcano
+Maestría del Vacío	Elementalista Arcano
+Maestría Elemental Verdadera	Elementalista Arcano
+Material Elemental Verdadero	Elementalista Arcano
+Artesanía Elemental	OA
+Forja Elemental	OA

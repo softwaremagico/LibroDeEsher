@@ -1,0 +1,5 @@
+#Generalizaciones: Pistola Automática, Revolver, Pistola Avancarga, Pistola energética
+Pistola Automática: Samuel Coutty
+Pistola Avancarga: Thomas French Contract Pistol
+Pistola Energética: Saukur
+Revolver: Colt Trooper

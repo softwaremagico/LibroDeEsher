@@ -1,0 +1,112 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	4
+Co	2
+Me	0
+Ra	2
+Ad	-2
+Em	2
+In	2
+Pr	0
+Rp	4
+Fu	2
+Ap	20
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	5
+Esencia	10
+Mentalismo	15
+Veneno	15
+Enfermedad	100
+Psiónico	-5
+Frío	20
+Calor	20
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/6/5/2/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/6/5/4/3
+PP Mentalismo	0/6/5/4/3
+PP Psiónico	0/4/3/2/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Luchador, Bribón, Ladrón, Lego, Clérigo, Mentalista, Curandero, Sanador, Místico, Hechicero, Montaraz, Paladín, Bardo, Magente
+
+#PARTIDA DEL ALMA
+####################################
+10
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+1
+
+#HISTORIAL
+####################################
+2
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Lennai	8/4	10/10
+Dríade	0/0	8/6
+Regional	8/4	10/8
+
+#HABILIDADES COMUNES
+####################################
+Juegos de Manos, Trabajar la Madera
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Silvana
+
+#ESPECIALES
+####################################
+Vulnerable al hierro
+
+#TALENTOS
+####################################
+50
+
+#NOMBRES MASCULINOS
+####################################
+Nanouc, Naldos, Nandel, Najak, Nandro, Naddi, Nadin, Nabor
+Nantoo, Nappo, Nack, Narziss, Natus, Nauke,  Neckar, Nefalko
+Negus, Navar, Neferkare, Nixe, Nabeidz, Nacim, Narlis, Nats
+Natfrm, Nehmold, Neminouz, Nivnawor, Noholm, Nomaru, Nymil
+Niehgham, Neuriaf, Nikehs, Nisert, Nowre, Nycyk, Neramgud
+Nehotet 
+
+#NOMBRES FEMENINOS
+####################################
+Nadia, Nanett, Nami, Nala, Naïtika, Nayka, Naja, Nalva, Nais
+Nathild, Naïade, Nelltje, Neera, Nell, Nelfy, Nenni, Nemini, Nereud
+Nessi, Nilla, Nixa, Nynphea, Nyra, Nutrella, Nura, Nuran, Nurmi
+Nacti, Nabrisse, Nehil, Nealitades, Nisseraf, Nesheid, Nilgsid
+
+#APELLIDOS
+####################################
+Nubbis, Nouschka, Norgard, Norbo, Nordo, Nootka, Nonneke, Nix
+Nixa, Nixe, Nixi, Nita, Nitta, Nitti, Ninjia, Nik, Niki, Nikki, Niels
+Newyddllyn, Nicolwyffe
+
+#### IN RAZA ####

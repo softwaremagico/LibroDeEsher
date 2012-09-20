@@ -1,0 +1,112 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	4
+Co	-2
+Me	0
+Ra	0
+Ad	0
+Em	2
+In	0
+Pr	0
+Rp	4
+Fu	-4
+Ap	-5
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-5
+Esencia	-5
+Mentalismo	-5
+Veneno	-5
+Enfermedad	-10
+Psiónico	-5
+Frío	20
+Calor	20
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/6/2/2/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/6/5/4/3
+PP Mentalismo	0/7/6/5/4
+PP Psiónico	0/7/6/5/4
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+10
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+3
+
+#HISTORIAL
+####################################
+6
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Habla Común	8/6	10/10
+Habla de las Colinas	6/6	8/8
+Habla del Norte	0/0	4/4
+Habla del Sur	0/0	4/4
+Élfico Alto	0/0	4/4
+Habla Alta	0/0	6/4
+
+#HABILIDADES COMUNES
+####################################
+Volar/Planear
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Aérea
+
+#ESPECIALES
+####################################
++12 a los puntos de cansancio.
+
+#TALENTOS
+####################################
+40
+
+#NOMBRES MASCULINOS
+####################################
+Aarush, Aashish, Aahan, Buddhadev, Balamani, Bhaskar, Chandresh, Chittaranjan, Chirag
+Darpak, Dakura, Dakshesh, Dhananjay, Dinkar, Divyendu, Ekanga, Phanindra, Gagan
+Gaurang, Gaurav, Girish, Harish, Hemant, Mirallus, Hirthor, Hoetor, Hotunn, Kergon
+Minves, Dimas, Kalone
+
+#NOMBRES FEMENINOS
+####################################
+Aashka, Aarthi, Aarushi, Aaleahya, Bharati, Bhavya, Bhuvana, Chandraki, Chandrika
+Chitrani, Darika, Deepika, Dristi, Durga, Dhara, Ekta, Ela, Himani, Hemlata, Hita
+Harsha, Mehra, Ledtawa, Sakana, Septa, Lotti, Ehila, Sibilla, Sanne, Shiana
+
+#APELLIDOS
+####################################
+Chudamani, Bala, Bageshri, Chhaya, Digamber, Dharini, Ecchumati, Phoolendu, Govind
+Gurudas, Gurnam, Gurcharan, Giriraj, Hemang, Hrishikesh, Roscelyn, Densedera
+Kradni, Kyrillon
+
+#### FIN RAZA ####

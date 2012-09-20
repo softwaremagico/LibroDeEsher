@@ -1,0 +1,50 @@
+# TIEMPO (meses)
+####################################
+53
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Sumando de Hechizo (+2)	50
+Objeto con Hechizo diario II (hechizo nvl 3)	50
+Objeto con Hechizo diario I (hechizo nvl 5)	40
+Multiplicador x2	10
+Sumando de Hechizo (+1)	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Conocimiento·Mágico	2	1	1	2
+Conocimiento·Técnico	1	1	1	1
+Listas Básicas de Hechizos	0	1	3	3
+Percepción de Poder	2	2	2	2
+  *  Leer Runas	1	0	0	0
+  *  Sintonización	1	0	0	0
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Me
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

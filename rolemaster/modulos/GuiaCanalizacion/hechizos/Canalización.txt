@@ -1,0 +1,6 @@
+Ataduras de las Invocaciones	Invocador
+Círculos de Invocaciones	Invocador
+Invocaciones de Animales	Invocador
+Invocaciones Planares	Invocador
+Maestría de las Invocaciones	Invocador
+Umbrales	Invocador

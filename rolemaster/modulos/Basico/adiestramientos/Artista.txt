@@ -1,0 +1,49 @@
+# TIEMPO (meses)
+####################################
+40
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Material para disfrazarse (+15 no mágico)	50
+Artilugios de entretenimiento (+10 no mágicos)	50
+Amistad con un tabernero	40
+Amistad con un tabernero	40
+Amistad con un artista famoso	20
+Material de maquillaje (+5 no mágico)	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Arte·Activo	3	1	1	3
+Atletismo·Gimnasia	1	1	1	1
+Comunicación	5	1	5	5
+Influencia	2	1	2	2
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Ninguno
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

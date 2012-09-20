@@ -1,0 +1,111 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	2
+Co	-4
+Me	0
+Ra	2
+Ad	4
+Em	0
+In	-4
+Pr	-8
+Rp	0
+Fu	-4
+Ap	20
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	100
+Esencia	50
+Mentalismo	100
+Veneno	100
+Enfermedad	100
+Psiónico	-5
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/5/4/3/2
+PP Arcano	0/3/2/1/1
+PP Canalización	0/3/2/1/1
+PP Esencia	0/3/2/1/1
+PP Mentalismo	0/6/5/4/3
+PP Psiónico	0/3/2/1/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Mago, Clérigo, Paladín, Mentalista, Vidente, Sanador,Bardo, Indagador, Montaraz, Lord del Caos, Monje, Monje Zen, Monje Taoísta, Alquimista de Canalización, Alquimista de Esencia, Elementalista
+
+#PARTIDA DEL ALMA
+####################################
+1
+
+#TIPO DE RAZA
+####################################
+1
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN
+####################################
+0.2
+
+#IDIOMAS
+####################################
+3
+
+#HISTORIAL
+####################################
+6
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Fúnguido	6/0	8/6
+Habla de los Bosques	0/0	4/0
+Habla Común	0/0	4/0
+
+
+#HABILIDADES COMUNES
+####################################
+Esconderse, Acechar, Ataque Silencioso, Emboscar, Nadar
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Frenesí
+
+#CULTURAS
+####################################
+Subterránea, Supervivencia (Montañas)
+
+#ESPECIALES
+####################################
+Nube de esporas. Veneno Nº5 Nervioso en un área de 3m de rádio. Una vez al día.
+
+#TALENTOS
+####################################
+45
+
+#NOMBRES MASCULINOS
+####################################
+Agaricus, Asgae, Adrattas, Aifan, Aigasso, Avoc, Cenies, Ciattas, Cynnan, Deaniel
+Dwilos, Dynei, Eilnor, Ernon, Essadali, Icio, Jendara, Leses, Losoa, Mirarnis, Omandri
+Rhipa, Sylio, Urnis, Uwi, Vynnendir, Yandri, Ranoi, Uacaro
+
+#NOMBRES FEMENINOS
+####################################
+Amanita, Oameli, Oleda, Ullotina, Yarua, Isachelle, Ittenifer, Ittolasse, Eoru
+
+#APELLIDOS
+####################################
+Albertii, Arvensis, Augustus, Bisporus, Bistorquis, Silvaticus, Aegerita, Gemmata, Pantherina
+Agrocybe, Phalloides, Spissa, Verna, Vaginata, Virosa, Cogomassa, Aestivalis, Bellini
+Calopus, Castaneus, Edulis, Luteus, Regius, Satanas, Gambosa, Cornucopius, Dryophila
+Praestans, Splendens, Lividum, Marginata, Imbricatum, Repandum, Rufescens, Erubescens
+Necator, Tesquorum, Volemus, Friesii, Helveola, Luscina, Nuda, Sordida, Illinita, Excoriata
+Procera, Rhacodes, Oreades, Olearius, Destruens, Cervinus, Salicinus, Amara, Delica, Foetens
+Nigricans, Vesca, Portentosum, Pessundatum, Focale, Terreum, Radiaca
+
+#### FIN RAZA ####

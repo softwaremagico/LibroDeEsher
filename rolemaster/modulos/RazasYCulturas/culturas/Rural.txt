@@ -1,0 +1,76 @@
+# ARMAS TÍPICAS
+####################
+Daga, Hacha de Mano, Garrote, Honda, Cayado, Jabalina, Arpón, Guadaña, Espada, Hacha de Batalla, Lanza de Caballería, Espada Bastarda
+
+# ARMADURAS TÍPICAS
+####################
+Cuero Blando, Cuero Endurecido, Cota de Mallas, Coraza
+
+# RANGOS
+####################
+Armadura·Ligera	1
+  *  Cuero Blando	1
+  *  Cuero Endurecido	1
+Armadura·Media	0
+  *  Cota de Mallas	0
+Armas·Contundentes	2
+  *  Arma	2
+Armas·Filo	0
+  *  Arma	0
+Armas·2manos	0
+  *  Arma	0
+Armas·Proyectiles	1
+  *  Arma	1
+Armas·Asta	0
+  *  Arma	0
+Armas·Arrojadizas	1
+  *  Arma	1
+Atletismo·Gimnasia	1
+  *  Trepar	0
+Atletismo·Potencia	1
+Atletismo·Resistencia	1
+  *  Nadar	1
+Ciencia/Analítica·Básica	0
+Comunicación	1
+  *  Idiomas	8
+Conocimiento·General	3
+  *  Conocimiento Regional	3
+  *  Conocimiento Cultural	3
+Exteriores·Animales	1
+  *  Montar: Caballos	1
+Exteriores·Entorno	2
+Percepción de Poder	0
+Percepción·Búsqueda	1
+Percepción·Perspicacia	0
+  *  Alerta	2
+Subterfugio·Sigilo	1
+  *  Acechar	1
+  *  Esconderse	1
+Técnica/comercio·General	1
+Urbana	0
+Desarrollo Físico	0
+  *  Desarrollo Físico	2
+Listas Abiertas de Hechizos	0
+  *  Lista de Hechizos	0
+
+# PUNTOS AFICIONES
+####################
+12
+
+# AFICIONES
+####################
+Acechar, Acrobacias, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas
+Armadura·Ligera, Bailar, Cocinar, Conocimiento Regional
+Escalar, Esconderse, Espeleología, Forrajear, Historia, Manejo de los Animales, Manejo de Cuerdas, Nadar
+Observación, Orientación Celeste, Predicción del Clima, Rastrear, Trabajar el Cuero, Trabajar la Madera
+Trepar
+
+# IDIOMAS
+####################
+Habla Común	8/8
+Habla Alta	6/6
+Habla Pequeña	6/6
+Habla del Norte	8/8
+Habla del Sur	8/8
+
+### FIN CULTURA ###

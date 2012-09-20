@@ -1,0 +1,716 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="title" type="java.lang.String" value="Caracter&#xed;sticas del Personaje"/>
+    <Property name="resizable" type="boolean" value="false"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" alignment="1" attributes="1">
+                      <Component id="PDLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="PuntosCaracteristicasGastadosTextField" min="-2" pref="39" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="SeparadorLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="PuntosCaracteristicasTotalesTextField" min="-2" pref="43" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="RandomButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="AceptarButton" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel1" min="-2" max="-2" attributes="1"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="AceptarButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="RandomButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="PDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="PuntosCaracteristicasGastadosTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="SeparadorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="PuntosCaracteristicasTotalesTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="jPanel1">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel11" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel10" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel9" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel8" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel6" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="IntuicionTemporalSpinner" max="32767" attributes="1"/>
+                              <Component id="AparienciaTextField" alignment="1" min="0" pref="0" max="32767" attributes="1"/>
+                              <Component id="FuerzaTemporalSpinner" alignment="1" max="32767" attributes="1"/>
+                              <Component id="RapidezTemporalSpinner" alignment="1" max="32767" attributes="1"/>
+                              <Component id="PresenciaTemporalSpinner" alignment="1" max="32767" attributes="1"/>
+                              <Component id="EmpatiaTemporalSpinner" alignment="1" max="32767" attributes="1"/>
+                              <Component id="AutodisciplinaTemporalSpinner" alignment="1" max="32767" attributes="1"/>
+                              <Component id="RazonTemporalSpinner" alignment="1" max="32767" attributes="1"/>
+                              <Component id="MemoriaTemporalSpinner" alignment="1" max="32767" attributes="1"/>
+                              <Component id="ConstitucionTemporalSpinner" alignment="1" max="32767" attributes="1"/>
+                              <Component id="AgilidadTemporalSpinner" alignment="1" pref="53" max="32767" attributes="1"/>
+                          </Group>
+                      </Group>
+                      <Component id="jLabel12" alignment="1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="ConstitucionPotencialTextField" alignment="0" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="AgilidadPotencialTextField" alignment="0" pref="58" max="32767" attributes="2"/>
+                      <Component id="FuerzaPotencialTextField" alignment="0" pref="58" max="32767" attributes="1"/>
+                      <Component id="RapidezPotencialTextField" alignment="0" pref="58" max="32767" attributes="1"/>
+                      <Component id="MemoriaPotencialTextField" alignment="0" pref="58" max="32767" attributes="1"/>
+                      <Component id="RazonPotencialTextField" alignment="0" pref="58" max="32767" attributes="1"/>
+                      <Component id="AutodisciplinaPotencialTextField" alignment="0" pref="58" max="32767" attributes="1"/>
+                      <Component id="EmpatiaPotencialTextField" alignment="0" pref="58" max="32767" attributes="1"/>
+                      <Component id="IntuicionPotencialTextField" alignment="0" pref="58" max="32767" attributes="1"/>
+                      <Component id="PresenciaPotencialTextField" alignment="0" pref="58" max="32767" attributes="1"/>
+                      <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="FuerzaBasicaTextField" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="RapidezBasicaTextField" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="PresenciaBasicaTextField" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="IntuicionBasicaTextField" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="EmpatiaBasicaTextField" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="AutodisciplinaBasicaTextField" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="RazonBasicaTextField" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="MemoriaBasicaTextField" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="ConstitucionBasicaTextField" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="AgilidadBasicaTextField" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="jLabel14" alignment="0" max="32767" attributes="1"/>
+                  </Group>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel15" pref="45" max="32767" attributes="0"/>
+                          <EmptySpace min="13" pref="13" max="13" attributes="0"/>
+                      </Group>
+                      <Component id="FuerzaRazaTextField" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="RapidezRazaTextField" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="PresenciaRazaTextField" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="IntuicionRazaTextField" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="EmpatiaRazaTextField" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="AutodisciplinaRazaTextField" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="RazonRazaTextField" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="MemoriaRazaTextField" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="AgilidadRazaTextField" alignment="0" pref="58" max="32767" attributes="2"/>
+                      <Component id="ConstitucionRazaTextField" alignment="0" min="0" pref="0" max="32767" attributes="1"/>
+                  </Group>
+                  <EmptySpace min="14" pref="14" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="RapidezTotalTextField" alignment="1" min="-2" pref="57" max="-2" attributes="0"/>
+                      <Component id="PresenciaTotalTextField" alignment="1" min="-2" pref="57" max="-2" attributes="0"/>
+                      <Component id="IntuicionTotalTextField" alignment="1" min="-2" pref="57" max="-2" attributes="0"/>
+                      <Component id="EmpatiaTotalTextField" alignment="1" min="-2" pref="57" max="-2" attributes="0"/>
+                      <Component id="AutodisciplinaTotalTextField" alignment="1" min="-2" pref="57" max="-2" attributes="0"/>
+                      <Component id="RazonTotalTextField" alignment="1" min="-2" pref="57" max="-2" attributes="0"/>
+                      <Component id="MemoriaTotalTextField" alignment="1" min="-2" pref="57" max="-2" attributes="0"/>
+                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel16" pref="32" max="32767" attributes="0"/>
+                              <EmptySpace min="25" pref="25" max="25" attributes="0"/>
+                          </Group>
+                          <Component id="AgilidadTotalTextField" alignment="0" pref="57" max="32767" attributes="1"/>
+                          <Component id="ConstitucionTotalTextField" alignment="0" min="0" pref="0" max="32767" attributes="1"/>
+                      </Group>
+                      <Component id="FuerzaTotalTextField" alignment="1" min="-2" pref="57" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="AgilidadTemporalSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="AgilidadPotencialTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="AgilidadBasicaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="AgilidadRazaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="AgilidadTotalTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ConstitucionTemporalSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ConstitucionPotencialTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ConstitucionBasicaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ConstitucionRazaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ConstitucionTotalTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="MemoriaTemporalSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="MemoriaPotencialTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="MemoriaBasicaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="MemoriaRazaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="MemoriaTotalTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="RazonTemporalSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="RazonPotencialTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="RazonBasicaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="RazonRazaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="RazonTotalTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="AutodisciplinaTemporalSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="AutodisciplinaPotencialTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="AutodisciplinaBasicaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="AutodisciplinaRazaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="AutodisciplinaTotalTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="EmpatiaTemporalSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="EmpatiaPotencialTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="EmpatiaBasicaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="EmpatiaRazaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="EmpatiaTotalTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="IntuicionTemporalSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="IntuicionPotencialTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="IntuicionBasicaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="IntuicionRazaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="IntuicionTotalTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="PresenciaTemporalSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="PresenciaPotencialTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="PresenciaBasicaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="PresenciaRazaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="PresenciaTotalTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="RapidezTemporalSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="RapidezPotencialTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="RapidezBasicaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="RapidezRazaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="RapidezTotalTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="FuerzaTemporalSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="FuerzaPotencialTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="FuerzaBasicaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="FuerzaRazaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="FuerzaTotalTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="AparienciaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Agilidad"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Constituci&#xf3;n"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Memoria"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Raz&#xf3;n"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel5">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Autodisciplina"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel6">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Empat&#xed;a"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel7">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Intuici&#xf3;n"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel8">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Presencia"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel9">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Rapidez"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel10">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Fuerza"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel11">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Apariencia"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="AgilidadTemporalSpinner">
+        </Component>
+        <Component class="javax.swing.JSpinner" name="ConstitucionTemporalSpinner">
+        </Component>
+        <Component class="javax.swing.JSpinner" name="MemoriaTemporalSpinner">
+        </Component>
+        <Component class="javax.swing.JSpinner" name="RazonTemporalSpinner">
+        </Component>
+        <Component class="javax.swing.JSpinner" name="AutodisciplinaTemporalSpinner">
+        </Component>
+        <Component class="javax.swing.JSpinner" name="EmpatiaTemporalSpinner">
+        </Component>
+        <Component class="javax.swing.JSpinner" name="IntuicionTemporalSpinner">
+        </Component>
+        <Component class="javax.swing.JSpinner" name="PresenciaTemporalSpinner">
+        </Component>
+        <Component class="javax.swing.JSpinner" name="RapidezTemporalSpinner">
+        </Component>
+        <Component class="javax.swing.JSpinner" name="FuerzaTemporalSpinner">
+        </Component>
+        <Component class="javax.swing.JTextField" name="AparienciaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculada"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel12">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Temporal"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="AgilidadPotencialTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculada"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="ConstitucionPotencialTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculada"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="MemoriaPotencialTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculada"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="RazonPotencialTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculada"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="AutodisciplinaPotencialTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculada"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="EmpatiaPotencialTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculada"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="IntuicionPotencialTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculada"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="PresenciaPotencialTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculada"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="RapidezPotencialTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculada"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="FuerzaPotencialTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculada"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel13">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Potencial"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="AgilidadBasicaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel14">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="B. B&#xe1;sica"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="ConstitucionBasicaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="MemoriaBasicaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="RazonBasicaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="AutodisciplinaBasicaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="EmpatiaBasicaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="IntuicionBasicaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="PresenciaBasicaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="RapidezBasicaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="FuerzaBasicaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel15">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="B. Raza"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="AgilidadRazaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="ConstitucionRazaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="MemoriaRazaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="RazonRazaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="AutodisciplinaRazaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="EmpatiaRazaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="IntuicionRazaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="PresenciaRazaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="RapidezRazaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="FuerzaRazaTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel16">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Total"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="AgilidadTotalTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="ConstitucionTotalTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="MemoriaTotalTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="RazonTotalTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="AutodisciplinaTotalTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="EmpatiaTotalTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="IntuicionTotalTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="PresenciaTotalTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="RapidezTotalTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="FuerzaTotalTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Autocalculadas"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JButton" name="AceptarButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Confirmar"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="RandomButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Aleatorio"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="PDLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Puntos de Caracter&#xed;sticas:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="PuntosCaracteristicasGastadosTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="SeparadorLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="/"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="PuntosCaracteristicasTotalesTextField">
+      <Properties>
+        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+          <Format format="#0" subtype="-1" type="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="esher.pj.caracteristicas.totalCaracteristicas.toString()" type="code"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="PuntosCaracteristicasTotalesTextFieldKeyReleased"/>
+      </Events>
+    </Component>
+  </SubComponents>
+</Form>

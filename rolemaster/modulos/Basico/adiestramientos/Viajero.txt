@@ -1,0 +1,51 @@
+# TIEMPO (meses)
+####################################
+18
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Ropa resistente al clima adverso	80
+Bestia de monta	30
+Mapa sencillo de la región local	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Atletismo·Gimnasia	1	1	1	1
+  *  Trepar	1
+Atletismo·Resistencia	1	1	1	1
+  *  Nadar	1
+Exteriores·Animales	1	1	1	1
+  *  {Montar: Lobos; Montar: Caballos; Montar: Osos}	1
+Exteriores·Entorno	1	1	1	1
+Percepción·Búsqueda	1	1	1	1
+  *  Observación	1
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Ninguno
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

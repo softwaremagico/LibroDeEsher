@@ -1,0 +1,176 @@
+#CARACTERÍSTICAS POR ORDEN
+####################################
+Ag Em Rp Fu Ad Ra In Me Co Pr
+
+#REINOS DE MAGIA
+####################################
+Esencia
+
+#BONIFICACIÓN POR PROFESIÓN
+####################################
+Armas·2manos	5
+Armas·Arrojadizas	5
+Armas·Artillería	5
+Armas·Contundentes	5
+Armas·Asta	5
+Armas·Filo	5
+Armas·Proyectiles	5
+Conocimiento·Mágico	5
+Desarrollo Físico	5
+Influencia	5
+Percepción·Búsqueda	10
+Percepción·Perspicacia	10
+Percepción·Sentidos	10
+Percepción de Poder	10
+Subterfugio·Ataque	5
+Subterfugio·Mecánica	5
+Subterfugio·Sigilo	5
+Urbana	5
+
+#HABILIDADES Y CATEGORÍAS DE HABILIDADES
+####################################
+Armadura·Ligera	5/5/5
+Armadura·Media	10
+Armadura·Pesada	11
+Armas·Categoría1	3/9
+Armas·Categoría2	6
+Armas·Categoría3	7
+Armas·Categoría4	8
+Armas·Categoría5	10
+Armas·Categoría6	15
+Armas·Categoría7	15
+Arte·Activo	2/4
+Arte·Pasivo	2/5
+Artes Marciales·Golpes	4
+Artes Marciales·Barridos	4
+Artes Marciales·Maniobras de Combate	8
+Ataques Especiales	6
+Atletismo·Gimnasia	2/4
+Atletismo·Potencia	3/9
+Atletismo·Resistencia	2/7
+Autocontrol	2/7
+Ciencia/Analítica·Básica	2/5
+Ciencia/Analítica·Especializada	8
+Comunicación	2/2/2
+Conocimiento·General	1/3
+Conocimiento·Mágico	2/6
+Conocimiento·Oscuro	3/7
+Conocimiento·Técnico	2/5
+Defensas Especiales	30
+Desarrollo de Puntos de Poder	8
+Desarrollo Físico	6/14
+Exteriores·Animales	2/6
+Exteriores·Entorno	2/6
+Hechizos Dirigidos	10
+Influencia	1/4
+Maniobras de Combate	6/14
+Manipulación del Poder	6/12
+Oficios	4/10
+Percepción·Búsqueda	2/6
+Percepción·Perspicacia	4/12
+Percepción·Sentidos	3/7
+Percepción de Poder	3/6
+Subterfugio·Ataque	12
+Subterfugio·Mecánica	4
+Subterfugio·Sigilo	2/7
+Técnica/comercio·General	3/7
+Técnica/comercio·Profesional	8
+Técnica/comercio·Vocacional	5/12
+Urbana	2/4
+
+# HABILIDADES COMUNES          //Cateogia#numero es "numero" de habilidades de dicha categoria; 
+####################################
+Detectar Emboscadas, Sentido del Tiempo, Detectar Trampas, Buscar
+
+#HABILIDADES PROFESIONALES
+####################################
+Abrir Cerraduras
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#DESARROLLO DE HECHIZOS
+####################################
+Lista Básica (1-5)	6/6/6
+Lista Básica (6-10)	6/6/6
+Lista Básica (11-15)	6/6/6
+Lista Básica (16-20)	6/6/6
+Lista Básica (21+)	6/6/6
+Lista Abierta (1-5)	8/8
+Lista Abierta (6-10)	8/8
+Lista Abierta (11-15)	12
+Lista Abierta (16-20)	18
+Lista Abierta (21+)	25
+Lista Cerrada (1-5)	10/10
+Lista Cerrada (6-10)	12
+Lista Cerrada (11-15)	25
+Lista Cerrada (16-20)	40
+Lista Cerrada (21+)	60
+Listas Básicas de otras Profesiones (1-5)	25
+Listas Básicas de otras Profesiones (6-10)	40
+Listas Básicas de otras Profesiones (11-15)	60
+Listas Básicas de otras Profesiones (16-20)	80
+Listas Básicas de otras Profesiones (21+)	100
+Listas Abiertas de otros Reinos (1-5)	30
+Listas Abiertas de otros Reinos (6-10)	60
+Listas Abiertas de otros Reinos (11-15)	80
+Listas Abiertas de otros Reinos (16-20)	100
+Listas Abiertas de otros Reinos (21+)	120
+Listas Cerradas de otros Reinos (1-5)	45
+Listas Cerradas de otros Reinos (6-10)	60
+Listas Cerradas de otros Reinos (11-15)	80
+Listas Cerradas de otros Reinos (16-20)	100
+Listas Cerradas de otros Reinos (21+)	120
+Listas Básicas de otros Reinos (1-5)	80
+Listas Básicas de otros Reinos (6-10)	100
+Listas Básicas de otros Reinos (11-15)	120
+Listas Básicas de otros Reinos (16-20)	140
+Listas Básicas de otros Reinos (21+)	160
+Listas Abiertas Arcanas (1-5)	12
+Listas Abiertas Arcanas (6-10)	25
+Listas Abiertas Arcanas (11-15)	40
+Listas Abiertas Arcanas (16-20)	60
+Listas Abiertas Arcanas (21+)	80
+
+#ADIESTRAMIENTO	//+ Preferida 	- Prohibida
+####################################
+Amigo de las Bestias	28
+Artista	25
+Aventurero	29
+Caballero	36
+Cazador	29
+Desvalijador	22
+Doctor	23
+Erudito	20+
+Explorador	25+
+Guardia	20+
+Herbolario	23
+Mago Principiante	29
+Mercader	21
+Soldado	28
+Viajero	14
+Artesano	24
+Artista Marcial	31
+Asesino	27
+Berseker	29
+Cortabolsas	20
+Detective	25
+Diplomático	25
+Erudito Aventurero	28
+Erudito Enclaustrado	25
+Espía	24
+Expedicionario	28
+Experto en Armas	43
+Fanático Religioso	25
+Filósofo	30
+Guardián	32
+Marino	20
+Mercenario	32
+Sacerdote Chamánico	29
+Salteador	23
+Timador	19
+Trotamundos	28
+Houri	32
+
+### FIN PROFESION ###

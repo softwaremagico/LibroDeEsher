@@ -1,0 +1,107 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	2
+Co	0
+Me	2
+Ra	0
+Ad	-5
+Em	2
+In	0
+Pr	6
+Rp	6
+Fu	0
+Ap	30
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-5
+Esencia	-5
+Mentalismo	-5
+Veneno	100
+Enfermedad	100
+Psiónico	5
+Frío	20
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/7/3/2/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/7/6/5/4
+PP Mentalismo	0/6/5/4/3
+PP Psiónico	0/3/2/1/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+1
+
+#TIPO DE RAZA
+####################################
+5
+
+#TAMAÑO DE RAZA
+####################################
+Normal
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+5
+
+#HISTORIAL
+####################################
+2
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Élfico Alto	10/10	10/10
+Élfico Gris	8/6	10/10
+Habla Común	8/6	10/10
+Habla del Norte	0/0	6/6
+Élfico	0/0	8/8
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Todas
+
+#ESPECIALES
+####################################
++20	Sintonización
++10	Oido
+	Visión casi total en la oscuridad.
++20	Contra frío (BD y TR)
+
+#TALENTOS
+####################################
+30
+
+#NOMBRES MASCULINOS
+####################################
+Findaráto, Fëanáro, Galdor, Amras, Manwë, Enawat
+
+#NOMBRES FEMENINOS
+####################################
+Elbereth, Nessa, Tári, Nindë, Inwë, Lúthien, Eámanë, Celebriän, Astrea, Nammen, Nihal
+
+#APELLIDOS
+####################################
+Isilrá, Tasardur, Tulcakelumë, Yávëtil, Súrion, Fëfalas, Alcarin, Tasartir, Felagund
+
+#### FIN RAZA ####

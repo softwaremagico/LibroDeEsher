@@ -1,0 +1,75 @@
+# ARMAS TÍPICAS
+####################
+Daga, Cimitarra, Espada Corta, Maza, Cayado, Machete, Main Gauche, Sable, Latigo, Mangual, Venablo, Arpon, Red, Daga Arrojadiza
+
+# ARMADURAS TÍPICAS
+####################
+Cuero Blando, Cuero Endurecido
+
+# RANGOS
+####################
+Armadura·Ligera	1
+  *  Cuero Blando	0
+  *  Cuero Endurecido	1
+Armadura·Media	0
+  *  Cota de Mallas	0
+Armas·Contundentes	0
+  *  Arma	0
+Armas·Filo	2
+  *  Arma	2
+Armas·2manos	0
+  *  Arma	0
+Armas·Proyectiles	0
+  *  Arma	0
+Armas·Asta	0
+  *  Arma	0
+Armas·Arrojadizas	1
+  *  Arma	1
+Atletismo·Gimnasia	1
+  *  Trepar	1
+Atletismo·Potencia	1
+Atletismo·Resistencia	1
+  *  Nadar	5
+Ciencia/Analítica·Básica	1
+Comunicación	1
+  *  Idiomas	2
+Conocimiento·General	3
+  *  Conocimiento Regional	3
+  *  Conocimiento Cultural	3
+Exteriores·Animales	0
+  *  Montar	0
+Exteriores·Entorno	1
+Percepción de Poder	0
+Percepción·Búsqueda	1
+Percepción·Perspicacia	0
+  *  Alerta	2
+Subterfugio·Sigilo	0
+  *  Acechar	0
+  *  Esconderse	0
+Técnica/comercio·General	1
+Urbana	2
+Desarrollo Físico	0
+  *  Desarrollo Físico	2
+Listas Abiertas de Hechizos	0
+  *  Lista de Hechizos	1
+  
+# PUNTOS AFICIONES
+####################
+12
+
+# AFICIONES
+####################
+Tasar, Arma, Armadura, Manejo de Botes, Desarrollo Físico, Sobornar, Trepar, Conocimiento Cultural
+Coser/Tejer, Primeros Auxilios, Juego, Historia, Saltar, Liderazgo, Trabajar el Cuero, Trabajar el Metal
+Navegación, Observación, Pintura, Leer Runas, Religión, Manejo de Cuerdas, Señales, Lista de Hechizos
+Trabajar la Piedra, Nadar, Juegos de Estrategia, Comerciar, Trabajar la Madera, Predicción del Clima
+
+# IDIOMAS
+####################
+Habla Común	8/8
+Habla del Norte	8/8
+Habla del Sur	8/8
+Habla de los Mares	10/10
+Élfico Gris	4/4
+
+### FIN CULTURA ###

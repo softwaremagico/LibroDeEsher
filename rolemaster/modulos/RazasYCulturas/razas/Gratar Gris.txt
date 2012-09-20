@@ -1,0 +1,104 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	4
+Co	0
+Me	0
+Ra	0
+Ad	2
+Em	-4
+In	4
+Pr	0
+Rp	4
+Fu	2
+Ap	-30
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-10
+Esencia	-10
+Mentalismo	-10
+Veneno	0
+Enfermedad	0
+Psiónico	-10
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/7/4/2/1
+PP Arcano	0/5/3/2/2
+PP Canalización	0/5/3/2/2
+PP Esencia	0/5/3/2/2
+PP Mentalismo	0/5/3/2/2
+PP Psiónico	0/6/5/4/3
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+9
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+3
+
+#HISTORIAL
+####################################
+4
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Habla de los Mares	8/6	10/10
+Habla del Norte	8/6	8/6
+Habla del Sur	8/6	8/6
+Habla Común	0/0	8/8
+Lengua Negra	0/0	6/6
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Subterránea
+
+#ESPECIALES
+####################################
+Anfibio
+
+#TALENTOS
+####################################
+50
+
+#NOMBRES MASCULINOS
+####################################
+Babar, Babouche, Baenzi, Balthus, Bellow, Bolko, Bosley, Buran
+
+#NOMBRES FEMENINOS
+####################################
+Baisha, Baska, Bebra, Bina
+
+#APELLIDOS
+####################################
+Restrepo, Rocco, Ruezga, Riafrecha, Rexach, Rua
+
+#### FIN RAZA ####

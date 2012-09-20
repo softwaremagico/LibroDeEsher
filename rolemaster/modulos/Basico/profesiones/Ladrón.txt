@@ -1,0 +1,170 @@
+#CARACTERÍSTICAS POR ORDEN
+####################################
+Ag Rp Em Ad Ra Me Fu Pr In Co
+
+#REINOS DE MAGIA
+####################################
+Esencia
+Canalización
+Mentalismo
+
+#BONIFICACIÓN POR PROFESIÓN
+####################################
+Atletismo·Gimnasia	5
+Autocontrol	15
+Desarrollo Físico	5
+Armas·2manos	10
+Armas·Arrojadizas	10
+Armas·Artillería	10
+Armas·Contundentes	10
+Armas·Asta	10
+Armas·Filo	10
+Armas·Proyectiles	10
+Percepción·Búsqueda	10
+Percepción·Perspicacia	10
+Percepción·Sentidos	10
+Subterfugio·Ataque	15
+Subterfugio·Mecánica	15
+Subterfugio·Sigilo	15
+
+#HABILIDADES Y CATEGORÍAS DE HABILIDADES
+####################################
+Armadura·Ligera	2/2/2
+Armadura·Media	3/3/3
+Armadura·Pesada	4/4/4
+Armas·Categoría1	2/7
+Armas·Categoría2	3/8
+Armas·Categoría3	4
+Armas·Categoría4	4
+Armas·Categoría5	4
+Armas·Categoría6	6
+Armas·Categoría7	6
+Arte·Activo	2/4
+Arte·Pasivo	2/5
+Artes Marciales·Golpes	3/7
+Artes Marciales·Barridos	3/7
+Artes Marciales·Maniobras de Combate	5
+Ataques Especiales	2/8
+Atletismo·Gimnasia	1/3
+Atletismo·Potencia	3/6
+Atletismo·Resistencia	2/7
+Autocontrol	2/6
+Ciencia/Analítica·Básica	3/6
+Ciencia/Analítica·Especializada	12
+Comunicación	3/3/3
+Conocimiento·General	1/3
+Conocimiento·Mágico	5
+Conocimiento·Oscuro	3/7
+Conocimiento·Técnico	2/4
+Defensas Especiales	25
+Desarrollo de Puntos de Poder	15
+Desarrollo Físico	5/12
+Exteriores·Animales	2/5
+Exteriores·Entorno	2/6
+Hechizos Dirigidos	20
+Influencia	2/5
+Maniobras de Combate	4/12
+Manipulación del Poder	18
+Oficios	4/10
+Percepción·Búsqueda	1/3
+Percepción·Perspicacia	2/5
+Percepción·Sentidos	2/5
+Percepción de Poder	6
+Subterfugio·Ataque	2/6
+Subterfugio·Mecánica	1/3
+Subterfugio·Sigilo	1/3
+Técnica/comercio·General	3/7
+Técnica/comercio·Profesional	8
+Técnica/comercio·Vocacional	5/12
+Urbana	1/2
+
+# HABILIDADES COMUNES
+####################################
+Embaucar, Maquinaria, {Percepción del Entorno: Ciudades;Percepción del Entorno: Combate;Percepción del Entorno: Durmiendo;Percepción del Entorno: Exploración}
+
+#HABILIDADES PROFESIONALES
+####################################
+Abrir Cerraduras
+
+#HABILIDADES RESTRINGIDAS
+####################################
+
+#DESARROLLO DE HECHIZOS
+####################################
+Lista Abierta (1-5)	18
+Lista Abierta (6-10)	36
+Lista Abierta (11-15)	54
+Lista Abierta (16-20)	72
+Lista Abierta (21+)	90
+Lista Cerrada (1-5)	35
+Lista Cerrada (6-10)	70
+Lista Cerrada (11-15)	105
+Lista Cerrada (16-20)	140
+Lista Cerrada (21+)	175
+Listas Básicas de otras Profesiones (1-5)	70
+Listas Básicas de otras Profesiones (6-10)	140
+Listas Básicas de otras Profesiones (11-15)	210
+Listas Básicas de otras Profesiones (16-20)	280
+Listas Básicas de otras Profesiones (21+)	350
+Listas Abiertas de otros Reinos (1-5)	80
+Listas Abiertas de otros Reinos (6-10)	160
+Listas Abiertas de otros Reinos (11-15)	240
+Listas Abiertas de otros Reinos (16-20)	320
+Listas Abiertas de otros Reinos (21+)	360
+Listas Cerradas de otros Reinos (1-5)	100
+Listas Cerradas de otros Reinos (6-10)	200
+Listas Cerradas de otros Reinos (11-15)	300
+Listas Cerradas de otros Reinos (16-20)	400
+Listas Cerradas de otros Reinos (21+)	500
+Listas Básicas de otros Reinos (1-5)	70
+Listas Básicas de otros Reinos (6-10)	140
+Listas Básicas de otros Reinos (11-15)	210
+Listas Básicas de otros Reinos (16-20)	280
+Listas Básicas de otros Reinos (21+)	350
+Listas Abiertas Arcanas (1-5)	22
+Listas Abiertas Arcanas (6-10)	44
+Listas Abiertas Arcanas (11-15)	66
+Listas Abiertas Arcanas (16-20)	88
+Listas Abiertas Arcanas (21+)	110
+
+#ADIESTRAMIENTO	//+ Preferida 	- Prohibida
+####################################
+Amigo de las Bestias	26
+Artista	28
+Aventurero	29
+Caballero	29
+Cazador	27
+Desvalijador	16
+Doctor	23
+Erudito	28
+Explorador	20
+Guardia	17
+Herbolario	23
+Mago Principiante	37
+Mercader	25
+Soldado	22
+Viajero	13
+Artesano	24
+Artista Marcial	30
+Asesino	16
+Berseker	26
+Cortabolsas	15
+Detective	18
+Diplomático	27
+Erudito Aventurero	29
+Erudito Enclaustrado	29
+Espía	22
+Expedicionario	27
+Experto en Armas	34
+Fanático Religioso	25
+Filósofo	32
+Guardián	28
+Marino	19
+Mercenario	30
+Sacerdote Chamánico	33
+Salteador	21
+Timador	18
+Trotamundos	28
+Houri	33
+
+### FIN PROFESION ###

@@ -1,0 +1,110 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	0
+Co	6
+Me	0
+Ra	2
+Ad	4
+Em	0
+In	2
+Pr	2
+Rp	-2
+Fu	2
+Ap	5
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	0
+Esencia	0
+Mentalismo	0
+Veneno	10
+Enfermedad	20
+Psiónico	0
+Frío	30
+Calor	0
+Miedo	0
+
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/6/5/2/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/6/5/4/3
+PP Mentalismo	0/7/6/5/4
+PP Psiónico	0/7/6/5/4
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+12
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA
+####################################
+Normal
+
+#RECUPERACIÓN
+####################################
+1,5
+
+#IDIOMAS
+####################################
+2
+
+#HISTORIAL
+####################################
+4
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Umli	8/4	10/8
+Habla del Norte	8/4	10/8
+Ky'taari	0/0	6/4
+Jameri	0/0	6/6
+Lydiano	0/0	4/4
+
+#HABILIDADES COMUNES
+####################################
+Horticultura, Cazar, Conducir, Pastoreo
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Ártica, Nómada
+
+#ESPECIALES
+####################################
++30 a la BD contra ataques de frío. 
+
+#TALENTOS
+####################################
+45
+
+#NOMBRES MASCULINOS
+####################################
+Aguabanahizan, Minguan, Ione, Fedinto, Auguo, Bristol, Aaron, Gorni, Nelgar, Mathon
+Romén, Pelinor, Balder, Pelleas, Radish, Fen, Regnald, Livon, Sennar, Nevik, Salis, Galla, Laio, Leven
+Nammen, Sate, Jona, Dodi, Benares, Valen, Rodham, Pewar, Pelama, Mavern, Archival, Megisto
+Mawas, Lonerin, Aelan, Shevreen,  Mael, Hiram, Dedael, Learco, Kirtash
+
+#NOMBRES FEMENINOS
+####################################
+Eleazar, Leonor, Zoe, Kornelia, Judy, Pandora, Dara, Daza, Gaifa Taufía, Tarira, Moca, Adelina, Ahanna,
+Aniagua, Luria, Uruna, Leela, Niam, Sonara, Lerin, Sulana, Enawar, Eluisi, Mira, Linara, Zirea, Aires, Fantacchiro
+Nerla, Marva, Talya, Theana, Shilve, Faressin, Naiha, Najzane, Merydian, 
+
+#APELLIDOS
+####################################
+Belvedere, Dedalo, Belissa, Zansennine, Bessie, Bardanzellu
+
+#### FIN RAZA ####

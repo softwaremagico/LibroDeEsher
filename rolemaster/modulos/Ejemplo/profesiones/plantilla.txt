@@ -1,0 +1,153 @@
+#CARACTERÍSTICAS POR ORDEN
+####################################
+
+#REINOS DE MAGIA
+####################################
+
+#BONIFICACIÓN POR PROFESIÓN
+####################################
+
+#HABILIDADES Y CATEGORÍAS DE HABILIDADES
+####################################
+Armadura·Ligera	
+Armadura·Media	
+Armadura·Pesada	
+Armas·Categoría1	
+Armas·Categoría2	
+Armas·Categoría3	
+Armas·Categoría4	
+Armas·Categoría5	
+Armas·Categoría6	
+Armas·Categoría7	
+Arte·Activo	
+Arte·Pasivo	
+Artes Marciales·Golpes	
+Artes Marciales·Barridos	
+Artes Marciales·Maniobras de Combate	
+Ataques Especiales	
+Atletismo·Gimnasia	
+Atletismo·Potencia	
+Atletismo·Resistencia	
+Autocontrol	
+Ciencia/Analítica·Básica	
+Ciencia/Analítica·Especializada	
+Comunicación	
+Conocimiento·General	
+Conocimiento·Mágico	
+Conocimiento·Oscuro	
+Conocimiento·Técnico	
+Defensas Especiales	
+Desarrollo de Puntos de Poder	
+Desarrollo Físico	
+Exteriores·Animales	
+Exteriores·Entorno	
+Hechizos Dirigidos	
+Influencia	
+Maniobras de Combate	
+Manipulación del Poder	
+Oficios	
+Percepción·Búsqueda	
+Percepción·Perspicacia	
+Percepción·Sentidos	
+Percepción de Poder	
+Subterfugio·Ataque	
+Subterfugio·Mecánica	
+Subterfugio·Sigilo	
+Técnica/comercio·General	
+Técnica/comercio·Profesional	
+Técnica/comercio·Vocacional	
+Urbana	
+
+# HABILIDADES COMUNES          //Cateogia#numero es "numero" de habilidades de dicha categoria; 
+####################################
+
+#HABILIDADES PROFESIONALES
+####################################
+
+#HABILIDADES RESTRINGIDAS
+####################################
+
+#DESARROLLO DE HECHIZOS
+####################################
+Lista Básica (1-5)	
+Lista Básica (6-10)	
+Lista Básica (11-15)	
+Lista Básica (16-20)	
+Lista Básica (21+)	
+Lista Abierta (1-5)	
+Lista Abierta (6-10)	
+Lista Abierta (11-15)	
+Lista Abierta (16-20)	
+Lista Abierta (21+)	
+Lista Cerrada (1-5)	
+Lista Cerrada (6-10)	
+Lista Cerrada (11-15)	
+Lista Cerrada (16-20)	
+Lista Cerrada (21+)	
+Listas Básicas de otras Profesiones (1-5)	
+Listas Básicas de otras Profesiones (6-10)	
+Listas Básicas de otras Profesiones (11-15)	
+Listas Básicas de otras Profesiones (16-20)	
+Listas Básicas de otras Profesiones (21+)	
+Listas Abiertas de otros Reinos (1-5)	
+Listas Abiertas de otros Reinos (6-10)	
+Listas Abiertas de otros Reinos (11-15)	
+Listas Abiertas de otros Reinos (16-20)	
+Listas Abiertas de otros Reinos (21+)	
+Listas Cerradas de otros Reinos (1-5)	
+Listas Cerradas de otros Reinos (6-10)	
+Listas Cerradas de otros Reinos (11-15)	
+Listas Cerradas de otros Reinos (16-20)	
+Listas Cerradas de otros Reinos (21+)	
+Listas Básicas de otros Reinos (1-5)	
+Listas Básicas de otros Reinos (6-10)	
+Listas Básicas de otros Reinos (11-15)	
+Listas Básicas de otros Reinos (16-20)	
+Listas Básicas de otros Reinos (21+)	
+Listas Abiertas Arcanas (1-5)	
+Listas Abiertas Arcanas (6-10)	
+Listas Abiertas Arcanas (11-15)	
+Listas Abiertas Arcanas (16-20)	
+Listas Abiertas Arcanas (21+)	
+
+#ADIESTRAMIENTO	//+ Preferida 	- Prohibida
+####################################
+Amigo de las Bestias	
+Artista	
+Aventurero	
+Caballero	
+Cazador	
+Desvalijador	
+Doctor	
+Erudito	
+Explorador	
+Guardia	
+Herbolario	
+Mago Principiante	
+Mercader	
+Soldado	
+Viajero	
+Artesano	
+Artista Marcial	
+Asesino	
+Berseker	
+Cortabolsas	
+Detective	
+Diplomático	
+Erudito Aventurero	
+Erudito Enclaustrado	
+Espía	
+Expedicionario	
+Experto en Armas	
+Fanático Religioso	
+Filósofo	
+Guardián	
+Marino	
+Mercenario	
+Sacerdote Chamánico	
+Salteador	
+Timador	
+Trotamundos	
+Houri	
+
+### FIN PROFESION ###

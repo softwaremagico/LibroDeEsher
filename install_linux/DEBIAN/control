@@ -1,0 +1,13 @@
+Package: librodeesher
+Version: 0.9.9.0
+Section: Utility
+Priority: optional
+Architecture: all
+Essential: no
+Depends: openjdk-6-jre | sun-java6-jre
+Installed-Size: 3788
+Maintainer: Jorge Hortelano [softwaremagico@gmail.com]
+Replaces: librodeesher
+Provides: librodeesher
+Description: 
+	Player chartset generator for Rolemaster system. 

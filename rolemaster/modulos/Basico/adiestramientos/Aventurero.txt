@@ -1,0 +1,60 @@
+# TIEMPO (meses)
+####################################
+24
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Arma (+10 no mágica)	30
+Armadura (+10 no mágica)	30
+Otro equipo (+5 no mágico)	30
+Sumando de hechizos (+1) o Objeto con Hechizo Diario I (hechizo de nivel 1)	30
+Elige un arma o armadura (+5 no mágica)	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+{Armas·2manos; Armas·Contundentes; Armas·Asta; Armas·Filo; Armas·Proyectiles; Armas·Artillería; Armas·Arrojadizas}	1	1	1	1
+Atletismo·Gimnasia	2	1	1	1
+  *  Trepar	1	-	-	-
+Atletismo·Resistencia	2	1	1	1
+  *  Nadar	1	-	-	-
+Desarrollo Físico	0	1	1	1
+  *  Desarrollo Físico	1	-	-	-
+Percepción de Poder	1	1	1	1
+  *  Sintonización	1	-	-	-
+Percepción·Búsqueda	2	1	1	1
+  *  Observación	1	-	-	-
+Percepción·Perspicacia	0	1	1	2
+  *  Alerta	2	-	-	-
+Técnica/comercio·General	1	1	1	1
+  *  Primeros Auxilios	1	-	-	-
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+{Ag; Rp; Em; Ad; Ra; Me; Fu; Pr; In; Co}
+{Ag; Rp; Em; Ad; Ra; Me; Fu; Pr; In; Co}
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

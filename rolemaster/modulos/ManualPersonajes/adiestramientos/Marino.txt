@@ -1,0 +1,57 @@
+# TIEMPO (meses)
+####################################
+28
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Pasaje en un barco	50
+Mercancía para comerciar (10d10 mp)	40
+Pasaje en un barco	50
+Pasaje en un barco	50
+Amigo del dueño de una taberna	20
+Amigo del capitán de un barco	20
+Pasaje en un barco	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Atletismo·Gimnasia	1	1	1	1
+  *  Trepar	1
+Atletismo·Resistencia	2	1	1	2
+  *  Nadar	2
+Conocimiento·General	2	2	2	2
+Exteriores·Entorno	1	1	1	1
+  *  {Orientación Celeste; Predicción del Clima}	1
+Oficios	0	1	1	1
+  *  Manejo de Cuerdas	1
+Técnica/comercio·General	1	1	1	1
+  *  Orientación	1
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Ninguna
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

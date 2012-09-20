@@ -1,0 +1,104 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	2
+Co	0
+Me	-2
+Ra	0
+Ad	0
+Em	-2
+In	0
+Pr	0
+Rp	2
+Fu	4
+Ap	0
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-5
+Esencia	-5
+Mentalismo	-5
+Veneno	10
+Enfermedad	20
+Psiónico	-5
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/7/4/2/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/6/5/4/3
+PP Mentalismo	0/6/5/4/3
+PP Psiónico	0/7/6/5/4
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+12
+
+#TIPO DE RAZA
+####################################
+3
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+M
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+3
+
+#HISTORIAL
+####################################
+5
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Habla Común	6/6	8/8
+Habla de las Llanuras	8/6	10/10
+Habla del Norte	0/0	6/6
+
+#HABILIDADES COMUNES //Cateogia#numero es "numero" de habilidades de dicha categoria; 
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS 
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Llanuras
+
+#ESPECIALES
+####################################
+Ven en oscuridad casi absoluta
+
+#TALENTOS
+####################################
+50
+
+#NOMBRES MASCULINOS
+####################################
+Levant, Ilker, Tarik, Berkant, Orhan, Erkan, Ozan, Zafer, Esin, Emre, Karevan
+Kazlunn, Rankstrail, 
+
+#NOMBRES FEMENINOS
+####################################
+Ece, Figan, Begum, Iclal, Shenay, Derya, Nesrin, Nuray, Dilara, Gizem, Ebru
+Emine, Ozlem, Nuray, Aylin, Nazli, Igara
+
+#APELLIDOS
+####################################
+Iskender, Randulpho, Primavera, Nightfrost, Nightstalker
+
+#### FIN RAZA ####

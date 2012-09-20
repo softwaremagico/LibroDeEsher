@@ -1,0 +1,60 @@
+# TIEMPO (meses)
+####################################
+80
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Arma (no mágica) +10	50
+Armadura (no mágica) +10	50
+Escudo (no mágico) +10	50
+Medalla por comportamiento en batalla	50
+Favor de un militar	50
+Favor de un militar	50
+Dinero adicional (D10 abierta)	50
+Dinero adicional (D10 abierta)	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+{Armas·2manos; Armas·Arrojadizas; Armas·Artillería; Armas·Contundentes; Armas·Asta; Armas·Filo; Armas·Fuego 1mano; Armas·Fuego 2manos; Armas·Proyectiles}	2	1	1	2
+Armadura·Ligera	1	1	1	1
+Ataques Especiales	0	1	1	1
+Atletismo·Potencia	1	1	1	1
+Comunicación	0	1	1	2
+Desarrollo Físico	0	1	1	2
+  *  Desarrollo Físico	2
+Maniobras de Combate	0	1	1	1
+Técnica/comercio·General	1	1	1	1
+Técnica/comercio·Profesional	0	1	1	1
+  *  Organización Militar	1
+Técnica/comercio·Vocacional	0	1	1	1
+  *  Ingeniería de Asedio	1
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Co
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

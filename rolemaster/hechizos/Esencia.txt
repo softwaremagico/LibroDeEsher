@@ -1,0 +1,63 @@
+Barrera Contra Hechizos	Abierta
+Maestría de las Runas	Abierta
+Percepción de la Esencia	Abierta
+Sendas de la Indagación	Abierta
+Escudos Elementales	Abierta
+Mano de la Esencia	Abierta
+Sendas de Apertura	Abierta
+Ilusiones Menores	Abierta
+Mejora Física	Abierta
+Sendas de la Detección	Abierta
+Bridas de los Hechizos	Cerrada
+Maestría de los Espíritus	Cerrada
+Sendas de la Rapidez	Cerrada
+Cambio Viviente	Cerrada
+Mejora de los Hechizos	Cerrada
+Senda de la Anulación	Cerrada
+Maestría de los Escudos	Cerrada
+Maestría de los Portales	Cerrada
+Puente en la Alturas	Cerrada
+Senda de la Invisibilidad	Cerrada
+Disfraces	Ilusionista
+Maestría de las Ilusiones	Ilusionista
+Moldear el Sonido	Ilusionista
+Moldear la Luz	Ilusionista
+Moldear los Sentidos	Ilusionista
+Oler-Saborear-Sentir	Ilusionista
+Ley de la Luz	Mago/Mago de la Luz
+Ley de la Tierra	Mago/Mago de la Tierra
+Ley del Agua	Mago/Mago del Agua
+Ley del Fuego	Mago/Mago del Fuego
+Ley del Hielo	Mago/Mago del Hielo
+Ley del Viento	Mago/Mago del Aire
+Influencias	Indagador
+Ley del Latrocinio	Indagador
+Maestría del Movimiento	Indagador
+Maestría del Ocultamiento	Indagador
+Mecanismos	Indagador
+Sentidos	Indagador
+Bridas del Cuerpo	Monje
+Evasiones	Monje
+Mente sobre Materia	Monje
+Puente del Monje	Monje
+Renovación del Cuerpo	Monje
+Sentidos del Monje	Monje
+Alteración de los Gases	Místico
+Alteración de los Líquidos	Místico
+Alteración de los Sólidos	Místico
+Cambio Místico	Místico
+Esconderse (Místico)	Místico
+Sendas de la Confusión	Místico
+Destrucción de la Carne	Hechicero
+Destrucción de los Fluidos	Hechicero
+Destrucción de los Gases	Hechicero
+Destrucción de los Sólidos	Hechicero
+Destrucción del Alma	Hechicero
+Destrucción Mental	Hechicero
+Contactos Oscuros	Esencia Maligna/Lord del Caos
+Destrucción de la Materia	Esencia Maligna
+Erosión Física	Esencia Maligna
+Invocaciones Oscuras	Esencia Maligna/Lord del Caos
+Invocación de Entidades	Esencia Maligna
+Oscuridad	Esencia Maligna/Lord del Caos
+

@@ -1,0 +1,104 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	-2
+Co	2
+Me	-2
+Ra	-2
+Ad	0
+Em	-2
+In	-2
+Pr	-6
+Rp	0
+Fu	0
+Ap	-30
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-10
+Esencia	-10
+Mentalismo	-10
+Veneno	0
+Enfermedad	0
+Psiónico	-10
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/5/4/2/1
+PP Arcano	0/2/1/1/1
+PP Canalización	0/2/1/1/1
+PP Esencia	0/2/1/1/1
+PP Mentalismo	0/2/1/1/1
+PP Psiónico	0/2/1/1/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Mago, Ilusionista, Hechicero, Místico, Monje
+
+#PARTIDA DEL ALMA
+####################################
+3
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN
+####################################
+1,5
+
+#IDIOMAS
+####################################
+2
+
+#HISTORIAL
+####################################
+5
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Habla de los Mares	8/6	10/10
+Habla del Norte	8/6	8/6
+Habla del Sur	8/6	8/6
+Habla Común	0/0	8/8
+Lengua Negra	0/0	6/6
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Litoral, Subterránea
+
+#ESPECIALES
+####################################
+Anfibio
+
+#TALENTOS
+####################################
+65
+
+#NOMBRES MASCULINOS
+####################################
+Babs, Babouche, Badel, Bado, Bango, Bellow, Bistro, Bor
+
+#NOMBRES FEMENINOS
+####################################
+Baisha, Barella, Biera, Bina
+
+#APELLIDOS
+####################################
+Rengifo, Rus, Raposo, Refis, Rusch
+
+#### FIN RAZA ####

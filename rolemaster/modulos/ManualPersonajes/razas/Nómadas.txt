@@ -1,0 +1,115 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	0
+Co	0
+Me	0
+Ra	0
+Ad	2
+Em	0
+In	0
+Pr	0
+Rp	0
+Fu	2
+Ap	0
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	0
+Esencia	0
+Mentalismo	0
+Veneno	0
+Enfermedad	0
+Psiónico	0
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/6/4/2/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/6/5/4/3
+PP Mentalismo	0/7/6/5/4
+PP Psiónico	0/6/5/4/3
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+10
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+2
+
+#HISTORIAL
+####################################
+5
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Habla de las Llanuras	8/6	10/10
+Habla Común	4/4	10/10
+Habla del Sur	0/0	6/6
+Lengua Negra	0/0	6/6
+
+#HABILIDADES COMUNES
+####################################
+Combate Montado, Conducir, Domar, Maestría de Animales, Manejo de los Animales
+Montar: Caballos, Curación de Animales
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Desierto
+
+#ESPECIALES
+####################################
++20	Combate Montado
++20	Exteriores·Animales
+
+#TALENTOS
+####################################
+45
+
+#NOMBRES MASCULINOS
+####################################
+Aban, Abbas, Abbud, Badi, Badr, Bahij, Dabir, Dani, Darwish, Fadi, Fahmi, Falah, Gamal, Ghaith
+Ghali, Habbab, Habib, Hadad, Ibrahim, Idris, Ihsan, Jabalah, Jabbar, Jabir, Kadar, Kadeen, Kahil
+Labib, Lablab, Latif, Madani, Mahbub, Mahdi, Nabhan, Nabighah, Nabih, Qasim, Qays, Qudamah
+Rabah, Rabi, Rafi, Saad, Sab, Sabih, Ubaid, Ubayy,'Ubaidah, Waddah, Wadi, Wadid, Yahya, Yaman
+Ya'qub, Zafar, Zahid, Zahir 
+
+#NOMBRES FEMENINOS
+####################################
+Aamaal, Aaminah, Aanisa, Baasima, Badra, Badriya, Candance, Carissa, Charis, Daima, Dalia
+Dana, Ebediyet, Ebru, Edibe, Faatin, Faaria, Fadila, Geliah, Geelah, Ghazala, Haala, Habiba, Hadarah
+Ibtihaaj, Ilhaam, Ihshan, Jahan, Jala, Jalila, Kaamla, Kadriya, Kaela, Lale, Lamees, Lamya, Mahasin
+Maha, Mahaila, Nadina, Nadia, Nadwam, Odella, Ofra, Ohelah, Parijan, Parvane, Parvin, Rabab 
+Rabie, Rabhiya, Raizel, Sabira, Sabreen, Sadira, Tamar, Talya, Tajah, Wafa, Wijdan, Wajeeha, Xenia
+Ximena, Yasmin, Yafiah, Yaminah
+
+#APELLIDOS
+####################################
+Yumn, Sihaam, Songl, Reem, Raihaanah, Intisaar, Inci, Amani, Dhakir, Faisal, Fareed, Fida, Fikri
+Hatim, Iqbal, Jaun, Junaid, Kutaiba, Mahfuz, Makin, Muhab, Munif, Nasir, Qutb, Razin, Safwah
+
+#### FIN RAZA ####

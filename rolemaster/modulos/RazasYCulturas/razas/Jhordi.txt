@@ -1,0 +1,112 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS	90
+####################################
+Ag	0
+Co	2
+Me	0
+Ra	0
+Ad	0
+Em	-2
+In	0
+Pr	6
+Rp	0
+Fu	6
+Ap	5
+
+#MODIFICACIÓN A LA TR	20
+####################################
+Canalización	0
+Esencia	0
+Mentalismo	20
+Veneno	0
+Enfermedad	10
+Psiónico	10
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN	-17
+####################################
+Desarrollo Físico	0/7/4/2/1
+PP Arcano	0/4/3/2/1
+PP Canalización	0/2/1/1/1
+PP Esencia	0/2/1/1/1
+PP Mentalismo	0/7/6/5/4
+PP Psiónico	0/7/6/5/4
+
+#PROFESIONES RESTRINGIDAS	-12
+####################################
+Clérigo, Mítico, Invocador, Sacerdote, Nefando, Montaraz, Paladín, Animista, Sanador, Hechicero
+
+#PARTIDA DEL ALMA	0
+####################################
+12
+
+#TIPO DE RAZA	5
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN		0
+####################################
+1
+
+#IDIOMAS	5
+####################################
+3
+
+#HISTORIAL	20
+####################################
+4
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Thuul	0/0	6/4
+
+#HABILIDADES COMUNES	0
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS	0
+####################################
+Ninguna
+
+#CULTURAS	0
+####################################
+Rural, Llanuras, {Urbana}, Pueblo de los Bosques
+
+#ESPECIALES	
+####################################
+Lista básica Telepatía Nº10 sin gasto de puntos de poder
+
+#TALENTOS
+####################################
+45
+
+#NOMBRES MASCULINOS
+####################################
+Abbathorn, Abbot, Acayib, Acear, Adrag, Amaryllis, Aodhagan, Aonghus, Apanesc, Barebranch
+Bemalcani, Beonetleah, Beorc, Beordtraed, Beorhthildi, Boythorp, Camelthorp, Catchclaw, Chusuk
+Danthragnir, Deasmumhan, Demoraunt, Dracrolooron, Dryw, Escrike, Faodhagan, Fedaykin, Ferdinand
+Gasiberm, Gaynor, Heathleah, Hestophes, Hraegnscaga, Hor-em-akhet, Incadincadoo, Jashoone
+Jomorthy,  Jordumin, Karakael, Kembster, Khumbanigahsh, Kralizec, Lillyng, Lioslaith, Maighdlin
+Maodighomhnaigh, Matchstick, Masssam, Meredigawn, Meredydd, Merehloew, Meursault, Narayanan
+Nhajmazhaelian, Nimaminanon, Okruzhkov, Ophiliaglii, Pereswyff, Qweldryk, Rhinfflew, Rhonwyn
+Rombonolw, Saidhghin, Sailbheastar, Schypyrd, Tathatheron, Tighearnach, Tigranes, Vaginamite, Vahmm
+Walkryngton, Wsyingwald, Zarquon
+
+#NOMBRES FEMENINOS
+####################################
+Ninguno
+
+#APELLIDOS
+####################################
+Bladassare, Blyborought, Cappenvarra, Caomhan, Caomhiun, Caspardrug, Cinneididh
+Darken, Limner, Dawyff, Diomassach, Everard, Fairhinath, Grannoth, Hedrmmsco, Humbilton
+Hyacinthe, Hypatia, Ittakki, Kathathorn, Kirklestoun, Kriggelleston, Kryggelistan, Lowtheson
+Messyngham, Nchabeleng, Oakenshield, Polynton, Proudeffelawe, Rioghbhardan, Rypplyngam
+Rysshop, Tomondat, Vnerwode, Vnderwode, Vndyrwynd, Wsyngwald, Cassel, Stannis, Varys
+
+#### FIN RAZA ####	131

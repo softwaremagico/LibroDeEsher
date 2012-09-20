@@ -1,0 +1,210 @@
+/*
+ *
+ This software is designed by Jorge Hortelano Otero.
+ softwaremagico@gmail.com
+ Copyright (C) 2007 Jorge Hortelano Otero.
+ C/Botanico 12, 1. Valencia CP:46008 (Spain).
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 2
+ of the License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ Created on october of 2007.
+ */
+package com.softwaremagico.librodeesher;
+/*
+ * #%L
+ * Libro de Esher
+ * %%
+ * Copyright (C) 2008 - 2012 Softwaremagico
+ * %%
+ * This software is designed by Jorge Hortelano Otero. Jorge Hortelano Otero
+ * <softwaremagico@gmail.com> C/Quart 89, 3. Valencia CP:46008 (Spain).
+ *  
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *  
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *  
+ * You should have received a copy of the GNU General Public License along with
+ * this program; If not, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * #L%
+ */
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author Jorge Hortelano
+ */
+public class Caracteristicas implements Serializable {
+
+    List<Caracteristica> caracteristicas = new ArrayList<Caracteristica>();
+    private Esher esher;
+    int bonusAparienciaRaza;
+    int apariencia;
+    public Integer totalCaracteristicas = 660;
+
+    /**
+     * Creates a new instance of Caracteristicas
+     */
+    public Caracteristicas(Esher tmp_esher) {
+        esher = tmp_esher;
+        CrearCaracteristicas();
+    }
+
+    /**
+     * Genera las 10 características del PJ y sus abreviaturas.
+     */
+    private void CrearCaracteristicas() {
+        Caracteristica agilidad = new Caracteristica("Ag", esher);
+        agilidad.CambiarPuntosTemporal(21);
+        caracteristicas.add(agilidad);
+        Caracteristica constitucion = new Caracteristica("Co", esher);
+        constitucion.CambiarPuntosTemporal(21);
+        caracteristicas.add(constitucion);
+        Caracteristica memoria = new Caracteristica("Me", esher);
+        memoria.CambiarPuntosTemporal(21);
+        caracteristicas.add(memoria);
+        Caracteristica razon = new Caracteristica("Ra", esher);
+        razon.CambiarPuntosTemporal(21);
+        caracteristicas.add(razon);
+        Caracteristica autodisciplina = new Caracteristica("Ad", esher);
+        autodisciplina.CambiarPuntosTemporal(21);
+        caracteristicas.add(autodisciplina);
+        Caracteristica empatia = new Caracteristica("Em", esher);
+        empatia.CambiarPuntosTemporal(21);
+        caracteristicas.add(empatia);
+        Caracteristica intuicion = new Caracteristica("In", esher);
+        intuicion.CambiarPuntosTemporal(21);
+        caracteristicas.add(intuicion);
+        Caracteristica presencia = new Caracteristica("Pr", esher);
+        presencia.CambiarPuntosTemporal(21);
+        caracteristicas.add(presencia);
+        Caracteristica rapidez = new Caracteristica("Rp", esher);
+        rapidez.CambiarPuntosTemporal(21);
+        caracteristicas.add(rapidez);
+        Caracteristica fuerza = new Caracteristica("Fu", esher);
+        fuerza.CambiarPuntosTemporal(21);
+        caracteristicas.add(fuerza);
+    }
+
+    public Caracteristica DevolverCaracteristicaDeAbreviatura(String abrev) {
+        for (int i = 0; i < caracteristicas.size(); i++) {
+            Caracteristica car = caracteristicas.get(i);
+            if (car.DevolverAbreviatura().equals(abrev)) {
+                return car;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Obtener lista aleatoria de caracteristicas.
+     */
+    public List<Caracteristica> ObtenerListaAleatoriaDeCaracteristicas() {
+        List<Integer> listaEnteros = esher.ObtenerListaAleatoriaDeEnteros(10);
+        List<Caracteristica> listaAleatoriaCaracteristicas = new ArrayList<Caracteristica>();
+        for (int i = 0; i < listaEnteros.size(); i++) {
+            listaAleatoriaCaracteristicas.add(caracteristicas.get(listaEnteros.get(i)));
+        }
+        return listaAleatoriaCaracteristicas;
+    }
+
+    public void ObtenerPotenciales() {
+        if (esher.pj.nivel == 1) {
+            for (int i = 0; i < caracteristicas.size(); i++) {
+                Caracteristica car = caracteristicas.get(i);
+                car.GuardarPontencial();
+            }
+        }
+    }
+
+    public void ObtenerApariencia() {
+        Caracteristica pres = DevolverCaracteristicaDeAbreviatura("Pr");
+        apariencia = pres.ObtenerPuntosPotencial() - 25 + esher.TiradaDados(5, 10);
+    }
+
+    /**
+     * Devuelve el valor básico de apariencia.
+     *
+     * @return
+     */
+    public int DevolverApariencia() {
+        return apariencia;
+    }
+
+    /**
+     * Devuelve el valor de apariencia con los modificadores de raza.
+     *
+     * @return
+     */
+    public int DevolverTotalApariencia() {
+        return apariencia + bonusAparienciaRaza + esher.pj.DevolverBonusTalentoApariencia();
+    }
+
+    public void InsertarApariencia(int value) {
+        Caracteristica pres = DevolverCaracteristicaDeAbreviatura("Pr");
+        if (value > pres.ObtenerPuntosPotencial() + 25) {
+            value = pres.ObtenerPuntosPotencial() + 25;
+        }
+        if (value < pres.ObtenerPuntosPotencial() - 25) {
+            value = pres.ObtenerPuntosPotencial() - 25;
+        }
+        apariencia = value;
+    }
+
+    public Caracteristica Get(int index) {
+        return caracteristicas.get(index);
+    }
+
+    public int Size() {
+        return caracteristicas.size();
+    }
+
+    public int CalcularPuntosDesarrollo() {
+        int sumaCaracteristicas = 0;
+        for (int i = 0; i < 5; i++) {
+            sumaCaracteristicas += Get(i).ObtenerPuntosTemporal();
+        }
+        return sumaCaracteristicas / 5;
+    }
+
+    public void SubirNivelCaracteristicas() {
+        for (int i = 0; i < caracteristicas.size(); i++) {
+            Caracteristica car = caracteristicas.get(i);
+            car.SubirNivelCaracteristica();
+        }
+    }
+
+    public void CalcularProximoAumento() {
+        for (int i = 0; i < caracteristicas.size(); i++) {
+            Caracteristica car = caracteristicas.get(i);
+            car.CalcularProximoAumentoCaracteristica();
+        }
+    }
+
+    public void ActualizarCaracteristica(Caracteristica car) {
+        for (int i = 0; i < caracteristicas.size(); i++) {
+            Caracteristica carAnt = caracteristicas.get(i);
+            if (carAnt.DevolverAbreviatura().equals(car.DevolverAbreviatura())) {
+                caracteristicas.add(i, car);
+                caracteristicas.remove(i + 1);
+                break;
+            }
+        }
+    }
+}

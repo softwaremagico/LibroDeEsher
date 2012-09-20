@@ -1,0 +1,59 @@
+# TIEMPO (meses)
+####################################
+53
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Sumando de Hechizos (+2)	50
+Objeto Diario II (Nº3)	50
+Objeto Diario I (Nº5)	40
+Multiplicador de PPS (x2)	10
+Sumando de Hechizos (+1)	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Conocimiento·Mágico	2	1	1	2
+  *  Conocimiento de los Planos	2
+Conocimiento·Oscuro	1	1	1	1
+Listas Básicas de Hechizos	0	1	3	3
+  *  Invocaciones Elementales	0
+  *  Desvíos Elementales	0
+  *  Defensas Elementales	0
+  *  Control del Aire	0
+  *  Maestría del Viento	0
+  *  Ley del Viento	0
+Percepción de Poder	2	1	1	2
+  *  Leer Runas	1
+  *  Sintonización	1
+Subterfugio·Sigilo	1	1	1	2
+  *  Acechar	2
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Em, Ag
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Volar/Planear, Acechar
+
+# HABILIDADES COMUNES
+####################################
+Volar/Planear, {Arco Compuesto;Arco Corto;Arco Largo;Ballesta Ligera;Ballesta Pesada;Honda}
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Esprintar, Velocidad Adrenal
+
+### FIN ADIESTRAMIENTO  ###
