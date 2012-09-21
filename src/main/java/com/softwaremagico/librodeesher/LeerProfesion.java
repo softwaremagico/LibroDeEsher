@@ -41,6 +41,7 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
+import com.softwaremagico.files.DirectorioRolemaster;
 import com.softwaremagico.librodeesher.gui.MostrarError;
 import java.io.File;
 import java.util.ArrayList;
@@ -58,30 +59,27 @@ public class LeerProfesion {
     private boolean creandoPJ = true;
     private boolean interactivo = true;
 
-   public  LeerProfesion(Esher tmp_esher) {
+   public  LeerProfesion() {
         try {
-            esher = tmp_esher;
             LeerFicheroProfesion();
         } catch (Exception ex) {
             Logger.getLogger(LeerProfesion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-   public  LeerProfesion(Esher tmp_esher, boolean tmp_creandoPJ) {
+   public  LeerProfesion(boolean tmp_creandoPJ) {
         creandoPJ = tmp_creandoPJ;
         try {
-            esher = tmp_esher;
             LeerFicheroProfesion();
         } catch (Exception ex) {
             Logger.getLogger(LeerProfesion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-   public  LeerProfesion(Esher tmp_esher, boolean tmp_creandoPJ, boolean tmp_interactivo) {
+   public  LeerProfesion(boolean tmp_creandoPJ, boolean tmp_interactivo) {
         creandoPJ = tmp_creandoPJ;
         interactivo = tmp_interactivo;
         try {
-            esher = tmp_esher;
             LeerFicheroProfesion();
         } catch (Exception ex) {
             Logger.getLogger(LeerProfesion.class.getName()).log(Level.SEVERE, null, ex);
@@ -92,9 +90,9 @@ public class LeerProfesion {
         int lineaLeida = 2;
 
         LimpiarAntiguaProfesion();
-        String ficheroProfesion = esher.BuscarDirectorioModulo(esher.directorioRolemaster.DIRECTORIO_PROFESION + File.separator + esher.pj.profesion + ".txt");
+        String ficheroProfesion = DirectorioRolemaster.BuscarDirectorioModulo(DirectorioRolemaster.DIRECTORIO_PROFESION + File.separator + Personaje.getInstance().profesion + ".txt");
         if (ficheroProfesion.length() > 0) {
-            List<String> lines = esher.directorioRolemaster.LeerLineasProfesion(ficheroProfesion);
+            List<String> lines = DirectorioRolemaster.LeerLineasProfesion(ficheroProfesion);
             lineaLeida = AsignarCaracteristicasBasicas(lines, lineaLeida);
             lineaLeida = AsignarReinosDisponiblesPorProfesión(lines, lineaLeida);
             lineaLeida = AsignarBonificacionPorProfesion(lines, lineaLeida);
@@ -102,7 +100,7 @@ public class LeerProfesion {
             lineaLeida = AsignarHabilidadesComunes(lines, lineaLeida);
             lineaLeida = AsignarHabilidadesProfesionales(lines, lineaLeida);
             lineaLeida = AsignarHabilidadesRestringidas(lines, lineaLeida);
-            Magia magia = new Magia(esher);
+            Magia magia = new Magia();
             magia.PrepararCostesListas();
             lineaLeida = magia.AsignarCostesHechizos(lines, lineaLeida);
             lineaLeida = AsignarCostesAdiestramiento(lines, lineaLeida);
@@ -125,10 +123,10 @@ public class LeerProfesion {
                 int bonus = Integer.parseInt(vectorCategoriaProfesional[1]);
 
                 try {
-                    Categoria categoriaProfesional = esher.pj.DevolverCategoriaDeNombre(nombre);
+                    Categoria categoriaProfesional = Personaje.getInstance().DevolverCategoriaDeNombre(nombre);
                     categoriaProfesional.bonusProfesion = bonus;
                 } catch (NullPointerException npe) {
-                    new MostrarError("Bonus de " + nombre + " en " + esher.pj.profesion + ".txt mal definido.", "Leer Profesion");
+                    MostrarError.showErrorMessage("Bonus de " + nombre + " en " + Personaje.getInstance().profesion + ".txt mal definido.", "Leer Profesion");
                 }
                 index++;
             }
@@ -139,11 +137,11 @@ public class LeerProfesion {
 
     private int AsignarReinosDisponiblesPorProfesión(List<String> lines, int index) {
         index += 4;
-        esher.pj.reinosDeProfesion = new ArrayList<String>();
+        Personaje.getInstance().reinosDeProfesion = new ArrayList<>();
         try {
             while (!lines.get(index).equals("")) {
                 String lineaReino = lines.get(index);
-                esher.pj.reinosDeProfesion.add(lineaReino);
+                Personaje.getInstance().reinosDeProfesion.add(lineaReino);
                 index++;
             }
         } catch (IndexOutOfBoundsException iob) {
@@ -152,37 +150,37 @@ public class LeerProfesion {
     }
 
     private int AsignarCaracteristicasBasicas(List<String> lines, int index) {
-        if (esher.pj.nivel == 1 && creandoPJ) {
+        if (Personaje.getInstance().nivel == 1 && creandoPJ) {
             String preferenciasCaracteristicas = lines.get(index);
             if (!lines.get(index).equals("Indiferente")) {
-                esher.pj.arrayCaracteristicasProfesion = preferenciasCaracteristicas.split(" ");
+                Personaje.getInstance().arrayCaracteristicasProfesion = preferenciasCaracteristicas.split(" ");
                 //No cambiamos los datos si los puntos han sido ya asignados y son validos para esa profesion.
-                if (esher.pj.ObtenerPuntosCaracteristicasGastados() < esher.pj.caracteristicas.totalCaracteristicas
-                        || !(esher.pj.caracteristicas.DevolverCaracteristicaDeAbreviatura(esher.pj.arrayCaracteristicasProfesion[0]).ObtenerPuntosTemporal() >= 90)
-                        && !(esher.pj.caracteristicas.DevolverCaracteristicaDeAbreviatura(esher.pj.arrayCaracteristicasProfesion[1]).ObtenerPuntosTemporal() >= 90)) {
-                    for (int i = 0; i < esher.pj.arrayCaracteristicasProfesion.length; i++) {
-                        String car = esher.pj.arrayCaracteristicasProfesion[i];
+                if (Personaje.getInstance().ObtenerPuntosCaracteristicasGastados() < Personaje.getInstance().caracteristicas.totalCaracteristicas
+                        || !(Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura(Personaje.getInstance().arrayCaracteristicasProfesion[0]).ObtenerPuntosTemporal() >= 90)
+                        && !(Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura(Personaje.getInstance().arrayCaracteristicasProfesion[1]).ObtenerPuntosTemporal() >= 90)) {
+                    for (int i = 0; i < Personaje.getInstance().arrayCaracteristicasProfesion.length; i++) {
+                        String car = Personaje.getInstance().arrayCaracteristicasProfesion[i];
                         try {
-                            Caracteristica caract = esher.pj.caracteristicas.DevolverCaracteristicaDeAbreviatura(car);
+                            Caracteristica caract = Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura(car);
                             caract.CrearPuntosTemporal(esher.baseCaracteristicas[i]);
                         } catch (NullPointerException npe) {
-                            new MostrarError("Caracteristica " + car + " mostrada en el archivo " + esher.pj.profesion + ".txt no existente.", "Leer Profesion");
+                            MostrarError.showErrorMessage("Caracteristica " + car + " mostrada en el archivo " + Personaje.getInstance().profesion + ".txt no existente.", "Leer Profesion");
                         }
                     }
                 }
             } else {
-                if (esher.pj.ObtenerPuntosCaracteristicasGastados() < esher.pj.caracteristicas.totalCaracteristicas) {
+                if (Personaje.getInstance().ObtenerPuntosCaracteristicasGastados() < Personaje.getInstance().caracteristicas.totalCaracteristicas) {
                     List<Integer> listaEnteros = esher.ObtenerListaAleatoriaDeEnteros(10);
                     int i = 0;
                     Caracteristica car = null;
                     try {
-                        for (int j = 0; j < esher.pj.caracteristicas.Size(); j++) {
-                            car = esher.pj.caracteristicas.Get(j);
+                        for (int j = 0; j < Personaje.getInstance().caracteristicas.Size(); j++) {
+                            car = Personaje.getInstance().caracteristicas.Get(j);
                             car.CrearPuntosTemporal(esher.baseCaracteristicas[listaEnteros.get(i)]);
                             i++;
                         }
                     } catch (NullPointerException npe) {
-                        new MostrarError("Fallo al intentar asignar las caracteristicas de profesion de forma aleatoria.", "Leer Profesion");
+                        MostrarError.showErrorMessage("Fallo al intentar asignar las caracteristicas de profesion de forma aleatoria.", "Leer Profesion");
                     }
                 }
             }
@@ -193,25 +191,25 @@ public class LeerProfesion {
     private int AsignarCostesCategorias(List<String> lines, int index) {
         index += 3;
 
-        esher.pj.costearmas = new CosteArmas(esher);
-        esher.pj.armas.ResetearCuentaArmas();
+        Personaje.getInstance().costearmas = new CosteArmas(esher);
+        Personaje.getInstance().armas.ResetearCuentaArmas();
         while (!lines.get(index).equals("")) {
             String lineaCategoria = lines.get(index);
             String[] vectorCategoria = lineaCategoria.split("\t");
             String nombre = vectorCategoria[0];
             //Las armas tienen nombres diversos, se ordenan según las preferencias del personaje.
             if (nombre.startsWith("Armas·")) {
-                esher.pj.costearmas.AñadirCosteRango(esher.pj.ConvertirStringCosteEnIntCoste(vectorCategoria[1]));
-                nombre = "Armas·" + esher.pj.armas.ObtenerSiguienteArmaPreferida();
+                Personaje.getInstance().costearmas.AñadirCosteRango(Personaje.getInstance().ConvertirStringCosteEnIntCoste(vectorCategoria[1]));
+                nombre = "Armas·" + Personaje.getInstance().armas.ObtenerSiguienteArmaPreferida();
             } else {
-                Categoria categoriaProfesional = esher.pj.DevolverCategoriaDeNombre(nombre);
+                Categoria categoriaProfesional = Personaje.getInstance().DevolverCategoriaDeNombre(nombre);
                 try {
-                    categoriaProfesional.CambiarCosteRango(esher.pj.ConvertirStringCosteEnIntCoste(vectorCategoria[1]));
+                    categoriaProfesional.CambiarCosteRango(Personaje.getInstance().ConvertirStringCosteEnIntCoste(vectorCategoria[1]));
                 } catch (NullPointerException npe) {
-                    new MostrarError("Categoría desconocida: " + nombre, "Leer Profesion");
+                    MostrarError.showErrorMessage("Categoría desconocida: " + nombre, "Leer Profesion");
 
                 } catch (ArrayIndexOutOfBoundsException aiob) {
-                    new MostrarError("Categoría mal definida: " + nombre, "Leer Profesion");
+                    MostrarError.showErrorMessage("Categoría mal definida: " + nombre, "Leer Profesion");
                 }
             }
             index++;
@@ -231,11 +229,11 @@ public class LeerProfesion {
             for (int i = 0; i < vectorHabilidades.length; i++) {
                 //Si es un grupo de caracteristicas para elegir, selecciona una.
                 if (vectorHabilidades[i].startsWith("{") && creandoPJ) {
-                    vectorHabilidades[i] = esher.pj.SeleccionarNombreHabilidadDeListado(vectorHabilidades[i].replace("}", "").replace("{", ""), tipo, "profesion");
+                    vectorHabilidades[i] = Personaje.getInstance().SeleccionarNombreHabilidadDeListado(vectorHabilidades[i].replace("}", "").replace("{", ""), tipo, "profesion");
                 }
                 if (!vectorHabilidades[i].equals("Ninguna")) {
                     try {
-                        hab = esher.pj.DevolverHabilidadDeNombre(vectorHabilidades[i]);
+                        hab = Personaje.getInstance().DevolverHabilidadDeNombre(vectorHabilidades[i]);
                         if (tipo.equals("Común")) {
                             hab.HacerComunProfesion();
                         }
@@ -248,8 +246,8 @@ public class LeerProfesion {
                     } catch (NullPointerException npe) {
                         //Puede ser una habilidad de un categoria.
                         if (creandoPJ && interactivo) {
-                            if (!esher.pj.SeleccionarGrupoHabilidadesEspeciales(tipo, vectorHabilidades[i], "profesion")) {
-                                new MostrarError("Habilidad desconocida: " + vectorHabilidades[i], "Leer Profesion");
+                            if (!Personaje.getInstance().SeleccionarGrupoHabilidadesEspeciales(tipo, vectorHabilidades[i], "profesion")) {
+                                MostrarError.showErrorMessage("Habilidad desconocida: " + vectorHabilidades[i], "Leer Profesion");
                             }
                         }
                     }
@@ -277,20 +275,20 @@ public class LeerProfesion {
 
     private int AsignarCostesAdiestramiento(List<String> lines, int index) {
         index += 3;
-        esher.pj.BorraAntiguosCostesAdiestramiento();
+        Personaje.getInstance().BorraAntiguosCostesAdiestramiento();
         while (!lines.get(index).equals("")) {
             while (!lines.get(index).equals("")) {
                 String lineaAdiestramiento = lines.get(index);
                 String[] vectorAdiestramiento = lineaAdiestramiento.split("\t");
                 if (vectorAdiestramiento[1].contains("+")) {
-                    esher.pj.costesAdiestramientos.AñadirAdiestramientoPreferido(vectorAdiestramiento[0],
+                    Personaje.getInstance().costesAdiestramientos.AñadirAdiestramientoPreferido(vectorAdiestramiento[0],
                             Integer.parseInt(vectorAdiestramiento[1].replace("+", "")));
                 } else {
                     if (vectorAdiestramiento[1].contains("-")) {
-                        esher.pj.costesAdiestramientos.AñadirAdiestramientoProhibido(vectorAdiestramiento[0],
+                        Personaje.getInstance().costesAdiestramientos.AñadirAdiestramientoProhibido(vectorAdiestramiento[0],
                                 Integer.parseInt(vectorAdiestramiento[1].replaceAll("-", "")));
                     } else {
-                        esher.pj.costesAdiestramientos.AñadirAdiestramiento(vectorAdiestramiento[0],
+                        Personaje.getInstance().costesAdiestramientos.AñadirAdiestramiento(vectorAdiestramiento[0],
                                 Integer.parseInt(vectorAdiestramiento[1]));
                     }
                 }
@@ -301,8 +299,8 @@ public class LeerProfesion {
     }
 
     private void LimpiarAntiguaProfesion() {
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            Categoria cat = esher.pj.categorias.get(i);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            Categoria cat = Personaje.getInstance().categorias.get(i);
             cat.bonusProfesion = 0;
             for (int j = 0; j < cat.listaHabilidades.size(); j++) {
                 Habilidad hab = cat.listaHabilidades.get(j);
@@ -314,16 +312,16 @@ public class LeerProfesion {
 
     private void OtrosProfesion() {
         //Los elementalistas tienen categorías particulares de hechizos.
-        if (esher.pj.profesion.contains("Elementalista")) {
+        if (Personaje.getInstance().profesion.contains("Elementalista")) {
             try {
-                Categoria cat = new Categoria("Listas Básicas de la Tríada", "ListTri", "Em", "Limitada", "", esher);
-                esher.pj.AñadirCategoria(cat);
-                cat = new Categoria("Listas Básicas Elementales Complementarias", "LisElCom", "Em", "Limitada", "", esher);
-                esher.pj.AñadirCategoria(cat);
+                Categoria cat = Categoria.getCategory("Listas Básicas de la Tríada", "ListTri", "Em", "Limitada", "");
+                Personaje.getInstance().AñadirCategoria(cat);
+                cat = Categoria.getCategory("Listas Básicas Elementales Complementarias", "LisElCom", "Em", "Limitada", "");
+                Personaje.getInstance().AñadirCategoria(cat);
             } catch (Exception ex) {
                 Logger.getLogger(LeerProfesion.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        esher.pj.OrdenarCategorias();
+        Personaje.getInstance().OrdenarCategorias();
     }
 }

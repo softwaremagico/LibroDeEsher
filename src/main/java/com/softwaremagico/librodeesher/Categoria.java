@@ -1,21 +1,21 @@
 /*
  *
-This software is designed by Jorge Hortelano Otero.
-softwaremagico@gmail.com
-Copyright (C) 2007 Jorge Hortelano Otero.
-C/Botanico 12, 1. Valencia CP:46008 (Spain).
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-Created on october of 2007.
+ This software is designed by Jorge Hortelano Otero.
+ softwaremagico@gmail.com
+ Copyright (C) 2007 Jorge Hortelano Otero.
+ C/Botanico 12, 1. Valencia CP:46008 (Spain).
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 2
+ of the License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ Created on october of 2007.
  */
 package com.softwaremagico.librodeesher;
 /*
@@ -49,6 +49,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -58,31 +59,32 @@ import java.util.Random;
  */
 public class Categoria implements Serializable {
 
-    Esher esher;
     public Integer rangos;
     public int nuevosRangos;
     public int rangosCultura;
     public int rangosAdiestramiento;
     public int rangosSugeridos = 0;
     public int rangosInsertados = 0;
-    public List<Habilidad> listaHabilidades = new ArrayList<Habilidad>();
+    public List<Habilidad> listaHabilidades = new ArrayList<>();
     private Caracteristica trioCaracteristicas[];
     public int costeRango[];
     private String nombre;
     private String abreviatura;
     private String stringTresCaracteristicas;
     public int bonusProfesion;
-    public List<BonusEspecial> bonusEspecialesCategoria = new ArrayList<BonusEspecial>();
+    public List<BonusEspecial> bonusEspecialesCategoria = new ArrayList<>();
     private TipoCategoria tipoCategoria;
     public boolean historial = false;
     private Random generator = new Random();
     public boolean restringida = false;
     public boolean noElegirAleatorio = false;
+    private static HashMap<String, Categoria> categoriasDisponibles = new HashMap();
 
-    /** Creates a new instance of Categoria */
-    public Categoria(String id, String tmp_abrev, String tresCaracteristicas, String tipo,
-            String habilidades, Esher tmp_esher) throws Exception {
-        esher = tmp_esher;
+    /**
+     * Creates a new instance of Categoria
+     */
+    private Categoria(String id, String tmp_abrev, String tresCaracteristicas, String tipo,
+            String habilidades) throws Exception {
         nombre = id;
         rangos = 0;
         nuevosRangos = 0;
@@ -94,7 +96,7 @@ public class Categoria implements Serializable {
         stringTresCaracteristicas = tresCaracteristicas;
         tipoCategoria = new TipoCategoria(tipo);
         CaracteristicasDeCategoria();
-        if (!esher.armasFuegoPermitidas && habilidades != null) {
+        if (!Esher.armasFuegoPermitidas && habilidades != null) {
             habilidades.replace("Percepción del Entorno: Munición, ", "");
             habilidades.replace("Fuego de Supresión, ", "");
             habilidades.replace("Fuego Rápido", "");
@@ -103,6 +105,15 @@ public class Categoria implements Serializable {
             AñadirBonusEspecial(10, "DF");
         }
         GenerarHabilidades(habilidades);
+    }
+
+    public static Categoria getCategory(String id, String abrev, String tresCaracteristicas, String tipo,
+            String habilidades) throws Exception {
+        Categoria cat = categoriasDisponibles.get(id);
+        if (cat == null) {
+            cat = new Categoria(id, abrev, tresCaracteristicas, tipo, habilidades);
+        }
+        return cat;
     }
 
     public void CambiarCosteRango(int[] nuevoCoste) {
@@ -116,16 +127,16 @@ public class Categoria implements Serializable {
             for (int i = 0; i < 3; i++) {
                 trioCaracteristicas[i] = null;
             }
-            if (esher.pj.reinos.contains("Canalización")) {
-                trioCaracteristicas[index] = esher.pj.caracteristicas.DevolverCaracteristicaDeAbreviatura("In");
+            if (Personaje.getInstance().reinos.contains("Canalización")) {
+                trioCaracteristicas[index] = Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura("In");
                 index++;
             }
-            if (esher.pj.reinos.contains("Mentalismo")) {
-                trioCaracteristicas[index] = esher.pj.caracteristicas.DevolverCaracteristicaDeAbreviatura("Pr");
+            if (Personaje.getInstance().reinos.contains("Mentalismo")) {
+                trioCaracteristicas[index] = Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura("Pr");
                 index++;
             }
-            if (esher.pj.reinos.contains("Esencia")) {
-                trioCaracteristicas[index] = esher.pj.caracteristicas.DevolverCaracteristicaDeAbreviatura("Em");
+            if (Personaje.getInstance().reinos.contains("Esencia")) {
+                trioCaracteristicas[index] = Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura("Em");
                 index++;
             }
         } else {
@@ -133,7 +144,7 @@ public class Categoria implements Serializable {
             } else {
                 String[] tmp_trioCaracteristicas = stringTresCaracteristicas.split("/");
                 for (int i = 0; i < tmp_trioCaracteristicas.length; i++) {
-                    trioCaracteristicas[i] = esher.pj.caracteristicas.DevolverCaracteristicaDeAbreviatura(tmp_trioCaracteristicas[i]);
+                    trioCaracteristicas[i] = Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura(tmp_trioCaracteristicas[i]);
                 }
             }
         }
@@ -200,9 +211,7 @@ public class Categoria implements Serializable {
                     if (i < 3 && trioCaracteristicas[i + 1] != null) {
                         texto += "/";
                     }
-                } catch (ArrayIndexOutOfBoundsException aiofb) {
-                    break;
-                } catch (NullPointerException npe) {
+                } catch (ArrayIndexOutOfBoundsException | NullPointerException aiofb) {
                     break;
                 }
             } else if (nombre.equals("Defensas Especiales")) {
@@ -217,10 +226,10 @@ public class Categoria implements Serializable {
     public String GenerarCadenaCosteRangos() {
         String texto = "";
         for (int i = 0; i < 3; i++) {
-            if (esher.pj.CosteCategoriaYHabilidad(this, i, null) < 1000) {
-                texto += esher.pj.CosteCategoriaYHabilidad(this, i, null);
+            if (Personaje.getInstance().CosteCategoriaYHabilidad(this, i, null) < 1000) {
+                texto += Personaje.getInstance().CosteCategoriaYHabilidad(this, i, null);
                 try {
-                    if (i < 3 && esher.pj.CosteCategoriaYHabilidad(this, i + 1, null) < 1000) {
+                    if (i < 3 && Personaje.getInstance().CosteCategoriaYHabilidad(this, i + 1, null) < 1000) {
                         texto += "/";
                     }
                 } catch (ArrayIndexOutOfBoundsException aiofb) {
@@ -241,7 +250,7 @@ public class Categoria implements Serializable {
     public int NumeroRangosIncrementables() {
         int total = 0;
         for (int i = 0; i < 3; i++) {
-            if (esher.pj.CosteCategoriaYHabilidad(this, i, null) < 1000) {
+            if (Personaje.getInstance().CosteCategoriaYHabilidad(this, i, null) < 1000) {
                 total++;
             }
         }
@@ -249,13 +258,13 @@ public class Categoria implements Serializable {
     }
 
     public boolean MereceLaPenaMostrar() {
-        if (listaHabilidades.size() == 0) {
+        if (listaHabilidades.isEmpty()) {
             return false;
         }
-        if (!esher.hechizosAdiestramientoOtrosReinosPermitidos && nombre.contains("Listas Hechizos de Adiestramientos de Otro Reino")) {
+        if (!Esher.hechizosAdiestramientoOtrosReinosPermitidos && nombre.contains("Listas Hechizos de Adiestramientos de Otro Reino")) {
             return false;
         }
-        if (((nombre.equals("Listas Básicas de la Tríada") || nombre.equals("Listas Básicas Elementales Complementarias")) && DevolverHabilidadesConRangos() == 0) && (!esher.pj.profesion.contains("Elementalista"))) {
+        if (((nombre.equals("Listas Básicas de la Tríada") || nombre.equals("Listas Básicas Elementales Complementarias")) && DevolverHabilidadesConRangos() == 0) && (!Personaje.getInstance().profesion.contains("Elementalista"))) {
             return false;
         }
         if ((nombre.equals("Listas Básicas de otras Profesiones") || nombre.equals("Listas Abiertas de otros Reinos")
@@ -268,23 +277,23 @@ public class Categoria implements Serializable {
                 && DevolverHabilidadesConRangos() == 0) {
             return false;
         }
-        if (!esher.armasFuegoPermitidas && nombre.contains("Armas·Fuego")) {
+        if (!Esher.armasFuegoPermitidas && nombre.contains("Armas·Fuego")) {
             return false;
         }
         return true;
     }
 
     public boolean MereceLaPenaListar() {
-        if (listaHabilidades.size() == 0) {
+        if (listaHabilidades.isEmpty()) {
             return false;
         }
-        if (!esher.hechizosAdiestramientoOtrosReinosPermitidos && nombre.contains("Listas Hechizos de Adiestramientos de Otro Reino")) {
+        if (!Esher.hechizosAdiestramientoOtrosReinosPermitidos && nombre.contains("Listas Hechizos de Adiestramientos de Otro Reino")) {
             return false;
         }
-        if (((nombre.equals("Listas Básicas de la Tríada") || nombre.equals("Listas Básicas Elementales Complementarias")) && DevolverHabilidadesConRangos() == 0) && (!esher.pj.profesion.contains("Elementalista"))) {
+        if (((nombre.equals("Listas Básicas de la Tríada") || nombre.equals("Listas Básicas Elementales Complementarias")) && DevolverHabilidadesConRangos() == 0) && (!Personaje.getInstance().profesion.contains("Elementalista"))) {
             return false;
         }
-        if (!esher.armasFuegoPermitidas && nombre.contains("Armas·Fuego")) {
+        if (!Esher.armasFuegoPermitidas && nombre.contains("Armas·Fuego")) {
             return false;
         }
         return true;
@@ -298,10 +307,10 @@ public class Categoria implements Serializable {
         if (restringida) {
             return true;
         }
-        for (int i = 0; i < esher.pj.talentos.size(); i++) {
-            for (int j = 0; j < esher.pj.talentos.get(i).bonusCategoria.size(); j++) {
-                if (esher.pj.talentos.get(i).bonusCategoria.get(j).nombre.equals(nombre)) {
-                    if (esher.pj.talentos.get(i).bonusCategoria.get(j).restringida) {
+        for (int i = 0; i < Personaje.getInstance().talentos.size(); i++) {
+            for (int j = 0; j < Personaje.getInstance().talentos.get(i).bonusCategoria.size(); j++) {
+                if (Personaje.getInstance().talentos.get(i).bonusCategoria.get(j).nombre.equals(nombre)) {
+                    if (Personaje.getInstance().talentos.get(i).bonusCategoria.get(j).restringida) {
                         return true;
                     }
                 }
@@ -330,11 +339,13 @@ public class Categoria implements Serializable {
         return image;
     }
 
-    /**********************************
+    /**
+     * ********************************
      *
-     *       CATEGORIA ALEATORIA
+     * CATEGORIA ALEATORIA
      *
-     **********************************/
+     *********************************
+     */
     /**
      * Probabilidad que se incremente al generar un personaje aleatoriamente.
      */
@@ -344,13 +355,13 @@ public class Categoria implements Serializable {
             return -100;
         }
         if (nuevosRangos <= 3) {
-            if (esher.pj.PuntosDesarrolloNoGastados() >= esher.pj.CosteCategoriaYHabilidad(this, nuevosRangos + 1, null)
+            if (Personaje.getInstance().PuntosDesarrolloNoGastados() >= Personaje.getInstance().CosteCategoriaYHabilidad(this, nuevosRangos + 1, null)
                     && TipoCategoria().equals("Estándar")) {
                 probabilidad += DevolverValorCaracteristicas();
                 probabilidad += CategoriaPreferida();
                 probabilidad -= CaroCategoria();
-                probabilidad += esher.IntentosAsignarPD() * 3;
-                if (esher.inteligencia) {
+                probabilidad += Esher.IntentosAsignarPD() * 3;
+                if (Esher.inteligencia) {
                     probabilidad += AplicarInteligenciaALaAleatorizacion();
                 }
                 if (probabilidad > 90) {
@@ -371,7 +382,7 @@ public class Categoria implements Serializable {
     private int AplicarInteligenciaALaAleatorizacion() {
         int bonus = 0;
         //No ponemos armas de fuego si no tienen nada. 
-        if (!esher.armasFuegoPermitidas && nombre.contains("Armas·Fuego")
+        if (!Esher.armasFuegoPermitidas && nombre.contains("Armas·Fuego")
                 && DevolverRangos() == 0) {
             bonus = -10000;
         }
@@ -402,7 +413,7 @@ public class Categoria implements Serializable {
      * Cuanto cuesta en puntos de desarrollo.
      */
     private int CaroCategoria() {
-        return (esher.pj.CosteCategoriaYHabilidad(this, nuevosRangos, null) - 5) * 10;
+        return (Personaje.getInstance().CosteCategoriaYHabilidad(this, nuevosRangos, null) - 5) * 10;
     }
 
     /**
@@ -410,7 +421,7 @@ public class Categoria implements Serializable {
      */
     int CategoriaPreferida() {
         int prob;
-        prob = (rangos) * (esher.especializacion + 4);
+        prob = (rangos) * (Esher.especializacion + 4);
         if (prob > 30) {
             prob = 30;
         }
@@ -421,13 +432,15 @@ public class Categoria implements Serializable {
         noElegirAleatorio = value;
     }
 
-    /**********************************
-     *
-     *          OBTENER TOTAL
-     *
-     **********************************/
     /**
-     *  Devuelve el valor de los rangos.
+     * ********************************
+     *
+     * OBTENER TOTAL
+     *
+     *********************************
+     */
+    /**
+     * Devuelve el valor de los rangos.
      */
     int DevolverValorRangoCategoria() {
         int total;
@@ -498,11 +511,11 @@ public class Categoria implements Serializable {
     }
 
     public int DevolverBonusTalentos() {
-        return esher.pj.DevolverBonusTalentoCategoria(nombre);
+        return Personaje.getInstance().DevolverBonusTalentoCategoria(nombre);
     }
 
     public int DevolverBonusTalentosEspecial() {
-        return esher.pj.DevolverBonusTalentoEspecialCategoria(nombre);
+        return Personaje.getInstance().DevolverBonusTalentoEspecialCategoria(nombre);
     }
 
     public BonusEspecial ExisteBonusEspecial(String tag) {
@@ -558,10 +571,10 @@ public class Categoria implements Serializable {
         return rangos + nuevosRangos + rangosCultura + rangosAdiestramiento + rangosInsertados;
     }
 
-   public  int DevolverBonusObjetos() {
+    public int DevolverBonusObjetos() {
         int total = 0;
-        for (int i = 0; i < esher.pj.objetosMagicos.size(); i++) {
-            total += esher.pj.objetosMagicos.get(i).DevolverBonusCategoria(this);
+        for (int i = 0; i < Personaje.getInstance().objetosMagicos.size(); i++) {
+            total += Personaje.getInstance().objetosMagicos.get(i).DevolverBonusCategoria(this);
         }
         return total;
     }
@@ -581,7 +594,7 @@ public class Categoria implements Serializable {
             } //Si no es nada, suponemos que es un error tipográfico.
             else {
                 tipo = "Estándar";
-                new MostrarError("Desconocida Categoría: " + tipoCat, "Categorías");
+                MostrarError.showErrorMessage("Desconocida Categoría: " + tipoCat, "Categorías");
             }
         }
 
@@ -590,13 +603,16 @@ public class Categoria implements Serializable {
         }
     }
 
-    /**********************************
+    /**
+     * ********************************
      *
-     *          HABILIDADES
+     * HABILIDADES
      *
-     **********************************/
+     *********************************
+     */
     /**
      * Genera las habilidades según un nombre
+     *
      * @param habilidades El nombre de la Habilidad
      * @throws java.lang.Exception
      */
@@ -605,14 +621,15 @@ public class Categoria implements Serializable {
         if (nombre.startsWith("Armas·")) {
             String[] nombreFragmentado = nombre.split("\\·");
             String tipoArma = nombreFragmentado[1];
-            List<String> listadoArmas = esher.pj.armas.DevolverNombreArmasClase(tipoArma);
+            List<String> listadoArmas = Personaje.getInstance().armas.DevolverNombreArmasClase(tipoArma);
             try {
                 for (int i = 0; i < listadoArmas.size(); i++) {
                     String armaLeida = listadoArmas.get(i);
                     AddHabilidad(armaLeida);
                 }
             } catch (NullPointerException npe) {
-                new MostrarError("Error leyendo las armas de los ficheros. Comprueba el fichero de configuración de módulos.", "Categorías");
+                MostrarError.showErrorMessage("Error leyendo las armas de los ficheros. Comprueba el fichero de configuración de módulos.", "Categorías");
+                npe.printStackTrace();
                 System.exit(0);
             }
             //Los hechizos son especiales.
@@ -624,7 +641,7 @@ public class Categoria implements Serializable {
                         //Se tratará cuando se seleccione la profesión.
                     } else {
                         if (arrayHabilidades[i].length() > 0) {
-                            Habilidad hab = new Habilidad(this, arrayHabilidades[i]);
+                            Habilidad hab = Habilidad.getSkill(this, arrayHabilidades[i]);
                             //if (esher.armasFuegoPermitidas || (!hab.DevolverNombre().equals("Percepción del Entorno: Munición")) && !hab.DevolverNombre().startsWith("Fuego ")) {
                             AddHabilidad(hab);
                             //}
@@ -632,7 +649,7 @@ public class Categoria implements Serializable {
                     }
                 }
             } catch (NullPointerException npe) {
-                new MostrarError("Categoria " + nombre + " sin habilidad alguna", "Categorías");
+                MostrarError.showErrorMessage("Categoria " + nombre + " sin habilidad alguna", "Categorías");
             }
         }
     }
@@ -660,7 +677,7 @@ public class Categoria implements Serializable {
 
 
         if (!ExisteHabilidad(nombreHab)) {
-            Habilidad hab = new Habilidad(this, nombreHab.trim());
+            Habilidad hab = Habilidad.getSkill(this, nombreHab.trim());
             hab.HacerHabilidadRestringidaPorTipo(rest);
             hab.DeshabilitarAleatorio(noAleatoria);
             listaHabilidades.add(hab);
@@ -708,7 +725,7 @@ public class Categoria implements Serializable {
     }
 
     public List<String> DevolverNombreHabilidades() {
-        List<String> habilidades = new ArrayList<String>();
+        List<String> habilidades = new ArrayList<>();
         for (int i = 0; i < listaHabilidades.size(); i++) {
             habilidades.add(listaHabilidades.get(i).DevolverNombre());
         }
@@ -807,7 +824,7 @@ public class Categoria implements Serializable {
     }
 
     public void BorrarHabilidades() {
-        listaHabilidades = new ArrayList<Habilidad>();
+        listaHabilidades = new ArrayList<>();
     }
 
     public void BorrarHabilidad(String nombre) {
@@ -842,7 +859,7 @@ public class Categoria implements Serializable {
         //Ordenamos las Habilidades.
         java.util.Arrays.sort(nombresHabilidades, java.text.Collator.getInstance(Locale.ITALIAN));
 
-        List<Habilidad> listaHabilidadesOrdenadas = new ArrayList<Habilidad>();
+        List<Habilidad> listaHabilidadesOrdenadas = new ArrayList<>();
         for (int j = 0; j < nombresHabilidades.length; j++) {
             Habilidad habOrd = DevolverHabilidadDeNombre(nombresHabilidades[j]);
             listaHabilidadesOrdenadas.add(habOrd);
@@ -853,7 +870,7 @@ public class Categoria implements Serializable {
     /**
      * Almacena un bonus especial a una categoría.
      */
-    class BonusEspecial implements Serializable {
+    public class BonusEspecial implements Serializable {
 
         String motivo;
         int bonus;

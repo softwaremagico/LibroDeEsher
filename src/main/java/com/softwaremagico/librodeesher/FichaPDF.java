@@ -1,21 +1,21 @@
 /*
  *
-This software is designed by Jorge Hortelano Otero.
-softwaremagico@gmail.com
-Copyright (C) 2007 Jorge Hortelano Otero.
-C/Botanico 12, 1. Valencia CP:46008 (Spain).
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-Created on february of 2008.
+ This software is designed by Jorge Hortelano Otero.
+ softwaremagico@gmail.com
+ Copyright (C) 2007 Jorge Hortelano Otero.
+ C/Botanico 12, 1. Valencia CP:46008 (Spain).
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 2
+ of the License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ Created on february of 2008.
  */
 package com.softwaremagico.librodeesher;
 /*
@@ -42,7 +42,6 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.gui.MostrarError;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -54,12 +53,13 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import java.util.List;
+import com.softwaremagico.librodeesher.gui.MostrarError;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.List;
 
 /**
  *
@@ -67,32 +67,31 @@ import java.net.MalformedURLException;
  */
 public class FichaPDF {
 
-    Esher esher;
     boolean completar;
     boolean doscaras;
 
-    FichaPDF(Esher tmp_esher) throws Exception {
-        esher = tmp_esher;
-        completar = true;
-        PersonajePDF();
+    FichaPDF(){
+        
+    }
+    
+    FichaPDF(boolean enblanco) throws Exception {
+        if (enblanco) {
+            completar = false;
+            PersonajeHojaBlanco();
+        } else {
+            completar = true;
+            PersonajePDF();
+        }
     }
 
-    FichaPDF(Esher tmp_esher, String path) throws Exception {
-        esher = tmp_esher;
-        completar = true;
-        PersonajePDF(path);
-    }
-
-    FichaPDF() throws Exception {
-        esher = new Esher("");
-        PersonajeHojaBlanco();
-        completar = false;
-    }
-
-    FichaPDF(String path) throws Exception {
-        esher = new Esher("");
-        PersonajeHojaBlanco(path);
-        completar = false;
+    FichaPDF(boolean enblanco, String path) throws Exception {
+        if (enblanco) {
+            PersonajeHojaBlanco(path);
+            completar = false;
+        } else {
+            completar = true;
+            PersonajePDF(path);
+        }
     }
 
     /**
@@ -100,7 +99,7 @@ public class FichaPDF {
      */
     public void PersonajePDF() throws Exception {
         Document document = new Document(PageSize.A4);
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(esher.ArchivoDefectoGuardar() + ".pdf"));
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(Esher.ArchivoDefectoGuardar() + ".pdf"));
         GeneratePDF(document, writer);
     }
 
@@ -116,15 +115,15 @@ public class FichaPDF {
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
             GeneratePDF(document, writer);
         } catch (FileNotFoundException fnfe) {
-            new MostrarError("Creación de PDF fallida.", "Exportar a PDF");
+            MostrarError.showErrorMessage("Creación de PDF fallida.", "Exportar a PDF");
         }
     }
 
     private void GeneratePDF(Document document, PdfWriter writer) throws Exception {
         String font = FontFactory.HELVETICA;
 
-        doscaras = (esher.pj.talentos.size() > 0 || esher.pj.especialesRaza.size() > 0
-                || esher.pj.objetosMagicos.size() > 0 || esher.pj.equipo.size() > 0);
+        doscaras = (Personaje.getInstance().talentos.size() > 0 || Personaje.getInstance().especialesRaza.size() > 0
+                || Personaje.getInstance().objetosMagicos.size() > 0 || Personaje.getInstance().equipo.size() > 0);
 
         DocumentData(document, writer);
         document.open();
@@ -206,7 +205,7 @@ public class FichaPDF {
 
         Paragraph p;
         if (completar) {
-            p = new Paragraph(esher.pj.DevolverNombreCompleto(), FontFactory.getFont(font, fontSize));
+            p = new Paragraph(Personaje.getInstance().DevolverNombreCompleto(), FontFactory.getFont(font, fontSize));
         } else {
             p = new Paragraph("", FontFactory.getFont(font, fontSize + 2));
         }
@@ -234,14 +233,14 @@ public class FichaPDF {
 
         //Añadimos las categorias * añadimos espacios para nuevas..
         for (int i = 0; i < 60 + omitidas; i++) {
-            if (i < esher.pj.categorias.size()) {
-                cat = esher.pj.categorias.get(i);
+            if (i < Personaje.getInstance().categorias.size()) {
+                cat = Personaje.getInstance().categorias.get(i);
             }
 
-            if (cat.MereceLaPenaImprimir() || i >= esher.pj.categorias.size()) {
+            if (cat.MereceLaPenaImprimir() || i >= Personaje.getInstance().categorias.size()) {
 
                 //Generamos una fila de categoria.
-                if (i < esher.pj.categorias.size()) {
+                if (i < Personaje.getInstance().categorias.size()) {
                     texto = cat.DevolverNombre();
                 } else {
                     texto = "_______________________";
@@ -254,7 +253,7 @@ public class FichaPDF {
                 cell.setPaddingLeft(5f);
                 table.addCell(cell);
 
-                if (i < esher.pj.categorias.size()) {
+                if (i < Personaje.getInstance().categorias.size()) {
                     texto = cat.GenerarCadenaCaracteristicas();
                 } else {
                     texto = "_______";
@@ -265,7 +264,7 @@ public class FichaPDF {
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                if (completar && i < esher.pj.categorias.size()) {
+                if (completar && i < Personaje.getInstance().categorias.size()) {
                     texto = cat.GenerarCadenaCosteRangos();
                 } else {
                     texto = "_________";
@@ -276,7 +275,7 @@ public class FichaPDF {
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                if (i < esher.pj.categorias.size()) {
+                if (i < Personaje.getInstance().categorias.size()) {
                     if (cat.TipoCategoria().equals("Estándar")) {
                         if (completar) {
                             texto = cat.DevolverAntiguosRangos() + "";
@@ -296,15 +295,15 @@ public class FichaPDF {
                 table.addCell(cell);
 
 
-                if (i < esher.pj.categorias.size()) {
+                if (i < Personaje.getInstance().categorias.size()) {
                     if (cat.TipoCategoria().equals("Estándar")) {
                         Image image;
                         if (!completar) {
                             image = Image.getInstance("rolemaster/fichas/cuadros/cuadros0.png");
                             image.scalePercent(28);
-                        }else{
+                        } else {
                             image = cat.DevolverCuadradosNuevosRangos(28);
-                        }                        
+                        }
                         cell = new PdfPCell(image);
                     }
 
@@ -329,7 +328,7 @@ public class FichaPDF {
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                if (completar && i < esher.pj.categorias.size()) {
+                if (completar && i < Personaje.getInstance().categorias.size()) {
                     texto = cat.DevolverValorRangoCategoria() + "";
                 } else {
                     texto = "_____";
@@ -340,7 +339,7 @@ public class FichaPDF {
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                if (completar && i < esher.pj.categorias.size()) {
+                if (completar && i < Personaje.getInstance().categorias.size()) {
                     texto = cat.DevolverValorCaracteristicas() + "";
                 } else {
                     texto = "_____";
@@ -351,7 +350,7 @@ public class FichaPDF {
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                if (completar && i < esher.pj.categorias.size()) {
+                if (completar && i < Personaje.getInstance().categorias.size()) {
                     texto = cat.DevolverBonuses() - cat.DevolverBonusEspecialesCategoria()
                             - cat.DevolverBonusObjetos() + "";
                 } else {
@@ -363,7 +362,7 @@ public class FichaPDF {
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                if (completar && i < esher.pj.categorias.size()) {
+                if (completar && i < Personaje.getInstance().categorias.size()) {
                     texto = cat.DevolverBonusEspecialesCategoria() + "";
                     String letra = "";
                     if (cat.historial) {
@@ -396,7 +395,7 @@ public class FichaPDF {
                 table.addCell(cell);
 
                 // Objetos mágicos.
-                if (completar && i < esher.pj.categorias.size()) {
+                if (completar && i < Personaje.getInstance().categorias.size()) {
                     texto = cat.DevolverBonusObjetos() + "";
                 } else {
                     texto = "_____";
@@ -407,7 +406,7 @@ public class FichaPDF {
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                if (completar && i < esher.pj.categorias.size()) {
+                if (completar && i < Personaje.getInstance().categorias.size()) {
                     texto = cat.Total() + "";
                 } else {
                     texto = "_____";
@@ -444,7 +443,7 @@ public class FichaPDF {
 
         Paragraph p;
         if (completar) {
-            p = new Paragraph(esher.pj.DevolverNombreCompleto(), FontFactory.getFont(font, fontSize));
+            p = new Paragraph(Personaje.getInstance().DevolverNombreCompleto(), FontFactory.getFont(font, fontSize));
         } else {
             p = new Paragraph("", FontFactory.getFont(font, fontSize));
         }
@@ -453,7 +452,7 @@ public class FichaPDF {
         table.addCell(cell);
 
         if (completar) {
-            p = new Paragraph(esher.pj.nivel + "", FontFactory.getFont(font, fontSize));
+            p = new Paragraph(Personaje.getInstance().nivel + "", FontFactory.getFont(font, fontSize));
         } else {
             p = new Paragraph("", FontFactory.getFont(font, fontSize));
         }
@@ -848,13 +847,13 @@ public class FichaPDF {
 
         if (completar) {
             //Añadimos las habilidades y añadimos espacios para nuevas.
-            if (!esher.habilidadesOrdenadasEnPDF) {
-                for (int i = 0; i < esher.pj.categorias.size(); i++) {
-                    Categoria cat = esher.pj.categorias.get(i);
+            if (!Esher.habilidadesOrdenadasEnPDF) {
+                for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+                    Categoria cat = Personaje.getInstance().categorias.get(i);
                     habilidades = NuevaHabilidad(table, document, writer, font, fontsize, widths, cat.listaHabilidades, habilidades);
                 }
             } else {
-                List<Habilidad> habilidadesOrdenadas = esher.pj.DevolverHabilidadesOrdenadasAlfabeticamente();
+                List<Habilidad> habilidadesOrdenadas = Personaje.getInstance().DevolverHabilidadesOrdenadasAlfabeticamente();
                 habilidades = NuevaHabilidad(table, document, writer, font, fontsize, widths, habilidadesOrdenadas, habilidades);
             }
         }
@@ -898,7 +897,7 @@ public class FichaPDF {
         PdfPTable table = new PdfPTable(widths);
 
         if (completar) {
-            p = new Paragraph(esher.pj.ObtenerExperineciaAPartirNivel() + "", FontFactory.getFont(font, fontSize + 2));
+            p = new Paragraph(Personaje.getInstance().ObtenerExperineciaAPartirNivel() + "", FontFactory.getFont(font, fontSize + 2));
         } else {
             p = new Paragraph("", FontFactory.getFont(font, fontSize + 2));
         }
@@ -910,7 +909,7 @@ public class FichaPDF {
         table.addCell(cell);
 
         if (completar) {
-            p = new Paragraph(esher.pj.nivel + "", FontFactory.getFont(font, fontSize + 2));
+            p = new Paragraph(Personaje.getInstance().nivel + "", FontFactory.getFont(font, fontSize + 2));
         } else {
             p = new Paragraph("", FontFactory.getFont(font, fontSize + 2));
         }
@@ -922,7 +921,7 @@ public class FichaPDF {
         table.addCell(cell);
 
         if (completar) {
-            p = new Paragraph(esher.pj.DevolverNombreCompleto(), FontFactory.getFont(font, fontSize));
+            p = new Paragraph(Personaje.getInstance().DevolverNombreCompleto(), FontFactory.getFont(font, fontSize));
         } else {
             p = new Paragraph("", FontFactory.getFont(font, fontSize + 2));
         }
@@ -961,7 +960,7 @@ public class FichaPDF {
         tablaResistencia.addCell(cell);
 
         if (completar) {
-            p = new Paragraph(esher.pj.DevolverBonusCaracteristicaDeAbreviatura(caracteristica) * 3 + "",
+            p = new Paragraph(Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura(caracteristica) * 3 + "",
                     FontFactory.getFont(font, fontSize));
         } else {
             p = new Paragraph(" _____", FontFactory.getFont(font, fontSize));
@@ -978,7 +977,7 @@ public class FichaPDF {
         tablaResistencia.addCell(cell);
 
         if (completar) {
-            p = new Paragraph((esher.pj.DevolverBonusCaracteristicaDeAbreviatura(caracteristica) * 3 + tr) + "    ",
+            p = new Paragraph((Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura(caracteristica) * 3 + tr) + "    ",
                     FontFactory.getFont(font, fontSize));
         } else {
             p = new Paragraph("______", FontFactory.getFont(font, fontSize));
@@ -1005,7 +1004,7 @@ public class FichaPDF {
         tablaResistencias.addCell(cell);
 
         if (completar) {
-            cell = new PdfPCell(CrearTablaResistencia(font, fontSize, esher.pj.TrCanalizacion(), "In"));
+            cell = new PdfPCell(CrearTablaResistencia(font, fontSize, Personaje.getInstance().TrCanalizacion(), "In"));
         } else {
             cell = new PdfPCell(CrearTablaResistencia(font, fontSize, 0, ""));
         }
@@ -1015,7 +1014,7 @@ public class FichaPDF {
         tablaResistencias.addCell(cell);
 
         if (completar) {
-            cell = new PdfPCell(CrearTablaResistencia(font, fontSize, esher.pj.TrEsencia(), "Em"));
+            cell = new PdfPCell(CrearTablaResistencia(font, fontSize, Personaje.getInstance().TrEsencia(), "Em"));
         } else {
             cell = new PdfPCell(CrearTablaResistencia(font, fontSize, 0, ""));
         }
@@ -1025,7 +1024,7 @@ public class FichaPDF {
         tablaResistencias.addCell(cell);
 
         if (completar) {
-            cell = new PdfPCell(CrearTablaResistencia(font, fontSize, esher.pj.TrMentalismo(), "Pr"));
+            cell = new PdfPCell(CrearTablaResistencia(font, fontSize, Personaje.getInstance().TrMentalismo(), "Pr"));
         } else {
             cell = new PdfPCell(CrearTablaResistencia(font, fontSize, 0, ""));
         }
@@ -1035,7 +1034,7 @@ public class FichaPDF {
         tablaResistencias.addCell(cell);
 
         if (completar) {
-            cell = new PdfPCell(CrearTablaResistencia(font, fontSize, esher.pj.TrEnfermedades(), "Co"));
+            cell = new PdfPCell(CrearTablaResistencia(font, fontSize, Personaje.getInstance().TrEnfermedades(), "Co"));
         } else {
             cell = new PdfPCell(CrearTablaResistencia(font, fontSize, 0, ""));
         }
@@ -1045,7 +1044,7 @@ public class FichaPDF {
         tablaResistencias.addCell(cell);
 
         if (completar) {
-            cell = new PdfPCell(CrearTablaResistencia(font, fontSize, esher.pj.TrVenenos(), "Co"));
+            cell = new PdfPCell(CrearTablaResistencia(font, fontSize, Personaje.getInstance().TrVenenos(), "Co"));
         } else {
             cell = new PdfPCell(CrearTablaResistencia(font, fontSize, 0, ""));
         }
@@ -1073,7 +1072,7 @@ public class FichaPDF {
         PdfPTable tablaResistencias = new PdfPTable(1);
 
         if (completar) {
-            p = new Paragraph(esher.pj.DevolverBD() + "    ", FontFactory.getFont(font, fontSize));
+            p = new Paragraph(Personaje.getInstance().DevolverBD() + "    ", FontFactory.getFont(font, fontSize));
         } else {
             p = new Paragraph("_________", FontFactory.getFont(font, fontSize));
         }
@@ -1101,7 +1100,7 @@ public class FichaPDF {
         tablaRaza.addCell(cell);
 
         if (completar) {
-            p = new Paragraph(esher.pj.partidaAlma + "", FontFactory.getFont(font, fontSize));
+            p = new Paragraph(Personaje.getInstance().partidaAlma + "", FontFactory.getFont(font, fontSize));
         } else {
             p = new Paragraph("____", FontFactory.getFont(font, fontSize));
         }
@@ -1113,7 +1112,7 @@ public class FichaPDF {
         tablaRaza.addCell(cell);
 
         if (completar) {
-            p = new Paragraph(esher.pj.recuperacion + "   ", FontFactory.getFont(font, fontSize));
+            p = new Paragraph(Personaje.getInstance().recuperacion + "   ", FontFactory.getFont(font, fontSize));
         } else {
             p = new Paragraph("____             ", FontFactory.getFont(font, fontSize));
         }
@@ -1126,7 +1125,7 @@ public class FichaPDF {
         tablaRaza.addCell(cell);
 
         if (completar) {
-            p = new Paragraph(esher.pj.progresionDesarrolloFisico, FontFactory.getFont(font, fontSize + 2));
+            p = new Paragraph(Personaje.getInstance().progresionDesarrolloFisico, FontFactory.getFont(font, fontSize + 2));
         } else {
             p = new Paragraph("   ", FontFactory.getFont(font, fontSize + 2));
         }
@@ -1139,7 +1138,7 @@ public class FichaPDF {
         tablaRaza.addCell(cell);
 
         if (completar) {
-            p = new Paragraph(esher.pj.progresionPuntosPoder, FontFactory.getFont(font, fontSize + 2));
+            p = new Paragraph(Personaje.getInstance().progresionPuntosPoder, FontFactory.getFont(font, fontSize + 2));
         } else {
             p = new Paragraph("   ", FontFactory.getFont(font, fontSize + 2));
         }
@@ -1170,14 +1169,14 @@ public class FichaPDF {
         tabla.addCell(cell);
 
         if (completar) {
-            if (esher.pj.caracteristicas.DevolverTotalApariencia() < 10) {
+            if (Personaje.getInstance().caracteristicas.DevolverTotalApariencia() < 10) {
                 linea = "  ________________________";
-            } else if (esher.pj.caracteristicas.DevolverTotalApariencia() < 100) {
+            } else if (Personaje.getInstance().caracteristicas.DevolverTotalApariencia() < 100) {
                 linea = "  _______________________";
             } else {
                 linea = "  ______________________";
             }
-            texto = "(" + esher.pj.caracteristicas.DevolverTotalApariencia() + ")" + linea;
+            texto = "(" + Personaje.getInstance().caracteristicas.DevolverTotalApariencia() + ")" + linea;
         } else {
             texto = "____________________________";
         }
@@ -1207,7 +1206,7 @@ public class FichaPDF {
         tabla.addCell(cell);
 
         if (completar) {
-            texto = "   " + esher.pj.sexo;
+            texto = "   " + Personaje.getInstance().sexo;
         } else {
             texto = "_____________";
         }
@@ -1248,7 +1247,7 @@ public class FichaPDF {
 
         String linea = "______________________________";
         if (completar) {
-            texto = esher.pj.cultura + "  " + linea.substring(esher.pj.cultura.length());
+            texto = Personaje.getInstance().cultura + "  " + linea.substring(Personaje.getInstance().cultura.length());
         } else {
             texto = linea;
         }
@@ -1271,7 +1270,7 @@ public class FichaPDF {
         String texto;
 
         if (completar) {
-            texto = esher.pj.raza;
+            texto = Personaje.getInstance().raza;
         } else {
             texto = "";
         }
@@ -1284,7 +1283,7 @@ public class FichaPDF {
         tabla.addCell(cell);
 
         if (completar) {
-            texto = esher.pj.profesion;
+            texto = Personaje.getInstance().profesion;
         } else {
             texto = "";
         }
@@ -1305,7 +1304,7 @@ public class FichaPDF {
         tabla.addCell(cell);
 
         if (completar) {
-            texto = esher.pj.DevolverStringConjuntoAdiestramientos();
+            texto = Personaje.getInstance().DevolverStringConjuntoAdiestramientos();
         } else {
             texto = "";
         }
@@ -1318,7 +1317,7 @@ public class FichaPDF {
         tabla.addCell(cell);
 
         if (completar) {
-            texto = esher.pj.reino;
+            texto = Personaje.getInstance().reino;
         } else {
             texto = "";
         }
@@ -1358,7 +1357,7 @@ public class FichaPDF {
         tabla.addCell(cell);
 
         if (completar) {
-            texto = esher.pj.DevolverCapacidadMovimiento() + "";
+            texto = Personaje.getInstance().DevolverCapacidadMovimiento() + "";
         } else {
             texto = "";
         }
@@ -1464,7 +1463,7 @@ public class FichaPDF {
 
             Caracteristica car = null;
             if (completar) {
-                car = esher.pj.caracteristicas.DevolverCaracteristicaDeAbreviatura(caract[i]);
+                car = Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura(caract[i]);
             }
             p = new Paragraph("", FontFactory.getFont(font, fontSize));
             cell = new PdfPCell(p);
@@ -1563,7 +1562,7 @@ public class FichaPDF {
         tabla.addCell(cell);
 
         if (completar) {
-            p = new Paragraph(esher.pj.DevolverHabilidadDeNombre("Desarrollo Físico").Total() + "",
+            p = new Paragraph(Personaje.getInstance().DevolverHabilidadDeNombre("Desarrollo Físico").Total() + "",
                     FontFactory.getFont(font, fontSize + 3));
         } else {
             p = new Paragraph("", FontFactory.getFont(font, fontSize + 3));
@@ -1580,7 +1579,7 @@ public class FichaPDF {
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         tabla.addCell(cell);
         if (completar) {
-            p = new Paragraph(esher.pj.DevolverHabilidadDeNombre("Desarrollo de Puntos de Poder").Total() + "",
+            p = new Paragraph(Personaje.getInstance().DevolverHabilidadDeNombre("Desarrollo de Puntos de Poder").Total() + "",
                     FontFactory.getFont(font, fontSize + 3));
         } else {
             p = new Paragraph("", FontFactory.getFont(font, fontSize + 3));
@@ -1599,7 +1598,7 @@ public class FichaPDF {
         tabla.addCell(cell);
 
         if (completar) {
-            int puntos = esher.pj.DevolverBonusCaracteristicaDeAbreviatura("Co") / 2;
+            int puntos = Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("Co") / 2;
             if (puntos < 0) {
                 puntos = 0;
             }
@@ -1624,7 +1623,7 @@ public class FichaPDF {
         tabla.addCell(cell);
 
         if (completar) {
-            int puntos = esher.pj.DevolverBonusCaracteristicaDeAbreviatura(esher.pj.CaracteristicasDeReino()) / 2;
+            int puntos = Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura(Personaje.getInstance().CaracteristicasDeReino()) / 2;
             if (puntos < 1) {
                 puntos = 1;
             }
@@ -1640,8 +1639,8 @@ public class FichaPDF {
         tabla.addCell(cell);
 
         if (completar) {
-            int puntos = Math.min(esher.pj.DevolverBonusCaracteristicaDeAbreviatura("Co") * 2,
-                    esher.pj.DevolverHabilidadDeNombre("Desarrollo Físico").Total());
+            int puntos = Math.min(Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("Co") * 2,
+                    Personaje.getInstance().DevolverHabilidadDeNombre("Desarrollo Físico").Total());
             if (puntos < 1) {
                 puntos = 1;
             }
@@ -1666,7 +1665,7 @@ public class FichaPDF {
         tabla.addCell(cell);
 
         if (completar) {
-            int puntos = esher.pj.DevolverHabilidadDeNombre("Desarrollo de Puntos de Poder").Total() / 2;
+            int puntos = Personaje.getInstance().DevolverHabilidadDeNombre("Desarrollo de Puntos de Poder").Total() / 2;
             if (puntos < 1) {
                 puntos = 1;
             }
@@ -1690,7 +1689,7 @@ public class FichaPDF {
         Paragraph p;
         PdfPCell cell;
 
-        p = new Paragraph("Generado con El Libro de Esher, herramienta para Rolemaster V" + esher.version + "",
+        p = new Paragraph("Generado con El Libro de Esher, herramienta para Rolemaster V" + Esher.version + "",
                 FontFactory.getFont(font, fontSize));
         cell = new PdfPCell(p);
         cell.setBorderWidth(0);
@@ -1790,17 +1789,17 @@ public class FichaPDF {
     }
 
     public String ExportarEspeciales() {
-        FichaTxt textoPJ = new FichaTxt(esher);
+        FichaTxt textoPJ = new FichaTxt();
         return textoPJ.ExportarEspeciales();
     }
 
     public String ExportarTalentos() {
-        FichaTxt textoPJ = new FichaTxt(esher);
+        FichaTxt textoPJ = new FichaTxt();
         return textoPJ.ExportarTalentos();
     }
 
     public String ExportarATextoEquipos() {
-        FichaTxt textoPJ = new FichaTxt(esher);
+        FichaTxt textoPJ = new FichaTxt();
         return textoPJ.ExportarATextoEquipo();
     }
 

@@ -1,21 +1,21 @@
 /*
  *
-This software is designed by Jorge Hortelano Otero.
-softwaremagico@gmail.com
-Copyright (C) 2007 Jorge Hortelano Otero.
-C/Botanico 12, 1. Valencia CP:46008 (Spain).
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-Created on october of 2007.
+ This software is designed by Jorge Hortelano Otero.
+ softwaremagico@gmail.com
+ Copyright (C) 2007 Jorge Hortelano Otero.
+ C/Botanico 12, 1. Valencia CP:46008 (Spain).
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 2
+ of the License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ Created on october of 2007.
  */
 package com.softwaremagico.librodeesher;
 /*
@@ -42,12 +42,16 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
+import com.softwaremagico.files.DirectorioRolemaster;
+import com.softwaremagico.files.MyFile;
 import com.softwaremagico.librodeesher.gui.MostrarError;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -55,59 +59,59 @@ import java.util.Random;
  */
 public class Esher implements Serializable {
 
-    public final double version = 0.991;
-    public Personaje pj;
+    public static final String version = "0.9.9.1";
     //Directorios
-    private final String ARCHIVO_CATEGORIAS = "categorías.txt";
     private String DIRECTORIO_DEFECTO = System.getProperty("user.home");
     public String BASIC_PATH = "";
     public DirectorioRolemaster directorioRolemaster;
     //Control
-    public int bucleHabilidades;
-    public boolean GeneraSiguiendoNormas = true;
-    public boolean inteligencia = true;
-    public int especializacion = 0; // Indica si se quiere un personaje con muchas o pocas habilidades.
-    public boolean armasFuegoPermitidas = false;
-    public boolean hechizosAdiestramientoOtrosReinosPermitidos = false;
+    public static int bucleHabilidades;
+    public static boolean GeneraSiguiendoNormas = true;
+    public static boolean inteligencia = true;
+    public static int especializacion = 0; // Indica si se quiere un personaje con muchas o pocas habilidades.
+    public static boolean armasFuegoPermitidas = false;
+    public static boolean hechizosAdiestramientoOtrosReinosPermitidos = false;
     //Aleatoriedad.
-    public Random generator = new Random();
-    public boolean aleatorio = false;
+    public static Random generator = new Random();
+    public static boolean aleatorio = false;
     //Caracteristicas base.
     //final int PUNTOS_CARACTERISTICAS = 660;
     public final int[] baseCaracteristicas = {90, 90, 75, 75, 70, 70, 31, 31, 31, 31}; //sobran 22
     //Idiomas en Categoria.
-    public List<String> idiomasRolemaster;
-    // Modulos configurados para obtener los ficheros adecuados */
-    public List<String> modulosRolemaster;
-    public List<String> opciones;
-    public Talentos talentos;
-    public boolean talentosAleatorio = false;
-    public boolean habilidadesOrdenadasEnPDF = true;
-    public boolean hechizosMalignos = false;
-    public boolean poderesChi = false;
-    public boolean variosGradosGolpes = false;
+    public static List<String> idiomasRolemaster;
+    public static List<String> opciones;
+    public static Talentos talentos;
+    public static boolean talentosAleatorio = false;
+    public static boolean habilidadesOrdenadasEnPDF = true;
+    public static boolean hechizosMalignos = false;
+    public static boolean poderesChi = false;
+    public static boolean variosGradosGolpes = false;
+    private static Esher esher = new Esher();
 
-    /** Creates a new instance of Personaje */
-    public Esher(String directorioFichas) throws Exception {
-        BASIC_PATH = directorioFichas;
-        if (BASIC_PATH.endsWith("/")) {
-            directorioRolemaster = new DirectorioRolemaster(BASIC_PATH, this);
-        } else {
-            directorioRolemaster = new DirectorioRolemaster(BASIC_PATH + File.separator, this);
+    /**
+     * Creates a new instance of Personaje
+     */
+    private Esher() {
+        try {
+            directorioRolemaster = new DirectorioRolemaster();
+            opciones = directorioRolemaster.ObtieneConfiguracionGuardada();
+            LeerCategoriasDeArchivo();
+            InicializarVariables();
+            new LeerRaza();
+            new LeerCultura();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-        modulosRolemaster = directorioRolemaster.ObtenerModulosRolemasterGuardados();
-        opciones = directorioRolemaster.ObtieneConfiguracionGuardada();
-        pj = new Personaje(this);
-        LeerCategoriasDeArchivo();
-        InicializarVariables();
-        new LeerRaza(this);
-        new LeerCultura(this);
     }
 
-    public void InicializarVariables() {
+    public static Esher getInstance() {
+        return esher;
+    }
+
+    public static void InicializarVariables() {
         aleatorio = false;
         bucleHabilidades = 0;
-        talentos = new Talentos(this);
+        talentos = new Talentos();
         habilidadesOrdenadasEnPDF = false;
     }
 
@@ -115,24 +119,26 @@ public class Esher implements Serializable {
         GeneraSiguiendoNormas = estado;
     }
 
-    int IntentosAsignarPD() {
+    public static int IntentosAsignarPD() {
         return bucleHabilidades;
     }
 
-    /***************************************************************
+    /**
+     * *************************************************************
      *
-     *                EXPLORAR DIRECTORIOS Y FICHEROS
+     * EXPLORAR DIRECTORIOS Y FICHEROS
      *
-     ***************************************************************/
+     **************************************************************
+     */
     /**
      * Lee el fichero de categorías.
      */
-    public void LeerCategoriasDeArchivo() throws Exception {
+    public static void LeerCategoriasDeArchivo() throws Exception {
         String line;
-        pj.categorias = new ArrayList<Categoria>();
-        List<String> ficherosCategorias = directorioRolemaster.CategoriasDisponibles(modulosRolemaster);
+        Personaje.getInstance().categorias = new ArrayList<>();
+        List<String> ficherosCategorias = DirectorioRolemaster.CategoriasDisponibles();
         for (int j = 0; j < ficherosCategorias.size(); j++) {
-            List<String> lines = directorioRolemaster.LeerLineasCategorias(ficherosCategorias.get(j) + ARCHIVO_CATEGORIAS);
+            List<String> lines = DirectorioRolemaster.LeerLineasCategorias(ficherosCategorias.get(j));
 
             for (int i = 2; i < lines.size(); i++) {
                 line = (String) lines.get(i);
@@ -141,15 +147,15 @@ public class Esher implements Serializable {
                 String nombreCat = nombreAbrev[0];
                 try {
                     String abrevCat = nombreAbrev[1].replace(")", "");
-                    if (!pj.ExisteCategoria(nombreCat)) {
-                        Categoria cat = new Categoria(nombreCat, abrevCat, descomposed_line[1],
-                                descomposed_line[2], descomposed_line[3], this);
-                        pj.AñadirCategoria(cat);
+                    if (!Personaje.getInstance().ExisteCategoria(nombreCat)) {
+                        Categoria cat = Categoria.getCategory(nombreCat, abrevCat, descomposed_line[1],
+                                descomposed_line[2], descomposed_line[3]);
+                        Personaje.getInstance().AñadirCategoria(cat);
                     } else {
-                        pj.AñadirHabilidades(nombreCat, descomposed_line[3]);
+                        Personaje.getInstance().AñadirHabilidades(nombreCat, descomposed_line[3]);
                     }
                 } catch (ArrayIndexOutOfBoundsException aiofb) {
-                    new MostrarError("Abreviatura de categoria mal definida en " + nombreCat, "Lectura de Categorías");
+                    MostrarError.showErrorMessage("Abreviatura de categoria mal definida en " + nombreCat, "Lectura de Categorías");
                 }
             }
         }
@@ -158,9 +164,9 @@ public class Esher implements Serializable {
 
     }
 
-    private List<String> DevolverListaTodosIdiomas() {
-        List<String> idiomas = new ArrayList<String>();
-        Categoria comunicacion = pj.DevolverCategoriaDeNombre("Comunicación");
+    private static List<String> DevolverListaTodosIdiomas() {
+        List<String> idiomas = new ArrayList<>();
+        Categoria comunicacion = Personaje.getInstance().DevolverCategoriaDeNombre("Comunicación");
         try {
             for (int i = comunicacion.listaHabilidades.size() - 1; i >= 0; i--) {
                 Habilidad hab = comunicacion.listaHabilidades.get(i);
@@ -173,53 +179,53 @@ public class Esher implements Serializable {
         return idiomas;
     }
 
-    void CombinarIdiomasRazaYTodos() {
-        Categoria comunicacion = pj.DevolverCategoriaDeNombre("Comunicación");
+    public static void CombinarIdiomasRazaYTodos() {
+        Categoria comunicacion = Personaje.getInstance().DevolverCategoriaDeNombre("Comunicación");
         for (int i = 0; i < idiomasRolemaster.size(); i++) {
             comunicacion.AddHabilidad(idiomasRolemaster.get(i));
         }
     }
 
-    public List<String> ProfesionesDisponibles() throws Exception {
-        List<String> profesionesDisponibles = new ArrayList<String>();
-        List<String> profesionesImplementadas = directorioRolemaster.ProfesionesDisponibles(modulosRolemaster);
+    public static List<String> ProfesionesDisponibles() throws Exception {
+        List<String> profesionesDisponibles = new ArrayList<>();
+        List<String> profesionesImplementadas = DirectorioRolemaster.ProfesionesDisponibles();
 
         for (int i = 0; i < profesionesImplementadas.size(); i++) {
-            if (!pj.profesionesRestringidas.contains(profesionesImplementadas.get(i))) {
+            if (!Personaje.getInstance().profesionesRestringidas.contains(profesionesImplementadas.get(i))) {
                 profesionesDisponibles.add(profesionesImplementadas.get(i));
             }
         }
         return profesionesDisponibles;
     }
 
-    public List<String> AdiestramientosDisponibles() throws Exception {
-        List<String> adiestramientosDisponibles = new ArrayList<String>();
-        List<String> adiestramientosImplementados = directorioRolemaster.AdiestramientosDisponibles(modulosRolemaster);
+    public static List<String> AdiestramientosDisponibles() throws Exception {
+        List<String> adiestramientosDisponibles = new ArrayList<>();
+        List<String> adiestramientosImplementados = DirectorioRolemaster.AdiestramientosDisponibles();
 
         for (int i = 0; i < adiestramientosImplementados.size(); i++) {
-            if (!pj.profesionesRestringidas.contains(adiestramientosImplementados.get(i))) {
+            if (!Personaje.getInstance().profesionesRestringidas.contains(adiestramientosImplementados.get(i))) {
                 adiestramientosDisponibles.add(adiestramientosImplementados.get(i));
             }
         }
         return adiestramientosDisponibles;
     }
 
-    public List<String> RazasDisponibles() throws Exception {
-        return directorioRolemaster.RazasDisponibles(modulosRolemaster);
+    public static List<String> RazasDisponibles() throws Exception {
+        return DirectorioRolemaster.RazasDisponibles();
     }
 
-    public List<String> CulturasDisponibles() throws Exception {
+    public static List<String> CulturasDisponibles() throws Exception {
         List<String> culturasDisponibles = new ArrayList<String>();
-        List<String> culturasProgramadas = directorioRolemaster.CulturasDisponibles(modulosRolemaster);
-        for (int i = 0; i < pj.culturasPosiblesPorRaza.size(); i++) {
-            if (culturasProgramadas.contains(pj.culturasPosiblesPorRaza.get(i))) {
-                culturasDisponibles.add(pj.culturasPosiblesPorRaza.get(i));
+        List<String> culturasProgramadas = DirectorioRolemaster.CulturasDisponibles();
+        for (int i = 0; i < Personaje.getInstance().culturasPosiblesPorRaza.size(); i++) {
+            if (culturasProgramadas.contains(Personaje.getInstance().culturasPosiblesPorRaza.get(i))) {
+                culturasDisponibles.add(Personaje.getInstance().culturasPosiblesPorRaza.get(i));
             }
         }
         return culturasDisponibles;
     }
 
-    public boolean CrearCarpeta(String folder) {
+    public static boolean CrearCarpeta(String folder) {
         //Save the objects of Castadiva.
         File dirFileSave = new java.io.File(folder);
         if (!dirFileSave.exists()) {
@@ -241,44 +247,37 @@ public class Esher implements Serializable {
     }
 
     /**
-     * Change the default folder where the user can save, load or import from ns.
+     * Change the default folder where the user can save, load or import from
+     * ns.
      */
     public void CambiarDirectorioPorDefecto(String path) {
         DIRECTORIO_DEFECTO = path;
     }
 
-    public String ArchivoDefectoGuardar() {
-        return pj.DevolverNombreCompleto() + "_N"
-                + pj.nivel + "_" + pj.raza + "_" + pj.profesion;
+    public static String ArchivoDefectoGuardar() {
+        return Personaje.getInstance().DevolverNombreCompleto() + "_N"
+                + Personaje.getInstance().nivel + "_" + Personaje.getInstance().raza + "_" + Personaje.getInstance().profesion;
     }
 
-    public String ArchivoDefectoExportarNivel() {
-        return "Subida_Nivel_" + pj.nivel + "_" + pj.DevolverNombreCompleto();
+    public static String ArchivoDefectoExportarNivel() {
+        return "Subida_Nivel_" + Personaje.getInstance().nivel + "_" + Personaje.getInstance().DevolverNombreCompleto();
     }
 
-    public String BuscarDirectorioModulo(String fichero) {
-        File file;
-        for (int i = 0; i < modulosRolemaster.size(); i++) {
-            file = new File(modulosRolemaster.get(i) + File.separator + fichero);
-            if (file.exists()) {
-                return modulosRolemaster.get(i) + File.separator + fichero;
-            }
-        }
-        return "";
-    }
-
-    /***************************************************************
+    /**
+     * *************************************************************
      *
-     *                    MANIPULAR DATOS
+     * MANIPULAR DATOS
      *
-     ***************************************************************/
+     **************************************************************
+     */
     /**
      * Baraja una lista de strings aleatoriamente.
+     *
      * @param lista
      * @return
      */
-    List<String> BarajarLista(List<String> lista) {
-        List<String> listaBarajada = new ArrayList<String>();
+    public static List<String> BarajarLista(List<String> lista) {
+        List<String> listaBarajada = new ArrayList<>();
         int pos = 0;
         while (lista.size() > 0) {
             int elemento = generator.nextInt(lista.size());
@@ -289,7 +288,7 @@ public class Esher implements Serializable {
         return listaBarajada;
     }
 
-    public List<String> OrdenarLista(List<String> lista) {
+    public static List<String> OrdenarLista(List<String> lista) {
         String[] vectorElementos = new String[lista.size()];
         for (int i = 0; i < lista.size(); i++) {
             vectorElementos[i] = lista.get(i);
@@ -297,15 +296,15 @@ public class Esher implements Serializable {
         //Ordenamos las Categorías.
         java.util.Arrays.sort(vectorElementos, java.text.Collator.getInstance(Locale.ITALIAN));
 
-        List<String> listaOrdenada = new ArrayList<String>();
+        List<String> listaOrdenada = new ArrayList<>();
         for (int j = 0; j < vectorElementos.length; j++) {
             listaOrdenada.add(vectorElementos[j]);
         }
         return listaOrdenada;
     }
 
-    List<Categoria> BarajarCategorias() {
-        List<Categoria> copiaCategorias = new ArrayList<Categoria>();
+    public static List<Categoria> BarajarCategorias() {
+        List<Categoria> copiaCategorias = new ArrayList<>();
         int posicion;
 
         //Normalmente se miran primero los ataques y los hechizos en los PJs.
@@ -324,16 +323,16 @@ public class Esher implements Serializable {
         }
 
         //Copiamos el listado de categorias
-        copiaCategorias.addAll(pj.categorias);
+        copiaCategorias.addAll(Personaje.getInstance().categorias);
 
         //Mezclamos las categorias barajadas con las primeras. 
-        List<Categoria> listaCategoriasBarajada = new ArrayList<Categoria>();
+        List<Categoria> listaCategoriasBarajada = new ArrayList<>();
         if (inteligencia) {
             //Primero las preferidas
             for (int i = 0; i < vectorPrimerasCategorias.length; i++) {
                 //Evitamos dar preferenci a todas, después de varios niveles, ya que sino se gasta todos los PD en estas siempre.
-                if (generator.nextInt(100) > pj.nivel * 15) {
-                    posicion = pj.DevolverPosicionCategoriaDeNombre(copiaCategorias, vectorPrimerasCategorias[i]);
+                if (generator.nextInt(100) > Personaje.getInstance().nivel * 15) {
+                    posicion = Personaje.getInstance().DevolverPosicionCategoriaDeNombre(copiaCategorias, vectorPrimerasCategorias[i]);
                     if (posicion < copiaCategorias.size() && posicion >= 0) {
                         listaCategoriasBarajada.add(copiaCategorias.get(posicion));
                         copiaCategorias.remove(posicion);
@@ -346,7 +345,7 @@ public class Esher implements Serializable {
                 for (int j = 0; j < copiaCategorias.size() - i - 1; j++) {
                     Categoria cat1 = copiaCategorias.get(j);
                     Categoria cat2 = copiaCategorias.get(j + 1);
-                    if (pj.CosteCategoriaYHabilidadPonderadoPorDosRangos(cat1) > pj.CosteCategoriaYHabilidadPonderadoPorDosRangos(cat2)) {
+                    if (Personaje.getInstance().CosteCategoriaYHabilidadPonderadoPorDosRangos(cat1) > Personaje.getInstance().CosteCategoriaYHabilidadPonderadoPorDosRangos(cat2)) {
                         copiaCategorias.set(j, cat2);
                         copiaCategorias.set(j + 1, cat1);
                     }
@@ -367,35 +366,37 @@ public class Esher implements Serializable {
         return listaCategoriasBarajada;
     }
 
-    private void OrdenarCategoriasYHabilidades() {
-        String[] nombresCategorias = new String[pj.categorias.size()];
-        for (int i = 0; i < pj.categorias.size(); i++) {
-            Categoria cat = pj.categorias.get(i);
+    private static void OrdenarCategoriasYHabilidades() {
+        String[] nombresCategorias = new String[Personaje.getInstance().categorias.size()];
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            Categoria cat = Personaje.getInstance().categorias.get(i);
             nombresCategorias[i] = cat.DevolverNombre();
         }
         //Ordenamos las Categorías.
         java.util.Arrays.sort(nombresCategorias, java.text.Collator.getInstance(Locale.ITALIAN));
 
-        List<Categoria> CategoriasOrdenadas = new ArrayList<Categoria>();
+        List<Categoria> CategoriasOrdenadas = new ArrayList<>();
         for (int j = 0; j < nombresCategorias.length; j++) {
-            Categoria catOrd = pj.DevolverCategoriaDeNombre(nombresCategorias[j]);
+            Categoria catOrd = Personaje.getInstance().DevolverCategoriaDeNombre(nombresCategorias[j]);
             catOrd.OrdenarHabilidades();
             CategoriasOrdenadas.add(catOrd);
         }
-        pj.categorias = CategoriasOrdenadas;
+        Personaje.getInstance().categorias = CategoriasOrdenadas;
     }
 
-    /***************************************************************
+    /**
+     * *************************************************************
      *
-     *                           OTROS
+     * OTROS
      *
-     ***************************************************************/
+     **************************************************************
+     */
     /**
      * Obtiene una lista de orden aleatorio de 1 a cuantos enteros.
      */
-    public List<Integer> ObtenerListaAleatoriaDeEnteros(int cuantos) {
-        List<Integer> originalList = new ArrayList<Integer>();
-        List<Integer> suffledList = new ArrayList<Integer>();
+    public static List<Integer> ObtenerListaAleatoriaDeEnteros(int cuantos) {
+        List<Integer> originalList = new ArrayList<>();
+        List<Integer> suffledList = new ArrayList<>();
         int aux;
 
         for (int i = 0; i < cuantos; i++) {
@@ -411,28 +412,30 @@ public class Esher implements Serializable {
         return suffledList;
     }
 
-    private boolean AdiestramientoValido(String nombre) {
-        Adiestramiento ad = pj.adiestramiento;
-        new LeerAdiestramientos(this, nombre, false, false);
-        if (pj.adiestramiento.AdiestramientoValidoPersonaje()) {
-            pj.adiestramiento = ad;
+    private static boolean AdiestramientoValido(String nombre) {
+        Adiestramiento ad = Personaje.getInstance().adiestramiento;
+        new LeerAdiestramientos(nombre, false, false);
+        if (Personaje.getInstance().adiestramiento.AdiestramientoValidoPersonaje()) {
+            Personaje.getInstance().adiestramiento = ad;
             return true;
         }
-        pj.adiestramiento = ad;
+        Personaje.getInstance().adiestramiento = ad;
         return false;
     }
 
-    /***************************************************************
+    /**
+     * *************************************************************
      *
-     *                              OTROS
+     * OTROS
      *
-     ***************************************************************/
-    public List<String> DevolverAdiestramientosPosibles() {
-        List<String> adiestramientosPosibles = new ArrayList<String>();
-        List<String> adiestramientosDisponibles = new ArrayList<String>();
+     **************************************************************
+     */
+    public static List<String> DevolverAdiestramientosPosibles() {
+        List<String> adiestramientosPosibles = new ArrayList<>();
+        List<String> adiestramientosDisponibles = new ArrayList<>();
         String tmp_nombreAdiestramiento;
         try {
-            adiestramientosDisponibles = directorioRolemaster.AdiestramientosDisponibles(modulosRolemaster);
+            adiestramientosDisponibles = DirectorioRolemaster.AdiestramientosDisponibles();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -440,8 +443,8 @@ public class Esher implements Serializable {
         for (int i = 0; i < adiestramientosDisponibles.size(); i++) {
             tmp_nombreAdiestramiento = adiestramientosDisponibles.get(i);
             //Si no ha sido ya elegido anteriormente este adiestramiento y no está prohibido.
-            if (!pj.adiestramientosAntiguos.contains(tmp_nombreAdiestramiento)
-                    && !pj.costesAdiestramientos.EsAdiestramientoProhibido(tmp_nombreAdiestramiento)
+            if (!Personaje.getInstance().adiestramientosAntiguos.contains(tmp_nombreAdiestramiento)
+                    && !Personaje.getInstance().costesAdiestramientos.EsAdiestramientoProhibido(tmp_nombreAdiestramiento)
                     && AdiestramientoValido(tmp_nombreAdiestramiento)) {
                 adiestramientosPosibles.add(tmp_nombreAdiestramiento);
             }
@@ -450,10 +453,10 @@ public class Esher implements Serializable {
         return adiestramientosPosibles;
     }
 
-    public List<String> DevolverAdiestramientosDisponibles() {
+    public static List<String> DevolverAdiestramientosDisponibles() {
         List<String> adiestramientosDisponibles = new ArrayList<String>();
         try {
-            adiestramientosDisponibles = directorioRolemaster.AdiestramientosDisponibles(modulosRolemaster);
+            adiestramientosDisponibles = DirectorioRolemaster.AdiestramientosDisponibles();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -465,7 +468,7 @@ public class Esher implements Serializable {
     /**
      * Tira "cuantos" dados de "dado" caras.
      */
-    public int TiradaDados(int cuantos, int dado) {
+    public static int TiradaDados(int cuantos, int dado) {
         int total = 0;
         for (int i = 0; i < cuantos; i++) {
             total += TiradaDado(dado);
@@ -476,27 +479,34 @@ public class Esher implements Serializable {
     /**
      * Realiza una tirada de un dado de "dado" caras.
      */
-    public int TiradaDado(int dado) {
+    public static int TiradaDado(int dado) {
         return generator.nextInt(dado) + 1;
     }
 
-    public void Reset() throws Exception {
-        pj = new Personaje(this);
+    public static void Reset() throws Exception {
         LeerCategoriasDeArchivo();
         InicializarVariables();
-        new LeerRaza(this);
-        new LeerCultura(this);
+        new LeerRaza();
+        new LeerCultura();
+    }
+
+    public String getVersion() {
+        return MyFile.readTextFile(this.getClass().getResource("/version.txt").getPath(), false);
+        //return MyFile.readTextFile("/version.txt",false);
     }
 }
 
-/***************************************************************
+/**
+ * *************************************************************
  *
- *                      GUARDAR Y CARGAR
+ * GUARDAR Y CARGAR
  *
- ***************************************************************/
+ **************************************************************
+ */
 /**
  * This is the abstract class where all Serializable objects inherit the Load
  * Write functions. Allow to save the simulation in PJ format.
+ *
  * @author Jorge Hortelano Otero.
  * @version %I%, %G%
  * @since 1.4
@@ -507,16 +517,16 @@ class SerialParent {
 
     public void write(Object objectToSave) throws IOException {
         try {
-            ObjectOutputStream os = new ObjectOutputStream(new BufferedOutputStream(
-                    new FileOutputStream(FILENAME)));
-            os.writeObject(objectToSave);
-            os.close();
+            try (ObjectOutputStream os = new ObjectOutputStream(new BufferedOutputStream(
+                            new FileOutputStream(FILENAME)))) {
+                os.writeObject(objectToSave);
+            }
         } catch (FileNotFoundException fnoe) {
         }
     }
 
     public void save(Object o) throws IOException {
-        List<Object> l = new ArrayList<Object>();
+        List<Object> l = new ArrayList<>();
         l.add(o);
         write(l);
     }
@@ -524,22 +534,23 @@ class SerialParent {
     public List load() throws IOException, ClassNotFoundException,
             FileNotFoundException {
         List l;
-        ObjectInputStream is = new ObjectInputStream(new FileInputStream(FILENAME));
-        l = (List) is.readObject();
-        is.close();
+        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(FILENAME))) {
+            l = (List) is.readObject();
+        }
         return l;
     }
 
     public void dump() throws IOException, ClassNotFoundException {
-        ObjectInputStream is = new ObjectInputStream(new FileInputStream(FILENAME));
-        System.out.println(is.readObject());
-        is.close();
+        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(FILENAME))) {
+            System.out.println(is.readObject());
+        }
     }
 }
 
 /**
  * Inherit from SerialParent this class allow to save the Pj structure in a
  * file.
+ *
  * @see SerialParent
  * @see SerialAPStream
  * @see SerialScenarioData
@@ -552,8 +563,9 @@ class SerialPjStream extends SerialParent {
 }
 
 /**
- * Inherit from SerialParent this class allow to save the ExportarNivel structure in a
- * file.
+ * Inherit from SerialParent this class allow to save the ExportarNivel
+ * structure in a file.
+ *
  * @see SerialParent
  * @see SerialAPStream
  * @see SerialScenarioData
@@ -564,7 +576,3 @@ class SerialNivelStream extends SerialParent {
         FILENAME = file;
     }
 }
-
-
-
-

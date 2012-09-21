@@ -42,6 +42,7 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
+import com.softwaremagico.files.DirectorioRolemaster;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,11 +59,11 @@ class CosteArmas implements Serializable {
     CosteArmas(Esher tmp_esher) {
         //directorioRolemaster = tmp_directorioRolemaster;
         esher = tmp_esher;
-        costeRango = new ArrayList<int[]>();
+        costeRango = new ArrayList<>();
     }
 
     private void ResetearCostesRangos() throws Exception {
-        costeRango = new ArrayList<int[]>();
+        costeRango = new ArrayList<>();
         for (int i = 0; i < TiposArmasDisponibles(); i++) {
             int[] costes = new int[3];
             costeRango.add(costes);
@@ -86,7 +87,7 @@ class CosteArmas implements Serializable {
      * Muestra aquellas armas que existen en ficheros de armas y también son categorias.
      */
     private int TiposArmasDisponibles() throws Exception {
-        List<String> ficherosArmas = esher.directorioRolemaster.TiposArmasDisponibles(esher.modulosRolemaster);
+        List<String> ficherosArmas = DirectorioRolemaster.TiposArmasDisponibles();
         return ficherosArmas.size();
     }
 }

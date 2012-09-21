@@ -44,6 +44,7 @@ package com.softwaremagico.librodeesher;
 import com.softwaremagico.librodeesher.gui.MostrarError;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -52,25 +53,23 @@ import java.util.List;
  */
 public class Talento implements Serializable {
 
-    private Esher esher;
     public String nombre;
     public int coste;
     public String clasificacion;
     public String permitido;
-    public List<BonusCategoria> bonusCategoria = new ArrayList<BonusCategoria>();
+    public List<BonusCategoria> bonusCategoria = new ArrayList<>();
     public ListadoCategoriaYHabilidadesElegir bonusCategoriaHabilidadElegir = null;
-    public List<BonusHabilidad> bonusHabilidad = new ArrayList<BonusHabilidad>();
-    public List<BonusTR> bonusTrs = new ArrayList<BonusTR>();
-    public List<BonusCaracteristica> bonusCaracteristica = new ArrayList<BonusCaracteristica>();
+    public List<BonusHabilidad> bonusHabilidad = new ArrayList<>();
+    public List<BonusTR> bonusTrs = new ArrayList<>();
+    public List<BonusCaracteristica> bonusCaracteristica = new ArrayList<>();
     private String descripcion;
     public String listadoCategorias;
     public int bonusMovimiento = 0;
     public int tipoarmadura = 0;
-    public List<String> listadoCategoriasYHabilidadesElegidas = new ArrayList<String>();
+    public List<String> listadoCategoriasYHabilidadesElegidas = new ArrayList<>();
 
-    public Talento(Esher tmp_esher, String tmp_nombre, int tmp_coste, String tmp_clasificacion,
+    public Talento(String tmp_nombre, int tmp_coste, String tmp_clasificacion,
             String tmp_descripcion, String tmp_permitido) {
-        esher = tmp_esher;
         nombre = tmp_nombre;
         coste = tmp_coste;
         clasificacion = tmp_clasificacion;
@@ -88,11 +87,9 @@ public class Talento implements Serializable {
             if (linea_categoria[0].contains("{")) {
                 linea_categoria[0] = linea_categoria[0].replace("{", "").replace("}", "");
                 if (linea_categoria[0].contains("|")) {
-                    List<String> opciones = new ArrayList<String>();
+                    List<String> opciones = new ArrayList<>();
                     String[] lineaOpciones = linea_categoria[0].split(" \\| ");
-                    for (int k = 0; k < lineaOpciones.length; k++) {
-                        opciones.add(lineaOpciones[k]);
-                    }
+                    opciones.addAll(Arrays.asList(lineaOpciones));
                     int cuantas = Integer.parseInt(linea_categoria[1].split("\\[")[1].replace("]", ""));
                     int bonus = Integer.parseInt(linea_categoria[1].split("\\[")[0].replace(")", "").replace("(", ""));
 
@@ -105,7 +102,7 @@ public class Talento implements Serializable {
                 } else if (linea_categoria[0].contains("Cualquier Habilidad de ")) {
                     int cuantas = Integer.parseInt(linea_categoria[1].split("\\[")[1].replace("]", ""));
                     int bonus = Integer.parseInt(linea_categoria[1].split("\\[")[0].replace(")", "").replace("(", ""));
-                    Categoria catDonde = esher.pj.DevolverCategoriaDeNombre(linea_categoria[0].split("Cualquier Habilidad de ")[1]);
+                    Categoria catDonde = Personaje.getInstance().DevolverCategoriaDeNombre(linea_categoria[0].split("Cualquier Habilidad de ")[1]);
                     bonusCategoriaHabilidadElegir = new ListadoCategoriaYHabilidadesElegir(this, bonus, cuantas, false, catDonde, true);
                 } else if (linea_categoria[0].contains("Cualquier Habilidad")) {
                     int cuantas = Integer.parseInt(linea_categoria[1].split("\\[")[1].replace("]", ""));
@@ -131,7 +128,7 @@ public class Talento implements Serializable {
             } else if (linea_categoria[0].equals("TA")) {
                 int bonus = Integer.parseInt(linea_categoria[1].replace(")", ""));
                 tipoarmadura = bonus;
-            } else if (esher.pj.DevolverCategoriaDeNombre(linea_categoria[0]) != null
+            } else if (Personaje.getInstance().DevolverCategoriaDeNombre(linea_categoria[0]) != null
                     && !linea_categoria[0].equals("Desarrollo de Puntos de Poder")) {
                 if (linea_categoria[1].contains("Común")) {
                     BonusCategoria categoria = new BonusCategoria(linea_categoria[0], true);
@@ -159,8 +156,8 @@ public class Talento implements Serializable {
                         bonusCategoria.add(categoria);
                     }
                 }
-            } else if ((esher.pj.DevolverHabilidadDeNombre(linea_categoria[0]) != null) || (linea_categoria[0].equals("Apariencia"))) {
-                BonusHabilidad habilidad = null;
+            } else if ((Personaje.getInstance().DevolverHabilidadDeNombre(linea_categoria[0]) != null) || (linea_categoria[0].equals("Apariencia"))) {
+                BonusHabilidad habilidad;
                 if (linea_categoria[1].contains("Común")) {
                     habilidad = new BonusHabilidad(linea_categoria[0], true);
                 } else {
@@ -184,12 +181,12 @@ public class Talento implements Serializable {
                 }
                 bonusHabilidad.add(habilidad);
                 //Modifica Apariencia
-            } else if (esher.pj.caracteristicas.DevolverCaracteristicaDeAbreviatura(linea_categoria[0]) != null) {
+            } else if (Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura(linea_categoria[0]) != null) {
                 int bonus = Integer.parseInt(linea_categoria[1].replace(")", ""));
                 BonusCaracteristica caracteristica = new BonusCaracteristica(linea_categoria[0], bonus);
                 bonusCaracteristica.add(caracteristica);
             } else if (!linea_categoria[0].equals("Ninguno") && !linea_categoria[0].equals("Nada") && !linea_categoria[0].equals("Ninguna")) {
-                new MostrarError("Categoria \"" + linea_categoria[0] + "\" del talento " + nombre + " desconocida.", "Talento");
+                MostrarError.showErrorMessage("Categoria \"" + linea_categoria[0] + "\" del talento " + nombre + " desconocida.", "Talento");
             }
         }
     }
@@ -212,10 +209,10 @@ public class Talento implements Serializable {
         if (permitido.contains("Todos")) {
             return true;
         }
-        if (permitido.contains(esher.pj.raza)) {
+        if (permitido.contains(Personaje.getInstance().raza)) {
             return true;
         }
-        if (permitido.contains(esher.pj.profesion)) {
+        if (permitido.contains(Personaje.getInstance().profesion)) {
             return true;
         }
         return false;
@@ -240,7 +237,7 @@ public class Talento implements Serializable {
     }
 
     public void LimpiarHabilidadesAfectadas() {
-        bonusHabilidad = new ArrayList<BonusHabilidad>();
+        bonusHabilidad = new ArrayList<>();
     }
 
     public void AddCategoriaAfectada(String cat, int bonus) {
@@ -262,9 +259,9 @@ public class Talento implements Serializable {
     }
 
     public void RemoveHabilidadCategoriaAfectada(String nombre) {
-        if (esher.pj.DevolverCategoriaDeNombre(nombre) != null) {
+        if (Personaje.getInstance().DevolverCategoriaDeNombre(nombre) != null) {
             RemoveCategoriaAfectada(nombre);
-        } else if (esher.pj.DevolverHabilidadDeNombre(nombre) != null) {
+        } else if (Personaje.getInstance().DevolverHabilidadDeNombre(nombre) != null) {
             RemoveHabilidadAfectada(nombre);
         }
     }
@@ -309,11 +306,11 @@ public class Talento implements Serializable {
 
     public class ListadoCategoriaYHabilidadesElegir implements Serializable {
 
-        public List<String> listadoCategoriasHabilidadesPosiblesAElegir = new ArrayList<String>();
+        public List<String> listadoCategoriasHabilidadesPosiblesAElegir = new ArrayList<>();
         public int bonus;
         public int cuantas;
         public boolean añadir;
-        public List<String> listadoCategoriasYHabilidadesElegidas = new ArrayList<String>();
+        public List<String> listadoCategoriasYHabilidadesElegidas = new ArrayList<>();
         public boolean seleccionaCualquierCategoria;
         public Categoria categoriaDondeSeleccionarHabilidades;
         public boolean seleccionaCualquierHabilidad;
@@ -337,8 +334,8 @@ public class Talento implements Serializable {
             seleccionaCualquierHabilidad = tmp_cualquierHabilidad;
             //Si es cualquier categoria.
             if (tmp_cualquierCategoria) {
-                for (int j = 0; j < esher.pj.categorias.size(); j++) {
-                    listadoCategoriasHabilidadesPosiblesAElegir.add(esher.pj.categorias.get(j).DevolverNombre());
+                for (int j = 0; j < Personaje.getInstance().categorias.size(); j++) {
+                    listadoCategoriasHabilidadesPosiblesAElegir.add(Personaje.getInstance().categorias.get(j).DevolverNombre());
                 }
                 //Si es cualquier habilidad de categoría.
             } else if (categoriaDondeSeleccionarHabilidades != null && seleccionaCualquierHabilidad) {
@@ -348,15 +345,15 @@ public class Talento implements Serializable {
                 }
                 //Si es cualquier habilidad.
             } else if (categoriaDondeSeleccionarHabilidades == null && seleccionaCualquierHabilidad) {
-                List<String> habilidades = new ArrayList<String>();
-                for (int c = 0; c < esher.pj.categorias.size(); c++) {
-                    Categoria catSeleccionada = esher.pj.categorias.get(c);
+                List<String> habilidades = new ArrayList<>();
+                for (int c = 0; c < Personaje.getInstance().categorias.size(); c++) {
+                    Categoria catSeleccionada = Personaje.getInstance().categorias.get(c);
                     for (int j = 0; j < catSeleccionada.listaHabilidades.size(); j++) {
                         Habilidad hab = catSeleccionada.listaHabilidades.get(j);
                         habilidades.add(hab.DevolverNombre());
                     }
                 }
-                habilidades = esher.OrdenarLista(habilidades);
+                habilidades = Esher.OrdenarLista(habilidades);
                 for (int s = 0; s < habilidades.size(); s++) {
                     listadoCategoriasHabilidadesPosiblesAElegir.add(habilidades.get(s));
                 }
@@ -368,8 +365,8 @@ public class Talento implements Serializable {
             if (!listadoCategoriasYHabilidadesElegidas.contains(nombre)) {
                 //Solamente progresiones estándar o combinadas.
                 try {
-                    if ((cat = esher.pj.DevolverCategoriaDeNombre(nombre)) == null) {
-                        cat = esher.pj.DevolverHabilidadDeNombre(nombre).categoriaPadre;
+                    if ((cat = Personaje.getInstance().DevolverCategoriaDeNombre(nombre)) == null) {
+                        cat = Personaje.getInstance().DevolverHabilidadDeNombre(nombre).categoriaPadre;
                     }
                     if (cat.TipoCategoria().equals("Estándar") || cat.TipoCategoria().equals("Combinada")) {
                         if (seleccionaCualquierCategoria) {
@@ -391,16 +388,16 @@ public class Talento implements Serializable {
          * algún rango.
          */
         void SeleccionarAlAzar() {
-            listadoCategoriasHabilidadesPosiblesAElegir = esher.BarajarLista(listadoCategoriasHabilidadesPosiblesAElegir);
+            listadoCategoriasHabilidadesPosiblesAElegir = Esher.BarajarLista(listadoCategoriasHabilidadesPosiblesAElegir);
             for (int i = 0; i < cuantas; i++) {
                 Categoria cat;
                 Habilidad hab;
-                if ((cat = esher.pj.DevolverCategoriaDeNombre(listadoCategoriasHabilidadesPosiblesAElegir.get(i))) != null) {
+                if ((cat = Personaje.getInstance().DevolverCategoriaDeNombre(listadoCategoriasHabilidadesPosiblesAElegir.get(i))) != null) {
                     if (cat.DevolverRangos() > 0) {
                         listadoCategoriasYHabilidadesElegidas.add(listadoCategoriasHabilidadesPosiblesAElegir.get(i));
                         talento.listadoCategoriasYHabilidadesElegidas.add(listadoCategoriasHabilidadesPosiblesAElegir.get(i));
                     }
-                } else if ((hab = esher.pj.DevolverHabilidadDeNombre(listadoCategoriasHabilidadesPosiblesAElegir.get(i))) != null) {
+                } else if ((hab = Personaje.getInstance().DevolverHabilidadDeNombre(listadoCategoriasHabilidadesPosiblesAElegir.get(i))) != null) {
                     if (hab.DevolverRangos() > 0) {
                         listadoCategoriasYHabilidadesElegidas.add(listadoCategoriasHabilidadesPosiblesAElegir.get(i));
                         talento.listadoCategoriasYHabilidadesElegidas.add(listadoCategoriasHabilidadesPosiblesAElegir.get(i));

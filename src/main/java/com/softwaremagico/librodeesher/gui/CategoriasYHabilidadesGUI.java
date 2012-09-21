@@ -43,7 +43,6 @@ package com.softwaremagico.librodeesher.gui;
  */
 
 import com.softwaremagico.librodeesher.Categoria;
-import com.softwaremagico.librodeesher.Esher;
 import com.softwaremagico.librodeesher.FichaTxt;
 import com.softwaremagico.librodeesher.Habilidad;
 import com.softwaremagico.librodeesher.Personaje;
@@ -54,12 +53,10 @@ import javax.swing.event.ChangeListener;
 
 public class CategoriasYHabilidadesGUI extends javax.swing.JFrame {
 
-    private Esher esher;
     private String antiguaEspecializacion = "";
 
     /** Creates new form CategoriasYHabilidadesGUI */
-    public CategoriasYHabilidadesGUI(Esher tmp_esher) {
-        esher = tmp_esher;
+    public CategoriasYHabilidadesGUI() {
         initComponents();
         setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (int) (this.getWidth() / 2),
                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (int) (this.getHeight() / 2));
@@ -90,22 +87,17 @@ public class CategoriasYHabilidadesGUI extends javax.swing.JFrame {
 
     public void ActualizarCategoriasComboBox() {
         CategoriasComboBox.removeAllItems();
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            Categoria cat = esher.pj.categorias.get(i);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            Categoria cat = Personaje.getInstance().categorias.get(i);
             if (cat.MereceLaPenaListar()) {
                 CategoriasComboBox.addItem(cat.DevolverNombre());
             }
         }
     }
 
-    public void ActualizarPj(Personaje tmp_pj) {
-        esher.pj = tmp_pj;
-    }
-
     private void GenerarCosteCategoria() {
-        String coste = "";
         Categoria cat = DevolverCategoriaSeleccionada();
-        coste = cat.GenerarCadenaCosteRangos();
+        String coste = cat.GenerarCadenaCosteRangos();
         CosteTextField.setText(coste);
     }
 
@@ -195,12 +187,12 @@ public class CategoriasYHabilidadesGUI extends javax.swing.JFrame {
     }
 
     public void ActualizarPuntosDesarrollo() {
-        PDTextField.setText(esher.pj.PuntosDesarrolloNoGastados() + "");
+        PDTextField.setText(Personaje.getInstance().PuntosDesarrolloNoGastados() + "");
     }
 
     private Categoria DevolverCategoriaSeleccionada() {
         try {
-            return esher.pj.DevolverCategoriaDeNombre(CategoriasComboBox.getSelectedItem().toString());
+            return Personaje.getInstance().DevolverCategoriaDeNombre(CategoriasComboBox.getSelectedItem().toString());
         } catch (ArrayIndexOutOfBoundsException aiobe) {
             return null;
         } catch (NullPointerException npe) {
@@ -227,13 +219,13 @@ public class CategoriasYHabilidadesGUI extends javax.swing.JFrame {
         try {
             Categoria cat = DevolverCategoriaSeleccionada();
 
-            if ((esher.pj.CosteCategoriaYHabilidad(cat, 0, null) <= esher.pj.PuntosDesarrolloNoGastados() || cat.nuevosRangos > 0) && !cat.TipoCategoria().equals("Limitada") && !cat.TipoCategoria().equals("Combinada") && !cat.TipoCategoria().equals("DF") && !cat.TipoCategoria().equals("DPP")) {
+            if ((Personaje.getInstance().CosteCategoriaYHabilidad(cat, 0, null) <= Personaje.getInstance().PuntosDesarrolloNoGastados() || cat.nuevosRangos > 0) && !cat.TipoCategoria().equals("Limitada") && !cat.TipoCategoria().equals("Combinada") && !cat.TipoCategoria().equals("DF") && !cat.TipoCategoria().equals("DPP")) {
                 CategoriasCheckBox1.setEnabled(true);
             }
-            if ((esher.pj.CosteCategoriaYHabilidad(cat, 1, null) <= esher.pj.PuntosDesarrolloNoGastados() || cat.nuevosRangos > 1) && !cat.TipoCategoria().equals("Limitada") && !cat.TipoCategoria().equals("Combinada") && !cat.TipoCategoria().equals("DF") && !cat.TipoCategoria().equals("DPP")) {
+            if ((Personaje.getInstance().CosteCategoriaYHabilidad(cat, 1, null) <= Personaje.getInstance().PuntosDesarrolloNoGastados() || cat.nuevosRangos > 1) && !cat.TipoCategoria().equals("Limitada") && !cat.TipoCategoria().equals("Combinada") && !cat.TipoCategoria().equals("DF") && !cat.TipoCategoria().equals("DPP")) {
                 CategoriasCheckBox2.setEnabled(true);
             }
-            if ((esher.pj.CosteCategoriaYHabilidad(cat, 2, null) <= esher.pj.PuntosDesarrolloNoGastados() || cat.nuevosRangos > 2) && !cat.TipoCategoria().equals("Limitada") && !cat.TipoCategoria().equals("Combinada") && !cat.TipoCategoria().equals("DF") && !cat.TipoCategoria().equals("DPP")) {
+            if ((Personaje.getInstance().CosteCategoriaYHabilidad(cat, 2, null) <= Personaje.getInstance().PuntosDesarrolloNoGastados() || cat.nuevosRangos > 2) && !cat.TipoCategoria().equals("Limitada") && !cat.TipoCategoria().equals("Combinada") && !cat.TipoCategoria().equals("DF") && !cat.TipoCategoria().equals("DPP")) {
                 CategoriasCheckBox3.setEnabled(true);
             }
 
@@ -249,13 +241,13 @@ public class CategoriasYHabilidadesGUI extends javax.swing.JFrame {
             Habilidad hab = DevolverHabilidadSeleccionada();
             if (hab != null) {
                 Categoria cat = DevolverCategoriaSeleccionada();
-                if (esher.pj.CosteCategoriaYHabilidad(cat, 0, hab) <= esher.pj.PuntosDesarrolloNoGastados() || hab.nuevosRangos > 0) {
+                if (Personaje.getInstance().CosteCategoriaYHabilidad(cat, 0, hab) <= Personaje.getInstance().PuntosDesarrolloNoGastados() || hab.nuevosRangos > 0) {
                     HabilidadesCheckBox1.setEnabled(true);
                 }
-                if (esher.pj.CosteCategoriaYHabilidad(cat, 1, hab) <= esher.pj.PuntosDesarrolloNoGastados() || hab.nuevosRangos > 1) {
+                if (Personaje.getInstance().CosteCategoriaYHabilidad(cat, 1, hab) <= Personaje.getInstance().PuntosDesarrolloNoGastados() || hab.nuevosRangos > 1) {
                     HabilidadesCheckBox2.setEnabled(true);
                 }
-                if (esher.pj.CosteCategoriaYHabilidad(cat, 2, hab) <= esher.pj.PuntosDesarrolloNoGastados() || hab.nuevosRangos > 2) {
+                if (Personaje.getInstance().CosteCategoriaYHabilidad(cat, 2, hab) <= Personaje.getInstance().PuntosDesarrolloNoGastados() || hab.nuevosRangos > 2) {
                     HabilidadesCheckBox3.setEnabled(true);
                 }
             }
@@ -363,13 +355,13 @@ public class CategoriasYHabilidadesGUI extends javax.swing.JFrame {
                     || cat.DevolverNombre().equals("Listas Básicas Elementales Complementarias")) {
                 //Si el el primer rango que añado a ese hechizo
                 if (hab.nuevosRangos == 0 && total > 0) {
-                    hab.multiplicadorCosteHechizos = esher.pj.DevolverMultiplicadoCosteHechizos();
+                    hab.multiplicadorCosteHechizos = Personaje.getInstance().DevolverMultiplicadoCosteHechizos();
                 }
             }
 
             //Sumamos los rangos nuevos a la habilidad.
             hab.NuevosRangos(total);
-            if (esher.pj.PuntosDesarrolloNoGastados() < 0 || (esher.pj.nivel == 1
+            if (Personaje.getInstance().PuntosDesarrolloNoGastados() < 0 || (Personaje.getInstance().nivel == 1
                     && ((hab.DevolverRangos() > 10 && !hab.estiloDeVida)
                     || (hab.DevolverRangos() > 15 && hab.estiloDeVida)))) {
                 hab.IncrementarNuevosRangos(-1);
@@ -394,15 +386,15 @@ public class CategoriasYHabilidadesGUI extends javax.swing.JFrame {
     }
 
     private void ActualizarTextoHabilidades() {
-        FichaTxt fichatxt = new FichaTxt(esher);
+        FichaTxt fichatxt = new FichaTxt();
         String texto = fichatxt.ExportarATextoHabilidades();
 
-        if (esher.pj.otrasHabilidades.size() > 0) {
+        if (Personaje.getInstance().otrasHabilidades.size() > 0) {
             texto += "\nOtros:\n";
             texto += "--------------------------\n";
-            for (int k = 0; k < esher.pj.otrasHabilidades.size(); k++) {
-                texto += esher.pj.otrasHabilidades.get(k).nombre + " ("
-                        + esher.pj.otrasHabilidades.get(k).coste + ")\n";
+            for (int k = 0; k < Personaje.getInstance().otrasHabilidades.size(); k++) {
+                texto += Personaje.getInstance().otrasHabilidades.get(k).nombre + " ("
+                        + Personaje.getInstance().otrasHabilidades.get(k).coste + ")\n";
             }
         }
 
@@ -425,7 +417,7 @@ public class CategoriasYHabilidadesGUI extends javax.swing.JFrame {
     }
 
     public void PdSpinnerInRange() {
-        if ((Integer) PdSpinner.getValue() > esher.pj.PuntosDesarrolloNoGastados()) {
+        if ((Integer) PdSpinner.getValue() > Personaje.getInstance().PuntosDesarrolloNoGastados()) {
             PdSpinner.setValue((Integer) PdSpinner.getValue() - 1);
         }
         if ((Integer) PdSpinner.getValue() < 0) {
@@ -462,7 +454,7 @@ public class CategoriasYHabilidadesGUI extends javax.swing.JFrame {
         if (!hab.EsGeneralizada()) {
             hab.AñadirEspecializacion(EspecializadaCheckBox.isSelected(), MotivoEspecializacionTextField.getText(), antiguaEspecializacion);
         } else {
-            new MostrarError("No puedes crear una especialización de una habilidad generalizada", "Habilidad",
+            MostrarError.showErrorMessage("No puedes crear una especialización de una habilidad generalizada", "Habilidad",
                     JOptionPane.WARNING_MESSAGE);
             hab.especializada = false;
         }

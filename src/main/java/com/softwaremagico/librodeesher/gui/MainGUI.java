@@ -45,9 +45,11 @@ package com.softwaremagico.librodeesher.gui;
 import com.softwaremagico.librodeesher.Esher;
 import com.softwaremagico.librodeesher.FichaTxt;
 import com.softwaremagico.librodeesher.Magia;
+import com.softwaremagico.librodeesher.Personaje;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -55,31 +57,29 @@ import java.util.List;
  */
 public final class MainGUI extends javax.swing.JFrame {
 
-    Esher esher;
     public boolean update = true;
 
     /** Creates new form MainGUI */
-    public MainGUI(Esher tmp_esher) throws Exception {
-        esher = tmp_esher;
+    public MainGUI() throws Exception {
         initComponents();
         setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (int) (this.getWidth() / 2),
                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (int) (this.getHeight() / 2));
+        setIconImage(new ImageIcon(this.getClass().getResource("/librodeesher.png")).getImage());
         RellenaRazas();
-        esher.pj.raza = DevolverRazaSeleccionada();
+        Personaje.getInstance().raza = DevolverRazaSeleccionada();
         RellenaProfesion();
         RellenarCulturas();
         RellenarReinosDeMagia();
         //CambiaInicioPj();
     }
 
-    public void ActualizarPj(Esher tmp_esher) {
+    public void ActualizarPj() {
         update = false;
-        esher = tmp_esher;
         //Seleccionar Nombre, Profesion, Raza, etc...
-        RazasComboBox.setSelectedItem(esher.pj.raza);
-        CulturasComboBox.setSelectedItem(esher.pj.cultura);
-        ProfesionesComboBox.setSelectedItem(esher.pj.profesion);
-        ReinosComboBox.setSelectedItem(esher.pj.reino);
+        RazasComboBox.setSelectedItem(Personaje.getInstance().raza);
+        CulturasComboBox.setSelectedItem(Personaje.getInstance().cultura);
+        ProfesionesComboBox.setSelectedItem(Personaje.getInstance().profesion);
+        ReinosComboBox.setSelectedItem(Personaje.getInstance().reino);
         Refrescar();
         update = true;
     }
@@ -90,7 +90,7 @@ public final class MainGUI extends javax.swing.JFrame {
         ActualizarPuntosDesarrollo();
         ActualizarNombre();
         try {
-            CambiarNivelSeleccionado(esher.pj.nivel);
+            CambiarNivelSeleccionado(Personaje.getInstance().nivel);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -161,11 +161,11 @@ public final class MainGUI extends javax.swing.JFrame {
 
     private void ObtenerNombre() {
         if (NombreTextField.getText().equals("")) {
-            esher.pj.ObtenerNombrePersonaje();
+            Personaje.getInstance().ObtenerNombrePersonaje();
         } else {
-            esher.pj.AsignarNombreCompleto(NombreTextField.getText());
+            Personaje.getInstance().AsignarNombreCompleto(NombreTextField.getText());
         }
-        NombreTextField.setText(esher.pj.DevolverNombreCompleto());
+        NombreTextField.setText(Personaje.getInstance().DevolverNombreCompleto());
     }
 
     public void MenuCambiosPJ(boolean value) {
@@ -182,8 +182,8 @@ public final class MainGUI extends javax.swing.JFrame {
     public void PrimerPasoGeneracionPJ() {
         ObtenerNombre();
         ActualizarTextoCaracteristicas();
-        esher.pj.raza = RazasComboBox.getSelectedItem().toString();
-        esher.pj.profesion = ProfesionesComboBox.getSelectedItem().toString();
+        Personaje.getInstance().raza = RazasComboBox.getSelectedItem().toString();
+        Personaje.getInstance().profesion = ProfesionesComboBox.getSelectedItem().toString();
         RazasComboBox.setEnabled(false);
         ProfesionesComboBox.setEnabled(false);
         AleatorioMenu.setEnabled(false);
@@ -198,9 +198,9 @@ public final class MainGUI extends javax.swing.JFrame {
     public void SegundoPasoGeneracionPJ() {
         ActivarMenuArchivo();
         try {
-            esher.pj.cultura = CulturasComboBox.getSelectedItem().toString();
+            Personaje.getInstance().cultura = CulturasComboBox.getSelectedItem().toString();
         } catch (NullPointerException npe) {
-            new MostrarError("No existe cultura asociada.", "Leer Raza");
+            MostrarError.showErrorMessage("No existe cultura asociada.", "Leer Raza");
         }
         CulturasComboBox.setEnabled(false);
         AdiestramientoMenuItem.setEnabled(true);
@@ -256,7 +256,7 @@ public final class MainGUI extends javax.swing.JFrame {
 
     public  void ActivarMenuGenerar(boolean value) {
         PersonajeMenu.setEnabled(value);
-        if (esher.pj.nivel > 1) {
+        if (Personaje.getInstance().nivel > 1) {
             HistorialMenuItem.setEnabled(false);
             TalentosMenuItem.setEnabled(false);
             CulturaMenuItem.setEnabled(false);
@@ -276,56 +276,56 @@ public final class MainGUI extends javax.swing.JFrame {
     }
 
     private void RellenaRazas() throws Exception {
-        List<String> razas = esher.RazasDisponibles();
-        razas = esher.OrdenarLista(razas);
+        List<String> razas = Esher.getInstance().RazasDisponibles();
+        razas = Esher.getInstance().OrdenarLista(razas);
         RazasComboBox.removeAllItems();
         for (int i = 0; i < razas.size(); i++) {
             RazasComboBox.addItem(razas.get(i));
         }
-        RazasComboBox.setSelectedItem(esher.pj.raza);
+        RazasComboBox.setSelectedItem(Personaje.getInstance().raza);
     }
 
     public void RellenaProfesion() throws Exception {
-        List<String> profesiones = esher.ProfesionesDisponibles();
-        profesiones = esher.OrdenarLista(profesiones);
+        List<String> profesiones = Esher.getInstance().ProfesionesDisponibles();
+        profesiones = Esher.getInstance().OrdenarLista(profesiones);
         ProfesionesComboBox.removeAllItems();
         for (int i = 0; i < profesiones.size(); i++) {
             ProfesionesComboBox.addItem(profesiones.get(i));
         }
-        ProfesionesComboBox.setSelectedItem(esher.pj.profesion);
+        ProfesionesComboBox.setSelectedItem(Personaje.getInstance().profesion);
     }
 
     public void RellenarCulturas() throws Exception {
-        List<String> culturas = esher.CulturasDisponibles();
-        culturas = esher.OrdenarLista(culturas);
+        List<String> culturas = Esher.getInstance().CulturasDisponibles();
+        culturas = Esher.getInstance().OrdenarLista(culturas);
         CulturasComboBox.removeAllItems();
         for (int i = 0; i < culturas.size(); i++) {
             CulturasComboBox.addItem(culturas.get(i));
         }
-        CulturasComboBox.setSelectedItem(esher.pj.cultura);
+        CulturasComboBox.setSelectedItem(Personaje.getInstance().cultura);
     }
 
     public void RellenarReinosDeMagia() throws Exception {
-        Magia magia = new Magia(esher);
+        Magia magia = new Magia();
         List<String> reinos = magia.ObtenerReinoDisponible();
         ReinosComboBox.removeAllItems();
         for (int i = 0; i < reinos.size(); i++) {
             ReinosComboBox.addItem(reinos.get(i));
         }
         try {
-            ReinosComboBox.setSelectedItem(esher.pj.reinos.get(0));
+            ReinosComboBox.setSelectedItem(Personaje.getInstance().reinos.get(0));
         } catch (IndexOutOfBoundsException iofe) {
         }
         try {
-            esher.pj.reino = ReinosComboBox.getSelectedItem().toString();
+            Personaje.getInstance().reino = ReinosComboBox.getSelectedItem().toString();
         } catch (NullPointerException npe) {
-            esher.pj.reino = "";
+            Personaje.getInstance().reino = "";
         }
     }
 
     public void SeleccionarReinoMagia() {
         try {
-            String reino = esher.pj.reino;
+            String reino = Personaje.getInstance().reino;
             RellenarReinosDeMagia();
             ReinosComboBox.setSelectedItem(reino);
         } catch (Exception ex) {
@@ -335,25 +335,25 @@ public final class MainGUI extends javax.swing.JFrame {
 
     public void RellenarOpcionesAdiestramiento() {
         String adiestramientos = "";
-        for (int i = 0; i < esher.pj.adiestramientosAntiguos.size(); i++) {
+        for (int i = 0; i < Personaje.getInstance().adiestramientosAntiguos.size(); i++) {
             if (i > 0) {
                 adiestramientos += ", ";
             }
-            adiestramientos += esher.pj.adiestramientosAntiguos.get(i);
+            adiestramientos += Personaje.getInstance().adiestramientosAntiguos.get(i);
         }
         AdiestramientoTextField.setText(adiestramientos);
     }
 
     public void SeleccionarProfesion() {
-        ProfesionesComboBox.setSelectedItem(esher.pj.profesion);
+        ProfesionesComboBox.setSelectedItem(Personaje.getInstance().profesion);
     }
 
     private void SeleccionarRaza() {
-        RazasComboBox.setSelectedItem(esher.pj.raza);
+        RazasComboBox.setSelectedItem(Personaje.getInstance().raza);
     }
 
     private void SeleccionarSexo() {
-        if (esher.pj.sexo.equals("Femenino")) {
+        if (Personaje.getInstance().sexo.equals("Femenino")) {
             MujerRadioButton.setSelected(true);
         } else {
             VaronRadioButton.setSelected(true);
@@ -362,12 +362,12 @@ public final class MainGUI extends javax.swing.JFrame {
 
     public void SeleccionarProfesion(String tmp_profesion) {
         ProfesionesComboBox.setSelectedItem(tmp_profesion);
-        esher.pj.profesion = tmp_profesion;
+        Personaje.getInstance().profesion = tmp_profesion;
     }
 
     public void SeleccionarCultura(String tmp_cultura) {
         CulturasComboBox.setSelectedItem(tmp_cultura);
-        esher.pj.cultura = tmp_cultura;
+        Personaje.getInstance().cultura = tmp_cultura;
     }
 
     public  void ActivarInsertarCategoria(boolean value) {
@@ -392,7 +392,7 @@ public final class MainGUI extends javax.swing.JFrame {
             //return RazasComboBox.getItemAt(RazasComboBox.getSelectedIndex()).toString();
             return RazasComboBox.getSelectedItem().toString();
         } else {
-            return esher.pj.raza;
+            return Personaje.getInstance().raza;
         }
     }
 
@@ -402,7 +402,7 @@ public final class MainGUI extends javax.swing.JFrame {
             //return ProfesionesComboBox.getItemAt(ProfesionesComboBox.getSelectedIndex()).toString();
             return ProfesionesComboBox.getSelectedItem().toString();
         } else {
-            return esher.pj.profesion;
+            return Personaje.getInstance().profesion;
         }
     }
 
@@ -411,33 +411,33 @@ public final class MainGUI extends javax.swing.JFrame {
             //return CulturasComboBox.getItemAt(CulturasComboBox.getSelectedIndex()).toString();
             return CulturasComboBox.getSelectedItem().toString();
         } else {
-            return esher.pj.cultura;
+            return Personaje.getInstance().cultura;
         }
     }
 
     private void ActualizarTextoCaracteristicas() {
         String text = "";
-        for (int i = 0; i < esher.pj.caracteristicas.Size(); i++) {
-            text = text + esher.pj.caracteristicas.Get(i).DevolverAbreviatura() + "\t"
-                    + esher.pj.caracteristicas.Get(i).Total() + "\n";
+        for (int i = 0; i < Personaje.getInstance().caracteristicas.Size(); i++) {
+            text = text + Personaje.getInstance().caracteristicas.Get(i).DevolverAbreviatura() + "\t"
+                    + Personaje.getInstance().caracteristicas.Get(i).Total() + "\n";
         }
         CaracteristicasTextArea.setTabSize(3);
         CaracteristicasTextArea.setText(text);
     }
 
     private void ActualizarTextoHabilidades() {
-        FichaTxt fichaTxt = new FichaTxt(esher);
+        FichaTxt fichaTxt = new FichaTxt();
         String text = fichaTxt.ExportarATextoHabilidades();
         HabilidadesTextArea.setTabSize(15);
         HabilidadesTextArea.setText(text);
     }
 
     public void ActualizarPuntosDesarrollo() {
-        PuntosDesarrolloTextField.setText(esher.pj.PuntosDesarrolloNoGastados() + "");
+        PuntosDesarrolloTextField.setText(Personaje.getInstance().PuntosDesarrolloNoGastados() + "");
     }
 
     public void ActualizarNombre() {
-        NombreTextField.setText(esher.pj.DevolverNombreCompleto());
+        NombreTextField.setText(Personaje.getInstance().DevolverNombreCompleto());
     }
 
     public void CambiarNivelSeleccionado(int valor) {
@@ -1032,7 +1032,7 @@ public final class MainGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void NombreTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NombreTextFieldKeyTyped
-        esher.pj.SetNombreCompleto(NombreTextField.getText());
+        Personaje.getInstance().SetNombreCompleto(NombreTextField.getText());
     }//GEN-LAST:event_NombreTextFieldKeyTyped
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AboutMenuItem;

@@ -45,6 +45,7 @@ package com.softwaremagico.librodeesher.gui;
 import com.softwaremagico.librodeesher.Categoria;
 import com.softwaremagico.librodeesher.Esher;
 import com.softwaremagico.librodeesher.Habilidad;
+import com.softwaremagico.librodeesher.Personaje;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 
@@ -54,13 +55,11 @@ import java.awt.event.ActionListener;
  */
 public class HistorialGUI extends javax.swing.JFrame {
 
-    private Esher esher;
 
     /**
      * Creates new form HistorialGUI
      */
-    public HistorialGUI(Esher tmp_esher) {
-        esher = tmp_esher;
+    public HistorialGUI() {
         initComponents();
         setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (int) (this.getWidth() / 2),
                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (int) (this.getHeight() / 2));
@@ -76,21 +75,21 @@ public class HistorialGUI extends javax.swing.JFrame {
     }
 
     public void GastadosTodoHistorial() {
-        if ((esher.pj.DevolverPuntosHistoriaTotales() - esher.pj.DevolverPuntosHistorialGastados()) == 0) {
+        if ((Personaje.getInstance().DevolverPuntosHistoriaTotales() - Personaje.getInstance().DevolverPuntosHistorialGastados()) == 0) {
             AumentoCaracteristicaButton.setEnabled(false);
             ObjetoButton.setEnabled(false);
         }
     }
 
     public void ActualizarPuntosHistorial() {
-        PuntosHistorialTextField.setText((esher.pj.DevolverPuntosHistoriaTotales()
-                - esher.pj.DevolverPuntosHistorialGastados()) + "");
+        PuntosHistorialTextField.setText((Personaje.getInstance().DevolverPuntosHistoriaTotales()
+                - Personaje.getInstance().DevolverPuntosHistorialGastados()) + "");
     }
 
     private void ActualizarCategoriasComboBox() {
         CategoriasComboBox.removeAllItems();
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            Categoria cat = esher.pj.categorias.get(i);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            Categoria cat = Personaje.getInstance().categorias.get(i);
             CategoriasComboBox.addItem(cat.DevolverNombre());
         }
     }
@@ -110,7 +109,7 @@ public class HistorialGUI extends javax.swing.JFrame {
 
     public Categoria DevolverCategoriaSeleccionada() {
         try {
-            return esher.pj.categorias.get(CategoriasComboBox.getSelectedIndex());
+            return Personaje.getInstance().categorias.get(CategoriasComboBox.getSelectedIndex());
         } catch (ArrayIndexOutOfBoundsException aiobe) {
             return null;
         }
@@ -144,11 +143,11 @@ public class HistorialGUI extends javax.swing.JFrame {
     }
 
     public void GastarPuntoHistorialEnCategoria() {
-        if (!CategoriaCheckBox.isSelected() || esher.pj.DevolverPuntosHistorialGastados() < esher.pj.DevolverPuntosHistoriaTotales()) {
+        if (!CategoriaCheckBox.isSelected() || Personaje.getInstance().DevolverPuntosHistorialGastados() < Personaje.getInstance().DevolverPuntosHistoriaTotales()) {
             try {
                 DevolverCategoriaSeleccionada().historial = CategoriaCheckBox.isSelected();
             } catch (NullPointerException npe) {
-                new MostrarError("Punto de historial no recogido.", "Historial");
+                MostrarError.showErrorMessage("Punto de historial no recogido.", "Historial");
             }
         } else {
             CategoriaCheckBox.setSelected(false);
@@ -157,11 +156,11 @@ public class HistorialGUI extends javax.swing.JFrame {
     }
 
     public void GastarPuntoHistorialEnHabilidad() {
-        if (!HabilidadCheckBox.isSelected() || esher.pj.DevolverPuntosHistorialGastados() < esher.pj.DevolverPuntosHistoriaTotales()) {
+        if (!HabilidadCheckBox.isSelected() || Personaje.getInstance().DevolverPuntosHistorialGastados() < Personaje.getInstance().DevolverPuntosHistoriaTotales()) {
             try {
                 DevolverHabilidadSeleccionada().historial = HabilidadCheckBox.isSelected();
             } catch (NullPointerException npe) {
-                new MostrarError("Punto de historial no recogido.", "Historial");
+                MostrarError.showErrorMessage("Punto de historial no recogido.", "Historial");
             }
         } else {
             HabilidadCheckBox.setSelected(false);

@@ -44,6 +44,7 @@ package com.softwaremagico.librodeesher;
 import com.softwaremagico.librodeesher.gui.MostrarError;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -54,23 +55,21 @@ import java.util.Random;
 public class Adiestramiento implements Serializable {
 
     public String nombre;
-    List<String> otro = new ArrayList<String>();
-    List<EspecialesAdiestramiento> especialesAdiestramiento = new ArrayList<EspecialesAdiestramiento>();
-    private List<List<String>> listadoAumentosPosiblesCaracteristicas = new ArrayList<List<String>>();
-    private List<String> caracteristicasParaAumentar = new ArrayList<String>();
-    private List<CategoriaAdiestramiento> categoriasAdiestramiento = new ArrayList<CategoriaAdiestramiento>();
+    List<String> otro = new ArrayList<>();
+    List<EspecialesAdiestramiento> especialesAdiestramiento = new ArrayList<>();
+    private List<List<String>> listadoAumentosPosiblesCaracteristicas = new ArrayList<>();
+    private List<String> caracteristicasParaAumentar = new ArrayList<>();
+    private List<CategoriaAdiestramiento> categoriasAdiestramiento = new ArrayList<>();
     private int numeroCaracteristicasSeleccionadas = 0; //Evitamos que se seleccionen mas caracteristicas para subir que las permitidas.
     public int tiempo;
     public boolean preferido = false;
-    private Esher esher;
     private Random generator = new Random();
-    List<String> limitadoRazas = new ArrayList<String>();  //Adiestramiento solo valido para estas razas.
+    List<String> limitadoRazas = new ArrayList<>();  //Adiestramiento solo valido para estas razas.
     String[] triada1 = {"Fuego", "Agua", "Hielo"};
     String[] triada2 = {"Tierra", "Aire", "Luz"};
 
-    public Adiestramiento(Esher tmp_esher, String tmp_nombre) {
+    public Adiestramiento(String tmp_nombre) {
         nombre = tmp_nombre;
-        esher = tmp_esher;
     }
 
     public void AñadirEspecialAdiestramiento(String tmp_nombre, int tmp_bonus, int tmp_probabilidad) {
@@ -79,7 +78,7 @@ public class Adiestramiento implements Serializable {
 
     public void AñadirAumentoCaracteristicaAdiestramiento(String car) {
         if (car.equals("reino")) {
-            car = esher.pj.CaracteristicasDeReino();
+            car = Personaje.getInstance().CaracteristicasDeReino();
         }
         caracteristicasParaAumentar.add(car);
     }
@@ -87,19 +86,19 @@ public class Adiestramiento implements Serializable {
     public void AñadirAumentoCaracteristicaSeleccionadaAdiestramiento(String car) {
         if (numeroCaracteristicasSeleccionadas < listadoAumentosPosiblesCaracteristicas.size()) {
             if (car.equals("reino")) {
-                car = esher.pj.CaracteristicasDeReino();
+                car = Personaje.getInstance().CaracteristicasDeReino();
             }
             if (!caracteristicasParaAumentar.contains(car)) {
                 caracteristicasParaAumentar.add(car);
                 numeroCaracteristicasSeleccionadas++;
             } else {
-                new MostrarError("Aumento de características " + car + "  ya seleccionado. Se ignora.", "Error de selección");
+                MostrarError.showErrorMessage("Aumento de características " + car + "  ya seleccionado. Se ignora.", "Error de selección");
             }
         }
     }
 
     public void AñadirListaAumentoCaracteristicaAdiestramiento(String lineaComas) {
-        List<String> listado = new ArrayList<String>();
+        List<String> listado = new ArrayList<>();
         String[] vectorCar;
         if (lineaComas.contains("; ")) {
             vectorCar = lineaComas.split("; ");
@@ -109,12 +108,12 @@ public class Adiestramiento implements Serializable {
         for (int i = 0; i < vectorCar.length; i++) {
             String car = vectorCar[i].trim();
             if (car.equals("reino")) {
-                car = esher.pj.CaracteristicasDeReino();
+                car = Personaje.getInstance().CaracteristicasDeReino();
             }
-            if (esher.pj.caracteristicas.DevolverCaracteristicaDeAbreviatura(car) != null) {
+            if (Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura(car) != null) {
                 listado.add(car);
             } else {
-                new MostrarError("Caracteristica " + car + " desconocida", "Error en aumento de característica");
+                MostrarError.showErrorMessage("Caracteristica " + car + " desconocida", "Error en aumento de característica");
 
             }
         }
@@ -144,14 +143,14 @@ public class Adiestramiento implements Serializable {
 
         CategoriaAdiestramiento catAd = categoriasAdiestramiento.get(categoriasAdiestramiento.size() - 1);
         try {
-            Categoria cat = esher.pj.DevolverCategoriaDeNombre(catAd.nombre);
+            Categoria cat = Personaje.getInstance().DevolverCategoriaDeNombre(catAd.nombre);
             for (int j = 0; j < cat.listaHabilidades.size(); j++) {
                 AñadirHabilidadUltimaCategoriaAdiestramiento(cat.listaHabilidades.get(j).DevolverNombre(), 0);
             }
         } catch (ArrayIndexOutOfBoundsException aiofb) {
-            new MostrarError("Error al añadir Otras Habilidades a la ultima categoría de adiestramiento: " + catAd.nombre, "Adiestramiento");
+            MostrarError.showErrorMessage("Error al añadir Otras Habilidades a la ultima categoría de adiestramiento: " + catAd.nombre, "Adiestramiento");
         } catch (NullPointerException npe) {
-            new MostrarError("Error al añadir Otras Habilidades a la ultima categoría de adiestramiento: " + catAd.nombre + "\nExiste esa categoría?", "Adiestramiento");
+            MostrarError.showErrorMessage("Error al añadir Otras Habilidades a la ultima categoría de adiestramiento: " + catAd.nombre + "\nExiste esa categoría?", "Adiestramiento");
             npe.printStackTrace();
         }
     }
@@ -204,8 +203,8 @@ public class Adiestramiento implements Serializable {
     }
 
     public boolean AdiestramientoValidoPersonaje() {
-        if (limitadoRazas.contains(esher.pj.raza) || limitadoRazas.size() == 0
-                || limitadoRazas.contains(esher.pj.sexo)) {
+        if (limitadoRazas.contains(Personaje.getInstance().raza) || limitadoRazas.isEmpty()
+                || limitadoRazas.contains(Personaje.getInstance().sexo)) {
             return true;
         } else {
             return false;
@@ -305,7 +304,7 @@ public class Adiestramiento implements Serializable {
         }
         int grupo = categoriasAdiestramiento.size();
         for (int i = 0; i < listadoCategorias.length; i++) {
-            if ((!listadoCategorias[i].equals("Armas·Fuego 1mano") && !listadoCategorias[i].equals("Armas·Fuego 2manos")) || esher.armasFuegoPermitidas) {
+            if ((!listadoCategorias[i].equals("Armas·Fuego 1mano") && !listadoCategorias[i].equals("Armas·Fuego 2manos")) || Esher.armasFuegoPermitidas) {
                 CategoriaAdiestramiento cat = new CategoriaAdiestramiento(listadoCategorias[i].trim(), 0, min, max, rangosHabilidades, grupo, tmp_rangos);
                 categoriasAdiestramiento.add(cat);
                 AñadirOtrasHabilidadesUltimaCategoriaAdiestramiento();
@@ -314,11 +313,11 @@ public class Adiestramiento implements Serializable {
     }
 
     private void ResetHechizosAdiestramiento() {
-        Categoria cat = null;
-        cat = esher.pj.DevolverCategoriaDeNombre("Listas Hechizos de Adiestramiento");
+        Categoria cat;
+        cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Hechizos de Adiestramiento");
         cat.BorrarHabilidades();
-        if (esher.hechizosAdiestramientoOtrosReinosPermitidos) {
-            cat = esher.pj.DevolverCategoriaDeNombre("Listas Hechizos de Adiestramientos de Otro Reino");
+        if (Esher.hechizosAdiestramientoOtrosReinosPermitidos) {
+            cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Hechizos de Adiestramientos de Otro Reino");
             cat.BorrarHabilidades();
         }
     }
@@ -371,43 +370,41 @@ public class Adiestramiento implements Serializable {
     }
 
     public void AñadirListasHechizosAdiestramiento() {
-        Categoria cat = null;
+        Categoria cat;
         //ResetHechizosAdiestramiento();
-        for (int i = 0; i < esher.pj.listaHechizos.size(); i++) {
-            ListaDeHechizos hechizo = esher.pj.listaHechizos.get(i);
+        for (int i = 0; i < Personaje.getInstance().listaHechizos.size(); i++) {
+            ListaDeHechizos hechizo = Personaje.getInstance().listaHechizos.get(i);
 
             //Hay listas compartidas por varias profesiones.
             String[] vectorClase = hechizo.clase.split("/");
-            List<String> listaClase = new ArrayList<String>();
-            for (int j = 0; j < vectorClase.length; j++) {
-                listaClase.add(vectorClase[j]);
-            }
+            List<String> listaClase = new ArrayList<>();
+            listaClase.addAll(Arrays.asList(vectorClase));
             //Es una lista de adiestramiento.
-            if (ElementoEnComun(listaClase, esher.DevolverAdiestramientosPosibles())) {
+            if (ElementoEnComun(listaClase, Esher.DevolverAdiestramientosPosibles())) {
                 //Es nuestro adiestramiento.
                 if (listaClase.contains(nombre)) {
                     //de nuestro reino
-                    if (esher.pj.reino.contains(hechizo.reino)) {
+                    if (Personaje.getInstance().reino.contains(hechizo.reino)) {
                         //Es un elementalista
-                        if (esher.pj.profesion.equals("Elementalista")) {
-                            cat = esher.pj.DevolverCategoriaDeNombre("Listas Básicas de Hechizos");
+                        if (Personaje.getInstance().profesion.equals("Elementalista")) {
+                            cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Básicas de Hechizos");
                         } else {
-                            cat = esher.pj.DevolverCategoriaDeNombre("Listas Hechizos de Adiestramiento");
+                            cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Hechizos de Adiestramiento");
                         }
                     } else {
                         //Es un adiestramiento de otro reino.
-                        if (esher.hechizosAdiestramientoOtrosReinosPermitidos) {
-                            cat = esher.pj.DevolverCategoriaDeNombre("Listas Hechizos de Adiestramientos de Otro Reino");
+                        if (Esher.hechizosAdiestramientoOtrosReinosPermitidos) {
+                            cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Hechizos de Adiestramientos de Otro Reino");
                         } else {
                             continue;
                         }
                     }
                     //Los elementalistas cogen listas de otros adiestramientos.
-                } else if (HechizosElementales(listaClase) && esher.pj.profesion.equals("Elementalista")) {
+                } else if (HechizosElementales(listaClase) && Personaje.getInstance().profesion.equals("Elementalista")) {
                     if (MismaTriada(hechizo, nombre)) {
-                        cat = esher.pj.DevolverCategoriaDeNombre("Listas Básicas de la Tríada");
+                        cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Básicas de la Tríada");
                     } else {
-                        cat = esher.pj.DevolverCategoriaDeNombre("Listas Básicas Elementales Complementarias");
+                        cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Básicas Elementales Complementarias");
                     }
                 } else {
                     continue;
@@ -420,16 +417,16 @@ public class Adiestramiento implements Serializable {
             //Finalmente añadimos la lista a la categoría seleccionada previamente.
             try {
                 if (!cat.ExisteHabilidad(hechizo.nombre)) {
-                    Habilidad hab = new Habilidad(cat, hechizo.nombre);
+                    Habilidad hab = Habilidad.getSkill(cat, hechizo.nombre);
                     //hab.adiestramiento = true;
                     //Las listas de otros adiestramientos son restringidas.
-                    if (!ElementoEnComun(esher.pj.adiestramientosAntiguos, listaClase) && !listaClase.contains(nombre)) {
+                    if (!ElementoEnComun(Personaje.getInstance().adiestramientosAntiguos, listaClase) && !listaClase.contains(nombre)) {
                         hab.HacerRestringida();
                     }
                     cat.AddHabilidad(hab);
                 }
             } catch (NullPointerException npe) {
-                new MostrarError("Error inesperado al leer la lista de hechizo " + hechizo.nombre + ".", "Adiestramiento");
+                MostrarError.showErrorMessage("Error inesperado al leer la lista de hechizo " + hechizo.nombre + ".", "Adiestramiento");
             }
         }
     }
@@ -454,14 +451,14 @@ public class Adiestramiento implements Serializable {
             while (DevolverTotalRangosHabilidadesGastadosGrupoAdiestramiento(cat.nombre) < cat.rangosHabilidades && ret == 0) {
                 if (cat.DevolverNumeroHabilidadesConRangos() < cat.minimoHabilidades) {
                     if (!cat.AñadirRangoNuevaHabilidad()) {
-                        ret = cat.AñadirUnRangoAleatorio(esher);
+                        ret = cat.AñadirUnRangoAleatorio();
                     }
                 } else {
                     if (DevolverNumeroHabilidadesConRangosDeGrupo(cat.nombre) < cat.maximoHabilidades) {
-                        ret = cat.AñadirUnRangoAleatorio(esher);
+                        ret = cat.AñadirUnRangoAleatorio();
                     } else {
                         if (!cat.AñadirUnRangoHabilidadExistente()) {
-                            ret = cat.AñadirUnRangoAleatorio(esher);
+                            ret = cat.AñadirUnRangoAleatorio();
                         }
                     }
                 }
@@ -475,7 +472,7 @@ public class Adiestramiento implements Serializable {
         for (int i = 0; i < listadoAumentosPosiblesCaracteristicas.size(); i++) {
             List<String> listado = listadoAumentosPosiblesCaracteristicas.get(i);
             do {
-                caracterist = listado.get(esher.generator.nextInt(listado.size()));
+                caracterist = listado.get(Esher.generator.nextInt(listado.size()));
             } while (caracterist.equals(caractAnt));
             AñadirAumentoCaracteristicaSeleccionadaAdiestramiento(caracterist);
             caractAnt = caracterist;
@@ -484,17 +481,17 @@ public class Adiestramiento implements Serializable {
 
     public class CategoriaAdiestramiento implements Serializable {
 
-       public  String nombre;
-       public  int rangos;
-       public  int minimoHabilidades;
-       public  int maximoHabilidades;
-       public  int rangosHabilidades;
-       public  int rangosGrupo = 0;
-       public  boolean seleccionada; //Cuando hay un grupo de habilidades indica que esta es la seleccionada para subir.
-      public   int grupo; //Genera grupos de categorias. Permite implmententar el seleccionar una categoria de un grupo. Un grupo son todas aquellas categorias con el mismo identificador.
-      public   List<HabilidadAdiestramiento> habilidades = new ArrayList<HabilidadAdiestramiento>();
+        public String nombre;
+        public int rangos;
+        public int minimoHabilidades;
+        public int maximoHabilidades;
+        public int rangosHabilidades;
+        public int rangosGrupo = 0;
+        public boolean seleccionada; //Cuando hay un grupo de habilidades indica que esta es la seleccionada para subir.
+        public int grupo; //Genera grupos de categorias. Permite implmententar el seleccionar una categoria de un grupo. Un grupo son todas aquellas categorias con el mismo identificador.
+        public List<HabilidadAdiestramiento> habilidades = new ArrayList<>();
 
-      public   CategoriaAdiestramiento(String tmp_nombre, int tmp_rangos, int min, int max, int tmp_rangosHabilidades, int tmp_grupo) {
+        public CategoriaAdiestramiento(String tmp_nombre, int tmp_rangos, int min, int max, int tmp_rangosHabilidades, int tmp_grupo) {
             nombre = tmp_nombre;
             rangos = tmp_rangos;
             minimoHabilidades = min;
@@ -504,7 +501,7 @@ public class Adiestramiento implements Serializable {
             rangosGrupo = 0;
         }
 
-       public  CategoriaAdiestramiento(String tmp_nombre, int tmp_rangos, int min, int max, int tmp_rangosHabilidades, int tmp_grupo, int tmp_rangosGrupo) {
+        public CategoriaAdiestramiento(String tmp_nombre, int tmp_rangos, int min, int max, int tmp_rangosHabilidades, int tmp_grupo, int tmp_rangosGrupo) {
             nombre = tmp_nombre;
             rangos = tmp_rangos;
             minimoHabilidades = min;
@@ -514,7 +511,7 @@ public class Adiestramiento implements Serializable {
             rangosGrupo = tmp_rangosGrupo;
         }
 
-      public   int DevolverRangosHabilidadesGastados() {
+        public int DevolverRangosHabilidadesGastados() {
             int total = 0;
             for (int i = 0; i < habilidades.size(); i++) {
                 total += habilidades.get(i).Rangos();
@@ -522,15 +519,15 @@ public class Adiestramiento implements Serializable {
             return total;
         }
 
-      public   void AñadirHabilidad(String tmp_nombre, int tmp_rangos) {
+        public void AñadirHabilidad(String tmp_nombre, int tmp_rangos) {
             habilidades.add(new HabilidadAdiestramiento(tmp_nombre, tmp_rangos));
         }
 
-     public    List<HabilidadAdiestramiento> DevolverListaHabilidades() {
+        public List<HabilidadAdiestramiento> DevolverListaHabilidades() {
             return habilidades;
         }
 
-      public   boolean ExisteHabilidad(String nombreHabilidad) {
+        public boolean ExisteHabilidad(String nombreHabilidad) {
             for (int i = 0; i < habilidades.size(); i++) {
                 if (nombreHabilidad.equals(habilidades.get(i).nombre)) {
                     return true;
@@ -539,7 +536,7 @@ public class Adiestramiento implements Serializable {
             return false;
         }
 
-     public    int DevolverNumeroHabilidadesConRangos() {
+        public int DevolverNumeroHabilidadesConRangos() {
             int total = 0;
             for (int i = 0; i < habilidades.size(); i++) {
                 if (habilidades.get(i).Rangos() > 0) {
@@ -550,7 +547,7 @@ public class Adiestramiento implements Serializable {
         }
 
         private List<HabilidadAdiestramiento> ObtenerHabilidadesSinRangos() {
-            List<HabilidadAdiestramiento> habSinRangos = new ArrayList<HabilidadAdiestramiento>();
+            List<HabilidadAdiestramiento> habSinRangos = new ArrayList<>();
             for (int i = 0; i < habilidades.size(); i++) {
                 HabilidadAdiestramiento hab = habilidades.get(i);
                 if (hab.rangosAsignados + hab.rangosBasicos == 0) {
@@ -561,7 +558,7 @@ public class Adiestramiento implements Serializable {
         }
 
         private List<HabilidadAdiestramiento> ObtenerHabilidadesConRangos() {
-            List<HabilidadAdiestramiento> habConRangos = new ArrayList<HabilidadAdiestramiento>();
+            List<HabilidadAdiestramiento> habConRangos = new ArrayList<>();
             for (int i = 0; i < habilidades.size(); i++) {
                 HabilidadAdiestramiento hab = habilidades.get(i);
                 if (hab.rangosAsignados + hab.rangosBasicos > 0) {
@@ -588,16 +585,16 @@ public class Adiestramiento implements Serializable {
             }
         }
 
-        private int AñadirUnRangoAleatorio(Esher esher) {
+        private int AñadirUnRangoAleatorio() {
             try {
                 int hab = generator.nextInt(habilidades.size());
                 HabilidadAdiestramiento habAd = habilidades.get(hab);
-                if (generator.nextInt(100) < esher.especializacion * esher.pj.DevolverHabilidadDeNombre(habAd.nombre).DevolverRangos() * 3 + 10) {
+                if (generator.nextInt(100) < Esher.especializacion * Personaje.getInstance().DevolverHabilidadDeNombre(habAd.nombre).DevolverRangos() * 3 + 10) {
                     habAd.rangosAsignados++;
                 }
                 return 0;
             } catch (IllegalArgumentException iae) {
-                new MostrarError("La categoria \"" + nombre + "\" no contiene habilidades, no se puede asignar un rango.", "Error al añadir un rango");
+                MostrarError.showErrorMessage("La categoria \"" + nombre + "\" no contiene habilidades, no se puede asignar un rango.", "Error al añadir un rango");
                 return -1;
             } catch (NullPointerException npe) {
                 //Los Elementalistas dan un error al intentar añadir una Lista Básica de Hechizo, ya que estas pertenecen al adiestramiento. Lo ignoramos.               
@@ -625,11 +622,11 @@ public class Adiestramiento implements Serializable {
 
     public class HabilidadAdiestramiento implements Serializable {
 
-       public  String nombre;
-       public  int rangosBasicos;
-       public  int rangosAsignados;
+        public String nombre;
+        public int rangosBasicos;
+        public int rangosAsignados;
 
-       public  HabilidadAdiestramiento(String tmp_nombre, int tmp_rangos) {
+        public HabilidadAdiestramiento(String tmp_nombre, int tmp_rangos) {
             nombre = tmp_nombre;
             rangosBasicos = tmp_rangos;
 
@@ -642,11 +639,11 @@ public class Adiestramiento implements Serializable {
 
     public class EspecialesAdiestramiento implements Serializable {
 
-      public   String nombre;
-      public   int bonus;
-      public   int probabilidad;
+        public String nombre;
+        public int bonus;
+        public int probabilidad;
 
-      public   EspecialesAdiestramiento(String tmp_nombre, int tmp_bonus, int tmp_probabilidad) {
+        public EspecialesAdiestramiento(String tmp_nombre, int tmp_bonus, int tmp_probabilidad) {
             nombre = tmp_nombre;
             probabilidad = tmp_probabilidad;
             bonus = tmp_bonus;

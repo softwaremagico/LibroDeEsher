@@ -41,8 +41,9 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.gui.MostrarError;
+import com.softwaremagico.files.DirectorioRolemaster;
 import com.softwaremagico.librodeesher.gui.ElegirComunProfesionalGUI;
+import com.softwaremagico.librodeesher.gui.MostrarError;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,23 +53,22 @@ import java.util.logging.Logger;
 
 public class Personaje implements Serializable {
 
-    private Esher esher;
-    public Armas armas;
+    public Armas armas = new Armas();
     //Datos
     public String raza = "Hombre Alto";
     public String profesion = "Luchador";
     public String cultura = "Litoral";
     public String sexo = "Masculino";
-    public Caracteristicas caracteristicas;
-    public List<Categoria> categorias;
+    public Caracteristicas caracteristicas = new Caracteristicas();
+    public List<Categoria> categorias = new ArrayList<>();
     public int puntosDesarrolloNivel;
-    public int puntosDesarrolloGastadosAnterioresNiveles;
-    public int puntosDesarrolloAnterioresNiveles;
-    public int nivel;
+    public int puntosDesarrolloGastadosAnterioresNiveles = 0;
+    public int puntosDesarrolloAnterioresNiveles = 0;
+    public int nivel = 1;
     //Raza
-    public int puntosIdiomaRaza;
-    public List<String> especialesRaza;
-    public List<String> profesionesRestringidas;
+    public int puntosIdiomaRaza = 0;
+    public List<String> especialesRaza = new ArrayList<>();
+    public List<String> profesionesRestringidas = new ArrayList<>();
     public String tamaño;
     //Profesion
     public String[] arrayCaracteristicasProfesion;
@@ -76,13 +76,13 @@ public class Personaje implements Serializable {
     public String progresionPuntosPoder = "0/0/0/0/0";
     public CosteArmas costearmas;
     //Cultura
-    int puntosIdiomaCultura;
-    public IdiomasAdolescencia idiomasCultura;
+    int puntosIdiomaCultura = 0;
+    public IdiomasAdolescencia idiomasCultura = new IdiomasAdolescencia();
     public int rangosAficiones;
-    public List<String> listaAficiones;
-    public IdiomasAdolescencia idiomasRaza;
-    public List<String> culturasPosiblesPorRaza;
-    public List<String> armadurasCultura;
+    public List<String> listaAficiones = new ArrayList<>();
+    public IdiomasAdolescencia idiomasRaza = new IdiomasAdolescencia();
+    public List<String> culturasPosiblesPorRaza = new ArrayList<>();
+    public List<String> armadurasCultura = new ArrayList<>();
     //TRs
     private int trCanalizacion;
     private int trEsencia;
@@ -97,35 +97,35 @@ public class Personaje implements Serializable {
     public int tipoRaza;
     public float recuperacion;
     //Nombres
-    private String nombreCompleto;
-    public List<String> nombresMasculinos;
-    public List<String> nombresFemeninos;
-    public List<String> apellidos;
+    private String nombreCompleto = "";
+    public List<String> nombresMasculinos = new ArrayList<>();
+    public List<String> nombresFemeninos = new ArrayList<>();
+    public List<String> apellidos = new ArrayList<>();
     //Adiestramiento
-    public CostesAdiestramientos costesAdiestramientos;
-    public List<String> adiestramientosAntiguos;
-    public List<String> adiestramientosSugeridos;
-    public Adiestramiento adiestramiento;
+    public CostesAdiestramientos costesAdiestramientos = new CostesAdiestramientos();
+    public List<String> adiestramientosAntiguos = new ArrayList<>();
+    public List<String> adiestramientosSugeridos = new ArrayList<>();
+    public Adiestramiento adiestramiento = null;
     public transient ElegirComunProfesionalGUI grupoHab = null;
     //Conjuros Nivel (1-5), Nivel (6-10), Nivel (11-15), Nivel (16-20), Nivel (21+)
-    public int[][] listasBasicas;
-    public int[][] listasAbiertas;
-    public int[][] listasCerradas;
-    public int[][] listasOtros;
-    public int[][] listasAbiertasOtros;
-    public int[][] listasCerradasOtros;
-    public int[][] listasBasicasOtros;
-    public int[][] listasAbiertasArcanas;
-    public int[][] listasTriada;
-    public int[][] listasElementalesComplementarias;
-    public int[][] listasPropiasAdiestramientos;
-    public int[][] listasOtrasAdiestramientos;
-    public int rangosHechizosCultura;
+    public int[][] listasBasicas = new int[5][3];
+    public int[][] listasAbiertas = new int[5][3];
+    public int[][] listasCerradas = new int[5][3];
+    public int[][] listasOtros = new int[5][3];
+    public int[][] listasAbiertasOtros = new int[5][3];
+    public int[][] listasCerradasOtros = new int[5][3];
+    public int[][] listasBasicasOtros = new int[5][3];
+    public int[][] listasAbiertasArcanas = new int[5][3];
+    public int[][] listasTriada = new int[5][3];
+    public int[][] listasElementalesComplementarias = new int[5][3];
+    public int[][] listasPropiasAdiestramientos = new int[5][3];
+    public int[][] listasOtrasAdiestramientos = new int[5][3];
+    public int rangosHechizosCultura = 0;
     public HechizoCultura hechizoCultura = null;
-    public List<String> reinosDeProfesion;
-    public List<ListaDeHechizos> listaHechizos;
+    public List<String> reinosDeProfesion = new ArrayList<>();
+    public List<ListaDeHechizos> listaHechizos = new ArrayList<>();
     public String[] progresionesPuntosPoder;
-    public List<String> reinos;
+    public List<String> reinos = new ArrayList<>();
     public String reino = "";
     public final int ARCANO = 0;
     public final int ESENCIA = 1;
@@ -133,16 +133,16 @@ public class Personaje implements Serializable {
     public final int MENTALISMO = 3;
     public final int PSIONICO = 4;
     //Otros
-    public List<String> equipo;
-    public List<OtraHabilidad> otrasHabilidades;
+    public List<String> equipo = new ArrayList<>();
+    public List<OtraHabilidad> otrasHabilidades = new ArrayList<>();
     public int historial;
-    public int puntoshistorialCaracteristicas;
+    public int puntoshistorialCaracteristicas = 0;
     //Objetos Magicos
-    public List<ObjetoMagico> objetosMagicos;
+    public List<ObjetoMagico> objetosMagicos = new ArrayList<>();
     //Talentos
-    public List<Talento> talentos;
+    public List<Talento> talentos = new ArrayList<>();
     public int puntosTalentos;
-    public List<Categoria> categoriasNuevas;
+    public List<Categoria> categoriasNuevas = new ArrayList<>();
     public int bonusDefensiva = 0;
     public int armaduraNatural = 1;
     //Seguridad
@@ -150,65 +150,17 @@ public class Personaje implements Serializable {
     public int vecesCargadoPersonaje = 0; //Las veces que el jugador a repetido las tiradas de características. 
     public String loadedFrom = ""; // El path del archivo desde donde se ha cargado.
     public int lastSavedLevel = 1;
+    private static Personaje personaje = new Personaje();
 
-    Personaje(Esher tmp_esher) {
-        try {
-            esher = tmp_esher;
-            InicializaVariables();
-        } catch (Exception ex) {
-            Logger.getLogger(Personaje.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+    Personaje() {
     }
 
-    public void InicializaVariables() throws Exception {
-        caracteristicas = new Caracteristicas(esher);
-        categorias = new ArrayList<Categoria>();
-        profesionesRestringidas = new ArrayList<String>();
-        reinosDeProfesion = new ArrayList<String>();
-        reinos = new ArrayList<String>();
-        listaHechizos = new ArrayList<ListaDeHechizos>();
-        nombresMasculinos = new ArrayList<String>();
-        nombresFemeninos = new ArrayList<String>();
-        especialesRaza = new ArrayList<String>();
-        equipo = new ArrayList<String>();
-        adiestramientosAntiguos = new ArrayList<String>();
-        costesAdiestramientos = new CostesAdiestramientos();
-        culturasPosiblesPorRaza = new ArrayList<String>();
-        apellidos = new ArrayList<String>();
-        listasBasicas = new int[5][3];
-        listasAbiertas = new int[5][3];
-        listasCerradas = new int[5][3];
-        listasOtros = new int[5][3];
-        listasAbiertasOtros = new int[5][3];
-        listasCerradasOtros = new int[5][3];
-        listasBasicasOtros = new int[5][3];
-        listasAbiertasArcanas = new int[5][3];
-        listasPropiasAdiestramientos = new int[5][3];
-        listasOtrasAdiestramientos = new int[5][3];
-        listasTriada = new int[5][3];
-        listasElementalesComplementarias = new int[5][3];
-        progresionPuntosPoder = "0/0/0/0/0";
-        progresionDesarrolloFisico = "0/0/0/0/0";
-        idiomasRaza = new IdiomasAdolescencia();
-        idiomasCultura = new IdiomasAdolescencia();
-        nombreCompleto = "";
-        puntosIdiomaRaza = 0;
-        puntosIdiomaCultura = 0;
-        rangosHechizosCultura = 0;
-        puntosDesarrolloGastadosAnterioresNiveles = 0;
-        puntosDesarrolloAnterioresNiveles = 0;
-        listaAficiones = new ArrayList<String>();
-        adiestramiento = null;
-        armadurasCultura = new ArrayList<String>();
-        armas = new Armas(esher);
-        nivel = 1;
-        otrasHabilidades = new ArrayList<OtraHabilidad>();
-        objetosMagicos = new ArrayList<ObjetoMagico>();
-        talentos = new ArrayList<Talento>();
-        categoriasNuevas = new ArrayList<Categoria>();
-        puntoshistorialCaracteristicas = 0;
-        adiestramientosSugeridos = new ArrayList<String>();
+    public static Personaje getInstance() {
+        return personaje;
+    }
+
+    public static void setInstance(Personaje personaje) {
+        personaje = personaje;
     }
 
     /**
@@ -727,7 +679,7 @@ public class Personaje implements Serializable {
         cat.CaracteristicasDeCategoria();
         cat = DevolverCategoriaDeNombre("Listas Básicas Elementales Complementarias");
         cat.CaracteristicasDeCategoria();
-        if (esher.hechizosAdiestramientoOtrosReinosPermitidos) {
+        if (Esher.hechizosAdiestramientoOtrosReinosPermitidos) {
             cat = DevolverCategoriaDeNombre("Listas Hechizos de Adiestramientos de Otro Reino");
             cat.CaracteristicasDeCategoria();
         }
@@ -736,7 +688,7 @@ public class Personaje implements Serializable {
     /**
      * Indica si es la caracteristica principal de la profesion.
      */
-    public  boolean EsCaracteristicasPrincipal(Caracteristica car) {
+    public boolean EsCaracteristicasPrincipal(Caracteristica car) {
         try {
             if (car.DevolverAbreviatura().equals(arrayCaracteristicasProfesion[0])
                     || car.DevolverAbreviatura().equals(arrayCaracteristicasProfesion[1])) {
@@ -1022,7 +974,7 @@ public class Personaje implements Serializable {
             Categoria cat = null;
 
             String line;
-            List<String> lines = esher.directorioRolemaster.LeerLineasCategorias("categorías.txt");
+            List<String> lines = DirectorioRolemaster.LeerLineasCategorias("categorías.txt");
             categorias = new ArrayList<Categoria>();
             for (int i = 2; i < lines.size(); i++) {
                 line = (String) lines.get(i);
@@ -1031,14 +983,14 @@ public class Personaje implements Serializable {
                 String nombreCat = nombreAbrev[0];
                 try {
                     String abrevCat = nombreAbrev[1].replace(")", "");
-                    if (!((!esher.armasFuegoPermitidas && nombreCat.contains("Armas·Fuego"))
-                            || (!esher.hechizosAdiestramientoOtrosReinosPermitidos && nombreCat.contains("Listas Hechizos de Adiestramientos de Otro Reino")))) {
-                        cat = new Categoria(nombreCat, abrevCat, descomposed_line[1],
-                                descomposed_line[2], descomposed_line[3], esher);
+                    if (!((!Esher.armasFuegoPermitidas && nombreCat.contains("Armas·Fuego"))
+                            || (!Esher.hechizosAdiestramientoOtrosReinosPermitidos && nombreCat.contains("Listas Hechizos de Adiestramientos de Otro Reino")))) {
+                        cat = Categoria.getCategory(nombreCat, abrevCat, descomposed_line[1],
+                                descomposed_line[2], descomposed_line[3]);
                         categoriasNuevas.add(cat);
                     }
                 } catch (ArrayIndexOutOfBoundsException aiofb) {
-                    new MostrarError("Abreviatura de categoria mal definida en " + nombreCat, "Lectura de Categorías");
+                    MostrarError.showErrorMessage("Abreviatura de categoria mal definida en " + nombreCat, "Lectura de Categorías");
                 }
             }
             /////////////////////////////////////////
@@ -1316,11 +1268,11 @@ public class Personaje implements Serializable {
     public int DevolverBonusTalentoApariencia() {
         int bonusAparienciaTalentos = 0;
         //Apariencia modificada por los talentos!
-        for (int i = 0; i < esher.pj.talentos.size(); i++) {
-            Talento tal = esher.pj.talentos.get(i);
-            for (int j = 0; j < esher.pj.talentos.get(i).bonusHabilidad.size(); j++) {
-                if (esher.pj.talentos.get(i).bonusHabilidad.get(j).nombre.equals("Apariencia")) {
-                    bonusAparienciaTalentos += esher.pj.talentos.get(i).bonusHabilidad.get(j).bonus;
+        for (int i = 0; i < Personaje.getInstance().talentos.size(); i++) {
+            Talento tal = Personaje.getInstance().talentos.get(i);
+            for (int j = 0; j < Personaje.getInstance().talentos.get(i).bonusHabilidad.size(); j++) {
+                if (Personaje.getInstance().talentos.get(i).bonusHabilidad.get(j).nombre.equals("Apariencia")) {
+                    bonusAparienciaTalentos += Personaje.getInstance().talentos.get(i).bonusHabilidad.get(j).bonus;
                 }
             }
         }
@@ -1361,7 +1313,6 @@ public class Personaje implements Serializable {
                             }
                         }
                     } catch (NullPointerException npe) {
-                        System.out.println();
                         npe.printStackTrace();
                     }
                 }
@@ -1503,7 +1454,7 @@ public class Personaje implements Serializable {
         int total = 0;
         for (int j = 0; j < adiestramientosAntiguos.size(); j++) {
             String adiest = adiestramientosAntiguos.get(j);
-            total += new LeerAdiestramientos(esher, adiest, false).DevolverCosteDeAdiestramiento();
+            total += new LeerAdiestramientos(adiest, false).DevolverCosteDeAdiestramiento();
         }
         return total;
     }
@@ -1633,7 +1584,7 @@ public class Personaje implements Serializable {
 
             nombreCompleto += " " + apellidos.get(0);
         } catch (IndexOutOfBoundsException iobe) {
-            new MostrarError("Debes de poner un nombre a tu personaje.", "Personaje.");
+            MostrarError.showErrorMessage("Debes de poner un nombre a tu personaje.", "Personaje.");
             nombreCompleto = "Nombre.";
         }
 
@@ -1651,7 +1602,7 @@ public class Personaje implements Serializable {
         String[] supuestaCategoria = grupo.split("#");
         if ((cat = DevolverCategoriaDeNombre(supuestaCategoria[0])) != null) {
             //Se selecciona aleatoriamente algunas habilidades.
-            if (esher.aleatorio) {
+            if (Esher.aleatorio) {
                 for (int j = 0; j
                         < Integer.parseInt(supuestaCategoria[1].replace("}", "")); j++) {
                     hab = SeleccionarHabilidadAleatoriaDeCategoria(cat.DevolverNombre());
@@ -1676,7 +1627,7 @@ public class Personaje implements Serializable {
                 if (ContarHabilidadesEspeciales(cat, tipo) < Integer.parseInt(supuestaCategoria[1].replace("}", ""))
                         && (grupoHab == null || !grupoHab.isVisible())) {
                     grupoHab = new ElegirComunProfesionalGUI(tipo, cat,
-                            Integer.parseInt(supuestaCategoria[1].replace("}", "")), this, cuando);
+                            Integer.parseInt(supuestaCategoria[1].replace("}", "")), cuando);
                     grupoHab.setVisible(true);
                 }
 
@@ -1736,7 +1687,7 @@ public class Personaje implements Serializable {
             }
 
         } catch (NumberFormatException nfe) {
-            new MostrarError("Coste mal formado.", "Personaje");
+            MostrarError.showErrorMessage("Coste mal formado.", "Personaje");
         }
 
         return costeInt;
@@ -1744,14 +1695,14 @@ public class Personaje implements Serializable {
 
     public Habilidad SeleccionarHabilidadAleatoriaDeCategoria(String nombre) {
         Categoria cat = DevolverCategoriaDeNombre(nombre);
-        int n = esher.generator.nextInt(cat.listaHabilidades.size());
+        int n = Esher.generator.nextInt(cat.listaHabilidades.size());
         return cat.listaHabilidades.get(n);
     }
 
     public String SeleccionarNombreHabilidadDeListado(String listadoPorPuntosYComas, String tipo, String cuando) {
         String[] listadoHabilidades = listadoPorPuntosYComas.split(";");
-        if (esher.aleatorio) {
-            int n = esher.generator.nextInt(listadoHabilidades.length);
+        if (Esher.aleatorio) {
+            int n = Esher.generator.nextInt(listadoHabilidades.length);
             return listadoHabilidades[n];
         } else {
             //Las selecciona el usuario.
@@ -1761,11 +1712,11 @@ public class Personaje implements Serializable {
                 Categoria cat = hab.DevolverCategoria();
                 if (grupoHab == null || !grupoHab.isVisible() || cuando.equals("profesion")) {  //Hay profesiones que sacan varias ventanas de habilidades comunes.
                     grupoHab = new ElegirComunProfesionalGUI(tipo, cat,
-                            1, this, cuando, listadoHabilidades);
+                            1, cuando, listadoHabilidades);
                     grupoHab.setVisible(true);
                 }
             } catch (NullPointerException npe) {
-                new MostrarError("Habilidad desconocida: " + listadoHabilidades[0], "Personaje");
+                MostrarError.showErrorMessage("Habilidad desconocida: " + listadoHabilidades[0], "Personaje");
             }
 
         }
@@ -1777,8 +1728,8 @@ public class Personaje implements Serializable {
     }
 
     public void ActualizaArmas() throws Exception {
-        armas = new Armas(esher);
-        esher.LeerCategoriasDeArchivo();
+        armas = new Armas();
+        Esher.LeerCategoriasDeArchivo();
     }
 
     /**
@@ -1840,43 +1791,43 @@ public class Personaje implements Serializable {
     }
 
     public void CambiarGolpesArtesMarcialesGenericosADiversosGrados() {
-        if (esher.variosGradosGolpes) {
-            Categoria cat = esher.pj.DevolverCategoriaDeNombre("Artes Marciales·Golpes");
+        if (Esher.variosGradosGolpes) {
+            Categoria cat = Personaje.getInstance().DevolverCategoriaDeNombre("Artes Marciales·Golpes");
             cat.BorrarHabilidad("Golpes de Artes Marciales");
-            Habilidad hab = new Habilidad(cat, "Golpes Grado 1");
+            Habilidad hab = Habilidad.getSkill(cat, "Golpes Grado 1");
             cat.AddHabilidad(hab);
-            hab = new Habilidad(cat, "Golpes Grado 2");
+            hab = Habilidad.getSkill(cat, "Golpes Grado 2");
             cat.AddHabilidad(hab);
-            hab = new Habilidad(cat, "Golpes Grado 3");
+            hab = Habilidad.getSkill(cat, "Golpes Grado 3");
             cat.AddHabilidad(hab);
-            hab = new Habilidad(cat, "Golpes Grado 4");
+            hab = Habilidad.getSkill(cat, "Golpes Grado 4");
             cat.AddHabilidad(hab);
 
-            cat = esher.pj.DevolverCategoriaDeNombre("Artes Marciales·Barridos");
+            cat = Personaje.getInstance().DevolverCategoriaDeNombre("Artes Marciales·Barridos");
             cat.BorrarHabilidad("Barridos de Artes Marciales");
-            hab = new Habilidad(cat, "Barridos Grado 1");
+            hab = Habilidad.getSkill(cat, "Barridos Grado 1");
             cat.AddHabilidad(hab);
-            hab = new Habilidad(cat, "Barridos Grado 2");
+            hab = Habilidad.getSkill(cat, "Barridos Grado 2");
             cat.AddHabilidad(hab);
-            hab = new Habilidad(cat, "Barridos Grado 3");
+            hab = Habilidad.getSkill(cat, "Barridos Grado 3");
             cat.AddHabilidad(hab);
-            hab = new Habilidad(cat, "Barridos Grado 4");
+            hab = Habilidad.getSkill(cat, "Barridos Grado 4");
             cat.AddHabilidad(hab);
         } else {
-            Categoria cat = esher.pj.DevolverCategoriaDeNombre("Artes Marciales·Golpes");
+            Categoria cat = Personaje.getInstance().DevolverCategoriaDeNombre("Artes Marciales·Golpes");
             cat.BorrarHabilidad("Golpes Grado 1");
             cat.BorrarHabilidad("Golpes Grado 2");
             cat.BorrarHabilidad("Golpes Grado 3");
             cat.BorrarHabilidad("Golpes Grado 4");
-            Habilidad hab = new Habilidad(cat, "Golpes de Artes Marciales");
+            Habilidad hab = Habilidad.getSkill(cat, "Golpes de Artes Marciales");
             cat.AddHabilidad(hab);
 
-            cat = esher.pj.DevolverCategoriaDeNombre("Artes Marciales·Barridos");
+            cat = Personaje.getInstance().DevolverCategoriaDeNombre("Artes Marciales·Barridos");
             cat.BorrarHabilidad("Barridos Grado 1");
             cat.BorrarHabilidad("Barridos Grado 2");
             cat.BorrarHabilidad("Barridos Grado 3");
             cat.BorrarHabilidad("Barridos Grado 4");
-            hab = new Habilidad(cat, "Barridos de Artes Marciales");
+            hab = Habilidad.getSkill(cat, "Barridos de Artes Marciales");
             cat.AddHabilidad(hab);
         }
     }
@@ -1911,7 +1862,7 @@ public class Personaje implements Serializable {
 
     public void ObtenerMagia() {
         try {
-            Magia magia = new Magia(esher);
+            Magia magia = new Magia();
             magia.ObtenerMagiaPorProfesion(reino);
             ActualizaCaracteristicasReino();
         } catch (Exception ex) {
@@ -2014,7 +1965,7 @@ public class Personaje implements Serializable {
             Caracteristica car = caracteristicas.DevolverCaracteristicaDeAbreviatura(subirCaracteristicas.get(i));
             if (car != null) {
                 car.SubirNivelCaracteristica();
-                //esher.pj.caracteristicas.ActualizarCaracteristica(car);
+                //Personaje.getInstance().caracteristicas.ActualizarCaracteristica(car);
             }
 
         }
@@ -2036,7 +1987,7 @@ public class Personaje implements Serializable {
                     Habilidad hab = cat.DevolverHabilidadDeNombre(adiestramiento.DevolverListaCategorias().get(i).DevolverListaHabilidades().get(j).nombre);
                     hab.rangosAdiestramiento += adiestramiento.DevolverListaCategorias().get(i).DevolverListaHabilidades().get(j).Rangos();
                 } catch (NullPointerException nme) {
-                    new MostrarError("Habilidad encontrada en el adiestramiento (" + adiestramiento.nombre + "): " + adiestramiento.DevolverListaCategorias().get(i).DevolverListaHabilidades().get(j).nombre + ", no existente.", "Personaje");
+                    MostrarError.showErrorMessage("Habilidad encontrada en el adiestramiento (" + adiestramiento.nombre + "): " + adiestramiento.DevolverListaCategorias().get(i).DevolverListaHabilidades().get(j).nombre + ", no existente.", "Personaje");
                 }
 
             }
@@ -2046,7 +1997,7 @@ public class Personaje implements Serializable {
     public void ObtenerObjetosAdiestramiento() {
         int aceptados = 1;
         for (int i = 0; i < adiestramiento.especialesAdiestramiento.size(); i++) {
-            if ((esher.generator.nextInt(100)) < adiestramiento.especialesAdiestramiento.get(i).probabilidad / (aceptados)) {
+            if ((Esher.generator.nextInt(100)) < adiestramiento.especialesAdiestramiento.get(i).probabilidad / (aceptados)) {
                 String eq = adiestramiento.especialesAdiestramiento.get(i).nombre;
                 if (adiestramiento.especialesAdiestramiento.get(i).bonus > 0) {
                     eq += "\t" + adiestramiento.especialesAdiestramiento.get(i).bonus;
@@ -2070,8 +2021,8 @@ public class Personaje implements Serializable {
     public void SubirUnNivel() {
         InicioSubirNivel();
         CalcularSubidaCaracteristicas();
-        esher.pj.lock = true;
-        esher.pj.loadedFrom = "";
+        Personaje.getInstance().lock = true;
+        Personaje.getInstance().loadedFrom = "";
         CalcularPuntosDesarrollo();
     }
 
@@ -2080,7 +2031,7 @@ public class Personaje implements Serializable {
         puntosDesarrolloGastadosAnterioresNiveles +=
                 PuntosDesarrolloGastadosEnHabilidadesYCategorias();
         nivel++;
-        esher.bucleHabilidades = 0;
+        Esher.bucleHabilidades = 0;
         LimpiarRangos();
     }
 
@@ -2198,21 +2149,21 @@ public class Personaje implements Serializable {
      *
      **************************************************************
      */
-   public  class CostesAdiestramientos implements Serializable {
+    public class CostesAdiestramientos implements Serializable {
 
         private List<String> adiestramientos;
         private List<Integer> costes;
         private List<Boolean> preferido;
         private List<Boolean> prohibido;
 
-       public  CostesAdiestramientos() {
+        public CostesAdiestramientos() {
             costes = new ArrayList<Integer>();
             adiestramientos = new ArrayList<String>();
             preferido = new ArrayList<Boolean>();
             prohibido = new ArrayList<Boolean>();
         }
 
-       public  void AñadirAdiestramiento(String nombre, int coste) {
+        public void AñadirAdiestramiento(String nombre, int coste) {
             if (!ExisteAdiestramiento(nombre)) {
                 adiestramientos.add(nombre);
                 costes.add(coste);
@@ -2221,7 +2172,7 @@ public class Personaje implements Serializable {
             }
         }
 
-       public  boolean ExisteAdiestramiento(String nombre) {
+        public boolean ExisteAdiestramiento(String nombre) {
             for (int i = 0; i < adiestramientos.size(); i++) {
                 if (adiestramientos.get(i).equals(nombre)) {
                     return true;
@@ -2230,7 +2181,7 @@ public class Personaje implements Serializable {
             return false;
         }
 
-       public  void AñadirAdiestramientoPreferido(String nombre, int coste) {
+        public void AñadirAdiestramientoPreferido(String nombre, int coste) {
             if (!ExisteAdiestramiento(nombre)) {
                 adiestramientos.add(nombre);
                 costes.add(coste);
@@ -2239,7 +2190,7 @@ public class Personaje implements Serializable {
             }
         }
 
-       public  void AñadirAdiestramientoProhibido(String nombre, int coste) {
+        public void AñadirAdiestramientoProhibido(String nombre, int coste) {
             if (!ExisteAdiestramiento(nombre)) {
                 adiestramientos.add(nombre);
                 costes.add(coste);
@@ -2248,7 +2199,7 @@ public class Personaje implements Serializable {
             }
         }
 
-        public  int ObtenerCosteAdiestramiento(String nombre) {
+        public int ObtenerCosteAdiestramiento(String nombre) {
             for (int i = 0; i < adiestramientos.size(); i++) {
                 if (adiestramientos.get(i).equals(nombre)) {
                     return costes.get(i);
@@ -2257,7 +2208,7 @@ public class Personaje implements Serializable {
             return 1000;
         }
 
-       public  boolean EsAdiestramientoPreferido(String nombre) {
+        public boolean EsAdiestramientoPreferido(String nombre) {
             for (int i = 0; i < adiestramientos.size(); i++) {
                 if (adiestramientos.get(i).equals(nombre)) {
                     return preferido.get(i);
@@ -2266,7 +2217,7 @@ public class Personaje implements Serializable {
             return false;
         }
 
-       public  boolean EsAdiestramientoProhibido(String nombre) {
+        public boolean EsAdiestramientoProhibido(String nombre) {
             for (int i = 0; i < adiestramientos.size(); i++) {
                 if (adiestramientos.get(i).equals(nombre)) {
                     return prohibido.get(i);
@@ -2278,21 +2229,21 @@ public class Personaje implements Serializable {
 
     public class OtraHabilidad implements Serializable {
 
-       public  String nombre;
-       public  int coste;
+        public String nombre;
+        public int coste;
 
-      public   OtraHabilidad(String tmp_nombre, int tmp_coste) {
+        public OtraHabilidad(String tmp_nombre, int tmp_coste) {
             nombre = tmp_nombre;
             coste = tmp_coste;
         }
     }
 
-   public  class HechizoCultura implements Serializable {
+    public class HechizoCultura implements Serializable {
 
-     public    String nombre;
-     public    int rangos;
+        public String nombre;
+        public int rangos;
 
-     public    HechizoCultura(String tmp_nombre, int tmp_rangos) {
+        public HechizoCultura(String tmp_nombre, int tmp_rangos) {
             nombre = tmp_nombre;
             rangos = tmp_rangos;
         }

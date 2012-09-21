@@ -41,6 +41,7 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
+import com.softwaremagico.files.DirectorioRolemaster;
 import com.softwaremagico.librodeesher.gui.MostrarError;
 import java.io.File;
 import java.util.ArrayList;
@@ -50,17 +51,15 @@ import java.util.logging.Logger;
 
 public class LeerAdiestramientos {
 
-    private Esher esher;
     public String nombreAdiestramiento;
     private int modificadorCoste = 0;             //Si se cumplen requisitos profesionales, sale mas barato el adiestramiento.
     private boolean message = true;
     boolean reino = true;
     private boolean creandoPJ = false;
 
-   public  LeerAdiestramientos(Esher tmp_esher, String tmp_nombreAdiestramiento, boolean tmp_message) {
+   public  LeerAdiestramientos(String tmp_nombreAdiestramiento, boolean tmp_message) {
         message = tmp_message;
         try {
-            esher = tmp_esher;
             nombreAdiestramiento = tmp_nombreAdiestramiento;
             LeerFicheroAdiestramiento();
         } catch (Exception ex) {
@@ -68,11 +67,10 @@ public class LeerAdiestramientos {
         }
     }
 
-    public LeerAdiestramientos(Esher tmp_esher, String tmp_nombreAdiestramiento, boolean tmp_message, boolean tmp_generandoPJ) {
+    public LeerAdiestramientos(String tmp_nombreAdiestramiento, boolean tmp_message, boolean tmp_generandoPJ) {
         creandoPJ = tmp_generandoPJ;
         message = tmp_message;
         try {
-            esher = tmp_esher;
             nombreAdiestramiento = tmp_nombreAdiestramiento;
             LeerFicheroAdiestramiento();
         } catch (Exception ex) {
@@ -83,9 +81,9 @@ public class LeerAdiestramientos {
     private void LeerFicheroAdiestramiento() throws Exception {
         LimpiarAntiguoAdiestramiento();
         int lineaLeida = 0;
-        esher.pj.adiestramiento = new Adiestramiento(esher, nombreAdiestramiento);
-        String ficheroAdiestramiento = esher.BuscarDirectorioModulo(esher.directorioRolemaster.DIRECTORIO_ADIESTRAMIENTOS + File.separator + nombreAdiestramiento + ".txt");
-        List<String> lines = esher.directorioRolemaster.LeerLineasAdiestramiento(ficheroAdiestramiento);
+        Personaje.getInstance().adiestramiento = new Adiestramiento(nombreAdiestramiento);
+        String ficheroAdiestramiento = DirectorioRolemaster.BuscarDirectorioModulo(DirectorioRolemaster.DIRECTORIO_ADIESTRAMIENTOS + File.separator + nombreAdiestramiento + ".txt");
+        List<String> lines = DirectorioRolemaster.LeerLineasAdiestramiento(ficheroAdiestramiento);
         lineaLeida = LeerTiempoAdiestramiento(lines, lineaLeida);
         lineaLeida = LeerLimitacionesAdiestramiento(lines, lineaLeida);
         lineaLeida = LeerEspecialAdiestramiento(lines, lineaLeida);
@@ -102,11 +100,11 @@ public class LeerAdiestramientos {
      * Devuelve el coste de un adiestramiento para el personaje.
      */
     public int DevolverCosteDeAdiestramiento() {
-        return esher.pj.costesAdiestramientos.ObtenerCosteAdiestramiento(nombreAdiestramiento) - modificadorCoste;
+        return Personaje.getInstance().costesAdiestramientos.ObtenerCosteAdiestramiento(nombreAdiestramiento) - modificadorCoste;
     }
 
     public boolean EsAdiestramientoPreferido() {
-        return esher.pj.costesAdiestramientos.EsAdiestramientoPreferido(nombreAdiestramiento);
+        return Personaje.getInstance().costesAdiestramientos.EsAdiestramientoPreferido(nombreAdiestramiento);
     }
 
     /**
@@ -116,7 +114,7 @@ public class LeerAdiestramientos {
     public boolean EsAdiestramientoValido(String tmp_adiestramiento) {
         List<String> adiestramientosDisponibles;
         try {
-            adiestramientosDisponibles = esher.directorioRolemaster.AdiestramientosDisponibles(esher.modulosRolemaster);
+            adiestramientosDisponibles = DirectorioRolemaster.AdiestramientosDisponibles();
         } catch (Exception ex) {
             ex.printStackTrace();
             return false;
@@ -130,27 +128,27 @@ public class LeerAdiestramientos {
     public int LeerTiempoAdiestramiento(List<String> lines, int index) {
         index += 2;
         try {
-            esher.pj.adiestramiento.tiempo = Integer.parseInt(lines.get(index));
+            Personaje.getInstance().adiestramiento.tiempo = Integer.parseInt(lines.get(index));
         } catch (ArrayIndexOutOfBoundsException aiofb) {
-            new MostrarError("Problema con la linea: \"" + lines.get(index) + "\" del adiestramiento " + esher.pj.adiestramiento.nombre, "Leer adiestramientos");
+            MostrarError.showErrorMessage("Problema con la linea: \"" + lines.get(index) + "\" del adiestramiento " + Personaje.getInstance().adiestramiento.nombre, "Leer adiestramientos");
         }
         return 3;
     }
 
     public int LeerLimitacionesAdiestramiento(List<String> lines, int index) {
         index += 3;
-        esher.pj.adiestramiento.limitadoRazas = new ArrayList<String>();
+        Personaje.getInstance().adiestramiento.limitadoRazas = new ArrayList<>();
         while (!lines.get(index).equals("")) {
             String lineaAdiestramiento = lines.get(index);
             try {
                 String[] vectorRazasLimitadas = lineaAdiestramiento.split(", ");
                 for (int i = 0; i < vectorRazasLimitadas.length; i++) {
                     if (!vectorRazasLimitadas[i].contains("Ningun")) {
-                        esher.pj.adiestramiento.limitadoRazas.add(vectorRazasLimitadas[i]);
+                        Personaje.getInstance().adiestramiento.limitadoRazas.add(vectorRazasLimitadas[i]);
                     }
                 }
             } catch (ArrayIndexOutOfBoundsException aiofb) {
-                new MostrarError("Problema con la linea: \"" + lineaAdiestramiento + "\" del adiestramiento " + esher.pj.adiestramiento.nombre, "Leer adiestramientos");
+                MostrarError.showErrorMessage("Problema con la linea: \"" + lineaAdiestramiento + "\" del adiestramiento " + Personaje.getInstance().adiestramiento.nombre, "Leer adiestramientos");
             }
             index++;
         }
@@ -159,9 +157,9 @@ public class LeerAdiestramientos {
 
     public int LeerEspecialAdiestramiento(List<String> lines, int index) {
         index += 3;
-        int bonusAdiestramiento = 0;
+        int bonusAdiestramiento;
         int probabilidadAdiestramiento = 0;
-        esher.pj.listaAficiones = new ArrayList<String>();
+        Personaje.getInstance().listaAficiones = new ArrayList<>();
         while (!lines.get(index).equals("")) {
             if (creandoPJ) {
                 String lineaAdiestramiento = lines.get(index);
@@ -171,16 +169,16 @@ public class LeerAdiestramientos {
                     try {
                         probabilidadAdiestramiento = Integer.parseInt(vectorAdiestramiento[1]);
                     } catch (NumberFormatException nfe) {
-                        new MostrarError("Formato de porcentaje de especial \"" + tmp_nombreAdiestramiento + "\" en adiestramiento " + nombreAdiestramiento, "Leer adiestramientos");
+                        MostrarError.showErrorMessage("Formato de porcentaje de especial \"" + tmp_nombreAdiestramiento + "\" en adiestramiento " + nombreAdiestramiento, "Leer adiestramientos");
                     }
                     if (vectorAdiestramiento.length > 2) {
                         bonusAdiestramiento = Integer.parseInt(vectorAdiestramiento[2]);
                     } else {
                         bonusAdiestramiento = 0;
                     }
-                    esher.pj.adiestramiento.AñadirEspecialAdiestramiento(tmp_nombreAdiestramiento, bonusAdiestramiento, probabilidadAdiestramiento);
+                    Personaje.getInstance().adiestramiento.AñadirEspecialAdiestramiento(tmp_nombreAdiestramiento, bonusAdiestramiento, probabilidadAdiestramiento);
                 } catch (ArrayIndexOutOfBoundsException aiofb) {
-                    new MostrarError("Problema con la linea: \"" + lineaAdiestramiento + "\" del adiestramiento " + esher.pj.adiestramiento.nombre, "Leer adiestramientos");
+                    MostrarError.showErrorMessage("Problema con la linea: \"" + lineaAdiestramiento + "\" del adiestramiento " + Personaje.getInstance().adiestramiento.nombre, "Leer adiestramientos");
                 }
             }
             index++;
@@ -194,7 +192,7 @@ public class LeerAdiestramientos {
         boolean otras = true;
         boolean ignorarHabilidades = false;
         index += 3;
-        esher.pj.listaAficiones = new ArrayList<String>();
+        Personaje.getInstance().listaAficiones = new ArrayList<>();
         while (!lines.get(index).equals("")) {
             if (creandoPJ) {
                 String lineaAdiestramiento = lines.get(index);
@@ -205,17 +203,17 @@ public class LeerAdiestramientos {
                     ignorarHabilidades = false;
                     //Es una lista propia del adiestramiento:
                     if (lineaAdiestramiento.contains("Listas Hechizos de Adiestramiento")) {
-                        String categorias = null;
+                        String categorias;
                         if (lineaAdiestramiento.contains("Mentalismo")) {
-                            if (esher.pj.reino.contains("Mentalismo")) {
+                            if (Personaje.getInstance().reino.contains("Mentalismo")) {
                                 categorias = "Listas Hechizos de Adiestramiento";
                             } else {
                                 reino = false;
-                                if (esher.hechizosAdiestramientoOtrosReinosPermitidos) {
+                                if (Esher.hechizosAdiestramientoOtrosReinosPermitidos) {
                                     categorias = "Listas Hechizos de Adiestramientos de Otro Reino";
                                 } else {
                                     if (message) {
-                                        new MostrarError("El reino del personaje no coincide con el del adiestramiento, se ignoran las listas de hechizos", "Leer adiestramientos");
+                                        MostrarError.showErrorMessage("El reino del personaje no coincide con el del adiestramiento, se ignoran las listas de hechizos", "Leer adiestramientos");
                                     }
                                     index++;
                                     ignorarHabilidades = true;
@@ -223,15 +221,15 @@ public class LeerAdiestramientos {
                                 }
                             }
                         } else if (lineaAdiestramiento.contains("Esencia")) {
-                            if (esher.pj.reino.contains("Esencia")) {
+                            if (Personaje.getInstance().reino.contains("Esencia")) {
                                 categorias = "Listas Hechizos de Adiestramiento";
                             } else {
                                 reino = false;
-                                if (esher.hechizosAdiestramientoOtrosReinosPermitidos) {
+                                if (Esher.hechizosAdiestramientoOtrosReinosPermitidos) {
                                     categorias = "Listas Hechizos de Adiestramientos de Otro Reino";
                                 } else {
                                     if (message) {
-                                        new MostrarError("El reino del personaje no coincide con el del adiestramiento, se ignoran las listas de hechizos", "Leer adiestramientos");
+                                        MostrarError.showErrorMessage("El reino del personaje no coincide con el del adiestramiento, se ignoran las listas de hechizos", "Leer adiestramientos");
                                     }
                                     index++;
                                     ignorarHabilidades = true;
@@ -239,15 +237,15 @@ public class LeerAdiestramientos {
                                 }
                             }
                         } else if (lineaAdiestramiento.contains("Canalizaci")) {
-                            if (esher.pj.reino.contains("Canlizaci")) {
+                            if (Personaje.getInstance().reino.contains("Canlizaci")) {
                                 categorias = "Listas Hechizos de Adiestramiento";
                             } else {
                                 reino = false;
-                                if (esher.hechizosAdiestramientoOtrosReinosPermitidos) {
+                                if (Esher.hechizosAdiestramientoOtrosReinosPermitidos) {
                                     categorias = "Listas Hechizos de Adiestramientos de Otro Reino";
                                 } else {
                                     if (message) {
-                                        new MostrarError("El reino del personaje no coincide con el del adiestramiento, se ignoran las listas de hechizos", "Leer adiestramientos");
+                                        MostrarError.showErrorMessage("El reino del personaje no coincide con el del adiestramiento, se ignoran las listas de hechizos", "Leer adiestramientos");
                                     }
                                     index++;
                                     ignorarHabilidades = true;
@@ -255,7 +253,7 @@ public class LeerAdiestramientos {
                                 }
                             }
                         } else {
-                            new MostrarError("Por favor, indica en el adiestramiento " + nombreAdiestramiento + " el reino en la categoría Listas Hechizos de Adiestramiento (Reino)", "Leer Adiestramiento");
+                            MostrarError.showErrorMessage("Por favor, indica en el adiestramiento " + nombreAdiestramiento + " el reino en la categoría Listas Hechizos de Adiestramiento (Reino)", "Leer Adiestramiento");
                             index++;
                             continue;
                         }
@@ -266,15 +264,15 @@ public class LeerAdiestramientos {
                             int tmp_min = Integer.parseInt(vectorCategoria[2]);
                             int tmp_max = Integer.parseInt(vectorCategoria[3]);
                             int tmp_rngHab = Integer.parseInt(vectorCategoria[4]);
-                            esher.pj.adiestramiento.AñadirCategoriaAdiestramiento(categorias, tmp_rangos,
+                            Personaje.getInstance().adiestramiento.AñadirCategoriaAdiestramiento(categorias, tmp_rangos,
                                     tmp_min, tmp_max, tmp_rngHab);
                         } catch (NullPointerException npe) {
-                            new MostrarError("Categoria " + vectorCategoria[0] + " mal formada en adiestramiento " + nombreAdiestramiento, "Leer Adiestramiento");
+                            MostrarError.showErrorMessage("Categoria " + vectorCategoria[0] + " mal formada en adiestramiento " + nombreAdiestramiento, "Leer Adiestramiento");
                         }
                     //Son hechizos
                     } else if (lineaAdiestramiento.contains("Listas") && lineaAdiestramiento.contains("Hechizos")) {
                         String categorias = null;
-                        if (esher.pj.EsCombatiente()) {
+                        if (Personaje.getInstance().EsCombatiente()) {
                             categorias = "Listas Abiertas de Hechizos";
                         } else {
                             categorias = "Listas Básicas de Hechizos";
@@ -283,7 +281,7 @@ public class LeerAdiestramientos {
                         int tmp_min = Integer.parseInt(vectorCategoria[2]);
                         int tmp_max = Integer.parseInt(vectorCategoria[3]);
                         int tmp_rngHab = Integer.parseInt(vectorCategoria[4]);
-                        esher.pj.adiestramiento.AñadirListadoCategorias(categorias, tmp_rangos,
+                        Personaje.getInstance().adiestramiento.AñadirListadoCategorias(categorias, tmp_rangos,
                                 tmp_min, tmp_max, tmp_rngHab);
                     } else if (lineaAdiestramiento.contains("{")) {
                         //Leer categorias del mismo grupo.
@@ -292,9 +290,9 @@ public class LeerAdiestramientos {
                         int tmp_min = Integer.parseInt(vectorCategoria[2]);
                         int tmp_max = Integer.parseInt(vectorCategoria[3]);
                         int tmp_rngHab = Integer.parseInt(vectorCategoria[4]);
-                        esher.pj.adiestramiento.AñadirListadoCategorias(categorias, tmp_rangos,
+                        Personaje.getInstance().adiestramiento.AñadirListadoCategorias(categorias, tmp_rangos,
                                 tmp_min, tmp_max, tmp_rngHab);
-                    } else if (esher.pj.DevolverCategoriaDeNombre(vectorCategoria[0]) != null) {
+                    } else if (Personaje.getInstance().DevolverCategoriaDeNombre(vectorCategoria[0]) != null) {
                         //Categorias normales
                         tmp_nombre = vectorCategoria[0];
                         try {
@@ -302,13 +300,13 @@ public class LeerAdiestramientos {
                             int tmp_min = Integer.parseInt(vectorCategoria[2]);
                             int tmp_max = Integer.parseInt(vectorCategoria[3]);
                             int tmp_rngHab = Integer.parseInt(vectorCategoria[4]);
-                            esher.pj.adiestramiento.AñadirCategoriaAdiestramiento(tmp_nombre, tmp_rangos,
+                            Personaje.getInstance().adiestramiento.AñadirCategoriaAdiestramiento(tmp_nombre, tmp_rangos,
                                     tmp_min, tmp_max, tmp_rngHab);
                         } catch (NullPointerException npe) {
-                            new MostrarError("Categoria " + vectorCategoria[0] + " mal formada en adiestramiento " + nombreAdiestramiento, "Leer Adiestramiento");
+                            MostrarError.showErrorMessage("Categoria " + vectorCategoria[0] + " mal formada en adiestramiento " + nombreAdiestramiento, "Leer Adiestramiento");
                         }
                     } else {
-                        new MostrarError("Categoria " + vectorCategoria[0] + " no encontrada en adiestramiento " + nombreAdiestramiento, "Leer Adiestramiento");
+                        MostrarError.showErrorMessage("Categoria " + vectorCategoria[0] + " no encontrada en adiestramiento " + nombreAdiestramiento, "Leer Adiestramiento");
                     }
                 } else {
                     //Es un listado de habilidades
@@ -316,16 +314,16 @@ public class LeerAdiestramientos {
                         if (vectorCategoria[0].contains("{")) {
                             otras = false;
                             String habilidades = vectorCategoria[0].replace("}", "").replace("{", "").replace("  *  ", "");
-                            esher.pj.adiestramiento.AñadirListadoHabilidadesUltimaCategoriaAdiestramiento(habilidades);
+                            Personaje.getInstance().adiestramiento.AñadirListadoHabilidadesUltimaCategoriaAdiestramiento(habilidades);
                         } else {
                             //Es una habilidad.
                             try {
                                 tmp_nombre = vectorCategoria[0];
                                 tmp_nombre = tmp_nombre.substring(5);
                                 tmp_rangos = Integer.parseInt(vectorCategoria[1]);
-                                esher.pj.adiestramiento.AñadirHabilidadUltimaCategoriaAdiestramiento(tmp_nombre, tmp_rangos);
+                                Personaje.getInstance().adiestramiento.AñadirHabilidadUltimaCategoriaAdiestramiento(tmp_nombre, tmp_rangos);
                             } catch (Exception e) {
-                                new MostrarError("Habilidad " + vectorCategoria[0] + " mal formada en adiestramiento " + nombreAdiestramiento, "Leer Adiestramiento");
+                                MostrarError.showErrorMessage("Habilidad " + vectorCategoria[0] + " mal formada en adiestramiento " + nombreAdiestramiento, "Leer Adiestramiento");
                             }
                         }
                     }
@@ -335,9 +333,9 @@ public class LeerAdiestramientos {
                 String siguienteLineaAdiestramiento = lines.get(index + 1);
                 if (!siguienteLineaAdiestramiento.startsWith("  *  ") && otras) {
                     try {
-                        esher.pj.adiestramiento.AñadirOtrasHabilidadesUltimaCategoriaAdiestramiento();
+                        Personaje.getInstance().adiestramiento.AñadirOtrasHabilidadesUltimaCategoriaAdiestramiento();
                     } catch (NullPointerException npe) {
-                        new MostrarError("Linea: " + lineaAdiestramiento + " mal formada en adiestramiento " + nombreAdiestramiento, "Leer Adiestramiento");
+                        MostrarError.showErrorMessage("Linea: " + lineaAdiestramiento + " mal formada en adiestramiento " + nombreAdiestramiento, "Leer Adiestramiento");
                     }
                 }
             }
@@ -348,7 +346,7 @@ public class LeerAdiestramientos {
 
     public int LeerAumentosCaracteristicasAdiestramiento(List<String> lines, int index) {
         index += 3;
-        esher.pj.listaAficiones = new ArrayList<String>();
+        Personaje.getInstance().listaAficiones = new ArrayList<String>();
         while (!lines.get(index).equals("")) {
             if (creandoPJ) {
                 String lineaAdiestramiento = lines.get(index);
@@ -356,12 +354,12 @@ public class LeerAdiestramientos {
                     if (lineaAdiestramiento.contains("{")) {
                         //Lista para elegir caracteristica.
                         lineaAdiestramiento = lineaAdiestramiento.replace("}", "").replace("{", "");
-                        esher.pj.adiestramiento.AñadirListaAumentoCaracteristicaAdiestramiento(lineaAdiestramiento);
+                        Personaje.getInstance().adiestramiento.AñadirListaAumentoCaracteristicaAdiestramiento(lineaAdiestramiento);
                     } else {
-                        esher.pj.adiestramiento.AñadirAumentoCaracteristicaAdiestramiento(lineaAdiestramiento);
+                        Personaje.getInstance().adiestramiento.AñadirAumentoCaracteristicaAdiestramiento(lineaAdiestramiento);
                     }
                 } catch (ArrayIndexOutOfBoundsException aiofb) {
-                    new MostrarError("Problema con la linea: \"" + lineaAdiestramiento + "\" del adiestramiento " + esher.pj.adiestramiento.nombre, "Leer Adiestramiento");
+                    MostrarError.showErrorMessage("Problema con la linea: \"" + lineaAdiestramiento + "\" del adiestramiento " + Personaje.getInstance().adiestramiento.nombre, "Leer Adiestramiento");
                 }
             }
             index++;
@@ -375,7 +373,7 @@ public class LeerAdiestramientos {
         boolean seguirComprobando = true;
 
         index += 3;
-        esher.pj.listaAficiones = new ArrayList<String>();
+        Personaje.getInstance().listaAficiones = new ArrayList<>();
         while (!lines.get(index).equals("")) {
             if (creandoPJ) {
                 String lineaAdiestramiento = lines.get(index);
@@ -388,11 +386,11 @@ public class LeerAdiestramientos {
                         int valor = Integer.parseInt(requisito[1].replace(")", ""));
                         int modificaciones = Integer.parseInt(requisito[2].replace(")", ""));
                         //Si es una habilidad, es tener más de X rangos.
-                        if ((hab = esher.pj.DevolverHabilidadDeNombre(nombre)) != null && seguirComprobando) {
+                        if ((hab = Personaje.getInstance().DevolverHabilidadDeNombre(nombre)) != null && seguirComprobando) {
                             if (hab.DevolverRangos() >= valor) {
                                 modificadorCoste = modificaciones;
                             }
-                        } else if ((car = esher.pj.caracteristicas.DevolverCaracteristicaDeAbreviatura(nombre)) != null &&
+                        } else if ((car = Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura(nombre)) != null &&
                                 seguirComprobando) {
                             //Si es una caracteristica, es superar un valor.
                             if (car.Total() >= valor) {
@@ -412,14 +410,14 @@ public class LeerAdiestramientos {
 
     private int LeerHabilidadesEstiloDeVida(List<String> lines, int index) {
         index += 3;
-        esher.pj.listaAficiones = new ArrayList<String>();
+        Personaje.getInstance().listaAficiones = new ArrayList<>();
         while (!lines.get(index).equals("")) {
             if (creandoPJ) {
                 String lineaAdiestramiento = lines.get(index);
                 if (!lineaAdiestramiento.equals("Ninguna") || !lineaAdiestramiento.equals("Ninguno")) {
                     String[] habilidades = lineaAdiestramiento.split(", ");
                     for (int i = 0; i < habilidades.length; i++) {
-                        Habilidad hab = esher.pj.DevolverHabilidadDeNombre(habilidades[i]);
+                        Habilidad hab = Personaje.getInstance().DevolverHabilidadDeNombre(habilidades[i]);
                         if (hab != null) {
                             hab.estiloDeVida = true;
                         }
@@ -444,11 +442,11 @@ public class LeerAdiestramientos {
                     for (int i = 0; i < vectorHabilidades.length; i++) {
                         //Si es un grupo de caracteristicas para elegir, selecciona una.
                         if (vectorHabilidades[i].startsWith("{")) {
-                            vectorHabilidades[i] = esher.pj.SeleccionarNombreHabilidadDeListado(vectorHabilidades[i].replace("}", "").replace("{", ""), tipo, "adiestramiento");
+                            vectorHabilidades[i] = Personaje.getInstance().SeleccionarNombreHabilidadDeListado(vectorHabilidades[i].replace("}", "").replace("{", ""), tipo, "adiestramiento");
                         }
                         if (!vectorHabilidades[i].equals("Ninguna")) {
                             try {
-                                hab = esher.pj.DevolverHabilidadDeNombre(vectorHabilidades[i]);
+                                hab = Personaje.getInstance().DevolverHabilidadDeNombre(vectorHabilidades[i]);
                                 if (tipo.equals("Común")) {
                                     hab.HacerComunAdiestramiento();
                                 }
@@ -461,8 +459,8 @@ public class LeerAdiestramientos {
                             } catch (NullPointerException npe) {
                                 //Puede ser una habilidad de un categoria.
 
-                                if (!esher.pj.SeleccionarGrupoHabilidadesEspeciales(tipo, vectorHabilidades[i], "adiestramiento")) {
-                                    new MostrarError("Habilidad desconocida: " + vectorHabilidades[i], "Leer adiestramiento");
+                                if (!Personaje.getInstance().SeleccionarGrupoHabilidadesEspeciales(tipo, vectorHabilidades[i], "adiestramiento")) {
+                                    MostrarError.showErrorMessage("Habilidad desconocida: " + vectorHabilidades[i], "Leer adiestramiento");
                                 }
                             }
                         }
@@ -471,7 +469,7 @@ public class LeerAdiestramientos {
                 index++;
             }
         } catch (IndexOutOfBoundsException iob) {
-            new MostrarError("Adiestramiento " + nombreAdiestramiento + " tiene un error en la definición de los rangos.", "Leer Adiestramientos");
+            MostrarError.showErrorMessage("Adiestramiento " + nombreAdiestramiento + " tiene un error en la definición de los rangos.", "Leer Adiestramientos");
         }
         return index;
     }
@@ -492,8 +490,8 @@ public class LeerAdiestramientos {
     }
 
     private void LimpiarAntiguoAdiestramiento() {
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            Categoria cat = esher.pj.categorias.get(i);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            Categoria cat = Personaje.getInstance().categorias.get(i);
             for (int j = 0; j < cat.listaHabilidades.size(); j++) {
                 Habilidad hab = cat.listaHabilidades.get(j);
                 hab.NoEsProfesionalAdiestramiento();

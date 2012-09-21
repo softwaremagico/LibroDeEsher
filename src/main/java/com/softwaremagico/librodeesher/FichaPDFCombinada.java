@@ -42,7 +42,6 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.gui.MostrarError;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -56,6 +55,7 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.softwaremagico.librodeesher.gui.MostrarError;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -85,17 +85,15 @@ public class FichaPDFCombinada extends FichaPDF {
     private int paginas = 0;
     private int paginasEscritas = 0;
 
-    FichaPDFCombinada(Esher tmp_esher, String path) throws Exception {
-        esher = tmp_esher;
+    FichaPDFCombinada(String path) throws Exception {
         completar = true;
-        PersonajePDF(path);
+        PersonajePDFCom(path);
     }
 
     /**
      * Crea una hoja de personajes en formato PDF.
      */
-    @Override
-    public void PersonajePDF(String path) throws Exception {
+    private void PersonajePDFCom(String path) throws Exception {
         Document document = new Document(PageSize.A4);
 
         table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -112,15 +110,15 @@ public class FichaPDFCombinada extends FichaPDF {
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
             GeneratePDF(document, writer);
         } catch (FileNotFoundException fnfe) {
-            new MostrarError("Creación de PDF fallida.", "Exportar a PDF");
+            MostrarError.showErrorMessage("Creación de PDF fallida.", "Exportar a PDF");
         }
     }
 
     private void GeneratePDF(Document document, PdfWriter writer) throws Exception {
         String font = FontFactory.HELVETICA;
 
-        doscaras = (esher.pj.talentos.size() > 0 || esher.pj.especialesRaza.size() > 0
-                || esher.pj.objetosMagicos.size() > 0 || esher.pj.equipo.size() > 0);
+        doscaras = (Personaje.getInstance().talentos.size() > 0 || Personaje.getInstance().especialesRaza.size() > 0
+                || Personaje.getInstance().objetosMagicos.size() > 0 || Personaje.getInstance().equipo.size() > 0);
 
         ContarLineas();
 
@@ -764,7 +762,7 @@ public class FichaPDFCombinada extends FichaPDF {
         tableC.flushContent();
         PdfPCell cell;
 
-        Paragraph p = new Paragraph("Personaje: " + esher.pj.DevolverNombreCompleto(), FontFactory.getFont(FontFactory.HELVETICA, fontSize));
+        Paragraph p = new Paragraph("Personaje: " + Personaje.getInstance().DevolverNombreCompleto(), FontFactory.getFont(FontFactory.HELVETICA, fontSize));
         cell = new PdfPCell(p);
         cell.setMinimumHeight(15);
         cell.setBorderWidth(0);
@@ -814,11 +812,11 @@ public class FichaPDFCombinada extends FichaPDF {
         cell.setColspan(2);
         table.addCell(cell);
 
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            cat = esher.pj.categorias.get(i);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            cat = Personaje.getInstance().categorias.get(i);
             if (cat.MereceLaPenaImprimir()) {
                 CategoriaCell(writer, document, cat, font);
-                ListadoHabilidades(document, writer, cat, font, i == esher.pj.categorias.size() - 1);
+                ListadoHabilidades(document, writer, cat, font, i == Personaje.getInstance().categorias.size() - 1);
             }
         }
 
@@ -919,8 +917,8 @@ public class FichaPDFCombinada extends FichaPDF {
         int lineasPredecidas = 0;
 
 
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            cat = esher.pj.categorias.get(i);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            cat = Personaje.getInstance().categorias.get(i);
             if (cat.MereceLaPenaImprimir()) {
                 categoriasAMostrar++;
 

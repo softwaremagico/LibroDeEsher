@@ -41,8 +41,8 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
+import com.softwaremagico.files.DirectorioRolemaster;
 import com.softwaremagico.librodeesher.gui.MostrarError;
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,13 +57,14 @@ public class Armas implements Serializable {
     private TiposArmas tiposArmas;
     private int ultimaArmaSeleccionadaParaCostes;
     public ArmasCultura armasCultura;
-    private Esher esher;
     private Random generator = new Random();
 
-    public Armas(Esher tmp_esher)
-            throws Exception {
-        esher = tmp_esher;
-        LeerArmas();
+    public Armas(){
+        try {
+            LeerArmas();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         Inicializar();
         ultimaArmaSeleccionadaParaCostes = 0;
     }
@@ -73,7 +74,7 @@ public class Armas implements Serializable {
     }
 
     public List<String> LeerArmasFichero(String fichero) {
-        return esher.directorioRolemaster.LeerLineasArmas(fichero);
+        return DirectorioRolemaster.LeerLineasArmas(fichero);
     }
 
     public void BorrarArmasCultura() {
@@ -123,7 +124,7 @@ public class Armas implements Serializable {
     }
 
     public List<String> DevolverArmasCulturaDisponible() {
-        List<String> totalArmas = new ArrayList<String>();
+        List<String> totalArmas = new ArrayList<>();
         for (int i = 0; i < armasCultura.DevolverTodasArmasCultura().size(); i++) {
             totalArmas.add(armasCultura.DevolverTodasArmasCultura().get(i).nombreArma);
         }
@@ -131,8 +132,8 @@ public class Armas implements Serializable {
     }
 
     private void TiposArmas() throws Exception {
-        List<String> ficherosArmas = esher.directorioRolemaster.TiposArmasDisponibles(esher.modulosRolemaster);
-        tiposArmas = new TiposArmas(esher.pj);
+        List<String> ficherosArmas = DirectorioRolemaster.TiposArmasDisponibles();
+        tiposArmas = new TiposArmas(Personaje.getInstance());
         for (int i = 0; i < ficherosArmas.size(); i++) {
             TipoArma tArma;
             tArma = new TipoArma(ficherosArmas.get(i));
@@ -143,7 +144,7 @@ public class Armas implements Serializable {
     }
 
     public List<String> ListarTodasArmas() {
-        List<String> todasArmas = new ArrayList<String>();
+        List<String> todasArmas = new ArrayList<>();
         for (int i = 0; i < tiposArmas.Size(); i++) {
             TipoArma ta = tiposArmas.Get(i);
             for (int j = 0; j < ta.armas.size(); j++) {
@@ -154,7 +155,7 @@ public class Armas implements Serializable {
     }
 
     public List<String> ListarTodasArmasNoRestringidas() {
-        List<String> todasArmas = new ArrayList<String>();
+        List<String> todasArmas = new ArrayList<>();
         for (int i = 0; i < tiposArmas.Size(); i++) {
             TipoArma ta = tiposArmas.Get(i);
             for (int j = 0; j < ta.armas.size(); j++) {
@@ -219,7 +220,7 @@ public class Armas implements Serializable {
      */
     List<String> SeleccionarArmasValidasDeCultura() throws Exception {
         //List<String> tiposArmasDisponibles = TiposArmasDisponibles();
-        List<String> armasDisponibles = new ArrayList<String>();
+        List<String> armasDisponibles = new ArrayList<>();
         for (int j = 0; j < armasCultura.DevolverTodasArmasCultura().size(); j++) {
             String armaSeleccionada = armasCultura.DevolverTodasArmasCultura().get(j).nombreArma;
 
@@ -240,7 +241,7 @@ public class Armas implements Serializable {
      */
     public List<String> SeleccionarNombreArmasValidasPorCategoriaDeTipo(String clase) throws Exception {
         List<String> listadoArmas = DevolverNombreArmasClase(clase);
-        List<String> listadoArmasCategoria = new ArrayList<String>();
+        List<String> listadoArmasCategoria = new ArrayList<>();
 
         for (int i = 0; i < armasCultura.GetTotalArmas(); i++) {
             String armaSeleccionada = armasCultura.GetNombreArmaCultura(i);
@@ -252,7 +253,7 @@ public class Armas implements Serializable {
     }
 
     public List<String> DevolverListaNombreTiposDeArma() {
-        List<String> nombreTipos = new ArrayList<String>();
+        List<String> nombreTipos = new ArrayList<>();
         for (int i = 0; i < tiposArmas.Size(); i++) {
             nombreTipos.add(tiposArmas.Get(i).tipo);
         }
@@ -287,7 +288,7 @@ public class Armas implements Serializable {
         private Personaje pj;
 
         TiposArmas(Personaje tmp_pj) {
-            tiposArmas = new ArrayList<TipoArma>();
+            tiposArmas = new ArrayList<>();
             pj = tmp_pj;
         }
 
@@ -385,7 +386,7 @@ public class Armas implements Serializable {
          * Baraja una lista de armas a partir de un índice.
          */
         List<TipoArma> BarajarListaTipos(int index, List<TipoArma> lista) {
-            List<TipoArma> listaBarajada = new ArrayList<TipoArma>();
+            List<TipoArma> listaBarajada = new ArrayList<>();
             int pos = 0;
             int cont = 0;
             while (lista.size() > 0 && cont < index) {
@@ -411,20 +412,20 @@ public class Armas implements Serializable {
             if (ContainsTipo(tipo)) {
                 //Arma a incluir.
                 int comun = 0;
-                int rC = esher.pj.DevolverCategoriaDeNombre("Armas·" + tipo).rangosCultura;
-                if (esher.pj.DevolverCategoriaDeNombre("Armas·" + tipo).ExisteHabilidadComun()) {
+                int rC = Personaje.getInstance().DevolverCategoriaDeNombre("Armas·" + tipo).rangosCultura;
+                if (Personaje.getInstance().DevolverCategoriaDeNombre("Armas·" + tipo).ExisteHabilidadComun()) {
                     comun = 3;
                 }
-                int rS = esher.pj.DevolverCategoriaDeNombre("Armas·" + tipo).rangosSugeridos + esher.pj.DevolverCategoriaDeNombre("Armas·" + tipo).DevolverRangosSugeridosHabilidades();
+                int rS = Personaje.getInstance().DevolverCategoriaDeNombre("Armas·" + tipo).rangosSugeridos + Personaje.getInstance().DevolverCategoriaDeNombre("Armas·" + tipo).DevolverRangosSugeridosHabilidades();
 
                 for (int i = 0; i < lista.size(); i++) {
                     //Arma con la que se compara.
                     int comunA = 0;
-                    int rCA = esher.pj.DevolverCategoriaDeNombre("Armas·" + lista.get(i).tipo).rangosCultura;
-                    if (esher.pj.DevolverCategoriaDeNombre("Armas·" + lista.get(i).tipo).ExisteHabilidadComun()) {
+                    int rCA = Personaje.getInstance().DevolverCategoriaDeNombre("Armas·" + lista.get(i).tipo).rangosCultura;
+                    if (Personaje.getInstance().DevolverCategoriaDeNombre("Armas·" + lista.get(i).tipo).ExisteHabilidadComun()) {
                         comunA = 3;
                     }
-                    int rSA = esher.pj.DevolverCategoriaDeNombre("Armas·" + lista.get(i).tipo).rangosSugeridos + esher.pj.DevolverCategoriaDeNombre("Armas·" + lista.get(i).tipo).DevolverRangosSugeridosHabilidades();
+                    int rSA = Personaje.getInstance().DevolverCategoriaDeNombre("Armas·" + lista.get(i).tipo).rangosSugeridos + Personaje.getInstance().DevolverCategoriaDeNombre("Armas·" + lista.get(i).tipo).DevolverRangosSugeridosHabilidades();
                     if (rC + rS + comun > rCA + rSA + comunA) {
                         lista.add(i, BuscarTipoArma(tipo));
                         added = true;
@@ -438,11 +439,11 @@ public class Armas implements Serializable {
         }
 
         public void BarajarInteligentemente() {
-            List<TipoArma> tiposBarajados = new ArrayList<TipoArma>();
-            List<TipoArma> cuerpoCuerpo = new ArrayList<TipoArma>();
-            List<TipoArma> distancia = new ArrayList<TipoArma>();
-            List<TipoArma> otrasArmas = new ArrayList<TipoArma>();
-            List<TipoArma> armasFuego = new ArrayList<TipoArma>();
+            List<TipoArma> tiposBarajados = new ArrayList<>();
+            List<TipoArma> cuerpoCuerpo = new ArrayList<>();
+            List<TipoArma> distancia = new ArrayList<>();
+            List<TipoArma> otrasArmas = new ArrayList<>();
+            List<TipoArma> armasFuego = new ArrayList<>();
             //Se coloca como arma principal aquella de la cultura o que tenga alguna habilidad común por raza o sugerida. El resto se añaden por grupos.
 
             try {
@@ -453,7 +454,7 @@ public class Armas implements Serializable {
                 IncluirArma(distancia, "Proyectiles");
                 IncluirArma(distancia, "Arrojadizas");
             } catch (NullPointerException npe) {
-                new MostrarError("¡Problemas al barajar alguna categoría!", "Armas");
+                MostrarError.showErrorMessage("¡Problemas al barajar alguna categoría!", "Armas");
             }
             if (ContainsTipo("Artillería")) {
                 otrasArmas.add(BuscarTipoArma("Artillería"));
@@ -472,7 +473,7 @@ public class Armas implements Serializable {
             armasFuego = BarajarListaTipos(0, armasFuego);
 
             tiposBarajados.add(cuerpoCuerpo.get(0));
-            if (!esher.armasFuegoPermitidas) {
+            if (!Esher.armasFuegoPermitidas) {
                 tiposBarajados.add(distancia.get(0));
             } else {
                 tiposBarajados.add(armasFuego.get(0));
@@ -481,7 +482,7 @@ public class Armas implements Serializable {
             for (int i = 1; i < cuerpoCuerpo.size(); i++) {
                 otrasArmas.add(cuerpoCuerpo.get(i));
             }
-            if (!esher.armasFuegoPermitidas) {
+            if (!Esher.armasFuegoPermitidas) {
                 for (int i = 1; i < distancia.size(); i++) {
                     otrasArmas.add(distancia.get(i));
                 }
@@ -491,7 +492,7 @@ public class Armas implements Serializable {
                 }
             }
             otrasArmas = BarajarListaTipos(0, otrasArmas);
-            if (!esher.armasFuegoPermitidas) {
+            if (!Esher.armasFuegoPermitidas) {
                 armasFuego = BarajarListaTipos(0, armasFuego);
                 tiposBarajados.addAll(armasFuego);
             } else {
@@ -523,10 +524,8 @@ public class Armas implements Serializable {
         }
 
         private void LeerArmasDeArchivo(String file) throws Exception {
-            List<String> lines = esher.directorioRolemaster.LeerLineasArmas(
-                    esher.directorioRolemaster.DevolverDirectorio() + File.separator
-                    + esher.directorioRolemaster.DIRECTORIO_ARMAS + File.separator + file + ".txt");
-            armas = new ArrayList<String>();
+            List<String> lines = DirectorioRolemaster.LeerLineasArmas(file + ".txt");
+            armas = new ArrayList<>();
 
             for (int i = 0; i < lines.size(); i++) {
                 String armaLeida = (String) lines.get(i);
@@ -555,7 +554,7 @@ public class Armas implements Serializable {
         }
 
         private void Inicializa() {
-            armasCultura = new ArrayList<ArmaCultura>();
+            armasCultura = new ArrayList<>();
         }
 
         /**
@@ -575,7 +574,7 @@ public class Armas implements Serializable {
          */
         private List<ArmaCultura> SeleccionarArmasCategoria(String clase) throws Exception {
             List<String> listadoArmas = DevolverNombreArmasClase(clase);
-            List<ArmaCultura> listadoArmasCategoria = new ArrayList<ArmaCultura>();
+            List<ArmaCultura> listadoArmasCategoria = new ArrayList<>();
 
             for (int i = 0; i < GetTotalArmas(); i++) {
                 ArmaCultura armaSeleccionada = armasCultura.get(i);
@@ -643,7 +642,7 @@ public class Armas implements Serializable {
         }
 
         public void BarajarArmasCultura() {
-            List<ArmaCultura> listaBarajada = new ArrayList<ArmaCultura>();
+            List<ArmaCultura> listaBarajada = new ArrayList<>();
             while (armasCultura.size() > 0) {
                 int elemento = generator.nextInt(armasCultura.size());
                 listaBarajada.add(armasCultura.get(elemento));

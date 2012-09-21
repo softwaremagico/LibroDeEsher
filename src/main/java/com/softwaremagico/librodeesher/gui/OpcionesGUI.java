@@ -42,7 +42,9 @@ package com.softwaremagico.librodeesher.gui;
  * #L%
  */
 
+import com.softwaremagico.files.DirectorioRolemaster;
 import com.softwaremagico.librodeesher.Esher;
+import com.softwaremagico.librodeesher.Personaje;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -54,11 +56,9 @@ import javax.swing.JOptionPane;
 
 public class OpcionesGUI extends javax.swing.JFrame {
 
-    private Esher esher;
 
     /** Creates new form OpcionesGUI */
-    public OpcionesGUI(Esher tmp_esher) {
-        esher = tmp_esher;
+    public OpcionesGUI() {
         initComponents();
         setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (int) (this.getWidth() / 2),
                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (int) (this.getHeight() / 2));
@@ -67,8 +67,8 @@ public class OpcionesGUI extends javax.swing.JFrame {
     }
 
     public void AplicaConfiguracionGuardada() {
-        for (int i = 0; i < esher.opciones.size(); i++) {
-            String opcion = esher.opciones.get(i);
+        for (int i = 0; i < Esher.opciones.size(); i++) {
+            String opcion = Esher.opciones.get(i);
             if (opcion.equals(ArmasFuegoCheckBox.getText())) {
                 if (!ArmasFuegoCheckBox.isSelected()) {
                     ArmasFuegoCheckBox.setSelected(true);
@@ -82,12 +82,12 @@ public class OpcionesGUI extends javax.swing.JFrame {
             } else if (opcion.equals(HechizosMalignosCheckBox.getText())) {
                 if (!HechizosMalignosCheckBox.isSelected()) {
                     HechizosMalignosCheckBox.setSelected(true);
-                    esher.hechizosMalignos = HechizosMalignosCheckBox.isSelected();
+                    Esher.hechizosMalignos = HechizosMalignosCheckBox.isSelected();
                 }
             } else if (opcion.equals(TalentosCheckBox.getText())) {
                 if (!TalentosCheckBox.isSelected()) {
                     TalentosCheckBox.setSelected(true);
-                    esher.talentosAleatorio = TalentosCheckBox.isSelected();
+                    Esher.talentosAleatorio = TalentosCheckBox.isSelected();
                 }
             } else if (opcion.equals(LexicograficoRadioButton.getText())) {
                 if (!LexicograficoRadioButton.isSelected()) {
@@ -107,30 +107,30 @@ public class OpcionesGUI extends javax.swing.JFrame {
         }
     }
 
-    public void GuardarConfiguracion() {
-        esher.opciones = new ArrayList<String>();
+    public static void GuardarConfiguracion() {
+        Esher.opciones = new ArrayList<>();
         if (ArmasFuegoCheckBox.isSelected()) {
-            esher.opciones.add(ArmasFuegoCheckBox.getText());
+            Esher.opciones.add(ArmasFuegoCheckBox.getText());
         }
         if (HechizosAdiestramientoCheckBox.isSelected()) {
-            esher.opciones.add(HechizosAdiestramientoCheckBox.getText());
+            Esher.opciones.add(HechizosAdiestramientoCheckBox.getText());
         }
         if (HechizosMalignosCheckBox.isSelected()) {
-            esher.opciones.add(HechizosMalignosCheckBox.getText());
+            Esher.opciones.add(HechizosMalignosCheckBox.getText());
         }
         if (TalentosCheckBox.isSelected()) {
-            esher.opciones.add(TalentosCheckBox.getText());
+            Esher.opciones.add(TalentosCheckBox.getText());
         }
         if (LexicograficoRadioButton.isSelected()) {
-            esher.opciones.add(LexicograficoRadioButton.getText());
+            Esher.opciones.add(LexicograficoRadioButton.getText());
         }
         if (PoderesChiCheckBox.isSelected()) {
-            esher.opciones.add(PoderesChiCheckBox.getText());
+            Esher.opciones.add(PoderesChiCheckBox.getText());
         }
         if (VariosGolpesCheckBox.isSelected()) {
-            esher.opciones.add(VariosGolpesCheckBox.getText());
+            Esher.opciones.add(VariosGolpesCheckBox.getText());
         }
-        esher.directorioRolemaster.GuardarListaAFichero(esher.opciones, esher.directorioRolemaster.ObtenerPathConfiguracion(true));
+        DirectorioRolemaster.saveListInFile(Esher.opciones, DirectorioRolemaster.ObtenerPathConfiguracion(true));
     }
 
     /**
@@ -148,14 +148,14 @@ public class OpcionesGUI extends javax.swing.JFrame {
 
     private void RellenaModulos() {
         ModulosComboBox.removeAllItems();
-        for (int i = 0; i < esher.modulosRolemaster.size(); i++) {
-            ModulosComboBox.addItem(esher.modulosRolemaster.get(i));
+        for (int i = 0; i < DirectorioRolemaster.modulosRolemaster.size(); i++) {
+            ModulosComboBox.addItem(DirectorioRolemaster.modulosRolemaster.get(i));
         }
     }
 
     public void BorraModulo() {
         if (ModulosComboBox.getSelectedIndex() >= 0) {
-            esher.modulosRolemaster.remove(ModulosComboBox.getSelectedIndex());
+            DirectorioRolemaster.modulosRolemaster.remove(ModulosComboBox.getSelectedIndex());
             ModulosTextField.setText("");
             GuardarModulos();
             RellenaModulos();
@@ -163,15 +163,15 @@ public class OpcionesGUI extends javax.swing.JFrame {
     }
 
     public void GuardarModulos() {
-        esher.directorioRolemaster.GuardarListaAFichero(esher.modulosRolemaster, esher.directorioRolemaster.ObtenerPathModulos(true));
+        //DirectorioRolemaster.saveListInFile(DirectorioRolemaster.modulosRolemaster, DirectorioRolemaster.ObtenerPathModulos());
     }
 
     public void AñadirModulo() {
         File file;
-        if (!esher.modulosRolemaster.contains(ModulosTextField.getText())) {
+        if (!DirectorioRolemaster.modulosRolemaster.contains(ModulosTextField.getText())) {
             file = new File(ModulosTextField.getText());
             if (file.exists()) {
-                esher.modulosRolemaster.add(ModulosTextField.getText());
+                DirectorioRolemaster.modulosRolemaster.add(ModulosTextField.getText());
                 ModulosTextField.setText("");
                 GuardarModulos();
                 RellenaModulos();
@@ -190,8 +190,8 @@ public class OpcionesGUI extends javax.swing.JFrame {
 
     private void AplicarArmasFuego() {
         try {
-            esher.armasFuegoPermitidas = ArmasFuegoCheckBox.isSelected();
-            esher.pj.ActualizaArmas();
+            Esher.armasFuegoPermitidas = ArmasFuegoCheckBox.isSelected();
+            Personaje.getInstance().ActualizaArmas();
         } catch (Exception ex) {
             Logger.getLogger(OpcionesGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -199,8 +199,8 @@ public class OpcionesGUI extends javax.swing.JFrame {
 
     private void AplicarHechizosOtrosAdiestramientos() {
         try {
-            esher.hechizosAdiestramientoOtrosReinosPermitidos = HechizosAdiestramientoCheckBox.isSelected();
-            esher.LeerCategoriasDeArchivo();
+            Esher.hechizosAdiestramientoOtrosReinosPermitidos = HechizosAdiestramientoCheckBox.isSelected();
+            Esher.LeerCategoriasDeArchivo();
         } catch (Exception ex) {
             Logger.getLogger(OpcionesGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -208,7 +208,7 @@ public class OpcionesGUI extends javax.swing.JFrame {
 
     private void AplicarPoderesChi() {
         try {
-            esher.poderesChi = PoderesChiCheckBox.isSelected();
+            Esher.poderesChi = PoderesChiCheckBox.isSelected();
         } catch (Exception ex) {
             Logger.getLogger(OpcionesGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -216,9 +216,9 @@ public class OpcionesGUI extends javax.swing.JFrame {
 
     private void AplicarVariosGolpes() {
         try {
-            esher.variosGradosGolpes = VariosGolpesCheckBox.isSelected();
+            Esher.variosGradosGolpes = VariosGolpesCheckBox.isSelected();
             //Cambiamos la habilidad de golpes.
-            esher.pj.CambiarGolpesArtesMarcialesGenericosADiversosGrados();
+            Personaje.getInstance().CambiarGolpesArtesMarcialesGenericosADiversosGrados();
 
         } catch (Exception ex) {
             Logger.getLogger(OpcionesGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -551,7 +551,7 @@ public class OpcionesGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_ModulosComboBoxItemStateChanged
 
     private void TalentosCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TalentosCheckBoxActionPerformed
-        esher.talentosAleatorio = TalentosCheckBox.isSelected();
+        Esher.talentosAleatorio = TalentosCheckBox.isSelected();
     }//GEN-LAST:event_TalentosCheckBoxActionPerformed
 
     private void HechizosAdiestramientoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HechizosAdiestramientoCheckBoxActionPerformed
@@ -559,7 +559,7 @@ public class OpcionesGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_HechizosAdiestramientoCheckBoxActionPerformed
 
     private void HechizosMalignosCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HechizosMalignosCheckBoxActionPerformed
-        esher.hechizosMalignos = HechizosMalignosCheckBox.isSelected();
+        Esher.hechizosMalignos = HechizosMalignosCheckBox.isSelected();
     }//GEN-LAST:event_HechizosMalignosCheckBoxActionPerformed
 
     private void PoderesChiCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PoderesChiCheckBoxActionPerformed
@@ -571,23 +571,23 @@ public class OpcionesGUI extends javax.swing.JFrame {
 }//GEN-LAST:event_VariosGolpesCheckBoxActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox ArmasFuegoCheckBox;
+    private static javax.swing.JCheckBox ArmasFuegoCheckBox;
     private javax.swing.JButton AñadirButton;
     private javax.swing.JButton BorrarModuloButton;
-    private javax.swing.JRadioButton CategoriasRadioButton;
+    private static javax.swing.JRadioButton CategoriasRadioButton;
     private javax.swing.JButton CerrarButton;
     private javax.swing.JPanel FichaPDFPanel;
-    private javax.swing.JCheckBox HechizosAdiestramientoCheckBox;
-    private javax.swing.JCheckBox HechizosMalignosCheckBox;
-    private javax.swing.JRadioButton LexicograficoRadioButton;
+    private static javax.swing.JCheckBox HechizosAdiestramientoCheckBox;
+    private static javax.swing.JCheckBox HechizosMalignosCheckBox;
+    private static javax.swing.JRadioButton LexicograficoRadioButton;
     private javax.swing.JComboBox ModulosComboBox;
     private javax.swing.JPanel ModulosPanel;
     private javax.swing.JTextField ModulosTextField;
     private javax.swing.ButtonGroup OrdenarHabilidadesbuttonGroup;
     private javax.swing.JPanel PersoanjeAleatorioPanel;
-    private javax.swing.JCheckBox PoderesChiCheckBox;
-    private javax.swing.JCheckBox TalentosCheckBox;
-    private javax.swing.JCheckBox VariosGolpesCheckBox;
+    private static javax.swing.JCheckBox PoderesChiCheckBox;
+    private static javax.swing.JCheckBox TalentosCheckBox;
+    private static javax.swing.JCheckBox VariosGolpesCheckBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

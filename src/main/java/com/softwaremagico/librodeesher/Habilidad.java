@@ -42,14 +42,16 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.gui.MostrarError;
-import com.softwaremagico.librodeesher.gui.SeleccionarHabilidadGUI;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Image;
+import com.softwaremagico.librodeesher.gui.MostrarError;
+import com.softwaremagico.librodeesher.gui.SeleccionarHabilidadGUI;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -77,31 +79,50 @@ public class Habilidad implements Serializable {
     public boolean estiloDeVida = false;
     public int multiplicadorCosteHechizos = 1;
     //boolean adiestramiento = false;     //Esta habilidad se está generando por motivo de leer un adiestramiento y debe ser exportada al exportar un nivel.
-    public List<BonusEspecial> bonusEspecialesHabilidad = new ArrayList<BonusEspecial>();
+    public List<BonusEspecial> bonusEspecialesHabilidad = new ArrayList<>();
     private String nombre;
     public Categoria categoriaPadre;
-    public  boolean historial = false;
+    public boolean historial = false;
     public boolean especializada = false;
-    public List<String> especializacion = new ArrayList<String>();   //Especializaciones seleccionadas por el PJ.
-    public List<String> especializacionPosible = new ArrayList<String>();  //Especializaciones posibles para los aleatorios.
-    public List<String> habilidadesNuevas = new ArrayList<String>();  //Habilidades que se ganan al adquirir esta habilidad.
-    public List<String> habilidadesNuevasPosibles = new ArrayList<String>();  //Habilidades de las que se puede seleccionar al adquirir esta habilidad.
+    public List<String> especializacion = new ArrayList<>();   //Especializaciones seleccionadas por el PJ.
+    public List<String> especializacionPosible = new ArrayList<>();  //Especializaciones posibles para los aleatorios.
+    public List<String> habilidadesNuevas = new ArrayList<>();  //Habilidades que se ganan al adquirir esta habilidad.
+    public List<String> habilidadesNuevasPosibles = new ArrayList<>();  //Habilidades de las que se puede seleccionar al adquirir esta habilidad.
     private boolean generalizada = false;
     public int rangosEspecializacionAntiguosNiveles = 0;
     public transient SeleccionarHabilidadGUI grupoHab = null;
     public boolean noElegirAleatorio = false;
+    private static HashMap<String, Habilidad> habilidadesDisponibles = new HashMap();
 
     /**
      * Creates a new instance of Habilidad
      */
-    public Habilidad(Categoria cat, String nom) {
+    private Habilidad(Categoria cat, String nom) {
         rangos = 0;
         GenerarHabilidad(cat, nom);
     }
 
-    public Habilidad(Categoria cat, String nom, int rang) {
+    private Habilidad(Categoria cat, String nom, int rang) {
         rangos = rang;
         GenerarHabilidad(cat, nom);
+    }
+
+    public static Habilidad getSkill(Categoria cat, String nom) {
+        Habilidad hab = habilidadesDisponibles.get(nom);
+        if (hab == null) {
+            hab = new Habilidad(cat, nom);
+        }
+        return hab;
+    }
+
+    public static Habilidad getSkill(Categoria cat, String nom, int rang) {
+        Habilidad hab = getSkill(cat, nom);
+        hab.rangos = rang;
+        return hab;
+    }
+    
+    public static void deleteSkills(){
+        habilidadesDisponibles = new HashMap();
     }
 
     private void GenerarHabilidad(Categoria cat, String nom) {
@@ -125,22 +146,18 @@ public class Habilidad implements Serializable {
                 String lineaHabilidadesNuevas = nombreFragmentado[1].replace("}", "").trim();
                 if (lineaHabilidadesNuevas.contains("&")) {
                     String[] habilidadesNuevasString = lineaHabilidadesNuevas.split(" & ");
-                    for (int i = 0; i < habilidadesNuevasString.length; i++) {
-                        habilidadesNuevas.add(habilidadesNuevasString[i]);
-                    }
+                    habilidadesNuevas.addAll(Arrays.asList(habilidadesNuevasString));
                 } else if (lineaHabilidadesNuevas.contains("|")) {
                     String[] habilidadesNuevasPosiblesString = lineaHabilidadesNuevas.split("\\| ");
-                    for (int i = 0; i < habilidadesNuevasPosiblesString.length; i++) {
-                        habilidadesNuevasPosibles.add(habilidadesNuevasPosiblesString[i]);
-                    }
+                    habilidadesNuevasPosibles.addAll(Arrays.asList(habilidadesNuevasPosiblesString));
                 } else if (lineaHabilidadesNuevas.length() > 0) {
                     habilidadesNuevasPosibles.add(lineaHabilidadesNuevas);
                 } else {
-                    new MostrarError("No se puede leer la lista de habilidades vinculadas en " + nom, "Habilidad");
+                    MostrarError.showErrorMessage("No se puede leer la lista de habilidades vinculadas en " + nom, "Habilidad");
                 }
             } catch (NullPointerException npe) {
                 npe.printStackTrace();
-                new MostrarError("Error en la lectura de las habilidades vinculadas a la habilidad " + nom, "Habilidad");
+                MostrarError.showErrorMessage("Error en la lectura de las habilidades vinculadas a la habilidad " + nom, "Habilidad");
             }
         }
         if (!nom.contains("[")) {
@@ -152,11 +169,9 @@ public class Habilidad implements Serializable {
             try {
                 String lineaEspecializaciones = nombreFragmentado[1].replace("]", "").trim();
                 String[] especializaciones = lineaEspecializaciones.split("; ");
-                for (int i = 0; i < especializaciones.length; i++) {
-                    especializacionPosible.add(especializaciones[i]);
-                }
+                especializacionPosible.addAll(Arrays.asList(especializaciones));
             } catch (NullPointerException npe) {
-                new MostrarError("Error en la lectura de las especializaciones predefinidas para la habilidad " + nom, "Habilidad");
+                MostrarError.showErrorMessage("Error en la lectura de las especializaciones predefinidas para la habilidad " + nom, "Habilidad");
             }
         }
         categoriaPadre = cat;
@@ -365,15 +380,15 @@ public class Habilidad implements Serializable {
 
     public boolean HacerGeneralizada() {
         if (restringida || restringidaAdiestramiento) {
-            new MostrarError("No se puede generalizar una habilidad restringida.",
+            MostrarError.showErrorMessage("No se puede generalizar una habilidad restringida.",
                     "Habilidad", JOptionPane.WARNING_MESSAGE);
         } else if (especializada) {
-            new MostrarError("No se puede generalizar una habilidad ya especializada",
+            MostrarError.showErrorMessage("No se puede generalizar una habilidad ya especializada",
                     "Habilidad", JOptionPane.WARNING_MESSAGE);
         } else {
             generalizada = true;
             especializada = false;
-            especializacion = new ArrayList<String>();
+            especializacion = new ArrayList<>();
         }
         return generalizada;
     }
@@ -398,31 +413,31 @@ public class Habilidad implements Serializable {
             if (lista.length() == 0) {
                 if (rangosEspecializacionAntiguosNiveles > 0) {
                     String[] arrayAntiguaEspecializacion = antiguaLista.split(", ");
-                    especializacion = new ArrayList<String>();
+                    especializacion = new ArrayList<>();
                     for (int i = 0; i < arrayAntiguaEspecializacion.length; i++) {
                         if (!especializacion.contains(arrayAntiguaEspecializacion[i])) {
                             especializacion.add(arrayAntiguaEspecializacion[i]);
                         }
                     }
                 } else {
-                    new MostrarError("Debes indicar en que campo/s esta especializada la habilidad.", "Habilidad",
+                    MostrarError.showErrorMessage("Debes indicar en que campo/s esta especializada la habilidad.", "Habilidad",
                             JOptionPane.WARNING_MESSAGE);
                     especializada = false;
-                    especializacion = new ArrayList<String>();
+                    especializacion = new ArrayList<>();
                 }
             } else if (nuevosRangos + rangos >= arrayEspecializacion.length) {
                 especializada = true;
-                especializacion = new ArrayList<String>();
+                especializacion = new ArrayList<>();
                 for (int i = 0; i < arrayEspecializacion.length; i++) {
                     if (!especializacion.contains(arrayEspecializacion[i])) {
                         especializacion.add(arrayEspecializacion[i]);
                     }
                 }
             } else {
-                new MostrarError("No has comprado los rangos suficientes para "
+                MostrarError.showErrorMessage("No has comprado los rangos suficientes para "
                         + "especializar en todos los campos indicados.", "Habilidad",
                         JOptionPane.WARNING_MESSAGE);
-                especializacion = new ArrayList<String>();
+                especializacion = new ArrayList<>();
                 for (int i = 0; i < arrayEspecializacion.length; i++) {
                     if (!especializacion.contains(arrayEspecializacion[i])) {
                         especializacion.add(arrayEspecializacion[i]);
@@ -442,7 +457,7 @@ public class Habilidad implements Serializable {
             }
         } else {
             especializada = false;
-            especializacion = new ArrayList<String>();
+            especializacion = new ArrayList<>();
         }
     }
 
@@ -589,7 +604,7 @@ public class Habilidad implements Serializable {
     public int NumeroRangosIncrementables() {
         int total = 0;
         for (int i = 0; i < 3; i++) {
-            if (categoriaPadre.esher.pj.CosteCategoriaYHabilidad(categoriaPadre, i, this) < 1000) {
+            if (Personaje.getInstance().CosteCategoriaYHabilidad(categoriaPadre, i, this) < 1000) {
                 total++;
             }
         }
@@ -648,15 +663,15 @@ public class Habilidad implements Serializable {
             return -100;
         }
         if (nuevosRangos <= 3) {
-            if (categoriaPadre.esher.pj.PuntosDesarrolloNoGastados() >= categoriaPadre.esher.pj.CosteCategoriaYHabilidad(categoriaPadre, nuevosRangos, this)) {
+            if (Personaje.getInstance().PuntosDesarrolloNoGastados() >= Personaje.getInstance().CosteCategoriaYHabilidad(categoriaPadre, nuevosRangos, this)) {
                 probabilidad += categoriaPadre.CategoriaPreferida() / 3;
                 probabilidad += HabilidadPreferida();
                 probabilidad += FacilidadHabilidad();
                 probabilidad -= CaroHabilidad();
-                probabilidad += categoriaPadre.esher.IntentosAsignarPD() * 3;
+                probabilidad += Esher.IntentosAsignarPD() * 3;
                 probabilidad += AplicarEspecializacionPersonaje();
                 probabilidad += HabilidadAtrasada();
-                if (categoriaPadre.esher.inteligencia) {
+                if (Esher.inteligencia) {
                     probabilidad += HabilidadesPreferidasHechiceros();
                     probabilidad += HabilidadesPreferidasLuchadores();
                     probabilidad += AplicarInteligenciaALaAleatorizacion();
@@ -684,7 +699,7 @@ public class Habilidad implements Serializable {
      */
     private int HabilidadAtrasada() {
         int bonus = 0;
-        bonus += Math.max(categoriaPadre.esher.pj.nivel - (categoriaPadre.esher.pj.CosteCategoriaYHabilidad(categoriaPadre, 0, this)) - DevolverRangos() * 2, 0);
+        bonus += Math.max(Personaje.getInstance().nivel - (Personaje.getInstance().CosteCategoriaYHabilidad(categoriaPadre, 0, this)) - DevolverRangos() * 2, 0);
         return bonus;
     }
 
@@ -693,13 +708,13 @@ public class Habilidad implements Serializable {
      */
     private int CaroHabilidad() {
         //Las que valen uno de coste son casi obligatorias cogerlas.
-        if (categoriaPadre.esher.pj.CosteCategoriaYHabilidad(categoriaPadre, nuevosRangos, this) == 1) {
+        if (Personaje.getInstance().CosteCategoriaYHabilidad(categoriaPadre, nuevosRangos, this) == 1) {
             return -100;
         }
         if (categoriaPadre.DevolverNombre().equals("Listas Básicas de Hechizos")) {
-            return (categoriaPadre.esher.pj.CosteCategoriaYHabilidad(categoriaPadre, nuevosRangos, this) - 8) * 10;
+            return (Personaje.getInstance().CosteCategoriaYHabilidad(categoriaPadre, nuevosRangos, this) - 8) * 10;
         }
-        return (categoriaPadre.esher.pj.CosteCategoriaYHabilidad(categoriaPadre, nuevosRangos, this) - 5) * 10;
+        return (Personaje.getInstance().CosteCategoriaYHabilidad(categoriaPadre, nuevosRangos, this) - 5) * 10;
     }
 
     /**
@@ -712,13 +727,13 @@ public class Habilidad implements Serializable {
 
     private int AleatorizacionPorRaza() {
         //Los caballos para uno y los lobos para otros.
-        if (DevolverNombre().equals("Montar: Caballos") && categoriaPadre.esher.pj.raza.contains("Orco")) {
+        if (DevolverNombre().equals("Montar: Caballos") && Personaje.getInstance().raza.contains("Orco")) {
             return -1000;
         }
-        if (DevolverNombre().equals("Montar: Lobos") && !categoriaPadre.esher.pj.raza.contains("Orco")) {
+        if (DevolverNombre().equals("Montar: Lobos") && !Personaje.getInstance().raza.contains("Orco")) {
             return -1000;
         }
-        if (DevolverNombre().equals("Montar: Osos") && !categoriaPadre.esher.pj.raza.contains("Enanos")) {
+        if (DevolverNombre().equals("Montar: Osos") && !Personaje.getInstance().raza.contains("Enanos")) {
             return -1000;
         }
 
@@ -734,19 +749,19 @@ public class Habilidad implements Serializable {
         int bonus = 0;
 
         //Para los hechiceros.
-        if (categoriaPadre.esher.pj.EsHechicero()) {
+        if (Personaje.getInstance().EsHechicero()) {
             //Potenciamos que existan las listas básicas (al menos 3)
             if (categoriaPadre.DevolverNombre().equals("Listas Básicas de Hechizos")) {
-                if (categoriaPadre.DevolverHabilidadesConNuevosRangos() < categoriaPadre.esher.especializacion + 2) {
-                    if (DevolverRangos() < categoriaPadre.esher.pj.nivel + categoriaPadre.esher.especializacion + 2) {
-                        if (categoriaPadre.DevolverHabilidadesConNuevosRangos() < categoriaPadre.esher.especializacion + 1) {
-                            if (categoriaPadre.esher.pj.EsSemiHechicero()) {
+                if (categoriaPadre.DevolverHabilidadesConNuevosRangos() < Esher.especializacion + 2) {
+                    if (DevolverRangos() < Personaje.getInstance().nivel + Esher.especializacion + 2) {
+                        if (categoriaPadre.DevolverHabilidadesConNuevosRangos() < Esher.especializacion + 1) {
+                            if (Personaje.getInstance().EsSemiHechicero()) {
                                 bonus += 65;
                             } else {
                                 bonus += 50;
                             }
                         } else {
-                            if (categoriaPadre.esher.pj.EsSemiHechicero()) {
+                            if (Personaje.getInstance().EsSemiHechicero()) {
                                 bonus += 35;
                             } else {
                                 bonus += 25;
@@ -760,10 +775,10 @@ public class Habilidad implements Serializable {
 
 
             if (categoriaPadre.DevolverNombre().equals("Listas Abiertas de Hechizos")) {
-                if (categoriaPadre.DevolverHabilidadesConNuevosRangos() < categoriaPadre.esher.especializacion + 2) {
-                    if (DevolverRangos() < categoriaPadre.esher.pj.nivel + categoriaPadre.esher.especializacion + 2) {
+                if (categoriaPadre.DevolverHabilidadesConNuevosRangos() < Esher.especializacion + 2) {
+                    if (DevolverRangos() < Personaje.getInstance().nivel + Esher.especializacion + 2) {
                         if (categoriaPadre.DevolverHabilidadesConNuevosRangos() == 0) {
-                            if (categoriaPadre.esher.pj.EsSemiHechicero()) {
+                            if (Personaje.getInstance().EsSemiHechicero()) {
                                 bonus += 35;
                             } else {
                                 bonus += 20;
@@ -778,7 +793,7 @@ public class Habilidad implements Serializable {
             }
             if (categoriaPadre.DevolverNombre().equals("Listas Cerradas de Hechizos")) {
                 if (categoriaPadre.DevolverHabilidadesConRangos() < 3) {
-                    if (DevolverRangos() < categoriaPadre.esher.pj.nivel + categoriaPadre.esher.especializacion + 2) {
+                    if (DevolverRangos() < Personaje.getInstance().nivel + Esher.especializacion + 2) {
                         if (categoriaPadre.DevolverHabilidadesConNuevosRangos() == 0) {
                             bonus += 20;
                         } else {
@@ -790,36 +805,36 @@ public class Habilidad implements Serializable {
                 }
             }
             if (categoriaPadre.DevolverNombre().equals("Listas Básicas de otras Profesiones")) {
-                if (DevolverRangos() < categoriaPadre.esher.pj.nivel + categoriaPadre.esher.especializacion + 2 && categoriaPadre.DevolverHabilidadesConNuevosRangos() < 1) {
+                if (DevolverRangos() < Personaje.getInstance().nivel + Esher.especializacion + 2 && categoriaPadre.DevolverHabilidadesConNuevosRangos() < 1) {
                     bonus += 5;
                 } else {
                     bonus -= 150;
                 }
             }
             if (categoriaPadre.DevolverNombre().equals("Listas Abiertas de otros Reinos")) {
-                if (DevolverRangos() > categoriaPadre.esher.pj.nivel + categoriaPadre.esher.especializacion + 2 || categoriaPadre.DevolverHabilidadesConNuevosRangos() > 1) {
+                if (DevolverRangos() > Personaje.getInstance().nivel + Esher.especializacion + 2 || categoriaPadre.DevolverHabilidadesConNuevosRangos() > 1) {
                     bonus -= 150;
                 }
             }
             if (categoriaPadre.DevolverNombre().equals("Listas Cerradas de otros Reinos")) {
-                if (DevolverRangos() > categoriaPadre.esher.pj.nivel + categoriaPadre.esher.especializacion + 2 || categoriaPadre.DevolverHabilidadesConNuevosRangos() > 1) {
+                if (DevolverRangos() > Personaje.getInstance().nivel + Esher.especializacion + 2 || categoriaPadre.DevolverHabilidadesConNuevosRangos() > 1) {
                     bonus -= 150;
                 }
             }
             if (categoriaPadre.DevolverNombre().equals("Listas Básicas de otros Reinos")) {
-                if (DevolverRangos() > categoriaPadre.esher.pj.nivel + categoriaPadre.esher.especializacion + 2 || categoriaPadre.DevolverHabilidadesConNuevosRangos() > 1) {
+                if (DevolverRangos() > Personaje.getInstance().nivel + Esher.especializacion + 2 || categoriaPadre.DevolverHabilidadesConNuevosRangos() > 1) {
                     bonus -= 150;
                 }
             }
             if (categoriaPadre.DevolverNombre().equals("Listas Abiertas Arcanas")) {
-                if (DevolverRangos() > categoriaPadre.esher.pj.nivel + categoriaPadre.esher.especializacion + 2 || categoriaPadre.DevolverHabilidadesConNuevosRangos() > 2) {
+                if (DevolverRangos() > Personaje.getInstance().nivel + Esher.especializacion + 2 || categoriaPadre.DevolverHabilidadesConNuevosRangos() > 2) {
                     bonus -= 150;
                 }
             }
             if (nombre.startsWith("Hechizos Dirigidos de")) {
                 String elemento = nombre.replaceAll("Hechizos Dirigidos de ", "");
-                if (((hab = categoriaPadre.esher.pj.DevolverHabilidadDeNombre("Ley del ", elemento)) != null
-                        || (hab = categoriaPadre.esher.pj.DevolverHabilidadDeNombre("Ley de ", elemento)) != null) && hab.DevolverRangos() > 0) {
+                if (((hab = Personaje.getInstance().DevolverHabilidadDeNombre("Ley del ", elemento)) != null
+                        || (hab = Personaje.getInstance().DevolverHabilidadDeNombre("Ley de ", elemento)) != null) && hab.DevolverRangos() > 0) {
                     bonus += 10 * (hab.DevolverRangos() - DevolverRangos());
                 } else {
                     bonus -= 150;
@@ -829,11 +844,11 @@ public class Habilidad implements Serializable {
                 if (nuevosRangos == 0) {
                     bonus += 50;
                 } else {
-                    if (rangos + nuevosRangos < categoriaPadre.esher.pj.nivel) {
-                        bonus += 10 * (categoriaPadre.esher.pj.nivel - rangos + nuevosRangos);
+                    if (rangos + nuevosRangos < Personaje.getInstance().nivel) {
+                        bonus += 10 * (Personaje.getInstance().nivel - rangos + nuevosRangos);
                     }
                     //Al menos tener PPs suficientes para lanzar el mejor hechizo.
-                    if (categoriaPadre.esher.pj.DevolverMaximoNivelHechizos() > Total()) {
+                    if (Personaje.getInstance().DevolverMaximoNivelHechizos() > Total()) {
                         bonus += 100;
                     }
                 }
@@ -841,21 +856,21 @@ public class Habilidad implements Serializable {
         }
 
         //Dejamos los movimientos adrenales para monjes.
-        if (!categoriaPadre.esher.pj.profesion.contains("Monje")) {
+        if (!Personaje.getInstance().profesion.contains("Monje")) {
             if (nombre.contains("Adrenal")) {
                 bonus -= 50;
             }
         }
 
         //Tampoco interesa demasiados artes marciales si no es monje.
-        if (!categoriaPadre.esher.pj.profesion.contains("Monje") && (categoriaPadre.DevolverNombre().startsWith("Artes Marciales·"))
+        if (!Personaje.getInstance().profesion.contains("Monje") && (categoriaPadre.DevolverNombre().startsWith("Artes Marciales·"))
                 && categoriaPadre.DevolverHabilidadesConNuevosRangos() > 0
-                && (categoriaPadre.esher.pj.CosteCategoriaYHabilidad(categoriaPadre, 0, this) > 2)) {
+                && (Personaje.getInstance().CosteCategoriaYHabilidad(categoriaPadre, 0, this) > 2)) {
             bonus -= 100;
         }
 
         //Para los guerreros.
-        if (categoriaPadre.esher.pj.EsCombatiente()) {
+        if (Personaje.getInstance().EsCombatiente()) {
             if ((categoriaPadre.DevolverNombre().startsWith("Armas·")) && nuevosRangos == 0
                     && categoriaPadre.costeRango[0] < 2) {
                 if (categoriaPadre.DevolverHabilidadesConNuevosRangos() < 2) {
@@ -871,11 +886,11 @@ public class Habilidad implements Serializable {
             }
             //A veces lo no hechiceros tienen hechizos de opciones de adiestramiento o cultura.
             if (nombre.equals("Desarrollo de Puntos de Poder")) {
-                Categoria cat1 = categoriaPadre.esher.pj.DevolverCategoriaDeNombre("Listas Abiertas de Hechizos");
-                Categoria cat2 = categoriaPadre.esher.pj.DevolverCategoriaDeNombre("Listas Cerradas de Hechizos");
+                Categoria cat1 = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Abiertas de Hechizos");
+                Categoria cat2 = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Cerradas de Hechizos");
 
                 if (Total() < Math.max(cat1.DevolverMaximoRangosEnHabilidad(), cat2.DevolverMaximoRangosEnHabilidad())) {
-                    bonus += Math.min(10 * categoriaPadre.esher.pj.nivel, 50);
+                    bonus += Math.min(10 * Personaje.getInstance().nivel, 50);
                 }
             }
             if (categoriaPadre.DevolverNombre().startsWith("Armadura·") && Total() < 30) {
@@ -944,15 +959,15 @@ public class Habilidad implements Serializable {
 
         //A veces se aprenden demasiados tipos de armas.
         if ((categoriaPadre.DevolverNombre().startsWith("Armas·"))
-                && categoriaPadre.DevolverHabilidadesConNuevosRangos() > (3 - categoriaPadre.esher.pj.CosteCategoriaYHabilidad(categoriaPadre, 0, this))
-                || categoriaPadre.esher.pj.DevolverArmasAprendidasEnEsteNivel() > 5) {
+                && categoriaPadre.DevolverHabilidadesConNuevosRangos() > (3 - Personaje.getInstance().CosteCategoriaYHabilidad(categoriaPadre, 0, this))
+                || Personaje.getInstance().DevolverArmasAprendidasEnEsteNivel() > 5) {
             bonus -= 50;
         }
         return bonus;
     }
 
     private int AleatorizacionPorOpciones() {
-        if (!categoriaPadre.esher.armasFuegoPermitidas && (categoriaPadre.DevolverNombre().contains("Armas·Fuego"))) {
+        if (!Esher.armasFuegoPermitidas && (categoriaPadre.DevolverNombre().contains("Armas·Fuego"))) {
             return -10000;
         }
         return 0;
@@ -965,25 +980,25 @@ public class Habilidad implements Serializable {
      */
     private int HabilidadesPreferidasHechiceros() {
         //Algunos hechizos son mejores.
-        if (categoriaPadre.esher.inteligencia) {
-            if (categoriaPadre.esher.pj.EsHechicero()) {
-                if (categoriaPadre.esher.pj.reino.contains("Esencia")) {
+        if (Esher.inteligencia) {
+            if (Personaje.getInstance().EsHechicero()) {
+                if (Personaje.getInstance().reino.contains("Esencia")) {
                     if (nombre.equals("Maestría de los Escudos")) {
-                        return Math.max(50 - categoriaPadre.esher.especializacion * 8, 10);
+                        return Math.max(50 - Esher.especializacion * 8, 10);
                     }
                     if (nombre.equals("Sendas de la Rapidez")) {
-                        return Math.max(20 - categoriaPadre.esher.especializacion * 5, 0);
+                        return Math.max(20 - Esher.especializacion * 5, 0);
                     }
                 }
-                if (categoriaPadre.esher.pj.reino.contains("Mentalismo")) {
+                if (Personaje.getInstance().reino.contains("Mentalismo")) {
                     if (nombre.equals("Evasión de los Ataques")) {
-                        return Math.max(50 - categoriaPadre.esher.especializacion * 8, 10);
+                        return Math.max(50 - Esher.especializacion * 8, 10);
                     }
                     if (nombre.equals("Autocuración")) {
-                        return Math.max(30 - categoriaPadre.esher.especializacion * 5, 5);
+                        return Math.max(30 - Esher.especializacion * 5, 5);
                     }
                     if (nombre.equals("Velocidad")) {
-                        return Math.max(20 - categoriaPadre.esher.especializacion * 5, 0);
+                        return Math.max(20 - Esher.especializacion * 5, 0);
                     }
                 }
             }
@@ -997,9 +1012,9 @@ public class Habilidad implements Serializable {
      * @return
      */
     private int HabilidadesPreferidasLuchadores() {
-        if (categoriaPadre.esher.inteligencia) {
-            if (categoriaPadre.esher.pj.EsCombatiente()) {
-                if (categoriaPadre.esher.pj.adiestramientosAntiguos.contains("Caballero")) {
+        if (Esher.inteligencia) {
+            if (Personaje.getInstance().EsCombatiente()) {
+                if (Personaje.getInstance().adiestramientosAntiguos.contains("Caballero")) {
                     if (nombre.equals("Montar: Caballos")) {
                         return 50;
                     }
@@ -1017,16 +1032,16 @@ public class Habilidad implements Serializable {
         int bonus = 0;
         //Una pequeña penalización al añadir habilidades nuevas que no son típicas.
         if (DevolverRangos() == 0 && !(EsProfesional() || EsComun())) {
-            bonus -= Math.pow(categoriaPadre.DevolverHabilidadesConRangos(), 2) * (categoriaPadre.esher.especializacion + 1) * 10;
+            bonus -= Math.pow(categoriaPadre.DevolverHabilidadesConRangos(), 2) * (Esher.especializacion + 1) * 10;
         }
         //Evitar demasiada variedad de arma.
         if (categoriaPadre.DevolverNombre().startsWith("Armas·")) {
             if (DevolverRangos() - rangosCultura < 2) {
-                bonus -= categoriaPadre.esher.pj.DevolverArmasAprendidas() * (categoriaPadre.esher.especializacion + 1) * 5;
+                bonus -= Personaje.getInstance().DevolverArmasAprendidas() * (Esher.especializacion + 1) * 5;
             }
         }
         //No añadir demasiados rangos en habilidades de una misma categoria.
-        bonus -= Math.max(Math.pow(categoriaPadre.DevolverHabilidadesConNuevosRangos(), 3) * (categoriaPadre.esher.especializacion + 1) * 3, 0);
+        bonus -= Math.max(Math.pow(categoriaPadre.DevolverHabilidadesConNuevosRangos(), 3) * (Esher.especializacion + 1) * 3, 0);
         return bonus;
     }
 
@@ -1045,7 +1060,7 @@ public class Habilidad implements Serializable {
 
     /**
      * Las habilidades comunes y profesionales son más importantes para el
-     * categoriaPadre.esher.pj.
+     * Personaje.getInstance().
      */
     private int FacilidadHabilidad() {
         if (generalizada) {
@@ -1078,7 +1093,7 @@ public class Habilidad implements Serializable {
     }
 
     private int MaximoRangos() {
-        if (categoriaPadre.esher.pj.nivel == 1
+        if (Personaje.getInstance().nivel == 1
                 && (DevolverRangos() > 10 && !estiloDeVida)
                 || (DevolverRangos() > 15 && estiloDeVida)) {
             return -1000;
@@ -1101,7 +1116,7 @@ public class Habilidad implements Serializable {
      * Una habilidad merece la pena mostrarla si tiene algún modificador.
      */
     public boolean MereceLaPenaMostrar() {
-        if (!categoriaPadre.esher.poderesChi && nombre.contains("Poderes Chi")) {
+        if (!Esher.poderesChi && nombre.contains("Poderes Chi")) {
             return false;
         }
         if (DevolverRangos() > 0 || DevolverBonuses() > 0 || especializada || EsComun() || EsProfesional()) {
@@ -1116,7 +1131,7 @@ public class Habilidad implements Serializable {
      * Una habilidad merece la pena imprimirla si tiene rangos.
      */
     public boolean MereceLaPenaImprimir() {
-        if (!categoriaPadre.esher.poderesChi && nombre.contains("Poderes Chi")) {
+        if (!Esher.poderesChi && nombre.contains("Poderes Chi")) {
             return false;
         }
         if (DevolverRangos() > 0 || DevolverBonuses() > 0 || especializada) {
@@ -1127,7 +1142,7 @@ public class Habilidad implements Serializable {
     }
 
     public boolean MereceLaPenaListar() {
-        if (!categoriaPadre.esher.poderesChi && nombre.contains("Poderes Chi")) {
+        if (!Esher.poderesChi && nombre.contains("Poderes Chi")) {
             return false;
         }
         return true;
@@ -1168,7 +1183,7 @@ public class Habilidad implements Serializable {
 
     public boolean EsComun() {
         return comunRaza || comunProfesion || comunCultura || comunAdiestramiento
-                || categoriaPadre.esher.pj.DevolverComunTalentoHabilidad(nombre);
+                || Personaje.getInstance().DevolverComunTalentoHabilidad(nombre);
     }
 
     public boolean EsComunCultura() {
@@ -1318,7 +1333,7 @@ public class Habilidad implements Serializable {
             }
         }
         if (categoriaPadre.TipoCategoria().equals("DF")) {
-            String[] CosteRangosDF = categoriaPadre.esher.pj.progresionDesarrolloFisico.split("/");
+            String[] CosteRangosDF = Personaje.getInstance().progresionDesarrolloFisico.split("/");
             if (DevolverRangos() == 0) {
                 return Integer.parseInt(CosteRangosDF[0]);
             }
@@ -1342,7 +1357,7 @@ public class Habilidad implements Serializable {
             }
         }
         if (categoriaPadre.TipoCategoria().equals("DPP")) {
-            String[] CosteRangosDPP = categoriaPadre.esher.pj.progresionPuntosPoder.split("/");
+            String[] CosteRangosDPP = Personaje.getInstance().progresionPuntosPoder.split("/");
             if (DevolverRangos() == 0) {
                 return Integer.parseInt(CosteRangosDPP[0]);
             }
@@ -1439,7 +1454,7 @@ public class Habilidad implements Serializable {
             }
         }
         if (categoriaPadre.TipoCategoria().equals("DF")) {
-            String[] CosteRangosDF = categoriaPadre.esher.pj.progresionDesarrolloFisico.split("/");
+            String[] CosteRangosDF = Personaje.getInstance().progresionDesarrolloFisico.split("/");
             if (DevolverRangosEspecializacion() == 0) {
                 return Integer.parseInt(CosteRangosDF[0]);
             }
@@ -1463,7 +1478,7 @@ public class Habilidad implements Serializable {
             }
         }
         if (categoriaPadre.TipoCategoria().equals("DPP")) {
-            String[] CosteRangosDPP = categoriaPadre.esher.pj.progresionPuntosPoder.split("/");
+            String[] CosteRangosDPP = Personaje.getInstance().progresionPuntosPoder.split("/");
             if (DevolverRangosEspecializacion() == 0) {
                 return Integer.parseInt(CosteRangosDPP[0]);
             }
@@ -1564,18 +1579,18 @@ public class Habilidad implements Serializable {
     }
 
     public int DevolverBonusTalentos() {
-        return categoriaPadre.esher.pj.DevolverBonusTalentoHabilidad(nombre);
+        return Personaje.getInstance().DevolverBonusTalentoHabilidad(nombre);
     }
 
     public int DevolverBonusTemporalTalentos() {
-        return categoriaPadre.esher.pj.DevolverBonusTalentoEspecialHabilidad(nombre);
+        return Personaje.getInstance().DevolverBonusTalentoEspecialHabilidad(nombre);
     }
 
     boolean DevolverRestringidaTalentos() {
-        for (int i = 0; i < categoriaPadre.esher.pj.talentos.size(); i++) {
-            for (int j = 0; j < categoriaPadre.esher.pj.talentos.get(i).bonusHabilidad.size(); j++) {
-                if (categoriaPadre.esher.pj.talentos.get(i).bonusHabilidad.get(j).nombre.equals(nombre)) {
-                    if (categoriaPadre.esher.pj.talentos.get(i).bonusHabilidad.get(j).restringida) {
+        for (int i = 0; i < Personaje.getInstance().talentos.size(); i++) {
+            for (int j = 0; j < Personaje.getInstance().talentos.get(i).bonusHabilidad.size(); j++) {
+                if (Personaje.getInstance().talentos.get(i).bonusHabilidad.get(j).nombre.equals(nombre)) {
+                    if (Personaje.getInstance().talentos.get(i).bonusHabilidad.get(j).restringida) {
                         return true;
                     }
                 }
@@ -1586,8 +1601,8 @@ public class Habilidad implements Serializable {
 
     int DevolverBonusObjetos() {
         int total = 0;
-        for (int i = 0; i < categoriaPadre.esher.pj.objetosMagicos.size(); i++) {
-            total += categoriaPadre.esher.pj.objetosMagicos.get(i).DevolverBonusHabilidad(this);
+        for (int i = 0; i < Personaje.getInstance().objetosMagicos.size(); i++) {
+            total += Personaje.getInstance().objetosMagicos.get(i).DevolverBonusHabilidad(this);
         }
         return total;
     }
@@ -1609,8 +1624,8 @@ public class Habilidad implements Serializable {
     public int DevolverRangosCulturaHechizos() {
         try {
             if (categoriaPadre.DevolverNombre().equals("Listas Abiertas de Hechizos")) {
-                if (nombre.equals(categoriaPadre.esher.pj.hechizoCultura.nombre)) {
-                    return categoriaPadre.esher.pj.hechizoCultura.rangos;
+                if (nombre.equals(Personaje.getInstance().hechizoCultura.nombre)) {
+                    return Personaje.getInstance().hechizoCultura.rangos;
                 }
             }
         } catch (NullPointerException npe) {

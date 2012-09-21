@@ -3,6 +3,9 @@
  * and open the template in the editor.
  */
 package com.softwaremagico.librodeesher;
+
+import com.softwaremagico.files.DirectorioRolemaster;
+
 /*
  * #%L
  * Libro de Esher
@@ -33,33 +36,28 @@ package com.softwaremagico.librodeesher;
  */
 public class FichaTxt {
 
-    Esher esher;
-
-    public FichaTxt(Esher tmp_esher) {
-        esher = tmp_esher;
+    public FichaTxt() {
     }
 
     /**
-     * Genera un texto con el nombre, raza, profesion y otros detalles del esher.pj.
+     * Genera un texto con el nombre, raza, profesion y otros detalles del Personaje.getInstance().
      */
     public String ExportarATextDetalles() {
-        String text = "";
-        text = esher.pj.DevolverNombreCompleto() + "\tNº " + esher.pj.nivel + "\n"
-                + esher.pj.raza + "\n" + esher.pj.profesion + "\n";
-        return text;
+        return Personaje.getInstance().DevolverNombreCompleto() + "\tNº " + Personaje.getInstance().nivel + "\n"
+                + Personaje.getInstance().raza + "\n" + Personaje.getInstance().profesion + "\n";
     }
 
     private String ExportarATextoCaracteristicas() {
         String text = "Caract\tTemp\tPot\tTot\tRaza\tEsp\tTotal\n";
         text += "---------------------------------------------------------------------------------\n";
-        for (int i = 0; i < esher.pj.caracteristicas.Size(); i++) {
-            text = text + esher.pj.caracteristicas.Get(i).DevolverAbreviatura() + "\t"
-                    + esher.pj.caracteristicas.Get(i).ObtenerPuntosTemporal() + "\t"
-                    + esher.pj.caracteristicas.Get(i).ObtenerPuntosPotencial() + "\t"
-                    + esher.pj.caracteristicas.Get(i).ObtenerValorTemporal() + "\t"
-                    + esher.pj.caracteristicas.Get(i).ObtenerValorRaza() + "\t"
-                    + esher.pj.caracteristicas.Get(i).ObtenerPuntosEspecial() + "\t"
-                    + esher.pj.caracteristicas.Get(i).Total() + "\n";
+        for (int i = 0; i < Personaje.getInstance().caracteristicas.Size(); i++) {
+            text = text + Personaje.getInstance().caracteristicas.Get(i).DevolverAbreviatura() + "\t"
+                    + Personaje.getInstance().caracteristicas.Get(i).ObtenerPuntosTemporal() + "\t"
+                    + Personaje.getInstance().caracteristicas.Get(i).ObtenerPuntosPotencial() + "\t"
+                    + Personaje.getInstance().caracteristicas.Get(i).ObtenerValorTemporal() + "\t"
+                    + Personaje.getInstance().caracteristicas.Get(i).ObtenerValorRaza() + "\t"
+                    + Personaje.getInstance().caracteristicas.Get(i).ObtenerPuntosEspecial() + "\t"
+                    + Personaje.getInstance().caracteristicas.Get(i).Total() + "\n";
         }
         return text;
     }
@@ -72,10 +70,10 @@ public class FichaTxt {
                 + "-------------------------------------------------------------\n";
         int incrementoTamaño = 10;
 
-        int tamañoMaximoNombre = esher.pj.DevolverTamañoMaximoNombreCategoriasYHabilidades();
+        int tamañoMaximoNombre = Personaje.getInstance().DevolverTamañoMaximoNombreCategoriasYHabilidades();
 
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            Categoria cat = esher.pj.categorias.get(i);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            Categoria cat = Personaje.getInstance().categorias.get(i);
 
             text = text + cat.DevolverNombreTamañoDeterminado(
                     tamañoMaximoNombre + incrementoTamaño)
@@ -89,7 +87,7 @@ public class FichaTxt {
             if (cat.DevolverBonusTalentos() != 0) {
                 letra += "T";
             }
-            if (esher.pj.ExisteObjetoModificaCategoria(cat)) {
+            if (Personaje.getInstance().ExisteObjetoModificaCategoria(cat)) {
                 letra += "O";
             }
             if (!letra.equals("")) {
@@ -117,7 +115,7 @@ public class FichaTxt {
                             letra += "*";
                         }
                     }
-                    if (esher.pj.ExisteObjetoModificaHabilidad(hab)) {
+                    if (Personaje.getInstance().ExisteObjetoModificaHabilidad(hab)) {
                         letra += "O";
                     }
                     if (!letra.equals("")) {
@@ -171,20 +169,20 @@ public class FichaTxt {
     public String ExportarATextoEquipo() {
         String text = "";
         text = text.replaceAll("\t", "  ");
-        if (esher.pj.equipo.size() > 0) {
+        if (Personaje.getInstance().equipo.size() > 0) {
             text = "Equipo:\n";
             text += "--------------------------------------------------\n";
-            for (int i = 0; i < esher.pj.equipo.size(); i++) {
-                text += esher.pj.equipo.get(i) + "\n\n";
+            for (int i = 0; i < Personaje.getInstance().equipo.size(); i++) {
+                text += Personaje.getInstance().equipo.get(i) + "\n\n";
             }
             text += "\n";
         }
 
-        if (esher.pj.objetosMagicos.size() > 0) {
+        if (Personaje.getInstance().objetosMagicos.size() > 0) {
             text = "Objetos:\n";
             text += "--------------------------------------------------\n";
-            for (int i = 0; i < esher.pj.objetosMagicos.size(); i++) {
-                ObjetoMagico objeto = esher.pj.objetosMagicos.get(i);
+            for (int i = 0; i < Personaje.getInstance().objetosMagicos.size(); i++) {
+                ObjetoMagico objeto = Personaje.getInstance().objetosMagicos.get(i);
                 if (objeto.DevolverPropiedades().length() > 0) {
                     text += objeto.nombre + ": " + objeto.DevolverPropiedades();
                     text += "\n\n";
@@ -198,23 +196,23 @@ public class FichaTxt {
     public String ExportarTRs() {
         String texto = "Modificación a las TR\n";
         texto += "--------------------------------------------------\n";
-        texto += "Canalización\t" + (esher.pj.TrCanalizacion() + 3 * esher.pj.DevolverBonusCaracteristicaDeAbreviatura("In")) + "\n";
-        texto += "Esencia\t" + (esher.pj.TrEsencia() + 3 * esher.pj.DevolverBonusCaracteristicaDeAbreviatura("Em")) + "\n";
-        texto += "Mentalismo\t" + (esher.pj.TrMentalismo() + 3 * esher.pj.DevolverBonusCaracteristicaDeAbreviatura("Pr")) + "\n";
-        texto += "Psiónico\t" + esher.pj.TrPsionico() + "\n";
-        texto += "Veneno\t" + (esher.pj.TrVenenos() + 3 * esher.pj.DevolverBonusCaracteristicaDeAbreviatura("Co")) + "\n";
-        texto += "Enfermedad\t" + (esher.pj.TrEnfermedades() + 3 * esher.pj.DevolverBonusCaracteristicaDeAbreviatura("Co")) + "\n";
-        texto += "Miedo\t" + (esher.pj.TrMiedo() + 3 * esher.pj.DevolverBonusCaracteristicaDeAbreviatura("Ad")) + "\n";
-        texto += "Frío\t" + esher.pj.TrFrio() + "\n";
-        texto += "Calor\t" + esher.pj.TrCalor() + "\n";
+        texto += "Canalización\t" + (Personaje.getInstance().TrCanalizacion() + 3 * Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("In")) + "\n";
+        texto += "Esencia\t" + (Personaje.getInstance().TrEsencia() + 3 * Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("Em")) + "\n";
+        texto += "Mentalismo\t" + (Personaje.getInstance().TrMentalismo() + 3 * Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("Pr")) + "\n";
+        texto += "Psiónico\t" + Personaje.getInstance().TrPsionico() + "\n";
+        texto += "Veneno\t" + (Personaje.getInstance().TrVenenos() + 3 * Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("Co")) + "\n";
+        texto += "Enfermedad\t" + (Personaje.getInstance().TrEnfermedades() + 3 * Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("Co")) + "\n";
+        texto += "Miedo\t" + (Personaje.getInstance().TrMiedo() + 3 * Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("Ad")) + "\n";
+        texto += "Frío\t" + Personaje.getInstance().TrFrio() + "\n";
+        texto += "Calor\t" + Personaje.getInstance().TrCalor() + "\n";
         return texto;
     }
 
     public String ExportarEspeciales() {
         String texto = "Especiales:\n";
         texto += "--------------------------------------------------\n";
-        for (int i = 0; i < esher.pj.especialesRaza.size(); i++) {
-            texto += esher.pj.especialesRaza.get(i) + "\n\n";
+        for (int i = 0; i < Personaje.getInstance().especialesRaza.size(); i++) {
+            texto += Personaje.getInstance().especialesRaza.get(i) + "\n\n";
         }
         texto = texto.replaceAll("\t", "  ");
         return texto;
@@ -223,8 +221,8 @@ public class FichaTxt {
     public String ExportarTalentos() {
         String texto = "Talentos:\n";
         texto += "--------------------------------------------------\n";
-        for (int i = 0; i < esher.pj.talentos.size(); i++) {
-            Talento talento = esher.pj.talentos.get(i);
+        for (int i = 0; i < Personaje.getInstance().talentos.size(); i++) {
+            Talento talento = Personaje.getInstance().talentos.get(i);
             texto += talento.nombre + ":\t " + talento.listadoCategorias + " ("
                     + talento.Descripcion() + ").\n\n";
         }
@@ -236,8 +234,8 @@ public class FichaTxt {
      */
     public boolean ExportarPersonaje(String file) {
         if (file == null || file.equals("")) {
-            file = esher.pj.DevolverNombreCompleto() + "_N"
-                    + esher.pj.nivel + "_" + esher.pj.raza + "_" + esher.pj.profesion + ".txt";
+            file = Personaje.getInstance().DevolverNombreCompleto() + "_N"
+                    + Personaje.getInstance().nivel + "_" + Personaje.getInstance().raza + "_" + Personaje.getInstance().profesion + ".txt";
         }
         if (!file.endsWith(".txt")) {
             file += ".txt";
@@ -248,24 +246,24 @@ public class FichaTxt {
                 + ExportarTalentos() + "\n\n"
                 + ExportarEspeciales() + "\n\n"
                 + ExportarATextoEquipo();
-        esher.directorioRolemaster.GuardarEnFichero(texto, file);
+        DirectorioRolemaster.GuardarEnFichero(texto, file);
         return true;
     }
 
     private String DevolverCodigoTamaño() {
-        if (esher.pj.tamaño.equals("Muy Pequeño")) {
+        if (Personaje.getInstance().tamaño.equals("Muy Pequeño")) {
             return "MP";
         }
-        if (esher.pj.tamaño.equals("Pequeño")) {
+        if (Personaje.getInstance().tamaño.equals("Pequeño")) {
             return "P";
         }
-        if (esher.pj.tamaño.equals("Mediano") || esher.pj.tamaño.equals("Normal") || esher.pj.tamaño.equals("Medio")) {
+        if (Personaje.getInstance().tamaño.equals("Mediano") || Personaje.getInstance().tamaño.equals("Normal") || Personaje.getInstance().tamaño.equals("Medio")) {
             return "M";
         }
-        if (esher.pj.tamaño.equals("Grande")) {
+        if (Personaje.getInstance().tamaño.equals("Grande")) {
             return "G";
         }
-        if (esher.pj.tamaño.equals("Enorme") || esher.pj.tamaño.equals("Muy Grande")) {
+        if (Personaje.getInstance().tamaño.equals("Enorme") || Personaje.getInstance().tamaño.equals("Muy Grande")) {
             return "EN";
         }
         return "";
@@ -274,8 +272,8 @@ public class FichaTxt {
     private Habilidad BuscarMejorArma() {
         int maximo = 0;
         Habilidad maximoAtaque = null;
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            Categoria cat = esher.pj.categorias.get(i);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            Categoria cat = Personaje.getInstance().categorias.get(i);
             if (cat.DevolverNombre().equals("Armas·2manos")
                     || cat.DevolverNombre().equals("Armas·Contundentes")
                     || cat.DevolverNombre().equals("Armas·Asta")
@@ -434,8 +432,8 @@ public class FichaTxt {
     private Habilidad BuscarMejorDisparo() {
         int maximo = 0;
         Habilidad maximoAtaque = null;
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            Categoria cat = esher.pj.categorias.get(i);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            Categoria cat = Personaje.getInstance().categorias.get(i);
             if (cat.DevolverNombre().equals("Armas·Proyectiles")
                     || cat.DevolverNombre().equals("Armas·Arrojadizas")
                     || cat.DevolverNombre().equals("Armas·Fuego")) {
@@ -457,8 +455,8 @@ public class FichaTxt {
     private Habilidad BuscarMejorAtaque() {
         int maximo = 0;
         Habilidad maximoAtaque = null;
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            Categoria cat = esher.pj.categorias.get(i);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            Categoria cat = Personaje.getInstance().categorias.get(i);
             if (cat.DevolverNombre().equals("Artes Marciales·Golpes")
                     || cat.DevolverNombre().equals("Artes Marciales·Barridos")
                     || cat.DevolverNombre().equals("Ataques Especiales")) {
@@ -478,7 +476,7 @@ public class FichaTxt {
     }
 
     private String ObtenerCodigoVelocidad() {
-        int rapidez = esher.pj.DevolverBonusCaracteristicaDeAbreviatura("Rp");
+        int rapidez = Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("Rp");
         if (rapidez <= -14) {
             return "IM";
         }
@@ -514,12 +512,12 @@ public class FichaTxt {
         Habilidad habProy = BuscarMejorDisparo();
         Habilidad habAtaq = BuscarMejorAtaque();
         String vel = ObtenerCodigoVelocidad();
-        int PV = esher.pj.DevolverHabilidadDeNombre("Desarrollo Físico").Total();
+        int PV = Personaje.getInstance().DevolverHabilidadDeNombre("Desarrollo Físico").Total();
         String texto = "Raza\tNivel\tMov.\tMM\tVM/VA\tTam\tPV\tTA(BD)\tAtaques\n";
-        texto += esher.pj.raza + "\t" + esher.pj.nivel + "\t" + esher.pj.DevolverCapacidadMovimiento() + "\t"
-                + esher.pj.DevolverBonusCaracteristicaDeAbreviatura("Ag") * 3 + "\t"
+        texto += Personaje.getInstance().raza + "\t" + Personaje.getInstance().nivel + "\t" + Personaje.getInstance().DevolverCapacidadMovimiento() + "\t"
+                + Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("Ag") * 3 + "\t"
                 + vel + "\t" + DevolverCodigoTamaño() + "\t" + PV + "\t "
-                + esher.pj.DevolverTA() + " (" + esher.pj.DevolverBD() + ")\t"
+                + Personaje.getInstance().DevolverTA() + " (" + Personaje.getInstance().DevolverBD() + ")\t"
                 + habCC.Total() + DevolverCodigoAtaque(habCC);
         if (habProy.Total() > 0) {
             texto += "/" + habProy.Total() + DevolverCodigoAtaque(habProy);
@@ -532,8 +530,8 @@ public class FichaTxt {
 
     private String GenerarAbreviaturaHabilidades() {
         String texto = "";
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            Categoria cat = esher.pj.categorias.get(i);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            Categoria cat = Personaje.getInstance().categorias.get(i);
             texto += cat.DevolverAbreviatura() + " " + cat.Total();
             int añadidas = 0;
             for (int j = 0; j < cat.listaHabilidades.size(); j++) {
@@ -552,10 +550,10 @@ public class FichaTxt {
             if (añadidas > 0) {
                 texto += ")";
             }
-            if (i < esher.pj.categorias.size() - 1) {
+            if (i < Personaje.getInstance().categorias.size() - 1) {
                 texto += ", ";
             }
-            if (i == esher.pj.categorias.size() - 1) {
+            if (i == Personaje.getInstance().categorias.size() - 1) {
                 texto += ".";
             }
 
@@ -565,17 +563,17 @@ public class FichaTxt {
 
     public boolean ExportarAbreviaturaPersonaje(String file) {
         if (file == null || file.equals("")) {
-            file = esher.pj.DevolverNombreCompleto() + "_N"
-                    + esher.pj.nivel + "_" + esher.pj.raza + "_" + esher.pj.profesion + ".txt";
+            file = Personaje.getInstance().DevolverNombreCompleto() + "_N"
+                    + Personaje.getInstance().nivel + "_" + Personaje.getInstance().raza + "_" + Personaje.getInstance().profesion + ".txt";
         }
         if (!file.endsWith(".txt")) {
             file += ".txt";
         }
-        String texto = esher.pj.DevolverNombreCompleto() + "\n"
+        String texto = Personaje.getInstance().DevolverNombreCompleto() + "\n"
                 + GenerarCaracteristicasTipoMonstruo() + "\n"
                 + "HABILIDADES: \n"
                 + GenerarAbreviaturaHabilidades();
-        esher.directorioRolemaster.GuardarEnFichero(texto, file);
+        DirectorioRolemaster.GuardarEnFichero(texto, file);
         return true;
     }
 }

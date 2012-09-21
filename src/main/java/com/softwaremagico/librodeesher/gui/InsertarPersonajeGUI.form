@@ -42,7 +42,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="PjTabbedPane" pref="457" max="32767" attributes="0"/>
+              <Component id="PjTabbedPane" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="CerrarButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -105,7 +105,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Component id="NombreTextField" alignment="0" pref="185" max="32767" attributes="2"/>
-                                          <Component id="RazasComboBox" alignment="0" pref="185" max="32767" attributes="2"/>
+                                          <Component id="RazasComboBox" alignment="0" pref="166" max="32767" attributes="2"/>
                                           <Component id="CulturasComboBox" alignment="0" pref="185" max="32767" attributes="2"/>
                                           <Component id="ProfesionesComboBox" alignment="0" pref="185" max="32767" attributes="2"/>
                                           <Component id="ReinosComboBox" alignment="0" pref="185" max="32767" attributes="2"/>
@@ -180,7 +180,7 @@
                               <EmptySpace pref="80" max="32767" attributes="0"/>
                               <Component id="BajarArmaButton" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="ArmasScrollPane" pref="138" max="32767" attributes="0"/>
+                          <Component id="ArmasScrollPane" pref="142" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -347,7 +347,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" alignment="1" max="-2" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel10" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -364,15 +364,15 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="AparienciaTextField" min="0" pref="0" max="32767" attributes="1"/>
-                                  <Component id="IntuicionTemporalSpinner" linkSize="3" alignment="1" pref="62" max="32767" attributes="1"/>
-                                  <Component id="FuerzaTemporalSpinner" linkSize="3" alignment="1" pref="62" max="32767" attributes="1"/>
-                                  <Component id="RapidezTemporalSpinner" linkSize="3" alignment="1" pref="62" max="32767" attributes="1"/>
-                                  <Component id="PresenciaTemporalSpinner" linkSize="3" alignment="1" pref="62" max="32767" attributes="1"/>
-                                  <Component id="EmpatiaTemporalSpinner" linkSize="3" alignment="1" pref="62" max="32767" attributes="1"/>
-                                  <Component id="AutodisciplinaTemporalSpinner" linkSize="3" alignment="1" pref="62" max="32767" attributes="1"/>
-                                  <Component id="RazonTemporalSpinner" linkSize="3" alignment="1" pref="62" max="32767" attributes="1"/>
-                                  <Component id="MemoriaTemporalSpinner" linkSize="3" alignment="1" pref="62" max="32767" attributes="1"/>
-                                  <Component id="ConstitucionTemporalSpinner" linkSize="3" alignment="1" pref="62" max="32767" attributes="1"/>
+                                  <Component id="IntuicionTemporalSpinner" linkSize="3" alignment="1" max="32767" attributes="1"/>
+                                  <Component id="FuerzaTemporalSpinner" linkSize="3" alignment="1" max="32767" attributes="1"/>
+                                  <Component id="RapidezTemporalSpinner" linkSize="3" alignment="1" max="32767" attributes="1"/>
+                                  <Component id="PresenciaTemporalSpinner" linkSize="3" alignment="1" max="32767" attributes="1"/>
+                                  <Component id="EmpatiaTemporalSpinner" linkSize="3" alignment="1" max="32767" attributes="1"/>
+                                  <Component id="AutodisciplinaTemporalSpinner" linkSize="3" alignment="1" max="32767" attributes="1"/>
+                                  <Component id="RazonTemporalSpinner" linkSize="3" alignment="1" max="32767" attributes="1"/>
+                                  <Component id="MemoriaTemporalSpinner" linkSize="3" alignment="1" max="32767" attributes="1"/>
+                                  <Component id="ConstitucionTemporalSpinner" linkSize="3" alignment="1" max="32767" attributes="1"/>
                                   <Component id="AgilidadTemporalSpinner" linkSize="10" alignment="1" min="-2" pref="62" max="-2" attributes="1"/>
                               </Group>
                           </Group>
@@ -383,10 +383,10 @@
                               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                               <Component id="jLabel13" min="-2" max="-2" attributes="1"/>
                           </Group>
-                          <Group type="102" alignment="0" max="-2" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="ConstitucionPotencialSpinner" linkSize="3" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="ConstitucionPotencialSpinner" linkSize="3" alignment="0" pref="62" max="32767" attributes="1"/>
                                   <Component id="AgilidadPotencialSpinner" linkSize="10" alignment="0" max="32767" attributes="1"/>
                                   <Component id="MemoriaPotencialSpinner" linkSize="3" alignment="0" max="32767" attributes="1"/>
                                   <Component id="RazonPotencialSpinner" linkSize="3" alignment="0" max="32767" attributes="1"/>
@@ -401,7 +401,7 @@
                           </Group>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" max="-2" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                               <Component id="jLabel14" min="-2" max="-2" attributes="1"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -426,28 +426,28 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="2" attributes="0">
                                   <Component id="AgilidadRazaTextField" linkSize="3" alignment="2" min="-2" pref="49" max="-2" attributes="2"/>
-                                  <Component id="ConstitucionRazaTextField" linkSize="3" alignment="2" pref="62" max="32767" attributes="1"/>
-                                  <Component id="MemoriaRazaTextField" linkSize="3" alignment="2" pref="62" max="32767" attributes="1"/>
-                                  <Component id="RazonRazaTextField" linkSize="3" alignment="2" pref="62" max="32767" attributes="1"/>
-                                  <Component id="AutodisciplinaRazaTextField" linkSize="3" alignment="2" pref="62" max="32767" attributes="1"/>
-                                  <Component id="EmpatiaRazaTextField" linkSize="3" alignment="2" pref="62" max="32767" attributes="1"/>
-                                  <Component id="IntuicionRazaTextField" linkSize="3" alignment="2" pref="62" max="32767" attributes="1"/>
-                                  <Component id="PresenciaRazaTextField" linkSize="3" alignment="2" pref="62" max="32767" attributes="1"/>
-                                  <Component id="RapidezRazaTextField" linkSize="3" alignment="2" pref="62" max="32767" attributes="1"/>
-                                  <Component id="FuerzaRazaTextField" linkSize="3" alignment="2" pref="62" max="32767" attributes="1"/>
+                                  <Component id="ConstitucionRazaTextField" linkSize="3" alignment="2" max="32767" attributes="1"/>
+                                  <Component id="MemoriaRazaTextField" linkSize="3" alignment="2" max="32767" attributes="1"/>
+                                  <Component id="RazonRazaTextField" linkSize="3" alignment="2" max="32767" attributes="1"/>
+                                  <Component id="AutodisciplinaRazaTextField" linkSize="3" alignment="2" max="32767" attributes="1"/>
+                                  <Component id="EmpatiaRazaTextField" linkSize="3" alignment="2" max="32767" attributes="1"/>
+                                  <Component id="IntuicionRazaTextField" linkSize="3" alignment="2" max="32767" attributes="1"/>
+                                  <Component id="PresenciaRazaTextField" linkSize="3" alignment="2" max="32767" attributes="1"/>
+                                  <Component id="RapidezRazaTextField" linkSize="3" alignment="2" max="32767" attributes="1"/>
+                                  <Component id="FuerzaRazaTextField" linkSize="3" alignment="2" max="32767" attributes="1"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="2" attributes="0">
                                   <Component id="AgilidadTotalTextField" linkSize="3" alignment="2" min="-2" pref="33" max="-2" attributes="2"/>
-                                  <Component id="ConstitucionTotalTextField" linkSize="3" alignment="2" pref="62" max="32767" attributes="1"/>
-                                  <Component id="MemoriaTotalTextField" linkSize="3" alignment="2" pref="62" max="32767" attributes="1"/>
-                                  <Component id="RazonTotalTextField" linkSize="3" alignment="2" pref="62" max="32767" attributes="1"/>
-                                  <Component id="AutodisciplinaTotalTextField" linkSize="3" alignment="2" pref="62" max="32767" attributes="1"/>
-                                  <Component id="EmpatiaTotalTextField" linkSize="3" alignment="2" pref="62" max="32767" attributes="1"/>
-                                  <Component id="IntuicionTotalTextField" linkSize="3" alignment="2" pref="62" max="32767" attributes="1"/>
-                                  <Component id="PresenciaTotalTextField" linkSize="3" alignment="2" pref="62" max="32767" attributes="1"/>
-                                  <Component id="RapidezTotalTextField" linkSize="3" alignment="2" pref="62" max="32767" attributes="1"/>
-                                  <Component id="FuerzaTotalTextField" linkSize="3" alignment="2" pref="62" max="32767" attributes="1"/>
+                                  <Component id="ConstitucionTotalTextField" linkSize="3" alignment="2" max="32767" attributes="1"/>
+                                  <Component id="MemoriaTotalTextField" linkSize="3" alignment="2" max="32767" attributes="1"/>
+                                  <Component id="RazonTotalTextField" linkSize="3" alignment="2" max="32767" attributes="1"/>
+                                  <Component id="AutodisciplinaTotalTextField" linkSize="3" alignment="2" max="32767" attributes="1"/>
+                                  <Component id="EmpatiaTotalTextField" linkSize="3" alignment="2" max="32767" attributes="1"/>
+                                  <Component id="IntuicionTotalTextField" linkSize="3" alignment="2" max="32767" attributes="1"/>
+                                  <Component id="PresenciaTotalTextField" linkSize="3" alignment="2" max="32767" attributes="1"/>
+                                  <Component id="RapidezTotalTextField" linkSize="3" alignment="2" max="32767" attributes="1"/>
+                                  <Component id="FuerzaTotalTextField" linkSize="3" alignment="2" max="32767" attributes="1"/>
                               </Group>
                           </Group>
                       </Group>
@@ -562,7 +562,7 @@
                           <Component id="AparienciaTextField" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="BonusAparienciaTextField" alignment="2" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="14" max="32767" attributes="0"/>
+                      <EmptySpace pref="18" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1032,7 +1032,7 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jScrollPane1" pref="458" max="32767" attributes="2"/>
+                              <Component id="jScrollPane1" max="32767" attributes="2"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -1055,8 +1055,8 @@
                                           </Group>
                                           <Group type="102" alignment="1" attributes="0">
                                               <Group type="103" groupAlignment="1" attributes="0">
-                                                  <Component id="CategoriasComboBox" pref="292" max="32767" attributes="2"/>
-                                                  <Component id="HabilidadesComboBox" alignment="1" pref="292" max="32767" attributes="2"/>
+                                                  <Component id="CategoriasComboBox" max="32767" attributes="2"/>
+                                                  <Component id="HabilidadesComboBox" alignment="1" max="32767" attributes="2"/>
                                               </Group>
                                               <EmptySpace min="-2" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="1" attributes="0">
@@ -1071,7 +1071,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="EspecializadaCheckBox" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="MotivoEspecializacionTextField" pref="203" max="32767" attributes="0"/>
+                                      <Component id="MotivoEspecializacionTextField" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
@@ -1109,7 +1109,7 @@
                           <Component id="MotivoEspecializacionTextField" alignment="2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="251" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="253" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -1280,7 +1280,7 @@
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel37" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="TipoTextField" alignment="0" pref="92" max="32767" attributes="0"/>
+                                      <Component id="TipoTextField" alignment="0" pref="93" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                               </Group>
@@ -1311,7 +1311,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel38" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" pref="195" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" pref="197" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="SeleccionarCheckBox" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -1401,7 +1401,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane3" alignment="0" pref="175" max="32767" attributes="0"/>
+                              <Component id="jScrollPane3" alignment="0" pref="176" max="32767" attributes="0"/>
                               <Component id="jLabel41" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -1479,7 +1479,7 @@
                       <Component id="HistorialPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="ObjetosPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="23" max="32767" attributes="0"/>
+                      <EmptySpace pref="27" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1504,7 +1504,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="159" max="32767" attributes="0"/>
+                                          <EmptySpace pref="136" max="32767" attributes="0"/>
                                           <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
@@ -1672,8 +1672,8 @@
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jLabel35" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel32" alignment="0" pref="54" max="32767" attributes="1"/>
-                                      <Component id="BonusHabilidadSpinner" alignment="1" pref="54" max="32767" attributes="1"/>
+                                      <Component id="jLabel32" alignment="0" max="32767" attributes="1"/>
+                                      <Component id="BonusHabilidadSpinner" alignment="1" max="32767" attributes="1"/>
                                       <Component id="BonusCategoriaSpinner" alignment="1" min="-2" pref="54" max="-2" attributes="2"/>
                                   </Group>
                               </Group>

@@ -1,21 +1,21 @@
 /*
  *
-This software is designed by Jorge Hortelano Otero.
-softwaremagico@gmail.com
-Copyright (C) 2007 Jorge Hortelano Otero.
-C/Botanico 12, 1. Valencia CP:46008 (Spain).
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-Created on agost of 2008.
+ This software is designed by Jorge Hortelano Otero.
+ softwaremagico@gmail.com
+ Copyright (C) 2007 Jorge Hortelano Otero.
+ C/Botanico 12, 1. Valencia CP:46008 (Spain).
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 2
+ of the License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ Created on agost of 2008.
  */
 package com.softwaremagico.librodeesher.gui;
 /*
@@ -51,19 +51,29 @@ import javax.swing.JOptionPane;
  */
 public class MostrarError {
 
-    private final int LINE = 50;
+    private static final int LINE = 50;
 
     public MostrarError(String text, String title) {
-        ShowTextMessage(text, title);
-        ShowErrorMessage(text, title, JOptionPane.ERROR_MESSAGE);
+        errortextMessage(text, title);
+        errorMessage(text, title, JOptionPane.ERROR_MESSAGE);
     }
 
     public MostrarError(String text, String title, int option) {
-        ShowTextMessage(text, title);
-        ShowErrorMessage(text, title, option);
+        errortextMessage(text, title);
+        errorMessage(text, title, option);
     }
 
-    void ShowErrorMessage(String text, String title, int option) {
+    public static void showErrorMessage(String text, String title) {
+        errortextMessage(text, title);
+        errorMessage(text, title, JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void showErrorMessage(String text, String title, int option) {
+        errortextMessage(text, title);
+        errorMessage(text, title, option);
+    }
+
+    private static void errorMessage(String text, String title, int option) {
         int i = 0, caracteres = 0;
         String texto[] = text.split(" ");
         text = "";
@@ -84,7 +94,7 @@ public class MostrarError {
         JOptionPane.showMessageDialog(frame, text, title, option);
     }
 
-    void ShowTextMessage(String text, String title) {
+    private static void errortextMessage(String text, String title) {
         System.out.println(title + ":");
         System.out.println(text);
     }

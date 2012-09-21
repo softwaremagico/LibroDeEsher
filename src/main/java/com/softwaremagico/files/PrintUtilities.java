@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package com.softwaremagico.explorarDirectorios;
+package com.softwaremagico.files;
 /*
  * #%L
  * Libro de Esher

@@ -26,7 +26,7 @@
  *
  *
  */
-package com.softwaremagico.explorarDirectorios;
+package com.softwaremagico.files;
 /*
  * #%L
  * Libro de Esher

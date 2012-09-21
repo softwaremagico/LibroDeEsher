@@ -29,6 +29,7 @@ package com.softwaremagico.librodeesher.gui;
  */
 
 import com.softwaremagico.librodeesher.Esher;
+import com.softwaremagico.librodeesher.Personaje;
 import com.softwaremagico.librodeesher.Talento;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
@@ -40,13 +41,11 @@ import java.util.ArrayList;
  */
 public class TalentosGUI extends javax.swing.JFrame {
 
-    private Esher esher;
     private ElegirComunProfesionalGUI grupoHab = null;
     private SeleccionarHabilidadTalentoGUI selecHab = null;
 
     /** Creates new form TalentosGUI */
-    public TalentosGUI(Esher tmp_esher) {
-        esher = tmp_esher;
+    public TalentosGUI() {
         initComponents();
         setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (int) (this.getWidth() / 2),
                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (int) (this.getHeight() / 2));
@@ -64,8 +63,8 @@ public class TalentosGUI extends javax.swing.JFrame {
 
     private void MostrarTalentosCogidos() {
         String texto = "";
-        for (int i = 0; i < esher.pj.talentos.size(); i++) {
-            Talento talento = esher.pj.talentos.get(i);
+        for (int i = 0; i < Personaje.getInstance().talentos.size(); i++) {
+            Talento talento = Personaje.getInstance().talentos.get(i);
             texto += talento.nombre + ": " + talento.listadoCategorias + " (" +
                     talento.Descripcion() + ").\n\n";
         }
@@ -74,17 +73,17 @@ public class TalentosGUI extends javax.swing.JFrame {
 
     public void ActualizarTalentoSeleccionado() {
         try{
-        Talento talento = esher.talentos.DevolverTalento(TalentosComboBox.getSelectedItem().toString());
+        Talento talento = Esher.talentos.DevolverTalento(TalentosComboBox.getSelectedItem().toString());
         CosteTextField.setText(talento.coste + "");
         TipoTextField.setText(talento.clasificacion);
         DecripcionTextArea.setText(talento.listadoCategorias + "\n------\n" + talento.Descripcion());
-        PuntosTextField.setText(esher.pj.DevolverPuntosTalentosRestantes() + "");
-        if (esher.pj.DevolverTalento(talento.nombre) != null) {
+        PuntosTextField.setText(Personaje.getInstance().DevolverPuntosTalentosRestantes() + "");
+        if (Personaje.getInstance().DevolverTalento(talento.nombre) != null) {
             SeleccionarCheckBox.setSelected(true);
         } else {
             SeleccionarCheckBox.setSelected(false);
         }
-        if (talento.coste > esher.pj.DevolverPuntosTalentosRestantes() && !SeleccionarCheckBox.isSelected()) {
+        if (talento.coste > Personaje.getInstance().DevolverPuntosTalentosRestantes() && !SeleccionarCheckBox.isSelected()) {
             SeleccionarCheckBox.setEnabled(false);
         } else {
             SeleccionarCheckBox.setEnabled(true);
@@ -94,8 +93,8 @@ public class TalentosGUI extends javax.swing.JFrame {
 
     private void ActualizarTalentosComboBox() {
         TalentosComboBox.removeAllItems();
-        for (int i = 0; i < esher.talentos.Size(); i++) {
-            Talento tal = esher.talentos.Get(i);
+        for (int i = 0; i < Esher.talentos.Size(); i++) {
+            Talento tal = Esher.talentos.Get(i);
             if (tal.EsTalentoPermitido()) {
                 TalentosComboBox.addItem(tal.nombre);
             }
@@ -103,13 +102,13 @@ public class TalentosGUI extends javax.swing.JFrame {
     }
 
     public void SeleccionaTalento() {
-        Talento talento = esher.talentos.DevolverTalento(TalentosComboBox.getSelectedItem().toString());
+        Talento talento = Esher.talentos.DevolverTalento(TalentosComboBox.getSelectedItem().toString());
         //Borramos las elegidas por si hay alguna anterior.
         if (talento.bonusCategoriaHabilidadElegir != null) {
-            talento.bonusCategoriaHabilidadElegir.listadoCategoriasYHabilidadesElegidas = new ArrayList<String>();
+            talento.bonusCategoriaHabilidadElegir.listadoCategoriasYHabilidadesElegidas = new ArrayList<>();
         }
         if (SeleccionarCheckBox.isSelected()) {
-            esher.pj.talentos.add(talento);
+            Personaje.getInstance().talentos.add(talento);
             //Si no se ha escogido habilidad común, es un buen momento.
             for (int i = 0; i < talento.bonusCategoria.size(); i++) {
                 if (talento.bonusCategoria.get(i).habilidadComun) {
@@ -119,15 +118,15 @@ public class TalentosGUI extends javax.swing.JFrame {
                             grupoHab = null;
                         }
                         grupoHab = new ElegirComunProfesionalGUI("Común",
-                                esher.pj.DevolverCategoriaDeNombre(talento.bonusCategoria.get(i).nombre),
-                                1, esher.pj, talento);
+                                Personaje.getInstance().DevolverCategoriaDeNombre(talento.bonusCategoria.get(i).nombre),
+                                1, talento);
                         grupoHab.setVisible(true);
                     }
                 }
             }
             //Selecciona la habilidad o categoría si es necesario.
             if (talento.bonusCategoriaHabilidadElegir != null) {
-                selecHab = new SeleccionarHabilidadTalentoGUI(esher, talento,
+                selecHab = new SeleccionarHabilidadTalentoGUI(talento,
                         talento.bonusCategoriaHabilidadElegir.bonus,
                         talento.bonusCategoriaHabilidadElegir.añadir,
                         talento.bonusCategoriaHabilidadElegir.listadoCategoriasHabilidadesPosiblesAElegir,
@@ -139,7 +138,7 @@ public class TalentosGUI extends javax.swing.JFrame {
             for (int j = 0; j < talento.bonusCategoria.size(); j++) {
                 talento.bonusCategoria.get(j).habilidadEscogida = null;
             }
-            esher.pj.EliminarTalento(TalentosComboBox.getSelectedItem().toString());
+            Personaje.getInstance().EliminarTalento(TalentosComboBox.getSelectedItem().toString());
         }
         MostrarTalentosCogidos();
     }

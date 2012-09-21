@@ -41,15 +41,15 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
+import com.softwaremagico.files.DirectorioRolemaster;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Magia {
 
-    Esher esher;
 
-    public Magia(Esher tmp_esher) {
-        esher = tmp_esher;
+    public Magia() {
     }
 
     /**
@@ -63,7 +63,7 @@ public class Magia {
                     String[] vectorHechizos = lineaHechizos.split("\t");
                     String nombreHechizo = vectorHechizos[0];
                     String claseHechizo = vectorHechizos[1];
-                    esher.pj.AddHechizo(new ListaDeHechizos(esher.pj, nombreHechizo, claseHechizo, reino));
+                    Personaje.getInstance().AddHechizo(new ListaDeHechizos(nombreHechizo, claseHechizo, reino));
                 }
             }
         } catch (IndexOutOfBoundsException iobe) {
@@ -77,20 +77,20 @@ public class Magia {
      */
     public List<String> ObtenerReinoDisponible() throws Exception {
         List<String> reinosExistentes = ReinosDeMagiaDisponibles();
-        List<String> reinosPosibles = new ArrayList<String>();
+        List<String> reinosPosibles = new ArrayList<>();
         for (int i = 0; i < reinosExistentes.size(); i++) {
             String reinoDisponible = reinosExistentes.get(i);
             //Si es híbrido de dos reinos.
             if (reinoDisponible.contains("/")) {
                 String[] dosReinos = reinoDisponible.split("/");
                 //El orden de los dos reinos no importa.
-                if (esher.pj.reinosDeProfesion.contains(dosReinos[0] + "/" + dosReinos[1])
-                        || esher.pj.reinosDeProfesion.contains(dosReinos[1] + "/" + dosReinos[0])) {
+                if (Personaje.getInstance().reinosDeProfesion.contains(dosReinos[0] + "/" + dosReinos[1])
+                        || Personaje.getInstance().reinosDeProfesion.contains(dosReinos[1] + "/" + dosReinos[0])) {
                     reinosPosibles.add(reinoDisponible);
                 }
             } else {
                 //Reinos simples.
-                if (esher.pj.reinosDeProfesion.contains(reinoDisponible)) {
+                if (Personaje.getInstance().reinosDeProfesion.contains(reinoDisponible)) {
                     reinosPosibles.add(reinoDisponible);
                 }
             }
@@ -100,100 +100,98 @@ public class Magia {
 
     private void ResetCategoriasHechizos() {
         Categoria cat = null;
-        cat = esher.pj.DevolverCategoriaDeNombre("Listas Abiertas de Hechizos");
-        cat.listaHabilidades = new ArrayList<Habilidad>();
-        cat = esher.pj.DevolverCategoriaDeNombre("Listas Abiertas Arcanas");
-        cat.listaHabilidades = new ArrayList<Habilidad>();
-        cat = esher.pj.DevolverCategoriaDeNombre("Listas Abiertas de otros Reinos");
-        cat.listaHabilidades = new ArrayList<Habilidad>();
-        cat = esher.pj.DevolverCategoriaDeNombre("Listas Cerradas de Hechizos");
-        cat.listaHabilidades = new ArrayList<Habilidad>();
-        cat = esher.pj.DevolverCategoriaDeNombre("Listas Cerradas de otros Reinos");
-        cat.listaHabilidades = new ArrayList<Habilidad>();
-        cat = esher.pj.DevolverCategoriaDeNombre("Listas Básicas de Hechizos");
-        cat.listaHabilidades = new ArrayList<Habilidad>();
-        cat = esher.pj.DevolverCategoriaDeNombre("Listas Básicas de otras Profesiones");
-        cat.listaHabilidades = new ArrayList<Habilidad>();
-        cat = esher.pj.DevolverCategoriaDeNombre("Listas Básicas de otros Reinos");
-        cat.listaHabilidades = new ArrayList<Habilidad>();
-        cat = esher.pj.DevolverCategoriaDeNombre("Listas Abiertas Arcanas");
-        cat.listaHabilidades = new ArrayList<Habilidad>();
-        cat = esher.pj.DevolverCategoriaDeNombre("Listas Hechizos de Adiestramiento");
-        cat.listaHabilidades = new ArrayList<Habilidad>();
-        if (esher.hechizosAdiestramientoOtrosReinosPermitidos) {
-            cat = esher.pj.DevolverCategoriaDeNombre("Listas Hechizos de Adiestramientos de Otro Reino");
-            cat.listaHabilidades = new ArrayList<Habilidad>();
+        cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Abiertas de Hechizos");
+        cat.listaHabilidades = new ArrayList<>();
+        cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Abiertas Arcanas");
+        cat.listaHabilidades = new ArrayList<>();
+        cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Abiertas de otros Reinos");
+        cat.listaHabilidades = new ArrayList<>();
+        cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Cerradas de Hechizos");
+        cat.listaHabilidades = new ArrayList<>();
+        cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Cerradas de otros Reinos");
+        cat.listaHabilidades = new ArrayList<>();
+        cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Básicas de Hechizos");
+        cat.listaHabilidades = new ArrayList<>();
+        cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Básicas de otras Profesiones");
+        cat.listaHabilidades = new ArrayList<>();
+        cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Básicas de otros Reinos");
+        cat.listaHabilidades = new ArrayList<>();
+        cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Abiertas Arcanas");
+        cat.listaHabilidades = new ArrayList<>();
+        cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Hechizos de Adiestramiento");
+        cat.listaHabilidades = new ArrayList<>();
+        if (Esher.hechizosAdiestramientoOtrosReinosPermitidos) {
+            cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Hechizos de Adiestramientos de Otro Reino");
+            cat.listaHabilidades = new ArrayList<>();
         }
-        cat = esher.pj.DevolverCategoriaDeNombre("Listas Básicas de la Tríada");
-        cat.listaHabilidades = new ArrayList<Habilidad>();
-        cat = esher.pj.DevolverCategoriaDeNombre("Listas Básicas Elementales Complementarias");
-        cat.listaHabilidades = new ArrayList<Habilidad>();
+        cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Básicas de la Tríada");
+        cat.listaHabilidades = new ArrayList<>();
+        cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Básicas Elementales Complementarias");
+        cat.listaHabilidades = new ArrayList<>();
     }
 
     private void AñadirHechizosPorProfesion() throws Exception {
         ResetCategoriasHechizos();
-        for (int i = 0; i < esher.pj.listaHechizos.size(); i++) {
+        for (int i = 0; i < Personaje.getInstance().listaHechizos.size(); i++) {
             Categoria cat = null;
-            ListaDeHechizos hechizo = esher.pj.listaHechizos.get(i);
+            ListaDeHechizos hechizo = Personaje.getInstance().listaHechizos.get(i);
 
             //Hay listas compartidas por varias profesiones.
             String[] vectorClase = hechizo.clase.split("/");
-            List<String> listaClase = new ArrayList<String>();
-            for (int j = 0; j < vectorClase.length; j++) {
-                listaClase.add(vectorClase[j]);
-            }
+            List<String> listaClase = new ArrayList<>();
+            listaClase.addAll(Arrays.asList(vectorClase));
 
             if (listaClase.contains("Abierta")) {
-                if (esher.pj.reino.contains(hechizo.reino)) {
-                    cat = esher.pj.DevolverCategoriaDeNombre("Listas Abiertas de Hechizos");
+                if (Personaje.getInstance().reino.contains(hechizo.reino)) {
+                    cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Abiertas de Hechizos");
                 } else if ((hechizo.reino.equals("Arcana"))) {
-                    cat = esher.pj.DevolverCategoriaDeNombre("Listas Abiertas Arcanas");
+                    cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Abiertas Arcanas");
                 } else {
-                    cat = esher.pj.DevolverCategoriaDeNombre("Listas Abiertas de otros Reinos");
+                    cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Abiertas de otros Reinos");
                 }
             } else if (listaClase.contains("Cerrada")) {
-                if (esher.pj.reino.contains(hechizo.reino)) {
-                    cat = esher.pj.DevolverCategoriaDeNombre("Listas Cerradas de Hechizos");
+                if (Personaje.getInstance().reino.contains(hechizo.reino)) {
+                    cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Cerradas de Hechizos");
                 } else {
-                    cat = esher.pj.DevolverCategoriaDeNombre("Listas Cerradas de otros Reinos");
+                    cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Cerradas de otros Reinos");
                 }
-            } else if (listaClase.contains(esher.pj.profesion)) {
+            } else if (listaClase.contains(Personaje.getInstance().profesion)) {
                 //Listas basica de esta profesion.
-                cat = esher.pj.DevolverCategoriaDeNombre("Listas Básicas de Hechizos");
+                cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Básicas de Hechizos");
             } else {
                 //Listas básicas de otras profesiones.
-                List<String> profesiones = esher.ProfesionesDisponibles();
-                profesiones.addAll(esher.AdiestramientosDisponibles());
+                List<String> profesiones = Esher.ProfesionesDisponibles();
+                profesiones.addAll(Esher.AdiestramientosDisponibles());
                 //Consideramos las listas malignas como listas de otras profesiones si no está seleccionada la opción adecuada.. 
-                if ((esher.hechizosMalignos) && (listaClase.contains("Esencia Maligna") || listaClase.contains("Canalización Maligna")
+                if ((Esher.hechizosMalignos) && (listaClase.contains("Esencia Maligna") || listaClase.contains("Canalización Maligna")
                         || listaClase.contains("Mentalismo Maligno"))) {
-                    if (esher.pj.reino.contains(hechizo.reino)) {
-                        cat = esher.pj.DevolverCategoriaDeNombre("Listas Básicas de Hechizos");
+                    if (Personaje.getInstance().reino.contains(hechizo.reino)) {
+                        cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Básicas de Hechizos");
                     } else {
-                        cat = esher.pj.DevolverCategoriaDeNombre("Listas Básicas de otros Reinos");
+                        cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Básicas de otros Reinos");
                     }
                 } else if (listaClase.contains("Esencia Maligna") || listaClase.contains("Canalización Maligna")
                         || listaClase.contains("Mentalismo Maligno")
-                        || ElementoEnComun(profesiones, listaClase) && !listaClase.contains(esher.pj.profesion)) {
-                    if (esher.pj.reino.contains(hechizo.reino)) {
-                        cat = esher.pj.DevolverCategoriaDeNombre("Listas Básicas de otras Profesiones");
+                        || ElementoEnComun(profesiones, listaClase) && !listaClase.contains(Personaje.getInstance().profesion)) {
+                    if (Personaje.getInstance().reino.contains(hechizo.reino)) {
+                        cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Básicas de otras Profesiones");
                     } else {
-                        cat = esher.pj.DevolverCategoriaDeNombre("Listas Básicas de otros Reinos");
+                        cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Básicas de otros Reinos");
                     }
                 }
             }
 
-            if (listaClase.contains(esher.pj.raza)) {
-                if (esher.pj.EsHechicero()) {
-                    cat = esher.pj.DevolverCategoriaDeNombre("Listas Básicas de Hechizos");
+            if (listaClase.contains(Personaje.getInstance().raza)) {
+                if (Personaje.getInstance().EsHechicero()) {
+                    cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Básicas de Hechizos");
                 } else {
-                    cat = esher.pj.DevolverCategoriaDeNombre("Listas Abiertas de Hechizos");
+                    cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Abiertas de Hechizos");
                 }
             } else {
                 //Las listas de otras razas
-                List<String> razas = esher.RazasDisponibles();
-                if (ElementoEnComun(razas, listaClase) && !listaClase.contains(esher.pj.raza)) {
-                    cat = esher.pj.DevolverCategoriaDeNombre("Listas Básicas de otros Reinos");
+                List<String> razas = Esher.RazasDisponibles();
+                if (ElementoEnComun(razas, listaClase) && !listaClase.contains(Personaje.getInstance().raza)) {
+                    cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Básicas de otros Reinos");
                 } else {
                     //Si la raza no existe, no admitimos sus hechizos.
                 }
@@ -202,7 +200,7 @@ public class Magia {
             //Finalmente añadimos la lista a la categoría seleccionada previamente.
             try {
                 if (!cat.ExisteHabilidad(hechizo.nombre)) {
-                    Habilidad hab = new Habilidad(cat, hechizo.nombre);
+                    Habilidad hab = Habilidad.getSkill(cat, hechizo.nombre);
                     cat.AddHabilidad(hab);
                 }
             } catch (NullPointerException npe) {
@@ -213,24 +211,24 @@ public class Magia {
     void PrepararCostesListas() {
         for (int j = 0; j < 3; j++) {
             for (int i = 0; i < 5; i++) {
-                esher.pj.listasBasicas[i][j] = 1000;
-                esher.pj.listasAbiertas[i][j] = 1000;
-                esher.pj.listasCerradas[i][j] = 1000;
-                esher.pj.listasOtros[i][j] = 1000;
-                esher.pj.listasAbiertasOtros[i][j] = 1000;
-                esher.pj.listasCerradasOtros[i][j] = 1000;
-                esher.pj.listasBasicasOtros[i][j] = 1000;
-                esher.pj.listasAbiertasArcanas[i][j] = 1000;
-                esher.pj.listasElementalesComplementarias[i][j] = 1000;
-                esher.pj.listasTriada[i][j] = 1000;
-                esher.pj.listasPropiasAdiestramientos[i][j] = 1000;
-                esher.pj.listasOtrasAdiestramientos[i][j] = 1000;
+                Personaje.getInstance().listasBasicas[i][j] = 1000;
+                Personaje.getInstance().listasAbiertas[i][j] = 1000;
+                Personaje.getInstance().listasCerradas[i][j] = 1000;
+                Personaje.getInstance().listasOtros[i][j] = 1000;
+                Personaje.getInstance().listasAbiertasOtros[i][j] = 1000;
+                Personaje.getInstance().listasCerradasOtros[i][j] = 1000;
+                Personaje.getInstance().listasBasicasOtros[i][j] = 1000;
+                Personaje.getInstance().listasAbiertasArcanas[i][j] = 1000;
+                Personaje.getInstance().listasElementalesComplementarias[i][j] = 1000;
+                Personaje.getInstance().listasTriada[i][j] = 1000;
+                Personaje.getInstance().listasPropiasAdiestramientos[i][j] = 1000;
+                Personaje.getInstance().listasOtrasAdiestramientos[i][j] = 1000;
             }
         }
     }
 
     private List<String> GenerarReinosMixtos(List<String> reinosDeMagia) {
-        List<String> aux = new ArrayList<String>();
+        List<String> aux = new ArrayList<>();
         for (int i = 0; i < reinosDeMagia.size(); i++) {
             String reinoSeleccionado = reinosDeMagia.get(i);
             for (int j = i + 1; j < reinosDeMagia.size(); j++) {
@@ -243,10 +241,8 @@ public class Magia {
 
     void SeleccionarReinoDeMagiaParaPersonaje(String reinoElegido) {
         String[] todosReinos = reinoElegido.split("/");
-        esher.pj.reinos.clear();
-        for (int i = 0; i < todosReinos.length; i++) {
-            esher.pj.reinos.add(todosReinos[i]);
-        }
+        Personaje.getInstance().reinos.clear();
+        Personaje.getInstance().reinos.addAll(Arrays.asList(todosReinos));
     }
 
     void ObtenerMagiaPorProfesion(String reinoElegido) throws Exception {
@@ -276,154 +272,154 @@ public class Magia {
             String[] vectorHechizos = lineaHechizos.split("\t");
             String[] coste = vectorHechizos[1].split("/");
             if (vectorHechizos[0].equals("Lista Abierta (1-5)")) {
-                AsignarCosteLista(esher.pj.listasAbiertas, coste, 0);
+                AsignarCosteLista(Personaje.getInstance().listasAbiertas, coste, 0);
             }
             if (vectorHechizos[0].equals("Lista Abierta (6-10)")) {
-                AsignarCosteLista(esher.pj.listasAbiertas, coste, 1);
+                AsignarCosteLista(Personaje.getInstance().listasAbiertas, coste, 1);
             }
             if (vectorHechizos[0].equals("Lista Abierta (11-15)")) {
-                AsignarCosteLista(esher.pj.listasAbiertas, coste, 2);
+                AsignarCosteLista(Personaje.getInstance().listasAbiertas, coste, 2);
             }
             if (vectorHechizos[0].equals("Lista Abierta (16-20)")) {
-                AsignarCosteLista(esher.pj.listasAbiertas, coste, 3);
+                AsignarCosteLista(Personaje.getInstance().listasAbiertas, coste, 3);
             }
             if (vectorHechizos[0].equals("Lista Abierta (21+)")) {
-                AsignarCosteLista(esher.pj.listasAbiertas, coste, 4);
+                AsignarCosteLista(Personaje.getInstance().listasAbiertas, coste, 4);
             }
             if (vectorHechizos[0].equals("Lista Cerrada (1-5)")) {
-                AsignarCosteLista(esher.pj.listasCerradas, coste, 0);
+                AsignarCosteLista(Personaje.getInstance().listasCerradas, coste, 0);
             }
             if (vectorHechizos[0].equals("Lista Cerrada (6-10)")) {
-                AsignarCosteLista(esher.pj.listasCerradas, coste, 1);
+                AsignarCosteLista(Personaje.getInstance().listasCerradas, coste, 1);
             }
             if (vectorHechizos[0].equals("Lista Cerrada (11-15)")) {
-                AsignarCosteLista(esher.pj.listasCerradas, coste, 2);
+                AsignarCosteLista(Personaje.getInstance().listasCerradas, coste, 2);
             }
             if (vectorHechizos[0].equals("Lista Cerrada (16-20)")) {
-                AsignarCosteLista(esher.pj.listasCerradas, coste, 3);
+                AsignarCosteLista(Personaje.getInstance().listasCerradas, coste, 3);
             }
             if (vectorHechizos[0].equals("Lista Cerrada (21+)")) {
-                AsignarCosteLista(esher.pj.listasCerradas, coste, 4);
+                AsignarCosteLista(Personaje.getInstance().listasCerradas, coste, 4);
             }
             if (vectorHechizos[0].equals("Lista Básica (1-5)")) {
-                AsignarCosteLista(esher.pj.listasBasicas, coste, 0);
+                AsignarCosteLista(Personaje.getInstance().listasBasicas, coste, 0);
             }
             if (vectorHechizos[0].equals("Lista Básica (6-10)")) {
-                AsignarCosteLista(esher.pj.listasBasicas, coste, 1);
+                AsignarCosteLista(Personaje.getInstance().listasBasicas, coste, 1);
             }
             if (vectorHechizos[0].equals("Lista Básica (11-15)")) {
-                AsignarCosteLista(esher.pj.listasBasicas, coste, 2);
+                AsignarCosteLista(Personaje.getInstance().listasBasicas, coste, 2);
             }
             if (vectorHechizos[0].equals("Lista Básica (16-20)")) {
-                AsignarCosteLista(esher.pj.listasBasicas, coste, 3);
+                AsignarCosteLista(Personaje.getInstance().listasBasicas, coste, 3);
             }
             if (vectorHechizos[0].equals("Lista Básica (21+)")) {
-                AsignarCosteLista(esher.pj.listasBasicas, coste, 4);
+                AsignarCosteLista(Personaje.getInstance().listasBasicas, coste, 4);
             }
             if (vectorHechizos[0].equals("Listas Básicas de otras Profesiones (1-5)")) {
-                AsignarCosteLista(esher.pj.listasOtros, coste, 0);
+                AsignarCosteLista(Personaje.getInstance().listasOtros, coste, 0);
             }
             if (vectorHechizos[0].equals("Listas Básicas de otras Profesiones (6-10)")) {
-                AsignarCosteLista(esher.pj.listasOtros, coste, 1);
+                AsignarCosteLista(Personaje.getInstance().listasOtros, coste, 1);
             }
             if (vectorHechizos[0].equals("Listas Básicas de otras Profesiones (11-15)")) {
-                AsignarCosteLista(esher.pj.listasOtros, coste, 2);
+                AsignarCosteLista(Personaje.getInstance().listasOtros, coste, 2);
             }
             if (vectorHechizos[0].equals("Listas Básicas de otras Profesiones (16-20)")) {
-                AsignarCosteLista(esher.pj.listasOtros, coste, 3);
+                AsignarCosteLista(Personaje.getInstance().listasOtros, coste, 3);
             }
             if (vectorHechizos[0].equals("Listas Básicas de otras Profesiones (21+)")) {
-                AsignarCosteLista(esher.pj.listasOtros, coste, 4);
+                AsignarCosteLista(Personaje.getInstance().listasOtros, coste, 4);
             }
             if (vectorHechizos[0].equals("Listas Abiertas de otros Reinos (1-5)")) {
-                AsignarCosteLista(esher.pj.listasAbiertasOtros, coste, 0);
+                AsignarCosteLista(Personaje.getInstance().listasAbiertasOtros, coste, 0);
             }
             if (vectorHechizos[0].equals("Listas Abiertas de otros Reinos (6-10)")) {
-                AsignarCosteLista(esher.pj.listasAbiertasOtros, coste, 1);
+                AsignarCosteLista(Personaje.getInstance().listasAbiertasOtros, coste, 1);
             }
             if (vectorHechizos[0].equals("Listas Abiertas de otros Reinos (11-15)")) {
-                AsignarCosteLista(esher.pj.listasAbiertasOtros, coste, 2);
+                AsignarCosteLista(Personaje.getInstance().listasAbiertasOtros, coste, 2);
             }
             if (vectorHechizos[0].equals("Listas Abiertas de otros Reinos (16-20)")) {
-                AsignarCosteLista(esher.pj.listasAbiertasOtros, coste, 3);
+                AsignarCosteLista(Personaje.getInstance().listasAbiertasOtros, coste, 3);
             }
             if (vectorHechizos[0].equals("Listas Abiertas de otros Reinos (21+)")) {
-                AsignarCosteLista(esher.pj.listasAbiertasOtros, coste, 4);
+                AsignarCosteLista(Personaje.getInstance().listasAbiertasOtros, coste, 4);
             }
             if (vectorHechizos[0].equals("Listas Cerradas de otros Reinos (1-5)")) {
-                AsignarCosteLista(esher.pj.listasCerradasOtros, coste, 0);
+                AsignarCosteLista(Personaje.getInstance().listasCerradasOtros, coste, 0);
             }
             if (vectorHechizos[0].equals("Listas Cerradas de otros Reinos (6-10)")) {
-                AsignarCosteLista(esher.pj.listasCerradasOtros, coste, 1);
+                AsignarCosteLista(Personaje.getInstance().listasCerradasOtros, coste, 1);
             }
             if (vectorHechizos[0].equals("Listas Cerradas de otros Reinos (11-15)")) {
-                AsignarCosteLista(esher.pj.listasCerradasOtros, coste, 2);
+                AsignarCosteLista(Personaje.getInstance().listasCerradasOtros, coste, 2);
             }
             if (vectorHechizos[0].equals("Listas Cerradas de otros Reinos (16-20)")) {
-                AsignarCosteLista(esher.pj.listasCerradasOtros, coste, 3);
+                AsignarCosteLista(Personaje.getInstance().listasCerradasOtros, coste, 3);
             }
             if (vectorHechizos[0].equals("Listas Cerradas de otros Reinos (21+)")) {
-                AsignarCosteLista(esher.pj.listasCerradasOtros, coste, 4);
+                AsignarCosteLista(Personaje.getInstance().listasCerradasOtros, coste, 4);
             }
             if (vectorHechizos[0].equals("Listas Básicas de otros Reinos (1-5)")) {
-                AsignarCosteLista(esher.pj.listasBasicasOtros, coste, 0);
+                AsignarCosteLista(Personaje.getInstance().listasBasicasOtros, coste, 0);
             }
             if (vectorHechizos[0].equals("Listas Básicas de otros Reinos (6-10)")) {
-                AsignarCosteLista(esher.pj.listasBasicasOtros, coste, 1);
+                AsignarCosteLista(Personaje.getInstance().listasBasicasOtros, coste, 1);
             }
             if (vectorHechizos[0].equals("Listas Básicas de otros Reinos (11-15)")) {
-                AsignarCosteLista(esher.pj.listasBasicasOtros, coste, 2);
+                AsignarCosteLista(Personaje.getInstance().listasBasicasOtros, coste, 2);
             }
             if (vectorHechizos[0].equals("Listas Básicas de otros Reinos (16-20)")) {
-                AsignarCosteLista(esher.pj.listasBasicasOtros, coste, 3);
+                AsignarCosteLista(Personaje.getInstance().listasBasicasOtros, coste, 3);
             }
             if (vectorHechizos[0].equals("Listas Básicas de otros Reinos (21+)")) {
-                AsignarCosteLista(esher.pj.listasBasicasOtros, coste, 4);
+                AsignarCosteLista(Personaje.getInstance().listasBasicasOtros, coste, 4);
             }
             if (vectorHechizos[0].equals("Listas Abiertas Arcanas (1-5)")) {
-                AsignarCosteLista(esher.pj.listasAbiertasArcanas, coste, 0);
+                AsignarCosteLista(Personaje.getInstance().listasAbiertasArcanas, coste, 0);
             }
             if (vectorHechizos[0].equals("Listas Abiertas Arcanas (6-10)")) {
-                AsignarCosteLista(esher.pj.listasAbiertasArcanas, coste, 1);
+                AsignarCosteLista(Personaje.getInstance().listasAbiertasArcanas, coste, 1);
             }
             if (vectorHechizos[0].equals("Listas Abiertas Arcanas (11-15)")) {
-                AsignarCosteLista(esher.pj.listasAbiertasArcanas, coste, 2);
+                AsignarCosteLista(Personaje.getInstance().listasAbiertasArcanas, coste, 2);
             }
             if (vectorHechizos[0].equals("Listas Abiertas Arcanas (16-20)")) {
-                AsignarCosteLista(esher.pj.listasAbiertasArcanas, coste, 3);
+                AsignarCosteLista(Personaje.getInstance().listasAbiertasArcanas, coste, 3);
             }
             if (vectorHechizos[0].equals("Listas Abiertas Arcanas (21+)")) {
-                AsignarCosteLista(esher.pj.listasAbiertasArcanas, coste, 4);
+                AsignarCosteLista(Personaje.getInstance().listasAbiertasArcanas, coste, 4);
             }
             if (vectorHechizos[0].equals("Listas Básicas de la Tríada (1-5)")) {
-                AsignarCosteLista(esher.pj.listasTriada, coste, 0);
+                AsignarCosteLista(Personaje.getInstance().listasTriada, coste, 0);
             }
             if (vectorHechizos[0].equals("Listas Básicas de la Tríada (6-10)")) {
-                AsignarCosteLista(esher.pj.listasTriada, coste, 1);
+                AsignarCosteLista(Personaje.getInstance().listasTriada, coste, 1);
             }
             if (vectorHechizos[0].equals("Listas Básicas de la Tríada (11-15)")) {
-                AsignarCosteLista(esher.pj.listasTriada, coste, 2);
+                AsignarCosteLista(Personaje.getInstance().listasTriada, coste, 2);
             }
             if (vectorHechizos[0].equals("Listas Básicas de la Tríada (16-20)")) {
-                AsignarCosteLista(esher.pj.listasTriada, coste, 3);
+                AsignarCosteLista(Personaje.getInstance().listasTriada, coste, 3);
             }
             if (vectorHechizos[0].equals("Listas Básicas de la Tríada (21+)")) {
-                AsignarCosteLista(esher.pj.listasTriada, coste, 4);
+                AsignarCosteLista(Personaje.getInstance().listasTriada, coste, 4);
             }
             if (vectorHechizos[0].equals("Listas Básicas Elementales Complementarias (1-5)")) {
-                AsignarCosteLista(esher.pj.listasElementalesComplementarias, coste, 0);
+                AsignarCosteLista(Personaje.getInstance().listasElementalesComplementarias, coste, 0);
             }
             if (vectorHechizos[0].equals("Listas Básicas Elementales Complementarias (6-10)")) {
-                AsignarCosteLista(esher.pj.listasElementalesComplementarias, coste, 1);
+                AsignarCosteLista(Personaje.getInstance().listasElementalesComplementarias, coste, 1);
             }
             if (vectorHechizos[0].equals("Listas Básicas Elementales Complementarias (11-15)")) {
-                AsignarCosteLista(esher.pj.listasElementalesComplementarias, coste, 2);
+                AsignarCosteLista(Personaje.getInstance().listasElementalesComplementarias, coste, 2);
             }
             if (vectorHechizos[0].equals("Listas Básicas Elementales Complementarias (16-20)")) {
-                AsignarCosteLista(esher.pj.listasElementalesComplementarias, coste, 3);
+                AsignarCosteLista(Personaje.getInstance().listasElementalesComplementarias, coste, 3);
             }
             if (vectorHechizos[0].equals("Listas Básicas Elementales Complementarias (21+)")) {
-                AsignarCosteLista(esher.pj.listasElementalesComplementarias, coste, 4);
+                AsignarCosteLista(Personaje.getInstance().listasElementalesComplementarias, coste, 4);
             }
 
             index++;
@@ -433,44 +429,44 @@ public class Magia {
 
     void AsignarCostesListasAdiestramiento() {
         String[] coste;
-        if (esher.pj.EsHechiceroPuro() || esher.pj.EsHechiceroHibrido()) {
+        if (Personaje.getInstance().EsHechiceroPuro() || Personaje.getInstance().EsHechiceroHibrido()) {
             coste = "4/4/4".split("/");
-        } else if (esher.pj.EsHechiceroHibrido()) {
+        } else if (Personaje.getInstance().EsHechiceroHibrido()) {
             coste = "6/6/6".split("/");
         } else {
             coste = "8/8/8".split("/");
         }
-        AsignarCosteLista(esher.pj.listasPropiasAdiestramientos, coste, 0);
-        AsignarCosteLista(esher.pj.listasPropiasAdiestramientos, coste, 1);
-        AsignarCosteLista(esher.pj.listasPropiasAdiestramientos, coste, 2);
-        AsignarCosteLista(esher.pj.listasPropiasAdiestramientos, coste, 3);
-        AsignarCosteLista(esher.pj.listasPropiasAdiestramientos, coste, 4);
-        if (esher.pj.EsHechiceroPuro() || esher.pj.EsHechiceroHibrido()) {
+        AsignarCosteLista(Personaje.getInstance().listasPropiasAdiestramientos, coste, 0);
+        AsignarCosteLista(Personaje.getInstance().listasPropiasAdiestramientos, coste, 1);
+        AsignarCosteLista(Personaje.getInstance().listasPropiasAdiestramientos, coste, 2);
+        AsignarCosteLista(Personaje.getInstance().listasPropiasAdiestramientos, coste, 3);
+        AsignarCosteLista(Personaje.getInstance().listasPropiasAdiestramientos, coste, 4);
+        if (Personaje.getInstance().EsHechiceroPuro() || Personaje.getInstance().EsHechiceroHibrido()) {
             coste = "8/8".split("/");
-        } else if (esher.pj.EsHechiceroHibrido()) {
+        } else if (Personaje.getInstance().EsHechiceroHibrido()) {
             coste = "12/12".split("/");
         } else {
             coste = "16/16".split("/");
         }
-        AsignarCosteLista(esher.pj.listasOtrasAdiestramientos, coste, 0);
-        AsignarCosteLista(esher.pj.listasOtrasAdiestramientos, coste, 1);
-        AsignarCosteLista(esher.pj.listasOtrasAdiestramientos, coste, 2);
-        AsignarCosteLista(esher.pj.listasOtrasAdiestramientos, coste, 3);
-        AsignarCosteLista(esher.pj.listasOtrasAdiestramientos, coste, 4);
+        AsignarCosteLista(Personaje.getInstance().listasOtrasAdiestramientos, coste, 0);
+        AsignarCosteLista(Personaje.getInstance().listasOtrasAdiestramientos, coste, 1);
+        AsignarCosteLista(Personaje.getInstance().listasOtrasAdiestramientos, coste, 2);
+        AsignarCosteLista(Personaje.getInstance().listasOtrasAdiestramientos, coste, 3);
+        AsignarCosteLista(Personaje.getInstance().listasOtrasAdiestramientos, coste, 4);
     }
 
     private List<String> ReinosDeMagiaDisponibles() throws Exception {
-        List<String> reinosFichero = esher.directorioRolemaster.ReinosDeMagiaDisponibles(esher.modulosRolemaster);
+        List<String> reinosFichero = DirectorioRolemaster.ReinosDeMagiaDisponibles();
         return GenerarReinosMixtos(reinosFichero);
     }
 
     private void LeerHechizosDeArchivo() throws Exception {
-        esher.pj.listaHechizos.clear();
-        List<String> reinos = esher.directorioRolemaster.ReinosDeMagiaDisponibles(esher.modulosRolemaster);
+        Personaje.getInstance().listaHechizos.clear();
+        List<String> reinos = DirectorioRolemaster.ReinosDeMagiaDisponibles();
         //Leemos los hechizos por reino.
         for (int i = 0; i < reinos.size(); i++) {
             String tmp_reino = reinos.get(i);
-            List<String> lines = esher.directorioRolemaster.LeerLineasHechizos(tmp_reino + ".txt");
+            List<String> lines = DirectorioRolemaster.LeerLineasHechizos(tmp_reino + ".txt");
             ObtenerListaHechizosDisponibles(lines, tmp_reino);
         }
     }

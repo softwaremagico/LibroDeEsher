@@ -29,7 +29,6 @@ package com.softwaremagico.librodeesher.gui;
  */
 
 import com.softwaremagico.librodeesher.Categoria;
-import com.softwaremagico.librodeesher.Esher;
 import com.softwaremagico.librodeesher.Habilidad;
 import com.softwaremagico.librodeesher.Personaje;
 import java.awt.Toolkit;
@@ -43,27 +42,24 @@ import java.util.List;
  */
 public class SeleccionarHabilidadGUI extends javax.swing.JFrame {
 
-    Esher esher;
     Habilidad habilidad;
     Categoria cat;
     int maxElegir;
     Personaje pj;
-    List<String> listadoHabilidades = new ArrayList<String>();
+    List<String> listadoHabilidades = new ArrayList<>();
 
     /** Creates new form ElegirComunProfesional */
-    public SeleccionarHabilidadGUI(Esher tmp_esher) {
-        esher = tmp_esher;
+    public SeleccionarHabilidadGUI() {
         initComponents();
         setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (int) (this.getWidth() / 2),
                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (int) (this.getHeight() / 2));
         Inicializar();
     }
 
-    public void Refrescar(Habilidad hab, List<String> habilidadesNuevasString, int habilidades, Personaje tmp_pj) {
+    public void Refrescar(Habilidad hab, List<String> habilidadesNuevasString, int habilidades) {
         habilidad = hab;
         cat = hab.categoriaPadre;
         maxElegir = habilidades;
-        pj = tmp_pj;
         listadoHabilidades = habilidadesNuevasString;
         ActualizaHabilidadesRestantes();
         CategoriaTextField.setText(cat.DevolverNombre());
@@ -77,7 +73,7 @@ public class SeleccionarHabilidadGUI extends javax.swing.JFrame {
     public void ActualizaHabilidadesRestantes() {
         try {
             NumeroTextField.setText(maxElegir - cat.NumeroHabilidadesExistes(habilidad.habilidadesNuevasPosibles) + "");
-            if (maxElegir - cat.NumeroHabilidadesExistes(habilidad.habilidadesNuevasPosibles) > 0 || habilidad.categoriaPadre.listaHabilidades.contains(esher.pj.DevolverHabilidadDeNombre(HabilidadesComboBox.getSelectedItem().toString()))) {
+            if (maxElegir - cat.NumeroHabilidadesExistes(habilidad.habilidadesNuevasPosibles) > 0 || habilidad.categoriaPadre.listaHabilidades.contains(Personaje.getInstance().DevolverHabilidadDeNombre(HabilidadesComboBox.getSelectedItem().toString()))) {
                 TipoCheckBox.setEnabled(true);
             } else {
                 TipoCheckBox.setEnabled(false);
@@ -91,7 +87,7 @@ public class SeleccionarHabilidadGUI extends javax.swing.JFrame {
         String hab = HabilidadesComboBox.getSelectedItem().toString();
         //Añadimos la habilidad a la categoría.
         if (TipoCheckBox.isSelected()) {
-            habilidad.categoriaPadre.AddHabilidad(new Habilidad(habilidad.categoriaPadre, hab));
+            habilidad.categoriaPadre.AddHabilidad(Habilidad.getSkill(habilidad.categoriaPadre, hab));
         } else {
             habilidad.categoriaPadre.BorrarHabilidad(hab);
         }

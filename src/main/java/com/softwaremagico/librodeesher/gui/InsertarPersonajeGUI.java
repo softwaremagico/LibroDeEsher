@@ -51,8 +51,8 @@ import com.softwaremagico.librodeesher.LeerCultura;
 import com.softwaremagico.librodeesher.LeerProfesion;
 import com.softwaremagico.librodeesher.Magia;
 import com.softwaremagico.librodeesher.ObjetoMagico;
+import com.softwaremagico.librodeesher.Personaje;
 import com.softwaremagico.librodeesher.Talento;
-import com.softwaremagico.librodeesher.gui.SeleccionarHabilidadTalentoGUI;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -71,12 +71,11 @@ import javax.swing.event.ChangeListener;
  */
 public class InsertarPersonajeGUI extends javax.swing.JFrame {
 
-    Esher esher;
-    private List<JSpinner> listaTemporales = new ArrayList<JSpinner>();
-    private List<JSpinner> listaPotenciales = new ArrayList<JSpinner>();
-    private List<JTextField> listaBasica = new ArrayList<JTextField>();
-    private List<JTextField> listaRaza = new ArrayList<JTextField>();
-    private List<JTextField> listaTotal = new ArrayList<JTextField>();
+    private List<JSpinner> listaTemporales = new ArrayList<>();
+    private List<JSpinner> listaPotenciales = new ArrayList<>();
+    private List<JTextField> listaBasica = new ArrayList<>();
+    private List<JTextField> listaRaza = new ArrayList<>();
+    private List<JTextField> listaTotal = new ArrayList<>();
     public DefaultListModel armasModel = new DefaultListModel();
     private final String TAG_BONUS = "BONUS";
     public boolean refrescando = false;
@@ -87,8 +86,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
     /**
      * Creates new form InsertarPersonajeGUI
      */
-    public InsertarPersonajeGUI(Esher tmp_esher) {
-        esher = tmp_esher;
+    public InsertarPersonajeGUI() {
         initComponents();
         setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (int) (this.getWidth() / 2),
                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (int) (this.getHeight() / 2));
@@ -105,13 +103,13 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
 
     public void Refrescar() {
         refrescando = true;
-        NombreTextField.setText(esher.pj.DevolverNombreCompleto());
-        NivelSpinner.setValue(esher.pj.nivel);
-        RazasComboBox.setSelectedItem(esher.pj.raza);
-        ProfesionesComboBox.setSelectedItem(esher.pj.profesion);
-        CulturasComboBox.setSelectedItem(esher.pj.cultura);
+        NombreTextField.setText(Personaje.getInstance().DevolverNombreCompleto());
+        NivelSpinner.setValue(Personaje.getInstance().nivel);
+        RazasComboBox.setSelectedItem(Personaje.getInstance().raza);
+        ProfesionesComboBox.setSelectedItem(Personaje.getInstance().profesion);
+        CulturasComboBox.setSelectedItem(Personaje.getInstance().cultura);
         //RellenarReinosDeMagia();
-        ReinosComboBox.setSelectedItem(esher.pj.reino);
+        ReinosComboBox.setSelectedItem(Personaje.getInstance().reino);
         RellenaOpcionesAdiestramientoEscogidas();
         RellenarListaArmas();
         ActualizarTextoHabilidades();
@@ -122,12 +120,12 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
         ActualizarPuntosHistorial();
         RefrescarTalentos();
         refrescando = false;
-        AparienciaTextField.setText(esher.pj.caracteristicas.DevolverApariencia() + "");
-        BonusAparienciaTextField.setText(esher.pj.caracteristicas.DevolverTotalApariencia() + "");
+        AparienciaTextField.setText(Personaje.getInstance().caracteristicas.DevolverApariencia() + "");
+        BonusAparienciaTextField.setText(Personaje.getInstance().caracteristicas.DevolverTotalApariencia() + "");
     }
 
     public void ActualizarCultura() {
-        new LeerCultura(esher);
+        new LeerCultura();
     }
 
     /**
@@ -145,8 +143,8 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
             RellenaRazas();
             RellenaProfesion();
             /* Si no se ha leido aún la profesión, se lee. */
-            if (!esher.pj.ProfesionAsignada()) {
-                new LeerProfesion(esher, false);
+            if (!Personaje.getInstance().ProfesionAsignada()) {
+                new LeerProfesion(false);
             }
             RellenarCulturas();
             RellenarReinosDeMagia();
@@ -162,51 +160,51 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
      * @throws java.lang.Exception
      */
     private void RellenaRazas() throws Exception {
-        List<String> razas = esher.RazasDisponibles();
-        razas = esher.OrdenarLista(razas);
+        List<String> razas = Esher.RazasDisponibles();
+        razas = Esher.OrdenarLista(razas);
         RazasComboBox.removeAllItems();
         for (int i = 0; i < razas.size(); i++) {
             RazasComboBox.addItem(razas.get(i));
         }
-        RazasComboBox.setSelectedItem(esher.pj.raza);
+        RazasComboBox.setSelectedItem(Personaje.getInstance().raza);
     }
 
     public void RellenaProfesion() throws Exception {
-        List<String> profesiones = esher.ProfesionesDisponibles();
-        profesiones = esher.OrdenarLista(profesiones);
+        List<String> profesiones = Esher.ProfesionesDisponibles();
+        profesiones = Esher.OrdenarLista(profesiones);
         ProfesionesComboBox.removeAllItems();
         for (int i = 0; i < profesiones.size(); i++) {
             ProfesionesComboBox.addItem(profesiones.get(i));
         }
-        ProfesionesComboBox.setSelectedItem(esher.pj.profesion);
+        ProfesionesComboBox.setSelectedItem(Personaje.getInstance().profesion);
     }
 
     public void RellenarCulturas() throws Exception {
-        List<String> culturas = esher.CulturasDisponibles();
-        culturas = esher.OrdenarLista(culturas);
+        List<String> culturas = Esher.CulturasDisponibles();
+        culturas = Esher.OrdenarLista(culturas);
         CulturasComboBox.removeAllItems();
         for (int i = 0; i < culturas.size(); i++) {
             CulturasComboBox.addItem(culturas.get(i));
         }
-        CulturasComboBox.setSelectedItem(esher.pj.cultura);
+        CulturasComboBox.setSelectedItem(Personaje.getInstance().cultura);
     }
 
     public void RellenarReinosDeMagia() throws Exception {
-        Magia magia = new Magia(esher);
+        Magia magia = new Magia();
         List<String> reinos = magia.ObtenerReinoDisponible();
         ReinosComboBox.removeAllItems();
         for (int i = 0; i < reinos.size(); i++) {
             ReinosComboBox.addItem(reinos.get(i));
         }
-        ReinosComboBox.setSelectedItem(esher.pj.reino);
+        ReinosComboBox.setSelectedItem(Personaje.getInstance().reino);
     }
 
     public void RellenarAdiestramientos() {
         AdiestramientosComboBox.removeAllItems();
-        List<String> adiestramientosPosibles = esher.DevolverAdiestramientosPosibles();
-        adiestramientosPosibles = esher.OrdenarLista(adiestramientosPosibles);
+        List<String> adiestramientosPosibles = Esher.DevolverAdiestramientosPosibles();
+        adiestramientosPosibles = Esher.OrdenarLista(adiestramientosPosibles);
         for (int i = 0; i < adiestramientosPosibles.size(); i++) {
-            if (!esher.pj.adiestramientosAntiguos.contains(adiestramientosPosibles.get(i))) {
+            if (!Personaje.getInstance().adiestramientosAntiguos.contains(adiestramientosPosibles.get(i))) {
                 AdiestramientosComboBox.addItem(adiestramientosPosibles.get(i));
             }
         }
@@ -214,11 +212,11 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
 
     public void RellenarOpcionesAdiestramiento() {
         String adiestramientos = "";
-        for (int i = 0; i < esher.pj.adiestramientosAntiguos.size(); i++) {
+        for (int i = 0; i < Personaje.getInstance().adiestramientosAntiguos.size(); i++) {
             if (i > 0) {
                 adiestramientos += ", ";
             }
-            adiestramientos += esher.pj.adiestramientosAntiguos.get(i);
+            adiestramientos += Personaje.getInstance().adiestramientosAntiguos.get(i);
         }
         AdiestramientosTextField.setText(adiestramientos);
         RellenarAdiestramientos();
@@ -227,11 +225,11 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
 
     public void RellenaOpcionesAdiestramientoEscogidas() {
         String adiestramientos = "";
-        for (int i = 0; i < esher.pj.adiestramientosAntiguos.size(); i++) {
+        for (int i = 0; i < Personaje.getInstance().adiestramientosAntiguos.size(); i++) {
             if (i > 0) {
                 adiestramientos += ", ";
             }
-            adiestramientos += esher.pj.adiestramientosAntiguos.get(i);
+            adiestramientos += Personaje.getInstance().adiestramientosAntiguos.get(i);
         }
         AdiestramientosTextField.setText(adiestramientos);
     }
@@ -241,8 +239,8 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
      */
     public void RellenarListaArmas() {
         armasModel.removeAllElements();
-        for (int i = 0; i < esher.pj.armas.DevolverTotalTiposDeArmas(); i++) {
-            armasModel.addElement(esher.pj.armas.DevolverTipoDeArma(i));
+        for (int i = 0; i < Personaje.getInstance().armas.DevolverTotalTiposDeArmas(); i++) {
+            armasModel.addElement(Personaje.getInstance().armas.DevolverTipoDeArma(i));
         }
     }
 
@@ -257,7 +255,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
         if ((Integer) NivelSpinner.getValue() < 1) {
             NivelSpinner.setValue((Integer) 1);
         }
-        esher.pj.nivel = (Integer) NivelSpinner.getValue();
+        Personaje.getInstance().nivel = (Integer) NivelSpinner.getValue();
     }
 
     public String DevolverRazaSeleccionada() {
@@ -265,7 +263,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
             //return RazasComboBox.getItemAt(RazasComboBox.getSelectedIndex()).toString();
             return RazasComboBox.getSelectedItem().toString();
         } else {
-            return esher.pj.raza;
+            return Personaje.getInstance().raza;
         }
     }
 
@@ -275,7 +273,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
             //return ProfesionesComboBox.getItemAt(ProfesionesComboBox.getSelectedIndex()).toString();
             return ProfesionesComboBox.getSelectedItem().toString();
         } else {
-            return esher.pj.profesion;
+            return Personaje.getInstance().profesion;
         }
     }
 
@@ -284,7 +282,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
             //return CulturasComboBox.getItemAt(CulturasComboBox.getSelectedIndex()).toString();
             return CulturasComboBox.getSelectedItem().toString();
         } else {
-            return esher.pj.cultura;
+            return Personaje.getInstance().cultura;
         }
     }
 
@@ -305,30 +303,30 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
     }
 
     public void InsertaNombre() {
-        esher.pj.SetNombreCompleto(NombreTextField.getText());
+        Personaje.getInstance().SetNombreCompleto(NombreTextField.getText());
     }
 
     public void SubirArma() {
         int index = ArmasList.getSelectedIndex();
-        esher.pj.armas.SubirIndiceTipoArma(index);
+        Personaje.getInstance().armas.SubirIndiceTipoArma(index);
         RellenarListaArmas();
         if (index > 0) {
             index--;
         }
         ArmasList.setSelectedIndex(index);
-        esher.pj.ActualizarOrdenCostesArmas();
+        Personaje.getInstance().ActualizarOrdenCostesArmas();
         ActualizarTextoHabilidades();
     }
 
     public void BajarArma() {
         int index = ArmasList.getSelectedIndex();
-        esher.pj.armas.BajarIndiceTipoArma(index);
+        Personaje.getInstance().armas.BajarIndiceTipoArma(index);
         RellenarListaArmas();
-        if (index < esher.pj.armas.DevolverTotalTiposDeArmas() - 1) {
+        if (index < Personaje.getInstance().armas.DevolverTotalTiposDeArmas() - 1) {
             index++;
         }
         ArmasList.setSelectedIndex(index);
-        esher.pj.ActualizarOrdenCostesArmas();
+        Personaje.getInstance().ActualizarOrdenCostesArmas();
         ActualizarTextoHabilidades();
     }
 
@@ -342,11 +340,11 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
 
     public void ObtenerNombre() {
         if (NombreTextField.getText().equals("")) {
-            esher.pj.ObtenerNombrePersonaje();
+            Personaje.getInstance().ObtenerNombrePersonaje();
         } else {
-            esher.pj.AsignarNombreCompleto(NombreTextField.getText());
+            Personaje.getInstance().AsignarNombreCompleto(NombreTextField.getText());
         }
-        NombreTextField.setText(esher.pj.DevolverNombreCompleto());
+        NombreTextField.setText(Personaje.getInstance().DevolverNombreCompleto());
     }
 
     /**
@@ -388,7 +386,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
     private void ActualizaSeguridadCaracteristicas() {
         for (int i = 0; i < listaTemporales.size(); i++) {
             JSpinner js = listaTemporales.get(i);
-            if (esher.pj.lock) {
+            if (Personaje.getInstance().lock) {
                 js.setEnabled(false);
             } else {
                 js.setEnabled(true);
@@ -397,14 +395,14 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
 
         for (int i = 0; i < listaPotenciales.size(); i++) {
             JSpinner js = listaPotenciales.get(i);
-            if (esher.pj.lock) {
+            if (Personaje.getInstance().lock) {
                 js.setEnabled(false);
             } else {
                 js.setEnabled(true);
             }
         }
 
-        if (esher.pj.lock) {
+        if (Personaje.getInstance().lock) {
             AparienciaTextField.setEnabled(false);
         } else {
             AparienciaTextField.setEnabled(true);
@@ -416,7 +414,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
      * potenciales.
      */
     private void GeneraListadoPotenciales() {
-        listaPotenciales = new ArrayList<JSpinner>();
+        listaPotenciales = new ArrayList<>();
         listaPotenciales.add(AgilidadPotencialSpinner);
         listaPotenciales.add(ConstitucionPotencialSpinner);
         listaPotenciales.add(MemoriaPotencialSpinner);
@@ -434,7 +432,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
      * caracteristicas.
      */
     private void GeneraListadoValorBasico() {
-        listaBasica = new ArrayList<JTextField>();
+        listaBasica = new ArrayList<>();
         listaBasica.add(AgilidadBasicaTextField);
         listaBasica.add(ConstitucionBasicaTextField);
         listaBasica.add(MemoriaBasicaTextField);
@@ -451,7 +449,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
      * General un listado de los contenedores de las bonificaciones por raza.
      */
     private void GeneraListadoRaza() {
-        listaRaza = new ArrayList<JTextField>();
+        listaRaza = new ArrayList<>();
         listaRaza.add(AgilidadRazaTextField);
         listaRaza.add(ConstitucionRazaTextField);
         listaRaza.add(MemoriaRazaTextField);
@@ -468,7 +466,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
      * General un listado de los contenedores del total de caracteristicas.
      */
     private void GeneraListadoTotal() {
-        listaTotal = new ArrayList<JTextField>();
+        listaTotal = new ArrayList<>();
         listaTotal.add(AgilidadTotalTextField);
         listaTotal.add(ConstitucionTotalTextField);
         listaTotal.add(MemoriaTotalTextField);
@@ -488,10 +486,10 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
      */
     public void ActualizaCaracteristicaTemporal(int index) {
         JSpinner spin = listaTemporales.get(index);
-        Caracteristica car = esher.pj.caracteristicas.Get(index);
+        Caracteristica car = Personaje.getInstance().caracteristicas.Get(index);
 
         if ((Integer) spin.getValue() < 90
-                && esher.pj.EsCaracteristicasPrincipal(car)) {
+                && Personaje.getInstance().EsCaracteristicasPrincipal(car)) {
             spin.setValue(90);
         } else {
             if ((Integer) spin.getValue() < 1) {
@@ -528,9 +526,9 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
      */
     public void ActualizaCaracteristicaPotencial(int index) {
         JSpinner spin = listaPotenciales.get(index);
-        Caracteristica car = esher.pj.caracteristicas.Get(index);
+        Caracteristica car = Personaje.getInstance().caracteristicas.Get(index);
         if ((Integer) spin.getValue() < 90
-                && esher.pj.EsCaracteristicasPrincipal(car)) {
+                && Personaje.getInstance().EsCaracteristicasPrincipal(car)) {
             spin.setValue(90);
         } else {
             if ((Integer) spin.getValue() < 20) {
@@ -557,13 +555,13 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
         try {
             ap = Integer.parseInt(AparienciaTextField.getText());
         } catch (NumberFormatException nfw) {
-            ap = esher.pj.caracteristicas.DevolverApariencia();
+            ap = Personaje.getInstance().caracteristicas.DevolverApariencia();
         }
 
-        esher.pj.caracteristicas.InsertarApariencia(ap);
+        Personaje.getInstance().caracteristicas.InsertarApariencia(ap);
         if (update) {
-            AparienciaTextField.setText(esher.pj.caracteristicas.DevolverApariencia() + "");
-            BonusAparienciaTextField.setText(esher.pj.caracteristicas.DevolverTotalApariencia() + "");
+            AparienciaTextField.setText(Personaje.getInstance().caracteristicas.DevolverApariencia() + "");
+            BonusAparienciaTextField.setText(Personaje.getInstance().caracteristicas.DevolverTotalApariencia() + "");
         }
     }
 
@@ -571,13 +569,13 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
      * Refresca el tab de caracteristicas con nuevos valores.
      */
     public void RefrescaCaracteristicas() {
-        int ap = esher.pj.caracteristicas.DevolverApariencia();
+        int ap = Personaje.getInstance().caracteristicas.DevolverApariencia();
         ActualizarPotenciales();
         ActualizaTemporales();
         ActualizarValorBasico();
         ActualizarBonificacionRaza();
         ActualizarTotal();
-        esher.pj.caracteristicas.InsertarApariencia(ap);
+        Personaje.getInstance().caracteristicas.InsertarApariencia(ap);
         ActualizarApariencia();
     }
 
@@ -585,23 +583,23 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
      * Muestra el valor potencial de las caracteristicas.
      */
     public void ActualizarPotenciales() {
-        for (int i = 0; i < esher.pj.caracteristicas.Size(); i++) {
-            Caracteristica car = esher.pj.caracteristicas.Get(i);
+        for (int i = 0; i < Personaje.getInstance().caracteristicas.Size(); i++) {
+            Caracteristica car = Personaje.getInstance().caracteristicas.Get(i);
             JSpinner spin = listaPotenciales.get(i);
             spin.setValue(car.ObtenerPuntosPotencial());
         }
     }
 
     public void ActualizaTemporales() {
-        for (int i = 0; i < esher.pj.caracteristicas.Size(); i++) {
-            Caracteristica car = esher.pj.caracteristicas.Get(i);
+        for (int i = 0; i < Personaje.getInstance().caracteristicas.Size(); i++) {
+            Caracteristica car = Personaje.getInstance().caracteristicas.Get(i);
             JSpinner spin = listaTemporales.get(i);
             spin.setValue(car.ObtenerPuntosTemporal());
         }
     }
 
     public void ActualizarApariencia() {
-        AparienciaTextField.setText(esher.pj.caracteristicas.DevolverTotalApariencia() + "");
+        AparienciaTextField.setText(Personaje.getInstance().caracteristicas.DevolverTotalApariencia() + "");
     }
 
     public int DevolverApariencia() {
@@ -612,8 +610,8 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
      * Muestra el total de las caracteristicas.
      */
     public void ActualizarValorBasico() {
-        for (int i = 0; i < esher.pj.caracteristicas.Size(); i++) {
-            Caracteristica car = esher.pj.caracteristicas.Get(i);
+        for (int i = 0; i < Personaje.getInstance().caracteristicas.Size(); i++) {
+            Caracteristica car = Personaje.getInstance().caracteristicas.Get(i);
             JTextField textFieldACambiar = listaBasica.get(i);
             textFieldACambiar.setText(car.ObtenerValorTemporal() + "");
         }
@@ -624,8 +622,8 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
      * Muestra la bonificación por raza.
      */
     private void ActualizarBonificacionRaza() {
-        for (int i = 0; i < esher.pj.caracteristicas.Size(); i++) {
-            Caracteristica car = esher.pj.caracteristicas.Get(i);
+        for (int i = 0; i < Personaje.getInstance().caracteristicas.Size(); i++) {
+            Caracteristica car = Personaje.getInstance().caracteristicas.Get(i);
             JTextField textFieldACambiar = listaRaza.get(i);
             textFieldACambiar.setText(car.ObtenerValorRaza() + "");
         }
@@ -636,8 +634,8 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
      * Muestra el total de las caracteristicas.
      */
     public void ActualizarTotal() {
-        for (int i = 0; i < esher.pj.caracteristicas.Size(); i++) {
-            Caracteristica car = esher.pj.caracteristicas.Get(i);
+        for (int i = 0; i < Personaje.getInstance().caracteristicas.Size(); i++) {
+            Caracteristica car = Personaje.getInstance().caracteristicas.Get(i);
             JTextField textFieldACambiar = listaTotal.get(i);
             textFieldACambiar.setText(car.Total() + "");
         }
@@ -662,10 +660,8 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
 
     private Categoria DevolverCategoriaSeleccionada() {
         try {
-            return esher.pj.DevolverCategoriaDeNombre(CategoriasComboBox.getSelectedItem().toString());
-        } catch (ArrayIndexOutOfBoundsException aiobe) {
-            return null;
-        } catch (NullPointerException npe) {
+            return Personaje.getInstance().DevolverCategoriaDeNombre(CategoriasComboBox.getSelectedItem().toString());
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException aiobe) {
             return null;
         }
     }
@@ -681,8 +677,8 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
 
     public void ActualizarCategoriasComboBox() {
         CategoriasComboBox.removeAllItems();
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            Categoria cat = esher.pj.categorias.get(i);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            Categoria cat = Personaje.getInstance().categorias.get(i);
             if (cat.MereceLaPenaListar()) {
                 CategoriasComboBox.addItem(cat.DevolverNombre());
             }
@@ -786,15 +782,15 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
     }
 
     public void ActualizarTextoHabilidades() {
-        FichaTxt fichatxt = new FichaTxt(esher);
+        FichaTxt fichatxt = new FichaTxt();
         String texto = fichatxt.ExportarATextoHabilidades();
 
-        if (esher.pj.otrasHabilidades.size() > 0) {
+        if (Personaje.getInstance().otrasHabilidades.size() > 0) {
             texto += "\nOtros:\n";
             texto += "--------------------------\n";
-            for (int k = 0; k < esher.pj.otrasHabilidades.size(); k++) {
-                texto += esher.pj.otrasHabilidades.get(k).nombre + " ("
-                        + esher.pj.otrasHabilidades.get(k).coste + ")\n";
+            for (int k = 0; k < Personaje.getInstance().otrasHabilidades.size(); k++) {
+                texto += Personaje.getInstance().otrasHabilidades.get(k).nombre + " ("
+                        + Personaje.getInstance().otrasHabilidades.get(k).coste + ")\n";
             }
         }
 
@@ -827,9 +823,9 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
     }
 
     public void GastarTodosPuntosDesarrollo() {
-        esher.pj.puntosDesarrolloAnterioresNiveles = esher.pj.PuntosDesarrolloGastadosEnAdiestramientos() + esher.pj.PuntosDesarrolloGastadosEnOtros() + esher.pj.PuntosDesarrolloGastadosEnHabilidadesYCategorias();
-        esher.pj.puntosDesarrolloGastadosAnterioresNiveles = esher.pj.CalcularPuntosDesarrollo();
-        esher.pj.puntosDesarrolloNivel = esher.pj.CalcularPuntosDesarrollo();
+        Personaje.getInstance().puntosDesarrolloAnterioresNiveles = Personaje.getInstance().PuntosDesarrolloGastadosEnAdiestramientos() + Personaje.getInstance().PuntosDesarrolloGastadosEnOtros() + Personaje.getInstance().PuntosDesarrolloGastadosEnHabilidadesYCategorias();
+        Personaje.getInstance().puntosDesarrolloGastadosAnterioresNiveles = Personaje.getInstance().CalcularPuntosDesarrollo();
+        Personaje.getInstance().puntosDesarrolloNivel = Personaje.getInstance().CalcularPuntosDesarrollo();
     }
 
     public void HacerGeneralHabilidad() {
@@ -844,7 +840,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
                 hab.NoEsComunProfesion();
                 hab.rangos = ((Integer) RangosHabilidadSpinner.getValue() - hab.nuevosRangos / 2 - hab.rangosAdiestramiento - hab.rangosAficiones - hab.rangosCultura - hab.DevolverRangosCulturaHechizos()) * 2;
             } else {
-                new MostrarError("No puedes generalizar una habilidad que contiene especializaciones o es restringida.", "Habilidad",
+                MostrarError.showErrorMessage("No puedes generalizar una habilidad que contiene especializaciones o es restringida.", "Habilidad",
                         JOptionPane.WARNING_MESSAGE);
                 hab.QuitarGeneralizada();
                 RestringidaRadioButton.setSelected(true);
@@ -867,7 +863,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
             }
             hab.AñadirEspecializacion(EspecializadaCheckBox.isSelected(), MotivoEspecializacionTextField.getText(), antiguaEspecializacion);
         } else {
-            new MostrarError("No puedes crear una especialización de una habilidad generalizada", "Habilidad",
+            MostrarError.showErrorMessage("No puedes crear una especialización de una habilidad generalizada", "Habilidad",
                     JOptionPane.WARNING_MESSAGE);
             hab.especializada = false;
         }
@@ -897,8 +893,8 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
 
     private void MostrarTalentosCogidos() {
         String texto = "";
-        for (int i = 0; i < esher.pj.talentos.size(); i++) {
-            Talento talento = esher.pj.talentos.get(i);
+        for (int i = 0; i < Personaje.getInstance().talentos.size(); i++) {
+            Talento talento = Personaje.getInstance().talentos.get(i);
             texto += talento.nombre + ": " + talento.listadoCategorias + " ("
                     + talento.Descripcion() + ").\n\n";
         }
@@ -907,11 +903,11 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
 
     public void ActualizarTalentoSeleccionado() {
         try {
-            Talento talento = esher.talentos.DevolverTalento(TalentosComboBox.getSelectedItem().toString());
+            Talento talento = Esher.talentos.DevolverTalento(TalentosComboBox.getSelectedItem().toString());
             CosteTextField.setText(talento.coste + "");
             TipoTextField.setText(talento.clasificacion);
             DecripcionTextArea.setText(talento.listadoCategorias + "\n------\n" + talento.Descripcion());
-            if (esher.pj.DevolverTalento(talento.nombre) != null) {
+            if (Personaje.getInstance().DevolverTalento(talento.nombre) != null) {
                 SeleccionarCheckBox.setSelected(true);
             } else {
                 SeleccionarCheckBox.setSelected(false);
@@ -922,8 +918,8 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
 
     private void ActualizarTalentosComboBox() {
         TalentosComboBox.removeAllItems();
-        for (int i = 0; i < esher.talentos.Size(); i++) {
-            Talento tal = esher.talentos.Get(i);
+        for (int i = 0; i < Esher.talentos.Size(); i++) {
+            Talento tal = Esher.talentos.Get(i);
             if (tal.EsTalentoPermitido()) {
                 TalentosComboBox.addItem(tal.nombre);
             }
@@ -931,13 +927,13 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
     }
 
     public void SeleccionaTalento() {
-        Talento talento = esher.talentos.DevolverTalento(TalentosComboBox.getSelectedItem().toString());
+        Talento talento = Esher.talentos.DevolverTalento(TalentosComboBox.getSelectedItem().toString());
         //Borramos las elegidas por si hay alguna anterior.
         if (talento.bonusCategoriaHabilidadElegir != null) {
-            talento.bonusCategoriaHabilidadElegir.listadoCategoriasYHabilidadesElegidas = new ArrayList<String>();
+            talento.bonusCategoriaHabilidadElegir.listadoCategoriasYHabilidadesElegidas = new ArrayList<>();
         }
         if (SeleccionarCheckBox.isSelected()) {
-            esher.pj.talentos.add(talento);
+            Personaje.getInstance().talentos.add(talento);
             //Si no se ha escogido habilidad común, es un buen momento.
             for (int i = 0; i < talento.bonusCategoria.size(); i++) {
                 if (talento.bonusCategoria.get(i).habilidadComun) {
@@ -947,14 +943,14 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
                             grupoHab = null;
                         }
                         grupoHab = new ElegirComunProfesionalGUI("Común",
-                                esher.pj.DevolverCategoriaDeNombre(talento.bonusCategoria.get(i).nombre),
-                                1, esher.pj, talento);
+                                Personaje.getInstance().DevolverCategoriaDeNombre(talento.bonusCategoria.get(i).nombre),
+                                1, talento);
                         grupoHab.setVisible(true);
                     }
                 }
             }
             if (talento.bonusCategoriaHabilidadElegir != null) {
-                selecHab = new SeleccionarHabilidadTalentoGUI(esher, talento,
+                selecHab = new SeleccionarHabilidadTalentoGUI(talento,
                         talento.bonusCategoriaHabilidadElegir.bonus,
                         talento.bonusCategoriaHabilidadElegir.añadir,
                         talento.bonusCategoriaHabilidadElegir.listadoCategoriasHabilidadesPosiblesAElegir,
@@ -966,7 +962,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
             for (int j = 0; j < talento.bonusCategoria.size(); j++) {
                 talento.bonusCategoria.get(j).habilidadEscogida = null;
             }
-            esher.pj.EliminarTalento(TalentosComboBox.getSelectedItem().toString());
+            Personaje.getInstance().EliminarTalento(TalentosComboBox.getSelectedItem().toString());
         }
         MostrarTalentosCogidos();
     }
@@ -990,13 +986,13 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
     }
 
     private void ActualizarPuntosHistorial() {
-        PuntosHistorialTextField.setText((esher.pj.DevolverPuntosHistorialGastados()) + "");
+        PuntosHistorialTextField.setText((Personaje.getInstance().DevolverPuntosHistorialGastados()) + "");
     }
 
     private void ActualizarCategoriasHistorialComboBox() {
         CategoriasHistorialComboBox.removeAllItems();
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            Categoria cat = esher.pj.categorias.get(i);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            Categoria cat = Personaje.getInstance().categorias.get(i);
             if (cat.MereceLaPenaListar()) {
                 CategoriasHistorialComboBox.addItem(cat.DevolverNombre());
             }
@@ -1020,7 +1016,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
 
     public Categoria DevolverCategoriaHistorialSeleccionada() {
         try {
-            return esher.pj.DevolverCategoriaDeNombre(CategoriasHistorialComboBox.getSelectedItem().toString());
+            return Personaje.getInstance().DevolverCategoriaDeNombre(CategoriasHistorialComboBox.getSelectedItem().toString());
         } catch (ArrayIndexOutOfBoundsException aiobe) {
             return null;
         }
@@ -1053,7 +1049,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
         try {
             DevolverCategoriaHistorialSeleccionada().historial = CategoriaCheckBox.isSelected();
         } catch (NullPointerException npe) {
-            new MostrarError("Punto de historial no recogido.", "Insertar personajes");
+            MostrarError.showErrorMessage("Punto de historial no recogido.", "Insertar personajes");
         }
         ActualizarPuntosHistorial();
     }
@@ -1062,7 +1058,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
         try {
             DevolverHabilidadHistorialSeleccionada().historial = HabilidadCheckBox.isSelected();
         } catch (NullPointerException npe) {
-            new MostrarError("Punto de historial no recogido.", "Insertar Personajes");
+            MostrarError.showErrorMessage("Punto de historial no recogido.", "Insertar Personajes");
         }
 
         ActualizarPuntosHistorial();
@@ -1096,8 +1092,8 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
 
     private void ActualizarCategoriasObjetosComboBox() {
         CategoriasObjetoComboBox.removeAllItems();
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            Categoria cat = esher.pj.categorias.get(i);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            Categoria cat = Personaje.getInstance().categorias.get(i);
             CategoriasObjetoComboBox.addItem(cat.DevolverNombre());
         }
         ActualizarHabilidadesObjetosComboBox();
@@ -1119,7 +1115,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
 
     private Categoria DevolverCategoriaObjetoSeleccionada() {
         try {
-            return esher.pj.DevolverCategoriaDeNombre(CategoriasObjetoComboBox.getSelectedItem().toString());
+            return Personaje.getInstance().DevolverCategoriaDeNombre(CategoriasObjetoComboBox.getSelectedItem().toString());
         } catch (ArrayIndexOutOfBoundsException aiobe) {
             return null;
         }
@@ -1138,7 +1134,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
 
     public void ActualizarCategoriaBonusSpinner() {
         ObjetoMagico objeto;
-        if ((objeto = esher.pj.DevolverObjetoMagico(NombreObjetoTextField.getText())) != null) {
+        if ((objeto = Personaje.getInstance().DevolverObjetoMagico(NombreObjetoTextField.getText())) != null) {
             BonusCategoriaSpinner.setValue(objeto.DevolverBonusCategoria(DevolverCategoriaObjetoSeleccionada()));
         } else {
             BonusCategoriaSpinner.setValue(0);
@@ -1149,7 +1145,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
         ObjetoMagico objeto;
         //if(HabilidadesObjetoComboBox.getItemCount()>0){
         try {
-            if ((objeto = esher.pj.DevolverObjetoMagico(NombreObjetoTextField.getText())) != null) {
+            if ((objeto = Personaje.getInstance().DevolverObjetoMagico(NombreObjetoTextField.getText())) != null) {
                 BonusHabilidadSpinner.setValue(objeto.DevolverBonusHabilidad(DevolverHabilidadObjetoSeleccionada()));
             } else {
                 BonusHabilidadSpinner.setValue(0);
@@ -1161,7 +1157,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
     }
 
     public void BonusObjeto() {
-        esher.pj.AñadirObjetoMagico(NombreObjetoTextField.getText(),
+        Personaje.getInstance().AñadirObjetoMagico(NombreObjetoTextField.getText(),
                 DevolverCategoriaObjetoSeleccionada(), Integer.parseInt(BonusCategoriaSpinner.getValue().toString()),
                 DevolverHabilidadObjetoSeleccionada(), Integer.parseInt(BonusHabilidadSpinner.getValue().toString()), false);
         String objeto = NombreObjeto();
@@ -1186,7 +1182,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
     }
 
     public void LimpiarObjetoAntiguo() {
-        if (esher.pj.DevolverObjetoMagico(NombreObjetoTextField.getText()) == null) {
+        if (Personaje.getInstance().DevolverObjetoMagico(NombreObjetoTextField.getText()) == null) {
             BonusCategoriaSpinner.setValue(0);
             BonusHabilidadSpinner.setValue(0);
         }
@@ -1194,8 +1190,8 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
 
     public void ActualizarListadoObjetos() {
         ObjetosComboBox.removeAllItems();
-        for (int i = 0; i < esher.pj.objetosMagicos.size(); i++) {
-            ObjetoMagico objeto = esher.pj.objetosMagicos.get(i);
+        for (int i = 0; i < Personaje.getInstance().objetosMagicos.size(); i++) {
+            ObjetoMagico objeto = Personaje.getInstance().objetosMagicos.get(i);
             ObjetosComboBox.addItem(objeto.nombre);
         }
         ActivarObjetosMagicos();

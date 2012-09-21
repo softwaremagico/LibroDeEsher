@@ -37,11 +37,9 @@ import java.io.Serializable;
 class ListaDeHechizos implements Serializable {
     String nombre;
     String clase;
-    Personaje pj;
     String reino;
-    ListaDeHechizos(Personaje tmp_pj, String tmp_nombre, String tmp_clase, String tmp_reino){
+    ListaDeHechizos(String tmp_nombre, String tmp_clase, String tmp_reino){
         nombre = tmp_nombre;
-        pj = tmp_pj;
         clase = tmp_clase;
         reino = tmp_reino;
     }

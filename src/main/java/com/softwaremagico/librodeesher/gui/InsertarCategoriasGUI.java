@@ -44,6 +44,7 @@ package com.softwaremagico.librodeesher.gui;
 
 import com.softwaremagico.librodeesher.Categoria;
 import com.softwaremagico.librodeesher.Esher;
+import com.softwaremagico.librodeesher.Personaje;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
@@ -55,11 +56,8 @@ import javax.swing.JOptionPane;
  */
 public class InsertarCategoriasGUI extends javax.swing.JFrame {
 
-    Esher esher;
-
     /** Creates new form InsertarCategoriasGUI */
-    public InsertarCategoriasGUI(Esher tmp_esher) {
-        esher = tmp_esher;
+    public InsertarCategoriasGUI() {
         initComponents();
         setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (int) (this.getWidth() / 2),
                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (int) (this.getHeight() / 2));
@@ -125,14 +123,20 @@ public class InsertarCategoriasGUI extends javax.swing.JFrame {
         String[] coste = DevolverCosteCategoria().split("/");
         try {
             costeInt = Integer.parseInt(coste[0]);
-            if (costeInt < 1) return false;
+            if (costeInt < 1) {
+                return false;
+            }
             if (coste.length > 1) {
                 costeInt = Integer.parseInt(coste[1]);
-                if (costeInt < 1) return false;
+                if (costeInt < 1) {
+                    return false;
+                }
             } 
             if (coste.length > 2) {
                 costeInt = Integer.parseInt(coste[2]);
-                if (costeInt < 1) return false;
+                if (costeInt < 1) {
+                    return false;
+                }
             } 
         } catch (NumberFormatException nfe) {
             return false;
@@ -147,7 +151,7 @@ public class InsertarCategoriasGUI extends javax.swing.JFrame {
         }
         String[] tmp_trioCaracteristicas = DevolverAbreviaturaCaracteristicas().split("/");
         for (int i = 0; i < tmp_trioCaracteristicas.length; i++) {
-            if (esher.pj.caracteristicas.DevolverCaracteristicaDeAbreviatura(tmp_trioCaracteristicas[i]) == null) {
+            if (Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura(tmp_trioCaracteristicas[i]) == null) {
                 return false;
             }
         }
@@ -179,8 +183,8 @@ public class InsertarCategoriasGUI extends javax.swing.JFrame {
 
     private void ActualizarCategoriasComboBox() {
         CategoriasComboBox.removeAllItems();
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            Categoria cat = esher.pj.categorias.get(i);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            Categoria cat = Personaje.getInstance().categorias.get(i);
             CategoriasComboBox.addItem(cat.DevolverNombre());
         }
     }

@@ -52,7 +52,6 @@ import java.util.List;
  */
 public class ExportarNivel implements Serializable {
 
-    private transient Personaje pj;
     int nivel;
     String nombre;
     List<CaracteristicaSubida> caracteristicas;
@@ -61,27 +60,25 @@ public class ExportarNivel implements Serializable {
     List<String> adiestramientos;
     List<String> equipo;
 
-    public ExportarNivel(Personaje tmp_pj) {
-        pj = tmp_pj;
-        nivel = pj.nivel;
-        nombre = pj.DevolverNombreCompleto();
+    public ExportarNivel() {
+        nivel = Personaje.getInstance().nivel;
+        nombre = Personaje.getInstance().DevolverNombreCompleto();
         ExportarCaracteristicas();
         ExportarCategoria();
-        adiestramientos = pj.adiestramientosAntiguos;
-        equipo = pj.equipo;
+        adiestramientos = Personaje.getInstance().adiestramientosAntiguos;
+        equipo = Personaje.getInstance().equipo;
 
     }
 
-    public void ImportarNivel(Personaje tmp_pj) {
-        pj = tmp_pj;
+    public void ImportarNivel() {
         //El personaje ya debe estar iniciado al nivel adecuado. 
-        if (pj.DevolverNombreCompleto().equals(nombre)) {
-            if (pj.nivel == nivel) {
-                if (pj.lock == false) {
-                    new MostrarError("El personaje ha sido alterado. No se procederá a la subida de nivel.", "Importar Personaje");
+        if (Personaje.getInstance().DevolverNombreCompleto().equals(nombre)) {
+            if (Personaje.getInstance().nivel == nivel) {
+                if (Personaje.getInstance().lock == false) {
+                    MostrarError.showErrorMessage("El personaje ha sido alterado. No se procederá a la subida de nivel.", "Importar Personaje");
                 } else {
-                    if (pj.vecesCargadoPersonaje > 1) {
-                    //new MostrarError("Atención: El jugador ha cargado " + pj.vecesCargadoPersonaje + " veces el personaje", "Importar Personaje");
+                    if (Personaje.getInstance().vecesCargadoPersonaje > 1) {
+                    //MostrarError.showErrorMessage("Atención: El jugador ha cargado " + Personaje.getInstance().vecesCargadoPersonaje + " veces el personaje", "Importar Personaje");
                     }
                     ImportarCaracteristicas();
                     ImportarCategoria();
@@ -90,14 +87,14 @@ public class ExportarNivel implements Serializable {
                 }
             }
         } else {
-            new MostrarError("El nivel importado no pertenece a este personaje.", "Importar Personaje");
+            MostrarError.showErrorMessage("El nivel importado no pertenece a este personaje.", "Importar Personaje");
         }
     }
 
     private void ExportarCaracteristicas() {
         caracteristicas = new ArrayList<CaracteristicaSubida>();
-        for (int i = 0; i < pj.caracteristicas.Size(); i++) {
-            CaracteristicaSubida cs = new CaracteristicaSubida(pj.caracteristicas.Get(i).DevolverAbreviatura(), pj.caracteristicas.Get(i).ObtenerPuntosTemporal(), pj.caracteristicas.Get(i).ObtenerPuntosNextTemporal());
+        for (int i = 0; i < Personaje.getInstance().caracteristicas.Size(); i++) {
+            CaracteristicaSubida cs = new CaracteristicaSubida(Personaje.getInstance().caracteristicas.Get(i).DevolverAbreviatura(), Personaje.getInstance().caracteristicas.Get(i).ObtenerPuntosTemporal(), Personaje.getInstance().caracteristicas.Get(i).ObtenerPuntosNextTemporal());
             caracteristicas.add(cs);
         }
     }
@@ -105,9 +102,9 @@ public class ExportarNivel implements Serializable {
     private void ExportarCategoria() {
         categorias = new ArrayList<CategoriaSubida>();
         habilidades = new ArrayList<HabilidadSubida>();
-        for (int i = 0; i < pj.categorias.size(); i++) {
-            if ((pj.categorias.get(i).nuevosRangos > 0) || (pj.categorias.get(i).rangosAdiestramiento > 0)) {
-                CategoriaSubida cs = new CategoriaSubida(pj.categorias.get(i).DevolverNombre(), pj.categorias.get(i).nuevosRangos, pj.categorias.get(i).rangosAdiestramiento);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            if ((Personaje.getInstance().categorias.get(i).nuevosRangos > 0) || (Personaje.getInstance().categorias.get(i).rangosAdiestramiento > 0)) {
+                CategoriaSubida cs = new CategoriaSubida(Personaje.getInstance().categorias.get(i).DevolverNombre(), Personaje.getInstance().categorias.get(i).nuevosRangos, Personaje.getInstance().categorias.get(i).rangosAdiestramiento);
                 categorias.add(cs);
             }
             ExportarHabilidad(i);
@@ -115,9 +112,9 @@ public class ExportarNivel implements Serializable {
     }
 
     private void ExportarHabilidad(int categoria) {
-        for (int j = 0; j < pj.categorias.get(categoria).listaHabilidades.size(); j++) {
-            if ((pj.categorias.get(categoria).listaHabilidades.get(j).nuevosRangos > 0) || (pj.categorias.get(categoria).listaHabilidades.get(j).rangosAdiestramiento > 0)) {
-                HabilidadSubida hs = new HabilidadSubida(pj.categorias.get(categoria).listaHabilidades.get(j).DevolverNombre(), pj.categorias.get(categoria).DevolverNombre(), pj.categorias.get(categoria).listaHabilidades.get(j).nuevosRangos, pj.categorias.get(categoria).listaHabilidades.get(j).rangosAdiestramiento);
+        for (int j = 0; j < Personaje.getInstance().categorias.get(categoria).listaHabilidades.size(); j++) {
+            if ((Personaje.getInstance().categorias.get(categoria).listaHabilidades.get(j).nuevosRangos > 0) || (Personaje.getInstance().categorias.get(categoria).listaHabilidades.get(j).rangosAdiestramiento > 0)) {
+                HabilidadSubida hs = new HabilidadSubida(Personaje.getInstance().categorias.get(categoria).listaHabilidades.get(j).DevolverNombre(), Personaje.getInstance().categorias.get(categoria).DevolverNombre(), Personaje.getInstance().categorias.get(categoria).listaHabilidades.get(j).nuevosRangos, Personaje.getInstance().categorias.get(categoria).listaHabilidades.get(j).rangosAdiestramiento);
                 habilidades.add(hs);
             }
         }
@@ -125,25 +122,25 @@ public class ExportarNivel implements Serializable {
 
     private void ImportarCaracteristicas() {
         for (int i = 0; i < caracteristicas.size(); i++) {
-            pj.caracteristicas.DevolverCaracteristicaDeAbreviatura(caracteristicas.get(i).abreviatura).CambiarPuntosTemporal(caracteristicas.get(i).valor);
-            pj.caracteristicas.DevolverCaracteristicaDeAbreviatura(caracteristicas.get(i).abreviatura).CambiarPuntosNextTemporal(caracteristicas.get(i).nextValor);
+            Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura(caracteristicas.get(i).abreviatura).CambiarPuntosTemporal(caracteristicas.get(i).valor);
+            Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura(caracteristicas.get(i).abreviatura).CambiarPuntosNextTemporal(caracteristicas.get(i).nextValor);
         }
     }
 
     private void ImportarCategoria() {
         for (int i = 0; i < categorias.size(); i++) {
-            pj.DevolverCategoriaDeNombre(categorias.get(i).nombre).nuevosRangos = categorias.get(i).rangos;
-            pj.DevolverCategoriaDeNombre(categorias.get(i).nombre).rangosAdiestramiento = categorias.get(i).rangosAdiestramiento;
+            Personaje.getInstance().DevolverCategoriaDeNombre(categorias.get(i).nombre).nuevosRangos = categorias.get(i).rangos;
+            Personaje.getInstance().DevolverCategoriaDeNombre(categorias.get(i).nombre).rangosAdiestramiento = categorias.get(i).rangosAdiestramiento;
         }
     }
 
     private void ImportarHabilidad() {
         for (int i = 0; i < habilidades.size(); i++) {
-            Habilidad hab = pj.DevolverHabilidadDeNombre(habilidades.get(i).nombre);
+            Habilidad hab = Personaje.getInstance().DevolverHabilidadDeNombre(habilidades.get(i).nombre);
             if (hab == null) {
                 //Se han generado nuevas habilidades debido probablemente a un adiestramiento adquirido en ese nivel.
-                pj.DevolverCategoriaDeNombre(habilidades.get(i).categoria).AddHabilidad(habilidades.get(i).nombre);
-                hab = pj.DevolverHabilidadDeNombre(habilidades.get(i).nombre);
+                Personaje.getInstance().DevolverCategoriaDeNombre(habilidades.get(i).categoria).AddHabilidad(habilidades.get(i).nombre);
+                hab = Personaje.getInstance().DevolverHabilidadDeNombre(habilidades.get(i).nombre);
             }
             hab.nuevosRangos = habilidades.get(i).rangos;
             hab.rangosAdiestramiento = habilidades.get(i).rangosAdiestramiento;
@@ -152,8 +149,8 @@ public class ExportarNivel implements Serializable {
 
     private void ImportarAdiestramiento() {
         //Finalmente
-        pj.adiestramientosAntiguos = adiestramientos;
-        pj.equipo = equipo;
+        Personaje.getInstance().adiestramientosAntiguos = adiestramientos;
+        Personaje.getInstance().equipo = equipo;
     }
 
     private class CaracteristicaSubida implements Serializable {

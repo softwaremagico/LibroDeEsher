@@ -43,9 +43,9 @@ package com.softwaremagico.librodeesher.gui;
  */
 
 import com.softwaremagico.librodeesher.Categoria;
-import com.softwaremagico.librodeesher.Esher;
 import com.softwaremagico.librodeesher.Habilidad;
 import com.softwaremagico.librodeesher.ObjetoMagico;
+import com.softwaremagico.librodeesher.Personaje;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import javax.swing.event.ChangeListener;
@@ -56,11 +56,9 @@ import javax.swing.event.ChangeListener;
  */
 public class ObjetoMagicoGUI extends javax.swing.JFrame {
 
-    Esher esher;
 
     /** Creates new form ObjetoMagicoGUI */
-    public ObjetoMagicoGUI(Esher tmp_esher) {
-        esher = tmp_esher;
+    public ObjetoMagicoGUI() {
         initComponents();
         setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (int) (this.getWidth() / 2),
                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (int) (this.getHeight() / 2));
@@ -88,8 +86,8 @@ public class ObjetoMagicoGUI extends javax.swing.JFrame {
 
     private void ActualizarCategoriasObjetosComboBox() {
         CategoriasObjetoComboBox.removeAllItems();
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            Categoria cat = esher.pj.categorias.get(i);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            Categoria cat = Personaje.getInstance().categorias.get(i);
             CategoriasObjetoComboBox.addItem(cat.DevolverNombre());
         }
         ActualizarHabilidadesObjetosComboBox();
@@ -111,7 +109,7 @@ public class ObjetoMagicoGUI extends javax.swing.JFrame {
 
     private Categoria DevolverCategoriaObjetoSeleccionada() {
         try {
-            return esher.pj.DevolverCategoriaDeNombre(CategoriasObjetoComboBox.getSelectedItem().toString());
+            return Personaje.getInstance().DevolverCategoriaDeNombre(CategoriasObjetoComboBox.getSelectedItem().toString());
         } catch (ArrayIndexOutOfBoundsException aiobe) {
             return null;
         }
@@ -130,7 +128,7 @@ public class ObjetoMagicoGUI extends javax.swing.JFrame {
 
     public void ActualizarCategoriaBonusSpinner() {
         ObjetoMagico objeto;
-        if ((objeto = esher.pj.DevolverObjetoMagico(NombreObjetoTextField.getText())) != null) {
+        if ((objeto = Personaje.getInstance().DevolverObjetoMagico(NombreObjetoTextField.getText())) != null) {
             BonusCategoriaSpinner.setValue(objeto.DevolverBonusCategoria(DevolverCategoriaObjetoSeleccionada()));
         } else {
             BonusCategoriaSpinner.setValue(0);
@@ -141,7 +139,7 @@ public class ObjetoMagicoGUI extends javax.swing.JFrame {
         ObjetoMagico objeto;
         //if(HabilidadesObjetoComboBox.getItemCount()>0){
         try {
-            if ((objeto = esher.pj.DevolverObjetoMagico(NombreObjetoTextField.getText())) != null) {
+            if ((objeto = Personaje.getInstance().DevolverObjetoMagico(NombreObjetoTextField.getText())) != null) {
                 BonusHabilidadSpinner.setValue(objeto.DevolverBonusHabilidad(DevolverHabilidadObjetoSeleccionada()));
             } else {
                 BonusHabilidadSpinner.setValue(0);
@@ -153,8 +151,8 @@ public class ObjetoMagicoGUI extends javax.swing.JFrame {
     }
 
     public void BonusObjeto() {
-        if ((esher.pj.DevolverPuntosHistoriaTotales() - esher.pj.DevolverPuntosHistorialGastados()) > 0) {
-            esher.pj.AñadirObjetoMagico(NombreObjetoTextField.getText(),
+        if ((Personaje.getInstance().DevolverPuntosHistoriaTotales() - Personaje.getInstance().DevolverPuntosHistorialGastados()) > 0) {
+            Personaje.getInstance().AñadirObjetoMagico(NombreObjetoTextField.getText(),
                     DevolverCategoriaObjetoSeleccionada(), Integer.parseInt(BonusCategoriaSpinner.getValue().toString()),
                     DevolverHabilidadObjetoSeleccionada(), Integer.parseInt(BonusHabilidadSpinner.getValue().toString()), true);
             String objeto = NombreObjeto();
@@ -180,7 +178,7 @@ public class ObjetoMagicoGUI extends javax.swing.JFrame {
     }
 
     public void LimpiarObjetoAntiguo() {
-        if (esher.pj.DevolverObjetoMagico(NombreObjetoTextField.getText()) == null) {
+        if (Personaje.getInstance().DevolverObjetoMagico(NombreObjetoTextField.getText()) == null) {
             BonusCategoriaSpinner.setValue(0);
             BonusHabilidadSpinner.setValue(0);
         }
@@ -188,8 +186,8 @@ public class ObjetoMagicoGUI extends javax.swing.JFrame {
 
     public void ActualizarListadoObjetos() {
         ObjetosComboBox.removeAllItems();
-        for (int i = 0; i < esher.pj.objetosMagicos.size(); i++) {
-            ObjetoMagico objeto = esher.pj.objetosMagicos.get(i);
+        for (int i = 0; i < Personaje.getInstance().objetosMagicos.size(); i++) {
+            ObjetoMagico objeto = Personaje.getInstance().objetosMagicos.get(i);
             ObjetosComboBox.addItem(objeto.nombre);
         }
         ActivarObjetosMagicos();
@@ -213,7 +211,7 @@ public class ObjetoMagicoGUI extends javax.swing.JFrame {
 
     public void BorrarObjeto() {
         try {
-            esher.pj.BorrarObjeto(ObjetosComboBox.getSelectedItem().toString());
+            Personaje.getInstance().BorrarObjeto(ObjetosComboBox.getSelectedItem().toString());
         } catch (NullPointerException npe) {
         }
         NombreObjetoTextField.setText("");

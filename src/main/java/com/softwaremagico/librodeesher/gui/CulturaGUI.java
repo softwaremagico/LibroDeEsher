@@ -46,6 +46,7 @@ import com.softwaremagico.librodeesher.Categoria;
 import com.softwaremagico.librodeesher.Esher;
 import com.softwaremagico.librodeesher.Habilidad;
 import com.softwaremagico.librodeesher.IdiomaCultura;
+import com.softwaremagico.librodeesher.Personaje;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -59,14 +60,12 @@ import javax.swing.event.ChangeListener;
 public class CulturaGUI extends javax.swing.JFrame {
 
     private boolean segundoPaso = false;
-    private Esher esher;
     DefaultListModel armasModel = new DefaultListModel();
 
     /**
      * Creates new form SelectGUI
      */
-    public CulturaGUI(Esher tmp_esher) {
-        esher = tmp_esher;
+    public CulturaGUI() {
         initComponents();
         setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (int) (this.getWidth() / 2),
                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (int) (this.getHeight() / 2));
@@ -141,14 +140,14 @@ public class CulturaGUI extends javax.swing.JFrame {
      */
     public void RellenarListaArmas() {
         armasModel.removeAllElements();
-        for (int i = 0; i < esher.pj.armas.DevolverTotalTiposDeArmas(); i++) {
-            armasModel.addElement(esher.pj.armas.DevolverTipoDeArma(i));
+        for (int i = 0; i < Personaje.getInstance().armas.DevolverTotalTiposDeArmas(); i++) {
+            armasModel.addElement(Personaje.getInstance().armas.DevolverTipoDeArma(i));
         }
     }
 
     public void SubirArma() {
         int index = ArmasList.getSelectedIndex();
-        esher.pj.armas.SubirIndiceTipoArma(index);
+        Personaje.getInstance().armas.SubirIndiceTipoArma(index);
         RellenarListaArmas();
         if (index > 0) {
             index--;
@@ -158,9 +157,9 @@ public class CulturaGUI extends javax.swing.JFrame {
 
     public void BajarArma() {
         int index = ArmasList.getSelectedIndex();
-        esher.pj.armas.BajarIndiceTipoArma(index);
+        Personaje.getInstance().armas.BajarIndiceTipoArma(index);
         RellenarListaArmas();
-        if (index < esher.pj.armas.DevolverTotalTiposDeArmas() - 1) {
+        if (index < Personaje.getInstance().armas.DevolverTotalTiposDeArmas() - 1) {
             index++;
         }
         ArmasList.setSelectedIndex(index);
@@ -169,18 +168,18 @@ public class CulturaGUI extends javax.swing.JFrame {
 
     public void RellenarCategoriasArmas() {
         CategoriaArmasAdolescenciaComboBox.removeAllItems();
-        for (int i = 0; i < esher.pj.armas.DevolverTotalTiposDeArmas(); i++) {
-            CategoriaArmasAdolescenciaComboBox.addItem(esher.pj.armas.DevolverTipoDeArma(i));
+        for (int i = 0; i < Personaje.getInstance().armas.DevolverTotalTiposDeArmas(); i++) {
+            CategoriaArmasAdolescenciaComboBox.addItem(Personaje.getInstance().armas.DevolverTipoDeArma(i));
         }
     }
 
     public void RellenarArmasSegunCategoria() throws Exception {
         List<String> listadoArmas;
         try {
-            listadoArmas = esher.pj.armas.SeleccionarNombreArmasValidasPorCategoriaDeTipo(
+            listadoArmas = Personaje.getInstance().armas.SeleccionarNombreArmasValidasPorCategoriaDeTipo(
                     CategoriaArmasAdolescenciaComboBox.getSelectedItem().toString());
         } catch (NullPointerException npe) {
-            listadoArmas = esher.pj.armas.SeleccionarNombreArmasValidasPorCategoriaDeTipo("2manos");
+            listadoArmas = Personaje.getInstance().armas.SeleccionarNombreArmasValidasPorCategoriaDeTipo("2manos");
         }
         ArmaAdolescenciaComboBox.removeAllItems();
         for (int i = 0; i < listadoArmas.size(); i++) {
@@ -191,16 +190,16 @@ public class CulturaGUI extends javax.swing.JFrame {
     public void SeleccionarRangosArmasAdolescencia() {
         if (!segundoPaso) {
             try {
-                RangoCategoriaArmaTextField.setText(esher.pj.DevolverCategoriaDeNombre("Armas·"
+                RangoCategoriaArmaTextField.setText(Personaje.getInstance().DevolverCategoriaDeNombre("Armas·"
                         + CategoriaArmasAdolescenciaComboBox.getSelectedItem().toString()).rangosCultura + "");
-                RangoArmaTextField.setText(esher.pj.armas.DevolverRangosCulturaTipoArma(CategoriaArmasAdolescenciaComboBox.getSelectedItem().toString()) + "");
+                RangoArmaTextField.setText(Personaje.getInstance().armas.DevolverRangosCulturaTipoArma(CategoriaArmasAdolescenciaComboBox.getSelectedItem().toString()) + "");
             } catch (NullPointerException npe) {
                 RangoCategoriaArmaTextField.setText("0");
                 RangoArmaTextField.setText("0");
             }
         } else {
             try {
-                Habilidad hab = esher.pj.DevolverHabilidadDeNombre(ArmaAdolescenciaComboBox.getSelectedItem().toString());
+                Habilidad hab = Personaje.getInstance().DevolverHabilidadDeNombre(ArmaAdolescenciaComboBox.getSelectedItem().toString());
                 RangoArmaTextField.setText(hab.rangosCultura + "");
             } catch (NullPointerException npe) {
                 RangoArmaTextField.setText("0");
@@ -210,25 +209,25 @@ public class CulturaGUI extends javax.swing.JFrame {
 
     private void AsignarRangosArmasSeleccionadas() {
         for (int i = 0; i < CategoriaArmasAdolescenciaComboBox.getItemCount(); i++) {
-            Categoria cat = esher.pj.DevolverCategoriaDeNombre(("Armas·"
+            Categoria cat = Personaje.getInstance().DevolverCategoriaDeNombre(("Armas·"
                     + CategoriaArmasAdolescenciaComboBox.getItemAt(i).toString()));
             try {
-                cat.rangosCultura = esher.pj.armas.DevolverRangosCulturaTipoArma(CategoriaArmasAdolescenciaComboBox.getItemAt(i).toString());
+                cat.rangosCultura = Personaje.getInstance().armas.DevolverRangosCulturaTipoArma(CategoriaArmasAdolescenciaComboBox.getItemAt(i).toString());
 
-                for (int j = 0; j < esher.pj.armas.armasCultura.GetTotalArmas(); j++) {
+                for (int j = 0; j < Personaje.getInstance().armas.armasCultura.GetTotalArmas(); j++) {
                     Habilidad hab = null;
                     String nombreArmaCultura = "";
 
-                    nombreArmaCultura = esher.pj.armas.armasCultura.GetArmaCultura(j).nombreArma;
+                    nombreArmaCultura = Personaje.getInstance().armas.armasCultura.GetArmaCultura(j).nombreArma;
                     try {
                         hab = cat.DevolverHabilidadDeNombre(nombreArmaCultura);
-                        hab.rangosCultura = esher.pj.armas.armasCultura.DevolverRangosCulturaArma(nombreArmaCultura) + hab.rangosCultura;
+                        hab.rangosCultura = Personaje.getInstance().armas.armasCultura.DevolverRangosCulturaArma(nombreArmaCultura) + hab.rangosCultura;
                     } catch (NullPointerException npe) {
                     }
                 }
             } catch (NullPointerException npe) {
                 cat = null;
-                new MostrarError("Imposible encontrar categoría " + CategoriaArmasAdolescenciaComboBox.getItemAt(i).toString(), "Cultura");
+                MostrarError.showErrorMessage("Imposible encontrar categoría " + CategoriaArmasAdolescenciaComboBox.getItemAt(i).toString(), "Cultura");
             }
         }
     }
@@ -245,12 +244,12 @@ public class CulturaGUI extends javax.swing.JFrame {
      */
     private void RellenarListaIdiomas() {
         IdiomasComboBox.removeAllItems();
-        for (int i = 0; i < esher.pj.idiomasCultura.Size(); i++) {
-            IdiomaCultura id = esher.pj.idiomasCultura.Get(i);
+        for (int i = 0; i < Personaje.getInstance().idiomasCultura.Size(); i++) {
+            IdiomaCultura id = Personaje.getInstance().idiomasCultura.Get(i);
             IdiomasComboBox.addItem(id.nombre);
         }
-        for (int i = 0; i < esher.pj.idiomasRaza.Size(); i++) {
-            IdiomaCultura id = esher.pj.idiomasRaza.Get(i);
+        for (int i = 0; i < Personaje.getInstance().idiomasRaza.Size(); i++) {
+            IdiomaCultura id = Personaje.getInstance().idiomasRaza.Get(i);
             boolean exist = false;
             for (int j = 0; j < IdiomasComboBox.getItemCount(); j++) {
                 if (IdiomasComboBox.getItemAt(j).toString().equals(id.nombre)) {
@@ -276,14 +275,14 @@ public class CulturaGUI extends javax.swing.JFrame {
 
     private IdiomaCultura DevolverIdiomaSeleccionado() {
         try {
-            return esher.pj.idiomasCultura.Get(IdiomasComboBox.getSelectedIndex());
+            return Personaje.getInstance().idiomasCultura.Get(IdiomasComboBox.getSelectedIndex());
         } catch (ArrayIndexOutOfBoundsException aiobe) {
             return null;
         }
     }
 
     public void AsignarPuntosIdiomas() {
-        PuntosIdiomasTextField.setText(esher.pj.DevolverPuntosIdiomaCultura() + "");
+        PuntosIdiomasTextField.setText(Personaje.getInstance().DevolverPuntosIdiomaCultura() + "");
     }
 
     public void HabladoSpinnerInRange() {
@@ -297,7 +296,7 @@ public class CulturaGUI extends javax.swing.JFrame {
                 || Integer.parseInt(HabladoSpinner.getValue().toString()) > 10) {
             HabladoSpinner.setValue((Integer) HabladoSpinner.getValue() - 1);
         }
-        if (esher.pj.DevolverPuntosIdiomaCultura() < 0) {
+        if (Personaje.getInstance().DevolverPuntosIdiomaCultura() < 0) {
             HabladoSpinner.setValue((Integer) HabladoSpinner.getValue() - 1);
         }
     }
@@ -312,22 +311,22 @@ public class CulturaGUI extends javax.swing.JFrame {
                 || Integer.parseInt(EscritoSpinner.getValue().toString()) > 10) {
             EscritoSpinner.setValue((Integer) EscritoSpinner.getValue() - 1);
         }
-        if (esher.pj.DevolverPuntosIdiomaCultura() < 0) {
+        if (Personaje.getInstance().DevolverPuntosIdiomaCultura() < 0) {
             EscritoSpinner.setValue((Integer) EscritoSpinner.getValue() - 1);
         }
     }
 
     private void AsignarRangosIdiomasSeleccionados() {
         Habilidad hab;
-        Categoria cat = esher.pj.DevolverCategoriaDeNombre("Comunicación");
-        for (int i = 0; i < esher.pj.idiomasCultura.Size(); i++) {
-            IdiomaCultura idi = esher.pj.idiomasCultura.Get(i);
+        Categoria cat = Personaje.getInstance().DevolverCategoriaDeNombre("Comunicación");
+        for (int i = 0; i < Personaje.getInstance().idiomasCultura.Size(); i++) {
+            IdiomaCultura idi = Personaje.getInstance().idiomasCultura.Get(i);
             if (idi.DevolverValorHablado() > 0) {
                 try {
                     hab = cat.DevolverHabilidadDeNombre("Hablar " + idi.nombre);
                     hab.rangos = idi.DevolverValorHablado();
                 } catch (NullPointerException npe) {
-                    hab = new Habilidad(cat, "Hablar " + idi.nombre);
+                    hab = Habilidad.getSkill(cat, "Hablar " + idi.nombre);
                     hab.rangos = idi.DevolverValorHablado();
                     cat.AddHabilidad(hab);
                 }
@@ -337,7 +336,7 @@ public class CulturaGUI extends javax.swing.JFrame {
                     hab = cat.DevolverHabilidadDeNombre("Escribir " + idi.nombre);
                     hab.rangos = idi.DevolverValorEscrito();
                 } catch (NullPointerException npe) {
-                    hab = new Habilidad(cat, "Escribir " + idi.nombre);
+                    hab = Habilidad.getSkill(cat, "Escribir " + idi.nombre);
                     hab.rangos = idi.DevolverValorHablado();
                     cat.AddHabilidad(hab);
                 }
@@ -357,20 +356,20 @@ public class CulturaGUI extends javax.swing.JFrame {
      */
     private void RellenarListaAficiones() {
         AficionesComboBox.removeAllItems();
-        for (int i = 0; i < esher.pj.listaAficiones.size(); i++) {
-            String af = esher.pj.listaAficiones.get(i);
+        for (int i = 0; i < Personaje.getInstance().listaAficiones.size(); i++) {
+            String af = Personaje.getInstance().listaAficiones.get(i);
             AficionesComboBox.addItem(af);
         }
     }
 
     public void AsignarPuntosAficiones() {
-        PuntosAficionesTextField.setText(esher.pj.DevolverPuntosAficiones() + "");
+        PuntosAficionesTextField.setText(Personaje.getInstance().DevolverPuntosAficiones() + "");
     }
 
     public void ActualizarAficionSeleccionada() {
         try {
-            Habilidad hab = esher.pj.DevolverHabilidadDeNombre(AficionesComboBox.getSelectedItem().toString());
-            AficionesSpinner.setValue(hab.rangosAficiones + hab.rangosCultura + esher.pj.armas.DevolverRangosCulturaArma(hab.DevolverNombre()));
+            Habilidad hab = Personaje.getInstance().DevolverHabilidadDeNombre(AficionesComboBox.getSelectedItem().toString());
+            AficionesSpinner.setValue(hab.rangosAficiones + hab.rangosCultura + Personaje.getInstance().armas.DevolverRangosCulturaArma(hab.DevolverNombre()));
         } catch (NullPointerException npe) {
             AficionesSpinner.setValue(0);
         }
@@ -379,22 +378,22 @@ public class CulturaGUI extends javax.swing.JFrame {
     public void AficionesSpinnerInRange() {
 
         try {
-            Habilidad hab = esher.pj.DevolverHabilidadDeNombre(AficionesComboBox.getSelectedItem().toString());
-            hab.rangosAficiones = (Integer) AficionesSpinner.getValue() - hab.rangosCultura - esher.pj.armas.DevolverRangosCulturaArma(hab.DevolverNombre());
+            Habilidad hab = Personaje.getInstance().DevolverHabilidadDeNombre(AficionesComboBox.getSelectedItem().toString());
+            hab.rangosAficiones = (Integer) AficionesSpinner.getValue() - hab.rangosCultura - Personaje.getInstance().armas.DevolverRangosCulturaArma(hab.DevolverNombre());
 
-            if ((Integer) AficionesSpinner.getValue() < hab.rangosCultura + esher.pj.armas.DevolverRangosCulturaArma(hab.DevolverNombre())) {
-                AficionesSpinner.setValue(hab.rangosCultura + esher.pj.armas.DevolverRangosCulturaArma(hab.DevolverNombre()));
+            if ((Integer) AficionesSpinner.getValue() < hab.rangosCultura + Personaje.getInstance().armas.DevolverRangosCulturaArma(hab.DevolverNombre())) {
+                AficionesSpinner.setValue(hab.rangosCultura + Personaje.getInstance().armas.DevolverRangosCulturaArma(hab.DevolverNombre()));
             }
 
             if ((Integer) AficionesSpinner.getValue() > 10) {
                 AficionesSpinner.setValue(10);
             }
 
-            if (esher.pj.DevolverPuntosAficiones() < 0) {
+            if (Personaje.getInstance().DevolverPuntosAficiones() < 0) {
                 AficionesSpinner.setValue((Integer) AficionesSpinner.getValue() - 1);
             }
 
-            if ((Integer) AficionesSpinner.getValue() > hab.NumeroRangosIncrementables() + hab.rangosCultura + esher.pj.armas.DevolverRangosCulturaArma(hab.DevolverNombre())) {
+            if ((Integer) AficionesSpinner.getValue() > hab.NumeroRangosIncrementables() + hab.rangosCultura + Personaje.getInstance().armas.DevolverRangosCulturaArma(hab.DevolverNombre())) {
                 AficionesSpinner.setValue((Integer) AficionesSpinner.getValue() - 1);
             }
 
@@ -417,12 +416,12 @@ public class CulturaGUI extends javax.swing.JFrame {
     private void RellenarListaHechizosYPuntos() {
         HechizosComboBox.removeAllItems();
         int seleccionado = 0;
-        if (esher.pj.rangosHechizosCultura > 0) {
-            Categoria cat = esher.pj.DevolverCategoriaDeNombre("Listas Abiertas de Hechizos");
+        if (Personaje.getInstance().rangosHechizosCultura > 0) {
+            Categoria cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Abiertas de Hechizos");
             cat.OrdenarHabilidades();
             for (int h = 0; h < cat.listaHabilidades.size(); h++) {
                 try {
-                    if (cat.listaHabilidades.get(h).DevolverNombre().equals(esher.pj.hechizoCultura.nombre)) {
+                    if (cat.listaHabilidades.get(h).DevolverNombre().equals(Personaje.getInstance().hechizoCultura.nombre)) {
                         seleccionado = h;
                     }
                 } catch (NullPointerException npe) {
@@ -434,14 +433,14 @@ public class CulturaGUI extends javax.swing.JFrame {
             HechizosComboBox.setSelectedIndex(seleccionado);
         } catch (IllegalArgumentException iae) {
         }
-        HechizosRangosTextField.setText(esher.pj.rangosHechizosCultura + "");
+        HechizosRangosTextField.setText(Personaje.getInstance().rangosHechizosCultura + "");
     }
 
     private void AsignarRangosHechizosSeleccionados() {
-        if (esher.pj.rangosHechizosCultura > 0) {
+        if (Personaje.getInstance().rangosHechizosCultura > 0) {
             try {
-                Habilidad hab = esher.pj.DevolverHabilidadDeNombre(HechizosComboBox.getSelectedItem().toString());
-                esher.pj.AsignarListaHechizosCultura(hab);
+                Habilidad hab = Personaje.getInstance().DevolverHabilidadDeNombre(HechizosComboBox.getSelectedItem().toString());
+                Personaje.getInstance().AsignarListaHechizosCultura(hab);
             } catch (NullPointerException npe) {
             }
         }

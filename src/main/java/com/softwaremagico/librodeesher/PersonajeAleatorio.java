@@ -48,54 +48,52 @@ import java.util.Random;
 
 public class PersonajeAleatorio {
 
-    private Esher esher;
     private Random generator = new Random();
     private final int INTENTOS = 5;
     private int nivel_final;
     private int adiestramientos_escogidos_en_nivel = 0;
 
-    PersonajeAleatorio(Esher tmp_esher) {
-        esher = tmp_esher;
+    PersonajeAleatorio() {
     }
 
     /**
      * Obtiene todas los datos del personaje de forma aleatoria.
      */
     public void ObtenerPersonajeAleatorio(int tmp_nivel_final) {
-        esher.aleatorio = true;
+        Esher.aleatorio = true;
         nivel_final = tmp_nivel_final;
 
         try {
-            new LeerRaza(esher);
+            new LeerRaza();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        esher.pj.HacerFijoEspecialesRaza();
-        new Magia(esher);
+        Personaje.getInstance().HacerFijoEspecialesRaza();
+        new Magia();
         try {
-            new LeerProfesion(esher);
+            new LeerProfesion();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         //Caracteristicas
         ObtenerCaracteristicasAleatorias();
-        esher.pj.caracteristicas.ObtenerPotenciales();
-        esher.pj.caracteristicas.ObtenerApariencia();
-        esher.pj.CalcularPuntosDesarrollo();
+        Personaje.getInstance().caracteristicas.ObtenerPotenciales();
+        Personaje.getInstance().caracteristicas.ObtenerApariencia();
+        Personaje.getInstance().CalcularPuntosDesarrollo();
 
         //Asignamos reino magia;
-        esher.pj.reino = SeleccionarReinoMagia();
-        esher.pj.ObtenerMagia();
+        Personaje.getInstance().reino = SeleccionarReinoMagia();
+        Personaje.getInstance().ObtenerMagia();
 
         //Cultura
         ObtenerCulturaAleatoria();
-        esher.pj.ActualizarOrdenCostesArmas();
+        Personaje.getInstance().ActualizarOrdenCostesArmas();
 
         //Repartimos los puntos de desarrollo.
-        while (esher.pj.nivel < nivel_final) {
+        while (Personaje.getInstance().nivel < nivel_final) {
             ObtenerRangosSugeridos();
             GastarPuntosDesarrolloDeFormaAleatoria();
-            esher.pj.SubirUnNivel();
+            Personaje.getInstance().SubirUnNivel();
             adiestramientos_escogidos_en_nivel = 0;
         }
         //El ultimo nivel.
@@ -104,7 +102,7 @@ public class PersonajeAleatorio {
         AsignarPuntosHistorialAleatoriamente();
 
         //Asignamos los talentos al personaje.
-        if (esher.talentosAleatorio) {
+        if (Esher.talentosAleatorio) {
             AsignarTalentosPj();
         }
     }
@@ -117,20 +115,20 @@ public class PersonajeAleatorio {
         int value = 0;
         String reinoElegido = "";
         String reino;
-        for (int i = 0; i < esher.pj.reinosDeProfesion.size(); i++) {
-            reino = esher.pj.reinosDeProfesion.get(i);
+        for (int i = 0; i < Personaje.getInstance().reinosDeProfesion.size(); i++) {
+            reino = Personaje.getInstance().reinosDeProfesion.get(i);
             if (reino.equals("Esencia")) {
-                value = esher.pj.caracteristicas.DevolverCaracteristicaDeAbreviatura("Em").Total();
+                value = Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura("Em").Total();
             }
             if (reino.equals("Mentalismo")) {
-                value = esher.pj.caracteristicas.DevolverCaracteristicaDeAbreviatura("Pr").Total();
+                value = Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura("Pr").Total();
             }
             if (reino.equals("Canalización")) {
-                value = esher.pj.caracteristicas.DevolverCaracteristicaDeAbreviatura("In").Total();
+                value = Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura("In").Total();
             }
             if (value >= maxCar) {
                 maxCar = value;
-                reinoElegido = esher.pj.reinosDeProfesion.get(i);
+                reinoElegido = Personaje.getInstance().reinosDeProfesion.get(i);
             }
         }
         return reinoElegido;
@@ -140,14 +138,14 @@ public class PersonajeAleatorio {
      * Distribuye los puntos de caracteristicas de forma aleatoria.
      */
     public void ObtenerCaracteristicasAleatorias() {
-        List<Caracteristica> listaCaracteristicas = esher.pj.caracteristicas.ObtenerListaAleatoriaDeCaracteristicas();
+        List<Caracteristica> listaCaracteristicas = Personaje.getInstance().caracteristicas.ObtenerListaAleatoriaDeCaracteristicas();
 
-        while (esher.pj.ObtenerPuntosCaracteristicasGastados() < esher.pj.caracteristicas.totalCaracteristicas) {
+        while (Personaje.getInstance().ObtenerPuntosCaracteristicasGastados() < Personaje.getInstance().caracteristicas.totalCaracteristicas) {
             for (int i = 0; i < listaCaracteristicas.size(); i++) {
                 Caracteristica car = listaCaracteristicas.get(i);
-                if ((generator.nextInt(100) + 1) < (car.ObtenerPuntosTemporal() - esher.especializacion * 10)
-                        && car.ObtenerPuntosTemporal() < (Math.min(90 + esher.especializacion * 4, 101))
-                        && esher.pj.ObtenerPuntosCaracteristicasGastados(car, 1) <= esher.pj.caracteristicas.totalCaracteristicas) {
+                if ((generator.nextInt(100) + 1) < (car.ObtenerPuntosTemporal() - Esher.especializacion * 10)
+                        && car.ObtenerPuntosTemporal() < (Math.min(90 + Esher.especializacion * 4, 101))
+                        && Personaje.getInstance().ObtenerPuntosCaracteristicasGastados(car, 1) <= Personaje.getInstance().caracteristicas.totalCaracteristicas) {
                     car.IncrementarPuntosTemporalSinContemplarPotencial(1);
                 }
             }
@@ -156,14 +154,14 @@ public class PersonajeAleatorio {
 
     public void ObtenerCulturaAleatoria() {
         try {
-            new LeerCultura(esher);
+            new LeerCultura();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        if (esher.inteligencia) {
-            esher.pj.armas.BarajarInteligentementeTiposArmas();
+        if (Esher.inteligencia) {
+            Personaje.getInstance().armas.BarajarInteligentementeTiposArmas();
         } else {
-            esher.pj.armas.BarajarTiposArmas();
+            Personaje.getInstance().armas.BarajarTiposArmas();
         }
         AsignarRangosArmasAleatoriamente();
         AsignarAficionesAleatoriamente();
@@ -173,14 +171,14 @@ public class PersonajeAleatorio {
 
     private void AsignarRangosArmasAleatoriamente() {
         List<String> listadoArmas;
-        Habilidad hab = null;
-        for (int i = 0; i < esher.pj.armas.DevolverTotalTiposDeArmas(); i++) {
-            Categoria cat = esher.pj.DevolverCategoriaDeNombre("Armas·" + esher.pj.armas.DevolverTipoDeArma(i));
+        Habilidad hab;
+        for (int i = 0; i < Personaje.getInstance().armas.DevolverTotalTiposDeArmas(); i++) {
+            Categoria cat = Personaje.getInstance().DevolverCategoriaDeNombre("Armas·" + Personaje.getInstance().armas.DevolverTipoDeArma(i));
             try {
-                listadoArmas = esher.pj.armas.SeleccionarNombreArmasValidasPorCategoriaDeTipo(esher.pj.armas.DevolverTipoDeArma(i));
+                listadoArmas = Personaje.getInstance().armas.SeleccionarNombreArmasValidasPorCategoriaDeTipo(Personaje.getInstance().armas.DevolverTipoDeArma(i));
                 hab = cat.DevolverHabilidadDeNombre(listadoArmas.get(generator.nextInt(listadoArmas.size())));
                 if (!hab.noElegirAleatorio) {
-                    hab.rangosCultura = esher.pj.armas.DevolverRangosCulturaTipoArma(esher.pj.armas.DevolverTipoDeArma(i));
+                    hab.rangosCultura = Personaje.getInstance().armas.DevolverRangosCulturaTipoArma(Personaje.getInstance().armas.DevolverTipoDeArma(i));
                 }
             } catch (Exception npe) {
             }
@@ -188,8 +186,8 @@ public class PersonajeAleatorio {
     }
 
     void GastarPuntosDesarrolloDeFormaAleatoria() {
-        List<Categoria> listaCategoriasBarajada = esher.BarajarCategorias();
-        while (esher.pj.PuntosDesarrolloNoGastados() > 0 && IntentosAsignarPD() <= INTENTOS) {
+        List<Categoria> listaCategoriasBarajada = Esher.BarajarCategorias();
+        while (Personaje.getInstance().PuntosDesarrolloNoGastados() > 0 && IntentosAsignarPD() <= INTENTOS) {
             ObtenerAdiestramientosSugeridos();
             ObtenerAdiestramientoAleatorio();
             ObtenerRangosAleatorios(listaCategoriasBarajada);
@@ -197,14 +195,14 @@ public class PersonajeAleatorio {
     }
 
     private void ObtenerRangosSugeridos() {
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            Categoria cat = esher.pj.categorias.get(i);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            Categoria cat = Personaje.getInstance().categorias.get(i);
             for (int k = 0; k < cat.NumeroRangosIncrementables(); k++) {
                 if (cat.DevolverRangos() < cat.rangosSugeridos) {
                     if (k == 0) {
                         cat.nuevosRangos++;
                     } else {
-                        if ((cat.rangosSugeridos - cat.DevolverRangos()) > (nivel_final - esher.pj.nivel)) {
+                        if ((cat.rangosSugeridos - cat.DevolverRangos()) > (nivel_final - Personaje.getInstance().nivel)) {
                             cat.nuevosRangos++;
                         }
                     }
@@ -218,7 +216,7 @@ public class PersonajeAleatorio {
                         if (k == 0) {
                             hab.IncrementarNuevosRangos(1);
                         } else {
-                            if ((hab.rangosSugeridos - hab.DevolverRangos()) > (nivel_final - esher.pj.nivel)) {
+                            if ((hab.rangosSugeridos - hab.DevolverRangos()) > (nivel_final - Personaje.getInstance().nivel)) {
                                 hab.IncrementarNuevosRangos(1);
                             }
                         }
@@ -241,15 +239,15 @@ public class PersonajeAleatorio {
                 if (generator.nextInt(100) + 1 < hab.ProbabilidadSubida()) {
                     //Contar los hechizos subidos para aplicar el multiplicador por mas de 5 listas.
                     if (hab.nuevosRangos == 0) {
-                        hab.multiplicadorCosteHechizos = esher.pj.DevolverMultiplicadoCosteHechizos();
+                        hab.multiplicadorCosteHechizos = Personaje.getInstance().DevolverMultiplicadoCosteHechizos();
                     }
                     hab.IncrementarNuevosRangos(1);
                     //Si da opciones de nuevas habilidades, se incluyen ahora.
                     if (hab.habilidadesNuevasPosibles.size() > 0 && cat.NumeroHabilidadesExistes(hab.habilidadesNuevasPosibles) == 0) {
-                        cat.AddHabilidad(new Habilidad(cat, hab.habilidadesNuevasPosibles.get(generator.nextInt(hab.habilidadesNuevasPosibles.size()))));
+                        cat.AddHabilidad(Habilidad.getSkill(cat, hab.habilidadesNuevasPosibles.get(generator.nextInt(hab.habilidadesNuevasPosibles.size()))));
                     }
                     //Permitimos que una habilidad tenga posibilidades de subir dos rangos.
-                    if (esher.especializacion > 0) {
+                    if (Esher.especializacion > 0) {
                         j--;
                     }
                     //Permitimos que el PNJ pueda coger alguna especialización.
@@ -257,54 +255,54 @@ public class PersonajeAleatorio {
                         //Si no existe ya...
                         if (!hab.especializacion.contains(hab.especializacionPosible.get(k)) && !hab.EsGeneralizada()) {
                             //Se le da una posibilidad de añadirse.
-                            if (generator.nextInt(100) < esher.especializacion) {
+                            if (generator.nextInt(100) < Esher.especializacion) {
                                 hab.AñadirEspecializacion(true, hab.especializacionPosible.get(k), "");
                             }
                         }
                     }
                     //O una generalización.
                     if (!hab.EsRestringida() && !hab.especializada) {
-                        if (generator.nextInt(100) < -esher.especializacion) {
+                        if (generator.nextInt(100) < -Esher.especializacion) {
                             hab.HacerGeneralizada();
                         }
                     }
                 }
             }
         }
-        esher.bucleHabilidades++;
+        Esher.bucleHabilidades++;
     }
 
     int IntentosAsignarPD() {
-        return esher.bucleHabilidades;
+        return Esher.bucleHabilidades;
     }
 
     private int ProbabilidadCogerAficion(Habilidad hab, int loop) throws NullPointerException {
-        if (esher.inteligencia) {
-            if (hab.DevolverCategoria().DevolverRangos() == 0 || hab.DevolverCategoria().DevolverHabilidadesConRangos() > -esher.especializacion + 1) {
+        if (Esher.inteligencia) {
+            if (hab.DevolverCategoria().DevolverRangos() == 0 || hab.DevolverCategoria().DevolverHabilidadesConRangos() > -Esher.especializacion + 1) {
                 return 5 * loop;
             }
-            return hab.rangosAficiones * (2 + esher.especializacion + loop) + hab.rangosCultura * (2 + esher.especializacion + loop)
-                    + hab.DevolverCategoria().rangos * 5 + Math.min(hab.categoriaPadre.esher.pj.CosteCategoriaYHabilidad(hab.categoriaPadre, 0, hab), 15) - hab.DevolverCategoria().DevolverHabilidadesConRangos() * 5 + 5;
+            return hab.rangosAficiones * (2 + Esher.especializacion + loop) + hab.rangosCultura * (2 + Esher.especializacion + loop)
+                    + hab.DevolverCategoria().rangos * 5 + Math.min(Personaje.getInstance().CosteCategoriaYHabilidad(hab.categoriaPadre, 0, hab), 15) - hab.DevolverCategoria().DevolverHabilidadesConRangos() * 5 + 5;
         } else {
-            return hab.rangosAficiones * (esher.especializacion + loop + 2) + hab.rangosCultura * (esher.especializacion + loop + 2)
+            return hab.rangosAficiones * (Esher.especializacion + loop + 2) + hab.rangosCultura * (Esher.especializacion + loop + 2)
                     + hab.DevolverCategoria().rangos + 5;
         }
     }
 
     private void AsignarAficionesAleatoriamente() {
         int loop = 0;
-        while (esher.pj.DevolverPuntosAficiones() > 0) {
+        while (Personaje.getInstance().DevolverPuntosAficiones() > 0) {
             loop++;
-            esher.pj.listaAficiones = esher.BarajarLista(esher.pj.listaAficiones);
-            for (int i = esher.pj.listaAficiones.size() - 1; i >= 0; i--) {
-                String af = esher.pj.listaAficiones.get(i);
-                Habilidad hab = esher.pj.DevolverHabilidadDeNombre(af);
+            Personaje.getInstance().listaAficiones = Esher.BarajarLista(Personaje.getInstance().listaAficiones);
+            for (int i = Personaje.getInstance().listaAficiones.size() - 1; i >= 0; i--) {
+                String af = Personaje.getInstance().listaAficiones.get(i);
+                Habilidad hab = Personaje.getInstance().DevolverHabilidadDeNombre(af);
                 try {
-                    if (generator.nextInt(100) + 1 < ProbabilidadCogerAficion(hab, loop) && esher.pj.DevolverPuntosAficiones() > 0 && !hab.noElegirAleatorio) {
+                    if (generator.nextInt(100) + 1 < ProbabilidadCogerAficion(hab, loop) && Personaje.getInstance().DevolverPuntosAficiones() > 0 && !hab.noElegirAleatorio) {
                         hab.rangosAficiones++;
                     }
                 } catch (NullPointerException npe) {
-                    new MostrarError("Afición " + af + " no encontrada", "Personaje Aleatorio");
+                    MostrarError.showErrorMessage("Afición " + af + " no encontrada", "Personaje Aleatorio");
                 }
             }
         }
@@ -315,10 +313,10 @@ public class PersonajeAleatorio {
                 || (id.rangosNuevosHablado + id.hablado + 1 > 10)) {
             return 0;
         }
-        if (esher.inteligencia) {
-            return (id.rangosNuevosHablado + id.hablado + id.rangosNuevosEscritos + id.escrito) * (esher.especializacion) + 15;
+        if (Esher.inteligencia) {
+            return (id.rangosNuevosHablado + id.hablado + id.rangosNuevosEscritos + id.escrito) * (Esher.especializacion) + 15;
         } else {
-            return (id.rangosNuevosHablado + id.hablado + id.rangosNuevosEscritos + id.escrito) * (3 + esher.especializacion) + 5;
+            return (id.rangosNuevosHablado + id.hablado + id.rangosNuevosEscritos + id.escrito) * (3 + Esher.especializacion) + 5;
         }
     }
 
@@ -327,35 +325,35 @@ public class PersonajeAleatorio {
                 || (id.rangosNuevosEscritos + id.escrito + 1 > 10)) {
             return 0;
         }
-        if (esher.inteligencia) {
-            return (id.rangosNuevosHablado + id.hablado + id.rangosNuevosEscritos + id.escrito) * (esher.especializacion) + 15;
+        if (Esher.inteligencia) {
+            return (id.rangosNuevosHablado + id.hablado + id.rangosNuevosEscritos + id.escrito) * (Esher.especializacion) + 15;
         } else {
-            return (id.rangosNuevosHablado + id.hablado + id.rangosNuevosEscritos + id.escrito) * (3 + esher.especializacion) + 5;
+            return (id.rangosNuevosHablado + id.hablado + id.rangosNuevosEscritos + id.escrito) * (3 + Esher.especializacion) + 5;
         }
     }
 
     private void AsignarIdiomasAleatoriamente() {
-        while (esher.pj.DevolverPuntosIdiomaCultura() > 0) {
-            IdiomaCultura id = esher.pj.idiomasCultura.Get(generator.nextInt(esher.pj.idiomasCultura.Size()));
-            if (generator.nextInt(100) + 1 < ProbabilidadCogerIdiomaHablado(id) && esher.pj.DevolverPuntosIdiomaCultura() > 0) {
+        while (Personaje.getInstance().DevolverPuntosIdiomaCultura() > 0) {
+            IdiomaCultura id = Personaje.getInstance().idiomasCultura.Get(generator.nextInt(Personaje.getInstance().idiomasCultura.Size()));
+            if (generator.nextInt(100) + 1 < ProbabilidadCogerIdiomaHablado(id) && Personaje.getInstance().DevolverPuntosIdiomaCultura() > 0) {
                 id.rangosNuevosHablado++;
             }
-            if (generator.nextInt(100) + 1 < ProbabilidadCogerIdiomaEscrito(id) && esher.pj.DevolverPuntosIdiomaCultura() > 0) {
+            if (generator.nextInt(100) + 1 < ProbabilidadCogerIdiomaEscrito(id) && Personaje.getInstance().DevolverPuntosIdiomaCultura() > 0) {
                 id.rangosNuevosEscritos++;
             }
         }
 
         //Se copian los rangos a la habilidad correspondiente.
         Habilidad hab;
-        Categoria cat = esher.pj.DevolverCategoriaDeNombre("Comunicación");
-        for (int i = 0; i < esher.pj.idiomasCultura.Size(); i++) {
-            IdiomaCultura idi = esher.pj.idiomasCultura.Get(i);
+        Categoria cat = Personaje.getInstance().DevolverCategoriaDeNombre("Comunicación");
+        for (int i = 0; i < Personaje.getInstance().idiomasCultura.Size(); i++) {
+            IdiomaCultura idi = Personaje.getInstance().idiomasCultura.Get(i);
             if (idi.DevolverValorHablado() > 0) {
                 try {
                     hab = cat.DevolverHabilidadDeNombre("Hablar " + idi.nombre);
                     hab.rangos = idi.DevolverValorHablado();
                 } catch (NullPointerException npe) {
-                    hab = new Habilidad(cat, "Hablar " + idi.nombre);
+                    hab = Habilidad.getSkill(cat, "Hablar " + idi.nombre);
                     hab.rangos = idi.DevolverValorHablado();
                     cat.AddHabilidad(hab);
                 }
@@ -365,7 +363,7 @@ public class PersonajeAleatorio {
                     hab = cat.DevolverHabilidadDeNombre("Escribir " + idi.nombre);
                     hab.rangos = idi.DevolverValorEscrito();
                 } catch (NullPointerException npe) {
-                    hab = new Habilidad(cat, "Escribir " + idi.nombre);
+                    hab = Habilidad.getSkill(cat, "Escribir " + idi.nombre);
                     hab.rangos = idi.DevolverValorHablado();
                     cat.AddHabilidad(hab);
                 }
@@ -374,7 +372,7 @@ public class PersonajeAleatorio {
     }
 
     private void AsignarHechizosAleatoriamente() {
-        Categoria cat = esher.pj.DevolverCategoriaDeNombre("Listas Abiertas de Hechizos");
+        Categoria cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Abiertas de Hechizos");
         int n = cat.listaHabilidades.size();
         if (n < 1) {
             n = 1;
@@ -382,40 +380,40 @@ public class PersonajeAleatorio {
         int hechizoSeleccionado = generator.nextInt(n);
         try {
             Habilidad hab = cat.listaHabilidades.get(hechizoSeleccionado);
-            esher.pj.AsignarListaHechizosCultura(hab);
+            Personaje.getInstance().AsignarListaHechizosCultura(hab);
         } catch (IndexOutOfBoundsException iobe) {
         }
     }
 
     private int ProbabilidadCogerAdiestramiento(String tmp_adiestramiento) {
-        LeerAdiestramientos ad = new LeerAdiestramientos(esher, tmp_adiestramiento, false);
+        LeerAdiestramientos ad = new LeerAdiestramientos(tmp_adiestramiento, false);
         int cost = ad.DevolverCosteDeAdiestramiento();
         //No queremos adiestramientos de reinos de magia distintos al nuestro.
         if (!ad.reino) {
             return 0;
         }
-        if (cost > esher.pj.PuntosDesarrolloNoGastados()) {
+        if (cost > Personaje.getInstance().PuntosDesarrolloNoGastados()) {
             return 0;
         }
 
-        int probabilidad = ((28 - cost) * 2 + esher.pj.nivel - ((esher.pj.adiestramientosAntiguos.size()
-                + (esher.especializacion)) * 20));
+        int probabilidad = ((28 - cost) * 2 + Personaje.getInstance().nivel - ((Personaje.getInstance().adiestramientosAntiguos.size()
+                + (Esher.especializacion)) * 20));
 
-        if (esher.pj.costesAdiestramientos.EsAdiestramientoPreferido(tmp_adiestramiento)) {
+        if (Personaje.getInstance().costesAdiestramientos.EsAdiestramientoPreferido(tmp_adiestramiento)) {
             probabilidad += 25;
         }
 
-        if (probabilidad < 1 && (esher.pj.adiestramientosAntiguos.size() < esher.pj.nivel / 10)) {
+        if (probabilidad < 1 && (Personaje.getInstance().adiestramientosAntiguos.size() < Personaje.getInstance().nivel / 10)) {
             probabilidad = 1;
         }
 
-        if (esher.pj.costesAdiestramientos.EsAdiestramientoProhibido(tmp_adiestramiento)) {
+        if (Personaje.getInstance().costesAdiestramientos.EsAdiestramientoProhibido(tmp_adiestramiento)) {
             probabilidad -= 1500;
         }
 
         //Los elementalistas tienen que elegir una opción de adiestramiento del reino.
-        if (esher.pj.EsProfesionGuiaElemental() && EsAdiestramientoDeElementalista(tmp_adiestramiento)
-                && esher.pj.adiestramientosAntiguos.size() == 0) {
+        if (Personaje.getInstance().EsProfesionGuiaElemental() && EsAdiestramientoDeElementalista(tmp_adiestramiento)
+                && Personaje.getInstance().adiestramientosAntiguos.isEmpty()) {
             probabilidad += 1000;
         }
         return probabilidad / (adiestramientos_escogidos_en_nivel + 1);
@@ -423,25 +421,25 @@ public class PersonajeAleatorio {
 
     private void AñadirAdiestramientoAleatorio(String tmp_adiestramiento) {
         try {
-            new LeerAdiestramientos(esher, tmp_adiestramiento, false, true);
+            new LeerAdiestramientos(tmp_adiestramiento, false, true);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         //Seleccionar aleatoriamente las habilidades.
-        esher.pj.adiestramiento.RepartirRangosEnCategoriasDeFormaAleatoria();
+        Personaje.getInstance().adiestramiento.RepartirRangosEnCategoriasDeFormaAleatoria();
 
         //Seleccionar aleatoriamente los aumentos de características.
-        esher.pj.adiestramiento.RepartirCaracterísticasParaSubirAleatoriamente();
+        Personaje.getInstance().adiestramiento.RepartirCaracterísticasParaSubirAleatoriamente();
 
         //Aceptar los cambios.
-        esher.pj.ConfirmarAdiestramiento();
+        Personaje.getInstance().ConfirmarAdiestramiento();
         adiestramientos_escogidos_en_nivel++;
     }
 
     private List<String> BarajarAdiestramientos() {
-        List<String> adiestramientos = esher.BarajarLista(esher.DevolverAdiestramientosPosibles());
-        List<String> adAux = new ArrayList<String>();
-        if (esher.pj.EsProfesionGuiaElemental()) {
+        List<String> adiestramientos = Esher.BarajarLista(Esher.DevolverAdiestramientosPosibles());
+        List<String> adAux = new ArrayList<>();
+        if (Personaje.getInstance().EsProfesionGuiaElemental()) {
             for (int i = 0; i < adiestramientos.size(); i++) {
                 String ad = adiestramientos.get(i);
                 if (EsAdiestramientoDeElementalista(ad)) {
@@ -473,15 +471,15 @@ public class PersonajeAleatorio {
     }
 
     private void ObtenerAdiestramientosSugeridos() {
-        for (int i = 0; i < esher.pj.adiestramientosSugeridos.size(); i++) {
+        for (int i = 0; i < Personaje.getInstance().adiestramientosSugeridos.size(); i++) {
             //Adiestramiento sugerido
-            String adiest = esher.pj.adiestramientosSugeridos.get(i);
-            if (!esher.pj.adiestramientosAntiguos.contains(adiest)) {
+            String adiest = Personaje.getInstance().adiestramientosSugeridos.get(i);
+            if (!Personaje.getInstance().adiestramientosAntiguos.contains(adiest)) {
                 if (adiestramientos_escogidos_en_nivel
-                        < Math.ceil(esher.pj.adiestramientosSugeridos.size()) / nivel_final) {
-                    LeerAdiestramientos ad = new LeerAdiestramientos(esher, adiest, false);
+                        < Math.ceil(Personaje.getInstance().adiestramientosSugeridos.size()) / nivel_final) {
+                    LeerAdiestramientos ad = new LeerAdiestramientos(adiest, false);
                     int cost = ad.DevolverCosteDeAdiestramiento();
-                    if (cost <= esher.pj.PuntosDesarrolloNoGastados()) {
+                    if (cost <= Personaje.getInstance().PuntosDesarrolloNoGastados()) {
                         AñadirAdiestramientoAleatorio(adiest);
                     }
                 }
@@ -490,9 +488,9 @@ public class PersonajeAleatorio {
     }
 
     private void AsignarPuntosHistorialAleatoriamente() {
-        while (esher.pj.historial > esher.pj.DevolverPuntosHistorialGastados()) {
-            int sig = generator.nextInt(esher.pj.categorias.size());
-            Categoria cat = esher.pj.categorias.get(sig);
+        while (Personaje.getInstance().historial > Personaje.getInstance().DevolverPuntosHistorialGastados()) {
+            int sig = generator.nextInt(Personaje.getInstance().categorias.size());
+            Categoria cat = Personaje.getInstance().categorias.get(sig);
             int prob = generator.nextInt(100);
             if (prob < cat.Total() - cat.costeRango[0]) {
                 cat.historial = true;
@@ -512,18 +510,18 @@ public class PersonajeAleatorio {
 
     private int ProbabilidadObtenerTalento(Talento talento) {
         //No puede existir un talento similar pero de otro grado.
-        if (esher.pj.ExisteTalentoSimilar(talento)) {
+        if (Personaje.getInstance().ExisteTalentoSimilar(talento)) {
             return 0;
         }
         //Para talentos;
         if (talento.coste > 0) {
-            if (talento.coste > esher.pj.DevolverPuntosTalentosRestantes()) {
+            if (talento.coste > Personaje.getInstance().DevolverPuntosTalentosRestantes()) {
                 return 0;
             }
-            return esher.pj.EsTalentoAdecuado(talento) / (Math.max(3 - esher.especializacion, 1));
+            return Personaje.getInstance().EsTalentoAdecuado(talento) / (Math.max(3 - Esher.especializacion, 1));
         }
         //Para defectos:
-        if (esher.pj.EsDefectoAdecuado(talento) && esher.pj.DevolverPuntosTalentosRestantes() < 30) {
+        if (Personaje.getInstance().EsDefectoAdecuado(talento) && Personaje.getInstance().DevolverPuntosTalentosRestantes() < 30) {
             return 5;
         }
         //Otros
@@ -533,10 +531,10 @@ public class PersonajeAleatorio {
     private void AsignarTalentosPj() {
         int bucle = 0;
         int next = 0;
-        esher.pj.talentos = new ArrayList<Talento>();
+        Personaje.getInstance().talentos = new ArrayList<>();
         //esher.talentos = new Talentos(esher);
-        List<Talento> talentosBarajados = esher.talentos.BarajarTalentos();
-        while (esher.pj.DevolverPuntosTalentosRestantes() > 0 && bucle < 20) {
+        List<Talento> talentosBarajados = Esher.talentos.BarajarTalentos();
+        while (Personaje.getInstance().DevolverPuntosTalentosRestantes() > 0 && bucle < 20) {
             int prob = generator.nextInt(100);
             if (next < talentosBarajados.size()) {
                 //Si tiene que escoger una habilidad, escoge una al azar.
@@ -547,12 +545,12 @@ public class PersonajeAleatorio {
                 } catch (NullPointerException npe) {
                 }
                 if (prob < ProbabilidadObtenerTalento(talentosBarajados.get(next))) {
-                    esher.pj.talentos.add(talentosBarajados.get(next));
+                    Personaje.getInstance().talentos.add(talentosBarajados.get(next));
                     //Si tiene que escoger una habilidad común de entre una categoría
                     for (int j = 0; j < talentosBarajados.get(next).bonusCategoria.size(); j++) {
                         if (talentosBarajados.get(next).bonusCategoria.get(j).habilidadComun) {
                             talentosBarajados.get(next).bonusCategoria.get(j).habilidadEscogida =
-                                    esher.pj.DevolverCategoriaDeNombre(talentosBarajados.get(next).bonusCategoria.get(j).nombre).DevolverHabilidadAlAzar();
+                                    Personaje.getInstance().DevolverCategoriaDeNombre(talentosBarajados.get(next).bonusCategoria.get(j).nombre).DevolverHabilidadAlAzar();
                         }
                     }
                     talentosBarajados.remove(next);
@@ -567,8 +565,8 @@ public class PersonajeAleatorio {
     }
 
     private List<Habilidad> BarajarHabilidadesDeCategoria(Categoria cat) {
-        List<Habilidad> listaBarajada = new ArrayList<Habilidad>();
-        List<Habilidad> listaOriginal = new ArrayList<Habilidad>();
+        List<Habilidad> listaBarajada = new ArrayList<>();
+        List<Habilidad> listaOriginal = new ArrayList<>();
         listaOriginal.addAll(cat.listaHabilidades);
 
         int pos = 0;

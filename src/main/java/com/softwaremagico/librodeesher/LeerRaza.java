@@ -41,9 +41,11 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
+import com.softwaremagico.files.DirectorioRolemaster;
 import com.softwaremagico.librodeesher.gui.MostrarError;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,11 +56,9 @@ import java.util.logging.Logger;
  */
 public class LeerRaza {
 
-    Esher esher;
 
-    LeerRaza(Esher tmp_esher) {
+    LeerRaza() {
         try {
-            esher = tmp_esher;
             LeeFicheroRaza();
         } catch (Exception ex) {
             Logger.getLogger(LeerRaza.class.getName()).log(Level.SEVERE, null, ex);
@@ -69,9 +69,9 @@ public class LeerRaza {
         int lineaLeida = 2;
 
         LimpiarAntiguaRaza();
-        String ficheroRaza = esher.BuscarDirectorioModulo(esher.directorioRolemaster.DIRECTORIO_RAZAS + File.separator + esher.pj.raza + ".txt");
+        String ficheroRaza = DirectorioRolemaster.BuscarDirectorioModulo(DirectorioRolemaster.DIRECTORIO_RAZAS + File.separator + Personaje.getInstance().raza + ".txt");
         if (ficheroRaza.length() > 0) {
-            List<String> lines = esher.directorioRolemaster.LeerLineasRaza(ficheroRaza);
+            List<String> lines = DirectorioRolemaster.LeerLineasRaza(ficheroRaza);
             lineaLeida = AsignarCaracteristicasRaza(lines, lineaLeida);
             lineaLeida = AsignarTiradasResistencia(lines, lineaLeida);
             lineaLeida = AsignarProgresiones(lines, lineaLeida);
@@ -96,19 +96,19 @@ public class LeerRaza {
                 String lineaCaracteristica = lines.get(index);
                 String[] CaracteristicaValor = lineaCaracteristica.split("\t");
                 if (CaracteristicaValor[0].equals("Ap")) {
-                    esher.pj.caracteristicas.bonusAparienciaRaza = Integer.parseInt(CaracteristicaValor[1]);
+                    Personaje.getInstance().caracteristicas.bonusAparienciaRaza = Integer.parseInt(CaracteristicaValor[1]);
                 } else {
                     try {
-                        Caracteristica car = esher.pj.caracteristicas.DevolverCaracteristicaDeAbreviatura(CaracteristicaValor[0]);
+                        Caracteristica car = Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura(CaracteristicaValor[0]);
                         car.CambiarPuntosRaza(Integer.parseInt(CaracteristicaValor[1]));
                     } catch (Exception e) {
-                        new MostrarError("Caracteristicas desconocida: " + CaracteristicaValor[0], "Leer Raza");
+                        MostrarError.showErrorMessage("Caracteristicas desconocida: " + CaracteristicaValor[0], "Leer Raza");
                     }
                 }
                 index++;
             }
         } catch (IndexOutOfBoundsException iob) {
-            new MostrarError("Problema al leer las características de la raza.", "Leer Raza");
+            MostrarError.showErrorMessage("Problema al leer las características de la raza.", "Leer Raza");
             System.exit(-1);
         }
         return index;
@@ -122,66 +122,66 @@ public class LeerRaza {
                 String[] trValor = lineaTR.split("\t");
                 try {
                     if (trValor[0].equals("Canalización")) {
-                        esher.pj.SetTrCanalizacion(Integer.parseInt(trValor[1]));
+                        Personaje.getInstance().SetTrCanalizacion(Integer.parseInt(trValor[1]));
                     }
                 } catch (ArrayIndexOutOfBoundsException aiob) {
-                    esher.pj.SetTrCanalizacion(0);
+                    Personaje.getInstance().SetTrCanalizacion(0);
                 }
                 try {
                     if (trValor[0].equals("Esencia")) {
-                        esher.pj.SetTrEsencia(Integer.parseInt(trValor[1]));
+                        Personaje.getInstance().SetTrEsencia(Integer.parseInt(trValor[1]));
                     }
                 } catch (ArrayIndexOutOfBoundsException aiob) {
-                    esher.pj.SetTrEsencia(0);
+                    Personaje.getInstance().SetTrEsencia(0);
                 }
                 try {
                     if (trValor[0].equals("Mentalismo")) {
-                        esher.pj.SetTrMentalismo(Integer.parseInt(trValor[1]));
+                        Personaje.getInstance().SetTrMentalismo(Integer.parseInt(trValor[1]));
                     }
                 } catch (ArrayIndexOutOfBoundsException aiob) {
-                    esher.pj.SetTrMentalismo(0);
+                    Personaje.getInstance().SetTrMentalismo(0);
                 }
                 try {
                     if (trValor[0].equals("Psiónico")) {
-                        esher.pj.SetTrPsionico(Integer.parseInt(trValor[1]));
+                        Personaje.getInstance().SetTrPsionico(Integer.parseInt(trValor[1]));
                     }
                 } catch (ArrayIndexOutOfBoundsException aiob) {
-                    esher.pj.SetTrPsionico(0);
+                    Personaje.getInstance().SetTrPsionico(0);
                 }
                 try {
                     if (trValor[0].contains("Veneno")) {
-                        esher.pj.SetTrVenenos(Integer.parseInt(trValor[1]));
+                        Personaje.getInstance().SetTrVenenos(Integer.parseInt(trValor[1]));
                     }
                 } catch (ArrayIndexOutOfBoundsException aiob) {
-                    esher.pj.SetTrVenenos(0);
+                    Personaje.getInstance().SetTrVenenos(0);
                 }
                 try {
                     if (trValor[0].contains("Enfermedad")) {
-                        esher.pj.SetTrEnfermedades(Integer.parseInt(trValor[1]));
+                        Personaje.getInstance().SetTrEnfermedades(Integer.parseInt(trValor[1]));
                     }
                 } catch (ArrayIndexOutOfBoundsException aiob) {
-                    esher.pj.SetTrEnfermedades(0);
+                    Personaje.getInstance().SetTrEnfermedades(0);
                 }
                 try {
                     if (trValor[0].equals("Frío")) {
-                        esher.pj.SetTrFrio(Integer.parseInt(trValor[1]));
+                        Personaje.getInstance().SetTrFrio(Integer.parseInt(trValor[1]));
                     }
                 } catch (ArrayIndexOutOfBoundsException aiob) {
-                    esher.pj.SetTrFrio(0);
+                    Personaje.getInstance().SetTrFrio(0);
                 }
                 try {
                     if (trValor[0].equals("Calor")) {
-                        esher.pj.SetTrCalor(Integer.parseInt(trValor[1]));
+                        Personaje.getInstance().SetTrCalor(Integer.parseInt(trValor[1]));
                     }
                 } catch (ArrayIndexOutOfBoundsException aiob) {
-                    esher.pj.SetTrCalor(0);
+                    Personaje.getInstance().SetTrCalor(0);
                 }
                 try {
                     if (trValor[0].equals("Miedo")) {
-                        esher.pj.SetTrMiedo(Integer.parseInt(trValor[1]));
+                        Personaje.getInstance().SetTrMiedo(Integer.parseInt(trValor[1]));
                     }
                 } catch (ArrayIndexOutOfBoundsException aiob) {
-                    esher.pj.SetTrMiedo(0);
+                    Personaje.getInstance().SetTrMiedo(0);
                 }
                 index++;
             }
@@ -192,29 +192,29 @@ public class LeerRaza {
 
     private int AsignarProgresiones(List<String> lines, int index) {
         index += 3;
-        esher.pj.progresionesPuntosPoder = new String[5];
+        Personaje.getInstance().progresionesPuntosPoder = new String[5];
         try {
             while (!lines.get(index).equals("")) {
                 String lineaProgresiones = lines.get(index);
                 String[] progresiones = lineaProgresiones.split("\t");
                 if (progresiones[0].equals("Desarrollo Físico")) {
-                    esher.pj.progresionDesarrolloFisico = progresiones[1];
+                    Personaje.getInstance().progresionDesarrolloFisico = progresiones[1];
                 }
 
                 if (progresiones[0].equals("PP Arcano")) {
-                    esher.pj.progresionesPuntosPoder[esher.pj.ARCANO] = progresiones[1];
+                    Personaje.getInstance().progresionesPuntosPoder[Personaje.getInstance().ARCANO] = progresiones[1];
                 }
                 if (progresiones[0].equals("PP Canalización")) {
-                    esher.pj.progresionesPuntosPoder[esher.pj.CANALIZACION] = progresiones[1];
+                    Personaje.getInstance().progresionesPuntosPoder[Personaje.getInstance().CANALIZACION] = progresiones[1];
                 }
                 if (progresiones[0].equals("PP Esencia")) {
-                    esher.pj.progresionesPuntosPoder[esher.pj.ESENCIA] = progresiones[1];
+                    Personaje.getInstance().progresionesPuntosPoder[Personaje.getInstance().ESENCIA] = progresiones[1];
                 }
                 if (progresiones[0].equals("PP Mentalismo")) {
-                    esher.pj.progresionesPuntosPoder[esher.pj.MENTALISMO] = progresiones[1];
+                    Personaje.getInstance().progresionesPuntosPoder[Personaje.getInstance().MENTALISMO] = progresiones[1];
                 }
                 if (progresiones[0].equals("PP Psiónico")) {
-                    esher.pj.progresionesPuntosPoder[esher.pj.PSIONICO] = progresiones[1];
+                    Personaje.getInstance().progresionesPuntosPoder[Personaje.getInstance().PSIONICO] = progresiones[1];
                 }
                 index++;
             }
@@ -225,14 +225,12 @@ public class LeerRaza {
 
     private int AsignarProfesionesRestringidas(List<String> lines, int index) {
         index += 3;
-        esher.pj.profesionesRestringidas = new ArrayList<String>();
+        Personaje.getInstance().profesionesRestringidas = new ArrayList<>();
         try {
             while (!lines.get(index).equals("")) {
                 String lineaProfesionesRestringidas = lines.get(index);
                 String[] pRestringidas = lineaProfesionesRestringidas.split(", ");
-                for (int i = 0; i < pRestringidas.length; i++) {
-                    esher.pj.profesionesRestringidas.add(pRestringidas[i]);
-                }
+                Personaje.getInstance().profesionesRestringidas.addAll(Arrays.asList(pRestringidas));
                 index++;
             }
         } catch (IndexOutOfBoundsException iob) {
@@ -242,27 +240,27 @@ public class LeerRaza {
 
     private int AsignarOtrosDatos(List<String> lines, int index) {
         index += 3;
-        esher.pj.partidaAlma = Integer.parseInt(lines.get(index));
+        Personaje.getInstance().partidaAlma = Integer.parseInt(lines.get(index));
         index += 4;
-        esher.pj.tipoRaza = Integer.parseInt(lines.get(index));
+        Personaje.getInstance().tipoRaza = Integer.parseInt(lines.get(index));
         index += 4;
-        esher.pj.tamaño = lines.get(index);
+        Personaje.getInstance().tamaño = lines.get(index);
         index += 4;
         try {
-            esher.pj.recuperacion = Float.parseFloat(lines.get(index));
+            Personaje.getInstance().recuperacion = Float.parseFloat(lines.get(index));
         } catch (NumberFormatException nfe) {
-            esher.pj.recuperacion = Float.parseFloat(lines.get(index).replaceAll(",", "."));
+            Personaje.getInstance().recuperacion = Float.parseFloat(lines.get(index).replaceAll(",", "."));
         }
         index += 4;
-        esher.pj.puntosIdiomaRaza = Integer.parseInt(lines.get(index));
+        Personaje.getInstance().puntosIdiomaRaza = Integer.parseInt(lines.get(index));
         index += 4;
-        esher.pj.historial = Integer.parseInt(lines.get(index));
+        Personaje.getInstance().historial = Integer.parseInt(lines.get(index));
         index++;
         return index;
     }
 
     private void BorrarIdiomas() {
-        Categoria comunicacion = esher.pj.DevolverCategoriaDeNombre("Comunicación");
+        Categoria comunicacion = Personaje.getInstance().DevolverCategoriaDeNombre("Comunicación");
         try {
             for (int i = comunicacion.listaHabilidades.size() - 1; i >= 0; i--) {
                 Habilidad hab = comunicacion.listaHabilidades.get(i);
@@ -278,8 +276,8 @@ public class LeerRaza {
     private int AsignarListaIdiomasRaza(List<String> lines, int index) {
         index += 3;
         BorrarIdiomas();
-        Categoria comunicacion = esher.pj.DevolverCategoriaDeNombre("Comunicación");
-        esher.pj.idiomasRaza = new IdiomasAdolescencia();
+        Categoria comunicacion = Personaje.getInstance().DevolverCategoriaDeNombre("Comunicación");
+        Personaje.getInstance().idiomasRaza = new IdiomasAdolescencia();
         while (!lines.get(index).equals("")) {
             try {
                 String lineaIdiomas = lines.get(index);
@@ -289,15 +287,14 @@ public class LeerRaza {
                 IdiomaCultura lengua = new IdiomaCultura(datosIdioma[0],
                         Integer.parseInt(rangosIdioma[0]), Integer.parseInt(rangosIdioma[1]),
                         Integer.parseInt(culturaIdioma[0]), Integer.parseInt(culturaIdioma[1]));
-                esher.pj.idiomasRaza.Add(lengua);
-                Habilidad habH = new Habilidad(comunicacion, "Hablar " + datosIdioma[0],
+                Personaje.getInstance().idiomasRaza.Add(lengua);
+                Habilidad habH = Habilidad.getSkill(comunicacion, "Hablar " + datosIdioma[0],
                         Integer.parseInt(rangosIdioma[0]));
-                comunicacion.AddHabilidad(habH);
-                Habilidad habE = new Habilidad(comunicacion, "Escribir " + datosIdioma[0],
+                Habilidad habE = Habilidad.getSkill(comunicacion, "Escribir " + datosIdioma[0],
                         Integer.parseInt(rangosIdioma[1]));
                 comunicacion.AddHabilidad(habE);
             } catch (ArrayIndexOutOfBoundsException aiofb) {
-                new MostrarError("Error leyendo la linea de idiomas: " + lines.get(index), "Leer Raza");
+                MostrarError.showErrorMessage("Error leyendo la linea de idiomas: " + lines.get(index), "Leer Raza");
             }
             index++;
         }
@@ -309,10 +306,10 @@ public class LeerRaza {
         while (!lines.get(index).equals("")) {
             String lineaTalentos = lines.get(index);
             try {
-                esher.pj.puntosTalentos = Integer.parseInt(lineaTalentos);
+                Personaje.getInstance().puntosTalentos = Integer.parseInt(lineaTalentos);
             } catch (NumberFormatException nfe) {
-                new MostrarError("Numero de puntos de talento irreconocible.", "Leer Raza");
-                esher.pj.puntosTalentos = 0;
+                MostrarError.showErrorMessage("Numero de puntos de talento irreconocible.", "Leer Raza");
+                Personaje.getInstance().puntosTalentos = 0;
             }
             index++;
         }
@@ -326,11 +323,11 @@ public class LeerRaza {
             String[] vectorHabilidad = lineaHabilidad.split(", ");
             for (int i = 0; i < vectorHabilidad.length; i++) {
                 try {
-                    Habilidad hab = esher.pj.DevolverHabilidadDeNombre(vectorHabilidad[i]);
+                    Habilidad hab = Personaje.getInstance().DevolverHabilidadDeNombre(vectorHabilidad[i]);
                     hab.HacerComunRaza();
                 } catch (NullPointerException npe) {
                     Categoria cat;
-                    if ((cat = esher.pj.DevolverCategoriaDeNombre(vectorHabilidad[i])) != null) {
+                    if ((cat = Personaje.getInstance().DevolverCategoriaDeNombre(vectorHabilidad[i])) != null) {
                         for (int j = 0; j < cat.listaHabilidades.size(); j++) {
                             Habilidad hab = cat.listaHabilidades.get(j);
                             hab.HacerComunRaza();
@@ -338,8 +335,8 @@ public class LeerRaza {
                     } else {
                         if (!vectorHabilidad[i].equals("Ninguna")) //Puede ser una habilidad de un categoria.
                         {
-                            if (!esher.pj.SeleccionarGrupoHabilidadesEspeciales("Común", vectorHabilidad[i], "raza")) {
-                                new MostrarError("Habilidad de raza " + vectorHabilidad[i] + " no reconocida.", "Leer Raza");
+                            if (!Personaje.getInstance().SeleccionarGrupoHabilidadesEspeciales("Común", vectorHabilidad[i], "raza")) {
+                                MostrarError.showErrorMessage("Habilidad de raza " + vectorHabilidad[i] + " no reconocida.", "Leer Raza");
                             }
                         }
                     }
@@ -357,7 +354,7 @@ public class LeerRaza {
             String lineaHabilidad = lines.get(index);
             String[] vectorHabilidad = lineaHabilidad.split(", ");
             for (int i = 0; i < vectorHabilidad.length; i++) {
-                if ((cat = esher.pj.DevolverCategoriaDeNombre(vectorHabilidad[i])) != null) {
+                if ((cat = Personaje.getInstance().DevolverCategoriaDeNombre(vectorHabilidad[i])) != null) {
                     for (int j = 0; j < cat.listaHabilidades.size(); j++) {
                         Habilidad hab = cat.listaHabilidades.get(j);
                         hab.HacerRestringida();
@@ -365,11 +362,11 @@ public class LeerRaza {
                 } else {
                     try {
                         if (!vectorHabilidad[i].equals("Ninguna")) {
-                            Habilidad hab = esher.pj.DevolverHabilidadDeNombre(vectorHabilidad[i]);
+                            Habilidad hab = Personaje.getInstance().DevolverHabilidadDeNombre(vectorHabilidad[i]);
                             hab.HacerRestringida();
                         }
                     } catch (NullPointerException npe) {
-                        new MostrarError("Habilidad racial restringida " + vectorHabilidad[i] + " no existente.", "Leer Raza");
+                        MostrarError.showErrorMessage("Habilidad racial restringida " + vectorHabilidad[i] + " no existente.", "Leer Raza");
                     }
                 }
             }
@@ -380,11 +377,11 @@ public class LeerRaza {
 
     private int AsignarCulturas(List<String> lines, int index) throws Exception {
         index += 3;
-        esher.pj.culturasPosiblesPorRaza = new ArrayList<String>();
+        Personaje.getInstance().culturasPosiblesPorRaza = new ArrayList<>();
         while (!lines.get(index).equals("")) {
             String lineaCultura = lines.get(index);
             if (lineaCultura.contains("Todas")) {
-                esher.pj.culturasPosiblesPorRaza = esher.directorioRolemaster.CulturasDisponibles(esher.modulosRolemaster);
+                Personaje.getInstance().culturasPosiblesPorRaza = DirectorioRolemaster.CulturasDisponibles();
                 index++;
                 break;
             }
@@ -393,9 +390,9 @@ public class LeerRaza {
                 //Grupos de culturas. Si empiezan por "*".
                 if (vectorCulturas[i].contains("{")) {
                     String cult = vectorCulturas[i].replace("{", "").replace("}", "");
-                    esher.pj.culturasPosiblesPorRaza.addAll(esher.directorioRolemaster.CulturasDisponiblesSubString(esher.modulosRolemaster, cult));
+                    Personaje.getInstance().culturasPosiblesPorRaza.addAll(DirectorioRolemaster.CulturasDisponiblesSubString(cult));
                 } else {
-                    esher.pj.culturasPosiblesPorRaza.add(vectorCulturas[i]);
+                    Personaje.getInstance().culturasPosiblesPorRaza.add(vectorCulturas[i]);
                 }
             }
             index++;
@@ -408,8 +405,8 @@ public class LeerRaza {
         while (!lines.get(index).equals("")) {
             String lineaEspeciales = lines.get(index);
             if (!lineaEspeciales.equals("Ninguno")) {
-                if (!esher.pj.especialesRaza.contains(lineaEspeciales)) {
-                    esher.pj.especialesRaza.add(lineaEspeciales);
+                if (!Personaje.getInstance().especialesRaza.contains(lineaEspeciales)) {
+                    Personaje.getInstance().especialesRaza.add(lineaEspeciales);
                 }
             }
             index++;
@@ -419,16 +416,14 @@ public class LeerRaza {
 
     private int AsignarNombres(List<String> lines, int index) {
         index += 3;
-        esher.pj.nombresMasculinos = new ArrayList<String>();
-        esher.pj.nombresFemeninos = new ArrayList<String>();
-        esher.pj.apellidos = new ArrayList<String>();
+        Personaje.getInstance().nombresMasculinos = new ArrayList<>();
+        Personaje.getInstance().nombresFemeninos = new ArrayList<>();
+        Personaje.getInstance().apellidos = new ArrayList<>();
         //Nombres Masculinos.
         while (!lines.get(index).equals("")) {
             String lineaNombres = lines.get(index);
             String[] nombres = lineaNombres.split(", ");
-            for (int i = 0; i < nombres.length; i++) {
-                esher.pj.nombresMasculinos.add(nombres[i]);
-            }
+            Personaje.getInstance().nombresMasculinos.addAll(Arrays.asList(nombres));
             index++;
         }
         //Nombres Femeninos.
@@ -436,10 +431,7 @@ public class LeerRaza {
         while (!lines.get(index).equals("")) {
             String lineaNombres = lines.get(index);
             String[] nombres = lineaNombres.split(", ");
-            for (int i = 0; i < nombres.length; i++) {
-                esher.pj.nombresFemeninos.add(nombres[i]);
-
-            }
+            Personaje.getInstance().nombresFemeninos.addAll(Arrays.asList(nombres));
             index++;
         }
         //Apellidos.
@@ -447,25 +439,23 @@ public class LeerRaza {
         while (!lines.get(index).equals("")) {
             String lineaNombres = lines.get(index);
             String[] nombres = lineaNombres.split(", ");
-            for (int i = 0; i < nombres.length; i++) {
-                esher.pj.apellidos.add(nombres[i]);
-            }
+            Personaje.getInstance().apellidos.addAll(Arrays.asList(nombres));
             index++;
         }
 
         //Barajamos los nombres aleatoriamente.
-        esher.pj.nombresMasculinos = esher.BarajarLista(esher.pj.nombresMasculinos);
-        esher.pj.nombresFemeninos = esher.BarajarLista(esher.pj.nombresFemeninos);
-        esher.pj.apellidos = esher.BarajarLista(esher.pj.apellidos);
+        Personaje.getInstance().nombresMasculinos = Esher.BarajarLista(Personaje.getInstance().nombresMasculinos);
+        Personaje.getInstance().nombresFemeninos = Esher.BarajarLista(Personaje.getInstance().nombresFemeninos);
+        Personaje.getInstance().apellidos = Esher.BarajarLista(Personaje.getInstance().apellidos);
 
         return index;
     }
 
     private void LimpiarAntiguaRaza() {
-        esher.pj.especialesRaza = new ArrayList<String>();
-        esher.pj.puntosTalentos = 0;
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            Categoria cat = esher.pj.categorias.get(i);
+        Personaje.getInstance().especialesRaza = new ArrayList<>();
+        Personaje.getInstance().puntosTalentos = 0;
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            Categoria cat = Personaje.getInstance().categorias.get(i);
             for (int j = 0; j < cat.listaHabilidades.size(); j++) {
                 Habilidad hab = cat.listaHabilidades.get(j);
                 hab.NoEsComunRaza();

@@ -54,11 +54,11 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" max="-2" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Component id="ArmasPanel" alignment="0" max="32767" attributes="1"/>
-                  <Group type="102" alignment="1" max="-2" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="ArmasAdolescenciaPanel" linkSize="20" max="32767" attributes="1"/>
                           <Component id="IdiomasPanel" linkSize="20" alignment="0" min="-2" max="-2" attributes="1"/>
@@ -113,7 +113,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="SubirArmaButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="ArmasScrollPane" pref="136" max="32767" attributes="0"/>
+                  <Component id="ArmasScrollPane" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="BajarArmaButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -224,7 +224,7 @@
                       <Component id="IdiomasComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="PuntosIdiomasTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="16" max="32767" attributes="0"/>
+                  <EmptySpace pref="19" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -364,7 +364,7 @@
                       <Component id="ArmaAdolescenciaComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="RangoArmaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="17" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -452,7 +452,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="19" max="32767" attributes="0"/>
+                  <EmptySpace pref="25" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="PuntosAficionesTextField" linkSize="12" alignment="3" min="-2" max="-2" attributes="0"/>

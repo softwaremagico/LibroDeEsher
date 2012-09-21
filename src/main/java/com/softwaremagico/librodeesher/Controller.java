@@ -42,6 +42,7 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
+import com.softwaremagico.files.DirectorioRolemaster;
 import com.softwaremagico.librodeesher.gui.MostrarError;
 import com.softwaremagico.librodeesher.gui.AboutBox;
 import com.softwaremagico.librodeesher.gui.AñadirAdiestramientoGUI;
@@ -73,7 +74,6 @@ import javax.swing.event.ChangeListener;
 
 public class Controller {
 
-    private Esher esher;
     private MainGUI gui;
     private CaracteristicasGUI caracteristicasGui;
     private CategoriasYHabilidadesGUI catHabGui;
@@ -93,13 +93,11 @@ public class Controller {
     private ObjetoMagicoGUI objetosMagicos;
 
     /** Creates a new instance of Controller */
-    public Controller(Esher tmp_esher,
-            MainGUI tmp_gui, CaracteristicasGUI tmp_caracteristicasGui,
+    public Controller(MainGUI tmp_gui, CaracteristicasGUI tmp_caracteristicasGui,
             CategoriasYHabilidadesGUI categoriasYHabilidades,
             AleatorioGUI tmp_aleatorio, AdiestramientoGUI tmp_adiestramiento,
             AñadirAdiestramientoGUI tmp_añadirAdiestramiento, OpcionesGUI tmp_opciones,
             SeleccionarHabilidadGUI tmp_selecHab, ObjetoMagicoGUI tmp_objetosMagicos) {
-        esher = tmp_esher;
         gui = tmp_gui;
         caracteristicasGui = tmp_caracteristicasGui;
         catHabGui = categoriasYHabilidades;
@@ -129,20 +127,20 @@ public class Controller {
     String ExplorarVentanas(String title, int mode, String file) {
         JFrame frame = null;
 
-        fc = new JFileChooser(new File(esher.ObtenerDirectorioPorDefecto() + File.separator));
+        fc = new JFileChooser(new File(Esher.getInstance().ObtenerDirectorioPorDefecto() + File.separator));
         fc.setFileFilter(new RMFilter());
         fc.setFileSelectionMode(mode);
         if (file.length() == 0 && !title.equals("Load")) {
-            fc.setSelectedFile(new File(esher.ArchivoDefectoGuardar()));
+            fc.setSelectedFile(new File(Esher.getInstance().ArchivoDefectoGuardar()));
         } else {
             fc.setSelectedFile(new File(file));
         }
         int fcReturn = fc.showDialog(frame, title);
         if (fcReturn == JFileChooser.APPROVE_OPTION) {
-            esher.CambiarDirectorioPorDefecto(fc.getSelectedFile().toString());
+            Esher.getInstance().CambiarDirectorioPorDefecto(fc.getSelectedFile().toString());
             if (fc.getSelectedFile().isDirectory()) {
                 return fc.getSelectedFile().toString()
-                        + File.pathSeparator + esher.ArchivoDefectoGuardar();
+                        + File.pathSeparator + Esher.getInstance().ArchivoDefectoGuardar();
             }
             return fc.getSelectedFile().toString();
         }
@@ -152,20 +150,20 @@ public class Controller {
     String ExplorarVentanasNivel(String title, int mode, String file) {
         JFrame frame = null;
 
-        fc = new JFileChooser(new File(esher.ObtenerDirectorioPorDefecto() + File.separator));
+        fc = new JFileChooser(new File(Esher.getInstance().ObtenerDirectorioPorDefecto() + File.separator));
         fc.setFileFilter(new NivelFilter());
         fc.setFileSelectionMode(mode);
         if (file.length() == 0 && !title.equals("Load")) {
-            fc.setSelectedFile(new File(esher.ArchivoDefectoExportarNivel()));
+            fc.setSelectedFile(new File(Esher.getInstance().ArchivoDefectoExportarNivel()));
         } else {
             fc.setSelectedFile(new File(file));
         }
         int fcReturn = fc.showDialog(frame, title);
         if (fcReturn == JFileChooser.APPROVE_OPTION) {
-            esher.CambiarDirectorioPorDefecto(fc.getSelectedFile().toString());
+            Esher.getInstance().CambiarDirectorioPorDefecto(fc.getSelectedFile().toString());
             if (fc.getSelectedFile().isDirectory()) {
                 return fc.getSelectedFile().toString()
-                        + File.pathSeparator + esher.ArchivoDefectoExportarNivel();
+                        + File.pathSeparator + Esher.getInstance().ArchivoDefectoExportarNivel();
             }
             return fc.getSelectedFile().toString();
         }
@@ -175,20 +173,20 @@ public class Controller {
     String ExplorarVentanasPdf(String title, int mode, String file) {
         JFrame frame = null;
 
-        fc = new JFileChooser(new File(esher.ObtenerDirectorioPorDefecto() + File.separator));
+        fc = new JFileChooser(new File(Esher.getInstance().ObtenerDirectorioPorDefecto() + File.separator));
         fc.setFileFilter(new PdfFilter());
         fc.setFileSelectionMode(mode);
         if (file.length() == 0 && !title.equals("Load")) {
-            fc.setSelectedFile(new File(esher.ArchivoDefectoGuardar()));
+            fc.setSelectedFile(new File(Esher.getInstance().ArchivoDefectoGuardar()));
         } else {
             fc.setSelectedFile(new File(file));
         }
         int fcReturn = fc.showDialog(frame, title);
         if (fcReturn == JFileChooser.APPROVE_OPTION) {
-            esher.CambiarDirectorioPorDefecto(fc.getSelectedFile().toString());
+            Esher.getInstance().CambiarDirectorioPorDefecto(fc.getSelectedFile().toString());
             if (fc.getSelectedFile().isDirectory()) {
                 return fc.getSelectedFile().toString()
-                        + File.pathSeparator + esher.ArchivoDefectoGuardar();
+                        + File.pathSeparator + Esher.getInstance().ArchivoDefectoGuardar();
             }
             return fc.getSelectedFile().toString();
         }
@@ -196,17 +194,15 @@ public class Controller {
     }
 
     void ActualizarPjEnTodasVentanas() {
-        gui.ActualizarPj(esher);
+        gui.ActualizarPj();
         gui.Refrescar();
-        caracteristicasGui.ActualizarPj(esher);
-        catHabGui.ActualizarPj(esher.pj);
         caracteristicasGui.Refrescar();
         catHabGui.Iniciar();
         catHabGui.Refrescar();
     }
 
     boolean GuardarPersonaje() {
-        if (esher.CrearCarpeta(fc.getCurrentDirectory().toString())
+        if (Esher.CrearCarpeta(fc.getCurrentDirectory().toString())
                 && GuardarPj(fc.getSelectedFile().toString(), true)) {
             return true;
         }
@@ -215,35 +211,35 @@ public class Controller {
 
     public boolean GuardarPj(String file, boolean verbose) {
         if (file == null || file.equals("")) {
-            file = esher.ArchivoDefectoGuardar();
+            file = Esher.ArchivoDefectoGuardar();
         }
         File directory = new File(file);
         if (directory.isDirectory()) {
-            file = file + File.separator + esher.ArchivoDefectoGuardar();
+            file = file + File.separator + Esher.ArchivoDefectoGuardar();
         }
         if (!file.endsWith(".rlm")) {
             file += ".rlm";
         }
         try {
-            esher.pj.lock = true;
+            Personaje.getInstance().lock = true;
             if (verbose) {
-                esher.pj.lastSavedLevel = esher.pj.nivel;
-                esher.pj.vecesCargadoPersonaje = 0;
+                Personaje.getInstance().lastSavedLevel = Personaje.getInstance().nivel;
+                Personaje.getInstance().vecesCargadoPersonaje = 0;
             }
-            new SerialPjStream(file).save(esher.pj);
+            new SerialPjStream(file).save(Personaje.getInstance());
         } catch (IOException ex) {
             ex.printStackTrace();
             return false;
         }
         if (verbose) {
-            new MostrarError("El Personaje ha sido guardado con exito", "Exportar Personaje", JOptionPane.INFORMATION_MESSAGE);
+            MostrarError.showErrorMessage("El Personaje ha sido guardado con exito", "Exportar Personaje", JOptionPane.INFORMATION_MESSAGE);
         }
         return true;
     }
 
     void CargarPersonaje(String path) {
         try {
-            esher.Reset();
+            Esher.Reset();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -251,11 +247,11 @@ public class Controller {
         CargarPj(path);
         ActualizarPjEnTodasVentanas();
         gui.GUIdePersonajeYaInsertado();
-        if (esher.pj.PuntosDesarrolloNoGastados() > 0) {
+        if (Personaje.getInstance().PuntosDesarrolloNoGastados() > 0) {
             gui.ActivarMenuGenerar(true);
         }
         //esher.CombinarIdiomasRazaYTodos();    //Borra los idiomas que se habían guardado!!
-        esher.pj.FusionarCategoriasNuevasConUsables();
+        Personaje.getInstance().FusionarCategoriasNuevasConUsables();
     }
 
     private void CargarPj(String path) {
@@ -264,31 +260,31 @@ public class Controller {
 
         try {
             l = new SerialPjStream(path).load();
-            esher.pj = (Personaje) l.get(0);
+            Personaje.setInstance((Personaje) l.get(0));
             //new LeerProfesion(esher); //Borra las comunes y profesionales al leer de nuevo la profesion. Quitar esta linea.
-            esher.pj.lock = true;
-            esher.pj.loadedFrom = path;
+            Personaje.getInstance().lock = true;
+            Personaje.getInstance().loadedFrom = path;
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
-            new MostrarError("Formato de archivo no válido.", "Load");
+            MostrarError.showErrorMessage("Formato de archivo no válido.", "Load");
             error = true;
         } catch (ClassCastException ex) {
-            new MostrarError("Formato de archivo no válido.", "Load");
+            MostrarError.showErrorMessage("Formato de archivo no válido.", "Load");
             error = true;
         }
         if (!error) {
-            if (esher.pj.TieneRangosInsertados().length() > 0) {
-                new MostrarError("El Personaje tiene rangos insertados: no se ha generado siguiendo las normas de forma correcta.", "Cargar Personaje", JOptionPane.WARNING_MESSAGE);
+            if (Personaje.getInstance().TieneRangosInsertados().length() > 0) {
+                MostrarError.showErrorMessage("El Personaje tiene rangos insertados: no se ha generado siguiendo las normas de forma correcta.", "Cargar Personaje", JOptionPane.WARNING_MESSAGE);
             } else {
-                new MostrarError("El Personaje ha sido cargado con exito.", "Cargar Personaje", JOptionPane.INFORMATION_MESSAGE);
+                MostrarError.showErrorMessage("El Personaje ha sido cargado con exito.", "Cargar Personaje", JOptionPane.INFORMATION_MESSAGE);
             }
         }
 
     }
 
     private boolean ExportarNivel() {
-        if (esher.CrearCarpeta(fc.getCurrentDirectory().toString())
+        if (Esher.CrearCarpeta(fc.getCurrentDirectory().toString())
                 && ExportarNivel(fc.getSelectedFile().toString())) {
             return true;
         }
@@ -297,24 +293,24 @@ public class Controller {
 
     private boolean ExportarNivel(String file) {
         if (file == null || file.equals("")) {
-            file = esher.ArchivoDefectoExportarNivel();
+            file = Esher.ArchivoDefectoExportarNivel();
         }
         File directory = new File(file);
         if (directory.isDirectory()) {
-            file = file + File.separator + esher.ArchivoDefectoExportarNivel();
+            file = file + File.separator + Esher.ArchivoDefectoExportarNivel();
         }
         if (!file.endsWith(".nvl")) {
             file += ".nvl";
         }
         try {
-            ExportarNivel en = new ExportarNivel(esher.pj);
+            ExportarNivel en = new ExportarNivel();
             new SerialNivelStream(file).save(en);
 
         } catch (IOException ex) {
             ex.printStackTrace();
             return false;
         }
-        new MostrarError("El nivel ha sido exportado con exito", "Exportar nivel", JOptionPane.INFORMATION_MESSAGE);
+        MostrarError.showErrorMessage("El nivel ha sido exportado con exito", "Exportar nivel", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
 
@@ -335,13 +331,13 @@ public class Controller {
         try {
             l = new SerialNivelStream(path).load();
             ExportarNivel en = (ExportarNivel) l.get(0);
-            if ((en.nivel == esher.pj.nivel + 1) && (esher.pj.DevolverNombreCompleto().equals(en.nombre))) {
-                esher.pj.InicioSubirNivel();
-                en.ImportarNivel(esher.pj);
-                esher.pj.CalcularPuntosDesarrollo();
-                esher.pj.caracteristicas.CalcularProximoAumento();
+            if ((en.nivel == Personaje.getInstance().nivel + 1) && (Personaje.getInstance().DevolverNombreCompleto().equals(en.nombre))) {
+                Personaje.getInstance().InicioSubirNivel();
+                en.ImportarNivel();
+                Personaje.getInstance().CalcularPuntosDesarrollo();
+                Personaje.getInstance().caracteristicas.CalcularProximoAumento();
             } else {
-                new MostrarError("El personaje o nivel no es el adecuado. ", "Importar nivel");
+                MostrarError.showErrorMessage("El personaje o nivel no es el adecuado. ", "Importar nivel");
                 error = true;
             }
         } catch (ClassNotFoundException ex) {
@@ -349,13 +345,13 @@ public class Controller {
             ex.printStackTrace();
         } catch (IOException ex) {
             error = true;
-            new MostrarError("Formato de archivo no válido.", "Load");
+            MostrarError.showErrorMessage("Formato de archivo no válido.", "Load");
         } catch (ClassCastException ex) {
             error = true;
-            new MostrarError("Formato de archivo no válido.", "Load");
+            MostrarError.showErrorMessage("Formato de archivo no válido.", "Load");
         }
         if (!error) {
-            new MostrarError("El nivel ha sido cargado con exito.", "Cargar nivel", JOptionPane.INFORMATION_MESSAGE);
+            MostrarError.showErrorMessage("El nivel ha sido cargado con exito.", "Cargar nivel", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -404,12 +400,12 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (gui.update) {
-                String profesion = esher.pj.profesion;
-                String cultura = esher.pj.cultura;
+                String profesion = Personaje.getInstance().profesion;
+                String cultura = Personaje.getInstance().cultura;
                 try {
-                    esher.aleatorio = false;
-                    esher.pj.raza = gui.DevolverRazaSeleccionada();
-                    new LeerRaza(esher);
+                    Esher.aleatorio = false;
+                    Personaje.getInstance().raza = gui.DevolverRazaSeleccionada();
+                    new LeerRaza();
                     gui.RellenarCulturas();
                     gui.SeleccionarCultura(cultura);
                     gui.RellenaProfesion();
@@ -427,7 +423,7 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             if (gui.update) {
                 try {
-                    esher.pj.profesion = gui.DevolverProfesionSeleccionada();
+                    Personaje.getInstance().profesion = gui.DevolverProfesionSeleccionada();
                     //gui.RellenarReinosDeMagia();
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -441,8 +437,8 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (gui.update) {
-                esher.pj.reino = gui.DevolverReinoDeMagia();
-                esher.pj.ObtenerMediaCostePuntosDePoder();
+                Personaje.getInstance().reino = gui.DevolverReinoDeMagia();
+                Personaje.getInstance().ObtenerMediaCostePuntosDePoder();
             }
         }
     }
@@ -452,7 +448,7 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (gui.update) {
-                esher.pj.cultura = gui.DevolverCulturaSeleccionada();
+                Personaje.getInstance().cultura = gui.DevolverCulturaSeleccionada();
             }
         }
     }
@@ -467,15 +463,15 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             try {
                 if (gui.ProfesionNoLeida()) {
-                    esher.pj.profesion = gui.DevolverProfesionSeleccionada();
-                    new LeerProfesion(esher);
+                    Personaje.getInstance().profesion = gui.DevolverProfesionSeleccionada();
+                    new LeerProfesion();
                     gui.RellenarReinosDeMagia();
-                    esher.pj.ActualizaCaracteristicasReino();
+                    Personaje.getInstance().ActualizaCaracteristicasReino();
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-            if (esher.pj.nivel > 1) {
+            if (Personaje.getInstance().nivel > 1) {
                 caracteristicasGui.DeshabilitarCambiosEnCaracteristicas();
             }
             caracteristicasGui.Refrescar();
@@ -505,15 +501,15 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            esher.pj.vecesCargadoPersonaje++;
-            if (esher.pj.vecesCargadoPersonaje > esher.pj.nivel - esher.pj.lastSavedLevel + 1) {
-                //new MostrarError("Atención: cada intento de subida de nivel quedará registrado.", "Importar Personaje", JOptionPane.WARNING_MESSAGE);
+            Personaje.getInstance().vecesCargadoPersonaje++;
+            if (Personaje.getInstance().vecesCargadoPersonaje > Personaje.getInstance().nivel - Personaje.getInstance().lastSavedLevel + 1) {
+                //MostrarError.showErrorMessage("Atención: cada intento de subida de nivel quedará registrado.", "Importar Personaje", JOptionPane.WARNING_MESSAGE);
             }
 
-            if (esher.pj.loadedFrom.length() > 0) {
-                GuardarPj(esher.pj.loadedFrom, false);
+            if (Personaje.getInstance().loadedFrom.length() > 0) {
+                GuardarPj(Personaje.getInstance().loadedFrom, false);
             }
-            esher.pj.SubirUnNivel();
+            Personaje.getInstance().SubirUnNivel();
             gui.SubirNiveles();
             caracteristicasGui.Refrescar();
             catHabGui.Refrescar();
@@ -527,7 +523,7 @@ public class Controller {
             if (!(ExplorarVentanasNivel("Save",
                     JFileChooser.FILES_AND_DIRECTORIES, "")).equals("")) {
                 if (!ExportarNivel()) {
-                    new MostrarError("Fichero no creado. Comprueba los permisos de lectura/escritura.", "Error de guardado...");
+                    MostrarError.showErrorMessage("Fichero no creado. Comprueba los permisos de lectura/escritura.", "Error de guardado...");
                 }
             }
         }
@@ -551,10 +547,11 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             try {
                 caracteristicasGui.Reset();
-                esher.Reset();
+                Esher.Reset();
                 gui.Reset();
                 catHabGui.Reset();
                 aleatorioGui.Reset();
+                Habilidad.deleteSkills();
                 try {
                     culturaGui.Reset();
                     culturaGui.setVisible(false);
@@ -591,7 +588,7 @@ public class Controller {
             if (!(ExplorarVentanas("Save",
                     JFileChooser.FILES_AND_DIRECTORIES, "")).equals("")) {
                 if (!GuardarPersonaje()) {
-                    new MostrarError("Fichero no creado. Comprueba los permisos de lectura/escritura.", "Error de guardado...");
+                    MostrarError.showErrorMessage("Fichero no creado. Comprueba los permisos de lectura/escritura.", "Error de guardado...");
                 }
             }
         }
@@ -605,7 +602,7 @@ public class Controller {
                 String file;
                 if (!(file = ExplorarVentanasPdf("Export to PDF",
                         JFileChooser.FILES_AND_DIRECTORIES, "")).equals("")) {
-                    new FichaPDF(esher, file);
+                    new FichaPDF(false, file);
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -621,7 +618,7 @@ public class Controller {
                 String file;
                 if (!(file = ExplorarVentanasPdf("Export to PDF",
                         JFileChooser.FILES_AND_DIRECTORIES, "")).equals("")) {
-                    new FichaPDFCombinada(esher, file);
+                    new FichaPDFCombinada(file);
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -636,9 +633,9 @@ public class Controller {
             String file;
             if (!(file = ExplorarVentanas("Export",
                     JFileChooser.FILES_AND_DIRECTORIES, "")).equals("")) {
-                FichaTxt ficha = new FichaTxt(esher);
+                FichaTxt ficha = new FichaTxt();
                 if (!ficha.ExportarAbreviaturaPersonaje(file)) {
-                    new MostrarError("Fichero no creado. Comprueba los permisos de lectura/escritura.", "Error al exportar...");
+                    MostrarError.showErrorMessage("Fichero no creado. Comprueba los permisos de lectura/escritura.", "Error al exportar...");
                 }
             }
         }
@@ -651,9 +648,9 @@ public class Controller {
             String file;
             if (!(file = ExplorarVentanas("Export",
                     JFileChooser.FILES_AND_DIRECTORIES, "")).equals("")) {
-                FichaTxt ficha = new FichaTxt(esher);
+                FichaTxt ficha = new FichaTxt();
                 if (!ficha.ExportarPersonaje(file)) {
-                    new MostrarError("Fichero no creado. Comprueba los permisos de lectura/escritura.", "Error al exportar...");
+                    MostrarError.showErrorMessage("Fichero no creado. Comprueba los permisos de lectura/escritura.", "Error al exportar...");
                 }
             }
         }
@@ -675,8 +672,8 @@ public class Controller {
                 aboutGui.dispose();
             } catch (NullPointerException npe) {
             }
-            aboutGui = new AboutBox(esher);
-            aboutGui.UpdateText(esher.directorioRolemaster.LeerFicheroComoTexto(esher.directorioRolemaster.DIRECTORIO + File.separator + "Readme.txt"));
+            aboutGui = new AboutBox();
+            aboutGui.UpdateText(DirectorioRolemaster.LeerFicheroComoTexto("Readme.txt"));
             aboutGui.setVisible(true);
         }
     }
@@ -685,7 +682,7 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            esher.pj.AsignarSexoPersonaje(gui.DevuelveSexo());
+            Personaje.getInstance().AsignarSexoPersonaje(gui.DevuelveSexo());
         }
     }
 
@@ -694,8 +691,8 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                esher.pj.cultura = gui.DevolverCulturaSeleccionada();
-                new LeerCultura(esher);
+                Personaje.getInstance().cultura = gui.DevolverCulturaSeleccionada();
+                new LeerCultura();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -703,7 +700,7 @@ public class Controller {
                 culturaGui.dispose();
             } catch (NullPointerException npe) {
             }
-            culturaGui = new CulturaGUI(esher);
+            culturaGui = new CulturaGUI();
             AddCulturaListeners();
             culturaGui.setVisible(true);
             culturaGui.Refrescar();
@@ -736,7 +733,7 @@ public class Controller {
                 historial.dispose();
             } catch (NullPointerException npe) {
             }
-            historial = new HistorialGUI(esher);
+            historial = new HistorialGUI();
             AddHistorialListener();
             historial.Iniciar();
             historial.setVisible(true);
@@ -751,7 +748,7 @@ public class Controller {
                 talentos.dispose();
             } catch (NullPointerException npe) {
             }
-            talentos = new TalentosGUI(esher);
+            talentos = new TalentosGUI();
             AddInsertaTalentosListeners();
             talentos.Iniciar();
             talentos.setVisible(true);
@@ -767,13 +764,13 @@ public class Controller {
                     insertarPjGui.dispose();
                 } catch (NullPointerException npe) {
                 }
-                insertarPjGui = new InsertarPersonajeGUI(esher);
+                insertarPjGui = new InsertarPersonajeGUI();
                 AddInsertaPersonajeListeners();
                 insertarPjGui.Refrescar();
-                esher.CombinarIdiomasRazaYTodos();
+                Esher.CombinarIdiomasRazaYTodos();
                 insertarPjGui.setVisible(true);
                 //Si no he leido antes la cultura, la leo ahora.
-                if (esher.pj.rangosAficiones == 0) {
+                if (Personaje.getInstance().rangosAficiones == 0) {
                     insertarPjGui.ActualizarCultura();
                 }
             } catch (Exception ex) {
@@ -791,7 +788,7 @@ public class Controller {
                 insertarCatGui.dispose();
             } catch (NullPointerException npe) {
             }
-            insertarCatGui = new InsertarCategoriasGUI(esher);
+            insertarCatGui = new InsertarCategoriasGUI();
             AddInsertaCategoriaListeners();
             insertarCatGui.setVisible(true);
             insertarCatGui.IniciarVentana();
@@ -806,7 +803,7 @@ public class Controller {
                 String file;
                 if (!(file = ExplorarVentanas("Export to PDF",
                         JFileChooser.FILES_AND_DIRECTORIES, "RMFEsher.pdf")).equals("")) {
-                    new FichaPDF(file);
+                    new FichaPDF(true, file);
                 }
             } catch (Exception ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
@@ -863,7 +860,7 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            PersonajeAleatorio pjA = new PersonajeAleatorio(esher);
+            PersonajeAleatorio pjA = new PersonajeAleatorio();
             pjA.ObtenerCaracteristicasAleatorias();
             caracteristicasGui.Refrescar();
             caracteristicasGui.setVisible(false);
@@ -913,7 +910,7 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            esher.pj.ActualizarOrdenCostesArmas();
+            Personaje.getInstance().ActualizarOrdenCostesArmas();
             SegundoPasoPjAcabado();
             culturaGui.setVisible(false);
         }
@@ -972,8 +969,8 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             try {
                 culturaGui.SeleccionarRangosArmasAdolescencia();
-                esher.pj.armas.SeleccionarArmasConRangosCultura(culturaGui.DevolverArmaSeleccionada(), culturaGui.DevolverCategoriaArmasSeleccionada(),
-                        esher.pj.armas.DevolverRangosCulturaTipoArma(culturaGui.DevolverCategoriaArmasSeleccionada()));
+                Personaje.getInstance().armas.SeleccionarArmasConRangosCultura(culturaGui.DevolverArmaSeleccionada(), culturaGui.DevolverCategoriaArmasSeleccionada(),
+                        Personaje.getInstance().armas.DevolverRangosCulturaTipoArma(culturaGui.DevolverCategoriaArmasSeleccionada()));
                 culturaGui.ActualizarAficionSeleccionada();
             } catch (NullPointerException npe) {
             } catch (ArrayIndexOutOfBoundsException aiobe) {
@@ -994,8 +991,8 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            PersonajeAleatorio pjA = new PersonajeAleatorio(esher);
-            esher.pj.ActualizarOrdenCostesArmas();
+            PersonajeAleatorio pjA = new PersonajeAleatorio();
+            Personaje.getInstance().ActualizarOrdenCostesArmas();
             pjA.ObtenerCulturaAleatoria();
             culturaGui.AleatorioAceptado();
             SegundoPasoPjAcabado();
@@ -1087,7 +1084,7 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            PersonajeAleatorio pjA = new PersonajeAleatorio(esher);
+            PersonajeAleatorio pjA = new PersonajeAleatorio();
             pjA.GastarPuntosDesarrolloDeFormaAleatoria();
             catHabGui.Refrescar();
             gui.Refrescar();
@@ -1102,7 +1099,7 @@ public class Controller {
             String nombre = catHabGui.DevolverNombreOtrasHabilidades();
             int pd = catHabGui.DevolverCosteOtrasHabilidades();
             if (nombre.length() > 0) {
-                esher.pj.AñadirHabilidadesNoContempladas(nombre, pd);
+                Personaje.getInstance().AñadirHabilidadesNoContempladas(nombre, pd);
             }
             catHabGui.LimpiarOtrasHabilidades();
             catHabGui.ActualizarPuntosDesarrollo();
@@ -1175,7 +1172,7 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             adiestramientoGui.setVisible(false);
-            esher.pj.ConfirmarAdiestramiento();
+            Personaje.getInstance().ConfirmarAdiestramiento();
             gui.Refrescar();
         }
     }
@@ -1184,9 +1181,9 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            esher.pj.adiestramiento.RepartirRangosEnCategoriasDeFormaAleatoria();
+            Personaje.getInstance().adiestramiento.RepartirRangosEnCategoriasDeFormaAleatoria();
             adiestramientoGui.setVisible(false);
-            esher.pj.ConfirmarAdiestramiento();
+            Personaje.getInstance().ConfirmarAdiestramiento();
             gui.Refrescar();
         }
     }
@@ -1195,10 +1192,10 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            SeleccionarCaracteristica[] selecciones = new SeleccionarCaracteristica[esher.pj.adiestramiento.DevolverListaCompletaAumentoCaracteristica().size()];
-            for (int i = 0; i < esher.pj.adiestramiento.DevolverListaCompletaAumentoCaracteristica().size(); i++) {
-                selecciones[i] = new SeleccionarCaracteristica(esher, "Adiestramiento");
-                List<String> caracteristicas = esher.pj.adiestramiento.DevolverListaCompletaAumentoCaracteristica().get(i);
+            SeleccionarCaracteristica[] selecciones = new SeleccionarCaracteristica[Personaje.getInstance().adiestramiento.DevolverListaCompletaAumentoCaracteristica().size()];
+            for (int i = 0; i < Personaje.getInstance().adiestramiento.DevolverListaCompletaAumentoCaracteristica().size(); i++) {
+                selecciones[i] = new SeleccionarCaracteristica("Adiestramiento");
+                List<String> caracteristicas = Personaje.getInstance().adiestramiento.DevolverListaCompletaAumentoCaracteristica().get(i);
                 selecciones[i].RellenaNombreCaracteristicas(caracteristicas);
                 AddSeleccionarCaracteristicasListeners(selecciones[i]);
                 selecciones[i].setVisible(true);
@@ -1269,10 +1266,10 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            esher.pj.profesion = gui.DevolverProfesionSeleccionada();
-            esher.pj.raza = gui.DevolverRazaSeleccionada();
-            esher.pj.cultura = gui.DevolverCulturaSeleccionada();
-            PersonajeAleatorio pjA = new PersonajeAleatorio(esher);
+            Personaje.getInstance().profesion = gui.DevolverProfesionSeleccionada();
+            Personaje.getInstance().raza = gui.DevolverRazaSeleccionada();
+            Personaje.getInstance().cultura = gui.DevolverCulturaSeleccionada();
+            PersonajeAleatorio pjA = new PersonajeAleatorio();
             pjA.ObtenerPersonajeAleatorio(aleatorioGui.DevolverNivelFinal());
             gui.SeleccionarReinoMagia();
             //Interfaz gráfica
@@ -1321,7 +1318,7 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            esher.inteligencia = !esher.inteligencia;
+            Esher.inteligencia = !Esher.inteligencia;
         }
     }
 
@@ -1369,7 +1366,7 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            esher.habilidadesOrdenadasEnPDF = opciones.DevolverOrdenLexicografico();
+            Esher.habilidadesOrdenadasEnPDF = opciones.DevolverOrdenLexicografico();
         }
     }
 
@@ -1439,12 +1436,12 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if ((esher.pj.DevolverPuntosHistoriaTotales() - esher.pj.DevolverPuntosHistorialGastados()) > 0) {
+            if ((Personaje.getInstance().DevolverPuntosHistoriaTotales() - Personaje.getInstance().DevolverPuntosHistorialGastados()) > 0) {
                 try {
                     selecCar.dispose();
                 } catch (NullPointerException npe) {
                 }
-                selecCar = new SeleccionarCaracteristica(esher, "Historial");
+                selecCar = new SeleccionarCaracteristica("Historial");
                 selecCar.setVisible(true);
                 selecCar.RellenaCaracteristicas();
                 AddSeleccionarCaracteristicasListeners();
@@ -1456,7 +1453,7 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if ((esher.pj.DevolverPuntosHistoriaTotales() - esher.pj.DevolverPuntosHistorialGastados()) > 0) {
+            if ((Personaje.getInstance().DevolverPuntosHistoriaTotales() - Personaje.getInstance().DevolverPuntosHistorialGastados()) > 0) {
                 try {
                     objetosMagicos.dispose();
                 } catch (NullPointerException npe) {
@@ -1519,7 +1516,7 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             String obj = objetosMagicos.NombreObjetoSeleccionado();
             objetosMagicos.BorrarObjeto();
-            esher.pj.BorrarObjeto(obj);
+            Personaje.getInstance().BorrarObjeto(obj);
             objetosMagicos.ActualizarListadoObjetos();
         }
     }
@@ -1643,9 +1640,9 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             insertarPjGui.ObtenerNombre();
             insertarPjGui.setVisible(false);
-            esher.pj.HacerFijoEspecialesRaza(); //<------------ Para que cambie las habilidades y se muestren antes de refrescar GUI.
+            Personaje.getInstance().HacerFijoEspecialesRaza(); //<------------ Para que cambie las habilidades y se muestren antes de refrescar GUI.
             gui.Refrescar();
-            //esher.pj.HacerFijoEspecialesRaza(); //<------------ Al refrescar GUI puede volver a leer la raza, por lo que hay que insertarlo otra vez.
+            //Personaje.getInstance().HacerFijoEspecialesRaza(); //<------------ Al refrescar GUI puede volver a leer la raza, por lo que hay que insertarlo otra vez.
             gui.ActivarMenuArchivo();
             gui.ActivarMenuAleatorio(false);
             gui.MenuCambiosPJ(false);
@@ -1692,14 +1689,14 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                esher.aleatorio = false;
+                Esher.aleatorio = false;
                 if (!insertarPjGui.refrescando) {
-                    esher.pj.raza = insertarPjGui.DevolverRazaSeleccionada();
-                    new LeerRaza(esher);
+                    Personaje.getInstance().raza = insertarPjGui.DevolverRazaSeleccionada();
+                    new LeerRaza();
                     insertarPjGui.RellenarCulturas();
                     insertarPjGui.RellenaProfesion();
                     insertarPjGui.RefrescaCaracteristicas();
-                    esher.CombinarIdiomasRazaYTodos();
+                    Esher.CombinarIdiomasRazaYTodos();
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -1713,16 +1710,16 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             try {
                 if (!insertarPjGui.refrescando) {
-                    esher.pj.profesion = insertarPjGui.DevolverProfesionSeleccionada();
-                    new LeerProfesion(esher, true, false);
+                    Personaje.getInstance().profesion = insertarPjGui.DevolverProfesionSeleccionada();
+                    new LeerProfesion(true, false);
                     insertarPjGui.RellenarReinosDeMagia();
-                    esher.pj.reino = insertarPjGui.DevolverReinoDeMagia();
+                    Personaje.getInstance().reino = insertarPjGui.DevolverReinoDeMagia();
                     insertarPjGui.RefrescaCaracteristicas();
                     insertarPjGui.RellenarAdiestramientos();
-                    esher.pj.ObtenerMagia();
+                    Personaje.getInstance().ObtenerMagia();
                     insertarPjGui.ActualizarTextoHabilidades();
                 }
-                esher.pj.ActualizarOrdenCostesArmas();
+                Personaje.getInstance().ActualizarOrdenCostesArmas();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -1759,9 +1756,9 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             try {
                 if (!insertarPjGui.refrescando) {
-                    esher.pj.reino = insertarPjGui.DevolverReinoDeMagia();
-                    esher.pj.ObtenerMagia();
-                    esher.pj.ObtenerMediaCostePuntosDePoder();
+                    Personaje.getInstance().reino = insertarPjGui.DevolverReinoDeMagia();
+                    Personaje.getInstance().ObtenerMagia();
+                    Personaje.getInstance().ObtenerMediaCostePuntosDePoder();
                     insertarPjGui.IniciaHabilidades();
                 }
             } catch (Exception ex) {
@@ -1774,8 +1771,8 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            esher.pj.cultura = insertarPjGui.DevolverCulturaSeleccionada();
-            new LeerCultura(esher);
+            Personaje.getInstance().cultura = insertarPjGui.DevolverCulturaSeleccionada();
+            new LeerCultura();
             insertarPjGui.ActualizarTextoHabilidades();
         }
     }
@@ -1785,9 +1782,9 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                if (!esher.pj.adiestramientosAntiguos.contains(insertarPjGui.DevolverAdiestramientoSeleccionado())) {
-                    LeerAdiestramientos adiestramiento = new LeerAdiestramientos(esher, insertarPjGui.DevolverAdiestramientoSeleccionado(), true);
-                    esher.pj.ConfirmarAdiestramiento();
+                if (!Personaje.getInstance().adiestramientosAntiguos.contains(insertarPjGui.DevolverAdiestramientoSeleccionado())) {
+                    LeerAdiestramientos adiestramiento = new LeerAdiestramientos(insertarPjGui.DevolverAdiestramientoSeleccionado(), true);
+                    Personaje.getInstance().ConfirmarAdiestramiento();
                     insertarPjGui.RellenaOpcionesAdiestramientoEscogidas();
                 }
             } catch (Exception ex) {
@@ -1824,7 +1821,7 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            esher.pj.AsignarSexoPersonaje(insertarPjGui.DevuelveSexo());
+            Personaje.getInstance().AsignarSexoPersonaje(insertarPjGui.DevuelveSexo());
         }
     }
 
@@ -1919,7 +1916,7 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             String obj = insertarPjGui.NombreObjetoSeleccionado();
             insertarPjGui.BorrarObjeto();
-            esher.pj.BorrarObjeto(obj);
+            Personaje.getInstance().BorrarObjeto(obj);
             insertarPjGui.ActualizarListadoObjetos();
         }
     }
@@ -1970,13 +1967,13 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             try {
                 if (insertarCatGui.CamposCategoriaCorrectos()) {
-                    Categoria cat = new Categoria(insertarCatGui.DevolverNombreCategoria(),
+                    Categoria cat = Categoria.getCategory(insertarCatGui.DevolverNombreCategoria(),
                             insertarCatGui.DevolverAbreviatura(),
                             insertarCatGui.DevolverAbreviaturaCaracteristicas(),
-                            insertarCatGui.DevolverTipo(), null, esher);
-                    cat.CambiarCosteRango(esher.pj.ConvertirStringCosteEnIntCoste(insertarCatGui.DevolverCosteCategoria()));
-                    esher.pj.AñadirCategoria(cat);
-                    esher.pj.OrdenarCategorias();
+                            insertarCatGui.DevolverTipo(), null);
+                    cat.CambiarCosteRango(Personaje.getInstance().ConvertirStringCosteEnIntCoste(insertarCatGui.DevolverCosteCategoria()));
+                    Personaje.getInstance().AñadirCategoria(cat);
+                    Personaje.getInstance().OrdenarCategorias();
                     insertarCatGui.Refrescar();
                     try {
                         insertarPjGui.ActualizarCategoriasComboBox();
@@ -1994,18 +1991,18 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Categoria cat = esher.pj.DevolverCategoriaDeNombre(insertarCatGui.DevolverCategoriaHabilidad());
+            Categoria cat = Personaje.getInstance().DevolverCategoriaDeNombre(insertarCatGui.DevolverCategoriaHabilidad());
             cat.AddHabilidad(insertarCatGui.DevolverNombreHabilidad());
 
             //Almacenar la nueva habilidad.
-            if (esher.pj.DevolverCategoriaNuevaDeNombre(cat.DevolverNombre()) == null) {
-                esher.pj.categoriasNuevas.add(cat);
+            if (Personaje.getInstance().DevolverCategoriaNuevaDeNombre(cat.DevolverNombre()) == null) {
+                Personaje.getInstance().categoriasNuevas.add(cat);
             }
-            cat = esher.pj.DevolverCategoriaNuevaDeNombre(insertarCatGui.DevolverCategoriaHabilidad());
+            cat = Personaje.getInstance().DevolverCategoriaNuevaDeNombre(insertarCatGui.DevolverCategoriaHabilidad());
             if (cat != null) {
                 cat.AddHabilidad(insertarCatGui.DevolverNombreHabilidad());
             }
-            new MostrarError("Habilidad insertada con exito.", "Insertar Habilidades", JOptionPane.INFORMATION_MESSAGE);
+            MostrarError.showErrorMessage("Habilidad insertada con exito.", "Insertar Habilidades", JOptionPane.INFORMATION_MESSAGE);
             insertarCatGui.LimpiarHabilidad();
         }
     }
@@ -2089,15 +2086,15 @@ public class Controller {
                 Caracteristica car = selCar.DevuelveCaracteristicaSeleccionada();
                 if (car != null) {
                     car.SubirNivelCaracteristica();
-                    //esher.pj.caracteristicas.ActualizarCaracteristica(car);
-                    esher.pj.puntoshistorialCaracteristicas++;
+                    //Personaje.getInstance().caracteristicas.ActualizarCaracteristica(car);
+                    Personaje.getInstance().puntoshistorialCaracteristicas++;
                 }
                 selCar.dispose();
                 historial.ActualizarPuntosHistorial();
             } else if (modo.equals("Adiestramiento")) {
                 Caracteristica car = selCar.DevuelveCaracteristicaSeleccionada();
                 if (car != null) {
-                    esher.pj.adiestramiento.AñadirAumentoCaracteristicaSeleccionadaAdiestramiento(car.DevolverAbreviatura());
+                    Personaje.getInstance().adiestramiento.AñadirAumentoCaracteristicaSeleccionadaAdiestramiento(car.DevolverAbreviatura());
                 }
                 selCar.dispose();
             }
@@ -2138,20 +2135,20 @@ public class Controller {
      */
     private void PrimerPasoPjAcabado() {
         try {
-            new LeerRaza(esher);
+            new LeerRaza();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         gui.PrimerPasoGeneracionPJ();
-        esher.pj.caracteristicas.ObtenerPotenciales();
-        esher.pj.caracteristicas.ObtenerApariencia();
+        Personaje.getInstance().caracteristicas.ObtenerPotenciales();
+        Personaje.getInstance().caracteristicas.ObtenerApariencia();
         caracteristicasGui.ActualizarPotenciales();
         caracteristicasGui.ActualizarApariencia();
         caracteristicasGui.DeshabilitarCambiosEnCaracteristicas();
-        esher.pj.CalcularPuntosDesarrollo();
+        Personaje.getInstance().CalcularPuntosDesarrollo();
         gui.ActualizarPuntosDesarrollo();
-        esher.pj.HacerFijoEspecialesRaza();
-        esher.pj.ObtenerMagia();
+        Personaje.getInstance().HacerFijoEspecialesRaza();
+        Personaje.getInstance().ObtenerMagia();
     }
 
     private void SegundoPasoPjAcabado() {
@@ -2166,7 +2163,7 @@ public class Controller {
     private void TercerPasoPjAcabado() {
         //Permitimos que se siga con el siguiente paso de la generación del personaje.
         gui.TercerPasoGeneracionPJ();
-        esher.CombinarIdiomasRazaYTodos();  //Siempre despues de gui.TercerPasoGeneracionPJ(); o pierde otra vez los idiomas.
+        Esher.CombinarIdiomasRazaYTodos();  //Siempre despues de gui.TercerPasoGeneracionPJ(); o pierde otra vez los idiomas.
         catHabGui.Iniciar();
     }
 
@@ -2174,7 +2171,7 @@ public class Controller {
         if (hab.rangos == 0 && hab.nuevosRangos > 0) {
             hab.categoriaPadre.AddHabilidades(hab.habilidadesNuevas);
             if (hab.habilidadesNuevasPosibles.size() > 0) {
-                selecHab.Refrescar(hab, hab.habilidadesNuevasPosibles, 1, esher.pj);
+                selecHab.Refrescar(hab, hab.habilidadesNuevasPosibles, 1);
                 selecHab.setVisible(true);
             }
         }

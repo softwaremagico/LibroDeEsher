@@ -29,7 +29,6 @@ package com.softwaremagico.librodeesher.gui;
  */
 
 import com.softwaremagico.librodeesher.Categoria;
-import com.softwaremagico.librodeesher.Esher;
 import com.softwaremagico.librodeesher.Habilidad;
 import com.softwaremagico.librodeesher.Personaje;
 import com.softwaremagico.librodeesher.Talento;
@@ -44,20 +43,18 @@ import java.util.List;
  */
 public class SeleccionarHabilidadTalentoGUI extends javax.swing.JFrame {
 
-    Esher esher;
     Habilidad habilidad;
     Categoria cat;
     int maxElegir;
     Personaje pj;
-    List<String> listadoHabilidades = new ArrayList<String>();
+    List<String> listadoHabilidades = new ArrayList<>();
     Talento talento = null;
     int bonus = 0;
     boolean añadir = true;
 
     /** Creates new form ElegirComunProfesional */
-    SeleccionarHabilidadTalentoGUI(Esher tmp_esher, Talento tmp_talento, int tmp_bonus,
+    SeleccionarHabilidadTalentoGUI(Talento tmp_talento, int tmp_bonus,
             boolean tmp_añadir, List<String> tmp_habilidadesNuevas, int cuantas) {
-        esher = tmp_esher;
         initComponents();
         setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (int) (this.getWidth() / 2),
                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (int) (this.getHeight() / 2));
@@ -106,10 +103,10 @@ public class SeleccionarHabilidadTalentoGUI extends javax.swing.JFrame {
         //Añadimos la seleccionada.
         if (añadir) {
             if (TipoCheckBox.isSelected()) {
-                if (esher.pj.DevolverHabilidadDeNombre(hab) != null) {
+                if (Personaje.getInstance().DevolverHabilidadDeNombre(hab) != null) {
                     talento.AddHabilidadAfectada(hab, bonus);
                 } else {
-                    if (esher.pj.DevolverCategoriaDeNombre(hab) != null) {
+                    if (Personaje.getInstance().DevolverCategoriaDeNombre(hab) != null) {
                         talento.AddCategoriaAfectada(hab, bonus);
                         this.dispose();
                     }

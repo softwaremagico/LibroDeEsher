@@ -41,6 +41,7 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
+import com.softwaremagico.files.DirectorioRolemaster;
 import com.softwaremagico.librodeesher.gui.MostrarError;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -56,13 +57,11 @@ import java.util.logging.Logger;
 public class Talentos implements Serializable {
 
     private final String ARCHIVO_TALENTOS = "talentos.txt";
-    private Esher esher;
     private List<Talento> talentos;
 
-    Talentos(Esher tmp_esher) {
+    Talentos() {
         try {
-            esher = tmp_esher;
-            talentos = new ArrayList<Talento>();
+            talentos = new ArrayList<>();
             LeerTalentosDeArchivo();
         } catch (Exception ex) {
             Logger.getLogger(Talentos.class.getName()).log(Level.SEVERE, null, ex);
@@ -71,7 +70,7 @@ public class Talentos implements Serializable {
 
     public void LeerTalentosDeArchivo() throws Exception {
         String line;
-        List<String> lines = esher.directorioRolemaster.LeerLineasTalentos(ARCHIVO_TALENTOS);
+        List<String> lines = DirectorioRolemaster.LeerLineasTalentos(ARCHIVO_TALENTOS);
         for (int i = 2; i < lines.size(); i++) {
             line = (String) lines.get(i);
             if (!line.startsWith("#")) {
@@ -83,14 +82,14 @@ public class Talentos implements Serializable {
                     String bonuses = descomposed_line[3];
                     String permitido = descomposed_line[4];
                     String descripcion = descomposed_line[5];
-                    Talento talento = new Talento(esher, nombreTalento, coste, clasificacion, descripcion, permitido);
+                    Talento talento = new Talento(nombreTalento, coste, clasificacion, descripcion, permitido);
                     talento.AddBonificacion(bonuses);
                     talentos.add(talento);
                 } catch (NumberFormatException npe) {
                     npe.printStackTrace();
-                    new MostrarError("Error en el coste del talento:\n\"" + line + "\"", "Talentos");
+                    MostrarError.showErrorMessage("Error en el coste del talento:\n\"" + line + "\"", "Talentos");
                 } catch (ArrayIndexOutOfBoundsException aiob) {
-                    new MostrarError("Error en la formación del talento:\n\"" + line + "\"", "Talentos");
+                    MostrarError.showErrorMessage("Error en la formación del talento:\n\"" + line + "\"", "Talentos");
                 }
             }
         }
@@ -123,7 +122,7 @@ public class Talentos implements Serializable {
         //Ordenamos las Categorías.
         java.util.Arrays.sort(nombresTalentos, java.text.Collator.getInstance(Locale.ITALIAN));
 
-        List<Talento> listaTalentosOrdenados = new ArrayList<Talento>();
+        List<Talento> listaTalentosOrdenados = new ArrayList<>();
         for (int j = 0; j < nombresTalentos.length; j++) {
             Talento talOrd = DevolverTalento(nombresTalentos[j]);
             listaTalentosOrdenados.add(talOrd);
@@ -132,16 +131,16 @@ public class Talentos implements Serializable {
     }
 
     public List<Talento> BarajarTalentos() {
-        List<Talento> copiaTalentos = new ArrayList<Talento>();
-        List<Talento> listaTalentosBarajada = new ArrayList<Talento>();
+        List<Talento> copiaTalentos = new ArrayList<>();
+        List<Talento> listaTalentosBarajada = new ArrayList<>();
         copiaTalentos.addAll(talentos);
-        if (esher.inteligencia) {
+        if (Esher.inteligencia) {
             int valor = 1;
             while (copiaTalentos.size() > 0 && valor < 20) {
                 for (int j = 0; j < copiaTalentos.size(); j++) {
                     Talento tal = copiaTalentos.get(j);
                     try {
-                        if (esher.pj.EsTalentoAdecuado(tal) > 0) {
+                        if (Personaje.getInstance().EsTalentoAdecuado(tal) > 0) {
                             listaTalentosBarajada.add(copiaTalentos.get(j));
                             copiaTalentos.remove(j);
                             j--;
@@ -154,7 +153,7 @@ public class Talentos implements Serializable {
         }
         //Totalmente aleatorio.
         while (copiaTalentos.size() > 0) {
-            int elemento = esher.generator.nextInt(copiaTalentos.size());
+            int elemento = Esher.generator.nextInt(copiaTalentos.size());
             listaTalentosBarajada.add(copiaTalentos.get(elemento));
             copiaTalentos.remove(elemento);
         }

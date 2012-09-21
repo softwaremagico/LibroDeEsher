@@ -30,6 +30,7 @@ package com.softwaremagico.librodeesher.gui;
 
 import com.softwaremagico.librodeesher.Esher;
 import com.softwaremagico.librodeesher.LeerAdiestramientos;
+import com.softwaremagico.librodeesher.Personaje;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -40,13 +41,11 @@ import java.util.List;
  */
 public class AñadirAdiestramientoGUI extends javax.swing.JFrame {
 
-    private Esher esher;
 
     /**
      * Creates new form AñadirAdiestramientoGUI
      */
-    public AñadirAdiestramientoGUI(Esher tmp_esher) {
-        esher = tmp_esher;
+    public AñadirAdiestramientoGUI() {
         initComponents();
         setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (int) (this.getWidth() / 2),
                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (int) (this.getHeight() / 2));
@@ -59,14 +58,14 @@ public class AñadirAdiestramientoGUI extends javax.swing.JFrame {
     }
 
     private void ActualizarPuntosDesarrollo() {
-        PDTextField.setText(esher.pj.PuntosDesarrolloNoGastados() + "");
+        PDTextField.setText(Personaje.getInstance().PuntosDesarrolloNoGastados() + "");
     }
 
     public void ActualizarCosteAdiestramiento() {
         if (AdiestramientosComboBox.getSelectedIndex() >= 0) {
-            LeerAdiestramientos adiestramiento = new LeerAdiestramientos(esher, DevolverAdiestramientoSeleccionado(), false);
+            LeerAdiestramientos adiestramiento = new LeerAdiestramientos(DevolverAdiestramientoSeleccionado(), false);
             CosteTextField.setText(adiestramiento.DevolverCosteDeAdiestramiento() + "");
-            if (esher.pj.PuntosDesarrolloNoGastados() >= adiestramiento.DevolverCosteDeAdiestramiento()) {
+            if (Personaje.getInstance().PuntosDesarrolloNoGastados() >= adiestramiento.DevolverCosteDeAdiestramiento()) {
                 AceptarButton.setEnabled(true);
             } else {
                 AceptarButton.setEnabled(false);
@@ -78,11 +77,11 @@ public class AñadirAdiestramientoGUI extends javax.swing.JFrame {
 
     private void RellenarAdiestramientos() {
         AdiestramientosComboBox.removeAllItems();
-        List<String> adiestramientosPosibles = esher.DevolverAdiestramientosPosibles();
-        adiestramientosPosibles = esher.OrdenarLista(adiestramientosPosibles);        
+        List<String> adiestramientosPosibles = Esher.DevolverAdiestramientosPosibles();
+        adiestramientosPosibles = Esher.OrdenarLista(adiestramientosPosibles);        
         
         for (int i = 0; i < adiestramientosPosibles.size(); i++) {
-            if (esher.pj.costesAdiestramientos.ObtenerCosteAdiestramiento(adiestramientosPosibles.get(i)) < 299) {
+            if (Personaje.getInstance().costesAdiestramientos.ObtenerCosteAdiestramiento(adiestramientosPosibles.get(i)) < 299) {
                 AdiestramientosComboBox.addItem(adiestramientosPosibles.get(i));
             }
         }

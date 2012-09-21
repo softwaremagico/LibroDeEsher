@@ -1,20 +1,20 @@
 /*
-This software is designed by Jorge Hortelano Otero.
-softwaremagico@gmail.com
-Copyright (C) 2007 Jorge Hortelano Otero.
-C/Botanico 12, 1. Valencia CP:46008 (Spain).
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-Created on march of 2008.
+ This software is designed by Jorge Hortelano Otero.
+ softwaremagico@gmail.com
+ Copyright (C) 2007 Jorge Hortelano Otero.
+ C/Botanico 12, 1. Valencia CP:46008 (Spain).
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 2
+ of the License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ Created on march of 2008.
  */
 package com.softwaremagico.librodeesher;
 /*
@@ -41,9 +41,11 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
+import com.softwaremagico.files.DirectorioRolemaster;
 import com.softwaremagico.librodeesher.gui.MostrarError;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,11 +56,8 @@ import java.util.logging.Logger;
  */
 public class LeerCultura {
 
-    private Esher esher;
-
-    public LeerCultura(Esher tmp_esher) {
+    public LeerCultura() {
         try {
-            esher = tmp_esher;
             LeerFicheroCultura();
         } catch (Exception ex) {
             Logger.getLogger(LeerRaza.class.getName()).log(Level.SEVERE, null, ex);
@@ -68,14 +67,14 @@ public class LeerCultura {
     private void LeerFicheroCultura() throws Exception {
         int lineaLeida = 0;
         BorrarCulturaAnterior();
-        String ficheroCultura = esher.BuscarDirectorioModulo(esher.directorioRolemaster.DIRECTORIO_CULTURAS + File.separator + esher.pj.cultura + ".txt");
-        List<String> lines = esher.directorioRolemaster.LeerLineasCultura(ficheroCultura);
+        String ficheroCultura = DirectorioRolemaster.BuscarDirectorioModulo(DirectorioRolemaster.DIRECTORIO_CULTURAS + File.separator + Personaje.getInstance().cultura + ".txt");
+        List<String> lines = DirectorioRolemaster.LeerLineasCultura(ficheroCultura);
         lineaLeida = AsignarArmasCultura(lines, lineaLeida);
         lineaLeida = AsignarArmadurasCultura(lines, lineaLeida);
         lineaLeida = AsignarRangosCulturaACategoríasYHabilidades(lines, lineaLeida);
         lineaLeida = AsignarRangosAficiones(lines, lineaLeida);
         lineaLeida = AsignarHabilidadesAficionesCultura(lines, lineaLeida);
-        lineaLeida = AsignarListaIdiomasCultura(lines, lineaLeida);
+        AsignarListaIdiomasCultura(lines, lineaLeida);
     }
 
     /**
@@ -83,10 +82,10 @@ public class LeerCultura {
      */
     private void AsignarRangosCulturaAHabilidades(Categoria categoriaCultura, String nombreHabilidad, int rangos) {
         if (nombreHabilidad.equals("Idiomas")) {
-            esher.pj.puntosIdiomaCultura = rangos;
+            Personaje.getInstance().puntosIdiomaCultura = rangos;
         } else {
             if (nombreHabilidad.equals("Arma")) {
-                esher.pj.armas.AsignarRangosCulturaTipoArma(categoriaCultura.DevolverNombre().substring(6), rangos);
+                Personaje.getInstance().armas.AsignarRangosCulturaTipoArma(categoriaCultura.DevolverNombre().substring(6), rangos);
             } else {
                 if (rangos > 0) {
                     Habilidad hab = categoriaCultura.DevolverHabilidadDeNombre(nombreHabilidad);
@@ -102,16 +101,17 @@ public class LeerCultura {
     private Categoria AsignarRangosCulturaACategorias(String nombreCategoria, int rangosCultura) {
         Categoria categoriaCultura = null;
         try {
-            categoriaCultura = esher.pj.DevolverCategoriaDeNombre(nombreCategoria);
+            categoriaCultura = Personaje.getInstance().DevolverCategoriaDeNombre(nombreCategoria);
             categoriaCultura.rangosCultura = rangosCultura;
         } catch (NullPointerException npe) {
-            new MostrarError("¡Atención! categoría " + nombreCategoria + " no encontrada.", "Leer Cultura " + esher.pj.cultura);
+            MostrarError.showErrorMessage("¡Atención! categoría " + nombreCategoria + " no encontrada.", "Leer Cultura " + Personaje.getInstance().cultura);
         }
         return categoriaCultura;
     }
 
     /**
-     * Asigna los rangos de la cultura a las categorías y habilidades del personaje.
+     * Asigna los rangos de la cultura a las categorías y habilidades del
+     * personaje.
      */
     private int AsignarRangosCulturaACategoríasYHabilidades(List<String> lines, int index) throws Exception {
         Categoria categoriaCultura = null;
@@ -126,13 +126,13 @@ public class LeerCultura {
                     categoriaCultura = AsignarRangosCulturaACategorias(nombre, rangosCultura);
                 } else {
                     if (nombre.contains("  *  Lista de Hechizos")) {
-                        esher.pj.rangosHechizosCultura = rangosCultura;
+                        Personaje.getInstance().rangosHechizosCultura = rangosCultura;
                     } else {
                         try {
                             nombre = nombre.replace("  *  ", "");
                             AsignarRangosCulturaAHabilidades(categoriaCultura, nombre, rangosCultura);
                         } catch (NullPointerException npe) {
-                            new MostrarError("¡Atención! habilidad cultural " + nombre + " no encontrada.", "Leer Cultura");
+                            MostrarError.showErrorMessage("¡Atención! habilidad cultural " + nombre + " no encontrada.", "Leer Cultura");
                         }
                     }
                 }
@@ -140,7 +140,7 @@ public class LeerCultura {
             }
         } catch (IndexOutOfBoundsException iobe) {
         }
-        esher.pj.armas.AsignarRangosArmaCulturaPorDefecto();
+        Personaje.getInstance().armas.AsignarRangosArmaCulturaPorDefecto();
         return index;
     }
 
@@ -149,7 +149,7 @@ public class LeerCultura {
         try {
             while (!lines.get(index).equals("")) {
                 String lineaAficiones = lines.get(index);
-                esher.pj.rangosAficiones = Integer.parseInt(lineaAficiones);
+                Personaje.getInstance().rangosAficiones = Integer.parseInt(lineaAficiones);
                 index++;
             }
         } catch (IndexOutOfBoundsException iof) {
@@ -163,37 +163,33 @@ public class LeerCultura {
     private int AsignarArmasCultura(List<String> lines, int index) throws Exception {
         index += 2;
         try {
-            List<String> armasLeidasCultura = new ArrayList<String>();
+            List<String> armasLeidasCultura = new ArrayList<>();
             if (!lines.get(index).equals("Todas")) {
                 while (!lines.get(index).equals("")) {
                     String lineaArmasCultura = lines.get(index);
                     String[] arrayArmas = lineaArmasCultura.split(", ");
-                    for (int i = 0; i < arrayArmas.length; i++) {
-                        armasLeidasCultura.add(arrayArmas[i]);
-                    }
+                    armasLeidasCultura.addAll(Arrays.asList(arrayArmas));
                     index++;
                 }
             } else {
-                armasLeidasCultura = esher.pj.armas.ListarTodasArmas();
+                armasLeidasCultura = Personaje.getInstance().armas.ListarTodasArmas();
                 index++;
             }
-            esher.pj.armas.AsignarArmasCultura(armasLeidasCultura);
+            Personaje.getInstance().armas.AsignarArmasCultura(armasLeidasCultura);
         } catch (IndexOutOfBoundsException iof) {
         }
-        esher.pj.armas.armasCultura.BarajarArmasCultura();
+        Personaje.getInstance().armas.armasCultura.BarajarArmasCultura();
         return index;
     }
 
     private int AsignarArmadurasCultura(List<String> lines, int index) {
         index += 3;
-        esher.pj.armadurasCultura = new ArrayList<String>();
+        Personaje.getInstance().armadurasCultura = new ArrayList<>();
         try {
             while (!lines.get(index).equals("")) {
                 String lineaArmadurasCultura = lines.get(index);
                 String[] arrayArmaduras = lineaArmadurasCultura.split(", ");
-                for (int i = 0; i < arrayArmaduras.length; i++) {
-                    esher.pj.armadurasCultura.add(arrayArmaduras[i]);
-                }
+                Personaje.getInstance().armadurasCultura.addAll(Arrays.asList(arrayArmaduras));
                 index++;
             }
         } catch (IndexOutOfBoundsException iob) {
@@ -203,31 +199,35 @@ public class LeerCultura {
 
     private int AsignarListaIdiomasCultura(List<String> lines, int index) {
         index += 3;
-        esher.pj.idiomasCultura = new IdiomasAdolescencia();
-        while (!lines.get(index).equals("")) {
-            try {
-                String lineaIdiomas = lines.get(index);
-                String[] datosIdioma = lineaIdiomas.split("\t");
-                String[] culturaIdioma = datosIdioma[1].split("/");
-                IdiomaCultura lengua = new IdiomaCultura(datosIdioma[0], 0, 0,
-                        Integer.parseInt(culturaIdioma[0]), Integer.parseInt(culturaIdioma[1]));
-                esher.pj.idiomasCultura.Add(lengua);
-                index++;
-            } catch (ArrayIndexOutOfBoundsException aiob) {
-                aiob.printStackTrace();
+        Personaje.getInstance().idiomasCultura = new IdiomasAdolescencia();
+        try {
+            while (!lines.get(index).equals("")) {
+                try {
+                    String lineaIdiomas = lines.get(index);
+                    String[] datosIdioma = lineaIdiomas.split("\t");
+                    String[] culturaIdioma = datosIdioma[1].split("/");
+                    IdiomaCultura lengua = new IdiomaCultura(datosIdioma[0], 0, 0,
+                            Integer.parseInt(culturaIdioma[0]), Integer.parseInt(culturaIdioma[1]));
+                    Personaje.getInstance().idiomasCultura.Add(lengua);
+                    index++;
+                } catch (ArrayIndexOutOfBoundsException aiob) {
+                    aiob.printStackTrace();
+                }
             }
+        } catch (IndexOutOfBoundsException iob) {
+            iob.printStackTrace();
         }
         //Fusionamos los idiomas de Raza con los de Cultura.
-        for (int i = 0; i < esher.pj.idiomasRaza.Size(); i++) {
-            IdiomaCultura id = esher.pj.idiomasRaza.Get(i);
+        for (int i = 0; i < Personaje.getInstance().idiomasRaza.Size(); i++) {
+            IdiomaCultura id = Personaje.getInstance().idiomasRaza.Get(i);
             boolean exist = false;
-            for (int j = 0; j < esher.pj.idiomasCultura.Size(); j++) {
-                if (esher.pj.idiomasCultura.Get(j).nombre.equals(id.nombre)) {
+            for (int j = 0; j < Personaje.getInstance().idiomasCultura.Size(); j++) {
+                if (Personaje.getInstance().idiomasCultura.Get(j).nombre.equals(id.nombre)) {
                     exist = true;
                 }
             }
             if (!exist) {
-                esher.pj.idiomasCultura.Add(id);
+                Personaje.getInstance().idiomasCultura.Add(id);
             }
         }
         return index;
@@ -235,17 +235,17 @@ public class LeerCultura {
 
     public int DevolverPuntosIdiomaCultura() {
         int puntosIdiomasCulturaGastados = 0;
-        for (int i = 0; i < esher.pj.idiomasCultura.Size(); i++) {
-            IdiomaCultura idi = esher.pj.idiomasCultura.Get(i);
+        for (int i = 0; i < Personaje.getInstance().idiomasCultura.Size(); i++) {
+            IdiomaCultura idi = Personaje.getInstance().idiomasCultura.Get(i);
             puntosIdiomasCulturaGastados += idi.rangosNuevosEscritos;
             puntosIdiomasCulturaGastados += idi.rangosNuevosHablado;
         }
-        return esher.pj.puntosIdiomaCultura + esher.pj.puntosIdiomaRaza - puntosIdiomasCulturaGastados;
+        return Personaje.getInstance().puntosIdiomaCultura + Personaje.getInstance().puntosIdiomaRaza - puntosIdiomasCulturaGastados;
     }
 
     private int AsignarHabilidadesAficionesCultura(List<String> lines, int index) {
         index += 3;
-        esher.pj.listaAficiones = new ArrayList<String>();
+        Personaje.getInstance().listaAficiones = new ArrayList<>();
         try {
             while (!lines.get(index).equals("")) {
                 String lineaAficiones = lines.get(index);
@@ -253,25 +253,25 @@ public class LeerCultura {
                 for (int i = 0; i < vectorAficiones.length; i++) {
                     if (vectorAficiones[i].length() > 0) {
                         Categoria cat;
-                        if ((cat = esher.pj.DevolverCategoriaDeNombre(vectorAficiones[i].trim())) != null) {
-                            esher.pj.listaAficiones.addAll(cat.DevolverNombreHabilidades());
-                        } else if (esher.pj.DevolverHabilidadDeNombre(vectorAficiones[i].trim()) != null) {
-                            esher.pj.listaAficiones.add(vectorAficiones[i].trim());
+                        if ((cat = Personaje.getInstance().DevolverCategoriaDeNombre(vectorAficiones[i].trim())) != null) {
+                            Personaje.getInstance().listaAficiones.addAll(cat.DevolverNombreHabilidades());
+                        } else if (Personaje.getInstance().DevolverHabilidadDeNombre(vectorAficiones[i].trim()) != null) {
+                            Personaje.getInstance().listaAficiones.add(vectorAficiones[i].trim());
                         } else {
                             if (vectorAficiones[i].trim().equals("Arrojadizas")) {
-                                esher.pj.listaAficiones.addAll(esher.pj.armas.LeerArmasFichero("Arrojadizas.txt"));
+                                Personaje.getInstance().listaAficiones.addAll(Personaje.getInstance().armas.LeerArmasFichero("Arrojadizas.txt"));
                             } else {
                                 if (vectorAficiones[i].trim().equals("Arma")) {
                                     try {
-                                        esher.pj.listaAficiones.addAll(esher.pj.armas.SeleccionarArmasValidasDeCultura());
+                                        Personaje.getInstance().listaAficiones.addAll(Personaje.getInstance().armas.SeleccionarArmasValidasDeCultura());
                                     } catch (Exception ex) {
                                         ex.printStackTrace();
                                     }
                                 } else {
                                     if (vectorAficiones[i].trim().equals("Armadura")) {
                                         try {
-                                            for (int k = 0; k < esher.pj.armadurasCultura.size(); k++) {
-                                                esher.pj.listaAficiones.add(esher.pj.armadurasCultura.get(k));
+                                            for (int k = 0; k < Personaje.getInstance().armadurasCultura.size(); k++) {
+                                                Personaje.getInstance().listaAficiones.add(Personaje.getInstance().armadurasCultura.get(k));
                                             }
                                         } catch (Exception ex) {
                                             ex.printStackTrace();
@@ -279,16 +279,16 @@ public class LeerCultura {
                                     } else {
                                         if (vectorAficiones[i].trim().equals("Lista de Hechizos")) {
                                             try {
-                                                cat = esher.pj.DevolverCategoriaDeNombre("Listas Abiertas de Hechizos");
+                                                cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Abiertas de Hechizos");
                                                 for (int h = 0; h < cat.listaHabilidades.size(); h++) {
-                                                    esher.pj.listaAficiones.add(cat.listaHabilidades.get(h).DevolverNombre());
+                                                    Personaje.getInstance().listaAficiones.add(cat.listaHabilidades.get(h).DevolverNombre());
                                                 }
                                             } catch (Exception ex) {
                                                 ex.printStackTrace();
                                             }
                                         } else {
                                             if (vectorAficiones[i].length() > 0) {
-                                                new MostrarError("Afición " + vectorAficiones[i] + " no encontrada.", "Leer Cultura");
+                                                MostrarError.showErrorMessage("Afición " + vectorAficiones[i] + " no encontrada.", "Leer Cultura");
 
                                             }
                                         }
@@ -307,26 +307,26 @@ public class LeerCultura {
 
     public int DevolverPuntosAficiones() {
         int puntosAficionesGastados = 0;
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            Categoria cat = esher.pj.categorias.get(i);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            Categoria cat = Personaje.getInstance().categorias.get(i);
             for (int j = 0; j < cat.listaHabilidades.size(); j++) {
                 Habilidad hab = cat.listaHabilidades.get(j);
                 puntosAficionesGastados += hab.rangosAficiones;
             }
         }
-        return esher.pj.rangosAficiones - puntosAficionesGastados;
+        return Personaje.getInstance().rangosAficiones - puntosAficionesGastados;
     }
 
     public void BorrarCulturaAnterior() {
-        esher.pj.idiomasCultura = new IdiomasAdolescencia();
+        Personaje.getInstance().idiomasCultura = new IdiomasAdolescencia();
         try {
-            esher.pj.armas.BorrarArmasCultura();
+            Personaje.getInstance().armas.BorrarArmasCultura();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            Categoria cat = esher.pj.categorias.get(i);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            Categoria cat = Personaje.getInstance().categorias.get(i);
             for (int j = 0; j < cat.listaHabilidades.size(); j++) {
                 Habilidad hab = cat.listaHabilidades.get(j);
                 hab.rangosAficiones = 0;
@@ -338,11 +338,11 @@ public class LeerCultura {
 
     void ActualizarOrdenCostesArmas() {
         int[] coste = new int[3];
-        for (int i = 0; i < esher.pj.armas.DevolverTotalTiposDeArmas(); i++) {
-            String tarma = esher.pj.armas.DevolverTipoDeArma(i);
-            Categoria cat = esher.pj.DevolverCategoriaDeNombre("Armas·" + tarma);
+        for (int i = 0; i < Personaje.getInstance().armas.DevolverTotalTiposDeArmas(); i++) {
+            String tarma = Personaje.getInstance().armas.DevolverTipoDeArma(i);
+            Categoria cat = Personaje.getInstance().DevolverCategoriaDeNombre("Armas·" + tarma);
             try {
-                coste = esher.pj.costearmas.DevolverCosteRango(i);
+                coste = Personaje.getInstance().costearmas.DevolverCosteRango(i);
                 //Hay mas armas que costes asignados, nos inventamos los nuevos.
             } catch (IndexOutOfBoundsException iobe) {
                 coste[0] = 20;

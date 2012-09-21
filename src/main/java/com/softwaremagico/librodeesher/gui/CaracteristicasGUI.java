@@ -43,13 +43,13 @@ package com.softwaremagico.librodeesher.gui;
  */
 
 import com.softwaremagico.librodeesher.Caracteristica;
-import com.softwaremagico.librodeesher.Esher;
-import java.awt.event.ActionListener;
-import javax.swing.JTextField;
+import com.softwaremagico.librodeesher.Personaje;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JSpinner;
+import javax.swing.JTextField;
 import javax.swing.event.ChangeListener;
 
 /**
@@ -58,17 +58,15 @@ import javax.swing.event.ChangeListener;
  */
 public class CaracteristicasGUI extends javax.swing.JFrame {
 
-    private Esher esher;
-    private List<JSpinner> listaTemporales = new ArrayList<JSpinner>();
-    private List<JTextField> listaPotenciales = new ArrayList<JTextField>();
-    private List<JTextField> listaBasica = new ArrayList<JTextField>();
-    private List<JTextField> listaRaza = new ArrayList<JTextField>();
-    private List<JTextField> listaTotal = new ArrayList<JTextField>();
+    private List<JSpinner> listaTemporales = new ArrayList<>();
+    private List<JTextField> listaPotenciales = new ArrayList<>();
+    private List<JTextField> listaBasica = new ArrayList<>();
+    private List<JTextField> listaRaza = new ArrayList<>();
+    private List<JTextField> listaTotal = new ArrayList<>();
     boolean activo = true;
 
     /** Creates new form CaracteristicasGUI */
-    public CaracteristicasGUI(Esher tmp_esher) {
-        esher = tmp_esher;
+    public CaracteristicasGUI() {
         initComponents();
         setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (int) (this.getWidth() / 2),
                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (int) (this.getHeight() / 2));
@@ -103,9 +101,6 @@ public class CaracteristicasGUI extends javax.swing.JFrame {
         activo = true;
     }
 
-    public void ActualizarPj(Esher tmp_esher) {
-        esher = tmp_esher;
-    }
 
     /**********************************************************************
      *
@@ -116,7 +111,7 @@ public class CaracteristicasGUI extends javax.swing.JFrame {
      * Guarda una lista de todos los marcadores de caracteristicas temporales.
      */
     private void GeneraListadoTemporales() {
-        listaTemporales = new ArrayList<JSpinner>();
+        listaTemporales = new ArrayList<>();
         listaTemporales.add(AgilidadTemporalSpinner);
         listaTemporales.add(ConstitucionTemporalSpinner);
         listaTemporales.add(MemoriaTemporalSpinner);
@@ -133,7 +128,7 @@ public class CaracteristicasGUI extends javax.swing.JFrame {
      * General un listado de los contenedores de las caracteristicas potenciales.
      */
     private void GeneraListadoPotenciales() {
-        listaPotenciales = new ArrayList<JTextField>();
+        listaPotenciales = new ArrayList<>();
         listaPotenciales.add(AgilidadPotencialTextField);
         listaPotenciales.add(ConstitucionPotencialTextField);
         listaPotenciales.add(MemoriaPotencialTextField);
@@ -150,7 +145,7 @@ public class CaracteristicasGUI extends javax.swing.JFrame {
      * General un listado de los contenedores del valor bÃ¡sico de caracteristicas.
      */
     private void GeneraListadoValorBasico() {
-        listaBasica = new ArrayList<JTextField>();
+        listaBasica = new ArrayList<>();
         listaBasica.add(AgilidadBasicaTextField);
         listaBasica.add(ConstitucionBasicaTextField);
         listaBasica.add(MemoriaBasicaTextField);
@@ -167,7 +162,7 @@ public class CaracteristicasGUI extends javax.swing.JFrame {
      * General un listado de los contenedores de las bonificaciones por raza.
      */
     private void GeneraListadoRaza() {
-        listaRaza = new ArrayList<JTextField>();
+        listaRaza = new ArrayList<>();
         listaRaza.add(AgilidadRazaTextField);
         listaRaza.add(ConstitucionRazaTextField);
         listaRaza.add(MemoriaRazaTextField);
@@ -184,7 +179,7 @@ public class CaracteristicasGUI extends javax.swing.JFrame {
      * General un listado de los contenedores del total de caracteristicas.
      */
     private void GeneraListadoTotal() {
-        listaTotal = new ArrayList<JTextField>();
+        listaTotal = new ArrayList<>();
         listaTotal.add(AgilidadTotalTextField);
         listaTotal.add(ConstitucionTotalTextField);
         listaTotal.add(MemoriaTotalTextField);
@@ -206,31 +201,31 @@ public class CaracteristicasGUI extends javax.swing.JFrame {
      * Muestra el valor potencial de las caracteristicas.
      */
     public void ActualizarPotenciales() {
-        for (int i = 0; i < esher.pj.caracteristicas.Size(); i++) {
-            Caracteristica car = esher.pj.caracteristicas.Get(i);
+        for (int i = 0; i < Personaje.getInstance().caracteristicas.Size(); i++) {
+            Caracteristica car = Personaje.getInstance().caracteristicas.Get(i);
             JTextField textFieldACambiar = listaPotenciales.get(i);
             textFieldACambiar.setText(car.ObtenerPuntosPotencial() + "");
         }
     }
 
     public void ActualizaTemporales() {
-        for (int i = 0; i < esher.pj.caracteristicas.Size(); i++) {
-            Caracteristica car = esher.pj.caracteristicas.Get(i);
+        for (int i = 0; i < Personaje.getInstance().caracteristicas.Size(); i++) {
+            Caracteristica car = Personaje.getInstance().caracteristicas.Get(i);
             JSpinner spin = listaTemporales.get(i);
             spin.setValue(car.ObtenerPuntosTemporal());
         }
     }
 
     public void ActualizarApariencia() {
-        AparienciaTextField.setText(esher.pj.caracteristicas.DevolverTotalApariencia() + "");
+        AparienciaTextField.setText(Personaje.getInstance().caracteristicas.DevolverTotalApariencia() + "");
     }
 
     /**
      * Muestra el total de las caracteristicas.
      */
     private void ActualizarValorBasico() {
-        for (int i = 0; i < esher.pj.caracteristicas.Size(); i++) {
-            Caracteristica car = esher.pj.caracteristicas.Get(i);
+        for (int i = 0; i < Personaje.getInstance().caracteristicas.Size(); i++) {
+            Caracteristica car = Personaje.getInstance().caracteristicas.Get(i);
             JTextField textFieldACambiar = listaBasica.get(i);
             textFieldACambiar.setText(car.ObtenerValorTemporal() + "");
         }
@@ -241,8 +236,8 @@ public class CaracteristicasGUI extends javax.swing.JFrame {
      * Muestra la bonificación por raza.
      */
     private void ActualizarBonificacionRaza() {
-        for (int i = 0; i < esher.pj.caracteristicas.Size(); i++) {
-            Caracteristica car = esher.pj.caracteristicas.Get(i);
+        for (int i = 0; i < Personaje.getInstance().caracteristicas.Size(); i++) {
+            Caracteristica car = Personaje.getInstance().caracteristicas.Get(i);
             JTextField textFieldACambiar = listaRaza.get(i);
             textFieldACambiar.setText(car.ObtenerValorRaza() + "");
         }
@@ -253,8 +248,8 @@ public class CaracteristicasGUI extends javax.swing.JFrame {
      * Muestra el total de las caracteristicas.
      */
     private void ActualizarTotal() {
-        for (int i = 0; i < esher.pj.caracteristicas.Size(); i++) {
-            Caracteristica car = esher.pj.caracteristicas.Get(i);
+        for (int i = 0; i < Personaje.getInstance().caracteristicas.Size(); i++) {
+            Caracteristica car = Personaje.getInstance().caracteristicas.Get(i);
             JTextField textFieldACambiar = listaTotal.get(i);
             textFieldACambiar.setText(car.Total() + "");
         }
@@ -276,12 +271,12 @@ public class CaracteristicasGUI extends javax.swing.JFrame {
     }
 
     public void ActualizaCaracteristicaTemporal(int index) {
-        Caracteristica car = esher.pj.caracteristicas.Get(index);
+        Caracteristica car = Personaje.getInstance().caracteristicas.Get(index);
         try {
             JSpinner spin = listaTemporales.get(index);
 
             if ((Integer) spin.getValue() < 90 &&
-                    esher.pj.EsCaracteristicasPrincipal(car)) {
+                    Personaje.getInstance().EsCaracteristicasPrincipal(car)) {
                 spin.setValue(90);
             } else {
                 if ((Integer) (spin.getValue()) < 1) {
@@ -290,8 +285,8 @@ public class CaracteristicasGUI extends javax.swing.JFrame {
                     if ((Integer) spin.getValue() > 100) {
                         spin.setValue(100);
                     }
-                    if (esher.pj.nivel == 1 && esher.pj.puntoshistorialCaracteristicas == 0 && activo) {
-                        if (ObtenerTotalTemporalSeleccionado() > esher.pj.caracteristicas.totalCaracteristicas) {
+                    if (Personaje.getInstance().nivel == 1 && Personaje.getInstance().puntoshistorialCaracteristicas == 0 && activo) {
+                        if (ObtenerTotalTemporalSeleccionado() > Personaje.getInstance().caracteristicas.totalCaracteristicas) {
                             spin.setValue((Integer) spin.getValue() - 1);
                         }
                     }
@@ -337,7 +332,7 @@ public class CaracteristicasGUI extends javax.swing.JFrame {
     }
 
     private void ActualizarCuentaCaracteristicas() {
-        if (esher.pj.nivel > 1 || esher.pj.puntoshistorialCaracteristicas > 1 || !activo) {
+        if (Personaje.getInstance().nivel > 1 || Personaje.getInstance().puntoshistorialCaracteristicas > 1 || !activo) {
             PDLabel.setVisible(false);
             PuntosCaracteristicasGastadosTextField.setVisible(false);
             PuntosCaracteristicasTotalesTextField.setVisible(false);
@@ -725,15 +720,15 @@ public class CaracteristicasGUI extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ConstitucionPotencialTextField, 0, 1, Short.MAX_VALUE)
-                    .addComponent(AgilidadPotencialTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                    .addComponent(FuerzaPotencialTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                    .addComponent(RapidezPotencialTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                    .addComponent(MemoriaPotencialTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                    .addComponent(RazonPotencialTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                    .addComponent(AutodisciplinaPotencialTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                    .addComponent(EmpatiaPotencialTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                    .addComponent(IntuicionPotencialTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                    .addComponent(PresenciaPotencialTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                    .addComponent(AgilidadPotencialTextField)
+                    .addComponent(FuerzaPotencialTextField)
+                    .addComponent(RapidezPotencialTextField)
+                    .addComponent(MemoriaPotencialTextField)
+                    .addComponent(RazonPotencialTextField)
+                    .addComponent(AutodisciplinaPotencialTextField)
+                    .addComponent(EmpatiaPotencialTextField)
+                    .addComponent(IntuicionPotencialTextField)
+                    .addComponent(PresenciaPotencialTextField)
                     .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -753,7 +748,7 @@ public class CaracteristicasGUI extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 45, Short.MAX_VALUE)
                         .addGap(13, 13, 13))
-                    .addComponent(FuerzaRazaTextField, 0, 1, Short.MAX_VALUE)
+                    .addComponent(FuerzaRazaTextField, 0, 58, Short.MAX_VALUE)
                     .addComponent(RapidezRazaTextField, 0, 1, Short.MAX_VALUE)
                     .addComponent(PresenciaRazaTextField, 0, 1, Short.MAX_VALUE)
                     .addComponent(IntuicionRazaTextField, 0, 1, Short.MAX_VALUE)
@@ -774,9 +769,9 @@ public class CaracteristicasGUI extends javax.swing.JFrame {
                     .addComponent(MemoriaTotalTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 32, Short.MAX_VALUE)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                             .addGap(25, 25, 25))
-                        .addComponent(AgilidadTotalTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                        .addComponent(AgilidadTotalTextField)
                         .addComponent(ConstitucionTotalTextField, 0, 1, Short.MAX_VALUE))
                     .addComponent(FuerzaTotalTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -890,7 +885,7 @@ public class CaracteristicasGUI extends javax.swing.JFrame {
         SeparadorLabel.setText("/");
 
         PuntosCaracteristicasTotalesTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        PuntosCaracteristicasTotalesTextField.setText(esher.pj.caracteristicas.totalCaracteristicas.toString());
+        PuntosCaracteristicasTotalesTextField.setText(Personaje.getInstance().caracteristicas.totalCaracteristicas.toString());
         PuntosCaracteristicasTotalesTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 PuntosCaracteristicasTotalesTextFieldKeyReleased(evt);
@@ -939,7 +934,7 @@ public class CaracteristicasGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void PuntosCaracteristicasTotalesTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PuntosCaracteristicasTotalesTextFieldKeyReleased
-        esher.pj.caracteristicas.totalCaracteristicas = Integer.parseInt(PuntosCaracteristicasTotalesTextField.getText());
+        Personaje.getInstance().caracteristicas.totalCaracteristicas = Integer.parseInt(PuntosCaracteristicasTotalesTextField.getText());
     }//GEN-LAST:event_PuntosCaracteristicasTotalesTextFieldKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

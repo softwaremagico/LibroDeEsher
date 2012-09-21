@@ -31,6 +31,7 @@ package com.softwaremagico.librodeesher.gui;
 import com.softwaremagico.librodeesher.Categoria;
 import com.softwaremagico.librodeesher.Esher;
 import com.softwaremagico.librodeesher.Habilidad;
+import com.softwaremagico.librodeesher.Personaje;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -43,17 +44,15 @@ import javax.swing.event.ChangeListener;
  */
 public class AleatorioGUI extends javax.swing.JFrame {
 
-    private Esher esher;
     private List<String> adiestramientosDisponibles;
 
     /** Creates new form AleatorioGUI */
-    public AleatorioGUI(Esher tmp_esher) {
-        esher = tmp_esher;
+    public AleatorioGUI() {
         initComponents();
         setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (int) (this.getWidth() / 2),
                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (int) (this.getHeight() / 2));
         IniciaHabilidades();
-        adiestramientosDisponibles = esher.DevolverAdiestramientosDisponibles();
+        adiestramientosDisponibles = Esher.DevolverAdiestramientosDisponibles();
         RellenarAdiestramientos();
     }
 
@@ -67,12 +66,12 @@ public class AleatorioGUI extends javax.swing.JFrame {
         EspecializacionSlider.setValue(1);
         NivelSpinner.setValue(1);
         IniciaHabilidades();
-        esher.pj.adiestramientosSugeridos = new ArrayList<String>();
+        Personaje.getInstance().adiestramientosSugeridos = new ArrayList<>();
         ActualizaAdiestramientosSugeridos();
     }
 
     public void ObtenerValorAleatorio() {
-        esher.especializacion = EspecializacionSlider.getValue();
+        Esher.especializacion = EspecializacionSlider.getValue();
     }
 
     public void LevelInRange() {
@@ -106,7 +105,7 @@ public class AleatorioGUI extends javax.swing.JFrame {
 
     private Categoria DevolverCategoriaSeleccionada() {
         try {
-            return esher.pj.categorias.get(CategoriasComboBox.getSelectedIndex());
+            return Personaje.getInstance().categorias.get(CategoriasComboBox.getSelectedIndex());
         } catch (ArrayIndexOutOfBoundsException aiobe) {
             return null;
         }
@@ -123,8 +122,8 @@ public class AleatorioGUI extends javax.swing.JFrame {
 
     public void ActualizarCategoriasComboBox() {
         CategoriasComboBox.removeAllItems();
-        for (int i = 0; i < esher.pj.categorias.size(); i++) {
-            Categoria cat = esher.pj.categorias.get(i);
+        for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
+            Categoria cat = Personaje.getInstance().categorias.get(i);
             CategoriasComboBox.addItem(cat.DevolverNombre());
         }
     }
@@ -203,9 +202,9 @@ public class AleatorioGUI extends javax.swing.JFrame {
 
     private void ActualizaAdiestramientosSugeridos() {
         String text = "";
-        for (int i = 0; i < esher.pj.adiestramientosSugeridos.size(); i++) {
-            text += esher.pj.adiestramientosSugeridos.get(i);
-            if (i < esher.pj.adiestramientosSugeridos.size() - 1) {
+        for (int i = 0; i < Personaje.getInstance().adiestramientosSugeridos.size(); i++) {
+            text += Personaje.getInstance().adiestramientosSugeridos.get(i);
+            if (i < Personaje.getInstance().adiestramientosSugeridos.size() - 1) {
                 text += ", ";
             }
         }
@@ -525,15 +524,15 @@ public class AleatorioGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_HabilidadesComboBoxActionPerformed
 
     private void BorrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarButtonActionPerformed
-        esher.pj.adiestramientosSugeridos = new ArrayList<String>();
+        Personaje.getInstance().adiestramientosSugeridos = new ArrayList<>();
         ActualizaAdiestramientosSugeridos();
     }//GEN-LAST:event_BorrarButtonActionPerformed
 
     private void AñadirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñadirButtonActionPerformed
         if (AdiestramientosComboBox.getItemCount() > 0) {
             String adiestramiento = AdiestramientosComboBox.getItemAt(AdiestramientosComboBox.getSelectedIndex()).toString();
-            if (!esher.pj.adiestramientosSugeridos.contains(adiestramiento)) {
-                esher.pj.adiestramientosSugeridos.add(adiestramiento);
+            if (!Personaje.getInstance().adiestramientosSugeridos.contains(adiestramiento)) {
+                Personaje.getInstance().adiestramientosSugeridos.add(adiestramiento);
             }
         }
         ActualizaAdiestramientosSugeridos();

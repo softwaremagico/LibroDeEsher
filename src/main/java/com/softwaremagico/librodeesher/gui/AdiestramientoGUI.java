@@ -44,6 +44,7 @@ package com.softwaremagico.librodeesher.gui;
 
 import com.softwaremagico.librodeesher.Esher;
 import com.softwaremagico.librodeesher.LeerAdiestramientos;
+import com.softwaremagico.librodeesher.Personaje;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
@@ -53,11 +54,8 @@ import java.util.List;
 
 public class AdiestramientoGUI extends javax.swing.JFrame {
 
-    private Esher esher;
-
     /** Creates new form adiestramientoGUI */
-    public AdiestramientoGUI(Esher tmp_esher) {
-        esher = tmp_esher;
+    public AdiestramientoGUI() {
         initComponents();
         setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (int) (this.getWidth() / 2),
                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (int) (this.getHeight() / 2));
@@ -69,13 +67,13 @@ public class AdiestramientoGUI extends javax.swing.JFrame {
     }
 
     public void Refrescar(String adiestramiento) {
-        new LeerAdiestramientos(esher, adiestramiento, true, true);
-        TituloLabel.setText(esher.pj.adiestramiento.nombre + ":");
+        new LeerAdiestramientos(adiestramiento, true, true);
+        TituloLabel.setText(Personaje.getInstance().adiestramiento.nombre + ":");
         RellenarCategorias();
         RellenarHabilidades();
         ActualizarMaximosRangosHabilidadesTextField();
         ActualizarRangosCategoriasTextField();
-        if(esher.pj.adiestramiento.DevolverListaCompletaAumentoCaracteristica().size()>0){
+        if(Personaje.getInstance().adiestramiento.DevolverListaCompletaAumentoCaracteristica().size()>0){
             CaracteristicasButton.setEnabled(true);
         }else{
             CaracteristicasButton.setEnabled(false);
@@ -84,8 +82,8 @@ public class AdiestramientoGUI extends javax.swing.JFrame {
 
     public void ActualizarMaximosRangosHabilidadesTextField() {
         try {
-            MaxRangosHabilidadesTextField.setText((esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).rangosHabilidades -
-                    esher.pj.adiestramiento.DevolverTotalRangosHabilidadesGastadosGrupoAdiestramiento(CategoriasComboBox.getSelectedItem().toString())) + "");
+            MaxRangosHabilidadesTextField.setText((Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).rangosHabilidades -
+                    Personaje.getInstance().adiestramiento.DevolverTotalRangosHabilidadesGastadosGrupoAdiestramiento(CategoriasComboBox.getSelectedItem().toString())) + "");
         } catch (ArrayIndexOutOfBoundsException aiofb) {
             MaxRangosHabilidadesTextField.setText("");
         }
@@ -93,10 +91,10 @@ public class AdiestramientoGUI extends javax.swing.JFrame {
 
     public void ActualizarRangosCategoriasTextField() {
         try {
-            if (esher.pj.adiestramiento.UnicoAdiestramientoGrupo(CategoriasComboBox.getSelectedItem().toString())) {
-                CategoriasRangosTextField.setText(esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).rangos + "");
-            } else if (esher.pj.adiestramiento.EsCategoriaGrupo(CategoriasComboBox.getSelectedItem().toString())) {
-                CategoriasRangosTextField.setText(esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).rangosGrupo + "");
+            if (Personaje.getInstance().adiestramiento.UnicoAdiestramientoGrupo(CategoriasComboBox.getSelectedItem().toString())) {
+                CategoriasRangosTextField.setText(Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).rangos + "");
+            } else if (Personaje.getInstance().adiestramiento.EsCategoriaGrupo(CategoriasComboBox.getSelectedItem().toString())) {
+                CategoriasRangosTextField.setText(Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).rangosGrupo + "");
             } else {
                 CategoriasRangosTextField.setText("0");
             }
@@ -117,23 +115,23 @@ public class AdiestramientoGUI extends javax.swing.JFrame {
 
     public void ActualizarHabilidadSeleccionada() {
         if (HabilidadesComboBox.getSelectedIndex() >= 0) {
-            HabilidadRangosSpinner.setValue(esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverListaHabilidades().get(HabilidadesComboBox.getSelectedIndex()).Rangos());
+            HabilidadRangosSpinner.setValue(Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverListaHabilidades().get(HabilidadesComboBox.getSelectedIndex()).Rangos());
             ActualizarTotalHabilidad();
         }
     }
 
     public void RellenarCategorias() {
         CategoriasComboBox.removeAllItems();
-        for (int i = 0; i < esher.pj.adiestramiento.DevolverListaCategorias().size(); i++) {
-            CategoriasComboBox.addItem(esher.pj.adiestramiento.DevolverListaCategorias().get(i).nombre);
+        for (int i = 0; i < Personaje.getInstance().adiestramiento.DevolverListaCategorias().size(); i++) {
+            CategoriasComboBox.addItem(Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(i).nombre);
         }
     }
 
     public void RellenarHabilidades() {
         HabilidadesComboBox.removeAllItems();
         try {
-            for (int i = 0; i < esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverListaHabilidades().size(); i++) {
-                HabilidadesComboBox.addItem(esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverListaHabilidades().get(i).nombre);
+            for (int i = 0; i < Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverListaHabilidades().size(); i++) {
+                HabilidadesComboBox.addItem(Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverListaHabilidades().get(i).nombre);
             }
         } catch (ArrayIndexOutOfBoundsException aiofb) {
         }
@@ -142,42 +140,42 @@ public class AdiestramientoGUI extends javax.swing.JFrame {
     public void RangosHabilidadesInRange() {
         //Se actualiza los nuevos rangos en la habilidad.
         try{
-        esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverListaHabilidades().get(HabilidadesComboBox.getSelectedIndex()).rangosAsignados =
-                (Integer) HabilidadRangosSpinner.getValue() - esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverListaHabilidades().get(HabilidadesComboBox.getSelectedIndex()).rangosBasicos;
+        Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverListaHabilidades().get(HabilidadesComboBox.getSelectedIndex()).rangosAsignados =
+                (Integer) HabilidadRangosSpinner.getValue() - Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverListaHabilidades().get(HabilidadesComboBox.getSelectedIndex()).rangosBasicos;
         }catch(ArrayIndexOutOfBoundsException aiofb){
-            new MostrarError("No existe ninguna habilidad seleccionada.","Adiestramiento");
+            MostrarError.showErrorMessage("No existe ninguna habilidad seleccionada.","Adiestramiento");
         }
 
         //Algunas categorias obligan a dividir los rangos al menos entre varias habilidades. Por tanto, si se ha alcanzado el maximo de rangos y no se
         //han puesto todas las habilidades te impide gastar el rango en esa habilidad.
-        if (esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).rangosHabilidades == esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverRangosHabilidadesGastados() &&
-                //esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverNumeroHabilidadesConRangos() < esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).minimoHabilidades) {
-                esher.pj.adiestramiento.DevolverNumeroHabilidadesConRangosDeGrupo(CategoriasComboBox.getSelectedItem().toString()) < esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).minimoHabilidades) {
+        if (Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).rangosHabilidades == Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverRangosHabilidadesGastados() &&
+                //Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverNumeroHabilidadesConRangos() < Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).minimoHabilidades) {
+                Personaje.getInstance().adiestramiento.DevolverNumeroHabilidadesConRangosDeGrupo(CategoriasComboBox.getSelectedItem().toString()) < Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).minimoHabilidades) {
             ShowErrorMessage("Este adiestramiento para esta categoría de habilidades seleccionada te obliga a repartir los rangos en al menos " +
-                    esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).minimoHabilidades + " habilidades.", "Error en la asignación de rangos");
+                    Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).minimoHabilidades + " habilidades.", "Error en la asignación de rangos");
             HabilidadRangosSpinner.setValue((Integer) HabilidadRangosSpinner.getValue() - 1);
         }
 
         //Algunas categorías tienen un máximo de habilidades mejorables.
-        //if (esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverNumeroHabilidadesConRangos() > esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).maximoHabilidades) {
-        if (esher.pj.adiestramiento.DevolverNumeroHabilidadesConRangosDeGrupo(CategoriasComboBox.getSelectedItem().toString()) > esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).maximoHabilidades) {
+        //if (Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverNumeroHabilidadesConRangos() > Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).maximoHabilidades) {
+        if (Personaje.getInstance().adiestramiento.DevolverNumeroHabilidadesConRangosDeGrupo(CategoriasComboBox.getSelectedItem().toString()) > Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).maximoHabilidades) {
             HabilidadRangosSpinner.setValue((Integer) HabilidadRangosSpinner.getValue() - 1);
-            if (esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).rangosHabilidades -
-                    esher.pj.adiestramiento.DevolverTotalRangosHabilidadesGastadosGrupoAdiestramiento(CategoriasComboBox.getSelectedItem().toString()) > 0) {
+            if (Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).rangosHabilidades -
+                    Personaje.getInstance().adiestramiento.DevolverTotalRangosHabilidadesGastadosGrupoAdiestramiento(CategoriasComboBox.getSelectedItem().toString()) > 0) {
                 ShowErrorMessage("Este adiestramiento para esta categoría de habilidades seleccionada te impide mejorar más de " +
-                        esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).maximoHabilidades + " habilidades.", "Error en la asignación de rangos");
+                        Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).maximoHabilidades + " habilidades.", "Error en la asignación de rangos");
             }
         }
 
         //No puedes gastar mas que los rangos totales designados.
-        if (esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).rangosHabilidades < esher.pj.adiestramiento.DevolverTotalRangosHabilidadesGastadosGrupoAdiestramiento(CategoriasComboBox.getSelectedItem().toString())) {
+        if (Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).rangosHabilidades < Personaje.getInstance().adiestramiento.DevolverTotalRangosHabilidadesGastadosGrupoAdiestramiento(CategoriasComboBox.getSelectedItem().toString())) {
             HabilidadRangosSpinner.setValue((Integer) HabilidadRangosSpinner.getValue() - 1);
         }
 
         //No puede ser negativo ni menor que los rangos ya designados por el adiestramiento.
         if (Integer.parseInt(HabilidadRangosSpinner.getValue().toString()) < 0 ||
                 Integer.parseInt(HabilidadRangosSpinner.getValue().toString()) <
-                esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverListaHabilidades().get(HabilidadesComboBox.getSelectedIndex()).rangosBasicos) {
+                Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverListaHabilidades().get(HabilidadesComboBox.getSelectedIndex()).rangosBasicos) {
             HabilidadRangosSpinner.setValue((Integer) HabilidadRangosSpinner.getValue() + 1);
         }
 
@@ -190,7 +188,7 @@ public class AdiestramientoGUI extends javax.swing.JFrame {
 
     private void ActualizarEtiquetaCompartidos() {
         try {
-            if (esher.pj.adiestramiento.UnicoAdiestramientoGrupo(CategoriasComboBox.getSelectedItem().toString())) {
+            if (Personaje.getInstance().adiestramiento.UnicoAdiestramientoGrupo(CategoriasComboBox.getSelectedItem().toString())) {
                 CompartidosLabel.setVisible(false);
             } else {
                 CompartidosLabel.setVisible(true);
@@ -202,8 +200,8 @@ public class AdiestramientoGUI extends javax.swing.JFrame {
 
     private void ActualizarTotalHabilidad() {
         try {
-            int rangos = esher.pj.adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverListaHabilidades().get(HabilidadesComboBox.getSelectedIndex()).Rangos() +
-                    esher.pj.DevolverHabilidadDeNombre(HabilidadesComboBox.getSelectedItem().toString()).DevolverRangos();
+            int rangos = Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverListaHabilidades().get(HabilidadesComboBox.getSelectedIndex()).Rangos() +
+                    Personaje.getInstance().DevolverHabilidadDeNombre(HabilidadesComboBox.getSelectedItem().toString()).DevolverRangos();
             RangosFinalesTextField.setText(rangos + "");
         } catch (NullPointerException npe) {
             RangosFinalesTextField.setText("0");

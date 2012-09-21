@@ -38,12 +38,10 @@ import java.util.List;
  */
 public class SeleccionarCaracteristica extends javax.swing.JFrame {
 
-    Esher esher;
     String modo;
 
     /** Creates new form SeleccionarCaracteristica */
-    public SeleccionarCaracteristica(Esher tmp_esher, String tmp_modo) {
-        esher = tmp_esher;
+    public SeleccionarCaracteristica(String tmp_modo) {
         initComponents();
         setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (int) (this.getWidth() / 2),
                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (int) (this.getHeight() / 2));
@@ -53,8 +51,8 @@ public class SeleccionarCaracteristica extends javax.swing.JFrame {
     
     void RellenaCaracteristicas(){
         CaracteristicasComboBox.removeAllItems();
-        for (int i=0; i<esher.pj.caracteristicas.Size();i++){
-            CaracteristicasComboBox.addItem(esher.pj.caracteristicas.Get(i).DevolverAbreviatura());
+        for (int i=0; i<Personaje.getInstance().caracteristicas.Size();i++){
+            CaracteristicasComboBox.addItem(Personaje.getInstance().caracteristicas.Get(i).DevolverAbreviatura());
         }
     }
     
@@ -73,7 +71,7 @@ public class SeleccionarCaracteristica extends javax.swing.JFrame {
     }
     
     Caracteristica DevuelveCaracteristicaSeleccionada(){
-        return esher.pj.caracteristicas.DevolverCaracteristicaDeAbreviatura(CaracteristicasComboBox.getSelectedItem().toString());
+        return Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura(CaracteristicasComboBox.getSelectedItem().toString());
     }
     
     String DevuelveModo(){

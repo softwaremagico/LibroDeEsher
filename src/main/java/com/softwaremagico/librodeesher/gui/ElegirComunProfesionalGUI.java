@@ -43,7 +43,6 @@ public class ElegirComunProfesionalGUI extends javax.swing.JFrame {
     String tipo;
     Categoria cat;
     int maxElegir;
-    Personaje pj;
     String cuando;
     String[] listadoHabilidades = null;
     Talento talento = null;
@@ -51,11 +50,10 @@ public class ElegirComunProfesionalGUI extends javax.swing.JFrame {
     /**
      * Creates new form ElegirComunProfesional
      */
-    public ElegirComunProfesionalGUI(String tmp_tipo, Categoria tmp_cat, int habilidades, Personaje tmp_pj, String tmp_cuando) {
+    public ElegirComunProfesionalGUI(String tmp_tipo, Categoria tmp_cat, int habilidades, String tmp_cuando) {
         tipo = tmp_tipo;
         cat = tmp_cat;
         maxElegir = habilidades;
-        pj = tmp_pj;
         cuando = tmp_cuando;
         initComponents();
         setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (int) (this.getWidth() / 2),
@@ -63,11 +61,10 @@ public class ElegirComunProfesionalGUI extends javax.swing.JFrame {
         Inicializar();
     }
 
-    public ElegirComunProfesionalGUI(String tmp_tipo, Categoria tmp_cat, int habilidades, Personaje tmp_pj, String tmp_cuando, String[] tmp_listadoHabilidades) {
+    public ElegirComunProfesionalGUI(String tmp_tipo, Categoria tmp_cat, int habilidades, String tmp_cuando, String[] tmp_listadoHabilidades) {
         tipo = tmp_tipo;
         cat = tmp_cat;
         maxElegir = habilidades;
-        pj = tmp_pj;
         cuando = tmp_cuando;
         listadoHabilidades = tmp_listadoHabilidades;
         initComponents();
@@ -76,11 +73,10 @@ public class ElegirComunProfesionalGUI extends javax.swing.JFrame {
         Inicializar();
     }
 
-    public ElegirComunProfesionalGUI(String tmp_tipo, Categoria tmp_cat, int habilidades, Personaje tmp_pj, Talento tmp_talento) {
+    public ElegirComunProfesionalGUI(String tmp_tipo, Categoria tmp_cat, int habilidades, Talento tmp_talento) {
         tipo = tmp_tipo;
         cat = tmp_cat;
         maxElegir = habilidades;
-        pj = tmp_pj;
         cuando = "talento";
         talento = tmp_talento;
         initComponents();
@@ -98,7 +94,7 @@ public class ElegirComunProfesionalGUI extends javax.swing.JFrame {
     }
 
     private void ActualizaHabilidadesRestantes() {
-        NumeroTextField.setText(maxElegir - pj.ContarHabilidadesEspeciales(cat, tipo) + "");
+        NumeroTextField.setText(maxElegir - Personaje.getInstance().ContarHabilidadesEspeciales(cat, tipo) + "");
     }
 
     void ActualizarHabilidadesComboBox() {
@@ -210,8 +206,8 @@ public class ElegirComunProfesionalGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void TipoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoCheckBoxActionPerformed
-        Habilidad hab = pj.DevolverHabilidadDeNombre(HabilidadesComboBox.getSelectedItem().toString());
-        if (pj.ContarHabilidadesEspeciales(cat, tipo) >= maxElegir) {
+        Habilidad hab = Personaje.getInstance().DevolverHabilidadDeNombre(HabilidadesComboBox.getSelectedItem().toString());
+        if (Personaje.getInstance().ContarHabilidadesEspeciales(cat, tipo) >= maxElegir) {
             TipoCheckBox.setSelected(false);
         }
         if (tipo.equals("Común")) {
@@ -275,7 +271,7 @@ public class ElegirComunProfesionalGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_TipoCheckBoxActionPerformed
 
     private void HabilidadesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HabilidadesComboBoxActionPerformed
-        Habilidad hab = pj.DevolverHabilidadDeNombre(HabilidadesComboBox.getSelectedItem().toString());
+        Habilidad hab = Personaje.getInstance().DevolverHabilidadDeNombre(HabilidadesComboBox.getSelectedItem().toString());
         if (tipo.equals("Común")) {
             if (cuando.equals("profesion")) {
                 TipoCheckBox.setSelected(hab.EsComunProfesion());

@@ -69,12 +69,6 @@ public class Main {
         Esher esher;
         String soName = System.getProperty("os.name");
         try {
-            if (args.length > 0) {
-                esher = new Esher(args[0]);
-            } else {
-                esher = new Esher("");
-            }
-
             if (soName.contains("windows") || soName.contains("Windows")) {
                 try {
                     UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -93,17 +87,17 @@ public class Main {
                     }
                 }
             }
-            MainGUI gui = new MainGUI(esher);
-            CaracteristicasGUI caracteristicasGui = new CaracteristicasGUI(esher);
-            CategoriasYHabilidadesGUI catHabGui = new CategoriasYHabilidadesGUI(esher);
-            AleatorioGUI aleatorio = new AleatorioGUI(esher);
-            AdiestramientoGUI adiestramiento = new AdiestramientoGUI(esher);
-            AñadirAdiestramientoGUI añadirAdiestramiento = new AñadirAdiestramientoGUI(esher);
-            OpcionesGUI opciones = new OpcionesGUI(esher);
-            SeleccionarHabilidadGUI habilidades = new SeleccionarHabilidadGUI(esher);
-            ObjetoMagicoGUI objetosMagicos = new ObjetoMagicoGUI(esher);
+            MainGUI gui = new MainGUI();
+            CaracteristicasGUI caracteristicasGui = new CaracteristicasGUI();
+            CategoriasYHabilidadesGUI catHabGui = new CategoriasYHabilidadesGUI();
+            AleatorioGUI aleatorio = new AleatorioGUI();
+            AdiestramientoGUI adiestramiento = new AdiestramientoGUI();
+            AñadirAdiestramientoGUI añadirAdiestramiento = new AñadirAdiestramientoGUI();
+            OpcionesGUI opciones = new OpcionesGUI();
+            SeleccionarHabilidadGUI habilidades = new SeleccionarHabilidadGUI();
+            ObjetoMagicoGUI objetosMagicos = new ObjetoMagicoGUI();
 
-            new Controller(esher, gui, caracteristicasGui, catHabGui, aleatorio,
+            new Controller(gui, caracteristicasGui, catHabGui, aleatorio,
                     adiestramiento, añadirAdiestramiento, opciones, habilidades, objetosMagicos);
 
             gui.setVisible(true);

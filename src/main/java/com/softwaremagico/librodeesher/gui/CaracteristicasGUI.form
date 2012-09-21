@@ -107,15 +107,15 @@
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="ConstitucionPotencialTextField" alignment="0" min="0" pref="0" max="32767" attributes="1"/>
-                      <Component id="AgilidadPotencialTextField" alignment="0" pref="58" max="32767" attributes="2"/>
-                      <Component id="FuerzaPotencialTextField" alignment="0" pref="58" max="32767" attributes="1"/>
-                      <Component id="RapidezPotencialTextField" alignment="0" pref="58" max="32767" attributes="1"/>
-                      <Component id="MemoriaPotencialTextField" alignment="0" pref="58" max="32767" attributes="1"/>
-                      <Component id="RazonPotencialTextField" alignment="0" pref="58" max="32767" attributes="1"/>
-                      <Component id="AutodisciplinaPotencialTextField" alignment="0" pref="58" max="32767" attributes="1"/>
-                      <Component id="EmpatiaPotencialTextField" alignment="0" pref="58" max="32767" attributes="1"/>
-                      <Component id="IntuicionPotencialTextField" alignment="0" pref="58" max="32767" attributes="1"/>
-                      <Component id="PresenciaPotencialTextField" alignment="0" pref="58" max="32767" attributes="1"/>
+                      <Component id="AgilidadPotencialTextField" alignment="0" max="32767" attributes="2"/>
+                      <Component id="FuerzaPotencialTextField" alignment="0" max="32767" attributes="1"/>
+                      <Component id="RapidezPotencialTextField" alignment="0" max="32767" attributes="1"/>
+                      <Component id="MemoriaPotencialTextField" alignment="0" max="32767" attributes="1"/>
+                      <Component id="RazonPotencialTextField" alignment="0" max="32767" attributes="1"/>
+                      <Component id="AutodisciplinaPotencialTextField" alignment="0" max="32767" attributes="1"/>
+                      <Component id="EmpatiaPotencialTextField" alignment="0" max="32767" attributes="1"/>
+                      <Component id="IntuicionPotencialTextField" alignment="0" max="32767" attributes="1"/>
+                      <Component id="PresenciaPotencialTextField" alignment="0" max="32767" attributes="1"/>
                       <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -138,7 +138,7 @@
                           <Component id="jLabel15" pref="45" max="32767" attributes="0"/>
                           <EmptySpace min="13" pref="13" max="13" attributes="0"/>
                       </Group>
-                      <Component id="FuerzaRazaTextField" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="FuerzaRazaTextField" min="0" pref="58" max="32767" attributes="1"/>
                       <Component id="RapidezRazaTextField" min="0" pref="0" max="32767" attributes="1"/>
                       <Component id="PresenciaRazaTextField" min="0" pref="0" max="32767" attributes="1"/>
                       <Component id="IntuicionRazaTextField" min="0" pref="0" max="32767" attributes="1"/>
@@ -160,10 +160,10 @@
                       <Component id="MemoriaTotalTextField" alignment="1" min="-2" pref="57" max="-2" attributes="0"/>
                       <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel16" pref="32" max="32767" attributes="0"/>
+                              <Component id="jLabel16" pref="0" max="32767" attributes="0"/>
                               <EmptySpace min="25" pref="25" max="25" attributes="0"/>
                           </Group>
-                          <Component id="AgilidadTotalTextField" alignment="0" pref="57" max="32767" attributes="1"/>
+                          <Component id="AgilidadTotalTextField" alignment="0" max="32767" attributes="1"/>
                           <Component id="ConstitucionTotalTextField" alignment="0" min="0" pref="0" max="32767" attributes="1"/>
                       </Group>
                       <Component id="FuerzaTotalTextField" alignment="1" min="-2" pref="57" max="-2" attributes="0"/>
@@ -705,7 +705,7 @@
           <Format format="#0" subtype="-1" type="0"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="esher.pj.caracteristicas.totalCaracteristicas.toString()" type="code"/>
+          <Connection code="Personaje.getInstance().caracteristicas.totalCaracteristicas.toString()" type="code"/>
         </Property>
       </Properties>
       <Events>
