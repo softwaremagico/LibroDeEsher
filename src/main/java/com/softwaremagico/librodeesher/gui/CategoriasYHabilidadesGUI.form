@@ -150,30 +150,34 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="GeneralCheckBox" alignment="0" min="-2" pref="118" max="-2" attributes="0"/>
-                      <Component id="CategoriasComboBox" alignment="0" pref="295" max="32767" attributes="0"/>
-                      <Component id="HabilidadesComboBox" alignment="0" pref="295" max="32767" attributes="0"/>
+                      <Component id="CategoriasComboBox" alignment="0" max="32767" attributes="0"/>
+                      <Component id="HabilidadesComboBox" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="GeneralCheckBox" min="-2" pref="173" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="EspecializadaCheckBox" min="-2" pref="133" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                              <Component id="CosteTextField" min="-2" pref="63" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="RangosHabilidadTextField" linkSize="9" max="32767" attributes="1"/>
-                                  <Component id="RangosCategoriaTextField" linkSize="9" alignment="0" pref="49" max="32767" attributes="1"/>
-                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="1"/>
-                              </Group>
-                              <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                      <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                      <Component id="CosteTextField" min="-2" pref="63" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="RangosCategoriaTextField" alignment="0" max="32767" attributes="1"/>
+                          <Component id="jLabel4" alignment="0" max="32767" attributes="1"/>
+                          <Component id="RangosHabilidadTextField" alignment="0" max="32767" attributes="1"/>
                       </Group>
-                      <Component id="EspecializadaCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -204,11 +208,11 @@
                               <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="TotalCategoriaTextField" linkSize="6" alignment="0" pref="57" max="32767" attributes="1"/>
-                              <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="TotalHabilidadTextField" linkSize="6" alignment="0" min="-2" max="-2" attributes="1"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel12" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel10" alignment="0" max="32767" attributes="0"/>
+                              <Component id="TotalCategoriaTextField" alignment="0" max="32767" attributes="1"/>
+                              <Component id="TotalHabilidadTextField" alignment="0" max="32767" attributes="1"/>
                           </Group>
                       </Group>
                       <Component id="MotivoEspecializacionTextField" max="32767" attributes="0"/>

@@ -439,6 +439,7 @@ public class Controller {
             if (gui.update) {
                 Personaje.getInstance().reino = gui.DevolverReinoDeMagia();
                 Personaje.getInstance().ObtenerMediaCostePuntosDePoder();
+                Personaje.getInstance().ObtenerMagia();
             }
         }
     }
@@ -852,7 +853,7 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            PrimerPasoPjAcabado();
+            PasoCaracteristicasPjAcabado();
         }
     }
 
@@ -864,7 +865,7 @@ public class Controller {
             pjA.ObtenerCaracteristicasAleatorias();
             caracteristicasGui.Refrescar();
             caracteristicasGui.setVisible(false);
-            PrimerPasoPjAcabado();
+            PasoCaracteristicasPjAcabado();
         }
     }
 
@@ -911,7 +912,7 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             Personaje.getInstance().ActualizarOrdenCostesArmas();
-            SegundoPasoPjAcabado();
+            PasoCulturaPjAcabado();
             culturaGui.setVisible(false);
         }
     }
@@ -995,7 +996,7 @@ public class Controller {
             Personaje.getInstance().ActualizarOrdenCostesArmas();
             pjA.ObtenerCulturaAleatoria();
             culturaGui.AleatorioAceptado();
-            SegundoPasoPjAcabado();
+            PasoCulturaPjAcabado();
             culturaGui.setVisible(false);
         }
     }
@@ -1085,7 +1086,7 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             PersonajeAleatorio pjA = new PersonajeAleatorio();
-            pjA.GastarPuntosDesarrolloDeFormaAleatoria();
+            pjA.GastarPuntosDesarrolloDeFormaAleatoria(false);
             catHabGui.Refrescar();
             gui.Refrescar();
             catHabGui.setVisible(false);
@@ -2133,7 +2134,7 @@ public class Controller {
     /**
      * Da por concluidas la selección de características.
      */
-    private void PrimerPasoPjAcabado() {
+    private void PasoCaracteristicasPjAcabado() {
         try {
             new LeerRaza();
         } catch (Exception ex) {
@@ -2151,7 +2152,7 @@ public class Controller {
         Personaje.getInstance().ObtenerMagia();
     }
 
-    private void SegundoPasoPjAcabado() {
+    private void PasoCulturaPjAcabado() {
         try {
             culturaGui.SegundoPasoPjAcabado();
         } catch (NullPointerException npe) {

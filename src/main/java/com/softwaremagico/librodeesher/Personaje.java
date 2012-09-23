@@ -1846,8 +1846,7 @@ public class Personaje implements Serializable {
      */
     public void AddHechizo(ListaDeHechizos lista) {
         boolean existe = false;
-        for (int i = 0; i
-                < listaHechizos.size(); i++) {
+        for (int i = 0; i < listaHechizos.size(); i++) {
             if (lista.nombre.equals(listaHechizos.get(i).nombre) && lista.clase.equals(listaHechizos.get(i).clase)) {
                 existe = true;
                 break;

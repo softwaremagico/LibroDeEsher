@@ -185,6 +185,7 @@ public class DirectorioRolemaster implements Serializable {
             try {
                 lineasFicheroHechizos.addAll(Folder.readFileLines(ficherosHechizos.get(i), verbose));
             } catch (IOException ex) {
+                ex.printStackTrace();
             }
         }
         return lineasFicheroHechizos;
@@ -327,7 +328,7 @@ public class DirectorioRolemaster implements Serializable {
     private static List<String> DevolverPathsFichero(String fichero) {
         List<String> ficheros = new ArrayList<>();
         for (int i = 0; i < modulosRolemaster.size(); i++) {
-            File file = new File(modulosRolemaster.get(i) + File.separator + fichero);
+            File file = new File(DIRECTORIO_MODULOS + File.separator + modulosRolemaster.get(i) + File.separator + fichero);
             if (file.exists()) {
                 ficheros.add(file.toString());
             }

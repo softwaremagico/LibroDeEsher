@@ -140,7 +140,7 @@ public class Magia {
             String[] vectorClase = hechizo.clase.split("/");
             List<String> listaClase = new ArrayList<>();
             listaClase.addAll(Arrays.asList(vectorClase));
-
+           
             if (listaClase.contains("Abierta")) {
                 if (Personaje.getInstance().reino.contains(hechizo.reino)) {
                     cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Abiertas de Hechizos");

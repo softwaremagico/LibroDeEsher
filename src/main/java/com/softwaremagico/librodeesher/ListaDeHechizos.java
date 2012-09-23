@@ -34,11 +34,11 @@ import java.io.Serializable;
  *
  * @author jorge
  */
-class ListaDeHechizos implements Serializable {
+public class ListaDeHechizos implements Serializable {
     String nombre;
     String clase;
     String reino;
-    ListaDeHechizos(String tmp_nombre, String tmp_clase, String tmp_reino){
+    public ListaDeHechizos(String tmp_nombre, String tmp_clase, String tmp_reino){
         nombre = tmp_nombre;
         clase = tmp_clase;
         reino = tmp_reino;

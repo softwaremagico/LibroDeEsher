@@ -1,20 +1,20 @@
 /*
-This software is designed by Jorge Hortelano Otero.
-softwaremagico@gmail.com
-Copyright (C) 2007 Jorge Hortelano Otero.
-C/Botanico 12, 1. Valencia CP:46008 (Spain).
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-Created on march of 2008.
+ This software is designed by Jorge Hortelano Otero.
+ softwaremagico@gmail.com
+ Copyright (C) 2007 Jorge Hortelano Otero.
+ C/Botanico 12, 1. Valencia CP:46008 (Spain).
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 2
+ of the License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ Created on march of 2008.
  */
 package com.softwaremagico.librodeesher;
 /*
@@ -55,11 +55,10 @@ import java.util.logging.Logger;
  */
 public class LeerProfesion {
 
-    private Esher esher;
     private boolean creandoPJ = true;
     private boolean interactivo = true;
 
-   public  LeerProfesion() {
+    public LeerProfesion() {
         try {
             LeerFicheroProfesion();
         } catch (Exception ex) {
@@ -67,7 +66,7 @@ public class LeerProfesion {
         }
     }
 
-   public  LeerProfesion(boolean tmp_creandoPJ) {
+    public LeerProfesion(boolean tmp_creandoPJ) {
         creandoPJ = tmp_creandoPJ;
         try {
             LeerFicheroProfesion();
@@ -76,7 +75,7 @@ public class LeerProfesion {
         }
     }
 
-   public  LeerProfesion(boolean tmp_creandoPJ, boolean tmp_interactivo) {
+    public LeerProfesion(boolean tmp_creandoPJ, boolean tmp_interactivo) {
         creandoPJ = tmp_creandoPJ;
         interactivo = tmp_interactivo;
         try {
@@ -110,7 +109,8 @@ public class LeerProfesion {
     }
 
     /**
-     * Asigna todos los bonuses a las categorias típicas de la profesión escogida.
+     * Asigna todos los bonuses a las categorias típicas de la profesión
+     * escogida.
      */
     private int AsignarBonificacionPorProfesion(List<String> lines, int index) {
         index += 3;
@@ -162,7 +162,7 @@ public class LeerProfesion {
                         String car = Personaje.getInstance().arrayCaracteristicasProfesion[i];
                         try {
                             Caracteristica caract = Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura(car);
-                            caract.CrearPuntosTemporal(esher.baseCaracteristicas[i]);
+                            caract.CrearPuntosTemporal(Esher.getInstance().baseCaracteristicas[i]);
                         } catch (NullPointerException npe) {
                             MostrarError.showErrorMessage("Caracteristica " + car + " mostrada en el archivo " + Personaje.getInstance().profesion + ".txt no existente.", "Leer Profesion");
                         }
@@ -170,13 +170,13 @@ public class LeerProfesion {
                 }
             } else {
                 if (Personaje.getInstance().ObtenerPuntosCaracteristicasGastados() < Personaje.getInstance().caracteristicas.totalCaracteristicas) {
-                    List<Integer> listaEnteros = esher.ObtenerListaAleatoriaDeEnteros(10);
+                    List<Integer> listaEnteros = Esher.ObtenerListaAleatoriaDeEnteros(10);
                     int i = 0;
-                    Caracteristica car = null;
+                    Caracteristica car;
                     try {
                         for (int j = 0; j < Personaje.getInstance().caracteristicas.Size(); j++) {
                             car = Personaje.getInstance().caracteristicas.Get(j);
-                            car.CrearPuntosTemporal(esher.baseCaracteristicas[listaEnteros.get(i)]);
+                            car.CrearPuntosTemporal(Esher.getInstance().baseCaracteristicas[listaEnteros.get(i)]);
                             i++;
                         }
                     } catch (NullPointerException npe) {
@@ -191,7 +191,7 @@ public class LeerProfesion {
     private int AsignarCostesCategorias(List<String> lines, int index) {
         index += 3;
 
-        Personaje.getInstance().costearmas = new CosteArmas(esher);
+        Personaje.getInstance().costearmas = new CosteArmas();
         Personaje.getInstance().armas.ResetearCuentaArmas();
         while (!lines.get(index).equals("")) {
             String lineaCategoria = lines.get(index);

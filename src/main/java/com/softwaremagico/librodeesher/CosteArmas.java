@@ -53,12 +53,8 @@ import java.util.List;
  */
 class CosteArmas implements Serializable {
     List<int[]> costeRango;
-    Esher esher;
-    //DirectorioRolemaster directorioRolemaster;
 
-    CosteArmas(Esher tmp_esher) {
-        //directorioRolemaster = tmp_directorioRolemaster;
-        esher = tmp_esher;
+    CosteArmas() {
         costeRango = new ArrayList<>();
     }
 
