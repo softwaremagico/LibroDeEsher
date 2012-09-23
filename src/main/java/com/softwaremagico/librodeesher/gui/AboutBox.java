@@ -44,7 +44,7 @@ public class AboutBox extends javax.swing.JFrame {
     public AboutBox() {
         initComponents();
         setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (int) (this.getWidth() / 2), (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (int) (this.getHeight() / 2));
-        VersionLabel.setText("v" + Esher.version + "");
+        VersionLabel.setText("v" + Esher.getInstance().getVersion() + "");
     }
 
     public void UpdateText(String texto) {

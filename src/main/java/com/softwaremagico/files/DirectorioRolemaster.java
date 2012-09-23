@@ -65,9 +65,9 @@ import java.util.logging.Logger;
  */
 public class DirectorioRolemaster implements Serializable {
 
-    public static final boolean verbose = false;
     public static final String DIRECTORIO_CATEGORIAS = "";
-    public static final String ROLEMASTER_FOLDER = "rolemaster";
+    private static final String APPLICATION_FOLDER = getApplicationInstallationDirectory();
+    public static final String ROLEMASTER_FOLDER = APPLICATION_FOLDER + File.separator + "rolemaster";
     public static final String DIRECTORIO_PROFESION = "profesiones";
     public final static String DIRECTORIO_TALENTOS = "talentos";
     public final static String DIRECTORIO_RAZAS = "razas";
@@ -82,25 +82,31 @@ public class DirectorioRolemaster implements Serializable {
     private static final String MODULOS = "modulos.txt";
     private static final String CONFIG = "configuracion.txt";
     //private Folder directorio;
-    private static List<String> ficherosOcultos;
-    public static final String DIRECTORIO_ROLEMASTER = "rolemaster";
+    private static List<String> ficherosOcultos = ignoredFiles();
     // Modulos configurados para obtener los ficheros adecuados */
     public static List<String> modulosRolemaster = ObtenerModulosRolemaster();
+    public static final boolean verbose = false;
 
     /**
      * Creates a new instance of DirectorioRolemaster
      */
     public DirectorioRolemaster() throws Exception {
-        ignoredFiles();
-
     }
 
-    private void ignoredFiles() {
-        ficherosOcultos = new ArrayList<>();
-        ficherosOcultos.add("plantilla");
-        ficherosOcultos.add("costes");
-        ficherosOcultos.add("Raciales");
-        ficherosOcultos.add(".txt~");
+    private static String getApplicationInstallationDirectory() {
+        File directory = new File(DirectorioRolemaster.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+        System.out.println(directory.getParentFile().getAbsolutePath());
+        return directory.getParentFile().getAbsolutePath();
+    }
+
+    private static List<String> ignoredFiles() {
+        List<String> ignoredFiles = new ArrayList<>();
+        ignoredFiles = new ArrayList<>();
+        ignoredFiles.add("plantilla");
+        ignoredFiles.add("costes");
+        ignoredFiles.add("Raciales");
+        ignoredFiles.add(".txt~");
+        return ignoredFiles;
     }
 
     private static List<String> filesAvailable(String folder) throws Exception {

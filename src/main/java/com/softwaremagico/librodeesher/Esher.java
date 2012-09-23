@@ -63,7 +63,6 @@ public class Esher implements Serializable {
     //Directorios
     private String DIRECTORIO_DEFECTO = System.getProperty("user.home");
     public String BASIC_PATH = "";
-    public DirectorioRolemaster directorioRolemaster;
     //Control
     public static int bucleHabilidades;
     public static boolean GeneraSiguiendoNormas = true;
@@ -93,8 +92,7 @@ public class Esher implements Serializable {
      */
     private Esher() {
         try {
-            directorioRolemaster = new DirectorioRolemaster();
-            opciones = directorioRolemaster.ObtieneConfiguracionGuardada();
+            opciones = DirectorioRolemaster.ObtieneConfiguracionGuardada();
             LeerCategoriasDeArchivo();
             InicializarVariables();
             new LeerRaza();
