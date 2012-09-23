@@ -161,9 +161,15 @@
                                         <copy todir="${windows.releasedir}" overwrite="true" flatten="true" >
                                             <fileset dir="${windows.origin}/" includes="**/icon.ico" />
                                         </copy>  
+                                        <copy todir="${windows.releasedir}/rolemaster/" overwrite="true" >
+                                            <fileset dir="./rolemaster/" includes="**/*" />
+                                        </copy>
                                         <copy todir="${windows.releasedir}" overwrite="true" flatten="true" >
                                             <fileset dir="${windows.origin}/" includes="**/LibroDeEsher.exe" />
                                         </copy>  
+                                        <copy todir="${windows.releasedir}/manual" overwrite="true" >
+                                            <fileset dir="./manual" includes="**/*.pdf" />
+                                        </copy>
                                         <copy todir="${windows.releasedir}" overwrite="true" flatten="true" >
                                             <fileset dir="${windows.origin}/" includes="**/InstallScript.iss" />
                                             <filterset>
