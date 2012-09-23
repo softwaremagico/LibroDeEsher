@@ -139,13 +139,23 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.4</version>
+                        <version>1.7</version>
                         <executions>
                             <execution>
                                 <phase>install</phase>
                                 <configuration>
                                     <tasks>
                                         <delete dir="${windows.releasedir}" failonerror="false" includeemptydirs="true" />
+                                        <copy todir="${windows.releasedir}" overwrite="true" flatten="true" >
+                                            <fileset dir="${windows.origin}/" includes="**/InstallScript.iss" />
+                                            <filterset>
+                                                <filter value="${project.version}" token="version" />
+                                                <filter value="${project.name}" token="projectname" />
+                                                <filter value="${project.groupId}" token="group" />
+                                                <filter value="${url}" token="url" />
+                                                <filter value="${winexe}" token="winexe" />
+                                            </filterset>
+                                        </copy>  
                                         <copy todir="${windows.releasedir}" overwrite="true" >
                                             <fileset dir="./target/" includes="**/LibroDeEsher.jar" />
                                         </copy>
@@ -170,16 +180,6 @@
                                         <copy todir="${windows.releasedir}/manual" overwrite="true" >
                                             <fileset dir="./manual" includes="**/*.pdf" />
                                         </copy>
-                                        <copy todir="${windows.releasedir}" overwrite="true" flatten="true" >
-                                            <fileset dir="${windows.origin}/" includes="**/InstallScript.iss" />
-                                            <filterset>
-                                                <filter value="${project.version}" token="version" />
-                                                <filter value="${project.name}" token="projectname" />
-                                                <filter value="${project.groupId}" token="group" />
-                                                <filter value="${url}" token="url" />
-                                                <filter value="${winexe}" token="winexe" />
-                                            </filterset>
-                                        </copy>  
                                     </tasks>
                                 </configuration>
                                 <goals>
