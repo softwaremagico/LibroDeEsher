@@ -67,7 +67,7 @@ public class DirectorioRolemaster implements Serializable {
 
     public static final String DIRECTORIO_CATEGORIAS = "";
     private static final String APPLICATION_FOLDER = getApplicationInstallationDirectory();
-    public static final String ROLEMASTER_FOLDER = APPLICATION_FOLDER + File.separator + "rolemaster";
+    public static final String ROLEMASTER_FOLDER = APPLICATION_FOLDER +  File.separator + "rolemaster";
     public static final String DIRECTORIO_PROFESION = "profesiones";
     public final static String DIRECTORIO_TALENTOS = "talentos";
     public final static String DIRECTORIO_RAZAS = "razas";
@@ -95,7 +95,11 @@ public class DirectorioRolemaster implements Serializable {
 
     private static String getApplicationInstallationDirectory() {
         File directory = new File(DirectorioRolemaster.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-        System.out.println(directory.getParentFile().getAbsolutePath());
+        //Carga local mediante netbeans
+        if (directory.getParentFile().getAbsolutePath().contains("target")) {
+            return directory.getParentFile().getParentFile().getAbsolutePath();
+        }
+        //Carga desde el instalador. 
         return directory.getParentFile().getAbsolutePath();
     }
 
