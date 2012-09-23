@@ -333,7 +333,7 @@ public class OpcionesGUI extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(HechizosAdiestramientoCheckBox)
                     .addComponent(HechizosMalignosCheckBox))
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -393,12 +393,12 @@ public class OpcionesGUI extends javax.swing.JFrame {
                 .addGroup(ModulosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel6)
-                    .addComponent(ModulosComboBox, 0, 411, Short.MAX_VALUE)
+                    .addComponent(ModulosComboBox, 0, 419, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ModulosPanelLayout.createSequentialGroup()
                         .addComponent(AñadirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 239, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
                         .addComponent(BorrarModuloButton))
-                    .addComponent(ModulosTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
+                    .addComponent(ModulosTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
                     .addComponent(jLabel7))
                 .addContainerGap())
         );
@@ -446,7 +446,7 @@ public class OpcionesGUI extends javax.swing.JFrame {
                 .addGroup(PersoanjeAleatorioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(TalentosCheckBox))
-                .addContainerGap(268, Short.MAX_VALUE))
+                .addContainerGap(276, Short.MAX_VALUE))
         );
         PersoanjeAleatorioPanelLayout.setVerticalGroup(
             PersoanjeAleatorioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -483,7 +483,7 @@ public class OpcionesGUI extends javax.swing.JFrame {
                     .addComponent(CategoriasRadioButton)
                     .addComponent(LexicograficoRadioButton)
                     .addComponent(jLabel5))
-                .addContainerGap(262, Short.MAX_VALUE))
+                .addContainerGap(237, Short.MAX_VALUE))
         );
         FichaPDFPanelLayout.setVerticalGroup(
             FichaPDFPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
