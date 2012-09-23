@@ -46,12 +46,12 @@ public class MyFile {
      * Devuelve las lineas de un fichero leido anteriormente.
      */
     public static List<String> inLines(String filename, boolean verbose) throws IOException {
-        String OS = System.getProperty("os.name");
+        /*String OS = System.getProperty("os.name");
         if (OS.contains("Windows Vista")) {
             return readTextFileInLines(filename, "ISO8859_1", verbose);
         } else if (OS.contains("Windows")) {
             return readTextFileInLines(filename, "Cp1252", verbose);
-        }
+        }*/
         return readTextFileInLines(filename, "UTF8", verbose);
     }
 
