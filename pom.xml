@@ -156,17 +156,14 @@
                                                 <filter value="${winexe}" token="winexe" />
                                             </filterset>
                                         </copy>  
-                                        <copy todir="${windows.releasedir}" overwrite="true" >
-                                            <fileset dir="./target/" includes="**/LibroDeEsher.jar" />
-                                        </copy>
                                         <copy todir="${windows.releasedir}/lib" overwrite="true" >
                                             <fileset dir="./target/lib" includes="**/*.jar" />
                                         </copy>
                                         <copy todir="${windows.releasedir}" overwrite="true" flatten="true" >
-                                            <fileset dir="./" includes="**/gnu.txt" />
+                                            <fileset dir="./" includes="gnu.txt" />
                                         </copy>
                                         <copy todir="${windows.releasedir}" overwrite="true" flatten="true" >
-                                            <fileset dir="./" includes="**/Readme.txt" />
+                                            <fileset dir="./" includes="Readme.txt" />
                                         </copy>   
                                         <copy todir="${windows.releasedir}" overwrite="true" flatten="true" >
                                             <fileset dir="${windows.origin}/" includes="**/icon.ico" />
@@ -179,6 +176,9 @@
                                         </copy>  
                                         <copy todir="${windows.releasedir}/manual" overwrite="true" >
                                             <fileset dir="./manual" includes="**/*.pdf" />
+                                        </copy>
+                                        <copy todir="${windows.releasedir}" overwrite="true" flatten="true" >
+                                            <fileset dir="./target/" includes="LibroDeEsher.jar" />
                                         </copy>
                                     </tasks>
                                 </configuration>
@@ -256,7 +256,7 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <version>1.2</version>
                 <configuration>
-                    <inceptionYear>2008</inceptionYear>
+                    <inceptionYear>2007</inceptionYear>
                     <excludes>
                         <exclude>**/licenses.properties</exclude>
                     </excludes>
