@@ -32,7 +32,7 @@ Existe un problema conocido con el generador de personajes. Normalmente se debe 
 
 Versión
 ------------
-0.991	Añadido:
+0.991	Cambiado:
 		- Profesiones pueden tener varios listados de habilidades comunes.
 		- Mejorada la inteligencia para crear personajes aleatorios.
 		- Se permiten sugerir adiestramientos al crear personajes aleatorios.
@@ -46,7 +46,7 @@ Versión
 		- Se pueden sugerir rangos en categorías y habilidades al crear un personaje aleatorio. 
 		- Al guardar ficheros se pueden seleccionar carpetas. 
 		
-0.980	Añadido:
+0.980	Cambiado:
 		- La puntuación máxima de las características ya no está limitada a 660. 
 		- Las razas pueden tener culturas por patrones: ej. Todas las Urbanas. 
 		- Se permiten exportar subidas de nivel de forma segura. Esto permite a un jugador subirse el nivel en su casa y luego enviarlo al DJ para que lo confirme y lo imprima.
