@@ -1,21 +1,29 @@
-#LyX 1.6.4 created this file. For more info see http://www.lyx.org/
-\lyxformat 345
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
 \begin_document
 \begin_header
 \textclass book
 \use_default_options false
+\maintain_unincluded_children false
 \language spanish
+\language_package default
 \inputencoding auto
+\fontencoding global
 \font_roman default
 \font_sans default
 \font_typewriter default
 \font_default_family default
+\use_non_tex_fonts false
 \font_sc false
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
 
 \graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
 \float_placement h
 \paperfontsize default
 \spacing single
@@ -24,27 +32,37 @@
 \use_geometry false
 \use_amsmath 1
 \use_esint 1
+\use_mhchem 1
+\use_mathdots 1
 \cite_engine basic
 \use_bibtopic false
+\use_indices false
 \paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Índice
+\shortcut idx
+\color #008000
+\end_index
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
-\defskip medskip
+\paragraph_indentation default
 \quotes_language english
 \papercolumns 1
 \papersides 2
 \paperpagestyle default
 \tracking_changes false
 \output_changes false
-\author "" 
-\author "" 
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
 \end_header
 
 \begin_body
 
 \begin_layout Title
-El Libro de Esher v0.99
+El Libro de Esher v0.9.9.1
 \begin_inset Newline newline
 \end_inset
 
@@ -173,6 +191,10 @@ El menú que permite seleccionar las distintas opciones de la creación de
  personaje.
  No están disponibles todas las opciones en todo momento, ya que algunas
  dependen de las opciones seleccionadas anteriormente.
+ Por tanto, se deberán realizar algunas acciones para que otras sean activas.
+ Además, las acciones ya confirmadas no podrán rehacerse una vez se inicie
+ el siguiente paso en la creación de personajes.
+ 
 \end_layout
 
 \begin_layout Subsubsection
@@ -215,7 +237,7 @@ Exportar
 \end_inset
 
 (Texto): Guarda los datos del personaje en un fichero de texto simple para
- que pueda ser abierto en cualquier ordenador sin necesidad de ningún software
+ que pueda ser abierto en cualquier equipo sin necesidad de ningún software
  especial.
  Normalmente es el formato utilizado en los libros para describir PNJs.
  
@@ -234,7 +256,8 @@ abreviado): Guarda solamente los datos más importantes del personaje como
  se hace normalmente en algunos libros de Rolemaster para los monstruos.
  Las categorías utilizan una abreviatura previamente acordada en el documento
  que las define.
- Es útil para incluir personaje dentro de la descripción de aventuras.
+ Es útil para incluir personaje dentro de la descripción de aventuras sin
+ ocupar demasiado espacio.
 \end_layout
 
 \begin_layout Description
@@ -243,6 +266,20 @@ Exportar
 \end_inset
 
 (PDF): Genera un fichero en PDF que imita las fichas originales de Rolemaster.
+\end_layout
+
+\begin_layout Description
+Exportar
+\begin_inset space ~
+\end_inset
+
+(PDF
+\begin_inset space ~
+\end_inset
+
+Combinado): Genera un fichero en PDF que imita las fichas originales de
+ Rolemaster que agrupan las habilidades por Categorías.
+ 
 \end_layout
 
 \begin_layout Description
@@ -256,6 +293,8 @@ Generar Personaje
 \begin_layout Standard
 Contiene las opciones para generar el personaje paso a paso, como se haría
  respetando el reglamento del Rolemaster.
+ Por tanto, algunos pasos solo estarán disponibles si previamente se han
+ completado los anteriores.
  Para más información consultar el Capítulo 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -357,7 +396,7 @@ Nombre
 En este campo se puede escribir el nombre del personaje.
  Lo aquí escrito aparecerá después en la ficha del personaje.
  Si el campo se deja en blanco, el programa seleccionará algún nombre al
- azar del listado que exista en su ficha de raza dependiendo del sexo.
+ azar del listado que exista en su ficha de raza dependiendo del sexo escogido.
  
 \end_layout
 
@@ -381,11 +420,11 @@ Profesión
 La profesión del personaje.
  El listado varía de acuerdo con la raza escogida y las profesiones definidas
  en la aplicación.
- Puedes cambiar la profesión hasta que se hayan seleccionado los puntos
- en las características.
+ Puedes cambiar la profesión hasta que se hayan seleccionado los valores
+ de las características.
  Una vez se seleccionen las características, esta opción permanece bloqueada,
  ya que un cambio afectaría a las características ya elegidas.
- 
+ Se deberá crear un personaje nuevo para poder modificar esta opción.
 \end_layout
 
 \begin_layout Subsubsection
@@ -558,7 +597,7 @@ Ejemplo de uso de la ventana de características.
 \end_layout
 
 \begin_layout Standard
-Una vez seleccionadas las características el usuario no podrá cambiar la
+Una vez seleccionadas las características, el usuario no podrá cambiar la
  profesión del personaje, ya que el valor temporal de algunas características
  dependen de esta.
 \end_layout
@@ -577,7 +616,7 @@ El usuario puede incrementar los valores temporales de las características
  reglamento del rolemaster.
  Además, esta herramienta tiene en cuenta algunas limitaciones, como que
  las características principales de la profesión deben de valer un mínimo
- de 90 o el mínimo valor posible para una característica cualquiera.
+ de 90, o el mínimo valor posible para cualquier otra característica.
 \end_layout
 
 \begin_layout Subsubsection
@@ -629,7 +668,7 @@ La aplicación permtie al personaje distribuir 660 puntos de características.
  Informa en todo momento de cuantos puntos dispone el usuario para repartir.
  Para aceptar el valor final de las características, hay que presionar el
  botón adecuado para ello.
- Si se desea este valor puede ser modificado.
+ Si se desea, este valor puede ser modificado.
  
 \end_layout
 
@@ -713,8 +752,8 @@ reference "fig:Selección-de-habilidades-Profesionales"
  Tal como describe la profesión, un alquimista tiene seis habilidades dentro
  de oficios que son profesionales.
  Hay que tener cuidado en la elección, ya que estas opciones no podrán ser
- cambiadas posteriormente.
- 
+ cambiadas posteriormente, por lo que si se cambia de opinión, se deberá
+ realizar de nuevo el personaje para poder cambiar los valores.
 \end_layout
 
 \begin_layout Section
@@ -835,7 +874,7 @@ Cada cultura da unos rangos fijos a determinadas categorías y habilidades.
 El programa obtiene las habilidades disponibles según lo indicado en el
  fichero categorías.txt.
  Una excepción es el caso de las armas, que solamente aparecen aquellas
- propias de la cultura.
+ propias de la cultura, tal como se indica en el reglamento.
  
 \end_layout
 
@@ -849,7 +888,7 @@ Todas las culturas tienen puntos de idioma a distribuir en diferentes lenguas.
  culturas.
  Nota: El programa no distingue entre desarrollo permitido de la adolescencia
  o lenguas obtenidas por raza.
- 
+ Si se desea, se deberá tener en cuenta estos valores mentalmente.
 \end_layout
 
 \begin_layout Subsection
@@ -889,7 +928,7 @@ Seleccionar los adiestramientos deseados
 
 \begin_layout Standard
 Una de las muchas opciones a la hora de generar el personaje es obtener
- un adiestramiento.
+ uno o más adiestramientos.
  El Libro de Esher lo refleja con esta opción.
  
 \end_layout
@@ -903,8 +942,8 @@ El usuario tiene la opción de escoger uno o más adiestramientos para su
  personaje.
  Para ello está esta opción en el menú.
  Una vez seleccionada, aparecerá un listado con los adiestramientos permitidos
- dependiendo de los que puede comprar, dependiendo del coste y los Puntos
- de Desarrollo restantes o de los adiestramientos particulares de la raza.
+ dependiendo de los que puede comprar, del coste y los Puntos de Desarrollo
+ restantes o de los adiestramientos particulares de la raza.
  
 \end_layout
 
@@ -1017,7 +1056,7 @@ Categorías y habilidades
 \begin_layout Standard
 Un adiestramiento otorga un conjunto de puntos para determinadas categorías
  y habilidades.
- Esta ventana permite repartirlo en aquellos casos que se de libertad al
+ Esta ventana permite repartirlo en aquellos casos que se den libertad al
  personaje.
  El campo 
 \begin_inset Quotes eld
@@ -1184,6 +1223,7 @@ Como en otras ventanas puedes dejar al programa decidir donde distribuir
 Aleatorio
 \emph default
  y el programa gastará los puntos donde crea conveniente.
+ La inteligencia dotada al programa puede sorprendente al respecto.
  
 \end_layout
 
@@ -1194,15 +1234,16 @@ Historial
 \begin_layout Standard
 Una vez el personaje está ya definido, el programa permite asignar los puntos
  de historial al mismo.
- Por ahora solamente se permiten gastar puntos de historial en aumento de
- características y mejora de categorías y habilidades.
+ Únicamente se permiten gastar puntos de historial en aumento de características
+, mejora de categorías y habilidades, y objetos mágicos.
+ Para cualquier otra opción se deberá realizar fuera del programa.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -1397,7 +1438,8 @@ Introducción
 El programa permite que cada uno de los jugadores se suba el nivel en su
  propia casa en unos pocos minutos sin la necesidad de quedar en la casa
  del Director de Juego.
- De esta forma se ahorra tiempo y resulta mucho más cómodo.
+ De esta forma se ahorra tiempo y resulta mucho más cómodo, utilizando el
+ tiempo libre para jugar.
  Para ello, la subida de nivel debe de ser segura, es decir, debe impedir
  que los jugadores puedan hacer trampas y subir más rangos de los debidos.
  
@@ -1419,7 +1461,7 @@ Generar el personaje
 Primero el personaje se genera en presencia del Director de Juego que controla
  la creación y aplica sus propias reglas de la campaña que tenga pensada
  utilizar.
- El personaje se guarda y se imprime para su utilización.
+ El personaje se guarda y también se imprime para su utilización.
  
 \end_layout
 
@@ -1445,7 +1487,7 @@ Exportar el nivel
 Una vez subido de nivel, el jugador no devuelve el personaje al Director
  de Juego, sino que lo que hace es exportar la subida de nivel.
  Esto generará un fichero de subida de nivel que será enviado al Director
- de Juego por email o el soporte digital que se crea oportuno
+ de Juego por email o el soporte digital que se crea oportuno.
 \end_layout
 
 \begin_layout Subsection
@@ -1471,12 +1513,13 @@ Cada vez que se suba de nivel, el Director de Juego debe enviar el personaje
  con el nivel actual y debe recibir la subida de nivel del nivel próximo.
  En el caso de que un personaje debiera subir dos niveles consecutivos por
  algún motivo, debe repetir este ciclo dos veces.
- No funcionará que el jugador suba los dos niveles consecutivos a la vez.
+ No funcionará en el caso que el jugador suba los dos niveles consecutivos
+ a la vez.
  
 \end_layout
 
 \begin_layout Subsection
-Consideraciones finales
+Seguridad del sistema
 \end_layout
 
 \begin_layout Standard
@@ -1538,6 +1581,10 @@ Se puede hacer que un personaje esté especializado, es decir, que gaste
  sus puntos de desarrollo en unas pocas habilidades o categorías para tener
  un valor más alto, o se pueden hacer genéricos, es decir que tenga tendencia
  a repartir sus puntos de desarrollo entre muchas habilidades.
+ Antes de la creación del personaje, se puede decirdir que tipo de personaje
+ se desea.
+ En caso de duda, el valor por defecto es el adecuado en la mayoría de situacion
+es.
  
 \end_layout
 
@@ -1577,9 +1624,9 @@ más inteligente
 
 .
  Es decir, calcula los personajes de una forma más cercana a lo que haría
- un jugador, o al menos como lo haría yo, por ejemplo asegura que los magos
- tengan algún punto de poder, que los guerreros sepan luchar y cosas por
- el estilo.
+ un jugador, o al menos como lo haría yo.
+ Por ejemplo asegura que los magos tengan algún punto de poder, que los
+ guerreros sepan luchar y cosas por el estilo.
  Sugiero que esta opción esté siempre activada.
 \end_layout
 
@@ -1614,7 +1661,8 @@ Por ejemplo, a la hora de añadir al personaje algo que no haya sido contemplado
  Siempre habrá alguna opción de trasfondo, hisotorial u otra cosa que no
  haya sido contemplada y que aumente el personaje.
  También es útil si estabas previamente usando fichas de papel y necesitas
- introducir a tus jugadores en el programa.
+ introducir a tus jugadores en el programa o actualices la versión del programa
+ y los ficheros salvados no sean compatibles.
  
 \end_layout
 
@@ -1852,22 +1900,28 @@ Módulos
 \end_layout
 
 \begin_layout Standard
-Incluyendo el path o camino a la carpeta del módulo deseado permite al programa
- usar todas sus razas, hechizos u otras novedades que incluyan.
- De esta forma se pueden instalar todos los módulos de los que se dispongan,
- pero solamente utilizar aquellos que se crea oportuno a la hora de realizar
- una partida.
- Por ejemplo, podemos eliminar el módulo 
-\emph on
-Otros
-\emph default
- que contiene razas inventadas no oficiales de Rolemaster.
- 
+Hasta la versión 0.9.9, esta opción servía para habilitar los módulos disponibles.
+ Desde la versión 0.9.9.1 en adelante, todos los módulos están habilitados
+ por defecto y esta versión sirve para seleccionar aquellos que no se quieran
+ utilizar por cualquier motivo.
+ Para ello, basta con seleccionar el módulo deseado y después seleccionar
+ la opción 
+\begin_inset Quotes eld
+\end_inset
+
+Deshabilitar
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Para consultar si un módulo está o no deshabilitados, basta con seleccionarlos
+ de nuevo.
 \end_layout
 
 \begin_layout Standard
-Basta escribir el patch en el cuadro de texto y darle al botón adecuado
- para que el módulo esté listo para ser utilizado.
+Se recomienda reiniciar la aplicación una vez se añade o elimina un nuevo
+ módulo.
+ Asegurando así que toda la información se recarga en el sistema.
  
 \end_layout
 
@@ -1898,21 +1952,8 @@ Para crear un módulo solamente se debe de crear una carpeta dentro de la
  carpeta dónde esté instalado El Libro de Esher, y llendo a la carpeta rolemaste
 r/módulos.
  Allí se generará una carpeta con el nombre del módulo que queramos añadir.
- 
-\end_layout
-
-\begin_layout Standard
-Para que el módulo pueda ser utilizado, debes ejecutar El Libro de Esher,
- e ir a opciones para añadir el nuevo módulo.
- Ver Sección 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sub:Módulos"
-
-\end_inset
-
- para más información.
- Ahora lo que falta es incluir el contenido.
+ Imita la estructura de los módulos ya presentes con el programa para evitar
+ problemas.
  
 \end_layout
 
@@ -1926,7 +1967,7 @@ Las razas deben de estar incluidas en un fichero distinto por raza dentro
 \begin_inset Quotes eld
 \end_inset
 
-rolemaster/modulo/<nombre_modulo>/razas
+rolemaster/modulos/<nombre_modulo>/razas
 \begin_inset Quotes erd
 \end_inset
 
@@ -2023,9 +2064,9 @@ Tipo de raza
 \end_layout
 
 \begin_layout Standard
-Este valor solamente simple a la hora de completar la ficha de personaje,
+Este valor solamente sirve a la hora de completar la ficha de personaje,
  ya que no se utiliza para nada durante la creación del mismo.
- A fin de cuentas solamente se utiliza a la hora de resuciar el personaje.
+ A fin de cuentas, solamente se utiliza a la hora de resuciar el personaje.
  
 \end_layout
 
@@ -2034,7 +2075,7 @@ Tamaño de raza
 \end_layout
 
 \begin_layout Standard
-Este valor cambiará algunos datos, si el personaje se imprime como se hace
+Este valor cambiará algunos datos si el personaje se imprime como se hace
  en el Manual de Monstruos.
  De esta forma determinará el grado de los ataques y la modificación de
  los críticos recibidos.
@@ -2166,7 +2207,7 @@ Nombres masculinos
 
 \begin_layout Standard
 Un listado de nombres entre los que el programa seleccionará uno si el sexo
- es varón, y si el personaje no lo ha elegido a la hora de crearlo.
+ es varón, y si el personaje no ha elegido ya uno a la hora de crearlo.
  
 \end_layout
 
@@ -2176,7 +2217,7 @@ Nombres femeninos
 
 \begin_layout Standard
 Un listado de nombres entre los que el programa seleccionará uno si el sexo
- es mujer, y si el personaje no lo ha elegido a la hora de crearlo.
+ es mujer, y si el personaje no lo ha elegido ya uno a la hora de crearlo.
  
 \end_layout
 
@@ -2189,122 +2230,6 @@ Un nombre estará compuesto por un nombre inicial y un apellido.
  Por tanto el programa escoge un apellido para el personaje si está indicado
  como aleatorio.
  Obviamente no distingue si es personaje es masculino o femenino.
-\end_layout
-
-\begin_layout Section
-Donde situar las nuevas profesiones
-\end_layout
-
-\begin_layout Section
-Plantilla de profesiones
-\end_layout
-
-\begin_layout Subsection
-Orden de las características
-\end_layout
-
-\begin_layout Subsection
-Reinos de magia
-\end_layout
-
-\begin_layout Subsection
-Bonificación por profesión
-\end_layout
-
-\begin_layout Subsection
-Coste de categorías
-\end_layout
-
-\begin_layout Subsection
-Habilidades comunes
-\end_layout
-
-\begin_layout Subsection
-Habilidades profesionales
-\end_layout
-
-\begin_layout Subsection
-Habilidaes restringidas
-\end_layout
-
-\begin_layout Subsection
-Desarrollo de hechizos
-\end_layout
-
-\begin_layout Subsection
-Costes de adiestramientos
-\end_layout
-
-\begin_layout Section
-Donde situar los nuevos adiestramientos
-\end_layout
-
-\begin_layout Section
-Plantilla de adiestramientos
-\end_layout
-
-\begin_layout Subsection
-Tiempo
-\end_layout
-
-\begin_layout Subsection
-Exclusivo Raza
-\end_layout
-
-\begin_layout Subsection
-Especiales
-\end_layout
-
-\begin_layout Subsection
-Modificación a categorías y habilidades
-\end_layout
-
-\begin_layout Subsection
-Aumentos de características
-\end_layout
-
-\begin_layout Subsection
-Requisitos profesionales
-\end_layout
-
-\begin_layout Subsection
-Habilidad de estilo de vida
-\end_layout
-
-\begin_layout Subsection
-Hechizos propios del adiestramiento
-\end_layout
-
-\begin_layout Standard
-Aunque no están aquí, como se incluyen.
-\end_layout
-
-\begin_layout Section
-Donde situar las nuevas culturas
-\end_layout
-
-\begin_layout Section
-Plantilla de culturas
-\end_layout
-
-\begin_layout Subsection
-Armas típicas
-\end_layout
-
-\begin_layout Subsection
-Armaduras típicas
-\end_layout
-
-\begin_layout Subsection
-Mejora de categorías y habilidades
-\end_layout
-
-\begin_layout Subsection
-Aficiones
-\end_layout
-
-\begin_layout Subsection
-Idiomas
 \end_layout
 
 \begin_layout Section
@@ -2322,16 +2247,8 @@ Puedes incluir nuevas categorías y habilidades sin necesidad de modificar
  el fichero original.
  Solamente tienes que crear un nuevo fichero dentro de la carpeta de tu
  módulo incluyendo solamente las habilidades y categorías a las que pertenecen.
- Si ya existen, el programa no las incluirá de nuevo.
+ Si ya existen en algún otro módulo, el programa no las incluirá de nuevo.
  
-\end_layout
-
-\begin_layout Section
-Donde añadir nuevos talentos
-\end_layout
-
-\begin_layout Section
-Donde situar los nuevos hechizos
 \end_layout
 
 \end_body

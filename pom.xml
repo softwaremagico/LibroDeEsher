@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.softwaremagico</groupId>
     <artifactId>LibroDeEsher</artifactId>
-    <version>0.9.9.1</version>
+    <version>1.0.0.0</version>
     <packaging>jar</packaging>
     <name>Libro de Esher</name>
     <url>http://maven.apache.org</url>
@@ -172,7 +172,7 @@
                     <execution>
                         <phase>install</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <delete dir="${linux.releasedir}" failonerror="false" includeemptydirs="true" />
                                 <copy todir="${linux.releasedir}/DEBIAN" overwrite="true" >
                                     <fileset dir="${linux.origin}/DEBIAN" includes="**/*" />
@@ -251,7 +251,7 @@
                                 <copy todir="${windows.releasedir}" overwrite="true" flatten="true" >
                                     <fileset dir="./target/" includes="LibroDeEsher.jar" />
                                 </copy>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>

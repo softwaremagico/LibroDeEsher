@@ -70,6 +70,10 @@ public class TalentosGUI extends javax.swing.JFrame {
         }
         TalentosCogidosTextArea.setText(texto);
     }
+    
+    public void RecalcularPuntosTalentos(){
+        PuntosTextField.setText(Personaje.getInstance().DevolverPuntosTalentosRestantes() + "");        
+    }
 
     public void ActualizarTalentoSeleccionado() {
         try{
@@ -77,7 +81,7 @@ public class TalentosGUI extends javax.swing.JFrame {
         CosteTextField.setText(talento.coste + "");
         TipoTextField.setText(talento.clasificacion);
         DecripcionTextArea.setText(talento.listadoCategorias + "\n------\n" + talento.Descripcion());
-        PuntosTextField.setText(Personaje.getInstance().DevolverPuntosTalentosRestantes() + "");
+        RecalcularPuntosTalentos();
         if (Personaje.getInstance().DevolverTalento(talento.nombre) != null) {
             SeleccionarCheckBox.setSelected(true);
         } else {
@@ -141,6 +145,7 @@ public class TalentosGUI extends javax.swing.JFrame {
             Personaje.getInstance().EliminarTalento(TalentosComboBox.getSelectedItem().toString());
         }
         MostrarTalentosCogidos();
+        RecalcularPuntosTalentos();
     }
 
     /************************************************

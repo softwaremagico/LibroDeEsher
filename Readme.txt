@@ -32,7 +32,7 @@ Existe un problema conocido con el generador de personajes. Normalmente se debe 
 
 Versión
 ------------
-0.991	Cambiado:
+1.0.0.0	Cambiado:
 		- Profesiones pueden tener varios listados de habilidades comunes.
 		- Mejorada la inteligencia para crear personajes aleatorios.
 		- Se permiten sugerir adiestramientos al crear personajes aleatorios.
