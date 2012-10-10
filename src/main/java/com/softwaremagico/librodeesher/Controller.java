@@ -1357,7 +1357,7 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            opciones.GuardarConfiguracion();
+            Esher.GuardarConfiguracion();
             opciones.setVisible(false);
             new NewListener();
         }

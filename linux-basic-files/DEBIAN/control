@@ -4,7 +4,7 @@ Section: Utility
 Priority: optional
 Architecture: all
 Essential: no
-Depends: openjdk-6-jre | sun-java6-jre
+Suggest: openjdk-7-jre | sun-java7-jre | openjdk-6-jre | sun-java6-jre 
 Installed-Size: 3788
 Maintainer: Jorge Hortelano [softwaremagico@gmail.com]
 Replaces: librodeesher

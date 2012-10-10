@@ -67,7 +67,7 @@ public class DirectorioRolemaster implements Serializable {
 
     public static final String DIRECTORIO_CATEGORIAS = "";
     private static final String APPLICATION_FOLDER = getApplicationInstallationDirectory();
-    public static final String ROLEMASTER_FOLDER = APPLICATION_FOLDER +  File.separator + "rolemaster";
+    public static final String ROLEMASTER_FOLDER = APPLICATION_FOLDER + File.separator + "rolemaster";
     public static final String DIRECTORIO_PROFESION = "profesiones";
     public final static String DIRECTORIO_TALENTOS = "talentos";
     public final static String DIRECTORIO_RAZAS = "razas";
@@ -84,13 +84,25 @@ public class DirectorioRolemaster implements Serializable {
     //private Folder directorio;
     private static List<String> ficherosOcultos = ignoredFiles();
     // Modulos configurados para obtener los ficheros adecuados */
-    public static List<String> modulosRolemaster = ObtenerModulosRolemaster();
+    private static List<String> modulosRolemaster = ObtenerModulosRolemaster();
+    public static List<String> disabledModules = new ArrayList<>();
     public static final boolean verbose = false;
 
     /**
      * Creates a new instance of DirectorioRolemaster
      */
     public DirectorioRolemaster() throws Exception {
+    }
+
+    public static List<String> modulosPermitidos() {
+        List<String> modulosReales = new ArrayList<>();
+        modulosReales.addAll(modulosRolemaster);
+        modulosReales.removeAll(disabledModules);
+        return modulosReales;
+    }
+
+    public static List<String> modulosDisponibles() {
+        return modulosRolemaster;
     }
 
     private static String getApplicationInstallationDirectory() {
@@ -105,7 +117,6 @@ public class DirectorioRolemaster implements Serializable {
 
     private static List<String> ignoredFiles() {
         List<String> ignoredFiles = new ArrayList<>();
-        ignoredFiles = new ArrayList<>();
         ignoredFiles.add("plantilla");
         ignoredFiles.add("costes");
         ignoredFiles.add("Raciales");
@@ -115,8 +126,9 @@ public class DirectorioRolemaster implements Serializable {
 
     private static List<String> filesAvailable(String folder) throws Exception {
         List<String> files = new ArrayList<>();
-        for (int i = 0; i < modulosRolemaster.size(); i++) {
-            files.addAll(Folder.ObtainfilesSubdirectory(DIRECTORIO_MODULOS + File.separator + modulosRolemaster.get(i)
+        List<String> modulosPermitidos = modulosPermitidos();
+        for (int i = 0; i < modulosPermitidos.size(); i++) {
+            files.addAll(Folder.ObtainfilesSubdirectory(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i)
                     + File.separator + folder));
         }
         List<String> fileList = new ArrayList<>();
@@ -174,10 +186,11 @@ public class DirectorioRolemaster implements Serializable {
         if (new File(ROLEMASTER_FOLDER + File.separator + ARCHIVO_CATEGORIAS).exists()) {
             categoriasTodos.add(ROLEMASTER_FOLDER + File.separator + ARCHIVO_CATEGORIAS);
         }
-        for (int i = 0; i < modulosRolemaster.size(); i++) {
-            if (Folder.ObtainfilesSubdirectory(DIRECTORIO_MODULOS + File.separator + modulosRolemaster.get(i)).size() > 0) {
-                if (new File(DIRECTORIO_MODULOS + File.separator + modulosRolemaster.get(i) + File.separator + ARCHIVO_CATEGORIAS).exists()) {
-                    categoriasTodos.add(DIRECTORIO_MODULOS + File.separator + modulosRolemaster.get(i) + File.separator + ARCHIVO_CATEGORIAS);
+        List<String> modulosPermitidos = modulosPermitidos();
+        for (int i = 0; i < modulosPermitidos.size(); i++) {
+            if (Folder.ObtainfilesSubdirectory(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i)).size() > 0) {
+                if (new File(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i) + File.separator + ARCHIVO_CATEGORIAS).exists()) {
+                    categoriasTodos.add(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i) + File.separator + ARCHIVO_CATEGORIAS);
                 }
             }
         }
@@ -337,8 +350,9 @@ public class DirectorioRolemaster implements Serializable {
 
     private static List<String> DevolverPathsFichero(String fichero) {
         List<String> ficheros = new ArrayList<>();
-        for (int i = 0; i < modulosRolemaster.size(); i++) {
-            File file = new File(DIRECTORIO_MODULOS + File.separator + modulosRolemaster.get(i) + File.separator + fichero);
+        List<String> modulosPermitidos = modulosPermitidos();
+        for (int i = 0; i < modulosPermitidos.size(); i++) {
+            File file = new File(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i) + File.separator + fichero);
             if (file.exists()) {
                 ficheros.add(file.toString());
             }

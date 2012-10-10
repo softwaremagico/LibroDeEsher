@@ -66,7 +66,6 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Esher esher;
         String soName = System.getProperty("os.name");
         try {
             if (soName.contains("windows") || soName.contains("Windows")) {

@@ -50,8 +50,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -68,6 +66,9 @@ public class Esher implements Serializable {
     public static boolean GeneraSiguiendoNormas = true;
     public static boolean inteligencia = true;
     public static int especializacion = 0; // Indica si se quiere un personaje con muchas o pocas habilidades.
+    public static String configArmasFuego = "ArmasFuegoPeritidas";
+    public static String confighechizosAdiestramientoOtrosReinosPermitidos = "HechizosAdiestramientosOtrosreinos";
+    public static String configHechizosMalignos = "HechizosMalignos";
     public static boolean armasFuegoPermitidas = false;
     public static boolean hechizosAdiestramientoOtrosReinosPermitidos = false;
     //Aleatoriedad.
@@ -81,18 +82,23 @@ public class Esher implements Serializable {
     public static List<String> opciones;
     public static Talentos talentos;
     public static boolean talentosAleatorio = false;
+    public static String configTalentosAleatorios = "TalentosAleatorios";
     public static boolean habilidadesOrdenadasEnPDF = true;
+    public static String configHabilidadesOrdenadas = "HabilidadesOrdenadas";
     public static boolean hechizosMalignos = false;
     public static boolean poderesChi = false;
+    public static String configPoderesChi = "PoderesChi";
     public static boolean variosGradosGolpes = false;
+    public static String configVariosGradosGolpes = "VariosGradosGolpes";
     private static Esher esher = new Esher();
+    private final static String modulosTag = "DisabledModules: ";
 
     /**
      * Creates a new instance of Personaje
      */
     private Esher() {
         try {
-            opciones = DirectorioRolemaster.ObtieneConfiguracionGuardada();
+            AplicarConfiguracion();
             LeerCategoriasDeArchivo();
             InicializarVariables();
             new LeerRaza();
@@ -491,6 +497,112 @@ public class Esher implements Serializable {
     public String getVersion() {
         return MyFile.readTextFile(this.getClass().getResource("/version.txt").getPath(), false);
         //return MyFile.readTextFile("/version.txt",false);
+    }
+
+    private static void AplicarConfiguracion() {
+        opciones = DirectorioRolemaster.ObtieneConfiguracionGuardada();
+        if (opciones.contains(configArmasFuego)) {
+            Esher.armasFuegoPermitidas = true;
+            try {
+                Personaje.getInstance().ActualizaArmas();
+            } catch (Exception ex) {
+            }
+        } else {
+            Esher.armasFuegoPermitidas = false;
+        }
+
+        if (opciones.contains(configHechizosMalignos)) {
+            Esher.hechizosMalignos = true;
+        } else {
+            Esher.hechizosMalignos = false;
+        }
+
+        if (opciones.contains(confighechizosAdiestramientoOtrosReinosPermitidos)) {
+            try {
+                Esher.hechizosAdiestramientoOtrosReinosPermitidos = true;
+                Esher.LeerCategoriasDeArchivo();
+            } catch (Exception ex) {
+            }
+        } else {
+            Esher.hechizosAdiestramientoOtrosReinosPermitidos = false;
+        }
+
+        if (opciones.contains(configPoderesChi)) {
+            Esher.poderesChi = true;
+        } else {
+            Esher.poderesChi = false;
+        }
+
+        if (opciones.contains(configVariosGradosGolpes)) {
+            Esher.variosGradosGolpes = true;
+            Personaje.getInstance().CambiarGolpesArtesMarcialesGenericosADiversosGrados();
+        } else {
+            Esher.variosGradosGolpes = false;
+        }
+
+        if (opciones.contains(configTalentosAleatorios)) {
+            Esher.talentosAleatorio = true;
+        } else {
+            Esher.talentosAleatorio = false;
+        }
+
+        if (opciones.contains(configHabilidadesOrdenadas)) {
+            Esher.habilidadesOrdenadasEnPDF = true;
+        } else {
+            Esher.habilidadesOrdenadasEnPDF = false;
+        }
+        
+        DirectorioRolemaster.disabledModules = new ArrayList<>();
+
+        for (String line : opciones) {
+            try{
+            if (line.contains(Esher.modulosTag)) {
+                String[] disabledModules = line.split(" ");
+                for (int i = 1; i < disabledModules.length; i++) {
+                    DirectorioRolemaster.disabledModules.add(disabledModules[i]);
+                }
+            }
+            }catch(NullPointerException npe){}
+        }
+    }
+
+    public static void GuardarConfiguracion() {
+        opciones = new ArrayList<>();
+        if (armasFuegoPermitidas) {
+            opciones.add(configArmasFuego);
+        }
+
+        if (hechizosAdiestramientoOtrosReinosPermitidos) {
+            opciones.add(confighechizosAdiestramientoOtrosReinosPermitidos);
+        }
+
+        if (hechizosMalignos) {
+            opciones.add(configHechizosMalignos);
+        }
+
+        if (poderesChi) {
+            opciones.add(configPoderesChi);
+        }
+
+        if (variosGradosGolpes) {
+            opciones.add(configVariosGradosGolpes);
+        }
+
+        if (talentosAleatorio) {
+            opciones.add(configTalentosAleatorios);
+        }
+
+        if (habilidadesOrdenadasEnPDF) {
+            opciones.add(configHabilidadesOrdenadas);
+        }
+
+        String disabledModules = Esher.modulosTag;
+        for (String disabledModule : DirectorioRolemaster.disabledModules) {
+            disabledModules += disabledModule + " ";
+        }
+
+        Esher.opciones.add(disabledModules);
+        DirectorioRolemaster.saveListInFile(Esher.opciones, DirectorioRolemaster.ObtenerPathConfiguracion(true));
     }
 }
 

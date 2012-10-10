@@ -1,21 +1,21 @@
 /*
  *
-This software is designed by Jorge Hortelano Otero.
-softwaremagico@gmail.com
-Copyright (C) 2007 Jorge Hortelano Otero.
-C/Botanico 12, 1. Valencia CP:46008 (Spain).
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-Created on february of 2008.
+ This software is designed by Jorge Hortelano Otero.
+ softwaremagico@gmail.com
+ Copyright (C) 2007 Jorge Hortelano Otero.
+ C/Botanico 12, 1. Valencia CP:46008 (Spain).
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 2
+ of the License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ Created on february of 2008.
  */
 package com.softwaremagico.librodeesher.gui;
 /*
@@ -47,8 +47,6 @@ import com.softwaremagico.librodeesher.Esher;
 import com.softwaremagico.librodeesher.Personaje;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -56,81 +54,58 @@ import javax.swing.JOptionPane;
 
 public class OpcionesGUI extends javax.swing.JFrame {
 
-
-    /** Creates new form OpcionesGUI */
+    /**
+     * Creates new form OpcionesGUI
+     */
     public OpcionesGUI() {
         initComponents();
         setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (int) (this.getWidth() / 2),
                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (int) (this.getHeight() / 2));
         AplicaConfiguracionGuardada();
         RellenaModulos();
+        updateDisabledCheckBox();
     }
 
     public void AplicaConfiguracionGuardada() {
         for (int i = 0; i < Esher.opciones.size(); i++) {
             String opcion = Esher.opciones.get(i);
-            if (opcion.equals(ArmasFuegoCheckBox.getText())) {
+            if (opcion.equals(Esher.configArmasFuego)) {
                 if (!ArmasFuegoCheckBox.isSelected()) {
                     ArmasFuegoCheckBox.setSelected(true);
                     AplicarArmasFuego();
                 }
-            } else if (opcion.equals(HechizosAdiestramientoCheckBox.getText())) {
+            } else if (opcion.equals(Esher.confighechizosAdiestramientoOtrosReinosPermitidos)) {
                 if (!HechizosAdiestramientoCheckBox.isSelected()) {
                     HechizosAdiestramientoCheckBox.setSelected(true);
                     AplicarHechizosOtrosAdiestramientos();
                 }
-            } else if (opcion.equals(HechizosMalignosCheckBox.getText())) {
+            } else if (opcion.equals(Esher.configHechizosMalignos)) {
                 if (!HechizosMalignosCheckBox.isSelected()) {
                     HechizosMalignosCheckBox.setSelected(true);
                     Esher.hechizosMalignos = HechizosMalignosCheckBox.isSelected();
                 }
-            } else if (opcion.equals(TalentosCheckBox.getText())) {
+            } else if (opcion.equals(Esher.configTalentosAleatorios)) {
                 if (!TalentosCheckBox.isSelected()) {
                     TalentosCheckBox.setSelected(true);
                     Esher.talentosAleatorio = TalentosCheckBox.isSelected();
                 }
-            } else if (opcion.equals(LexicograficoRadioButton.getText())) {
+            } else if (opcion.equals(Esher.configHabilidadesOrdenadas)) {
                 if (!LexicograficoRadioButton.isSelected()) {
                     LexicograficoRadioButton.setSelected(true);
                 }
-            } else if (opcion.equals(PoderesChiCheckBox.getText())) {
+            } else if (opcion.equals(Esher.configPoderesChi)) {
                 if (!PoderesChiCheckBox.isSelected()) {
                     PoderesChiCheckBox.setSelected(true);
                     AplicarPoderesChi();
                 }
-            } else if (opcion.equals(VariosGolpesCheckBox.getText())) {
+            } else if (opcion.equals(Esher.configVariosGradosGolpes)) {
                 if (!VariosGolpesCheckBox.isSelected()) {
                     VariosGolpesCheckBox.setSelected(true);
                     AplicarVariosGolpes();
                 }
             }
         }
-    }
-
-    public static void GuardarConfiguracion() {
-        Esher.opciones = new ArrayList<>();
-        if (ArmasFuegoCheckBox.isSelected()) {
-            Esher.opciones.add(ArmasFuegoCheckBox.getText());
-        }
-        if (HechizosAdiestramientoCheckBox.isSelected()) {
-            Esher.opciones.add(HechizosAdiestramientoCheckBox.getText());
-        }
-        if (HechizosMalignosCheckBox.isSelected()) {
-            Esher.opciones.add(HechizosMalignosCheckBox.getText());
-        }
-        if (TalentosCheckBox.isSelected()) {
-            Esher.opciones.add(TalentosCheckBox.getText());
-        }
-        if (LexicograficoRadioButton.isSelected()) {
-            Esher.opciones.add(LexicograficoRadioButton.getText());
-        }
-        if (PoderesChiCheckBox.isSelected()) {
-            Esher.opciones.add(PoderesChiCheckBox.getText());
-        }
-        if (VariosGolpesCheckBox.isSelected()) {
-            Esher.opciones.add(VariosGolpesCheckBox.getText());
-        }
-        DirectorioRolemaster.saveListInFile(Esher.opciones, DirectorioRolemaster.ObtenerPathConfiguracion(true));
+       updateDisabledCheckBox();
     }
 
     /**
@@ -140,7 +115,7 @@ public class OpcionesGUI extends javax.swing.JFrame {
         JFrame frame = null;
         JOptionPane.showMessageDialog(frame, text, title, JOptionPane.ERROR_MESSAGE);
     }
-    
+
     public void ShowAlertMessage(String text, String title) {
         JFrame frame = null;
         JOptionPane.showMessageDialog(frame, text, title, JOptionPane.WARNING_MESSAGE);
@@ -148,39 +123,8 @@ public class OpcionesGUI extends javax.swing.JFrame {
 
     private void RellenaModulos() {
         ModulosComboBox.removeAllItems();
-        for (int i = 0; i < DirectorioRolemaster.modulosRolemaster.size(); i++) {
-            ModulosComboBox.addItem(DirectorioRolemaster.modulosRolemaster.get(i));
-        }
-    }
-
-    public void BorraModulo() {
-        if (ModulosComboBox.getSelectedIndex() >= 0) {
-            DirectorioRolemaster.modulosRolemaster.remove(ModulosComboBox.getSelectedIndex());
-            ModulosTextField.setText("");
-            GuardarModulos();
-            RellenaModulos();
-        }
-    }
-
-    public void GuardarModulos() {
-        //DirectorioRolemaster.saveListInFile(DirectorioRolemaster.modulosRolemaster, DirectorioRolemaster.ObtenerPathModulos());
-    }
-
-    public void AñadirModulo() {
-        File file;
-        if (!DirectorioRolemaster.modulosRolemaster.contains(ModulosTextField.getText())) {
-            file = new File(ModulosTextField.getText());
-            if (file.exists()) {
-                DirectorioRolemaster.modulosRolemaster.add(ModulosTextField.getText());
-                ModulosTextField.setText("");
-                GuardarModulos();
-                RellenaModulos();
-                ShowAlertMessage("Debes reiniciar la aplicación para que los cambios tengan efecto.", "Reiniciar aplicación");
-            } else {
-                ShowErrorMessage("El directorio \"" + ModulosTextField.getText() + "\" no existe.", "Error de directorio");
-            }
-        } else {
-            ShowErrorMessage("El directorio seleccionado ya existe.", "Error de directorio");
+        for (int i = 0; i < DirectorioRolemaster.modulosDisponibles().size(); i++) {
+            ModulosComboBox.addItem(DirectorioRolemaster.modulosDisponibles().get(i));
         }
     }
 
@@ -225,13 +169,26 @@ public class OpcionesGUI extends javax.swing.JFrame {
         }
     }
 
-    /************************************************
+    private void updateDisabledCheckBox() {
+        try{
+        if (DirectorioRolemaster.disabledModules.contains(ModulosComboBox.getSelectedItem().toString())) {
+            DisableCheckBox.setSelected(true);
+        } else {
+            DisableCheckBox.setSelected(false);
+        }
+        }catch(NullPointerException npe){}
+    }
+
+    /**
+     * **********************************************
      *
-     *                    LISTENERS
+     * LISTENERS
      *
-     ************************************************/
+     ***********************************************
+     */
     /**
      * Añade el listener
+     *
      * @param al
      */
     public void addCerrarButtonListener(ActionListener al) {
@@ -243,10 +200,10 @@ public class OpcionesGUI extends javax.swing.JFrame {
         LexicograficoRadioButton.addActionListener(al);
     }
 
-    /** This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -262,12 +219,8 @@ public class OpcionesGUI extends javax.swing.JFrame {
         CerrarButton = new javax.swing.JButton();
         ModulosPanel = new javax.swing.JPanel();
         ModulosComboBox = new javax.swing.JComboBox();
-        ModulosTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        BorrarModuloButton = new javax.swing.JButton();
-        AñadirButton = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        DisableCheckBox = new javax.swing.JCheckBox();
         PersoanjeAleatorioPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         TalentosCheckBox = new javax.swing.JCheckBox();
@@ -275,9 +228,13 @@ public class OpcionesGUI extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         CategoriasRadioButton = new javax.swing.JRadioButton();
         LexicograficoRadioButton = new javax.swing.JRadioButton();
-        jLabel5 = new javax.swing.JLabel();
 
         setTitle("Opciones");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -333,12 +290,12 @@ public class OpcionesGUI extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(HechizosAdiestramientoCheckBox)
                     .addComponent(HechizosMalignosCheckBox))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(6, 6, 6)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ArmasFuegoCheckBox)
@@ -348,9 +305,9 @@ public class OpcionesGUI extends javax.swing.JFrame {
                 .addComponent(HechizosMalignosCheckBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PoderesChiCheckBox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(VariosGolpesCheckBox)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(VariosGolpesCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         CerrarButton.setText("Cerrar");
@@ -364,25 +321,14 @@ public class OpcionesGUI extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
-        jLabel2.setText("Modulos");
+        jLabel2.setText("Modulos Disponibles:");
 
-        BorrarModuloButton.setText("Borrar");
-        BorrarModuloButton.addActionListener(new java.awt.event.ActionListener() {
+        DisableCheckBox.setText("Deshabilitado");
+        DisableCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BorrarModuloButtonActionPerformed(evt);
+                DisableCheckBoxActionPerformed(evt);
             }
         });
-
-        AñadirButton.setText("Añadir");
-        AñadirButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AñadirButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setText("Incluidos:");
-
-        jLabel7.setText("Añadir:");
 
         javax.swing.GroupLayout ModulosPanelLayout = new javax.swing.GroupLayout(ModulosPanel);
         ModulosPanel.setLayout(ModulosPanelLayout);
@@ -391,38 +337,25 @@ public class OpcionesGUI extends javax.swing.JFrame {
             .addGroup(ModulosPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(ModulosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel6)
-                    .addComponent(ModulosComboBox, 0, 419, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ModulosPanelLayout.createSequentialGroup()
-                        .addComponent(AñadirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
-                        .addComponent(BorrarModuloButton))
-                    .addComponent(ModulosTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
-                    .addComponent(jLabel7))
+                    .addGroup(ModulosPanelLayout.createSequentialGroup()
+                        .addComponent(ModulosComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(DisableCheckBox))
+                    .addGroup(ModulosPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-
-        ModulosPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {AñadirButton, BorrarModuloButton});
-
         ModulosPanelLayout.setVerticalGroup(
             ModulosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ModulosPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ModulosComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ModulosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(ModulosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BorrarModuloButton)
-                    .addComponent(AñadirButton))
-                .addGap(24, 24, 24))
+                    .addComponent(ModulosComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DisableCheckBox))
+                .addContainerGap())
         );
 
         PersoanjeAleatorioPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -446,16 +379,16 @@ public class OpcionesGUI extends javax.swing.JFrame {
                 .addGroup(PersoanjeAleatorioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(TalentosCheckBox))
-                .addContainerGap(276, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         PersoanjeAleatorioPanelLayout.setVerticalGroup(
             PersoanjeAleatorioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PersoanjeAleatorioPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TalentosCheckBox)
-                .addContainerGap())
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         FichaPDFPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -470,8 +403,6 @@ public class OpcionesGUI extends javax.swing.JFrame {
         OrdenarHabilidadesbuttonGroup.add(LexicograficoRadioButton);
         LexicograficoRadioButton.setText("Orden lexicografico");
 
-        jLabel5.setText("Habilidades:");
-
         javax.swing.GroupLayout FichaPDFPanelLayout = new javax.swing.GroupLayout(FichaPDFPanel);
         FichaPDFPanel.setLayout(FichaPDFPanelLayout);
         FichaPDFPanelLayout.setHorizontalGroup(
@@ -481,9 +412,8 @@ public class OpcionesGUI extends javax.swing.JFrame {
                 .addGroup(FichaPDFPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(CategoriasRadioButton)
-                    .addComponent(LexicograficoRadioButton)
-                    .addComponent(jLabel5))
-                .addContainerGap(237, Short.MAX_VALUE))
+                    .addComponent(LexicograficoRadioButton))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         FichaPDFPanelLayout.setVerticalGroup(
             FichaPDFPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -491,8 +421,6 @@ public class OpcionesGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(CategoriasRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LexicograficoRadioButton)
@@ -507,27 +435,33 @@ public class OpcionesGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PersoanjeAleatorioPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(FichaPDFPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ModulosPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(CerrarButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(PersoanjeAleatorioPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(FichaPDFPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(CerrarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PersoanjeAleatorioPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FichaPDFPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PersoanjeAleatorioPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FichaPDFPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ModulosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(CerrarButton)
                 .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {FichaPDFPanel, PersoanjeAleatorioPanel});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -535,19 +469,8 @@ public class OpcionesGUI extends javax.swing.JFrame {
         AplicarArmasFuego();
     }//GEN-LAST:event_ArmasFuegoCheckBoxActionPerformed
 
-    private void BorrarModuloButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarModuloButtonActionPerformed
-        BorraModulo();
-}//GEN-LAST:event_BorrarModuloButtonActionPerformed
-
-    private void AñadirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñadirButtonActionPerformed
-        AñadirModulo();
-    }//GEN-LAST:event_AñadirButtonActionPerformed
-
     private void ModulosComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ModulosComboBoxItemStateChanged
-        try {
-            ModulosTextField.setText(ModulosComboBox.getSelectedItem().toString());
-        } catch (NullPointerException npe) {
-        }
+        updateDisabledCheckBox();
     }//GEN-LAST:event_ModulosComboBoxItemStateChanged
 
     private void TalentosCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TalentosCheckBoxActionPerformed
@@ -570,19 +493,31 @@ public class OpcionesGUI extends javax.swing.JFrame {
         AplicarVariosGolpes();
 }//GEN-LAST:event_VariosGolpesCheckBoxActionPerformed
 
+    private void DisableCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisableCheckBoxActionPerformed
+        if (DisableCheckBox.isSelected()) {
+            if (!DirectorioRolemaster.disabledModules.contains(ModulosComboBox.getSelectedItem().toString())) {
+                DirectorioRolemaster.disabledModules.add(ModulosComboBox.getSelectedItem().toString());
+            }
+        } else {
+            DirectorioRolemaster.disabledModules.remove(ModulosComboBox.getSelectedItem().toString());
+        }
+    }//GEN-LAST:event_DisableCheckBoxActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        Esher.GuardarConfiguracion();
+    }//GEN-LAST:event_formWindowClosing
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JCheckBox ArmasFuegoCheckBox;
-    private javax.swing.JButton AñadirButton;
-    private javax.swing.JButton BorrarModuloButton;
     private static javax.swing.JRadioButton CategoriasRadioButton;
     private javax.swing.JButton CerrarButton;
+    private javax.swing.JCheckBox DisableCheckBox;
     private javax.swing.JPanel FichaPDFPanel;
     private static javax.swing.JCheckBox HechizosAdiestramientoCheckBox;
     private static javax.swing.JCheckBox HechizosMalignosCheckBox;
     private static javax.swing.JRadioButton LexicograficoRadioButton;
     private javax.swing.JComboBox ModulosComboBox;
     private javax.swing.JPanel ModulosPanel;
-    private javax.swing.JTextField ModulosTextField;
     private javax.swing.ButtonGroup OrdenarHabilidadesbuttonGroup;
     private javax.swing.JPanel PersoanjeAleatorioPanel;
     private static javax.swing.JCheckBox PoderesChiCheckBox;
@@ -592,9 +527,6 @@ public class OpcionesGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
