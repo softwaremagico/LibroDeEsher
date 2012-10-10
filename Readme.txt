@@ -39,6 +39,7 @@ Versión
 		- Existen habilidades restringidas por defecto.
 		- Los talentos tienen nuevas opciones. 
 		- PDF de la hoja combinada de habilidades.
+		- Se ha adaptado la interfaz gráfica del programa para poder utilizarse con resoluciones de 1024x600 (netbooks). 
 
 0.990	Cambiado:
 		- Las categorías se separan por módulos, de forma que se pueden añadir sin tener que cambiar el fichero original. 
