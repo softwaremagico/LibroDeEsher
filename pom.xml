@@ -46,7 +46,7 @@
         <linux.destination-folder>/usr/share/libro-de-esher</linux.destination-folder>
         <windows.releasedir>install_windows</windows.releasedir>
         <windows.origin>windows-basic-files</windows.origin>
-        <winexe>LibroDeEsher-${project.version}.exe</winexe>
+        <winexe>LibroDeEsher.exe</winexe>
         <license.licenseName>gnugpl</license.licenseName>
         <license.licenseResolver>file://${basedir}/src/license</license.licenseResolver>
         <plugin.exec.version>1.2.1</plugin.exec.version>
