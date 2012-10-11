@@ -54,6 +54,8 @@ package com.softwaremagico.files;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -107,12 +109,21 @@ public class DirectorioRolemaster implements Serializable {
 
     private static String getApplicationInstallationDirectory() {
         File directory = new File(DirectorioRolemaster.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+        String path;
         //Carga local mediante netbeans
-        if (directory.getParentFile().getAbsolutePath().contains("target")) {
-            return directory.getParentFile().getParentFile().getAbsolutePath();
+        if (directory.getParentFile().getPath().contains("target")) {
+            path = directory.getParentFile().getParentFile().getPath();
+        } else {
+            //Carga desde el instalador. 
+            path = directory.getParentFile().getPath();
         }
-        //Carga desde el instalador. 
-        return directory.getParentFile().getAbsolutePath();
+        try {
+            //Delete '%20' if whitespaces are present.
+            path = URLDecoder.decode(path, "utf-8");
+        } catch (UnsupportedEncodingException ex) {
+            return path;
+        }
+        return path;
     }
 
     private static List<String> ignoredFiles() {
@@ -293,7 +304,6 @@ public class DirectorioRolemaster implements Serializable {
             pathModulos = Folder.obtainFolders(DIRECTORIO_MODULOS + File.separator);
             return pathModulos;
         } catch (Exception ex) {
-            ex.printStackTrace();
             return new ArrayList<>();
         }
     }
