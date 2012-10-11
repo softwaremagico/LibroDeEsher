@@ -224,6 +224,9 @@ public class Folder {
 
     public static void generateFolder(String file) {
         File f = new File(file);
-        f.mkdir();
+        try {
+            f.mkdir();
+        } catch (Exception e) {
+        }
     }
 }

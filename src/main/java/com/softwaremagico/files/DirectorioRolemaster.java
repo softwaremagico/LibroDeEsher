@@ -77,7 +77,7 @@ public class DirectorioRolemaster implements Serializable {
     public final static String DIRECTORIO_ADIESTRAMIENTOS = "adiestramientos";
     public final static String DIRECTORIO_MODULOS = ROLEMASTER_FOLDER + File.separator + "modulos";
     public static final String DIRECTORIO_CONFIGURACION = "configuracion";
-    public static final String DIRECTORIO_STORE_USER_DATA = "librodeesher";
+    public static final String DIRECTORIO_STORE_USER_DATA = ".librodeesher";
     public static final String ARCHIVO_CATEGORIAS = "categorias.txt";
     private static final String MODULOS = "modulos.txt";
     private static final String CONFIG = "configuracion.txt";
@@ -318,19 +318,10 @@ public class DirectorioRolemaster implements Serializable {
     }
 
     public static String ObtenerPathConfigEnHome() {
-        String config = System.getProperty("user.home");
-        String soName = System.getProperty("os.name");
-        if (soName.contains("Linux") || soName.contains("linux")) {
-            Folder.generateFolder(config + File.separator + "." + DIRECTORIO_STORE_USER_DATA + File.separator);
-            Folder.generateFolder(config + File.separator + "." + DIRECTORIO_STORE_USER_DATA + File.separator + DIRECTORIO_CONFIGURACION + File.separator);
-            return config + File.separator + "." + DIRECTORIO_STORE_USER_DATA + File.separator + DIRECTORIO_CONFIGURACION + File.separator;
-        } else if (soName.contains("Windows") || soName.contains("windows") || soName.contains("vista") || soName.contains("Vista")) {
-            Folder.generateFolder(config + File.separator + DIRECTORIO_STORE_USER_DATA + File.separator);
-            Folder.generateFolder(config + File.separator + DIRECTORIO_STORE_USER_DATA + File.separator + DIRECTORIO_CONFIGURACION + File.separator);
-            return config + File.separator + DIRECTORIO_STORE_USER_DATA + File.separator + DIRECTORIO_CONFIGURACION + File.separator;
-        }
-        return config + File.separator + DIRECTORIO_STORE_USER_DATA + File.separator + DIRECTORIO_CONFIGURACION + File.separator;
-
+        String userHomeFolder = System.getProperty("user.home");
+        Folder.generateFolder(userHomeFolder + File.separator + DIRECTORIO_STORE_USER_DATA + File.separator);
+        Folder.generateFolder(userHomeFolder + File.separator + DIRECTORIO_STORE_USER_DATA + File.separator + DIRECTORIO_CONFIGURACION + File.separator);
+        return userHomeFolder + File.separator + DIRECTORIO_STORE_USER_DATA + File.separator + DIRECTORIO_CONFIGURACION + File.separator;
     }
 
     /**
