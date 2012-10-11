@@ -293,6 +293,7 @@ public class DirectorioRolemaster implements Serializable {
             pathModulos = Folder.obtainFolders(DIRECTORIO_MODULOS + File.separator);
             return pathModulos;
         } catch (Exception ex) {
+            ex.printStackTrace();
             return new ArrayList<>();
         }
     }
@@ -309,7 +310,7 @@ public class DirectorioRolemaster implements Serializable {
     }
 
     public static List<String> ObtieneConfiguracionGuardada() {
-        String file = ObtenerPathConfiguracion(false);
+        String file = ObtenerPathConfiguracion();
         try {
             return Folder.readFileLines(file, verbose);
         } catch (IOException ex) {
@@ -319,8 +320,12 @@ public class DirectorioRolemaster implements Serializable {
 
     public static String ObtenerPathConfigEnHome() {
         String userHomeFolder = System.getProperty("user.home");
-        Folder.generateFolder(userHomeFolder + File.separator + DIRECTORIO_STORE_USER_DATA + File.separator);
-        Folder.generateFolder(userHomeFolder + File.separator + DIRECTORIO_STORE_USER_DATA + File.separator + DIRECTORIO_CONFIGURACION + File.separator);
+        if (!new File(userHomeFolder + File.separator + DIRECTORIO_STORE_USER_DATA + File.separator).exists()) {
+            Folder.generateFolder(userHomeFolder + File.separator + DIRECTORIO_STORE_USER_DATA + File.separator);
+        }
+        if (!new File(userHomeFolder + File.separator + DIRECTORIO_STORE_USER_DATA + File.separator + DIRECTORIO_CONFIGURACION + File.separator).exists()) {
+            Folder.generateFolder(userHomeFolder + File.separator + DIRECTORIO_STORE_USER_DATA + File.separator + DIRECTORIO_CONFIGURACION + File.separator);
+        }
         return userHomeFolder + File.separator + DIRECTORIO_STORE_USER_DATA + File.separator + DIRECTORIO_CONFIGURACION + File.separator;
     }
 
@@ -331,7 +336,7 @@ public class DirectorioRolemaster implements Serializable {
      * reading.
      * @return
      */
-    public static String ObtenerPathConfiguracion(boolean write) {
+    public static String ObtenerPathConfiguracion() {
         return ObtenerPathConfigEnHome() + CONFIG;
     }
 

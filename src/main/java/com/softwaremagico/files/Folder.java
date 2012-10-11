@@ -51,10 +51,6 @@ public class Folder {
         File dir = new File(src);
         List<String> lista = new ArrayList<>();
         if (dir.isDirectory()) {
-            if (!dir.exists()) {
-                throw new Exception("Error: El directorio no existe");
-            }
-
             //tomamos los files contenidos en la URL dada
             String[] archivos = dir.list();
             for (String file : archivos) {
@@ -62,6 +58,8 @@ public class Folder {
                     lista.add(file);
                 }
             }
+        } else {
+            throw new Exception("Error: El directorio '" + dir.getPath() + "' no existe");
         }
         return lista;
     }

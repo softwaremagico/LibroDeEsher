@@ -602,7 +602,7 @@ public class Esher implements Serializable {
         }
 
         Esher.opciones.add(disabledModules);
-        DirectorioRolemaster.saveListInFile(Esher.opciones, DirectorioRolemaster.ObtenerPathConfiguracion(true));
+        DirectorioRolemaster.saveListInFile(Esher.opciones, DirectorioRolemaster.ObtenerPathConfiguracion());
     }
 }
 
