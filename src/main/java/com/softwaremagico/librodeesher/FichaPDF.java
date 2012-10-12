@@ -1692,7 +1692,7 @@ public class FichaPDF {
         Paragraph p;
         PdfPCell cell;
 
-        p = new Paragraph("Generado con El Libro de Esher, herramienta para Rolemaster V" + Esher.version + "",
+        p = new Paragraph("Generado con El Libro de Esher, herramienta para Rolemaster V" + Esher.getVersion() + "",
                 FontFactory.getFont(font, fontSize));
         cell = new PdfPCell(p);
         cell.setBorderWidth(0);

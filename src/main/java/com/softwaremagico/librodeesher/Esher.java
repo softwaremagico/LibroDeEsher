@@ -56,8 +56,6 @@ import java.util.Random;
  * @author Jorge Hortelano
  */
 public class Esher implements Serializable {
-
-    public static final String version = "0.9.9.1";
     //Directorios
     private String DIRECTORIO_DEFECTO = System.getProperty("user.home");
     public String BASIC_PATH = "";
@@ -494,9 +492,10 @@ public class Esher implements Serializable {
         new LeerCultura();
     }
 
-    public String getVersion() {
-        return MyFile.readTextFile(this.getClass().getResource("/version.txt").getPath(), false);
+    public static String getVersion() {
+        //return MyFile.readTextFile(Esher.class.getClass().getResource("/version.txt").getPath(), false);
         //return MyFile.readTextFile("/version.txt",false);
+        return "1.0.0.0";
     }
 
     private static void AplicarConfiguracion() {
