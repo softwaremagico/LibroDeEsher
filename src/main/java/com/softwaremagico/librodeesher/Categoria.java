@@ -45,6 +45,8 @@ package com.softwaremagico.librodeesher;
 import com.softwaremagico.librodeesher.gui.MostrarError;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Image;
+import com.softwaremagico.files.DirectorioRolemaster;
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
@@ -323,16 +325,16 @@ public class Categoria implements Serializable {
         Image image;
         switch (nuevosRangos) {
             case 1:
-                image = Image.getInstance("rolemaster/fichas/cuadros/cuadros1.png");
+                image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros1.png");
                 break;
             case 2:
-                image = Image.getInstance("rolemaster/fichas/cuadros/cuadros2.png");
+                image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros2.png");
                 break;
             case 3:
-                image = Image.getInstance("rolemaster/fichas/cuadros/cuadros3.png");
+                image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros3.png");
                 break;
             default:
-                image = Image.getInstance("rolemaster/fichas/cuadros/cuadros0.png");
+                image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros0.png");
         }
         image.scalePercent(28);
 

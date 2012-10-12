@@ -48,6 +48,11 @@ public class MessageManager {
         basicErrorMessage(error, "Error");
         throwable.printStackTrace();
     }
+    
+    public static void infoMessage(String text, String title){
+        showGraphicMessage(text, title, JOptionPane.INFORMATION_MESSAGE);
+        Log.finest(title + ": " + text);
+    }
 
     public static void customMessage(String text, String title, int option) {
         showGraphicMessage(text, title, option);

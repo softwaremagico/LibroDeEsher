@@ -53,6 +53,8 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.softwaremagico.files.DirectorioRolemaster;
+import com.softwaremagico.files.MessageManager;
 import com.softwaremagico.librodeesher.gui.MostrarError;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -70,10 +72,9 @@ public class FichaPDF {
     boolean completar;
     boolean doscaras;
 
-    FichaPDF(){
-        
+    FichaPDF() {
     }
-    
+
     FichaPDF(boolean enblanco) throws Exception {
         if (enblanco) {
             completar = false;
@@ -114,8 +115,10 @@ public class FichaPDF {
         try {
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
             GeneratePDF(document, writer);
+            MessageManager.infoMessage("Ficha creada correctamente.", "Exportar a PDF");
         } catch (FileNotFoundException fnfe) {
-            MostrarError.showErrorMessage("Creación de PDF fallida.", "Exportar a PDF");
+            MessageManager.basicErrorMessage("Creación de PDF fallida.", "Exportar a PDF");
+            MessageManager.errorMessage(fnfe);
         }
     }
 
@@ -299,7 +302,7 @@ public class FichaPDF {
                     if (cat.TipoCategoria().equals("Estándar")) {
                         Image image;
                         if (!completar) {
-                            image = Image.getInstance("rolemaster/fichas/cuadros/cuadros0.png");
+                            image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros0.png");
                             image.scalePercent(28);
                         } else {
                             image = cat.DevolverCuadradosNuevosRangos(28);
@@ -320,7 +323,7 @@ public class FichaPDF {
                     }
                 } else {
                     Image image;
-                    image = Image.getInstance("rolemaster/fichas/cuadros/cuadros0.png");
+                    image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros0.png");
                     image.scalePercent(28);
                     cell = new PdfPCell(image);
                 }
@@ -617,7 +620,7 @@ public class FichaPDF {
         table.addCell(cell);
 
         Image image;
-        image = Image.getInstance("rolemaster/fichas/cuadros/cuadros0.png");
+        image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros0.png");
 
 
         image.scalePercent(28);
@@ -731,7 +734,7 @@ public class FichaPDF {
         table.addCell(cell);
 
         Image image;
-        image = Image.getInstance("rolemaster/fichas/cuadros/cuadros0.png");
+        image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros0.png");
         image.scalePercent(28);
         cell = new PdfPCell(image);
         cell.setBorderWidth(0);
@@ -794,7 +797,7 @@ public class FichaPDF {
         }
         //Generamos una nueva.
         document.newPage();
-        AddImagenFondo(document, "rolemaster/fichas/RMHP3.png");
+        AddImagenFondo(document, DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "RMHP3.png");
     }
 
     private int NuevaHabilidad(PdfPTable table, Document document, PdfWriter writer,
@@ -876,14 +879,14 @@ public class FichaPDF {
 
     private void PersonajePagina3PDF(Document document, PdfWriter writer, String font) throws Exception {
         document.newPage();
-        AddImagenFondo(document, "rolemaster/fichas/RMHP3.png");
+        AddImagenFondo(document, DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "RMHP3.png");
         AddTablaNombreHabilidades(document, writer, font);
         AddTablaValoresHabilidades(document, writer, font);
     }
 
     private void PersonajePagina2PDF(Document document, PdfWriter writer, String font) throws Exception {
         document.newPage();
-        AddImagenFondo(document, "rolemaster/fichas/RMHP2.png");
+        AddImagenFondo(document, DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "RMHP2.png");
         AddTablaNombreCat(document, writer, font);
         AddTablaValoresCategorias(document, writer, font);
         //El reverso en blanco para no desentonar.
@@ -1784,7 +1787,7 @@ public class FichaPDF {
 
     void PersonajePagina1PDF(Document document, PdfWriter writer, String font) throws Exception {
         int fontSize = 7;
-        AddImagenFondo(document, "rolemaster/fichas/RMHP1.png");
+        AddImagenFondo(document, DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "RMHP1.png");
         AddTablaPrincipal(document, writer, font, fontSize);
     }
 

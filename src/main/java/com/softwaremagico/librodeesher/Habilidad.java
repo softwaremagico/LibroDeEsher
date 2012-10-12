@@ -44,8 +44,10 @@ package com.softwaremagico.librodeesher;
 
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Image;
+import com.softwaremagico.files.DirectorioRolemaster;
 import com.softwaremagico.librodeesher.gui.MostrarError;
 import com.softwaremagico.librodeesher.gui.SeleccionarHabilidadGUI;
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
@@ -616,30 +618,30 @@ public class Habilidad implements Serializable {
         if (!EsRestringida()) {
             switch (nuevosRangos) {
                 case 1:
-                    image = Image.getInstance("rolemaster/fichas/cuadros/cuadros1.png");
+                    image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros1.png");
                     break;
                 case 2:
-                    image = Image.getInstance("rolemaster/fichas/cuadros/cuadros2.png");
+                    image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros2.png");
                     break;
                 case 3:
-                    image = Image.getInstance("rolemaster/fichas/cuadros/cuadros3.png");
+                    image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros3.png");
                     break;
                 default:
-                    image = Image.getInstance("rolemaster/fichas/cuadros/cuadros0.png");
+                    image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros0.png");
             }
         } else {
             switch (nuevosRangos) {
-                case 1:
-                    image = Image.getInstance("rolemaster/fichas/cuadros/cuadros05.png");
+                case 1:                    
+                    image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros05.png");
                     break;
-                case 2:
-                    image = Image.getInstance("rolemaster/fichas/cuadros/cuadros1.png");
+                case 2:                    
+                    image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros1.png");
                     break;
-                case 3:
-                    image = Image.getInstance("rolemaster/fichas/cuadros/cuadros15.png");
+                case 3:                    
+                    image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros15.png");
                     break;
-                default:
-                    image = Image.getInstance("rolemaster/fichas/cuadros/cuadros0.png");
+                default: 
+                    image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros0.png");
             }
         }
         image.scalePercent(25);

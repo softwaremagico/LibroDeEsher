@@ -31,7 +31,7 @@ import java.util.logging.*;
 
 public class Log {
 
-    private static final Logger logger = Logger.getLogger("KendoLog");
+    private static final Logger logger = Logger.getLogger("EsherLog");
     private static final Level logLevel = Level.ALL; //INFO, OFF, ALL, ... 
     private static final int maxBytes = 10000000;
     private static final int numLogFiles = 10;

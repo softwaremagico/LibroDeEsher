@@ -1,21 +1,21 @@
 /*
  *
-This software is designed by Jorge Hortelano Otero.
-softwaremagico@gmail.com
-Copyright (C) 2010 Jorge Hortelano Otero.
-C/Botanico 12, 1. Valencia CP:46008 (Spain).
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-Created on december of 2010.
+ This software is designed by Jorge Hortelano Otero.
+ softwaremagico@gmail.com
+ Copyright (C) 2010 Jorge Hortelano Otero.
+ C/Botanico 12, 1. Valencia CP:46008 (Spain).
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 2
+ of the License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ Created on december of 2010.
  */
 package com.softwaremagico.librodeesher;
 /*
@@ -55,7 +55,10 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.softwaremagico.files.DirectorioRolemaster;
+import com.softwaremagico.files.MessageManager;
 import com.softwaremagico.librodeesher.gui.MostrarError;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -109,8 +112,10 @@ public class FichaPDFCombinada extends FichaPDF {
         try {
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
             GeneratePDF(document, writer);
+            MessageManager.infoMessage("Ficha creada correctamente.", "Exportar a PDF");
         } catch (FileNotFoundException fnfe) {
-            MostrarError.showErrorMessage("Creación de PDF fallida.", "Exportar a PDF");
+            MessageManager.basicErrorMessage("Creación de PDF fallida.", "Exportar a PDF");
+            MessageManager.errorMessage(fnfe);
         }
     }
 
@@ -137,9 +142,9 @@ public class FichaPDFCombinada extends FichaPDF {
 
     private void PersonajePagina2PDF(Document document, PdfWriter writer, String font) throws Exception {
         document.newPage();
-        AddImagenFondo(document, "rolemaster/fichas/RMHPComb.png");
+        AddImagenFondo(document, DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "RMHPComb.png");
         /*AddTablaNombreCat(document, writer, font);
-        AddTablaValoresCategorias(document, writer, font);*/
+         AddTablaValoresCategorias(document, writer, font);*/
         AddHabilidadesCombinadasPage(document, writer, font);
     }
 
@@ -213,7 +218,9 @@ public class FichaPDFCombinada extends FichaPDF {
         tableCat.addCell(cell);
 
 
-        /** SEGUNDA LINEA **/
+        /**
+         * SEGUNDA LINEA *
+         */
         p = new Paragraph("Bonif. Rango: " + cat.DevolverValorRangoCategoria(), FontFactory.getFont(font, fontSize));
         cell = new PdfPCell(p);
         cell.setMinimumHeight(15);
@@ -668,7 +675,7 @@ public class FichaPDFCombinada extends FichaPDF {
         cell.setPaddingLeft(5f);
         tableHab.addCell(cell);
 
-        Image image = Image.getInstance("rolemaster/fichas/cuadros/cuadros0.png");
+        Image image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros0.png");
         image.scalePercent(25);
 
         cell = new PdfPCell(image);
@@ -822,13 +829,13 @@ public class FichaPDFCombinada extends FichaPDF {
 
         /* IMPRIMIR LA ULTIMA COLUMNA DE CATEGORIAS */
         /* cell = new PdfPCell(tableColumn);
-        cell.setBorderWidth(1);
-        cell.setColspan(1);
-        //cell.setMinimumHeight(document.getPageSize().getWidth() - 60);
-        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        table.addCell(cell);
-        tableColumn = new PdfPTable(1);
-        tableColumn.flushContent();*/
+         cell.setBorderWidth(1);
+         cell.setColspan(1);
+         //cell.setMinimumHeight(document.getPageSize().getWidth() - 60);
+         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+         table.addCell(cell);
+         tableColumn = new PdfPTable(1);
+         tableColumn.flushContent();*/
 
         if (column == 0) {
             /* AÑADIR COLUMNA DERECHA VACIA SI ES NECESARIO */
@@ -861,7 +868,7 @@ public class FichaPDFCombinada extends FichaPDF {
         document.newPage();
         page++;
         try {
-            AddImagenFondo(document, "rolemaster/fichas/RMHPComb.png");
+            AddImagenFondo(document, DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "RMHPComb.png");
         } catch (DocumentException ex) {
             Logger.getLogger(FichaPDFCombinada.class.getName()).log(Level.SEVERE, null, ex);
         }

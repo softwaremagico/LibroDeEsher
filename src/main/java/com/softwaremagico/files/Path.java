@@ -88,7 +88,7 @@ public class Path {
     }
 
     public static String returnLogFile() {
-        return "kendoTournament.log";
+        return "librodeesher.log";
     }
 
     public static String returnIconFolder() {
