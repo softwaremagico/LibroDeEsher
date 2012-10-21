@@ -32,6 +32,9 @@ Existe un problema conocido con el generador de personajes. Normalmente se debe 
 
 Versión
 ------------
+1.0.0.1	Nuevo:
+		- Se han añadido nuevas razas: Enanos. 
+
 1.0.0.0	Cambiado:
 		- Profesiones pueden tener varios listados de habilidades comunes.
 		- Mejorada la inteligencia para crear personajes aleatorios.
@@ -41,13 +44,13 @@ Versión
 		- PDF de la hoja combinada de habilidades.
 		- Se ha adaptado la interfaz gráfica del programa para poder utilizarse con resoluciones de 1024x600 (netbooks). 
 
-0.990	Cambiado:
+0.9.9.0	Cambiado:
 		- Las categorías se separan por módulos, de forma que se pueden añadir sin tener que cambiar el fichero original. 
 		- Corregido un pequeño problema al insertar personaje si este no tenía nombre definido. 
 		- Se pueden sugerir rangos en categorías y habilidades al crear un personaje aleatorio. 
 		- Al guardar ficheros se pueden seleccionar carpetas. 
 		
-0.980	Cambiado:
+0.9.8.0	Cambiado:
 		- La puntuación máxima de las características ya no está limitada a 660. 
 		- Las razas pueden tener culturas por patrones: ej. Todas las Urbanas. 
 		- Se permiten exportar subidas de nivel de forma segura. Esto permite a un jugador subirse el nivel en su casa y luego enviarlo al DJ para que lo confirme y lo imprima.
@@ -55,16 +58,16 @@ Versión
 		- Las opciones se guardan ahora en el directorio del usuario, corrigiendo un posible error de escritura. 
 		- Solucionado error al generar las TRs de Enfermedades y Venenos
 		
-0.975	Cambios:
+0.9.7.5	Cambios:
 		- Corregido un fallo que impide seleccionar cualquier idioma con los puntos de desarrollo.
 		- Al cargar un PJ antiguo, se le añaden las nuevas categorías que aparecen en el fichero categorias.txt si estas no existían cuando se generó el personaje.
 		- Ya no se pierden los puntos de desarrollo en los idiomas de la cultura. 
 
-0.9741	Cambios:
+0.9.7.4.1	Cambios:
 		- Corregido un error en los talentos de personaje que impide visualizarlos correctamente. 
 		- Apariencia de Windows para las ventanas si se ejecuta en Windows. Apariencia GTK para los usuarios de Linux.
 		
-0.974	Cambios:
+0.9.7.4	Cambios:
 		- Soluciona un fallo que impide utilizar las flechas para aumentar los rangos de las habilidades comunes.
 		- Soluciona varios fallos generados al asignar habilidades generales al insertar un PJ.
 		- Solucionado que los nombres de habilidades grandes desmonten algunas ventanas.
@@ -75,7 +78,7 @@ Versión
 		- Las fichas en formato texto reflejan las armaduras naturales u obtenidas por los talentos.
 		- Solucionado problema que impide a los adiestramientos seleccionar armas de fuego correctamente.
 		
-0.973	Cambios:
+0.9.7.3	Cambios:
 		- Desarrollo Físico tiene +10 en la categoría extra como indica el reglamento.
 		- (Solucionado) Los objetos mágicos con bonus en las categorias los pone en bonificacion por profesion.
 		- (Solucionado) Los objetos imprimen las habilidades y categorias que están a cero. 
@@ -97,54 +100,54 @@ Versión
 		- Ahora hay habilidades que pueden ser requisitos de otras habilidades (como ocurre con los poderes chi).
 		- Añade una opción que permite usar el sistema de artes marciales golpes y barridos (divididos en cuatro grados) o el nuevo de la guía de artes marciales que es una única habilidad.
 		
-0.972	Corrección del error que impide leer los ficheros en Windows Vista. 
+0.9.7.2	Corrección del error que impide leer los ficheros en Windows Vista. 
 
-0.971	Corrección de bugs a la hora de generar un personaje elementalista aleatorio.
+0.9.7.1	Corrección de bugs a la hora de generar un personaje elementalista aleatorio.
 
-0.970	Se incluyen las reglas particulares de los elementalistas. 
+0.9.7.0	Se incluyen las reglas particulares de los elementalistas. 
 
-0.961	Personajes aleatorios también cogen habilidades especializadas y generales.
+0.9.6.1	Personajes aleatorios también cogen habilidades especializadas y generales.
 
-0.960	Habilidades especializadas y generales.
+0.9.6.0	Habilidades especializadas y generales.
 
-0.957	Visualización gráfica de errores.
+0.9.5.7	Visualización gráfica de errores.
 
-0.956	Se guarda las opciones seleccionadas para futuros usos. Se corrigen más bugs.
+0.9.5.6	Se guarda las opciones seleccionadas para futuros usos. Se corrigen más bugs.
 
-0.955	Los adiestramientos ya incluyen hechizos.
+0.9.5.5	Los adiestramientos ya incluyen hechizos.
 		Los talentos se pueden restringir a razas particulares.
 		Se pueden insertar talentos.
 		Los hechizos oscuros pueden ser listas básicas.
 		
-0.954	Se pueden gastar puntos de historial para subir caracteristicas.
+0.9.5.4	Se pueden gastar puntos de historial para subir caracteristicas.
 		Los adiestramientos permiten elegir caracteristica para subir.
 		Los talentos permiten bonus a las características.
 		
-0.9531	Equipo de adiestramientos y su listado en las hojas de personaje.
+0.9.5.3.1	Equipo de adiestramientos y su listado en las hojas de personaje.
 
-0.953	Talentos para PJs y PNJs.
+0.9.5.3	Talentos para PJs y PNJs.
 
-0.952	Corrección de bugs al guardar el personaje, corrección de bugs en los adiestramientos
+0.9.5.2	Corrección de bugs al guardar el personaje, corrección de bugs en los adiestramientos
 
-0.951	Mejora del Rendimiento de las Ventanas
+0.9.5.1	Mejora del Rendimiento de las Ventanas
 
-0.950	Insertar Categorias y Habilidades
+0.9.5.0	Insertar Categorias y Habilidades
 
-0.940	Añadir módulos al programa,  Añadir bonus especiales a las habilidades
+0.9.4.0	Añadir módulos al programa,  Añadir bonus especiales a las habilidades
 
-0.930	Inserción de Personajes
+0.9.3.0	Inserción de Personajes
 
-0.920	Corrección de algunos bugs
+0.9.2.0	Corrección de algunos bugs
 
-0.900	Exportar a PDF y a TXT
+0.9.0.0	Exportar a PDF y a TXT
 
-0.800	Personajes Aleatorios
+0.8.0.0	Personajes Aleatorios
 
-0.710	Corrección de algunos bugs
+0.7.1.0	Corrección de algunos bugs
 
-0.700	Adiestramientos
+0.7.0.0	Adiestramientos
 
-0.600	Culturas
+0.6.0.0	Culturas
 
 
 Mas información
