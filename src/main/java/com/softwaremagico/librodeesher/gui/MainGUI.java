@@ -225,6 +225,7 @@ public final class MainGUI extends javax.swing.JFrame {
     }
 
     public void GUIdePersonajeYaInsertado() {
+        update = false;
         RazasComboBox.setEnabled(false);
         ProfesionesComboBox.setEnabled(false);
         AleatorioMenu.setEnabled(false);
@@ -247,6 +248,7 @@ public final class MainGUI extends javax.swing.JFrame {
         ActivarMenuInsertar(true);
         SeleccionarReinoMagia();
         Refrescar();
+        update = true;
     }
 
     public  void ActivarMenuArchivo() {

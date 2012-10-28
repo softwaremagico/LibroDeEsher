@@ -138,20 +138,12 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
         Categoria cat = Personaje.getInstance().DevolverCategoriaDeNombre("Comunicación");
         for (int i = 0; i < Personaje.getInstance().idiomasCultura.Size(); i++) {
             IdiomaCultura idi = Personaje.getInstance().idiomasCultura.Get(i);
-            try {
-                hab = cat.DevolverHabilidadDeNombre("Hablar " + idi.nombre);
-                hab.rangos = idi.DevolverValorHablado();
-            } catch (NullPointerException npe) {
+            if (cat.DevolverHabilidadDeNombre("Hablar " + idi.nombre) == null) {
                 hab = Habilidad.getSkill(cat, "Hablar " + idi.nombre);
-                hab.rangos = idi.DevolverValorHablado();
                 cat.AddHabilidad(hab);
             }
-            try {
-                hab = cat.DevolverHabilidadDeNombre("Escribir " + idi.nombre);
-                hab.rangos = idi.DevolverValorEscrito();
-            } catch (NullPointerException npe) {
+            if (cat.DevolverHabilidadDeNombre("Escribir " + idi.nombre) == null) {
                 hab = Habilidad.getSkill(cat, "Escribir " + idi.nombre);
-                hab.rangos = idi.DevolverValorHablado();
                 cat.AddHabilidad(hab);
             }
         }
@@ -178,8 +170,11 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
             RellenarCulturas();
             RellenarReinosDeMagia();
             RellenarAdiestramientos();
-            Personaje.getInstance().reino = DevolverReinoDeMagia();
-            Personaje.getInstance().ObtenerMagia();
+            //Si no se han calculad aún las listas de hechizos. 
+            if (Personaje.getInstance().DevolverCategoriaDeNombre("Listas Abiertas de Hechizos").listaHabilidades.isEmpty()) {
+                Personaje.getInstance().reino = DevolverReinoDeMagia();
+                Personaje.getInstance().ObtenerMagia();
+            }
         } catch (Exception ex) {
             Logger.getLogger(InsertarPersonajeGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
