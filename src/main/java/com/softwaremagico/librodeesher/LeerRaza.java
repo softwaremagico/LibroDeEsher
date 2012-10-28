@@ -42,7 +42,7 @@ package com.softwaremagico.librodeesher;
  */
 
 import com.softwaremagico.files.DirectorioRolemaster;
-import com.softwaremagico.librodeesher.gui.MostrarError;
+import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -102,13 +102,13 @@ public class LeerRaza {
                         Caracteristica car = Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura(CaracteristicaValor[0]);
                         car.CambiarPuntosRaza(Integer.parseInt(CaracteristicaValor[1]));
                     } catch (Exception e) {
-                        MostrarError.showErrorMessage("Caracteristicas desconocida: " + CaracteristicaValor[0], "Leer Raza");
+                        MostrarMensaje.showErrorMessage("Caracteristicas desconocida: " + CaracteristicaValor[0], "Leer Raza");
                     }
                 }
                 index++;
             }
         } catch (IndexOutOfBoundsException iob) {
-            MostrarError.showErrorMessage("Problema al leer las características de la raza.", "Leer Raza");
+            MostrarMensaje.showErrorMessage("Problema al leer las características de la raza.", "Leer Raza");
             System.exit(-1);
         }
         return index;
@@ -294,7 +294,7 @@ public class LeerRaza {
                         Integer.parseInt(rangosIdioma[1]));
                 comunicacion.AddHabilidad(habE);
             } catch (ArrayIndexOutOfBoundsException aiofb) {
-                MostrarError.showErrorMessage("Error leyendo la linea de idiomas: " + lines.get(index), "Leer Raza");
+                MostrarMensaje.showErrorMessage("Error leyendo la linea de idiomas: " + lines.get(index), "Leer Raza");
             }
             index++;
         }
@@ -308,7 +308,7 @@ public class LeerRaza {
             try {
                 Personaje.getInstance().puntosTalentos = Integer.parseInt(lineaTalentos);
             } catch (NumberFormatException nfe) {
-                MostrarError.showErrorMessage("Numero de puntos de talento irreconocible.", "Leer Raza");
+                MostrarMensaje.showErrorMessage("Numero de puntos de talento irreconocible.", "Leer Raza");
                 Personaje.getInstance().puntosTalentos = 0;
             }
             index++;
@@ -336,7 +336,7 @@ public class LeerRaza {
                         if (!vectorHabilidad[i].equals("Ninguna")) //Puede ser una habilidad de un categoria.
                         {
                             if (!Personaje.getInstance().SeleccionarGrupoHabilidadesEspeciales("Común", vectorHabilidad[i], "raza")) {
-                                MostrarError.showErrorMessage("Habilidad de raza " + vectorHabilidad[i] + " no reconocida.", "Leer Raza");
+                                MostrarMensaje.showErrorMessage("Habilidad de raza " + vectorHabilidad[i] + " no reconocida.", "Leer Raza");
                             }
                         }
                     }
@@ -366,7 +366,7 @@ public class LeerRaza {
                             hab.HacerRestringida();
                         }
                     } catch (NullPointerException npe) {
-                        MostrarError.showErrorMessage("Habilidad racial restringida " + vectorHabilidad[i] + " no existente.", "Leer Raza");
+                        MostrarMensaje.showErrorMessage("Habilidad racial restringida " + vectorHabilidad[i] + " no existente.", "Leer Raza");
                     }
                 }
             }

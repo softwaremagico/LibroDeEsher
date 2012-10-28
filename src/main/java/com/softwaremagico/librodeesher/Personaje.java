@@ -43,7 +43,7 @@ package com.softwaremagico.librodeesher;
 
 import com.softwaremagico.files.DirectorioRolemaster;
 import com.softwaremagico.librodeesher.gui.ElegirComunProfesionalGUI;
-import com.softwaremagico.librodeesher.gui.MostrarError;
+import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -160,7 +160,7 @@ public class Personaje implements Serializable {
     }
 
     public static void setInstance(Personaje personaje) {
-        personaje = personaje;
+        Personaje.personaje = personaje;
     }
 
     /**
@@ -990,7 +990,7 @@ public class Personaje implements Serializable {
                         categoriasNuevas.add(cat);
                     }
                 } catch (ArrayIndexOutOfBoundsException aiofb) {
-                    MostrarError.showErrorMessage("Abreviatura de categoria mal definida en " + nombreCat, "Lectura de Categorías");
+                    MostrarMensaje.showErrorMessage("Abreviatura de categoria mal definida en " + nombreCat, "Lectura de Categorías");
                 }
             }
             /////////////////////////////////////////
@@ -1584,7 +1584,7 @@ public class Personaje implements Serializable {
 
             nombreCompleto += " " + apellidos.get(0);
         } catch (IndexOutOfBoundsException iobe) {
-            MostrarError.showErrorMessage("Debes de poner un nombre a tu personaje.", "Personaje.");
+            MostrarMensaje.showErrorMessage("Debes de poner un nombre a tu personaje.", "Personaje.");
             nombreCompleto = "Nombre.";
         }
 
@@ -1687,7 +1687,7 @@ public class Personaje implements Serializable {
             }
 
         } catch (NumberFormatException nfe) {
-            MostrarError.showErrorMessage("Coste mal formado.", "Personaje");
+            MostrarMensaje.showErrorMessage("Coste mal formado.", "Personaje");
         }
 
         return costeInt;
@@ -1716,7 +1716,7 @@ public class Personaje implements Serializable {
                     grupoHab.setVisible(true);
                 }
             } catch (NullPointerException npe) {
-                MostrarError.showErrorMessage("Habilidad desconocida: " + listadoHabilidades[0], "Personaje");
+                MostrarMensaje.showErrorMessage("Habilidad desconocida: " + listadoHabilidades[0], "Personaje");
             }
 
         }
@@ -1986,7 +1986,7 @@ public class Personaje implements Serializable {
                     Habilidad hab = cat.DevolverHabilidadDeNombre(adiestramiento.DevolverListaCategorias().get(i).DevolverListaHabilidades().get(j).nombre);
                     hab.rangosAdiestramiento += adiestramiento.DevolverListaCategorias().get(i).DevolverListaHabilidades().get(j).Rangos();
                 } catch (NullPointerException nme) {
-                    MostrarError.showErrorMessage("Habilidad encontrada en el adiestramiento (" + adiestramiento.nombre + "): " + adiestramiento.DevolverListaCategorias().get(i).DevolverListaHabilidades().get(j).nombre + ", no existente.", "Personaje");
+                    MostrarMensaje.showErrorMessage("Habilidad encontrada en el adiestramiento (" + adiestramiento.nombre + "): " + adiestramiento.DevolverListaCategorias().get(i).DevolverListaHabilidades().get(j).nombre + ", no existente.", "Personaje");
                 }
 
             }

@@ -42,7 +42,7 @@ package com.softwaremagico.librodeesher;
  */
 
 import com.softwaremagico.files.DirectorioRolemaster;
-import com.softwaremagico.librodeesher.gui.MostrarError;
+import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -104,7 +104,7 @@ public class LeerCultura {
             categoriaCultura = Personaje.getInstance().DevolverCategoriaDeNombre(nombreCategoria);
             categoriaCultura.rangosCultura = rangosCultura;
         } catch (NullPointerException npe) {
-            MostrarError.showErrorMessage("¡Atención! categoría " + nombreCategoria + " no encontrada.", "Leer Cultura " + Personaje.getInstance().cultura);
+            MostrarMensaje.showErrorMessage("¡Atención! categoría " + nombreCategoria + " no encontrada.", "Leer Cultura " + Personaje.getInstance().cultura);
         }
         return categoriaCultura;
     }
@@ -132,7 +132,7 @@ public class LeerCultura {
                             nombre = nombre.replace("  *  ", "");
                             AsignarRangosCulturaAHabilidades(categoriaCultura, nombre, rangosCultura);
                         } catch (NullPointerException npe) {
-                            MostrarError.showErrorMessage("¡Atención! habilidad cultural " + nombre + " no encontrada.", "Leer Cultura");
+                            MostrarMensaje.showErrorMessage("¡Atención! habilidad cultural " + nombre + " no encontrada.", "Leer Cultura");
                         }
                     }
                 }
@@ -288,7 +288,7 @@ public class LeerCultura {
                                             }
                                         } else {
                                             if (vectorAficiones[i].length() > 0) {
-                                                MostrarError.showErrorMessage("Afición " + vectorAficiones[i] + " no encontrada.", "Leer Cultura");
+                                                MostrarMensaje.showErrorMessage("Afición " + vectorAficiones[i] + " no encontrada.", "Leer Cultura");
 
                                             }
                                         }

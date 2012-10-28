@@ -147,7 +147,7 @@ public class HistorialGUI extends javax.swing.JFrame {
             try {
                 DevolverCategoriaSeleccionada().historial = CategoriaCheckBox.isSelected();
             } catch (NullPointerException npe) {
-                MostrarError.showErrorMessage("Punto de historial no recogido.", "Historial");
+                MostrarMensaje.showErrorMessage("Punto de historial no recogido.", "Historial");
             }
         } else {
             CategoriaCheckBox.setSelected(false);
@@ -160,7 +160,7 @@ public class HistorialGUI extends javax.swing.JFrame {
             try {
                 DevolverHabilidadSeleccionada().historial = HabilidadCheckBox.isSelected();
             } catch (NullPointerException npe) {
-                MostrarError.showErrorMessage("Punto de historial no recogido.", "Historial");
+                MostrarMensaje.showErrorMessage("Punto de historial no recogido.", "Historial");
             }
         } else {
             HabilidadCheckBox.setSelected(false);

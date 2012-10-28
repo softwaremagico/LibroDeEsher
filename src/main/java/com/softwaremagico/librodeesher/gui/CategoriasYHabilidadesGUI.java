@@ -454,7 +454,7 @@ public class CategoriasYHabilidadesGUI extends javax.swing.JFrame {
         if (!hab.EsGeneralizada()) {
             hab.AñadirEspecializacion(EspecializadaCheckBox.isSelected(), MotivoEspecializacionTextField.getText(), antiguaEspecializacion);
         } else {
-            MostrarError.showErrorMessage("No puedes crear una especialización de una habilidad generalizada", "Habilidad",
+            MostrarMensaje.showMessage("No puedes crear una especialización de una habilidad generalizada", "Habilidad",
                     JOptionPane.WARNING_MESSAGE);
             hab.especializada = false;
         }

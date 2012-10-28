@@ -200,7 +200,7 @@ public final class MainGUI extends javax.swing.JFrame {
         try {
             Personaje.getInstance().cultura = CulturasComboBox.getSelectedItem().toString();
         } catch (NullPointerException npe) {
-            MostrarError.showErrorMessage("No existe cultura asociada.", "Leer Raza");
+            MostrarMensaje.showErrorMessage("No existe cultura asociada.", "Leer Raza");
         }
         CulturasComboBox.setEnabled(false);
         AdiestramientoMenuItem.setEnabled(true);

@@ -57,7 +57,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.softwaremagico.files.DirectorioRolemaster;
 import com.softwaremagico.files.MessageManager;
-import com.softwaremagico.librodeesher.gui.MostrarError;
+import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

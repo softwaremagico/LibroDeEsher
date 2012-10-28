@@ -840,7 +840,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
                 hab.NoEsComunProfesion();
                 hab.rangos = ((Integer) RangosHabilidadSpinner.getValue() - hab.nuevosRangos / 2 - hab.rangosAdiestramiento - hab.rangosAficiones - hab.rangosCultura - hab.DevolverRangosCulturaHechizos()) * 2;
             } else {
-                MostrarError.showErrorMessage("No puedes generalizar una habilidad que contiene especializaciones o es restringida.", "Habilidad",
+                MostrarMensaje.showMessage("No puedes generalizar una habilidad que contiene especializaciones o es restringida.", "Habilidad",
                         JOptionPane.WARNING_MESSAGE);
                 hab.QuitarGeneralizada();
                 RestringidaRadioButton.setSelected(true);
@@ -863,7 +863,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
             }
             hab.AñadirEspecializacion(EspecializadaCheckBox.isSelected(), MotivoEspecializacionTextField.getText(), antiguaEspecializacion);
         } else {
-            MostrarError.showErrorMessage("No puedes crear una especialización de una habilidad generalizada", "Habilidad",
+            MostrarMensaje.showMessage("No puedes crear una especialización de una habilidad generalizada", "Habilidad",
                     JOptionPane.WARNING_MESSAGE);
             hab.especializada = false;
         }
@@ -1049,7 +1049,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
         try {
             DevolverCategoriaHistorialSeleccionada().historial = CategoriaCheckBox.isSelected();
         } catch (NullPointerException npe) {
-            MostrarError.showErrorMessage("Punto de historial no recogido.", "Insertar personajes");
+            MostrarMensaje.showErrorMessage("Punto de historial no recogido.", "Insertar personajes");
         }
         ActualizarPuntosHistorial();
     }
@@ -1058,7 +1058,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
         try {
             DevolverHabilidadHistorialSeleccionada().historial = HabilidadCheckBox.isSelected();
         } catch (NullPointerException npe) {
-            MostrarError.showErrorMessage("Punto de historial no recogido.", "Insertar Personajes");
+            MostrarMensaje.showErrorMessage("Punto de historial no recogido.", "Insertar Personajes");
         }
 
         ActualizarPuntosHistorial();

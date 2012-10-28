@@ -45,7 +45,7 @@ package com.softwaremagico.librodeesher;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Image;
 import com.softwaremagico.files.DirectorioRolemaster;
-import com.softwaremagico.librodeesher.gui.MostrarError;
+import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import com.softwaremagico.librodeesher.gui.SeleccionarHabilidadGUI;
 import java.io.File;
 import java.io.IOException;
@@ -155,11 +155,11 @@ public class Habilidad implements Serializable {
                 } else if (lineaHabilidadesNuevas.length() > 0) {
                     habilidadesNuevasPosibles.add(lineaHabilidadesNuevas);
                 } else {
-                    MostrarError.showErrorMessage("No se puede leer la lista de habilidades vinculadas en " + nom, "Habilidad");
+                    MostrarMensaje.showErrorMessage("No se puede leer la lista de habilidades vinculadas en " + nom, "Habilidad");
                 }
             } catch (NullPointerException npe) {
                 npe.printStackTrace();
-                MostrarError.showErrorMessage("Error en la lectura de las habilidades vinculadas a la habilidad " + nom, "Habilidad");
+                MostrarMensaje.showErrorMessage("Error en la lectura de las habilidades vinculadas a la habilidad " + nom, "Habilidad");
             }
         }
         if (!nom.contains("[")) {
@@ -173,7 +173,7 @@ public class Habilidad implements Serializable {
                 String[] especializaciones = lineaEspecializaciones.split("; ");
                 especializacionPosible.addAll(Arrays.asList(especializaciones));
             } catch (NullPointerException npe) {
-                MostrarError.showErrorMessage("Error en la lectura de las especializaciones predefinidas para la habilidad " + nom, "Habilidad");
+                MostrarMensaje.showErrorMessage("Error en la lectura de las especializaciones predefinidas para la habilidad " + nom, "Habilidad");
             }
         }
         categoriaPadre = cat;
@@ -382,10 +382,10 @@ public class Habilidad implements Serializable {
 
     public boolean HacerGeneralizada() {
         if (restringida || restringidaAdiestramiento) {
-            MostrarError.showErrorMessage("No se puede generalizar una habilidad restringida.",
+            MostrarMensaje.showMessage("No se puede generalizar una habilidad restringida.",
                     "Habilidad", JOptionPane.WARNING_MESSAGE);
         } else if (especializada) {
-            MostrarError.showErrorMessage("No se puede generalizar una habilidad ya especializada",
+            MostrarMensaje.showMessage("No se puede generalizar una habilidad ya especializada",
                     "Habilidad", JOptionPane.WARNING_MESSAGE);
         } else {
             generalizada = true;
@@ -422,7 +422,7 @@ public class Habilidad implements Serializable {
                         }
                     }
                 } else {
-                    MostrarError.showErrorMessage("Debes indicar en que campo/s esta especializada la habilidad.", "Habilidad",
+                    MostrarMensaje.showMessage("Debes indicar en que campo/s esta especializada la habilidad.", "Habilidad",
                             JOptionPane.WARNING_MESSAGE);
                     especializada = false;
                     especializacion = new ArrayList<>();
@@ -436,7 +436,7 @@ public class Habilidad implements Serializable {
                     }
                 }
             } else {
-                MostrarError.showErrorMessage("No has comprado los rangos suficientes para "
+                MostrarMensaje.showMessage("No has comprado los rangos suficientes para "
                         + "especializar en todos los campos indicados.", "Habilidad",
                         JOptionPane.WARNING_MESSAGE);
                 especializacion = new ArrayList<>();

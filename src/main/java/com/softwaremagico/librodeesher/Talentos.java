@@ -42,7 +42,7 @@ package com.softwaremagico.librodeesher;
  */
 
 import com.softwaremagico.files.DirectorioRolemaster;
-import com.softwaremagico.librodeesher.gui.MostrarError;
+import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -87,9 +87,9 @@ public class Talentos implements Serializable {
                     talentos.add(talento);
                 } catch (NumberFormatException npe) {
                     npe.printStackTrace();
-                    MostrarError.showErrorMessage("Error en el coste del talento:\n\"" + line + "\"", "Talentos");
+                    MostrarMensaje.showErrorMessage("Error en el coste del talento:\n\"" + line + "\"", "Talentos");
                 } catch (ArrayIndexOutOfBoundsException aiob) {
-                    MostrarError.showErrorMessage("Error en la formación del talento:\n\"" + line + "\"", "Talentos");
+                    MostrarMensaje.showErrorMessage("Error en la formación del talento:\n\"" + line + "\"", "Talentos");
                 }
             }
         }

@@ -42,7 +42,7 @@ package com.softwaremagico.librodeesher;
  */
 
 import com.softwaremagico.files.DirectorioRolemaster;
-import com.softwaremagico.librodeesher.gui.MostrarError;
+import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -126,7 +126,7 @@ public class LeerProfesion {
                     Categoria categoriaProfesional = Personaje.getInstance().DevolverCategoriaDeNombre(nombre);
                     categoriaProfesional.bonusProfesion = bonus;
                 } catch (NullPointerException npe) {
-                    MostrarError.showErrorMessage("Bonus de " + nombre + " en " + Personaje.getInstance().profesion + ".txt mal definido.", "Leer Profesion");
+                    MostrarMensaje.showErrorMessage("Bonus de " + nombre + " en " + Personaje.getInstance().profesion + ".txt mal definido.", "Leer Profesion");
                 }
                 index++;
             }
@@ -164,7 +164,7 @@ public class LeerProfesion {
                             Caracteristica caract = Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura(car);
                             caract.CrearPuntosTemporal(Esher.getInstance().baseCaracteristicas[i]);
                         } catch (NullPointerException npe) {
-                            MostrarError.showErrorMessage("Caracteristica " + car + " mostrada en el archivo " + Personaje.getInstance().profesion + ".txt no existente.", "Leer Profesion");
+                            MostrarMensaje.showErrorMessage("Caracteristica " + car + " mostrada en el archivo " + Personaje.getInstance().profesion + ".txt no existente.", "Leer Profesion");
                         }
                     }
                 }
@@ -180,7 +180,7 @@ public class LeerProfesion {
                             i++;
                         }
                     } catch (NullPointerException npe) {
-                        MostrarError.showErrorMessage("Fallo al intentar asignar las caracteristicas de profesion de forma aleatoria.", "Leer Profesion");
+                        MostrarMensaje.showErrorMessage("Fallo al intentar asignar las caracteristicas de profesion de forma aleatoria.", "Leer Profesion");
                     }
                 }
             }
@@ -206,10 +206,10 @@ public class LeerProfesion {
                 try {
                     categoriaProfesional.CambiarCosteRango(Personaje.getInstance().ConvertirStringCosteEnIntCoste(vectorCategoria[1]));
                 } catch (NullPointerException npe) {
-                    MostrarError.showErrorMessage("Categoría desconocida: " + nombre, "Leer Profesion");
+                    MostrarMensaje.showErrorMessage("Categoría desconocida: " + nombre, "Leer Profesion");
 
                 } catch (ArrayIndexOutOfBoundsException aiob) {
-                    MostrarError.showErrorMessage("Categoría mal definida: " + nombre, "Leer Profesion");
+                    MostrarMensaje.showErrorMessage("Categoría mal definida: " + nombre, "Leer Profesion");
                 }
             }
             index++;
@@ -247,7 +247,7 @@ public class LeerProfesion {
                         //Puede ser una habilidad de un categoria.
                         if (creandoPJ && interactivo) {
                             if (!Personaje.getInstance().SeleccionarGrupoHabilidadesEspeciales(tipo, vectorHabilidades[i], "profesion")) {
-                                MostrarError.showErrorMessage("Habilidad desconocida: " + vectorHabilidades[i], "Leer Profesion");
+                                MostrarMensaje.showErrorMessage("Habilidad desconocida: " + vectorHabilidades[i], "Leer Profesion");
                             }
                         }
                     }

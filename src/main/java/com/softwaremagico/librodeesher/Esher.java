@@ -44,7 +44,7 @@ package com.softwaremagico.librodeesher;
 
 import com.softwaremagico.files.DirectorioRolemaster;
 import com.softwaremagico.files.MyFile;
-import com.softwaremagico.librodeesher.gui.MostrarError;
+import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -157,7 +157,7 @@ public class Esher implements Serializable {
                         Personaje.getInstance().AñadirHabilidades(nombreCat, descomposed_line[3]);
                     }
                 } catch (ArrayIndexOutOfBoundsException aiofb) {
-                    MostrarError.showErrorMessage("Abreviatura de categoria mal definida en " + nombreCat, "Lectura de Categorías");
+                    MostrarMensaje.showErrorMessage("Abreviatura de categoria mal definida en " + nombreCat, "Lectura de Categorías");
                 }
             }
         }

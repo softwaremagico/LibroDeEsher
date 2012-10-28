@@ -41,7 +41,7 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.gui.MostrarError;
+import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -304,7 +304,7 @@ public class PersonajeAleatorio {
                         hab.rangosAficiones++;
                     }
                 } catch (NullPointerException npe) {
-                    MostrarError.showErrorMessage("Afición " + af + " no encontrada", "Personaje Aleatorio");
+                    MostrarMensaje.showErrorMessage("Afición " + af + " no encontrada", "Personaje Aleatorio");
                 }
             }
         }

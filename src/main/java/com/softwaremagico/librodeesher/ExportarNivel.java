@@ -41,7 +41,7 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.gui.MostrarError;
+import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,10 +75,10 @@ public class ExportarNivel implements Serializable {
         if (Personaje.getInstance().DevolverNombreCompleto().equals(nombre)) {
             if (Personaje.getInstance().nivel == nivel) {
                 if (Personaje.getInstance().lock == false) {
-                    MostrarError.showErrorMessage("El personaje ha sido alterado. No se procederá a la subida de nivel.", "Importar Personaje");
+                    MostrarMensaje.showErrorMessage("El personaje ha sido alterado. No se procederá a la subida de nivel.", "Importar Personaje");
                 } else {
                     if (Personaje.getInstance().vecesCargadoPersonaje > 1) {
-                    //MostrarError.showErrorMessage("Atención: El jugador ha cargado " + Personaje.getInstance().vecesCargadoPersonaje + " veces el personaje", "Importar Personaje");
+                    //MostrarError.showMessage("Atención: El jugador ha cargado " + Personaje.getInstance().vecesCargadoPersonaje + " veces el personaje", "Importar Personaje");
                     }
                     ImportarCaracteristicas();
                     ImportarCategoria();
@@ -87,7 +87,7 @@ public class ExportarNivel implements Serializable {
                 }
             }
         } else {
-            MostrarError.showErrorMessage("El nivel importado no pertenece a este personaje.", "Importar Personaje");
+            MostrarMensaje.showErrorMessage("El nivel importado no pertenece a este personaje.", "Importar Personaje");
         }
     }
 

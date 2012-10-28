@@ -42,7 +42,7 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.gui.MostrarError;
+import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Image;
 import com.softwaremagico.files.DirectorioRolemaster;
@@ -596,7 +596,7 @@ public class Categoria implements Serializable {
             } //Si no es nada, suponemos que es un error tipográfico.
             else {
                 tipo = "Estándar";
-                MostrarError.showErrorMessage("Desconocida Categoría: " + tipoCat, "Categorías");
+                MostrarMensaje.showErrorMessage("Desconocida Categoría: " + tipoCat, "Categorías");
             }
         }
 
@@ -630,7 +630,7 @@ public class Categoria implements Serializable {
                     AddHabilidad(armaLeida);
                 }
             } catch (NullPointerException npe) {
-                MostrarError.showErrorMessage("Error leyendo las armas de los ficheros. Comprueba el fichero de configuración de módulos.", "Categorías");
+                MostrarMensaje.showErrorMessage("Error leyendo las armas de los ficheros. Comprueba el fichero de configuración de módulos.", "Categorías");
                 npe.printStackTrace();
                 System.exit(0);
             }
@@ -651,7 +651,7 @@ public class Categoria implements Serializable {
                     }
                 }
             } catch (NullPointerException npe) {
-                MostrarError.showErrorMessage("Categoria " + nombre + " sin habilidad alguna", "Categorías");
+                MostrarMensaje.showErrorMessage("Categoria " + nombre + " sin habilidad alguna", "Categorías");
             }
         }
     }

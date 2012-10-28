@@ -42,7 +42,7 @@ package com.softwaremagico.librodeesher;
  */
 
 import com.softwaremagico.files.DirectorioRolemaster;
-import com.softwaremagico.librodeesher.gui.MostrarError;
+import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -130,7 +130,7 @@ public class LeerAdiestramientos {
         try {
             Personaje.getInstance().adiestramiento.tiempo = Integer.parseInt(lines.get(index));
         } catch (ArrayIndexOutOfBoundsException aiofb) {
-            MostrarError.showErrorMessage("Problema con la linea: \"" + lines.get(index) + "\" del adiestramiento " + Personaje.getInstance().adiestramiento.nombre, "Leer adiestramientos");
+            MostrarMensaje.showErrorMessage("Problema con la linea: \"" + lines.get(index) + "\" del adiestramiento " + Personaje.getInstance().adiestramiento.nombre, "Leer adiestramientos");
         }
         return 3;
     }
@@ -148,7 +148,7 @@ public class LeerAdiestramientos {
                     }
                 }
             } catch (ArrayIndexOutOfBoundsException aiofb) {
-                MostrarError.showErrorMessage("Problema con la linea: \"" + lineaAdiestramiento + "\" del adiestramiento " + Personaje.getInstance().adiestramiento.nombre, "Leer adiestramientos");
+                MostrarMensaje.showErrorMessage("Problema con la linea: \"" + lineaAdiestramiento + "\" del adiestramiento " + Personaje.getInstance().adiestramiento.nombre, "Leer adiestramientos");
             }
             index++;
         }
@@ -169,7 +169,7 @@ public class LeerAdiestramientos {
                     try {
                         probabilidadAdiestramiento = Integer.parseInt(vectorAdiestramiento[1]);
                     } catch (NumberFormatException nfe) {
-                        MostrarError.showErrorMessage("Formato de porcentaje de especial \"" + tmp_nombreAdiestramiento + "\" en adiestramiento " + nombreAdiestramiento, "Leer adiestramientos");
+                        MostrarMensaje.showErrorMessage("Formato de porcentaje de especial \"" + tmp_nombreAdiestramiento + "\" en adiestramiento " + nombreAdiestramiento, "Leer adiestramientos");
                     }
                     if (vectorAdiestramiento.length > 2) {
                         bonusAdiestramiento = Integer.parseInt(vectorAdiestramiento[2]);
@@ -178,7 +178,7 @@ public class LeerAdiestramientos {
                     }
                     Personaje.getInstance().adiestramiento.AñadirEspecialAdiestramiento(tmp_nombreAdiestramiento, bonusAdiestramiento, probabilidadAdiestramiento);
                 } catch (ArrayIndexOutOfBoundsException aiofb) {
-                    MostrarError.showErrorMessage("Problema con la linea: \"" + lineaAdiestramiento + "\" del adiestramiento " + Personaje.getInstance().adiestramiento.nombre, "Leer adiestramientos");
+                    MostrarMensaje.showErrorMessage("Problema con la linea: \"" + lineaAdiestramiento + "\" del adiestramiento " + Personaje.getInstance().adiestramiento.nombre, "Leer adiestramientos");
                 }
             }
             index++;
@@ -213,7 +213,7 @@ public class LeerAdiestramientos {
                                     categorias = "Listas Hechizos de Adiestramientos de Otro Reino";
                                 } else {
                                     if (message) {
-                                        MostrarError.showErrorMessage("El reino del personaje no coincide con el del adiestramiento, se ignoran las listas de hechizos", "Leer adiestramientos");
+                                        MostrarMensaje.showErrorMessage("El reino del personaje no coincide con el del adiestramiento, se ignoran las listas de hechizos", "Leer adiestramientos");
                                     }
                                     index++;
                                     ignorarHabilidades = true;
@@ -229,7 +229,7 @@ public class LeerAdiestramientos {
                                     categorias = "Listas Hechizos de Adiestramientos de Otro Reino";
                                 } else {
                                     if (message) {
-                                        MostrarError.showErrorMessage("El reino del personaje no coincide con el del adiestramiento, se ignoran las listas de hechizos", "Leer adiestramientos");
+                                        MostrarMensaje.showErrorMessage("El reino del personaje no coincide con el del adiestramiento, se ignoran las listas de hechizos", "Leer adiestramientos");
                                     }
                                     index++;
                                     ignorarHabilidades = true;
@@ -245,7 +245,7 @@ public class LeerAdiestramientos {
                                     categorias = "Listas Hechizos de Adiestramientos de Otro Reino";
                                 } else {
                                     if (message) {
-                                        MostrarError.showErrorMessage("El reino del personaje no coincide con el del adiestramiento, se ignoran las listas de hechizos", "Leer adiestramientos");
+                                        MostrarMensaje.showErrorMessage("El reino del personaje no coincide con el del adiestramiento, se ignoran las listas de hechizos", "Leer adiestramientos");
                                     }
                                     index++;
                                     ignorarHabilidades = true;
@@ -253,7 +253,7 @@ public class LeerAdiestramientos {
                                 }
                             }
                         } else {
-                            MostrarError.showErrorMessage("Por favor, indica en el adiestramiento " + nombreAdiestramiento + " el reino en la categoría Listas Hechizos de Adiestramiento (Reino)", "Leer Adiestramiento");
+                            MostrarMensaje.showErrorMessage("Por favor, indica en el adiestramiento " + nombreAdiestramiento + " el reino en la categoría Listas Hechizos de Adiestramiento (Reino)", "Leer Adiestramiento");
                             index++;
                             continue;
                         }
@@ -267,7 +267,7 @@ public class LeerAdiestramientos {
                             Personaje.getInstance().adiestramiento.AñadirCategoriaAdiestramiento(categorias, tmp_rangos,
                                     tmp_min, tmp_max, tmp_rngHab);
                         } catch (NullPointerException npe) {
-                            MostrarError.showErrorMessage("Categoria " + vectorCategoria[0] + " mal formada en adiestramiento " + nombreAdiestramiento, "Leer Adiestramiento");
+                            MostrarMensaje.showErrorMessage("Categoria " + vectorCategoria[0] + " mal formada en adiestramiento " + nombreAdiestramiento, "Leer Adiestramiento");
                         }
                     //Son hechizos
                     } else if (lineaAdiestramiento.contains("Listas") && lineaAdiestramiento.contains("Hechizos")) {
@@ -303,10 +303,10 @@ public class LeerAdiestramientos {
                             Personaje.getInstance().adiestramiento.AñadirCategoriaAdiestramiento(tmp_nombre, tmp_rangos,
                                     tmp_min, tmp_max, tmp_rngHab);
                         } catch (NullPointerException npe) {
-                            MostrarError.showErrorMessage("Categoria " + vectorCategoria[0] + " mal formada en adiestramiento " + nombreAdiestramiento, "Leer Adiestramiento");
+                            MostrarMensaje.showErrorMessage("Categoria " + vectorCategoria[0] + " mal formada en adiestramiento " + nombreAdiestramiento, "Leer Adiestramiento");
                         }
                     } else {
-                        MostrarError.showErrorMessage("Categoria " + vectorCategoria[0] + " no encontrada en adiestramiento " + nombreAdiestramiento, "Leer Adiestramiento");
+                        MostrarMensaje.showErrorMessage("Categoria " + vectorCategoria[0] + " no encontrada en adiestramiento " + nombreAdiestramiento, "Leer Adiestramiento");
                     }
                 } else {
                     //Es un listado de habilidades
@@ -323,7 +323,7 @@ public class LeerAdiestramientos {
                                 tmp_rangos = Integer.parseInt(vectorCategoria[1]);
                                 Personaje.getInstance().adiestramiento.AñadirHabilidadUltimaCategoriaAdiestramiento(tmp_nombre, tmp_rangos);
                             } catch (Exception e) {
-                                MostrarError.showErrorMessage("Habilidad " + vectorCategoria[0] + " mal formada en adiestramiento " + nombreAdiestramiento, "Leer Adiestramiento");
+                                MostrarMensaje.showErrorMessage("Habilidad " + vectorCategoria[0] + " mal formada en adiestramiento " + nombreAdiestramiento, "Leer Adiestramiento");
                             }
                         }
                     }
@@ -335,7 +335,7 @@ public class LeerAdiestramientos {
                     try {
                         Personaje.getInstance().adiestramiento.AñadirOtrasHabilidadesUltimaCategoriaAdiestramiento();
                     } catch (NullPointerException npe) {
-                        MostrarError.showErrorMessage("Linea: " + lineaAdiestramiento + " mal formada en adiestramiento " + nombreAdiestramiento, "Leer Adiestramiento");
+                        MostrarMensaje.showErrorMessage("Linea: " + lineaAdiestramiento + " mal formada en adiestramiento " + nombreAdiestramiento, "Leer Adiestramiento");
                     }
                 }
             }
@@ -359,7 +359,7 @@ public class LeerAdiestramientos {
                         Personaje.getInstance().adiestramiento.AñadirAumentoCaracteristicaAdiestramiento(lineaAdiestramiento);
                     }
                 } catch (ArrayIndexOutOfBoundsException aiofb) {
-                    MostrarError.showErrorMessage("Problema con la linea: \"" + lineaAdiestramiento + "\" del adiestramiento " + Personaje.getInstance().adiestramiento.nombre, "Leer Adiestramiento");
+                    MostrarMensaje.showErrorMessage("Problema con la linea: \"" + lineaAdiestramiento + "\" del adiestramiento " + Personaje.getInstance().adiestramiento.nombre, "Leer Adiestramiento");
                 }
             }
             index++;
@@ -460,7 +460,7 @@ public class LeerAdiestramientos {
                                 //Puede ser una habilidad de un categoria.
 
                                 if (!Personaje.getInstance().SeleccionarGrupoHabilidadesEspeciales(tipo, vectorHabilidades[i], "adiestramiento")) {
-                                    MostrarError.showErrorMessage("Habilidad desconocida: " + vectorHabilidades[i], "Leer adiestramiento");
+                                    MostrarMensaje.showErrorMessage("Habilidad desconocida: " + vectorHabilidades[i], "Leer adiestramiento");
                                 }
                             }
                         }
@@ -469,7 +469,7 @@ public class LeerAdiestramientos {
                 index++;
             }
         } catch (IndexOutOfBoundsException iob) {
-            MostrarError.showErrorMessage("Adiestramiento " + nombreAdiestramiento + " tiene un error en la definición de los rangos.", "Leer Adiestramientos");
+            MostrarMensaje.showErrorMessage("Adiestramiento " + nombreAdiestramiento + " tiene un error en la definición de los rangos.", "Leer Adiestramientos");
         }
         return index;
     }

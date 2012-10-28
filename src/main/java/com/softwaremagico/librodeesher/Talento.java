@@ -41,7 +41,7 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.gui.MostrarError;
+import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -186,7 +186,7 @@ public class Talento implements Serializable {
                 BonusCaracteristica caracteristica = new BonusCaracteristica(linea_categoria[0], bonus);
                 bonusCaracteristica.add(caracteristica);
             } else if (!linea_categoria[0].equals("Ninguno") && !linea_categoria[0].equals("Nada") && !linea_categoria[0].equals("Ninguna")) {
-                MostrarError.showErrorMessage("Categoria \"" + linea_categoria[0] + "\" del talento " + nombre + " desconocida.", "Talento");
+                MostrarMensaje.showErrorMessage("Categoria \"" + linea_categoria[0] + "\" del talento " + nombre + " desconocida.", "Talento");
             }
         }
     }

@@ -42,7 +42,7 @@ package com.softwaremagico.librodeesher;
  */
 
 import com.softwaremagico.files.DirectorioRolemaster;
-import com.softwaremagico.librodeesher.gui.MostrarError;
+import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -454,7 +454,7 @@ public class Armas implements Serializable {
                 IncluirArma(distancia, "Proyectiles");
                 IncluirArma(distancia, "Arrojadizas");
             } catch (NullPointerException npe) {
-                MostrarError.showErrorMessage("¡Problemas al barajar alguna categoría!", "Armas");
+                MostrarMensaje.showErrorMessage("¡Problemas al barajar alguna categoría!", "Armas");
             }
             if (ContainsTipo("Artillería")) {
                 otrasArmas.add(BuscarTipoArma("Artillería"));

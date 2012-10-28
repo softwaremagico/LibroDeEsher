@@ -1,21 +1,21 @@
 /*
  *
-This software is designed by Jorge Hortelano Otero.
-softwaremagico@gmail.com
-Copyright (C) 2007 Jorge Hortelano Otero.
-C/Botanico 12, 1. Valencia CP:46008 (Spain).
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-Created on october of 2007.
+ This software is designed by Jorge Hortelano Otero.
+ softwaremagico@gmail.com
+ Copyright (C) 2007 Jorge Hortelano Otero.
+ C/Botanico 12, 1. Valencia CP:46008 (Spain).
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 2
+ of the License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ Created on october of 2007.
  */
 package com.softwaremagico.librodeesher;
 /*
@@ -43,22 +43,22 @@ package com.softwaremagico.librodeesher;
  */
 
 import com.softwaremagico.files.DirectorioRolemaster;
-import com.softwaremagico.librodeesher.gui.MostrarError;
 import com.softwaremagico.librodeesher.gui.AboutBox;
-import com.softwaremagico.librodeesher.gui.AñadirAdiestramientoGUI;
-import com.softwaremagico.librodeesher.gui.AleatorioGUI;
 import com.softwaremagico.librodeesher.gui.AdiestramientoGUI;
-import com.softwaremagico.librodeesher.gui.CulturaGUI;
-import com.softwaremagico.librodeesher.gui.HistorialGUI;
+import com.softwaremagico.librodeesher.gui.AleatorioGUI;
+import com.softwaremagico.librodeesher.gui.AñadirAdiestramientoGUI;
 import com.softwaremagico.librodeesher.gui.CaracteristicasGUI;
 import com.softwaremagico.librodeesher.gui.CategoriasYHabilidadesGUI;
+import com.softwaremagico.librodeesher.gui.CulturaGUI;
+import com.softwaremagico.librodeesher.gui.HistorialGUI;
 import com.softwaremagico.librodeesher.gui.InsertarCategoriasGUI;
 import com.softwaremagico.librodeesher.gui.InsertarPersonajeGUI;
-import com.softwaremagico.librodeesher.gui.SeleccionarHabilidadGUI;
-import com.softwaremagico.librodeesher.gui.OpcionesGUI;
-import com.softwaremagico.librodeesher.gui.TalentosGUI;
-import com.softwaremagico.librodeesher.gui.ObjetoMagicoGUI;
 import com.softwaremagico.librodeesher.gui.MainGUI;
+import com.softwaremagico.librodeesher.gui.MostrarMensaje;
+import com.softwaremagico.librodeesher.gui.ObjetoMagicoGUI;
+import com.softwaremagico.librodeesher.gui.OpcionesGUI;
+import com.softwaremagico.librodeesher.gui.SeleccionarHabilidadGUI;
+import com.softwaremagico.librodeesher.gui.TalentosGUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -92,7 +92,9 @@ public class Controller {
     private SeleccionarHabilidadGUI selecHab;
     private ObjetoMagicoGUI objetosMagicos;
 
-    /** Creates a new instance of Controller */
+    /**
+     * Creates a new instance of Controller
+     */
     public Controller(MainGUI tmp_gui, CaracteristicasGUI tmp_caracteristicasGui,
             CategoriasYHabilidadesGUI categoriasYHabilidades,
             AleatorioGUI tmp_aleatorio, AdiestramientoGUI tmp_adiestramiento,
@@ -121,6 +123,7 @@ public class Controller {
 
     /**
      * Generate a window to search in the file system.
+     *
      * @param mode The kind of window.
      * @see setFileSelectionMode
      */
@@ -232,7 +235,7 @@ public class Controller {
             return false;
         }
         if (verbose) {
-            MostrarError.showErrorMessage("El Personaje ha sido guardado con exito", "Exportar Personaje", JOptionPane.INFORMATION_MESSAGE);
+            MostrarMensaje.showMessage("El Personaje ha sido guardado con exito", "Exportar Personaje", JOptionPane.INFORMATION_MESSAGE);
         }
         return true;
     }
@@ -264,20 +267,16 @@ public class Controller {
             //new LeerProfesion(esher); //Borra las comunes y profesionales al leer de nuevo la profesion. Quitar esta linea.
             Personaje.getInstance().lock = true;
             Personaje.getInstance().loadedFrom = path;
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException | IOException | ClassCastException ex) {
+            MostrarMensaje.showErrorMessage("Formato de archivo no válido.", "Load");
+            error = true;
             ex.printStackTrace();
-        } catch (IOException ex) {
-            MostrarError.showErrorMessage("Formato de archivo no válido.", "Load");
-            error = true;
-        } catch (ClassCastException ex) {
-            MostrarError.showErrorMessage("Formato de archivo no válido.", "Load");
-            error = true;
         }
         if (!error) {
             if (Personaje.getInstance().TieneRangosInsertados().length() > 0) {
-                MostrarError.showErrorMessage("El Personaje tiene rangos insertados: no se ha generado siguiendo las normas de forma correcta.", "Cargar Personaje", JOptionPane.WARNING_MESSAGE);
+                MostrarMensaje.showMessage("El Personaje tiene rangos insertados: no se ha generado siguiendo las normas de forma correcta.", "Cargar Personaje", JOptionPane.WARNING_MESSAGE);
             } else {
-                MostrarError.showErrorMessage("El Personaje ha sido cargado con exito.", "Cargar Personaje", JOptionPane.INFORMATION_MESSAGE);
+                MostrarMensaje.showMessage("El Personaje ha sido cargado con exito.", "Cargar Personaje", JOptionPane.INFORMATION_MESSAGE);
             }
         }
 
@@ -310,7 +309,7 @@ public class Controller {
             ex.printStackTrace();
             return false;
         }
-        MostrarError.showErrorMessage("El nivel ha sido exportado con exito", "Exportar nivel", JOptionPane.INFORMATION_MESSAGE);
+        MostrarMensaje.showMessage("El nivel ha sido exportado con exito", "Exportar nivel", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
 
@@ -337,7 +336,7 @@ public class Controller {
                 Personaje.getInstance().CalcularPuntosDesarrollo();
                 Personaje.getInstance().caracteristicas.CalcularProximoAumento();
             } else {
-                MostrarError.showErrorMessage("El personaje o nivel no es el adecuado. ", "Importar nivel");
+                MostrarMensaje.showErrorMessage("El personaje o nivel no es el adecuado. ", "Importar nivel");
                 error = true;
             }
         } catch (ClassNotFoundException ex) {
@@ -345,21 +344,23 @@ public class Controller {
             ex.printStackTrace();
         } catch (IOException ex) {
             error = true;
-            MostrarError.showErrorMessage("Formato de archivo no válido.", "Load");
+            MostrarMensaje.showErrorMessage("Formato de archivo no válido.", "Load");
         } catch (ClassCastException ex) {
             error = true;
-            MostrarError.showErrorMessage("Formato de archivo no válido.", "Load");
+            MostrarMensaje.showErrorMessage("Formato de archivo no válido.", "Load");
         }
         if (!error) {
-            MostrarError.showErrorMessage("El nivel ha sido cargado con exito.", "Cargar nivel", JOptionPane.INFORMATION_MESSAGE);
+            MostrarMensaje.showMessage("El nivel ha sido cargado con exito.", "Cargar nivel", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
-    /*********************************************************************
+    /**
+     * *******************************************************************
      *
-     *                          MENU PRINCIPAL
+     * MENU PRINCIPAL
      *
-     *********************************************************************/
+     ********************************************************************
+     */
     /**
      * Añade los listeners a la ventana del menu principal.
      */
@@ -504,7 +505,7 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             Personaje.getInstance().vecesCargadoPersonaje++;
             if (Personaje.getInstance().vecesCargadoPersonaje > Personaje.getInstance().nivel - Personaje.getInstance().lastSavedLevel + 1) {
-                //MostrarError.showErrorMessage("Atención: cada intento de subida de nivel quedará registrado.", "Importar Personaje", JOptionPane.WARNING_MESSAGE);
+                //MostrarError.showMessage("Atención: cada intento de subida de nivel quedará registrado.", "Importar Personaje", JOptionPane.WARNING_MESSAGE);
             }
 
             if (Personaje.getInstance().loadedFrom.length() > 0) {
@@ -524,7 +525,7 @@ public class Controller {
             if (!(ExplorarVentanasNivel("Save",
                     JFileChooser.FILES_AND_DIRECTORIES, "")).equals("")) {
                 if (!ExportarNivel()) {
-                    MostrarError.showErrorMessage("Fichero no creado. Comprueba los permisos de lectura/escritura.", "Error de guardado...");
+                    MostrarMensaje.showErrorMessage("Fichero no creado. Comprueba los permisos de lectura/escritura.", "Error de guardado...");
                 }
             }
         }
@@ -589,7 +590,7 @@ public class Controller {
             if (!(ExplorarVentanas("Save",
                     JFileChooser.FILES_AND_DIRECTORIES, "")).equals("")) {
                 if (!GuardarPersonaje()) {
-                    MostrarError.showErrorMessage("Fichero no creado. Comprueba los permisos de lectura/escritura.", "Error de guardado...");
+                    MostrarMensaje.showErrorMessage("Fichero no creado. Comprueba los permisos de lectura/escritura.", "Error de guardado...");
                 }
             }
         }
@@ -636,7 +637,7 @@ public class Controller {
                     JFileChooser.FILES_AND_DIRECTORIES, "")).equals("")) {
                 FichaTxt ficha = new FichaTxt();
                 if (!ficha.ExportarAbreviaturaPersonaje(file)) {
-                    MostrarError.showErrorMessage("Fichero no creado. Comprueba los permisos de lectura/escritura.", "Error al exportar...");
+                    MostrarMensaje.showErrorMessage("Fichero no creado. Comprueba los permisos de lectura/escritura.", "Error al exportar...");
                 }
             }
         }
@@ -651,7 +652,7 @@ public class Controller {
                     JFileChooser.FILES_AND_DIRECTORIES, "")).equals("")) {
                 FichaTxt ficha = new FichaTxt();
                 if (!ficha.ExportarPersonaje(file)) {
-                    MostrarError.showErrorMessage("Fichero no creado. Comprueba los permisos de lectura/escritura.", "Error al exportar...");
+                    MostrarMensaje.showErrorMessage("Fichero no creado. Comprueba los permisos de lectura/escritura.", "Error al exportar...");
                 }
             }
         }
@@ -812,11 +813,13 @@ public class Controller {
         }
     }
 
-    /*********************************************************************
+    /**
+     * *******************************************************************
      *
-     *                     VENTANA DE CARACTERISTICAS
+     * VENTANA DE CARACTERISTICAS
      *
-     *********************************************************************/
+     ********************************************************************
+     */
     /**
      * Añade los listeners a la ventana de caracteristicas.
      */
@@ -869,11 +872,13 @@ public class Controller {
         }
     }
 
-    /*********************************************************************
+    /**
+     * *******************************************************************
      *
-     *                          MENU CULTURA
+     * MENU CULTURA
      *
-     *********************************************************************/
+     ********************************************************************
+     */
     /**
      * Añade los listeners a la ventana de caracteristicas.
      */
@@ -1001,11 +1006,13 @@ public class Controller {
         }
     }
 
-    /*********************************************************************
+    /**
+     * *******************************************************************
      *
-     *                 VENTANA DE CATEGORIAS Y HABILIDADES
+     * VENTANA DE CATEGORIAS Y HABILIDADES
      *
-     *********************************************************************/
+     ********************************************************************
+     */
     /**
      * Añade los actionlisteners adecuados.
      */
@@ -1115,11 +1122,13 @@ public class Controller {
         }
     }
 
-    /*********************************************************************
+    /**
+     * *******************************************************************
      *
-     *                            ADIESTRAMIENTO
+     * ADIESTRAMIENTO
      *
-     *********************************************************************/
+     ********************************************************************
+     */
     /**
      * Añade los actionlisteners adecuados.
      */
@@ -1204,11 +1213,13 @@ public class Controller {
         }
     }
 
-    /*********************************************************************
+    /**
+     * *******************************************************************
      *
-     *                         AÑADIR ADIESTRAMIENTO
+     * AÑADIR ADIESTRAMIENTO
      *
-     *********************************************************************/
+     ********************************************************************
+     */
     /**
      * Añade los actionlisteners adecuados.
      */
@@ -1245,11 +1256,13 @@ public class Controller {
         }
     }
 
-    /*********************************************************************
+    /**
+     * *******************************************************************
      *
-     *                 GENERACIÓN ALEATORIO DE PJs
+     * GENERACIÓN ALEATORIO DE PJs
      *
-     *********************************************************************/
+     ********************************************************************
+     */
     /**
      * Añade los actionlisteners adecuados.
      */
@@ -1339,14 +1352,16 @@ public class Controller {
         }
     }
 
-    /*********************************************************************
-     *
-     *                     VENTANA OPCIONES
-     *
-     *********************************************************************/
     /**
-     * Configura las opciones de la generación de personajes para adaptarlo a las necesidades
-     * de la partida.
+     * *******************************************************************
+     *
+     * VENTANA OPCIONES
+     *
+     ********************************************************************
+     */
+    /**
+     * Configura las opciones de la generación de personajes para adaptarlo a
+     * las necesidades de la partida.
      */
     private void AddOpcionesListener() {
         opciones.addCerrarButtonListener(new CerrarOpcionesListener());
@@ -1371,14 +1386,16 @@ public class Controller {
         }
     }
 
-    /*********************************************************************
-     *
-     *                     VENTANA HISTORIAL
-     *
-     *********************************************************************/
     /**
-     * Configura las opciones de la generación de personajes para adaptarlo a las necesidades
-     * de la partida.
+     * *******************************************************************
+     *
+     * VENTANA HISTORIAL
+     *
+     ********************************************************************
+     */
+    /**
+     * Configura las opciones de la generación de personajes para adaptarlo a
+     * las necesidades de la partida.
      */
     private void AddHistorialListener() {
         historial.addCategoriaCheckBoxListener(new CategoriaHistorial());
@@ -1465,14 +1482,16 @@ public class Controller {
         }
     }
 
-    /*********************************************************************
-     *
-     *                     VENTANA OBJETOS MAGICOS
-     *
-     *********************************************************************/
     /**
-     * Configura las opciones de la generación de personajes para adaptarlo a las necesidades
-     * de la partida.
+     * *******************************************************************
+     *
+     * VENTANA OBJETOS MAGICOS
+     *
+     ********************************************************************
+     */
+    /**
+     * Configura las opciones de la generación de personajes para adaptarlo a
+     * las necesidades de la partida.
      */
     private void AddObjetoMagicoListener() {
         objetosMagicos.addCategoriasObjetoComboBoxListener(new CambiarCategoriaObjetolListener());
@@ -1542,11 +1561,13 @@ public class Controller {
         }
     }
 
-    /*********************************************************************
+    /**
+     * *******************************************************************
      *
-     *                     INSERTA PERSONAJE
+     * INSERTA PERSONAJE
      *
-     *********************************************************************/
+     ********************************************************************
+     */
     /**
      * Añade los listeners a la ventana de caracteristicas.
      */
@@ -1948,11 +1969,13 @@ public class Controller {
         }
     }
 
-    /*********************************************************************
+    /**
+     * *******************************************************************
      *
-     *                     INSERTA CATEGORIAS
+     * INSERTA CATEGORIAS
      *
-     *********************************************************************/
+     ********************************************************************
+     */
     /**
      * Inserta los listeners.
      */
@@ -2003,7 +2026,7 @@ public class Controller {
             if (cat != null) {
                 cat.AddHabilidad(insertarCatGui.DevolverNombreHabilidad());
             }
-            MostrarError.showErrorMessage("Habilidad insertada con exito.", "Insertar Habilidades", JOptionPane.INFORMATION_MESSAGE);
+            MostrarMensaje.showMessage("Habilidad insertada con exito.", "Insertar Habilidades", JOptionPane.INFORMATION_MESSAGE);
             insertarCatGui.LimpiarHabilidad();
         }
     }
@@ -2017,11 +2040,13 @@ public class Controller {
         }
     }
 
-    /*********************************************************************
+    /**
+     * *******************************************************************
      *
-     *                      TALENTOS
+     * TALENTOS
      *
-     *********************************************************************/
+     ********************************************************************
+     */
     /**
      * Inserta los listeners
      */
@@ -2056,11 +2081,13 @@ public class Controller {
         }
     }
 
-    /*********************************************************************
+    /**
+     * *******************************************************************
      *
-     *                    SELECCIONAR CARACTERISTICAS
+     * SELECCIONAR CARACTERISTICAS
      *
-     *********************************************************************/
+     ********************************************************************
+     */
     /**
      * Inserta los listeners.
      */
@@ -2103,11 +2130,13 @@ public class Controller {
         }
     }
 
-    /*********************************************************************
+    /**
+     * *******************************************************************
      *
-     *                    SELECCIONAR HABILIDADES
+     * SELECCIONAR HABILIDADES
      *
-     *********************************************************************/
+     ********************************************************************
+     */
     /**
      * Inserta los listeners.
      */
@@ -2126,11 +2155,13 @@ public class Controller {
         }
     }
 
-    /*********************************************************************
+    /**
+     * *******************************************************************
      *
-     *                     FUNCIONES GENERICAS
+     * FUNCIONES GENERICAS
      *
-     *********************************************************************/
+     ********************************************************************
+     */
     /**
      * Da por concluidas la selección de características.
      */
@@ -2224,10 +2255,3 @@ class PdfFilter extends javax.swing.filechooser.FileFilter {
         return "Portable Document Format";
     }
 }
-
-
-
-
-
-
-

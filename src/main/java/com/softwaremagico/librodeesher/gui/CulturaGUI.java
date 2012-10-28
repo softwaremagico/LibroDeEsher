@@ -227,7 +227,7 @@ public class CulturaGUI extends javax.swing.JFrame {
                 }
             } catch (NullPointerException npe) {
                 cat = null;
-                MostrarError.showErrorMessage("Imposible encontrar categoría " + CategoriaArmasAdolescenciaComboBox.getItemAt(i).toString(), "Cultura");
+                MostrarMensaje.showErrorMessage("Imposible encontrar categoría " + CategoriaArmasAdolescenciaComboBox.getItemAt(i).toString(), "Cultura");
             }
         }
     }

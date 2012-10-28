@@ -41,7 +41,7 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.gui.MostrarError;
+import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -92,7 +92,7 @@ public class Adiestramiento implements Serializable {
                 caracteristicasParaAumentar.add(car);
                 numeroCaracteristicasSeleccionadas++;
             } else {
-                MostrarError.showErrorMessage("Aumento de características " + car + "  ya seleccionado. Se ignora.", "Error de selección");
+                MostrarMensaje.showErrorMessage("Aumento de características " + car + "  ya seleccionado. Se ignora.", "Error de selección");
             }
         }
     }
@@ -113,7 +113,7 @@ public class Adiestramiento implements Serializable {
             if (Personaje.getInstance().caracteristicas.DevolverCaracteristicaDeAbreviatura(car) != null) {
                 listado.add(car);
             } else {
-                MostrarError.showErrorMessage("Caracteristica " + car + " desconocida", "Error en aumento de característica");
+                MostrarMensaje.showErrorMessage("Caracteristica " + car + " desconocida", "Error en aumento de característica");
 
             }
         }
@@ -148,9 +148,9 @@ public class Adiestramiento implements Serializable {
                 AñadirHabilidadUltimaCategoriaAdiestramiento(cat.listaHabilidades.get(j).DevolverNombre(), 0);
             }
         } catch (ArrayIndexOutOfBoundsException aiofb) {
-            MostrarError.showErrorMessage("Error al añadir Otras Habilidades a la ultima categoría de adiestramiento: " + catAd.nombre, "Adiestramiento");
+            MostrarMensaje.showErrorMessage("Error al añadir Otras Habilidades a la ultima categoría de adiestramiento: " + catAd.nombre, "Adiestramiento");
         } catch (NullPointerException npe) {
-            MostrarError.showErrorMessage("Error al añadir Otras Habilidades a la ultima categoría de adiestramiento: " + catAd.nombre + "\nExiste esa categoría?", "Adiestramiento");
+            MostrarMensaje.showErrorMessage("Error al añadir Otras Habilidades a la ultima categoría de adiestramiento: " + catAd.nombre + "\nExiste esa categoría?", "Adiestramiento");
             npe.printStackTrace();
         }
     }
@@ -426,7 +426,7 @@ public class Adiestramiento implements Serializable {
                     cat.AddHabilidad(hab);
                 }
             } catch (NullPointerException npe) {
-                MostrarError.showErrorMessage("Error inesperado al leer la lista de hechizo " + hechizo.nombre + ".", "Adiestramiento");
+                MostrarMensaje.showErrorMessage("Error inesperado al leer la lista de hechizo " + hechizo.nombre + ".", "Adiestramiento");
             }
         }
     }
@@ -594,7 +594,7 @@ public class Adiestramiento implements Serializable {
                 }
                 return 0;
             } catch (IllegalArgumentException iae) {
-                MostrarError.showErrorMessage("La categoria \"" + nombre + "\" no contiene habilidades, no se puede asignar un rango.", "Error al añadir un rango");
+                MostrarMensaje.showErrorMessage("La categoria \"" + nombre + "\" no contiene habilidades, no se puede asignar un rango.", "Error al añadir un rango");
                 return -1;
             } catch (NullPointerException npe) {
                 //Los Elementalistas dan un error al intentar añadir una Lista Básica de Hechizo, ya que estas pertenecen al adiestramiento. Lo ignoramos.               

@@ -143,7 +143,7 @@ public class AdiestramientoGUI extends javax.swing.JFrame {
         Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverListaHabilidades().get(HabilidadesComboBox.getSelectedIndex()).rangosAsignados =
                 (Integer) HabilidadRangosSpinner.getValue() - Personaje.getInstance().adiestramiento.DevolverListaCategorias().get(CategoriasComboBox.getSelectedIndex()).DevolverListaHabilidades().get(HabilidadesComboBox.getSelectedIndex()).rangosBasicos;
         }catch(ArrayIndexOutOfBoundsException aiofb){
-            MostrarError.showErrorMessage("No existe ninguna habilidad seleccionada.","Adiestramiento");
+            MostrarMensaje.showErrorMessage("No existe ninguna habilidad seleccionada.","Adiestramiento");
         }
 
         //Algunas categorias obligan a dividir los rangos al menos entre varias habilidades. Por tanto, si se ha alcanzado el maximo de rangos y no se
