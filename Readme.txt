@@ -34,6 +34,7 @@ Versión
 ------------
 1.0.0.1	Nuevo:
 		- Se han añadido nuevas razas: Enanos. 
+		- Se han solucionado algunos errores al insertar un personaje. 
 
 1.0.0.0	Cambiado:
 		- Profesiones pueden tener varios listados de habilidades comunes.
