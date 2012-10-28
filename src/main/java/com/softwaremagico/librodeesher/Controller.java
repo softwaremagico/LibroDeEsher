@@ -770,11 +770,7 @@ public class Controller {
                 AddInsertaPersonajeListeners();
                 insertarPjGui.Refrescar();
                 Esher.CombinarIdiomasRazaYTodos();
-                insertarPjGui.setVisible(true);
-                //Si no he leido antes la cultura, la leo ahora.
-                if (Personaje.getInstance().rangosAficiones == 0) {
-                    insertarPjGui.ActualizarCultura();
-                }
+                insertarPjGui.setVisible(true);                
             } catch (Exception ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1793,9 +1789,7 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Personaje.getInstance().cultura = insertarPjGui.DevolverCulturaSeleccionada();
-            new LeerCultura();
-            insertarPjGui.ActualizarTextoHabilidades();
+            insertarPjGui.ActualizarCultura();
         }
     }
 

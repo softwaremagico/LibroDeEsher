@@ -43,7 +43,6 @@ package com.softwaremagico.librodeesher.gui;
  */
 
 import com.softwaremagico.librodeesher.Categoria;
-import com.softwaremagico.librodeesher.Esher;
 import com.softwaremagico.librodeesher.Habilidad;
 import com.softwaremagico.librodeesher.IdiomaCultura;
 import com.softwaremagico.librodeesher.Personaje;
@@ -215,8 +214,8 @@ public class CulturaGUI extends javax.swing.JFrame {
                 cat.rangosCultura = Personaje.getInstance().armas.DevolverRangosCulturaTipoArma(CategoriaArmasAdolescenciaComboBox.getItemAt(i).toString());
 
                 for (int j = 0; j < Personaje.getInstance().armas.armasCultura.GetTotalArmas(); j++) {
-                    Habilidad hab = null;
-                    String nombreArmaCultura = "";
+                    Habilidad hab;
+                    String nombreArmaCultura;
 
                     nombreArmaCultura = Personaje.getInstance().armas.armasCultura.GetArmaCultura(j).nombreArma;
                     try {
@@ -226,7 +225,6 @@ public class CulturaGUI extends javax.swing.JFrame {
                     }
                 }
             } catch (NullPointerException npe) {
-                cat = null;
                 MostrarMensaje.showErrorMessage("Imposible encontrar categoría " + CategoriaArmasAdolescenciaComboBox.getItemAt(i).toString(), "Cultura");
             }
         }
@@ -321,26 +319,26 @@ public class CulturaGUI extends javax.swing.JFrame {
         Categoria cat = Personaje.getInstance().DevolverCategoriaDeNombre("Comunicación");
         for (int i = 0; i < Personaje.getInstance().idiomasCultura.Size(); i++) {
             IdiomaCultura idi = Personaje.getInstance().idiomasCultura.Get(i);
-            if (idi.DevolverValorHablado() > 0) {
-                try {
-                    hab = cat.DevolverHabilidadDeNombre("Hablar " + idi.nombre);
-                    hab.rangos = idi.DevolverValorHablado();
-                } catch (NullPointerException npe) {
-                    hab = Habilidad.getSkill(cat, "Hablar " + idi.nombre);
-                    hab.rangos = idi.DevolverValorHablado();
-                    cat.AddHabilidad(hab);
-                }
+            //if (idi.DevolverValorHablado() > 0) {
+            try {
+                hab = cat.DevolverHabilidadDeNombre("Hablar " + idi.nombre);
+                hab.rangos = idi.DevolverValorHablado();
+            } catch (NullPointerException npe) {
+                hab = Habilidad.getSkill(cat, "Hablar " + idi.nombre);
+                hab.rangos = idi.DevolverValorHablado();
+                cat.AddHabilidad(hab);
             }
-            if (idi.DevolverValorEscrito() > 0) {
-                try {
-                    hab = cat.DevolverHabilidadDeNombre("Escribir " + idi.nombre);
-                    hab.rangos = idi.DevolverValorEscrito();
-                } catch (NullPointerException npe) {
-                    hab = Habilidad.getSkill(cat, "Escribir " + idi.nombre);
-                    hab.rangos = idi.DevolverValorHablado();
-                    cat.AddHabilidad(hab);
-                }
+            // }
+            // if (idi.DevolverValorEscrito() > 0) {
+            try {
+                hab = cat.DevolverHabilidadDeNombre("Escribir " + idi.nombre);
+                hab.rangos = idi.DevolverValorEscrito();
+            } catch (NullPointerException npe) {
+                hab = Habilidad.getSkill(cat, "Escribir " + idi.nombre);
+                hab.rangos = idi.DevolverValorHablado();
+                cat.AddHabilidad(hab);
             }
+            // }
         }
     }
 

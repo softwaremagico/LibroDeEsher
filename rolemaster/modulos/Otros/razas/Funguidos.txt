@@ -67,7 +67,6 @@ Fúnguido	6/0	8/6
 Habla de los Bosques	0/0	4/0
 Habla Común	0/0	4/0
 
-
 #HABILIDADES COMUNES
 ####################################
 Esconderse, Acechar, Ataque Silencioso, Emboscar, Nadar

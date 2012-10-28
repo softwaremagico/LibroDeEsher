@@ -1600,7 +1600,7 @@ public class Personaje implements Serializable {
         Categoria cat;
 
         String[] supuestaCategoria = grupo.split("#");
-        if ((cat = DevolverCategoriaDeNombre(supuestaCategoria[0])) != null) {
+        if (supuestaCategoria != null && supuestaCategoria.length>0 && (cat = DevolverCategoriaDeNombre(supuestaCategoria[0])) != null) {
             //Se selecciona aleatoriamente algunas habilidades.
             if (Esher.aleatorio) {
                 for (int j = 0; j

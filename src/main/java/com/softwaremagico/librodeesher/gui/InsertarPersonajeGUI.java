@@ -47,6 +47,7 @@ import com.softwaremagico.librodeesher.Categoria;
 import com.softwaremagico.librodeesher.Esher;
 import com.softwaremagico.librodeesher.FichaTxt;
 import com.softwaremagico.librodeesher.Habilidad;
+import com.softwaremagico.librodeesher.IdiomaCultura;
 import com.softwaremagico.librodeesher.LeerCultura;
 import com.softwaremagico.librodeesher.LeerProfesion;
 import com.softwaremagico.librodeesher.Magia;
@@ -96,6 +97,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
     public void IniciarVentana() {
         IniciaPersonaje();
         IniciaCaracteristicas();
+        ActualizarCultura();
         IniciaHabilidades();
         IniciarHistorial();
         IniciarObjetos();
@@ -125,7 +127,34 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
     }
 
     public void ActualizarCultura() {
+        Personaje.getInstance().cultura = DevolverCulturaSeleccionada();
         new LeerCultura();
+        AsignarIdiomasCultura();
+        ActualizarTextoHabilidades();
+    }
+
+    private void AsignarIdiomasCultura() {
+        Habilidad hab;
+        Categoria cat = Personaje.getInstance().DevolverCategoriaDeNombre("Comunicación");
+        for (int i = 0; i < Personaje.getInstance().idiomasCultura.Size(); i++) {
+            IdiomaCultura idi = Personaje.getInstance().idiomasCultura.Get(i);
+            try {
+                hab = cat.DevolverHabilidadDeNombre("Hablar " + idi.nombre);
+                hab.rangos = idi.DevolverValorHablado();
+            } catch (NullPointerException npe) {
+                hab = Habilidad.getSkill(cat, "Hablar " + idi.nombre);
+                hab.rangos = idi.DevolverValorHablado();
+                cat.AddHabilidad(hab);
+            }
+            try {
+                hab = cat.DevolverHabilidadDeNombre("Escribir " + idi.nombre);
+                hab.rangos = idi.DevolverValorEscrito();
+            } catch (NullPointerException npe) {
+                hab = Habilidad.getSkill(cat, "Escribir " + idi.nombre);
+                hab.rangos = idi.DevolverValorHablado();
+                cat.AddHabilidad(hab);
+            }
+        }
     }
 
     /**
@@ -372,7 +401,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
      * Guarda una lista de todos los marcadores de caracteristicas temporales.
      */
     private void GeneraListadoTemporales() {
-        listaTemporales = new ArrayList<JSpinner>();
+        listaTemporales = new ArrayList<>();
         listaTemporales.add(AgilidadTemporalSpinner);
         listaTemporales.add(ConstitucionTemporalSpinner);
         listaTemporales.add(MemoriaTemporalSpinner);
@@ -759,9 +788,9 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
         cat.rangosInsertados = (Integer) RangosCategoriaSpinner.getValue() - cat.rangosAdiestramiento - cat.rangosCultura;
         if (cat.rangosInsertados > 0) {
             cat.nuevosRangos = 0;
-            ActualizarTextoHabilidades();
             GastarTodosPuntosDesarrollo();
         }
+        ActualizarTextoHabilidades();
     }
 
     public void ActualizarRangosHabilidad() {
@@ -774,13 +803,13 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
         if (hab.rangosInsertados > 0) {
             hab.rangos = 0;
             hab.nuevosRangos = 0;
-            ActualizarTextoHabilidades();
             GastarTodosPuntosDesarrollo();
             try {
                 ActualizarHabilidadesComboBox(DevolverHabilidadSeleccionada().DevolverNombre());
             } catch (NullPointerException npe) {
             }
         }
+        ActualizarTextoHabilidades();
     }
 
     public void ActualizarTextoHabilidades() {
