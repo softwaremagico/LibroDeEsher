@@ -495,7 +495,7 @@ public class Esher implements Serializable {
     public static String getVersion() {
         //return MyFile.readTextFile(Esher.class.getClass().getResource("/version.txt").getPath(), false);
         //return MyFile.readTextFile("/version.txt",false);
-        return "1.0.0.0";
+        return "1.0.0.1";
     }
 
     private static void AplicarConfiguracion() {
