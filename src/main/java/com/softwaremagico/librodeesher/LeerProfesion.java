@@ -104,7 +104,7 @@ public class LeerProfesion {
             lineaLeida = magia.AsignarCostesHechizos(lines, lineaLeida);
             lineaLeida = AsignarCostesAdiestramiento(lines, lineaLeida);
             magia.AsignarCostesListasAdiestramiento();
-            OtrosProfesion();
+            CategoriasEspecialesDeProfesiones();
         }
     }
 
@@ -310,7 +310,7 @@ public class LeerProfesion {
         }
     }
 
-    private void OtrosProfesion() {
+    private void CategoriasEspecialesDeProfesiones() {
         //Los elementalistas tienen categorías particulares de hechizos.
         if (Personaje.getInstance().profesion.contains("Elementalista")) {
             try {

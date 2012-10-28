@@ -1,20 +1,20 @@
 /*
-This software is designed by Jorge Hortelano Otero.
-softwaremagico@gmail.com
-Copyright (C) 2007 Jorge Hortelano Otero.
-C/Botanico 12, 1. Valencia CP:46008 (Spain).
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-Created on march of 2008.
+ This software is designed by Jorge Hortelano Otero.
+ softwaremagico@gmail.com
+ Copyright (C) 2007 Jorge Hortelano Otero.
+ C/Botanico 12, 1. Valencia CP:46008 (Spain).
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 2
+ of the License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ Created on march of 2008.
  */
 package com.softwaremagico.librodeesher;
 /*
@@ -48,7 +48,6 @@ import java.util.List;
 
 public class Magia {
 
-
     public Magia() {
     }
 
@@ -72,8 +71,8 @@ public class Magia {
     }
 
     /**
-     * Obtiene el reino que puede seleccionar el PJ de acuerdo a su profesión
-     * y a los disponibles en el programa.
+     * Obtiene el reino que puede seleccionar el PJ de acuerdo a su profesión y
+     * a los disponibles en el programa.
      */
     public List<String> ObtenerReinoDisponible() throws Exception {
         List<String> reinosExistentes = ReinosDeMagiaDisponibles();
@@ -99,7 +98,7 @@ public class Magia {
     }
 
     private void ResetCategoriasHechizos() {
-        Categoria cat = null;
+        Categoria cat;
         cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Abiertas de Hechizos");
         cat.listaHabilidades = new ArrayList<>();
         cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Abiertas Arcanas");
@@ -120,8 +119,8 @@ public class Magia {
         cat.listaHabilidades = new ArrayList<>();
         cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Hechizos de Adiestramiento");
         cat.listaHabilidades = new ArrayList<>();
-        if (Esher.hechizosAdiestramientoOtrosReinosPermitidos) {
-            cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Hechizos de Adiestramientos de Otro Reino");
+        cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Hechizos de Adiestramientos de Otro Reino");
+        if (cat != null) {
             cat.listaHabilidades = new ArrayList<>();
         }
         cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Básicas de la Tríada");
@@ -140,7 +139,7 @@ public class Magia {
             String[] vectorClase = hechizo.clase.split("/");
             List<String> listaClase = new ArrayList<>();
             listaClase.addAll(Arrays.asList(vectorClase));
-           
+
             if (listaClase.contains("Abierta")) {
                 if (Personaje.getInstance().reino.contains(hechizo.reino)) {
                     cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Abiertas de Hechizos");

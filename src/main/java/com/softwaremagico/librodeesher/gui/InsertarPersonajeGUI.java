@@ -142,13 +142,15 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
         try {
             RellenaRazas();
             RellenaProfesion();
-            /* Si no se ha leido aún la profesión, se lee. */
+            // Si no se ha leido aún la profesión, se lee. 
             if (!Personaje.getInstance().ProfesionAsignada()) {
-                new LeerProfesion(false);
+                new LeerProfesion(true, false);
             }
             RellenarCulturas();
             RellenarReinosDeMagia();
             RellenarAdiestramientos();
+            Personaje.getInstance().reino = DevolverReinoDeMagia();
+            Personaje.getInstance().ObtenerMagia();
         } catch (Exception ex) {
             Logger.getLogger(InsertarPersonajeGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1621,6 +1623,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
         BorrarObjetoButton = new javax.swing.JButton();
         ObjetosComboBox = new javax.swing.JComboBox();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Libro de Esher - Copiar Personaje Externo");
 
         CerrarButton.setText("Cerrar");
