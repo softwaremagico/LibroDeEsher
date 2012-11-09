@@ -93,6 +93,7 @@ public class PersonajeAleatorio {
         while (Personaje.getInstance().nivel < nivel_final) {
             ObtenerRangosSugeridos();
             GastarPuntosDesarrolloDeFormaAleatoria(true);
+            Log.info(" -----------  Subida de Nivel  --------------");
             Personaje.getInstance().SubirUnNivel();
             adiestramientos_escogidos_en_nivel = 0;
         }
@@ -233,6 +234,7 @@ public class PersonajeAleatorio {
         for (int i = 0; i < listaCategoriasBarajada.size(); i++) {
             Categoria cat = listaCategoriasBarajada.get(i);
             if (generator.nextInt(100) + 1 < cat.ProbabilidadSubida()) {
+                Log.info("Nuevo rango en categoría " + cat.DevolverNombre());
                 cat.nuevosRangos++;
             }
             List<Habilidad> habilidadesBarajadas = BarajarHabilidadesDeCategoria(cat);
@@ -243,6 +245,7 @@ public class PersonajeAleatorio {
                     if (hab.nuevosRangos == 0) {
                         hab.multiplicadorCosteHechizos = Personaje.getInstance().DevolverMultiplicadoCosteHechizos();
                     }
+                     Log.info("Nuevo rango en habilidad " + hab.DevolverNombre());
                     hab.IncrementarNuevosRangos(1);
                     //Si da opciones de nuevas habilidades, se incluyen ahora.
                     if (hab.habilidadesNuevasPosibles.size() > 0 && cat.NumeroHabilidadesExistes(hab.habilidadesNuevasPosibles) == 0) {

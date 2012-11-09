@@ -42,10 +42,10 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Image;
 import com.softwaremagico.files.DirectorioRolemaster;
+import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -362,6 +362,7 @@ public class Categoria implements Serializable {
                 probabilidad += DevolverValorCaracteristicas();
                 probabilidad += CategoriaPreferida();
                 probabilidad -= CaroCategoria();
+                probabilidad += BonusTieneHabilidadComun();
                 probabilidad += Esher.IntentosAsignarPD() * 3;
                 if (Esher.inteligencia) {
                     probabilidad += AplicarInteligenciaALaAleatorizacion();
@@ -432,6 +433,20 @@ public class Categoria implements Serializable {
 
     public void DeshabilitarAleatorio(boolean value) {
         noElegirAleatorio = value;
+    }
+
+    int BonusTieneHabilidadComun() {
+        int bonus = 0;
+        for (Habilidad habilidad : listaHabilidades) {
+            if (habilidad.EsComun()) {
+                bonus += 20;
+            }
+        }
+        if (DevolverRangos() == 0) {
+            return bonus;
+        } else {
+            return bonus / 10;
+        }
     }
 
     /**

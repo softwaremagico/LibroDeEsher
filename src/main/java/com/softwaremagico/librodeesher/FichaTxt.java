@@ -96,7 +96,7 @@ public class FichaTxt {
             text += "\t" + cat.Total() + "\n";
             for (int j = 0; j < cat.listaHabilidades.size(); j++) {
                 Habilidad hab = cat.listaHabilidades.get(j);
-                if (hab.MereceLaPenaMostrar()) {
+                if (hab.MereceLaPenaImprimir()) {
                     text = text + "  *  " + hab.DevolverNombreTamañoDeterminado(
                             tamañoMaximoNombre + incrementoTamaño);
                     text = text + "\t" + "\t"

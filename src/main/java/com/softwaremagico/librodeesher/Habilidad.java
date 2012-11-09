@@ -1066,16 +1066,16 @@ public class Habilidad implements Serializable {
      */
     private int FacilidadHabilidad() {
         if (generalizada) {
-            return 50;
+            return 50 - CaroHabilidad() * 5;
         }
         if (EsRestringida()) {
             return -75;
         }
         if (EsProfesional()) {
-            return 75;
+            return 90 - CaroHabilidad() * 10;
         }
         if (EsComun()) {
-            return 35;
+            return 75 - CaroHabilidad() * 10;
         }
         return 0;
     }
@@ -1087,8 +1087,8 @@ public class Habilidad implements Serializable {
      * @return
      */
     private int HabilidadAbsurda() {
-        if (nombre.equals("Control de la Licantropía")
-                || nombre.equals("Montar: Osos")) {
+        if (nombre.contains("Licantropía")
+                || nombre.contains("Osos") || nombre.contains("Camellos")) {
             return -1000;
         }
         return 0;
