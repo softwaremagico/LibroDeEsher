@@ -29,7 +29,6 @@ import com.softwaremagico.files.DirectorioRolemaster;
  * this program; If not, see <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-
 /**
  *
  * @author jorge
@@ -40,7 +39,8 @@ public class FichaTxt {
     }
 
     /**
-     * Genera un texto con el nombre, raza, profesion y otros detalles del Personaje.getInstance().
+     * Genera un texto con el nombre, raza, profesion y otros detalles del
+     * Personaje.getInstance().
      */
     public String ExportarATextDetalles() {
         return Personaje.getInstance().DevolverNombreCompleto() + "\tNº " + Personaje.getInstance().nivel + "\n"
@@ -74,92 +74,93 @@ public class FichaTxt {
 
         for (int i = 0; i < Personaje.getInstance().categorias.size(); i++) {
             Categoria cat = Personaje.getInstance().categorias.get(i);
-
-            text = text + cat.DevolverNombreTamañoDeterminado(
-                    tamañoMaximoNombre + incrementoTamaño)
-                    + "\t" + cat.GenerarCadenaCosteRangos() + "\t"
-                    + cat.DevolverRangos() + "\t" + cat.DevolverValorRangoCategoria() + "\t"
-                    + cat.DevolverValorCaracteristicas() + "\t" + cat.DevolverBonuses();
-            String letra = "";
-            if (cat.historial) {
-                letra += "H";
-            }
-            if (cat.DevolverBonusTalentos() != 0) {
-                letra += "T";
-            }
-            if (Personaje.getInstance().ExisteObjetoModificaCategoria(cat)) {
-                letra += "O";
-            }
-            if (!letra.equals("")) {
-                text += "(" + letra + ")";
-            }
-            text += "\t" + cat.Total() + "\n";
-            for (int j = 0; j < cat.listaHabilidades.size(); j++) {
-                Habilidad hab = cat.listaHabilidades.get(j);
-                if (hab.MereceLaPenaImprimir()) {
-                    text = text + "  *  " + hab.DevolverNombreTamañoDeterminado(
-                            tamañoMaximoNombre + incrementoTamaño);
-                    text = text + "\t" + "\t"
-                            + hab.DevolverRangos() + "\t" + hab.DevolverValorRangoHabilidad()
-                            + "\t" + cat.Total() + "\t"
-                            + hab.DevolverBonuses();
-                    letra = "";
-                    if (hab.historial) {
-                        letra += "H";
-                    }
-                    int bonusTalentos = hab.DevolverBonusTalentos();
-                    int siempreTalento = hab.DevolverBonusTemporalTalentos();
-                    if (bonusTalentos != 0) {
-                        letra += "T";
-                        if (siempreTalento > 0) {
-                            letra += "*";
-                        }
-                    }
-                    if (Personaje.getInstance().ExisteObjetoModificaHabilidad(hab)) {
-                        letra += "O";
-                    }
-                    if (!letra.equals("")) {
-                        text += "(" + letra + ")";
-                    }
-                    if (hab.DevolverBonusObjetos() > 0 || siempreTalento > 0) {
-                        text += "\t" + (hab.Total() - hab.DevolverBonusObjetos() - siempreTalento) + "/" + hab.Total() + "";
-                    } else {
-                        text += "\t" + hab.Total();
-                    }
-                    text += "\n";
-
-                    //Mostramos las habilidades especializadas.
-                    for (int m = 0; m < hab.RangosGastadosEnEspecializacion(); m++) {
-                        text = text + "  *  " + hab.DevolverEspecializacionTamañoDeterminado(
-                                tamañoMaximoNombre + incrementoTamaño, m);
+            if (cat.MereceLaPenaMostrar()) {
+                text = text + cat.DevolverNombreTamañoDeterminado(
+                        tamañoMaximoNombre + incrementoTamaño)
+                        + "\t" + cat.GenerarCadenaCosteRangos() + "\t"
+                        + cat.DevolverRangos() + "\t" + cat.DevolverValorRangoCategoria() + "\t"
+                        + cat.DevolverValorCaracteristicas() + "\t" + cat.DevolverBonuses();
+                String letra = "";
+                if (cat.historial) {
+                    letra += "H";
+                }
+                if (cat.DevolverBonusTalentos() != 0) {
+                    letra += "T";
+                }
+                if (Personaje.getInstance().ExisteObjetoModificaCategoria(cat)) {
+                    letra += "O";
+                }
+                if (!letra.equals("")) {
+                    text += "(" + letra + ")";
+                }
+                text += "\t" + cat.Total() + "\n";
+                for (int j = 0; j < cat.listaHabilidades.size(); j++) {
+                    Habilidad hab = cat.listaHabilidades.get(j);
+                    if (hab.MereceLaPenaImprimir()) {
+                        text = text + "  *  " + hab.DevolverNombreTamañoDeterminado(
+                                tamañoMaximoNombre + incrementoTamaño);
                         text = text + "\t" + "\t"
-                                + hab.DevolverRangosEspecializacion() + "\t" + hab.DevolverValorRangoHabilidadEspecializacion()
+                                + hab.DevolverRangos() + "\t" + hab.DevolverValorRangoHabilidad()
                                 + "\t" + cat.Total() + "\t"
                                 + hab.DevolverBonuses();
                         letra = "";
                         if (hab.historial) {
                             letra += "H";
                         }
-                        bonusTalentos = hab.DevolverBonusTalentos();
-                        siempreTalento = hab.DevolverBonusTemporalTalentos();
+                        int bonusTalentos = hab.DevolverBonusTalentos();
+                        int siempreTalento = hab.DevolverBonusTemporalTalentos();
                         if (bonusTalentos != 0) {
                             letra += "T";
                             if (siempreTalento > 0) {
                                 letra += "*";
                             }
                         }
+                        if (Personaje.getInstance().ExisteObjetoModificaHabilidad(hab)) {
+                            letra += "O";
+                        }
                         if (!letra.equals("")) {
                             text += "(" + letra + ")";
                         }
                         if (hab.DevolverBonusObjetos() > 0 || siempreTalento > 0) {
-                            text += "\t" + (hab.TotalEspecializacion() - hab.DevolverBonusObjetos() - siempreTalento) + "/" + hab.TotalEspecializacion() + "";
+                            text += "\t" + (hab.Total() - hab.DevolverBonusObjetos() - siempreTalento) + "/" + hab.Total() + "";
                         } else {
-                            text += "\t" + hab.TotalEspecializacion();
+                            text += "\t" + hab.Total();
                         }
                         text += "\n";
+
+                        //Mostramos las habilidades especializadas.
+                        for (int m = 0; m < hab.RangosGastadosEnEspecializacion(); m++) {
+                            text = text + "  *  " + hab.DevolverEspecializacionTamañoDeterminado(
+                                    tamañoMaximoNombre + incrementoTamaño, m);
+                            text = text + "\t" + "\t"
+                                    + hab.DevolverRangosEspecializacion() + "\t" + hab.DevolverValorRangoHabilidadEspecializacion()
+                                    + "\t" + cat.Total() + "\t"
+                                    + hab.DevolverBonuses();
+                            letra = "";
+                            if (hab.historial) {
+                                letra += "H";
+                            }
+                            bonusTalentos = hab.DevolverBonusTalentos();
+                            siempreTalento = hab.DevolverBonusTemporalTalentos();
+                            if (bonusTalentos != 0) {
+                                letra += "T";
+                                if (siempreTalento > 0) {
+                                    letra += "*";
+                                }
+                            }
+                            if (!letra.equals("")) {
+                                text += "(" + letra + ")";
+                            }
+                            if (hab.DevolverBonusObjetos() > 0 || siempreTalento > 0) {
+                                text += "\t" + (hab.TotalEspecializacion() - hab.DevolverBonusObjetos() - siempreTalento) + "/" + hab.TotalEspecializacion() + "";
+                            } else {
+                                text += "\t" + hab.TotalEspecializacion();
+                            }
+                            text += "\n";
+                        }
+                    } else {
+                        text = text + "";
                     }
-                } else {
-                    text = text + "";
                 }
             }
         }
@@ -505,7 +506,8 @@ public class FichaTxt {
     }
 
     /**
-     * Genera una version del personaje del mismo método que en el criaturas y tesoros.
+     * Genera una version del personaje del mismo método que en el criaturas y
+     * tesoros.
      */
     private String GenerarCaracteristicasTipoMonstruo() {
         Habilidad habCC = BuscarMejorArma();

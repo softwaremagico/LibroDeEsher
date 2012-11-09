@@ -122,8 +122,8 @@ public class Habilidad implements Serializable {
         hab.rangos = rang;
         return hab;
     }
-    
-    public static void deleteSkills(){
+
+    public static void deleteSkills() {
         habilidadesDisponibles = new HashMap();
     }
 
@@ -631,16 +631,16 @@ public class Habilidad implements Serializable {
             }
         } else {
             switch (nuevosRangos) {
-                case 1:                    
+                case 1:
                     image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros05.png");
                     break;
-                case 2:                    
+                case 2:
                     image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros1.png");
                     break;
-                case 3:                    
+                case 3:
                     image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros15.png");
                     break;
-                default: 
+                default:
                     image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros0.png");
             }
         }
@@ -969,7 +969,11 @@ public class Habilidad implements Serializable {
     }
 
     private int AleatorizacionPorOpciones() {
-        if (!Esher.armasFuegoPermitidas && (categoriaPadre.DevolverNombre().contains("Armas·Fuego"))) {
+        if (!Esher.armasFuegoPermitidas && categoriaPadre.DevolverNombre().contains("Armas") && categoriaPadre.DevolverNombre().contains("Fuego")) {
+            return -10000;
+        }
+
+        if (!Esher.armasFuegoPermitidas && categoriaPadre.DevolverNombre().contains("Maniobras de Combate") && DevolverNombre().contains("Fuego")) {
             return -10000;
         }
         return 0;

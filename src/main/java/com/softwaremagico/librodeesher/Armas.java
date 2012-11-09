@@ -137,9 +137,9 @@ public class Armas implements Serializable {
         for (int i = 0; i < ficherosArmas.size(); i++) {
             TipoArma tArma;
             tArma = new TipoArma(ficherosArmas.get(i));
-            //if (esher.armasFuegoPermitidas || !tArma.tipo.contains("Fuego")) {
-            tiposArmas.Add(tArma);
-            //}
+            if (Esher.armasFuegoPermitidas || !tArma.tipo.contains("Fuego")) {
+                tiposArmas.Add(tArma);
+            }
         }
     }
 

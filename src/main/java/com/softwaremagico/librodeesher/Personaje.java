@@ -961,6 +961,10 @@ public class Personaje implements Serializable {
         }
     }
 
+    public boolean EliminarCategoria(Categoria cat) {
+        return categorias.remove(cat);
+    }
+
     public void AñadirHabilidades(String c, String habilidades) {
         String[] arrayHabilidades = habilidades.split(", ");
         Categoria cat = DevolverCategoriaDeNombre(c);
@@ -1600,7 +1604,7 @@ public class Personaje implements Serializable {
         Categoria cat;
 
         String[] supuestaCategoria = grupo.split("#");
-        if (supuestaCategoria != null && supuestaCategoria.length>0 && (cat = DevolverCategoriaDeNombre(supuestaCategoria[0])) != null) {
+        if (supuestaCategoria != null && supuestaCategoria.length > 0 && (cat = DevolverCategoriaDeNombre(supuestaCategoria[0])) != null) {
             //Se selecciona aleatoriamente algunas habilidades.
             if (Esher.aleatorio) {
                 for (int j = 0; j

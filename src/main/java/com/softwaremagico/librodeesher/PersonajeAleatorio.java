@@ -245,7 +245,7 @@ public class PersonajeAleatorio {
                     if (hab.nuevosRangos == 0) {
                         hab.multiplicadorCosteHechizos = Personaje.getInstance().DevolverMultiplicadoCosteHechizos();
                     }
-                     Log.info("Nuevo rango en habilidad " + hab.DevolverNombre());
+                    Log.info("Nuevo rango en habilidad " + hab.DevolverNombre());
                     hab.IncrementarNuevosRangos(1);
                     //Si da opciones de nuevas habilidades, se incluyen ahora.
                     if (hab.habilidadesNuevasPosibles.size() > 0 && cat.NumeroHabilidadesExistes(hab.habilidadesNuevasPosibles) == 0) {

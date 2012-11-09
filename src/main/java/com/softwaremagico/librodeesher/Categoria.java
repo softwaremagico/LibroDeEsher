@@ -263,6 +263,12 @@ public class Categoria implements Serializable {
         if (listaHabilidades.isEmpty()) {
             return false;
         }
+        if (costeRango[0] == 0) {
+            return false;
+        }
+        if(nombre.contains("Arma") && nombre.contains("Fuego") && !Esher.armasFuegoPermitidas){
+            return false;
+        }
         if (!Esher.hechizosAdiestramientoOtrosReinosPermitidos && nombre.contains("Listas Hechizos de Adiestramientos de Otro Reino")) {
             return false;
         }
@@ -287,6 +293,12 @@ public class Categoria implements Serializable {
 
     public boolean MereceLaPenaListar() {
         if (listaHabilidades.isEmpty()) {
+            return false;
+        }
+        if (costeRango[0] == 0) {
+            return false;
+        }
+        if(nombre.contains("Arma") && nombre.contains("Fuego") && !Esher.armasFuegoPermitidas){
             return false;
         }
         if (!Esher.hechizosAdiestramientoOtrosReinosPermitidos && nombre.contains("Listas Hechizos de Adiestramientos de Otro Reino")) {
@@ -638,16 +650,19 @@ public class Categoria implements Serializable {
         if (nombre.startsWith("Armas·")) {
             String[] nombreFragmentado = nombre.split("\\·");
             String tipoArma = nombreFragmentado[1];
-            List<String> listadoArmas = Personaje.getInstance().armas.DevolverNombreArmasClase(tipoArma);
-            try {
-                for (int i = 0; i < listadoArmas.size(); i++) {
-                    String armaLeida = listadoArmas.get(i);
-                    AddHabilidad(armaLeida);
+            if (!tipoArma.contains("Fuego") || Esher.armasFuegoPermitidas) {
+
+                List<String> listadoArmas = Personaje.getInstance().armas.DevolverNombreArmasClase(tipoArma);
+                try {
+                    for (int i = 0; i < listadoArmas.size(); i++) {
+                        String armaLeida = listadoArmas.get(i);
+                        AddHabilidad(armaLeida);
+                    }
+                } catch (NullPointerException npe) {
+                    MostrarMensaje.showErrorMessage("Error leyendo las armas de los ficheros. Comprueba el fichero de configuración de módulos.", "Categorías");
+                    npe.printStackTrace();
+                    System.exit(0);
                 }
-            } catch (NullPointerException npe) {
-                MostrarMensaje.showErrorMessage("Error leyendo las armas de los ficheros. Comprueba el fichero de configuración de módulos.", "Categorías");
-                npe.printStackTrace();
-                System.exit(0);
             }
             //Los hechizos son especiales.
         } else {

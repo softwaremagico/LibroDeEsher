@@ -165,7 +165,7 @@ public class Esher implements Serializable {
         idiomasRolemaster = DevolverListaTodosIdiomas();
 
     }
-
+    
     private static List<String> DevolverListaTodosIdiomas() {
         List<String> idiomas = new ArrayList<>();
         Categoria comunicacion = Personaje.getInstance().DevolverCategoriaDeNombre("Comunicación");
