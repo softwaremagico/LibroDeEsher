@@ -159,8 +159,8 @@ public class Armas implements Serializable {
         for (int i = 0; i < tiposArmas.Size(); i++) {
             TipoArma ta = tiposArmas.Get(i);
             for (int j = 0; j < ta.armas.size(); j++) {
-                if (!ta.armas.get(j).contains("©")) {
-                    todasArmas.add(ta.armas.get(j));
+                if (!ta.armas.get(j).contains("*")) {
+                    todasArmas.add(ta.armas.get(j).replace("*", "").trim());
                 }
             }
         }

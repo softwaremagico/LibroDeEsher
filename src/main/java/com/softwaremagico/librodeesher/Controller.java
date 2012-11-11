@@ -548,6 +548,7 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
+                Personaje.getInstance().resetCaracteristicas();
                 caracteristicasGui.Reset();
                 Esher.Reset();
                 gui.Reset();

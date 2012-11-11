@@ -59,7 +59,7 @@ public class Personaje implements Serializable {
     public String profesion = "Luchador";
     public String cultura = "Litoral";
     public String sexo = "Masculino";
-    public Caracteristicas caracteristicas = new Caracteristicas();
+    public Caracteristicas caracteristicas;
     public List<Categoria> categorias = new ArrayList<>();
     public int puntosDesarrolloNivel;
     public int puntosDesarrolloGastadosAnterioresNiveles = 0;
@@ -153,6 +153,7 @@ public class Personaje implements Serializable {
     private static Personaje personaje = new Personaje();
 
     Personaje() {
+        resetCaracteristicas();
     }
 
     public static Personaje getInstance() {
@@ -161,6 +162,10 @@ public class Personaje implements Serializable {
 
     public static void setInstance(Personaje personaje) {
         Personaje.personaje = personaje;
+    }
+    
+    public void resetCaracteristicas(){
+        caracteristicas = new Caracteristicas();
     }
 
     /**

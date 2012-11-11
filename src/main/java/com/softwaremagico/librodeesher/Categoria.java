@@ -705,16 +705,10 @@ public class Categoria implements Serializable {
             nombreHab = nombreHab.replace("(R)", "");
         }
 
-        if (nombreHab.contains("©")) {
+        if (nombreHab.contains("*")) {
             noAleatoria = true;
-            nombreHab = nombreHab.replace("©", "");
+            nombreHab = nombreHab.replace("*", "");
         }
-
-        if (nombreHab.contains("(c)")) {
-            noAleatoria = true;
-            nombreHab = nombreHab.replace("(c)", "");
-        }
-
 
         if (!ExisteHabilidad(nombreHab)) {
             Habilidad hab = Habilidad.getSkill(this, nombreHab.trim());

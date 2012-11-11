@@ -4,4 +4,4 @@ Garrote
 Látigo
 Martillo de Guerra
 Maza
-Látigo Metálico ©
+Látigo Metálico *

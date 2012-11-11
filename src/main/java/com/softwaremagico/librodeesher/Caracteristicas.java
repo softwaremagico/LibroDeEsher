@@ -68,36 +68,16 @@ public class Caracteristicas implements Serializable {
      * Genera las 10 características del PJ y sus abreviaturas.
      */
     private void CrearCaracteristicas() {
-        Caracteristica agilidad = new Caracteristica("Ag");
-        agilidad.CambiarPuntosTemporal(21);
-        caracteristicas.add(agilidad);
-        Caracteristica constitucion = new Caracteristica("Co");
-        constitucion.CambiarPuntosTemporal(21);
-        caracteristicas.add(constitucion);
-        Caracteristica memoria = new Caracteristica("Me");
-        memoria.CambiarPuntosTemporal(21);
-        caracteristicas.add(memoria);
-        Caracteristica razon = new Caracteristica("Ra");
-        razon.CambiarPuntosTemporal(21);
-        caracteristicas.add(razon);
-        Caracteristica autodisciplina = new Caracteristica("Ad");
-        autodisciplina.CambiarPuntosTemporal(21);
-        caracteristicas.add(autodisciplina);
-        Caracteristica empatia = new Caracteristica("Em");
-        empatia.CambiarPuntosTemporal(21);
-        caracteristicas.add(empatia);
-        Caracteristica intuicion = new Caracteristica("In");
-        intuicion.CambiarPuntosTemporal(21);
-        caracteristicas.add(intuicion);
-        Caracteristica presencia = new Caracteristica("Pr");
-        presencia.CambiarPuntosTemporal(21);
-        caracteristicas.add(presencia);
-        Caracteristica rapidez = new Caracteristica("Rp");
-        rapidez.CambiarPuntosTemporal(21);
-        caracteristicas.add(rapidez);
-        Caracteristica fuerza = new Caracteristica("Fu");
-        fuerza.CambiarPuntosTemporal(21);
-        caracteristicas.add(fuerza);
+        caracteristicas.add(new Caracteristica("Ag"));
+        caracteristicas.add(new Caracteristica("Co"));
+        caracteristicas.add(new Caracteristica("Me"));
+        caracteristicas.add(new Caracteristica("Ra"));
+        caracteristicas.add(new Caracteristica("Ad"));
+        caracteristicas.add(new Caracteristica("Em"));
+        caracteristicas.add(new Caracteristica("In"));
+        caracteristicas.add(new Caracteristica("Pr"));
+        caracteristicas.add(new Caracteristica("Rp"));
+        caracteristicas.add(new Caracteristica("Fu"));
     }
 
     public Caracteristica DevolverCaracteristicaDeAbreviatura(String abrev) {

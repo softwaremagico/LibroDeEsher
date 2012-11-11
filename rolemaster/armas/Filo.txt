@@ -7,6 +7,6 @@ Espada Corta
 Estoque
 Hacha de Mano
 Main Gauche
-Sable ©
-Kama ©
-Wakizashi ©
+Sable *
+Kama *
+Wakizashi *
