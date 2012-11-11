@@ -32,9 +32,11 @@ Existe un problema conocido con el generador de personajes. Normalmente se debe 
 
 Versión
 ------------
-1.0.0.1	Nuevo:
+1.0.1.0	Nuevo:
 		- Se han añadido nuevas razas: Enanos. 
+		- Se ha añadido la cultura antigua.
 		- Se han solucionado algunos errores al insertar un personaje. 
+		- Se ha mejorado la aleatorizacion del personaje. 
 
 1.0.0.0	Cambiado:
 		- Profesiones pueden tener varios listados de habilidades comunes.
