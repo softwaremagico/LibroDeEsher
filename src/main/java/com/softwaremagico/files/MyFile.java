@@ -71,7 +71,7 @@ public class MyFile {
      */
     public static String inString(String filename, boolean verbose) throws IOException {
         //String OS = System.getProperty("os.name");
-        return readTextFile(filename, "ISO8859_1", verbose);
+        return readTextFile(filename, "UTF-8", verbose);
         /*
          * if (OS.contains("Windows Vista") || (OS.contains("Windows 7"))) {
          * return ReadTextFile("ISO8859_1", verbose); } else if

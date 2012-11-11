@@ -180,7 +180,7 @@
                                         <filter value="${project.version}" token="version" />
                                     </filterset>
                                 </copy>
-                                        <!-- exclude images because are corrupted -->
+                                <!-- exclude images because are corrupted -->
                                 <copy todir="${linux.releasedir}/usr" overwrite="true" >
                                     <fileset dir="${linux.origin}/usr" includes="**/*" excludes="**/*.ico" />
                                     <filterset>
@@ -192,7 +192,7 @@
                                 </copy>
                                 <chmod file="${linux.releasedir}/usr/bin/libro-de-esher" perm="755"/>
                                 <chmod file="${linux.releasedir}/usr/bin/libro-de-esher-doc" perm="755"/>
-                                        <!-- copy images -->
+                                <!-- copy images -->
                                 <copy todir="${linux.releasedir}/usr" overwrite="true" >
                                     <fileset dir="${linux.origin}/usr" includes="**/*.ico" />
                                 </copy>
@@ -250,13 +250,32 @@
                                 </copy>
                                 <copy todir="${windows.releasedir}" overwrite="true" flatten="true" >
                                     <fileset dir="./target/" includes="LibroDeEsher.jar" />
-                                </copy>
+                                </copy>                                
                             </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>
                         </goals>
-                    </execution>
+                         </execution>
+                        
+                        <execution>
+                            <id>version-copy</id>
+                            <phase>initialize</phase>
+                            <configuration>
+                                <target>
+                                    <!-- version number -->
+                                    <copy todir="src/main/resources/" overwrite="true" >
+                                        <fileset dir="${basedir}" includes="version.txt" />
+                                        <filterset>
+                                            <filter value="${project.version}" token="version" />
+                                        </filterset>
+                                    </copy>
+                                </target>
+                            </configuration>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                        </execution>
                 </executions>
             </plugin>
         </plugins>
