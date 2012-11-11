@@ -1,0 +1,59 @@
+# TIEMPO (meses)
+####################################
+111
+
+# EXCLUSIVO RAZA
+####################################
+Femenino
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Caballo de guerra (entrenamiento especial)	10
+Arma de proyectiles (+10 no mágica)	10
+20 Virotes (+10 no mágicos)	80
+Arma cuerpo a cuerpo (+5 no mágica)	40
+Escudo (+5 no mágico)	30
+Caballo (+5 a montar)	50
+Amuleto con símbolo de amazona	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Armas·Proyectiles	2	1	1	2
+{Armas·Contundentes; Armas·Asta; Armas·Filo; Armas·2manos}	1	1	1	1
+Artes Marciales·Barridos	1	1	1	1
+Atletismo·Gimnasia	4	2	2	4
+  *  Acrobacias	2
+  *  Trepar	2
+Exteriores·Animales	1	1	1	1
+  *  Montar: Caballos	1
+Exteriores·Entorno	1	1	1	1
+Percepción·Búsqueda	1	1	2	2
+Subterfugio·Sigilo	2	2	2	2
+  *  Acechar	1
+  *  Esconderse	1
+
+#AUMENTOS CARACTERÍSTICAS //Una linea por caracteristica. Si permite elegir incluir el par entre llaves: {Ca, Ca}
+####################################
+Ag
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

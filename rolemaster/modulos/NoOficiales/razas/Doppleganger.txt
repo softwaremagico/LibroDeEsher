@@ -1,0 +1,101 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS	
+####################################
+Ag	3
+Co	0
+Me	0
+Ra	0
+Ad	4
+Em	0
+In	-2
+Pr	4
+Rp	0
+Fu	2
+Ap	0
+
+#MODIFICACIÓN A LA TR	
+####################################
+Canalización	0
+Esencia	0
+Mentalismo	0
+Veneno	0
+Enfermedad	10
+Psiónico	0
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN	
+####################################
+Desarrollo Físico	0/6/5/4/3
+PP Arcano	0/4/3/2/1
+PP Canalización	0/2/1/1/1
+PP Esencia	0/4/3/2/1
+PP Mentalismo	0/7/6/5/4
+PP Psiónico	0/7/6/5/4
+
+#PROFESIONES RESTRINGIDAS	-12
+####################################
+Clérigo, Mítico, Invocador, Sacerdote, Nefando, Montaraz, Paladín, Animista, Sanador
+
+#PARTIDA DEL ALMA	0
+####################################
+12
+
+#TIPO DE RAZA	5
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN		0
+####################################
+1
+
+#IDIOMAS	5
+####################################
+3
+
+#HISTORIAL	20
+####################################
+4
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Habla Común	6/0	10/10
+
+#HABILIDADES COMUNES	0
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS	0
+####################################
+Ninguna
+
+#CULTURAS	0
+####################################
+Todas
+
+#ESPECIALES	
+####################################
+Lista básica Cambio Místico hasta su nivel sin gasto de puntos de poder.
+
+#TALENTOS
+####################################
+15
+
+#NOMBRES MASCULINOS
+####################################
+Abano, Abilio, Abrunaeno, Aliómigos, Alionio, Alissiegino, Alucilio, Aulgigos
+Boddo, Boduo, Caelio, Corovesco, Mune, Paramón, Pentovieco
+
+#NOMBRES FEMENINOS
+####################################
+Avana, Aya, Epanna, Lugua, Nicua, Noiva, Talania, Turaennia, Viroma, Voconia, Tridio
+
+#APELLIDOS
+####################################
+Shershet, Seferdi, Dectera, Venno
+
+#### FIN RAZA ####

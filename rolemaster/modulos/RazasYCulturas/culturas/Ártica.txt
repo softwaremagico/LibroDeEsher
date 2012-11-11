@@ -1,0 +1,79 @@
+# ARMAS TÍPICAS
+####################
+Garrote, Maza, Daga, Daga Arrojadiza, Hacha de Mano, Hacha de Mano, Honda, Arco Corto, Arco Compuesto, Jabalina, Lanza
+
+# ARMADURAS TÍPICAS
+####################
+Cuero Blando, Cuero Endurecido, Cota de Mallas
+
+# RANGOS
+####################
+Armadura·Ligera	1
+  *  Cuero Blando	2
+  *  Cuero Endurecido	1
+Armadura·Media	0
+  *  Cota de Mallas	0
+Armas·Contundentes	1
+  *  Arma	1
+Armas·Filo	0
+  *  Arma	0
+Armas·2manos	0
+  *  Arma	0
+Armas·Proyectiles	2
+  *  Arma	2
+Armas·Asta	0
+  *  Arma	0
+Armas·Arrojadizas	2
+  *  Arma	2
+Atletismo·Gimnasia	0
+  *  Trepar	0
+Atletismo·Potencia	0
+Atletismo·Resistencia	2
+  *  Nadar	1
+Ciencia/Analítica·Básica	0
+Comunicación	1
+  *  Idiomas	4
+Conocimiento·General	3
+  *  Conocimiento Regional	3
+  *  Conocimiento Cultural	3
+Exteriores·Animales	2
+  *  Montar: Caballos	0
+Exteriores·Entorno	3
+Percepción de Poder	1
+Percepción·Búsqueda	1
+Percepción·Perspicacia	0
+  *  Alerta	1
+Subterfugio·Sigilo	0
+  *  Acechar	1
+  *  Esconderse	1
+Técnica/comercio·General	1
+Urbana	0
+Desarrollo Físico	0
+  *  Desarrollo Físico	2
+Listas Abiertas de Hechizos	0
+  *  Lista de Hechizos	0
+
+# PUNTOS AFICIONES
+####################
+12
+
+# AFICIONES
+####################
+Armadura·Ligera, Armadura·Media, Armadura·Pesada, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas
+Camuflaje, Cazar, Comerciar, Cantar, Carrera de Fondo, Conocimiento Regional, Esquiar
+Conocimiento de la Fauna (Ártica), Construir Trampas, Desarrollo Físico, Escalar, Espeleología, Forrajear
+Manejo de los Animales, Narrar Historias, Observación, Orientación Celeste, Patinar, Primeros Auxilios
+Rastrear, Remar, Percepción del Entorno: Ciudades, Percepción del Entorno: Combate, 
+Percepción del Entorno: Durmiendo, Percepción del Entorno: Exploración, 
+Sentido de la Dirección, Vista, Olfato, Gusto, Oído, Tacto, Vigilancia, Supervivencia (Ártico)
+Trabajar el Metal, Trabajar la Madera
+
+# IDIOMAS
+####################
+Habla Común	8/8
+Habla Alta	6/6
+Habla de las Colinas	6/6
+Gigante	4/4
+Titán	4/4
+
+### FIN CULTURA ###
