@@ -95,6 +95,7 @@ public class Habilidad implements Serializable {
     public transient SeleccionarHabilidadGUI grupoHab = null;
     public boolean noElegirAleatorio = false;
     private static HashMap<String, Habilidad> habilidadesDisponibles = new HashMap();
+    private boolean useInRandom = true;
 
     /**
      * Creates a new instance of Habilidad
@@ -109,10 +110,24 @@ public class Habilidad implements Serializable {
         GenerarHabilidad(cat, nom);
     }
 
+    public void disableSkillInRandomCharacter() {
+        useInRandom = false;
+    }
+
     public static Habilidad getSkill(Categoria cat, String nom) {
+        boolean skipInRandom = false;
+        if (nom.contains("*")) {
+            nom = nom.replace("*", "");
+            skipInRandom = true;
+        }
+
         Habilidad hab = habilidadesDisponibles.get(nom);
         if (hab == null) {
             hab = new Habilidad(cat, nom);
+            if (skipInRandom) {
+                hab.disableSkillInRandomCharacter();
+            }
+            habilidadesDisponibles.put(nom, hab);
         }
         return hab;
     }
@@ -664,6 +679,11 @@ public class Habilidad implements Serializable {
         if (noElegirAleatorio && DevolverRangos() < 1) {
             return -100;
         }
+
+        if (!useInRandom && rangosSugeridos == 0) {
+            return -1000;
+        }
+
         if (nuevosRangos <= 3) {
             if (Personaje.getInstance().PuntosDesarrolloNoGastados() >= Personaje.getInstance().CosteCategoriaYHabilidad(categoriaPadre, nuevosRangos, this)) {
                 probabilidad += categoriaPadre.CategoriaPreferida() / 3;
@@ -1073,7 +1093,7 @@ public class Habilidad implements Serializable {
             return 50 - CaroHabilidad() * 5;
         }
         if (EsRestringida()) {
-            return -75;
+            return -1000;
         }
         if (EsProfesional()) {
             return 90 - CaroHabilidad() * 10;

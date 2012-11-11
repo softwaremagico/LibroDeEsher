@@ -282,15 +282,18 @@ public class Personaje implements Serializable {
             return "";
         }
         String name = "";
-        String[] names = nombreCompleto.split(" ");
-        for (int i = 0; i < names.length; i++) {
-            name += names[i].substring(0, 1).toUpperCase() + names[i].substring(1).toLowerCase();
-            if (i < names.length - 1) {
-                name += " ";
+        try {
+            String[] names = nombreCompleto.split(" ");
+            for (int i = 0; i < names.length; i++) {
+                name += names[i].substring(0, 1).toUpperCase() + names[i].substring(1).toLowerCase();
+                if (i < names.length - 1) {
+                    name += " ";
+                }
             }
+        } catch (StringIndexOutOfBoundsException e) {
+            return "";
         }
-        name.replace(",", "");
-        return name;
+        return name.replace(",", "");
     }
 
     public void SetNombreCompleto(String nombre) {

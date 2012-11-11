@@ -114,6 +114,7 @@ public class Categoria implements Serializable {
         Categoria cat = categoriasDisponibles.get(id);
         if (cat == null) {
             cat = new Categoria(id, abrev, tresCaracteristicas, tipo, habilidades);
+            categoriasDisponibles.put(id, cat);
         }
         return cat;
     }
@@ -266,7 +267,7 @@ public class Categoria implements Serializable {
         if (costeRango[0] == 0) {
             return false;
         }
-        if(nombre.contains("Arma") && nombre.contains("Fuego") && !Esher.armasFuegoPermitidas){
+        if (nombre.contains("Arma") && nombre.contains("Fuego") && !Esher.armasFuegoPermitidas) {
             return false;
         }
         if (!Esher.hechizosAdiestramientoOtrosReinosPermitidos && nombre.contains("Listas Hechizos de Adiestramientos de Otro Reino")) {
@@ -298,7 +299,7 @@ public class Categoria implements Serializable {
         if (costeRango[0] == 0) {
             return false;
         }
-        if(nombre.contains("Arma") && nombre.contains("Fuego") && !Esher.armasFuegoPermitidas){
+        if (nombre.contains("Arma") && nombre.contains("Fuego") && !Esher.armasFuegoPermitidas) {
             return false;
         }
         if (!Esher.hechizosAdiestramientoOtrosReinosPermitidos && nombre.contains("Listas Hechizos de Adiestramientos de Otro Reino")) {
@@ -413,6 +414,7 @@ public class Categoria implements Serializable {
         //Si hay rangos en habilidades es muy probable que se suba la categoria.
         if (DevolverRangos() == 0) {
             bonus += (30 + DevolverHabilidadesConRangos() * 20);
+            bonus += (30 + DevolverHabilidadesConRangosSugeridos() * 20);
         }
         //Se potencia la categoria con habilidades comunes o profesionales.
         if (ExisteHabilidadComunOProfesional()) {
@@ -667,13 +669,14 @@ public class Categoria implements Serializable {
             //Los hechizos son especiales.
         } else {
             try {
-                String[] arrayHabilidades = habilidades.split(", ");
+                String[] arrayHabilidades = habilidades.split(",");
                 for (int i = 0; i < arrayHabilidades.length; i++) {
                     if (arrayHabilidades[i].equals("Hechizos")) {
                         //Se tratará cuando se seleccione la profesión.
                     } else {
                         if (arrayHabilidades[i].length() > 0) {
-                            Habilidad hab = Habilidad.getSkill(this, arrayHabilidades[i]);
+                            String name = arrayHabilidades[i].trim();
+                            Habilidad hab = Habilidad.getSkill(this, name);
                             //if (esher.armasFuegoPermitidas || (!hab.DevolverNombre().equals("Percepción del Entorno: Munición")) && !hab.DevolverNombre().startsWith("Fuego ")) {
                             AddHabilidad(hab);
                             //}
@@ -705,6 +708,11 @@ public class Categoria implements Serializable {
         if (nombreHab.contains("©")) {
             noAleatoria = true;
             nombreHab = nombreHab.replace("©", "");
+        }
+
+        if (nombreHab.contains("(c)")) {
+            noAleatoria = true;
+            nombreHab = nombreHab.replace("(c)", "");
         }
 
 
@@ -769,6 +777,17 @@ public class Categoria implements Serializable {
         for (int i = 0; i < listaHabilidades.size(); i++) {
             Habilidad hab = listaHabilidades.get(i);
             if (hab.DevolverRangos() > 0) {
+                habilidadesConRangos++;
+            }
+        }
+        return habilidadesConRangos;
+    }
+
+    private int DevolverHabilidadesConRangosSugeridos() {
+        int habilidadesConRangos = 0;
+        for (int i = 0; i < listaHabilidades.size(); i++) {
+            Habilidad hab = listaHabilidades.get(i);
+            if (hab.rangosSugeridos > 0) {
                 habilidadesConRangos++;
             }
         }

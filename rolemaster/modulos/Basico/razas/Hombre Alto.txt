@@ -118,7 +118,7 @@ Tragoinfinito, Rocafuerte, Bulthorp, Bergh, Chaumber, Clay, Cotes
 Cotesse, Dyk, Fall, Forge, Gayr, Grene, Hill, Akhlamu, Amurru, Elamtu
 Pole, Spayne, Stabyl, Durato, Sosinbiuru, Urcebas, Urcaildu, Aibekeres
 Caikonbe, Indikortes, Nabarsosin, Lulubi, Saka, Hiksu, Terahu, Sutu, Hanni
-Kashshu, Mushki, Haunebu, Meshewesh, Denyen,  Thnu, Madai, Gasgas
+Kashshu, Mushki, Haunebu, Meshewesh, Denyen, Thnu, Madai, Gasgas
 Urartu, Sekelesh, Ekwesh, Tjeker, Tesalioi, Dardanioi, Lelex, Pelasgoi
 Thrakios, Osci, Umbri, Getae, Garamantes, Nasamones, Sarmatae, Scythae
 Kushan, Pyus, Ordu, Bebetormentas, Dienteazul, Susurrante, Pelajo, Barbarrota
