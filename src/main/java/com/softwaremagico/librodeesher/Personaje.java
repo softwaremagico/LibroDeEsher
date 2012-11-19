@@ -151,6 +151,7 @@ public class Personaje implements Serializable {
     public String loadedFrom = ""; // El path del archivo desde donde se ha cargado.
     public int lastSavedLevel = 1;
     private static Personaje personaje = new Personaje();
+    public String historia = "";
 
     Personaje() {
         resetCaracteristicas();
@@ -164,7 +165,7 @@ public class Personaje implements Serializable {
         Personaje.personaje = personaje;
     }
     
-    public void resetCaracteristicas(){
+    public final void resetCaracteristicas(){
         caracteristicas = new Caracteristicas();
     }
 

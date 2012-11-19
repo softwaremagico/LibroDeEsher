@@ -98,7 +98,7 @@ public class FichaTxt {
                     Habilidad hab = cat.listaHabilidades.get(j);
                     if (hab.MereceLaPenaImprimir()) {
                         text = text + "  *  " + hab.DevolverNombreTamañoDeterminado(
-                                tamañoMaximoNombre + incrementoTamaño);
+                                tamañoMaximoNombre + incrementoTamaño - 5);
                         text = text + "\t" + "\t"
                                 + hab.DevolverRangos() + "\t" + hab.DevolverValorRangoHabilidad()
                                 + "\t" + cat.Total() + "\t"
@@ -197,15 +197,15 @@ public class FichaTxt {
     public String ExportarTRs() {
         String texto = "Modificación a las TR\n";
         texto += "--------------------------------------------------\n";
-        texto += "Canalización\t" + (Personaje.getInstance().TrCanalizacion() + 3 * Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("In")) + "\n";
-        texto += "Esencia\t" + (Personaje.getInstance().TrEsencia() + 3 * Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("Em")) + "\n";
-        texto += "Mentalismo\t" + (Personaje.getInstance().TrMentalismo() + 3 * Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("Pr")) + "\n";
-        texto += "Psiónico\t" + Personaje.getInstance().TrPsionico() + "\n";
-        texto += "Veneno\t" + (Personaje.getInstance().TrVenenos() + 3 * Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("Co")) + "\n";
-        texto += "Enfermedad\t" + (Personaje.getInstance().TrEnfermedades() + 3 * Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("Co")) + "\n";
-        texto += "Miedo\t" + (Personaje.getInstance().TrMiedo() + 3 * Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("Ad")) + "\n";
-        texto += "Frío\t" + Personaje.getInstance().TrFrio() + "\n";
-        texto += "Calor\t" + Personaje.getInstance().TrCalor() + "\n";
+        texto += "Canalización \t" + (Personaje.getInstance().TrCanalizacion() + 3 * Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("In")) + "\n";
+        texto += "Esencia      \t" + (Personaje.getInstance().TrEsencia() + 3 * Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("Em")) + "\n";
+        texto += "Mentalismo   \t" + (Personaje.getInstance().TrMentalismo() + 3 * Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("Pr")) + "\n";
+        texto += "Psiónico     \t" + Personaje.getInstance().TrPsionico() + "\n";
+        texto += "Veneno       \t" + (Personaje.getInstance().TrVenenos() + 3 * Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("Co")) + "\n";
+        texto += "Enfermedad   \t" + (Personaje.getInstance().TrEnfermedades() + 3 * Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("Co")) + "\n";
+        texto += "Miedo        \t" + (Personaje.getInstance().TrMiedo() + 3 * Personaje.getInstance().DevolverBonusCaracteristicaDeAbreviatura("Ad")) + "\n";
+        texto += "Frío         \t" + Personaje.getInstance().TrFrio() + "\n";
+        texto += "Calor        \t" + Personaje.getInstance().TrCalor() + "\n";
         return texto;
     }
 
