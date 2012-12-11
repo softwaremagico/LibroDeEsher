@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.pj.characteristic;
+package com.softwaremagico.librodeesher.gui;
 /*
  * #%L
  * Libro de Esher
@@ -23,18 +23,34 @@ package com.softwaremagico.librodeesher.pj.characteristic;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.core.Dice;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
+public class MainGui extends JFrame {
 
-public class Appearance {
-    private int raceBonus;
-    private int dicesResult;
-    
-    public Appearance(){
-         dicesResult = Dice.roll(5, 10);
-    }
-    
-    public int getTotal(int presencePotentialValue){
-        return presencePotentialValue - 25 + dicesResult + raceBonus;
-    }
+	private JPanel contentPanel;
+
+	/**
+	 * Create the frame.
+	 */
+	public MainGui() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		setIconImage(new ImageIcon(this.getClass().getResource("/librodeesher.png")).getImage());
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		contentPanel = new JPanel();
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPanel);
+		contentPanel.setLayout(null);
+		
+		CharacterDefinitionGui characterDefinitionGui = new CharacterDefinitionGui();
+		characterDefinitionGui.setBounds(12, 25, 276, 130);
+		getContentPane().add(characterDefinitionGui);
+	}
+
 }

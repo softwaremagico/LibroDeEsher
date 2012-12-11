@@ -1,19 +1,36 @@
 package com.softwaremagico.librodeesher.pj.profession;
+/*
+ * #%L
+ * Libro de Esher
+ * %%
+ * Copyright (C) 2007 - 2012 Softwaremagico
+ * %%
+ * This software is designed by Jorge Hortelano Otero. Jorge Hortelano Otero
+ * <softwaremagico@gmail.com> C/Quart 89, 3. Valencia CP:46008 (Spain).
+ *  
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *  
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *  
+ * You should have received a copy of the GNU General Public License along with
+ * this program; If not, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * #L%
+ */
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.librodeesher.Categoria;
-import com.softwaremagico.librodeesher.Habilidad;
-import com.softwaremagico.librodeesher.Magia;
-import com.softwaremagico.librodeesher.Personaje;
-import com.softwaremagico.librodeesher.gui.MostrarMensaje;
+import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
@@ -23,9 +40,9 @@ import com.softwaremagico.librodeesher.pj.magic.Magic;
 import com.softwaremagico.librodeesher.pj.magic.MagicLevelRange;
 import com.softwaremagico.librodeesher.pj.magic.MagicListType;
 import com.softwaremagico.librodeesher.pj.magic.RealmsOfMagic;
+import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
-import com.softwaremagico.librodeesher.pj.skills.SkillType;
 import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 import com.softwaremagico.librodeesher.pj.training.TrainingType;
@@ -37,11 +54,8 @@ public class Profession {
 	private List<RealmsOfMagic> magicRealmsAvailable;
 	private List<CategoryCost> weaponCategoryCost;
 	private Hashtable<Category, CategoryCost> categoryCost;
-	private List<Skill> commonSkills;
 	private List<ChooseSkillGroup> commonSkillsToChoose;
-	private List<Skill> professionalSkills;
 	private List<ChooseSkillGroup> professionalSkillsToChoose;
-	private List<Skill> restrictedSkills;
 	private List<ChooseSkillGroup> restrictedSkillsToChoose;
 	private Magic magic;
 	private Hashtable<String, TrainingCost> trainingCosts;
@@ -67,9 +81,9 @@ public class Profession {
 			lineIndex = setAvailableMagicRealms(lines, lineIndex);
 			lineIndex = setProfessionBonus(lines, lineIndex);
 			lineIndex = setCategoryCost(lines, lineIndex);
-			lineIndex = setSpecialSkills(lines, lineIndex, commonSkills, commonSkillsToChoose);
-			lineIndex = setSpecialSkills(lines, lineIndex, professionalSkills, professionalSkillsToChoose);
-			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkills, restrictedSkillsToChoose);
+			lineIndex = setSpecialSkills(lines, lineIndex, commonSkillsToChoose);
+			lineIndex = setSpecialSkills(lines, lineIndex, professionalSkillsToChoose);
+			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkillsToChoose);
 			lineIndex = setMagicCost(lines, lineIndex);
 			lineIndex = setTrainingCosts(lines, lineIndex);
 		}
@@ -88,8 +102,8 @@ public class Profession {
 				if (Characteristics.isCharacteristicValid(abbrev)) {
 					characteristicPreferences.add(new Characteristic(abbrev));
 				} else {
-					MostrarMensaje.showErrorMessage("Caracteristica " + abbrev + " mostrada en el archivo "
-							+ Personaje.getInstance().profesion + ".txt no existente.", "Leer Profesion");
+					ShowMessage.showErrorMessage("Caracteristica " + abbrev + " mostrada en el archivo "
+							+ name + ".txt no existente.", "Leer Profesion");
 				}
 			}
 		}
@@ -110,14 +124,14 @@ public class Profession {
 					if (realmType != null) {
 						magicRealmsAvailable.add(realmType);
 					} else {
-						MostrarMensaje.showErrorMessage("Problemas con el reino de magia " + lines.get(index)
-								+ " mostrada en el archivo " + Personaje.getInstance().profesion + ".txt.",
+						ShowMessage.showErrorMessage("Problemas con el reino de magia " + lines.get(index)
+								+ " mostrada en el archivo " + name + ".txt.",
 								"Leer Profesion");
 					}
 				}
 			} catch (Exception e) {
-				MostrarMensaje.showErrorMessage("Problemas con el reino de magia " + lines.get(index)
-						+ " mostrada en el archivo " + Personaje.getInstance().profesion + ".txt.",
+				ShowMessage.showErrorMessage("Problemas con el reino de magia " + lines.get(index)
+						+ " mostrada en el archivo " + name + ".txt.",
 						"Leer Profesion");
 			}
 			index++;
@@ -138,8 +152,8 @@ public class Profession {
 			try {
 				categoriesBonus.put(CategoryFactory.getAvailableCategory(categoryName), bonus);
 			} catch (NullPointerException npe) {
-				MostrarMensaje.showErrorMessage("Bonus de " + categoryName + " en "
-						+ Personaje.getInstance().profesion + ".txt mal definido.", "Leer Profesion");
+				ShowMessage.showErrorMessage("Bonus de " + categoryName + " en "
+						+ name + ".txt mal definido.", "Leer Profesion");
 			}
 			index++;
 		}
@@ -162,7 +176,7 @@ public class Profession {
 					Category cat = CategoryFactory.getAvailableCategory(categoryName);
 					categoryCost.put(cat, new CategoryCost(categoryColumns[1]));
 				} catch (Exception e) {
-					MostrarMensaje.showErrorMessage("Categoría mal definida: " + categoryName,
+					ShowMessage.showErrorMessage("Categoría mal definida: " + categoryName,
 							"Leer Profesion");
 				}
 			}
@@ -171,9 +185,7 @@ public class Profession {
 		return index;
 	}
 
-	private int setSpecialSkills(List<String> lines, int index, List<Skill> skillCategory,
-			List<ChooseSkillGroup> groupSkillsToChoose) {
-		skillCategory = new ArrayList<>();
+	private int setSpecialSkills(List<String> lines, int index, List<ChooseSkillGroup> groupSkillsToChoose) {
 		groupSkillsToChoose = new ArrayList<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -195,7 +207,7 @@ public class Profession {
 								Integer.parseInt(categoryColumns[1]), cat.getSkills());
 						groupSkillsToChoose.add(chooseSkills);
 					} else {
-						MostrarMensaje.showErrorMessage("Error leyendo una categoría en habilidad común: "
+						ShowMessage.showErrorMessage("Error leyendo una categoría en habilidad común: "
 								+ lines.get(index), "Leer Profesión");
 					}
 				} else if (skillColumns[i].startsWith("{")) { // Una habilidad
@@ -207,7 +219,8 @@ public class Profession {
 				} else {
 					// Una habilidad.
 					Skill skill = SkillFactory.getSkill(skillColumns[i]);
-					skillCategory.add(skill);
+					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1, skill);
+					groupSkillsToChoose.add(chooseSkills);
 				}
 			}
 			index++;
@@ -265,7 +278,7 @@ public class Profession {
 						throw new Exception();
 					}
 				} catch (Exception e) {
-					MostrarMensaje.showErrorMessage(
+					ShowMessage.showErrorMessage(
 							"Coste de Adiestramiento mal formado: " + lines.get(index), "Leer Profesión");
 				}
 

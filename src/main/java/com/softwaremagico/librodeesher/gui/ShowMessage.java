@@ -49,16 +49,16 @@ import javax.swing.JOptionPane;
  *
  * @author jorge
  */
-public class MostrarMensaje {
+public class ShowMessage {
 
     private static final int LINE = 50;
 
-    public MostrarMensaje(String text, String title) {
+    public ShowMessage(String text, String title) {
         errortextMessage(text, title);
         errorMessage(text, title, JOptionPane.ERROR_MESSAGE);
     }
 
-    public MostrarMensaje(String text, String title, int option) {
+    public ShowMessage(String text, String title, int option) {
         errortextMessage(text, title);
         errorMessage(text, title, option);
     }

@@ -1,4 +1,27 @@
 package com.softwaremagico.librodeesher.pj.race;
+/*
+ * #%L
+ * Libro de Esher
+ * %%
+ * Copyright (C) 2007 - 2012 Softwaremagico
+ * %%
+ * This software is designed by Jorge Hortelano Otero. Jorge Hortelano Otero
+ * <softwaremagico@gmail.com> C/Quart 89, 3. Valencia CP:46008 (Spain).
+ *  
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *  
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *  
+ * You should have received a copy of the GNU General Public License along with
+ * this program; If not, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * #L%
+ */
 
 import java.io.File;
 import java.util.ArrayList;
@@ -9,7 +32,7 @@ import java.util.List;
 
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.librodeesher.gui.MostrarMensaje;
+import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.pj.ProgressionCostType;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.resistance.ResistancesType;
@@ -50,25 +73,25 @@ public class Race {
 	}
 
 	private void readRaceFile(String raceName) throws Exception {
-		int lineaLeida = 0;
+		int lineIndex = 0;
 
 		String raceFile = RolemasterFolderStructure.searchDirectoryModule(RaceFactory.RACE_FOLDER + File.separator
 				+ raceName + ".txt");
 		if (raceFile.length() > 0) {
 			List<String> lines = Folder.readFileLines(raceFile, false);
 
-			lineaLeida = setCharacteristicsBonus(lines, lineaLeida);
-			lineaLeida = setResistanceBonus(lines, lineaLeida);
-			lineaLeida = setProgressionCost(lines, lineaLeida);
-			lineaLeida = setRestrictedProfessions(lines, lineaLeida);
-			lineaLeida = setOtherRaceInformation(lines, lineaLeida);
-			lineaLeida = setRaceLanguages(lines, lineaLeida);
-			lineaLeida = setSpecialSkills(lines, lineaLeida, commonSkills);
-			lineaLeida = setSpecialSkills(lines, lineaLeida, restrictedSkills);
-			lineaLeida = setCultures(lines, lineaLeida);
-			lineaLeida = setOtherSpecials(lines, lineaLeida);
-			lineaLeida = setTalents(lines, lineaLeida);
-			lineaLeida = AsignarNombres(lines, lineaLeida);
+			lineIndex = setCharacteristicsBonus(lines, lineIndex);
+			lineIndex = setResistanceBonus(lines, lineIndex);
+			lineIndex = setProgressionCost(lines, lineIndex);
+			lineIndex = setRestrictedProfessions(lines, lineIndex);
+			lineIndex = setOtherRaceInformation(lines, lineIndex);
+			lineIndex = setRaceLanguages(lines, lineIndex);
+			lineIndex = setSpecialSkills(lines, lineIndex, commonSkills);
+			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkills);
+			lineIndex = setCultures(lines, lineIndex);
+			lineIndex = setOtherSpecials(lines, lineIndex);
+			lineIndex = setTalents(lines, lineIndex);
+			lineIndex = AsignarNombres(lines, lineIndex);
 		}
 	}
 
@@ -89,7 +112,7 @@ public class Race {
 				index++;
 			}
 		} catch (Exception e) {
-			MostrarMensaje.showErrorMessage("Problema al leer las características de la raza " + name
+			ShowMessage.showErrorMessage("Problema al leer las características de la raza " + name
 					+ ". Los bonus pueden no ser correctos.", "Leer Raza");
 		}
 		return index;
@@ -112,7 +135,7 @@ public class Race {
 				index++;
 			}
 		} catch (Exception e) {
-			MostrarMensaje.showErrorMessage("Problema al leer las resistencias de la raza " + name
+			ShowMessage.showErrorMessage("Problema al leer las resistencias de la raza " + name
 					+ ". Los bonus pueden no ser correctos.", "Leer Raza");
 		}
 		return index;
@@ -132,7 +155,7 @@ public class Race {
 				index++;
 			}
 		} catch (Exception e) {
-			MostrarMensaje.showErrorMessage("Problema al leer los costes de progresiones de la raza "
+			ShowMessage.showErrorMessage("Problema al leer los costes de progresiones de la raza "
 					+ name + ".", "Leer Raza");
 		}
 		return index;
@@ -153,7 +176,7 @@ public class Race {
 				index++;
 			}
 		} catch (Exception e) {
-			MostrarMensaje.showErrorMessage("Problema al leer las profesiones restringidas de la raza "
+			ShowMessage.showErrorMessage("Problema al leer las profesiones restringidas de la raza "
 					+ name + ".", "Leer Raza");
 		}
 		return index;
@@ -166,7 +189,7 @@ public class Race {
 		try {
 			soulDepartTime = Integer.parseInt(lines.get(index));
 		} catch (NumberFormatException nfe) {
-			MostrarMensaje.showErrorMessage("Numero de partida del alma irreconocible.", "Leer Raza");
+			ShowMessage.showErrorMessage("Numero de partida del alma irreconocible.", "Leer Raza");
 			soulDepartTime = new Integer(0);
 		}
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
@@ -175,7 +198,7 @@ public class Race {
 		try {
 			raceType = Integer.parseInt(lines.get(index));
 		} catch (NumberFormatException nfe) {
-			MostrarMensaje.showErrorMessage("Numero de tipo de raza irreconocible.", "Leer Raza");
+			ShowMessage.showErrorMessage("Numero de tipo de raza irreconocible.", "Leer Raza");
 			raceType = new Integer(0);
 		}
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
@@ -188,7 +211,7 @@ public class Race {
 		try {
 			restorationTime = Float.parseFloat(lines.get(index));
 		} catch (NumberFormatException nfe) {
-			MostrarMensaje.showErrorMessage("Numero de tiempo de recuperación irreconocible.", "Leer Raza");
+			ShowMessage.showErrorMessage("Numero de tiempo de recuperación irreconocible.", "Leer Raza");
 			restorationTime = new Float(0);
 		}
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
@@ -197,7 +220,7 @@ public class Race {
 		try {
 			languagePoints = Integer.parseInt(lines.get(index));
 		} catch (NumberFormatException nfe) {
-			MostrarMensaje.showErrorMessage("Numero de puntos de idiomas irreconocible.", "Leer Raza");
+			ShowMessage.showErrorMessage("Numero de puntos de idiomas irreconocible.", "Leer Raza");
 			languagePoints = new Integer(0);
 		}
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
@@ -206,7 +229,7 @@ public class Race {
 		try {
 			historialPoints = Integer.parseInt(lines.get(index));
 		} catch (NumberFormatException nfe) {
-			MostrarMensaje.showErrorMessage("Numero de puntos de historial irreconocible.", "Leer Raza");
+			ShowMessage.showErrorMessage("Numero de puntos de historial irreconocible.", "Leer Raza");
 			historialPoints = new Integer(0);
 		}
 		index++;
@@ -229,10 +252,10 @@ public class Race {
 				raceLanguages.add(language);
 				
 			} catch (NumberFormatException nfe) {
-				MostrarMensaje.showErrorMessage("Valor de Idioma irreconocible en " + lines.get(index),
+				ShowMessage.showErrorMessage("Valor de Idioma irreconocible en " + lines.get(index),
 						"Leer Raza");
 			} catch (Exception e) {
-				MostrarMensaje.showErrorMessage("Error leyendo la linea de idiomas: " + lines.get(index),
+				ShowMessage.showErrorMessage("Error leyendo la linea de idiomas: " + lines.get(index),
 						"Leer Raza");
 			}
 			index++;
@@ -248,7 +271,7 @@ public class Race {
 
 		while (!lines.get(index).equals("") || !lines.get(index).startsWith("#")) {
 			String skillLine = lines.get(index);
-			if (skillLine.toLowerCase().contains("ninguna") || skillLine.toLowerCase().contains("nothing")) {
+			if (skillLine.toLowerCase().contains("ningun") || skillLine.toLowerCase().contains("nothing")) {
 				break;
 			}
 			String[] skillColumns = skillLine.split(", ");
@@ -316,7 +339,7 @@ public class Race {
 			try {
 				talentPoints = Integer.parseInt(talentLine);
 			} catch (NumberFormatException nfe) {
-				MostrarMensaje.showErrorMessage("Numero de puntos de talento irreconocible.", "Leer Raza");
+				ShowMessage.showErrorMessage("Numero de puntos de talento irreconocible.", "Leer Raza");
 				talentPoints = new Integer(0);
 			}
 			index++;

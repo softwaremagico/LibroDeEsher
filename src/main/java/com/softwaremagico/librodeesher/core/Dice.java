@@ -1,14 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package com.softwaremagico.librodeesher;
+package com.softwaremagico.librodeesher.core;
 /*
  * #%L
  * Libro de Esher
  * %%
- * Copyright (C) 2008 - 2012 Softwaremagico
+ * Copyright (C) 2007 - 2012 Softwaremagico
  * %%
  * This software is designed by Jorge Hortelano Otero. Jorge Hortelano Otero
  * <softwaremagico@gmail.com> C/Quart 89, 3. Valencia CP:46008 (Spain).
@@ -28,19 +23,31 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import java.io.Serializable;
+import java.util.Random;
 
-/**
- *
- * @author jorge
- */
-public class ListaDeHechizos implements Serializable {
-    String nombre;
-    String clase;
-    String reino;
-    public ListaDeHechizos(String tmp_nombre, String tmp_clase, String tmp_reino){
-        nombre = tmp_nombre;
-        clase = tmp_clase;
-        reino = tmp_reino;
-    }
+public class Dice {
+	public static Random generator = new Random();
+
+	/**
+	 * Roll some dices of X faces.
+	 * @param dices
+	 * @param faces
+	 * @return
+	 */
+	public static int roll(int dices, int faces) {
+		int total = 0;
+		for (int i = 0; i < dices; i++) {
+			total += roll(faces);
+		}
+		return total;
+	}
+
+	/**
+	 * Roll one dice of X faces.
+	 * @param faces
+	 * @return
+	 */
+	public static int roll(int faces) {
+		return generator.nextInt(faces) + 1;
+	}
 }

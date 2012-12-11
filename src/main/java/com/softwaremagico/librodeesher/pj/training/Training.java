@@ -1,27 +1,43 @@
 package com.softwaremagico.librodeesher.pj.training;
+/*
+ * #%L
+ * Libro de Esher
+ * %%
+ * Copyright (C) 2007 - 2012 Softwaremagico
+ * %%
+ * This software is designed by Jorge Hortelano Otero. Jorge Hortelano Otero
+ * <softwaremagico@gmail.com> C/Quart 89, 3. Valencia CP:46008 (Spain).
+ *  
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *  
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *  
+ * You should have received a copy of the GNU General Public License along with
+ * this program; If not, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * #L%
+ */
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.librodeesher.Adiestramiento;
-import com.softwaremagico.librodeesher.Caracteristica;
-import com.softwaremagico.librodeesher.Esher;
-import com.softwaremagico.librodeesher.Habilidad;
-import com.softwaremagico.librodeesher.LeerRaza;
-import com.softwaremagico.librodeesher.Personaje;
-import com.softwaremagico.librodeesher.gui.MostrarMensaje;
+import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
-import com.softwaremagico.librodeesher.pj.culture.CultureCategory;
-import com.softwaremagico.librodeesher.pj.culture.CultureSkill;
+import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
 public class Training {
@@ -33,13 +49,17 @@ public class Training {
 	private List<List<Characteristic>> updateCharacteristics; // Choose one
 	private List<MinimalCharacteristicRequired> characteristicRequirements;
 	private List<MinimalSkillRequired> skillRequirements;
+	private List<ChooseSkillGroup> lifeSkills;
+	private List<ChooseSkillGroup> commonSkills;
+	private List<ChooseSkillGroup> professionalSkills;
+	private List<ChooseSkillGroup> restrictedSkills;
 
 	Training(String name) {
 		this.name = name;
 		try {
 			readTrainingFile(name);
 		} catch (Exception ex) {
-			Logger.getLogger(LeerRaza.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Training.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 
@@ -55,10 +75,10 @@ public class Training {
 			lineIndex = setTrainingSkills(lines, lineIndex);
 			lineIndex = setCharacteristicsUpgrade(lines, lineIndex);
 			lineIndex = setProfessionalRequirements(lines, lineIndex);
-			lineIndex = LeerHabilidadesEstiloDeVida(lines, lineIndex);
-			lineIndex = AsignarHabilidadesComunes(lines, lineIndex);
-			lineIndex = AsignarHabilidadesProfesionales(lines, lineIndex);
-			lineIndex = AsignarHabilidadesRestringidas(lines, lineIndex);
+			lineIndex = setSpecialSkills(lines, lineIndex, lifeSkills);
+			lineIndex = setSpecialSkills(lines, lineIndex, commonSkills);
+			lineIndex = setSpecialSkills(lines, lineIndex, professionalSkills);
+			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkills);
 		}
 	}
 
@@ -69,7 +89,7 @@ public class Training {
 		try {
 			trainingTime = Integer.parseInt(lines.get(index));
 		} catch (Exception e) {
-			MostrarMensaje.showErrorMessage("Problema con la linea: \"" + lines.get(index)
+			ShowMessage.showErrorMessage("Problema con la linea: \"" + lines.get(index)
 					+ "\" del adiestramiento " + name, "Leer adiestramientos");
 		}
 		return index++;
@@ -90,7 +110,7 @@ public class Training {
 					}
 				}
 			} catch (ArrayIndexOutOfBoundsException aiofb) {
-				MostrarMensaje.showErrorMessage("Problema con la linea: \"" + trainingLine
+				ShowMessage.showErrorMessage("Problema con la linea: \"" + trainingLine
 						+ "\" del adiestramiento " + name, "Leer adiestramientos");
 			}
 			index++;
@@ -118,13 +138,13 @@ public class Training {
 						bonus = 0;
 					}
 				} catch (NumberFormatException nfe) {
-					MostrarMensaje.showErrorMessage("Formato de porcentaje de especial \"" + special
+					ShowMessage.showErrorMessage("Formato de porcentaje de especial \"" + special
 							+ "\" erróneo en adiestramiento " + name, "Leer adiestramientos");
 					continue;
 				}
 				specials.add(new TrainingSpecial(special, bonus, probability));
 			} catch (ArrayIndexOutOfBoundsException aiofb) {
-				MostrarMensaje.showErrorMessage("Problema con la linea: \"" + trainingLine
+				ShowMessage.showErrorMessage("Problema con la linea: \"" + trainingLine
 						+ "\" del adiestramiento " + name, "Leer adiestramientos");
 			}
 			index++;
@@ -149,18 +169,18 @@ public class Training {
 								Integer.parseInt(trainingSkills[3]));
 						categories.add(category);
 					} catch (NumberFormatException nfe) {
-						MostrarMensaje.showErrorMessage(
+						ShowMessage.showErrorMessage(
 								"Numero de rangos mal formado en: \"" + lines.get(index)
 										+ "\" del adiestramiento: " + name, "Leer adiestramientos");
 						continue;
 					}
 				} else {
-					MostrarMensaje.showErrorMessage("Categoría no encontrada: " + trainingSkills[0],
+					ShowMessage.showErrorMessage("Categoría no encontrada: " + trainingSkills[0],
 							"Añadir habilidades de adiestramiento.");
 				}
 			} else { // It is a skill.
 				if (category == null) {
-					MostrarMensaje.showErrorMessage("Habilidad sin categoria asociada: " + lines.get(index),
+					ShowMessage.showErrorMessage("Habilidad sin categoria asociada: " + lines.get(index),
 							"Añadir habilidades de adiestramiento.");
 					continue;
 				}
@@ -183,7 +203,7 @@ public class Training {
 						category.addSkill(skill);
 					}
 				} catch (NumberFormatException nfe) {
-					MostrarMensaje.showErrorMessage("Numero de rangos mal formado en: \"" + lines.get(index)
+					ShowMessage.showErrorMessage("Numero de rangos mal formado en: \"" + lines.get(index)
 							+ "\" del adiestramiento: " + name, "Leer adiestramientos");
 					continue;
 				}
@@ -221,8 +241,8 @@ public class Training {
 					}
 				}
 			} catch (Exception e) {
-				MostrarMensaje.showErrorMessage("Problema con la linea: \"" + trainingLine
-						+ "\" del adiestramiento " + Personaje.getInstance().adiestramiento.nombre,
+				ShowMessage.showErrorMessage("Problema con la linea: \"" + trainingLine
+						+ "\" del adiestramiento " + name,
 						"Leer Adiestramiento");
 			}
 			index++;
@@ -251,7 +271,8 @@ public class Training {
 						// If it is a skill, the requirement is to have at least
 						// X ranks.
 						if (SkillFactory.existSkill(requirementName)) {
-							MinimalSkillRequired minSkill = new MinimalSkillRequired(requirementName, value, costModification);
+							MinimalSkillRequired minSkill = new MinimalSkillRequired(requirementName, value,
+									costModification);
 							skillRequirements.add(minSkill);
 						} else if (Characteristics.isCharacteristicValid(requirementName)) {
 							// It it is a characteristic, a minimal temporal
@@ -260,11 +281,11 @@ public class Training {
 									requirementName, value, costModification);
 							characteristicRequirements.add(minChar);
 						} else {
-							MostrarMensaje.showErrorMessage("Requisito desconocido: \"" + lines.get(index)
+							ShowMessage.showErrorMessage("Requisito desconocido: \"" + lines.get(index)
 									+ "\" del adiestramiento: " + name, "Leer adiestramientos");
 						}
 					} catch (NumberFormatException nfe) {
-						MostrarMensaje.showErrorMessage("Requisito mal formado: \"" + lines.get(index)
+						ShowMessage.showErrorMessage("Requisito mal formado: \"" + lines.get(index)
 								+ "\" del adiestramiento: " + name, "Leer adiestramientos");
 						continue;
 					}
@@ -272,7 +293,30 @@ public class Training {
 			}
 			index++;
 		}
+		return index;
+	}
 
+	private int setSpecialSkills(List<String> lines, int index, List<ChooseSkillGroup> skillCategory) {
+		skillCategory = new ArrayList<>();
+		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
+			index++;
+		}
+
+		while (!lines.get(index).equals("") || !lines.get(index).startsWith("#")) {
+			String skillLine = lines.get(index);
+			if (skillLine.toLowerCase().contains("ningun") || skillLine.toLowerCase().contains("nothing")) {
+				break;
+			}
+			String[] skillColumns = skillLine.split(", ");
+			for (int i = 0; i < skillColumns.length; i++) {
+				if (!skillColumns[i].contains("{")) {
+					Skill skill = SkillFactory.getSkill(skillColumns[i]);
+					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1, skill);
+					skillCategory.add(chooseSkills);
+				}
+			}
+			index++;
+		}
 		return index;
 	}
 }
