@@ -42,7 +42,7 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.files.DirectorioRolemaster;
+import com.softwaremagico.files.RolemasterFolderStructure;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +83,7 @@ class CosteArmas implements Serializable {
      * Muestra aquellas armas que existen en ficheros de armas y también son categorias.
      */
     private int TiposArmasDisponibles() throws Exception {
-        List<String> ficherosArmas = DirectorioRolemaster.TiposArmasDisponibles();
+        List<String> ficherosArmas = RolemasterFolderStructure.weaponTypesAvailable();
         return ficherosArmas.size();
     }
 }

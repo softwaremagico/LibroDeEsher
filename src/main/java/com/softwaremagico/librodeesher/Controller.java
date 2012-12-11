@@ -42,7 +42,11 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.files.DirectorioRolemaster;
+import com.softwaremagico.librodeesher.exportSheet.ExportarNivel;
+import com.softwaremagico.librodeesher.exportSheet.FichaTxt;
+import com.softwaremagico.librodeesher.exportSheet.FichaPDFCombinada;
+import com.softwaremagico.librodeesher.exportSheet.FichaPDF;
+import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.AboutBox;
 import com.softwaremagico.librodeesher.gui.AdiestramientoGUI;
 import com.softwaremagico.librodeesher.gui.AleatorioGUI;
@@ -548,7 +552,6 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                Personaje.getInstance().resetCaracteristicas();
                 caracteristicasGui.Reset();
                 Esher.Reset();
                 gui.Reset();
@@ -676,7 +679,7 @@ public class Controller {
             } catch (NullPointerException npe) {
             }
             aboutGui = new AboutBox();
-            aboutGui.UpdateText(DirectorioRolemaster.LeerFicheroComoTexto("Readme.txt"));
+            aboutGui.UpdateText(RolemasterFolderStructure.LeerFicheroComoTexto("Readme.txt"));
             aboutGui.setVisible(true);
         }
     }

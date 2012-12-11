@@ -41,7 +41,7 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.files.DirectorioRolemaster;
+import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.File;
 import java.util.ArrayList;
@@ -69,9 +69,9 @@ public class LeerRaza {
         int lineaLeida = 2;
 
         LimpiarAntiguaRaza();
-        String ficheroRaza = DirectorioRolemaster.BuscarDirectorioModulo(DirectorioRolemaster.DIRECTORIO_RAZAS + File.separator + Personaje.getInstance().raza + ".txt");
-        if (ficheroRaza.length() > 0) {
-            List<String> lines = DirectorioRolemaster.LeerLineasRaza(ficheroRaza);
+        String raceFile = RolemasterFolderStructure.searchDirectoryModule(RolemasterFolderStructure.RACE_FOLDER + File.separator + Personaje.getInstance().raza + ".txt");
+        if (raceFile.length() > 0) {
+            List<String> lines = RolemasterFolderStructure.readFileInLines(raceFile);
             lineaLeida = AsignarCaracteristicasRaza(lines, lineaLeida);
             lineaLeida = AsignarTiradasResistencia(lines, lineaLeida);
             lineaLeida = AsignarProgresiones(lines, lineaLeida);
@@ -290,6 +290,7 @@ public class LeerRaza {
                 Personaje.getInstance().idiomasRaza.Add(lengua);
                 Habilidad habH = Habilidad.getSkill(comunicacion, "Hablar " + datosIdioma[0],
                         Integer.parseInt(rangosIdioma[0]));
+                comunicacion.AddHabilidad(habH);
                 Habilidad habE = Habilidad.getSkill(comunicacion, "Escribir " + datosIdioma[0],
                         Integer.parseInt(rangosIdioma[1]));
                 comunicacion.AddHabilidad(habE);
@@ -381,7 +382,7 @@ public class LeerRaza {
         while (!lines.get(index).equals("")) {
             String lineaCultura = lines.get(index);
             if (lineaCultura.contains("Todas")) {
-                Personaje.getInstance().culturasPosiblesPorRaza = DirectorioRolemaster.CulturasDisponibles();
+                Personaje.getInstance().culturasPosiblesPorRaza = RolemasterFolderStructure.availableCultures();
                 index++;
                 break;
             }
@@ -390,7 +391,7 @@ public class LeerRaza {
                 //Grupos de culturas. Si empiezan por "*".
                 if (vectorCulturas[i].contains("{")) {
                     String cult = vectorCulturas[i].replace("{", "").replace("}", "");
-                    Personaje.getInstance().culturasPosiblesPorRaza.addAll(DirectorioRolemaster.CulturasDisponiblesSubString(cult));
+                    Personaje.getInstance().culturasPosiblesPorRaza.addAll(RolemasterFolderStructure.CulturasDisponiblesSubString(cult));
                 } else {
                     Personaje.getInstance().culturasPosiblesPorRaza.add(vectorCulturas[i]);
                 }

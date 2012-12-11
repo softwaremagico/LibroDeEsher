@@ -42,7 +42,7 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.files.DirectorioRolemaster;
+import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.files.MyFile;
 import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.*;
@@ -138,9 +138,9 @@ public class Esher implements Serializable {
     public static void LeerCategoriasDeArchivo() throws Exception {
         String line;
         Personaje.getInstance().categorias = new ArrayList<>();
-        List<String> ficherosCategorias = DirectorioRolemaster.CategoriasDisponibles();
+        List<String> ficherosCategorias = RolemasterFolderStructure.availableCategoriesFiles();
         for (int j = 0; j < ficherosCategorias.size(); j++) {
-            List<String> lines = DirectorioRolemaster.LeerLineasCategorias(ficherosCategorias.get(j));
+            List<String> lines = RolemasterFolderStructure.readCategoryFileInLines(ficherosCategorias.get(j));
 
             for (int i = 2; i < lines.size(); i++) {
                 line = (String) lines.get(i);
@@ -190,7 +190,7 @@ public class Esher implements Serializable {
 
     public static List<String> ProfesionesDisponibles() throws Exception {
         List<String> profesionesDisponibles = new ArrayList<>();
-        List<String> profesionesImplementadas = DirectorioRolemaster.ProfesionesDisponibles();
+        List<String> profesionesImplementadas = RolemasterFolderStructure.availableRaces();
 
         for (int i = 0; i < profesionesImplementadas.size(); i++) {
             if (!Personaje.getInstance().profesionesRestringidas.contains(profesionesImplementadas.get(i))) {
@@ -202,7 +202,7 @@ public class Esher implements Serializable {
 
     public static List<String> AdiestramientosDisponibles() throws Exception {
         List<String> adiestramientosDisponibles = new ArrayList<>();
-        List<String> adiestramientosImplementados = DirectorioRolemaster.AdiestramientosDisponibles();
+        List<String> adiestramientosImplementados = RolemasterFolderStructure.AdiestramientosDisponibles();
 
         for (int i = 0; i < adiestramientosImplementados.size(); i++) {
             if (!Personaje.getInstance().profesionesRestringidas.contains(adiestramientosImplementados.get(i))) {
@@ -212,13 +212,9 @@ public class Esher implements Serializable {
         return adiestramientosDisponibles;
     }
 
-    public static List<String> RazasDisponibles() throws Exception {
-        return DirectorioRolemaster.RazasDisponibles();
-    }
-
     public static List<String> CulturasDisponibles() throws Exception {
         List<String> culturasDisponibles = new ArrayList<String>();
-        List<String> culturasProgramadas = DirectorioRolemaster.CulturasDisponibles();
+        List<String> culturasProgramadas = RolemasterFolderStructure.availableCultures();
         for (int i = 0; i < Personaje.getInstance().culturasPosiblesPorRaza.size(); i++) {
             if (culturasProgramadas.contains(Personaje.getInstance().culturasPosiblesPorRaza.get(i))) {
                 culturasDisponibles.add(Personaje.getInstance().culturasPosiblesPorRaza.get(i));
@@ -437,7 +433,7 @@ public class Esher implements Serializable {
         List<String> adiestramientosDisponibles = new ArrayList<>();
         String tmp_nombreAdiestramiento;
         try {
-            adiestramientosDisponibles = DirectorioRolemaster.AdiestramientosDisponibles();
+            adiestramientosDisponibles = RolemasterFolderStructure.AdiestramientosDisponibles();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -458,7 +454,7 @@ public class Esher implements Serializable {
     public static List<String> DevolverAdiestramientosDisponibles() {
         List<String> adiestramientosDisponibles = new ArrayList<String>();
         try {
-            adiestramientosDisponibles = DirectorioRolemaster.AdiestramientosDisponibles();
+            adiestramientosDisponibles = RolemasterFolderStructure.AdiestramientosDisponibles();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -493,12 +489,13 @@ public class Esher implements Serializable {
     }
 
     public static String getVersion() {
-        return MyFile.readTextFile(Esher.class.getClass().getResource("/version.txt").getPath(), false);
-        //return "1.0.0.1";
+        //return MyFile.readTextFile(Esher.class.getClass().getResource("/version.txt").getPath(), false);
+        //return MyFile.readTextFile("/version.txt",false);
+        return "1.0.0.1";
     }
 
     private static void AplicarConfiguracion() {
-        opciones = DirectorioRolemaster.ObtieneConfiguracionGuardada();
+        opciones = RolemasterFolderStructure.ObtieneConfiguracionGuardada();
         if (opciones.contains(configArmasFuego)) {
             Esher.armasFuegoPermitidas = true;
             try {
@@ -550,14 +547,14 @@ public class Esher implements Serializable {
             Esher.habilidadesOrdenadasEnPDF = false;
         }
         
-        DirectorioRolemaster.disabledModules = new ArrayList<>();
+        RolemasterFolderStructure.disabledModules = new ArrayList<>();
 
         for (String line : opciones) {
             try{
             if (line.contains(Esher.modulosTag)) {
                 String[] disabledModules = line.split(" ");
                 for (int i = 1; i < disabledModules.length; i++) {
-                    DirectorioRolemaster.disabledModules.add(disabledModules[i]);
+                    RolemasterFolderStructure.disabledModules.add(disabledModules[i]);
                 }
             }
             }catch(NullPointerException npe){}
@@ -595,12 +592,12 @@ public class Esher implements Serializable {
         }
 
         String disabledModules = Esher.modulosTag;
-        for (String disabledModule : DirectorioRolemaster.disabledModules) {
+        for (String disabledModule : RolemasterFolderStructure.disabledModules) {
             disabledModules += disabledModule + " ";
         }
 
         Esher.opciones.add(disabledModules);
-        DirectorioRolemaster.saveListInFile(Esher.opciones, DirectorioRolemaster.ObtenerPathConfiguracion());
+        RolemasterFolderStructure.saveListInFile(Esher.opciones, RolemasterFolderStructure.ObtenerPathConfiguracion());
     }
 }
 

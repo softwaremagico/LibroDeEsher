@@ -41,7 +41,7 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.files.DirectorioRolemaster;
+import com.softwaremagico.files.RolemasterFolderStructure;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -188,7 +188,7 @@ public class Magia {
                 }
             } else {
                 //Las listas de otras razas
-                List<String> razas = Esher.RazasDisponibles();
+                List<String> razas = Esher.availableRaces();
                 if (ElementoEnComun(razas, listaClase) && !listaClase.contains(Personaje.getInstance().raza)) {
                     cat = Personaje.getInstance().DevolverCategoriaDeNombre("Listas Básicas de otros Reinos");
                 } else {
@@ -455,17 +455,17 @@ public class Magia {
     }
 
     private List<String> ReinosDeMagiaDisponibles() throws Exception {
-        List<String> reinosFichero = DirectorioRolemaster.ReinosDeMagiaDisponibles();
+        List<String> reinosFichero = RolemasterFolderStructure.ReinosDeMagiaDisponibles();
         return GenerarReinosMixtos(reinosFichero);
     }
 
     private void LeerHechizosDeArchivo() throws Exception {
         Personaje.getInstance().listaHechizos.clear();
-        List<String> reinos = DirectorioRolemaster.ReinosDeMagiaDisponibles();
+        List<String> reinos = RolemasterFolderStructure.ReinosDeMagiaDisponibles();
         //Leemos los hechizos por reino.
         for (int i = 0; i < reinos.size(); i++) {
             String tmp_reino = reinos.get(i);
-            List<String> lines = DirectorioRolemaster.LeerLineasHechizos(tmp_reino + ".txt");
+            List<String> lines = RolemasterFolderStructure.LeerLineasHechizos(tmp_reino + ".txt");
             ObtenerListaHechizosDisponibles(lines, tmp_reino);
         }
     }

@@ -44,7 +44,7 @@ package com.softwaremagico.librodeesher;
 
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Image;
-import com.softwaremagico.files.DirectorioRolemaster;
+import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import com.softwaremagico.librodeesher.gui.SeleccionarHabilidadGUI;
 import java.io.File;
@@ -95,7 +95,6 @@ public class Habilidad implements Serializable {
     public transient SeleccionarHabilidadGUI grupoHab = null;
     public boolean noElegirAleatorio = false;
     private static HashMap<String, Habilidad> habilidadesDisponibles = new HashMap();
-    private boolean useInRandom = true;
 
     /**
      * Creates a new instance of Habilidad
@@ -110,24 +109,10 @@ public class Habilidad implements Serializable {
         GenerarHabilidad(cat, nom);
     }
 
-    public void disableSkillInRandomCharacter() {
-        useInRandom = false;
-    }
-
     public static Habilidad getSkill(Categoria cat, String nom) {
-        boolean skipInRandom = false;
-        if (nom.contains("*")) {
-            nom = nom.replace("*", "");
-            skipInRandom = true;
-        }
-
         Habilidad hab = habilidadesDisponibles.get(nom);
         if (hab == null) {
             hab = new Habilidad(cat, nom);
-            if (skipInRandom) {
-                hab.disableSkillInRandomCharacter();
-            }
-            habilidadesDisponibles.put(nom, hab);
         }
         return hab;
     }
@@ -633,30 +618,30 @@ public class Habilidad implements Serializable {
         if (!EsRestringida()) {
             switch (nuevosRangos) {
                 case 1:
-                    image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros1.png");
+                    image = Image.getInstance(RolemasterFolderStructure.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros1.png");
                     break;
                 case 2:
-                    image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros2.png");
+                    image = Image.getInstance(RolemasterFolderStructure.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros2.png");
                     break;
                 case 3:
-                    image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros3.png");
+                    image = Image.getInstance(RolemasterFolderStructure.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros3.png");
                     break;
                 default:
-                    image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros0.png");
+                    image = Image.getInstance(RolemasterFolderStructure.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros0.png");
             }
         } else {
             switch (nuevosRangos) {
                 case 1:
-                    image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros05.png");
+                    image = Image.getInstance(RolemasterFolderStructure.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros05.png");
                     break;
                 case 2:
-                    image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros1.png");
+                    image = Image.getInstance(RolemasterFolderStructure.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros1.png");
                     break;
                 case 3:
-                    image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros15.png");
+                    image = Image.getInstance(RolemasterFolderStructure.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros15.png");
                     break;
                 default:
-                    image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros0.png");
+                    image = Image.getInstance(RolemasterFolderStructure.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros0.png");
             }
         }
         image.scalePercent(25);
@@ -679,11 +664,6 @@ public class Habilidad implements Serializable {
         if (noElegirAleatorio && DevolverRangos() < 1) {
             return -100;
         }
-
-        if (!useInRandom && rangosSugeridos == 0) {
-            return -1000;
-        }
-
         if (nuevosRangos <= 3) {
             if (Personaje.getInstance().PuntosDesarrolloNoGastados() >= Personaje.getInstance().CosteCategoriaYHabilidad(categoriaPadre, nuevosRangos, this)) {
                 probabilidad += categoriaPadre.CategoriaPreferida() / 3;
@@ -1093,7 +1073,7 @@ public class Habilidad implements Serializable {
             return 50 - CaroHabilidad() * 5;
         }
         if (EsRestringida()) {
-            return -1000;
+            return -75;
         }
         if (EsProfesional()) {
             return 90 - CaroHabilidad() * 10;

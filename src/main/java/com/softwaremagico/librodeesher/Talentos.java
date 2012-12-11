@@ -41,7 +41,7 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.files.DirectorioRolemaster;
+import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -70,7 +70,7 @@ public class Talentos implements Serializable {
 
     public void LeerTalentosDeArchivo() throws Exception {
         String line;
-        List<String> lines = DirectorioRolemaster.LeerLineasTalentos(ARCHIVO_TALENTOS);
+        List<String> lines = RolemasterFolderStructure.LeerLineasTalentos(ARCHIVO_TALENTOS);
         for (int i = 2; i < lines.size(); i++) {
             line = (String) lines.get(i);
             if (!line.startsWith("#")) {

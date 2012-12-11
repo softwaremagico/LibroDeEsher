@@ -42,7 +42,7 @@ package com.softwaremagico.librodeesher.gui;
  * #L%
  */
 
-import com.softwaremagico.files.DirectorioRolemaster;
+import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.Esher;
 import com.softwaremagico.librodeesher.Personaje;
 import java.awt.Toolkit;
@@ -123,8 +123,8 @@ public class OpcionesGUI extends javax.swing.JFrame {
 
     private void RellenaModulos() {
         ModulosComboBox.removeAllItems();
-        for (int i = 0; i < DirectorioRolemaster.modulosDisponibles().size(); i++) {
-            ModulosComboBox.addItem(DirectorioRolemaster.modulosDisponibles().get(i));
+        for (int i = 0; i < RolemasterFolderStructure.modulosDisponibles().size(); i++) {
+            ModulosComboBox.addItem(RolemasterFolderStructure.modulosDisponibles().get(i));
         }
     }
 
@@ -171,7 +171,7 @@ public class OpcionesGUI extends javax.swing.JFrame {
 
     private void updateDisabledCheckBox() {
         try{
-        if (DirectorioRolemaster.disabledModules.contains(ModulosComboBox.getSelectedItem().toString())) {
+        if (RolemasterFolderStructure.disabledModules.contains(ModulosComboBox.getSelectedItem().toString())) {
             DisableCheckBox.setSelected(true);
         } else {
             DisableCheckBox.setSelected(false);
@@ -495,11 +495,11 @@ public class OpcionesGUI extends javax.swing.JFrame {
 
     private void DisableCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisableCheckBoxActionPerformed
         if (DisableCheckBox.isSelected()) {
-            if (!DirectorioRolemaster.disabledModules.contains(ModulosComboBox.getSelectedItem().toString())) {
-                DirectorioRolemaster.disabledModules.add(ModulosComboBox.getSelectedItem().toString());
+            if (!RolemasterFolderStructure.disabledModules.contains(ModulosComboBox.getSelectedItem().toString())) {
+                RolemasterFolderStructure.disabledModules.add(ModulosComboBox.getSelectedItem().toString());
             }
         } else {
-            DirectorioRolemaster.disabledModules.remove(ModulosComboBox.getSelectedItem().toString());
+            RolemasterFolderStructure.disabledModules.remove(ModulosComboBox.getSelectedItem().toString());
         }
     }//GEN-LAST:event_DisableCheckBoxActionPerformed
 

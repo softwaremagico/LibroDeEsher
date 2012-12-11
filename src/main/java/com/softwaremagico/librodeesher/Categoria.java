@@ -44,7 +44,7 @@ package com.softwaremagico.librodeesher;
 
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Image;
-import com.softwaremagico.files.DirectorioRolemaster;
+import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.File;
 import java.io.IOException;
@@ -71,7 +71,7 @@ public class Categoria implements Serializable {
     private Caracteristica trioCaracteristicas[];
     public int costeRango[];
     private String nombre;
-    private String abreviatura;
+    
     private String stringTresCaracteristicas;
     public int bonusProfesion;
     public List<BonusEspecial> bonusEspecialesCategoria = new ArrayList<>();
@@ -114,7 +114,6 @@ public class Categoria implements Serializable {
         Categoria cat = categoriasDisponibles.get(id);
         if (cat == null) {
             cat = new Categoria(id, abrev, tresCaracteristicas, tipo, habilidades);
-            categoriasDisponibles.put(id, cat);
         }
         return cat;
     }
@@ -153,13 +152,7 @@ public class Categoria implements Serializable {
         }
     }
 
-    public String DevolverNombre() {
-        return nombre;
-    }
 
-    public String DevolverAbreviatura() {
-        return abreviatura;
-    }
 
     public String FormatearNombre() {
         return nombre;
@@ -267,7 +260,7 @@ public class Categoria implements Serializable {
         if (costeRango[0] == 0) {
             return false;
         }
-        if (nombre.contains("Arma") && nombre.contains("Fuego") && !Esher.armasFuegoPermitidas) {
+        if(nombre.contains("Arma") && nombre.contains("Fuego") && !Esher.armasFuegoPermitidas){
             return false;
         }
         if (!Esher.hechizosAdiestramientoOtrosReinosPermitidos && nombre.contains("Listas Hechizos de Adiestramientos de Otro Reino")) {
@@ -299,7 +292,7 @@ public class Categoria implements Serializable {
         if (costeRango[0] == 0) {
             return false;
         }
-        if (nombre.contains("Arma") && nombre.contains("Fuego") && !Esher.armasFuegoPermitidas) {
+        if(nombre.contains("Arma") && nombre.contains("Fuego") && !Esher.armasFuegoPermitidas){
             return false;
         }
         if (!Esher.hechizosAdiestramientoOtrosReinosPermitidos && nombre.contains("Listas Hechizos de Adiestramientos de Otro Reino")) {
@@ -338,16 +331,16 @@ public class Categoria implements Serializable {
         Image image;
         switch (nuevosRangos) {
             case 1:
-                image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros1.png");
+                image = Image.getInstance(RolemasterFolderStructure.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros1.png");
                 break;
             case 2:
-                image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros2.png");
+                image = Image.getInstance(RolemasterFolderStructure.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros2.png");
                 break;
             case 3:
-                image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros3.png");
+                image = Image.getInstance(RolemasterFolderStructure.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros3.png");
                 break;
             default:
-                image = Image.getInstance(DirectorioRolemaster.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros0.png");
+                image = Image.getInstance(RolemasterFolderStructure.ROLEMASTER_FOLDER + File.separator + "fichas" + File.separator + "cuadros" + File.separator + "cuadros0.png");
         }
         image.scalePercent(28);
 
@@ -414,7 +407,6 @@ public class Categoria implements Serializable {
         //Si hay rangos en habilidades es muy probable que se suba la categoria.
         if (DevolverRangos() == 0) {
             bonus += (30 + DevolverHabilidadesConRangos() * 20);
-            bonus += (30 + DevolverHabilidadesConRangosSugeridos() * 20);
         }
         //Se potencia la categoria con habilidades comunes o profesionales.
         if (ExisteHabilidadComunOProfesional()) {
@@ -669,14 +661,13 @@ public class Categoria implements Serializable {
             //Los hechizos son especiales.
         } else {
             try {
-                String[] arrayHabilidades = habilidades.split(",");
+                String[] arrayHabilidades = habilidades.split(", ");
                 for (int i = 0; i < arrayHabilidades.length; i++) {
                     if (arrayHabilidades[i].equals("Hechizos")) {
                         //Se tratará cuando se seleccione la profesión.
                     } else {
                         if (arrayHabilidades[i].length() > 0) {
-                            String name = arrayHabilidades[i].trim();
-                            Habilidad hab = Habilidad.getSkill(this, name);
+                            Habilidad hab = Habilidad.getSkill(this, arrayHabilidades[i]);
                             //if (esher.armasFuegoPermitidas || (!hab.DevolverNombre().equals("Percepción del Entorno: Munición")) && !hab.DevolverNombre().startsWith("Fuego ")) {
                             AddHabilidad(hab);
                             //}
@@ -705,10 +696,11 @@ public class Categoria implements Serializable {
             nombreHab = nombreHab.replace("(R)", "");
         }
 
-        if (nombreHab.contains("*")) {
+        if (nombreHab.contains("©")) {
             noAleatoria = true;
-            nombreHab = nombreHab.replace("*", "");
+            nombreHab = nombreHab.replace("©", "");
         }
+
 
         if (!ExisteHabilidad(nombreHab)) {
             Habilidad hab = Habilidad.getSkill(this, nombreHab.trim());
@@ -771,17 +763,6 @@ public class Categoria implements Serializable {
         for (int i = 0; i < listaHabilidades.size(); i++) {
             Habilidad hab = listaHabilidades.get(i);
             if (hab.DevolverRangos() > 0) {
-                habilidadesConRangos++;
-            }
-        }
-        return habilidadesConRangos;
-    }
-
-    private int DevolverHabilidadesConRangosSugeridos() {
-        int habilidadesConRangos = 0;
-        for (int i = 0; i < listaHabilidades.size(); i++) {
-            Habilidad hab = listaHabilidades.get(i);
-            if (hab.rangosSugeridos > 0) {
                 habilidadesConRangos++;
             }
         }

@@ -35,21 +35,16 @@ import java.io.Serializable;
  */
 public  class Caracteristica implements Serializable {
 
-    private int temporal;
-    private int nextTemporal;
-    private int potencial;
-    private int raza;
-    private int especial;
+    private int temporal = 31;
+    private int nextTemporal = 31;
+    private int potencial = 0;
+    private int raza = 0;
+    private int especial = 0;
     private String abreviatura;
 
     /** Creates a new instance of Caracteristica */
     public Caracteristica(String ab) {
         abreviatura = ab;
-        temporal = 21;
-        nextTemporal = 21;
-        potencial = 0;
-        raza = 0;
-        especial = 0;
     }
 
     public void GuardarPontencial() {

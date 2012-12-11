@@ -1,6 +1,0 @@
-#Generalizaciones: 
-Arma de Asta
-Jabalina
-Lanza
-Lanza de Caballería
-Chigiriki *

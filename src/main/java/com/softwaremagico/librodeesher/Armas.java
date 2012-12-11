@@ -41,7 +41,7 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.files.DirectorioRolemaster;
+import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -74,7 +74,7 @@ public class Armas implements Serializable {
     }
 
     public List<String> LeerArmasFichero(String fichero) {
-        return DirectorioRolemaster.LeerLineasArmas(fichero);
+        return RolemasterFolderStructure.LeerLineasArmas(fichero);
     }
 
     public void BorrarArmasCultura() {
@@ -132,7 +132,7 @@ public class Armas implements Serializable {
     }
 
     private void TiposArmas() throws Exception {
-        List<String> ficherosArmas = DirectorioRolemaster.TiposArmasDisponibles();
+        List<String> ficherosArmas = RolemasterFolderStructure.weaponTypesAvailable();
         tiposArmas = new TiposArmas(Personaje.getInstance());
         for (int i = 0; i < ficherosArmas.size(); i++) {
             TipoArma tArma;
@@ -159,8 +159,8 @@ public class Armas implements Serializable {
         for (int i = 0; i < tiposArmas.Size(); i++) {
             TipoArma ta = tiposArmas.Get(i);
             for (int j = 0; j < ta.armas.size(); j++) {
-                if (!ta.armas.get(j).contains("*")) {
-                    todasArmas.add(ta.armas.get(j).replace("*", "").trim());
+                if (!ta.armas.get(j).contains("©")) {
+                    todasArmas.add(ta.armas.get(j));
                 }
             }
         }
@@ -524,7 +524,7 @@ public class Armas implements Serializable {
         }
 
         private void LeerArmasDeArchivo(String file) throws Exception {
-            List<String> lines = DirectorioRolemaster.LeerLineasArmas(file + ".txt");
+            List<String> lines = RolemasterFolderStructure.LeerLineasArmas(file + ".txt");
             armas = new ArrayList<>();
 
             for (int i = 0; i < lines.size(); i++) {

@@ -41,7 +41,7 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.files.DirectorioRolemaster;
+import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.File;
 import java.util.ArrayList;
@@ -67,8 +67,8 @@ public class LeerCultura {
     private void LeerFicheroCultura() throws Exception {
         int lineaLeida = 0;
         BorrarCulturaAnterior();
-        String ficheroCultura = DirectorioRolemaster.BuscarDirectorioModulo(DirectorioRolemaster.DIRECTORIO_CULTURAS + File.separator + Personaje.getInstance().cultura + ".txt");
-        List<String> lines = DirectorioRolemaster.LeerLineasCultura(ficheroCultura);
+        String ficheroCultura = RolemasterFolderStructure.searchDirectoryModule(RolemasterFolderStructure.CULTURE_FOLDER + File.separator + Personaje.getInstance().cultura + ".txt");
+        List<String> lines = RolemasterFolderStructure.LeerLineasCultura(ficheroCultura);
         lineaLeida = AsignarArmasCultura(lines, lineaLeida);
         lineaLeida = AsignarArmadurasCultura(lines, lineaLeida);
         lineaLeida = AsignarRangosCulturaACategoríasYHabilidades(lines, lineaLeida);

@@ -41,7 +41,7 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.files.DirectorioRolemaster;
+import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.ElegirComunProfesionalGUI;
 import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.Serializable;
@@ -59,7 +59,7 @@ public class Personaje implements Serializable {
     public String profesion = "Luchador";
     public String cultura = "Litoral";
     public String sexo = "Masculino";
-    public Caracteristicas caracteristicas;
+    public Caracteristicas caracteristicas = new Caracteristicas();
     public List<Categoria> categorias = new ArrayList<>();
     public int puntosDesarrolloNivel;
     public int puntosDesarrolloGastadosAnterioresNiveles = 0;
@@ -84,15 +84,7 @@ public class Personaje implements Serializable {
     public List<String> culturasPosiblesPorRaza = new ArrayList<>();
     public List<String> armadurasCultura = new ArrayList<>();
     //TRs
-    private int trCanalizacion;
-    private int trEsencia;
-    private int trMentalismo;
-    private int trPsionico;
-    private int trVenenos;
-    private int trEnfermedades;
-    private int trFrio;
-    private int trCalor;
-    private int trMiedo;
+    
     public int partidaAlma;
     public int tipoRaza;
     public float recuperacion;
@@ -151,10 +143,8 @@ public class Personaje implements Serializable {
     public String loadedFrom = ""; // El path del archivo desde donde se ha cargado.
     public int lastSavedLevel = 1;
     private static Personaje personaje = new Personaje();
-    public String historia = "";
 
     Personaje() {
-        resetCaracteristicas();
     }
 
     public static Personaje getInstance() {
@@ -163,10 +153,6 @@ public class Personaje implements Serializable {
 
     public static void setInstance(Personaje personaje) {
         Personaje.personaje = personaje;
-    }
-    
-    public final void resetCaracteristicas(){
-        caracteristicas = new Caracteristicas();
     }
 
     /**
@@ -288,18 +274,15 @@ public class Personaje implements Serializable {
             return "";
         }
         String name = "";
-        try {
-            String[] names = nombreCompleto.split(" ");
-            for (int i = 0; i < names.length; i++) {
-                name += names[i].substring(0, 1).toUpperCase() + names[i].substring(1).toLowerCase();
-                if (i < names.length - 1) {
-                    name += " ";
-                }
+        String[] names = nombreCompleto.split(" ");
+        for (int i = 0; i < names.length; i++) {
+            name += names[i].substring(0, 1).toUpperCase() + names[i].substring(1).toLowerCase();
+            if (i < names.length - 1) {
+                name += " ";
             }
-        } catch (StringIndexOutOfBoundsException e) {
-            return "";
         }
-        return name.replace(",", "");
+        name.replace(",", "");
+        return name;
     }
 
     public void SetNombreCompleto(String nombre) {
@@ -987,7 +970,7 @@ public class Personaje implements Serializable {
             Categoria cat = null;
 
             String line;
-            List<String> lines = DirectorioRolemaster.LeerLineasCategorias("categorías.txt");
+            List<String> lines = RolemasterFolderStructure.readCategoryFileInLines("categorías.txt");
             categorias = new ArrayList<Categoria>();
             for (int i = 2; i < lines.size(); i++) {
                 line = (String) lines.get(i);

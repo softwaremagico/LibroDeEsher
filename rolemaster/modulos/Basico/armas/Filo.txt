@@ -1,0 +1,9 @@
+#Generalizaciones: 
+Alfanje
+Cimitarra
+Daga
+Espada
+Espada Corta
+Estoque
+Hacha de Mano
+Main Gauche

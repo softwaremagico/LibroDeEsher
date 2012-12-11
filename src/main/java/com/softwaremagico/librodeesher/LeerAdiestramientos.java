@@ -41,7 +41,7 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.files.DirectorioRolemaster;
+import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.File;
 import java.util.ArrayList;
@@ -82,8 +82,8 @@ public class LeerAdiestramientos {
         LimpiarAntiguoAdiestramiento();
         int lineaLeida = 0;
         Personaje.getInstance().adiestramiento = new Adiestramiento(nombreAdiestramiento);
-        String ficheroAdiestramiento = DirectorioRolemaster.BuscarDirectorioModulo(DirectorioRolemaster.DIRECTORIO_ADIESTRAMIENTOS + File.separator + nombreAdiestramiento + ".txt");
-        List<String> lines = DirectorioRolemaster.LeerLineasAdiestramiento(ficheroAdiestramiento);
+        String ficheroAdiestramiento = RolemasterFolderStructure.searchDirectoryModule(RolemasterFolderStructure.DIRECTORIO_ADIESTRAMIENTOS + File.separator + nombreAdiestramiento + ".txt");
+        List<String> lines = RolemasterFolderStructure.LeerLineasAdiestramiento(ficheroAdiestramiento);
         lineaLeida = LeerTiempoAdiestramiento(lines, lineaLeida);
         lineaLeida = LeerLimitacionesAdiestramiento(lines, lineaLeida);
         lineaLeida = LeerEspecialAdiestramiento(lines, lineaLeida);
@@ -114,7 +114,7 @@ public class LeerAdiestramientos {
     public boolean EsAdiestramientoValido(String tmp_adiestramiento) {
         List<String> adiestramientosDisponibles;
         try {
-            adiestramientosDisponibles = DirectorioRolemaster.AdiestramientosDisponibles();
+            adiestramientosDisponibles = RolemasterFolderStructure.AdiestramientosDisponibles();
         } catch (Exception ex) {
             ex.printStackTrace();
             return false;

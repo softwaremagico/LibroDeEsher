@@ -1,0 +1,6 @@
+#Generalizaciones:  
+Cayado
+Espadón
+Hacha de Batalla
+Mangual
+Pica de Guerra

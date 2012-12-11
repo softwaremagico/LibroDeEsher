@@ -41,7 +41,7 @@ package com.softwaremagico.librodeesher;
  * #L%
  */
 
-import com.softwaremagico.files.DirectorioRolemaster;
+import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import java.io.File;
 import java.util.ArrayList;
@@ -89,9 +89,9 @@ public class LeerProfesion {
         int lineaLeida = 2;
 
         LimpiarAntiguaProfesion();
-        String ficheroProfesion = DirectorioRolemaster.BuscarDirectorioModulo(DirectorioRolemaster.DIRECTORIO_PROFESION + File.separator + Personaje.getInstance().profesion + ".txt");
+        String ficheroProfesion = RolemasterFolderStructure.searchDirectoryModule(RolemasterFolderStructure.PROFESSION_FOLDER + File.separator + Personaje.getInstance().profesion + ".txt");
         if (ficheroProfesion.length() > 0) {
-            List<String> lines = DirectorioRolemaster.LeerLineasProfesion(ficheroProfesion);
+            List<String> lines = RolemasterFolderStructure.LeerLineasProfesion(ficheroProfesion);
             lineaLeida = AsignarCaracteristicasBasicas(lines, lineaLeida);
             lineaLeida = AsignarReinosDisponiblesPorProfesión(lines, lineaLeida);
             lineaLeida = AsignarBonificacionPorProfesion(lines, lineaLeida);

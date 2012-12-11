@@ -43,7 +43,7 @@ package com.softwaremagico.librodeesher.gui;
  */
 
 import com.softwaremagico.librodeesher.Categoria;
-import com.softwaremagico.librodeesher.FichaTxt;
+import com.softwaremagico.librodeesher.exportSheet.FichaTxt;
 import com.softwaremagico.librodeesher.Habilidad;
 import com.softwaremagico.librodeesher.Personaje;
 import java.awt.Toolkit;

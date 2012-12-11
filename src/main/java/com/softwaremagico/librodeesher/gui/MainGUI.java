@@ -43,7 +43,7 @@ package com.softwaremagico.librodeesher.gui;
  */
 
 import com.softwaremagico.librodeesher.Esher;
-import com.softwaremagico.librodeesher.FichaTxt;
+import com.softwaremagico.librodeesher.exportSheet.FichaTxt;
 import com.softwaremagico.librodeesher.Magia;
 import com.softwaremagico.librodeesher.Personaje;
 import java.awt.Toolkit;
@@ -278,7 +278,7 @@ public final class MainGUI extends javax.swing.JFrame {
     }
 
     private void RellenaRazas() throws Exception {
-        List<String> razas = Esher.getInstance().RazasDisponibles();
+        List<String> razas = Esher.getInstance().availableRaces();
         razas = Esher.getInstance().OrdenarLista(razas);
         RazasComboBox.removeAllItems();
         for (int i = 0; i < razas.size(); i++) {

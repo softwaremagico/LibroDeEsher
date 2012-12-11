@@ -45,7 +45,7 @@ package com.softwaremagico.librodeesher.gui;
 import com.softwaremagico.librodeesher.Caracteristica;
 import com.softwaremagico.librodeesher.Categoria;
 import com.softwaremagico.librodeesher.Esher;
-import com.softwaremagico.librodeesher.FichaTxt;
+import com.softwaremagico.librodeesher.exportSheet.FichaTxt;
 import com.softwaremagico.librodeesher.Habilidad;
 import com.softwaremagico.librodeesher.IdiomaCultura;
 import com.softwaremagico.librodeesher.LeerCultura;
@@ -186,7 +186,7 @@ public class InsertarPersonajeGUI extends javax.swing.JFrame {
      * @throws java.lang.Exception
      */
     private void RellenaRazas() throws Exception {
-        List<String> razas = Esher.RazasDisponibles();
+        List<String> razas = Esher.availableRaces();
         razas = Esher.OrdenarLista(razas);
         RazasComboBox.removeAllItems();
         for (int i = 0; i < razas.size(); i++) {

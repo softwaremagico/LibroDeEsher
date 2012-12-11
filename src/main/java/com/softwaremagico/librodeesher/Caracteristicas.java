@@ -65,32 +65,6 @@ public class Caracteristicas implements Serializable {
     }
 
     /**
-     * Genera las 10 características del PJ y sus abreviaturas.
-     */
-    private void CrearCaracteristicas() {
-        caracteristicas.add(new Caracteristica("Ag"));
-        caracteristicas.add(new Caracteristica("Co"));
-        caracteristicas.add(new Caracteristica("Me"));
-        caracteristicas.add(new Caracteristica("Ra"));
-        caracteristicas.add(new Caracteristica("Ad"));
-        caracteristicas.add(new Caracteristica("Em"));
-        caracteristicas.add(new Caracteristica("In"));
-        caracteristicas.add(new Caracteristica("Pr"));
-        caracteristicas.add(new Caracteristica("Rp"));
-        caracteristicas.add(new Caracteristica("Fu"));
-    }
-
-    public Caracteristica DevolverCaracteristicaDeAbreviatura(String abrev) {
-        for (int i = 0; i < caracteristicas.size(); i++) {
-            Caracteristica car = caracteristicas.get(i);
-            if (car.DevolverAbreviatura().equals(abrev)) {
-                return car;
-            }
-        }
-        return null;
-    }
-
-    /**
      * Obtener lista aleatoria de caracteristicas.
      */
     public List<Caracteristica> ObtenerListaAleatoriaDeCaracteristicas() {
@@ -151,14 +125,6 @@ public class Caracteristicas implements Serializable {
 
     public int Size() {
         return caracteristicas.size();
-    }
-
-    public int CalcularPuntosDesarrollo() {
-        int sumaCaracteristicas = 0;
-        for (int i = 0; i < 5; i++) {
-            sumaCaracteristicas += Get(i).ObtenerPuntosTemporal();
-        }
-        return sumaCaracteristicas / 5;
     }
 
     public void SubirNivelCaracteristicas() {
