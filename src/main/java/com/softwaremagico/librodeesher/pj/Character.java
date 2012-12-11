@@ -1,11 +1,11 @@
 package com.softwaremagico.librodeesher.pj;
 
 import com.softwaremagico.librodeesher.pj.categories.Category;
-import com.softwaremagico.librodeesher.pj.characteristics.Characteristics;
+import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.culture.Culture;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
 import com.softwaremagico.librodeesher.pj.profession.Profession;
-import com.softwaremagico.librodeesher.pj.resistances.Resistances;
+import com.softwaremagico.librodeesher.pj.resistance.Resistances;
 import com.softwaremagico.librodeesher.pj.training.Training;
 
 import java.util.List;

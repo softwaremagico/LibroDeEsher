@@ -18,7 +18,8 @@ import com.softwaremagico.librodeesher.LeerRaza;
 import com.softwaremagico.librodeesher.Personaje;
 import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
-import com.softwaremagico.librodeesher.pj.characteristics.Characteristic;
+import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
+import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.culture.CultureCategory;
 import com.softwaremagico.librodeesher.pj.culture.CultureSkill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
@@ -30,9 +31,8 @@ public class Training {
 	private List<TrainingSpecial> specials;
 	private List<TrainingCategory> categories;
 	private List<List<Characteristic>> updateCharacteristics; // Choose one
-																// characteristic
-																// from this
-																// list.
+	private List<MinimalCharacteristicRequired> characteristicRequirements;
+	private List<MinimalSkillRequired> skillRequirements;
 
 	Training(String name) {
 		this.name = name;
@@ -176,7 +176,8 @@ public class Training {
 						// Skill with ranges.
 						String[] trainingSkills = lines.get(index).replace("*", "").trim().split("\t");
 						List<String> skillList = new ArrayList<>();
-						skillList.add(trainingSkills[0]); //List with only one element. 
+						skillList.add(trainingSkills[0]); // List with only one
+															// element.
 						TrainingSkill skill = new TrainingSkill(skillList,
 								Integer.parseInt(trainingSkills[1]));
 						category.addSkill(skill);
@@ -230,50 +231,48 @@ public class Training {
 	}
 
 	private int setProfessionalRequirements(List<String> lines, int index) {
+		characteristicRequirements = new ArrayList<>();
+		skillRequirements = new ArrayList<>();
+
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
-		
-		
-		
-		Habilidad hab;
-		Caracteristica car;
-		boolean seguirComprobando = true;
 
-		index += 3;
-		Personaje.getInstance().listaAficiones = new ArrayList<>();
-		while (!lines.get(index).equals("")) {
-			if (creandoPJ) {
-				String lineaAdiestramiento = lines.get(index);
-				if (!lineaAdiestramiento.equals("Ninguna") && !lineaAdiestramiento.equals("Ninguno")) {
-					String[] requisitos = lineaAdiestramiento.split(", ");
-					for (int i = 0; i < requisitos.length; i++) {
-						// Religion (10) (-3)
-						String[] requisito = requisitos[i].split("\\(");
-						String nombre = requisito[0];
-						int valor = Integer.parseInt(requisito[1].replace(")", ""));
-						int modificaciones = Integer.parseInt(requisito[2].replace(")", ""));
-						// Si es una habilidad, es tener más de X rangos.
-						if ((hab = Personaje.getInstance().DevolverHabilidadDeNombre(nombre)) != null
-								&& seguirComprobando) {
-							if (hab.DevolverRangos() >= valor) {
-								modificadorCoste = modificaciones;
-							}
-						} else if ((car = Personaje.getInstance().caracteristicas
-								.DevolverCaracteristicaDeAbreviatura(nombre)) != null && seguirComprobando) {
-							// Si es una caracteristica, es superar un valor.
-							if (car.Total() >= valor) {
-								modificadorCoste = modificaciones;
-							}
+		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
+			if (!lines.get(index).toLowerCase().contains("Ningun")) {
+				String[] requirementsGroup = lines.get(index).split(", ");
+				for (int i = 0; i < requirementsGroup.length; i++) {
+					// Religion (10) (-3)
+					String[] requirements = requirementsGroup[i].split("\\(");
+					String requirementName = requirements[0];
+					try {
+						Integer value = Integer.parseInt(requirements[1].replace(")", ""));
+						Integer costModification = Integer.parseInt(requirements[2].replace(")", ""));
+						// If it is a skill, the requirement is to have at least
+						// X ranks.
+						if (SkillFactory.existSkill(requirementName)) {
+							MinimalSkillRequired minSkill = new MinimalSkillRequired(requirementName, value, costModification);
+							skillRequirements.add(minSkill);
+						} else if (Characteristics.isCharacteristicValid(requirementName)) {
+							// It it is a characteristic, a minimal temporal
+							// value is required.
+							MinimalCharacteristicRequired minChar = new MinimalCharacteristicRequired(
+									requirementName, value, costModification);
+							characteristicRequirements.add(minChar);
 						} else {
-							modificadorCoste = 0;
-							seguirComprobando = false;
+							MostrarMensaje.showErrorMessage("Requisito desconocido: \"" + lines.get(index)
+									+ "\" del adiestramiento: " + name, "Leer adiestramientos");
 						}
+					} catch (NumberFormatException nfe) {
+						MostrarMensaje.showErrorMessage("Requisito mal formado: \"" + lines.get(index)
+								+ "\" del adiestramiento: " + name, "Leer adiestramientos");
+						continue;
 					}
 				}
 			}
 			index++;
 		}
+
 		return index;
 	}
 }
@@ -317,5 +316,30 @@ class TrainingSkill {
 	public TrainingSkill(List<String> skillOptions, Integer ranks) {
 		this.skillOptions = skillOptions;
 		this.ranks = ranks;
+	}
+}
+
+class MinimalSkillRequired {
+	String skillName;
+	Integer minimalRanks;
+	Integer costModification;
+
+	public MinimalSkillRequired(String skillName, Integer minimalRanks, Integer costModification) {
+		this.skillName = skillName;
+		this.minimalRanks = minimalRanks;
+		this.costModification = costModification;
+	}
+}
+
+class MinimalCharacteristicRequired {
+	String characteristicAbbreviature;
+	Integer minimalValue;
+	Integer costModification;
+
+	public MinimalCharacteristicRequired(String characteristicAbbreviature, Integer minimalValue,
+			Integer costModification) {
+		this.characteristicAbbreviature = characteristicAbbreviature;
+		this.minimalValue = minimalValue;
+		this.costModification = costModification;
 	}
 }

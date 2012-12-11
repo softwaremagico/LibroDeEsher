@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.pj.resistances;
+package com.softwaremagico.librodeesher.pj.resistance;
 
 import java.util.HashMap;
 

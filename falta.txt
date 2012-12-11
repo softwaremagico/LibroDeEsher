@@ -1,0 +1,1 @@
+Lanzar para 32 bits en Windows.

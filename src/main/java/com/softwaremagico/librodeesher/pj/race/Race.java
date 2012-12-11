@@ -12,7 +12,7 @@ import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.MostrarMensaje;
 import com.softwaremagico.librodeesher.pj.ProgressionCostType;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
-import com.softwaremagico.librodeesher.pj.resistances.ResistancesType;
+import com.softwaremagico.librodeesher.pj.resistance.ResistancesType;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 

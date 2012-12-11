@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.pj.characteristics;
+package com.softwaremagico.librodeesher.pj.characteristic;
 
 import com.softwaremagico.librodeesher.Rolemaster;
 

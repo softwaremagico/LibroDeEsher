@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.softwaremagico.librodeesher.pj.characteristics;
+package com.softwaremagico.librodeesher.pj.characteristic;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.pj.resistances;
+package com.softwaremagico.librodeesher.pj.resistance;
 
 public enum ResistancesType {
 	CANALIZATION("Canalización"), ESSENCE("Esencia"), MENTALISM("Mentalismo"), PSIONIC("Psiónico"), POISON("Veneno"), DISEASE("Enfermedad"), COLD("Frío"), HOT("Calor"), FEAR("Miedo");
