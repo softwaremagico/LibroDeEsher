@@ -39,7 +39,6 @@ public class CharacteristicPanel extends BasePanel {
 	protected CharacteristicPanel(CharacterPlayer character) {
 		lines = new ArrayList<>();
 		setElements(character);
-		setDefaultSize();
 	}
 
 	private void setElements(CharacterPlayer character) {
@@ -48,6 +47,7 @@ public class CharacteristicPanel extends BasePanel {
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = xPadding;
+		c.ipady = yPadding;
 		c.gridx = 0;
 
 		Color background;
@@ -60,6 +60,8 @@ public class CharacteristicPanel extends BasePanel {
 			CharacteristicLine characteristicLine = new CharacteristicLine(character.getCharacteristics()
 					.get(i), background);
 			c.gridy = i;
+			characteristicLine.summaryMode(true);
+			lines.add(characteristicLine);
 			add(characteristicLine, c);
 		}
 	}

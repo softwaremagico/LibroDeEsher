@@ -47,12 +47,9 @@ public abstract class BasicLine extends BasePanel {
 	}
 
 	protected void setDefaultDesign() {
-		setMinimumSize(new Dimension(defaultWidth, defaultHeight));
-		setPreferredSize(new Dimension(defaultWidth, defaultHeight));
-		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		//setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		setBackground(Background);
 		setForeground(Color.BLACK);
-		setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 	}
 
 }

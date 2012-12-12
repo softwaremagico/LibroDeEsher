@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui;
+package com.softwaremagico.librodeesher.gui.characterBasics;
 
 /*
  * #%L
@@ -28,6 +28,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import com.softwaremagico.librodeesher.gui.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class CharacterPanel extends BasePanel {
@@ -37,7 +38,7 @@ public class CharacterPanel extends BasePanel {
 	CharacterProfessionPanel characterProfessionPanel;
 	CharacterLevelPanel characterLevelPanel;
 
-	protected CharacterPanel() {
+	public CharacterPanel() {
 		setElements();
 	}
 

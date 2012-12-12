@@ -24,6 +24,8 @@ package com.softwaremagico.librodeesher.gui;
  * #L%
  */
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -33,14 +35,24 @@ import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.border.Border;
 
+import com.softwaremagico.librodeesher.gui.characterBasics.CharacterPanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class MainGui extends BaseFrame {
 	private static final long serialVersionUID = 2061009927740020075L;
-	CharacterPanel characterPanel;
+	private CharacterPanel characterPanel;
+	private JScrollPane characteristicScrollPanel;
+	private JScrollPane resistanceScrollPanel;
+	private JScrollPane categoriesScrollPanel;
 	List<CharacterPlayer> characters;
+	private Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
 
 	/**
 	 * Create the frame.
@@ -50,7 +62,7 @@ public class MainGui extends BaseFrame {
 		CharacterPlayer character = new CharacterPlayer();
 		characters.add(character);
 		windowsProperties();
-		setElements();
+		setElements(character);
 		setEvents();
 		setCharacter(character);
 	}
@@ -67,20 +79,93 @@ public class MainGui extends BaseFrame {
 				/ 2 - (int) (this.getHeight() / 2));
 	}
 
-	private void setElements() {
+	private void setElements(CharacterPlayer character) {
 		setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
 		characterPanel = new CharacterPanel();
+		characterPanel.setBorder(border);
 		characterPanel.setBounds(margin, margin, characterPanel.getWidth(), characterPanel.getHeight());
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = GridBagConstraints.REMAINDER;
-		c.ipadx = 5;
-		c.gridx = 0;
-		c.gridy = 0;
-		c.weightx = 0.5;
-		c.insets = new Insets(1, 5, 1, 5);
-		getContentPane().add(characterPanel, c);
+		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+		gridBagConstraints.ipadx = 5;
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.weightx = 1;
+		gridBagConstraints.weighty = 0;
+		gridBagConstraints.insets = new Insets(1, 1, 1, 1);
+		getContentPane().add(characterPanel, gridBagConstraints);
+
+		characteristicScrollPanel = new JScrollPane(new CharacteristicPanel(character),
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		characteristicScrollPanel.setBorder(border);
+		characteristicScrollPanel.setMinimumSize(new Dimension(100, 0));
+		characteristicScrollPanel.setBounds(margin, margin, characteristicScrollPanel.getWidth(),
+				characteristicScrollPanel.getHeight());
+		// gridBagConstraints.anchor = GridBagConstraints.LINE_START;
+		gridBagConstraints.fill = GridBagConstraints.VERTICAL;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.ipadx = 5;
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 1;
+		gridBagConstraints.weightx = 0;
+		gridBagConstraints.weighty = 0.7;
+		gridBagConstraints.insets = new Insets(1, 1, 1, 1);
+		getContentPane().add(characteristicScrollPanel, gridBagConstraints);
+
+		resistanceScrollPanel = new JScrollPane(new ResistancePanel(character),
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		resistanceScrollPanel.setBorder(border);
+		resistanceScrollPanel.setMinimumSize(new Dimension(100, 0));
+		resistanceScrollPanel.setBounds(margin, margin, resistanceScrollPanel.getWidth(),
+				resistanceScrollPanel.getHeight());
+		// gridBagConstraints.anchor = GridBagConstraints.LINE_START;
+		gridBagConstraints.fill = GridBagConstraints.VERTICAL;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.ipadx = 5;
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 2;
+		gridBagConstraints.weightx = 0;
+		gridBagConstraints.weighty = 0.3;
+		gridBagConstraints.insets = new Insets(1, 1, 1, 1);
+		getContentPane().add(resistanceScrollPanel, gridBagConstraints);
+
+//		JPanel emptyPanel = new JPanel(); // emptyPanel.setBorder(border);
+//		emptyPanel.setBounds(margin, margin, emptyPanel.getWidth(), emptyPanel.getHeight());
+//		gridBagConstraints.fill = GridBagConstraints.VERTICAL;
+//		gridBagConstraints.gridheight = GridBagConstraints.REMAINDER;
+//		gridBagConstraints.gridwidth = 1;
+//		gridBagConstraints.ipadx = 5;
+//		gridBagConstraints.gridx = 0;
+//		gridBagConstraints.gridy = 3;
+//		gridBagConstraints.weightx = 0;
+//		gridBagConstraints.weighty = 0;
+//		gridBagConstraints.insets = new Insets(1, 5, 1, 5);
+//		getContentPane().add(emptyPanel, gridBagConstraints);
+
+		categoriesScrollPanel = new JScrollPane(new CategoriesPanel(),
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		categoriesScrollPanel.setBorder(border);
+		categoriesScrollPanel.setMinimumSize(new Dimension(100, 100));
+		categoriesScrollPanel.setBounds(margin, margin, categoriesScrollPanel.getWidth(),
+				categoriesScrollPanel.getHeight());
+		gridBagConstraints.fill = GridBagConstraints.BOTH;
+		gridBagConstraints.gridheight = GridBagConstraints.REMAINDER;
+		gridBagConstraints.gridwidth = 2;
+		gridBagConstraints.gridheight = 2;
+		gridBagConstraints.ipadx = 5;
+		gridBagConstraints.gridx = 1;
+		gridBagConstraints.gridy = 1;
+		gridBagConstraints.weightx = 1;
+		gridBagConstraints.weighty = 1;
+		gridBagConstraints.insets = new Insets(1, 1, 1, 1);
+		getContentPane().add(categoriesScrollPanel, gridBagConstraints);
+
 	}
 
 	private void setEvents() {

@@ -1,5 +1,4 @@
-package com.softwaremagico.librodeesher.gui;
-
+package com.softwaremagico.librodeesher.gui.characterBasics;
 /*
  * #%L
  * Libro de Esher
@@ -27,19 +26,18 @@ package com.softwaremagico.librodeesher.gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.ButtonGroup;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 
-public class CharacterBasicsPanel extends BasePanel {
-	private static final long serialVersionUID = -6925539216225561309L;
-	private JRadioButton maleRadioButton;
-	private JRadioButton femaleRadioButton;
-	private JTextField nameTextField;
+import com.softwaremagico.librodeesher.gui.BasePanel;
+import com.softwaremagico.librodeesher.pj.race.Race;
 
-	public CharacterBasicsPanel() {
+public class CharacterRacePanel extends BasePanel {
+	private static final long serialVersionUID = 178890486518380989L;
+	private JLabel raceLabel;
+	private JLabel cultureLabel;
+
+	protected CharacterRacePanel() {
 		setElements();
 		setDefaultSize();
 	}
@@ -49,75 +47,51 @@ public class CharacterBasicsPanel extends BasePanel {
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
-		JLabel nameLabel = new JLabel("Nombre:");
+		raceLabel = new JLabel("Raza:");
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 0;
 		c.gridy = 0;
 		c.weightx = 0;
-		add(nameLabel, c);
+		add(raceLabel, c);
 
-		nameTextField = new JTextField();
+		JComboBox<Race> raceComboBox = new JComboBox();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
 		c.gridx = 1;
 		c.gridy = 0;
 		c.weightx = 1;
-		add(nameTextField, c);
+		add(raceComboBox, c);
 
-		JLabel sexLabel = new JLabel("Sexo:");
+		cultureLabel = new JLabel("Cultura:");
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 0;
 		c.gridy = 1;
 		c.weightx = 0;
-		add(sexLabel, c);
+		add(cultureLabel, c);
 
-		JPanel sexPanel = new JPanel();
-		sexPanel.setLayout(new GridBagLayout());
-		
-		//Group the radio buttons.
-		maleRadioButton = new JRadioButton("Masc.");
-		femaleRadioButton = new JRadioButton("Feme.");
-		
-	    ButtonGroup sexGroup = new ButtonGroup();
-	    sexGroup.add(femaleRadioButton);
-	    sexGroup.add(maleRadioButton);
-	    maleRadioButton.setSelected(true);
-
-		c.anchor = GridBagConstraints.LINE_START;
-		c.ipadx = 0;
-		c.gridx = 0;
-		c.gridy = 0;
-		c.weightx = 0.5;
-		sexPanel.add(maleRadioButton, c);
-		c.gridx = 1;
-		sexPanel.add(femaleRadioButton, c);
-
-		// c.anchor = GridBagConstraints.CENTER;
+		JComboBox<Race> cultureComboBox = new JComboBox();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
 		c.gridx = 1;
 		c.gridy = 1;
 		c.weightx = 1;
-		add(sexPanel, c);
-	}
+		add(cultureComboBox, c);
 
-	public void sizeChanged() {
-		if (this.getWidth() < 230) {
-			maleRadioButton.setText("M");
-			femaleRadioButton.setText("F");
-		} else if (this.getWidth() < 280) {
-			maleRadioButton.setText("Masc.");
-			femaleRadioButton.setText("Feme.");
-		} else {
-			maleRadioButton.setText("Masculino");
-			femaleRadioButton.setText("Femenino");
-		}
 	}
 	
-	public void setCharacterName(String name){
-		nameTextField.setText(name);
+	public void sizeChanged() {
+		if (this.getWidth() < 230) {
+			raceLabel.setText("Rz.:");
+			cultureLabel.setText("Clt.:");
+		} else if (this.getWidth() < 280) {
+			raceLabel.setText("Raza:");
+			cultureLabel.setText("Cult.:");
+		} else {
+			raceLabel.setText("Raza:");
+			cultureLabel.setText("Cultura:");
+		}
 	}
 
 }

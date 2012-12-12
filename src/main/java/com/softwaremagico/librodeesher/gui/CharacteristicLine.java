@@ -25,6 +25,7 @@ package com.softwaremagico.librodeesher.gui;
  */
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -54,6 +55,7 @@ public class CharacteristicLine extends BasicLine {
 		GridBagConstraints c = new GridBagConstraints();
 
 		characteristicLabel = new JLabel(charact.getAbbreviation());
+		characteristicLabel.setMinimumSize(new Dimension(20, textDefaultHeight));
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 0;
@@ -71,6 +73,7 @@ public class CharacteristicLine extends BasicLine {
 
 		potentialTextField = new JTextField();
 		potentialTextField.setEditable(false);
+		potentialTextField.setColumns(2);
 		c.anchor = GridBagConstraints.CENTER;
 		c.ipadx = xPadding;
 		c.gridx = 2;
@@ -80,6 +83,7 @@ public class CharacteristicLine extends BasicLine {
 
 		basicBonusTextField = new JTextField();
 		basicBonusTextField.setEditable(false);
+		basicBonusTextField.setColumns(2);
 		c.anchor = GridBagConstraints.CENTER;
 		c.ipadx = xPadding;
 		c.gridx = 3;
@@ -89,6 +93,7 @@ public class CharacteristicLine extends BasicLine {
 
 		raceBonusTextField = new JTextField();
 		raceBonusTextField.setEditable(false);
+		raceBonusTextField.setColumns(2);
 		c.anchor = GridBagConstraints.CENTER;
 		c.ipadx = xPadding;
 		c.gridx = 4;
@@ -98,6 +103,7 @@ public class CharacteristicLine extends BasicLine {
 
 		totalTextField = new JTextField();
 		totalTextField.setEditable(false);
+		totalTextField.setColumns(2);
 		c.anchor = GridBagConstraints.CENTER;
 		c.ipadx = xPadding;
 		c.gridx = 5;
@@ -107,10 +113,10 @@ public class CharacteristicLine extends BasicLine {
 	}
 
 	public void summaryMode(boolean activated) {
-		temporalSpinner.setVisible(activated);
-		potentialTextField.setVisible(activated);
-		basicBonusTextField.setVisible(activated);
-		raceBonusTextField.setVisible(activated);
+		temporalSpinner.setVisible(!activated);
+		potentialTextField.setVisible(!activated);
+		basicBonusTextField.setVisible(!activated);
+		raceBonusTextField.setVisible(!activated);
 	}
 
 }

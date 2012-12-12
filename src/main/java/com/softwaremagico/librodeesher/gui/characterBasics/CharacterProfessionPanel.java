@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui;
+package com.softwaremagico.librodeesher.gui.characterBasics;
 /*
  * #%L
  * Libro de Esher
@@ -28,15 +28,17 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 
+import com.softwaremagico.librodeesher.gui.BasePanel;
 import com.softwaremagico.librodeesher.pj.race.Race;
 
-public class CharacterRacePanel extends BasePanel {
-	private static final long serialVersionUID = 178890486518380989L;
-	private JLabel raceLabel;
-	private JLabel cultureLabel;
+public class CharacterProfessionPanel extends BasePanel {
+	private static final long serialVersionUID = -4572529165916501939L;
+	private JLabel professionLabel;
+	private JLabel trainingLabel;
 
-	protected CharacterRacePanel() {
+	protected CharacterProfessionPanel() {
 		setElements();
 		setDefaultSize();
 	}
@@ -46,51 +48,50 @@ public class CharacterRacePanel extends BasePanel {
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
-		raceLabel = new JLabel("Raza:");
+		professionLabel = new JLabel("Profesión:");
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 0;
 		c.gridy = 0;
 		c.weightx = 0;
-		add(raceLabel, c);
+		add(professionLabel, c);
 
-		JComboBox<Race> raceComboBox = new JComboBox();
+		JComboBox<Race> professionComboBox = new JComboBox();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
 		c.gridx = 1;
 		c.gridy = 0;
 		c.weightx = 1;
-		add(raceComboBox, c);
+		add(professionComboBox, c);
 
-		cultureLabel = new JLabel("Cultura:");
+		trainingLabel = new JLabel("Adiestramiento:");
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 0;
 		c.gridy = 1;
 		c.weightx = 0;
-		add(cultureLabel, c);
+		add(trainingLabel, c);
 
-		JComboBox<Race> cultureComboBox = new JComboBox();
+		JTextField trainingTextField = new JTextField();;
+		trainingTextField.setEditable(false);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
 		c.gridx = 1;
 		c.gridy = 1;
 		c.weightx = 1;
-		add(cultureComboBox, c);
-
+		add(trainingTextField, c);
 	}
 	
 	public void sizeChanged() {
 		if (this.getWidth() < 230) {
-			raceLabel.setText("Rz.:");
-			cultureLabel.setText("Clt.:");
+			professionLabel.setText("Prf.:");
+			trainingLabel.setText("Ad.:");
 		} else if (this.getWidth() < 280) {
-			raceLabel.setText("Raza:");
-			cultureLabel.setText("Cult.:");
+			professionLabel.setText("Prof.:");
+			trainingLabel.setText("Adst.:");
 		} else {
-			raceLabel.setText("Raza:");
-			cultureLabel.setText("Cultura:");
+			professionLabel.setText("Profesión:");
+			trainingLabel.setText("Adiestramiento:");
 		}
 	}
-
 }

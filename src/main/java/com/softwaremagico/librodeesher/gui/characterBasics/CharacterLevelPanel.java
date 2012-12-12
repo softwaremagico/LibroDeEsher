@@ -1,4 +1,5 @@
-package com.softwaremagico.librodeesher.gui;
+package com.softwaremagico.librodeesher.gui.characterBasics;
+
 /*
  * #%L
  * Libro de Esher
@@ -30,14 +31,18 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import com.softwaremagico.librodeesher.gui.BasePanel;
 import com.softwaremagico.librodeesher.pj.race.Race;
 
-public class CharacterProfessionPanel extends BasePanel {
-	private static final long serialVersionUID = -4572529165916501939L;
-	private JLabel professionLabel;
-	private JLabel trainingLabel;
+public class CharacterLevelPanel extends BasePanel {
 
-	protected CharacterProfessionPanel() {
+	private static final long serialVersionUID = -8063970435094018287L;
+	private JLabel levelLabel;
+	private JLabel developmentLabel;
+	private JTextField developmentTextField;
+	private JTextField levelTextField;
+
+	protected CharacterLevelPanel() {
 		setElements();
 		setDefaultSize();
 	}
@@ -47,50 +52,59 @@ public class CharacterProfessionPanel extends BasePanel {
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
-		professionLabel = new JLabel("Profesión:");
+		levelLabel = new JLabel("Nivel:");
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 0;
 		c.gridy = 0;
 		c.weightx = 0;
-		add(professionLabel, c);
+		add(levelLabel, c);
 
-		JComboBox<Race> professionComboBox = new JComboBox();
+		levelTextField = new JTextField();
+		levelTextField.setEditable(false);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
 		c.gridx = 1;
 		c.gridy = 0;
 		c.weightx = 1;
-		add(professionComboBox, c);
+		add(levelTextField, c);
 
-		trainingLabel = new JLabel("Adiestramiento:");
+		developmentLabel = new JLabel("Pts Desar.:");
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 0;
 		c.gridy = 1;
 		c.weightx = 0;
-		add(trainingLabel, c);
+		add(developmentLabel, c);
 
-		JTextField trainingTextField = new JTextField();;
-		trainingTextField.setEditable(false);
+		developmentTextField = new JTextField();
+		developmentTextField.setEditable(false);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
 		c.gridx = 1;
 		c.gridy = 1;
 		c.weightx = 1;
-		add(trainingTextField, c);
+		add(developmentTextField, c);
 	}
-	
+
 	public void sizeChanged() {
 		if (this.getWidth() < 230) {
-			professionLabel.setText("Prf.:");
-			trainingLabel.setText("Adst.:");
+			levelLabel.setText("Nvl:");
+			developmentLabel.setText("PD.:");
 		} else if (this.getWidth() < 280) {
-			professionLabel.setText("Prof.:");
-			trainingLabel.setText("Adist.:");
+			levelLabel.setText("Nivel:");
+			developmentLabel.setText("Pts. D.:");
 		} else {
-			professionLabel.setText("Profesión:");
-			trainingLabel.setText("Adiestramiento:");
+			levelLabel.setText("Nivel:");
+			developmentLabel.setText("Pts. Des.:");
 		}
+	}
+
+	public void setLevel(Integer level) {
+		levelTextField.setText(level.toString());
+	}
+
+	public void setDevelopmentPoints(Integer remainingDevelopmentPoints) {
+		developmentTextField.setText(remainingDevelopmentPoints.toString());
 	}
 }

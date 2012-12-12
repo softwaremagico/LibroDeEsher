@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui;
+package com.softwaremagico.librodeesher.gui.characterBasics;
 
 /*
  * #%L
@@ -27,21 +27,21 @@ package com.softwaremagico.librodeesher.gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.JComboBox;
+import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import com.softwaremagico.librodeesher.pj.race.Race;
+import com.softwaremagico.librodeesher.gui.BasePanel;
 
-public class CharacterLevelPanel extends BasePanel {
+public class CharacterBasicsPanel extends BasePanel {
+	private static final long serialVersionUID = -6925539216225561309L;
+	private JRadioButton maleRadioButton;
+	private JRadioButton femaleRadioButton;
+	private JTextField nameTextField;
 
-	private static final long serialVersionUID = -8063970435094018287L;
-	private JLabel levelLabel;
-	private JLabel developmentLabel;
-	private JTextField developmentTextField;
-	private JTextField levelTextField;
-
-	protected CharacterLevelPanel() {
+	public CharacterBasicsPanel() {
 		setElements();
 		setDefaultSize();
 	}
@@ -51,59 +51,75 @@ public class CharacterLevelPanel extends BasePanel {
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
-		levelLabel = new JLabel("Nivel:");
+		JLabel nameLabel = new JLabel("Nombre:");
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 0;
 		c.gridy = 0;
 		c.weightx = 0;
-		add(levelLabel, c);
+		add(nameLabel, c);
 
-		levelTextField = new JTextField();
-		levelTextField.setEditable(false);
+		nameTextField = new JTextField();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
 		c.gridx = 1;
 		c.gridy = 0;
 		c.weightx = 1;
-		add(levelTextField, c);
+		add(nameTextField, c);
 
-		developmentLabel = new JLabel("Pts Desar.:");
+		JLabel sexLabel = new JLabel("Sexo:");
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 0;
 		c.gridy = 1;
 		c.weightx = 0;
-		add(developmentLabel, c);
+		add(sexLabel, c);
 
-		developmentTextField = new JTextField();
-		developmentTextField.setEditable(false);
+		JPanel sexPanel = new JPanel();
+		sexPanel.setLayout(new GridBagLayout());
+		
+		//Group the radio buttons.
+		maleRadioButton = new JRadioButton("Masc.");
+		femaleRadioButton = new JRadioButton("Feme.");
+		
+	    ButtonGroup sexGroup = new ButtonGroup();
+	    sexGroup.add(femaleRadioButton);
+	    sexGroup.add(maleRadioButton);
+	    maleRadioButton.setSelected(true);
+
+		c.anchor = GridBagConstraints.LINE_START;
+		c.ipadx = 0;
+		c.gridx = 0;
+		c.gridy = 0;
+		c.weightx = 0.5;
+		sexPanel.add(maleRadioButton, c);
+		c.gridx = 1;
+		sexPanel.add(femaleRadioButton, c);
+
+		// c.anchor = GridBagConstraints.CENTER;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
 		c.gridx = 1;
 		c.gridy = 1;
 		c.weightx = 1;
-		add(developmentTextField, c);
+		add(sexPanel, c);
 	}
 
 	public void sizeChanged() {
 		if (this.getWidth() < 230) {
-			levelLabel.setText("Nvl:");
-			developmentLabel.setText("PD.:");
+			maleRadioButton.setText("M");
+			femaleRadioButton.setText("F");
 		} else if (this.getWidth() < 280) {
-			levelLabel.setText("Nivel:");
-			developmentLabel.setText("Pts. D.:");
+			maleRadioButton.setText("Masc.");
+			femaleRadioButton.setText("Feme.");
 		} else {
-			levelLabel.setText("Nivel:");
-			developmentLabel.setText("Pts. Des.:");
+			maleRadioButton.setText("Masculino");
+			femaleRadioButton.setText("Femenino");
 		}
 	}
-
-	public void setLevel(Integer level) {
-		levelTextField.setText(level.toString());
+	
+	public void setCharacterName(String name){
+		nameTextField.setText(name);
 	}
 
-	public void setDevelopmentPoints(Integer remainingDevelopmentPoints) {
-		developmentTextField.setText(remainingDevelopmentPoints.toString());
-	}
 }

@@ -24,10 +24,8 @@ package com.softwaremagico.librodeesher.gui;
  * #L%
  */
 
-import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 public abstract class BasePanel extends JPanel {
@@ -37,9 +35,10 @@ public abstract class BasePanel extends JPanel {
 	protected Integer inputDefaultWidth = 160;
 	protected Integer inputColumns = 12;
 	protected Integer xPadding = 5;
+	protected Integer yPadding = 10;
 	
 	protected BasePanel(){
-		setBorder(BorderFactory.createLineBorder(Color.black));
+		//setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 
 	protected void setDefaultSize() {
