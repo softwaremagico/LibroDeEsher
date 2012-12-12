@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj;
+
 /*
  * #%L
  * Libro de Esher
@@ -24,6 +25,7 @@ package com.softwaremagico.librodeesher.pj;
  */
 
 import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.culture.Culture;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
@@ -31,28 +33,58 @@ import com.softwaremagico.librodeesher.pj.profession.Profession;
 import com.softwaremagico.librodeesher.pj.resistance.Resistances;
 import com.softwaremagico.librodeesher.pj.training.Training;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Character {
-    private String name;
-    private String surname;
-    private Sex sex;
-    private String history;
-    
-    private Characteristics characteristics;
-    private List<Category> categories;
-    private Culture culture;
-    private List<Training> trainings;
-    private Profession profession;
-    private Resistances resistances;
-    
-    private List<LevelUp> levelUps;
-    
-    
-    public Character(){
-        characteristics = new Characteristics();
-    }
-    
+public class CharacterPlayer {
+	private final String DEFAULT_NAME = " ** Nuevo Personaje ** ";
+	private String name;
+	private String surname;
+	private Sex sex;
+	private String history;
 
-    
+	private Characteristics characteristics;
+	private List<Category> categories;
+	private Culture culture;
+	private List<Training> trainings;
+	private Profession profession;
+	private Resistances resistances;
+
+	private List<LevelUp> levelUps;
+
+	public CharacterPlayer() {
+		characteristics = new Characteristics();
+		levelUps = new ArrayList<>();
+	}
+
+	public String getName() {
+		if (name != null && name.length() > 0) {
+			return name;
+		}
+		return DEFAULT_NAME;
+	}
+
+	public void setName(String name) {
+		if (!name.equals(DEFAULT_NAME)) {
+			this.name = name;
+		}
+	}
+
+	public List<Characteristic> getCharacteristics() {
+		return characteristics.getCharacteristicsList();
+	}
+
+	public Integer getSpentDevelopmentPoints() {
+		// TODO
+		return 0;
+	}
+
+	public Integer getDevelopmentPoints() {
+		return characteristics.getDevelopmentPoints() - getSpentDevelopmentPoints();
+	}
+	
+	public Integer getCharacterLevel(){
+		return levelUps.size();
+	}
+
 }

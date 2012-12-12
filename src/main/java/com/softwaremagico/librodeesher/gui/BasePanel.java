@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui;
+
 /*
  * #%L
  * Libro de Esher
@@ -25,34 +26,27 @@ package com.softwaremagico.librodeesher.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 
-import javax.swing.border.EtchedBorder;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
 
-public abstract class BasicLine extends BasePanel {
-	private static final long serialVersionUID = 7901507705885692683L;
-	protected Color Background = Color.white;
-	protected Integer defaultHeight = 25;
-	protected Integer defaultWidth = 500;
-	protected Integer textDefaultWidth = 40;
-	protected Integer nameTextDefaultWidth = 140;
-	protected String font = "Dialog";
-	protected int fontSize = 12;
-
-	/**
-	 * Create the panel.
-	 */
-	public BasicLine() {
-		setDefaultDesign();
+public abstract class BasePanel extends JPanel {
+	private static final long serialVersionUID = -2976171792134626544L;
+	protected Integer textDefaultWidth = 80;
+	protected Integer textDefaultHeight = 25;
+	protected Integer inputDefaultWidth = 160;
+	protected Integer inputColumns = 12;
+	protected Integer xPadding = 5;
+	
+	protected BasePanel(){
+		setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 
-	protected void setDefaultDesign() {
-		setMinimumSize(new Dimension(defaultWidth, defaultHeight));
-		setPreferredSize(new Dimension(defaultWidth, defaultHeight));
-		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		setBackground(Background);
-		setForeground(Color.BLACK);
-		setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+	protected void setDefaultSize() {
+		setMinimumSize(new Dimension(textDefaultWidth + inputDefaultWidth + 10, textDefaultHeight
+				* getComponentCount() / 2 + 20));
+		setPreferredSize(new Dimension(textDefaultWidth + inputDefaultWidth + 10, textDefaultHeight
+				* getComponentCount() / 2 + 20));
 	}
 
 }

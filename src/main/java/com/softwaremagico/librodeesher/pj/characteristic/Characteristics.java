@@ -39,7 +39,7 @@ public class Characteristics {
 	private final static String allowedCharacteristics="AgCoMeRaAdEmInPrRpFu";
     private final static int TOTAL_CHARACTERISTICS_POINTS = 660;
 
-    List<Characteristic> characteristics;
+    private List<Characteristic> characteristics;
     private Appearance appearance;
 
     public Characteristics() {
@@ -61,6 +61,10 @@ public class Characteristics {
         characteristics.add(new Characteristic("Fu"));
     }
     
+    public List<Characteristic> getCharacteristicsList(){
+    	return characteristics;
+    }
+    
     public static boolean isCharacteristicValid(String abbrev){
     	return allowedCharacteristics.contains(abbrev);
     }
@@ -75,7 +79,7 @@ public class Characteristics {
         return null;
     }
     
-    public int obtainDevelopmentPoints() {
+    public int getDevelopmentPoints() {
         int total = 0;
         for (int i = 0; i < 5; i++) {
             total += characteristics.get(i).getTemporalValue();

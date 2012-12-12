@@ -39,12 +39,12 @@ public class CategoryLine extends BasicLine {
 	}
 
 	private void setContent(String categoryName) {
-
-		JLabel skillNameLabel = new JLabel(categoryName);
-		skillNameLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		skillNameLabel.setMinimumSize(new Dimension(nameTextDefaultWidth, defaultHeight));
-		skillNameLabel.setPreferredSize(new Dimension(nameTextDefaultWidth, defaultHeight));
-		add(skillNameLabel);
+		this.removeAll();
+		JLabel categoryNameLabel = new JLabel(categoryName);
+		categoryNameLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		categoryNameLabel.setMinimumSize(new Dimension(nameTextDefaultWidth, defaultHeight));
+		categoryNameLabel.setPreferredSize(new Dimension(nameTextDefaultWidth, defaultHeight));
+		add(categoryNameLabel);
 
 		JLabel RankCostLabel = new JLabel("1/1/1");
 		RankCostLabel.setHorizontalAlignment(SwingConstants.CENTER);

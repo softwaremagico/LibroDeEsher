@@ -23,36 +23,19 @@ package com.softwaremagico.librodeesher.gui;
  * #L%
  */
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
-import javax.swing.border.EtchedBorder;
-
-public abstract class BasicLine extends BasePanel {
-	private static final long serialVersionUID = 7901507705885692683L;
-	protected Color Background = Color.white;
-	protected Integer defaultHeight = 25;
-	protected Integer defaultWidth = 500;
-	protected Integer textDefaultWidth = 40;
-	protected Integer nameTextDefaultWidth = 140;
-	protected String font = "Dialog";
-	protected int fontSize = 12;
-
+public class BaseFrame extends JFrame {
+	private static final long serialVersionUID = 3812264811213028556L;
+	protected static final int margin = 5;
+	
 	/**
-	 * Create the panel.
+	 * Create the frame.
 	 */
-	public BasicLine() {
-		setDefaultDesign();
-	}
-
-	protected void setDefaultDesign() {
-		setMinimumSize(new Dimension(defaultWidth, defaultHeight));
-		setPreferredSize(new Dimension(defaultWidth, defaultHeight));
-		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		setBackground(Background);
-		setForeground(Color.BLACK);
-		setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+	public BaseFrame() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setIconImage(new ImageIcon(this.getClass().getResource("/librodeesher.png")).getImage());
 	}
 
 }

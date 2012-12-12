@@ -39,11 +39,11 @@ public class ShowCategoriesAndSkills extends BasicLine {
 	 * Create the panel.
 	 */
 	public ShowCategoriesAndSkills(List<Category> categories) {
-		setContent();
+		setElements();
 		setCategoriesAndSkills(categories);
 	}
 
-	private void setContent() {
+	private void setElements() {
 		displayPanel.setPreferredSize(this.getPreferredSize());
 		JScrollPane displayScrollPane = new JScrollPane(displayPanel);
 		add(displayScrollPane);

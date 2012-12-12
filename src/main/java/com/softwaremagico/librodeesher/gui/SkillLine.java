@@ -35,10 +35,11 @@ public class SkillLine extends BasicLine {
 	
 
 	public SkillLine(String skillName) {
-		setContent(skillName);
+		setElements(skillName);
 	}
 
-	private void setContent(String skillName) {
+	private void setElements(String skillName) {
+		this.removeAll();
 		JLabel skillNameLabel = new JLabel(skillName);
 		skillNameLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		skillNameLabel.setMinimumSize(new Dimension(nameTextDefaultWidth, defaultHeight));
