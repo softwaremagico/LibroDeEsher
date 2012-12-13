@@ -1,6 +1,4 @@
-package com.softwaremagico.librodeesher.gui;
-
-import com.softwaremagico.librodeesher.gui.style.BasePanel;
+package com.softwaremagico.librodeesher.gui.style;
 /*
  * #%L
  * Libro de Esher
@@ -25,8 +23,26 @@ import com.softwaremagico.librodeesher.gui.style.BasePanel;
  * #L%
  */
 
-public class CategoriesPanel extends BasePanel {
+import java.awt.Color;
 
-	private static final long serialVersionUID = -5217423154402630472L;
+
+public abstract class BasicTitleLine extends BasicLine {
+	private static final long serialVersionUID = 7901507705885692683L;
+	protected Color background = Color.BLACK;
+	protected Color foreground = Color.WHITE;
+	protected String font = "Dialog Bold";
+
+	/**
+	 * Create the panel.
+	 */
+	public BasicTitleLine() {
+		setDefaultDesign();
+	}
+
+	protected void setDefaultDesign() {
+		//setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		setBackground(background);
+		setForeground(foreground);
+	}
 
 }

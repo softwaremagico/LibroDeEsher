@@ -24,71 +24,60 @@ package com.softwaremagico.librodeesher.gui;
  * #L%
  */
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
-import javax.swing.KeyStroke;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.Border;
 
 import com.softwaremagico.librodeesher.gui.characterBasics.CharacterPanel;
+import com.softwaremagico.librodeesher.gui.elements.CategoriesPanel;
+import com.softwaremagico.librodeesher.gui.elements.CharacteristicPanel;
+import com.softwaremagico.librodeesher.gui.elements.ResistancePanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class MainWindow extends BaseFrame {
 	private static final long serialVersionUID = 2061009927740020075L;
 	private CharacterPanel characterPanel;
+	private ResistancePanel resistancePanel;
+	private CharacteristicPanel characteristicsPanel;
 	private JScrollPane characteristicScrollPanel;
 	private JScrollPane resistanceScrollPanel;
 	private JScrollPane categoriesScrollPanel;
-	List<CharacterPlayer> characters;
 	MainMenu mainMenu;
-	private Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
 
 	/**
 	 * Create the frame.
 	 */
 	public MainWindow() {
-		characters = new ArrayList<>();
-		CharacterPlayer character = new CharacterPlayer();
-		characters.add(character);
 		defineWindow(750, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setElements(character);
+		setElements();
 		setEvents();
-		setCharacter(character);
 	}
 
-	private void setCharacter(CharacterPlayer character) {
+	public void setCharacter(CharacterPlayer character) {
 		characterPanel.setCharacter(character);
+		characteristicsPanel.setCharacter(character, true);
+		resistancePanel.setCharacter(character);
 	}
 
-	private void setElements(CharacterPlayer character) {
+	private void setElements() {
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
 		// Add Main menu.
 		mainMenu = new MainMenu();
-		setJMenuBar(mainMenu.createMenu());
+		setJMenuBar(mainMenu.createMenu(this));
 
 		characterPanel = new CharacterPanel();
-		characterPanel.setBorder(border);
+		characterPanel.setBorder(getBorder());
 		characterPanel.setBounds(margin, margin, characterPanel.getWidth(), characterPanel.getHeight());
 		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
@@ -100,10 +89,12 @@ public class MainWindow extends BaseFrame {
 		gridBagConstraints.insets = new Insets(1, 1, 1, 1);
 		getContentPane().add(characterPanel, gridBagConstraints);
 
-		characteristicScrollPanel = new JScrollPane(new CharacteristicPanel(character),
+		
+		characteristicsPanel = new CharacteristicPanel();
+		characteristicScrollPanel = new JScrollPane(characteristicsPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		characteristicScrollPanel.setBorder(border);
+		characteristicScrollPanel.setBorder(getBorder());
 		characteristicScrollPanel.setMinimumSize(new Dimension(80, 0));
 		characteristicScrollPanel.setBounds(margin, margin, characteristicScrollPanel.getWidth(),
 				characteristicScrollPanel.getHeight());
@@ -119,10 +110,11 @@ public class MainWindow extends BaseFrame {
 		// gridBagConstraints.insets = new Insets(1, 1, 1, 1);
 		getContentPane().add(characteristicScrollPanel, gridBagConstraints);
 
-		resistanceScrollPanel = new JScrollPane(new ResistancePanel(character),
+		resistancePanel = new ResistancePanel();
+		resistanceScrollPanel = new JScrollPane(resistancePanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		resistanceScrollPanel.setBorder(border);
+		resistanceScrollPanel.setBorder(getBorder());
 		resistanceScrollPanel.setMinimumSize(new Dimension(80, 0));
 		resistanceScrollPanel.setBounds(margin, margin, resistanceScrollPanel.getWidth(),
 				resistanceScrollPanel.getHeight());
@@ -155,7 +147,7 @@ public class MainWindow extends BaseFrame {
 		categoriesScrollPanel = new JScrollPane(new CategoriesPanel(),
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		categoriesScrollPanel.setBorder(border);
+		categoriesScrollPanel.setBorder(getBorder());
 		categoriesScrollPanel.setMinimumSize(new Dimension(100, 100));
 		categoriesScrollPanel.setBounds(margin, margin, categoriesScrollPanel.getWidth(),
 				categoriesScrollPanel.getHeight());

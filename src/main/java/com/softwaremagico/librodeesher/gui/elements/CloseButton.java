@@ -1,4 +1,5 @@
-package com.softwaremagico.librodeesher.gui.style;
+package com.softwaremagico.librodeesher.gui.elements;
+
 /*
  * #%L
  * Libro de Esher
@@ -23,31 +24,30 @@ package com.softwaremagico.librodeesher.gui.style;
  * #L%
  */
 
-import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
 
-public abstract class BasicLine extends BasePanel {
-	private static final long serialVersionUID = 7901507705885692683L;
-	protected Color background = Color.WHITE;
-	protected Color foregorund = Color.BLACK;
-	protected Integer defaultHeight = 25;
-	protected Integer defaultWidth = 500;
-	protected Integer labelDefaultWidth = 40;
-	protected Integer nameTextDefaultWidth = 140;
-	protected String font = "Dialog";
-	protected int fontSize = 12;
+import com.softwaremagico.librodeesher.gui.style.BasicButton;
 
-	/**
-	 * Create the panel.
-	 */
-	public BasicLine() {
-		setDefaultDesign();
+public class CloseButton extends BasicButton {
+	private static final long serialVersionUID = -3656938562430153336L;
+	private JFrame window;
+
+	public CloseButton(JFrame window) {
+		setDefaultStyle();
+		this.setText("Cerrar");
+		this.window =  window;
+		addActionListener(new AboutBoxListener());
 	}
+	
+	class AboutBoxListener implements ActionListener {
 
-	protected void setDefaultDesign() {
-		//setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		setBackground(background);
-		setForeground(foregorund);
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			window.dispose();
+		}
 	}
 
 }

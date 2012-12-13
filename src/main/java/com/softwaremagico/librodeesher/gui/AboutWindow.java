@@ -36,6 +36,7 @@ import javax.swing.ScrollPaneConstants;
 
 import com.softwaremagico.files.MyFile;
 import com.softwaremagico.files.RolemasterFolderStructure;
+import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 
 public class AboutWindow extends BaseFrame {

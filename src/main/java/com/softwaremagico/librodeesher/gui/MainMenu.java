@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui;
+
 /*
  * #%L
  * Libro de Esher
@@ -23,23 +24,31 @@ package com.softwaremagico.librodeesher.gui;
  * #L%
  */
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 public class MainMenu {
-	private JMenuItem aboutMenuItem;
+	private JMenuItem newMenuItem, loadMenuItem, saveMenuItem, exportToTextMenuItem, exportToPDFMenuItem,
+			exitMenuItem;
+	private JMenuItem aboutMenuItem, cultureMenuItem, charactMenuItem, trainingMenuItem, skillsMenuItem,
+			perksMenuItem, historyMenuItem;
+	private JFrame parentWindow;
 
-	public JMenuBar createMenu() {
+	public JMenuBar createMenu(JFrame parentWindow) {
+		this.parentWindow=parentWindow;
 		JMenuBar mainMenu = new JMenuBar();
 
 		mainMenu.add(createFileMenu());
 		mainMenu.add(createCharacterMenu());
 		mainMenu.add(createHelpMenu());
 
+		addExitMenuItem();
 		return mainMenu;
 	}
 
@@ -48,16 +57,16 @@ public class MainMenu {
 		fileMenu.setMnemonic(KeyEvent.VK_SHIFT + KeyEvent.VK_A);
 		fileMenu.getAccessibleContext().setAccessibleDescription("Gestion de ficheros.");
 
-		JMenuItem newMenuItem = new JMenuItem("Nuevo", KeyEvent.VK_SHIFT + KeyEvent.VK_N);
+		newMenuItem = new JMenuItem("Nuevo", KeyEvent.VK_SHIFT + KeyEvent.VK_N);
 		newMenuItem.getAccessibleContext().setAccessibleDescription("Crear un personaje nuevo.");
 		fileMenu.add(newMenuItem);
 
-		JMenuItem loadMenuItem = new JMenuItem("Cargar", KeyEvent.VK_SHIFT + KeyEvent.VK_C);
+		loadMenuItem = new JMenuItem("Cargar", KeyEvent.VK_SHIFT + KeyEvent.VK_C);
 		loadMenuItem.getAccessibleContext().setAccessibleDescription(
 				"Cargar un personaje creado anteriormente.");
 		fileMenu.add(loadMenuItem);
 
-		JMenuItem saveMenuItem = new JMenuItem("Salvar", KeyEvent.VK_SHIFT + KeyEvent.VK_S);
+		saveMenuItem = new JMenuItem("Salvar", KeyEvent.VK_SHIFT + KeyEvent.VK_S);
 		saveMenuItem.getAccessibleContext().setAccessibleDescription(
 				"Guardar un personaje creado anteriormente.");
 		fileMenu.add(saveMenuItem);
@@ -67,17 +76,17 @@ public class MainMenu {
 		exportMenu.getAccessibleContext().setAccessibleDescription("Exportar a otros formatos.");
 		fileMenu.add(exportMenu);
 
-		JMenuItem exportToTextMenuItem = new JMenuItem("Texto", KeyEvent.VK_SHIFT + KeyEvent.VK_T);
+		exportToTextMenuItem = new JMenuItem("Texto", KeyEvent.VK_SHIFT + KeyEvent.VK_T);
 		exportToTextMenuItem.getAccessibleContext().setAccessibleDescription(
 				"Exporta a un fichero de texto plano.");
 		exportMenu.add(exportToTextMenuItem);
 
-		JMenuItem exportToPDFMenuItem = new JMenuItem("PDF", KeyEvent.VK_SHIFT + KeyEvent.VK_P);
+		exportToPDFMenuItem = new JMenuItem("PDF", KeyEvent.VK_SHIFT + KeyEvent.VK_P);
 		exportToPDFMenuItem.getAccessibleContext().setAccessibleDescription(
 				"Exporta a un fichero de texto plano.");
 		exportMenu.add(exportToPDFMenuItem);
 
-		JMenuItem exitMenuItem = new JMenuItem("Salir", KeyEvent.VK_SHIFT + KeyEvent.VK_R);
+		exitMenuItem = new JMenuItem("Salir", KeyEvent.VK_SHIFT + KeyEvent.VK_R);
 		exitMenuItem.getAccessibleContext().setAccessibleDescription("Cierra el programa.");
 		fileMenu.add(exitMenuItem);
 
@@ -89,29 +98,29 @@ public class MainMenu {
 		createMenu.setMnemonic(KeyEvent.VK_SHIFT + KeyEvent.VK_G);
 		createMenu.getAccessibleContext().setAccessibleDescription("Crear paso a paso un personaje.");
 
-		JMenuItem charactMenuItem = new JMenuItem("Caracteristicas", KeyEvent.VK_SHIFT + KeyEvent.VK_C);
+		charactMenuItem = new JMenuItem("Caracteristicas", KeyEvent.VK_SHIFT + KeyEvent.VK_C);
 		charactMenuItem.getAccessibleContext().setAccessibleDescription("Características del personaje.");
 		createMenu.add(charactMenuItem);
 
-		JMenuItem cultureMenuItem = new JMenuItem("Cultura", KeyEvent.VK_SHIFT + KeyEvent.VK_R);
+		cultureMenuItem = new JMenuItem("Cultura", KeyEvent.VK_SHIFT + KeyEvent.VK_R);
 		cultureMenuItem.getAccessibleContext().setAccessibleDescription("Definir la cultura del personaje.");
 		createMenu.add(cultureMenuItem);
 
-		JMenuItem trainingMenuItem = new JMenuItem("Adiestramientos", KeyEvent.VK_SHIFT + KeyEvent.VK_D);
+		trainingMenuItem = new JMenuItem("Adiestramientos", KeyEvent.VK_SHIFT + KeyEvent.VK_D);
 		trainingMenuItem.getAccessibleContext().setAccessibleDescription("Adquirir adiestramientos.");
 		createMenu.add(trainingMenuItem);
 
-		JMenuItem skillsMenuItem = new JMenuItem("Habilidades", KeyEvent.VK_SHIFT + KeyEvent.VK_H);
+		skillsMenuItem = new JMenuItem("Habilidades", KeyEvent.VK_SHIFT + KeyEvent.VK_H);
 		skillsMenuItem.getAccessibleContext().setAccessibleDescription("Gastar puntos de desarrollo.");
 		createMenu.add(skillsMenuItem);
 
-		JMenuItem perksMenuItem = new JMenuItem("Talentos", KeyEvent.VK_SHIFT + KeyEvent.VK_T);
+		perksMenuItem = new JMenuItem("Talentos", KeyEvent.VK_SHIFT + KeyEvent.VK_T);
 		perksMenuItem.getAccessibleContext().setAccessibleDescription("Adquirir Talentos.");
 		createMenu.add(perksMenuItem);
 
-		JMenuItem historialMenuItem = new JMenuItem("Historial", KeyEvent.VK_SHIFT + KeyEvent.VK_L);
-		historialMenuItem.getAccessibleContext().setAccessibleDescription("Adquirir Talentos.");
-		createMenu.add(historialMenuItem);
+		historyMenuItem = new JMenuItem("Historial", KeyEvent.VK_SHIFT + KeyEvent.VK_L);
+		historyMenuItem.getAccessibleContext().setAccessibleDescription("Adquirir Talentos.");
+		createMenu.add(historyMenuItem);
 
 		return createMenu;
 	}
@@ -130,5 +139,21 @@ public class MainMenu {
 
 	public void addAboutMenuItemListener(ActionListener al) {
 		aboutMenuItem.addActionListener(al);
+	}
+
+	public void addCharacteristicsWindowMenuItemListener(ActionListener al) {
+		charactMenuItem.addActionListener(al);
+	}
+
+	private void addExitMenuItem(){
+		exitMenuItem.addActionListener(new CloseListener());
+	}
+	
+	class CloseListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			parentWindow.dispose();
+		}
 	}
 }

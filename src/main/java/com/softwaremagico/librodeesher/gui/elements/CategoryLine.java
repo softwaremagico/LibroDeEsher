@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui;
+package com.softwaremagico.librodeesher.gui.elements;
 /*
  * #%L
  * Libro de Esher
@@ -51,54 +51,54 @@ public class CategoryLine extends BasicLine {
 
 		JLabel RankCostLabel = new JLabel("1/1/1");
 		RankCostLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		RankCostLabel.setMinimumSize(new Dimension(textDefaultWidth, defaultHeight));
-		RankCostLabel.setPreferredSize(new Dimension(textDefaultWidth, defaultHeight));
+		RankCostLabel.setMinimumSize(new Dimension(labelDefaultWidth, defaultHeight));
+		RankCostLabel.setPreferredSize(new Dimension(labelDefaultWidth, defaultHeight));
 		add(RankCostLabel);
 
 		JCheckBox firstRank = new JCheckBox("");
-		firstRank.setBackground(Background);
+		firstRank.setBackground(background);
 		add(firstRank);
 
 		JCheckBox secondRank = new JCheckBox("");
-		secondRank.setBackground(Background);
+		secondRank.setBackground(background);
 		add(secondRank);
 
 		JCheckBox thirdRank = new JCheckBox("");
-		thirdRank.setBackground(Background);
+		thirdRank.setBackground(background);
 		add(thirdRank);
 
 		JLabel bonusRankLabel = new JLabel("10");
 		bonusRankLabel.setFont(new Font(font, Font.PLAIN, fontSize));
 		bonusRankLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		bonusRankLabel.setMinimumSize(new Dimension(textDefaultWidth, defaultHeight));
-		bonusRankLabel.setPreferredSize(new Dimension(textDefaultWidth, defaultHeight));
+		bonusRankLabel.setMinimumSize(new Dimension(labelDefaultWidth, defaultHeight));
+		bonusRankLabel.setPreferredSize(new Dimension(labelDefaultWidth, defaultHeight));
 		add(bonusRankLabel);
 
 		JLabel bonusCharLabel = new JLabel("10");
 		bonusCharLabel.setFont(new Font(font, Font.PLAIN, fontSize));
 		bonusCharLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		bonusCharLabel.setMinimumSize(new Dimension(textDefaultWidth, defaultHeight));
-		bonusCharLabel.setPreferredSize(new Dimension(textDefaultWidth, defaultHeight));
+		bonusCharLabel.setMinimumSize(new Dimension(labelDefaultWidth, defaultHeight));
+		bonusCharLabel.setPreferredSize(new Dimension(labelDefaultWidth, defaultHeight));
 		add(bonusCharLabel);
 
 		JLabel bonusMagicObject = new JLabel("20");
 		bonusMagicObject.setFont(new Font(font, Font.PLAIN, fontSize));
 		bonusMagicObject.setHorizontalAlignment(SwingConstants.CENTER);
-		bonusMagicObject.setMinimumSize(new Dimension(textDefaultWidth, defaultHeight));
-		bonusMagicObject.setPreferredSize(new Dimension(textDefaultWidth, defaultHeight));
+		bonusMagicObject.setMinimumSize(new Dimension(labelDefaultWidth, defaultHeight));
+		bonusMagicObject.setPreferredSize(new Dimension(labelDefaultWidth, defaultHeight));
 		add(bonusMagicObject);
 
 		JLabel otherBonus = new JLabel("20");
 		otherBonus.setFont(new Font(font, Font.PLAIN, fontSize));
 		otherBonus.setHorizontalAlignment(SwingConstants.CENTER);
-		otherBonus.setMinimumSize(new Dimension(textDefaultWidth, defaultHeight));
-		otherBonus.setPreferredSize(new Dimension(textDefaultWidth, defaultHeight));
+		otherBonus.setMinimumSize(new Dimension(labelDefaultWidth, defaultHeight));
+		otherBonus.setPreferredSize(new Dimension(labelDefaultWidth, defaultHeight));
 		add(otherBonus);
 
 		JLabel totalLabel = new JLabel("50");
 		totalLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		totalLabel.setMinimumSize(new Dimension(textDefaultWidth, defaultHeight));
-		totalLabel.setPreferredSize(new Dimension(textDefaultWidth, defaultHeight));
+		totalLabel.setMinimumSize(new Dimension(labelDefaultWidth, defaultHeight));
+		totalLabel.setPreferredSize(new Dimension(labelDefaultWidth, defaultHeight));
 		add(totalLabel);
 
 	}

@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui;
+package com.softwaremagico.librodeesher.gui.elements;
 
 /*
  * #%L
@@ -30,8 +30,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.JTextField;
 
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
@@ -40,10 +40,9 @@ public class CharacteristicLine extends BasicLine {
 	private static final long serialVersionUID = 1855952180568184802L;
 	private JLabel characteristicLabel;
 	private JSpinner temporalSpinner;
-	private JTextField potentialTextField;
-	private JTextField basicBonusTextField;
-	private JTextField raceBonusTextField;
-	private JTextField totalTextField;
+	private JLabel potentialText;
+	private JLabel basicBonusText;
+	private JLabel raceBonusText;
 	private JLabel totalLabel;
 
 	public CharacteristicLine(Characteristic charact, Color background) {
@@ -57,81 +56,66 @@ public class CharacteristicLine extends BasicLine {
 		GridBagConstraints c = new GridBagConstraints();
 
 		characteristicLabel = new JLabel(charact.getAbbreviation());
-		characteristicLabel.setMinimumSize(new Dimension(20, textDefaultHeight));
+		characteristicLabel.setMinimumSize(new Dimension(labelDefaultWidth, textDefaultHeight));
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 0;
 		c.gridy = 0;
-		c.weightx = 1;
+		c.weightx = 0;
 		add(characteristicLabel, c);
 
 		temporalSpinner = new JSpinner();
+		((JSpinner.DefaultEditor)temporalSpinner.getEditor()).getTextField().setColumns(2);
 		c.anchor = GridBagConstraints.CENTER;
 		c.ipadx = xPadding;
 		c.gridx = 1;
 		c.gridy = 0;
-		c.weightx = 1;
+		c.weightx = 0.2;
 		add(temporalSpinner, c);
 
-		potentialTextField = new JTextField();
-		potentialTextField.setEditable(false);
-		potentialTextField.setColumns(2);
+		potentialText = new JLabel("0");
+		potentialText.setMinimumSize(new Dimension(labelDefaultWidth, textDefaultHeight));
 		c.anchor = GridBagConstraints.CENTER;
 		c.ipadx = xPadding;
 		c.gridx = 2;
 		c.gridy = 0;
-		c.weightx = 1;
-		add(potentialTextField, c);
+		c.weightx = 0.2;
+		add(potentialText, c);
 
-		basicBonusTextField = new JTextField();
-		basicBonusTextField.setEditable(false);
-		basicBonusTextField.setColumns(2);
+		basicBonusText = new JLabel("100");
+		basicBonusText.setMinimumSize(new Dimension(labelDefaultWidth, textDefaultHeight));
 		c.anchor = GridBagConstraints.CENTER;
 		c.ipadx = xPadding;
 		c.gridx = 3;
 		c.gridy = 0;
-		c.weightx = 1;
-		add(basicBonusTextField, c);
+		c.weightx = 0.2;
+		add(basicBonusText, c);
 
-		raceBonusTextField = new JTextField();
-		raceBonusTextField.setEditable(false);
-		raceBonusTextField.setColumns(2);
+		raceBonusText = new JLabel("0");
+		raceBonusText.setMinimumSize(new Dimension(labelDefaultWidth, textDefaultHeight));
 		c.anchor = GridBagConstraints.CENTER;
 		c.ipadx = xPadding;
 		c.gridx = 4;
 		c.gridy = 0;
-		c.weightx = 1;
-		add(raceBonusTextField, c);
-
-		totalTextField = new JTextField(charact.getTotal().toString());
-		totalTextField.setEditable(false);
-		totalTextField.setColumns(2);
-		c.anchor = GridBagConstraints.CENTER;
-		c.ipadx = xPadding;
-		c.gridx = 5;
-		c.gridy = 0;
-		c.weightx = 1;
-		add(totalTextField, c);
+		c.weightx = 0.2;
+		add(raceBonusText, c);
 		
 		totalLabel = new JLabel(charact.getTotal().toString());
-		totalLabel.setMinimumSize(new Dimension(20, textDefaultHeight));
+		totalLabel.setMinimumSize(new Dimension(labelDefaultWidth, textDefaultHeight));
 		c.anchor = GridBagConstraints.CENTER;
 		c.ipadx = xPadding;
 		c.gridx = 5;
 		c.gridy = 0;
-		c.weightx = 1;
+		c.weightx = 0.2;
 		add(totalLabel, c);
-		
 		
 	}
 
 	public void summaryMode(boolean activated) {
 		temporalSpinner.setVisible(!activated);
-		potentialTextField.setVisible(!activated);
-		basicBonusTextField.setVisible(!activated);
-		raceBonusTextField.setVisible(!activated);
-		totalTextField.setVisible(!activated);
-		totalLabel.setVisible(activated);
+		potentialText.setVisible(!activated);
+		basicBonusText.setVisible(!activated);
+		raceBonusText.setVisible(!activated);
 	}
 
 }

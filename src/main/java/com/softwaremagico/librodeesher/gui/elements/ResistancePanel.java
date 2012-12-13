@@ -1,5 +1,4 @@
-package com.softwaremagico.librodeesher.gui;
-
+package com.softwaremagico.librodeesher.gui.elements;
 /*
  * #%L
  * Libro de Esher
@@ -32,14 +31,15 @@ import java.util.List;
 
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 
-public class CharacteristicPanel extends BasePanel {
-	private static final long serialVersionUID = -8184859092551925077L;
-	private List<CharacteristicLine> lines;
+public class ResistancePanel extends BasePanel {
+	private List<ResistanceLine> lines;
 
-	protected CharacteristicPanel(CharacterPlayer character) {
+	private static final long serialVersionUID = -8596963992689639881L;
+
+	public ResistancePanel() {
 		lines = new ArrayList<>();
-		setElements(character);
 	}
 
 	private void setElements(CharacterPlayer character) {
@@ -52,18 +52,21 @@ public class CharacteristicPanel extends BasePanel {
 		c.gridx = 0;
 
 		Color background;
-		for (int i = 0; i < character.getCharacteristics().size(); i++) {
+		for (int i = 0; i < ResistanceType.values().length; i++) {
 			if (i % 2 == 0) {
 				background = Color.WHITE;
 			} else {
 				background = Color.LIGHT_GRAY;
 			}
-			CharacteristicLine characteristicLine = new CharacteristicLine(character.getCharacteristics()
-					.get(i), background);
+			ResistanceLine resistanceLine = new ResistanceLine(ResistanceType.values()[i],
+					character.getResistanceBonus(ResistanceType.values()[i]), background);
 			c.gridy = i;
-			characteristicLine.summaryMode(true);
-			lines.add(characteristicLine);
-			add(characteristicLine, c);
+			lines.add(resistanceLine);
+			add(resistanceLine, c);
 		}
+	}
+
+	public void setCharacter(CharacterPlayer character){
+		setElements(character);
 	}
 }

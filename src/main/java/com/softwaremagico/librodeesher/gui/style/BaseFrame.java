@@ -24,10 +24,13 @@ package com.softwaremagico.librodeesher.gui.style;
  * #L%
  */
 
+import java.awt.Color;
 import java.awt.Toolkit;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.border.Border;
 
 public abstract class BaseFrame extends JFrame {
 	private static final long serialVersionUID = 3812264811213028556L;
@@ -38,6 +41,7 @@ public abstract class BaseFrame extends JFrame {
 	protected Integer inputColumns = 12;
 	protected Integer xPadding = 5;
 	protected Integer yPadding = 10;
+	private Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
 
 	/**
 	 * Create the frame.
@@ -52,6 +56,10 @@ public abstract class BaseFrame extends JFrame {
 		setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2
 				- (int) (this.getWidth() / 2), (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight()
 				/ 2 - (int) (this.getHeight() / 2));
+	}
+
+	public Border getBorder() {
+		return border;
 	}
 
 }

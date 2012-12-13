@@ -1,5 +1,6 @@
-package com.softwaremagico.librodeesher.gui;
+package com.softwaremagico.librodeesher.gui.elements;
 
+import com.softwaremagico.librodeesher.gui.style.BasePanel;
 /*
  * #%L
  * Libro de Esher
@@ -24,30 +25,8 @@ package com.softwaremagico.librodeesher.gui;
  * #L%
  */
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+public class CategoriesPanel extends BasePanel {
 
-import javax.swing.JFrame;
-
-import com.softwaremagico.librodeesher.gui.style.BasicButton;
-
-public class CloseButton extends BasicButton {
-	private static final long serialVersionUID = -3656938562430153336L;
-	private JFrame window;
-
-	public CloseButton(JFrame window) {
-		setDefaultStyle();
-		this.setText("Cerrar");
-		this.window =  window;
-		addActionListener(new AboutBoxListener());
-	}
-	
-	class AboutBoxListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			window.dispose();
-		}
-	}
+	private static final long serialVersionUID = -5217423154402630472L;
 
 }

@@ -1,4 +1,5 @@
-package com.softwaremagico.librodeesher.gui;
+package com.softwaremagico.librodeesher.gui.elements;
+
 /*
  * #%L
  * Libro de Esher
@@ -31,40 +32,42 @@ import java.util.List;
 
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
-import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 
-public class ResistancePanel extends BasePanel {
-	private List<ResistanceLine> lines;
+public class CharacteristicPanel extends BasePanel {
+	private static final long serialVersionUID = -8184859092551925077L;
+	private List<CharacteristicLine> lines;
 
-	private static final long serialVersionUID = -8596963992689639881L;
-
-	public ResistancePanel(CharacterPlayer character) {
+	public CharacteristicPanel() {
 		lines = new ArrayList<>();
-		setElements(character);
 	}
 
-	private void setElements(CharacterPlayer character) {
+	private void setElements(CharacterPlayer character, boolean summaryMode) {
 		this.removeAll();
 		setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipadx = xPadding;
-		c.ipady = yPadding;
-		c.gridx = 0;
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.ipady = yPadding;
+		gridBagConstraints.weightx = 1;
+		gridBagConstraints.gridx = 0;
 
 		Color background;
-		for (int i = 0; i < ResistanceType.values().length; i++) {
+		for (int i = 0; i < character.getCharacteristics().size(); i++) {
 			if (i % 2 == 0) {
 				background = Color.WHITE;
 			} else {
 				background = Color.LIGHT_GRAY;
 			}
-			ResistanceLine resistanceLine = new ResistanceLine(ResistanceType.values()[i],
-					character.getResistanceBonus(ResistanceType.values()[i]), background);
-			c.gridy = i;
-			lines.add(resistanceLine);
-			add(resistanceLine, c);
+			CharacteristicLine characteristicLine = new CharacteristicLine(character.getCharacteristics()
+					.get(i), background);
+			gridBagConstraints.gridy = i;
+			characteristicLine.summaryMode(summaryMode);
+			lines.add(characteristicLine);
+			add(characteristicLine, gridBagConstraints);
 		}
 	}
 
+	public void setCharacter(CharacterPlayer character, boolean summaryMode) {
+		setElements(character, summaryMode);
+	}
 }

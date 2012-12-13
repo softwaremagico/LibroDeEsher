@@ -8,6 +8,6 @@ public abstract class BasicButton extends JButton{
 	private static final long serialVersionUID = 2134660390585477867L;
 
 	protected void setDefaultStyle(){
-		setMinimumSize(new Dimension(0, 40));
+		setMinimumSize(new Dimension(80, 40));
 	}
 }

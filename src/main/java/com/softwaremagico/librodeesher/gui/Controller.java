@@ -25,13 +25,24 @@ package com.softwaremagico.librodeesher.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class Controller {
 	MainWindow mainGui;
 	AboutWindow aboutWindow;
+	CharacteristicsWindow characteristicWindow;
+	List<CharacterPlayer> characters;
+	CharacterPlayer selectedCharacter;
 
 	public Controller() {
+		characters = new ArrayList<>();
+		selectedCharacter = new CharacterPlayer();
+		characters.add(selectedCharacter);
 		mainGui = new MainWindow();
+		mainGui.setCharacter(selectedCharacter);
 		mainGui.setVisible(true);
 		addMainMenuActionListeners();
 
@@ -39,6 +50,21 @@ public class Controller {
 
 	private void addMainMenuActionListeners() {
 		mainGui.getMainMenu().addAboutMenuItemListener(new AboutBoxListener());
+		mainGui.getMainMenu().addCharacteristicsWindowMenuItemListener(new CharacteristicWindowsListener());
+	}
+	
+	class CharacteristicWindowsListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				characteristicWindow.dispose();
+			} catch (NullPointerException npe) {
+			}
+			characteristicWindow = new CharacteristicsWindow();
+			characteristicWindow.setCharacter(selectedCharacter);
+			characteristicWindow.setVisible(true);
+		}
 	}
 
 	class AboutBoxListener implements ActionListener {
