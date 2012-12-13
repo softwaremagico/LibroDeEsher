@@ -78,12 +78,5 @@ public class Characteristics {
         }
         return null;
     }
-    
-    public int getDevelopmentPoints() {
-        int total = 0;
-        for (int i = 0; i < 5; i++) {
-            total += characteristics.get(i).getTemporalValue();
-        }
-        return total / 5;
-    }
+
 }

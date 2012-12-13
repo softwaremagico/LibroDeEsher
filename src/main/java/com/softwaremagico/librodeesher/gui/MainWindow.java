@@ -193,4 +193,9 @@ public class MainWindow extends BaseFrame {
 		});
 	}
 
+	@Override
+	public void update() {
+				
+	}
+
 }

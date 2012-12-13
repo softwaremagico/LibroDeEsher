@@ -25,12 +25,11 @@ package com.softwaremagico.librodeesher.gui.elements;
  */
 
 import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
@@ -62,10 +61,16 @@ public class CharacteristicPanel extends BasePanel {
 
 	protected CharacteristicLine createLine(CharacterPlayer character, Integer characteristicIndex,
 			Color background) {
-		return new CharacteristicLine(character.getCharacteristics().get(characteristicIndex), background);
+		return new CharacteristicLine(character, character.getCharacteristics().get(characteristicIndex), background);
 	}
 
 	public void setCharacter(CharacterPlayer character, boolean summaryMode) {
 		setElements(character, summaryMode);
+	}
+	
+	public void setParentWindow(BaseFrame window){
+		for(CharacteristicLine line : lines){
+			line.setParentWindow(window);
+		}
 	}
 }

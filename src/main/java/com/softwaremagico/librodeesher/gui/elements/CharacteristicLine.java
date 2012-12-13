@@ -27,49 +27,93 @@ package com.softwaremagico.librodeesher.gui.elements;
 import java.awt.Color;
 import java.awt.GridLayout;
 
+import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.text.DefaultFormatter;
 
+import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 
 public class CharacteristicLine extends BasicLine {
+	private static final Integer MAX_VALUE = 102;
 	private static final long serialVersionUID = 1855952180568184802L;
+	private CharacterPlayer character;
+	protected Characteristic characteristic;
 	protected JLabel characteristicLabel;
 	private JSpinner temporalSpinner;
 	private JLabel potentialText;
 	private JLabel basicBonusText;
 	private JLabel raceBonusText;
 	protected JLabel totalLabel;
+	private BaseFrame parentWindow;
 
-	public CharacteristicLine(Characteristic charact, Color background) {
-		setElements(charact, background);
+	public CharacteristicLine(CharacterPlayer character, Characteristic characteristic, Color background) {
+		this.character = character;
+		this.characteristic = characteristic;
+		setElements(background);
 		setBackground(background);
 	}
 
-	protected void setElements(Characteristic charact, Color background) {
+	protected void setElements(Color background) {
 		this.removeAll();
-		setLayout(new GridLayout(1,6));
+		setLayout(new GridLayout(1, 6));
 
-		characteristicLabel = new JLabel(charact.getAbbreviation());
+		characteristicLabel = new JLabel(characteristic.getAbbreviation());
 		add(createLabelInsidePanel(characteristicLabel, false, background, fontColor));
 
 		temporalSpinner = new JSpinner();
+		temporalSpinner
+				.setValue(character.getCharacteristicsTemporalValues(characteristic.getAbbreviation()));
+		addTemporalSpinnerEvent();
 		add(createSpinnerInsidePanel(temporalSpinner, true, background));
 
 		potentialText = new JLabel("0");
 		add(createLabelInsidePanel(potentialText, true, background, fontColor));
 
-		basicBonusText = new JLabel("100");
+		basicBonusText = new JLabel("0");
 		add(createLabelInsidePanel(basicBonusText, true, background, fontColor));
-
 
 		raceBonusText = new JLabel("0");
 		add(createLabelInsidePanel(raceBonusText, true, background, fontColor));
-		
-		totalLabel = new JLabel(charact.getTotal().toString());
+
+		totalLabel = new JLabel("0");
 		add(createLabelInsidePanel(totalLabel, true, background, fontColor));
-		
+
+	}
+
+	private void addTemporalSpinnerEvent() {
+		JComponent comp = temporalSpinner.getEditor();
+		JFormattedTextField field = (JFormattedTextField) comp.getComponent(0);
+		DefaultFormatter formatter = (DefaultFormatter) field.getFormatter();
+		formatter.setCommitsOnValidEdit(true);
+		temporalSpinner.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				if ((Integer) temporalSpinner.getValue() < 1) {
+					temporalSpinner.setValue(1);
+				}
+				if ((Integer) temporalSpinner.getValue() > MAX_VALUE) {
+					temporalSpinner.setValue(MAX_VALUE);
+				}
+				character.setCharacteristicsTemporalValues(characteristic.getAbbreviation(),
+						(Integer) temporalSpinner.getValue());
+
+				if (parentWindow != null) {
+					parentWindow.update();
+				}
+			}
+		});
+	}
+
+	public void setParentWindow(BaseFrame window) {
+		parentWindow = window;
 	}
 
 }

@@ -61,5 +61,7 @@ public abstract class BaseFrame extends JFrame {
 	public Border getBorder() {
 		return border;
 	}
+	
+	public abstract void update();
 
 }

@@ -3,3 +3,5 @@
 librodeesher.deb
 /target/
 /.settings/
+.classpath
+.project

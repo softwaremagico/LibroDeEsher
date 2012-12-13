@@ -34,11 +34,11 @@ public class Resistances {
 	public static Integer getResistanceCharacteristicsBonus(ResistanceType type, Characteristics characteristics) {
 		switch (type) {
 		case CANALIZATION:
-			return characteristics.getCharacteristicFromAbbreviature("In").getTotal() * 3;
+			//return characteristics.getCharacteristicFromAbbreviature("In").getTotal() * 3;
 		case ESSENCE:
-			return characteristics.getCharacteristicFromAbbreviature("Em").getTotal() * 3;
+			//return characteristics.getCharacteristicFromAbbreviature("Em").getTotal() * 3;
 		case MENTALISM:
-			return characteristics.getCharacteristicFromAbbreviature("Pr").getTotal() * 3;
+			//return characteristics.getCharacteristicFromAbbreviature("Pr").getTotal() * 3;
 		case PSIONIC:
 		case POISON:
 		case DISEASE:

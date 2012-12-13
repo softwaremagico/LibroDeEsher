@@ -1,12 +1,12 @@
 package com.softwaremagico.librodeesher.gui.elements;
 
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
@@ -58,6 +58,10 @@ public class CompleteCharacteristicPanel extends BasePanel {
 	public void setCharacter(CharacterPlayer character, boolean summaryMode) {
 		characteristicPanel.setCharacter(character, summaryMode);
 		title.setSummaryMode(summaryMode);
+	}
+
+	public void setParentWindow(BaseFrame characteristicsWindow) {
+		characteristicPanel.setParentWindow(characteristicsWindow);
 	}
 
 }

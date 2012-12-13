@@ -27,25 +27,14 @@ import com.softwaremagico.librodeesher.core.Dice;
 
 public class Characteristic {
 
-	private int temporalValue;
-	private int temporalUpdate;
-	private int potentialValue;
-	private int raceBonus = 0;
-	private int specialBonus = 0;
 	private String abbreviation;
 
 	public Characteristic(String ab) {
 		abbreviation = ab;
-		temporalValue = 21;
-		temporalUpdate = 21;
-		potentialValue = 21;
 	}
 
-	public int getTemporalValue() {
-		return temporalValue;
-	}
 
-	private int getPotencial() {
+	public static Integer getPotencial(Integer temporalValue) {
 		if (temporalValue >= 100) {
 			return 99 + Dice.roll(1, 2);
 		}
@@ -97,10 +86,10 @@ public class Characteristic {
 		if (temporalValue >= 20) {
 			return 20 + Dice.roll(8, 10);
 		}
-		return potentialValue;
+		return 0;
 	}
 
-	public int getCharacteristicUpgrade() {
+	public static Integer getCharacteristicUpgrade(Integer temporalValue, Integer potentialValue) {
 		int dice1 = Dice.roll(10);
 		int dice2 = Dice.roll(10);
 
@@ -121,7 +110,7 @@ public class Characteristic {
 		}
 	}
 
-	public int getTemporalBonus() {
+	public Integer getTemporalBonus(Integer temporalValue) {
 		if (temporalValue >= 102) {
 			return 14;
 		}
@@ -191,7 +180,7 @@ public class Characteristic {
 		return -10;
 	}
 
-	public Integer getTemporalCost() {
+	public Integer getTemporalCost(Integer temporalValue) {
 		Double d;
 		if (temporalValue < 91) {
 			return temporalValue;
@@ -205,7 +194,4 @@ public class Characteristic {
 		return abbreviation;
 	}
 
-	public Integer getTotal() {
-		return getTemporalBonus() + raceBonus + specialBonus;
-	}
 }
