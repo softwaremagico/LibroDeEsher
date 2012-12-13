@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.elements;
+
 /*
  * #%L
  * Libro de Esher
@@ -26,6 +27,7 @@ package com.softwaremagico.librodeesher.gui.elements;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,12 +46,7 @@ public class ResistancePanel extends BasePanel {
 
 	private void setElements(CharacterPlayer character) {
 		this.removeAll();
-		setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipadx = xPadding;
-		c.ipady = yPadding;
-		c.gridx = 0;
+		setLayout(new GridLayout(0, 1));
 
 		Color background;
 		for (int i = 0; i < ResistanceType.values().length; i++) {
@@ -60,13 +57,12 @@ public class ResistancePanel extends BasePanel {
 			}
 			ResistanceLine resistanceLine = new ResistanceLine(ResistanceType.values()[i],
 					character.getResistanceBonus(ResistanceType.values()[i]), background);
-			c.gridy = i;
 			lines.add(resistanceLine);
-			add(resistanceLine, c);
+			add(resistanceLine);
 		}
 	}
 
-	public void setCharacter(CharacterPlayer character){
+	public void setCharacter(CharacterPlayer character) {
 		setElements(character);
 	}
 }

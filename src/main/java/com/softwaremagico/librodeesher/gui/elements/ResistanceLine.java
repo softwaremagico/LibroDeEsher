@@ -24,9 +24,7 @@ package com.softwaremagico.librodeesher.gui.elements;
  */
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JLabel;
 
@@ -40,31 +38,19 @@ public class ResistanceLine extends BasicLine {
 	
 
 	public ResistanceLine(ResistanceType resistance, Integer total,  Color background) {
-		setElements(resistance, total);
+		setElements(resistance, total, background);
 		setBackground(background);
 	}
 	
-	private void setElements(ResistanceType resistance, Integer total) {
+	private void setElements(ResistanceType resistance, Integer total,  Color background) {
 		this.removeAll();
-		setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
+		setLayout(new GridLayout(1,2));
 		
 		resistanceLabel = new JLabel(resistance.getAbbreviature());
-		resistanceLabel.setMinimumSize(new Dimension(20, textDefaultHeight));
-		c.anchor = GridBagConstraints.LINE_START;
-		c.ipadx = xPadding;
-		c.gridx = 0;
-		c.gridy = 0;
-		c.weightx = 1;
-		add(resistanceLabel, c);	
+		add(createLabelInsidePanel(resistanceLabel, false, background, fontColor));
 		
 		resistanceTotalLabel = new JLabel(total.toString());
-		resistanceTotalLabel.setMinimumSize(new Dimension(20, textDefaultHeight));
-		c.anchor = GridBagConstraints.LINE_START;
-		c.ipadx = xPadding;
-		c.gridx = 1;
-		c.gridy = 0;
-		c.weightx = 1;
-		add(resistanceTotalLabel, c);
+		add(createLabelInsidePanel(resistanceTotalLabel, false, background, fontColor));
+		
 	}
 }

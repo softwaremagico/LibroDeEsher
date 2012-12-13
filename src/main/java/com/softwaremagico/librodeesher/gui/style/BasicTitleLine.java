@@ -30,6 +30,7 @@ public abstract class BasicTitleLine extends BasicLine {
 	private static final long serialVersionUID = 7901507705885692683L;
 	protected Color background = Color.BLACK;
 	protected Color foreground = Color.WHITE;
+	protected Color fontColor = Color.LIGHT_GRAY;
 	protected String font = "Dialog Bold";
 
 	/**

@@ -27,6 +27,7 @@ package com.softwaremagico.librodeesher.gui.elements;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,13 +44,7 @@ public class CharacteristicPanel extends BasePanel {
 
 	private void setElements(CharacterPlayer character, boolean summaryMode) {
 		this.removeAll();
-		setLayout(new GridBagLayout());
-		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.ipadx = xPadding;
-		gridBagConstraints.ipady = yPadding;
-		gridBagConstraints.weightx = 1;
-		gridBagConstraints.gridx = 0;
+		setLayout(new GridLayout(10, 1));
 
 		Color background;
 		for (int i = 0; i < character.getCharacteristics().size(); i++) {
@@ -58,13 +53,16 @@ public class CharacteristicPanel extends BasePanel {
 			} else {
 				background = Color.LIGHT_GRAY;
 			}
-			CharacteristicLine characteristicLine = new CharacteristicLine(character.getCharacteristics()
-					.get(i), background);
-			gridBagConstraints.gridy = i;
-			characteristicLine.summaryMode(summaryMode);
+
+			CharacteristicLine characteristicLine = createLine(character, i, background);
 			lines.add(characteristicLine);
-			add(characteristicLine, gridBagConstraints);
+			add(characteristicLine);
 		}
+	}
+
+	protected CharacteristicLine createLine(CharacterPlayer character, Integer characteristicIndex,
+			Color background) {
+		return new CharacteristicLine(character.getCharacteristics().get(characteristicIndex), background);
 	}
 
 	public void setCharacter(CharacterPlayer character, boolean summaryMode) {

@@ -37,7 +37,7 @@ import javax.swing.ScrollPaneConstants;
 
 import com.softwaremagico.librodeesher.gui.characterBasics.CharacterPanel;
 import com.softwaremagico.librodeesher.gui.elements.CategoriesPanel;
-import com.softwaremagico.librodeesher.gui.elements.CharacteristicPanel;
+import com.softwaremagico.librodeesher.gui.elements.CharacteristicSummaryPanel;
 import com.softwaremagico.librodeesher.gui.elements.ResistancePanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -46,7 +46,7 @@ public class MainWindow extends BaseFrame {
 	private static final long serialVersionUID = 2061009927740020075L;
 	private CharacterPanel characterPanel;
 	private ResistancePanel resistancePanel;
-	private CharacteristicPanel characteristicsPanel;
+	private CharacteristicSummaryPanel characteristicsPanel;
 	private JScrollPane characteristicScrollPanel;
 	private JScrollPane resistanceScrollPanel;
 	private JScrollPane categoriesScrollPanel;
@@ -90,7 +90,7 @@ public class MainWindow extends BaseFrame {
 		getContentPane().add(characterPanel, gridBagConstraints);
 
 		
-		characteristicsPanel = new CharacteristicPanel();
+		characteristicsPanel = new CharacteristicSummaryPanel();
 		characteristicScrollPanel = new JScrollPane(characteristicsPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -106,7 +106,7 @@ public class MainWindow extends BaseFrame {
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 1;
 		gridBagConstraints.weightx = 0;
-		gridBagConstraints.weighty = 0.7;
+		gridBagConstraints.weighty = 0.6;
 		// gridBagConstraints.insets = new Insets(1, 1, 1, 1);
 		getContentPane().add(characteristicScrollPanel, gridBagConstraints);
 
@@ -126,7 +126,7 @@ public class MainWindow extends BaseFrame {
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 2;
 		gridBagConstraints.weightx = 0;
-		gridBagConstraints.weighty = 0.3;
+		gridBagConstraints.weighty = 0.4;
 		// gridBagConstraints.insets = new Insets(1, 1, 1, 1);
 		getContentPane().add(resistanceScrollPanel, gridBagConstraints);
 

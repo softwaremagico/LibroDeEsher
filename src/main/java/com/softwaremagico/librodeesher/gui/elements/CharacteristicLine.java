@@ -25,12 +25,9 @@ package com.softwaremagico.librodeesher.gui.elements;
  */
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JSpinner;
 
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
@@ -38,84 +35,41 @@ import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 
 public class CharacteristicLine extends BasicLine {
 	private static final long serialVersionUID = 1855952180568184802L;
-	private JLabel characteristicLabel;
+	protected JLabel characteristicLabel;
 	private JSpinner temporalSpinner;
 	private JLabel potentialText;
 	private JLabel basicBonusText;
 	private JLabel raceBonusText;
-	private JLabel totalLabel;
+	protected JLabel totalLabel;
 
 	public CharacteristicLine(Characteristic charact, Color background) {
-		setElements(charact);
+		setElements(charact, background);
 		setBackground(background);
 	}
 
-	private void setElements(Characteristic charact) {
+	protected void setElements(Characteristic charact, Color background) {
 		this.removeAll();
-		setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
+		setLayout(new GridLayout(1,6));
 
 		characteristicLabel = new JLabel(charact.getAbbreviation());
-		characteristicLabel.setMinimumSize(new Dimension(labelDefaultWidth, textDefaultHeight));
-		c.anchor = GridBagConstraints.LINE_START;
-		c.ipadx = xPadding;
-		c.gridx = 0;
-		c.gridy = 0;
-		c.weightx = 0;
-		add(characteristicLabel, c);
+		add(createLabelInsidePanel(characteristicLabel, false, background, fontColor));
 
 		temporalSpinner = new JSpinner();
-		((JSpinner.DefaultEditor)temporalSpinner.getEditor()).getTextField().setColumns(2);
-		c.anchor = GridBagConstraints.CENTER;
-		c.ipadx = xPadding;
-		c.gridx = 1;
-		c.gridy = 0;
-		c.weightx = 0.2;
-		add(temporalSpinner, c);
+		add(createSpinnerInsidePanel(temporalSpinner, true, background));
 
 		potentialText = new JLabel("0");
-		potentialText.setMinimumSize(new Dimension(labelDefaultWidth, textDefaultHeight));
-		c.anchor = GridBagConstraints.CENTER;
-		c.ipadx = xPadding;
-		c.gridx = 2;
-		c.gridy = 0;
-		c.weightx = 0.2;
-		add(potentialText, c);
+		add(createLabelInsidePanel(potentialText, true, background, fontColor));
 
 		basicBonusText = new JLabel("100");
-		basicBonusText.setMinimumSize(new Dimension(labelDefaultWidth, textDefaultHeight));
-		c.anchor = GridBagConstraints.CENTER;
-		c.ipadx = xPadding;
-		c.gridx = 3;
-		c.gridy = 0;
-		c.weightx = 0.2;
-		add(basicBonusText, c);
+		add(createLabelInsidePanel(basicBonusText, true, background, fontColor));
+
 
 		raceBonusText = new JLabel("0");
-		raceBonusText.setMinimumSize(new Dimension(labelDefaultWidth, textDefaultHeight));
-		c.anchor = GridBagConstraints.CENTER;
-		c.ipadx = xPadding;
-		c.gridx = 4;
-		c.gridy = 0;
-		c.weightx = 0.2;
-		add(raceBonusText, c);
+		add(createLabelInsidePanel(raceBonusText, true, background, fontColor));
 		
 		totalLabel = new JLabel(charact.getTotal().toString());
-		totalLabel.setMinimumSize(new Dimension(labelDefaultWidth, textDefaultHeight));
-		c.anchor = GridBagConstraints.CENTER;
-		c.ipadx = xPadding;
-		c.gridx = 5;
-		c.gridy = 0;
-		c.weightx = 0.2;
-		add(totalLabel, c);
+		add(createLabelInsidePanel(totalLabel, true, background, fontColor));
 		
-	}
-
-	public void summaryMode(boolean activated) {
-		temporalSpinner.setVisible(!activated);
-		potentialText.setVisible(!activated);
-		basicBonusText.setVisible(!activated);
-		raceBonusText.setVisible(!activated);
 	}
 
 }

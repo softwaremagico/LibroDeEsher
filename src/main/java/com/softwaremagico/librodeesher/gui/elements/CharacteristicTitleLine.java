@@ -24,9 +24,7 @@ package com.softwaremagico.librodeesher.gui.elements;
  * #L%
  */
 
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JLabel;
 
@@ -47,45 +45,26 @@ public class CharacteristicTitleLine extends BasicTitleLine {
 
 	private void setElements() {
 		this.removeAll();
-		setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-		c.anchor = GridBagConstraints.LINE_START;
-		c.ipadx = xPadding;
-		c.weightx = 0.2;
-		c.gridy = 0;
+		setLayout(new GridLayout(1, 6));
 
 		characteristicLabel = new JLabel("Caracter.");
-		characteristicLabel.setMinimumSize(new Dimension(labelDefaultWidth, textDefaultHeight));
-		c.gridx = 0;
-		
-		add(characteristicLabel, c);
+		add(createLabelInsidePanel(characteristicLabel, false, background, fontColor));
 
 		temporalLabel = new JLabel("Temp.");
-		temporalLabel.setMinimumSize(new Dimension(labelDefaultWidth, textDefaultHeight));
-		c.gridx = 1;		
-		add(temporalLabel, c);
+		add(createLabelInsidePanel(temporalLabel, true, background, fontColor));
 
 		potentialTextField = new JLabel("Pot.");
-		potentialTextField.setMinimumSize(new Dimension(labelDefaultWidth, textDefaultHeight));
-		c.gridx = 2;
-		add(potentialTextField, c);
+		add(createLabelInsidePanel(potentialTextField, true, background, fontColor));
 
 		basicBonusTextField = new JLabel("Bonus");
-		basicBonusTextField.setMinimumSize(new Dimension(labelDefaultWidth, textDefaultHeight));
-		c.gridx = 3;
-		add(basicBonusTextField, c);
+		add(createLabelInsidePanel(basicBonusTextField, true, background, fontColor));
 
 		raceBonusTextField = new JLabel("Raza");
-		raceBonusTextField.setMinimumSize(new Dimension(labelDefaultWidth, textDefaultHeight));
-		c.gridx = 4;
-		add(raceBonusTextField, c);
+		add(createLabelInsidePanel(raceBonusTextField, true, background, fontColor));
 
-		
 		totalLabel = new JLabel("Total");
-		totalLabel.setMinimumSize(new Dimension(labelDefaultWidth, textDefaultHeight));
-		c.gridx = 5;
-		add(totalLabel, c);		
-		
+		add(createLabelInsidePanel(totalLabel, true, background, fontColor));
+
 	}
 
 	public void setSummaryMode(boolean activated) {

@@ -23,13 +23,21 @@ package com.softwaremagico.librodeesher.gui.style;
  * #L%
  */
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SwingConstants;
 
 
 public abstract class BasicLine extends BasePanel {
 	private static final long serialVersionUID = 7901507705885692683L;
 	protected Color background = Color.WHITE;
 	protected Color foregorund = Color.BLACK;
+	protected Color fontColor = Color.DARK_GRAY;
 	protected Integer defaultHeight = 25;
 	protected Integer defaultWidth = 500;
 	protected Integer labelDefaultWidth = 40;
@@ -48,6 +56,24 @@ public abstract class BasicLine extends BasePanel {
 		//setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		setBackground(background);
 		setForeground(foregorund);
+	}
+	
+	public JPanel createLabelInsidePanel(JLabel label, boolean centered, Color bgColor, Color fgColor) {
+		if (centered) {
+			label.setHorizontalAlignment(SwingConstants.CENTER);
+		}
+		JPanel container = new JPanel(new BorderLayout());
+		label.setForeground(fgColor);
+		container.add(label);
+		container.setBackground(bgColor);
+		return container;
+	}
+	
+	public JPanel createSpinnerInsidePanel(JSpinner spinner, boolean centered, Color bgColor) {
+		JPanel container = new JPanel(new BorderLayout());
+		container.add(spinner);
+		container.setBackground(bgColor);
+		return container;
 	}
 
 }
