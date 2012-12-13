@@ -28,7 +28,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import com.softwaremagico.librodeesher.gui.BasePanel;
+import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class CharacterPanel extends BasePanel {

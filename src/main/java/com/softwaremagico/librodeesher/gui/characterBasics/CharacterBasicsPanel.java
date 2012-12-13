@@ -33,7 +33,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import com.softwaremagico.librodeesher.gui.BasePanel;
+import com.softwaremagico.librodeesher.gui.style.BasePanel;
 
 public class CharacterBasicsPanel extends BasePanel {
 	private static final long serialVersionUID = -6925539216225561309L;

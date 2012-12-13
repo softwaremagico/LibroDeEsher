@@ -1,5 +1,4 @@
 package com.softwaremagico.librodeesher.gui;
-
 /*
  * #%L
  * Libro de Esher
@@ -25,45 +24,47 @@ package com.softwaremagico.librodeesher.gui;
  */
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.softwaremagico.librodeesher.gui.style.BasePanel;
-import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import javax.swing.JLabel;
 
-public class CharacteristicPanel extends BasePanel {
-	private static final long serialVersionUID = -8184859092551925077L;
-	private List<CharacteristicLine> lines;
+import com.softwaremagico.librodeesher.gui.style.BasicLine;
+import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 
-	protected CharacteristicPanel(CharacterPlayer character) {
-		lines = new ArrayList<>();
-		setElements(character);
+public class ResistanceLine extends BasicLine {
+	private static final long serialVersionUID = -5493663863154163209L;
+	private JLabel resistanceLabel;
+	private JLabel resistanceTotalLabel;
+	
+
+	public ResistanceLine(ResistanceType resistance, Integer total,  Color background) {
+		setElements(resistance, total);
+		setBackground(background);
 	}
-
-	private void setElements(CharacterPlayer character) {
+	
+	private void setElements(ResistanceType resistance, Integer total) {
 		this.removeAll();
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
+		
+		resistanceLabel = new JLabel(resistance.getAbbreviature());
+		resistanceLabel.setMinimumSize(new Dimension(20, textDefaultHeight));
+		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
-		c.ipady = yPadding;
 		c.gridx = 0;
-
-		Color background;
-		for (int i = 0; i < character.getCharacteristics().size(); i++) {
-			if (i % 2 == 0) {
-				background = Color.WHITE;
-			} else {
-				background = Color.LIGHT_GRAY;
-			}
-			CharacteristicLine characteristicLine = new CharacteristicLine(character.getCharacteristics()
-					.get(i), background);
-			c.gridy = i;
-			characteristicLine.summaryMode(true);
-			lines.add(characteristicLine);
-			add(characteristicLine, c);
-		}
+		c.gridy = 0;
+		c.weightx = 1;
+		add(resistanceLabel, c);	
+		
+		resistanceTotalLabel = new JLabel(total.toString());
+		resistanceTotalLabel.setMinimumSize(new Dimension(20, textDefaultHeight));
+		c.anchor = GridBagConstraints.LINE_START;
+		c.ipadx = xPadding;
+		c.gridx = 1;
+		c.gridy = 0;
+		c.weightx = 1;
+		add(resistanceTotalLabel, c);
 	}
 }

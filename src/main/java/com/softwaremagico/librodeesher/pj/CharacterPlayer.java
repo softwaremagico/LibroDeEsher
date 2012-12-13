@@ -30,6 +30,7 @@ import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.culture.Culture;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
 import com.softwaremagico.librodeesher.pj.profession.Profession;
+import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.resistance.Resistances;
 import com.softwaremagico.librodeesher.pj.training.Training;
 
@@ -85,6 +86,10 @@ public class CharacterPlayer {
 	
 	public Integer getCharacterLevel(){
 		return levelUps.size();
+	}
+	
+	public Integer getResistanceBonus(ResistanceType type){
+		return Resistances.getResistanceCharacteristicsBonus(type, characteristics);
 	}
 
 }

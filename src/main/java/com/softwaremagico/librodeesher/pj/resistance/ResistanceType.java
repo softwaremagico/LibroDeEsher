@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui;
+package com.softwaremagico.librodeesher.pj.resistance;
 /*
  * #%L
  * Libro de Esher
@@ -23,19 +23,31 @@ package com.softwaremagico.librodeesher.gui;
  * #L%
  */
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-
-public class BaseFrame extends JFrame {
-	private static final long serialVersionUID = 3812264811213028556L;
-	protected static final int margin = 5;
+public enum ResistanceType {
+	CANALIZATION("Canalización", "Cn"), ESSENCE("Esencia", "Es"), MENTALISM("Mentalismo", "Me"), PSIONIC("Psiónico", "Ps"), POISON("Veneno", "Vn"), DISEASE("Enfermedad", "Ef"), COLD("Frío", "Fr"), HOT("Calor", "Ca"), FEAR("Miedo", "Mi");
 	
-	/**
-	 * Create the frame.
-	 */
-	public BaseFrame() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setIconImage(new ImageIcon(this.getClass().getResource("/librodeesher.png")).getImage());
+	private String tag;
+	private String abbreviature;
+	
+	ResistanceType(String tag, String abbreviature){
+		this.tag = tag;
+		this.abbreviature = abbreviature;
 	}
-
+	
+	public String getTag(){
+		return tag;
+	}
+	
+	public String getAbbreviature(){
+		return abbreviature;
+	}
+	
+    public static ResistanceType getResistancesType(String tag){
+        for(ResistanceType type : ResistanceType.values()){
+            if(type.tag.equals(tag)){
+                return type;
+            }
+        }
+        return null;
+    }
 }

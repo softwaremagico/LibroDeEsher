@@ -33,6 +33,7 @@ import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
+import com.softwaremagico.librodeesher.gui.style.BasicLine;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 
 public class CharacteristicLine extends BasicLine {
@@ -43,6 +44,7 @@ public class CharacteristicLine extends BasicLine {
 	private JTextField basicBonusTextField;
 	private JTextField raceBonusTextField;
 	private JTextField totalTextField;
+	private JLabel totalLabel;
 
 	public CharacteristicLine(Characteristic charact, Color background) {
 		setElements(charact);
@@ -101,7 +103,7 @@ public class CharacteristicLine extends BasicLine {
 		c.weightx = 1;
 		add(raceBonusTextField, c);
 
-		totalTextField = new JTextField();
+		totalTextField = new JTextField(charact.getTotal().toString());
 		totalTextField.setEditable(false);
 		totalTextField.setColumns(2);
 		c.anchor = GridBagConstraints.CENTER;
@@ -110,6 +112,17 @@ public class CharacteristicLine extends BasicLine {
 		c.gridy = 0;
 		c.weightx = 1;
 		add(totalTextField, c);
+		
+		totalLabel = new JLabel(charact.getTotal().toString());
+		totalLabel.setMinimumSize(new Dimension(20, textDefaultHeight));
+		c.anchor = GridBagConstraints.CENTER;
+		c.ipadx = xPadding;
+		c.gridx = 5;
+		c.gridy = 0;
+		c.weightx = 1;
+		add(totalLabel, c);
+		
+		
 	}
 
 	public void summaryMode(boolean activated) {
@@ -117,6 +130,8 @@ public class CharacteristicLine extends BasicLine {
 		potentialTextField.setVisible(!activated);
 		basicBonusTextField.setVisible(!activated);
 		raceBonusTextField.setVisible(!activated);
+		totalTextField.setVisible(!activated);
+		totalLabel.setVisible(activated);
 	}
 
 }

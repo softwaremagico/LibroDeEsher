@@ -35,7 +35,7 @@ import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.pj.ProgressionCostType;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
-import com.softwaremagico.librodeesher.pj.resistance.ResistancesType;
+import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
@@ -43,7 +43,7 @@ public class Race {
 	private String name;
 	private int apperanceBonus;
 	private Hashtable<String, Integer> characteristicBonus;
-	private Hashtable<ResistancesType, Integer> resistancesBonus;
+	private Hashtable<ResistanceType, Integer> resistancesBonus;
 	private Hashtable<ProgressionCostType, Integer> progressionCosts;
 	private List<String> restrictedProfessions;
 	private Integer soulDepartTime;
@@ -129,7 +129,7 @@ public class Race {
 				String resistanceLine = lines.get(index);
 				String[] resistanceColumns = resistanceLine.split("\t");
 
-				resistancesBonus.put(ResistancesType.getResistancesType(resistanceColumns[0]),
+				resistancesBonus.put(ResistanceType.getResistancesType(resistanceColumns[0]),
 						Integer.parseInt(resistanceColumns[1]));
 
 				index++;

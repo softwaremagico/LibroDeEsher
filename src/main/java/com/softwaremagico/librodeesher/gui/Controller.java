@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.pj.resistance;
+package com.softwaremagico.librodeesher.gui;
 /*
  * #%L
  * Libro de Esher
@@ -23,21 +23,34 @@ package com.softwaremagico.librodeesher.pj.resistance;
  * #L%
  */
 
-public enum ResistancesType {
-	CANALIZATION("Canalización"), ESSENCE("Esencia"), MENTALISM("Mentalismo"), PSIONIC("Psiónico"), POISON("Veneno"), DISEASE("Enfermedad"), COLD("Frío"), HOT("Calor"), FEAR("Miedo");
-	
-	private String tag;
-	
-	ResistancesType(String tag){
-		this.tag = tag;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Controller {
+	MainWindow mainGui;
+	AboutWindow aboutWindow;
+
+	public Controller() {
+		mainGui = new MainWindow();
+		mainGui.setVisible(true);
+		addMainMenuActionListeners();
+
 	}
-	
-    public static ResistancesType getResistancesType(String tag){
-        for(ResistancesType type : ResistancesType.values()){
-            if(type.tag.equals(tag)){
-                return type;
-            }
-        }
-        return null;
-    }
+
+	private void addMainMenuActionListeners() {
+		mainGui.getMainMenu().addAboutMenuItemListener(new AboutBoxListener());
+	}
+
+	class AboutBoxListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				aboutWindow.dispose();
+			} catch (NullPointerException npe) {
+			}
+			aboutWindow = new AboutWindow();
+			aboutWindow.setVisible(true);
+		}
+	}
 }

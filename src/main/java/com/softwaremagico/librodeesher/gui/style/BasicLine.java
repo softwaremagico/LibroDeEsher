@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui;
+package com.softwaremagico.librodeesher.gui.style;
 /*
  * #%L
  * Libro de Esher
@@ -28,6 +28,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.border.EtchedBorder;
+
 
 public abstract class BasicLine extends BasePanel {
 	private static final long serialVersionUID = 7901507705885692683L;

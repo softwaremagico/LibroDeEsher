@@ -30,6 +30,9 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import com.softwaremagico.librodeesher.gui.style.BasicLine;
+
+
 public class CategoryLine extends BasicLine {
 	private static final long serialVersionUID = 2914665641808878141L;
 	private Integer defaultHeight = 20;

@@ -70,6 +70,10 @@ public class RolemasterFolderStructure implements Serializable {
 	public static List<String> modulosDisponibles() {
 		return modulosRolemaster;
 	}
+	
+    public static String getVersion() {
+        return MyFile.readTextFile(RolemasterFolderStructure.class.getResource("/version.txt").getPath(), false);
+    }
 
 	private static String getApplicationInstallationDirectory() {
 		File directory = new File(RolemasterFolderStructure.class.getProtectionDomain().getCodeSource()
@@ -210,7 +214,7 @@ public class RolemasterFolderStructure implements Serializable {
 		return new ArrayList<>();
 	}
 
-	public static String LeerFicheroComoTexto(String folder) {
+	public static String readFileAsText(String folder) {
 		try {
 			return Folder.readFileAsText(folder, verbose);
 		} catch (IOException ex) {

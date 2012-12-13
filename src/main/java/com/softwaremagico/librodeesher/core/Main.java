@@ -26,7 +26,7 @@ package com.softwaremagico.librodeesher.core;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import com.softwaremagico.librodeesher.gui.MainGui;
+import com.softwaremagico.librodeesher.gui.Controller;
 
 public class Main {
 
@@ -71,7 +71,6 @@ public class Main {
 			ex.printStackTrace();
 		}
 		
-		MainGui gui = new MainGui();
-		gui.setVisible(true);
+		new Controller();
 	}
 }

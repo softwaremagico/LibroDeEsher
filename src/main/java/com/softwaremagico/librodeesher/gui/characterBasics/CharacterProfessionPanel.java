@@ -30,7 +30,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import com.softwaremagico.librodeesher.gui.BasePanel;
+import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.race.Race;
 
 public class CharacterProfessionPanel extends BasePanel {

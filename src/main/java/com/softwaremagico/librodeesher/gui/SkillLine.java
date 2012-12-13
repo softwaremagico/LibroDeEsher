@@ -30,6 +30,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import com.softwaremagico.librodeesher.gui.style.BasicLine;
+
 public class SkillLine extends BasicLine {
 	private static final long serialVersionUID = -3194401962061016906L;
 	

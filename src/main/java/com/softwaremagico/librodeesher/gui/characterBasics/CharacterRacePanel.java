@@ -29,7 +29,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
-import com.softwaremagico.librodeesher.gui.BasePanel;
+import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.race.Race;
 
 public class CharacterRacePanel extends BasePanel {
