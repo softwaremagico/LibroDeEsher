@@ -33,7 +33,6 @@ public class Characteristic {
 		abbreviation = ab;
 	}
 
-
 	public static Integer getPotencial(Integer temporalValue) {
 		if (temporalValue >= 100) {
 			return 99 + Dice.roll(1, 2);
@@ -180,11 +179,11 @@ public class Characteristic {
 		return -10;
 	}
 
-	public Integer getTemporalCost(Integer temporalValue) {
+	public static Integer getTemporalCost(Integer temporalValue) {
 		Double d;
 		if (temporalValue < 91) {
 			return temporalValue;
-		} else {
+		} else{
 			d = Math.pow(temporalValue - 90, 2) + 90;
 		}
 		return d.intValue();

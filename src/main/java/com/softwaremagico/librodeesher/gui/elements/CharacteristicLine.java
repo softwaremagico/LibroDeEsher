@@ -39,9 +39,9 @@ import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
+import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 
 public class CharacteristicLine extends BasicLine {
-	private static final Integer MAX_VALUE = 102;
 	private static final long serialVersionUID = 1855952180568184802L;
 	private CharacterPlayer character;
 	protected Characteristic characteristic;
@@ -67,6 +67,10 @@ public class CharacteristicLine extends BasicLine {
 		characteristicLabel = new JLabel(characteristic.getAbbreviation());
 		add(createLabelInsidePanel(characteristicLabel, false, background, fontColor));
 
+		// SpinnerModel sm = new SpinnerNumberModel(
+		// (Integer)
+		// character.getCharacteristicsTemporalValues(characteristic.getAbbreviation()),
+		// (Integer) 1, (Integer) MAX_VALUE, (Integer) 1);
 		temporalSpinner = new JSpinner();
 		temporalSpinner
 				.setValue(character.getCharacteristicsTemporalValues(characteristic.getAbbreviation()));
@@ -96,14 +100,23 @@ public class CharacteristicLine extends BasicLine {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				if ((Integer) temporalSpinner.getValue() < 1) {
-					temporalSpinner.setValue(1);
-				}
-				if ((Integer) temporalSpinner.getValue() > MAX_VALUE) {
-					temporalSpinner.setValue(MAX_VALUE);
-				}
+
+				// Store value.
 				character.setCharacteristicsTemporalValues(characteristic.getAbbreviation(),
 						(Integer) temporalSpinner.getValue());
+
+				// Range values
+				if ((Integer) temporalSpinner.getValue() < 1) {
+					temporalSpinner.setValue(1);
+				} else if ((Integer) temporalSpinner.getValue() > Characteristics.MAX_INITIAL_CHARACTERISTIC_VALUE) {
+					temporalSpinner.setValue(Characteristics.MAX_INITIAL_CHARACTERISTIC_VALUE);
+				} else if ((Integer) temporalSpinner.getValue() < 90
+						&& character.isMainProfessionalCharacteristic(characteristic)) {
+					temporalSpinner.setValue(90);
+					// Development points restrictions.
+				} else if (character.getTemporalPointsSpent() > Characteristics.TOTAL_CHARACTERISTICS_POINTS) {
+					temporalSpinner.setValue((Integer) temporalSpinner.getValue() - 1);
+				}
 
 				if (parentWindow != null) {
 					parentWindow.update();

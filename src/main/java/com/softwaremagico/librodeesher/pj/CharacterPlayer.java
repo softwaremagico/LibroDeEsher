@@ -39,7 +39,7 @@ import com.softwaremagico.librodeesher.pj.resistance.Resistances;
 import com.softwaremagico.librodeesher.pj.training.Training;
 
 public class CharacterPlayer {
-	public static final Integer CHARACTERISTICS_POINTS = 660;
+	
 	private final String DEFAULT_NAME = " ** Nuevo Personaje ** ";
 	private String name;
 	private String surname;
@@ -60,10 +60,17 @@ public class CharacterPlayer {
 		characteristics = new Characteristics();
 		levelUps = new ArrayList<>();
 		characteristicsTemporalValues = new Hashtable<>();
+		initializeTemporalValuesOfCharacteristics();
 	}
 
 	public void setCharacteristicsTemporalValues(String abbreviature, Integer value) {
 		characteristicsTemporalValues.put(abbreviature, value);
+	}
+	
+	private void initializeTemporalValuesOfCharacteristics(){
+		for(Characteristic characteristic : characteristics.getCharacteristicsList()){
+			characteristicsTemporalValues.put(characteristic.getAbbreviation(), Characteristics.INITIAL_CHARACTERISTIC_VALUE);
+		}
 	}
 
 	public Integer getCharacteristicsTemporalValues(String abbreviature) {
@@ -72,6 +79,11 @@ public class CharacterPlayer {
 			return value;
 		}
 		return 0;
+	}
+	
+	public boolean isMainProfessionalCharacteristic(Characteristic characteristic){
+		//TODO
+		return false;
 	}
 
 	public String getName() {
@@ -86,6 +98,7 @@ public class CharacterPlayer {
 			this.name = name;
 		}
 	}
+	
 
 	public List<Characteristic> getCharacteristics() {
 		return characteristics.getCharacteristicsList();
@@ -95,25 +108,24 @@ public class CharacterPlayer {
 		// TODO
 		return 0;
 	}
-	
-    public Integer getDevelopmentPoints() {
-    	Integer total = 0;
-        total+=getCharacteristicsTemporalValues("Ag");
-        total+=getCharacteristicsTemporalValues("Co");
-        total+=getCharacteristicsTemporalValues("Me");
-        total+=getCharacteristicsTemporalValues("Ra");
-        total+=getCharacteristicsTemporalValues("Ad");
-        return total / 5;
-    }
-    
-    public Integer getTemporalPointsSpent(){
-    	Integer total = 0;
-    	for(Integer value : characteristicsTemporalValues.values()){
-    		total+=value;
-    	}
-    	return total;
-    }
 
+	public Integer getDevelopmentPoints() {
+		Integer total = 0;
+		total += getCharacteristicsTemporalValues("Ag");
+		total += getCharacteristicsTemporalValues("Co");
+		total += getCharacteristicsTemporalValues("Me");
+		total += getCharacteristicsTemporalValues("Ra");
+		total += getCharacteristicsTemporalValues("Ad");
+		return total / 5;
+	}
+
+	public Integer getTemporalPointsSpent() {
+		Integer total = 0;
+		for (Integer value : characteristicsTemporalValues.values()) {
+			total += Characteristic.getTemporalCost(value);
+		}
+		return total;
+	}
 
 	public Integer getCharacterLevel() {
 		return levelUps.size();

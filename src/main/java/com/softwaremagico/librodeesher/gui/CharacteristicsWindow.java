@@ -11,6 +11,7 @@ import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.CompleteCharacteristicPanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 
 public class CharacteristicsWindow extends BaseFrame {
 	private static final long serialVersionUID = -2484205144800968016L;
@@ -49,11 +50,11 @@ public class CharacteristicsWindow extends BaseFrame {
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 1;
 		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.gridwidth = 2;
+		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 0;
 		getContentPane().add(pointsPanel, gridBagConstraints);
-
+		
 		CloseButton closeButton = new CloseButton(this);
 		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
 		gridBagConstraints.ipadx = xPadding;
@@ -73,15 +74,15 @@ public class CharacteristicsWindow extends BaseFrame {
 	public void setCharacter(CharacterPlayer character) {
 		characteristicPanel.setCharacter(character, false);
 		characteristicPanel.setParentWindow(this);
-		spentPointsLabel.setText(getSpentPointsText(CharacterPlayer.CHARACTERISTICS_POINTS,
-				CharacterPlayer.CHARACTERISTICS_POINTS));
+		spentPointsLabel.setText(getSpentPointsText(Characteristics.TOTAL_CHARACTERISTICS_POINTS - character.getTemporalPointsSpent(),
+				Characteristics.TOTAL_CHARACTERISTICS_POINTS));
 		this.character = character;
 	}
 
 	@Override
 	public void update() {
 		spentPointsLabel.setText(getSpentPointsText(
-				CharacterPlayer.CHARACTERISTICS_POINTS - character.getTemporalPointsSpent(),
-				CharacterPlayer.CHARACTERISTICS_POINTS));
+				Characteristics.TOTAL_CHARACTERISTICS_POINTS - character.getTemporalPointsSpent(),
+				Characteristics.TOTAL_CHARACTERISTICS_POINTS));
 	}
 }

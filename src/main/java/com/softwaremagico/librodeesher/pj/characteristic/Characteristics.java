@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 package com.softwaremagico.librodeesher.pj.characteristic;
+
 /*
  * #%L
  * Libro de Esher
@@ -30,53 +31,54 @@ package com.softwaremagico.librodeesher.pj.characteristic;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- *
+ * 
  * @author jorge
  */
 public class Characteristics {
-	private final static String allowedCharacteristics="AgCoMeRaAdEmInPrRpFu";
-    private final static int TOTAL_CHARACTERISTICS_POINTS = 660;
+	private final static String allowedCharacteristics = "AgCoMeRaAdEmInPrRpFu";
+	public final static int TOTAL_CHARACTERISTICS_POINTS = 660;
+	public final static Integer INITIAL_CHARACTERISTIC_VALUE = 31;
+	public final static Integer MAX_INITIAL_CHARACTERISTIC_VALUE = 102;
 
-    private List<Characteristic> characteristics;
-    private Appearance appearance;
+	private List<Characteristic> characteristics;
+	private Appearance appearance;
 
-    public Characteristics() {
-        createCharacteristics();
-        appearance = new Appearance();
-    }
+	public Characteristics() {
+		createCharacteristics();
+		appearance = new Appearance();
+	}
 
-    private void createCharacteristics() {
-        characteristics = new ArrayList<>();
-        characteristics.add(new Characteristic("Ag"));
-        characteristics.add(new Characteristic("Co"));
-        characteristics.add(new Characteristic("Me"));
-        characteristics.add(new Characteristic("Ra"));
-        characteristics.add(new Characteristic("Ad"));
-        characteristics.add(new Characteristic("Em"));
-        characteristics.add(new Characteristic("In"));
-        characteristics.add(new Characteristic("Pr"));
-        characteristics.add(new Characteristic("Rp"));
-        characteristics.add(new Characteristic("Fu"));
-    }
-    
-    public List<Characteristic> getCharacteristicsList(){
-    	return characteristics;
-    }
-    
-    public static boolean isCharacteristicValid(String abbrev){
-    	return allowedCharacteristics.contains(abbrev);
-    }
+	private void createCharacteristics() {
+		characteristics = new ArrayList<>();
+		characteristics.add(new Characteristic("Ag"));
+		characteristics.add(new Characteristic("Co"));
+		characteristics.add(new Characteristic("Me"));
+		characteristics.add(new Characteristic("Ra"));
+		characteristics.add(new Characteristic("Ad"));
+		characteristics.add(new Characteristic("Em"));
+		characteristics.add(new Characteristic("In"));
+		characteristics.add(new Characteristic("Pr"));
+		characteristics.add(new Characteristic("Rp"));
+		characteristics.add(new Characteristic("Fu"));
+	}
 
-    public Characteristic getCharacteristicFromAbbreviature(String abrev) {
-        for (int i = 0; i < characteristics.size(); i++) {
-            Characteristic characteristic = characteristics.get(i);
-            if (characteristic.getAbbreviation().equals(abrev)) {
-                return characteristic;
-            }
-        }
-        return null;
-    }
+	public List<Characteristic> getCharacteristicsList() {
+		return characteristics;
+	}
+
+	public static boolean isCharacteristicValid(String abbrev) {
+		return allowedCharacteristics.contains(abbrev);
+	}
+
+	public Characteristic getCharacteristicFromAbbreviature(String abrev) {
+		for (int i = 0; i < characteristics.size(); i++) {
+			Characteristic characteristic = characteristics.get(i);
+			if (characteristic.getAbbreviation().equals(abrev)) {
+				return characteristic;
+			}
+		}
+		return null;
+	}
 
 }
