@@ -50,7 +50,7 @@ public class MainWindow extends BaseFrame {
 	private JScrollPane characteristicScrollPanel;
 	private JScrollPane resistanceScrollPanel;
 	private JScrollPane categoriesScrollPanel;
-	MainMenu mainMenu;
+	private MainMenu mainMenu;
 
 	/**
 	 * Create the frame.

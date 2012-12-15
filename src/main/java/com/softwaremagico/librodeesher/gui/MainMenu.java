@@ -38,6 +38,7 @@ public class MainMenu {
 			exitMenuItem;
 	private JMenuItem aboutMenuItem, cultureMenuItem, charactMenuItem, trainingMenuItem, skillsMenuItem,
 			perksMenuItem, historyMenuItem;
+	private JMenuItem randomName;
 	private JFrame parentWindow;
 
 	public JMenuBar createMenu(JFrame parentWindow) {
@@ -46,9 +47,10 @@ public class MainMenu {
 
 		mainMenu.add(createFileMenu());
 		mainMenu.add(createCharacterMenu());
+		mainMenu.add(createRandomMenu());
 		mainMenu.add(createHelpMenu());
 
-		addExitMenuItem();
+		addExitMenuItemListener();
 		return mainMenu;
 	}
 
@@ -124,6 +126,18 @@ public class MainMenu {
 
 		return createMenu;
 	}
+	
+	private JMenu createRandomMenu() {
+		JMenu randomMenu = new JMenu("Aleatorio");
+		randomMenu.setMnemonic(KeyEvent.VK_SHIFT + KeyEvent.VK_A);
+		randomMenu.getAccessibleContext().setAccessibleDescription("Generar aleatoriamente.");
+
+		randomName = new JMenuItem("Nombre Aleatorio", KeyEvent.VK_SHIFT + KeyEvent.VK_N);
+		randomName.getAccessibleContext().setAccessibleDescription("Genera un nombre para el personaje.");
+		randomMenu.add(randomName);
+
+		return randomMenu;
+	}
 
 	private JMenu createHelpMenu() {
 		JMenu helpMenu = new JMenu("Ayuda");
@@ -145,8 +159,12 @@ public class MainMenu {
 		charactMenuItem.addActionListener(al);
 	}
 
-	private void addExitMenuItem(){
+	private void addExitMenuItemListener(){
 		exitMenuItem.addActionListener(new CloseListener());
+	}
+	
+	public void addRandomNameListener(ActionListener al){
+		randomName.addActionListener(al);
 	}
 	
 	class CloseListener implements ActionListener {

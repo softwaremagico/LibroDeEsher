@@ -34,6 +34,8 @@ import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.culture.Culture;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
 import com.softwaremagico.librodeesher.pj.profession.Profession;
+import com.softwaremagico.librodeesher.pj.race.Race;
+import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.resistance.Resistances;
 import com.softwaremagico.librodeesher.pj.training.Training;
@@ -49,6 +51,8 @@ public class CharacterPlayer {
 	private Characteristics characteristics;
 	private Hashtable<String, Integer> characteristicsTemporalValues;
 	private List<Category> categories;
+	private String raceName;
+	private transient Race race;
 	private Culture culture;
 	private List<Training> trainings;
 	private Profession profession;
@@ -138,6 +142,21 @@ public class CharacterPlayer {
 
 	public void setSex(SexType sex) {
 		this.sex = sex;
+	}
+
+	public SexType getSex() {
+		return sex;
+	}
+
+	public void setRace(String raceName) {
+		this.raceName = raceName;
+	}
+
+	public Race getRace() {
+		if (race == null || !raceName.equals(race.getName())) {
+			race = RaceFactory.getRace(raceName);
+		}
+		return race;
 	}
 
 }

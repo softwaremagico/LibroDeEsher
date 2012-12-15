@@ -29,11 +29,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Random;
 
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.pj.ProgressionCostType;
+import com.softwaremagico.librodeesher.pj.SexType;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
@@ -71,6 +73,10 @@ public class Race {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public String getName(){
+		return name;
 	}
 
 	private void readRaceFile(String raceName) throws Exception {
@@ -217,7 +223,8 @@ public class Race {
 			restorationTime = Float.parseFloat(lines.get(index));
 			index++;
 		} catch (NumberFormatException nfe) {
-			ShowMessage.showErrorMessage("Numero de tiempo de recuperación irreconocible en línea " + index +".", "Leer Raza");
+			ShowMessage.showErrorMessage("Numero de tiempo de recuperación irreconocible en línea " + index
+					+ ".", "Leer Raza");
 			restorationTime = new Float(0);
 		}
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
@@ -399,10 +406,27 @@ public class Race {
 	public List<String> availableCultures() {
 		return availableCultures;
 	}
-	
+
 	public List<String> availableProfessions() {
 		List<String> allProfessions = ProfessionFactory.availableProfessions();
 		allProfessions.removeAll(restrictedProfessions);
 		return allProfessions;
+	}
+
+	public String getRandonName(SexType sex) {
+		String name, surname;
+		Random randomGenerator = new Random();
+		if (sex.equals(SexType.MALE)) {
+			int index = randomGenerator.nextInt(maleNames.size());
+			name = maleNames.get(index);
+		} else {
+			int index = randomGenerator.nextInt(femaleNames.size());
+			name = femaleNames.get(index);
+		}
+
+		int index = randomGenerator.nextInt(familyNames.size());
+		surname = familyNames.get(index);
+
+		return name + " " + surname;
 	}
 }

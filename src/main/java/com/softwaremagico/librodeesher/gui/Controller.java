@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui;
+
 /*
  * #%L
  * Libro de Esher
@@ -51,8 +52,17 @@ public class Controller {
 	private void addMainMenuActionListeners() {
 		mainGui.getMainMenu().addAboutMenuItemListener(new AboutBoxListener());
 		mainGui.getMainMenu().addCharacteristicsWindowMenuItemListener(new CharacteristicWindowsListener());
+		mainGui.getMainMenu().addRandomNameListener(new RandomNameListener());
 	}
-	
+
+	class RandomNameListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			selectedCharacter.setName(selectedCharacter.getRace().getRandonName(selectedCharacter.getSex()));
+			mainGui.setCharacter(selectedCharacter);
+		}
+	}
+
 	class CharacteristicWindowsListener implements ActionListener {
 
 		@Override

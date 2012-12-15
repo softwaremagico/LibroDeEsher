@@ -33,10 +33,10 @@ import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.event.ChangeEvent;
 
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 
 public class CharacterRacePanel extends BasePanel {
@@ -47,6 +47,7 @@ public class CharacterRacePanel extends BasePanel {
 	private JComboBox<String> cultureComboBox;
 	private BaseFrame parentWindow;
 	private CharacterProfessionPanel professionPanel;
+	private CharacterPlayer character;
 
 	protected CharacterRacePanel() {
 		setElements();
@@ -67,12 +68,7 @@ public class CharacterRacePanel extends BasePanel {
 		add(raceLabel, c);
 
 		raceComboBox = new JComboBox<>();
-		raceComboBox.addActionListener(new ChangeRaceListener());
-		List<String> races = RaceFactory.availableRaces();
-		Collections.sort(races);
-		for (String race : races) {
-			raceComboBox.addItem(race);
-		}
+		updateRaceComboBox();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
 		c.gridx = 1;
@@ -125,6 +121,20 @@ public class CharacterRacePanel extends BasePanel {
 		}
 	}
 
+	private void updateRaceComboBox() {
+		if (raceComboBox != null) {
+			raceComboBox.addActionListener(new ChangeRaceListener());
+			List<String> races = RaceFactory.availableRaces();
+			Collections.sort(races);
+			for (String race : races) {
+				raceComboBox.addItem(race);
+			}
+			if (character != null) {
+				character.setRace(getSelectedRace());
+			}
+		}
+	}
+
 	private void updateCultureComboBox() {
 		if (cultureComboBox != null) {
 			cultureComboBox.removeAllItems();
@@ -143,8 +153,13 @@ public class CharacterRacePanel extends BasePanel {
 	public void setParentWindow(BaseFrame window) {
 		parentWindow = window;
 	}
-	
-	private void updateProfessionPanel(){
+
+	public void setCharacter(CharacterPlayer character) {
+		this.character = character;
+		character.setRace(getSelectedRace());
+	}
+
+	private void updateProfessionPanel() {
 		if (professionPanel != null) {
 			professionPanel.update(RaceFactory.getRace(getSelectedRace()).availableProfessions());
 		}
@@ -156,6 +171,9 @@ public class CharacterRacePanel extends BasePanel {
 		public void actionPerformed(ActionEvent e) {
 			updateCultureComboBox();
 			updateProfessionPanel();
+			if (character != null) {
+				character.setRace(getSelectedRace());
+			}
 		}
 	}
 

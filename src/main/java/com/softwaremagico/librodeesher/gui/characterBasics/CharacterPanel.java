@@ -35,10 +35,10 @@ import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 
 public class CharacterPanel extends BasePanel {
 	private static final long serialVersionUID = 3922505445539868950L;
-	CharacterBasicsPanel characterBasics;
-	CharacterRacePanel characterRacePanel;
-	CharacterProfessionPanel characterProfessionPanel;
-	CharacterLevelPanel characterLevelPanel;
+	private CharacterBasicsPanel characterBasics;
+	private CharacterRacePanel characterRacePanel;
+	private CharacterProfessionPanel characterProfessionPanel;
+	private CharacterLevelPanel characterLevelPanel;
 	private BaseFrame parentWindow;
 
 	public CharacterPanel() {
@@ -99,6 +99,7 @@ public class CharacterPanel extends BasePanel {
 	
 	public void setCharacter(CharacterPlayer character){
 		characterBasics.setCharacter(character);
+		characterRacePanel.setCharacter(character);
 		characterLevelPanel.setLevel(character.getCharacterLevel());
 		characterLevelPanel.setDevelopmentPoints(character.getSpentDevelopmentPoints());
 	}
