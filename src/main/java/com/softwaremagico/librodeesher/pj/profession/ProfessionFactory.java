@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.profession;
+
 /*
  * #%L
  * Libro de Esher
@@ -33,13 +34,18 @@ public class ProfessionFactory {
 	public static final String PROFESSION_FOLDER = "profesiones";
 	private static Hashtable<String, Profession> professionsAvailable = new Hashtable<>();
 
-	public static List<String> availableProfessions() throws Exception {
-		return RolemasterFolderStructure.filesAvailable(PROFESSION_FOLDER);
+	public static List<String> availableProfessions() {
+		try {
+			return RolemasterFolderStructure.filesAvailable(PROFESSION_FOLDER);
+		} catch (Exception e) {
+			ShowMessage.showErrorMessage("Problema al obtener las profesiones disponibles.", "Profesiones disponibles");
+		}
+		return null;
 	}
 
 	public static Profession getProfession(String professionName) {
 		try {
-			if (availableProfessions().contains(professionName + ".txt")) {
+			if (availableProfessions().contains(professionName)) {
 				Profession profession = professionsAvailable.get(professionName);
 				if (profession == null) {
 					profession = new Profession(professionName);

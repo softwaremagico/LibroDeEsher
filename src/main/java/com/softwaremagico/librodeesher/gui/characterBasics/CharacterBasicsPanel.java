@@ -26,6 +26,8 @@ package com.softwaremagico.librodeesher.gui.characterBasics;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
@@ -33,13 +35,17 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import com.softwaremagico.librodeesher.gui.characterBasics.CharacterRacePanel.ChangeRaceListener;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.SexType;
 
 public class CharacterBasicsPanel extends BasePanel {
 	private static final long serialVersionUID = -6925539216225561309L;
 	private JRadioButton maleRadioButton;
 	private JRadioButton femaleRadioButton;
 	private JTextField nameTextField;
+	private CharacterPlayer character;
 
 	public CharacterBasicsPanel() {
 		setElements();
@@ -77,15 +83,17 @@ public class CharacterBasicsPanel extends BasePanel {
 
 		JPanel sexPanel = new JPanel();
 		sexPanel.setLayout(new GridBagLayout());
-		
-		//Group the radio buttons.
+
+		// Group the radio buttons.
 		maleRadioButton = new JRadioButton("Masc.");
 		femaleRadioButton = new JRadioButton("Feme.");
-		
-	    ButtonGroup sexGroup = new ButtonGroup();
-	    sexGroup.add(femaleRadioButton);
-	    sexGroup.add(maleRadioButton);
-	    maleRadioButton.setSelected(true);
+		maleRadioButton.addActionListener(new ChangeSexListener());
+		femaleRadioButton.addActionListener(new ChangeSexListener());
+
+		ButtonGroup sexGroup = new ButtonGroup();
+		sexGroup.add(femaleRadioButton);
+		sexGroup.add(maleRadioButton);
+		maleRadioButton.setSelected(true);
 
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = 0;
@@ -117,9 +125,22 @@ public class CharacterBasicsPanel extends BasePanel {
 			femaleRadioButton.setText("Femenino");
 		}
 	}
-	
-	public void setCharacterName(String name){
-		nameTextField.setText(name);
+
+	public void setCharacter(CharacterPlayer character) {
+		this.character = character;
+		nameTextField.setText(character.getName());
+	}
+
+	class ChangeSexListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (maleRadioButton.isSelected()) {
+				character.setSex(SexType.MALE);
+			} else {
+				character.setSex(SexType.FEMALE);
+			}
+		}
 	}
 
 }

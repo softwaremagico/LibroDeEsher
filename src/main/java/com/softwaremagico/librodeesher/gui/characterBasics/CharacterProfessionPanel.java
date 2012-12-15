@@ -25,18 +25,23 @@ package com.softwaremagico.librodeesher.gui.characterBasics;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
-import com.softwaremagico.librodeesher.pj.race.Race;
+import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
+import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 
 public class CharacterProfessionPanel extends BasePanel {
 	private static final long serialVersionUID = -4572529165916501939L;
 	private JLabel professionLabel;
 	private JLabel trainingLabel;
+	private JComboBox<String> professionComboBox; 
 
 	protected CharacterProfessionPanel() {
 		setElements();
@@ -56,7 +61,7 @@ public class CharacterProfessionPanel extends BasePanel {
 		c.weightx = 0;
 		add(professionLabel, c);
 
-		JComboBox<Race> professionComboBox = new JComboBox();
+	    professionComboBox = new JComboBox<>();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
 		c.gridx = 1;
@@ -82,6 +87,13 @@ public class CharacterProfessionPanel extends BasePanel {
 		add(trainingTextField, c);
 	}
 	
+	public String getSelectedProfession() {
+		if (professionComboBox != null) {
+			return (String) professionComboBox.getSelectedItem();
+		}
+		return null;
+	}
+	
 	public void sizeChanged() {
 		if (this.getWidth() < 230) {
 			professionLabel.setText("Prf.:");
@@ -91,7 +103,22 @@ public class CharacterProfessionPanel extends BasePanel {
 			trainingLabel.setText("Adst.:");
 		} else {
 			professionLabel.setText("Profesión:");
-			trainingLabel.setText("Adiestramiento:");
+			trainingLabel.setText("Adiestram.:");
+		}
+	}
+	
+	public void update(List<String> professions){
+		updateProfessionComboBox(professions);
+	}
+	
+	private void updateProfessionComboBox(List<String> professions) {
+		if (professionComboBox != null) {
+			professionComboBox.removeAllItems();
+		    Collections.sort(professions);
+		    for (String profession : professions) {
+		    	professionComboBox.addItem(profession);
+			}
 		}
 	}
 }
+

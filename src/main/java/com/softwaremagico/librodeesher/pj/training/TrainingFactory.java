@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.training;
+
 /*
  * #%L
  * Libro de Esher
@@ -33,13 +34,19 @@ public class TrainingFactory {
 	public final static String TRAINING_FOLDER = "adiestramientos";
 	private static Hashtable<String, Training> trainingsAvailable = new Hashtable<>();
 
-	public static List<String> availableTrainings() throws Exception {
-		return RolemasterFolderStructure.filesAvailable(TRAINING_FOLDER);
+	public static List<String> availableTrainings() {
+		try {
+			return RolemasterFolderStructure.filesAvailable(TRAINING_FOLDER);
+		} catch (Exception e) {
+			ShowMessage.showErrorMessage("Problema al obtener los adiestramientos disponibles.",
+					"Adiestramientos disponibles");
+		}
+		return null;
 	}
 
 	public static Training getTraining(String trainingName) {
 		try {
-			if (availableTrainings().contains(trainingName + ".txt")) {
+			if (availableTrainings().contains(trainingName)) {
 				Training training = trainingsAvailable.get(trainingName);
 				if (training == null) {
 					training = new Training(trainingName);
@@ -53,6 +60,5 @@ public class TrainingFactory {
 				"Creación de adiestramientos.");
 		return null;
 	}
-	
-	
+
 }

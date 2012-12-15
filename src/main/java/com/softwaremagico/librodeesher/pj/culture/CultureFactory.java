@@ -34,8 +34,13 @@ public class CultureFactory {
 	public final static String CULTURE_FOLDER = "culturas";
 	private static Hashtable<String, Culture> culturesAvailable = new Hashtable<>();
 
-	public static List<String> availableCultures() throws Exception {
+	public static List<String> availableCultures() {
+		try{
 		return RolemasterFolderStructure.filesAvailable(CULTURE_FOLDER);
+		} catch (Exception e) {
+			ShowMessage.showErrorMessage("Problema al obtener las culturas disponibles.", "Culturas disponibles");
+		}
+		return null;
 	}
 	
 	/**
@@ -57,7 +62,7 @@ public class CultureFactory {
 
 	public static Culture getCulture(String cultureName) {
 		try {
-			if (availableCultures().contains(cultureName + ".txt")) {
+			if (availableCultures().contains(cultureName)) {
 				Culture culture = culturesAvailable.get(cultureName);
 				if (culture == null) {
 					culture = new Culture(cultureName);

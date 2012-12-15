@@ -302,7 +302,7 @@ public class Training {
 			index++;
 		}
 
-		while (!lines.get(index).equals("") || !lines.get(index).startsWith("#")) {
+		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 			String skillLine = lines.get(index);
 			if (skillLine.toLowerCase().contains("ningun") || skillLine.toLowerCase().contains("nothing")) {
 				break;

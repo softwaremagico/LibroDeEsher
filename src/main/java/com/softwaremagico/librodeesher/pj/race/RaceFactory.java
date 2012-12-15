@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.race;
+
 /*
  * #%L
  * Libro de Esher
@@ -30,16 +31,21 @@ import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.ShowMessage;
 
 public class RaceFactory {
-	public static final String RACE_FOLDER = "profesiones";
+	public static final String RACE_FOLDER = "razas";
 	private static Hashtable<String, Race> racesAvailable = new Hashtable<>();
 
-	public static List<String> availableRaces() throws Exception {
-		return RolemasterFolderStructure.filesAvailable(RACE_FOLDER);
+	public static List<String> availableRaces() {
+		try {
+			return RolemasterFolderStructure.filesAvailable(RACE_FOLDER);
+		} catch (Exception e) {
+			ShowMessage.showErrorMessage("Problema al obtener las razas disponibles.", "Razas disponibles");
+		}
+		return null;
 	}
 
 	public static Race getRace(String raceName) {
 		try {
-			if (availableRaces().contains(raceName + ".txt")) {
+			if (availableRaces().contains(raceName)) {
 				Race race = racesAvailable.get(raceName);
 				if (race == null) {
 					race = new Race(raceName);

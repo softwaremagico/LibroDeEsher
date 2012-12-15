@@ -39,11 +39,11 @@ import com.softwaremagico.librodeesher.pj.resistance.Resistances;
 import com.softwaremagico.librodeesher.pj.training.Training;
 
 public class CharacterPlayer {
-	
+
 	private final String DEFAULT_NAME = " ** Nuevo Personaje ** ";
 	private String name;
 	private String surname;
-	private Sex sex;
+	private SexType sex;
 	private String history;
 
 	private Characteristics characteristics;
@@ -61,15 +61,17 @@ public class CharacterPlayer {
 		levelUps = new ArrayList<>();
 		characteristicsTemporalValues = new Hashtable<>();
 		initializeTemporalValuesOfCharacteristics();
+		sex = SexType.MALE;
 	}
 
 	public void setCharacteristicsTemporalValues(String abbreviature, Integer value) {
 		characteristicsTemporalValues.put(abbreviature, value);
 	}
-	
-	private void initializeTemporalValuesOfCharacteristics(){
-		for(Characteristic characteristic : characteristics.getCharacteristicsList()){
-			characteristicsTemporalValues.put(characteristic.getAbbreviation(), Characteristics.INITIAL_CHARACTERISTIC_VALUE);
+
+	private void initializeTemporalValuesOfCharacteristics() {
+		for (Characteristic characteristic : characteristics.getCharacteristicsList()) {
+			characteristicsTemporalValues.put(characteristic.getAbbreviation(),
+					Characteristics.INITIAL_CHARACTERISTIC_VALUE);
 		}
 	}
 
@@ -80,9 +82,9 @@ public class CharacterPlayer {
 		}
 		return 0;
 	}
-	
-	public boolean isMainProfessionalCharacteristic(Characteristic characteristic){
-		//TODO
+
+	public boolean isMainProfessionalCharacteristic(Characteristic characteristic) {
+		// TODO
 		return false;
 	}
 
@@ -98,7 +100,6 @@ public class CharacterPlayer {
 			this.name = name;
 		}
 	}
-	
 
 	public List<Characteristic> getCharacteristics() {
 		return characteristics.getCharacteristicsList();
@@ -133,6 +134,10 @@ public class CharacterPlayer {
 
 	public Integer getResistanceBonus(ResistanceType type) {
 		return Resistances.getResistanceCharacteristicsBonus(type, characteristics);
+	}
+
+	public void setSex(SexType sex) {
+		this.sex = sex;
 	}
 
 }

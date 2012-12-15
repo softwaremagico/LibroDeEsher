@@ -28,8 +28,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 
 public class CharacterPanel extends BasePanel {
 	private static final long serialVersionUID = 3922505445539868950L;
@@ -37,6 +39,7 @@ public class CharacterPanel extends BasePanel {
 	CharacterRacePanel characterRacePanel;
 	CharacterProfessionPanel characterProfessionPanel;
 	CharacterLevelPanel characterLevelPanel;
+	private BaseFrame parentWindow;
 
 	public CharacterPanel() {
 		setElements();
@@ -70,6 +73,7 @@ public class CharacterPanel extends BasePanel {
 		add(characterRacePanel, c);
 
 		characterProfessionPanel = new CharacterProfessionPanel();
+		characterRacePanel.setProfessionPanel(characterProfessionPanel);
 		characterProfessionPanel.setBounds(xPadding, xPadding, characterBasics.getWidth(),
 				characterBasics.getHeight());
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -79,6 +83,7 @@ public class CharacterPanel extends BasePanel {
 		c.weightx = 0.5;
 		c.insets = new Insets(1, 5, 1, 5);
 		add(characterProfessionPanel, c);
+		characterProfessionPanel.update(RaceFactory.getRace(characterRacePanel.getSelectedRace()).availableProfessions());
 
 		characterLevelPanel = new CharacterLevelPanel();
 		characterLevelPanel.setBounds(xPadding, xPadding, characterBasics.getWidth(),
@@ -93,9 +98,14 @@ public class CharacterPanel extends BasePanel {
 	}
 	
 	public void setCharacter(CharacterPlayer character){
-		characterBasics.setCharacterName(character.getName());
+		characterBasics.setCharacter(character);
 		characterLevelPanel.setLevel(character.getCharacterLevel());
 		characterLevelPanel.setDevelopmentPoints(character.getSpentDevelopmentPoints());
+	}
+	
+	public void setParentWindow(BaseFrame window) {
+		parentWindow = window;
+		characterRacePanel.setParentWindow(window);
 	}
 
 	public void sizeChanged() {

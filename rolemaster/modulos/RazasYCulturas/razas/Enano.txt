@@ -35,6 +35,7 @@ PP Psiónico	0/6/6/4/3
 
 #PROFESIONES RESTRINGIDAS
 ####################################
+Mago, Hechicero, Ilusionista, Mentalista, Vidente, Bardo, Indagador, Montaraz, Monje, Monje Zen, Lord del Caos, Alquimista de Canalización, Alquimista de Esencia, Alquimista de Mentalismo, Elementalista, Magente
 
 #PARTIDA DEL ALMA
 ####################################
@@ -145,6 +146,6 @@ Barbadefuego, Desuellaenemigos, Barbapartida, Matagigantes, Ceñudo, Manomartill
 Viejo, Mataorcos, Barbarrebelde, Barba de Seda, Hachasangrienta, Barba Vieja, Cazador
 Herrero, Hierro, Brazo Hierro, Caza Ratas, Uñas de Rubí, Barba de Piedrra, Barba Rota
 Barba de Plata, El Terco, Joyero, Alfarero, Encorvado, Panza de Acero, Tres Dedos, Grito Ronco
-Barriga Eterna, Piel de Plata, Piel de Piedra, Barriga Rota
+Barriga Eterna, Piel de Plata, Piel de Piedra, Barriga Rota, Barba Pesada
 
 #### FIN RAZA ####

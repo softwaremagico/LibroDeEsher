@@ -182,7 +182,7 @@ public class Culture {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
-		while (!lines.get(index).equals("")) {
+		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 			String[] languageColumn = lines.get(index).split("\t");
 			String[] languageRanks = languageColumn[1].split("/");
 			try {

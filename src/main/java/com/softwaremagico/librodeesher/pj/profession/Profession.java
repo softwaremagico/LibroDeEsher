@@ -115,7 +115,7 @@ public class Profession {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
-		while (!lines.get(index).equals("") || !lines.get(index).startsWith("#")) {
+		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 			try {
 				String realmLine = lines.get(index);
 				String[] realmsColumns = realmLine.split(", ");
@@ -144,7 +144,7 @@ public class Profession {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
-		while (!lines.get(index).equals("") || !lines.get(index).startsWith("#")) {
+		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 			String categoryLine = lines.get(index);
 			String[] categoryColumns = categoryLine.split("\t");
 			String categoryName = categoryColumns[0];
@@ -165,7 +165,7 @@ public class Profession {
 			index++;
 		}
 
-		while (!lines.get(index).equals("") || !lines.get(index).startsWith("#")) {
+		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 			String categoryLine = lines.get(index);
 			String[] categoryColumns = categoryLine.split("\t");
 			String categoryName = categoryColumns[0];
@@ -191,7 +191,7 @@ public class Profession {
 			index++;
 		}
 
-		while (!lines.get(index).equals("") || !lines.get(index).startsWith("#")) {
+		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 			String skillLine = lines.get(index);
 			if (skillLine.toLowerCase().contains("ninguna") || skillLine.toLowerCase().contains("nothing")) {
 				break;

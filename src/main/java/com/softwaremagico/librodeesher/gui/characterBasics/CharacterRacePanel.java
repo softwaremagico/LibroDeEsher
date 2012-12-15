@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.characterBasics;
+
 /*
  * #%L
  * Libro de Esher
@@ -25,17 +26,27 @@ package com.softwaremagico.librodeesher.gui.characterBasics;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.event.ChangeEvent;
 
+import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
-import com.softwaremagico.librodeesher.pj.race.Race;
+import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 
 public class CharacterRacePanel extends BasePanel {
 	private static final long serialVersionUID = 178890486518380989L;
 	private JLabel raceLabel;
 	private JLabel cultureLabel;
+	private JComboBox<String> raceComboBox;
+	private JComboBox<String> cultureComboBox;
+	private BaseFrame parentWindow;
+	private CharacterProfessionPanel professionPanel;
 
 	protected CharacterRacePanel() {
 		setElements();
@@ -55,7 +66,13 @@ public class CharacterRacePanel extends BasePanel {
 		c.weightx = 0;
 		add(raceLabel, c);
 
-		JComboBox<Race> raceComboBox = new JComboBox();
+		raceComboBox = new JComboBox<>();
+		raceComboBox.addActionListener(new ChangeRaceListener());
+		List<String> races = RaceFactory.availableRaces();
+		Collections.sort(races);
+		for (String race : races) {
+			raceComboBox.addItem(race);
+		}
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
 		c.gridx = 1;
@@ -71,16 +88,30 @@ public class CharacterRacePanel extends BasePanel {
 		c.weightx = 0;
 		add(cultureLabel, c);
 
-		JComboBox<Race> cultureComboBox = new JComboBox();
+		cultureComboBox = new JComboBox<>();
+		updateCultureComboBox();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
 		c.gridx = 1;
 		c.gridy = 1;
 		c.weightx = 1;
 		add(cultureComboBox, c);
-
 	}
-	
+
+	public String getSelectedRace() {
+		if (raceComboBox != null) {
+			return (String) raceComboBox.getSelectedItem();
+		}
+		return null;
+	}
+
+	public String getSelectedCulture() {
+		if (cultureComboBox != null) {
+			return (String) cultureComboBox.getSelectedItem();
+		}
+		return null;
+	}
+
 	public void sizeChanged() {
 		if (this.getWidth() < 230) {
 			raceLabel.setText("Rz.:");
@@ -91,6 +122,40 @@ public class CharacterRacePanel extends BasePanel {
 		} else {
 			raceLabel.setText("Raza:");
 			cultureLabel.setText("Cultura:");
+		}
+	}
+
+	private void updateCultureComboBox() {
+		if (cultureComboBox != null) {
+			cultureComboBox.removeAllItems();
+			List<String> cultures = RaceFactory.getRace(getSelectedRace()).availableCultures();
+			Collections.sort(cultures);
+			for (String culture : cultures) {
+				cultureComboBox.addItem(culture);
+			}
+		}
+	}
+
+	public void setProfessionPanel(CharacterProfessionPanel professionPanel) {
+		this.professionPanel = professionPanel;
+	}
+
+	public void setParentWindow(BaseFrame window) {
+		parentWindow = window;
+	}
+	
+	private void updateProfessionPanel(){
+		if (professionPanel != null) {
+			professionPanel.update(RaceFactory.getRace(getSelectedRace()).availableProfessions());
+		}
+	}
+
+	class ChangeRaceListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			updateCultureComboBox();
+			updateProfessionPanel();
 		}
 	}
 
