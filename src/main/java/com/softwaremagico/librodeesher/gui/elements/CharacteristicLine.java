@@ -31,6 +31,7 @@ import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
+import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultFormatter;
@@ -65,7 +66,7 @@ public class CharacteristicLine extends BasicLine {
 		setLayout(new GridLayout(1, 6));
 
 		characteristicLabel = new JLabel(characteristic.getAbbreviation());
-		add(createLabelInsidePanel(characteristicLabel, false, background, fontColor));
+		add(createLabelInsidePanel(characteristicLabel, SwingConstants.LEFT, background, fontColor));
 
 		// SpinnerModel sm = new SpinnerNumberModel(
 		// (Integer)
@@ -75,19 +76,19 @@ public class CharacteristicLine extends BasicLine {
 		temporalSpinner
 				.setValue(character.getCharacteristicsTemporalValues(characteristic.getAbbreviation()));
 		addTemporalSpinnerEvent();
-		add(createSpinnerInsidePanel(temporalSpinner, true, background));
+		add(createSpinnerInsidePanel(temporalSpinner, background));
 
 		potentialText = new JLabel("0");
-		add(createLabelInsidePanel(potentialText, true, background, fontColor));
+		add(createLabelInsidePanel(potentialText, SwingConstants.CENTER, background, fontColor));
 
 		basicBonusText = new JLabel("0");
-		add(createLabelInsidePanel(basicBonusText, true, background, fontColor));
+		add(createLabelInsidePanel(basicBonusText, SwingConstants.CENTER, background, fontColor));
 
 		raceBonusText = new JLabel("0");
-		add(createLabelInsidePanel(raceBonusText, true, background, fontColor));
+		add(createLabelInsidePanel(raceBonusText, SwingConstants.CENTER, background, fontColor));
 
 		totalLabel = new JLabel("0");
-		add(createLabelInsidePanel(totalLabel, true, background, fontColor));
+		add(createLabelInsidePanel(totalLabel, SwingConstants.CENTER, background, fontColor));
 
 	}
 

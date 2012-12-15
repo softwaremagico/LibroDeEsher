@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.style;
+
 /*
  * #%L
  * Libro de Esher
@@ -32,7 +33,6 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SwingConstants;
 
-
 public abstract class BasicLine extends BasePanel {
 	private static final long serialVersionUID = 7901507705885692683L;
 	protected Color background = Color.WHITE;
@@ -53,23 +53,30 @@ public abstract class BasicLine extends BasePanel {
 	}
 
 	protected void setDefaultDesign() {
-		//setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		// setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		setBackground(background);
 		setForeground(foregorund);
 	}
-	
-	public JPanel createLabelInsidePanel(JLabel label, boolean centered, Color bgColor, Color fgColor) {
-		if (centered) {
-			label.setHorizontalAlignment(SwingConstants.CENTER);
-		}
+
+	/**
+	 * 
+	 * @param label
+	 * @param position
+	 *            SwingConstants.CENTER
+	 * @param bgColor
+	 * @param fgColor
+	 * @return
+	 */
+	public JPanel createLabelInsidePanel(JLabel label, int position, Color bgColor, Color fgColor) {
+		label.setHorizontalAlignment(position);
 		JPanel container = new JPanel(new BorderLayout());
 		label.setForeground(fgColor);
 		container.add(label);
 		container.setBackground(bgColor);
 		return container;
 	}
-	
-	public JPanel createSpinnerInsidePanel(JSpinner spinner, boolean centered, Color bgColor) {
+
+	public JPanel createSpinnerInsidePanel(JSpinner spinner, Color bgColor) {
 		JPanel container = new JPanel(new BorderLayout());
 		container.add(spinner);
 		container.setBackground(bgColor);

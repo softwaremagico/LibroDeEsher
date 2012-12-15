@@ -27,6 +27,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
@@ -47,10 +48,10 @@ public class ResistanceLine extends BasicLine {
 		setLayout(new GridLayout(1,2));
 		
 		resistanceLabel = new JLabel(resistance.getAbbreviature());
-		add(createLabelInsidePanel(resistanceLabel, false, background, fontColor));
+		add(createLabelInsidePanel(resistanceLabel, SwingConstants.LEFT, background, fontColor));
 		
 		resistanceTotalLabel = new JLabel(total.toString());
-		add(createLabelInsidePanel(resistanceTotalLabel, false, background, fontColor));
+		add(createLabelInsidePanel(resistanceTotalLabel, SwingConstants.RIGHT, background, fontColor));
 		
 	}
 }

@@ -2,6 +2,7 @@ package com.softwaremagico.librodeesher.gui;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 
 import javax.swing.JLabel;
@@ -10,6 +11,7 @@ import javax.swing.JPanel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.CompleteCharacteristicPanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
+import com.softwaremagico.librodeesher.gui.style.BasicButton;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 
@@ -51,20 +53,26 @@ public class CharacteristicsWindow extends BaseFrame {
 		gridBagConstraints.gridy = 1;
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 1;
+		gridBagConstraints.weightx = 0.8;
 		gridBagConstraints.weighty = 0;
 		getContentPane().add(pointsPanel, gridBagConstraints);
 		
+		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+		BasicButton acceptButton = new BasicButton("Aceptar");
+		buttonPanel.add(acceptButton);
 		CloseButton closeButton = new CloseButton(this);
+		buttonPanel.add(closeButton);
+		
+		
 		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 2;
 		gridBagConstraints.gridy = 1;
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 0;
+		gridBagConstraints.weightx = 0.2;
 		gridBagConstraints.weighty = 0;
-		getContentPane().add(closeButton, gridBagConstraints);
+		getContentPane().add(buttonPanel, gridBagConstraints);
 	}
 
 	private String getSpentPointsText(Integer spentPoints, Integer totalPoints) {

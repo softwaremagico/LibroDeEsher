@@ -27,6 +27,7 @@ package com.softwaremagico.librodeesher.gui.elements;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.gui.style.BasicTitleLine;
 
@@ -48,22 +49,22 @@ public class CharacteristicTitleLine extends BasicTitleLine {
 		setLayout(new GridLayout(1, 6));
 
 		characteristicLabel = new JLabel("Caracter.");
-		add(createLabelInsidePanel(characteristicLabel, false, background, fontColor));
+		add(createLabelInsidePanel(characteristicLabel, SwingConstants.LEFT, background, fontColor));
 
 		temporalLabel = new JLabel("Temp.");
-		add(createLabelInsidePanel(temporalLabel, true, background, fontColor));
+		add(createLabelInsidePanel(temporalLabel, SwingConstants.CENTER, background, fontColor));
 
 		potentialTextField = new JLabel("Pot.");
-		add(createLabelInsidePanel(potentialTextField, true, background, fontColor));
+		add(createLabelInsidePanel(potentialTextField, SwingConstants.CENTER, background, fontColor));
 
 		basicBonusTextField = new JLabel("Bonus");
-		add(createLabelInsidePanel(basicBonusTextField, true, background, fontColor));
+		add(createLabelInsidePanel(basicBonusTextField, SwingConstants.CENTER, background, fontColor));
 
 		raceBonusTextField = new JLabel("Raza");
-		add(createLabelInsidePanel(raceBonusTextField, true, background, fontColor));
+		add(createLabelInsidePanel(raceBonusTextField, SwingConstants.CENTER, background, fontColor));
 
 		totalLabel = new JLabel("Total");
-		add(createLabelInsidePanel(totalLabel, true, background, fontColor));
+		add(createLabelInsidePanel(totalLabel, SwingConstants.CENTER, background, fontColor));
 
 	}
 

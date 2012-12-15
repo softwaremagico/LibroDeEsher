@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
@@ -20,10 +21,10 @@ public class CharacteristicSummaryLine extends CharacteristicLine {
 		setLayout(new GridLayout(1,2));
 
 		characteristicLabel = new JLabel(characteristic.getAbbreviation());
-		add(createLabelInsidePanel(characteristicLabel, false, background, fontColor));
+		add(createLabelInsidePanel(characteristicLabel, SwingConstants.LEFT, background, fontColor));
 
 		totalLabel = new JLabel("0");
-		add(createLabelInsidePanel(totalLabel, true, background, fontColor));		
+		add(createLabelInsidePanel(totalLabel, SwingConstants.RIGHT, background, fontColor));		
 	}
 
 }

@@ -106,7 +106,7 @@ public class MainWindow extends BaseFrame {
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 1;
 		gridBagConstraints.weightx = 0;
-		gridBagConstraints.weighty = 0.6;
+		gridBagConstraints.weighty = 0.5;
 		// gridBagConstraints.insets = new Insets(1, 1, 1, 1);
 		getContentPane().add(characteristicScrollPanel, gridBagConstraints);
 
@@ -126,7 +126,7 @@ public class MainWindow extends BaseFrame {
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 2;
 		gridBagConstraints.weightx = 0;
-		gridBagConstraints.weighty = 0.4;
+		gridBagConstraints.weighty = 0.5;
 		// gridBagConstraints.insets = new Insets(1, 1, 1, 1);
 		getContentPane().add(resistanceScrollPanel, gridBagConstraints);
 
