@@ -26,18 +26,18 @@ package com.softwaremagico.librodeesher.gui.characterBasics;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.magic.RealmsOfMagic;
-import com.softwaremagico.librodeesher.pj.race.Race;
-import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 
 public class CharacterLevelPanel extends BasePanel {
 
@@ -59,6 +59,9 @@ public class CharacterLevelPanel extends BasePanel {
 		this.removeAll();
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
+		
+		JPanel containerPanel = new JPanel();
+		containerPanel.setLayout(new GridBagLayout());
 
 		levelLabel = new JLabel("Nivel:");
 		c.anchor = GridBagConstraints.LINE_START;
@@ -66,16 +69,17 @@ public class CharacterLevelPanel extends BasePanel {
 		c.gridx = 0;
 		c.gridy = 0;
 		c.weightx = 0;
-		add(levelLabel, c);
+		containerPanel.add(levelLabel, c);
 
 		levelTextField = new JTextField();
 		levelTextField.setEditable(false);
+		levelTextField.setColumns(2);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
 		c.gridx = 1;
 		c.gridy = 0;
-		c.weightx = 1;
-		add(levelTextField, c);
+		c.weightx = 0.5;
+		containerPanel.add(levelTextField, c);
 
 		developmentLabel = new JLabel("Pts Desar.:");
 		c.anchor = GridBagConstraints.LINE_START;
@@ -83,16 +87,25 @@ public class CharacterLevelPanel extends BasePanel {
 		c.gridx = 2;
 		c.gridy = 0;
 		c.weightx = 0;
-		add(developmentLabel, c);
+		containerPanel.add(developmentLabel, c);
 
 		developmentTextField = new JTextField();
 		developmentTextField.setEditable(false);
+		developmentTextField.setColumns(2);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
 		c.gridx = 3;
 		c.gridy = 0;
+		c.weightx = 0.5;
+		containerPanel.add(developmentTextField, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.ipadx = 0;
+		c.gridx = 0;
+		c.gridy = 0;
 		c.weightx = 1;
-		add(developmentTextField, c);
+		c.gridwidth=2;
+		add(containerPanel, c);
 
 		magicLabel = new JLabel("Reino:");
 		c.anchor = GridBagConstraints.LINE_START;
@@ -100,6 +113,7 @@ public class CharacterLevelPanel extends BasePanel {
 		c.gridx = 0;
 		c.gridy = 1;
 		c.weightx = 0;
+		c.gridwidth=1;
 		add(magicLabel, c);
 
 		magicComboBox = new JComboBox<>();
@@ -108,6 +122,7 @@ public class CharacterLevelPanel extends BasePanel {
 		c.gridx = 1;
 		c.gridy = 1;
 		c.weightx = 1;
+		c.gridwidth=1;
 		add(magicComboBox, c);
 	}
 
@@ -128,12 +143,15 @@ public class CharacterLevelPanel extends BasePanel {
 		if (this.getWidth() < 230) {
 			levelLabel.setText("Nvl:");
 			developmentLabel.setText("PD.:");
+			magicLabel.setText("Re.:");
 		} else if (this.getWidth() < 280) {
 			levelLabel.setText("Nivel:");
 			developmentLabel.setText("Pts. D.:");
+			magicLabel.setText("Reino:");
 		} else {
 			levelLabel.setText("Nivel:");
 			developmentLabel.setText("Pts. Des.:");
+			magicLabel.setText("Reino:");
 		}
 	}
 
