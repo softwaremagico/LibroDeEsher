@@ -26,21 +26,29 @@ package com.softwaremagico.librodeesher.gui.characterBasics;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.magic.RealmsOfMagic;
 import com.softwaremagico.librodeesher.pj.race.Race;
+import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 
 public class CharacterLevelPanel extends BasePanel {
 
 	private static final long serialVersionUID = -8063970435094018287L;
 	private JLabel levelLabel;
 	private JLabel developmentLabel;
+	private JLabel magicLabel;
 	private JTextField developmentTextField;
 	private JTextField levelTextField;
+	private JComboBox<RealmsOfMagic> magicComboBox;
+	private CharacterPlayer character;
 
 	protected CharacterLevelPanel() {
 		setElements();
@@ -72,8 +80,8 @@ public class CharacterLevelPanel extends BasePanel {
 		developmentLabel = new JLabel("Pts Desar.:");
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
-		c.gridx = 0;
-		c.gridy = 1;
+		c.gridx = 2;
+		c.gridy = 0;
 		c.weightx = 0;
 		add(developmentLabel, c);
 
@@ -81,10 +89,39 @@ public class CharacterLevelPanel extends BasePanel {
 		developmentTextField.setEditable(false);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
+		c.gridx = 3;
+		c.gridy = 0;
+		c.weightx = 1;
+		add(developmentTextField, c);
+
+		magicLabel = new JLabel("Reino:");
+		c.anchor = GridBagConstraints.LINE_START;
+		c.ipadx = xPadding;
+		c.gridx = 0;
+		c.gridy = 1;
+		c.weightx = 0;
+		add(magicLabel, c);
+
+		magicComboBox = new JComboBox<>();
+		c.anchor = GridBagConstraints.LINE_START;
+		c.ipadx = xPadding;
 		c.gridx = 1;
 		c.gridy = 1;
 		c.weightx = 1;
-		add(developmentTextField, c);
+		add(magicComboBox, c);
+	}
+
+	private void updateMagicComboBox() {
+		if (magicComboBox != null) {
+			magicComboBox.removeAllItems();
+			if (character != null) {
+				List<RealmsOfMagic> magicRealms = character.getProfession().getMagicRealmsAvailable();
+				Collections.sort(magicRealms);
+				for (RealmsOfMagic magicRealm : magicRealms) {
+					magicComboBox.addItem(magicRealm);
+				}
+			}
+		}
 	}
 
 	public void sizeChanged() {
@@ -100,11 +137,15 @@ public class CharacterLevelPanel extends BasePanel {
 		}
 	}
 
-	public void setLevel(Integer level) {
-		levelTextField.setText(level.toString());
+	public void setCharacter(CharacterPlayer character) {
+		this.character = character;
+		levelTextField.setText(character.getCharacterLevel().toString());
+		developmentTextField.setText(character.getSpentDevelopmentPoints().toString());
+		updateMagicComboBox();
+	}
+	
+	public void update(){
+		updateMagicComboBox();
 	}
 
-	public void setDevelopmentPoints(Integer remainingDevelopmentPoints) {
-		developmentTextField.setText(remainingDevelopmentPoints.toString());
-	}
 }

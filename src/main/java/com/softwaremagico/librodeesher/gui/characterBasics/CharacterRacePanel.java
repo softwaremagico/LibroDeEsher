@@ -69,6 +69,7 @@ public class CharacterRacePanel extends BasePanel {
 
 		raceComboBox = new JComboBox<>();
 		updateRaceComboBox();
+		raceComboBox.addActionListener(new ChangeRaceListener());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
 		c.gridx = 1;
@@ -86,6 +87,7 @@ public class CharacterRacePanel extends BasePanel {
 
 		cultureComboBox = new JComboBox<>();
 		updateCultureComboBox();
+		cultureComboBox.addActionListener(new ChangeCultureListener());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
 		c.gridx = 1;
@@ -123,7 +125,6 @@ public class CharacterRacePanel extends BasePanel {
 
 	private void updateRaceComboBox() {
 		if (raceComboBox != null) {
-			raceComboBox.addActionListener(new ChangeRaceListener());
 			List<String> races = RaceFactory.availableRaces();
 			Collections.sort(races);
 			for (String race : races) {
@@ -161,7 +162,7 @@ public class CharacterRacePanel extends BasePanel {
 
 	private void updateProfessionPanel() {
 		if (professionPanel != null) {
-			professionPanel.update(RaceFactory.getRace(getSelectedRace()).availableProfessions());
+			professionPanel.update();
 		}
 	}
 
@@ -169,10 +170,20 @@ public class CharacterRacePanel extends BasePanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			updateCultureComboBox();
-			updateProfessionPanel();
 			if (character != null) {
 				character.setRace(getSelectedRace());
+			}
+			updateCultureComboBox();
+			updateProfessionPanel();
+		}
+	}
+	
+	class ChangeCultureListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (character != null) {
+				character.setCulture(getSelectedRace());
 			}
 		}
 	}

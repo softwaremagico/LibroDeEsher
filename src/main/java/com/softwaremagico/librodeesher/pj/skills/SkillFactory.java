@@ -63,6 +63,10 @@ public class SkillFactory {
 		switch (skillType) {
 		case STANDAR:
 			return new StandardSkill(skillName);
+		case RESTRICTED:
+			return new RestrictedSkill(skillName);
+		case SPECIAL:
+			return new SpecialSkill(skillName);
 		default:
 			return null;
 		}

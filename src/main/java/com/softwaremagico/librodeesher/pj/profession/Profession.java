@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.profession;
+
 /*
  * #%L
  * Libro de Esher
@@ -27,6 +28,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
@@ -49,7 +51,8 @@ import com.softwaremagico.librodeesher.pj.training.TrainingType;
 
 public class Profession {
 	private String name;
-	private Hashtable<Category, Integer> categoriesBonus;
+	private Hashtable<String, Integer> categoriesBonus;
+	private Hashtable<String, Integer> skillBonus;
 	private List<Characteristic> characteristicPreferences;
 	private List<RealmsOfMagic> magicRealmsAvailable;
 	private List<CategoryCost> weaponCategoryCost;
@@ -107,7 +110,7 @@ public class Profession {
 				}
 			}
 		}
-		return index++;
+		return ++index;
 	}
 
 	private int setAvailableMagicRealms(List<String> lines, int index) {
@@ -125,14 +128,12 @@ public class Profession {
 						magicRealmsAvailable.add(realmType);
 					} else {
 						ShowMessage.showErrorMessage("Problemas con el reino de magia " + lines.get(index)
-								+ " mostrada en el archivo " + name + ".txt.",
-								"Leer Profesion");
+								+ " mostrada en el archivo " + name + ".txt.", "Leer Profesion");
 					}
 				}
 			} catch (Exception e) {
 				ShowMessage.showErrorMessage("Problemas con el reino de magia " + lines.get(index)
-						+ " mostrada en el archivo " + name + ".txt.",
-						"Leer Profesion");
+						+ " mostrada en el archivo " + name + ".txt.", "Leer Profesion");
 			}
 			index++;
 		}
@@ -141,19 +142,24 @@ public class Profession {
 
 	private int setProfessionBonus(List<String> lines, int index) {
 		categoriesBonus = new Hashtable<>();
+		skillBonus = new Hashtable<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
 		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
-			String categoryLine = lines.get(index);
-			String[] categoryColumns = categoryLine.split("\t");
-			String categoryName = categoryColumns[0];
-			Integer bonus = Integer.parseInt(categoryColumns[1]);
+			String bonusLine = lines.get(index);
+			String[] categoryOrSkillColumns = bonusLine.split("\t");
+			String categoryOrSkillName = categoryOrSkillColumns[0];
+			Integer bonus = Integer.parseInt(categoryOrSkillColumns[1]);
 			try {
-				categoriesBonus.put(CategoryFactory.getAvailableCategory(categoryName), bonus);
+				if (CategoryFactory.getAvailableCategory(categoryOrSkillName) != null) {
+					categoriesBonus.put(categoryOrSkillName, bonus);
+				} else if (SkillFactory.getAvailableSkill(categoryOrSkillName) != null) {
+					skillBonus.put(categoryOrSkillName, bonus);
+				}
 			} catch (NullPointerException npe) {
-				ShowMessage.showErrorMessage("Bonus de " + categoryName + " en "
-						+ name + ".txt mal definido.", "Leer Profesion");
+				ShowMessage.showErrorMessage("Bonus de " + categoryOrSkillName + " en " + name
+						+ ".txt mal definido.", "Leer Profesion");
 			}
 			index++;
 		}
@@ -161,6 +167,8 @@ public class Profession {
 	}
 
 	private int setCategoryCost(List<String> lines, int index) {
+		categoryCost = new Hashtable<>();
+		weaponCategoryCost = new ArrayList<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -176,8 +184,8 @@ public class Profession {
 					Category cat = CategoryFactory.getAvailableCategory(categoryName);
 					categoryCost.put(cat, new CategoryCost(categoryColumns[1]));
 				} catch (Exception e) {
-					ShowMessage.showErrorMessage("Categoría mal definida: " + categoryName,
-							"Leer Profesion");
+					e.printStackTrace();
+					ShowMessage.showErrorMessage("Categoría mal definida: " + categoryName, "Leer Profesion");
 				}
 			}
 			index++;
@@ -194,7 +202,7 @@ public class Profession {
 		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 			String skillLine = lines.get(index);
 			if (skillLine.toLowerCase().contains("ninguna") || skillLine.toLowerCase().contains("nothing")) {
-				break;
+				return ++index;
 			}
 			String[] skillColumns = skillLine.split(", ");
 			for (int i = 0; i < skillColumns.length; i++) {
@@ -229,14 +237,15 @@ public class Profession {
 	}
 
 	private int setMagicCost(List<String> lines, int index) {
-		Magic magic = new Magic();
+		magic = new Magic();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
 		while (!lines.get(index).equals("")) {
 			String listLine = lines.get(index);
 			String[] spellsColumn = listLine.split("\t");
-			String[] spellList = spellsColumn[0].split(" (");
+			String pattern = Pattern.quote(" (");
+			String[] spellList = spellsColumn[0].split(pattern);
 			String listName = spellList[0].trim();
 			String listLevel = spellList[1].replace(")", "");
 			String listCost = spellsColumn[1];
@@ -270,16 +279,11 @@ public class Profession {
 				try {
 					Integer cost = Integer.parseInt(trainingColumns[1].replace("+", "").replace("-", "")
 							.trim());
-					Training training = TrainingFactory.getTraining(trainingColumns[0]);
-					if (training != null) {
-						TrainingCost trainingCost = new TrainingCost(training, cost, type);
-						trainingCosts.put(trainingColumns[0], trainingCost);
-					} else {
-						throw new Exception();
-					}
+					TrainingCost trainingCost = new TrainingCost(trainingColumns[0], cost, type);
+					trainingCosts.put(trainingColumns[0], trainingCost);
 				} catch (Exception e) {
-					ShowMessage.showErrorMessage(
-							"Coste de Adiestramiento mal formado: " + lines.get(index), "Leer Profesión");
+					ShowMessage.showErrorMessage("Coste de Adiestramiento mal formado: " + lines.get(index),
+							"Leer Profesión");
 				}
 
 				index++;
@@ -287,4 +291,13 @@ public class Profession {
 		}
 		return index;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public List<RealmsOfMagic> getMagicRealmsAvailable() {
+		return magicRealmsAvailable;
+	}
+
 }

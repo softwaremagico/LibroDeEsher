@@ -26,18 +26,26 @@ package com.softwaremagico.librodeesher.pj.magic;
 public enum RealmsOfMagic {
 	CANALIZATION("Canalización"), ESSENCE("Esencia"), MENTALISM("Mentalismo"), PSIONIC("Psiónico");
 
-	private String tag;
+	private String name;
 
 	RealmsOfMagic(String tag) {
-		this.tag = tag;
+		this.name = tag;
+	}
+	
+	public String getName(){
+		return name;
 	}
 
-	public static RealmsOfMagic getMagicRealm(String tag) {
+	public static RealmsOfMagic getMagicRealm(String name) {
 		for (RealmsOfMagic type : RealmsOfMagic.values()) {
-			if (type.tag.equals(tag)) {
+			if (type.name.equals(name)) {
 				return type;
 			}
 		}
 		return null;
+	}
+	
+	public String toString(){
+		return getName();
 	}
 }

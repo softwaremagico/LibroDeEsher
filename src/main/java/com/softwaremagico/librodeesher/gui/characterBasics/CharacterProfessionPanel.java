@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.characterBasics;
+
 /*
  * #%L
  * Libro de Esher
@@ -25,6 +26,8 @@ package com.softwaremagico.librodeesher.gui.characterBasics;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -33,7 +36,9 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import com.softwaremagico.librodeesher.gui.characterBasics.CharacterRacePanel.ChangeRaceListener;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 
@@ -41,7 +46,8 @@ public class CharacterProfessionPanel extends BasePanel {
 	private static final long serialVersionUID = -4572529165916501939L;
 	private JLabel professionLabel;
 	private JLabel trainingLabel;
-	private JComboBox<String> professionComboBox; 
+	private JComboBox<String> professionComboBox;
+	private CharacterPlayer character;
 
 	protected CharacterProfessionPanel() {
 		setElements();
@@ -61,7 +67,8 @@ public class CharacterProfessionPanel extends BasePanel {
 		c.weightx = 0;
 		add(professionLabel, c);
 
-	    professionComboBox = new JComboBox<>();
+		professionComboBox = new JComboBox<>();
+		professionComboBox.addActionListener(new ChangeProfessionListener());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
 		c.gridx = 1;
@@ -77,7 +84,8 @@ public class CharacterProfessionPanel extends BasePanel {
 		c.weightx = 0;
 		add(trainingLabel, c);
 
-		JTextField trainingTextField = new JTextField();;
+		JTextField trainingTextField = new JTextField();
+		;
 		trainingTextField.setEditable(false);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
@@ -86,14 +94,14 @@ public class CharacterProfessionPanel extends BasePanel {
 		c.weightx = 1;
 		add(trainingTextField, c);
 	}
-	
+
 	public String getSelectedProfession() {
 		if (professionComboBox != null) {
 			return (String) professionComboBox.getSelectedItem();
 		}
 		return null;
 	}
-	
+
 	public void sizeChanged() {
 		if (this.getWidth() < 230) {
 			professionLabel.setText("Prf.:");
@@ -106,19 +114,36 @@ public class CharacterProfessionPanel extends BasePanel {
 			trainingLabel.setText("Adiestram.:");
 		}
 	}
-	
-	public void update(List<String> professions){
-		updateProfessionComboBox(professions);
+
+	public void update() {
+		if (character != null) {
+			updateProfessionComboBox(character.getRace().availableProfessions());
+		}
 	}
-	
+
 	private void updateProfessionComboBox(List<String> professions) {
 		if (professionComboBox != null) {
 			professionComboBox.removeAllItems();
-		    Collections.sort(professions);
-		    for (String profession : professions) {
-		    	professionComboBox.addItem(profession);
+			Collections.sort(professions);
+			for (String profession : professions) {
+				professionComboBox.addItem(profession);
+			}
+		}
+	}
+
+	public void setCharacter(CharacterPlayer character) {
+		this.character = character;
+		character.setProfession(getSelectedProfession());
+		updateProfessionComboBox(character.getRace().availableProfessions());
+	}
+
+	class ChangeProfessionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (character != null) {
+				character.setProfession(getSelectedProfession());
 			}
 		}
 	}
 }
-

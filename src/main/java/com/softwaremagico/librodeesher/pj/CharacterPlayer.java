@@ -32,8 +32,10 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.culture.Culture;
+import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
 import com.softwaremagico.librodeesher.pj.profession.Profession;
+import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 import com.softwaremagico.librodeesher.pj.race.Race;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
@@ -53,9 +55,11 @@ public class CharacterPlayer {
 	private List<Category> categories;
 	private String raceName;
 	private transient Race race;
-	private Culture culture;
+	private String cultureName;
+	private transient Culture culture;
+	private String professionName;
+	private transient Profession profession;
 	private List<Training> trainings;
-	private Profession profession;
 	private Resistances resistances;
 
 	private List<LevelUp> levelUps;
@@ -151,12 +155,34 @@ public class CharacterPlayer {
 	public void setRace(String raceName) {
 		this.raceName = raceName;
 	}
+	
+	public void setCulture(String cultureName) {
+		this.cultureName = cultureName;
+	}
+	
+	public void setProfession(String professionName) {
+		this.professionName = professionName;
+	}
 
 	public Race getRace() {
 		if (race == null || !raceName.equals(race.getName())) {
 			race = RaceFactory.getRace(raceName);
 		}
 		return race;
+	}
+	
+	public Culture getCulture() {
+		if (culture == null || !cultureName.equals(culture.getName())) {
+			culture = CultureFactory.getCulture(cultureName);
+		}
+		return culture;
+	}
+	
+	public Profession getProfession() {
+		if (profession == null || !professionName.equals(profession.getName())) {
+			profession = ProfessionFactory.getProfession(professionName);
+		}
+		return profession;
 	}
 
 }

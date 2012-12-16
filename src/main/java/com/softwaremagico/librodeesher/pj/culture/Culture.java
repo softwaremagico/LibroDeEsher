@@ -198,4 +198,8 @@ public class Culture {
 		return index;
 	}
 
+	public String getName() {
+		return name;
+	}
+
 }

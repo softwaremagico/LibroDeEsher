@@ -56,8 +56,8 @@ public class TrainingFactory {
 			}
 		} catch (Exception e) {
 		}
-		ShowMessage.showErrorMessage("Adiestramiento no existente: " + trainingName,
-				"Creación de adiestramientos.");
+		/*ShowMessage.showErrorMessage("Adiestramiento no existente: " + trainingName,
+				"Creación de adiestramientos.");*/
 		return null;
 	}
 

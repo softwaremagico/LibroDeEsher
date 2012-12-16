@@ -83,7 +83,7 @@ public class CharacterPanel extends BasePanel {
 		c.weightx = 0.5;
 		c.insets = new Insets(1, 5, 1, 5);
 		add(characterProfessionPanel, c);
-		characterProfessionPanel.update(RaceFactory.getRace(characterRacePanel.getSelectedRace()).availableProfessions());
+		//characterProfessionPanel.update();
 
 		characterLevelPanel = new CharacterLevelPanel();
 		characterLevelPanel.setBounds(xPadding, xPadding, characterBasics.getWidth(),
@@ -100,8 +100,8 @@ public class CharacterPanel extends BasePanel {
 	public void setCharacter(CharacterPlayer character){
 		characterBasics.setCharacter(character);
 		characterRacePanel.setCharacter(character);
-		characterLevelPanel.setLevel(character.getCharacterLevel());
-		characterLevelPanel.setDevelopmentPoints(character.getSpentDevelopmentPoints());
+		characterProfessionPanel.setCharacter(character);
+		characterLevelPanel.setCharacter(character);
 	}
 	
 	public void setParentWindow(BaseFrame window) {

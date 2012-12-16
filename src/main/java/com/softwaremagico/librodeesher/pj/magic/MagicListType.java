@@ -24,7 +24,7 @@ package com.softwaremagico.librodeesher.pj.magic;
  */
 
 public enum MagicListType {
-	BASIC("lista bBásica"), OPEN("lista abierta"), CLOSED("lista cerrada"), OTHER_PROFESSION(
+	BASIC("lista básica"), OPEN("lista abierta"), CLOSED("lista cerrada"), OTHER_PROFESSION(
 			"listas básicas de otras profesiones"), OTHER_REALM_OPEN("listas abiertas de otros reinos"), OTHER_REALM_CLOSED(
 			"listas cerradas de otros reinos"), OTHER_REALM_OTHER_PROFESSION("listas básicas de otros reinos"), ARCHANUM(
 			"listas abiertas arcanas"), TRIAD("listas básicas de la tríada"), COMPLEMENTARY_TRIAD(

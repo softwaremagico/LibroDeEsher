@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.categories;
+
 /*
  * #%L
  * Libro de Esher
@@ -37,8 +38,7 @@ public class CategoryFactory {
 		try {
 			getCategoriesFromFiles();
 		} catch (Exception e) {
-			ShowMessage.showErrorMessage("Error al obtener las categorías y habilidades.",
-					"Categorías.");
+			ShowMessage.showErrorMessage("Error al obtener las categorías y habilidades.", "Categorías");
 			e.printStackTrace();
 		}
 	}
@@ -70,6 +70,18 @@ public class CategoryFactory {
 		case STANDARD:
 			cat = new StandardCategory(categoryName, abbreviature, characteristicsTag);
 			break;
+		case COMBINED:
+			cat = new CombinedCategory(categoryName, abbreviature, characteristicsTag);
+			break;
+		case PPD:
+			cat = new PpdCategory(categoryName, abbreviature, characteristicsTag);
+			break;
+		case FD:
+			cat = new FdCategory(categoryName, abbreviature, characteristicsTag);
+			break;
+		case LIMITED:
+			cat = new LimitedCategory(categoryName, abbreviature, characteristicsTag);
+			break;
 		default:
 			return null;
 		}
@@ -96,6 +108,7 @@ public class CategoryFactory {
 						if (cat == null) {
 							cat = createCategory(categoryName, abrevCat, descomposed_line[1],
 									descomposed_line[2], descomposed_line[3]);
+							categoriesAvailable.put(categoryName, cat);
 						} else {
 							cat.addSkills(descomposed_line[3]);
 						}

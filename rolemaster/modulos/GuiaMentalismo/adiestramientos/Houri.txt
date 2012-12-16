@@ -20,7 +20,7 @@ Símbolo especial del amante 	100
 #HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
 ####################################
 Arte·Activo	2	1	2	2
-Listas Hechizos de Adiestramiento (Mentalismo)	0	2	2	4
+Listas Hechizos de Adiestramiento	0	2	2	4
   *  Besos del Houri	2
   *  Engaños del Houri	2
 Influencia	3	2	2	4

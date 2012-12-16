@@ -27,12 +27,12 @@ import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingType;
 
 public class TrainingCost {
-	public Training training;
+	public String trainingName;
 	public Integer cost;
 	public TrainingType type;
 
-	TrainingCost(Training training, Integer cost, TrainingType type) {
-		this.training = training;
+	TrainingCost(String trainingName, Integer cost, TrainingType type) {
+		this.trainingName = trainingName;
 		this.cost = cost;
 		this.type = type;
 	}
