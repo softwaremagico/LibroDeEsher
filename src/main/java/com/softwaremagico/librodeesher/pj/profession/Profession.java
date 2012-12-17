@@ -41,7 +41,7 @@ import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.magic.Magic;
 import com.softwaremagico.librodeesher.pj.magic.MagicLevelRange;
 import com.softwaremagico.librodeesher.pj.magic.MagicListType;
-import com.softwaremagico.librodeesher.pj.magic.RealmsOfMagic;
+import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
@@ -54,7 +54,7 @@ public class Profession {
 	private Hashtable<String, Integer> categoriesBonus;
 	private Hashtable<String, Integer> skillBonus;
 	private List<Characteristic> characteristicPreferences;
-	private List<RealmsOfMagic> magicRealmsAvailable;
+	private List<RealmOfMagic> magicRealmsAvailable;
 	private List<CategoryCost> weaponCategoryCost;
 	private Hashtable<Category, CategoryCost> categoryCost;
 	private List<ChooseSkillGroup> commonSkillsToChoose;
@@ -123,7 +123,7 @@ public class Profession {
 				String realmLine = lines.get(index);
 				String[] realmsColumns = realmLine.split(", ");
 				for (String realms : realmsColumns) {
-					RealmsOfMagic realmType = RealmsOfMagic.getMagicRealm(realms);
+					RealmOfMagic realmType = RealmOfMagic.getMagicRealm(realms);
 					if (realmType != null) {
 						magicRealmsAvailable.add(realmType);
 					} else {
@@ -222,7 +222,7 @@ public class Profession {
 																// de un
 																// conjunto
 					String skillGroup = skillColumns[i].replace("{", "").replace("}", "");
-					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1, skillGroup.split(", "));
+					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1, skillGroup.replace(";", ",").split(", "));
 					groupSkillsToChoose.add(chooseSkills);
 				} else {
 					// Una habilidad.
@@ -296,7 +296,7 @@ public class Profession {
 		return name;
 	}
 
-	public List<RealmsOfMagic> getMagicRealmsAvailable() {
+	public List<RealmOfMagic> getMagicRealmsAvailable() {
 		return magicRealmsAvailable;
 	}
 

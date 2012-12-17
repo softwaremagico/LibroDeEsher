@@ -27,6 +27,8 @@ package com.softwaremagico.librodeesher.gui.characterBasics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,9 +37,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.softwaremagico.librodeesher.gui.characterBasics.CharacterProfessionPanel.ChangeProfessionListener;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
-import com.softwaremagico.librodeesher.pj.magic.RealmsOfMagic;
+import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 
 public class CharacterLevelPanel extends BasePanel {
 
@@ -47,8 +50,9 @@ public class CharacterLevelPanel extends BasePanel {
 	private JLabel magicLabel;
 	private JTextField developmentTextField;
 	private JTextField levelTextField;
-	private JComboBox<RealmsOfMagic> magicComboBox;
+	private JComboBox<RealmOfMagic> magicComboBox;
 	private CharacterPlayer character;
+	private boolean updatingMagic = false;
 
 	protected CharacterLevelPanel() {
 		setElements();
@@ -59,7 +63,7 @@ public class CharacterLevelPanel extends BasePanel {
 		this.removeAll();
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		
+
 		JPanel containerPanel = new JPanel();
 		containerPanel.setLayout(new GridBagLayout());
 
@@ -98,13 +102,13 @@ public class CharacterLevelPanel extends BasePanel {
 		c.gridy = 0;
 		c.weightx = 0.5;
 		containerPanel.add(developmentTextField, c);
-		
+
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
 		c.gridx = 0;
 		c.gridy = 0;
 		c.weightx = 1;
-		c.gridwidth=2;
+		c.gridwidth = 2;
 		add(containerPanel, c);
 
 		magicLabel = new JLabel("Reino:");
@@ -113,30 +117,39 @@ public class CharacterLevelPanel extends BasePanel {
 		c.gridx = 0;
 		c.gridy = 1;
 		c.weightx = 0;
-		c.gridwidth=1;
+		c.gridwidth = 1;
 		add(magicLabel, c);
 
 		magicComboBox = new JComboBox<>();
+		magicComboBox.addActionListener(new ChangeMagicListener());
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 1;
 		c.gridy = 1;
 		c.weightx = 1;
-		c.gridwidth=1;
+		c.gridwidth = 1;
 		add(magicComboBox, c);
 	}
 
 	private void updateMagicComboBox() {
+		updatingMagic = true;
 		if (magicComboBox != null) {
 			magicComboBox.removeAllItems();
 			if (character != null) {
-				List<RealmsOfMagic> magicRealms = character.getProfession().getMagicRealmsAvailable();
+				List<RealmOfMagic> magicRealms = character.getProfession().getMagicRealmsAvailable();
 				Collections.sort(magicRealms);
-				for (RealmsOfMagic magicRealm : magicRealms) {
+				for (RealmOfMagic magicRealm : magicRealms) {
 					magicComboBox.addItem(magicRealm);
+				}
+				if (character.getRealmOfMagic() != null) {
+					magicComboBox.setSelectedItem(character.getRealmOfMagic());
+					if (getSelectedRealmOfMagic() != character.getRealmOfMagic()) {
+						updateRealmOfMagic();
+					}
 				}
 			}
 		}
+		updatingMagic = false;
 	}
 
 	public void sizeChanged() {
@@ -160,10 +173,34 @@ public class CharacterLevelPanel extends BasePanel {
 		levelTextField.setText(character.getCharacterLevel().toString());
 		developmentTextField.setText(character.getSpentDevelopmentPoints().toString());
 		updateMagicComboBox();
+		character.setRealmOfMagic(getSelectedRealmOfMagic());
 	}
-	
-	public void update(){
+
+	public void update() {
 		updateMagicComboBox();
+	}
+
+	public RealmOfMagic getSelectedRealmOfMagic() {
+		if (magicComboBox != null) {
+			return (RealmOfMagic) magicComboBox.getSelectedItem();
+		}
+		return null;
+	}
+
+	private void updateRealmOfMagic() {
+		if (character != null) {
+			character.setRealmOfMagic(getSelectedRealmOfMagic());
+		}
+	}
+
+	class ChangeMagicListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (!updatingMagic) {
+				updateRealmOfMagic();
+			}
+		}
 	}
 
 }

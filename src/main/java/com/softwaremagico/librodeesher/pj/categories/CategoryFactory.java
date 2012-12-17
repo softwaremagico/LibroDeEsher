@@ -29,6 +29,7 @@ import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.ShowMessage;
+import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
 public class CategoryFactory {
 
@@ -109,6 +110,7 @@ public class CategoryFactory {
 							cat = createCategory(categoryName, abrevCat, descomposed_line[1],
 									descomposed_line[2], descomposed_line[3]);
 							categoriesAvailable.put(categoryName, cat);
+							SkillFactory.setAvailableSkill(descomposed_line[3].split(","));
 						} else {
 							cat.addSkills(descomposed_line[3]);
 						}

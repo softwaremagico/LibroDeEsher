@@ -91,6 +91,7 @@ Oficios#1
 
 #HABILIDADES PROFESIONALES
 ####################################
+Ninguna
 
 #HABILIDADES RESTRINGIDAS
 ####################################

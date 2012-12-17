@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.skills;
+
 /*
  * #%L
  * Libro de Esher
@@ -36,15 +37,22 @@ public class SkillFactory {
 		}
 		return skill;
 	}
-	
-	public static Skill getAvailableSkill(String skillName){
+
+	public static void setAvailableSkill(String[] skills) {
+		for (String skill : skills) {
+			String skillName = skill.trim();
+			availableSkills.put(skillName, createSkill(skillName));
+		}
+	}
+
+	public static Skill getAvailableSkill(String skillName) {
 		return availableSkills.get(skillName);
 	}
-	
+
 	public static boolean existSkill(String skillName) {
 		return (getAvailableSkill(skillName) != null);
 	}
-	
+
 	public static Skill getSkill(String skillName, SkillType skillType) {
 		Skill skill = availableSkills.get(skillName);
 		if (skill == null) {

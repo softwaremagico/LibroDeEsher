@@ -85,9 +85,11 @@ Maniobras de Combate#1
 
 #HABILIDADES PROFESIONALES
 ####################################
+Ninguna
 
 #HABILIDADES RESTRINGIDAS
 ####################################
+Ninguna
 
 #DESARROLLO DE HECHIZOS
 ####################################

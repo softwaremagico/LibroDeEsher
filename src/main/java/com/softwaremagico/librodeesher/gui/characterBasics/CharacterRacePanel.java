@@ -45,9 +45,9 @@ public class CharacterRacePanel extends BasePanel {
 	private JLabel cultureLabel;
 	private JComboBox<String> raceComboBox;
 	private JComboBox<String> cultureComboBox;
-	private BaseFrame parentWindow;
 	private CharacterProfessionPanel professionPanel;
 	private CharacterPlayer character;
+	private boolean updatingCulture = false;
 
 	protected CharacterRacePanel() {
 		setElements();
@@ -137,6 +137,7 @@ public class CharacterRacePanel extends BasePanel {
 	}
 
 	private void updateCultureComboBox() {
+		updatingCulture = true;
 		if (cultureComboBox != null) {
 			cultureComboBox.removeAllItems();
 			List<String> cultures = RaceFactory.getRace(getSelectedRace()).availableCultures();
@@ -144,15 +145,20 @@ public class CharacterRacePanel extends BasePanel {
 			for (String culture : cultures) {
 				cultureComboBox.addItem(culture);
 			}
+			if (character != null) {
+				if (character.getCultureName() != null) {
+					cultureComboBox.setSelectedItem(character.getCultureName());
+					if (getSelectedCulture() != character.getCultureName()) {
+						updateCulture();
+					}
+				}
+			}
 		}
+		updatingCulture = false;
 	}
 
 	public void setProfessionPanel(CharacterProfessionPanel professionPanel) {
 		this.professionPanel = professionPanel;
-	}
-
-	public void setParentWindow(BaseFrame window) {
-		parentWindow = window;
 	}
 
 	public void setCharacter(CharacterPlayer character) {
@@ -163,6 +169,12 @@ public class CharacterRacePanel extends BasePanel {
 	private void updateProfessionPanel() {
 		if (professionPanel != null) {
 			professionPanel.update();
+		}
+	}
+
+	private void updateCulture() {
+		if (character != null) {
+			character.setCulture(getSelectedCulture());
 		}
 	}
 
@@ -177,13 +189,13 @@ public class CharacterRacePanel extends BasePanel {
 			updateProfessionPanel();
 		}
 	}
-	
+
 	class ChangeCultureListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (character != null) {
-				character.setCulture(getSelectedRace());
+			if (!updatingCulture) {
+				updateCulture();
 			}
 		}
 	}

@@ -28,10 +28,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
-import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 
 public class CharacterPanel extends BasePanel {
 	private static final long serialVersionUID = 3922505445539868950L;
@@ -39,7 +37,6 @@ public class CharacterPanel extends BasePanel {
 	private CharacterRacePanel characterRacePanel;
 	private CharacterProfessionPanel characterProfessionPanel;
 	private CharacterLevelPanel characterLevelPanel;
-	private BaseFrame parentWindow;
 
 	public CharacterPanel() {
 		setElements();
@@ -88,6 +85,7 @@ public class CharacterPanel extends BasePanel {
 		characterLevelPanel = new CharacterLevelPanel();
 		characterLevelPanel.setBounds(xPadding, xPadding, characterBasics.getWidth(),
 				characterBasics.getHeight());
+		characterProfessionPanel.setLevelPanel(characterLevelPanel);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 5;
 		c.gridx = 3;
@@ -102,11 +100,6 @@ public class CharacterPanel extends BasePanel {
 		characterRacePanel.setCharacter(character);
 		characterProfessionPanel.setCharacter(character);
 		characterLevelPanel.setCharacter(character);
-	}
-	
-	public void setParentWindow(BaseFrame window) {
-		parentWindow = window;
-		characterRacePanel.setParentWindow(window);
 	}
 
 	public void sizeChanged() {

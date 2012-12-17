@@ -24,6 +24,7 @@ package com.softwaremagico.librodeesher.gui.characterBasics;
  * #L%
  */
 
+import java.awt.AWTEvent;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -35,6 +36,7 @@ import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
 
 import com.softwaremagico.librodeesher.gui.characterBasics.CharacterRacePanel.ChangeRaceListener;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
@@ -48,6 +50,8 @@ public class CharacterProfessionPanel extends BasePanel {
 	private JLabel trainingLabel;
 	private JComboBox<String> professionComboBox;
 	private CharacterPlayer character;
+	private CharacterLevelPanel levelPanel;
+	private boolean updatingProfession = false;
 
 	protected CharacterProfessionPanel() {
 		setElements();
@@ -122,27 +126,54 @@ public class CharacterProfessionPanel extends BasePanel {
 	}
 
 	private void updateProfessionComboBox(List<String> professions) {
+		updatingProfession = true;
 		if (professionComboBox != null) {
 			professionComboBox.removeAllItems();
 			Collections.sort(professions);
 			for (String profession : professions) {
 				professionComboBox.addItem(profession);
 			}
+			if (character != null) {
+				if (character.getProfessionName() != null) {
+					professionComboBox.setSelectedItem(character.getProfessionName());
+					if (getSelectedProfession() != character.getProfessionName()) {
+						updateProfession();
+					}
+				}
+			}
+		}
+		updatingProfession = false;
+	}
+
+	public void setLevelPanel(CharacterLevelPanel levelPanel) {
+		this.levelPanel = levelPanel;
+	}
+
+	private void updateLevelPanel() {
+		if (levelPanel != null) {
+			levelPanel.update();
+		}
+	}
+
+	private void updateProfession() {
+		if (character != null) {
+			character.setProfession(getSelectedProfession());
+			updateLevelPanel();
 		}
 	}
 
 	public void setCharacter(CharacterPlayer character) {
 		this.character = character;
-		character.setProfession(getSelectedProfession());
 		updateProfessionComboBox(character.getRace().availableProfessions());
+		character.setProfession(getSelectedProfession());
 	}
 
 	class ChangeProfessionListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (character != null) {
-				character.setProfession(getSelectedProfession());
+			if (!updatingProfession) {
+				updateProfession();
 			}
 		}
 	}

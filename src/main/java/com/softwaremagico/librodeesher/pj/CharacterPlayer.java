@@ -34,6 +34,7 @@ import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.culture.Culture;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
+import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.profession.Profession;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 import com.softwaremagico.librodeesher.pj.race.Race;
@@ -61,6 +62,7 @@ public class CharacterPlayer {
 	private transient Profession profession;
 	private List<Training> trainings;
 	private Resistances resistances;
+	private RealmOfMagic realmOfMagic;
 
 	private List<LevelUp> levelUps;
 
@@ -178,11 +180,27 @@ public class CharacterPlayer {
 		return culture;
 	}
 	
+	public String getCultureName(){
+		return cultureName;
+	}
+	
 	public Profession getProfession() {
 		if (profession == null || !professionName.equals(profession.getName())) {
 			profession = ProfessionFactory.getProfession(professionName);
 		}
 		return profession;
+	}
+	
+	public String getProfessionName(){
+		return professionName;
+	}
+
+	public RealmOfMagic getRealmOfMagic() {
+		return realmOfMagic;
+	}
+
+	public void setRealmOfMagic(RealmOfMagic realmOfMagic) {
+		this.realmOfMagic = realmOfMagic;
 	}
 
 }
