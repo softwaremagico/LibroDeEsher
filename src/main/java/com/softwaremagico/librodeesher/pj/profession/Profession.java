@@ -72,6 +72,16 @@ public class Profession {
 		}
 	}
 
+	public boolean isCharacteristicProfessional(Characteristic characteristic) {
+		if (characteristicPreferences.size() > 0 && characteristic.equals(characteristicPreferences.get(0))) {
+			return true;
+		}
+		if (characteristicPreferences.size() > 1 && characteristic.equals(characteristicPreferences.get(1))) {
+			return true;
+		}
+		return false;
+	}
+
 	private void readProfessionFile(String professionName) throws Exception {
 		int lineIndex = 0;
 
@@ -222,7 +232,8 @@ public class Profession {
 																// de un
 																// conjunto
 					String skillGroup = skillColumns[i].replace("{", "").replace("}", "");
-					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1, skillGroup.replace(";", ",").split(", "));
+					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1, skillGroup.replace(";", ",")
+							.split(", "));
 					groupSkillsToChoose.add(chooseSkills);
 				} else {
 					// Una habilidad.

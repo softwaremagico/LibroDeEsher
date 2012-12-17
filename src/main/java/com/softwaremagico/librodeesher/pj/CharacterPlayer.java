@@ -74,11 +74,174 @@ public class CharacterPlayer {
 	public CharacterPlayer() {
 		characteristics = new Characteristics();
 		levelUps = new ArrayList<>();
+		levelUps.add(new LevelUp());
 		characteristicsInitialTemporalValues = new Hashtable<>();
 		characteristicsTemporalUpdatesRolls = new Hashtable<>();
 		characteristicsPotentialValues = new Hashtable<>();
 		setTemporalValuesOfCharacteristics();
 		sex = SexType.MALE;
+	}
+
+	public boolean areCharacteristicsConfirmed() {
+		return characteristicsConfirmed;
+	}
+
+	public Integer getCharacteristicPotentialValues(String abbreviature) {
+		Integer potential = characteristicsPotentialValues.get(abbreviature);
+		if (potential != null) {
+			return potential;
+		}
+		return 0;
+	}
+
+	public Integer getCharacteristicRaceBonus(String abbreviature) {
+		return getRace().getCharacteristicBonus(abbreviature);
+	}
+
+	public List<Characteristic> getCharacteristics() {
+		return characteristics.getCharacteristicsList();
+	}
+
+	public Integer getCharacteristicSpecialBonus(String abbreviature) {
+		return 0;
+	}
+
+	public Integer getCharacteristicTemporalBonus(String abbreviature) {
+		return Characteristics.getTemporalBonus(getCharacteristicTemporalValues(abbreviature));
+	}
+
+	public Integer getCharacteristicTemporalValues(String abbreviature) {
+		Integer value = characteristicsInitialTemporalValues.get(abbreviature);
+		if (value != null) {
+			if (isMainProfessionalCharacteristic(abbreviature)) {
+				if (value > 90) {
+					return value;
+				} else {
+					return 90;
+				}
+			}
+			return value;
+		}
+		return 0;
+	}
+
+	public Integer getCharacteristicTotalBonus(String abbreviature) {
+		return getCharacteristicTemporalBonus(abbreviature) + getCharacteristicRaceBonus(abbreviature)
+				+ getCharacteristicSpecialBonus(abbreviature);
+	}
+
+	public Integer getCharacterLevel() {
+		return levelUps.size();
+	}
+
+	public Culture getCulture() {
+		if (culture == null || !cultureName.equals(culture.getName())) {
+			culture = CultureFactory.getCulture(cultureName);
+		}
+		return culture;
+	}
+
+	public String getCultureName() {
+		return cultureName;
+	}
+
+	public Integer getDevelopmentPoints() {
+		Integer total = 0;
+		total += getCharacteristicTemporalValues("Ag");
+		total += getCharacteristicTemporalValues("Co");
+		total += getCharacteristicTemporalValues("Me");
+		total += getCharacteristicTemporalValues("Ra");
+		total += getCharacteristicTemporalValues("Ad");
+		return total / 5;
+	}
+
+	public String getName() {
+		if (name != null && name.length() > 0) {
+			return name;
+		}
+		return DEFAULT_NAME;
+	}
+
+	public Profession getProfession() {
+		if (profession == null || !professionName.equals(profession.getName())) {
+			profession = ProfessionFactory.getProfession(professionName);
+		}
+		return profession;
+	}
+
+	public String getProfessionName() {
+		return professionName;
+	}
+
+	public Race getRace() {
+		if (race == null || !raceName.equals(race.getName())) {
+			race = RaceFactory.getRace(raceName);
+		}
+		return race;
+	}
+
+	public RealmOfMagic getRealmOfMagic() {
+		return realmOfMagic;
+	}
+
+	public Integer getResistanceBonus(ResistanceType type) {
+		switch (type) {
+		case CANALIZATION:
+			return getCharacteristicTotalBonus("In") * 3;
+		case ESSENCE:
+			return getCharacteristicTotalBonus("Em") * 3;
+		case MENTALISM:
+			return getCharacteristicTotalBonus("In") * 3;
+		case PSIONIC:
+			return 0;
+		case POISON:
+			return getCharacteristicTotalBonus("Co") * 3;
+		case DISEASE:
+			return getCharacteristicTotalBonus("Co") * 3;
+		case COLD:
+			return 0;
+		case HOT:
+			return 0;
+		case FEAR:
+			return getCharacteristicTotalBonus("Ad") * 3;
+		default:
+			return 0;
+		}
+	}
+
+	public SexType getSex() {
+		return sex;
+	}
+
+	public Integer getSpentDevelopmentPoints() {
+		// TODO
+		return 0;
+	}
+
+	public Integer getRemainingDevelopmentPoints() {
+		return getDevelopmentPoints() - getSpentDevelopmentPoints();
+	}
+
+	public Integer getTemporalPointsSpent() {
+		Integer total = 0;
+		for (Characteristic characteristic : characteristics.getCharacteristicsList()) {
+			total += getCharacteristicTemporalValues(characteristic.getAbbreviature());
+		}
+		return total;
+	}
+
+	public boolean isMainProfessionalCharacteristic(Characteristic characteristic) {
+		return getProfession().isCharacteristicProfessional(characteristic);
+	}
+
+	public boolean isMainProfessionalCharacteristic(String abbreviature) {
+		return getProfession().isCharacteristicProfessional(
+				characteristics.getCharacteristicFromAbbreviature(abbreviature));
+	}
+
+	public void setCharacteristicsAsConfirmed() {
+		setPotentialValues();
+		characteristicsConfirmed = true;
 	}
 
 	private void setCharacteristicsTemporalUpdatesRolls() {
@@ -97,25 +260,14 @@ public class CharacterPlayer {
 		characteristicsInitialTemporalValues.put(abbreviature, value);
 	}
 
-	private void setTemporalValuesOfCharacteristics() {
-		for (Characteristic characteristic : characteristics.getCharacteristicsList()) {
-			characteristicsInitialTemporalValues.put(characteristic.getAbbreviature(),
-					Characteristics.INITIAL_CHARACTERISTIC_VALUE);
-		}
-		setCharacteristicsTemporalUpdatesRolls();
+	public void setCulture(String cultureName) {
+		this.cultureName = cultureName;
 	}
 
-	public Integer getCharacteristicTemporalValues(String abbreviature) {
-		Integer value = characteristicsInitialTemporalValues.get(abbreviature);
-		if (value != null) {
-			return value;
+	public void setName(String name) {
+		if (!name.equals(DEFAULT_NAME)) {
+			this.name = name;
 		}
-		return 0;
-	}
-
-	public void setCharacteristicsAsConfirmed() {
-		setPotentialValues();
-		characteristicsConfirmed = true;
 	}
 
 	private void setPotentialValues() {
@@ -126,143 +278,31 @@ public class CharacterPlayer {
 		}
 	}
 
-	public boolean getCharacteristicsAreConfirmed() {
-		return characteristicsConfirmed;
-	}
-
-	public Integer getCharacteristicPotentialValues(String abbreviature) {
-		Integer potential = characteristicsPotentialValues.get(abbreviature);
-		if (potential != null) {
-			return potential;
+	public void setProfession(String professionName) {
+		if (this.professionName == null || !this.professionName.equals(professionName)) {
+			this.professionName = professionName;
+			setTemporalValuesOfCharacteristics();
 		}
-		return 0;
-	}
-
-	public boolean isMainProfessionalCharacteristic(Characteristic characteristic) {
-		// TODO
-		return false;
-	}
-
-	public String getName() {
-		if (name != null && name.length() > 0) {
-			return name;
-		}
-		return DEFAULT_NAME;
-	}
-
-	public void setName(String name) {
-		if (!name.equals(DEFAULT_NAME)) {
-			this.name = name;
-		}
-	}
-
-	public List<Characteristic> getCharacteristics() {
-		return characteristics.getCharacteristicsList();
-	}
-
-	public Integer getSpentDevelopmentPoints() {
-		// TODO
-		return 0;
-	}
-
-	public Integer getDevelopmentPoints() {
-		Integer total = 0;
-		total += getCharacteristicTemporalValues("Ag");
-		total += getCharacteristicTemporalValues("Co");
-		total += getCharacteristicTemporalValues("Me");
-		total += getCharacteristicTemporalValues("Ra");
-		total += getCharacteristicTemporalValues("Ad");
-		return total / 5;
-	}
-
-	public Integer getTemporalPointsSpent() {
-		Integer total = 0;
-		for (Integer value : characteristicsInitialTemporalValues.values()) {
-			total += Characteristic.getTemporalCost(value);
-		}
-		return total;
-	}
-
-	public Integer getCharacteristicTemporalBonus(String abbreviature) {
-		return Characteristics.getTemporalBonus(getCharacteristicTemporalValues(abbreviature));
-	}
-
-	public Integer getCharacteristicRaceBonus(String abbreviature) {
-		return getRace().getCharacteristicBonus(abbreviature);
-	}
-
-	public Integer getCharacteristicSpecialBonus(String abbreviature) {
-		return 0;
-	}
-
-	public Integer getCharacteristicTotalBonus(String abbreviature) {
-		return getCharacteristicTemporalBonus(abbreviature) + getCharacteristicRaceBonus(abbreviature)
-				+ getCharacteristicSpecialBonus(abbreviature);
-	}
-
-	public Integer getCharacterLevel() {
-		return levelUps.size();
-	}
-
-	public Integer getResistanceBonus(ResistanceType type) {
-		return Resistances.getResistanceCharacteristicsBonus(type, characteristics);
-	}
-
-	public void setSex(SexType sex) {
-		this.sex = sex;
-	}
-
-	public SexType getSex() {
-		return sex;
 	}
 
 	public void setRace(String raceName) {
 		this.raceName = raceName;
 	}
 
-	public void setCulture(String cultureName) {
-		this.cultureName = cultureName;
-	}
-
-	public void setProfession(String professionName) {
-		this.professionName = professionName;
-	}
-
-	public Race getRace() {
-		if (race == null || !raceName.equals(race.getName())) {
-			race = RaceFactory.getRace(raceName);
-		}
-		return race;
-	}
-
-	public Culture getCulture() {
-		if (culture == null || !cultureName.equals(culture.getName())) {
-			culture = CultureFactory.getCulture(cultureName);
-		}
-		return culture;
-	}
-
-	public String getCultureName() {
-		return cultureName;
-	}
-
-	public Profession getProfession() {
-		if (profession == null || !professionName.equals(profession.getName())) {
-			profession = ProfessionFactory.getProfession(professionName);
-		}
-		return profession;
-	}
-
-	public String getProfessionName() {
-		return professionName;
-	}
-
-	public RealmOfMagic getRealmOfMagic() {
-		return realmOfMagic;
-	}
-
 	public void setRealmOfMagic(RealmOfMagic realmOfMagic) {
 		this.realmOfMagic = realmOfMagic;
+	}
+
+	public void setSex(SexType sex) {
+		this.sex = sex;
+	}
+
+	private void setTemporalValuesOfCharacteristics() {
+		for (Characteristic characteristic : characteristics.getCharacteristicsList()) {
+			characteristicsInitialTemporalValues.put(characteristic.getAbbreviature(),
+					Characteristics.INITIAL_CHARACTERISTIC_VALUE);
+		}
+		setCharacteristicsTemporalUpdatesRolls();
 	}
 
 }

@@ -123,6 +123,7 @@ public class CharacterProfessionPanel extends BasePanel {
 		if (character != null) {
 			updateProfessionComboBox(character.getRace().availableProfessions());
 		}
+		professionComboBox.setEnabled(!character.areCharacteristicsConfirmed());
 	}
 
 	private void updateProfessionComboBox(List<String> professions) {

@@ -43,7 +43,7 @@ public class AboutWindow extends BaseFrame {
 	private static final long serialVersionUID = -987975681639493971L;
 
 	protected AboutWindow() {
-		defineWindow(500, 400);
+		defineWindow(600, 400);
 		setResizable(false);
 		setElements();
 	}

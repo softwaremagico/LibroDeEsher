@@ -116,5 +116,17 @@ public class CharacterPanel extends BasePanel {
 			characterLevelPanel.sizeChanged();
 		}
 	}
+	
+	public void update(){
+		if (characterLevelPanel != null) {
+			characterLevelPanel.update();
+		}
+		if (characterRacePanel != null) {
+			characterRacePanel.update();
+		}
+		if (characterProfessionPanel != null) {
+			characterProfessionPanel.update();
+		}
+	}
 
 }

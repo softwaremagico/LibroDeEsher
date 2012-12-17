@@ -30,6 +30,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -60,6 +62,7 @@ public class MainWindow extends BaseFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setElements();
 		setEvents();
+		addListeners();
 	}
 
 	public void setCharacter(CharacterPlayer character) {
@@ -89,7 +92,6 @@ public class MainWindow extends BaseFrame {
 		gridBagConstraints.insets = new Insets(1, 1, 1, 1);
 		getContentPane().add(characterPanel, gridBagConstraints);
 
-		
 		characteristicsPanel = new CharacteristicSummaryPanel();
 		characteristicScrollPanel = new JScrollPane(characteristicsPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -192,10 +194,20 @@ public class MainWindow extends BaseFrame {
 			}
 		});
 	}
-
+	
 	@Override
 	public void update() {
-				
+		characterPanel.update();
+		characteristicsPanel.update();
+		resistancePanel.update();
+	}
+
+	private void addListeners() {
+		addWindowListener(new WindowAdapter() {
+			public void windowActivated(WindowEvent e) {
+				update();
+			}
+		});
 	}
 
 }

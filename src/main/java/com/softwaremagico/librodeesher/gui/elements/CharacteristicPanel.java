@@ -79,4 +79,10 @@ public class CharacteristicPanel extends BasePanel {
 			line.setPotential();
 		}
 	}
+	
+	public void update(){
+		for(CharacteristicLine line : lines){
+			line.update();
+		}
+	}
 }

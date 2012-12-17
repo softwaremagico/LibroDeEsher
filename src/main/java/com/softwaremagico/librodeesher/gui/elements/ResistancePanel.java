@@ -55,8 +55,8 @@ public class ResistancePanel extends BasePanel {
 			} else {
 				background = Color.LIGHT_GRAY;
 			}
-			ResistanceLine resistanceLine = new ResistanceLine(ResistanceType.values()[i],
-					character.getResistanceBonus(ResistanceType.values()[i]), background);
+			ResistanceLine resistanceLine = new ResistanceLine(ResistanceType.values()[i], character,
+					background);
 			lines.add(resistanceLine);
 			add(resistanceLine);
 		}
@@ -64,5 +64,11 @@ public class ResistancePanel extends BasePanel {
 
 	public void setCharacter(CharacterPlayer character) {
 		setElements(character);
+	}
+
+	public void update() {
+		for (ResistanceLine line : lines) {
+			line.update();
+		}
 	}
 }

@@ -178,6 +178,11 @@ public class CharacterRacePanel extends BasePanel {
 		}
 	}
 
+	public void update() {
+		raceComboBox.setEnabled(!character.areCharacteristicsConfirmed());
+		cultureComboBox.setEnabled(!character.areCharacteristicsConfirmed());
+	}
+
 	class ChangeRaceListener implements ActionListener {
 
 		@Override

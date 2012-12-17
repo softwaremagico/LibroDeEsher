@@ -31,23 +31,6 @@ import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 public class Resistances {
 	private HashMap<ResistanceType, Integer> resistances;
 
-	public static Integer getResistanceCharacteristicsBonus(ResistanceType type, Characteristics characteristics) {
-		switch (type) {
-		case CANALIZATION:
-			//return characteristics.getCharacteristicFromAbbreviature("In").getTotal() * 3;
-		case ESSENCE:
-			//return characteristics.getCharacteristicFromAbbreviature("Em").getTotal() * 3;
-		case MENTALISM:
-			//return characteristics.getCharacteristicFromAbbreviature("Pr").getTotal() * 3;
-		case PSIONIC:
-		case POISON:
-		case DISEASE:
-		case COLD:
-		case HOT:
-		case FEAR:
-		default:
-			return 0;
-		}
-	}
+	
 
 }

@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.elements;
+
 /*
  * #%L
  * Libro de Esher
@@ -30,28 +31,38 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 
 public class ResistanceLine extends BasicLine {
 	private static final long serialVersionUID = -5493663863154163209L;
 	private JLabel resistanceLabel;
 	private JLabel resistanceTotalLabel;
-	
+	private CharacterPlayer character;
+	private ResistanceType resistance;
 
-	public ResistanceLine(ResistanceType resistance, Integer total,  Color background) {
-		setElements(resistance, total, background);
+	public ResistanceLine(ResistanceType resistance, CharacterPlayer character, Color background) {
+		this.character = character;
+		this.resistance = resistance;
+		setElements(background);
 		setBackground(background);
 	}
-	
-	private void setElements(ResistanceType resistance, Integer total,  Color background) {
+
+	private void setElements(Color background) {
 		this.removeAll();
-		setLayout(new GridLayout(1,2));
-		
+		setLayout(new GridLayout(1, 2));
+
 		resistanceLabel = new JLabel(resistance.getAbbreviature());
 		add(createLabelInsidePanel(resistanceLabel, SwingConstants.LEFT, background, fontColor));
-		
-		resistanceTotalLabel = new JLabel(total.toString());
+
+		resistanceTotalLabel = new JLabel("0");
 		add(createLabelInsidePanel(resistanceTotalLabel, SwingConstants.RIGHT, background, fontColor));
-		
+
+	}
+
+	public void update() {
+		if (resistanceTotalLabel != null && character != null && character.areCharacteristicsConfirmed()) {
+			resistanceTotalLabel.setText(character.getResistanceBonus(resistance).toString());
+		}
 	}
 }

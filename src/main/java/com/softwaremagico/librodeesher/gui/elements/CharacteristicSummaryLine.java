@@ -26,5 +26,12 @@ public class CharacteristicSummaryLine extends CharacteristicLine {
 		totalLabel = new JLabel("0");
 		add(createLabelInsidePanel(totalLabel, SwingConstants.RIGHT, background, fontColor));		
 	}
+	
+	public void update() {
+		if (totalLabel != null && character.areCharacteristicsConfirmed()) {
+			totalLabel.setText(character.getCharacteristicTotalBonus(characteristic.getAbbreviature())
+					.toString());
+		}
+	}
 
 }

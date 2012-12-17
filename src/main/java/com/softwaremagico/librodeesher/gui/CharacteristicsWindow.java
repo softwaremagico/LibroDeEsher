@@ -90,7 +90,7 @@ public class CharacteristicsWindow extends BaseFrame {
 		spentPointsLabel.setText(getSpentPointsText(
 				Characteristics.TOTAL_CHARACTERISTICS_POINTS - character.getTemporalPointsSpent(),
 				Characteristics.TOTAL_CHARACTERISTICS_POINTS));
-		acceptButton.setEnabled(!character.getCharacteristicsAreConfirmed());
+		acceptButton.setEnabled(!character.areCharacteristicsConfirmed());
 		setPotential();
 	}
 
@@ -99,7 +99,7 @@ public class CharacteristicsWindow extends BaseFrame {
 		spentPointsLabel.setText(getSpentPointsText(
 				Characteristics.TOTAL_CHARACTERISTICS_POINTS - character.getTemporalPointsSpent(),
 				Characteristics.TOTAL_CHARACTERISTICS_POINTS));
-		acceptButton.setEnabled(!character.getCharacteristicsAreConfirmed());
+		acceptButton.setEnabled(!character.areCharacteristicsConfirmed());
 	}
 
 	public void setPotential() {
@@ -111,7 +111,7 @@ public class CharacteristicsWindow extends BaseFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			character.setCharacteristicsAsConfirmed();
-			acceptButton.setEnabled(!character.getCharacteristicsAreConfirmed());
+			acceptButton.setEnabled(!character.areCharacteristicsConfirmed());
 			setPotential();
 		}
 	}

@@ -69,4 +69,33 @@ public class Characteristic {
 		return abbreviature;
 	}
 
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((abbreviature == null) ? 0 : abbreviature.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Characteristic other = (Characteristic) obj;
+		if (abbreviature == null) {
+			if (other.abbreviature != null)
+				return false;
+		} else if (!abbreviature.equals(other.abbreviature))
+			return false;
+		return true;
+	}
+
+	
+	
 }

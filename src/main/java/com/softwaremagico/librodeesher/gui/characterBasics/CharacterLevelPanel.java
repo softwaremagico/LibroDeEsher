@@ -171,13 +171,24 @@ public class CharacterLevelPanel extends BasePanel {
 	public void setCharacter(CharacterPlayer character) {
 		this.character = character;
 		levelTextField.setText(character.getCharacterLevel().toString());
-		developmentTextField.setText(character.getSpentDevelopmentPoints().toString());
+		updateDevelopmentPoints();
 		updateMagicComboBox();
 		character.setRealmOfMagic(getSelectedRealmOfMagic());
 	}
 
+	private void updateDevelopmentPoints() {
+		if (character.areCharacteristicsConfirmed()) {
+			developmentTextField.setText(character.getRemainingDevelopmentPoints().toString());
+		} else {
+			developmentTextField.setText("0");
+		}
+	}
+
 	public void update() {
 		updateMagicComboBox();
+		levelTextField.setText(character.getCharacterLevel().toString());
+		updateDevelopmentPoints();
+		magicComboBox.setEnabled(!character.areCharacteristicsConfirmed());
 	}
 
 	public RealmOfMagic getSelectedRealmOfMagic() {

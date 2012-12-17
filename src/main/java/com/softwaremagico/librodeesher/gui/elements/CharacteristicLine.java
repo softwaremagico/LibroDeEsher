@@ -44,7 +44,7 @@ import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 
 public class CharacteristicLine extends BasicLine {
 	private static final long serialVersionUID = 1855952180568184802L;
-	private CharacterPlayer character;
+	protected CharacterPlayer character;
 	protected Characteristic characteristic;
 	protected JLabel characteristicLabel;
 	private JSpinner temporalSpinner;
@@ -74,39 +74,54 @@ public class CharacteristicLine extends BasicLine {
 		// character.getCharacteristicsTemporalValues(characteristic.getAbbreviation()),
 		// (Integer) 1, (Integer) MAX_VALUE, (Integer) 1);
 		temporalSpinner = new JSpinner();
-		temporalSpinner
-				.setValue(character.getCharacteristicTemporalValues(characteristic.getAbbreviature()));
+		temporalSpinner.setValue(character.getCharacteristicTemporalValues(characteristic.getAbbreviature()));
 		addTemporalSpinnerEvent();
-		temporalSpinner.setEnabled(!character.getCharacteristicsAreConfirmed());
+		temporalSpinner.setEnabled(!character.areCharacteristicsConfirmed());
 		add(createSpinnerInsidePanel(temporalSpinner, background));
 
 		potentialText = new JLabel("0");
 		add(createLabelInsidePanel(potentialText, SwingConstants.CENTER, background, fontColor));
 
-		basicBonusText = new JLabel(character.getCharacteristicTemporalBonus(characteristic.getAbbreviature()).toString());
+		basicBonusText = new JLabel(character
+				.getCharacteristicTemporalBonus(characteristic.getAbbreviature()).toString());
 		add(createLabelInsidePanel(basicBonusText, SwingConstants.CENTER, background, fontColor));
 
-		raceBonusText = new JLabel(character.getCharacteristicRaceBonus(characteristic.getAbbreviature()).toString());
+		raceBonusText = new JLabel(character.getCharacteristicRaceBonus(characteristic.getAbbreviature())
+				.toString());
 		add(createLabelInsidePanel(raceBonusText, SwingConstants.CENTER, background, fontColor));
 
-		specialBonusText = new JLabel(character.getCharacteristicSpecialBonus(characteristic.getAbbreviature()).toString());
+		specialBonusText = new JLabel(character.getCharacteristicSpecialBonus(
+				characteristic.getAbbreviature()).toString());
 		add(createLabelInsidePanel(specialBonusText, SwingConstants.CENTER, background, fontColor));
-		
-		totalLabel = new JLabel(character.getCharacteristicTotalBonus(characteristic.getAbbreviature()).toString());
+
+		totalLabel = new JLabel(character.getCharacteristicTotalBonus(characteristic.getAbbreviature())
+				.toString());
 		add(createLabelInsidePanel(totalLabel, SwingConstants.CENTER, background, fontColor));
 
 	}
 
 	public void update() {
-		basicBonusText.setText(character.getCharacteristicTemporalBonus(characteristic.getAbbreviature()).toString());
-		totalLabel.setText(character.getCharacteristicTotalBonus(characteristic.getAbbreviature()).toString());
-		specialBonusText.setText(character.getCharacteristicSpecialBonus(characteristic.getAbbreviature()).toString());
-		temporalSpinner.setEnabled(!character.getCharacteristicsAreConfirmed());
+		if (basicBonusText != null) {
+			basicBonusText.setText(character.getCharacteristicTemporalBonus(characteristic.getAbbreviature())
+					.toString());
+		}
+		if (totalLabel != null) {
+			totalLabel.setText(character.getCharacteristicTotalBonus(characteristic.getAbbreviature())
+					.toString());
+		}
+		if (specialBonusText != null) {
+			specialBonusText.setText(character
+					.getCharacteristicSpecialBonus(characteristic.getAbbreviature()).toString());
+		}
+		if (temporalSpinner != null) {
+			temporalSpinner.setEnabled(!character.areCharacteristicsConfirmed());
+		}
 	}
-	
-	public void setPotential(){
-		potentialText.setText(character.getCharacteristicPotentialValues(characteristic.getAbbreviature()).toString());
-		temporalSpinner.setEnabled(!character.getCharacteristicsAreConfirmed());
+
+	public void setPotential() {
+		potentialText.setText(character.getCharacteristicPotentialValues(characteristic.getAbbreviature())
+				.toString());
+		temporalSpinner.setEnabled(!character.areCharacteristicsConfirmed());
 	}
 
 	private void addTemporalSpinnerEvent() {
@@ -122,7 +137,7 @@ public class CharacteristicLine extends BasicLine {
 				// Store value.
 				character.setCharacteristicTemporalValues(characteristic.getAbbreviature(),
 						(Integer) temporalSpinner.getValue());
-
+				
 				// Range values
 				if ((Integer) temporalSpinner.getValue() < 1) {
 					temporalSpinner.setValue(1);
@@ -135,7 +150,7 @@ public class CharacteristicLine extends BasicLine {
 				} else if (character.getTemporalPointsSpent() > Characteristics.TOTAL_CHARACTERISTICS_POINTS) {
 					temporalSpinner.setValue((Integer) temporalSpinner.getValue() - 1);
 				}
-				
+
 				update();
 
 				if (parentWindow != null) {
