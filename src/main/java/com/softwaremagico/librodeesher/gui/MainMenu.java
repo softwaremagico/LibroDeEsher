@@ -53,6 +53,7 @@ public class MainMenu {
 		mainMenu.add(createCharacterMenu());
 		mainMenu.add(insertCharacterMenu());
 		mainMenu.add(createRandomMenu());
+		mainMenu.add(createCharacterListMenu());
 		mainMenu.add(createConfigMenu());
 		mainMenu.add(createHelpMenu());
 
@@ -194,6 +195,16 @@ public class MainMenu {
 
 		return configMenu;
 	}
+	
+	private JMenu createCharacterListMenu(){
+		JMenu characterListMenu = new JMenu("Personajes");
+		characterListMenu.setMnemonic(KeyEvent.VK_SHIFT + KeyEvent.VK_P);
+		characterListMenu.setIcon((Icon) getIcon("character_list.png"));
+		characterListMenu.getAccessibleContext().setAccessibleDescription("Personajes abiertos.");
+		characterListMenu.add(characterListMenu);
+		
+		return characterListMenu;
+	}
 
 	private JMenu createHelpMenu() {
 		JMenu helpMenu = new JMenu("Ayuda");
@@ -225,6 +236,10 @@ public class MainMenu {
 
 	public void addRandomNameListener(ActionListener al) {
 		randomName.addActionListener(al);
+	}
+	
+	public void addNewCharacterListener(ActionListener al) {
+		newMenuItem.addActionListener(al);
 	}
 
 	class CloseListener implements ActionListener {

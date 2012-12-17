@@ -50,9 +50,20 @@ public class Controller {
 	}
 
 	private void addMainMenuActionListeners() {
+		mainGui.getMainMenu().addNewCharacterListener(new NewCharacterListener());
 		mainGui.getMainMenu().addAboutMenuItemListener(new AboutBoxListener());
 		mainGui.getMainMenu().addCharacteristicsWindowMenuItemListener(new CharacteristicWindowsListener());
 		mainGui.getMainMenu().addRandomNameListener(new RandomNameListener());
+	}
+	
+	class NewCharacterListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			selectedCharacter = new CharacterPlayer();
+			characters.add(selectedCharacter);
+			mainGui.setCharacter(selectedCharacter);
+			mainGui.update();
+		}
 	}
 
 	class RandomNameListener implements ActionListener {
