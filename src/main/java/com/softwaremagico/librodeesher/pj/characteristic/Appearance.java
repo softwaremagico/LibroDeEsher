@@ -31,7 +31,7 @@ public class Appearance {
     private int dicesResult;
     
     public Appearance(){
-         dicesResult = Dice.roll(5, 10);
+         dicesResult = Dice.getRoll(5, 10);
     }
     
     public int getTotal(int presencePotentialValue){

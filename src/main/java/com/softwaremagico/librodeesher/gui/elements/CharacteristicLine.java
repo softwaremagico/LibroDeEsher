@@ -51,6 +51,7 @@ public class CharacteristicLine extends BasicLine {
 	private JLabel potentialText;
 	private JLabel basicBonusText;
 	private JLabel raceBonusText;
+	private JLabel specialBonusText;
 	protected JLabel totalLabel;
 	private BaseFrame parentWindow;
 
@@ -63,9 +64,9 @@ public class CharacteristicLine extends BasicLine {
 
 	protected void setElements(Color background) {
 		this.removeAll();
-		setLayout(new GridLayout(1, 6));
+		setLayout(new GridLayout(1, 7));
 
-		characteristicLabel = new JLabel(characteristic.getAbbreviation());
+		characteristicLabel = new JLabel(characteristic.getAbbreviature());
 		add(createLabelInsidePanel(characteristicLabel, SwingConstants.LEFT, background, fontColor));
 
 		// SpinnerModel sm = new SpinnerNumberModel(
@@ -74,22 +75,38 @@ public class CharacteristicLine extends BasicLine {
 		// (Integer) 1, (Integer) MAX_VALUE, (Integer) 1);
 		temporalSpinner = new JSpinner();
 		temporalSpinner
-				.setValue(character.getCharacteristicsTemporalValues(characteristic.getAbbreviation()));
+				.setValue(character.getCharacteristicTemporalValues(characteristic.getAbbreviature()));
 		addTemporalSpinnerEvent();
+		temporalSpinner.setEnabled(!character.getCharacteristicsAreConfirmed());
 		add(createSpinnerInsidePanel(temporalSpinner, background));
 
 		potentialText = new JLabel("0");
 		add(createLabelInsidePanel(potentialText, SwingConstants.CENTER, background, fontColor));
 
-		basicBonusText = new JLabel("0");
+		basicBonusText = new JLabel(character.getCharacteristicTemporalBonus(characteristic.getAbbreviature()).toString());
 		add(createLabelInsidePanel(basicBonusText, SwingConstants.CENTER, background, fontColor));
 
-		raceBonusText = new JLabel("0");
+		raceBonusText = new JLabel(character.getCharacteristicRaceBonus(characteristic.getAbbreviature()).toString());
 		add(createLabelInsidePanel(raceBonusText, SwingConstants.CENTER, background, fontColor));
 
-		totalLabel = new JLabel("0");
+		specialBonusText = new JLabel(character.getCharacteristicSpecialBonus(characteristic.getAbbreviature()).toString());
+		add(createLabelInsidePanel(specialBonusText, SwingConstants.CENTER, background, fontColor));
+		
+		totalLabel = new JLabel(character.getCharacteristicTotalBonus(characteristic.getAbbreviature()).toString());
 		add(createLabelInsidePanel(totalLabel, SwingConstants.CENTER, background, fontColor));
 
+	}
+
+	public void update() {
+		basicBonusText.setText(character.getCharacteristicTemporalBonus(characteristic.getAbbreviature()).toString());
+		totalLabel.setText(character.getCharacteristicTotalBonus(characteristic.getAbbreviature()).toString());
+		specialBonusText.setText(character.getCharacteristicSpecialBonus(characteristic.getAbbreviature()).toString());
+		temporalSpinner.setEnabled(!character.getCharacteristicsAreConfirmed());
+	}
+	
+	public void setPotential(){
+		potentialText.setText(character.getCharacteristicPotentialValues(characteristic.getAbbreviature()).toString());
+		temporalSpinner.setEnabled(!character.getCharacteristicsAreConfirmed());
 	}
 
 	private void addTemporalSpinnerEvent() {
@@ -103,7 +120,7 @@ public class CharacteristicLine extends BasicLine {
 			public void stateChanged(ChangeEvent e) {
 
 				// Store value.
-				character.setCharacteristicsTemporalValues(characteristic.getAbbreviation(),
+				character.setCharacteristicTemporalValues(characteristic.getAbbreviature(),
 						(Integer) temporalSpinner.getValue());
 
 				// Range values
@@ -118,6 +135,8 @@ public class CharacteristicLine extends BasicLine {
 				} else if (character.getTemporalPointsSpent() > Characteristics.TOTAL_CHARACTERISTICS_POINTS) {
 					temporalSpinner.setValue((Integer) temporalSpinner.getValue() - 1);
 				}
+				
+				update();
 
 				if (parentWindow != null) {
 					parentWindow.update();

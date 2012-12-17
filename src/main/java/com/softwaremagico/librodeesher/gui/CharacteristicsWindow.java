@@ -4,6 +4,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,6 +22,7 @@ public class CharacteristicsWindow extends BaseFrame {
 	private CompleteCharacteristicPanel characteristicPanel;
 	private JLabel spentPointsLabel;
 	private CharacterPlayer character;
+	private BasicButton acceptButton;
 
 	protected CharacteristicsWindow() {
 		defineWindow(500, 400);
@@ -56,14 +59,15 @@ public class CharacteristicsWindow extends BaseFrame {
 		gridBagConstraints.weightx = 0.8;
 		gridBagConstraints.weighty = 0;
 		getContentPane().add(pointsPanel, gridBagConstraints);
-		
+
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
-		BasicButton acceptButton = new BasicButton("Aceptar");
+		acceptButton = new BasicButton("Aceptar");
+		acceptButton.addActionListener(new AcceptListener());
 		buttonPanel.add(acceptButton);
+
 		CloseButton closeButton = new CloseButton(this);
 		buttonPanel.add(closeButton);
-		
-		
+
 		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 2;
@@ -80,11 +84,14 @@ public class CharacteristicsWindow extends BaseFrame {
 	}
 
 	public void setCharacter(CharacterPlayer character) {
+		this.character = character;
 		characteristicPanel.setCharacter(character, false);
 		characteristicPanel.setParentWindow(this);
-		spentPointsLabel.setText(getSpentPointsText(Characteristics.TOTAL_CHARACTERISTICS_POINTS - character.getTemporalPointsSpent(),
+		spentPointsLabel.setText(getSpentPointsText(
+				Characteristics.TOTAL_CHARACTERISTICS_POINTS - character.getTemporalPointsSpent(),
 				Characteristics.TOTAL_CHARACTERISTICS_POINTS));
-		this.character = character;
+		acceptButton.setEnabled(!character.getCharacteristicsAreConfirmed());
+		setPotential();
 	}
 
 	@Override
@@ -92,5 +99,20 @@ public class CharacteristicsWindow extends BaseFrame {
 		spentPointsLabel.setText(getSpentPointsText(
 				Characteristics.TOTAL_CHARACTERISTICS_POINTS - character.getTemporalPointsSpent(),
 				Characteristics.TOTAL_CHARACTERISTICS_POINTS));
+		acceptButton.setEnabled(!character.getCharacteristicsAreConfirmed());
+	}
+
+	public void setPotential() {
+		characteristicPanel.setPotential();
+	}
+
+	class AcceptListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			character.setCharacteristicsAsConfirmed();
+			acceptButton.setEnabled(!character.getCharacteristicsAreConfirmed());
+			setPotential();
+		}
 	}
 }

@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.core;
+
 /*
  * #%L
  * Libro de Esher
@@ -30,24 +31,26 @@ public class Dice {
 
 	/**
 	 * Roll some dices of X faces.
+	 * 
 	 * @param dices
 	 * @param faces
 	 * @return
 	 */
-	public static int roll(int dices, int faces) {
-		int total = 0;
+	public static Integer getRoll(Integer dices, Integer faces) {
+		Integer total = 0;
 		for (int i = 0; i < dices; i++) {
-			total += roll(faces);
+			total += getRoll(faces);
 		}
 		return total;
 	}
 
 	/**
 	 * Roll one dice of X faces.
+	 * 
 	 * @param faces
 	 * @return
 	 */
-	public static int roll(int faces) {
+	public static Integer getRoll(Integer faces) {
 		return generator.nextInt(faces) + 1;
 	}
 }

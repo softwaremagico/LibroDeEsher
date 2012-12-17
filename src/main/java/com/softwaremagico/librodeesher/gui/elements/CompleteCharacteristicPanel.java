@@ -55,6 +55,10 @@ public class CompleteCharacteristicPanel extends BasePanel {
 		add(characteristicScrollPanel, gridBagConstraints);
 	}
 	
+	public void setPotential(){
+		characteristicPanel.setPotential();
+	}
+	
 	public void setCharacter(CharacterPlayer character, boolean summaryMode) {
 		characteristicPanel.setCharacter(character, summaryMode);
 		title.setSummaryMode(summaryMode);

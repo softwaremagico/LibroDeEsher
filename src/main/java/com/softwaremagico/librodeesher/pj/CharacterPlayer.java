@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import com.softwaremagico.librodeesher.core.TwoDices;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
@@ -46,13 +47,17 @@ import com.softwaremagico.librodeesher.pj.training.Training;
 public class CharacterPlayer {
 
 	private final String DEFAULT_NAME = " ** Nuevo Personaje ** ";
+	private final Integer STORED_ROLLS = 10;
 	private String name;
 	private String surname;
 	private SexType sex;
 	private String history;
 
 	private Characteristics characteristics;
-	private Hashtable<String, Integer> characteristicsTemporalValues;
+	private Hashtable<String, Integer> characteristicsInitialTemporalValues;
+	private Hashtable<String, Integer> characteristicsPotentialValues;
+	private Hashtable<String, List<TwoDices>> characteristicsTemporalUpdatesRolls;
+	private boolean characteristicsConfirmed = false;
 	private List<Category> categories;
 	private String raceName;
 	private transient Race race;
@@ -69,26 +74,66 @@ public class CharacterPlayer {
 	public CharacterPlayer() {
 		characteristics = new Characteristics();
 		levelUps = new ArrayList<>();
-		characteristicsTemporalValues = new Hashtable<>();
-		initializeTemporalValuesOfCharacteristics();
+		characteristicsInitialTemporalValues = new Hashtable<>();
+		characteristicsTemporalUpdatesRolls = new Hashtable<>();
+		characteristicsPotentialValues = new Hashtable<>();
+		setTemporalValuesOfCharacteristics();
 		sex = SexType.MALE;
 	}
 
-	public void setCharacteristicsTemporalValues(String abbreviature, Integer value) {
-		characteristicsTemporalValues.put(abbreviature, value);
-	}
-
-	private void initializeTemporalValuesOfCharacteristics() {
+	private void setCharacteristicsTemporalUpdatesRolls() {
 		for (Characteristic characteristic : characteristics.getCharacteristicsList()) {
-			characteristicsTemporalValues.put(characteristic.getAbbreviation(),
-					Characteristics.INITIAL_CHARACTERISTIC_VALUE);
+			if (characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()) == null) {
+				characteristicsTemporalUpdatesRolls.put(characteristic.getAbbreviature(),
+						new ArrayList<TwoDices>());
+			}
+			while (characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()).size() < STORED_ROLLS) {
+				characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()).add(new TwoDices());
+			}
 		}
 	}
 
-	public Integer getCharacteristicsTemporalValues(String abbreviature) {
-		Integer value = characteristicsTemporalValues.get(abbreviature);
+	public void setCharacteristicTemporalValues(String abbreviature, Integer value) {
+		characteristicsInitialTemporalValues.put(abbreviature, value);
+	}
+
+	private void setTemporalValuesOfCharacteristics() {
+		for (Characteristic characteristic : characteristics.getCharacteristicsList()) {
+			characteristicsInitialTemporalValues.put(characteristic.getAbbreviature(),
+					Characteristics.INITIAL_CHARACTERISTIC_VALUE);
+		}
+		setCharacteristicsTemporalUpdatesRolls();
+	}
+
+	public Integer getCharacteristicTemporalValues(String abbreviature) {
+		Integer value = characteristicsInitialTemporalValues.get(abbreviature);
 		if (value != null) {
 			return value;
+		}
+		return 0;
+	}
+
+	public void setCharacteristicsAsConfirmed() {
+		setPotentialValues();
+		characteristicsConfirmed = true;
+	}
+
+	private void setPotentialValues() {
+		for (Characteristic characteristic : characteristics.getCharacteristicsList()) {
+			Integer potential = Characteristics.getPotencial(characteristicsInitialTemporalValues
+					.get(characteristic.getAbbreviature()));
+			characteristicsPotentialValues.put(characteristic.getAbbreviature(), potential);
+		}
+	}
+
+	public boolean getCharacteristicsAreConfirmed() {
+		return characteristicsConfirmed;
+	}
+
+	public Integer getCharacteristicPotentialValues(String abbreviature) {
+		Integer potential = characteristicsPotentialValues.get(abbreviature);
+		if (potential != null) {
+			return potential;
 		}
 		return 0;
 	}
@@ -122,20 +167,37 @@ public class CharacterPlayer {
 
 	public Integer getDevelopmentPoints() {
 		Integer total = 0;
-		total += getCharacteristicsTemporalValues("Ag");
-		total += getCharacteristicsTemporalValues("Co");
-		total += getCharacteristicsTemporalValues("Me");
-		total += getCharacteristicsTemporalValues("Ra");
-		total += getCharacteristicsTemporalValues("Ad");
+		total += getCharacteristicTemporalValues("Ag");
+		total += getCharacteristicTemporalValues("Co");
+		total += getCharacteristicTemporalValues("Me");
+		total += getCharacteristicTemporalValues("Ra");
+		total += getCharacteristicTemporalValues("Ad");
 		return total / 5;
 	}
 
 	public Integer getTemporalPointsSpent() {
 		Integer total = 0;
-		for (Integer value : characteristicsTemporalValues.values()) {
+		for (Integer value : characteristicsInitialTemporalValues.values()) {
 			total += Characteristic.getTemporalCost(value);
 		}
 		return total;
+	}
+
+	public Integer getCharacteristicTemporalBonus(String abbreviature) {
+		return Characteristics.getTemporalBonus(getCharacteristicTemporalValues(abbreviature));
+	}
+
+	public Integer getCharacteristicRaceBonus(String abbreviature) {
+		return getRace().getCharacteristicBonus(abbreviature);
+	}
+
+	public Integer getCharacteristicSpecialBonus(String abbreviature) {
+		return 0;
+	}
+
+	public Integer getCharacteristicTotalBonus(String abbreviature) {
+		return getCharacteristicTemporalBonus(abbreviature) + getCharacteristicRaceBonus(abbreviature)
+				+ getCharacteristicSpecialBonus(abbreviature);
 	}
 
 	public Integer getCharacterLevel() {
@@ -157,11 +219,11 @@ public class CharacterPlayer {
 	public void setRace(String raceName) {
 		this.raceName = raceName;
 	}
-	
+
 	public void setCulture(String cultureName) {
 		this.cultureName = cultureName;
 	}
-	
+
 	public void setProfession(String professionName) {
 		this.professionName = professionName;
 	}
@@ -172,26 +234,26 @@ public class CharacterPlayer {
 		}
 		return race;
 	}
-	
+
 	public Culture getCulture() {
 		if (culture == null || !cultureName.equals(culture.getName())) {
 			culture = CultureFactory.getCulture(cultureName);
 		}
 		return culture;
 	}
-	
-	public String getCultureName(){
+
+	public String getCultureName() {
 		return cultureName;
 	}
-	
+
 	public Profession getProfession() {
 		if (profession == null || !professionName.equals(profession.getName())) {
 			profession = ProfessionFactory.getProfession(professionName);
 		}
 		return profession;
 	}
-	
-	public String getProfessionName(){
+
+	public String getProfessionName() {
 		return professionName;
 	}
 

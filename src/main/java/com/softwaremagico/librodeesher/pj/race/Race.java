@@ -74,8 +74,8 @@ public class Race {
 			e.printStackTrace();
 		}
 	}
-	
-	public String getName(){
+
+	public String getName() {
 		return name;
 	}
 
@@ -428,5 +428,9 @@ public class Race {
 		surname = familyNames.get(index);
 
 		return name + " " + surname;
+	}
+
+	public Integer getCharacteristicBonus(String abbreviature) {
+		return characteristicBonus.get(abbreviature);
 	}
 }

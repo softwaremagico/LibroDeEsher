@@ -45,6 +45,7 @@ public class CharacterBasicsPanel extends BasePanel {
 	private JRadioButton femaleRadioButton;
 	private JTextField nameTextField;
 	private CharacterPlayer character;
+	private JLabel nameLabel;
 
 	public CharacterBasicsPanel() {
 		setElements();
@@ -56,7 +57,7 @@ public class CharacterBasicsPanel extends BasePanel {
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
-		JLabel nameLabel = new JLabel("Nombre:");
+		nameLabel = new JLabel("Nombre:");
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 0;
@@ -114,12 +115,15 @@ public class CharacterBasicsPanel extends BasePanel {
 
 	public void sizeChanged() {
 		if (this.getWidth() < 230) {
+			nameLabel.setText("Nmb.:");
 			maleRadioButton.setText("M");
 			femaleRadioButton.setText("F");
 		} else if (this.getWidth() < 280) {
+			nameLabel.setText("Nomb.:");
 			maleRadioButton.setText("Masc.");
 			femaleRadioButton.setText("Feme.");
 		} else {
+			nameLabel.setText("Nombre:");
 			maleRadioButton.setText("Masculino");
 			femaleRadioButton.setText("Femenino");
 		}

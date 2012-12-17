@@ -73,4 +73,10 @@ public class CharacteristicPanel extends BasePanel {
 			line.setParentWindow(window);
 		}
 	}
+	
+	public void setPotential(){
+		for(CharacteristicLine line : lines){
+			line.setPotential();
+		}
+	}
 }

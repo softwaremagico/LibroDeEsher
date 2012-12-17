@@ -38,6 +38,7 @@ public class CharacteristicTitleLine extends BasicTitleLine {
 	private JLabel potentialTextField;
 	private JLabel basicBonusTextField;
 	private JLabel raceBonusTextField;
+	private JLabel specialBonusTextField;
 	private JLabel totalLabel;
 
 	public CharacteristicTitleLine() {
@@ -62,6 +63,9 @@ public class CharacteristicTitleLine extends BasicTitleLine {
 
 		raceBonusTextField = new JLabel("Raza");
 		add(createLabelInsidePanel(raceBonusTextField, SwingConstants.CENTER, background, fontColor));
+		
+		specialBonusTextField = new JLabel("Especial");
+		add(createLabelInsidePanel(specialBonusTextField, SwingConstants.CENTER, background, fontColor));
 
 		totalLabel = new JLabel("Total");
 		add(createLabelInsidePanel(totalLabel, SwingConstants.CENTER, background, fontColor));

@@ -20,7 +20,7 @@ public class CharacteristicSummaryLine extends CharacteristicLine {
 		this.removeAll();
 		setLayout(new GridLayout(1,2));
 
-		characteristicLabel = new JLabel(characteristic.getAbbreviation());
+		characteristicLabel = new JLabel(characteristic.getAbbreviature());
 		add(createLabelInsidePanel(characteristicLabel, SwingConstants.LEFT, background, fontColor));
 
 		totalLabel = new JLabel("0");

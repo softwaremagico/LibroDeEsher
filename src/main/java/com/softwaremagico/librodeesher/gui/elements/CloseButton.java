@@ -39,10 +39,10 @@ public class CloseButton extends BasicButton {
 		setDefaultStyle();
 		this.setText("Cerrar");
 		this.window =  window;
-		addActionListener(new AboutBoxListener());
+		addActionListener(new CloseListener());
 	}
 	
-	class AboutBoxListener implements ActionListener {
+	class CloseListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
