@@ -41,7 +41,8 @@ public class MainMenu {
 			exitMenuItem;
 	private JMenuItem aboutMenuItem, cultureMenuItem, charactMenuItem, trainingMenuItem, skillsMenuItem,
 			perksMenuItem, historyMenuItem;
-	private JMenuItem randomName;
+	private JMenuItem insertCharacter;
+	private JMenuItem randomName, randomCharacter;
 	private JFrame parentWindow;
 
 	public JMenuBar createMenu(JFrame parentWindow) {
@@ -50,7 +51,9 @@ public class MainMenu {
 
 		mainMenu.add(createFileMenu());
 		mainMenu.add(createCharacterMenu());
+		mainMenu.add(insertCharacterMenu());
 		mainMenu.add(createRandomMenu());
+		mainMenu.add(createConfigMenu());
 		mainMenu.add(createHelpMenu());
 
 		addExitMenuItemListener();
@@ -80,7 +83,7 @@ public class MainMenu {
 				"Guardar un personaje creado anteriormente.");
 		fileMenu.add(saveMenuItem);
 
-		JMenu exportMenu = new JMenu("Exportar");
+		JMenu exportMenu = new JMenu("Exportar a...");
 		exportMenu.setMnemonic(KeyEvent.VK_SHIFT + KeyEvent.VK_E);
 		exportMenu.setIcon((Icon) getIcon("export.png"));
 		exportMenu.getAccessibleContext().setAccessibleDescription("Exportar a otros formatos.");
@@ -107,7 +110,7 @@ public class MainMenu {
 	}
 
 	private JMenu createCharacterMenu() {
-		JMenu createMenu = new JMenu("Generar personaje");
+		JMenu createMenu = new JMenu("Generar");
 		createMenu.setIcon((Icon) getIcon("character.png"));
 		createMenu.setMnemonic(KeyEvent.VK_SHIFT + KeyEvent.VK_G);
 		createMenu.getAccessibleContext().setAccessibleDescription("Crear paso a paso un personaje.");
@@ -144,6 +147,20 @@ public class MainMenu {
 
 		return createMenu;
 	}
+	
+	private JMenu insertCharacterMenu() {
+		JMenu createMenu = new JMenu("Insertar");
+		createMenu.setIcon((Icon) getIcon("insert_character.png"));
+		createMenu.setMnemonic(KeyEvent.VK_SHIFT + KeyEvent.VK_I);
+		createMenu.getAccessibleContext().setAccessibleDescription("Insertar un personaje.");
+		
+		insertCharacter = new JMenuItem("Insertar personaje", KeyEvent.VK_SHIFT + KeyEvent.VK_P);
+		insertCharacter.setIcon((Icon) getIcon("insert_character.png"));
+		insertCharacter.getAccessibleContext().setAccessibleDescription("Insertar un personaje.");
+		createMenu.add(insertCharacter);
+		
+		return createMenu;
+	}
 
 	private JMenu createRandomMenu() {
 		JMenu randomMenu = new JMenu("Aleatorio");
@@ -155,8 +172,27 @@ public class MainMenu {
 		randomName.setIcon((Icon) getIcon("rename.png"));
 		randomName.getAccessibleContext().setAccessibleDescription("Genera un nombre para el personaje.");
 		randomMenu.add(randomName);
+		
+		randomCharacter = new JMenuItem("Pesonaje Aleatorio", KeyEvent.VK_SHIFT + KeyEvent.VK_P);
+		randomCharacter.setIcon((Icon) getIcon("random_character.png"));
+		randomCharacter.getAccessibleContext().setAccessibleDescription("Genera un personaje de forma completamente aleatoria.");
+		randomMenu.add(randomCharacter);
 
 		return randomMenu;
+	}
+	
+	private JMenu createConfigMenu() {
+		JMenu configMenu = new JMenu("Configuración");
+		configMenu.setMnemonic(KeyEvent.VK_SHIFT + KeyEvent.VK_C);
+		configMenu.setIcon((Icon) getIcon("config.png"));
+		configMenu.getAccessibleContext().setAccessibleDescription("Opciones de configuración.");
+
+		aboutMenuItem = new JMenuItem("Opciones", KeyEvent.VK_SHIFT + KeyEvent.VK_O);
+		aboutMenuItem.setIcon((Icon) getIcon("options.png"));
+		aboutMenuItem.getAccessibleContext().setAccessibleDescription("Opciones de configuración.");
+		configMenu.add(aboutMenuItem);
+
+		return configMenu;
 	}
 
 	private JMenu createHelpMenu() {
@@ -172,6 +208,8 @@ public class MainMenu {
 
 		return helpMenu;
 	}
+	
+	
 
 	public void addAboutMenuItemListener(ActionListener al) {
 		aboutMenuItem.addActionListener(al);

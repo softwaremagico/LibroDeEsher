@@ -33,7 +33,7 @@ import javax.swing.JFrame;
 import javax.swing.border.Border;
 
 public abstract class BaseFrame extends JFrame {
-	private static final String FRAME_TITLE = "Libro de Esher";
+	private static final String FRAME_TITLE = "El Libro de Esher";
 	private static final long serialVersionUID = 3812264811213028556L;
 	protected static final int margin = 5;
 	protected Integer textDefaultWidth = 80;
