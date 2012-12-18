@@ -28,6 +28,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -35,6 +36,8 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class MainMenu {
 	private JMenuItem newMenuItem, loadMenuItem, saveMenuItem, exportToTextMenuItem, exportToPDFMenuItem,
@@ -44,6 +47,7 @@ public class MainMenu {
 	private JMenuItem insertCharacter;
 	private JMenuItem randomName, randomCharacter;
 	private JFrame parentWindow;
+	private JMenu characterListMenu;
 
 	public JMenuBar createMenu(JFrame parentWindow) {
 		this.parentWindow = parentWindow;
@@ -148,18 +152,18 @@ public class MainMenu {
 
 		return createMenu;
 	}
-	
+
 	private JMenu insertCharacterMenu() {
 		JMenu createMenu = new JMenu("Insertar");
 		createMenu.setIcon((Icon) getIcon("insert_character.png"));
 		createMenu.setMnemonic(KeyEvent.VK_SHIFT + KeyEvent.VK_I);
 		createMenu.getAccessibleContext().setAccessibleDescription("Insertar un personaje.");
-		
+
 		insertCharacter = new JMenuItem("Insertar personaje", KeyEvent.VK_SHIFT + KeyEvent.VK_P);
 		insertCharacter.setIcon((Icon) getIcon("insert_character.png"));
 		insertCharacter.getAccessibleContext().setAccessibleDescription("Insertar un personaje.");
 		createMenu.add(insertCharacter);
-		
+
 		return createMenu;
 	}
 
@@ -173,15 +177,16 @@ public class MainMenu {
 		randomName.setIcon((Icon) getIcon("rename.png"));
 		randomName.getAccessibleContext().setAccessibleDescription("Genera un nombre para el personaje.");
 		randomMenu.add(randomName);
-		
+
 		randomCharacter = new JMenuItem("Pesonaje Aleatorio", KeyEvent.VK_SHIFT + KeyEvent.VK_P);
 		randomCharacter.setIcon((Icon) getIcon("random_character.png"));
-		randomCharacter.getAccessibleContext().setAccessibleDescription("Genera un personaje de forma completamente aleatoria.");
+		randomCharacter.getAccessibleContext().setAccessibleDescription(
+				"Genera un personaje de forma completamente aleatoria.");
 		randomMenu.add(randomCharacter);
 
 		return randomMenu;
 	}
-	
+
 	private JMenu createConfigMenu() {
 		JMenu configMenu = new JMenu("Configuración");
 		configMenu.setMnemonic(KeyEvent.VK_SHIFT + KeyEvent.VK_C);
@@ -195,14 +200,18 @@ public class MainMenu {
 
 		return configMenu;
 	}
-	
-	private JMenu createCharacterListMenu(){
-		JMenu characterListMenu = new JMenu("Personajes");
+
+	private JMenu createCharacterListMenu() {
+		characterListMenu = new JMenu("Personajes");
 		characterListMenu.setMnemonic(KeyEvent.VK_SHIFT + KeyEvent.VK_P);
 		characterListMenu.setIcon((Icon) getIcon("character_list.png"));
 		characterListMenu.getAccessibleContext().setAccessibleDescription("Personajes abiertos.");
 		characterListMenu.add(characterListMenu);
-		
+
+		return characterListMenu;
+	}
+
+	public JMenu getCharacterListMenu(){
 		return characterListMenu;
 	}
 
@@ -219,8 +228,6 @@ public class MainMenu {
 
 		return helpMenu;
 	}
-	
-	
 
 	public void addAboutMenuItemListener(ActionListener al) {
 		aboutMenuItem.addActionListener(al);
@@ -237,7 +244,11 @@ public class MainMenu {
 	public void addRandomNameListener(ActionListener al) {
 		randomName.addActionListener(al);
 	}
-	
+
+	public void addCultureListener(ActionListener al) {
+		cultureMenuItem.addActionListener(al);
+	}
+
 	public void addNewCharacterListener(ActionListener al) {
 		newMenuItem.addActionListener(al);
 	}

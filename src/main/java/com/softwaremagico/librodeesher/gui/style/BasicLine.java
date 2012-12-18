@@ -26,22 +26,19 @@ package com.softwaremagico.librodeesher.gui.style;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 
-import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.SwingConstants;
 
 public abstract class BasicLine extends BasePanel {
 	private static final long serialVersionUID = 7901507705885692683L;
 	protected Color background = Color.WHITE;
 	protected Color foregorund = Color.BLACK;
 	protected Color fontColor = Color.DARK_GRAY;
-	protected Integer defaultHeight = 25;
-	protected Integer defaultWidth = 500;
 	protected Integer labelDefaultWidth = 40;
-	protected Integer nameTextDefaultWidth = 140;
+	protected Integer nameTextDefaultWidth = 80;
 	protected String font = "Dialog";
 	protected int fontSize = 12;
 

@@ -24,6 +24,7 @@ package com.softwaremagico.librodeesher.pj.categories;
  * #L%
  */
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -57,6 +58,18 @@ public class CategoryFactory {
 
 	public static Category getAvailableCategory(String categoryName) {
 		return categoriesAvailable.get(categoryName);
+	}
+
+	public static List<Category> getWeaponsCategories() {
+		List<Category> weaponsCategories = new ArrayList<>();
+
+		for (Category category : categoriesAvailable.values()) {
+			if (category.getName().startsWith("Armas·")) {
+				weaponsCategories.add(category);
+			}
+		}
+
+		return weaponsCategories;
 	}
 
 	public static boolean existCategory(String categoryName) {

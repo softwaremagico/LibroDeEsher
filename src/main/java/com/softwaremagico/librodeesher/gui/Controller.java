@@ -29,12 +29,17 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+
+import com.softwaremagico.librodeesher.gui.culture.CultureWindow;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class Controller {
 	MainWindow mainGui;
 	AboutWindow aboutWindow;
 	CharacteristicsWindow characteristicWindow;
+	CultureWindow cultureWindow;
 	List<CharacterPlayer> characters;
 	CharacterPlayer selectedCharacter;
 
@@ -46,7 +51,7 @@ public class Controller {
 		mainGui.setCharacter(selectedCharacter);
 		mainGui.setVisible(true);
 		addMainMenuActionListeners();
-
+		updateCharacterListToMenu();
 	}
 
 	private void addMainMenuActionListeners() {
@@ -54,6 +59,7 @@ public class Controller {
 		mainGui.getMainMenu().addAboutMenuItemListener(new AboutBoxListener());
 		mainGui.getMainMenu().addCharacteristicsWindowMenuItemListener(new CharacteristicWindowsListener());
 		mainGui.getMainMenu().addRandomNameListener(new RandomNameListener());
+		mainGui.getMainMenu().addCultureListener(new CultureWindowsListener());
 	}
 	
 	class NewCharacterListener implements ActionListener {
@@ -63,6 +69,7 @@ public class Controller {
 			characters.add(selectedCharacter);
 			mainGui.setCharacter(selectedCharacter);
 			mainGui.update();
+			updateCharacterListToMenu();
 		}
 	}
 
@@ -87,6 +94,19 @@ public class Controller {
 			characteristicWindow.setVisible(true);
 		}
 	}
+	
+	class CultureWindowsListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				cultureWindow.dispose();
+			} catch (NullPointerException npe) {
+			}
+			cultureWindow = new CultureWindow(selectedCharacter);
+			cultureWindow.setVisible(true);
+		}
+	}
 
 	class AboutBoxListener implements ActionListener {
 
@@ -100,4 +120,22 @@ public class Controller {
 			aboutWindow.setVisible(true);
 		}
 	}
+	
+	public void updateCharacterListToMenu() {
+		JMenu characterListMenu = mainGui.getMainMenu().getCharacterListMenu();
+		characterListMenu.removeAll();
+		for (CharacterPlayer character : characters) {
+			JMenuItem characterMenu = new JMenuItem(character.getName());
+			characterMenu.addActionListener(new SelectedCharacterListener());
+			characterListMenu.add(characterMenu);
+		}
+	}
+	
+	class SelectedCharacterListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+		}
+	}
+	
 }

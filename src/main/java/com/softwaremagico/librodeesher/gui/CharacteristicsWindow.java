@@ -10,8 +10,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.softwaremagico.librodeesher.gui.characteristic.CompleteCharacteristicPanel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
-import com.softwaremagico.librodeesher.gui.elements.CompleteCharacteristicPanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasicButton;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;

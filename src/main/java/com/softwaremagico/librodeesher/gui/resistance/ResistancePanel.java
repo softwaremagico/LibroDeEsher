@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.elements;
+package com.softwaremagico.librodeesher.gui.resistance;
 
 /*
  * #%L

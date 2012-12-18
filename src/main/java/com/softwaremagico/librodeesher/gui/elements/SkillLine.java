@@ -34,6 +34,8 @@ import com.softwaremagico.librodeesher.gui.style.BasicLine;
 
 public class SkillLine extends BasicLine {
 	private static final long serialVersionUID = -3194401962061016906L;
+	protected Integer defaultHeight = 25;
+	protected Integer defaultWidth = 500;
 	
 
 	public SkillLine(String skillName) {

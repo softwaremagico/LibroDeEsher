@@ -104,7 +104,7 @@ public class AboutWindow extends BaseFrame {
 		gridBagConstraints.gridy = 1;
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 1;
+		gridBagConstraints.weightx = 0.5;
 		gridBagConstraints.weighty = 0;
 		add(closeButton, gridBagConstraints);
 
