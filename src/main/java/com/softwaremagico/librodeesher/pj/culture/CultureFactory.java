@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.culture;
+
 /*
  * #%L
  * Libro de Esher
@@ -35,30 +36,45 @@ public class CultureFactory {
 	private static Hashtable<String, Culture> culturesAvailable = new Hashtable<>();
 
 	public static List<String> availableCultures() {
-		try{
-		return RolemasterFolderStructure.filesAvailable(CULTURE_FOLDER);
+		try {
+			return RolemasterFolderStructure.filesAvailable(CULTURE_FOLDER);
 		} catch (Exception e) {
-			ShowMessage.showErrorMessage("Problema al obtener las culturas disponibles.", "Culturas disponibles");
+			ShowMessage.showErrorMessage("Problema al obtener las culturas disponibles.",
+					"Culturas disponibles");
 		}
 		return null;
 	}
-	
+
+	public static List<String> availableCultures(List<String> subset) {
+		List<String> intersectionSet = new ArrayList<>();
+		List<String> allCultures = availableCultures();
+
+		for (String culture : subset) {
+			if (allCultures.contains(culture)) {
+				intersectionSet.add(culture);
+			}
+		}
+
+		return intersectionSet;
+	}
+
 	/**
-	 * All "Urban" cultures, etc. 
+	 * All "Urban" cultures, etc.
+	 * 
 	 * @param substring
 	 * @return
 	 * @throws Exception
 	 */
-    public static List<String> availableCulturesSubString(String substring) throws Exception {
-        List<String> cultures = new ArrayList<>();
-        List<String> allAvailableCultures = availableCultures();
-        for (int i = 0; i < allAvailableCultures.size(); i++) {
-            if (allAvailableCultures.get(i).contains(substring)) {
-                cultures.add(allAvailableCultures.get(i));
-            }
-        }
-        return cultures;
-    }
+	public static List<String> availableCulturesSubString(String substring) throws Exception {
+		List<String> cultures = new ArrayList<>();
+		List<String> allAvailableCultures = availableCultures();
+		for (int i = 0; i < allAvailableCultures.size(); i++) {
+			if (allAvailableCultures.get(i).contains(substring)) {
+				cultures.add(allAvailableCultures.get(i));
+			}
+		}
+		return cultures;
+	}
 
 	public static Culture getCulture(String cultureName) {
 		try {
@@ -72,8 +88,7 @@ public class CultureFactory {
 			}
 		} catch (Exception e) {
 		}
-		ShowMessage.showErrorMessage("Cultura no existente: " + cultureName,
-				"Creación de adiestramientos.");
+		ShowMessage.showErrorMessage("Cultura no existente: " + cultureName, "Creación de culturas");
 		return null;
 
 	}

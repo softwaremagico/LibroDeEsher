@@ -307,7 +307,7 @@ public class Race {
 		}
 		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 			String cultureLine = lines.get(index);
-			if (cultureLine.toLowerCase().contains("todas") || cultureLine.toLowerCase().contains("All")) {
+			if (cultureLine.toLowerCase().contains("todas") || cultureLine.toLowerCase().contains("all")) {
 				availableCultures.addAll(CultureFactory.availableCultures());
 				index++;
 				break;
@@ -403,8 +403,13 @@ public class Race {
 		return index;
 	}
 
+	/**
+	 * Only cultures of the race that also exists in the application.
+	 * 
+	 * @return
+	 */
 	public List<String> availableCultures() {
-		return availableCultures;
+		return CultureFactory.availableCultures(availableCultures);
 	}
 
 	public List<String> availableProfessions() {

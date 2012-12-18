@@ -62,7 +62,7 @@ public class Culture {
 
 	public Integer getCategoryCultureRanks(String categoryName) {
 		for (CultureCategory category : categories) {
-			if(category.getName().equals(categoryName)){
+			if (category.getName().equals(categoryName)) {
 				return category.getRanks();
 			}
 		}
@@ -184,7 +184,7 @@ public class Culture {
 					CultureSkill skill = new CultureSkill(hobby);
 					hobbySkills.add(skill);
 				} else { // Not recognized.
-					ShowMessage.showErrorMessage("Aficion no encontrada: " + hobby,
+					ShowMessage.showErrorMessage("Aficion no encontrada en cultura \"" + getName() + "\": " + hobby,
 							"Añadir aficiones de cultura");
 				}
 			}

@@ -96,7 +96,8 @@ Ninguno
 Chirón, Neso, Nicos, Eurito, Bianor, Eurímonos, Agrios, Petraios
 Drialos, Oureios, Udaeus, Menelachos, Leodippos, Gyrtomon, Aegion
 Orsiphantes, Chrethon, Antarilfenton, Cadarlion, Caracatus, Carfergus
-Chiron, Khystrophenes, Palomides, Rolf, Rolo, Zalbar
+Chiron, Khystrophenes, Palomides, Rolf, Rolo, Zalbar, Abante, Ixión, Agrio
+Antímaco, Dafnis, Euritión, Folo, Homados, Mimas, Neso, Quirón, Taumante
 
 #NOMBRES FEMENINOS
 ####################################
