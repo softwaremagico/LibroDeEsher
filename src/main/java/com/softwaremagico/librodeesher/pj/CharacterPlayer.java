@@ -135,14 +135,12 @@ public class CharacterPlayer {
 	}
 
 	public Culture getCulture() {
+		if (cultureName == null)
+			return null;
 		if (culture == null || !cultureName.equals(culture.getName())) {
 			culture = CultureFactory.getCulture(cultureName);
 		}
 		return culture;
-	}
-
-	public String getCultureName() {
-		return cultureName;
 	}
 
 	public Integer getDevelopmentPoints() {
@@ -163,17 +161,17 @@ public class CharacterPlayer {
 	}
 
 	public Profession getProfession() {
+		if (professionName == null)
+			return null;
 		if (profession == null || !professionName.equals(profession.getName())) {
 			profession = ProfessionFactory.getProfession(professionName);
 		}
 		return profession;
 	}
 
-	public String getProfessionName() {
-		return professionName;
-	}
-
 	public Race getRace() {
+		if (raceName == null)
+			return null;
 		if (race == null || !raceName.equals(race.getName())) {
 			race = RaceFactory.getRace(raceName);
 		}

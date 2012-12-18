@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.categories;
+
 /*
  * #%L
  * Libro de Esher
@@ -23,10 +24,12 @@ package com.softwaremagico.librodeesher.pj.categories;
  * #L%
  */
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
+import com.softwaremagico.librodeesher.pj.skills.SkillType;
 
 public class SimpleCategory {
 	private String name;
@@ -34,6 +37,7 @@ public class SimpleCategory {
 
 	public SimpleCategory(String name) {
 		this.name = name;
+		skills = new ArrayList<>();
 	}
 
 	public Skill addSkill(String skillName) {
@@ -42,6 +46,10 @@ public class SimpleCategory {
 			skills.add(skill);
 		}
 		return skill;
+	}
+
+	public void setSkills(List<Skill> skills) {
+		this.skills = skills;
 	}
 
 	public String getName() {

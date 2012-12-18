@@ -25,6 +25,7 @@ package com.softwaremagico.librodeesher.pj.skills;
  */
 
 import java.util.Hashtable;
+import java.util.List;
 
 public class SkillFactory {
 	private static Hashtable<String, Skill> availableSkills = new Hashtable<>();
@@ -33,15 +34,26 @@ public class SkillFactory {
 		Skill skill = availableSkills.get(skillNameAndType);
 		if (skill == null) {
 			skill = createSkill(skillNameAndType);
-			availableSkills.put(skillNameAndType, skill);
+			availableSkills.put(skill.getName(), skill);
+		}
+		return skill;
+	}
+	
+	public static Skill getSkill(String skillNameAndType, List<String> specialities) {
+		Skill skill = availableSkills.get(skillNameAndType);
+		if (skill == null) {
+			skill = createSkill(skillNameAndType);
+			skill.addSpecialities(specialities);
+			availableSkills.put(skill.getName(), skill);
 		}
 		return skill;
 	}
 
 	public static void setAvailableSkill(String[] skills) {
-		for (String skill : skills) {
-			String skillName = skill.trim();
-			availableSkills.put(skillName, createSkill(skillName));
+		for (String skillParameter : skills) {
+			String skillName = skillParameter.trim();
+			Skill skill = createSkill(skillName);
+			availableSkills.put(skill.getName(), skill);
 		}
 	}
 
@@ -50,14 +62,14 @@ public class SkillFactory {
 	}
 
 	public static boolean existSkill(String skillName) {
-		return (getAvailableSkill(skillName) != null);
+		return (getAvailableSkill(skillName.trim()) != null);
 	}
 
 	public static Skill getSkill(String skillName, SkillType skillType) {
 		Skill skill = availableSkills.get(skillName);
 		if (skill == null) {
 			skill = createSkill(skillName, skillType);
-			availableSkills.put(skillName, skill);
+			availableSkills.put(skill.getName(), skill);
 		}
 		return skill;
 	}

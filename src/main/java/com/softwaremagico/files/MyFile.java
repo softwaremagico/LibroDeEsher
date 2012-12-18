@@ -198,4 +198,8 @@ public class MyFile {
         }
         return false;
     }
+    
+    public static String fileWithouExtension(String fileWithExtension){
+    	return fileWithExtension.replaceFirst("[.][^.]+$", "");
+    }
 }

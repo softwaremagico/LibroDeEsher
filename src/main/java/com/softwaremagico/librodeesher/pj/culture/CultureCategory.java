@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.culture;
+
 /*
  * #%L
  * Libro de Esher
@@ -23,27 +24,45 @@ package com.softwaremagico.librodeesher.pj.culture;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.gui.ShowMessage;
-import com.softwaremagico.librodeesher.pj.categories.Category;
-import com.softwaremagico.librodeesher.pj.categories.SimpleCategory;
+import java.util.ArrayList;
+import java.util.List;
 
-public class CultureCategory extends SimpleCategory {
+import com.softwaremagico.librodeesher.gui.ShowMessage;
+
+public class CultureCategory {
 	private Integer ranks;
 	private Integer ranksToChoose;
+	private List<CultureSkill> skills;
+	private String name;
 
 	public CultureCategory(String name, Integer ranks) {
-		super(name);
+		skills = new ArrayList<>();
+		this.name = name;
 		this.ranks = ranks;
 		ranksToChoose = 0;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public CultureSkill addSkill(String skillName) {
+		skills = new ArrayList<>();
+		CultureSkill skill = new CultureSkill(skillName);
+		if (!skills.contains(skill)) {
+			skills.add(skill);
+		}
+		return skill;
+	}
+
 	public CultureCategory(String name, String ranks) {
-		super(name);
+		this.name = name;
 		try {
 			this.ranks = Integer.parseInt(ranks);
 		} catch (NumberFormatException nfe) {
-			ShowMessage.showErrorMessage("Error al obtener los rangos de la categoria cultural: "
-					+ getName(), "Añadir categorias de cultura.");
+			ShowMessage.showErrorMessage(
+					"Error al obtener los rangos de la categoria cultural: " + getName(),
+					"Añadir categorias de cultura.");
 		}
 	}
 
@@ -55,18 +74,18 @@ public class CultureCategory extends SimpleCategory {
 				ranksToChoose = Integer.parseInt(skillColumns[1]);
 			} catch (NumberFormatException nfe) {
 				ShowMessage.showErrorMessage("Error al obtener los rangos de la habilidad cultural: "
-						+ skillLine, "Añadir habilidades de cultura.");
+						+ skillLine, "Añadir habilidades de cultura");
 			}
 			return null;
 		} else {
-			CultureSkill skill = (CultureSkill) addSkill(skillColumns[0]);
+			CultureSkill skill = addSkill(skillColumns[0]);
 			skill.setRanks(skillColumns[1]);
-			if (skill != null) {
-				ShowMessage.showErrorMessage("Error al obtener los rangos de la habilidad cultural: "
-						+ skillLine, "Añadir habilidades de cultura.");
-			}
 			return skill;
 		}
+	}
+
+	public Integer getRanks() {
+		return ranks;
 	}
 
 }

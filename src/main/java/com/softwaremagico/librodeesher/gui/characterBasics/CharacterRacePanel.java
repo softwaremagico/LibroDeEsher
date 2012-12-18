@@ -146,9 +146,9 @@ public class CharacterRacePanel extends BasePanel {
 				cultureComboBox.addItem(culture);
 			}
 			if (character != null) {
-				if (character.getCultureName() != null) {
-					cultureComboBox.setSelectedItem(character.getCultureName());
-					if (getSelectedCulture() != character.getCultureName()) {
+				if (character.getCulture() != null) {
+					cultureComboBox.setSelectedItem(character.getCulture().getName());
+					if (getSelectedCulture() != character.getCulture().getName()) {
 						updateCulture();
 					}
 				}
@@ -163,7 +163,18 @@ public class CharacterRacePanel extends BasePanel {
 
 	public void setCharacter(CharacterPlayer character) {
 		this.character = character;
-		character.setRace(getSelectedRace());
+		// character.setRace(getSelectedRace());
+		// character.setCulture(getSelectedCulture());
+		if (character.getRace() != null) {
+			raceComboBox.setSelectedItem(character.getRace().getName());
+		} else {
+			character.setRace(getSelectedRace());
+		}
+		if (character.getCulture() != null) {
+			cultureComboBox.setSelectedItem(character.getCulture().getName());
+		} else {
+			character.setCulture(getSelectedCulture());
+		}
 	}
 
 	private void updateProfessionPanel() {
@@ -179,7 +190,9 @@ public class CharacterRacePanel extends BasePanel {
 	}
 
 	public void update() {
-		raceComboBox.setEnabled(!character.areCharacteristicsConfirmed());
+		if (character.getCulture() != null) {
+			cultureComboBox.setSelectedItem(character.getCulture().getName());
+		}
 		cultureComboBox.setEnabled(!character.areCharacteristicsConfirmed());
 	}
 

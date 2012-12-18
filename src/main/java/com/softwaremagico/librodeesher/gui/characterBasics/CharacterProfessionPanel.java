@@ -120,7 +120,7 @@ public class CharacterProfessionPanel extends BasePanel {
 	}
 
 	public void update() {
-		if (character != null) {
+		if (character != null && character.getRace() != null) {
 			updateProfessionComboBox(character.getRace().availableProfessions());
 		}
 		professionComboBox.setEnabled(!character.areCharacteristicsConfirmed());
@@ -135,9 +135,9 @@ public class CharacterProfessionPanel extends BasePanel {
 				professionComboBox.addItem(profession);
 			}
 			if (character != null) {
-				if (character.getProfessionName() != null) {
-					professionComboBox.setSelectedItem(character.getProfessionName());
-					if (getSelectedProfession() != character.getProfessionName()) {
+				if (character.getProfession() != null) {
+					professionComboBox.setSelectedItem(character.getProfession().getName());
+					if (getSelectedProfession() != character.getProfession().getName()) {
 						updateProfession();
 					}
 				}
@@ -165,8 +165,10 @@ public class CharacterProfessionPanel extends BasePanel {
 
 	public void setCharacter(CharacterPlayer character) {
 		this.character = character;
-		updateProfessionComboBox(character.getRace().availableProfessions());
-		character.setProfession(getSelectedProfession());
+		if (character.getRace() != null) {
+			updateProfessionComboBox(character.getRace().availableProfessions());
+			character.setProfession(getSelectedProfession());
+		}
 	}
 
 	class ChangeProfessionListener implements ActionListener {

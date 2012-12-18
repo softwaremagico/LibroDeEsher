@@ -24,8 +24,8 @@ package com.softwaremagico.librodeesher.pj.weapons;
  */
 
 public enum WeaponType {
-	EDGE("file"), BLUNT("contundentes"), THROWING("arrojadizas"), PROJECTILE("proyectiles"), HANDLE("asta"), TWO_HANDS(
-			"2manos"), SIEGE("artillería"), FIREARM("fuego 1mano"), TWO_HANDS_FIREARM("fuego 2manos");
+	EDGE("Filo"), BLUNT("Contundentes"), THROWING("Arrojadizas"), PROJECTILE("Proyectiles"), HANDLE("Asta"), TWO_HANDS(
+			"2manos"), SIEGE("Artillería"), FIREARM("Fuego 1mano"), TWO_HANDS_FIREARM("Fuego 2manos");
 
 	private String tag;
 
@@ -36,11 +36,15 @@ public enum WeaponType {
 	public static WeaponType getWeaponType(String tag) {
 		tag = tag.toLowerCase().trim();
 		for (WeaponType type : WeaponType.values()) {
-			if (type.tag.equals(tag)) {
+			if (type.tag.toLowerCase().trim().equals(tag)) {
 				return type;
 			}
 		}
 		return null;
+	}
+	
+	public String getWeaponCategoryName(){
+		return "Armas·" + tag;
 	}
 
 }

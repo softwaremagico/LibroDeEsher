@@ -7,7 +7,8 @@ import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
-import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
+import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 
 public class ChooseWeaponPanel extends BasePanel {
 
@@ -23,18 +24,21 @@ public class ChooseWeaponPanel extends BasePanel {
 		int i = 0;
 
 		for (Category category : CategoryFactory.getWeaponsCategories()) {
-			
-			add(new WeaponCategoryLine(category, 2, getBgColor(i)));
+
+			add(new WeaponCategoryLine(category, character.getCulture().getCategoryCultureRanks(category.getName()), getBgColor(i)));
 			i++;
 
-			for (Skill skill : category.getSkills()) {
-				add(new WeaponSkillLine(skill, 2, getBgColor(i)));
-				i++;
+			for (Weapon weapon : character.getCulture().getCultureWeapons()) {
+				if (weapon.getType().getWeaponCategoryName().equals(category.getName())) {
+					add(new WeaponSkillLine(character, SkillFactory.getAvailableSkill(weapon.getName()), 2,
+							getBgColor(i)));
+					i++;
+				}
 			}
 		}
 	}
-	
-	private Color getBgColor(int i){
+
+	private Color getBgColor(int i) {
 		if (i % 2 == 0) {
 			return Color.WHITE;
 		} else {

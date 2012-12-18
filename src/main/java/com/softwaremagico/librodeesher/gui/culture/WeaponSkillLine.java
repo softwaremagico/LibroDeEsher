@@ -4,18 +4,20 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultFormatter;
 
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class WeaponSkillLine extends BasicLine {
@@ -23,20 +25,22 @@ public class WeaponSkillLine extends BasicLine {
 	private Skill weaponSkill;
 	private Integer maxRanks;
 	private JSpinner rankSpinner;
+	private CharacterPlayer character;
 
-	public WeaponSkillLine(Skill weaponSkill, Integer ranks, Color background) {
+	public WeaponSkillLine(CharacterPlayer character, Skill weaponSkill, Integer ranks, Color background) {
+		this.character = character;
 		this.weaponSkill = weaponSkill;
 		this.maxRanks = ranks;
 		setElements(background);
 		setBackground(background);
 	}
-	
+
 	protected void setDefaultSize() {
-		
+
 	}
 
 	protected void setElements(Color background) {
-		this.removeAll();		
+		this.removeAll();
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
@@ -51,9 +55,11 @@ public class WeaponSkillLine extends BasicLine {
 
 		JLabel weaponSkillLabel = new JLabel(weaponSkill.getName());
 		weaponSkillLabel.setFont(new Font(font, Font.PLAIN, fontSize));
-		add(createLabelInsidePanel(weaponSkillLabel, SwingConstants.LEFT, background, fontColor), gridBagConstraints);
+		add(createLabelInsidePanel(weaponSkillLabel, SwingConstants.LEFT, background, fontColor),
+				gridBagConstraints);
 
-		rankSpinner = new JSpinner();
+		SpinnerModel sm = new SpinnerNumberModel(0, 0, 3, 1);
+		rankSpinner = new JSpinner(sm);
 		rankSpinner.setValue(0);
 		addRankSpinnerEvent();
 		gridBagConstraints.weightx = 0;
@@ -61,7 +67,7 @@ public class WeaponSkillLine extends BasicLine {
 		add(createSpinnerInsidePanel(rankSpinner, background), gridBagConstraints);
 
 	}
-	
+
 	private void addRankSpinnerEvent() {
 		JComponent comp = rankSpinner.getEditor();
 		JFormattedTextField field = (JFormattedTextField) comp.getComponent(0);

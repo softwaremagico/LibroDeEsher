@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.categories;
+
 /*
  * #%L
  * Libro de Esher
@@ -28,9 +29,8 @@ import java.util.List;
 
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
-import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
-public abstract class Category extends SimpleCategory{
+public abstract class Category extends SimpleCategory {
 	protected String abbreviature;
 	protected CategoryType type;
 	public List<Characteristic> characteristics;
@@ -51,5 +51,9 @@ public abstract class Category extends SimpleCategory{
 
 	public String getAbbreviature() {
 		return abbreviature;
+	}
+
+	public CategoryType getType() {
+		return type;
 	}
 }

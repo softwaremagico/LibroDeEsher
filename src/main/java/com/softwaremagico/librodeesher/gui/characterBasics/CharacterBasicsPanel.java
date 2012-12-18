@@ -132,6 +132,11 @@ public class CharacterBasicsPanel extends BasePanel {
 	public void setCharacter(CharacterPlayer character) {
 		this.character = character;
 		nameTextField.setText(character.getName());
+		if (character.getSex() == SexType.MALE) {
+			maleRadioButton.setSelected(true);
+		}else{
+			femaleRadioButton.setSelected(true);
+		}
 	}
 
 	class ChangeSexListener implements ActionListener {

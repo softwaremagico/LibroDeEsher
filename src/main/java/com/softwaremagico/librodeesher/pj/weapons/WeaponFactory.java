@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.weapons;
+
 /*
  * #%L
  * Libro de Esher
@@ -27,8 +28,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.softwaremagico.files.Folder;
+import com.softwaremagico.files.MyFile;
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.ShowMessage;
 
@@ -40,7 +43,7 @@ public class WeaponFactory {
 		try {
 			weaponsByType = availableWeapons();
 		} catch (Exception e) {
-			ShowMessage.showErrorMessage("Problemas al obtener las armas.", "Creación de armas.");
+			ShowMessage.showErrorMessage("Problemas al obtener las armas.", "Creación de armas");
 			e.printStackTrace();
 		}
 	}
@@ -59,10 +62,12 @@ public class WeaponFactory {
 
 		// Read each file.
 		for (String weaponFile : weaponFiles) {
-			List<String> weaponsInFile = Folder.readFileLines(weaponFile, false);
-			String weaponTypeName = weaponFile.substring(weaponFile.lastIndexOf(File.separator),
-					weaponFile.lastIndexOf(".") - 1);
-			WeaponType weaponFileType = WeaponType.getWeaponType(weaponTypeName);
+			List<String> weaponsInFile = Folder.readFileLines(weaponFile + ".txt", false);
+			
+			File file = new File(weaponFile + ".txt");
+			String weaponTypeName = file.getName();
+			
+			WeaponType weaponFileType = WeaponType.getWeaponType(MyFile.fileWithouExtension(weaponTypeName));
 			for (String weaponName : weaponsInFile) {
 				Weapon weapon = new Weapon(weaponName, weaponFileType);
 				obtainedWeaponsByType.get(weaponFileType).add(weapon);

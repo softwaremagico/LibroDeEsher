@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.culture;
+
 /*
  * #%L
  * Libro de Esher
@@ -53,6 +54,19 @@ public class Culture {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public List<Weapon> getCultureWeapons() {
+		return cultureWeapons;
+	}
+
+	public Integer getCategoryCultureRanks(String categoryName) {
+		for (CultureCategory category : categories) {
+			if(category.getName().equals(categoryName)){
+				return category.getRanks();
+			}
+		}
+		return 0;
 	}
 
 	private void readCultureFile(String cultureName) throws Exception {
@@ -146,7 +160,7 @@ public class Culture {
 				hobbyRanks = Integer.parseInt(hobbyLine);
 			} catch (NumberFormatException nfe) {
 				ShowMessage.showErrorMessage("Error al obtener los rangos de la aficiones cultural: "
-						+ hobbyLine, "Añadir aficiones de cultura.");
+						+ hobbyLine + " en " + getName(), "Añadir aficiones de cultura.");
 			}
 			index++;
 		}
@@ -154,6 +168,8 @@ public class Culture {
 	}
 
 	private int setHobbySkillsAndCategories(List<String> lines, int index) {
+		hobbySkills = new ArrayList<>();
+		hobbyCategories = new ArrayList<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -167,9 +183,9 @@ public class Culture {
 				} else if (SkillFactory.existSkill(hobby)) { // Is a skill.
 					CultureSkill skill = new CultureSkill(hobby);
 					hobbySkills.add(skill);
-				} else { //Not recognized. 
+				} else { // Not recognized.
 					ShowMessage.showErrorMessage("Aficion no encontrada: " + hobby,
-							"Añadir aficiones de cultura.");
+							"Añadir aficiones de cultura");
 				}
 			}
 			index++;
@@ -191,7 +207,7 @@ public class Culture {
 				languages.add(language);
 			} catch (NumberFormatException nfe) {
 				ShowMessage.showErrorMessage("Error al obtener los rangos escritos del idioma: " + name,
-						"Añadir lenguajes de cultura.");
+						"Añadir lenguajes de cultura");
 			}
 			index++;
 		}

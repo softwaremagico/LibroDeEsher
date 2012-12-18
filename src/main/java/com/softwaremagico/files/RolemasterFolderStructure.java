@@ -23,6 +23,7 @@ package com.softwaremagico.files;
  * #L%
  */
 
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -32,6 +33,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.ImageIcon;
+
+import com.softwaremagico.librodeesher.gui.MainMenu;
+import com.softwaremagico.librodeesher.gui.ShowMessage;
 
 public class RolemasterFolderStructure implements Serializable {
 
@@ -300,5 +306,15 @@ public class RolemasterFolderStructure implements Serializable {
 			}
 		}
 		return ficheros;
+	}
+	
+	public static ImageIcon getIcon(String iconName) {
+		try {
+			ImageIcon icon = new ImageIcon(MainMenu.class.getResource("/icons/" + iconName));
+			return new ImageIcon(icon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
+		} catch (Exception e) {
+			ShowMessage.showErrorMessage("Icon not found: " + iconName, "Main menu");
+			return null;
+		}
 	}
 }

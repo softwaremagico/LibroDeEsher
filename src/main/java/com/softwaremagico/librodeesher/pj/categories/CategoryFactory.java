@@ -25,12 +25,18 @@ package com.softwaremagico.librodeesher.pj.categories;
  */
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.ShowMessage;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
+import com.softwaremagico.librodeesher.pj.weapons.Weapon;
+import com.softwaremagico.librodeesher.pj.weapons.WeaponFactory;
+import com.softwaremagico.librodeesher.pj.weapons.WeaponType;
 
 public class CategoryFactory {
 
@@ -69,6 +75,7 @@ public class CategoryFactory {
 			}
 		}
 
+		Collections.sort(weaponsCategories, new CategoryComparator());
 		return weaponsCategories;
 	}
 
@@ -134,5 +141,25 @@ public class CategoryFactory {
 				}
 			}
 		}
+		// Replace dummy skills with real obtained from other files.
+		addWeaponsAsSkills();
 	}
+
+	private static void addWeaponsAsSkills() {
+		for (WeaponType weaponType : WeaponType.values()) {
+			List<Weapon> weaponsOfType = WeaponFactory.getWeaponsByType(weaponType);
+			Category categoryOfWeapon = categoriesAvailable.get(weaponType.getWeaponCategoryName());
+			categoryOfWeapon.setSkills(convertWeaponsToSkills(weaponsOfType));
+		}
+
+	}
+
+	public static List<Skill> convertWeaponsToSkills(List<Weapon> weapons) {
+		List<Skill> skills = new ArrayList<>();
+		for (Weapon weapon : weapons) {
+			skills.add(SkillFactory.getSkill(weapon.getName()));
+		}
+		return skills;
+	}
+	
 }

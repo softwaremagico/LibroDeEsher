@@ -1,4 +1,9 @@
 package com.softwaremagico.librodeesher.pj.skills;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
 /*
  * #%L
  * Libro de Esher
@@ -24,15 +29,22 @@ package com.softwaremagico.librodeesher.pj.skills;
  */
 
 public abstract class Skill {
-    private String name;
-    
-    
-    public Skill(String name){
-        this.name = name;
-    }
-    
-    public String getName(){
-    	return name;
-    }
-    
+	private String name;
+	private List<String> specialities; // A skill can have some specializations.
+
+	public Skill(String name) {
+		specialities = new ArrayList<>();
+		String specialityPattern =  Pattern.quote("[");
+		String[] nameColumns = name.split(specialityPattern);
+		this.name = nameColumns[0].trim();
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void addSpecialities(List<String> specialities) {
+		this.specialities.addAll(specialities);
+	}
+
 }

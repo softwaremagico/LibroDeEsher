@@ -220,7 +220,7 @@ public class Race {
 			index++;
 		}
 		try {
-			restorationTime = Float.parseFloat(lines.get(index));
+			restorationTime = Float.parseFloat(lines.get(index).replace(",", "."));
 			index++;
 		} catch (NumberFormatException nfe) {
 			ShowMessage.showErrorMessage("Numero de tiempo de recuperación irreconocible en línea " + index

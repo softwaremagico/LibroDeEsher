@@ -135,7 +135,7 @@ public class CharacterLevelPanel extends BasePanel {
 		updatingMagic = true;
 		if (magicComboBox != null) {
 			magicComboBox.removeAllItems();
-			if (character != null) {
+			if (character != null && character.getProfession() != null) {
 				List<RealmOfMagic> magicRealms = character.getProfession().getMagicRealmsAvailable();
 				Collections.sort(magicRealms);
 				for (RealmOfMagic magicRealm : magicRealms) {

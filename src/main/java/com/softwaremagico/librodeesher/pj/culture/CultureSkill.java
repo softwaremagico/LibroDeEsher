@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.culture;
+
 /*
  * #%L
  * Libro de Esher
@@ -26,11 +27,16 @@ package com.softwaremagico.librodeesher.pj.culture;
 import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
-public class CultureSkill extends Skill {
-	protected Integer ranks;
+public class CultureSkill {
+	private Integer ranks;
+	private String name;
 
 	public CultureSkill(String name) {
-		super(name);
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	public void setRanks(Integer ranks) {
@@ -41,9 +47,35 @@ public class CultureSkill extends Skill {
 		try {
 			this.ranks = Integer.parseInt(ranks);
 		} catch (NumberFormatException nfe) {
-			ShowMessage.showErrorMessage("Error al obtener los rangos de la habilidad cultural: "
-					+ getName(), "Añadir habilidades de cultura.");
+			ShowMessage.showErrorMessage(
+					"Error al obtener los rangos de la habilidad cultural: " + getName(),
+					"Añadir habilidades de cultura.");
 		}
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CultureSkill other = (CultureSkill) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 
 }

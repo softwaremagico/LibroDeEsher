@@ -29,9 +29,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.culture.CultureWindow;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
@@ -56,12 +58,13 @@ public class Controller {
 
 	private void addMainMenuActionListeners() {
 		mainGui.getMainMenu().addNewCharacterListener(new NewCharacterListener());
+		mainGui.getMainMenu().addCloseCharacterListener(new CloseCharacterListener());
 		mainGui.getMainMenu().addAboutMenuItemListener(new AboutBoxListener());
 		mainGui.getMainMenu().addCharacteristicsWindowMenuItemListener(new CharacteristicWindowsListener());
 		mainGui.getMainMenu().addRandomNameListener(new RandomNameListener());
 		mainGui.getMainMenu().addCultureListener(new CultureWindowsListener());
 	}
-	
+
 	class NewCharacterListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -73,11 +76,28 @@ public class Controller {
 		}
 	}
 
+	class CloseCharacterListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			characters.remove(selectedCharacter);
+			if (characters.size() == 0) {
+				selectedCharacter = new CharacterPlayer();
+				characters.add(selectedCharacter);
+			} else {
+				selectedCharacter = characters.get(0);
+			}
+			mainGui.setCharacter(selectedCharacter);
+			mainGui.update();
+			updateCharacterListToMenu();
+		}
+	}
+
 	class RandomNameListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			selectedCharacter.setName(selectedCharacter.getRace().getRandonName(selectedCharacter.getSex()));
 			mainGui.setCharacter(selectedCharacter);
+			updateCharacterListToMenu();
 		}
 	}
 
@@ -94,7 +114,7 @@ public class Controller {
 			characteristicWindow.setVisible(true);
 		}
 	}
-	
+
 	class CultureWindowsListener implements ActionListener {
 
 		@Override
@@ -120,22 +140,31 @@ public class Controller {
 			aboutWindow.setVisible(true);
 		}
 	}
-	
+
 	public void updateCharacterListToMenu() {
 		JMenu characterListMenu = mainGui.getMainMenu().getCharacterListMenu();
 		characterListMenu.removeAll();
 		for (CharacterPlayer character : characters) {
-			JMenuItem characterMenu = new JMenuItem(character.getName());
-			characterMenu.addActionListener(new SelectedCharacterListener());
+			CharacterMenuItem characterMenu = new CharacterMenuItem(character, selectedCharacter);
+			characterMenu.addActionListener(new SelectedCharacterListener(characterMenu));
 			characterListMenu.add(characterMenu);
 		}
 	}
-	
+
 	class SelectedCharacterListener implements ActionListener {
+		CharacterMenuItem menu;
+
+		SelectedCharacterListener(CharacterMenuItem menu) {
+			this.menu = menu;
+		}
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
+			selectedCharacter = menu.getCharacter();
+			mainGui.setCharacter(selectedCharacter);
+			mainGui.update();
+			updateCharacterListToMenu();
 		}
 	}
-	
+
 }
