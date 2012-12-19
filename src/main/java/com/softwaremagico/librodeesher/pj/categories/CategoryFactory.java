@@ -32,6 +32,7 @@ import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.ShowMessage;
+import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
@@ -143,6 +144,9 @@ public class CategoryFactory {
 		}
 		// Replace dummy skills with real obtained from other files.
 		addWeaponsAsSkills();
+		
+		//Create culture specific skills
+		addCultureSkills();
 	}
 
 	private static void addWeaponsAsSkills() {
@@ -161,5 +165,15 @@ public class CategoryFactory {
 		}
 		return skills;
 	}
-	
+
+	private static void addCultureSkills() {
+		for (String culture : CultureFactory.availableCultures()) {		
+			Category cat = categoriesAvailable.get("Conocimiento·General");
+			cat.addSkill("Conocimiento de la Fauna (" + culture  + ")");
+			cat.addSkill("Conocimiento de la Flora (" + culture  + ")");
+			cat.addSkill("Conocimiento Cultural (" + culture  + ")");
+			cat.addSkill("Conocimiento Regional (" + culture  + ")");
+		}
+	}
+
 }

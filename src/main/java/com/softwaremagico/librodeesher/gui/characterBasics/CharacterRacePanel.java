@@ -137,7 +137,6 @@ public class CharacterRacePanel extends BasePanel {
 	}
 
 	private void updateCultureComboBox() {
-		updatingCulture = true;
 		if (cultureComboBox != null) {
 			cultureComboBox.removeAllItems();
 			List<String> cultures = RaceFactory.getRace(getSelectedRace()).availableCultures();
@@ -154,7 +153,6 @@ public class CharacterRacePanel extends BasePanel {
 				}
 			}
 		}
-		updatingCulture = false;
 	}
 
 	public void setProfessionPanel(CharacterProfessionPanel professionPanel) {
@@ -212,7 +210,7 @@ public class CharacterRacePanel extends BasePanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (!updatingCulture) {
+			if (character != null) {
 				updateCulture();
 			}
 		}

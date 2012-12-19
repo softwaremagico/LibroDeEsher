@@ -32,6 +32,7 @@ import java.util.List;
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.ShowMessage;
+import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
@@ -180,12 +181,26 @@ public class Culture {
 				if (CategoryFactory.existCategory(hobby)) {
 					CultureCategory category = new CultureCategory(hobby, 0);
 					hobbyCategories.add(category);
-				} else if (SkillFactory.existSkill(hobby)) { // Is a skill.
+					// Is a skill.
+				} else if (SkillFactory.existSkill(hobby)) {
+					CultureSkill skill = new CultureSkill(hobby);
+					hobbySkills.add(skill);
+					// Is a culture skill: add it;
+				} else if (hobby.contains("Conocimiento de la Fauna")
+						|| hobby.contains("Conocimiento de la Flora")
+						|| hobby.contains("Conocimiento Cultural") || hobby.contains("Conocimiento Regional")) {
+					Category cat = CategoryFactory.getAvailableCategory("Conocimiento·General");
+					cat.addSkill(hobby);
+					CultureSkill skill = new CultureSkill(hobby);
+					hobbySkills.add(skill);
+				} else if (hobby.contains("Supervivencia")) {
+					Category cat = CategoryFactory.getAvailableCategory("Exteriores·Entorno");
+					cat.addSkill(hobby);
 					CultureSkill skill = new CultureSkill(hobby);
 					hobbySkills.add(skill);
 				} else { // Not recognized.
-					ShowMessage.showErrorMessage("Aficion no encontrada en cultura \"" + getName() + "\": " + hobby,
-							"Añadir aficiones de cultura");
+					ShowMessage.showErrorMessage("Aficion no encontrada en cultura \"" + getName() + "\": "
+							+ hobby, "Añadir aficiones de cultura");
 				}
 			}
 			index++;

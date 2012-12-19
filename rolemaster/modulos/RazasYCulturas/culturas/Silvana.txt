@@ -59,7 +59,7 @@ Listas Abiertas de Hechizos	0
 
 # AFICIONES
 ####################
-Acrobacias, Alerta, Arma·Arrojadizas, Caminar con Zancos, Caminar por la Cuerda Floja
+Acrobacias, Alerta, Armas·Arrojadizas, Caminar con Zancos, Caminar por la Cuerda Floja
 Camuflaje, Cantar, Cazar, Conocimiento de la Fauna, Conocimiento de la Flora
 Conocimiento de las Hierbas, Conocimiento Regional, Curación de Animales, Esconderse
 Esquiva Acrobática, Forrajear, Historia, Juegos de Manos, Manejo de los Animales, Orientación Celeste
