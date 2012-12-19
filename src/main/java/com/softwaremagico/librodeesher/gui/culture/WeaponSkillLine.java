@@ -18,19 +18,23 @@ import javax.swing.text.DefaultFormatter;
 
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class WeaponSkillLine extends BasicLine {
 	private static final long serialVersionUID = -4697558156145520144L;
 	private Skill weaponSkill;
-	private Integer maxRanks;
 	private JSpinner rankSpinner;
+	private Category category;
+	private ChooseWeaponPanel parentPanel;
 	private CharacterPlayer character;
 
-	public WeaponSkillLine(CharacterPlayer character, Skill weaponSkill, Integer ranks, Color background) {
+	public WeaponSkillLine(CharacterPlayer character, Category category, ChooseWeaponPanel parentPanel,
+			Skill weaponSkill, Color background) {
 		this.character = character;
+		this.parentPanel = parentPanel;
+		this.category = category;
 		this.weaponSkill = weaponSkill;
-		this.maxRanks = ranks;
 		setElements(background);
 		setBackground(background);
 	}
@@ -68,6 +72,10 @@ public class WeaponSkillLine extends BasicLine {
 
 	}
 
+	protected Integer getSelectedRanks() {
+		return (Integer) rankSpinner.getValue();
+	}
+
 	private void addRankSpinnerEvent() {
 		JComponent comp = rankSpinner.getEditor();
 		JFormattedTextField field = (JFormattedTextField) comp.getComponent(0);
@@ -77,7 +85,14 @@ public class WeaponSkillLine extends BasicLine {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-
+				// Correct the spinner
+				if (parentPanel.getSpinnerValues(category) > character.getCulture().getCategoryCultureRanks(
+						category.getName())) {
+					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
+				} else {
+					//Update character
+					character.getCultureDecisions().setWeaponRank(weaponSkill, (Integer) rankSpinner.getValue());
+				}
 			}
 		});
 	}

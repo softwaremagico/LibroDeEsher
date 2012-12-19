@@ -61,7 +61,7 @@ Listas Abiertas de Hechizos	0
 ####################
 Armadura·Ligera, Armadura·Media, Armadura·Pesada, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas
 Camuflaje, Cazar, Comerciar, Cantar, Carrera de Fondo, Conocimiento Regional, Esquiar
-Conocimiento de la Fauna (Ártica), Construir Trampas, Desarrollo Físico, Escalar, Espeleología, Forrajear
+Conocimiento de la Fauna (Ártico), Construir Trampas, Desarrollo Físico, Escalar, Espeleología, Forrajear
 Manejo de los Animales, Narrar Historias, Observación, Orientación Celeste, Patinar, Primeros Auxilios
 Rastrear, Remar, Percepción del Entorno: Ciudades, Percepción del Entorno: Combate, 
 Percepción del Entorno: Durmiendo, Percepción del Entorno: Exploración, 

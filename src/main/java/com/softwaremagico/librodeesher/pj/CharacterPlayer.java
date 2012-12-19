@@ -29,10 +29,10 @@ import java.util.Hashtable;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.core.TwoDices;
-import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.culture.Culture;
+import com.softwaremagico.librodeesher.pj.culture.CultureDecisions;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
@@ -58,11 +58,11 @@ public class CharacterPlayer {
 	private Hashtable<String, Integer> characteristicsPotentialValues;
 	private Hashtable<String, List<TwoDices>> characteristicsTemporalUpdatesRolls;
 	private boolean characteristicsConfirmed = false;
-	private List<Category> categories;
 	private String raceName;
 	private transient Race race;
 	private String cultureName;
 	private transient Culture culture;
+	private CultureDecisions cultureDecisions;
 	private String professionName;
 	private transient Profession profession;
 	private List<Training> trainings;
@@ -80,6 +80,11 @@ public class CharacterPlayer {
 		characteristicsPotentialValues = new Hashtable<>();
 		setTemporalValuesOfCharacteristics();
 		sex = SexType.MALE;
+		cultureDecisions = new CultureDecisions();
+	}
+	
+	public CultureDecisions getCultureDecisions(){
+		return cultureDecisions;
 	}
 
 	public boolean areCharacteristicsConfirmed() {
