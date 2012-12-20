@@ -3,11 +3,11 @@ package com.softwaremagico.librodeesher.gui.culture;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.culture.CultureSkill;
 
-public class ChooseHobbyPanel extends ChooseCulturePanel {
+public class HobbyPanel extends CulturePanel {
 	private static final long serialVersionUID = -1080201556731377298L;
 	private CompleteHobbiesPanel parentPanel;
 
-	public ChooseHobbyPanel(CharacterPlayer character, CultureTitleLine title,
+	public HobbyPanel(CharacterPlayer character, CultureTitleLine title,
 			CompleteHobbiesPanel parentPanel) {
 		this.character = character;
 		this.parentPanel = parentPanel;

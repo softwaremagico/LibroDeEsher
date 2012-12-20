@@ -17,7 +17,7 @@ public class HobbyLine extends CultureLine {
 	private static final long serialVersionUID = 2401612544094265349L;
 	protected CultureSkill hobby;
 
-	public HobbyLine(CharacterPlayer character, CultureSkill skill, ChooseCulturePanel hobbyPanel,
+	public HobbyLine(CharacterPlayer character, CultureSkill skill, CulturePanel hobbyPanel,
 			Color background) {
 		this.character = character;
 		this.skillName = skill.getName();

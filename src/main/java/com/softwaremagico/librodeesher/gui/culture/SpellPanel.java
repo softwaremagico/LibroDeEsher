@@ -6,11 +6,11 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
 import com.softwaremagico.librodeesher.pj.magic.SpellList;
 
-public class ChooseSpellPanel extends ChooseCulturePanel {
+public class SpellPanel extends CulturePanel {
 	private static final long serialVersionUID = -9203104559414795802L;
 	private CompleteSpellPanel parentPanel;
 
-	public ChooseSpellPanel(CharacterPlayer character, CultureTitleLine title, CompleteSpellPanel parentPanel) {
+	public SpellPanel(CharacterPlayer character, CultureTitleLine title, CompleteSpellPanel parentPanel) {
 		this.character = character;
 		this.title = title;
 		this.parentPanel = parentPanel;
@@ -21,6 +21,7 @@ public class ChooseSpellPanel extends ChooseCulturePanel {
 	protected void createElements() {
 		int i = 0;
 
+		if(character.getCulture().getSpellRanks() != 0){
 		List<SpellList> spellLists = MagicFactory.getListOfProfession(character.getRealmOfMagic(),
 				"Lista Abierta");
 
@@ -30,12 +31,12 @@ public class ChooseSpellPanel extends ChooseCulturePanel {
 			hobbyLines.add(hobbyLine);
 			i++;
 		}
+		}
 	}
 
 	@Override
 	protected void setRankTitle(String rankLabelText) {
 		parentPanel.setRankTitle(rankLabelText);
-
 	}
 
 }

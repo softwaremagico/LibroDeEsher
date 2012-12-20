@@ -19,7 +19,7 @@ public abstract class CultureLine extends BasicLine {
 	protected CharacterPlayer character;
 	protected JSpinner rankSpinner;
 	protected String skillName;
-	protected ChooseCulturePanel parentPanel;
+	protected CulturePanel parentPanel;
 
 	protected void setElements(Color background) {
 		this.removeAll();

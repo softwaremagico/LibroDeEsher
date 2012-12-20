@@ -17,7 +17,7 @@ public class SpellLine extends CultureLine {
 	private static final long serialVersionUID = 1634524707541210570L;
 	private SpellList spell;
 
-	public SpellLine(CharacterPlayer character, SpellList spell, ChooseCulturePanel hobbyPanel,
+	public SpellLine(CharacterPlayer character, SpellList spell, CulturePanel hobbyPanel,
 			Color background) {
 		this.character = character;
 		this.parentPanel = hobbyPanel;

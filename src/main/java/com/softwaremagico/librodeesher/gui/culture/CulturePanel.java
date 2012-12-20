@@ -7,7 +7,7 @@ import java.util.List;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
-public abstract class ChooseCulturePanel extends BasePanel {
+public abstract class CulturePanel extends BasePanel {
 	private static final long serialVersionUID = 1005307178713098657L;
 	protected List<CultureLine> hobbyLines = new ArrayList<>();
 	protected CultureTitleLine title;

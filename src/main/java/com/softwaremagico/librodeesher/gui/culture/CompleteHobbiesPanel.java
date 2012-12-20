@@ -12,7 +12,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 public class CompleteHobbiesPanel extends BasePanel {
 	private static final long serialVersionUID = -714349581832077977L;
 	private CultureTitleLine title;
-	private ChooseHobbyPanel weaponPanel;
+	private HobbyPanel weaponPanel;
 	private CharacterPlayer character;
 
 	public CompleteHobbiesPanel(CharacterPlayer character) {
@@ -36,7 +36,7 @@ public class CompleteHobbiesPanel extends BasePanel {
 		gridBagConstraints.weighty = 0;
 		add(title, gridBagConstraints);
 
-		weaponPanel = new ChooseHobbyPanel(character, title, this);
+		weaponPanel = new HobbyPanel(character, title, this);
 		JScrollPane weaponsScrollPanel = new JScrollPane(weaponPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);

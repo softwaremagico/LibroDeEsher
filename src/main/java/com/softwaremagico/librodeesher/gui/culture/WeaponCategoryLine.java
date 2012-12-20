@@ -47,7 +47,7 @@ public class WeaponCategoryLine extends BasicLine {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
 		gridBagConstraints.gridx = 1;
-		JLabel rankLabel = new JLabel(ranks.toString());
+		JLabel rankLabel = new JLabel("("+ranks.toString()+")");
 		weaponCategoryLabel.setFont(new Font(font, Font.BOLD, fontSize));
 		add(createLabelInsidePanel(rankLabel, SwingConstants.CENTER, background, fontColor), gridBagConstraints);
 

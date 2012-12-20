@@ -12,7 +12,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 public class CompleteSpellPanel extends BasePanel {
 	private static final long serialVersionUID = -714349581832077977L;
 	private CultureTitleLine title;
-	private ChooseSpellPanel weaponPanel;
+	private SpellPanel spellPanel;
 	private CharacterPlayer character;
 
 	public CompleteSpellPanel(CharacterPlayer character) {
@@ -36,13 +36,12 @@ public class CompleteSpellPanel extends BasePanel {
 		gridBagConstraints.weighty = 0;
 		add(title, gridBagConstraints);
 
-		weaponPanel = new ChooseSpellPanel(character, title, this);
-		JScrollPane weaponsScrollPanel = new JScrollPane(weaponPanel,
+		spellPanel = new SpellPanel(character, title, this);
+		JScrollPane spellScrollPanel = new JScrollPane(spellPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		weaponsScrollPanel.setBorder(getBorder());
-		weaponsScrollPanel.setBounds(0, 0, weaponsScrollPanel.getWidth(),
-				weaponsScrollPanel.getHeight());
+		spellScrollPanel.setBorder(getBorder());
+		spellScrollPanel.setBounds(0, 0, spellScrollPanel.getWidth(), spellScrollPanel.getHeight());
 		gridBagConstraints.anchor = GridBagConstraints.LINE_START;
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
@@ -52,12 +51,11 @@ public class CompleteSpellPanel extends BasePanel {
 		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
-		add(weaponsScrollPanel, gridBagConstraints);
-	}
-	
-	protected void setRankTitle(String rankLabelText){
-		title.setRankTitle(rankLabelText);
+		add(spellScrollPanel, gridBagConstraints);
 	}
 
+	protected void setRankTitle(String rankLabelText) {
+		title.setRankTitle(rankLabelText);
+	}
 
 }
