@@ -1,22 +1,22 @@
-Defensa Mágica	Abierta
-Movimiento en la Alturas	Abierta
-Senda del Sonido	Abierta
-Ley de la Naturaleza	Abierta
-Purificaciones	Abierta
-Sendas de la Conmoción	Abierta
-Ley de las Barreras	Abierta
-Senda de la Luz	Abierta
-Sendas del Clima	Abierta
-Conocimiento	Cerrada
-Ley de los Músculos	Cerrada
-Sendas de la Localización	Cerrada
-Creaciones	Cerrada
-Ley de los Nervios	Cerrada
-Sendas de los Símbolos	Cerrada
-Ley de la Sangre	Cerrada
-Ley de los órganos	Cerrada
-Serenar Espíritus	Cerrada
-Ley de los Huesos	Cerrada
+Defensa Mágica	Lista Abierta
+Movimiento en las Alturas	Lista Abierta
+Senda del Sonido	Lista Abierta
+Ley de la Naturaleza	Lista Abierta
+Purificaciones	Lista Abierta
+Sendas de la Conmoción	Lista Abierta
+Ley de las Barreras	Lista Abierta
+Senda de la Luz	Lista Abierta
+Sendas del Clima	Lista Abierta
+Conocimiento	Lista Cerrada
+Ley de los Músculos	Lista Cerrada
+Sendas de la Localización	Lista Cerrada
+Creaciones	Lista Cerrada
+Ley de los Nervios	Lista Cerrada
+Sendas de los Símbolos	Lista Cerrada
+Ley de la Sangre	Lista Cerrada
+Ley de los órganos	Lista Cerrada
+Serenar Espíritus	Lista Cerrada
+Ley de los Huesos	Lista Cerrada
 Conocimiento de la Naturaleza	Animista
 Maestría de las Plantas	Animista
 Movimiento/Sentidos de la Naturaleza	Animista

@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Hashtable;
 import java.util.List;
 
 import com.softwaremagico.files.Folder;
@@ -45,8 +46,8 @@ public class Culture {
 	private String name;
 	private List<Weapon> cultureWeapons;
 	private List<String> cultureArmours;
-	private List<CultureCategory> categories;
-	private int hobbyRanks;
+	private Hashtable<String, CultureCategory> categories;
+	private Integer hobbyRanks;
 	private List<CultureSkill> hobbySkills;
 	private List<CultureLanguage> languages;
 
@@ -68,9 +69,9 @@ public class Culture {
 	}
 
 	public Integer getCategoryCultureRanks(String categoryName) {
-		for (CultureCategory category : categories) {
-			if (category.getName().equals(categoryName)) {
-				return category.getRanks();
+		for (String category : categories.keySet()) {
+			if (category.equals(categoryName)) {
+				return categories.get(category).getRanks();
 			}
 		}
 		return 0;
@@ -135,7 +136,7 @@ public class Culture {
 	}
 
 	private int setSkillRanks(List<String> lines, int index) throws Exception {
-		categories = new ArrayList<>();
+		categories = new Hashtable<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -145,8 +146,9 @@ public class Culture {
 				String cultureLine = lines.get(index);
 				if (!cultureLine.startsWith("  *  ")) {
 					String[] categoryRow = cultureLine.split("\t");
-					category = new CultureCategory(categoryRow[0], categoryRow[1]);
-					categories.add(category);
+					String categoryName = categoryRow[0].trim();
+					category = new CultureCategory(categoryName, categoryRow[1]);
+					categories.put(categoryName, category);
 				} else {
 					category.addSkillFromLine(cultureLine);
 				}
@@ -184,11 +186,11 @@ public class Culture {
 			for (String hobby : hobbySkillColumns) {
 				// If it is a category.
 				Category category;
-				if ((category =CategoryFactory.getAvailableCategory(hobby))!=null) {
-					for(Skill skill : category.getSkills()){
+				if ((category = CategoryFactory.getAvailableCategory(hobby)) != null) {
+					for (Skill skill : category.getSkills()) {
 						CultureSkill cultureSkill = new CultureSkill(skill.getName());
 						hobbySkills.add(cultureSkill);
-					}				
+					}
 					// Is a skill.
 				} else if (SkillFactory.existSkill(hobby)) {
 					CultureSkill skill = new CultureSkill(hobby);
@@ -214,9 +216,10 @@ public class Culture {
 			index++;
 		}
 		Collections.sort(hobbySkills, new Comparator<CultureSkill>() {
-		    public int compare(CultureSkill c1, CultureSkill c2) {
-		        return c1.getName().compareTo(c2.getName());
-		    }});
+			public int compare(CultureSkill c1, CultureSkill c2) {
+				return c1.getName().compareTo(c2.getName());
+			}
+		});
 		return index;
 	}
 
@@ -245,7 +248,11 @@ public class Culture {
 		return name;
 	}
 
-	public int getHobbyRanks() {
+	public Integer getHobbyRanks() {
 		return hobbyRanks;
+	}
+
+	public Integer getSpellRanks() {
+		return categories.get("Listas Abiertas de Hechizos").getChooseRanks();
 	}
 }

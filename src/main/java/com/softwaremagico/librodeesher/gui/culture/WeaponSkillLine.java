@@ -37,6 +37,7 @@ public class WeaponSkillLine extends BasicLine {
 		this.weaponSkill = weaponSkill;
 		setElements(background);
 		setBackground(background);
+		rankSpinner.setValue(character.getCultureDecisions().getWeaponRank(weaponSkill));
 	}
 
 	protected void setDefaultSize() {

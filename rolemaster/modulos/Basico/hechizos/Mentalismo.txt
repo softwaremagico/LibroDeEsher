@@ -1,23 +1,23 @@
-Autocuración	Abierta
-Detecciones	Abierta
-Evasión de los Ataques	Abierta
-Ilusiones	Abierta
-Investigación	Abierta
-Ocultación	Abierta
-Presentimientos	Abierta
-Resistencia a los Hechizos	Abierta
-Resistencia al Daño	Abierta
-Resplandor	Abierta
-Cambio	Cerrada
-Maestría de los Sentidos	Cerrada
-Maestría Mental	Cerrada
-Manipulación de los Gases	Cerrada
-Manipulación de los Líquidos	Cerrada
-Manipulación de los Sólidos	Cerrada
-Movimiento	Cerrada
-Puerta Mental	Cerrada
-Telequinesis	Cerrada
-Velocidad	Cerrada
+Autocuración	Lista Abierta
+Detecciones	Lista Abierta
+Evasión de los Ataques	Lista Abierta
+Ilusiones	Lista Abierta
+Investigación	Lista Abierta
+Ocultación	Lista Abierta
+Presentimientos	Lista Abierta
+Resistencia a los Hechizos	Lista Abierta
+Resistencia al Daño	Lista Abierta
+Resplandor	Lista Abierta
+Cambio	Lista Cerrada
+Maestría de los Sentidos	Lista Cerrada
+Maestría Mental	Lista Cerrada
+Manipulación de los Gases	Lista Cerrada
+Manipulación de los Líquidos	Lista Cerrada
+Manipulación de los Sólidos	Lista Cerrada
+Movimiento	Lista Cerrada
+Puerta Mental	Lista Cerrada
+Telequinesis	Lista Cerrada
+Velocidad	Lista Cerrada
 Maestría de la Conmoción	Curandero
 Maestría de la Sangre	Curandero
 Maestría de los Huesos	Curandero

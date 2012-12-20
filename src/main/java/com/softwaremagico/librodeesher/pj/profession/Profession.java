@@ -36,7 +36,6 @@ import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
-import com.softwaremagico.librodeesher.pj.categories.SimpleCategory;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.magic.Magic;
@@ -99,6 +98,10 @@ public class Profession {
 			lineIndex = setMagicCost(lines, lineIndex);
 			lineIndex = setTrainingCosts(lines, lineIndex);
 		}
+	}
+	
+	public Magic getMagic(){
+		return magic;
 	}
 
 	private int setBasicCharacteristics(List<String> lines, int index) {
@@ -206,7 +209,7 @@ public class Profession {
 		if (categoryName.contains("Armas·")) {
 			//TODO seleccionar el grupo de armas correspondiente.
 			return weaponCategoryCost.get("Armas·Categoría1").getMaxRanksPerLevel();
-		} else {
+		}else {
 			return categoryCost.get(categoryName).getMaxRanksPerLevel();
 		}
 	}
@@ -318,5 +321,4 @@ public class Profession {
 	public List<RealmOfMagic> getMagicRealmsAvailable() {
 		return magicRealmsAvailable;
 	}
-
 }

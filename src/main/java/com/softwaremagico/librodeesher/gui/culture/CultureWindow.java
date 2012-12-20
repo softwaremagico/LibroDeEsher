@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -42,6 +43,7 @@ public class CultureWindow extends BaseFrame {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		getContentPane().add(new CompleteWeaponPanel(character), gridBagConstraints);
 		
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -52,6 +54,7 @@ public class CultureWindow extends BaseFrame {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		getContentPane().add(new CompleteHobbiesPanel(character), gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -62,6 +65,7 @@ public class CultureWindow extends BaseFrame {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		getContentPane().add(createChooseLanguagePanel(), gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -72,7 +76,8 @@ public class CultureWindow extends BaseFrame {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 0;
-		getContentPane().add(createChooseSpellsPanel(), gridBagConstraints);
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+		getContentPane().add(new CompleteSpellPanel(character), gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
 		acceptButton = new BasicButton("Aceptar");
@@ -98,30 +103,6 @@ public class CultureWindow extends BaseFrame {
 		languagePanel.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1));
 
 		JScrollPane scrollPanel = new JScrollPane(languagePanel,
-				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPanel.setBorder(getBorder());
-		scrollPanel.setMinimumSize(new Dimension(200, 0));
-		return scrollPanel;
-	}
-
-	private JScrollPane createChooseHobbiesPanel() {
-		JPanel hobbiesPanel = new JPanel();
-		hobbiesPanel.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1));
-
-		JScrollPane scrollPanel = new JScrollPane(hobbiesPanel,
-				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPanel.setBorder(getBorder());
-		scrollPanel.setMinimumSize(new Dimension(200, 0));
-		return scrollPanel;
-	}
-
-	private JScrollPane createChooseSpellsPanel() {
-		JPanel speellsPanel = new JPanel();
-		speellsPanel.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1));
-
-		JScrollPane scrollPanel = new JScrollPane(speellsPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPanel.setBorder(getBorder());

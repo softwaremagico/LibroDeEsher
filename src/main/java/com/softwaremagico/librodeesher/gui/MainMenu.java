@@ -24,19 +24,18 @@ package com.softwaremagico.librodeesher.gui;
  * #L%
  */
 
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class MainMenu {
 	private JMenuItem newMenuItem, closeMenuItem, loadMenuItem, saveMenuItem, exportToTextMenuItem,
@@ -47,6 +46,7 @@ public class MainMenu {
 	private JMenuItem randomName, randomCharacter;
 	private JFrame parentWindow;
 	private JMenu characterListMenu;
+	private CharacterPlayer character;
 
 	public JMenuBar createMenu(JFrame parentWindow) {
 		this.parentWindow = parentWindow;
@@ -274,5 +274,19 @@ public class MainMenu {
 			parentWindow.dispose();
 		}
 	}
+	
+	public void setCharacter(CharacterPlayer character){
+		this.character = character;
+	}
 
+	public void update(){
+		boolean enable = character.areCharacteristicsConfirmed();
+		charactMenuItem.setEnabled(!enable);
+		cultureMenuItem.setEnabled(enable);
+		trainingMenuItem.setEnabled(enable);
+		perksMenuItem.setEnabled(enable);
+		skillsMenuItem.setEnabled(enable);
+		historyMenuItem.setEnabled(enable);
+		levelUpMenuItem.setEnabled(enable);
+	}
 }

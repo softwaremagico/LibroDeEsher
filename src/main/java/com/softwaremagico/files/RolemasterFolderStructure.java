@@ -46,7 +46,7 @@ public class RolemasterFolderStructure implements Serializable {
 	public static final String ROLEMASTER_FOLDER = APPLICATION_FOLDER + File.separator + "rolemaster";
 	public final static String DIRECTORIO_TALENTOS = "talentos";
 	public final static String CULTURE_FOLDER = "culturas";
-	public static final String DIRECTORIO_HECHIZOS = "hechizos";
+	public static final String SPELL_FOLDER = "hechizos";
 	public final static String DIRECTORIO_ADIESTRAMIENTOS = "adiestramientos";
 	public final static String DIRECTORIO_MODULOS = ROLEMASTER_FOLDER + File.separator + "modulos";
 	public static final String DIRECTORIO_CONFIGURACION = "configuracion";
@@ -170,17 +170,17 @@ public class RolemasterFolderStructure implements Serializable {
 		return categories;
 	}
 
-	public static List<String> LeerLineasHechizos(String file) {
-		List<String> lineasFicheroHechizos = new ArrayList<>();
-		List<String> ficherosHechizos = DevolverPathsFichero(DIRECTORIO_HECHIZOS + File.separator + file);
-		for (int i = 0; i < ficherosHechizos.size(); i++) {
+	public static List<String> getSpellLines(String file) {
+		List<String> spellLines = new ArrayList<>();
+		List<String> spellFile = DevolverPathsFichero(SPELL_FOLDER + File.separator + file);
+		for (int i = 0; i < spellFile.size(); i++) {
 			try {
-				lineasFicheroHechizos.addAll(Folder.readFileLines(ficherosHechizos.get(i), verbose));
+				spellLines.addAll(Folder.readFileLines(spellFile.get(i), verbose));
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
 		}
-		return lineasFicheroHechizos;
+		return spellLines;
 	}
 
 	public static List<String> LeerLineasTalentos(String file) {

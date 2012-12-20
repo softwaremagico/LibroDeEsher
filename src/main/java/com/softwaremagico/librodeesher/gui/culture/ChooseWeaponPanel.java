@@ -35,12 +35,16 @@ public class ChooseWeaponPanel extends BasePanel {
 			ArrayList<WeaponSkillLine> weaponLineList = new ArrayList<>();
 			weaponLines.put(category, weaponLineList);
 			for (Weapon weapon : character.getCulture().getCultureWeapons()) {
+				try{
 				if (weapon.getType().getWeaponCategoryName().equals(category.getName())) {
 					WeaponSkillLine weaponLine = new WeaponSkillLine(character, category, this,
 							SkillFactory.getAvailableSkill(weapon.getName()), getLineBackgroundColor(i));
 					add(weaponLine);
 					weaponLineList.add(weaponLine);
 					i++;
+				}
+				}catch(NullPointerException npe){
+					//Arma de cultura no existe en el programa. Ignorar. 
 				}
 			}
 		}

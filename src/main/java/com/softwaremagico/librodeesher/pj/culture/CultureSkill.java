@@ -39,6 +39,10 @@ public class CultureSkill {
 		return name;
 	}
 
+	public Integer getRanks() {
+		return ranks;
+	}
+
 	public void setRanks(Integer ranks) {
 		this.ranks = ranks;
 	}

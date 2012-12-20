@@ -1,30 +1,23 @@
 package com.softwaremagico.librodeesher.gui.culture;
 
-import java.awt.GridLayout;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.culture.CultureSkill;
 
-public class ChooseHobbyPanel extends BasePanel {
-	private static final long serialVersionUID = -9203104559414795802L;
-	private List<HobbyLine> hobbyLines = new ArrayList<>();
-	private CultureTitleLine title;
-	private CharacterPlayer character;
+public class ChooseHobbyPanel extends ChooseCulturePanel {
+	private static final long serialVersionUID = -1080201556731377298L;
+	private CompleteHobbiesPanel parentPanel;
 
-	public ChooseHobbyPanel(CharacterPlayer character, CultureTitleLine title) {
-		setElements(character);
+	public ChooseHobbyPanel(CharacterPlayer character, CultureTitleLine title,
+			CompleteHobbiesPanel parentPanel) {
 		this.character = character;
+		this.parentPanel = parentPanel;
 		this.title = title;
+		setElements(character);
 	}
 
-	private void setElements(CharacterPlayer character) {
-		this.removeAll();
-		setLayout(new GridLayout(0, 1));
+	@Override
+	protected void createElements() {
 		int i = 0;
-
 		for (CultureSkill skill : character.getCulture().getHobbySkills()) {
 			HobbyLine hobbyLine = new HobbyLine(character, skill, this, getLineBackgroundColor(i));
 			add(hobbyLine);
@@ -32,14 +25,8 @@ public class ChooseHobbyPanel extends BasePanel {
 			i++;
 		}
 	}
-	
-	protected Integer getSpinnerValues() {
-		Integer total = 0;
-		for (HobbyLine lines : hobbyLines) {
-			total += lines.getSelectedRanks();
-		}
-		title.setRankTitle("Rangos (" + (character.getCulture().getHobbyRanks() - total) + ")");
-		return total;
-	}
 
+	protected void setRankTitle(String rankLabelText) {
+		parentPanel.setRankTitle(rankLabelText);
+	}
 }

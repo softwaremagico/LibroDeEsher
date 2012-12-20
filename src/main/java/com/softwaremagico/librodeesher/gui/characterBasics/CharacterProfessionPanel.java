@@ -89,7 +89,6 @@ public class CharacterProfessionPanel extends BasePanel {
 		add(trainingLabel, c);
 
 		JTextField trainingTextField = new JTextField();
-		;
 		trainingTextField.setEditable(false);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
@@ -170,6 +169,7 @@ public class CharacterProfessionPanel extends BasePanel {
 			character.setProfession(getSelectedProfession());
 		}
 	}
+	
 
 	class ChangeProfessionListener implements ActionListener {
 

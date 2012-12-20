@@ -192,6 +192,7 @@ public class CharacterRacePanel extends BasePanel {
 			cultureComboBox.setSelectedItem(character.getCulture().getName());
 		}
 		cultureComboBox.setEnabled(!character.areCharacteristicsConfirmed());
+		raceComboBox.setEnabled(!character.areCharacteristicsConfirmed());
 	}
 
 	class ChangeRaceListener implements ActionListener {

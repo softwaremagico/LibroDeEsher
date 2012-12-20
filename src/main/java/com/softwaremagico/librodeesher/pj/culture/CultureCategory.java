@@ -24,19 +24,18 @@ package com.softwaremagico.librodeesher.pj.culture;
  * #L%
  */
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Hashtable;
 
 import com.softwaremagico.librodeesher.gui.ShowMessage;
 
 public class CultureCategory {
 	private Integer ranks;
 	private Integer ranksToChoose;
-	private List<CultureSkill> skills;
+	private Hashtable<String, CultureSkill> skills;
 	private String name;
 
 	public CultureCategory(String name, Integer ranks) {
-		skills = new ArrayList<>();
+		skills = new Hashtable<>();
 		this.name = name;
 		this.ranks = ranks;
 		ranksToChoose = 0;
@@ -47,16 +46,17 @@ public class CultureCategory {
 	}
 
 	public CultureSkill addSkill(String skillName) {
-		skills = new ArrayList<>();
-		CultureSkill skill = new CultureSkill(skillName);
-		if (!skills.contains(skill)) {
-			skills.add(skill);
+		CultureSkill skill = skills.get(skillName);
+		if (skill == null) {
+			skill = new CultureSkill(skillName);
+			skills.put(skillName, skill);
 		}
 		return skill;
 	}
 
 	public CultureCategory(String name, String ranks) {
 		this.name = name;
+		skills = new Hashtable<>();
 		try {
 			this.ranks = Integer.parseInt(ranks);
 		} catch (NumberFormatException nfe) {
@@ -83,7 +83,19 @@ public class CultureCategory {
 			return skill;
 		}
 	}
+	
+	public CultureSkill getSkill(String skillName){
+		return skills.get(skillName);
+	}
 
+	/**
+	 * This ranks are for magic and weapons only.
+	 * @return
+	 */
+	public Integer getChooseRanks(){
+		return ranksToChoose;
+	}
+	
 	public Integer getRanks() {
 		return ranks;
 	}

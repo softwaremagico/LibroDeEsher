@@ -1,23 +1,23 @@
-Barrera Contra Hechizos	Abierta
-Maestría de las Runas	Abierta
-Percepción de la Esencia	Abierta
-Sendas de la Indagación	Abierta
-Escudos Elementales	Abierta
-Mano de la Esencia	Abierta
-Sendas de Apertura	Abierta
-Ilusiones Menores	Abierta
-Mejora Física	Abierta
-Sendas de la Detección	Abierta
-Bridas de los Hechizos	Cerrada
-Maestría de los Espíritus	Cerrada
-Sendas de la Rapidez	Cerrada
-Cambio Viviente	Cerrada
-Mejora de los Hechizos	Cerrada
-Senda de la Anulación	Cerrada
-Maestría de los Escudos	Cerrada
-Maestría de los Portales	Cerrada
-Puente en la Alturas	Cerrada
-Senda de la Invisibilidad	Cerrada
+Barrera Contra Hechizos	Lista Abierta
+Maestría de las Runas	Lista Abierta
+Percepción de la Esencia	Lista Abierta
+Sendas de la Indagación	Lista Abierta
+Escudos Elementales	Lista Abierta
+Mano de la Esencia	Lista Abierta
+Sendas de Apertura	Lista Abierta
+Ilusiones Menores	Lista Abierta
+Mejora Física	Lista Abierta
+Sendas de la Detección	Lista Abierta
+Bridas de los Hechizos	Lista Cerrada
+Maestría de los Espíritus	Lista Cerrada
+Sendas de la Rapidez	Lista Cerrada
+Cambio Viviente	Lista Cerrada
+Mejora de los Hechizos	Lista Cerrada
+Senda de la Anulación	Lista Cerrada
+Maestría de los Escudos	Lista Cerrada
+Maestría de los Portales	Lista Cerrada
+Puente en la Alturas	Lista Cerrada
+Senda de la Invisibilidad	Lista Cerrada
 Disfraces	Ilusionista
 Maestría de las Ilusiones	Ilusionista
 Moldear el Sonido	Ilusionista

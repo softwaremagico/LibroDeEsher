@@ -9,13 +9,13 @@ import javax.swing.ScrollPaneConstants;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
-public class CompleteHobbiesPanel extends BasePanel {
+public class CompleteSpellPanel extends BasePanel {
 	private static final long serialVersionUID = -714349581832077977L;
 	private CultureTitleLine title;
-	private ChooseHobbyPanel weaponPanel;
+	private ChooseSpellPanel weaponPanel;
 	private CharacterPlayer character;
 
-	public CompleteHobbiesPanel(CharacterPlayer character) {
+	public CompleteSpellPanel(CharacterPlayer character) {
 		this.character = character;
 		setElements();
 	}
@@ -25,7 +25,7 @@ public class CompleteHobbiesPanel extends BasePanel {
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
-		title = new CultureTitleLine("Aficiones", "Rangos (" + character.getCulture().getHobbyRanks() + ")");
+		title = new CultureTitleLine("Hechizos", "Rangos (" + character.getCulture().getSpellRanks() + ")");
 		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
@@ -36,15 +36,14 @@ public class CompleteHobbiesPanel extends BasePanel {
 		gridBagConstraints.weighty = 0;
 		add(title, gridBagConstraints);
 
-		weaponPanel = new ChooseHobbyPanel(character, title, this);
+		weaponPanel = new ChooseSpellPanel(character, title, this);
 		JScrollPane weaponsScrollPanel = new JScrollPane(weaponPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		weaponsScrollPanel.setBorder(getBorder());
-		// characteristicPanel.setMinimumSize(new Dimension(200, 0));
 		weaponsScrollPanel.setBounds(0, 0, weaponsScrollPanel.getWidth(),
 				weaponsScrollPanel.getHeight());
-		// gridBagConstraints.anchor = GridBagConstraints.LINE_START;
+		gridBagConstraints.anchor = GridBagConstraints.LINE_START;
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
@@ -59,5 +58,6 @@ public class CompleteHobbiesPanel extends BasePanel {
 	protected void setRankTitle(String rankLabelText){
 		title.setRankTitle(rankLabelText);
 	}
+
 
 }

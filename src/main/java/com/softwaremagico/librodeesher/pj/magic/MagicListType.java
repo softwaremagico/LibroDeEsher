@@ -36,6 +36,10 @@ public enum MagicListType {
 	MagicListType(String tag) {
 		this.tag = tag;
 	}
+	
+	public String getTag(){
+		return tag;
+	}
 
 	public static MagicListType getMagicType(String tag) {
 		tag = tag.toLowerCase().trim();

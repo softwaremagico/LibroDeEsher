@@ -69,6 +69,7 @@ public class MainWindow extends BaseFrame {
 		characterPanel.setCharacter(character);
 		characteristicsPanel.setCharacter(character, true);
 		resistancePanel.setCharacter(character);
+		mainMenu.setCharacter(character);
 	}
 
 	private void setElements() {
@@ -200,6 +201,7 @@ public class MainWindow extends BaseFrame {
 		characterPanel.update();
 		characteristicsPanel.update();
 		resistancePanel.update();
+		mainMenu.update();
 	}
 
 	private void addListeners() {
