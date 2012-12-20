@@ -9,13 +9,13 @@ import javax.swing.ScrollPaneConstants;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
-public class CompleteWeaponPanel extends BasePanel {
+public class CompleteHobbiesPanel extends BasePanel {
 	private static final long serialVersionUID = -714349581832077977L;
 	private CultureTitleLine title;
-	private ChooseWeaponPanel hobbyPanel;
+	private ChooseHobbyPanel weaponPanel;
 	private CharacterPlayer character;
 
-	public CompleteWeaponPanel(CharacterPlayer character) {
+	public CompleteHobbiesPanel(CharacterPlayer character) {
 		this.character = character;
 		setElements();
 	}
@@ -25,7 +25,7 @@ public class CompleteWeaponPanel extends BasePanel {
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
-		title = new CultureTitleLine("Armas", "Rangos");
+		title = new CultureTitleLine("Aficiones", "Rangos (" + character.getCulture().getHobbyRanks() + ")");
 		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
@@ -36,8 +36,8 @@ public class CompleteWeaponPanel extends BasePanel {
 		gridBagConstraints.weighty = 0;
 		add(title, gridBagConstraints);
 
-		hobbyPanel = new ChooseWeaponPanel(character);
-		JScrollPane weaponsScrollPanel = new JScrollPane(hobbyPanel,
+		weaponPanel = new ChooseHobbyPanel(character, title);
+		JScrollPane weaponsScrollPanel = new JScrollPane(weaponPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		weaponsScrollPanel.setBorder(getBorder());

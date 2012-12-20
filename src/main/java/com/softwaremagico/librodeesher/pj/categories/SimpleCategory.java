@@ -29,7 +29,6 @@ import java.util.List;
 
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
-import com.softwaremagico.librodeesher.pj.skills.SkillType;
 
 public class SimpleCategory {
 	private String name;
@@ -42,17 +41,21 @@ public class SimpleCategory {
 
 	public Skill addSkill(String skillName) {
 		Skill skill = SkillFactory.getSkill(skillName);
+		skill.setCategory(this);
 		if (!skills.contains(skill)) {
 			skills.add(skill);
 		}
 		return skill;
 	}
 
-	public void setSkills(List<Skill> skills) {
-		this.skills = skills;
-	}
-
 	public String getName() {
 		return name;
+	}
+
+	public void setSkills(List<Skill> skills) {
+		this.skills = skills;
+		for (Skill skill : skills) {
+			skill.setCategory(this);
+		}
 	}
 }

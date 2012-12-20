@@ -24,6 +24,7 @@ package com.softwaremagico.librodeesher.gui.style;
  * #L%
  */
 
+import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
@@ -46,6 +47,14 @@ public abstract class BasePanel extends JPanel {
 				* getComponentCount() / 2 + 20));
 		setPreferredSize(new Dimension(textDefaultWidth + inputDefaultWidth + 10, textDefaultHeight
 				* getComponentCount() / 2 + 20));
+	}
+	
+	protected static Color getLineBackgroundColor(int index) {
+		if (index % 2 == 0) {
+			return Color.WHITE;
+		} else {
+			return Color.LIGHT_GRAY;
+		}
 	}
 
 }

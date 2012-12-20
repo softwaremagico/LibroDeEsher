@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import com.softwaremagico.librodeesher.pj.categories.SimpleCategory;
+
 /*
  * #%L
  * Libro de Esher
@@ -31,16 +33,25 @@ import java.util.regex.Pattern;
 public abstract class Skill {
 	private String name;
 	private List<String> specialities; // A skill can have some specializations.
+	private SimpleCategory category;
 
 	public Skill(String name) {
 		specialities = new ArrayList<>();
-		String specialityPattern =  Pattern.quote("[");
+		String specialityPattern = Pattern.quote("[");
 		String[] nameColumns = name.split(specialityPattern);
 		this.name = nameColumns[0].trim();
 	}
 
 	public String getName() {
 		return name;
+	}
+
+	public void setCategory(SimpleCategory category) {
+		this.category = category;
+	}
+	
+	public SimpleCategory getCategory(){
+		return category;
 	}
 
 	public void addSpecialities(List<String> specialities) {

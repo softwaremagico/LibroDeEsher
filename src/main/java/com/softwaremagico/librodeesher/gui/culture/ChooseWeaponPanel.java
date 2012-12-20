@@ -1,6 +1,5 @@
 package com.softwaremagico.librodeesher.gui.culture;
 
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -30,7 +29,7 @@ public class ChooseWeaponPanel extends BasePanel {
 		for (Category category : CategoryFactory.getWeaponsCategories()) {
 
 			add(new WeaponCategoryLine(category, character.getCulture().getCategoryCultureRanks(
-					category.getName()), getBgColor(i)));
+					category.getName()), getLineBackgroundColor(i)));
 			i++;
 
 			ArrayList<WeaponSkillLine> weaponLineList = new ArrayList<>();
@@ -38,20 +37,12 @@ public class ChooseWeaponPanel extends BasePanel {
 			for (Weapon weapon : character.getCulture().getCultureWeapons()) {
 				if (weapon.getType().getWeaponCategoryName().equals(category.getName())) {
 					WeaponSkillLine weaponLine = new WeaponSkillLine(character, category, this,
-							SkillFactory.getAvailableSkill(weapon.getName()), getBgColor(i));
+							SkillFactory.getAvailableSkill(weapon.getName()), getLineBackgroundColor(i));
 					add(weaponLine);
 					weaponLineList.add(weaponLine);
 					i++;
 				}
 			}
-		}
-	}
-
-	private Color getBgColor(int i) {
-		if (i % 2 == 0) {
-			return Color.WHITE;
-		} else {
-			return Color.LIGHT_GRAY;
 		}
 	}
 

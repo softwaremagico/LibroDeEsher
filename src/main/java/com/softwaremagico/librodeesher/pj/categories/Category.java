@@ -45,12 +45,12 @@ public abstract class Category extends SimpleCategory {
 
 	public abstract void addSkills(String skills);
 
-	public List<Skill> getSkills() {
-		return skills;
-	}
-
 	public String getAbbreviature() {
 		return abbreviature;
+	}
+
+	public List<Skill> getSkills() {
+		return skills;
 	}
 
 	public CategoryType getType() {

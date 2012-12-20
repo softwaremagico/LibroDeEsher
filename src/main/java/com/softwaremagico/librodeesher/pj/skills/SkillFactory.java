@@ -34,17 +34,17 @@ public class SkillFactory {
 		Skill skill = availableSkills.get(skillNameAndType);
 		if (skill == null) {
 			skill = createSkill(skillNameAndType);
-			availableSkills.put(skill.getName(), skill);
+			addSkill(skill);
 		}
 		return skill;
 	}
-	
+
 	public static Skill getSkill(String skillNameAndType, List<String> specialities) {
 		Skill skill = availableSkills.get(skillNameAndType);
 		if (skill == null) {
 			skill = createSkill(skillNameAndType);
 			skill.addSpecialities(specialities);
-			availableSkills.put(skill.getName(), skill);
+			addSkill(skill);
 		}
 		return skill;
 	}
@@ -53,8 +53,12 @@ public class SkillFactory {
 		for (String skillParameter : skills) {
 			String skillName = skillParameter.trim();
 			Skill skill = createSkill(skillName);
-			availableSkills.put(skill.getName(), skill);
+			addSkill(skill);
 		}
+	}
+
+	public static void addSkill(Skill skill) {
+		availableSkills.put(skill.getName(), skill);
 	}
 
 	public static Skill getAvailableSkill(String skillName) {
@@ -93,6 +97,7 @@ public class SkillFactory {
 	}
 
 	private static String removeTypeFromName(String skillName) {
+		//String pattern = Pattern.quote("*");
 		return skillName.replace("(R)", "").replace("*", "").trim();
 	}
 }

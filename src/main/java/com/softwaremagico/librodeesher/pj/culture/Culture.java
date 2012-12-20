@@ -27,6 +27,8 @@ package com.softwaremagico.librodeesher.pj.culture;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.softwaremagico.files.Folder;
@@ -34,6 +36,7 @@ import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 import com.softwaremagico.librodeesher.pj.weapons.WeaponFactory;
@@ -44,7 +47,6 @@ public class Culture {
 	private List<String> cultureArmours;
 	private List<CultureCategory> categories;
 	private int hobbyRanks;
-	private List<CultureCategory> hobbyCategories;
 	private List<CultureSkill> hobbySkills;
 	private List<CultureLanguage> languages;
 
@@ -55,6 +57,10 @@ public class Culture {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public List<CultureSkill> getHobbySkills() {
+		return hobbySkills;
 	}
 
 	public List<Weapon> getCultureWeapons() {
@@ -170,7 +176,6 @@ public class Culture {
 
 	private int setHobbySkillsAndCategories(List<String> lines, int index) {
 		hobbySkills = new ArrayList<>();
-		hobbyCategories = new ArrayList<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -178,9 +183,12 @@ public class Culture {
 			String[] hobbySkillColumns = lines.get(index).split(", ");
 			for (String hobby : hobbySkillColumns) {
 				// If it is a category.
-				if (CategoryFactory.existCategory(hobby)) {
-					CultureCategory category = new CultureCategory(hobby, 0);
-					hobbyCategories.add(category);
+				Category category;
+				if ((category =CategoryFactory.getAvailableCategory(hobby))!=null) {
+					for(Skill skill : category.getSkills()){
+						CultureSkill cultureSkill = new CultureSkill(skill.getName());
+						hobbySkills.add(cultureSkill);
+					}				
 					// Is a skill.
 				} else if (SkillFactory.existSkill(hobby)) {
 					CultureSkill skill = new CultureSkill(hobby);
@@ -205,6 +213,10 @@ public class Culture {
 			}
 			index++;
 		}
+		Collections.sort(hobbySkills, new Comparator<CultureSkill>() {
+		    public int compare(CultureSkill c1, CultureSkill c2) {
+		        return c1.getName().compareTo(c2.getName());
+		    }});
 		return index;
 	}
 
@@ -233,4 +245,7 @@ public class Culture {
 		return name;
 	}
 
+	public int getHobbyRanks() {
+		return hobbyRanks;
+	}
 }

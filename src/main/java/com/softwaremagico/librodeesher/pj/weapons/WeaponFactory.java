@@ -63,14 +63,16 @@ public class WeaponFactory {
 		// Read each file.
 		for (String weaponFile : weaponFiles) {
 			List<String> weaponsInFile = Folder.readFileLines(weaponFile + ".txt", false);
-			
+
 			File file = new File(weaponFile + ".txt");
 			String weaponTypeName = file.getName();
-			
+
 			WeaponType weaponFileType = WeaponType.getWeaponType(MyFile.fileWithouExtension(weaponTypeName));
 			for (String weaponName : weaponsInFile) {
-				Weapon weapon = new Weapon(weaponName, weaponFileType);
-				obtainedWeaponsByType.get(weaponFileType).add(weapon);
+				if (!weaponName.startsWith("#")) {
+					Weapon weapon = new Weapon(weaponName, weaponFileType);
+					obtainedWeaponsByType.get(weaponFileType).add(weapon);
+				}
 			}
 		}
 

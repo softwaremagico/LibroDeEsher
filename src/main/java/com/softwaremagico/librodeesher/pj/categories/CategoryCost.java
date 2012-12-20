@@ -30,20 +30,13 @@ import com.softwaremagico.librodeesher.gui.ShowMessage;
 
 public class CategoryCost {
 	List<Integer> rankCost;
-
+	
 	public CategoryCost(List<Integer> rankCost) {
 		this.rankCost = rankCost;
 	}
 
 	public CategoryCost(String rankCost) {
 		this.rankCost = covertStringToCost(rankCost);
-	}
-
-	public Integer getCost(int rankAdquiredInThisLevel) {
-		if (rankCost != null && rankAdquiredInThisLevel < rankCost.size()) {
-			return rankCost.get(rankAdquiredInThisLevel);
-		}
-		return null;
 	}
 
 	public static List<Integer> covertStringToCost(String costString) {
@@ -62,5 +55,16 @@ public class CategoryCost {
 		}
 
 		return cost;
+	}
+
+	public Integer getCost(int rankAdquiredInThisLevel) {
+		if (rankCost != null && rankAdquiredInThisLevel < rankCost.size()) {
+			return rankCost.get(rankAdquiredInThisLevel);
+		}
+		return null;
+	}
+	
+	public Integer getMaxRanksPerLevel(){
+		return rankCost.size();
 	}
 }

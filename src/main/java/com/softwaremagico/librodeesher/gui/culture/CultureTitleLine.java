@@ -8,23 +8,28 @@ import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.gui.style.BasicTitleLine;
 
-public class WeaponTitleLine extends BasicTitleLine {
+public class CultureTitleLine extends BasicTitleLine {
 	private static final long serialVersionUID = 4480268296161276440L;
+	private JLabel rankLabel;
 
-	public WeaponTitleLine() {
-		setElements(background);
+	public CultureTitleLine(String titleLabelText, String rankLabelText) {
+		setElements(background, titleLabelText, rankLabelText);
 		setBackground(background);
 	}
 
-	protected void setElements(Color background) {
+	protected void setElements(Color background, String labelText, String rankLabelText) {
 		this.removeAll();
 		setLayout(new GridLayout(1, 2));
 
-		JLabel weaponCategoryLabel = new JLabel("Armas");
+		JLabel weaponCategoryLabel = new JLabel(labelText);
 		add(createLabelInsidePanel(weaponCategoryLabel, SwingConstants.CENTER, background, fontColor));
 
-		JLabel rankLabel = new JLabel("Rangos");
+		rankLabel = new JLabel(rankLabelText);
 		add(createLabelInsidePanel(rankLabel, SwingConstants.CENTER, background, fontColor));
 
+	}
+	
+	protected void setRankTitle(String rankLabelText){
+		rankLabel.setText(rankLabelText);
 	}
 }

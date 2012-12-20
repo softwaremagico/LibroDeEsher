@@ -26,7 +26,7 @@ public class CultureWindow extends BaseFrame {
 	public CultureWindow(CharacterPlayer character) {
 		this.character = character;
 		defineWindow(500, 400);
-		setResizable(false);
+		//setResizable(false);
 		setElements();
 	}
 
@@ -43,7 +43,7 @@ public class CultureWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		getContentPane().add(new CompleteWeaponPanel(character), gridBagConstraints);
-
+		
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 1;
@@ -52,7 +52,7 @@ public class CultureWindow extends BaseFrame {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
-		getContentPane().add(createChooseLanguagePanel(), gridBagConstraints);
+		getContentPane().add(new CompleteHobbiesPanel(character), gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
@@ -61,8 +61,8 @@ public class CultureWindow extends BaseFrame {
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 1;
-		gridBagConstraints.weighty = 0;
-		getContentPane().add(createChooseHobbiesPanel(), gridBagConstraints);
+		gridBagConstraints.weighty = 1;
+		getContentPane().add(createChooseLanguagePanel(), gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;

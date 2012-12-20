@@ -36,6 +36,7 @@ import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
+import com.softwaremagico.librodeesher.pj.categories.SimpleCategory;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.magic.Magic;
@@ -45,8 +46,6 @@ import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
-import com.softwaremagico.librodeesher.pj.training.Training;
-import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 import com.softwaremagico.librodeesher.pj.training.TrainingType;
 
 public class Profession {
@@ -55,8 +54,8 @@ public class Profession {
 	private Hashtable<String, Integer> skillBonus;
 	private List<Characteristic> characteristicPreferences;
 	private List<RealmOfMagic> magicRealmsAvailable;
-	private List<CategoryCost> weaponCategoryCost;
-	private Hashtable<Category, CategoryCost> categoryCost;
+	private Hashtable<String, CategoryCost> weaponCategoryCost;
+	private Hashtable<String, CategoryCost> categoryCost;
 	private List<ChooseSkillGroup> commonSkillsToChoose;
 	private List<ChooseSkillGroup> professionalSkillsToChoose;
 	private List<ChooseSkillGroup> restrictedSkillsToChoose;
@@ -178,7 +177,7 @@ public class Profession {
 
 	private int setCategoryCost(List<String> lines, int index) {
 		categoryCost = new Hashtable<>();
-		weaponCategoryCost = new ArrayList<>();
+		weaponCategoryCost = new Hashtable<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -188,11 +187,11 @@ public class Profession {
 			String[] categoryColumns = categoryLine.split("\t");
 			String categoryName = categoryColumns[0];
 			if (categoryName.startsWith("Armas·")) {
-				weaponCategoryCost.add(new CategoryCost(categoryColumns[1]));
+				weaponCategoryCost.put(categoryName, new CategoryCost(categoryColumns[1]));
 			} else {
 				try {
 					Category cat = CategoryFactory.getAvailableCategory(categoryName);
-					categoryCost.put(cat, new CategoryCost(categoryColumns[1]));
+					categoryCost.put(cat.getName(), new CategoryCost(categoryColumns[1]));
 				} catch (Exception e) {
 					e.printStackTrace();
 					ShowMessage.showErrorMessage("Categoría mal definida: " + categoryName, "Leer Profesion");
@@ -201,6 +200,15 @@ public class Profession {
 			index++;
 		}
 		return index;
+	}
+
+	public Integer getMaxRanksPerLevel(String categoryName) {
+		if (categoryName.contains("Armas·")) {
+			//TODO seleccionar el grupo de armas correspondiente.
+			return weaponCategoryCost.get("Armas·Categoría1").getMaxRanksPerLevel();
+		} else {
+			return categoryCost.get(categoryName).getMaxRanksPerLevel();
+		}
 	}
 
 	private int setSpecialSkills(List<String> lines, int index, List<ChooseSkillGroup> groupSkillsToChoose) {
