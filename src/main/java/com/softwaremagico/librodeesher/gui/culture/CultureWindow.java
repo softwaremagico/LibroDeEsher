@@ -66,7 +66,7 @@ public class CultureWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		getContentPane().add(createChooseLanguagePanel(), gridBagConstraints);
+		getContentPane().add(new CompleteLanguagePanel(character), gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;

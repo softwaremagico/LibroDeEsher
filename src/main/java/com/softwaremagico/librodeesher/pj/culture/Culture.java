@@ -35,6 +35,8 @@ import java.util.List;
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.ShowMessage;
+import com.softwaremagico.librodeesher.pj.Language;
+import com.softwaremagico.librodeesher.pj.LanguageComparator;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -49,7 +51,8 @@ public class Culture {
 	private Hashtable<String, CultureCategory> categories;
 	private Integer hobbyRanks;
 	private List<CultureSkill> hobbySkills;
-	private List<CultureLanguage> languages;
+	// private List<CultureLanguage> languages;
+	private Hashtable<String, Language> languages;
 
 	public Culture(String name) {
 		this.name = name;
@@ -58,6 +61,12 @@ public class Culture {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public List<Language> getLanguages() {
+		List<Language> sortedLanguages =  new ArrayList<Language>(languages.values());
+		Collections.sort(sortedLanguages, new LanguageComparator());
+		return sortedLanguages;
 	}
 
 	public List<CultureSkill> getHobbySkills() {
@@ -224,7 +233,7 @@ public class Culture {
 	}
 
 	private int setCultureLanguages(List<String> lines, int index) {
-		languages = new ArrayList<>();
+		languages = new Hashtable<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -232,9 +241,10 @@ public class Culture {
 			String[] languageColumn = lines.get(index).split("\t");
 			String[] languageRanks = languageColumn[1].split("/");
 			try {
-				CultureLanguage language = new CultureLanguage(languageColumn[0], languageRanks[0],
-						languageRanks[1]);
-				languages.add(language);
+				Language language = new Language(Language.SPOKEN_TAG + " " + languageColumn[0], Integer.parseInt(languageRanks[0]));
+				languages.put(language.getName(), language);
+				language = new Language(Language.WRITTEN_TAG + " " + languageColumn[0], Integer.parseInt(languageRanks[1]));
+				languages.put(language.getName(), language);
 			} catch (NumberFormatException nfe) {
 				ShowMessage.showErrorMessage("Error al obtener los rangos escritos del idioma: " + name,
 						"Añadir lenguajes de cultura");
@@ -254,5 +264,13 @@ public class Culture {
 
 	public Integer getSpellRanks() {
 		return categories.get("Listas Abiertas de Hechizos").getChooseRanks();
+	}
+
+	public Integer getLanguageRank(Language language){
+		Language langCult = languages.get(language.getName());
+		if(langCult==null){
+			return 0;
+		}
+		return langCult.getRanks();
 	}
 }

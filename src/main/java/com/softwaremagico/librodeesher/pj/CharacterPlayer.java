@@ -310,5 +310,13 @@ public class CharacterPlayer {
 		}
 		setCharacteristicsTemporalUpdatesRolls();
 	}
+	
+	public Integer getLanguageInitialRanks(Language language){
+		return Math.max(getCulture().getLanguageRank(language), getRace().getLanguageInitialRanks(language));
+	}
+	
+	public Integer getLanguageMaxInitialRanks(Language language){
+		return getRace().getLanguageMaxRanks(language);
+	}
 
 }

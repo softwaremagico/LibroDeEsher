@@ -36,7 +36,7 @@ public class CompleteSpellPanel extends BasePanel {
 		gridBagConstraints.weighty = 0;
 		add(title, gridBagConstraints);
 
-		spellPanel = new SpellPanel(character, title, this);
+		spellPanel = new SpellPanel(character, title);
 		JScrollPane spellScrollPanel = new JScrollPane(spellPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);

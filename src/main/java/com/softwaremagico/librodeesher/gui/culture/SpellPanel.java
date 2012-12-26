@@ -8,12 +8,10 @@ import com.softwaremagico.librodeesher.pj.magic.SpellList;
 
 public class SpellPanel extends CulturePanel {
 	private static final long serialVersionUID = -9203104559414795802L;
-	private CompleteSpellPanel parentPanel;
 
-	public SpellPanel(CharacterPlayer character, CultureTitleLine title, CompleteSpellPanel parentPanel) {
+	public SpellPanel(CharacterPlayer character, CultureTitleLine title) {
 		this.character = character;
 		this.title = title;
-		this.parentPanel = parentPanel;
 		setElements(character);
 	}
 
@@ -36,7 +34,7 @@ public class SpellPanel extends CulturePanel {
 
 	@Override
 	protected void setRankTitle(String rankLabelText) {
-		parentPanel.setRankTitle(rankLabelText);
+		title.setRankTitle(rankLabelText);
 	}
 
 }

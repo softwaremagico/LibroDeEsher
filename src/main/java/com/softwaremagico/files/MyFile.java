@@ -147,6 +147,20 @@ public class MyFile {
 
         return text;
     }
+    
+    public static String readTextFromJar(String s) {
+        String totalText = "";
+        String thisLine;
+        try {
+            InputStream is = MyFile.class.getResourceAsStream(s);
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            while ((thisLine = br.readLine()) != null) {
+                totalText += thisLine;
+            }
+        } catch (Exception e) {
+        }
+        return totalText;
+    }
 
     /**
      * Removes a file. 

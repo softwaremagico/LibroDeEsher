@@ -9,13 +9,13 @@ import javax.swing.ScrollPaneConstants;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
-public class CompleteHobbiesPanel extends BasePanel {
+public class CompleteLanguagePanel extends BasePanel {
 	private static final long serialVersionUID = -714349581832077977L;
 	private CultureTitleLine title;
-	private HobbyPanel weaponPanel;
+	private LanguagePanel languagePanel;
 	private CharacterPlayer character;
 
-	public CompleteHobbiesPanel(CharacterPlayer character) {
+	public CompleteLanguagePanel(CharacterPlayer character) {
 		this.character = character;
 		setElements();
 	}
@@ -25,7 +25,7 @@ public class CompleteHobbiesPanel extends BasePanel {
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
-		title = new CultureTitleLine("Aficiones", "Rangos (" + character.getCulture().getHobbyRanks() + ")");
+		title = new CultureTitleLine("Idiomas", "Rangos (" + 0 + ")");
 		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
@@ -36,15 +36,13 @@ public class CompleteHobbiesPanel extends BasePanel {
 		gridBagConstraints.weighty = 0;
 		add(title, gridBagConstraints);
 
-		weaponPanel = new HobbyPanel(character, title);
-		JScrollPane weaponsScrollPanel = new JScrollPane(weaponPanel,
+		languagePanel = new LanguagePanel(character, title);
+		JScrollPane spellScrollPanel = new JScrollPane(languagePanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		weaponsScrollPanel.setBorder(getBorder());
-		// characteristicPanel.setMinimumSize(new Dimension(200, 0));
-		weaponsScrollPanel.setBounds(0, 0, weaponsScrollPanel.getWidth(),
-				weaponsScrollPanel.getHeight());
-		// gridBagConstraints.anchor = GridBagConstraints.LINE_START;
+		spellScrollPanel.setBorder(getBorder());
+		spellScrollPanel.setBounds(0, 0, spellScrollPanel.getWidth(), spellScrollPanel.getHeight());
+		gridBagConstraints.anchor = GridBagConstraints.LINE_START;
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
@@ -53,10 +51,10 @@ public class CompleteHobbiesPanel extends BasePanel {
 		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
-		add(weaponsScrollPanel, gridBagConstraints);
+		add(spellScrollPanel, gridBagConstraints);
 	}
-	
-	protected void setRankTitle(String rankLabelText){
+
+	protected void setRankTitle(String rankLabelText) {
 		title.setRankTitle(rankLabelText);
 	}
 

@@ -5,12 +5,9 @@ import com.softwaremagico.librodeesher.pj.culture.CultureSkill;
 
 public class HobbyPanel extends CulturePanel {
 	private static final long serialVersionUID = -1080201556731377298L;
-	private CompleteHobbiesPanel parentPanel;
 
-	public HobbyPanel(CharacterPlayer character, CultureTitleLine title,
-			CompleteHobbiesPanel parentPanel) {
+	public HobbyPanel(CharacterPlayer character, CultureTitleLine title) {
 		this.character = character;
-		this.parentPanel = parentPanel;
 		this.title = title;
 		setElements(character);
 	}
@@ -27,6 +24,6 @@ public class HobbyPanel extends CulturePanel {
 	}
 
 	protected void setRankTitle(String rankLabelText) {
-		parentPanel.setRankTitle(rankLabelText);
+		title.setRankTitle(rankLabelText);
 	}
 }
