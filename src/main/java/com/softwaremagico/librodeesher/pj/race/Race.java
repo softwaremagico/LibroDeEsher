@@ -80,6 +80,10 @@ public class Race {
 	public String getName() {
 		return name;
 	}
+	
+	public Integer getLanguagePoints(){
+		return languagePoints;
+	}
 
 	private void readRaceFile(String raceName) throws Exception {
 		int lineIndex = 0;

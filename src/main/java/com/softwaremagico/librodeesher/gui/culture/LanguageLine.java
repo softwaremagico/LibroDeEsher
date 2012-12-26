@@ -4,6 +4,9 @@ import java.awt.Color;
 
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultFormatter;
@@ -16,6 +19,7 @@ public class LanguageLine extends CultureLine {
 
 	private static final long serialVersionUID = 2401612544094265349L;
 	protected Language language;
+	private Integer initalValue;
 
 	public LanguageLine(CharacterPlayer character, Language language, CulturePanel languagePanel,
 			Color background) {
@@ -25,7 +29,13 @@ public class LanguageLine extends CultureLine {
 		this.language = language;
 		setElements(background);
 		setBackground(background);
-		rankSpinner.setValue(character.getLanguageInitialRanks(language));
+		initalValue = character.getLanguageInitialRanks(language);
+		rankSpinner.setValue(initalValue);
+		System.out.println(language.getName() + ":" + initalValue + " < "
+				+ character.getLanguageMaxInitialRanks(language));
+		SpinnerModel sm = new SpinnerNumberModel((int) initalValue, (int) initalValue, (int) character
+				.getLanguageMaxInitialRanks(language), 1);
+		rankSpinner.setModel(sm);
 	}
 
 	protected void addRankSpinnerEvent() {
@@ -37,17 +47,25 @@ public class LanguageLine extends CultureLine {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				// Correct the spinner
-				if (parentPanel.getSpinnerValues() > character.getCulture().getHobbyRanks()) {
+				// Max language points limit.
+				if (parentPanel.getSpinnerValues() > character.getRace().getLanguagePoints()) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
-				} else if (getSelectedRanks() > character.getProfession().getMaxRanksPerLevel(
-						SkillFactory.getAvailableSkill(language.getName()).getCategory().getName())) {
+				} else if ((Integer) rankSpinner.getValue() > character.getRace().getLanguageMaxRanks(
+						language)) { // Race language limit.
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character
-					character.getCultureDecisions().setHobbyRank(language, (Integer) rankSpinner.getValue());
+					character.getRaceDecisions().setLanguageRank(language, (Integer) rankSpinner.getValue());
+					parentPanel.setRankTitle("Rangos ("
+							+ (character.getRace().getLanguagePoints() - parentPanel.getSpinnerValues())
+							+ ")");
 				}
 			}
 		});
+	}
+
+	@Override
+	protected Integer getSelectedRanks() {
+		return (Integer) rankSpinner.getValue() - initalValue;
 	}
 }

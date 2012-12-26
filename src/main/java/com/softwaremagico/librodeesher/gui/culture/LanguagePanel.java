@@ -10,7 +10,6 @@ public class LanguagePanel extends CulturePanel {
 		this.character = character;
 		this.title = title;
 		setElements(character);
-		setRankTitle("Rangos");
 	}
 
 	@Override

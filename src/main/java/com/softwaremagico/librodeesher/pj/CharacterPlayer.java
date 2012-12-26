@@ -35,16 +35,14 @@ import com.softwaremagico.librodeesher.pj.culture.Culture;
 import com.softwaremagico.librodeesher.pj.culture.CultureDecisions;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
-import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.profession.Profession;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 import com.softwaremagico.librodeesher.pj.race.Race;
+import com.softwaremagico.librodeesher.pj.race.RaceDecisions;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.resistance.Resistances;
-import com.softwaremagico.librodeesher.pj.skills.Skill;
-import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.training.Training;
 
 public class CharacterPlayer {
@@ -66,6 +64,7 @@ public class CharacterPlayer {
 	private String cultureName;
 	private transient Culture culture;
 	private CultureDecisions cultureDecisions;
+	private RaceDecisions raceDecisions;
 	private String professionName;
 	private transient Profession profession;
 	private List<Training> trainings;
@@ -84,9 +83,14 @@ public class CharacterPlayer {
 		setTemporalValuesOfCharacteristics();
 		sex = SexType.MALE;
 		cultureDecisions = new CultureDecisions();
+		raceDecisions = new RaceDecisions();
 	}
-	
-	public CultureDecisions getCultureDecisions(){
+
+	public RaceDecisions getRaceDecisions() {
+		return raceDecisions;
+	}
+
+	public CultureDecisions getCultureDecisions() {
 		return cultureDecisions;
 	}
 
@@ -310,13 +314,18 @@ public class CharacterPlayer {
 		}
 		setCharacteristicsTemporalUpdatesRolls();
 	}
-	
-	public Integer getLanguageInitialRanks(Language language){
+
+	public Integer getLanguageInitialRanks(Language language) {
 		return Math.max(getCulture().getLanguageRank(language), getRace().getLanguageInitialRanks(language));
 	}
-	
-	public Integer getLanguageMaxInitialRanks(Language language){
-		return getRace().getLanguageMaxRanks(language);
+
+	public Integer getLanguagesInitialRanks() {
+		Integer total = 0;
+
+		return total;
 	}
 
+	public Integer getLanguageMaxInitialRanks(Language language) {
+		return Math.max(getCulture().getLanguageRank(language), getRace().getLanguageMaxRanks(language));
+	}
 }

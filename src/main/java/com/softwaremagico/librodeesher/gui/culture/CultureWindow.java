@@ -1,7 +1,5 @@
 package com.softwaremagico.librodeesher.gui.culture;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -9,10 +7,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
@@ -96,18 +91,6 @@ public class CultureWindow extends BaseFrame {
 		gridBagConstraints.weightx = 0.2;
 		gridBagConstraints.weighty = 0;
 		getContentPane().add(buttonPanel, gridBagConstraints);
-	}
-
-	private JScrollPane createChooseLanguagePanel() {
-		JPanel languagePanel = new JPanel();
-		languagePanel.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1));
-
-		JScrollPane scrollPanel = new JScrollPane(languagePanel,
-				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPanel.setBorder(getBorder());
-		scrollPanel.setMinimumSize(new Dimension(200, 0));
-		return scrollPanel;
 	}
 
 	@Override
