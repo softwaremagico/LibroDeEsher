@@ -31,8 +31,6 @@ public class LanguageLine extends CultureLine {
 		setBackground(background);
 		initalValue = character.getLanguageInitialRanks(language);
 		rankSpinner.setValue(initalValue);
-		System.out.println(language.getName() + ":" + initalValue + " < "
-				+ character.getLanguageMaxInitialRanks(language));
 		SpinnerModel sm = new SpinnerNumberModel((int) initalValue, (int) initalValue, (int) character
 				.getLanguageMaxInitialRanks(language), 1);
 		rankSpinner.setModel(sm);

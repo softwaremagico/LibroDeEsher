@@ -29,11 +29,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.Icon;
 import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 
-import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.gui.culture.CultureWindow;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
@@ -42,6 +39,7 @@ public class Controller {
 	AboutWindow aboutWindow;
 	CharacteristicsWindow characteristicWindow;
 	CultureWindow cultureWindow;
+	SkillWindow skillWindow;
 	List<CharacterPlayer> characters;
 	CharacterPlayer selectedCharacter;
 
@@ -63,6 +61,7 @@ public class Controller {
 		mainGui.getMainMenu().addCharacteristicsWindowMenuItemListener(new CharacteristicWindowsListener());
 		mainGui.getMainMenu().addRandomNameListener(new RandomNameListener());
 		mainGui.getMainMenu().addCultureListener(new CultureWindowsListener());
+		mainGui.getMainMenu().addSkillsAndCategoriesListener(new SkillsAndCategoriesWindowsListener());
 	}
 
 	class NewCharacterListener implements ActionListener {
@@ -125,6 +124,19 @@ public class Controller {
 			}
 			cultureWindow = new CultureWindow(selectedCharacter);
 			cultureWindow.setVisible(true);
+		}
+	}
+	
+	class SkillsAndCategoriesWindowsListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				skillWindow.dispose();
+			} catch (NullPointerException npe) {
+			}
+			skillWindow = new SkillWindow(selectedCharacter);
+			skillWindow.setVisible(true);
 		}
 	}
 

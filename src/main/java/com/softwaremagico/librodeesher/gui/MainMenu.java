@@ -258,6 +258,10 @@ public class MainMenu {
 	public void addCultureListener(ActionListener al) {
 		cultureMenuItem.addActionListener(al);
 	}
+	
+	public void addSkillsAndCategoriesListener(ActionListener al) {
+		skillsMenuItem.addActionListener(al);
+	}
 
 	public void addNewCharacterListener(ActionListener al) {
 		newMenuItem.addActionListener(al);
