@@ -21,11 +21,11 @@ public class SkillPanel extends BasePanel {
 		int i = 0;
 
 		for (Category category : CategoryFactory.getCategories()) {
-			add(new CategoryLine(category, getLineBackgroundColor(i)));
+			add(new CategoryLine(character, category, getLineBackgroundColor(i)));
 			i++;
 
 			for (Skill skill : category.getSkills()) {
-				SkillLine skillLine = new SkillLine(skill, getLineBackgroundColor(i));
+				SkillLine skillLine = new SkillLine(character, skill, getLineBackgroundColor(i));
 				add(skillLine);
 				i++;
 			}

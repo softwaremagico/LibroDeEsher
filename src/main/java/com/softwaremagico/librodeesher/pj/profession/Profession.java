@@ -99,8 +99,8 @@ public class Profession {
 			lineIndex = setTrainingCosts(lines, lineIndex);
 		}
 	}
-	
-	public Magic getMagic(){
+
+	public Magic getMagic() {
 		return magic;
 	}
 
@@ -204,13 +204,42 @@ public class Profession {
 		}
 		return index;
 	}
+	
+	public String getCategoryCostTag(String categoryName){
+		try {
+			String cost;
+			if (categoryName.contains("Armas·")) {
+				// TODO seleccionar el grupo de armas correspondiente.
+				cost = weaponCategoryCost.get("Armas·Categoría1").getCostTag();
+			} else {
+				cost = categoryCost.get(categoryName).getCostTag();
+			}
+			if (cost != null) {
+				return cost;
+			} else {
+				return "";
+			}
+		} catch (NullPointerException npe) {
+			return "";
+		}
+	}
 
 	public Integer getMaxRanksPerLevel(String categoryName) {
-		if (categoryName.contains("Armas·")) {
-			//TODO seleccionar el grupo de armas correspondiente.
-			return weaponCategoryCost.get("Armas·Categoría1").getMaxRanksPerLevel();
-		}else {
-			return categoryCost.get(categoryName).getMaxRanksPerLevel();
+		try {
+			Integer ranks;
+			if (categoryName.contains("Armas·")) {
+				// TODO seleccionar el grupo de armas correspondiente.
+				ranks = weaponCategoryCost.get("Armas·Categoría1").getMaxRanksPerLevel();
+			} else {
+				ranks = categoryCost.get(categoryName).getMaxRanksPerLevel();
+			}
+			if (ranks != null) {
+				return ranks;
+			} else {
+				return 0;
+			}
+		} catch (NullPointerException npe) {
+			return 0;
 		}
 	}
 

@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.categories;
+
 /*
  * #%L
  * Libro de Esher
@@ -30,7 +31,7 @@ import com.softwaremagico.librodeesher.gui.ShowMessage;
 
 public class CategoryCost {
 	List<Integer> rankCost;
-	
+
 	public CategoryCost(List<Integer> rankCost) {
 		this.rankCost = rankCost;
 	}
@@ -63,8 +64,19 @@ public class CategoryCost {
 		}
 		return null;
 	}
-	
-	public Integer getMaxRanksPerLevel(){
+
+	public Integer getMaxRanksPerLevel() {
 		return rankCost.size();
+	}
+
+	public String getCostTag() {
+		String tag = "";
+		for (int i = 0; i < rankCost.size(); i++) {
+			tag += rankCost.get(i);
+			if(i<rankCost.size()-1){
+				tag+="/";
+			}
+		}
+		return tag;
 	}
 }

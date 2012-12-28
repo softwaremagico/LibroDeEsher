@@ -38,20 +38,25 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class SkillLine extends BasicLine {
 	private static final long serialVersionUID = -3194401962061016906L;
 	private static final Integer columnWidth = 30;
 	private static final Integer columnHeight = 20;
+	private CharacterPlayer character;
 
-	public SkillLine(Skill skill, Color background) {
+	public SkillLine(CharacterPlayer character, Skill skill, Color background) {
+		this.character = character;
 		setElements(skill, background);
 		setBackground(background);
 	}
 
 	private void setElements(Skill skill, Color background) {
 		this.removeAll();
+		Integer ranks = character.getProfession().getMaxRanksPerLevel(skill.getCategory().getName());
+
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 		Font defaultFont = new Font(font, Font.PLAIN, fontSize);
@@ -76,8 +81,8 @@ public class SkillLine extends BasicLine {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
 		JLabel rankCostLabel = new JLabel("");
-		rankCostLabel.setMinimumSize(new Dimension(columnWidth*2, columnHeight));
-		rankCostLabel.setPreferredSize(new Dimension(columnWidth*2, columnHeight));
+		rankCostLabel.setMinimumSize(new Dimension(columnWidth * 2, columnHeight));
+		rankCostLabel.setPreferredSize(new Dimension(columnWidth * 2, columnHeight));
 		add(rankCostLabel, gridBagConstraints);
 
 		JLabel prevRanksLabel = new JLabel("0");
@@ -90,25 +95,40 @@ public class SkillLine extends BasicLine {
 		gridBagConstraints.weightx = 0.1;
 		add(prevRanksLabel, gridBagConstraints);
 
-		JPanel checkBoxPane = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
+		JPanel checkBoxPane = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		checkBoxPane.setBackground(background);
 		JCheckBox firstRank = new JCheckBox("");
 		firstRank.setBackground(background);
+		if (ranks > 0) {
+			firstRank.setEnabled(true);
+		} else {
+			firstRank.setEnabled(false);
+		}
 		checkBoxPane.add(firstRank);
 
 		JCheckBox secondRank = new JCheckBox("");
 		secondRank.setBackground(background);
+		if (ranks > 1) {
+			secondRank.setEnabled(true);
+		} else {
+			secondRank.setEnabled(false);
+		}
 		checkBoxPane.add(secondRank);
 
 		JCheckBox thirdRank = new JCheckBox("");
 		thirdRank.setBackground(background);
+		if (ranks > 2) {
+			thirdRank.setEnabled(true);
+		} else {
+			thirdRank.setEnabled(false);
+		}
 		checkBoxPane.add(thirdRank);
 
 		gridBagConstraints.gridx = 3;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
-		checkBoxPane.setMinimumSize(new Dimension(columnWidth*2, columnHeight));
-		checkBoxPane.setPreferredSize(new Dimension(columnWidth*2, columnHeight));
+		checkBoxPane.setMinimumSize(new Dimension(columnWidth * 2, columnHeight));
+		checkBoxPane.setPreferredSize(new Dimension(columnWidth * 2, columnHeight));
 		add(checkBoxPane, gridBagConstraints);
 
 		JLabel bonusRankLabel = new JLabel("10");
@@ -161,5 +181,4 @@ public class SkillLine extends BasicLine {
 		gridBagConstraints.weightx = 0.1;
 		add(totalLabel, gridBagConstraints);
 	}
-
 }

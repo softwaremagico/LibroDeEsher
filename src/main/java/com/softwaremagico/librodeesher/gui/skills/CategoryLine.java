@@ -37,19 +37,23 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 
 public class CategoryLine extends BasicLine {
 	private static final long serialVersionUID = 2914665641808878141L;
 	private static final Integer columnWidth = 30;
 	private static final Integer columnHeight = 20;
+	private CharacterPlayer character;
 
-	public CategoryLine(Category category, Color background) {
+	public CategoryLine(CharacterPlayer character, Category category, Color background) {
+		this.character = character;
 		setContent(category, background);
 		setBackground(background);
 	}
 
 	private void setContent(Category category, Color background) {
+		Integer ranks = character.getProfession().getMaxRanksPerLevel(category.getName());
 		this.removeAll();
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -74,9 +78,9 @@ public class CategoryLine extends BasicLine {
 		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
-		JLabel rankCostLabel = new JLabel("1/1/1");
-		rankCostLabel.setMinimumSize(new Dimension(columnWidth*2, columnHeight));
-		rankCostLabel.setPreferredSize(new Dimension(columnWidth*2, columnHeight));
+		JLabel rankCostLabel = new JLabel(character.getProfession().getCategoryCostTag(category.getName()));
+		rankCostLabel.setMinimumSize(new Dimension(columnWidth * 2, columnHeight));
+		rankCostLabel.setPreferredSize(new Dimension(columnWidth * 2, columnHeight));
 		rankCostLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		add(rankCostLabel, gridBagConstraints);
 
@@ -90,25 +94,40 @@ public class CategoryLine extends BasicLine {
 		prevRanksLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		add(prevRanksLabel, gridBagConstraints);
 
-		JPanel checkBoxPane = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
+		JPanel checkBoxPane = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		checkBoxPane.setBackground(background);
 		JCheckBox firstRank = new JCheckBox("");
 		firstRank.setBackground(background);
+		if (ranks > 0) {
+			firstRank.setEnabled(true);
+		} else {
+			firstRank.setEnabled(false);
+		}
 		checkBoxPane.add(firstRank);
 
 		JCheckBox secondRank = new JCheckBox("");
 		secondRank.setBackground(background);
+		if (ranks > 1) {
+			secondRank.setEnabled(true);
+		} else {
+			secondRank.setEnabled(false);
+		}
 		checkBoxPane.add(secondRank);
 
 		JCheckBox thirdRank = new JCheckBox("");
 		thirdRank.setBackground(background);
+		if (ranks > 2) {
+			thirdRank.setEnabled(true);
+		} else {
+			thirdRank.setEnabled(false);
+		}
 		checkBoxPane.add(thirdRank);
 
 		gridBagConstraints.gridx = 3;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
-		checkBoxPane.setMinimumSize(new Dimension(columnWidth*2, columnHeight));
-		checkBoxPane.setPreferredSize(new Dimension(columnWidth*2, columnHeight));
+		checkBoxPane.setMinimumSize(new Dimension(columnWidth * 2, columnHeight));
+		checkBoxPane.setPreferredSize(new Dimension(columnWidth * 2, columnHeight));
 		add(checkBoxPane, gridBagConstraints);
 
 		JLabel bonusRankLabel = new JLabel("10");
