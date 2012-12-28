@@ -29,8 +29,8 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.softwaremagico.librodeesher.gui.elements.CategoryLine;
-import com.softwaremagico.librodeesher.gui.elements.SkillLine;
+import com.softwaremagico.librodeesher.gui.skills.CategoryLine;
+import com.softwaremagico.librodeesher.gui.skills.SkillLine;
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.skills.Skill;

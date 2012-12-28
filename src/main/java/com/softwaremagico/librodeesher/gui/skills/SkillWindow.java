@@ -6,10 +6,11 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 import javax.swing.JPanel;
 
-import com.softwaremagico.librodeesher.gui.culture.CompleteWeaponPanel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasicButton;
@@ -19,12 +20,14 @@ public class SkillWindow extends BaseFrame {
 	private static final long serialVersionUID = 3505731416535837471L;
 	private CharacterPlayer character;
 	private BasicButton acceptButton;
+	private CompleteSkillPanel skillPanel;
 
 	public SkillWindow(CharacterPlayer character) {
 		this.character = character;
-		defineWindow(500, 400);
+		defineWindow(750, 450);
 		// setResizable(false);
 		setElements();
+		setEvents();
 	}
 
 	private void setElements() {
@@ -40,7 +43,8 @@ public class SkillWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		getContentPane().add(new CompleteSkillPanel(character), gridBagConstraints);
+		skillPanel = new CompleteSkillPanel(character);
+		getContentPane().add(skillPanel, gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
 		acceptButton = new BasicButton("Aceptar");
@@ -65,6 +69,30 @@ public class SkillWindow extends BaseFrame {
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
+	}
+
+	private void setEvents() {
+		addComponentListener(new ComponentListener() {
+			@Override
+			public void componentResized(ComponentEvent evt) {
+				skillPanel.sizeChanged();
+			}
+
+			@Override
+			public void componentMoved(ComponentEvent e) {
+
+			}
+
+			@Override
+			public void componentShown(ComponentEvent e) {
+
+			}
+
+			@Override
+			public void componentHidden(ComponentEvent e) {
+
+			}
+		});
 	}
 
 	class AcceptListener implements ActionListener {

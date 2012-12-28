@@ -1,4 +1,5 @@
-package com.softwaremagico.librodeesher.gui.elements;
+package com.softwaremagico.librodeesher.gui.skills;
+
 /*
  * #%L
  * Libro de Esher
@@ -25,62 +26,71 @@ package com.softwaremagico.librodeesher.gui.elements;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
-import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
 
+public class SkillLine extends BasicLine {
+	private static final long serialVersionUID = -3194401962061016906L;
+	private static final Integer columnWidth = 30;
+	private static final Integer columnHeight = 20;
 
-public class CategoryLine extends BasicLine {
-	private static final long serialVersionUID = 2914665641808878141L;
-	private Integer defaultHeight = 20;
-
-	public CategoryLine(Category category, Color background) {
-		setContent(category, background);
+	public SkillLine(Skill skill, Color background) {
+		setElements(skill, background);
 		setBackground(background);
 	}
 
-	private void setContent(Category category, Color background) {
+	private void setElements(Skill skill, Color background) {
 		this.removeAll();
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-		Font defaultFont = new Font(font, Font.BOLD, fontSize);
+		Font defaultFont = new Font(font, Font.PLAIN, fontSize);
 
 		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.ipadx = xPadding;
-		gridBagConstraints.gridheight = 1;		
+		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.weighty = 0;
-		
+
+		JLabel skillNameLabel = new JLabel(skill.getName());
+		skillNameLabel.setFont(defaultFont);
+		skillNameLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		skillNameLabel.setMinimumSize(new Dimension(200, columnHeight));
+		skillNameLabel.setPreferredSize(new Dimension(200, columnHeight));
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 0.2;		
-		JLabel categoryNameLabel = new JLabel(category.getName());
-		categoryNameLabel.setFont(defaultFont);
-		categoryNameLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		add(categoryNameLabel, gridBagConstraints);
+		gridBagConstraints.weightx = 0.3;
+		add(skillNameLabel, gridBagConstraints);
 
 		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 0.1;	
-		JLabel RankCostLabel = new JLabel("1/1/1");
-		add(RankCostLabel, gridBagConstraints);
-		
+		gridBagConstraints.weightx = 0.1;
+		JLabel rankCostLabel = new JLabel("");
+		rankCostLabel.setMinimumSize(new Dimension(columnWidth*2, columnHeight));
+		rankCostLabel.setPreferredSize(new Dimension(columnWidth*2, columnHeight));
+		add(rankCostLabel, gridBagConstraints);
+
 		JLabel prevRanksLabel = new JLabel("0");
 		prevRanksLabel.setFont(defaultFont);
+		prevRanksLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		prevRanksLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
+		prevRanksLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
 		gridBagConstraints.gridx = 2;
 		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 0.1;	
+		gridBagConstraints.weightx = 0.1;
 		add(prevRanksLabel, gridBagConstraints);
-		
-		JPanel checkBoxPane = new JPanel();
+
+		JPanel checkBoxPane = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
 		checkBoxPane.setBackground(background);
 		JCheckBox firstRank = new JCheckBox("");
 		firstRank.setBackground(background);
@@ -93,27 +103,38 @@ public class CategoryLine extends BasicLine {
 		JCheckBox thirdRank = new JCheckBox("");
 		thirdRank.setBackground(background);
 		checkBoxPane.add(thirdRank);
-		
+
 		gridBagConstraints.gridx = 3;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
+		checkBoxPane.setMinimumSize(new Dimension(columnWidth*2, columnHeight));
+		checkBoxPane.setPreferredSize(new Dimension(columnWidth*2, columnHeight));
 		add(checkBoxPane, gridBagConstraints);
-		
+
 		JLabel bonusRankLabel = new JLabel("10");
+		bonusRankLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		bonusRankLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
+		bonusRankLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
 		bonusRankLabel.setFont(defaultFont);
 		gridBagConstraints.gridx = 4;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
 		add(bonusRankLabel, gridBagConstraints);
-		
-		JLabel bonusCharLabel = new JLabel("10");
-		bonusCharLabel.setFont(defaultFont);
+
+		JLabel bonusCategory = new JLabel("10");
+		bonusCategory.setHorizontalAlignment(SwingConstants.CENTER);
+		bonusCategory.setMinimumSize(new Dimension(columnWidth, columnHeight));
+		bonusCategory.setPreferredSize(new Dimension(columnWidth, columnHeight));
+		bonusCategory.setFont(defaultFont);
 		gridBagConstraints.gridx = 5;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
-		add(bonusCharLabel, gridBagConstraints);
+		add(bonusCategory, gridBagConstraints);
 
 		JLabel bonusMagicObject = new JLabel("20");
+		bonusMagicObject.setHorizontalAlignment(SwingConstants.CENTER);
+		bonusMagicObject.setMinimumSize(new Dimension(columnWidth, columnHeight));
+		bonusMagicObject.setPreferredSize(new Dimension(columnWidth, columnHeight));
 		bonusMagicObject.setFont(defaultFont);
 		gridBagConstraints.gridx = 6;
 		gridBagConstraints.gridwidth = 1;
@@ -121,6 +142,9 @@ public class CategoryLine extends BasicLine {
 		add(bonusMagicObject, gridBagConstraints);
 
 		JLabel otherBonus = new JLabel("20");
+		otherBonus.setHorizontalAlignment(SwingConstants.CENTER);
+		otherBonus.setMinimumSize(new Dimension(columnWidth, columnHeight));
+		otherBonus.setPreferredSize(new Dimension(columnWidth, columnHeight));
 		otherBonus.setFont(defaultFont);
 		gridBagConstraints.gridx = 7;
 		gridBagConstraints.gridwidth = 1;
@@ -128,11 +152,14 @@ public class CategoryLine extends BasicLine {
 		add(otherBonus, gridBagConstraints);
 
 		JLabel totalLabel = new JLabel("50");
+		totalLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		totalLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
+		totalLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
 		totalLabel.setFont(defaultFont);
 		gridBagConstraints.gridx = 8;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
 		add(totalLabel, gridBagConstraints);
-
 	}
+
 }

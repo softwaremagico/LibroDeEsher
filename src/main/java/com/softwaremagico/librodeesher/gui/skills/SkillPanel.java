@@ -2,8 +2,6 @@ package com.softwaremagico.librodeesher.gui.skills;
 
 import java.awt.GridLayout;
 
-import com.softwaremagico.librodeesher.gui.elements.CategoryLine;
-import com.softwaremagico.librodeesher.gui.elements.SkillLine;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;

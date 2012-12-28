@@ -57,8 +57,10 @@ public class CompleteSkillPanel extends BasePanel {
 		add(weaponsScrollPanel, gridBagConstraints);
 	}
 	
-	protected void setRankTitle(String rankLabelText){
-		title.setRankTitle(rankLabelText);
+	public void sizeChanged() {
+		if (title != null) {
+			title.sizeChanged();
+		}
 	}
 
 }
