@@ -32,6 +32,7 @@ public class CultureSkill {
 
 	public CultureSkill(String name) {
 		this.name = name;
+		ranks = new Integer(0);
 	}
 
 	public String getName() {

@@ -12,4 +12,9 @@ public class FdCategory extends Category  {
 			addSkill(skill);
 		}
 	}
+
+	@Override
+	public Integer getRankValue() {
+		return null;
+	}
 }

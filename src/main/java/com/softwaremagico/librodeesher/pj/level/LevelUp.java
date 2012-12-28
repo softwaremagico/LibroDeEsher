@@ -1,4 +1,9 @@
 package com.softwaremagico.librodeesher.pj.level;
+
+import java.util.Hashtable;
+
+import com.softwaremagico.librodeesher.pj.culture.CultureSkill;
+
 /*
  * #%L
  * Libro de Esher
@@ -24,5 +29,27 @@ package com.softwaremagico.librodeesher.pj.level;
  */
 
 public class LevelUp {
+	private Hashtable<String, Integer> categories;
+	private Hashtable<String, Integer> skills;
 
+	public LevelUp() {
+		categories = new Hashtable<>();
+		skills = new Hashtable<>();
+	}
+
+	public Integer getCategoryRanks(String categoryName) {
+		Integer ranks = categories.get(categoryName);
+		if (ranks == null) {
+			return 0;
+		}
+		return ranks;
+	}
+	
+	public Integer getSkillsRanks(String skillName) {
+		Integer ranks = skills.get(skillName);
+		if (ranks == null) {
+			return 0;
+		}
+		return ranks;
+	}
 }

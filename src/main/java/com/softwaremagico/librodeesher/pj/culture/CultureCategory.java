@@ -24,7 +24,9 @@ package com.softwaremagico.librodeesher.pj.culture;
  * #L%
  */
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 import com.softwaremagico.librodeesher.gui.ShowMessage;
 
@@ -52,6 +54,10 @@ public class CultureCategory {
 			skills.put(skillName, skill);
 		}
 		return skill;
+	}
+	
+	public List<CultureSkill> getSkills(){
+		return new ArrayList<CultureSkill>(skills.values());
 	}
 
 	public CultureCategory(String name, String ranks) {
@@ -82,10 +88,6 @@ public class CultureCategory {
 			skill.setRanks(skillColumns[1]);
 			return skill;
 		}
-	}
-	
-	public CultureSkill getSkill(String skillName){
-		return skills.get(skillName);
 	}
 
 	/**

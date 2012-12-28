@@ -12,4 +12,10 @@ public class CombinedCategory extends Category {
 			addSkill(skill);
 		}
 	}
+
+	@Override
+	public Integer getRankValue() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

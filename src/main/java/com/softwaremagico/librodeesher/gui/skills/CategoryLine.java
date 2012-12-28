@@ -87,7 +87,7 @@ public class CategoryLine extends BasicLine {
 		gridBagConstraints.gridx = 2;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
-		JLabel prevRanksLabel = new JLabel("0");
+		JLabel prevRanksLabel = new JLabel(character.getPreviousRanks(category).toString());
 		prevRanksLabel.setFont(defaultFont);
 		prevRanksLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
 		prevRanksLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));

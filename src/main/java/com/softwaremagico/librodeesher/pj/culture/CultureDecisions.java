@@ -3,12 +3,11 @@ package com.softwaremagico.librodeesher.pj.culture;
 import java.util.Hashtable;
 
 import com.softwaremagico.librodeesher.pj.magic.SpellList;
-import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class CultureDecisions {
-	Hashtable<Skill, Integer> weaponRanks;
-	Hashtable<CultureSkill, Integer> hobbyRanks;
-	Hashtable<SpellList, Integer> spellRanks;
+	Hashtable<String, Integer> weaponRanks;
+	Hashtable<String, Integer> hobbyRanks;
+	Hashtable<String, Integer> spellRanks;
 
 	public CultureDecisions() {
 		weaponRanks = new Hashtable<>();
@@ -16,7 +15,7 @@ public class CultureDecisions {
 		spellRanks = new Hashtable<>();
 	}
 
-	public void setWeaponRank(Skill weaponSkill, Integer ranks) {
+	public void setWeaponRanks(String weaponSkill, Integer ranks) {
 		if (ranks <= 0) {
 			weaponRanks.remove(weaponSkill);
 		} else {
@@ -24,7 +23,7 @@ public class CultureDecisions {
 		}
 	}
 
-	public Integer getWeaponRank(Skill weaponSkill) {
+	public Integer getWeaponRanks(String weaponSkill) {
 		Integer value = weaponRanks.get(weaponSkill);
 		if (value == null) {
 			return 0;
@@ -32,7 +31,7 @@ public class CultureDecisions {
 		return value;
 	}
 
-	public void setHobbyRank(CultureSkill hobby, Integer ranks) {
+	public void setHobbyRanks(String hobby, Integer ranks) {
 		if (ranks <= 0) {
 			hobbyRanks.remove(hobby);
 		} else {
@@ -40,7 +39,7 @@ public class CultureDecisions {
 		}
 	}
 
-	public Integer getHobbyRank(CultureSkill hobby) {
+	public Integer getHobbyRanks(String hobby) {
 		Integer value = hobbyRanks.get(hobby);
 		if (value == null) {
 			return 0;
@@ -48,7 +47,7 @@ public class CultureDecisions {
 		return value;
 	}
 
-	public void setSpellRank(SpellList spellList, Integer ranks) {
+	public void setSpellRanks(String spellList, Integer ranks) {
 		if (ranks <= 0) {
 			spellRanks.remove(spellList);
 		} else {
@@ -56,7 +55,7 @@ public class CultureDecisions {
 		}
 	}
 
-	public Integer getSpellRank(SpellList spellList) {
+	public Integer getSpellRanks(String spellList) {
 		Integer value = spellRanks.get(spellList);
 		if (value == null) {
 			return 0;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.softwaremagico.librodeesher.pj.categories.SimpleCategory;
+import com.softwaremagico.librodeesher.pj.categories.Category;
 
 /*
  * #%L
@@ -33,7 +33,7 @@ import com.softwaremagico.librodeesher.pj.categories.SimpleCategory;
 public abstract class Skill {
 	private String name;
 	private List<String> specialities; // A skill can have some specializations.
-	private SimpleCategory category;
+	private Category category;
 
 	public Skill(String name) {
 		specialities = new ArrayList<>();
@@ -46,11 +46,11 @@ public abstract class Skill {
 		return name;
 	}
 
-	public void setCategory(SimpleCategory category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 	
-	public SimpleCategory getCategory(){
+	public Category getCategory(){
 		return category;
 	}
 

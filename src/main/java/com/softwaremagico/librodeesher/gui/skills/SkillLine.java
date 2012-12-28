@@ -85,7 +85,7 @@ public class SkillLine extends BasicLine {
 		rankCostLabel.setPreferredSize(new Dimension(columnWidth * 2, columnHeight));
 		add(rankCostLabel, gridBagConstraints);
 
-		JLabel prevRanksLabel = new JLabel("0");
+		JLabel prevRanksLabel = new JLabel(character.getPreviousRanks(skill).toString());
 		prevRanksLabel.setFont(defaultFont);
 		prevRanksLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		prevRanksLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));

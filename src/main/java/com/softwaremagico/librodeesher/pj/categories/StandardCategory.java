@@ -38,5 +38,10 @@ public class StandardCategory extends Category {
 			addSkill(skill);
 		}
 	}
+
+	@Override
+	public Integer getRankValue() {
+		return 3;
+	}
 }
 

@@ -28,23 +28,23 @@ public class ChooseWeaponPanel extends BasePanel {
 
 		for (Category category : CategoryFactory.getWeaponsCategories()) {
 
-			add(new WeaponCategoryLine(category, character.getCulture().getCategoryCultureRanks(
-					category.getName()), getLineBackgroundColor(i)));
+			add(new WeaponCategoryLine(category, character.getCulture().getCultureRanks(category),
+					getLineBackgroundColor(i)));
 			i++;
 
 			ArrayList<WeaponSkillLine> weaponLineList = new ArrayList<>();
 			weaponLines.put(category, weaponLineList);
 			for (Weapon weapon : character.getCulture().getCultureWeapons()) {
-				try{
-				if (weapon.getType().getWeaponCategoryName().equals(category.getName())) {
-					WeaponSkillLine weaponLine = new WeaponSkillLine(character, category, this,
-							SkillFactory.getAvailableSkill(weapon.getName()), getLineBackgroundColor(i));
-					add(weaponLine);
-					weaponLineList.add(weaponLine);
-					i++;
-				}
-				}catch(NullPointerException npe){
-					//Arma de cultura no existe en el programa. Ignorar. 
+				try {
+					if (weapon.getType().getWeaponCategoryName().equals(category.getName())) {
+						WeaponSkillLine weaponLine = new WeaponSkillLine(character, category, this,
+								SkillFactory.getAvailableSkill(weapon.getName()), getLineBackgroundColor(i));
+						add(weaponLine);
+						weaponLineList.add(weaponLine);
+						i++;
+					}
+				} catch (NullPointerException npe) {
+					// Arma de cultura no existe en el programa. Ignorar.
 				}
 			}
 		}

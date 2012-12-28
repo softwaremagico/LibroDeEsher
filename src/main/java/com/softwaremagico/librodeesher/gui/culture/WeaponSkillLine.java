@@ -37,7 +37,7 @@ public class WeaponSkillLine extends BasicLine {
 		this.weaponSkill = weaponSkill;
 		setElements(background);
 		setBackground(background);
-		rankSpinner.setValue(character.getCultureDecisions().getWeaponRank(weaponSkill));
+		rankSpinner.setValue(character.getCultureDecisions().getWeaponRanks(weaponSkill.getName()));
 	}
 
 	protected void setDefaultSize() {
@@ -87,12 +87,12 @@ public class WeaponSkillLine extends BasicLine {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				// Correct the spinner
-				if (parentPanel.getSpinnerValues(category) > character.getCulture().getCategoryCultureRanks(
-						category.getName())) {
+				if (parentPanel.getSpinnerValues(category) > character.getCulture().getCultureRanks(
+						category)) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					//Update character
-					character.getCultureDecisions().setWeaponRank(weaponSkill, (Integer) rankSpinner.getValue());
+					character.getCultureDecisions().setWeaponRanks(weaponSkill.getName(), (Integer) rankSpinner.getValue());
 				}
 			}
 		});

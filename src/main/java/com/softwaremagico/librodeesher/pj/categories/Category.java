@@ -30,18 +30,25 @@ import java.util.List;
 
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
-public abstract class Category extends SimpleCategory {
+public abstract class Category {
+	private String name;
 	protected String abbreviature;
 	protected CategoryType type;
 	public List<Characteristic> characteristics;
+	protected List<Skill> skills;
 
 	public Category(String name, String abbreviature, CategoryType type) {
-		super(name);
+		this.name = name;
 		this.abbreviature = abbreviature;
 		this.type = type;
 		skills = new ArrayList<>();
 		characteristics = new ArrayList<>();
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	public abstract void addSkills(String skills);
@@ -57,4 +64,32 @@ public abstract class Category extends SimpleCategory {
 	public CategoryType getType() {
 		return type;
 	}
+
+	public void setSkills(List<Skill> skills) {
+		this.skills = skills;
+		for (Skill skill : skills) {
+			skill.setCategory(this);
+		}
+		Collections.sort(skills, new SkillComparator());
+	}
+
+	public void addSkills(List<Skill> skills) {
+		this.skills.addAll(skills);
+		for (Skill skill : skills) {
+			skill.setCategory(this);
+		}
+		Collections.sort(skills, new SkillComparator());
+	}
+
+	public Skill addSkill(String skillName) {
+		Skill skill = SkillFactory.getSkill(skillName);
+		skill.setCategory(this);
+		if (!skills.contains(skill)) {
+			skills.add(skill);
+			Collections.sort(skills, new SkillComparator());
+		}
+		return skill;
+	}
+
+	public abstract Integer getRankValue();
 }

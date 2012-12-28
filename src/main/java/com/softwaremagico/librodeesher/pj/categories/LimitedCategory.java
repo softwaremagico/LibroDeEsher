@@ -12,4 +12,9 @@ public class LimitedCategory extends Category{
 			addSkill(skill);
 		}
 	}
+
+	@Override
+	public Integer getRankValue() {
+		return 1;
+	}
 }

@@ -25,7 +25,7 @@ public class SpellLine extends CultureLine {
 		this.skillName = spell.getName();
 		setElements(background);
 		setBackground(background);
-		rankSpinner.setValue(character.getCultureDecisions().getSpellRank(spell));
+		rankSpinner.setValue(character.getCultureDecisions().getSpellRanks(spell.getName()));
 	}
 
 	protected void addRankSpinnerEvent() {
@@ -47,7 +47,7 @@ public class SpellLine extends CultureLine {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character
-					character.getCultureDecisions().setSpellRank(spell, (Integer) rankSpinner.getValue());
+					character.getCultureDecisions().setSpellRanks(spell.getName(), (Integer) rankSpinner.getValue());
 					parentPanel.setRankTitle("Rangos ("
 							+ (character.getCulture().getSpellRanks() - character.getCultureDecisions()
 									.getTotalSpellRanks()) + ")");

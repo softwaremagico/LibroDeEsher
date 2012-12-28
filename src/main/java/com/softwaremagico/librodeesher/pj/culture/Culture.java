@@ -28,7 +28,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -50,7 +49,7 @@ public class Culture {
 	private List<String> cultureArmours;
 	private Hashtable<String, CultureCategory> categories;
 	private Integer hobbyRanks;
-	private List<CultureSkill> hobbySkills;
+	private List<String> hobbySkills;
 	// private List<CultureLanguage> languages;
 	private Hashtable<String, Language> languages;
 
@@ -64,12 +63,12 @@ public class Culture {
 	}
 
 	public List<Language> getLanguages() {
-		List<Language> sortedLanguages =  new ArrayList<Language>(languages.values());
+		List<Language> sortedLanguages = new ArrayList<Language>(languages.values());
 		Collections.sort(sortedLanguages, new LanguageComparator());
 		return sortedLanguages;
 	}
 
-	public List<CultureSkill> getHobbySkills() {
+	public List<String> getHobbySkills() {
 		return hobbySkills;
 	}
 
@@ -77,13 +76,26 @@ public class Culture {
 		return cultureWeapons;
 	}
 
-	public Integer getCategoryCultureRanks(String categoryName) {
-		for (String category : categories.keySet()) {
-			if (category.equals(categoryName)) {
-				return categories.get(category).getRanks();
+	public Integer getCultureRanks(Category category) {
+		for (String categoryName : categories.keySet()) {
+			if (categoryName.equals(category.getName())) {
+				return categories.get(categoryName).getRanks();
 			}
 		}
 		return 0;
+	}
+
+	public Integer getCultureRanks(Skill skill) {
+		Integer total = 0;
+		// Culture ranks
+		for (CultureCategory cultureCategory : categories.values()) {
+			for (CultureSkill cultureSkill : cultureCategory.getSkills()) {
+				if (cultureSkill.getName().equals(skill.getName())) {
+					total += cultureSkill.getRanks();
+				}
+			}
+		}
+		return total;
 	}
 
 	private void readCultureFile(String cultureName) throws Exception {
@@ -197,26 +209,26 @@ public class Culture {
 				Category category;
 				if ((category = CategoryFactory.getAvailableCategory(hobby)) != null) {
 					for (Skill skill : category.getSkills()) {
-						CultureSkill cultureSkill = new CultureSkill(skill.getName());
-						hobbySkills.add(cultureSkill);
+						//CultureSkill cultureSkill = new CultureSkill(skill.getName());
+						hobbySkills.add(skill.getName());
 					}
 					// Is a skill.
 				} else if (SkillFactory.existSkill(hobby)) {
-					CultureSkill skill = new CultureSkill(hobby);
-					hobbySkills.add(skill);
+					//CultureSkill skill = new CultureSkill(hobby);
+					hobbySkills.add(hobby);
 					// Is a culture skill: add it;
 				} else if (hobby.contains("Conocimiento de la Fauna")
 						|| hobby.contains("Conocimiento de la Flora")
 						|| hobby.contains("Conocimiento Cultural") || hobby.contains("Conocimiento Regional")) {
 					Category cat = CategoryFactory.getAvailableCategory("Conocimiento·General");
 					cat.addSkill(hobby);
-					CultureSkill skill = new CultureSkill(hobby);
-					hobbySkills.add(skill);
+					//CultureSkill skill = new CultureSkill(hobby);
+					hobbySkills.add(hobby);
 				} else if (hobby.contains("Supervivencia")) {
 					Category cat = CategoryFactory.getAvailableCategory("Exteriores·Entorno");
 					cat.addSkill(hobby);
-					CultureSkill skill = new CultureSkill(hobby);
-					hobbySkills.add(skill);
+					//CultureSkill skill = new CultureSkill(hobby);
+					hobbySkills.add(hobby);
 				} else { // Not recognized.
 					ShowMessage.showErrorMessage("Aficion no encontrada en cultura \"" + getName() + "\": "
 							+ hobby, "Añadir aficiones de cultura");
@@ -224,11 +236,7 @@ public class Culture {
 			}
 			index++;
 		}
-		Collections.sort(hobbySkills, new Comparator<CultureSkill>() {
-			public int compare(CultureSkill c1, CultureSkill c2) {
-				return c1.getName().compareTo(c2.getName());
-			}
-		});
+		Collections.sort(hobbySkills);
 		return index;
 	}
 
@@ -241,9 +249,11 @@ public class Culture {
 			String[] languageColumn = lines.get(index).split("\t");
 			String[] languageRanks = languageColumn[1].split("/");
 			try {
-				Language language = new Language(Language.SPOKEN_TAG + " " + languageColumn[0], Integer.parseInt(languageRanks[0]));
+				Language language = new Language(Language.SPOKEN_TAG + " " + languageColumn[0],
+						Integer.parseInt(languageRanks[0]));
 				languages.put(language.getName(), language);
-				language = new Language(Language.WRITTEN_TAG + " " + languageColumn[0], Integer.parseInt(languageRanks[1]));
+				language = new Language(Language.WRITTEN_TAG + " " + languageColumn[0],
+						Integer.parseInt(languageRanks[1]));
 				languages.put(language.getName(), language);
 			} catch (NumberFormatException nfe) {
 				ShowMessage.showErrorMessage("Error al obtener los rangos escritos del idioma: " + name,
@@ -266,9 +276,9 @@ public class Culture {
 		return categories.get("Listas Abiertas de Hechizos").getChooseRanks();
 	}
 
-	public Integer getLanguageRank(Language language){
+	public Integer getLanguageRank(Language language) {
 		Language langCult = languages.get(language.getName());
-		if(langCult==null){
+		if (langCult == null) {
 			return 0;
 		}
 		return langCult.getRanks();

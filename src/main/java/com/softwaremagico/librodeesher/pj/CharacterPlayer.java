@@ -29,6 +29,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.core.TwoDices;
+import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.culture.Culture;
@@ -43,6 +44,7 @@ import com.softwaremagico.librodeesher.pj.race.RaceDecisions;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.resistance.Resistances;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.training.Training;
 
 public class CharacterPlayer {
@@ -327,5 +329,61 @@ public class CharacterPlayer {
 
 	public Integer getLanguageMaxInitialRanks(Language language) {
 		return Math.max(getCulture().getLanguageRank(language), getRace().getLanguageMaxRanks(language));
+	}
+
+	private Integer getCurrentLevelRanks(Category category) {
+		if (levelUps.size() > 0) {
+			return levelUps.get(levelUps.size() - 1).getCategoryRanks(category.getName());
+		} else {
+			return 0;
+		}
+	}
+	
+	private Integer getCurrentLevelRanks(Skill skill) {
+		if (levelUps.size() > 0) {
+			return levelUps.get(levelUps.size() - 1).getSkillsRanks(skill.getName());
+		} else {
+			return 0;
+		}
+	}
+
+	private Integer getPreviousLevelsRanks(Category category) {
+		Integer total = 0;
+		for (int i = 0; i < levelUps.size() - 1; i++) {
+			total += levelUps.get(i).getCategoryRanks(category.getName());
+		}
+		return total;
+	}
+
+	private Integer getPreviousLevelsRanks(Skill skill) {
+		Integer total = 0;
+		for (int i = 0; i < levelUps.size() - 1; i++) {
+			total += levelUps.get(i).getSkillsRanks(skill.getName());
+		}
+		return total;
+	}
+
+	public Integer getPreviousRanks(Category category) {
+		Integer total = 0;
+		total += getCulture().getCultureRanks(category);
+		total += getPreviousLevelsRanks(category);
+		return total;
+	}
+
+	public Integer getPreviousRanks(Skill skill) {
+		Integer total = 0;
+		total += getCulture().getCultureRanks(skill);
+		total += getCultureDecisions().getWeaponRanks(skill.getName());
+		total += getCultureDecisions().getHobbyRanks(skill.getName());
+		total += getPreviousLevelsRanks(skill);
+		return total;
+	}
+
+	public Integer getRanksValue(Category category){
+		return (getPreviousRanks(category) + getCurrentLevelRanks(category))* category.getRankValue();
+	}
+	
+	public Integer getRanksValue(Skill skill){
+		return (getPreviousRanks(skill) + getCurrentLevelRanks(skill))* skill.getCategory().getRankValue();
 	}
 }
