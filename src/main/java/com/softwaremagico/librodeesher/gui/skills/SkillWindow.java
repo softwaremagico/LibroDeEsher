@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui;
+package com.softwaremagico.librodeesher.gui.skills;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -40,7 +40,7 @@ public class SkillWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		getContentPane().add(new CompleteWeaponPanel(character), gridBagConstraints);
+		getContentPane().add(new CompleteSkillPanel(character), gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
 		acceptButton = new BasicButton("Aceptar");

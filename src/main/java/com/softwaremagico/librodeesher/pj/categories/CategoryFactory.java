@@ -52,8 +52,8 @@ public class CategoryFactory {
 	}
 
 	private static void addCultureSkills() {
+		Category cat = categoriesAvailable.get("Conocimiento·General");
 		for (String culture : CultureFactory.availableCultures()) {		
-			Category cat = categoriesAvailable.get("Conocimiento·General");
 			cat.addSkill("Conocimiento de la Fauna (" + culture  + ")");
 			cat.addSkill("Conocimiento de la Flora (" + culture  + ")");
 			cat.addSkill("Conocimiento Cultural (" + culture  + ")");
@@ -107,6 +107,12 @@ public class CategoryFactory {
 
 	public static boolean existCategory(String categoryName) {
 		return (getAvailableCategory(categoryName) != null);
+	}
+	
+	public static List<Category> getCategories(){
+		List<Category> categories = new ArrayList<>(categoriesAvailable.values());
+		Collections.sort(categories, new CategoryComparator());
+		return categories;
 	}
 
 	public static Category getAvailableCategory(String categoryName) {

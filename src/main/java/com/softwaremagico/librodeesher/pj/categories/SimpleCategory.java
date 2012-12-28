@@ -25,6 +25,7 @@ package com.softwaremagico.librodeesher.pj.categories;
  */
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -44,6 +45,7 @@ public class SimpleCategory {
 		skill.setCategory(this);
 		if (!skills.contains(skill)) {
 			skills.add(skill);
+			Collections.sort(skills, new SkillComparator());
 		}
 		return skill;
 	}
@@ -57,5 +59,14 @@ public class SimpleCategory {
 		for (Skill skill : skills) {
 			skill.setCategory(this);
 		}
+		Collections.sort(skills, new SkillComparator());
+	}
+	
+	public void addSkills(List<Skill> skills) {
+		this.skills.addAll(skills);
+		for (Skill skill : skills) {
+			skill.setCategory(this);
+		}
+		Collections.sort(skills, new SkillComparator());
 	}
 }

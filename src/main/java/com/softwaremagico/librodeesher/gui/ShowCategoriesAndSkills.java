@@ -23,6 +23,7 @@ package com.softwaremagico.librodeesher.gui;
  * #L%
  */
 
+import java.awt.Color;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -54,10 +55,10 @@ public class ShowCategoriesAndSkills extends BasicLine {
 
 	private void setCategoriesAndSkills(List<Category> categories) {
 		for (Category category : categories) {
-			CategoryLine categoryLine = new CategoryLine(category.getName());
+			CategoryLine categoryLine = new CategoryLine(category, Color.WHITE);
 			displayPanel.add(categoryLine);
 			for (Skill skill : category.getSkills()) {
-				SkillLine skillLine = new SkillLine(skill.getName());
+				SkillLine skillLine = new SkillLine(skill, Color.WHITE);
 				displayPanel.add(skillLine);
 			}
 		}

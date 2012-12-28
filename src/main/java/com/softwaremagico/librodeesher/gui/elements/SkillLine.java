@@ -23,84 +23,116 @@ package com.softwaremagico.librodeesher.gui.elements;
  * #L%
  */
 
-import java.awt.Dimension;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class SkillLine extends BasicLine {
 	private static final long serialVersionUID = -3194401962061016906L;
-	protected Integer defaultHeight = 25;
-	protected Integer defaultWidth = 500;
 	
 
-	public SkillLine(String skillName) {
-		setElements(skillName);
+	public SkillLine(Skill skill, Color background) {
+		setElements(skill, background);
+		setBackground(background);
 	}
 
-	private void setElements(String skillName) {
+	private void setElements(Skill skill, Color background) {
 		this.removeAll();
-		JLabel skillNameLabel = new JLabel(skillName);
+		setLayout(new GridBagLayout());
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		Font defaultFont = new Font(font, Font.PLAIN, fontSize);
+
+		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridheight = 1;		
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.weighty = 0;
+		
+		JLabel skillNameLabel = new JLabel(skill.getName());
+		skillNameLabel.setFont(defaultFont);
 		skillNameLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		skillNameLabel.setMinimumSize(new Dimension(nameTextDefaultWidth, defaultHeight));
-		skillNameLabel.setPreferredSize(new Dimension(nameTextDefaultWidth, defaultHeight));
-		add(skillNameLabel);
-
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0.2;	
+		add(skillNameLabel, gridBagConstraints);
+		
+		gridBagConstraints.gridx = 1;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0;	
+		JLabel RankCostLabel = new JLabel("");
+		add(RankCostLabel, gridBagConstraints);
+		
 		JLabel prevRanksLabel = new JLabel("0");
-		prevRanksLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		prevRanksLabel.setMinimumSize(new Dimension(labelDefaultWidth, defaultHeight));
-		prevRanksLabel.setPreferredSize(new Dimension(labelDefaultWidth, defaultHeight));
-		add(prevRanksLabel);
+		prevRanksLabel.setFont(defaultFont);
+		gridBagConstraints.gridx = 2;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0.1;	
+		add(prevRanksLabel, gridBagConstraints);
 
+		JPanel checkBoxPane = new JPanel();
+		checkBoxPane.setBackground(background);
 		JCheckBox firstRank = new JCheckBox("");
 		firstRank.setBackground(background);
-		add(firstRank);
+		checkBoxPane.add(firstRank);
 
 		JCheckBox secondRank = new JCheckBox("");
 		secondRank.setBackground(background);
-		add(secondRank);
+		checkBoxPane.add(secondRank);
 
 		JCheckBox thirdRank = new JCheckBox("");
 		thirdRank.setBackground(background);
-		add(thirdRank);
+		checkBoxPane.add(thirdRank);
+		
+		gridBagConstraints.gridx = 3;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0.1;
+		add(checkBoxPane, gridBagConstraints);
 
 		JLabel bonusRankLabel = new JLabel("10");
-		bonusRankLabel.setFont(new Font(font, Font.PLAIN, fontSize));
-		bonusRankLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		bonusRankLabel.setMinimumSize(new Dimension(labelDefaultWidth, defaultHeight));
-		bonusRankLabel.setPreferredSize(new Dimension(labelDefaultWidth, defaultHeight));
-		add(bonusRankLabel);
+		bonusRankLabel.setFont(defaultFont);
+		gridBagConstraints.gridx = 4;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0;
+		add(bonusRankLabel, gridBagConstraints);
 
 		JLabel bonusCategory = new JLabel("10");
-		bonusCategory.setFont(new Font(font, Font.PLAIN, fontSize));
-		bonusCategory.setHorizontalAlignment(SwingConstants.CENTER);
-		bonusCategory.setMinimumSize(new Dimension(labelDefaultWidth, defaultHeight));
-		bonusCategory.setPreferredSize(new Dimension(labelDefaultWidth, defaultHeight));
-		add(bonusCategory);
+		bonusCategory.setFont(defaultFont);
+		gridBagConstraints.gridx = 5;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0.1;
+		add(bonusCategory, gridBagConstraints);
 
 		JLabel bonusMagicObject = new JLabel("20");
-		bonusMagicObject.setFont(new Font(font, Font.PLAIN, fontSize));
-		bonusMagicObject.setHorizontalAlignment(SwingConstants.CENTER);
-		bonusMagicObject.setMinimumSize(new Dimension(labelDefaultWidth, defaultHeight));
-		bonusMagicObject.setPreferredSize(new Dimension(labelDefaultWidth, defaultHeight));
-		add(bonusMagicObject);
+		bonusMagicObject.setFont(defaultFont);
+		gridBagConstraints.gridx = 6;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0;
+		add(bonusMagicObject, gridBagConstraints);
 		
 		JLabel otherBonus = new JLabel("20");
-		otherBonus.setFont(new Font(font, Font.PLAIN, fontSize));
+		otherBonus.setFont(defaultFont);
 		otherBonus.setHorizontalAlignment(SwingConstants.CENTER);
-		otherBonus.setMinimumSize(new Dimension(labelDefaultWidth, defaultHeight));
-		otherBonus.setPreferredSize(new Dimension(labelDefaultWidth, defaultHeight));
-		add(otherBonus);
+		gridBagConstraints.gridx = 7;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0.1;
+		add(otherBonus, gridBagConstraints);
 
 		JLabel totalLabel = new JLabel("50");
+		totalLabel.setFont(defaultFont);
 		totalLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		totalLabel.setMinimumSize(new Dimension(labelDefaultWidth, defaultHeight));
-		totalLabel.setPreferredSize(new Dimension(labelDefaultWidth, defaultHeight));
-		add(totalLabel);
+		gridBagConstraints.gridx = 8;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0.1;
+		add(totalLabel, gridBagConstraints);
 	}
 
 }

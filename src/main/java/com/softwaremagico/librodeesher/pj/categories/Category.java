@@ -25,6 +25,7 @@ package com.softwaremagico.librodeesher.pj.categories;
  */
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
