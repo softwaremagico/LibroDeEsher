@@ -4,7 +4,7 @@ public class SpecialCategory extends Category {
 	private static Float[] skillRankValues = { (float) 0, (float) 6, (float) 5, (float) 4, (float) 3 };
 
 	public SpecialCategory(String name, String abbreviature, String characteristicsTag) {
-		super(name, abbreviature, CategoryType.SPECIAL, skillRankValues);
+		super(name, abbreviature, CategoryType.SPECIAL,characteristicsTag, skillRankValues);
 	}
 
 	@Override

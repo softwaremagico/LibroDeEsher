@@ -29,7 +29,7 @@ public class StandardCategory extends Category {
 
 	public StandardCategory(String name, String abbreviature,
 			String characteristicsTag) {
-		super(name, abbreviature, CategoryType.STANDARD, skillRankValues);
+		super(name, abbreviature, CategoryType.STANDARD, characteristicsTag, skillRankValues);
 	}
 
 	@Override

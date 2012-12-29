@@ -4,7 +4,7 @@ public class CombinedCategory extends Category {
 	private static Float[] skillRankValues = { (float) -30, (float) 5, (float) 3, (float) 1.5, (float) 0.5 };
 	
 	public CombinedCategory(String name, String abbreviature, String characteristicsTag) {
-		super(name, abbreviature, CategoryType.COMBINED, skillRankValues);
+		super(name, abbreviature, CategoryType.COMBINED, characteristicsTag, skillRankValues);
 	}
 
 	@Override

@@ -142,7 +142,7 @@ public class CategoryLine extends BasicLine {
 		bonusRankLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		add(bonusRankLabel, gridBagConstraints);
 
-		JLabel bonusCharLabel = new JLabel("10");
+		JLabel bonusCharLabel = new JLabel(character.getCharacteristicsBonus(category).toString());
 		bonusCharLabel.setFont(defaultFont);
 		bonusCharLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
 		bonusCharLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
@@ -152,7 +152,7 @@ public class CategoryLine extends BasicLine {
 		gridBagConstraints.weightx = 0.1;
 		add(bonusCharLabel, gridBagConstraints);
 
-		JLabel bonusMagicObject = new JLabel("20");
+		JLabel bonusMagicObject = new JLabel(character.getBonus(category).toString());
 		bonusMagicObject.setFont(defaultFont);
 		bonusMagicObject.setMinimumSize(new Dimension(columnWidth, columnHeight));
 		bonusMagicObject.setPreferredSize(new Dimension(columnWidth, columnHeight));
@@ -162,7 +162,7 @@ public class CategoryLine extends BasicLine {
 		gridBagConstraints.weightx = 0.1;
 		add(bonusMagicObject, gridBagConstraints);
 
-		JLabel otherBonus = new JLabel("20");
+		JLabel otherBonus = new JLabel("0");
 		otherBonus.setMinimumSize(new Dimension(columnWidth, columnHeight));
 		otherBonus.setPreferredSize(new Dimension(columnWidth, columnHeight));
 		otherBonus.setHorizontalAlignment(SwingConstants.CENTER);
@@ -172,7 +172,7 @@ public class CategoryLine extends BasicLine {
 		gridBagConstraints.weightx = 0.1;
 		add(otherBonus, gridBagConstraints);
 
-		JLabel totalLabel = new JLabel("50");
+		JLabel totalLabel = new JLabel(character.getTotalValue(category).toString());
 		totalLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
 		totalLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
 		totalLabel.setHorizontalAlignment(SwingConstants.CENTER);

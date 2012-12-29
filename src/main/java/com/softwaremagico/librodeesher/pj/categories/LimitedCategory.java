@@ -4,7 +4,7 @@ public class LimitedCategory extends Category {
 	private static Float[] skillRankValues = { (float) 0, (float) 1, (float) 1, (float) 0.5, (float) 0 };
 
 	public LimitedCategory(String name, String abbreviature, String characteristicsTag) {
-		super(name, abbreviature, CategoryType.LIMITED, skillRankValues);
+		super(name, abbreviature, CategoryType.LIMITED, characteristicsTag, skillRankValues);
 	}
 
 	@Override

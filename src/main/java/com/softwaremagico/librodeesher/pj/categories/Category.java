@@ -38,17 +38,26 @@ public abstract class Category {
 	private String name;
 	protected String abbreviature;
 	protected CategoryType type;
-	public List<Characteristic> characteristics;
+	private List<String> characteristicsTags;
 	protected List<Skill> skills;
 	private Float[] skillRankValues; // Rank values. i.e: -15/3/2/1/0.5
 
-	public Category(String name, String abbreviature, CategoryType type, Float[] skillRankValues) {
+	public Category(String name, String abbreviature, CategoryType type, String characteristicsTag,
+			Float[] skillRankValues) {
 		this.name = name;
 		this.abbreviature = abbreviature;
 		this.type = type;
 		this.skillRankValues = skillRankValues;
 		skills = new ArrayList<>();
-		characteristics = new ArrayList<>();
+		createCharacteristicList(characteristicsTag);
+	}
+
+	private void createCharacteristicList(String characteristicsTag) {
+		characteristicsTags = new ArrayList<>();
+		String[] characteristics = characteristicsTag.split(Pattern.quote("/"));
+		for (String characteristic : characteristics) {
+			characteristicsTags.add(characteristic);
+		}
 	}
 
 	public String getName() {
@@ -120,7 +129,7 @@ public abstract class Category {
 					* (ranksNumber - 30);
 		}
 	}
-	
+
 	public static Float[] getConvertedProgressionString(String progression) {
 		Scanner s = new Scanner(progression);
 		s.useDelimiter(Pattern.quote("/"));
@@ -132,6 +141,14 @@ public abstract class Category {
 		}
 		return progressionCost;
 	}
+
+	public abstract boolean hasRanks();
 	
-	public abstract boolean hasRanks(); 
+	public Integer getBonus(){
+		return 0;
+	}
+
+	public List<String> getCharacteristics() {
+		return characteristicsTags;
+	}
 }

@@ -4,7 +4,7 @@ public class PpdCategory extends Category {
 	private static Float[] skillRankValues = { (float) 0, (float) 0, (float) 0, (float) 0, (float) 0 };
 	
 	public PpdCategory(String name, String abbreviature, String characteristicsTag) {
-		super(name, abbreviature, CategoryType.PPD, skillRankValues);
+		super(name, abbreviature, CategoryType.PPD,characteristicsTag, skillRankValues);
 	}
 
 	@Override

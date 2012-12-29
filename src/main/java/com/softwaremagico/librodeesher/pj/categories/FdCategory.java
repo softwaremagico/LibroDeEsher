@@ -4,7 +4,7 @@ public class FdCategory extends Category  {
 	private static Float[] skillRankValues = { (float) 0, (float) 0, (float) 0, (float) 0, (float) 0 };
 	
 	public FdCategory(String name, String abbreviature, String characteristicsTag) {
-		super(name, abbreviature, CategoryType.FD, skillRankValues);
+		super(name, abbreviature, CategoryType.FD, characteristicsTag, skillRankValues);
 	}
 
 	@Override
@@ -18,5 +18,10 @@ public class FdCategory extends Category  {
 	@Override
 	public boolean hasRanks() {
 		return true;
+	}
+	
+	@Override
+	public Integer getBonus(){
+		return 10;
 	}
 }

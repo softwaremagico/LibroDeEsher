@@ -140,7 +140,7 @@ public class SkillLine extends BasicLine {
 		gridBagConstraints.weightx = 0.1;
 		add(bonusRankLabel, gridBagConstraints);
 
-		JLabel bonusCategory = new JLabel("10");
+		JLabel bonusCategory = new JLabel(character.getTotalValue(skill.getCategory()).toString());
 		bonusCategory.setHorizontalAlignment(SwingConstants.CENTER);
 		bonusCategory.setMinimumSize(new Dimension(columnWidth, columnHeight));
 		bonusCategory.setPreferredSize(new Dimension(columnWidth, columnHeight));
@@ -150,7 +150,7 @@ public class SkillLine extends BasicLine {
 		gridBagConstraints.weightx = 0.1;
 		add(bonusCategory, gridBagConstraints);
 
-		JLabel bonusMagicObject = new JLabel("20");
+		JLabel bonusMagicObject = new JLabel(character.getBonus(skill).toString());
 		bonusMagicObject.setHorizontalAlignment(SwingConstants.CENTER);
 		bonusMagicObject.setMinimumSize(new Dimension(columnWidth, columnHeight));
 		bonusMagicObject.setPreferredSize(new Dimension(columnWidth, columnHeight));
@@ -160,7 +160,7 @@ public class SkillLine extends BasicLine {
 		gridBagConstraints.weightx = 0.1;
 		add(bonusMagicObject, gridBagConstraints);
 
-		JLabel otherBonus = new JLabel("20");
+		JLabel otherBonus = new JLabel("0");
 		otherBonus.setHorizontalAlignment(SwingConstants.CENTER);
 		otherBonus.setMinimumSize(new Dimension(columnWidth, columnHeight));
 		otherBonus.setPreferredSize(new Dimension(columnWidth, columnHeight));
@@ -170,7 +170,7 @@ public class SkillLine extends BasicLine {
 		gridBagConstraints.weightx = 0.1;
 		add(otherBonus, gridBagConstraints);
 
-		JLabel totalLabel = new JLabel("50");
+		JLabel totalLabel = new JLabel(character.getTotalValue(skill).toString());
 		totalLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		totalLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
 		totalLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));

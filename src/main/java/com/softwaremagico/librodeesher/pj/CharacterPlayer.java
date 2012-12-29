@@ -140,6 +140,12 @@ public class CharacterPlayer {
 	}
 
 	public Integer getCharacteristicTotalBonus(String abbreviature) {
+		if (abbreviature.toLowerCase().contains("ningu")) {
+			return 0;
+		}
+		if (abbreviature.toLowerCase().contains("*")) {
+			return getCharacteristicTotalBonus(realmOfMagic.getCharacteristic());
+		}
 		return getCharacteristicTemporalBonus(abbreviature) + getCharacteristicRaceBonus(abbreviature)
 				+ getCharacteristicSpecialBonus(abbreviature);
 	}
@@ -385,5 +391,30 @@ public class CharacterPlayer {
 
 	public Integer getRanksValue(Skill skill) {
 		return skill.getRankValue(this, getPreviousRanks(skill) + getCurrentLevelRanks(skill));
+	}
+
+	public Integer getCharacteristicsBonus(Category category) {
+		Integer total = 0;
+		List<String> characteristicsAbbreviature = category.getCharacteristics();
+		for (String characteristic : characteristicsAbbreviature) {
+			total += getCharacteristicTotalBonus(characteristic);
+		}
+		return total;
+	}
+	
+	public Integer getBonus(Category category){
+		return category.getBonus();
+	}
+	
+	public Integer getBonus(Skill skill){
+		return 0 ;
+	}
+	
+	public Integer getTotalValue(Category category){
+		return getRanksValue(category) + getBonus(category) + getCharacteristicsBonus(category);
+	}
+	
+	public Integer getTotalValue(Skill skill){
+		return getRanksValue(skill) + getBonus(skill) + getTotalValue(skill.getCategory());
 	}
 }
