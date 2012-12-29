@@ -96,32 +96,34 @@ public class CategoryLine extends BasicLine {
 
 		JPanel checkBoxPane = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		checkBoxPane.setBackground(background);
-		JCheckBox firstRank = new JCheckBox("");
-		firstRank.setBackground(background);
-		if (ranks > 0) {
-			firstRank.setEnabled(true);
-		} else {
-			firstRank.setEnabled(false);
-		}
-		checkBoxPane.add(firstRank);
+		if (category.hasRanks()) {
+			JCheckBox firstRank = new JCheckBox("");
+			firstRank.setBackground(background);
+			if (ranks > 0) {
+				firstRank.setEnabled(true);
+			} else {
+				firstRank.setEnabled(false);
+			}
+			checkBoxPane.add(firstRank);
 
-		JCheckBox secondRank = new JCheckBox("");
-		secondRank.setBackground(background);
-		if (ranks > 1) {
-			secondRank.setEnabled(true);
-		} else {
-			secondRank.setEnabled(false);
-		}
-		checkBoxPane.add(secondRank);
+			JCheckBox secondRank = new JCheckBox("");
+			secondRank.setBackground(background);
+			if (ranks > 1) {
+				secondRank.setEnabled(true);
+			} else {
+				secondRank.setEnabled(false);
+			}
+			checkBoxPane.add(secondRank);
 
-		JCheckBox thirdRank = new JCheckBox("");
-		thirdRank.setBackground(background);
-		if (ranks > 2) {
-			thirdRank.setEnabled(true);
-		} else {
-			thirdRank.setEnabled(false);
+			JCheckBox thirdRank = new JCheckBox("");
+			thirdRank.setBackground(background);
+			if (ranks > 2) {
+				thirdRank.setEnabled(true);
+			} else {
+				thirdRank.setEnabled(false);
+			}
+			checkBoxPane.add(thirdRank);
 		}
-		checkBoxPane.add(thirdRank);
 
 		gridBagConstraints.gridx = 3;
 		gridBagConstraints.gridwidth = 1;
@@ -130,7 +132,7 @@ public class CategoryLine extends BasicLine {
 		checkBoxPane.setPreferredSize(new Dimension(columnWidth * 2, columnHeight));
 		add(checkBoxPane, gridBagConstraints);
 
-		JLabel bonusRankLabel = new JLabel("10");
+		JLabel bonusRankLabel = new JLabel(character.getRanksValue(category).toString());
 		bonusRankLabel.setFont(defaultFont);
 		gridBagConstraints.gridx = 4;
 		gridBagConstraints.gridwidth = 1;

@@ -26,8 +26,7 @@ package com.softwaremagico.librodeesher.pj;
 public enum ProgressionCostType {
 	PHYSICAL_DEVELOPMENT("Desarrollo Físico"), ARCANUM_POWER_DEVELOPMENT("PP Arcano"), CANALIZATION_POWER_DEVELOPMENT(
 			"PP Canalización"), ESSENCE_POWER_DEVELOPMENT("PP Esencia"), MENTALISM_POWER_DEVELOPMENT(
-			"PP Mentalismo"), PSIONIC_POWER_DEVELOPMENT("PP Psiónico"), STANDAR("Estándar"), LIMITED(
-			"Limitada"), COMBINED("Combinada");
+			"PP Mentalismo"), PSIONIC_POWER_DEVELOPMENT("PP Psiónico");
 
 	private String tag;
 

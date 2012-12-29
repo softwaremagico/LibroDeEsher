@@ -84,16 +84,7 @@ public class SkillFactory {
 	}
 
 	private static Skill createSkill(String skillName, SkillType skillType) {
-		switch (skillType) {
-		case STANDAR:
-			return new StandardSkill(skillName);
-		case RESTRICTED:
-			return new RestrictedSkill(skillName);
-		case SPECIAL:
-			return new SpecialSkill(skillName);
-		default:
-			return null;
-		}
+		return new Skill(skillName, skillType);
 	}
 
 	private static String removeTypeFromName(String skillName) {

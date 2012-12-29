@@ -338,7 +338,7 @@ public class CharacterPlayer {
 			return 0;
 		}
 	}
-	
+
 	private Integer getCurrentLevelRanks(Skill skill) {
 		if (levelUps.size() > 0) {
 			return levelUps.get(levelUps.size() - 1).getSkillsRanks(skill.getName());
@@ -379,11 +379,11 @@ public class CharacterPlayer {
 		return total;
 	}
 
-	public Integer getRanksValue(Category category){
-		return (getPreviousRanks(category) + getCurrentLevelRanks(category))* category.getRankValue();
+	public Integer getRanksValue(Category category) {
+		return category.getRankValue(getPreviousRanks(category) + getCurrentLevelRanks(category));
 	}
-	
-	public Integer getRanksValue(Skill skill){
-		return (getPreviousRanks(skill) + getCurrentLevelRanks(skill))* skill.getCategory().getRankValue();
+
+	public Integer getRanksValue(Skill skill) {
+		return skill.getRankValue(this, getPreviousRanks(skill) + getCurrentLevelRanks(skill));
 	}
 }

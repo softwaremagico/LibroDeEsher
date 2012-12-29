@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.categories;
+
 /*
  * #%L
  * Libro de Esher
@@ -23,12 +24,12 @@ package com.softwaremagico.librodeesher.pj.categories;
  * #L%
  */
 
-
 public class StandardCategory extends Category {
+	private static Float[] skillRankValues = {(float) -15, (float)3, (float)2, (float)1, (float)0.5};
 
 	public StandardCategory(String name, String abbreviature,
 			String characteristicsTag) {
-		super(name, abbreviature, CategoryType.STANDARD);
+		super(name, abbreviature, CategoryType.STANDARD, skillRankValues);
 	}
 
 	@Override
@@ -40,8 +41,47 @@ public class StandardCategory extends Category {
 	}
 
 	@Override
-	public Integer getRankValue() {
-		return 3;
+	public Integer getRankValue(Integer ranksNumber) {
+		if (ranksNumber == 0) {
+			return -15;
+		}
+		if (ranksNumber <= 10) {
+			return ranksNumber * 2;
+		}
+		if (ranksNumber > 10 && ranksNumber <= 20) {
+			return (20 + (ranksNumber - 10));
+		}
+		if (ranksNumber > 20 && ranksNumber <= 30) {
+			return 30 + (ranksNumber - 20) / 2;
+		}
+		if (ranksNumber > 30) {
+			return 35;
+		}
+		return -15;
+	}
+
+	@Override
+	public Integer getSkillRankValues(Integer ranksNumber) {
+		if (ranksNumber == 0) {
+			return -15;
+		}
+		if (ranksNumber <= 10) {
+			return ranksNumber * 3;
+		}
+		if (ranksNumber > 10 && ranksNumber <= 20) {
+			return (30 + (ranksNumber - 10) * 2);
+		}
+		if (ranksNumber > 20 && ranksNumber <= 30) {
+			return 50 + (ranksNumber - 20);
+		}
+		if (ranksNumber > 30) {
+			return 60 + (ranksNumber - 30) / 2;
+		}
+		return -15;
+	}
+
+	@Override
+	public boolean hasRanks() {
+		return true;
 	}
 }
-

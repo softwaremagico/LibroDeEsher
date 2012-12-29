@@ -37,6 +37,7 @@ import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.pj.Language;
 import com.softwaremagico.librodeesher.pj.ProgressionCostType;
 import com.softwaremagico.librodeesher.pj.SexType;
+import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
@@ -48,7 +49,7 @@ public class Race {
 	private int apperanceBonus;
 	private Hashtable<String, Integer> characteristicBonus;
 	private Hashtable<ResistanceType, Integer> resistancesBonus;
-	private Hashtable<ProgressionCostType, String> progressionCosts;
+	private Hashtable<ProgressionCostType, Float[]> progressionRankValues;
 	private List<String> restrictedProfessions;
 	private Integer soulDepartTime;
 	private Integer raceType;
@@ -95,7 +96,7 @@ public class Race {
 
 			lineIndex = setCharacteristicsBonus(lines, lineIndex);
 			lineIndex = setResistanceBonus(lines, lineIndex);
-			lineIndex = setProgressionCost(lines, lineIndex);
+			lineIndex = setProgressionRankValues(lines, lineIndex);
 			lineIndex = setRestrictedProfessions(lines, lineIndex);
 			lineIndex = setOtherRaceInformation(lines, lineIndex);
 			lineIndex = setRaceLanguages(lines, lineIndex);
@@ -154,8 +155,8 @@ public class Race {
 		return index;
 	}
 
-	private int setProgressionCost(List<String> lines, int index) {
-		progressionCosts = new Hashtable<>();
+	private int setProgressionRankValues(List<String> lines, int index) {
+		progressionRankValues = new Hashtable<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -163,8 +164,8 @@ public class Race {
 			while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 				String progressionLine = lines.get(index);
 				String[] progressionColumn = progressionLine.split("\t");
-				progressionCosts.put(ProgressionCostType.getProgressionCostType(progressionColumn[0]),
-						progressionColumn[1]);
+				progressionRankValues.put(ProgressionCostType.getProgressionCostType(progressionColumn[0]),
+						Category.getConvertedProgressionString(progressionColumn[1]));
 				index++;
 			}
 		} catch (Exception e) {
@@ -173,6 +174,10 @@ public class Race {
 					+ ".", "Leer Raza");
 		}
 		return index;
+	}
+	
+	public Float[] getProgressionRankValues(ProgressionCostType type){
+		return progressionRankValues.get(type);
 	}
 
 	private int setRestrictedProfessions(List<String> lines, int index) {

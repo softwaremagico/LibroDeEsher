@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.skills;
+
 /*
  * #%L
  * Libro de Esher
@@ -24,7 +25,7 @@ package com.softwaremagico.librodeesher.pj.skills;
  */
 
 public enum SkillType {
-	RESTRICTED("(R)"), SPECIAL("*"), STANDAR("");
+	RESTRICTED("(r)"), STANDAR(""), PROFESSIONAL("(p)"), COMMON("(c)");
 
 	private String tag;
 
@@ -32,11 +33,17 @@ public enum SkillType {
 		this.tag = tag;
 	}
 
+	public String getTag() {
+		return tag;
+	}
+
 	public static SkillType getSkillType(String skillName) {
-		if (skillName.contains("(R)")) {
+		if (skillName.toLowerCase().contains(SkillType.RESTRICTED.getTag())) {
 			return RESTRICTED;
-		} else if (skillName.contains("*")) {
-			return SPECIAL;
+		} else if (skillName.contains(SkillType.PROFESSIONAL.getTag())) {
+			return PROFESSIONAL;
+		} else if (skillName.contains(SkillType.COMMON.getTag())) {
+			return COMMON;
 		}
 		return STANDAR;
 	}

@@ -1,8 +1,10 @@
 package com.softwaremagico.librodeesher.pj.categories;
 
 public class FdCategory extends Category  {
+	private static Float[] skillRankValues = { (float) 0, (float) 0, (float) 0, (float) 0, (float) 0 };
+	
 	public FdCategory(String name, String abbreviature, String characteristicsTag) {
-		super(name, abbreviature, CategoryType.STANDARD);
+		super(name, abbreviature, CategoryType.FD, skillRankValues);
 	}
 
 	@Override
@@ -14,7 +16,7 @@ public class FdCategory extends Category  {
 	}
 
 	@Override
-	public Integer getRankValue() {
-		return null;
+	public boolean hasRanks() {
+		return true;
 	}
 }

@@ -31,7 +31,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -131,7 +130,7 @@ public class SkillLine extends BasicLine {
 		checkBoxPane.setPreferredSize(new Dimension(columnWidth * 2, columnHeight));
 		add(checkBoxPane, gridBagConstraints);
 
-		JLabel bonusRankLabel = new JLabel("10");
+		JLabel bonusRankLabel = new JLabel(character.getRanksValue(skill).toString());
 		bonusRankLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		bonusRankLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
 		bonusRankLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));

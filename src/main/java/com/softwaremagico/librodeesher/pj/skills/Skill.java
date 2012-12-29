@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.ProgressionCostType;
 import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 
 /*
  * #%L
@@ -30,12 +33,14 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
  * #L%
  */
 
-public abstract class Skill {
+public class Skill {
 	private String name;
 	private List<String> specialities; // A skill can have some specializations.
+	private SkillType type;
 	private Category category;
 
-	public Skill(String name) {
+	public Skill(String name, SkillType type) {
+		this.type = type;
 		specialities = new ArrayList<>();
 		String specialityPattern = Pattern.quote("[");
 		String[] nameColumns = name.split(specialityPattern);
@@ -49,8 +54,8 @@ public abstract class Skill {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
-	public Category getCategory(){
+
+	public Category getCategory() {
 		return category;
 	}
 
@@ -58,4 +63,40 @@ public abstract class Skill {
 		this.specialities.addAll(specialities);
 	}
 
+	public Integer getRankValue(CharacterPlayer character, Integer ranksNumber) {
+		switch (getCategory().getType()) {
+		case STANDARD:
+		case COMBINED:
+		case LIMITED:
+		case SPECIAL:
+			return getCategory().getSkillRankValues(ranksNumber);
+		case PPD:
+			if (character.getRealmOfMagic().equals(RealmOfMagic.ESSENCE)) {
+				return getCategory().getSkillRankValues(
+						ranksNumber,
+						character.getRace().getProgressionRankValues(
+								ProgressionCostType.ESSENCE_POWER_DEVELOPMENT));
+			} else if (character.getRealmOfMagic().equals(RealmOfMagic.CANALIZATION)) {
+				return getCategory().getSkillRankValues(
+						ranksNumber,
+						character.getRace().getProgressionRankValues(
+								ProgressionCostType.CANALIZATION_POWER_DEVELOPMENT));
+			} else if (character.getRealmOfMagic().equals(RealmOfMagic.MENTALISM)) {
+				return getCategory().getSkillRankValues(
+						ranksNumber,
+						character.getRace().getProgressionRankValues(
+								ProgressionCostType.MENTALISM_POWER_DEVELOPMENT));
+			} else if (character.getRealmOfMagic().equals(RealmOfMagic.PSIONIC)) {
+				return getCategory().getSkillRankValues(
+						ranksNumber,
+						character.getRace().getProgressionRankValues(
+								ProgressionCostType.PSIONIC_POWER_DEVELOPMENT));
+			}
+		case FD:
+			return getCategory().getSkillRankValues(ranksNumber,
+					character.getRace().getProgressionRankValues(ProgressionCostType.PHYSICAL_DEVELOPMENT));
+		default:
+			return 0;
+		}
+	}
 }

@@ -27,6 +27,8 @@ package com.softwaremagico.librodeesher.pj.categories;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Pattern;
 
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -38,11 +40,13 @@ public abstract class Category {
 	protected CategoryType type;
 	public List<Characteristic> characteristics;
 	protected List<Skill> skills;
+	private Float[] skillRankValues; // Rank values. i.e: -15/3/2/1/0.5
 
-	public Category(String name, String abbreviature, CategoryType type) {
+	public Category(String name, String abbreviature, CategoryType type, Float[] skillRankValues) {
 		this.name = name;
 		this.abbreviature = abbreviature;
 		this.type = type;
+		this.skillRankValues = skillRankValues;
 		skills = new ArrayList<>();
 		characteristics = new ArrayList<>();
 	}
@@ -91,5 +95,43 @@ public abstract class Category {
 		return skill;
 	}
 
-	public abstract Integer getRankValue();
+	public Integer getRankValue(Integer ranksNumber) {
+		return 0;
+	}
+
+	public Integer getSkillRankValues(Integer ranksNumber) {
+		return getSkillRankValues(ranksNumber, skillRankValues);
+	}
+
+	public Integer getSkillRankValues(Integer ranksNumber, Float[] definedSkillRankValues) {
+		if (ranksNumber == 0) {
+			return definedSkillRankValues[0].intValue();
+		} else if (ranksNumber > 0 && ranksNumber <= 10) {
+			return definedSkillRankValues[1].intValue() * ranksNumber;
+		} else if (ranksNumber > 10 && ranksNumber <= 20) {
+			return definedSkillRankValues[1].intValue() * 10 + definedSkillRankValues[2].intValue()
+					* (ranksNumber - 10);
+		} else if (ranksNumber > 20 && ranksNumber <= 30) {
+			return definedSkillRankValues[1].intValue() * 10 + definedSkillRankValues[2].intValue() * 10
+					+ definedSkillRankValues[3].intValue() * (ranksNumber - 20);
+		} else {
+			return definedSkillRankValues[1].intValue() * 10 + definedSkillRankValues[2].intValue() * 10
+					+ definedSkillRankValues[3].intValue() * 10 + definedSkillRankValues[4].intValue()
+					* (ranksNumber - 30);
+		}
+	}
+	
+	public static Float[] getConvertedProgressionString(String progression) {
+		Scanner s = new Scanner(progression);
+		s.useDelimiter(Pattern.quote("/"));
+		Float[] progressionCost = new Float[5];
+		int i = 0;
+		while (s.hasNext() && i < progressionCost.length) {
+			progressionCost[i] = s.nextFloat();
+			i++;
+		}
+		return progressionCost;
+	}
+	
+	public abstract boolean hasRanks(); 
 }
