@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
@@ -21,6 +22,7 @@ public class SkillWindow extends BaseFrame {
 	private CharacterPlayer character;
 	private BasicButton acceptButton;
 	private CompleteSkillPanel skillPanel;
+	private JLabel pointsLabel;
 
 	public SkillWindow(CharacterPlayer character) {
 		this.character = character;
@@ -38,13 +40,25 @@ public class SkillWindow extends BaseFrame {
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.gridheight = 2;
 		gridBagConstraints.gridwidth = 2;
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		skillPanel = new CompleteSkillPanel(character);
 		getContentPane().add(skillPanel, gridBagConstraints);
+
+		pointsLabel = new JLabel();
+		gridBagConstraints.anchor = GridBagConstraints.CENTER;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 2;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 1;
+		gridBagConstraints.weighty = 0;
+		getContentPane().add(pointsLabel, gridBagConstraints);
+		setDevelopmentPointText();
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
 		acceptButton = new BasicButton("Aceptar");
@@ -60,15 +74,19 @@ public class SkillWindow extends BaseFrame {
 		gridBagConstraints.gridy = 2;
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 0.2;
+		gridBagConstraints.weightx = 0;
 		gridBagConstraints.weighty = 0;
 		getContentPane().add(buttonPanel, gridBagConstraints);
 
 	}
+	
+	private void setDevelopmentPointText(){
+		pointsLabel.setText("  Puntos de Desarrollo restantes: " + character.getRemainingDevelopmentPoints());
+	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
+		setDevelopmentPointText();
 	}
 
 	private void setEvents() {

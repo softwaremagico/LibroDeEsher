@@ -57,8 +57,16 @@ public class CategoryCost {
 
 		return cost;
 	}
+	
+	public Integer getTotalRanksCost(Integer getRanksAdquired){
+		Integer total=0;
+		for(int i=0; i<getRanksAdquired; i++){
+			total+=getRankCost(i);
+		}
+		return total;
+	}
 
-	public Integer getCost(int rankAdquiredInThisLevel) {
+	public Integer getRankCost(Integer rankAdquiredInThisLevel) {
 		if (rankCost != null && rankAdquiredInThisLevel < rankCost.size()) {
 			return rankCost.get(rankAdquiredInThisLevel);
 		}

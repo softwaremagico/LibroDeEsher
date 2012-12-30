@@ -204,8 +204,8 @@ public class Profession {
 		}
 		return index;
 	}
-	
-	public String getCategoryCostTag(String categoryName){
+
+	public String getCategoryCostTag(String categoryName) {
 		try {
 			String cost;
 			if (categoryName.contains("Armas·")) {
@@ -222,6 +222,14 @@ public class Profession {
 		} catch (NullPointerException npe) {
 			return "";
 		}
+	}
+
+	public Integer getCategoryRanksCost(String categoryName, Integer rank) {
+		CategoryCost cost = categoryCost.get(categoryName);
+		if (cost == null) {
+			return Integer.MAX_VALUE;
+		}
+		return cost.getTotalRanksCost(rank);
 	}
 
 	public Integer getMaxRanksPerLevel(String categoryName) {

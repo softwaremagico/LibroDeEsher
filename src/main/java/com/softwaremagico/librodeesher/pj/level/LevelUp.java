@@ -2,7 +2,8 @@ package com.softwaremagico.librodeesher.pj.level;
 
 import java.util.Hashtable;
 
-import com.softwaremagico.librodeesher.pj.culture.CultureSkill;
+import com.softwaremagico.librodeesher.pj.profession.Profession;
+import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
 /*
  * #%L
@@ -29,27 +30,49 @@ import com.softwaremagico.librodeesher.pj.culture.CultureSkill;
  */
 
 public class LevelUp {
-	private Hashtable<String, Integer> categories;
-	private Hashtable<String, Integer> skills;
+	private Hashtable<String, Integer> categoriesRanks;
+	private Hashtable<String, Integer> skillsRanks;
 
 	public LevelUp() {
-		categories = new Hashtable<>();
-		skills = new Hashtable<>();
+		categoriesRanks = new Hashtable<>();
+		skillsRanks = new Hashtable<>();
 	}
 
 	public Integer getCategoryRanks(String categoryName) {
-		Integer ranks = categories.get(categoryName);
+		Integer ranks = categoriesRanks.get(categoryName);
 		if (ranks == null) {
 			return 0;
 		}
 		return ranks;
 	}
-	
+
 	public Integer getSkillsRanks(String skillName) {
-		Integer ranks = skills.get(skillName);
+		Integer ranks = skillsRanks.get(skillName);
 		if (ranks == null) {
 			return 0;
 		}
 		return ranks;
+	}
+
+	private Integer getSpentDevelopmentPointsInCategoryRanks(Profession profession) {
+		Integer total = 0;
+		for (String categoryName : categoriesRanks.keySet()) {
+			total += profession.getCategoryRanksCost(categoryName, categoriesRanks.get(categoryName));
+		}
+		return total;
+	}
+
+	private Integer getSpentDevelopmentPointsInSkillsRanks(Profession profession) {
+		Integer total = 0;
+		for (String skillName : skillsRanks.keySet()) {
+			total += profession.getCategoryRanksCost(SkillFactory.getAvailableSkill(skillName).getCategory()
+					.getName(), skillsRanks.get(skillName));
+		}
+		return total;
+	}
+
+	public Integer getSpentDevelpmentPoints(Profession profession) {
+		return getSpentDevelopmentPointsInCategoryRanks(profession)
+				+ getSpentDevelopmentPointsInSkillsRanks(profession);
 	}
 }

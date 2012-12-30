@@ -52,7 +52,6 @@ public class CharacterPlayer {
 	private final String DEFAULT_NAME = " ** Nuevo Personaje ** ";
 	private final Integer STORED_ROLLS = 10;
 	private String name;
-	private String surname;
 	private SexType sex;
 	private String history;
 
@@ -163,7 +162,7 @@ public class CharacterPlayer {
 		return culture;
 	}
 
-	public Integer getDevelopmentPoints() {
+	public Integer getInitialDevelopmentPoints() {
 		Integer total = 0;
 		total += getCharacteristicTemporalValues("Ag");
 		total += getCharacteristicTemporalValues("Co");
@@ -231,13 +230,15 @@ public class CharacterPlayer {
 		return sex;
 	}
 
-	public Integer getSpentDevelopmentPoints() {
-		// TODO
+	private Integer getSpentDevelopmentPoints() {
+		if (levelUps.size() > 0) {
+			return levelUps.get(levelUps.size() - 1).getSpentDevelpmentPoints(profession);
+		}
 		return 0;
 	}
 
 	public Integer getRemainingDevelopmentPoints() {
-		return getDevelopmentPoints() - getSpentDevelopmentPoints();
+		return getInitialDevelopmentPoints() - getSpentDevelopmentPoints();
 	}
 
 	public Integer getTemporalPointsSpent() {
@@ -401,20 +402,20 @@ public class CharacterPlayer {
 		}
 		return total;
 	}
-	
-	public Integer getBonus(Category category){
+
+	public Integer getBonus(Category category) {
 		return category.getBonus();
 	}
-	
-	public Integer getBonus(Skill skill){
-		return 0 ;
+
+	public Integer getBonus(Skill skill) {
+		return 0;
 	}
-	
-	public Integer getTotalValue(Category category){
+
+	public Integer getTotalValue(Category category) {
 		return getRanksValue(category) + getBonus(category) + getCharacteristicsBonus(category);
 	}
-	
-	public Integer getTotalValue(Skill skill){
+
+	public Integer getTotalValue(Skill skill) {
 		return getRanksValue(skill) + getBonus(skill) + getTotalValue(skill.getCategory());
 	}
 }
