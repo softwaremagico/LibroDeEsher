@@ -54,6 +54,22 @@ public class LevelUp {
 		return ranks;
 	}
 
+	public void setSkillsRanks(String skillName, Integer ranks) {
+		if (ranks <= 0) {
+			skillsRanks.remove(skillName);
+		} else {
+			skillsRanks.put(skillName, ranks);
+		}
+	}
+	
+	public void setCategoryRanks(String categoryName, Integer ranks) {
+		if (ranks <= 0) {
+			categoriesRanks.remove(categoryName);
+		} else {
+			categoriesRanks.put(categoryName, ranks);
+		}
+	}
+
 	private Integer getSpentDevelopmentPointsInCategoryRanks(Profession profession) {
 		Integer total = 0;
 		for (String categoryName : categoriesRanks.keySet()) {

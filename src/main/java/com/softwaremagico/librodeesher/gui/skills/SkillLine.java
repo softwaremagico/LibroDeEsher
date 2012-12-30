@@ -35,6 +35,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -45,14 +47,22 @@ public class SkillLine extends BasicLine {
 	private static final Integer columnWidth = 30;
 	private static final Integer columnHeight = 20;
 	private CharacterPlayer character;
+	private JCheckBox firstRank, secondRank, thirdRank;
+	private boolean updatingValues = false;
+	private JLabel bonusRankLabel, totalLabel, bonusCategory;
+	private Skill skill;
+	private SkillPanel parentWindow;
 
-	public SkillLine(CharacterPlayer character, Skill skill, Color background) {
+	public SkillLine(CharacterPlayer character, Skill skill, Color background, SkillPanel parentWindow) {
 		this.character = character;
-		setElements(skill, background);
+		this.skill = skill;
+		this.parentWindow = parentWindow;
+		setElements(background);
 		setBackground(background);
+		setRanksSelected(character.getCurrentLevelRanks(skill));
 	}
 
-	private void setElements(Skill skill, Color background) {
+	private void setElements(Color background) {
 		this.removeAll();
 		Integer ranks = character.getProfession().getMaxRanksPerLevel(skill.getCategory().getName());
 
@@ -96,28 +106,31 @@ public class SkillLine extends BasicLine {
 
 		JPanel checkBoxPane = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		checkBoxPane.setBackground(background);
-		JCheckBox firstRank = new JCheckBox("");
+		firstRank = new JCheckBox("");
 		firstRank.setBackground(background);
 		if (ranks > 0) {
 			firstRank.setEnabled(true);
+			firstRank.addChangeListener(new CheckBoxListener());
 		} else {
 			firstRank.setEnabled(false);
 		}
 		checkBoxPane.add(firstRank);
 
-		JCheckBox secondRank = new JCheckBox("");
+		secondRank = new JCheckBox("");
 		secondRank.setBackground(background);
 		if (ranks > 1) {
 			secondRank.setEnabled(true);
+			secondRank.addChangeListener(new CheckBoxListener());
 		} else {
 			secondRank.setEnabled(false);
 		}
 		checkBoxPane.add(secondRank);
 
-		JCheckBox thirdRank = new JCheckBox("");
+		thirdRank = new JCheckBox("");
 		thirdRank.setBackground(background);
 		if (ranks > 2) {
 			thirdRank.setEnabled(true);
+			thirdRank.addChangeListener(new CheckBoxListener());
 		} else {
 			thirdRank.setEnabled(false);
 		}
@@ -130,7 +143,7 @@ public class SkillLine extends BasicLine {
 		checkBoxPane.setPreferredSize(new Dimension(columnWidth * 2, columnHeight));
 		add(checkBoxPane, gridBagConstraints);
 
-		JLabel bonusRankLabel = new JLabel(character.getRanksValue(skill).toString());
+		bonusRankLabel = new JLabel(character.getRanksValue(skill).toString());
 		bonusRankLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		bonusRankLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
 		bonusRankLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
@@ -140,7 +153,7 @@ public class SkillLine extends BasicLine {
 		gridBagConstraints.weightx = 0.1;
 		add(bonusRankLabel, gridBagConstraints);
 
-		JLabel bonusCategory = new JLabel(character.getTotalValue(skill.getCategory()).toString());
+		bonusCategory = new JLabel(character.getTotalValue(skill.getCategory()).toString());
 		bonusCategory.setHorizontalAlignment(SwingConstants.CENTER);
 		bonusCategory.setMinimumSize(new Dimension(columnWidth, columnHeight));
 		bonusCategory.setPreferredSize(new Dimension(columnWidth, columnHeight));
@@ -170,7 +183,7 @@ public class SkillLine extends BasicLine {
 		gridBagConstraints.weightx = 0.1;
 		add(otherBonus, gridBagConstraints);
 
-		JLabel totalLabel = new JLabel(character.getTotalValue(skill).toString());
+		totalLabel = new JLabel(character.getTotalValue(skill).toString());
 		totalLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		totalLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
 		totalLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
@@ -179,5 +192,63 @@ public class SkillLine extends BasicLine {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
 		add(totalLabel, gridBagConstraints);
+	}
+
+	private Integer getRanksSelected() {
+		Integer total = 0;
+		if (firstRank.isSelected()) {
+			total++;
+		}
+		if (secondRank.isSelected()) {
+			total++;
+		}
+		if (thirdRank.isSelected()) {
+			total++;
+		}
+		return total;
+	}
+
+	private void setRanksSelected(Integer value) {
+		updatingValues = true;
+		if (value > 0) {
+			firstRank.setSelected(true);
+		} else {
+			firstRank.setSelected(false);
+		}
+		if (value > 1) {
+			secondRank.setSelected(true);
+		} else {
+			secondRank.setSelected(false);
+		}
+		if (value > 2) {
+			thirdRank.setSelected(true);
+		} else {
+			thirdRank.setSelected(false);
+		}
+		updatingValues = false;
+	}
+
+	class CheckBoxListener implements ChangeListener {
+		@Override
+		public void stateChanged(ChangeEvent e) {
+			if (!updatingValues) {
+				// order the ranks.
+				Integer ranks = getRanksSelected();
+				setRanksSelected(ranks);
+				character.setCurrentLevelRanks(skill, ranks);
+				update();
+			}
+		}
+	}
+
+	public void update() {
+		bonusRankLabel.setText(character.getRanksValue(skill).toString());
+		totalLabel.setText(character.getTotalValue(skill).toString());
+		parentWindow.update();
+	}
+	
+	public void updateCategory(){
+		bonusCategory.setText(character.getTotalValue(skill.getCategory()).toString());
+		totalLabel.setText(character.getTotalValue(skill).toString());
 	}
 }

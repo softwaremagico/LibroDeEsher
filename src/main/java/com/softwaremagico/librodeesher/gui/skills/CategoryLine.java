@@ -35,6 +35,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -45,14 +47,23 @@ public class CategoryLine extends BasicLine {
 	private static final Integer columnWidth = 30;
 	private static final Integer columnHeight = 20;
 	private CharacterPlayer character;
+	private boolean updatingValues = false;
+	private JCheckBox firstRank, secondRank, thirdRank;
+	private JLabel bonusRankLabel, totalLabel;
+	private Category category;
+	private SkillPanel parentWindow;
 
-	public CategoryLine(CharacterPlayer character, Category category, Color background) {
+	public CategoryLine(CharacterPlayer character, Category category, Color background,
+			SkillPanel parentWindow) {
 		this.character = character;
-		setContent(category, background);
+		this.category = category;
+		this.parentWindow = parentWindow;
+		setContent(background);
 		setBackground(background);
+		setRanksSelected(character.getCurrentLevelRanks(category));
 	}
 
-	private void setContent(Category category, Color background) {
+	private void setContent(Color background) {
 		Integer ranks = character.getProfession().getMaxRanksPerLevel(category.getName());
 		this.removeAll();
 		setLayout(new GridBagLayout());
@@ -97,28 +108,31 @@ public class CategoryLine extends BasicLine {
 		JPanel checkBoxPane = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		checkBoxPane.setBackground(background);
 		if (category.hasRanks()) {
-			JCheckBox firstRank = new JCheckBox("");
+			firstRank = new JCheckBox("");
 			firstRank.setBackground(background);
 			if (ranks > 0) {
 				firstRank.setEnabled(true);
+				firstRank.addChangeListener(new CheckBoxListener());
 			} else {
 				firstRank.setEnabled(false);
 			}
 			checkBoxPane.add(firstRank);
 
-			JCheckBox secondRank = new JCheckBox("");
+			secondRank = new JCheckBox("");
 			secondRank.setBackground(background);
 			if (ranks > 1) {
 				secondRank.setEnabled(true);
+				secondRank.addChangeListener(new CheckBoxListener());
 			} else {
 				secondRank.setEnabled(false);
 			}
 			checkBoxPane.add(secondRank);
 
-			JCheckBox thirdRank = new JCheckBox("");
+			thirdRank = new JCheckBox("");
 			thirdRank.setBackground(background);
 			if (ranks > 2) {
 				thirdRank.setEnabled(true);
+				thirdRank.addChangeListener(new CheckBoxListener());
 			} else {
 				thirdRank.setEnabled(false);
 			}
@@ -132,7 +146,7 @@ public class CategoryLine extends BasicLine {
 		checkBoxPane.setPreferredSize(new Dimension(columnWidth * 2, columnHeight));
 		add(checkBoxPane, gridBagConstraints);
 
-		JLabel bonusRankLabel = new JLabel(character.getRanksValue(category).toString());
+		bonusRankLabel = new JLabel(character.getRanksValue(category).toString());
 		bonusRankLabel.setFont(defaultFont);
 		gridBagConstraints.gridx = 4;
 		gridBagConstraints.gridwidth = 1;
@@ -172,7 +186,7 @@ public class CategoryLine extends BasicLine {
 		gridBagConstraints.weightx = 0.1;
 		add(otherBonus, gridBagConstraints);
 
-		JLabel totalLabel = new JLabel(character.getTotalValue(category).toString());
+		totalLabel = new JLabel(character.getTotalValue(category).toString());
 		totalLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
 		totalLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
 		totalLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -181,5 +195,61 @@ public class CategoryLine extends BasicLine {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
 		add(totalLabel, gridBagConstraints);
+	}
+
+	private Integer getRanksSelected() {
+		Integer total = 0;
+		if (firstRank.isSelected()) {
+			total++;
+		}
+		if (secondRank.isSelected()) {
+			total++;
+		}
+		if (thirdRank.isSelected()) {
+			total++;
+		}
+		return total;
+	}
+
+	private void setRanksSelected(Integer value) {
+		updatingValues = true;
+		if (category.hasRanks()) {
+			if (value > 0) {
+				firstRank.setSelected(true);
+			} else {
+				firstRank.setSelected(false);
+			}
+			if (value > 1) {
+				secondRank.setSelected(true);
+			} else {
+				secondRank.setSelected(false);
+			}
+			if (value > 2) {
+				thirdRank.setSelected(true);
+			} else {
+				thirdRank.setSelected(false);
+			}
+		}
+		updatingValues = false;
+	}
+
+	class CheckBoxListener implements ChangeListener {
+		@Override
+		public void stateChanged(ChangeEvent e) {
+			if (!updatingValues) {
+				// order the ranks.
+				Integer ranks = getRanksSelected();
+				setRanksSelected(ranks);
+				character.setCurrentLevelRanks(category, ranks);
+				update();
+			}
+		}
+	}
+	
+	public void update() {
+		bonusRankLabel.setText(character.getRanksValue(category).toString());
+		totalLabel.setText(character.getTotalValue(category).toString());
+		parentWindow.update();
+		parentWindow.updateSkillsOfCategory(category);
 	}
 }

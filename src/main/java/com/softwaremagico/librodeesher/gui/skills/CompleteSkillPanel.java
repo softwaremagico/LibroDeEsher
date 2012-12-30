@@ -6,8 +6,6 @@ import java.awt.GridBagLayout;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import com.softwaremagico.librodeesher.gui.culture.CultureTitleLine;
-import com.softwaremagico.librodeesher.gui.culture.HobbyPanel;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
@@ -16,9 +14,11 @@ public class CompleteSkillPanel extends BasePanel {
 	private SkillTitleLine title;
 	private SkillPanel skillPanel;
 	private CharacterPlayer character;	
+	private SkillWindow parentWindow;
 
-	public CompleteSkillPanel(CharacterPlayer character) {
+	public CompleteSkillPanel(CharacterPlayer character, SkillWindow parentWindow) {
 		this.character = character;
+		this.parentWindow = parentWindow;
 		setElements();
 	}
 	
@@ -37,7 +37,7 @@ public class CompleteSkillPanel extends BasePanel {
 		gridBagConstraints.weighty = 0;
 		add(title, gridBagConstraints);
 
-		skillPanel = new SkillPanel(character);
+		skillPanel = new SkillPanel(character, this);
 		JScrollPane weaponsScrollPanel = new JScrollPane(skillPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -61,6 +61,10 @@ public class CompleteSkillPanel extends BasePanel {
 		if (title != null) {
 			title.sizeChanged();
 		}
+	}
+	
+	public void update() {
+		parentWindow.update();
 	}
 
 }

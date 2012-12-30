@@ -338,7 +338,7 @@ public class CharacterPlayer {
 		return Math.max(getCulture().getLanguageRank(language), getRace().getLanguageMaxRanks(language));
 	}
 
-	private Integer getCurrentLevelRanks(Category category) {
+	public Integer getCurrentLevelRanks(Category category) {
 		if (levelUps.size() > 0) {
 			return levelUps.get(levelUps.size() - 1).getCategoryRanks(category.getName());
 		} else {
@@ -346,12 +346,24 @@ public class CharacterPlayer {
 		}
 	}
 
-	private Integer getCurrentLevelRanks(Skill skill) {
+	public Integer getCurrentLevelRanks(Skill skill) {
 		if (levelUps.size() > 0) {
 			return levelUps.get(levelUps.size() - 1).getSkillsRanks(skill.getName());
 		} else {
 			return 0;
 		}
+	}
+	
+	public void setCurrentLevelRanks(Skill skill, Integer ranks) {
+		if (levelUps.size() > 0) {
+			levelUps.get(levelUps.size() - 1).setSkillsRanks(skill.getName(), ranks);
+		} 
+	}
+	
+	public void setCurrentLevelRanks(Category category, Integer ranks) {
+		if (levelUps.size() > 0) {
+			levelUps.get(levelUps.size() - 1).setCategoryRanks(category.getName(), ranks);
+		} 
 	}
 
 	private Integer getPreviousLevelsRanks(Category category) {

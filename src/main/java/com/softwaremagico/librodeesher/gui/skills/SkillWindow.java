@@ -45,7 +45,7 @@ public class SkillWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		skillPanel = new CompleteSkillPanel(character);
+		skillPanel = new CompleteSkillPanel(character, this);
 		getContentPane().add(skillPanel, gridBagConstraints);
 
 		pointsLabel = new JLabel();

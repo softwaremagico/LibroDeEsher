@@ -1,6 +1,9 @@
 package com.softwaremagico.librodeesher.gui.skills;
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -10,8 +13,12 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class SkillPanel extends BasePanel {
 	private static final long serialVersionUID = 544393371168606333L;
+	private CompleteSkillPanel parentWindow;
+	private Hashtable<Category, List<SkillLine>> skillLinesPerCategory;
 
-	public SkillPanel(CharacterPlayer character) {
+	public SkillPanel(CharacterPlayer character, CompleteSkillPanel parentWindow) {
+		this.parentWindow = parentWindow;
+		skillLinesPerCategory = new Hashtable<>();
 		setElements(character);
 	}
 
@@ -21,14 +28,31 @@ public class SkillPanel extends BasePanel {
 		int i = 0;
 
 		for (Category category : CategoryFactory.getCategories()) {
-			add(new CategoryLine(character, category, getLineBackgroundColor(i)));
+			add(new CategoryLine(character, category, getLineBackgroundColor(i), this));
 			i++;
 
+			List<SkillLine> skillLines = new ArrayList<>();
 			for (Skill skill : category.getSkills()) {
-				SkillLine skillLine = new SkillLine(character, skill, getLineBackgroundColor(i));
+				SkillLine skillLine = new SkillLine(character, skill, getLineBackgroundColor(i), this);
 				add(skillLine);
+				skillLines.add(skillLine);
 				i++;
 			}
+
+			skillLinesPerCategory.put(category, skillLines);
 		}
+	}
+
+	public void updateSkillsOfCategory(Category category) {
+		List<SkillLine> skillLines = skillLinesPerCategory.get(category);
+		if (skillLines != null) {
+			for (SkillLine skillLine : skillLines) {
+				skillLine.updateCategory();
+			}
+		}
+	}
+
+	public void update() {
+		parentWindow.update();
 	}
 }
