@@ -32,6 +32,10 @@ public class SkillWindow extends BaseFrame {
 		setEvents();
 	}
 
+	private void setDevelopmentPointText(){
+		pointsLabel.setText("  Puntos de Desarrollo restantes: " + character.getRemainingDevelopmentPoints());
+	}
+	
 	private void setElements() {
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -79,21 +83,12 @@ public class SkillWindow extends BaseFrame {
 		getContentPane().add(buttonPanel, gridBagConstraints);
 
 	}
-	
-	private void setDevelopmentPointText(){
-		pointsLabel.setText("  Puntos de Desarrollo restantes: " + character.getRemainingDevelopmentPoints());
-	}
-
-	@Override
-	public void update() {
-		setDevelopmentPointText();
-	}
 
 	private void setEvents() {
 		addComponentListener(new ComponentListener() {
 			@Override
-			public void componentResized(ComponentEvent evt) {
-				skillPanel.sizeChanged();
+			public void componentHidden(ComponentEvent e) {
+
 			}
 
 			@Override
@@ -102,15 +97,20 @@ public class SkillWindow extends BaseFrame {
 			}
 
 			@Override
-			public void componentShown(ComponentEvent e) {
-
+			public void componentResized(ComponentEvent evt) {
+				skillPanel.sizeChanged();
 			}
 
 			@Override
-			public void componentHidden(ComponentEvent e) {
+			public void componentShown(ComponentEvent e) {
 
 			}
 		});
+	}
+
+	@Override
+	public void update() {
+		setDevelopmentPointText();
 	}
 
 	class AcceptListener implements ActionListener {

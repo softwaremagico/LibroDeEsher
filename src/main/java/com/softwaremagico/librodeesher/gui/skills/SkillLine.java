@@ -38,28 +38,27 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.softwaremagico.librodeesher.gui.style.BasicLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
-public class SkillLine extends BasicLine {
+public class SkillLine extends BasicSkillLine {
 	private static final long serialVersionUID = -3194401962061016906L;
-	private static final Integer columnWidth = 30;
-	private static final Integer columnHeight = 20;
-	private CharacterPlayer character;
-	private JCheckBox firstRank, secondRank, thirdRank;
-	private boolean updatingValues = false;
 	private JLabel bonusRankLabel, totalLabel, bonusCategory;
 	private Skill skill;
-	private SkillPanel parentWindow;
 
 	public SkillLine(CharacterPlayer character, Skill skill, Color background, SkillPanel parentWindow) {
 		this.character = character;
 		this.skill = skill;
+		this.category = skill.getCategory();
 		this.parentWindow = parentWindow;
 		setElements(background);
 		setBackground(background);
 		setRanksSelected(character.getCurrentLevelRanks(skill));
+	}
+
+	@Override
+	protected boolean hasRanks() {
+		return true;
 	}
 
 	private void setElements(Color background) {
@@ -108,32 +107,17 @@ public class SkillLine extends BasicLine {
 		checkBoxPane.setBackground(background);
 		firstRank = new JCheckBox("");
 		firstRank.setBackground(background);
-		if (ranks > 0) {
-			firstRank.setEnabled(true);
-			firstRank.addChangeListener(new CheckBoxListener());
-		} else {
-			firstRank.setEnabled(false);
-		}
+		firstRank.addItemListener(new CheckBoxListener());
 		checkBoxPane.add(firstRank);
 
 		secondRank = new JCheckBox("");
 		secondRank.setBackground(background);
-		if (ranks > 1) {
-			secondRank.setEnabled(true);
-			secondRank.addChangeListener(new CheckBoxListener());
-		} else {
-			secondRank.setEnabled(false);
-		}
+		secondRank.addItemListener(new CheckBoxListener());
 		checkBoxPane.add(secondRank);
 
 		thirdRank = new JCheckBox("");
 		thirdRank.setBackground(background);
-		if (ranks > 2) {
-			thirdRank.setEnabled(true);
-			thirdRank.addChangeListener(new CheckBoxListener());
-		} else {
-			thirdRank.setEnabled(false);
-		}
+		thirdRank.addItemListener(new CheckBoxListener());
 		checkBoxPane.add(thirdRank);
 
 		gridBagConstraints.gridx = 3;
@@ -192,53 +176,8 @@ public class SkillLine extends BasicLine {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
 		add(totalLabel, gridBagConstraints);
-	}
 
-	private Integer getRanksSelected() {
-		Integer total = 0;
-		if (firstRank.isSelected()) {
-			total++;
-		}
-		if (secondRank.isSelected()) {
-			total++;
-		}
-		if (thirdRank.isSelected()) {
-			total++;
-		}
-		return total;
-	}
-
-	private void setRanksSelected(Integer value) {
-		updatingValues = true;
-		if (value > 0) {
-			firstRank.setSelected(true);
-		} else {
-			firstRank.setSelected(false);
-		}
-		if (value > 1) {
-			secondRank.setSelected(true);
-		} else {
-			secondRank.setSelected(false);
-		}
-		if (value > 2) {
-			thirdRank.setSelected(true);
-		} else {
-			thirdRank.setSelected(false);
-		}
-		updatingValues = false;
-	}
-
-	class CheckBoxListener implements ChangeListener {
-		@Override
-		public void stateChanged(ChangeEvent e) {
-			if (!updatingValues) {
-				// order the ranks.
-				Integer ranks = getRanksSelected();
-				setRanksSelected(ranks);
-				character.setCurrentLevelRanks(skill, ranks);
-				update();
-			}
-		}
+		enableRanks();
 	}
 
 	public void update() {
@@ -246,9 +185,17 @@ public class SkillLine extends BasicLine {
 		totalLabel.setText(character.getTotalValue(skill).toString());
 		parentWindow.update();
 	}
-	
-	public void updateCategory(){
+
+	public void updateCategory() {
 		bonusCategory.setText(character.getTotalValue(skill.getCategory()).toString());
 		totalLabel.setText(character.getTotalValue(skill).toString());
+	}
+
+	@Override
+	protected void setCurrentLevelRanks() {
+		Integer ranks = getRanksSelected();
+		// order the ranks.
+		setRanksSelected(ranks);
+		character.setCurrentLevelRanks(skill, ranks);
 	}
 }

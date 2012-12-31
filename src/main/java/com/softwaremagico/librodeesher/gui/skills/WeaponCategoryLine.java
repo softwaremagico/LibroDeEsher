@@ -42,12 +42,8 @@ public class WeaponCategoryLine extends CategoryLine {
 
 		}
 		updateWeaponCost();
+		enableRanks();
 		updatingWeaponCost = false;
-	}
-
-	private void updateWeaponCost() {
-		character.getProfessionDecisions().setWeaponCost(category,
-				(CategoryCost) costComboBox.getSelectedItem());
 	}
 
 	private void addItemsToComboBox() {
@@ -74,10 +70,41 @@ public class WeaponCategoryLine extends CategoryLine {
 		return costPanel;
 	}
 
+	protected Integer getSelectedIndex() {
+		return costComboBox.getSelectedIndex();
+	}
+
+	protected void setSelectedIndex(Integer value) {
+		costComboBox.setSelectedIndex(value);
+	}
+
+	private void updateWeaponCost() {
+		character.getProfessionDecisions().setWeaponCost(category,
+				(CategoryCost) costComboBox.getSelectedItem());
+	}
+
+	public class ComboBoxListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			if (!updatingWeaponCost) {
+				if (weaponLineNumber != null) {
+					parentWindow.updateWeaponsCost(costComboBox.getSelectedIndex(), previousSelectedIndex,
+							weaponLineNumber);
+				}
+				previousSelectedIndex = costComboBox.getSelectedIndex();
+				updateWeaponCost();
+				enableRanks();
+			}
+		}
+	}
+
 	public class WideComboBox<E> extends JComboBox<E> {
 		private static final long serialVersionUID = -8969953615732925312L;
 
 		public WideComboBox() {
+		}
+
+		public WideComboBox(ComboBoxModel<E> aModel) {
+			super(aModel);
 		}
 
 		public WideComboBox(final E[] items) {
@@ -86,10 +113,6 @@ public class WeaponCategoryLine extends CategoryLine {
 
 		public WideComboBox(Vector<E> items) {
 			super(items);
-		}
-
-		public WideComboBox(ComboBoxModel<E> aModel) {
-			super(aModel);
 		}
 
 		public void doLayout() {
@@ -104,26 +127,5 @@ public class WeaponCategoryLine extends CategoryLine {
 			Dimension dim = new Dimension((int) (COMBO_BOX_WIDTH * 1.2), COMBO_BOX_HEIGHT);
 			return dim;
 		}
-	}
-
-	public class ComboBoxListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			if (!updatingWeaponCost) {
-				if (weaponLineNumber != null) {
-					parentWindow.updateWeaponsCost(costComboBox.getSelectedIndex(), previousSelectedIndex,
-							weaponLineNumber);
-				}
-				previousSelectedIndex = costComboBox.getSelectedIndex();
-				updateWeaponCost();
-			}
-		}
-	}
-
-	protected Integer getSelectedIndex() {
-		return costComboBox.getSelectedIndex();
-	}
-
-	protected void setSelectedIndex(Integer value) {
-		costComboBox.setSelectedIndex(value);
 	}
 }

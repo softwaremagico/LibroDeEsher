@@ -247,14 +247,6 @@ public class Profession {
 		}
 	}
 
-	public Integer getCategoryRanksCost(String categoryName, Integer rank) {
-		CategoryCost cost = categoryCost.get(categoryName);
-		if (cost == null) {
-			return Integer.MAX_VALUE;
-		}
-		return cost.getTotalRanksCost(rank);
-	}
-
 	public Integer getMaxRanksPerLevel(String categoryName) {
 		try {
 			Integer ranks;

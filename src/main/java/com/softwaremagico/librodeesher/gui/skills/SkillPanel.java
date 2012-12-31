@@ -55,6 +55,10 @@ public class SkillPanel extends BasePanel {
 		}
 	}
 
+	protected void update() {
+		parentWindow.update();
+	}
+
 	protected void updateSkillsOfCategory(Category category) {
 		List<SkillLine> skillLines = skillLinesPerCategory.get(category);
 		if (skillLines != null) {
@@ -62,10 +66,6 @@ public class SkillPanel extends BasePanel {
 				skillLine.updateCategory();
 			}
 		}
-	}
-
-	protected void update() {
-		parentWindow.update();
 	}
 
 	protected void updateWeaponsCost(Integer newUsedItemIndex, Integer oldUsedItemIndex,

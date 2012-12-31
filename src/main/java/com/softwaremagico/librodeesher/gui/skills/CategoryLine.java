@@ -35,23 +35,13 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
-import com.softwaremagico.librodeesher.gui.style.BasicLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 
-public class CategoryLine extends BasicLine {
+public class CategoryLine extends BasicSkillLine {
 	private static final long serialVersionUID = 2914665641808878141L;
-	protected static final Integer columnWidth = 30;
-	protected static final Integer columnHeight = 20;
-	protected CharacterPlayer character;
-	private boolean updatingValues = false;
-	private JCheckBox firstRank, secondRank, thirdRank;
 	private JLabel bonusRankLabel, totalLabel;
-	protected Category category;
-	protected SkillPanel parentWindow;
 
 	public CategoryLine(CharacterPlayer character, Category category, Color background,
 			SkillPanel parentWindow) {
@@ -64,8 +54,22 @@ public class CategoryLine extends BasicLine {
 		setRanksSelected(character.getCurrentLevelRanks(category));
 	}
 
+	protected JPanel createCostPanel() {
+		JPanel costPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 1, 1));
+		JLabel rankCostLabel = new JLabel(character.getCategoryCost(category).getCostTag());
+		costPanel.setMinimumSize(new Dimension(columnWidth * 2, columnHeight));
+		costPanel.setPreferredSize(new Dimension(columnWidth * 2, columnHeight));
+		rankCostLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		costPanel.add(rankCostLabel);
+		return costPanel;
+	}	
+
+	@Override
+	protected boolean hasRanks() {
+		return category.hasRanks();
+	}	
+
 	private void setContent(Color background) {
-		Integer ranks = character.getMaxRanksPerLevel(category);
 		this.removeAll();
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -109,32 +113,17 @@ public class CategoryLine extends BasicLine {
 		if (category.hasRanks()) {
 			firstRank = new JCheckBox("");
 			firstRank.setBackground(background);
-			if (ranks > 0) {
-				firstRank.setEnabled(true);
-				firstRank.addChangeListener(new CheckBoxListener());
-			} else {
-				firstRank.setEnabled(false);
-			}
+			firstRank.addItemListener(new CheckBoxListener());
 			checkBoxPane.add(firstRank);
 
 			secondRank = new JCheckBox("");
 			secondRank.setBackground(background);
-			if (ranks > 1) {
-				secondRank.setEnabled(true);
-				secondRank.addChangeListener(new CheckBoxListener());
-			} else {
-				secondRank.setEnabled(false);
-			}
+			secondRank.addItemListener(new CheckBoxListener());
 			checkBoxPane.add(secondRank);
 
 			thirdRank = new JCheckBox("");
 			thirdRank.setBackground(background);
-			if (ranks > 2) {
-				thirdRank.setEnabled(true);
-				thirdRank.addChangeListener(new CheckBoxListener());
-			} else {
-				thirdRank.setEnabled(false);
-			}
+			thirdRank.addItemListener(new CheckBoxListener());
 			checkBoxPane.add(thirdRank);
 		}
 
@@ -194,65 +183,8 @@ public class CategoryLine extends BasicLine {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
 		add(totalLabel, gridBagConstraints);
-	}
 
-	protected JPanel createCostPanel() {
-		JPanel costPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 1, 1));
-		JLabel rankCostLabel = new JLabel(character.getCategoryCost(category).getCostTag());
-		costPanel.setMinimumSize(new Dimension(columnWidth * 2, columnHeight));
-		costPanel.setPreferredSize(new Dimension(columnWidth * 2, columnHeight));
-		rankCostLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		costPanel.add(rankCostLabel);
-		return costPanel;
-	}
-
-	private Integer getRanksSelected() {
-		Integer total = 0;
-		if (firstRank.isSelected()) {
-			total++;
-		}
-		if (secondRank.isSelected()) {
-			total++;
-		}
-		if (thirdRank.isSelected()) {
-			total++;
-		}
-		return total;
-	}
-
-	private void setRanksSelected(Integer value) {
-		updatingValues = true;
-		if (category.hasRanks()) {
-			if (value > 0) {
-				firstRank.setSelected(true);
-			} else {
-				firstRank.setSelected(false);
-			}
-			if (value > 1) {
-				secondRank.setSelected(true);
-			} else {
-				secondRank.setSelected(false);
-			}
-			if (value > 2) {
-				thirdRank.setSelected(true);
-			} else {
-				thirdRank.setSelected(false);
-			}
-		}
-		updatingValues = false;
-	}
-
-	class CheckBoxListener implements ChangeListener {
-		@Override
-		public void stateChanged(ChangeEvent e) {
-			if (!updatingValues) {
-				// order the ranks.
-				Integer ranks = getRanksSelected();
-				setRanksSelected(ranks);
-				character.setCurrentLevelRanks(category, ranks);
-				update();
-			}
-		}
+		enableRanks();
 	}
 
 	public void update() {
@@ -260,5 +192,13 @@ public class CategoryLine extends BasicLine {
 		totalLabel.setText(character.getTotalValue(category).toString());
 		parentWindow.update();
 		parentWindow.updateSkillsOfCategory(category);
+	}
+
+	@Override
+	protected void setCurrentLevelRanks() {
+		Integer ranks = getRanksSelected();
+		// order the ranks.
+		setRanksSelected(ranks);
+		character.setCurrentLevelRanks(category, ranks);
 	}
 }

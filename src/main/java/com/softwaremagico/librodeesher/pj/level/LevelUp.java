@@ -1,6 +1,8 @@
 package com.softwaremagico.librodeesher.pj.level;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 import com.softwaremagico.librodeesher.pj.profession.Profession;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
@@ -61,34 +63,22 @@ public class LevelUp {
 			skillsRanks.put(skillName, ranks);
 		}
 	}
-	
+
+	public List<String> getCategoriesWithRanks() {
+		List<String> list = new ArrayList<>(categoriesRanks.keySet());
+		return list;
+	}
+
+	public List<String> getSkillsWithRanks() {
+		List<String> list = new ArrayList<>(skillsRanks.keySet());
+		return list;
+	}
+
 	public void setCategoryRanks(String categoryName, Integer ranks) {
 		if (ranks <= 0) {
 			categoriesRanks.remove(categoryName);
 		} else {
 			categoriesRanks.put(categoryName, ranks);
 		}
-	}
-
-	private Integer getSpentDevelopmentPointsInCategoryRanks(Profession profession) {
-		Integer total = 0;
-		for (String categoryName : categoriesRanks.keySet()) {
-			total += profession.getCategoryRanksCost(categoryName, categoriesRanks.get(categoryName));
-		}
-		return total;
-	}
-
-	private Integer getSpentDevelopmentPointsInSkillsRanks(Profession profession) {
-		Integer total = 0;
-		for (String skillName : skillsRanks.keySet()) {
-			total += profession.getCategoryRanksCost(SkillFactory.getAvailableSkill(skillName).getCategory()
-					.getName(), skillsRanks.get(skillName));
-		}
-		return total;
-	}
-
-	public Integer getSpentDevelpmentPoints(Profession profession) {
-		return getSpentDevelopmentPointsInCategoryRanks(profession)
-				+ getSpentDevelopmentPointsInSkillsRanks(profession);
 	}
 }

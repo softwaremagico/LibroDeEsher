@@ -31,6 +31,7 @@ import java.util.List;
 import com.softwaremagico.librodeesher.core.TwoDices;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
+import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
@@ -48,6 +49,7 @@ import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.resistance.Resistances;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.training.Training;
 
 public class CharacterPlayer {
@@ -239,9 +241,30 @@ public class CharacterPlayer {
 		return sex;
 	}
 
+	private Integer getSpentDevelopmentPointsInCategoryRanks(Integer level) {
+		Integer total = 0;
+		List<String> categoriesWithRanks = levelUps.get(level).getCategoriesWithRanks();
+		for (String categoryName : categoriesWithRanks) {
+			total += getRanksCost(CategoryFactory.getAvailableCategory(categoryName), levelUps.get(level)
+					.getCategoryRanks(categoryName));
+		}
+		return total;
+	}
+
+	private Integer getSpentDevelopmentPointsInSkillsRanks(Integer level) {
+		Integer total = 0;
+		List<String> skillsWithRanks = levelUps.get(level).getSkillsWithRanks();
+		for (String skillName : skillsWithRanks) {
+			total += getRanksCost(SkillFactory.getAvailableSkill(skillName).getCategory(), levelUps
+					.get(level).getSkillsRanks(skillName));
+		}
+		return total;
+	}
+
 	private Integer getSpentDevelopmentPoints() {
 		if (levelUps.size() > 0) {
-			return levelUps.get(levelUps.size() - 1).getSpentDevelpmentPoints(profession);
+			return getSpentDevelopmentPointsInCategoryRanks(levelUps.size() - 1)
+					+ getSpentDevelopmentPointsInSkillsRanks(levelUps.size() - 1);
 		}
 		return 0;
 	}
@@ -442,7 +465,6 @@ public class CharacterPlayer {
 
 	public CategoryCost getCategoryCost(Category category) {
 		if (category.getGroup().equals(CategoryGroup.WEAPON)) {
-			// TODO seleccionar el grupo de armas correspondiente.
 			return getProfessionDecisions().getWeaponCost(category);
 		} else if (category.getGroup().equals(CategoryGroup.SPELL)) {
 			// TODO seleccionar el grupo de hechizos correspondiente.
@@ -458,5 +480,13 @@ public class CharacterPlayer {
 		} catch (NullPointerException npe) {
 			return 0;
 		}
+	}
+
+	public Integer getRanksCost(Category category, Integer rank) {
+		CategoryCost cost = getCategoryCost(category);
+		if (cost == null) {
+			return Integer.MAX_VALUE;
+		}
+		return cost.getTotalRanksCost(rank);
 	}
 }
