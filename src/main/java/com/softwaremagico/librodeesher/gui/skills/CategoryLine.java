@@ -44,27 +44,28 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 
 public class CategoryLine extends BasicLine {
 	private static final long serialVersionUID = 2914665641808878141L;
-	private static final Integer columnWidth = 30;
-	private static final Integer columnHeight = 20;
-	private CharacterPlayer character;
+	protected static final Integer columnWidth = 30;
+	protected static final Integer columnHeight = 20;
+	protected CharacterPlayer character;
 	private boolean updatingValues = false;
 	private JCheckBox firstRank, secondRank, thirdRank;
 	private JLabel bonusRankLabel, totalLabel;
-	private Category category;
-	private SkillPanel parentWindow;
+	protected Category category;
+	protected SkillPanel parentWindow;
 
 	public CategoryLine(CharacterPlayer character, Category category, Color background,
 			SkillPanel parentWindow) {
 		this.character = character;
 		this.category = category;
 		this.parentWindow = parentWindow;
+		this.background = background;
 		setContent(background);
 		setBackground(background);
 		setRanksSelected(character.getCurrentLevelRanks(category));
 	}
 
 	private void setContent(Color background) {
-		Integer ranks = character.getProfession().getMaxRanksPerLevel(category.getName());
+		Integer ranks = character.getMaxRanksPerLevel(category);
 		this.removeAll();
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -89,11 +90,9 @@ public class CategoryLine extends BasicLine {
 		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
-		JLabel rankCostLabel = new JLabel(character.getProfession().getCategoryCostTag(category.getName()));
-		rankCostLabel.setMinimumSize(new Dimension(columnWidth * 2, columnHeight));
-		rankCostLabel.setPreferredSize(new Dimension(columnWidth * 2, columnHeight));
-		rankCostLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		add(rankCostLabel, gridBagConstraints);
+		JPanel costPanel = createCostPanel();
+		costPanel.setBackground(background);
+		add(costPanel, gridBagConstraints);
 
 		gridBagConstraints.gridx = 2;
 		gridBagConstraints.gridwidth = 1;
@@ -197,6 +196,16 @@ public class CategoryLine extends BasicLine {
 		add(totalLabel, gridBagConstraints);
 	}
 
+	protected JPanel createCostPanel() {
+		JPanel costPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 1, 1));
+		JLabel rankCostLabel = new JLabel(character.getCategoryCost(category).getCostTag());
+		costPanel.setMinimumSize(new Dimension(columnWidth * 2, columnHeight));
+		costPanel.setPreferredSize(new Dimension(columnWidth * 2, columnHeight));
+		rankCostLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		costPanel.add(rankCostLabel);
+		return costPanel;
+	}
+
 	private Integer getRanksSelected() {
 		Integer total = 0;
 		if (firstRank.isSelected()) {
@@ -245,7 +254,7 @@ public class CategoryLine extends BasicLine {
 			}
 		}
 	}
-	
+
 	public void update() {
 		bonusRankLabel.setText(character.getRanksValue(category).toString());
 		totalLabel.setText(character.getTotalValue(category).toString());

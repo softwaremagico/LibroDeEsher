@@ -80,7 +80,7 @@ Urbana	1/2
 
 # HABILIDADES COMUNES
 ####################################
-Embaucar, Maquinaria, {Percepción del Entorno: Ciudades;Percepción del Entorno: Combate;Percepción del Entorno: Durmiendo;Percepción del Entorno: Exploración}
+Embaucar, Maquinaria, {Percepción del Entorno: Ciudades; Percepción del Entorno: Combate; Percepción del Entorno: Durmiendo; Percepción del Entorno: Exploración}
 
 #HABILIDADES PROFESIONALES
 ####################################
@@ -88,6 +88,7 @@ Abrir Cerraduras
 
 #HABILIDADES RESTRINGIDAS
 ####################################
+Ninguna
 
 #DESARROLLO DE HECHIZOS
 ####################################

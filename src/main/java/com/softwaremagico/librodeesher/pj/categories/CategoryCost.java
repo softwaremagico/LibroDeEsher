@@ -87,4 +87,9 @@ public class CategoryCost {
 		}
 		return tag;
 	}
+	
+	@Override
+	public String toString(){
+		return getCostTag();
+	}
 }

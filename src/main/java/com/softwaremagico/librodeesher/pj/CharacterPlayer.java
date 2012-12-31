@@ -30,6 +30,8 @@ import java.util.List;
 
 import com.softwaremagico.librodeesher.core.TwoDices;
 import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
+import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.culture.Culture;
@@ -38,6 +40,7 @@ import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.profession.Profession;
+import com.softwaremagico.librodeesher.pj.profession.ProfessionDecisions;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 import com.softwaremagico.librodeesher.pj.race.Race;
 import com.softwaremagico.librodeesher.pj.race.RaceDecisions;
@@ -62,12 +65,13 @@ public class CharacterPlayer {
 	private boolean characteristicsConfirmed = false;
 	private String raceName;
 	private transient Race race;
+	private RaceDecisions raceDecisions;
 	private String cultureName;
 	private transient Culture culture;
 	private CultureDecisions cultureDecisions;
-	private RaceDecisions raceDecisions;
 	private String professionName;
 	private transient Profession profession;
+	private ProfessionDecisions professionDecisions;
 	private List<Training> trainings;
 	private Resistances resistances;
 	private RealmOfMagic realmOfMagic;
@@ -85,6 +89,7 @@ public class CharacterPlayer {
 		sex = SexType.MALE;
 		cultureDecisions = new CultureDecisions();
 		raceDecisions = new RaceDecisions();
+		professionDecisions = new ProfessionDecisions();
 	}
 
 	public RaceDecisions getRaceDecisions() {
@@ -93,6 +98,10 @@ public class CharacterPlayer {
 
 	public CultureDecisions getCultureDecisions() {
 		return cultureDecisions;
+	}
+
+	public ProfessionDecisions getProfessionDecisions() {
+		return professionDecisions;
 	}
 
 	public boolean areCharacteristicsConfirmed() {
@@ -353,17 +362,17 @@ public class CharacterPlayer {
 			return 0;
 		}
 	}
-	
+
 	public void setCurrentLevelRanks(Skill skill, Integer ranks) {
 		if (levelUps.size() > 0) {
 			levelUps.get(levelUps.size() - 1).setSkillsRanks(skill.getName(), ranks);
-		} 
+		}
 	}
-	
+
 	public void setCurrentLevelRanks(Category category, Integer ranks) {
 		if (levelUps.size() > 0) {
 			levelUps.get(levelUps.size() - 1).setCategoryRanks(category.getName(), ranks);
-		} 
+		}
 	}
 
 	private Integer getPreviousLevelsRanks(Category category) {
@@ -429,5 +438,25 @@ public class CharacterPlayer {
 
 	public Integer getTotalValue(Skill skill) {
 		return getRanksValue(skill) + getBonus(skill) + getTotalValue(skill.getCategory());
+	}
+
+	public CategoryCost getCategoryCost(Category category) {
+		if (category.getGroup().equals(CategoryGroup.WEAPON)) {
+			// TODO seleccionar el grupo de armas correspondiente.
+			return getProfessionDecisions().getWeaponCost(category);
+		} else if (category.getGroup().equals(CategoryGroup.SPELL)) {
+			// TODO seleccionar el grupo de hechizos correspondiente.
+			return getProfession().getWeaponsCategoryCost(0);
+		} else {
+			return getProfession().getCategoryCost(category.getName());
+		}
+	}
+
+	public Integer getMaxRanksPerLevel(Category category) {
+		try {
+			return getCategoryCost(category).getMaxRanksPerLevel();
+		} catch (NullPointerException npe) {
+			return 0;
+		}
 	}
 }

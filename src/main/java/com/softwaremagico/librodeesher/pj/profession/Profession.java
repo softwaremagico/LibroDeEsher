@@ -26,6 +26,8 @@ package com.softwaremagico.librodeesher.pj.profession;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -53,7 +55,7 @@ public class Profession {
 	private Hashtable<String, Integer> skillBonus;
 	private List<Characteristic> characteristicPreferences;
 	private List<RealmOfMagic> magicRealmsAvailable;
-	private Hashtable<String, CategoryCost> weaponCategoryCost;
+	private List<CategoryCost> weaponCategoryCost;
 	private Hashtable<String, CategoryCost> categoryCost;
 	private List<ChooseSkillGroup> commonSkillsToChoose;
 	private List<ChooseSkillGroup> professionalSkillsToChoose;
@@ -180,7 +182,7 @@ public class Profession {
 
 	private int setCategoryCost(List<String> lines, int index) {
 		categoryCost = new Hashtable<>();
-		weaponCategoryCost = new Hashtable<>();
+		weaponCategoryCost = new ArrayList<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -190,7 +192,7 @@ public class Profession {
 			String[] categoryColumns = categoryLine.split("\t");
 			String categoryName = categoryColumns[0];
 			if (categoryName.startsWith("Armas·")) {
-				weaponCategoryCost.put(categoryName, new CategoryCost(categoryColumns[1]));
+				weaponCategoryCost.add(new CategoryCost(categoryColumns[1]));
 			} else {
 				try {
 					Category cat = CategoryFactory.getAvailableCategory(categoryName);
@@ -202,25 +204,46 @@ public class Profession {
 			}
 			index++;
 		}
+		addRepeatedCategoryCost();
+		Collections.sort(weaponCategoryCost, new CategoryCostComparator());
 		return index;
 	}
 
-	public String getCategoryCostTag(String categoryName) {
+	/**
+	 * Add some extra weaponCost for new Weapons Categories
+	 * 
+	 */
+	private void addRepeatedCategoryCost() {
+		for (int i = weaponCategoryCost.size(); i < CategoryFactory.getWeaponsCategory().size(); i++) {
+			weaponCategoryCost.add(weaponCategoryCost.get(weaponCategoryCost.size() - 1));
+		}
+	}
+
+	/*
+	 * public String getCategoryCostTag(String categoryName) { try { String
+	 * cost; if (categoryName.contains("Armas·")) { // TODO seleccionar el grupo
+	 * de armas correspondiente. cost =
+	 * weaponCategoryCost.get("Armas·Categoría1").getCostTag(); } else { cost =
+	 * categoryCost.get(categoryName).getCostTag(); } if (cost != null) { return
+	 * cost; } else { return ""; } } catch (NullPointerException npe) { return
+	 * ""; } }
+	 */
+
+	public CategoryCost getCategoryCost(String categoryName) {
 		try {
-			String cost;
-			if (categoryName.contains("Armas·")) {
-				// TODO seleccionar el grupo de armas correspondiente.
-				cost = weaponCategoryCost.get("Armas·Categoría1").getCostTag();
-			} else {
-				cost = categoryCost.get(categoryName).getCostTag();
-			}
-			if (cost != null) {
-				return cost;
-			} else {
-				return "";
-			}
+			CategoryCost cost = categoryCost.get(categoryName);
+			return cost;
 		} catch (NullPointerException npe) {
-			return "";
+			return null;
+		}
+	}
+
+	public CategoryCost getWeaponsCategoryCost(Integer index) {
+		try {
+			CategoryCost cost = weaponCategoryCost.get(index);
+			return cost;
+		} catch (NullPointerException npe) {
+			return null;
 		}
 	}
 
@@ -237,7 +260,7 @@ public class Profession {
 			Integer ranks;
 			if (categoryName.contains("Armas·")) {
 				// TODO seleccionar el grupo de armas correspondiente.
-				ranks = weaponCategoryCost.get("Armas·Categoría1").getMaxRanksPerLevel();
+				ranks = weaponCategoryCost.get(0).getMaxRanksPerLevel();
 			} else {
 				ranks = categoryCost.get(categoryName).getMaxRanksPerLevel();
 			}
@@ -301,16 +324,21 @@ public class Profession {
 			index++;
 		}
 		while (!lines.get(index).equals("")) {
-			String listLine = lines.get(index);
-			String[] spellsColumn = listLine.split("\t");
-			String pattern = Pattern.quote(" (");
-			String[] spellList = spellsColumn[0].split(pattern);
-			String listName = spellList[0].trim();
-			String listLevel = spellList[1].replace(")", "");
-			String listCost = spellsColumn[1];
+			try {
+				String listLine = lines.get(index);
+				String[] spellsColumn = listLine.split("\t");
+				String pattern = Pattern.quote(" (");
+				String[] spellList = spellsColumn[0].split(pattern);
+				String listName = spellList[0].trim();
+				String listLevel = spellList[1].replace(")", "");
+				String listCost = spellsColumn[1];
 
-			magic.setMagicCost(MagicListType.getMagicType(listName),
-					MagicLevelRange.getLevelRange(listLevel), listCost);
+				magic.setMagicCost(MagicListType.getMagicType(listName),
+						MagicLevelRange.getLevelRange(listLevel), listCost);
+			} catch (Exception e) {
+				ShowMessage.showErrorMessage("Coste de magia mal formado: " + lines.get(index),
+						"Leer Profesión");
+			}
 			index++;
 		}
 		return index;
@@ -357,5 +385,35 @@ public class Profession {
 
 	public List<RealmOfMagic> getMagicRealmsAvailable() {
 		return magicRealmsAvailable;
+	}
+
+	public List<CategoryCost> getWeaponCategoryCost() {
+		return weaponCategoryCost;
+	}
+
+	public class CategoryCostComparator implements Comparator<CategoryCost> {
+
+		@Override
+		public int compare(CategoryCost o1, CategoryCost o2) {
+			if (o1.getMaxRanksPerLevel() > o2.getMaxRanksPerLevel()) {
+				return -1;
+			} else if (o1.getMaxRanksPerLevel() < o2.getMaxRanksPerLevel()) {
+				return 1;
+			} else if (o1.getRankCost(0) < o2.getRankCost(0)) {
+				return -1;
+			} else if (o1.getRankCost(0) > o2.getRankCost(0)) {
+				return 1;
+			} else if (o1.getMaxRanksPerLevel() > 1 && o1.getRankCost(1) < o2.getRankCost(1)) {
+				return -1;
+			} else if (o1.getMaxRanksPerLevel() > 1 && o1.getRankCost(1) > o2.getRankCost(1)) {
+				return 1;
+			} else if (o1.getMaxRanksPerLevel() > 2 && o1.getRankCost(2) < o2.getRankCost(2)) {
+				return -1;
+			} else if (o1.getMaxRanksPerLevel() > 2 && o1.getRankCost(2) > o2.getRankCost(2)) {
+				return 1;
+			} else {
+				return 0;
+			}
+		}
 	}
 }

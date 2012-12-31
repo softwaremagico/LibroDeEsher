@@ -41,6 +41,7 @@ import com.softwaremagico.librodeesher.pj.weapons.WeaponType;
 public class CategoryFactory {
 
 	private static Hashtable<String, Category> categoriesAvailable = new Hashtable<>();
+	private static List<Category> weaponsCategory = new ArrayList<>();
 
 	static {
 		try {
@@ -53,11 +54,11 @@ public class CategoryFactory {
 
 	private static void addCultureSkills() {
 		Category cat = categoriesAvailable.get("Conocimiento·General");
-		for (String culture : CultureFactory.availableCultures()) {		
-			cat.addSkill("Conocimiento de la Fauna (" + culture  + ")");
-			cat.addSkill("Conocimiento de la Flora (" + culture  + ")");
-			cat.addSkill("Conocimiento Cultural (" + culture  + ")");
-			cat.addSkill("Conocimiento Regional (" + culture  + ")");
+		for (String culture : CultureFactory.availableCultures()) {
+			cat.addSkill("Conocimiento de la Fauna (" + culture + ")");
+			cat.addSkill("Conocimiento de la Flora (" + culture + ")");
+			cat.addSkill("Conocimiento Cultural (" + culture + ")");
+			cat.addSkill("Conocimiento Regional (" + culture + ")");
 		}
 	}
 
@@ -65,11 +66,12 @@ public class CategoryFactory {
 		for (WeaponType weaponType : WeaponType.values()) {
 			List<Weapon> weaponsOfType = WeaponFactory.getWeaponsByType(weaponType);
 			Category categoryOfWeapon = categoriesAvailable.get(weaponType.getWeaponCategoryName());
+			weaponsCategory.add(categoryOfWeapon);
 			categoryOfWeapon.setSkills(convertWeaponsToSkills(weaponsOfType));
 		}
 
 	}
-
+	
 	public static List<Skill> convertWeaponsToSkills(List<Weapon> weapons) {
 		List<Skill> skills = new ArrayList<>();
 		for (Weapon weapon : weapons) {
@@ -108,8 +110,8 @@ public class CategoryFactory {
 	public static boolean existCategory(String categoryName) {
 		return (getAvailableCategory(categoryName) != null);
 	}
-	
-	public static List<Category> getCategories(){
+
+	public static List<Category> getCategories() {
 		List<Category> categories = new ArrayList<>(categoriesAvailable.values());
 		Collections.sort(categories, new CategoryComparator());
 		return categories;
@@ -151,10 +153,10 @@ public class CategoryFactory {
 		}
 		// Replace dummy skills with real obtained from other files.
 		addWeaponsAsSkills();
-		
-		//Create culture specific skills
+
+		// Create culture specific skills
 		addCultureSkills();
-		
+
 	}
 
 	public static Category getCategory(String categoryName, String abbrev, String characteristics,
@@ -179,6 +181,10 @@ public class CategoryFactory {
 
 		Collections.sort(weaponsCategories, new CategoryComparator());
 		return weaponsCategories;
+	}
+
+	public static List<Category> getWeaponsCategory() {
+		return weaponsCategory;
 	}
 
 }

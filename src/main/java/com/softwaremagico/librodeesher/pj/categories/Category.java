@@ -38,6 +38,7 @@ public abstract class Category {
 	private String name;
 	protected String abbreviature;
 	protected CategoryType type;
+	protected CategoryGroup group;
 	private List<String> characteristicsTags;
 	protected List<Skill> skills;
 	private Float[] skillRankValues; // Rank values. i.e: -15/3/2/1/0.5
@@ -50,6 +51,7 @@ public abstract class Category {
 		this.skillRankValues = skillRankValues;
 		skills = new ArrayList<>();
 		createCharacteristicList(characteristicsTag);
+		setGroup();
 	}
 
 	private void createCharacteristicList(String characteristicsTag) {
@@ -143,12 +145,29 @@ public abstract class Category {
 	}
 
 	public abstract boolean hasRanks();
-	
-	public Integer getBonus(){
+
+	public Integer getBonus() {
 		return 0;
 	}
 
 	public List<String> getCharacteristics() {
 		return characteristicsTags;
+	}
+
+	public CategoryGroup getGroup() {
+		return group;
+	}
+
+	public void setGroup() {
+		this.group = getCategoryGroup(this.getName());
+	}
+
+	private CategoryGroup getCategoryGroup(String categoryName) {
+		if (categoryName.startsWith("Armas·")) {
+			return CategoryGroup.WEAPON;
+		} else if (categoryName.startsWith("Listas ")) {
+			return CategoryGroup.SPELL;
+		}
+		return CategoryGroup.STANDARD;
 	}
 }
