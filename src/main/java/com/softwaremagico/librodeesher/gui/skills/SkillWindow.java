@@ -32,10 +32,10 @@ public class SkillWindow extends BaseFrame {
 		setEvents();
 	}
 
-	private void setDevelopmentPointText(){
+	private void setDevelopmentPointText() {
 		pointsLabel.setText("  Puntos de Desarrollo restantes: " + character.getRemainingDevelopmentPoints());
 	}
-	
+
 	private void setElements() {
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -45,7 +45,7 @@ public class SkillWindow extends BaseFrame {
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.gridheight = 2;
-		gridBagConstraints.gridwidth = 2;
+		gridBagConstraints.gridwidth = 3;
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
@@ -58,28 +58,28 @@ public class SkillWindow extends BaseFrame {
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 2;
 		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.gridwidth = 2;
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 0;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		getContentPane().add(pointsLabel, gridBagConstraints);
 		setDevelopmentPointText();
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
-		acceptButton = new BasicButton("Aceptar");
-		acceptButton.addActionListener(new AcceptListener());
-		buttonPanel.add(acceptButton);
 
 		CloseButton closeButton = new CloseButton(this);
 		buttonPanel.add(closeButton);
 
 		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
+		gridBagConstraints.fill = GridBagConstraints.NONE;
 		gridBagConstraints.ipadx = xPadding;
-		gridBagConstraints.gridx = 1;
+		gridBagConstraints.gridx = 2;
 		gridBagConstraints.gridy = 2;
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
 		gridBagConstraints.weighty = 0;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		getContentPane().add(buttonPanel, gridBagConstraints);
 
 	}

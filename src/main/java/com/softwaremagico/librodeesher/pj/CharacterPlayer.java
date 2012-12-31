@@ -54,8 +54,8 @@ import com.softwaremagico.librodeesher.pj.training.Training;
 
 public class CharacterPlayer {
 
-	private final String DEFAULT_NAME = " ** Nuevo Personaje ** ";
-	private final Integer STORED_ROLLS = 10;
+	private static final String DEFAULT_NAME = " ** Nuevo Personaje ** ";
+	private static final Integer STORED_ROLLS_NUMBER = 10;
 	private String name;
 	private SexType sex;
 	private String history;
@@ -301,7 +301,7 @@ public class CharacterPlayer {
 				characteristicsTemporalUpdatesRolls.put(characteristic.getAbbreviature(),
 						new ArrayList<TwoDices>());
 			}
-			while (characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()).size() < STORED_ROLLS) {
+			while (characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()).size() < STORED_ROLLS_NUMBER) {
 				characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()).add(new TwoDices());
 			}
 		}

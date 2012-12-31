@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui;
+package com.softwaremagico.librodeesher.gui.characteristic;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.softwaremagico.librodeesher.gui.characteristic.CompleteCharacteristicPanel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasicButton;
@@ -24,7 +23,7 @@ public class CharacteristicsWindow extends BaseFrame {
 	private CharacterPlayer character;
 	private BasicButton acceptButton;
 
-	protected CharacteristicsWindow() {
+	public CharacteristicsWindow() {
 		defineWindow(500, 400);
 		setResizable(false);
 		setElements();
@@ -69,6 +68,7 @@ public class CharacteristicsWindow extends BaseFrame {
 		buttonPanel.add(closeButton);
 
 		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
+		gridBagConstraints.fill = GridBagConstraints.NONE;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 2;
 		gridBagConstraints.gridy = 1;

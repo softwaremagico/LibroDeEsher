@@ -24,6 +24,7 @@ package com.softwaremagico.librodeesher.gui.elements;
  * #L%
  */
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -38,10 +39,11 @@ public class CloseButton extends BasicButton {
 	public CloseButton(JFrame window) {
 		setDefaultStyle();
 		this.setText("Cerrar");
-		this.window =  window;
+		this.window = window;
+		this.setPreferredSize(new Dimension(80,40));
 		addActionListener(new CloseListener());
 	}
-	
+
 	class CloseListener implements ActionListener {
 
 		@Override

@@ -93,6 +93,7 @@ public class WeaponCategoryLine extends CategoryLine {
 				previousSelectedIndex = costComboBox.getSelectedIndex();
 				updateWeaponCost();
 				enableRanks();
+				parentWindow.update();
 			}
 		}
 	}

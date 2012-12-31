@@ -45,7 +45,7 @@ public class MainMenu {
 	private JMenuItem insertCharacter;
 	private JMenuItem randomName, randomCharacter;
 	private JFrame parentWindow;
-	private JMenu characterListMenu;
+	private JMenu characterListMenu, exportMenu;
 	private CharacterPlayer character;
 
 	public JMenuBar createMenu(JFrame parentWindow) {
@@ -93,7 +93,7 @@ public class MainMenu {
 				"Guardar un personaje creado anteriormente.");
 		fileMenu.add(saveMenuItem);
 
-		JMenu exportMenu = new JMenu("Exportar a...");
+		exportMenu = new JMenu("Exportar a...");
 		exportMenu.setMnemonic(KeyEvent.VK_E);
 		exportMenu.setIcon((Icon) RolemasterFolderStructure.getIcon("export.png"));
 		exportMenu.getAccessibleContext().setAccessibleDescription("Exportar a otros formatos.");
@@ -258,7 +258,7 @@ public class MainMenu {
 	public void addCultureListener(ActionListener al) {
 		cultureMenuItem.addActionListener(al);
 	}
-	
+
 	public void addSkillsAndCategoriesListener(ActionListener al) {
 		skillsMenuItem.addActionListener(al);
 	}
@@ -278,19 +278,34 @@ public class MainMenu {
 			parentWindow.dispose();
 		}
 	}
-	
-	public void setCharacter(CharacterPlayer character){
+
+	public void setCharacter(CharacterPlayer character) {
 		this.character = character;
 	}
 
-	public void update(){
+	public void update() {
 		boolean enable = character.areCharacteristicsConfirmed();
 		charactMenuItem.setEnabled(!enable);
 		cultureMenuItem.setEnabled(enable);
 		trainingMenuItem.setEnabled(enable);
 		perksMenuItem.setEnabled(enable);
 		skillsMenuItem.setEnabled(enable);
-		historyMenuItem.setEnabled(enable);
-		levelUpMenuItem.setEnabled(enable);
+		historyMenuItem.setEnabled(enable);		
+		isCharacterWellFormed();
+	}
+
+	private void isCharacterWellFormed() {
+		Integer points = character.getRemainingDevelopmentPoints();
+		if (points < 0 || !character.areCharacteristicsConfirmed()) {
+			enableCharacterExports(false);
+		} else {
+			enableCharacterExports(true);
+		}
+	}
+
+	private void enableCharacterExports(boolean value) {
+		exportMenu.setEnabled(value);
+		levelUpMenuItem.setEnabled(value);
+		saveMenuItem.setEnabled(value);
 	}
 }

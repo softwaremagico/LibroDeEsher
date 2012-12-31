@@ -24,9 +24,9 @@ package com.softwaremagico.librodeesher.gui.characterBasics;
  * #L%
  */
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collections;
@@ -37,7 +37,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.softwaremagico.librodeesher.gui.characterBasics.CharacterProfessionPanel.ChangeProfessionListener;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
@@ -178,7 +177,13 @@ public class CharacterLevelPanel extends BasePanel {
 
 	private void updateDevelopmentPoints() {
 		if (character.areCharacteristicsConfirmed()) {
-			developmentTextField.setText(character.getRemainingDevelopmentPoints().toString());
+			Integer points = character.getRemainingDevelopmentPoints();
+			developmentTextField.setText(points.toString());
+			if (points < 0) {
+				developmentTextField.setForeground(Color.RED);
+			} else {
+				developmentTextField.setForeground(Color.DARK_GRAY);
+			}
 		} else {
 			developmentTextField.setText("0");
 		}

@@ -31,6 +31,7 @@ import java.util.List;
 
 import javax.swing.JMenu;
 
+import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicsWindow;
 import com.softwaremagico.librodeesher.gui.culture.CultureWindow;
 import com.softwaremagico.librodeesher.gui.skills.SkillWindow;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
