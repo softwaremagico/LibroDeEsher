@@ -295,6 +295,7 @@ public class CharacterPlayer {
 	public void setCharacteristicsAsConfirmed() {
 		setPotentialValues();
 		characteristicsConfirmed = true;
+		magicSpellLists.orderSpellListsByCategory(this);
 	}
 
 	private void setCharacteristicsTemporalUpdatesRolls() {
@@ -335,8 +336,7 @@ public class CharacterPlayer {
 		if (this.professionName == null || !this.professionName.equals(professionName)) {
 			this.professionName = professionName;
 			setTemporalValuesOfCharacteristics();
-			magicSpellLists= new MagicSpellLists();
-			magicSpellLists.orderSpellListsByCategory(this);
+			magicSpellLists = new MagicSpellLists();
 		}
 	}
 
@@ -500,9 +500,9 @@ public class CharacterPlayer {
 		}
 		return true;
 	}
-	
-	public Category getCategory(Category category){
-		if(category.getGroup().equals(CategoryGroup.SPELL)){
+
+	public Category getCategory(Category category) {
+		if (category.getGroup().equals(CategoryGroup.SPELL)) {
 			return magicSpellLists.getMagicCategory(category.getName());
 		}
 		return category;

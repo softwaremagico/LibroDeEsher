@@ -71,7 +71,7 @@ public class CategoryFactory {
 		}
 
 	}
-	
+
 	public static List<Skill> convertWeaponsToSkills(List<Weapon> weapons) {
 		List<Skill> skills = new ArrayList<>();
 		for (Weapon weapon : weapons) {
@@ -103,7 +103,9 @@ public class CategoryFactory {
 		default:
 			return null;
 		}
-		cat.addSkills(skills);
+		if (skills != null) {
+			cat.addSkills(skills);
+		}
 		return cat;
 	}
 

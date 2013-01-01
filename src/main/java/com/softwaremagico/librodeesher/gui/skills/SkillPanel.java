@@ -32,6 +32,8 @@ public class SkillPanel extends BasePanel {
 
 		weaponsLines = new ArrayList<>();
 		for (Category category : CategoryFactory.getCategories()) {
+			// Translate general category to player specific category.
+			category = character.getCategory(category);
 			if (character.isCategoryUseful(category)) {
 				if (category.getGroup().equals(CategoryGroup.WEAPON)) {
 					WeaponCategoryLine wl = new WeaponCategoryLine(character, category,

@@ -69,9 +69,9 @@ public abstract class Category {
 
 	public abstract void addSkills(String skills);
 
-	public void setSkillsFromName(List<String> skills) {
+	public void setSkillsFromName(List<String> skillsNameList) {
 		skills = new ArrayList<>();
-		for (String skill : skills) {
+		for (String skill : skillsNameList) {
 			addSkill(skill);
 		}
 	}
@@ -105,13 +105,16 @@ public abstract class Category {
 	}
 
 	public Skill addSkill(String skillName) {
-		Skill skill = SkillFactory.getSkill(skillName);
-		skill.setCategory(this);
-		if (!skills.contains(skill)) {
-			skills.add(skill);
-			Collections.sort(skills, new SkillComparator());
+		if (skillName.length() > 0) {
+			Skill skill = SkillFactory.getSkill(skillName);
+			skill.setCategory(this);
+			if (!skills.contains(skill)) {
+				skills.add(skill);
+				Collections.sort(skills, new SkillComparator());
+			}
+			return skill;
 		}
-		return skill;
+		return null;
 	}
 
 	public Integer getRankValue(Integer ranksNumber) {

@@ -20,7 +20,7 @@ public class MagicSpellLists {
 		Category realCategory = CategoryFactory.getAvailableCategory(magicType.getCategoryName());
 		Category category = (Category) CategoryFactory.createCategory(realCategory.getName(), realCategory
 				.getAbbreviature(), realCategory.getCharacterisitcsTags(), realCategory.getType().getTag(),
-				"");
+				null);
 		magicCategories.put(magicType, category);
 	}
 

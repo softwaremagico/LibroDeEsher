@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
+import com.softwaremagico.librodeesher.gui.ShowMessage;
+import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 
 public class MagicFactory {
 	private static final String OPEN_LIST_TAG = "Lista Abierta";
@@ -28,16 +30,25 @@ public class MagicFactory {
 	public static List<String> getListOfOtherProfessions(RealmOfMagic realm, String currentProfession) {
 		List<String> lists = new ArrayList<String>();
 		List<String> ownProfessionLists = getListOfProfession(realm, currentProfession);
-		for (String profession : spellsByGroup.get(realm).keySet()) {
-			if (!profession.equals(OPEN_LIST_TAG) && !profession.equals(CLOSED_LIST_TAG)
-					&& !profession.equals(currentProfession)) {
-				List<String> otherProfessionList = spellsByGroup.get(realm).get(profession);
-				// Avoid to add list shared with other professions.
-				for (String spellList : otherProfessionList) {
-					if (!ownProfessionLists.contains(spellList)) {
-						lists.add(spellList);
+		try {
+			for (String profession : spellsByGroup.get(realm).keySet()) {
+				if (!profession.equals(OPEN_LIST_TAG) && !profession.equals(CLOSED_LIST_TAG)
+						&& !profession.equals(currentProfession)) {
+					List<String> otherProfessionList = spellsByGroup.get(realm).get(profession);
+					// Avoid to add list shared with other professions.
+					for (String spellList : otherProfessionList) {
+						if (!ownProfessionLists.contains(spellList)) {
+							lists.add(spellList);
+						}
 					}
 				}
+			}
+		} catch (NullPointerException npe) {
+			// No spells found. If it has only one realm it is a wizard and must
+			// have spells.
+			if (ProfessionFactory.getProfession(currentProfession).getMagicRealmsAvailable().size() < 2) {
+				ShowMessage.showErrorMessage("No existen listas de hechizos para " + currentProfession,
+						"Leer Magia");
 			}
 		}
 		return lists;
