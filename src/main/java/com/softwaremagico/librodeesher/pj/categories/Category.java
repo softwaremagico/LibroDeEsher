@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
@@ -39,7 +38,8 @@ public abstract class Category {
 	protected String abbreviature;
 	protected CategoryType type;
 	protected CategoryGroup group;
-	private List<String> characteristicsTags;
+	private String characterisitcsTags;
+	private List<String> characteristicsListTags;
 	protected List<Skill> skills;
 	private Float[] skillRankValues; // Rank values. i.e: -15/3/2/1/0.5
 
@@ -50,15 +50,16 @@ public abstract class Category {
 		this.type = type;
 		this.skillRankValues = skillRankValues;
 		skills = new ArrayList<>();
+		this.characterisitcsTags = characteristicsTag;
 		createCharacteristicList(characteristicsTag);
 		setGroup();
 	}
 
 	private void createCharacteristicList(String characteristicsTag) {
-		characteristicsTags = new ArrayList<>();
+		characteristicsListTags = new ArrayList<>();
 		String[] characteristics = characteristicsTag.split(Pattern.quote("/"));
 		for (String characteristic : characteristics) {
-			characteristicsTags.add(characteristic);
+			characteristicsListTags.add(characteristic);
 		}
 	}
 
@@ -67,6 +68,13 @@ public abstract class Category {
 	}
 
 	public abstract void addSkills(String skills);
+
+	public void setSkillsFromName(List<String> skills) {
+		skills = new ArrayList<>();
+		for (String skill : skills) {
+			addSkill(skill);
+		}
+	}
 
 	public String getAbbreviature() {
 		return abbreviature;
@@ -151,7 +159,7 @@ public abstract class Category {
 	}
 
 	public List<String> getCharacteristics() {
-		return characteristicsTags;
+		return characteristicsListTags;
 	}
 
 	public CategoryGroup getGroup() {
@@ -169,5 +177,9 @@ public abstract class Category {
 			return CategoryGroup.SPELL;
 		}
 		return CategoryGroup.STANDARD;
+	}
+
+	public String getCharacterisitcsTags() {
+		return characterisitcsTags;
 	}
 }

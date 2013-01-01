@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
-import com.softwaremagico.librodeesher.pj.magic.SpellList;
 
 public class SpellPanel extends CulturePanel {
 	private static final long serialVersionUID = -9203104559414795802L;
@@ -20,10 +19,10 @@ public class SpellPanel extends CulturePanel {
 		int i = 0;
 
 		if(character.getCulture().getSpellRanks() != 0){
-		List<SpellList> spellLists = MagicFactory.getListOfProfession(character.getRealmOfMagic(),
+		List<String> spellLists = MagicFactory.getListOfProfession(character.getRealmOfMagic(),
 				"Lista Abierta");
 
-		for (SpellList spell : spellLists) {
+		for (String spell : spellLists) {
 			SpellLine hobbyLine = new SpellLine(character, spell, this, getLineBackgroundColor(i));
 			add(hobbyLine);
 			hobbyLines.add(hobbyLine);

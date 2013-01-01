@@ -39,6 +39,7 @@ import com.softwaremagico.librodeesher.pj.culture.Culture;
 import com.softwaremagico.librodeesher.pj.culture.CultureDecisions;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
+import com.softwaremagico.librodeesher.pj.magic.MagicSpellLists;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.profession.Profession;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionDecisions;
@@ -77,6 +78,7 @@ public class CharacterPlayer {
 	private List<Training> trainings;
 	private Resistances resistances;
 	private RealmOfMagic realmOfMagic;
+	private MagicSpellLists magicSpellLists;
 
 	private List<LevelUp> levelUps;
 
@@ -333,6 +335,8 @@ public class CharacterPlayer {
 		if (this.professionName == null || !this.professionName.equals(professionName)) {
 			this.professionName = professionName;
 			setTemporalValuesOfCharacteristics();
+			magicSpellLists= new MagicSpellLists();
+			magicSpellLists.orderSpellListsByCategory(this);
 		}
 	}
 
@@ -488,5 +492,19 @@ public class CharacterPlayer {
 			return Integer.MAX_VALUE;
 		}
 		return cost.getTotalRanksCost(rank);
+	}
+
+	public boolean isCategoryUseful(Category category) {
+		if (getCategory(category).getSkills().size() == 0) {
+			return false;
+		}
+		return true;
+	}
+	
+	public Category getCategory(Category category){
+		if(category.getGroup().equals(CategoryGroup.SPELL)){
+			return magicSpellLists.getMagicCategory(category.getName());
+		}
+		return category;
 	}
 }

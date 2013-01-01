@@ -32,26 +32,27 @@ public class SkillPanel extends BasePanel {
 
 		weaponsLines = new ArrayList<>();
 		for (Category category : CategoryFactory.getCategories()) {
-			if (category.getGroup().equals(CategoryGroup.WEAPON)) {
-				WeaponCategoryLine wl = new WeaponCategoryLine(character, category,
-						getLineBackgroundColor(i), this, weapon);
-				add(wl);
-				weaponsLines.add(wl);
-				weapon++;
-			} else {
-				add(new CategoryLine(character, category, getLineBackgroundColor(i), this));
-			}
-			i++;
-
-			List<SkillLine> skillLines = new ArrayList<>();
-			for (Skill skill : category.getSkills()) {
-				SkillLine skillLine = new SkillLine(character, skill, getLineBackgroundColor(i), this);
-				add(skillLine);
-				skillLines.add(skillLine);
+			if (character.isCategoryUseful(category)) {
+				if (category.getGroup().equals(CategoryGroup.WEAPON)) {
+					WeaponCategoryLine wl = new WeaponCategoryLine(character, category,
+							getLineBackgroundColor(i), this, weapon);
+					add(wl);
+					weaponsLines.add(wl);
+					weapon++;
+				} else {
+					add(new CategoryLine(character, category, getLineBackgroundColor(i), this));
+				}
 				i++;
-			}
 
-			skillLinesPerCategory.put(category, skillLines);
+				List<SkillLine> skillLines = new ArrayList<>();
+				for (Skill skill : category.getSkills()) {
+					SkillLine skillLine = new SkillLine(character, skill, getLineBackgroundColor(i), this);
+					add(skillLine);
+					skillLines.add(skillLine);
+					i++;
+				}
+				skillLinesPerCategory.put(category, skillLines);
+			}
 		}
 	}
 

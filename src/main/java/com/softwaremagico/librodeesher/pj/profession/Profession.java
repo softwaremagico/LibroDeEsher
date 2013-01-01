@@ -40,7 +40,6 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
-import com.softwaremagico.librodeesher.pj.magic.Magic;
 import com.softwaremagico.librodeesher.pj.magic.MagicLevelRange;
 import com.softwaremagico.librodeesher.pj.magic.MagicListType;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
@@ -60,7 +59,7 @@ public class Profession {
 	private List<ChooseSkillGroup> commonSkillsToChoose;
 	private List<ChooseSkillGroup> professionalSkillsToChoose;
 	private List<ChooseSkillGroup> restrictedSkillsToChoose;
-	private Magic magic;
+	private MagicCosts magic;
 	private Hashtable<String, TrainingCost> trainingCosts;
 
 	public Profession(String name) {
@@ -102,7 +101,7 @@ public class Profession {
 		}
 	}
 
-	public Magic getMagic() {
+	public MagicCosts getMagic() {
 		return magic;
 	}
 
@@ -311,7 +310,7 @@ public class Profession {
 	}
 
 	private int setMagicCost(List<String> lines, int index) {
-		magic = new Magic();
+		magic = new MagicCosts();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}

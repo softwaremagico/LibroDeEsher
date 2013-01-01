@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.magic;
+
 /*
  * #%L
  * Libro de Esher
@@ -24,20 +25,27 @@ package com.softwaremagico.librodeesher.pj.magic;
  */
 
 public enum MagicListType {
-	BASIC("lista básica"), OPEN("lista abierta"), CLOSED("lista cerrada"), OTHER_PROFESSION(
-			"listas básicas de otras profesiones"), OTHER_REALM_OPEN("listas abiertas de otros reinos"), OTHER_REALM_CLOSED(
-			"listas cerradas de otros reinos"), OTHER_REALM_OTHER_PROFESSION("listas básicas de otros reinos"), ARCHANUM(
-			"listas abiertas arcanas"), TRIAD("listas básicas de la tríada"), COMPLEMENTARY_TRIAD(
-			"listas básicas elementales complementarias"), TRAINING("listas propias de adiestramiento"), OTHER_TRAINING(
-			"listas de otros adiestramientos");
+	BASIC("lista básica", "Listas Básicas de Hechizos"), OPEN("lista abierta", "Listas Abiertas de Hechizos"), CLOSED(
+			"lista cerrada", "Listas Cerradas de Hechizos"), OTHER_PROFESSION(
+			"listas básicas de otras profesiones", "Listas Básicas de Otras Profesiones"), OTHER_REALM_OPEN(
+			"listas abiertas de otros reinos", "Listas Abiertas de Otros Reinos"), OTHER_REALM_CLOSED(
+			"listas cerradas de otros reinos", "Listas Cerradas de Otros Reinos"), OTHER_REALM_OTHER_PROFESSION(
+			"listas básicas de otros reinos", "Listas Básicas de Otros Reinos"), ARCHANUM(
+			"listas abiertas arcanas", "Listas Abiertas Arcanas"), TRIAD("listas básicas de la tríada",
+			"Listas Básicas de la Tríada"), COMPLEMENTARY_TRIAD("listas básicas elementales complementarias",
+			"Listas Básicas Elementales Complementarias"), TRAINING("listas propias de adiestramiento",
+			"Listas Hechizos de Adiestramiento"), OTHER_TRAINING("listas de otros adiestramientos",
+			"Listas Hechizos de Adiestramientos de Otros Reinos");
 
 	private String tag;
+	private String categoryName;
 
-	MagicListType(String tag) {
+	MagicListType(String tag, String categoryName) {
 		this.tag = tag;
+		this.categoryName = categoryName;
 	}
-	
-	public String getTag(){
+
+	public String getTag() {
 		return tag;
 	}
 
@@ -49,5 +57,18 @@ public enum MagicListType {
 			}
 		}
 		return null;
+	}
+
+	public static MagicListType getMagicTypeOfCategory(String categoryName) {
+		for (MagicListType type : MagicListType.values()) {
+			if (type.categoryName.equals(categoryName)) {
+				return type;
+			}
+		}
+		return null;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
 	}
 }

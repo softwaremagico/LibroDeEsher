@@ -45,4 +45,9 @@ public enum CategoryType {
         }
         return null;
     }
+    
+    public String getTag(){
+    	return tag;
+    }
+    
 }

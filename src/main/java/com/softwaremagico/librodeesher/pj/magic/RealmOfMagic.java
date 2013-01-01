@@ -31,7 +31,7 @@ public enum RealmOfMagic {
 	private String name;
 	private String characteristic;
 
-	RealmOfMagic(String tag, String characteristic) {
+	private RealmOfMagic(String tag, String characteristic) {
 		this.name = tag;
 		this.characteristic = characteristic;
 	}

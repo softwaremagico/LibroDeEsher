@@ -38,13 +38,13 @@ Hechizos Dirigidos(HecDir)	Ag/Ad/Ag	Estándar	Hechizos Dirigidos de Fuego, Hechi
 Listas Básicas de Hechizos(ListBas)	*	Limitada	Hechizos
 Listas Abiertas de Hechizos(ListAb)	*	Limitada	Hechizos
 Listas Cerradas de Hechizos(ListCerr)	*	Limitada	Hechizos
-Listas Básicas de otras Profesiones(ListBasOt)	*	Limitada	Hechizos
-Listas Abiertas de otros Reinos(ListAbOt)	*	Limitada	Hechizos
-Listas Cerradas de otros Reinos(ListCerrOt)	*	Limitada	Hechizos
-Listas Básicas de otros Reinos(ListBasOtR)	*	Limitada	Hechizos
+Listas Básicas de Otras Profesiones(ListBasOt)	*	Limitada	Hechizos
+Listas Abiertas de Otros Reinos(ListAbOt)	*	Limitada	Hechizos
+Listas Cerradas de Otros Reinos(ListCerrOt)	*	Limitada	Hechizos
+Listas Básicas de Otros Reinos(ListBasOtR)	*	Limitada	Hechizos
 Listas Abiertas Arcanas(ListAbArc)	*	Limitada	Hechizos
 Listas Hechizos de Adiestramiento(ListAd)	*	Limitada	Hechizos
-Listas Hechizos de Adiestramientos de Otro Reino(ListAdOtR)	*	Limitada	Hechizos
+Listas Hechizos de Adiestramientos de Otros Reinos(ListAdOtR)	*	Limitada	Hechizos
 Listas Básicas de la Tríada(ListTri)	*	Limitada	Hechizos
 Listas Básicas Elementales Complementarias(ListElCom)	*	Limitada	Hechizos
 Influencia(Infl)	Pr/Em/In	Estándar	Comerciar, Diplomacia, Embaucar, Interrogar, Liderazgo, Oratoria, Seducción, Sobornar, Rumorear

@@ -80,7 +80,7 @@ public class CategoryFactory {
 		return skills;
 	}
 
-	private static Category createCategory(String categoryName, String abbreviature,
+	public static Category createCategory(String categoryName, String abbreviature,
 			String characteristicsTag, String type, String skills) {
 		CategoryType catType = CategoryType.getCategoryType(type);
 		Category cat;

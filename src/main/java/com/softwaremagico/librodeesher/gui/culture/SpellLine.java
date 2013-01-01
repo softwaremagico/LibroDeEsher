@@ -11,21 +11,18 @@ import javax.swing.text.DefaultFormatter;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.magic.MagicLevelRange;
 import com.softwaremagico.librodeesher.pj.magic.MagicListType;
-import com.softwaremagico.librodeesher.pj.magic.SpellList;
 
 public class SpellLine extends CultureLine {
 	private static final long serialVersionUID = 1634524707541210570L;
-	private SpellList spell;
 
-	public SpellLine(CharacterPlayer character, SpellList spell, CulturePanel hobbyPanel,
+	public SpellLine(CharacterPlayer character, String spell, CulturePanel hobbyPanel,
 			Color background) {
 		this.character = character;
 		this.parentPanel = hobbyPanel;
-		this.spell = spell;
-		this.skillName = spell.getName();
+		this.skillName = spell;
 		setElements(background);
 		setBackground(background);
-		rankSpinner.setValue(character.getCultureDecisions().getSpellRanks(spell.getName()));
+		rankSpinner.setValue(character.getCultureDecisions().getSpellRanks(spell));
 	}
 
 	protected void addRankSpinnerEvent() {
@@ -47,7 +44,7 @@ public class SpellLine extends CultureLine {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character
-					character.getCultureDecisions().setSpellRanks(spell.getName(), (Integer) rankSpinner.getValue());
+					character.getCultureDecisions().setSpellRanks(skillName, (Integer) rankSpinner.getValue());
 					parentPanel.setRankTitle("Rangos ("
 							+ (character.getCulture().getSpellRanks() - character.getCultureDecisions()
 									.getTotalSpellRanks()) + ")");

@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.pj.magic;
+package com.softwaremagico.librodeesher.pj.profession;
 
 /*
  * #%L
@@ -28,16 +28,16 @@ import java.util.Hashtable;
 
 import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
+import com.softwaremagico.librodeesher.pj.magic.MagicLevelRange;
+import com.softwaremagico.librodeesher.pj.magic.MagicListType;
 
-public class Magic {
-	private Hashtable<MagicListType, CategoryCost[]> allListCosts;
+public class MagicCosts {
+	private Hashtable<MagicListType, CategoryCost[]> listCosts;
 
-	// private Hashtable<MagicListType, List<Skill>> spellsByType;
-
-	public Magic() {
-		allListCosts = new Hashtable<>();
+	public MagicCosts() {
+		listCosts = new Hashtable<>();
 		for (MagicListType magicType : MagicListType.values()) {
-			allListCosts.put(magicType, new CategoryCost[MagicLevelRange.values().length]);
+			listCosts.put(magicType, new CategoryCost[MagicLevelRange.values().length]);
 		}
 	}
 
@@ -60,7 +60,7 @@ public class Magic {
 	}
 
 	private CategoryCost[] getListCost(MagicListType listType) {
-		return allListCosts.get(listType);
+		return listCosts.get(listType);
 	}
 
 	public CategoryCost getListCost(MagicListType listType, MagicLevelRange levelRange) {

@@ -20,7 +20,6 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 public class SkillWindow extends BaseFrame {
 	private static final long serialVersionUID = 3505731416535837471L;
 	private CharacterPlayer character;
-	private BasicButton acceptButton;
 	private CompleteSkillPanel skillPanel;
 	private JLabel pointsLabel;
 

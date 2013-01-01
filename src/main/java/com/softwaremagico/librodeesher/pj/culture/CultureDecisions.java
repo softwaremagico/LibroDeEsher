@@ -2,8 +2,6 @@ package com.softwaremagico.librodeesher.pj.culture;
 
 import java.util.Hashtable;
 
-import com.softwaremagico.librodeesher.pj.magic.SpellList;
-
 public class CultureDecisions {
 	Hashtable<String, Integer> weaponRanks;
 	Hashtable<String, Integer> hobbyRanks;
