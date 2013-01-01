@@ -81,6 +81,22 @@ public class Profession {
 		return false;
 	}
 
+	public Integer getCategoryBonus(String categoryName) {
+		Integer bonus = categoriesBonus.get(categoryName);
+		if (bonus == null) {
+			return 0;
+		}
+		return bonus;
+	}
+
+	public Integer getSkillBonus(String skillName) {
+		Integer bonus = skillBonus.get(skillName);
+		if (bonus == null) {
+			return 0;
+		}
+		return bonus;
+	}
+
 	private void readProfessionFile(String professionName) throws Exception {
 		int lineIndex = 0;
 

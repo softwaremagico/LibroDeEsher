@@ -159,25 +159,25 @@ public class CategoryLine extends BasicSkillLine {
 		gridBagConstraints.weightx = 0.1;
 		add(bonusCharLabel, gridBagConstraints);
 
-		JLabel bonusMagicObject = new JLabel(character.getBonus(category).toString());
-		bonusMagicObject.setFont(defaultFont);
-		bonusMagicObject.setMinimumSize(new Dimension(columnWidth, columnHeight));
-		bonusMagicObject.setPreferredSize(new Dimension(columnWidth, columnHeight));
-		bonusMagicObject.setHorizontalAlignment(SwingConstants.CENTER);
-		gridBagConstraints.gridx = 6;
-		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 0.1;
-		add(bonusMagicObject, gridBagConstraints);
-
-		JLabel otherBonus = new JLabel("0");
+		JLabel otherBonus = new JLabel(character.getBonus(category).toString());
 		otherBonus.setMinimumSize(new Dimension(columnWidth, columnHeight));
 		otherBonus.setPreferredSize(new Dimension(columnWidth, columnHeight));
 		otherBonus.setHorizontalAlignment(SwingConstants.CENTER);
 		otherBonus.setFont(defaultFont);
-		gridBagConstraints.gridx = 7;
+		gridBagConstraints.gridx = 6;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
 		add(otherBonus, gridBagConstraints);
+
+		JLabel bonusMagicObject = new JLabel("0");
+		bonusMagicObject.setFont(defaultFont);
+		bonusMagicObject.setMinimumSize(new Dimension(columnWidth, columnHeight));
+		bonusMagicObject.setPreferredSize(new Dimension(columnWidth, columnHeight));
+		bonusMagicObject.setHorizontalAlignment(SwingConstants.CENTER);
+		gridBagConstraints.gridx = 7;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0.1;
+		add(bonusMagicObject, gridBagConstraints);
 
 		totalLabel = new JLabel(character.getTotalValue(category).toString());
 		totalLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));

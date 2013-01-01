@@ -459,11 +459,11 @@ public class CharacterPlayer {
 	}
 
 	public Integer getBonus(Category category) {
-		return category.getBonus();
+		return category.getBonus() + getProfession().getCategoryBonus(category.getName());
 	}
 
 	public Integer getBonus(Skill skill) {
-		return 0;
+		return getProfession().getSkillBonus(skill.getName());
 	}
 
 	public Integer getTotalValue(Category category) {

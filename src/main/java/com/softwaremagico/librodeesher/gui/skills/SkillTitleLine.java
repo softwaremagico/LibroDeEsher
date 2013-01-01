@@ -97,25 +97,25 @@ public class SkillTitleLine extends BasicTitleLine {
 		gridBagConstraints.weightx = 0.1;
 		add(bonusCharLabel, gridBagConstraints);
 
+		otherBonus = new JLabel("Bns");
+		otherBonus.setMinimumSize(new Dimension(columnWidth, columnHeight));
+		otherBonus.setPreferredSize(new Dimension(columnWidth, columnHeight));
+		otherBonus.setHorizontalAlignment(SwingConstants.CENTER);
+		otherBonus.setFont(defaultFont);
+		gridBagConstraints.gridx = 6;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0.1;
+		add(otherBonus, gridBagConstraints);
+		
 		bonusMagicObject = new JLabel("Obj");
 		bonusMagicObject.setFont(defaultFont);
 		bonusMagicObject.setMinimumSize(new Dimension(columnWidth, columnHeight));
 		bonusMagicObject.setPreferredSize(new Dimension(columnWidth, columnHeight));
 		bonusMagicObject.setHorizontalAlignment(SwingConstants.CENTER);
-		gridBagConstraints.gridx = 6;
-		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 0.1;
-		add(bonusMagicObject, gridBagConstraints);
-
-		otherBonus = new JLabel("Otr");
-		otherBonus.setMinimumSize(new Dimension(columnWidth, columnHeight));
-		otherBonus.setPreferredSize(new Dimension(columnWidth, columnHeight));
-		otherBonus.setHorizontalAlignment(SwingConstants.CENTER);
-		otherBonus.setFont(defaultFont);
 		gridBagConstraints.gridx = 7;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
-		add(otherBonus, gridBagConstraints);
+		add(bonusMagicObject, gridBagConstraints);
 
 		totalLabel = new JLabel("Tot");
 		totalLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
@@ -146,7 +146,7 @@ public class SkillTitleLine extends BasicTitleLine {
 			bonusRankLabel.setText("Val");
 			bonusCharLabel.setText("Cat");
 			bonusMagicObject.setText("Obj");
-			otherBonus.setText("Otr");
+			otherBonus.setText("Bns");
 			totalLabel.setText("Tot");
 		} else {
 			prevRanksLabel.setText("Rangos");
@@ -154,7 +154,7 @@ public class SkillTitleLine extends BasicTitleLine {
 			bonusRankLabel.setText("Valor");
 			bonusCharLabel.setText("Car/Cat");
 			bonusMagicObject.setText("Objeto");
-			otherBonus.setText("Otros");
+			otherBonus.setText("Bonus");
 			totalLabel.setText("Total");
 		}
 	}

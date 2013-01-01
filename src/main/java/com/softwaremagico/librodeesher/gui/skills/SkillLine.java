@@ -61,7 +61,8 @@ public class SkillLine extends BasicSkillLine {
 
 	private void setElements(Color background) {
 		this.removeAll();
-		//Integer ranks = character.getProfession().getMaxRanksPerLevel(skill.getCategory().getName());
+		// Integer ranks =
+		// character.getProfession().getMaxRanksPerLevel(skill.getCategory().getName());
 		Integer previousRanks = character.getPreviousRanks(skill);
 
 		setLayout(new GridBagLayout());
@@ -146,25 +147,25 @@ public class SkillLine extends BasicSkillLine {
 		gridBagConstraints.weightx = 0.1;
 		add(bonusCategory, gridBagConstraints);
 
-		JLabel bonusMagicObject = new JLabel(character.getBonus(skill).toString());
-		bonusMagicObject.setHorizontalAlignment(SwingConstants.CENTER);
-		bonusMagicObject.setMinimumSize(new Dimension(columnWidth, columnHeight));
-		bonusMagicObject.setPreferredSize(new Dimension(columnWidth, columnHeight));
-		bonusMagicObject.setFont(defaultFont);
-		gridBagConstraints.gridx = 6;
-		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 0.1;
-		add(bonusMagicObject, gridBagConstraints);
-
-		JLabel otherBonus = new JLabel("0");
+		JLabel otherBonus = new JLabel(character.getBonus(skill).toString());
 		otherBonus.setHorizontalAlignment(SwingConstants.CENTER);
 		otherBonus.setMinimumSize(new Dimension(columnWidth, columnHeight));
 		otherBonus.setPreferredSize(new Dimension(columnWidth, columnHeight));
 		otherBonus.setFont(defaultFont);
-		gridBagConstraints.gridx = 7;
+		gridBagConstraints.gridx = 6;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
 		add(otherBonus, gridBagConstraints);
+
+		JLabel bonusMagicObject = new JLabel("0");
+		bonusMagicObject.setHorizontalAlignment(SwingConstants.CENTER);
+		bonusMagicObject.setMinimumSize(new Dimension(columnWidth, columnHeight));
+		bonusMagicObject.setPreferredSize(new Dimension(columnWidth, columnHeight));
+		bonusMagicObject.setFont(defaultFont);
+		gridBagConstraints.gridx = 7;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0.1;
+		add(bonusMagicObject, gridBagConstraints);
 
 		totalLabel = new JLabel(character.getTotalValue(skill).toString());
 		totalLabel.setHorizontalAlignment(SwingConstants.CENTER);
