@@ -39,6 +39,7 @@ import com.softwaremagico.librodeesher.pj.culture.Culture;
 import com.softwaremagico.librodeesher.pj.culture.CultureDecisions;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
+import com.softwaremagico.librodeesher.pj.magic.MagicListType;
 import com.softwaremagico.librodeesher.pj.magic.MagicSpellLists;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.profession.Profession;
@@ -247,8 +248,11 @@ public class CharacterPlayer {
 		Integer total = 0;
 		List<String> categoriesWithRanks = levelUps.get(level).getCategoriesWithRanks();
 		for (String categoryName : categoriesWithRanks) {
-			total += getRanksCost(CategoryFactory.getAvailableCategory(categoryName), levelUps.get(level)
-					.getCategoryRanks(categoryName));
+			Category category = CategoryFactory.getAvailableCategory(categoryName);
+			Integer ranksUpdatedInLevel = levelUps.get(level).getCategoryRanks(categoryName);
+			for (int i = 0; i < ranksUpdatedInLevel; i++) {
+				total += getNewRankCost(category, getPreviousRanks(category) + i, i);
+			}
 		}
 		return total;
 	}
@@ -257,8 +261,11 @@ public class CharacterPlayer {
 		Integer total = 0;
 		List<String> skillsWithRanks = levelUps.get(level).getSkillsWithRanks();
 		for (String skillName : skillsWithRanks) {
-			total += getRanksCost(SkillFactory.getAvailableSkill(skillName).getCategory(), levelUps
-					.get(level).getSkillsRanks(skillName));
+			Skill skill = SkillFactory.getAvailableSkill(skillName);
+			Integer ranksUpdatedInLevel = levelUps.get(level).getSkillsRanks(skillName);
+			for (int i = 0; i < ranksUpdatedInLevel; i++) {
+				total += getNewRankCost(skill.getCategory(), getPreviousRanks(skill) + i, i);
+			}
 		}
 		return total;
 	}
@@ -275,7 +282,7 @@ public class CharacterPlayer {
 		return getInitialDevelopmentPoints() - getSpentDevelopmentPoints();
 	}
 
-	public Integer getTemporalPointsSpent() {
+	public Integer getCharacteristicsTemporalPointsSpent() {
 		Integer total = 0;
 		for (Characteristic characteristic : characteristics.getCharacteristicsList()) {
 			total += getCharacteristicTemporalValues(characteristic.getAbbreviature());
@@ -467,31 +474,48 @@ public class CharacterPlayer {
 		return getRanksValue(skill) + getBonus(skill) + getTotalValue(skill.getCategory());
 	}
 
-	public CategoryCost getCategoryCost(Category category) {
+	public CategoryCost getCategoryCost(Category category, Integer currentRanks) {
 		if (category.getGroup().equals(CategoryGroup.WEAPON)) {
 			return getProfessionDecisions().getWeaponCost(category);
 		} else if (category.getGroup().equals(CategoryGroup.SPELL)) {
-			// TODO seleccionar el grupo de hechizos correspondiente.
-			return getProfession().getWeaponsCategoryCost(0);
+			return getProfession().getMagicCost(MagicListType.getMagicTypeOfCategory(category.getName()),
+					currentRanks);
 		} else {
 			return getProfession().getCategoryCost(category.getName());
 		}
 	}
 
-	public Integer getMaxRanksPerLevel(Category category) {
+	public Integer getMaxRanksPerLevel(Category category, Integer currentRanks) {
 		try {
-			return getCategoryCost(category).getMaxRanksPerLevel();
+			// CurrentRanks + 1 to ensure that we do not have more ranks when
+			// update spell range cost.
+			return getCategoryCost(category, currentRanks + 1).getMaxRanksPerLevel();
 		} catch (NullPointerException npe) {
 			return 0;
 		}
 	}
 
-	public Integer getRanksCost(Category category, Integer rank) {
-		CategoryCost cost = getCategoryCost(category);
+	/**
+	 * Calculate the cost of a new rank.
+	 * 
+	 * @param category
+	 *            category to be updated.
+	 * @param currentRanks
+	 *            Current ranks in category or skill. Must include old levels
+	 *            ranks and previous ranks included in this new level.
+	 * @param rankAdded
+	 *            If it is the first, second or third rank added at this level
+	 *            [0, 1, 2].
+	 * @return
+	 */
+	public Integer getNewRankCost(Category category, Integer currentRanks, Integer rankAdded) {
+		// If you have X currentRanks, the cost of the new one will be
+		// currentRanks + 1;
+		CategoryCost cost = getCategoryCost(category, currentRanks + 1);
 		if (cost == null) {
 			return Integer.MAX_VALUE;
 		}
-		return cost.getTotalRanksCost(rank);
+		return cost.getRankCost(rankAdded);
 	}
 
 	public boolean isCategoryUseful(Category category) {

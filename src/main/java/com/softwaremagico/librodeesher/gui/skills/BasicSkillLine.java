@@ -4,7 +4,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 import javax.swing.JCheckBox;
-import javax.swing.event.ChangeEvent;
 
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -20,9 +19,9 @@ public abstract class BasicSkillLine extends BasicLine {
 	protected Category category;
 	protected SkillPanel parentWindow;
 
-	protected void enableRanks() {
+	protected void enableRanks(Integer currentRanks) {
 		updatingValues = true;
-		Integer ranks = character.getMaxRanksPerLevel(category);
+		Integer ranks = character.getMaxRanksPerLevel(category, currentRanks);
 
 		if (firstRank != null) {
 			if (ranks > 0) {

@@ -26,7 +26,7 @@ package com.softwaremagico.librodeesher.pj.magic;
 
 public enum RealmOfMagic {
 	CANALIZATION("Canalización", "In"), ESSENCE("Esencia", "Em"), MENTALISM("Mentalismo", "Pr"), PSIONIC(
-			"Psiónico", "Ad");
+			"Psiónico", "Ad"), ARCHANUM("Arcano", "");
 
 	private String name;
 	private String characteristic;

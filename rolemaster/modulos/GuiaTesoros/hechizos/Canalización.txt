@@ -1,0 +1,9 @@
+Habilidades Inorgánicas	Alquimista de Canalización
+Habilidades Líquidas/Gaseosas	Alquimista de Canalización
+Imbuir Reino	Alquimista de Canalización
+Imbuir Otro Reino	Alquimista de Canalización
+Armaduras Sagradas	Alquimista de Canalización
+Armas Sagradas	Alquimista de Canalización
+Oficios Sagrados	Alquimista de Canalización
+Protecciones Sagradas	Alquimista de Canalización
+Trabajos Sagrados	Alquimista de Canalización

@@ -35,6 +35,15 @@ public class MagicSpellLists {
 		magicCategories.get(MagicListType.OTHER_PROFESSION).setSkillsFromName(
 				MagicFactory.getListOfOtherProfessions(character.getRealmOfMagic(), character.getProfession()
 						.getName()));
+		magicCategories.get(MagicListType.OTHER_REALM_OTHER_PROFESSION).setSkillsFromName(
+				MagicFactory.getListOfOtherProfessionsOtherRealm(character.getRealmOfMagic(), character
+						.getProfession().getName()));
+		magicCategories.get(MagicListType.OTHER_REALM_OPEN).setSkillsFromName(
+				MagicFactory.getOtherRealmOpenLists(character.getRealmOfMagic()));
+		magicCategories.get(MagicListType.OTHER_REALM_CLOSED).setSkillsFromName(
+				MagicFactory.getOtherRealmClosedLists(character.getRealmOfMagic()));
+		magicCategories.get(MagicListType.ARCHANUM).setSkillsFromName(
+				MagicFactory.getArchanumOpenLists());
 	}
 
 	public Category getMagicCategory(String categoryName) {

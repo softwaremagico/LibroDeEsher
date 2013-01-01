@@ -42,7 +42,8 @@ public class WeaponCategoryLine extends CategoryLine {
 
 		}
 		updateWeaponCost();
-		enableRanks();
+		enableRanks(0); // Weapon cost does not change. Current ranks calculus
+						// is not necessary.
 		updatingWeaponCost = false;
 	}
 
@@ -92,7 +93,8 @@ public class WeaponCategoryLine extends CategoryLine {
 				}
 				previousSelectedIndex = costComboBox.getSelectedIndex();
 				updateWeaponCost();
-				enableRanks();
+				enableRanks(0); // Weapon cost does not change. Current ranks
+								// calculus is not necessary.
 				parentWindow.update();
 			}
 		}

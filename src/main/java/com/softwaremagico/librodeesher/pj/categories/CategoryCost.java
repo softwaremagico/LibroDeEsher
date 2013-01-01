@@ -57,11 +57,11 @@ public class CategoryCost {
 
 		return cost;
 	}
-	
-	public Integer getTotalRanksCost(Integer getRanksAdquired){
-		Integer total=0;
-		for(int i=0; i<getRanksAdquired; i++){
-			total+=getRankCost(i);
+
+	public Integer getTotalRanksCost(Integer getRanksAdquired) {
+		Integer total = 0;
+		for (int i = 0; i < getRanksAdquired; i++) {
+			total += getRankCost(i);
 		}
 		return total;
 	}
@@ -81,15 +81,15 @@ public class CategoryCost {
 		String tag = "";
 		for (int i = 0; i < rankCost.size(); i++) {
 			tag += rankCost.get(i);
-			if(i<rankCost.size()-1){
-				tag+="/";
+			if (i < rankCost.size() - 1) {
+				tag += "/";
 			}
 		}
 		return tag;
 	}
-	
+
 	@Override
-	public String toString(){
+	public String toString() {
 		return getCostTag();
 	}
 }

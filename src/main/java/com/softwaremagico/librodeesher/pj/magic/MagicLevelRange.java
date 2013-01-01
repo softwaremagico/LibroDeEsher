@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.magic;
+
 /*
  * #%L
  * Libro de Esher
@@ -24,12 +25,9 @@ package com.softwaremagico.librodeesher.pj.magic;
  */
 
 public enum MagicLevelRange {
-	FIRST_FIVE_LEVELS("1-5"),
-	SECOND_FIVE_LEVELS("6-10"),
-	THIRD_FIVE_LEVELS("11-15"),
-	FOURTH_FIVE_LEVELS("16-20"),
-	MORE_LEVELS("21+");
-	
+	FIRST_FIVE_LEVELS("1-5"), SECOND_FIVE_LEVELS("6-10"), THIRD_FIVE_LEVELS("11-15"), FOURTH_FIVE_LEVELS(
+			"16-20"), MORE_LEVELS("21+");
+
 	private String tag;
 
 	MagicLevelRange(String tag) {
@@ -44,5 +42,18 @@ public enum MagicLevelRange {
 			}
 		}
 		return null;
+	}
+
+	public static MagicLevelRange getLevelRange(Integer currentRanks) {
+		if (currentRanks < 5) {
+			return FIRST_FIVE_LEVELS;
+		} else if (currentRanks < 10) {
+			return SECOND_FIVE_LEVELS;
+		} else if (currentRanks < 15) {
+			return THIRD_FIVE_LEVELS;
+		} else if (currentRanks < 20) {
+			return FOURTH_FIVE_LEVELS;
+		}
+		return MORE_LEVELS;
 	}
 }

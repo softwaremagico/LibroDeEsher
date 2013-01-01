@@ -1,5 +1,6 @@
 package com.softwaremagico.librodeesher.gui.characteristic;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -7,10 +8,12 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
+import com.softwaremagico.librodeesher.gui.elements.DevelopmentTextField;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasicButton;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -22,6 +25,7 @@ public class CharacteristicsWindow extends BaseFrame {
 	private JLabel spentPointsLabel;
 	private CharacterPlayer character;
 	private BasicButton acceptButton;
+	private DevelopmentTextField characteristicsPointsTextField;
 
 	public CharacteristicsWindow() {
 		defineWindow(500, 400);
@@ -45,9 +49,19 @@ public class CharacteristicsWindow extends BaseFrame {
 		gridBagConstraints.insets = new Insets(5, 5, 5, 5);
 		getContentPane().add(characteristicPanel, gridBagConstraints);
 
-		JPanel pointsPanel = new JPanel();
+		JPanel characteristicPointsPanel = new JPanel();
+		characteristicPointsPanel.setLayout(new BoxLayout(characteristicPointsPanel, BoxLayout.X_AXIS));
+
 		spentPointsLabel = new JLabel();
-		pointsPanel.add(spentPointsLabel);
+		spentPointsLabel = new JLabel("  Puntos restantes: ");
+		characteristicPointsPanel.add(spentPointsLabel);
+
+		characteristicsPointsTextField = new DevelopmentTextField();
+		characteristicsPointsTextField.setColumns(3);
+		characteristicsPointsTextField.setEditable(false);
+		characteristicsPointsTextField.setMaximumSize(new Dimension(60, 25));
+		setRemainingPoints(0);
+		characteristicPointsPanel.add(characteristicsPointsTextField);
 
 		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.ipadx = xPadding;
@@ -57,7 +71,7 @@ public class CharacteristicsWindow extends BaseFrame {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.8;
 		gridBagConstraints.weighty = 0;
-		getContentPane().add(pointsPanel, gridBagConstraints);
+		getContentPane().add(characteristicPointsPanel, gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
 		acceptButton = new BasicButton("Aceptar");
@@ -79,26 +93,28 @@ public class CharacteristicsWindow extends BaseFrame {
 		getContentPane().add(buttonPanel, gridBagConstraints);
 	}
 
+	private void setRemainingPoints(Integer value) {
+		characteristicsPointsTextField.setDevelopmentPoints(value);
+	}
+
 	private String getSpentPointsText(Integer spentPoints, Integer totalPoints) {
-		return "Puntos restantes: " + spentPoints + " de " + totalPoints;
+		return "  Puntos restantes: " + spentPoints + " de " + totalPoints;
 	}
 
 	public void setCharacter(CharacterPlayer character) {
 		this.character = character;
 		characteristicPanel.setCharacter(character, false);
 		characteristicPanel.setParentWindow(this);
-		spentPointsLabel.setText(getSpentPointsText(
-				Characteristics.TOTAL_CHARACTERISTICS_POINTS - character.getTemporalPointsSpent(),
-				Characteristics.TOTAL_CHARACTERISTICS_POINTS));
+		setRemainingPoints(Characteristics.TOTAL_CHARACTERISTICS_POINTS
+				- character.getCharacteristicsTemporalPointsSpent());
 		acceptButton.setEnabled(!character.areCharacteristicsConfirmed());
 		setPotential();
 	}
 
 	@Override
 	public void update() {
-		spentPointsLabel.setText(getSpentPointsText(
-				Characteristics.TOTAL_CHARACTERISTICS_POINTS - character.getTemporalPointsSpent(),
-				Characteristics.TOTAL_CHARACTERISTICS_POINTS));
+		setRemainingPoints(Characteristics.TOTAL_CHARACTERISTICS_POINTS
+				- character.getCharacteristicsTemporalPointsSpent());
 		acceptButton.setEnabled(!character.areCharacteristicsConfirmed());
 	}
 

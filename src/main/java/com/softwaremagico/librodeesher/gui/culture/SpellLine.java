@@ -15,8 +15,7 @@ import com.softwaremagico.librodeesher.pj.magic.MagicListType;
 public class SpellLine extends CultureLine {
 	private static final long serialVersionUID = 1634524707541210570L;
 
-	public SpellLine(CharacterPlayer character, String spell, CulturePanel hobbyPanel,
-			Color background) {
+	public SpellLine(CharacterPlayer character, String spell, CulturePanel hobbyPanel, Color background) {
 		this.character = character;
 		this.parentPanel = hobbyPanel;
 		this.skillName = spell;
@@ -38,13 +37,16 @@ public class SpellLine extends CultureLine {
 				if (parentPanel.getSpinnerValues() > character.getCulture().getSpellRanks()) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 					// Too much ranks in one spell list.
-				} else if (getSelectedRanks() > character.getProfession().getMagic()
-						.getListCost(MagicListType.OPEN, MagicLevelRange.FIRST_FIVE_LEVELS)
+				} else if (getSelectedRanks() > character
+						.getProfession()
+						.getMagicCost(MagicListType.OPEN,
+								MagicLevelRange.getLevelRange((Integer) rankSpinner.getValue() - 1))
 						.getMaxRanksPerLevel()) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character
-					character.getCultureDecisions().setSpellRanks(skillName, (Integer) rankSpinner.getValue());
+					character.getCultureDecisions()
+							.setSpellRanks(skillName, (Integer) rankSpinner.getValue());
 					parentPanel.setRankTitle("Rangos ("
 							+ (character.getCulture().getSpellRanks() - character.getCultureDecisions()
 									.getTotalSpellRanks()) + ")");

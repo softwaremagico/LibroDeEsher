@@ -147,7 +147,7 @@ public class CharacteristicLine extends BasicLine {
 						&& character.isMainProfessionalCharacteristic(characteristic)) {
 					temporalSpinner.setValue(90);
 					// Development points restrictions.
-				} else if (character.getTemporalPointsSpent() > Characteristics.TOTAL_CHARACTERISTICS_POINTS) {
+				} else if (character.getCharacteristicsTemporalPointsSpent() > Characteristics.TOTAL_CHARACTERISTICS_POINTS) {
 					temporalSpinner.setValue((Integer) temporalSpinner.getValue() - 1);
 				}
 

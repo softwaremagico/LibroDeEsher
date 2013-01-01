@@ -71,8 +71,10 @@ public abstract class Category {
 
 	public void setSkillsFromName(List<String> skillsNameList) {
 		skills = new ArrayList<>();
-		for (String skill : skillsNameList) {
-			addSkill(skill);
+		if (skillsNameList != null) {
+			for (String skill : skillsNameList) {
+				addSkill(skill);
+			}
 		}
 	}
 

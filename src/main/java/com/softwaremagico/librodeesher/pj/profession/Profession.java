@@ -59,7 +59,7 @@ public class Profession {
 	private List<ChooseSkillGroup> commonSkillsToChoose;
 	private List<ChooseSkillGroup> professionalSkillsToChoose;
 	private List<ChooseSkillGroup> restrictedSkillsToChoose;
-	private MagicCosts magic;
+	private MagicCosts magicCosts;
 	private Hashtable<String, TrainingCost> trainingCosts;
 
 	public Profession(String name) {
@@ -101,8 +101,12 @@ public class Profession {
 		}
 	}
 
-	public MagicCosts getMagic() {
-		return magic;
+	public CategoryCost getMagicCost(MagicListType listType, Integer ranks) {
+		return magicCosts.getListCost(listType, MagicLevelRange.getLevelRange(ranks));
+	}
+
+	public CategoryCost getMagicCost(MagicListType listType, MagicLevelRange levelRange) {
+		return magicCosts.getListCost(listType, levelRange);
 	}
 
 	private int setBasicCharacteristics(List<String> lines, int index) {
@@ -310,7 +314,7 @@ public class Profession {
 	}
 
 	private int setMagicCost(List<String> lines, int index) {
-		magic = new MagicCosts();
+		magicCosts = new MagicCosts();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -324,7 +328,7 @@ public class Profession {
 				String listLevel = spellList[1].replace(")", "");
 				String listCost = spellsColumn[1];
 
-				magic.setMagicCost(MagicListType.getMagicType(listName),
+				magicCosts.setMagicCost(MagicListType.getMagicType(listName),
 						MagicLevelRange.getLevelRange(listLevel), listCost);
 			} catch (Exception e) {
 				ShowMessage.showErrorMessage("Coste de magia mal formado: " + lines.get(index),

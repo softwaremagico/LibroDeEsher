@@ -56,21 +56,26 @@ public class CategoryLine extends BasicSkillLine {
 
 	protected JPanel createCostPanel() {
 		JPanel costPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 1, 1));
-		JLabel rankCostLabel = new JLabel(character.getCategoryCost(category).getCostTag());
+		// The default cost of a category is when it has no ranks. For spells
+		// this label is not updated but the new cost will be used when
+		// necessary.
+		JLabel rankCostLabel = new JLabel(character.getCategoryCost(category, 0).getCostTag());
 		costPanel.setMinimumSize(new Dimension(columnWidth * 2, columnHeight));
 		costPanel.setPreferredSize(new Dimension(columnWidth * 2, columnHeight));
 		rankCostLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		costPanel.add(rankCostLabel);
 		return costPanel;
-	}	
+	}
 
 	@Override
 	protected boolean hasRanks() {
 		return category.hasRanks();
-	}	
+	}
 
 	private void setContent(Color background) {
 		this.removeAll();
+		Integer previousRanks = character.getPreviousRanks(category);
+
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 		Font defaultFont = new Font(font, Font.BOLD, fontSize);
@@ -101,7 +106,7 @@ public class CategoryLine extends BasicSkillLine {
 		gridBagConstraints.gridx = 2;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
-		JLabel prevRanksLabel = new JLabel(character.getPreviousRanks(category).toString());
+		JLabel prevRanksLabel = new JLabel(previousRanks.toString());
 		prevRanksLabel.setFont(defaultFont);
 		prevRanksLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
 		prevRanksLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
@@ -184,7 +189,7 @@ public class CategoryLine extends BasicSkillLine {
 		gridBagConstraints.weightx = 0.1;
 		add(totalLabel, gridBagConstraints);
 
-		enableRanks();
+		enableRanks(previousRanks);
 	}
 
 	public void update() {

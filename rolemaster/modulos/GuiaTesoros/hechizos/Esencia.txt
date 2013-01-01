@@ -1,0 +1,9 @@
+Habilidades Inorgánicas	Alquimista de Esencia
+Habilidades Líquidas/Gaseosas	Alquimista de Esencia
+Imbuir Reino	Alquimista de Esencia
+Imbuir Otro Reino	Alquimista de Esencia
+Análisis de los Objetos	Alquimista de Esencia
+Encantamientos de Armaduras	Alquimista de Esencia
+Encantamientos de Armas	Alquimista de Esencia
+Encatamientos Generales	Alquimista de Esencia
+Habilidades Orgánicas	Alquimista de Esencia

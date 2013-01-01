@@ -61,7 +61,8 @@ public class SkillLine extends BasicSkillLine {
 
 	private void setElements(Color background) {
 		this.removeAll();
-		Integer ranks = character.getProfession().getMaxRanksPerLevel(skill.getCategory().getName());
+		//Integer ranks = character.getProfession().getMaxRanksPerLevel(skill.getCategory().getName());
+		Integer previousRanks = character.getPreviousRanks(skill);
 
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -91,7 +92,7 @@ public class SkillLine extends BasicSkillLine {
 		rankCostLabel.setPreferredSize(new Dimension(columnWidth * 2, columnHeight));
 		add(rankCostLabel, gridBagConstraints);
 
-		JLabel prevRanksLabel = new JLabel(character.getPreviousRanks(skill).toString());
+		JLabel prevRanksLabel = new JLabel(previousRanks.toString());
 		prevRanksLabel.setFont(defaultFont);
 		prevRanksLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		prevRanksLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
@@ -175,7 +176,7 @@ public class SkillLine extends BasicSkillLine {
 		gridBagConstraints.weightx = 0.1;
 		add(totalLabel, gridBagConstraints);
 
-		enableRanks();
+		enableRanks(previousRanks);
 	}
 
 	public void update() {
