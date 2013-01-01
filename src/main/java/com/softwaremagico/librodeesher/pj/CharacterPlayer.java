@@ -518,8 +518,16 @@ public class CharacterPlayer {
 		return cost.getRankCost(rankAdded);
 	}
 
+	/**
+	 * A category is not used if it has not skills or the cost is more than the
+	 * total development points.
+	 * 
+	 * @param category
+	 * @return
+	 */
 	public boolean isCategoryUseful(Category category) {
-		if (getCategory(category).getSkills().size() == 0) {
+		if (getCategory(category).getSkills().size() == 0
+				|| getNewRankCost(category, 0, 0) > getInitialDevelopmentPoints()) {
 			return false;
 		}
 		return true;
