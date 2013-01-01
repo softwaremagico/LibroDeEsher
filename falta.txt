@@ -1,1 +1,7 @@
 Lanzar para 32 bits en Windows.
+Elegir habilidades en poderes chi.
+Elegir habilidades comunes de profesiones.
+Hechizos de la triada. 
+En historial y demás, cuando se escoge la opción de subir las características debe mostrar un resumen de las temporales y potenciales.
+Bonus por raza
+Las habilidades de conocimiento cultura no deben incluir culturas "Media, Alata, etc."

@@ -40,6 +40,7 @@ import com.softwaremagico.librodeesher.pj.weapons.WeaponType;
 
 public class CategoryFactory {
 
+	private static final String ARMAS_PREFIX = "Armas·";
 	private static Hashtable<String, Category> categoriesAvailable = new Hashtable<>();
 	private static List<Category> weaponsCategory = new ArrayList<>();
 
@@ -55,10 +56,12 @@ public class CategoryFactory {
 	private static void addCultureSkills() {
 		Category cat = categoriesAvailable.get("Conocimiento·General");
 		for (String culture : CultureFactory.availableCultures()) {
-			cat.addSkill("Conocimiento de la Fauna (" + culture + ")");
-			cat.addSkill("Conocimiento de la Flora (" + culture + ")");
-			cat.addSkill("Conocimiento Cultural (" + culture + ")");
-			cat.addSkill("Conocimiento Regional (" + culture + ")");
+			if (!culture.contains("(")) {
+				cat.addSkill("Conocimiento de la Fauna (" + culture + ")");
+				cat.addSkill("Conocimiento de la Flora (" + culture + ")");
+				cat.addSkill("Conocimiento Cultural (" + culture + ")");
+				cat.addSkill("Conocimiento Regional (" + culture + ")");
+			}
 		}
 	}
 
@@ -176,7 +179,7 @@ public class CategoryFactory {
 		List<Category> weaponsCategories = new ArrayList<>();
 
 		for (Category category : categoriesAvailable.values()) {
-			if (category.getName().startsWith("Armas·")) {
+			if (category.getName().startsWith(ARMAS_PREFIX)) {
 				weaponsCategories.add(category);
 			}
 		}
