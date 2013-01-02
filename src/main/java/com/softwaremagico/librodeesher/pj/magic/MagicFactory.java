@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.magic;
+
 /*
  * #%L
  * Libro de Esher
@@ -24,6 +25,7 @@ package com.softwaremagico.librodeesher.pj.magic;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -35,6 +37,11 @@ import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 public class MagicFactory {
 	private static final String OPEN_LIST_TAG = "Lista Abierta";
 	private static final String CLOSED_LIST_TAG = "Lista Cerrada";
+	private static final List<String> FIRST_TRIAD = new ArrayList<String>(Arrays.asList("fuego", "agua",
+			"hielo"));
+	private static final List<String> SECOND_TRIAD = new ArrayList<String>(Arrays.asList("aire", "luz",
+			"tierra"));
+	private static final String ELEMENTALIST_TAG = "mago de";
 
 	private static Hashtable<RealmOfMagic, Hashtable<String, List<String>>> spellsByGroup;
 
@@ -104,10 +111,57 @@ public class MagicFactory {
 		return lists;
 	}
 
+	public static List<String> getListOfOwnTriad(List<String> trainings) {
+		List<String> lists = new ArrayList<String>();
+		for (String trainingName : trainings) {
+			if (trainingName.toLowerCase().contains(ELEMENTALIST_TAG)) {
+				String[] words = trainingName.split(" ");
+				String element = words[words.length - 1].toLowerCase();
+				List<String> triadElements;
+				// It is from first triad;
+				if (FIRST_TRIAD.contains(element)) {
+					triadElements = new ArrayList<>(FIRST_TRIAD);
+				} else {
+					triadElements = new ArrayList<>(SECOND_TRIAD);
+				}
+				for (String triadElement : triadElements) {
+					if (!element.equals(triadElement)) {
+						lists.addAll(getListOfProfession(RealmOfMagic.ESSENCE, trainingName));
+					}
+				}
+				break; // Only one elementalist training!
+			}
+		}
+		return lists;
+	}
+
+	public static List<String> getListOfOtherTriad(List<String> trainings) {
+		List<String> lists = new ArrayList<String>();
+		for (String trainingName : trainings) {
+			if (trainingName.toLowerCase().contains(ELEMENTALIST_TAG)) {
+				String[] words = trainingName.split(" ");
+				String element = words[words.length - 1].toLowerCase();
+				List<String> triadElements;
+				// It is from first triad;
+				if (FIRST_TRIAD.contains(element)) {
+					triadElements = new ArrayList<>(SECOND_TRIAD);
+				} else {
+					triadElements = new ArrayList<>(FIRST_TRIAD);
+				}
+				for (String triadElement : triadElements) {
+					No es el trainingName, sino los trainings que no tiene comprados de la triada
+					lists.addAll(getListOfProfession(RealmOfMagic.ESSENCE, trainingName));
+				}
+				break; // Only one elementalist training!
+			}
+		}
+		return lists;
+	}
+
 	public static List<String> getOpenLists(RealmOfMagic realm) {
 		return getListOfProfession(realm, OPEN_LIST_TAG);
 	}
-	
+
 	public static List<String> getArchanumOpenLists() {
 		return getListOfProfession(RealmOfMagic.ARCHANUM, OPEN_LIST_TAG);
 	}
