@@ -61,7 +61,7 @@ public abstract class BaseFrame extends JFrame {
 		if (Config.isMaximized()) {
 			this.setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
 		}
-		addWindowStateListener(listener);
+		addWindowStateListener(new WindowsSizeChange(this));
 	}
 
 	protected void defineWindow(Integer width, Integer height) {
@@ -77,19 +77,28 @@ public abstract class BaseFrame extends JFrame {
 
 	public abstract void update();
 
-	WindowStateListener listener = new WindowAdapter() {
+	class WindowsSizeChange extends WindowAdapter {
+		BaseFrame window;
+
+		WindowsSizeChange(BaseFrame window) {
+			this.window = window;
+		}
+
 		public void windowStateChanged(WindowEvent evt) {
 			int oldState = evt.getOldState();
 			int newState = evt.getNewState();
 
 			if ((oldState & Frame.MAXIMIZED_BOTH) == 0 && (newState & Frame.MAXIMIZED_BOTH) != 0) {
 				// Frame was maximized
-				Config.setMaximized(true);
+				if (window.isResizable()) {
+					Config.setMaximized(true);
+				}
 			} else if ((oldState & Frame.MAXIMIZED_BOTH) != 0 && (newState & Frame.MAXIMIZED_BOTH) == 0) {
 				// Frame was minimized
-				Config.setMaximized(false);
+				if (window.isResizable()) {
+					Config.setMaximized(false);
+				}
 			}
 		}
-	};
-
+	}
 }
