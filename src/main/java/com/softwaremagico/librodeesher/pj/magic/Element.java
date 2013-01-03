@@ -9,9 +9,9 @@ public enum Element {
 		this.tag = tag;
 	}
 	
-	public static Element getElement(String profession){
+	public static Element getElement(String tag){
 		for(Element element : Element.values()){
-			if(profession.toLowerCase().contains(element.tag)){
+			if(tag.toLowerCase().contains(element.tag)){
 				return element;
 			}
 		}

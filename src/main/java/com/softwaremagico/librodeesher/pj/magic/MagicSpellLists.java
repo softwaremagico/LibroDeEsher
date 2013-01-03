@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.magic;
+
 /*
  * #%L
  * Libro de Esher
@@ -48,25 +49,36 @@ public class MagicSpellLists {
 	}
 
 	public void orderSpellListsByCategory(CharacterPlayer character) {
+		// For each profession, the own profession list are basic lists.
 		magicCategories.get(MagicListType.BASIC).setSkillsFromName(
 				MagicFactory.getListOfProfession(character.getRealmOfMagic(), character.getProfession()
 						.getName()));
+		// For elementalist, the training lists are basic lists.
+		magicCategories.get(MagicListType.BASIC).addSkillsFromName(
+				MagicFactory.getListOfProfession(character.getRealmOfMagic(),
+						MagicFactory.getElementalistTraining(character.getTrainingsNames())));
 		magicCategories.get(MagicListType.OPEN).setSkillsFromName(
 				MagicFactory.getOpenLists(character.getRealmOfMagic()));
 		magicCategories.get(MagicListType.CLOSED).setSkillsFromName(
 				MagicFactory.getClosedLists(character.getRealmOfMagic()));
+		magicCategories.get(MagicListType.TRIAD).setSkillsFromName(
+				MagicFactory.getListOfOwnTriad(character.getTrainingsNames()));
+		magicCategories.get(MagicListType.COMPLEMENTARY_TRIAD).setSkillsFromName(
+				MagicFactory.getListOfOtherTriad(character.getTrainingsNames()));
+		// Only no elementalist has elementalis list as other professions.
 		magicCategories.get(MagicListType.OTHER_PROFESSION).setSkillsFromName(
 				MagicFactory.getListOfOtherProfessions(character.getRealmOfMagic(), character.getProfession()
-						.getName()));
+						.getName(),
+						MagicFactory.getElementalistTraining(character.getTrainingsNames()) == null));
 		magicCategories.get(MagicListType.OTHER_REALM_OTHER_PROFESSION).setSkillsFromName(
 				MagicFactory.getListOfOtherProfessionsOtherRealm(character.getRealmOfMagic(), character
-						.getProfession().getName()));
+						.getProfession().getName(), MagicFactory.getElementalistTraining(character
+						.getTrainingsNames()) == null));
 		magicCategories.get(MagicListType.OTHER_REALM_OPEN).setSkillsFromName(
 				MagicFactory.getOtherRealmOpenLists(character.getRealmOfMagic()));
 		magicCategories.get(MagicListType.OTHER_REALM_CLOSED).setSkillsFromName(
 				MagicFactory.getOtherRealmClosedLists(character.getRealmOfMagic()));
-		magicCategories.get(MagicListType.ARCHANUM).setSkillsFromName(
-				MagicFactory.getArchanumOpenLists());
+		magicCategories.get(MagicListType.ARCHANUM).setSkillsFromName(MagicFactory.getArchanumOpenLists());
 	}
 
 	public Category getMagicCategory(String categoryName) {

@@ -69,13 +69,17 @@ public abstract class Category {
 
 	public abstract void addSkills(String skills);
 
-	public void setSkillsFromName(List<String> skillsNameList) {
-		skills = new ArrayList<>();
-		if (skillsNameList != null) {
-			for (String skill : skillsNameList) {
+	public void addSkillsFromName(List<String> skillsNames) {
+		if (skillsNames != null) {
+			for (String skill : skillsNames) {
 				addSkill(skill);
 			}
 		}
+	}
+
+	public void setSkillsFromName(List<String> skillsNames) {
+		skills = new ArrayList<>();
+		addSkillsFromName(skillsNames);
 	}
 
 	public String getAbbreviature() {

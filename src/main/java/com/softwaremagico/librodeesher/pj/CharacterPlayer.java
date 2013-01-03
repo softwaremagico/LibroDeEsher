@@ -76,7 +76,8 @@ public class CharacterPlayer {
 	private String professionName;
 	private transient Profession profession;
 	private ProfessionDecisions professionDecisions;
-	private List<Training> trainings;
+	private List<String> trainingsNames;
+	private transient List<Training> trainings;
 	private Resistances resistances;
 	private RealmOfMagic realmOfMagic;
 	private MagicSpellLists magicSpellLists;
@@ -95,6 +96,8 @@ public class CharacterPlayer {
 		cultureDecisions = new CultureDecisions();
 		raceDecisions = new RaceDecisions();
 		professionDecisions = new ProfessionDecisions();
+		trainingsNames = new ArrayList<>();
+		trainings = new ArrayList<>();
 	}
 
 	public RaceDecisions getRaceDecisions() {
@@ -538,5 +541,9 @@ public class CharacterPlayer {
 			return magicSpellLists.getMagicCategory(category.getName());
 		}
 		return category;
+	}
+
+	public List<String> getTrainingsNames() {
+		return trainingsNames;
 	}
 }
