@@ -227,4 +227,9 @@ public class Folder {
         } catch (Exception e) {
         }
     }
+    
+    public static void makeFolderIfNotExist(String file) {
+        File f = new File(file);
+        f.mkdir();
+    }
 }

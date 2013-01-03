@@ -36,7 +36,7 @@ public class RaceFactory {
 
 	public static List<String> availableRaces() {
 		try {
-			return RolemasterFolderStructure.filesAvailable(RACE_FOLDER);
+			return RolemasterFolderStructure.getFilesAvailable(RACE_FOLDER);
 		} catch (Exception e) {
 			ShowMessage.showErrorMessage("Problema al obtener las razas disponibles.", "Razas disponibles");
 		}

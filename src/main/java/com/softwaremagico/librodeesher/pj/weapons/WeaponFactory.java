@@ -58,7 +58,7 @@ public class WeaponFactory {
 		}
 
 		// Find all files with weapons.
-		List<String> weaponFiles = RolemasterFolderStructure.filesAvailableCompletePath(WEAPON_FOLDER);
+		List<String> weaponFiles = RolemasterFolderStructure.getFilesAvailableCompletePath(WEAPON_FOLDER);
 
 		// Read each file.
 		for (String weaponFile : weaponFiles) {

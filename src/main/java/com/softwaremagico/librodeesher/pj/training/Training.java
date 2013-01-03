@@ -67,7 +67,7 @@ public class Training {
 
 	private void readTrainingFile(String trainingName) throws Exception {
 		int lineIndex = 0;
-		String trainingFile = RolemasterFolderStructure.searchDirectoryModule(TrainingFactory.TRAINING_FOLDER
+		String trainingFile = RolemasterFolderStructure.getDirectoryModule(TrainingFactory.TRAINING_FOLDER
 				+ File.separator + trainingName + ".txt");
 		if (trainingFile.length() > 0) {
 			List<String> lines = Folder.readFileLines(trainingFile, false);

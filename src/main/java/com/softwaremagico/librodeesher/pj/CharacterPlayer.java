@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.librodeesher.core.TwoDices;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
@@ -57,6 +58,7 @@ import com.softwaremagico.librodeesher.pj.training.Training;
 
 public class CharacterPlayer {
 
+	private static final String FIREARMS_SUFIX = "Fuego";
 	private static final String DEFAULT_NAME = " ** Nuevo Personaje ** ";
 	private static final Integer STORED_ROLLS_NUMBER = 10;
 	private String name;
@@ -82,6 +84,10 @@ public class CharacterPlayer {
 	private Resistances resistances;
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
 	private MagicSpellLists magicSpellLists;
+
+	private boolean darkSpellsAsBasicLists = true;
+	private boolean firearmsActivated = true;
+	private boolean chiPowers = true;
 
 	private List<LevelUp> levelUps;
 
@@ -532,14 +538,26 @@ public class CharacterPlayer {
 
 	/**
 	 * A category is not used if it has not skills or the cost is more than the
-	 * total development points.
+	 * selected in the configuration.
 	 * 
 	 * @param category
 	 * @return
 	 */
 	public boolean isCategoryUseful(Category category) {
-		if (getCategory(category).getSkills().size() == 0
-				|| getNewRankCost(category, 0, 0) > getInitialDevelopmentPoints()) {
+		// Categories without skills are useless.
+		if (getCategory(category).getSkills().size() == 0) {
+			return false;
+		}
+		// Weapons always are useful. We need to define the rank cost.
+		if (category.getGroup().equals(CategoryGroup.WEAPON)) {
+			// Firearms only if activated
+			if (!firearmsActivated && category.getName().contains(FIREARMS_SUFIX)) {
+				return false;
+			}
+			return true;
+		}
+		// Expensive categories are useless.
+		if (getNewRankCost(category, 0, 0) > Config.getCategoryMaxCost()) {
 			return false;
 		}
 		return true;
@@ -554,5 +572,13 @@ public class CharacterPlayer {
 
 	public List<String> getTrainingsNames() {
 		return trainingsNames;
+	}
+
+	public boolean isDarkSpellsAsBasicLists() {
+		return darkSpellsAsBasicLists;
+	}
+
+	public void setDarkSpellsAsBasicLists(boolean darkSpellsAsBasicLists) {
+		this.darkSpellsAsBasicLists = darkSpellsAsBasicLists;
 	}
 }

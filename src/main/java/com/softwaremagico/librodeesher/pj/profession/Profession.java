@@ -101,7 +101,7 @@ public class Profession {
 		int lineIndex = 0;
 
 		String professionFile = RolemasterFolderStructure
-				.searchDirectoryModule(ProfessionFactory.PROFESSION_FOLDER + File.separator + professionName
+				.getDirectoryModule(ProfessionFactory.PROFESSION_FOLDER + File.separator + professionName
 						+ ".txt");
 		if (professionFile.length() > 0) {
 			List<String> lines = Folder.readFileLines(professionFile, false);

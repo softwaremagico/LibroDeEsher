@@ -36,7 +36,7 @@ public class TrainingFactory {
 
 	public static List<String> availableTrainings() {
 		try {
-			return RolemasterFolderStructure.filesAvailable(TRAINING_FOLDER);
+			return RolemasterFolderStructure.getFilesAvailable(TRAINING_FOLDER);
 		} catch (Exception e) {
 			ShowMessage.showErrorMessage("Problema al obtener los adiestramientos disponibles.",
 					"Adiestramientos disponibles");

@@ -130,9 +130,9 @@ public class CategoryFactory {
 	 * Lee el fichero de categorías.
 	 */
 	public static void getCategoriesFromFiles() throws Exception {
-		List<String> categoriesFile = RolemasterFolderStructure.availableCategoriesFiles();
+		List<String> categoriesFile = RolemasterFolderStructure.getAvailableCategoriesFiles();
 		for (int j = 0; j < categoriesFile.size(); j++) {
-			List<String> lines = RolemasterFolderStructure.readCategoryFileInLines(categoriesFile.get(j));
+			List<String> lines = RolemasterFolderStructure.getCategoryFile(categoriesFile.get(j));
 
 			for (String oneLine : lines) {
 				if (!oneLine.startsWith("#")) {

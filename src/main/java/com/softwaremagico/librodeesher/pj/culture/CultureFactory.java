@@ -37,7 +37,7 @@ public class CultureFactory {
 
 	public static List<String> availableCultures() {
 		try {
-			return RolemasterFolderStructure.filesAvailable(CULTURE_FOLDER);
+			return RolemasterFolderStructure.getFilesAvailable(CULTURE_FOLDER);
 		} catch (Exception e) {
 			ShowMessage.showErrorMessage("Problema al obtener las culturas disponibles.",
 					"Culturas disponibles");

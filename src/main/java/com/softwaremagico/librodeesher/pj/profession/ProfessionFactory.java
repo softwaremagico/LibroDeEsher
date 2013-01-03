@@ -36,7 +36,7 @@ public class ProfessionFactory {
 
 	public static List<String> availableProfessions() {
 		try {
-			return RolemasterFolderStructure.filesAvailable(PROFESSION_FOLDER);
+			return RolemasterFolderStructure.getFilesAvailable(PROFESSION_FOLDER);
 		} catch (Exception e) {
 			ShowMessage.showErrorMessage("Problema al obtener las profesiones disponibles.", "Profesiones disponibles");
 		}

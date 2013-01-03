@@ -89,7 +89,7 @@ public class Race {
 	private void readRaceFile(String raceName) throws Exception {
 		int lineIndex = 0;
 
-		String raceFile = RolemasterFolderStructure.searchDirectoryModule(RaceFactory.RACE_FOLDER
+		String raceFile = RolemasterFolderStructure.getDirectoryModule(RaceFactory.RACE_FOLDER
 				+ File.separator + raceName + ".txt");
 		if (raceFile.length() > 0) {
 			List<String> lines = Folder.readFileLines(raceFile, false);

@@ -100,7 +100,7 @@ public class Culture {
 
 	private void readCultureFile(String cultureName) throws Exception {
 		int lineIndex = 0;
-		String cultureFile = RolemasterFolderStructure.searchDirectoryModule(CultureFactory.CULTURE_FOLDER
+		String cultureFile = RolemasterFolderStructure.getDirectoryModule(CultureFactory.CULTURE_FOLDER
 				+ File.separator + cultureName + ".txt");
 		if (cultureFile.length() > 0) {
 			List<String> lines = Folder.readFileLines(cultureFile, false);
