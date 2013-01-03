@@ -53,7 +53,7 @@ public class Profession {
 	private Hashtable<String, Integer> categoriesBonus;
 	private Hashtable<String, Integer> skillBonus;
 	private List<Characteristic> characteristicPreferences;
-	private List<RealmOfMagic> magicRealmsAvailable;
+	private List<ProfessionalRealmsOfMagicOptions> magicRealmsAvailable;
 	private List<CategoryCost> weaponCategoryCost;
 	private Hashtable<String, CategoryCost> categoryCost;
 	private List<ChooseSkillGroup> commonSkillsToChoose;
@@ -156,13 +156,9 @@ public class Profession {
 				String realmLine = lines.get(index);
 				String[] realmsColumns = realmLine.split(", ");
 				for (String realms : realmsColumns) {
-					RealmOfMagic realmType = RealmOfMagic.getMagicRealm(realms);
-					if (realmType != null) {
-						magicRealmsAvailable.add(realmType);
-					} else {
-						ShowMessage.showErrorMessage("Problemas con el reino de magia " + lines.get(index)
-								+ " mostrada en el archivo " + name + ".txt.", "Leer Profesion");
-					}
+					ProfessionalRealmsOfMagicOptions realmMagicOptions = new ProfessionalRealmsOfMagicOptions();
+					realmMagicOptions.add(realms, name);
+					magicRealmsAvailable.add(realmMagicOptions);				
 				}
 			} catch (Exception e) {
 				ShowMessage.showErrorMessage("Problemas con el reino de magia " + lines.get(index)
@@ -394,7 +390,7 @@ public class Profession {
 		return name;
 	}
 
-	public List<RealmOfMagic> getMagicRealmsAvailable() {
+	public List<ProfessionalRealmsOfMagicOptions> getMagicRealmsAvailable() {
 		return magicRealmsAvailable;
 	}
 

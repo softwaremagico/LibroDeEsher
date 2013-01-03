@@ -25,12 +25,19 @@ package com.softwaremagico.librodeesher.gui.style;
  */
 
 import java.awt.Color;
+import java.awt.Frame;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.border.Border;
+
+import com.softwaremagico.librodeesher.config.Config;
 
 public abstract class BaseFrame extends JFrame {
 	private static final String FRAME_TITLE = "El Libro de Esher";
@@ -51,6 +58,10 @@ public abstract class BaseFrame extends JFrame {
 		setTitle(FRAME_TITLE);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setIconImage(new ImageIcon(this.getClass().getResource("/librodeesher.png")).getImage());
+		if (Config.isMaximized()) {
+			this.setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		}
+		addWindowStateListener(listener);
 	}
 
 	protected void defineWindow(Integer width, Integer height) {
@@ -63,7 +74,22 @@ public abstract class BaseFrame extends JFrame {
 	public Border getBorder() {
 		return border;
 	}
-	
+
 	public abstract void update();
+
+	WindowStateListener listener = new WindowAdapter() {
+		public void windowStateChanged(WindowEvent evt) {
+			int oldState = evt.getOldState();
+			int newState = evt.getNewState();
+
+			if ((oldState & Frame.MAXIMIZED_BOTH) == 0 && (newState & Frame.MAXIMIZED_BOTH) != 0) {
+				// Frame was maximized
+				Config.setMaximized(true);
+			} else if ((oldState & Frame.MAXIMIZED_BOTH) != 0 && (newState & Frame.MAXIMIZED_BOTH) == 0) {
+				// Frame was minimized
+				Config.setMaximized(false);
+			}
+		}
+	};
 
 }

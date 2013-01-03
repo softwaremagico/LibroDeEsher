@@ -71,27 +71,13 @@ public class Skill {
 		case SPECIAL:
 			return getCategory().getSkillRankValues(ranksNumber);
 		case PPD:
-			if (character.getRealmOfMagic().equals(RealmOfMagic.ESSENCE)) {
-				return getCategory().getSkillRankValues(
-						ranksNumber,
-						character.getRace().getProgressionRankValues(
-								ProgressionCostType.ESSENCE_POWER_DEVELOPMENT));
-			} else if (character.getRealmOfMagic().equals(RealmOfMagic.CANALIZATION)) {
-				return getCategory().getSkillRankValues(
-						ranksNumber,
-						character.getRace().getProgressionRankValues(
-								ProgressionCostType.CANALIZATION_POWER_DEVELOPMENT));
-			} else if (character.getRealmOfMagic().equals(RealmOfMagic.MENTALISM)) {
-				return getCategory().getSkillRankValues(
-						ranksNumber,
-						character.getRace().getProgressionRankValues(
-								ProgressionCostType.MENTALISM_POWER_DEVELOPMENT));
-			} else if (character.getRealmOfMagic().equals(RealmOfMagic.PSIONIC)) {
-				return getCategory().getSkillRankValues(
-						ranksNumber,
-						character.getRace().getProgressionRankValues(
-								ProgressionCostType.PSIONIC_POWER_DEVELOPMENT));
+			Integer total = 0;
+			for (RealmOfMagic realm : character.getProfessionalRealmsOfMagicChoosen().getRealmsOfMagic()) {
+				ProgressionCostType progressionValue = ProgressionCostType.getProgressionCostType(realm);
+				total += getCategory().getSkillRankValues(ranksNumber,
+						character.getRace().getProgressionRankValues(progressionValue));
 			}
+			return total / character.getProfessionalRealmsOfMagicChoosen().getRealmsOfMagic().size();
 		case FD:
 			return getCategory().getSkillRankValues(ranksNumber,
 					character.getRace().getProgressionRankValues(ProgressionCostType.PHYSICAL_DEVELOPMENT));

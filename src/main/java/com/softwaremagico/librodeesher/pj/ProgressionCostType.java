@@ -1,4 +1,7 @@
 package com.softwaremagico.librodeesher.pj;
+
+import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
+
 /*
  * #%L
  * Libro de Esher
@@ -24,9 +27,12 @@ package com.softwaremagico.librodeesher.pj;
  */
 
 public enum ProgressionCostType {
-	PHYSICAL_DEVELOPMENT("Desarrollo Físico"), ARCANUM_POWER_DEVELOPMENT("PP Arcano"), CANALIZATION_POWER_DEVELOPMENT(
-			"PP Canalización"), ESSENCE_POWER_DEVELOPMENT("PP Esencia"), MENTALISM_POWER_DEVELOPMENT(
-			"PP Mentalismo"), PSIONIC_POWER_DEVELOPMENT("PP Psiónico");
+	PHYSICAL_DEVELOPMENT("Desarrollo Físico"),
+	ARCANUM_POWER_DEVELOPMENT("PP Arcano"),
+	CANALIZATION_POWER_DEVELOPMENT("PP Canalización"),
+	ESSENCE_POWER_DEVELOPMENT("PP Esencia"),
+	MENTALISM_POWER_DEVELOPMENT("PP Mentalismo"),
+	PSIONIC_POWER_DEVELOPMENT("PP Psiónico");
 
 	private String tag;
 
@@ -41,5 +47,20 @@ public enum ProgressionCostType {
 			}
 		}
 		return null;
+	}
+
+	public static ProgressionCostType getProgressionCostType(RealmOfMagic realm) {
+		switch (realm) {
+		case ESSENCE:
+			return ESSENCE_POWER_DEVELOPMENT;
+		case CANALIZATION:
+			return CANALIZATION_POWER_DEVELOPMENT;
+		case MENTALISM:
+			return MENTALISM_POWER_DEVELOPMENT;
+		case PSIONIC:
+			return PSIONIC_POWER_DEVELOPMENT;
+		default:
+			return null;
+		}
 	}
 }

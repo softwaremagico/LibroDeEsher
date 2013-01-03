@@ -45,6 +45,7 @@ import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.profession.Profession;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionDecisions;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
+import com.softwaremagico.librodeesher.pj.profession.ProfessionalRealmsOfMagicOptions;
 import com.softwaremagico.librodeesher.pj.race.Race;
 import com.softwaremagico.librodeesher.pj.race.RaceDecisions;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
@@ -79,7 +80,7 @@ public class CharacterPlayer {
 	private List<String> trainingsNames;
 	private transient List<Training> trainings;
 	private Resistances resistances;
-	private RealmOfMagic realmOfMagic;
+	private ProfessionalRealmsOfMagicOptions realmOfMagic;
 	private MagicSpellLists magicSpellLists;
 
 	private List<LevelUp> levelUps;
@@ -155,12 +156,20 @@ public class CharacterPlayer {
 		return 0;
 	}
 
+	public Integer getBonusCharacteristicOfRealmOfMagic() {
+		Integer total = 0;
+		for (RealmOfMagic realm : realmOfMagic.getRealmsOfMagic()) {
+			total += getCharacteristicTotalBonus(realm.getCharacteristic());
+		}
+		return total / realmOfMagic.getRealmsOfMagic().size();
+	}
+
 	public Integer getCharacteristicTotalBonus(String abbreviature) {
 		if (abbreviature.toLowerCase().contains("ningu")) {
 			return 0;
 		}
 		if (abbreviature.toLowerCase().contains("*")) {
-			return getCharacteristicTotalBonus(realmOfMagic.getCharacteristic());
+			return getBonusCharacteristicOfRealmOfMagic();
 		}
 		return getCharacteristicTemporalBonus(abbreviature) + getCharacteristicRaceBonus(abbreviature)
 				+ getCharacteristicSpecialBonus(abbreviature);
@@ -214,7 +223,7 @@ public class CharacterPlayer {
 		return race;
 	}
 
-	public RealmOfMagic getRealmOfMagic() {
+	public ProfessionalRealmsOfMagicOptions getProfessionalRealmsOfMagicChoosen() {
 		return realmOfMagic;
 	}
 
@@ -354,7 +363,7 @@ public class CharacterPlayer {
 		this.raceName = raceName;
 	}
 
-	public void setRealmOfMagic(RealmOfMagic realmOfMagic) {
+	public void setRealmOfMagic(ProfessionalRealmsOfMagicOptions realmOfMagic) {
 		this.realmOfMagic = realmOfMagic;
 	}
 

@@ -1,5 +1,6 @@
 package com.softwaremagico.librodeesher.pj.magic;
 
+
 /*
  * #%L
  * Libro de Esher
@@ -53,7 +54,9 @@ public enum RealmOfMagic {
 		return null;
 	}
 
+	@Override
 	public String toString() {
 		return getName();
 	}
+
 }

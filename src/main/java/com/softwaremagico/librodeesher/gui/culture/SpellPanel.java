@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.culture;
+
 /*
  * #%L
  * Libro de Esher
@@ -41,16 +42,16 @@ public class SpellPanel extends CulturePanel {
 	protected void createElements() {
 		int i = 0;
 
-		if(character.getCulture().getSpellRanks() != 0){
-		List<String> spellLists = MagicFactory.getListOfProfession(character.getRealmOfMagic(),
-				"Lista Abierta");
+		if (character.getCulture().getSpellRanks() != 0) {
+			List<String> spellLists = MagicFactory.getListOfProfession(character.getProfessionalRealmsOfMagicChoosen()
+					.getRealmsOfMagic(), "Lista Abierta");
 
-		for (String spell : spellLists) {
-			SpellLine hobbyLine = new SpellLine(character, spell, this, getLineBackgroundColor(i));
-			add(hobbyLine);
-			hobbyLines.add(hobbyLine);
-			i++;
-		}
+			for (String spell : spellLists) {
+				SpellLine hobbyLine = new SpellLine(character, spell, this, getLineBackgroundColor(i));
+				add(hobbyLine);
+				hobbyLines.add(hobbyLine);
+				i++;
+			}
 		}
 	}
 

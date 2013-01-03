@@ -40,6 +40,7 @@ import com.softwaremagico.librodeesher.gui.elements.DevelopmentTextField;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
+import com.softwaremagico.librodeesher.pj.profession.ProfessionalRealmsOfMagicOptions;
 
 public class CharacterLevelPanel extends BasePanel {
 
@@ -49,7 +50,7 @@ public class CharacterLevelPanel extends BasePanel {
 	private JLabel magicLabel;
 	private DevelopmentTextField developmentTextField;
 	private JTextField levelTextField;
-	private JComboBox<RealmOfMagic> magicComboBox;
+	private JComboBox<ProfessionalRealmsOfMagicOptions> magicComboBox;
 	private CharacterPlayer character;
 	private boolean updatingMagic = false;
 
@@ -135,14 +136,15 @@ public class CharacterLevelPanel extends BasePanel {
 		if (magicComboBox != null) {
 			magicComboBox.removeAllItems();
 			if (character != null && character.getProfession() != null) {
-				List<RealmOfMagic> magicRealms = character.getProfession().getMagicRealmsAvailable();
-				Collections.sort(magicRealms);
-				for (RealmOfMagic magicRealm : magicRealms) {
+				List<ProfessionalRealmsOfMagicOptions> magicRealms = character.getProfession()
+						.getMagicRealmsAvailable();
+
+				for (ProfessionalRealmsOfMagicOptions magicRealm : magicRealms) {
 					magicComboBox.addItem(magicRealm);
 				}
-				if (character.getRealmOfMagic() != null) {
-					magicComboBox.setSelectedItem(character.getRealmOfMagic());
-					if (getSelectedRealmOfMagic() != character.getRealmOfMagic()) {
+				if (character.getProfessionalRealmsOfMagicChoosen() != null) {
+					magicComboBox.setSelectedItem(character.getProfessionalRealmsOfMagicChoosen());
+					if (getSelectedRealmOfMagic() != character.getProfessionalRealmsOfMagicChoosen()) {
 						updateRealmOfMagic();
 					}
 				}
@@ -190,9 +192,9 @@ public class CharacterLevelPanel extends BasePanel {
 		magicComboBox.setEnabled(!character.areCharacteristicsConfirmed());
 	}
 
-	public RealmOfMagic getSelectedRealmOfMagic() {
+	public ProfessionalRealmsOfMagicOptions getSelectedRealmOfMagic() {
 		if (magicComboBox != null) {
-			return (RealmOfMagic) magicComboBox.getSelectedItem();
+			return (ProfessionalRealmsOfMagicOptions) magicComboBox.getSelectedItem();
 		}
 		return null;
 	}

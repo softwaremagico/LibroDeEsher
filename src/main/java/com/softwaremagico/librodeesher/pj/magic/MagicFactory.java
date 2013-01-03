@@ -49,38 +49,51 @@ public class MagicFactory {
 		readSpellsFromFiles();
 	}
 
-	public static List<String> getListOfProfession(RealmOfMagic realm, String profession) {
+	public static List<String> getListOfProfession(List<RealmOfMagic> realmsOfMagic, String profession) {
 		if (profession == null) {
 			return null;
 		}
-		List<String> spells = spellsByGroup.get(realm).get(profession);
-		if (spells == null) {
-			// No spells found. If it has only one realm it is a wizard and must
-			// have spells.
-			if (!profession.equals(OPEN_LIST_TAG) && !profession.equals(CLOSED_LIST_TAG) && !profession.equals(ELEMENTALIST_PROFESSION)
-					&& ProfessionFactory.getProfession(profession).getMagicRealmsAvailable().size() < 2) {
-				ShowMessage
-						.showErrorMessage("No existen listas de hechizos para " + profession, "Leer Magia");
+
+		List<String> allRealmSpells = new ArrayList<>();
+		List<String> spells = null;
+		// Add all spells of all realms if it is a hybrid wizard.
+		for (RealmOfMagic realm : realmsOfMagic) {
+			spells = spellsByGroup.get(realm).get(profession);
+
+			if (spells == null) {
+				// No spells found. If it has only one realm it is a wizard and
+				// must
+				// have spells.
+				if (!profession.equals(OPEN_LIST_TAG) && !profession.equals(CLOSED_LIST_TAG)
+						&& !profession.equals(ELEMENTALIST_PROFESSION)
+						&& ProfessionFactory.getProfession(profession).getMagicRealmsAvailable().size() < 2) {
+					ShowMessage.showErrorMessage("No existen listas de hechizos para " + profession,
+							"Leer Magia");
+				}
+			} else {
+				allRealmSpells.addAll(spells);
 			}
 		}
-		return spells;
+		return allRealmSpells;
 	}
 
-	public static List<String> getListOfOtherProfessions(RealmOfMagic realm, String currentProfession,
-			boolean includeElementalist) {
+	public static List<String> getListOfOtherProfessions(List<RealmOfMagic> realmsOfMagic,
+			String currentProfession, boolean includeElementalist) {
 		List<String> lists = new ArrayList<String>();
-		List<String> ownProfessionLists = getListOfProfession(realm, currentProfession);
-		for (String profession : spellsByGroup.get(realm).keySet()) {
-			if (!profession.equals(OPEN_LIST_TAG)
-					&& !profession.equals(CLOSED_LIST_TAG)
-					&& !profession.equals(currentProfession)
-					// It is a profession, not a training (except elementalist).
-					&& (ProfessionFactory.availableProfessions().contains(profession) || (includeElementalist && isElementalistTraining(profession)))) {
-				List<String> otherProfessionList = spellsByGroup.get(realm).get(profession);
-				// Avoid to add list shared with other professions.
-				for (String spellList : otherProfessionList) {
-					if (ownProfessionLists == null || !ownProfessionLists.contains(spellList)) {
-						lists.add(spellList);
+		List<String> ownProfessionLists = getListOfProfession(realmsOfMagic, currentProfession);
+		for (RealmOfMagic realm : realmsOfMagic) {
+			for (String profession : spellsByGroup.get(realm).keySet()) {
+				if (!profession.equals(OPEN_LIST_TAG) && !profession.equals(CLOSED_LIST_TAG)
+						&& !profession.equals(currentProfession)
+						// It is a profession, not a training (except
+						// elementalist).
+						&& (ProfessionFactory.availableProfessions().contains(profession) || (includeElementalist && isElementalistTraining(profession)))) {
+					List<String> otherProfessionList = spellsByGroup.get(realm).get(profession);
+					// Avoid to add list shared with other professions.
+					for (String spellList : otherProfessionList) {
+						if (ownProfessionLists == null || !ownProfessionLists.contains(spellList)) {
+							lists.add(spellList);
+						}
 					}
 				}
 			}
@@ -88,20 +101,21 @@ public class MagicFactory {
 		return lists;
 	}
 
-	public static List<String> getListOfOtherProfessionsOtherRealm(RealmOfMagic realm,
+	public static List<String> getListOfOtherProfessionsOtherRealm(List<RealmOfMagic> realmsOfMagic,
 			String currentProfession, boolean includeElementalist) {
 		List<String> lists = new ArrayList<String>();
-		List<String> ownProfessionLists = getListOfProfession(realm, currentProfession);
+		List<String> ownProfessionLists = getListOfProfession(realmsOfMagic, currentProfession);
 		try {
 			for (RealmOfMagic otherRealm : RealmOfMagic.values()) {
-				if (!otherRealm.equals(realm)) {
-					for (String profession : spellsByGroup.get(realm).keySet()) {
+				if (!realmsOfMagic.contains(otherRealm)) {
+					for (String profession : spellsByGroup.get(realmsOfMagic).keySet()) {
 						if (!profession.equals(OPEN_LIST_TAG)
 								&& !profession.equals(CLOSED_LIST_TAG)
 								&& !profession.equals(currentProfession)
 								// It is a profession, not a training
 								&& (ProfessionFactory.availableProfessions().contains(profession) || (includeElementalist && isElementalistTraining(profession)))) {
-							List<String> otherProfessionList = spellsByGroup.get(realm).get(profession);
+							List<String> otherProfessionList = spellsByGroup.get(realmsOfMagic).get(
+									profession);
 							// Avoid to add list shared with other professions.
 							for (String spellList : otherProfessionList) {
 								if (ownProfessionLists == null || !ownProfessionLists.contains(spellList)) {
@@ -117,7 +131,7 @@ public class MagicFactory {
 		return lists;
 	}
 
-	public static List<String> getListOfOwnTriad(List<String> trainings) {
+	public static List<String> getListOfOwnTriad(List<RealmOfMagic> realmsOfMagic, List<String> trainings) {
 		List<String> lists = new ArrayList<String>();
 		String trainingName = getElementalistTraining(trainings);
 		if (trainingName != null) {
@@ -126,13 +140,13 @@ public class MagicFactory {
 			// Get other trainings spells
 			List<String> otherTrainings = Triad.getSameTriadTrainings(element, trainingName.toLowerCase());
 			for (String otherTraining : otherTrainings) {
-				lists.addAll(getListOfProfession(RealmOfMagic.ESSENCE, otherTraining));
+				lists.addAll(getListOfProfession(realmsOfMagic, otherTraining));
 			}
 		}
 		return lists;
 	}
 
-	public static List<String> getListOfOtherTriad(List<String> trainings) {
+	public static List<String> getListOfOtherTriad(List<RealmOfMagic> realmsOfMagic, List<String> trainings) {
 		List<String> lists = new ArrayList<String>();
 		String trainingName = getElementalistTraining(trainings);
 		if (trainingName != null) {
@@ -141,7 +155,7 @@ public class MagicFactory {
 			// Get other trainings spells
 			List<String> otherTrainings = Triad.getOtherTriadTrainings(element, trainingName.toLowerCase());
 			for (String otherTraining : otherTrainings) {
-				lists.addAll(getListOfProfession(RealmOfMagic.ESSENCE, otherTraining));
+				lists.addAll(getListOfProfession(realmsOfMagic, otherTraining));
 			}
 		}
 		return lists;
@@ -160,41 +174,29 @@ public class MagicFactory {
 		return null;
 	}
 
-	public static List<String> getOpenLists(RealmOfMagic realm) {
-		return getListOfProfession(realm, OPEN_LIST_TAG);
+	public static List<String> getOpenLists(List<RealmOfMagic> realmsOfMagic) {
+		return getListOfProfession(realmsOfMagic, OPEN_LIST_TAG);
 	}
 
 	public static List<String> getArchanumOpenLists() {
-		return getListOfProfession(RealmOfMagic.ARCHANUM, OPEN_LIST_TAG);
+		List<RealmOfMagic> realmsOfMagic = new ArrayList<RealmOfMagic>();
+		realmsOfMagic.add(RealmOfMagic.ARCHANUM);
+		return getListOfProfession(realmsOfMagic, OPEN_LIST_TAG);
 	}
 
-	public static List<String> getOtherRealmOpenLists(RealmOfMagic realm) {
-		List<String> lists = new ArrayList<String>();
-		for (RealmOfMagic otherRealm : RealmOfMagic.values()) {
-			if (!otherRealm.equals(realm)) {
-				List<String> newLists = getListOfProfession(otherRealm, OPEN_LIST_TAG);
-				if (newLists != null) {
-					lists.addAll(newLists);
-				}
-			}
-		}
+	public static List<String> getOtherRealmOpenLists(List<RealmOfMagic> realmsOfMagic) {
+		List<RealmOfMagic> otherRealms = getOtherRealms(realmsOfMagic);
+		List<String> lists = getListOfProfession(otherRealms, OPEN_LIST_TAG);
 		return lists;
 	}
 
-	public static List<String> getClosedLists(RealmOfMagic realm) {
-		return getListOfProfession(realm, CLOSED_LIST_TAG);
+	public static List<String> getClosedLists(List<RealmOfMagic> realms) {
+		return getListOfProfession(realms, CLOSED_LIST_TAG);
 	}
 
-	public static List<String> getOtherRealmClosedLists(RealmOfMagic realm) {
-		List<String> lists = new ArrayList<String>();
-		for (RealmOfMagic otherRealm : RealmOfMagic.values()) {
-			if (!otherRealm.equals(realm)) {
-				List<String> newLists = getListOfProfession(otherRealm, CLOSED_LIST_TAG);
-				if (newLists != null) {
-					lists.addAll(newLists);
-				}
-			}
-		}
+	public static List<String> getOtherRealmClosedLists(List<RealmOfMagic> realmsOfMagic) {
+		List<RealmOfMagic> otherRealms = getOtherRealms(realmsOfMagic);
+		List<String> lists = getListOfProfession(otherRealms, CLOSED_LIST_TAG);
 		return lists;
 	}
 
@@ -232,6 +234,16 @@ public class MagicFactory {
 			List<String> lines = RolemasterFolderStructure.getSpellLines(realm.getName() + ".txt");
 			getSpellsFromLines(lines, realm);
 		}
+	}
+
+	private static List<RealmOfMagic> getOtherRealms(List<RealmOfMagic> realmsOfMagic) {
+		List<RealmOfMagic> otherRealms = new ArrayList<>();
+		for (RealmOfMagic realm : RealmOfMagic.values()) {
+			if (!realmsOfMagic.contains(realm) && !realm.equals(RealmOfMagic.ARCHANUM)) {
+				otherRealms.add(realm);
+			}
+		}
+		return otherRealms;
 	}
 
 }
