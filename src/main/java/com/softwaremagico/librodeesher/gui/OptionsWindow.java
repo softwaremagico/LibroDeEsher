@@ -31,11 +31,12 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class OptionsWindow extends BaseFrame {
 	private static final long serialVersionUID = -8015912539177057288L;
-	private static final String FIREARMS_CHECKBOX_TEXT = "Permitir habilidades de armas de fuego";
-	private static final String DARKSPELLS_CHECKBOX_TEXT = "Permitir el uso de listas de hechizos malignas como básicas";
-	private static final String CHI_POWERS_TEXT = "Permitir el uso de poderes Chi";
+	private static final String FIREARMS_CHECKBOX_TEXT = "Permitir habilidades de armas de fuego.";
+	private static final String DARKSPELLS_CHECKBOX_TEXT = "Permitir el uso de listas de hechizos malignas como básicas.";
+	private static final String CHI_POWERS_TEXT = "Permitir el uso de poderes Chi.";
+	private static final String OTHER_TRAINING_SPELLS = "Permitir el uso de listas de adiestramientos de otros reinos.";
 	private CharacterPlayer character;
-	private JCheckBox fireArmsMenuItem, darkSpellsMenuItem, chiPowers;
+	private JCheckBox fireArmsMenuItem, darkSpellsMenuItem, chiPowers, trainingOtherRealms;
 	private boolean updatingState = false;
 	private JSpinner categoryMax;
 
@@ -44,13 +45,15 @@ public class OptionsWindow extends BaseFrame {
 		defineWindow(500, 250);
 		setElements();
 		setCurrentCharacterConfig();
+		setResizable(false);
 	}
 
 	private void setCurrentCharacterConfig() {
 		updatingState = true;
 		fireArmsMenuItem.setSelected(character.isFirearmsActivated());
-		darkSpellsMenuItem.setSelected(character.isDarkSpellsAsBasicLists());
-		chiPowers.setSelected(character.isChiPowers());
+		darkSpellsMenuItem.setSelected(character.isDarkSpellsAsBasicListsAllowed());
+		chiPowers.setSelected(character.isChiPowersAllowed());
+		trainingOtherRealms.setSelected(character.isOtherRealmtrainingSpellsAllowed());
 		updatingState = false;
 	}
 
@@ -76,6 +79,10 @@ public class OptionsWindow extends BaseFrame {
 		chiPowers.addActionListener(checkboxListener);
 		characterPanel.add(chiPowers);
 
+		trainingOtherRealms = new JCheckBox(OTHER_TRAINING_SPELLS);
+		trainingOtherRealms.addActionListener(checkboxListener);
+		characterPanel.add(trainingOtherRealms);
+
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
@@ -99,7 +106,12 @@ public class OptionsWindow extends BaseFrame {
 		JLabel maxCategoryLabel = new JLabel(" Ocultar categorías con un coste superior a: ");
 		maxCategoryRanks.add(maxCategoryLabel);
 
-		SpinnerModel sm = new SpinnerNumberModel((int) Config.getCategoryMaxCost(), 0, 999, 1);
+		SpinnerModel sm;
+		try {
+			sm = new SpinnerNumberModel((int) Config.getCategoryMaxCost(), 5, 999, 1);
+		} catch (IllegalArgumentException iae) {
+			sm = new SpinnerNumberModel(50, 5, 999, 1);
+		}
 		categoryMax = new JSpinner(sm);
 		addRankSpinnerEvent();
 		categoryMax.setMaximumSize(new Dimension(70, 25));
@@ -117,8 +129,7 @@ public class OptionsWindow extends BaseFrame {
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		getContentPane().add(globalOptionsPanel, gridBagConstraints);
-		
-		
+
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
 		buttonPanel.add(new JPanel());
 		buttonPanel.add(new JPanel());
@@ -126,8 +137,6 @@ public class OptionsWindow extends BaseFrame {
 		CloseButton closeButton = new CloseButton(this);
 		buttonPanel.add(closeButton);
 
-		
-		
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 2;
 		gridBagConstraints.gridy = 2;
@@ -149,11 +158,14 @@ public class OptionsWindow extends BaseFrame {
 					character.setFirearmsActivated(fireArmsMenuItem.isSelected());
 					Config.setFireArmsActivated(fireArmsMenuItem.isSelected());
 				} else if (e.getActionCommand().equals(DARKSPELLS_CHECKBOX_TEXT)) {
-					character.setDarkSpellsAsBasicLists(darkSpellsMenuItem.isSelected());
+					character.setDarkSpellsAsBasicListsAllowed(darkSpellsMenuItem.isSelected());
 					Config.setDarkSpellsAsBasic(darkSpellsMenuItem.isSelected());
 				} else if (e.getActionCommand().equals(CHI_POWERS_TEXT)) {
-					character.setChiPowers(chiPowers.isSelected());
+					character.setChiPowersAllowed(chiPowers.isSelected());
 					Config.setChiPowersAllowed(chiPowers.isSelected());
+				} else if (e.getActionCommand().equals(OTHER_TRAINING_SPELLS)) {
+					character.setOtherRealmtrainingSpellsAllowed(trainingOtherRealms.isSelected());
+					Config.setOtherRealmtrainingSpells(trainingOtherRealms.isSelected());
 				}
 			}
 		}

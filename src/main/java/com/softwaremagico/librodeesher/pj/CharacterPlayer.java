@@ -86,9 +86,10 @@ public class CharacterPlayer {
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
 	private MagicSpellLists magicSpellLists;
 
-	private boolean darkSpellsAsBasicLists = false;
+	private boolean darkSpellsAsBasicListsAllowed = false;
 	private boolean firearmsActivated = false;
-	private boolean chiPowers = false;
+	private boolean chiPowersAllowed = false;
+	private boolean otherRealmtrainingSpellsAllowed = false;
 
 	private List<LevelUp> levelUps;
 
@@ -114,9 +115,9 @@ public class CharacterPlayer {
 	 * When a new character is created, it uses this default config options.
 	 */
 	private void setDefaultConfig() {
-		darkSpellsAsBasicLists = Config.getDarkSpellsAsBasic();
+		darkSpellsAsBasicListsAllowed = Config.getDarkSpellsAsBasic();
 		firearmsActivated = Config.getFireArmsActivated();
-		chiPowers = Config.getChiPowersAllowed();
+		chiPowersAllowed = Config.getChiPowersAllowed();
 	}
 
 	public RaceDecisions getRaceDecisions() {
@@ -572,11 +573,14 @@ public class CharacterPlayer {
 		if (getNewRankCost(category, 0, 0) > Config.getCategoryMaxCost()) {
 			return false;
 		}
+		if(category.getName().equals("Listas Hechizos de Adiestramientos de Otros Reinos") && !isOtherRealmtrainingSpellsAllowed()){
+			return false;
+		}
 		return true;
 	}
 
 	public boolean isSkillUseful(Skill skill) {
-		if(skill.getName().startsWith(CHI_SUFIX) && !chiPowers){
+		if(skill.getName().startsWith(CHI_SUFIX) && !isChiPowersAllowed()){
 			return false;
 		}
 		return true;
@@ -593,12 +597,12 @@ public class CharacterPlayer {
 		return trainingsNames;
 	}
 
-	public boolean isDarkSpellsAsBasicLists() {
-		return darkSpellsAsBasicLists;
+	public boolean isDarkSpellsAsBasicListsAllowed() {
+		return darkSpellsAsBasicListsAllowed;
 	}
 
-	public void setDarkSpellsAsBasicLists(boolean darkSpellsAsBasicLists) {
-		this.darkSpellsAsBasicLists = darkSpellsAsBasicLists;
+	public void setDarkSpellsAsBasicListsAllowed(boolean darkSpellsAsBasicLists) {
+		this.darkSpellsAsBasicListsAllowed = darkSpellsAsBasicLists;
 	}
 
 	public boolean isFirearmsActivated() {
@@ -609,11 +613,19 @@ public class CharacterPlayer {
 		this.firearmsActivated = firearmsActivated;
 	}
 
-	public boolean isChiPowers() {
-		return chiPowers;
+	public boolean isChiPowersAllowed() {
+		return chiPowersAllowed;
 	}
 
-	public void setChiPowers(boolean chiPowers) {
-		this.chiPowers = chiPowers;
+	public void setChiPowersAllowed(boolean chiPowersAllowed) {
+		this.chiPowersAllowed = chiPowersAllowed;
+	}
+
+	public boolean isOtherRealmtrainingSpellsAllowed() {
+		return otherRealmtrainingSpellsAllowed;
+	}
+
+	public void setOtherRealmtrainingSpellsAllowed(boolean otherRealmtrainingSpells) {
+		this.otherRealmtrainingSpellsAllowed = otherRealmtrainingSpells;
 	}
 }

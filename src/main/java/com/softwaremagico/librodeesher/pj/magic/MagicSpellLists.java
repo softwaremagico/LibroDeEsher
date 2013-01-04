@@ -57,7 +57,7 @@ public class MagicSpellLists {
 		basicSpells.addAll(MagicFactory.getListOfProfession(character.getProfessionalRealmsOfMagicChoosen()
 				.getRealmsOfMagic(), character.getProfession().getName()));
 		// Dark spells can be basic lists.
-		if (character.isDarkSpellsAsBasicLists()) {
+		if (character.isDarkSpellsAsBasicListsAllowed()) {
 			List<String> darklistList = MagicFactory.getDarkLists(character
 					.getProfessionalRealmsOfMagicChoosen().getRealmsOfMagic());
 			if (darklistList != null) {
