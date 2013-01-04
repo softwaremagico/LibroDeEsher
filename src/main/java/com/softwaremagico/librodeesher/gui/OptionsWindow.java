@@ -50,7 +50,7 @@ public class OptionsWindow extends BaseFrame {
 
 	private void setCurrentCharacterConfig() {
 		updatingState = true;
-		fireArmsMenuItem.setSelected(character.isFirearmsActivated());
+		fireArmsMenuItem.setSelected(character.isFirearmsAllowed());
 		darkSpellsMenuItem.setSelected(character.isDarkSpellsAsBasicListsAllowed());
 		chiPowers.setSelected(character.isChiPowersAllowed());
 		trainingOtherRealms.setSelected(character.isOtherRealmtrainingSpellsAllowed());
@@ -130,7 +130,8 @@ public class OptionsWindow extends BaseFrame {
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		getContentPane().add(globalOptionsPanel, gridBagConstraints);
 
-		JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
+		JPanel buttonPanel = new JPanel(new GridLayout(1, 4));
+		buttonPanel.add(new JPanel());
 		buttonPanel.add(new JPanel());
 		buttonPanel.add(new JPanel());
 
@@ -155,7 +156,7 @@ public class OptionsWindow extends BaseFrame {
 		public void actionPerformed(ActionEvent e) {
 			if (!updatingState) {
 				if (e.getActionCommand().equals(FIREARMS_CHECKBOX_TEXT)) {
-					character.setFirearmsActivated(fireArmsMenuItem.isSelected());
+					character.setFirearmsAllowed(fireArmsMenuItem.isSelected());
 					Config.setFireArmsActivated(fireArmsMenuItem.isSelected());
 				} else if (e.getActionCommand().equals(DARKSPELLS_CHECKBOX_TEXT)) {
 					character.setDarkSpellsAsBasicListsAllowed(darkSpellsMenuItem.isSelected());

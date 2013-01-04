@@ -54,12 +54,12 @@ import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.resistance.Resistances;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
+import com.softwaremagico.librodeesher.pj.skills.SkillGroup;
 import com.softwaremagico.librodeesher.pj.training.Training;
 
 public class CharacterPlayer {
 
 	private static final String FIREARMS_SUFIX = "Fuego";
-	private static final String CHI_SUFIX = "Poderes Chi:";
 	private static final String DEFAULT_NAME = " ** Nuevo Personaje ** ";
 	private static final Integer STORED_ROLLS_NUMBER = 10;
 	private String name;
@@ -87,7 +87,7 @@ public class CharacterPlayer {
 	private MagicSpellLists magicSpellLists;
 
 	private boolean darkSpellsAsBasicListsAllowed = false;
-	private boolean firearmsActivated = false;
+	private boolean firearmsAllowed = false;
 	private boolean chiPowersAllowed = false;
 	private boolean otherRealmtrainingSpellsAllowed = false;
 
@@ -116,8 +116,9 @@ public class CharacterPlayer {
 	 */
 	private void setDefaultConfig() {
 		darkSpellsAsBasicListsAllowed = Config.getDarkSpellsAsBasic();
-		firearmsActivated = Config.getFireArmsActivated();
+		firearmsAllowed = Config.getFireArmsActivated();
 		chiPowersAllowed = Config.getChiPowersAllowed();
+		otherRealmtrainingSpellsAllowed = Config.getOtherRealmtrainingSpells();
 	}
 
 	public RaceDecisions getRaceDecisions() {
@@ -564,7 +565,7 @@ public class CharacterPlayer {
 		// Weapons always are useful. We need to define the rank cost.
 		if (category.getGroup().equals(CategoryGroup.WEAPON)) {
 			// Firearms only if activated
-			if (!firearmsActivated && category.getName().contains(FIREARMS_SUFIX)) {
+			if (!firearmsAllowed && category.getName().contains(FIREARMS_SUFIX)) {
 				return false;
 			}
 			return true;
@@ -573,14 +574,18 @@ public class CharacterPlayer {
 		if (getNewRankCost(category, 0, 0) > Config.getCategoryMaxCost()) {
 			return false;
 		}
-		if(category.getName().equals("Listas Hechizos de Adiestramientos de Otros Reinos") && !isOtherRealmtrainingSpellsAllowed()){
+		if (category.getName().equals("Listas Hechizos de Adiestramientos de Otros Reinos")
+				&& !isOtherRealmtrainingSpellsAllowed()) {
 			return false;
 		}
 		return true;
 	}
 
 	public boolean isSkillUseful(Skill skill) {
-		if(skill.getName().startsWith(CHI_SUFIX) && !isChiPowersAllowed()){
+		if (skill.getGroup().equals(SkillGroup.CHI) && !isChiPowersAllowed()) {
+			return false;
+		}
+		if (skill.getGroup().equals(SkillGroup.FIREARM) && !isFirearmsAllowed()) {
 			return false;
 		}
 		return true;
@@ -605,12 +610,12 @@ public class CharacterPlayer {
 		this.darkSpellsAsBasicListsAllowed = darkSpellsAsBasicLists;
 	}
 
-	public boolean isFirearmsActivated() {
-		return firearmsActivated;
+	public boolean isFirearmsAllowed() {
+		return firearmsAllowed;
 	}
 
-	public void setFirearmsActivated(boolean firearmsActivated) {
-		this.firearmsActivated = firearmsActivated;
+	public void setFirearmsAllowed(boolean firearmsActivated) {
+		this.firearmsAllowed = firearmsActivated;
 	}
 
 	public boolean isChiPowersAllowed() {

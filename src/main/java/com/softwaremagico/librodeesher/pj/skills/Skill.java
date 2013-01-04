@@ -38,6 +38,7 @@ public class Skill {
 	private List<String> specialities; // A skill can have some specializations.
 	private SkillType type;
 	private Category category;
+	private SkillGroup group;
 
 	public Skill(String name, SkillType type) {
 		this.type = type;
@@ -45,6 +46,16 @@ public class Skill {
 		String specialityPattern = Pattern.quote("[");
 		String[] nameColumns = name.split(specialityPattern);
 		this.name = nameColumns[0].trim();
+		group = SkillGroup.STANDARD;
+	}
+
+	public Skill(String name, SkillType type, SkillGroup group) {
+		this.type = type;
+		specialities = new ArrayList<>();
+		String specialityPattern = Pattern.quote("[");
+		String[] nameColumns = name.split(specialityPattern);
+		this.name = nameColumns[0].trim();
+		this.group = group;
 	}
 
 	public String getName() {
@@ -84,5 +95,9 @@ public class Skill {
 		default:
 			return 0;
 		}
+	}
+
+	public SkillGroup getGroup() {
+		return group;
 	}
 }
