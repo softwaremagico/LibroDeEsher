@@ -26,13 +26,14 @@ package com.softwaremagico.librodeesher.pj.skills;
 
 import java.util.Hashtable;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class SkillFactory {
 	private static final String FIREARMS_SKILL3 = "Fuego Rápido";
 	private static final String FIREARMS_SKILL2 = "Fuego de Supresión";
 	private static final String FIREARMS_SKILL1 = "Percepción del Entorno: Munición";
 	private static final String CHI_SUFIX = "Poderes Chi:";
-	
+
 	private static Hashtable<String, Skill> availableSkills = new Hashtable<>();
 
 	public static Skill getSkill(String skillNameAndType) {
@@ -102,6 +103,6 @@ public class SkillFactory {
 
 	private static String removeTypeFromName(String skillName) {
 		// String pattern = Pattern.quote("*");
-		return skillName.replace("(R)", "").replace("*", "").trim();
+		return skillName.replace("*", "").split(Pattern.quote("("))[0].trim();
 	}
 }
