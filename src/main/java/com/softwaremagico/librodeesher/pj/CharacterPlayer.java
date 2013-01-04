@@ -59,6 +59,7 @@ import com.softwaremagico.librodeesher.pj.training.Training;
 public class CharacterPlayer {
 
 	private static final String FIREARMS_SUFIX = "Fuego";
+	private static final String CHI_SUFIX = "Poderes Chi:";
 	private static final String DEFAULT_NAME = " ** Nuevo Personaje ** ";
 	private static final Integer STORED_ROLLS_NUMBER = 10;
 	private String name;
@@ -85,9 +86,9 @@ public class CharacterPlayer {
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
 	private MagicSpellLists magicSpellLists;
 
-	private boolean darkSpellsAsBasicLists = true;
-	private boolean firearmsActivated = true;
-	private boolean chiPowers = true;
+	private boolean darkSpellsAsBasicLists = false;
+	private boolean firearmsActivated = false;
+	private boolean chiPowers = false;
 
 	private List<LevelUp> levelUps;
 
@@ -105,6 +106,17 @@ public class CharacterPlayer {
 		professionDecisions = new ProfessionDecisions();
 		trainingsNames = new ArrayList<>();
 		trainings = new ArrayList<>();
+		setDefaultConfig();
+	}
+
+	/**
+	 * Default config is stored in a file and changed with the options windows.
+	 * When a new character is created, it uses this default config options.
+	 */
+	private void setDefaultConfig() {
+		darkSpellsAsBasicLists = Config.getDarkSpellsAsBasic();
+		firearmsActivated = Config.getFireArmsActivated();
+		chiPowers = Config.getChiPowersAllowed();
 	}
 
 	public RaceDecisions getRaceDecisions() {
@@ -563,6 +575,13 @@ public class CharacterPlayer {
 		return true;
 	}
 
+	public boolean isSkillUseful(Skill skill) {
+		if(skill.getName().startsWith(CHI_SUFIX) && !chiPowers){
+			return false;
+		}
+		return true;
+	}
+
 	public Category getCategory(Category category) {
 		if (category.getGroup().equals(CategoryGroup.SPELL)) {
 			return magicSpellLists.getMagicCategory(category.getName());
@@ -580,5 +599,21 @@ public class CharacterPlayer {
 
 	public void setDarkSpellsAsBasicLists(boolean darkSpellsAsBasicLists) {
 		this.darkSpellsAsBasicLists = darkSpellsAsBasicLists;
+	}
+
+	public boolean isFirearmsActivated() {
+		return firearmsActivated;
+	}
+
+	public void setFirearmsActivated(boolean firearmsActivated) {
+		this.firearmsActivated = firearmsActivated;
+	}
+
+	public boolean isChiPowers() {
+		return chiPowers;
+	}
+
+	public void setChiPowers(boolean chiPowers) {
+		this.chiPowers = chiPowers;
 	}
 }

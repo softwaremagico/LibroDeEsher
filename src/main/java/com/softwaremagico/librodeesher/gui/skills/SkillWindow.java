@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.skills;
+
 /*
  * #%L
  * Libro de Esher
@@ -34,6 +35,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import javax.swing.BoxLayout;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -48,6 +50,7 @@ public class SkillWindow extends BaseFrame {
 	private CompleteSkillPanel skillPanel;
 	private JLabel pointsLabel;
 	private DevelopmentTextField developmentPoints;
+	JCheckBoxMenuItem fireArmsMenuItem, darkSpellsMenuItem;
 
 	public SkillWindow(CharacterPlayer character) {
 		this.character = character;
@@ -85,7 +88,7 @@ public class SkillWindow extends BaseFrame {
 		developmentPoints = new DevelopmentTextField();
 		developmentPoints.setColumns(3);
 		developmentPoints.setEditable(false);
-		developmentPoints.setMaximumSize(new Dimension(60,25));
+		developmentPoints.setMaximumSize(new Dimension(60, 25));
 		setDevelopmentPointText();
 		developmentPointsPanel.add(developmentPoints);
 
@@ -155,6 +158,5 @@ public class SkillWindow extends BaseFrame {
 		public void actionPerformed(ActionEvent e) {
 
 		}
-	}
-
+	}	
 }

@@ -128,6 +128,10 @@ public class CharacterBasicsPanel extends BasePanel {
 			femaleRadioButton.setText("Femenino");
 		}
 	}
+	
+	public void update(){
+		nameTextField.setText(character.getName());
+	}
 
 	public void setCharacter(CharacterPlayer character) {
 		this.character = character;

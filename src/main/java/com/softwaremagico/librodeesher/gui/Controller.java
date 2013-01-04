@@ -44,6 +44,7 @@ public class Controller {
 	SkillWindow skillWindow;
 	List<CharacterPlayer> characters;
 	CharacterPlayer selectedCharacter;
+	OptionsWindow optionsWindow;
 
 	public Controller() {
 		characters = new ArrayList<>();
@@ -64,6 +65,7 @@ public class Controller {
 		mainGui.getMainMenu().addRandomNameListener(new RandomNameListener());
 		mainGui.getMainMenu().addCultureListener(new CultureWindowsListener());
 		mainGui.getMainMenu().addSkillsAndCategoriesListener(new SkillsAndCategoriesWindowsListener());
+		mainGui.getMainMenu().addOptionsWindowListener(new OptionsWindowsListener());
 	}
 
 	class NewCharacterListener implements ActionListener {
@@ -97,7 +99,7 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			selectedCharacter.setName(selectedCharacter.getRace().getRandonName(selectedCharacter.getSex()));
-			mainGui.setCharacter(selectedCharacter);
+			mainGui.update();
 			updateCharacterListToMenu();
 		}
 	}
@@ -128,7 +130,7 @@ public class Controller {
 			cultureWindow.setVisible(true);
 		}
 	}
-	
+
 	class SkillsAndCategoriesWindowsListener implements ActionListener {
 
 		@Override
@@ -178,6 +180,19 @@ public class Controller {
 			mainGui.setCharacter(selectedCharacter);
 			mainGui.update();
 			updateCharacterListToMenu();
+		}
+	}
+
+	class OptionsWindowsListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				optionsWindow.dispose();
+			} catch (NullPointerException npe) {
+			}
+			optionsWindow = new OptionsWindow(selectedCharacter);
+			optionsWindow.setVisible(true);
 		}
 	}
 

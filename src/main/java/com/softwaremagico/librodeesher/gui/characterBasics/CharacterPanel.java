@@ -118,6 +118,9 @@ public class CharacterPanel extends BasePanel {
 	}
 	
 	public void update(){
+		if(characterBasics!=null){
+			characterBasics.update();
+		}
 		if (characterRacePanel != null) {
 			characterRacePanel.update();
 		}

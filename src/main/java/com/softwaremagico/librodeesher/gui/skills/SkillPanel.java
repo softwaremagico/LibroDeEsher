@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.skills;
+
 /*
  * #%L
  * Libro de Esher
@@ -71,10 +72,12 @@ public class SkillPanel extends BasePanel {
 
 				List<SkillLine> skillLines = new ArrayList<>();
 				for (Skill skill : category.getSkills()) {
-					SkillLine skillLine = new SkillLine(character, skill, getLineBackgroundColor(i), this);
-					add(skillLine);
-					skillLines.add(skillLine);
-					i++;
+					if (character.isSkillUseful(skill)) {
+						SkillLine skillLine = new SkillLine(character, skill, getLineBackgroundColor(i), this);
+						add(skillLine);
+						skillLines.add(skillLine);
+						i++;
+					}
 				}
 				skillLinesPerCategory.put(category, skillLines);
 			}

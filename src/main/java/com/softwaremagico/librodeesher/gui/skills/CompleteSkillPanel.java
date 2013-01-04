@@ -89,5 +89,9 @@ public class CompleteSkillPanel extends BasePanel {
 	public void update() {
 		parentWindow.update();
 	}
+	
+	public void updateCategories(){
+		setElements();
+	}
 
 }

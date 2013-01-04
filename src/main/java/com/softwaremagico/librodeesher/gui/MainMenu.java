@@ -44,6 +44,7 @@ public class MainMenu {
 			perksMenuItem, historyMenuItem, levelUpMenuItem;
 	private JMenuItem insertCharacter;
 	private JMenuItem randomName, randomCharacter;
+	private JMenuItem optionsMenu;
 	private JFrame parentWindow;
 	private JMenu characterListMenu, exportMenu;
 	private CharacterPlayer character;
@@ -203,10 +204,10 @@ public class MainMenu {
 		configMenu.setIcon((Icon) RolemasterFolderStructure.getIcon("config.png"));
 		configMenu.getAccessibleContext().setAccessibleDescription("Opciones de configuración.");
 
-		aboutMenuItem = new JMenuItem("Opciones", KeyEvent.VK_O);
-		aboutMenuItem.setIcon((Icon) RolemasterFolderStructure.getIcon("options.png"));
-		aboutMenuItem.getAccessibleContext().setAccessibleDescription("Opciones de configuración.");
-		configMenu.add(aboutMenuItem);
+		optionsMenu = new JMenuItem("Opciones", KeyEvent.VK_O);
+		optionsMenu.setIcon((Icon) RolemasterFolderStructure.getIcon("options.png"));
+		optionsMenu.getAccessibleContext().setAccessibleDescription("Opciones de configuración.");
+		configMenu.add(optionsMenu);
 
 		return configMenu;
 	}
@@ -269,6 +270,10 @@ public class MainMenu {
 
 	public void addCloseCharacterListener(ActionListener al) {
 		closeMenuItem.addActionListener(al);
+	}
+	
+	public void addOptionsWindowListener(ActionListener al){
+		optionsMenu.addActionListener(al);
 	}
 
 	class CloseListener implements ActionListener {
