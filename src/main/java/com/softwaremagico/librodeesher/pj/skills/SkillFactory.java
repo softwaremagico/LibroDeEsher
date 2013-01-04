@@ -103,6 +103,6 @@ public class SkillFactory {
 
 	private static String removeTypeFromName(String skillName) {
 		// String pattern = Pattern.quote("*");
-		return skillName.replace("*", "").split(Pattern.quote("("))[0].trim();
+		return skillName.replace("*", "").replace("(R)", "").replace("(r)", "").replace("(C)", "").replace("(c)", "").replace("(P)", "").replace("(p)", "");
 	}
 }
