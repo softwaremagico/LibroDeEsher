@@ -295,7 +295,7 @@ public class CharacterPlayer {
 			Skill skill = SkillFactory.getAvailableSkill(skillName);
 			Integer ranksUpdatedInLevel = levelUps.get(level).getSkillsRanks(skillName);
 			for (int i = 0; i < ranksUpdatedInLevel; i++) {
-				total += getNewRankCost(skill.getCategory(), getPreviousRanks(skill) + i, i);
+				total += getNewRankCost(skill, getPreviousRanks(skill) + i, i);
 			}
 		}
 		return total;
@@ -414,7 +414,7 @@ public class CharacterPlayer {
 
 	public Integer getCurrentLevelRanks(Category category) {
 		if (levelUps.size() > 0) {
-			return levelUps.get(levelUps.size() - 1).getCategoryRanks(category.getName());
+			return getCurrentLevel().getCategoryRanks(category.getName());
 		} else {
 			return 0;
 		}
@@ -422,21 +422,25 @@ public class CharacterPlayer {
 
 	public Integer getCurrentLevelRanks(Skill skill) {
 		if (levelUps.size() > 0) {
-			return levelUps.get(levelUps.size() - 1).getSkillsRanks(skill.getName());
+			return getCurrentLevel().getSkillsRanks(skill.getName());
 		} else {
 			return 0;
 		}
 	}
 
+	private LevelUp getCurrentLevel() {
+		return levelUps.get(levelUps.size() - 1);
+	}
+
 	public void setCurrentLevelRanks(Skill skill, Integer ranks) {
 		if (levelUps.size() > 0) {
-			levelUps.get(levelUps.size() - 1).setSkillsRanks(skill.getName(), ranks);
+			getCurrentLevel().setSkillsRanks(skill, ranks);
 		}
 	}
 
 	public void setCurrentLevelRanks(Category category, Integer ranks) {
 		if (levelUps.size() > 0) {
-			levelUps.get(levelUps.size() - 1).setCategoryRanks(category.getName(), ranks);
+			getCurrentLevel().setCategoryRanks(category.getName(), ranks);
 		}
 	}
 
@@ -558,7 +562,19 @@ public class CharacterPlayer {
 		if (cost == null) {
 			return Integer.MAX_VALUE;
 		}
+
 		return cost.getRankCost(rankAdded);
+	}
+
+	public Integer getNewRankCost(Skill skill, Integer currentRanks, Integer rankAdded) {
+		// Spell cost is increased if lots of spells are acquired in one level.
+		if (skill.getCategory().getGroup().equals(CategoryGroup.SPELL)) {
+			return getNewRankCost(skill.getCategory(), currentRanks, rankAdded)
+					* getCurrentLevel().getSpellRankMultiplier(skill);
+		} else {
+			return getNewRankCost(skill.getCategory(), currentRanks, rankAdded);
+		}
+
 	}
 
 	/**

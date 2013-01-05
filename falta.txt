@@ -3,6 +3,4 @@ Elegir habilidades en poderes chi.
 Elegir habilidades comunes de profesiones.
 En historial y demás, cuando se escoge la opción de subir las características debe mostrar un resumen de las temporales y potenciales.
 Bonus por raza
-Cultura litoral tiene problemas: no se pueden añadir rangos en los hechizos por que no se ha obtenido el coste de ellos?
 Si se añaden las armas de fuego cuando ya ha pasado nivel 1, se resetean los costes de las categorias de armas. Hay que volverlos a poner!
-Cuando se suben más de X niveles de hechizos por nivel, se multiplica el coste. 

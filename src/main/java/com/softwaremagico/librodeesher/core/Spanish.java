@@ -16,5 +16,7 @@ public class Spanish {
 	public static final String CULTURE_WEAPON = "arma";
 	public static final String CULTURE_ARMOUR = "armadura";
 	public static final String CULTURE_SPELLS = "lista de hechizos";
+	public static final String WEAPON_CATEGORY_PREFIX = "Armas·";
+	public static final String SPELL_CATEGORY_PREFIX = "Listas ";
 
 }

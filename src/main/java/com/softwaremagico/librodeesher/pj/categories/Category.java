@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import com.softwaremagico.librodeesher.core.Spanish;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
@@ -175,14 +176,14 @@ public abstract class Category {
 		return group;
 	}
 
-	public void setGroup() {
+	private void setGroup() {
 		this.group = getCategoryGroup(this.getName());
 	}
 
 	private CategoryGroup getCategoryGroup(String categoryName) {
-		if (categoryName.startsWith("Armas·")) {
+		if (categoryName.startsWith(Spanish.WEAPON_CATEGORY_PREFIX)) {
 			return CategoryGroup.WEAPON;
-		} else if (categoryName.startsWith("Listas ")) {
+		} else if (categoryName.startsWith(Spanish.SPELL_CATEGORY_PREFIX)) {
 			return CategoryGroup.SPELL;
 		}
 		return CategoryGroup.STANDARD;

@@ -30,6 +30,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
+import com.softwaremagico.librodeesher.core.Spanish;
 import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -40,9 +41,9 @@ import com.softwaremagico.librodeesher.pj.weapons.WeaponType;
 
 public class CategoryFactory {
 
-	private static final String ARMAS_PREFIX = "Armas·";
 	private static Hashtable<String, Category> categoriesAvailable = new Hashtable<>();
 	private static List<Category> weaponsCategory = new ArrayList<>();
+	private static List<Category> spellsCategory = new ArrayList<>();
 
 	static {
 		try {
@@ -179,7 +180,8 @@ public class CategoryFactory {
 		List<Category> weaponsCategories = new ArrayList<>();
 
 		for (Category category : categoriesAvailable.values()) {
-			if (category.getName().startsWith(ARMAS_PREFIX)) {
+			//if (category.getName().startsWith(Spanish.ARMAS_PREFIX)) {
+			if(category.getGroup().equals(CategoryGroup.WEAPON)){
 				weaponsCategories.add(category);
 			}
 		}

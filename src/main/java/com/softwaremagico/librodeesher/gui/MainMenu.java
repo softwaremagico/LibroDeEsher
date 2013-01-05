@@ -188,6 +188,8 @@ public class MainMenu {
 		randomName.setIcon((Icon) RolemasterFolderStructure.getIcon("rename.png"));
 		randomName.getAccessibleContext().setAccessibleDescription("Genera un nombre para el personaje.");
 		randomMenu.add(randomName);
+		
+		randomMenu.addSeparator();
 
 		randomCharacter = new JMenuItem("Pesonaje Aleatorio", KeyEvent.VK_P);
 		randomCharacter.setIcon((Icon) RolemasterFolderStructure.getIcon("random_character.png"));

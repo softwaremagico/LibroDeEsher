@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.culture;
+
 /*
  * #%L
  * Libro de Esher
@@ -32,16 +33,18 @@ import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultFormatter;
 
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
 public class HobbyLine extends CultureLine {
 
 	private static final long serialVersionUID = 2401612544094265349L;
+	private Skill skill;
 
-	public HobbyLine(CharacterPlayer character, String hobby, CulturePanel hobbyPanel,
-			Color background) {
+	public HobbyLine(CharacterPlayer character, String hobby, CulturePanel hobbyPanel, Color background) {
 		this.character = character;
 		this.skillName = hobby;
+		skill = SkillFactory.getAvailableSkill(skillName);
 		this.parentPanel = hobbyPanel;
 		setElements(background);
 		setBackground(background);
@@ -60,12 +63,16 @@ public class HobbyLine extends CultureLine {
 				// Correct the spinner
 				if (parentPanel.getSpinnerValues() > character.getCulture().getHobbyRanks()) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
-				} else if (getSelectedRanks() > character.getMaxRanksPerCulture(
-						SkillFactory.getAvailableSkill(skillName).getCategory())) {
+				} else if (getSelectedRanks() > character.getMaxRanksPerCulture(skill.getCategory())) {
+					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
+					//Cost greater than 40 can not be a hobby
+				} else if (character.getCategoryCost(skill.getCategory(), 0).getRankCost(
+						(Integer) rankSpinner.getValue()) > 40) { 
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character
-					character.getCultureDecisions().setHobbyRanks(skillName, (Integer) rankSpinner.getValue());
+					character.getCultureDecisions()
+							.setHobbyRanks(skillName, (Integer) rankSpinner.getValue());
 				}
 				parentPanel.setRankTitle("Rangos ("
 						+ (character.getCulture().getHobbyRanks() - character.getCultureDecisions()

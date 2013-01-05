@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import com.softwaremagico.librodeesher.pj.profession.Profession;
+import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
 /*
@@ -34,10 +35,13 @@ import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 public class LevelUp {
 	private Hashtable<String, Integer> categoriesRanks;
 	private Hashtable<String, Integer> skillsRanks;
+	private List<String> spellsUpdated; // More than 5 list is more expensive in
+										// Development Points.
 
 	public LevelUp() {
 		categoriesRanks = new Hashtable<>();
 		skillsRanks = new Hashtable<>();
+		spellsUpdated = new ArrayList<>();
 	}
 
 	public Integer getCategoryRanks(String categoryName) {
@@ -56,11 +60,19 @@ public class LevelUp {
 		return ranks;
 	}
 
-	public void setSkillsRanks(String skillName, Integer ranks) {
+	public void setSkillsRanks(Skill skill, Integer ranks) {
 		if (ranks <= 0) {
-			skillsRanks.remove(skillName);
+			skillsRanks.remove(skill.getName());
+			if (skill.getCategory().getGroup().equals(CategoryGroup.SPELL)) {
+				spellsUpdated.remove(skill.getName());
+			}
 		} else {
-			skillsRanks.put(skillName, ranks);
+			skillsRanks.put(skill.getName(), ranks);
+			if (skill.getCategory().getGroup().equals(CategoryGroup.SPELL)) {
+				if (!spellsUpdated.contains(skill.getName())) {
+					spellsUpdated.add(skill.getName());
+				}
+			}
 		}
 	}
 
@@ -79,6 +91,29 @@ public class LevelUp {
 			categoriesRanks.remove(categoryName);
 		} else {
 			categoriesRanks.put(categoryName, ranks);
+		}
+	}
+
+	/**
+	 * If a player learn more than 5 spell list in one level, the cost is
+	 * doubled. If he learns more than 10 spells, the cost is the quadruple.
+	 * 
+	 * @param skill
+	 * @return
+	 */
+	public Integer getSpellRankMultiplier(Skill skill) {
+		Integer spellLists = null;
+		for (int i = 0; i < spellsUpdated.size(); i++) {
+			if (spellsUpdated.get(i).equals(skill.getName())) {
+				spellLists = i + 1;
+			}
+		}
+		if (spellLists <= 5) {
+			return 1;
+		} else if (spellLists <= 10) {
+			return 2;
+		} else {
+			return 4;
 		}
 	}
 }
