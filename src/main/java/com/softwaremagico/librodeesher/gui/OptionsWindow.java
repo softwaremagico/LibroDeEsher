@@ -25,16 +25,13 @@ import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultFormatter;
 
 import com.softwaremagico.librodeesher.config.Config;
+import com.softwaremagico.librodeesher.core.Spanish;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class OptionsWindow extends BaseFrame {
 	private static final long serialVersionUID = -8015912539177057288L;
-	private static final String FIREARMS_CHECKBOX_TEXT = "Permitir habilidades de armas de fuego.";
-	private static final String DARKSPELLS_CHECKBOX_TEXT = "Permitir el uso de listas de hechizos malignas como básicas.";
-	private static final String CHI_POWERS_TEXT = "Permitir el uso de poderes Chi.";
-	private static final String OTHER_TRAINING_SPELLS = "Permitir el uso de listas de adiestramientos de otros reinos.";
 	private CharacterPlayer character;
 	private JCheckBox fireArmsMenuItem, darkSpellsMenuItem, chiPowers, trainingOtherRealms;
 	private boolean updatingState = false;
@@ -67,19 +64,19 @@ public class OptionsWindow extends BaseFrame {
 		characterPanel.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Personaje actual"));
 
-		fireArmsMenuItem = new JCheckBox(FIREARMS_CHECKBOX_TEXT);
+		fireArmsMenuItem = new JCheckBox(Spanish.FIREARMS_CHECKBOX_TEXT);
 		fireArmsMenuItem.addActionListener(checkboxListener);
 		characterPanel.add(fireArmsMenuItem);
 
-		darkSpellsMenuItem = new JCheckBox(DARKSPELLS_CHECKBOX_TEXT);
+		darkSpellsMenuItem = new JCheckBox(Spanish.DARKSPELLS_CHECKBOX_TEXT);
 		darkSpellsMenuItem.addActionListener(checkboxListener);
 		characterPanel.add(darkSpellsMenuItem);
 
-		chiPowers = new JCheckBox(CHI_POWERS_TEXT);
+		chiPowers = new JCheckBox(Spanish.CHI_POWERS_TEXT);
 		chiPowers.addActionListener(checkboxListener);
 		characterPanel.add(chiPowers);
 
-		trainingOtherRealms = new JCheckBox(OTHER_TRAINING_SPELLS);
+		trainingOtherRealms = new JCheckBox(Spanish.OTHER_TRAINING_SPELLS);
 		trainingOtherRealms.addActionListener(checkboxListener);
 		characterPanel.add(trainingOtherRealms);
 
@@ -155,16 +152,16 @@ public class OptionsWindow extends BaseFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (!updatingState) {
-				if (e.getActionCommand().equals(FIREARMS_CHECKBOX_TEXT)) {
+				if (e.getActionCommand().equals(Spanish.FIREARMS_CHECKBOX_TEXT)) {
 					character.setFirearmsAllowed(fireArmsMenuItem.isSelected());
 					Config.setFireArmsActivated(fireArmsMenuItem.isSelected());
-				} else if (e.getActionCommand().equals(DARKSPELLS_CHECKBOX_TEXT)) {
+				} else if (e.getActionCommand().equals(Spanish.DARKSPELLS_CHECKBOX_TEXT)) {
 					character.setDarkSpellsAsBasicListsAllowed(darkSpellsMenuItem.isSelected());
 					Config.setDarkSpellsAsBasic(darkSpellsMenuItem.isSelected());
-				} else if (e.getActionCommand().equals(CHI_POWERS_TEXT)) {
+				} else if (e.getActionCommand().equals(Spanish.CHI_POWERS_TEXT)) {
 					character.setChiPowersAllowed(chiPowers.isSelected());
 					Config.setChiPowersAllowed(chiPowers.isSelected());
-				} else if (e.getActionCommand().equals(OTHER_TRAINING_SPELLS)) {
+				} else if (e.getActionCommand().equals(Spanish.OTHER_TRAINING_SPELLS)) {
 					character.setOtherRealmtrainingSpellsAllowed(trainingOtherRealms.isSelected());
 					Config.setOtherRealmtrainingSpells(trainingOtherRealms.isSelected());
 				}

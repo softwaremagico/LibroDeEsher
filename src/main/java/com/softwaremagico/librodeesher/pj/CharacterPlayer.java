@@ -29,6 +29,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.config.Config;
+import com.softwaremagico.librodeesher.core.Spanish;
 import com.softwaremagico.librodeesher.core.TwoDices;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
@@ -59,8 +60,6 @@ import com.softwaremagico.librodeesher.pj.training.Training;
 
 public class CharacterPlayer {
 
-	private static final String FIREARMS_SUFIX = "Fuego";
-	private static final String DEFAULT_NAME = " ** Nuevo Personaje ** ";
 	private static final Integer STORED_ROLLS_NUMBER = 10;
 	private String name;
 	private SexType sex;
@@ -222,7 +221,7 @@ public class CharacterPlayer {
 		if (name != null && name.length() > 0) {
 			return name;
 		}
-		return DEFAULT_NAME;
+		return Spanish.DEFAULT_NAME;
 	}
 
 	public Profession getProfession() {
@@ -358,7 +357,7 @@ public class CharacterPlayer {
 	}
 
 	public void setName(String name) {
-		if (!name.equals(DEFAULT_NAME)) {
+		if (!name.equals(Spanish.DEFAULT_NAME)) {
 			this.name = name;
 		}
 	}
@@ -565,7 +564,7 @@ public class CharacterPlayer {
 		// Weapons always are useful. We need to define the rank cost.
 		if (category.getGroup().equals(CategoryGroup.WEAPON)) {
 			// Firearms only if activated
-			if (!firearmsAllowed && category.getName().contains(FIREARMS_SUFIX)) {
+			if (!firearmsAllowed && category.getName().contains(Spanish.FIREARMS_SUFIX)) {
 				return false;
 			}
 			return true;
@@ -574,7 +573,7 @@ public class CharacterPlayer {
 		if (getNewRankCost(category, 0, 0) > Config.getCategoryMaxCost()) {
 			return false;
 		}
-		if (category.getName().equals("Listas Hechizos de Adiestramientos de Otros Reinos")
+		if (category.getName().equals(Spanish.OTHER_REALM_TRAINING_LISTS)
 				&& !isOtherRealmtrainingSpellsAllowed()) {
 			return false;
 		}

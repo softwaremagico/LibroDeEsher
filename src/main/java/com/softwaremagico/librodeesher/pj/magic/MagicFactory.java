@@ -65,8 +65,7 @@ public class MagicFactory {
 
 			if (spells == null) {
 				// No spells found. If it has only one realm it is a wizard and
-				// must
-				// have spells.
+				// must have spells.
 				if (!profession.equals(OPEN_LIST_TAG) && !profession.equals(CLOSED_LIST_TAG)
 						&& !profession.equals(ELEMENTALIST_PROFESSION)
 						&& ProfessionFactory.getProfession(profession).getMagicRealmsAvailable().size() < 2) {
@@ -119,8 +118,7 @@ public class MagicFactory {
 								&& (ProfessionFactory.availableProfessions().contains(profession)
 										|| (includeElementalist && isElementalistTraining(profession)) || profession
 											.equals(getDarkSpellTag(otherRealm)))) {
-							List<String> otherProfessionList = spellsByGroup.get(otherRealm).get(
-									profession);
+							List<String> otherProfessionList = spellsByGroup.get(otherRealm).get(profession);
 							// Avoid to add list shared with other professions.
 							for (String spellList : otherProfessionList) {
 								if (ownProfessionLists == null || !ownProfessionLists.contains(spellList)) {
@@ -210,6 +208,10 @@ public class MagicFactory {
 		return getListOfProfession(realmsOfMagic, OPEN_LIST_TAG);
 	}
 
+	public static List<String> getRaceLists(String race) {
+		return spellsByGroup.get(RealmOfMagic.RACE).get(race);
+	}
+
 	public static List<String> getArchanumOpenLists() {
 		List<RealmOfMagic> realmsOfMagic = new ArrayList<RealmOfMagic>();
 		realmsOfMagic.add(RealmOfMagic.ARCHANUM);
@@ -260,9 +262,7 @@ public class MagicFactory {
 	}
 
 	private static void readSpellsFromFiles() {
-		RealmOfMagic[] realms = RealmOfMagic.values();
-
-		for (RealmOfMagic realm : realms) {
+		for (RealmOfMagic realm : RealmOfMagic.values()) {
 			List<String> lines = RolemasterFolderStructure.getSpellLines(realm.getName() + ".txt");
 			getSpellsFromLines(lines, realm);
 		}

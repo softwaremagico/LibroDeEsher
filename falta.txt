@@ -4,3 +4,4 @@ Elegir habilidades comunes de profesiones.
 En historial y demás, cuando se escoge la opción de subir las características debe mostrar un resumen de las temporales y potenciales.
 Bonus por raza
 Quitar las habilidades de las armas de fuego.
+Cultura litoral tiene problemas. 

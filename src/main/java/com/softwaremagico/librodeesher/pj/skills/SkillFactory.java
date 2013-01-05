@@ -28,11 +28,9 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import com.softwaremagico.librodeesher.core.Spanish;
+
 public class SkillFactory {
-	private static final String FIREARMS_SKILL3 = "Fuego Rápido";
-	private static final String FIREARMS_SKILL2 = "Fuego de Supresión";
-	private static final String FIREARMS_SKILL1 = "Percepción del Entorno: Munición";
-	private static final String CHI_SUFIX = "Poderes Chi:";
 
 	private static Hashtable<String, Skill> availableSkills = new Hashtable<>();
 
@@ -91,11 +89,11 @@ public class SkillFactory {
 
 	private static Skill createSkill(String skillName, SkillType skillType) {
 		SkillGroup group = SkillGroup.STANDARD;
-		if (skillName.startsWith(CHI_SUFIX)) {
+		if (skillName.startsWith(Spanish.CHI_SUFIX)) {
 			group = SkillGroup.CHI;
 		}
-		if (skillName.startsWith(FIREARMS_SKILL1) || skillName.startsWith(FIREARMS_SKILL2)
-				|| skillName.startsWith(FIREARMS_SKILL3)) {
+		if (skillName.startsWith(Spanish.FIREARMS_SKILL1) || skillName.startsWith(Spanish.FIREARMS_SKILL2)
+				|| skillName.startsWith(Spanish.FIREARMS_SKILL3)) {
 			group = SkillGroup.FIREARM;
 		}
 		return new Skill(skillName, skillType, group);
@@ -103,6 +101,7 @@ public class SkillFactory {
 
 	private static String removeTypeFromName(String skillName) {
 		// String pattern = Pattern.quote("*");
-		return skillName.replace("*", "").replace("(R)", "").replace("(r)", "").replace("(C)", "").replace("(c)", "").replace("(P)", "").replace("(p)", "");
+		return skillName.replace("*", "").replace("(R)", "").replace("(r)", "").replace("(C)", "")
+				.replace("(c)", "").replace("(P)", "").replace("(p)", "");
 	}
 }

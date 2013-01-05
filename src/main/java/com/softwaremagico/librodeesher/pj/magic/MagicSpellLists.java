@@ -32,6 +32,7 @@ import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
+import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 
 public class MagicSpellLists {
 	private Hashtable<MagicListType, Category> magicCategories; // Spells
@@ -72,39 +73,86 @@ public class MagicSpellLists {
 			basicSpells.addAll(elementalistList);
 		}
 
-		magicCategories.get(MagicListType.BASIC).setSkillsFromName(basicSpells);
+		// Open list.
+		List<String> openSpells = new ArrayList<>();
+		openSpells = MagicFactory.getOpenLists(character.getProfessionalRealmsOfMagicChoosen()
+				.getRealmsOfMagic());
 
-		magicCategories.get(MagicListType.OPEN)
-				.setSkillsFromName(
-						MagicFactory.getOpenLists(character.getProfessionalRealmsOfMagicChoosen()
-								.getRealmsOfMagic()));
-		magicCategories.get(MagicListType.CLOSED).setSkillsFromName(
-				MagicFactory.getClosedLists(character.getProfessionalRealmsOfMagicChoosen()
-						.getRealmsOfMagic()));
-		magicCategories.get(MagicListType.TRIAD).setSkillsFromName(
-				MagicFactory.getListOfOwnTriad(character.getProfessionalRealmsOfMagicChoosen()
-						.getRealmsOfMagic(), character.getTrainingsNames()));
-		magicCategories.get(MagicListType.COMPLEMENTARY_TRIAD).setSkillsFromName(
-				MagicFactory.getListOfOtherTriad(character.getProfessionalRealmsOfMagicChoosen()
-						.getRealmsOfMagic(), character.getTrainingsNames()));
+		// Close lists
+		List<String> closeSpells = new ArrayList<>();
+		closeSpells = MagicFactory.getClosedLists(character.getProfessionalRealmsOfMagicChoosen()
+				.getRealmsOfMagic());
+
+		// Triad.
+		List<String> triadSpells = new ArrayList<>();
+		triadSpells = MagicFactory.getListOfOwnTriad(character.getProfessionalRealmsOfMagicChoosen()
+				.getRealmsOfMagic(), character.getTrainingsNames());
+		List<String> otherTriadSpells = new ArrayList<>();
+		otherTriadSpells = MagicFactory.getListOfOtherTriad(character.getProfessionalRealmsOfMagicChoosen()
+				.getRealmsOfMagic(), character.getTrainingsNames());
+
+		// Other professions.
 		// Only no elementalist has elementalis list as other professions.
-		magicCategories.get(MagicListType.OTHER_PROFESSION).setSkillsFromName(
-				MagicFactory.getListOfOtherProfessions(basicSpells, character
-						.getProfessionalRealmsOfMagicChoosen().getRealmsOfMagic(), character.getProfession()
-						.getName(),
-						MagicFactory.getElementalistTraining(character.getTrainingsNames()) == null));
+		List<String> otherProfession = new ArrayList<>();
+		otherProfession = MagicFactory.getListOfOtherProfessions(basicSpells, character
+				.getProfessionalRealmsOfMagicChoosen().getRealmsOfMagic(), character.getProfession()
+				.getName(), MagicFactory.getElementalistTraining(character.getTrainingsNames()) == null);
+
+		// Other Realms professions.
+		List<String> otherRealmsProfession = new ArrayList<>();
+		otherRealmsProfession = MagicFactory.getListOfOtherProfessionsOtherRealm(basicSpells, character
+				.getProfessionalRealmsOfMagicChoosen().getRealmsOfMagic(), character.getProfession()
+				.getName(), MagicFactory.getElementalistTraining(character.getTrainingsNames()) == null);
+
+		// Open list other realm.
+		List<String> otherRealmsOpen = new ArrayList<>();
+		otherRealmsOpen = MagicFactory.getOtherRealmOpenLists(character.getProfessionalRealmsOfMagicChoosen()
+				.getRealmsOfMagic());
+
+		// Close list other realm.
+		List<String> otherRealmsClosed = new ArrayList<>();
+		otherRealmsClosed = MagicFactory.getOtherRealmClosedLists(character
+				.getProfessionalRealmsOfMagicChoosen().getRealmsOfMagic());
+
+		// Archanum Open lists
+		List<String> archanumOpenLists = new ArrayList<>();
+		archanumOpenLists = MagicFactory.getArchanumOpenLists();
+
+		// Race lists
+		List<String> raceLists = new ArrayList<>();
+		raceLists = MagicFactory.getRaceLists(character.getRace().getName());
+		// Race lists are basic lists if character is a spell caster or open
+		// list if not.
+		if (raceLists != null) {
+			if (basicSpells.size() > 0) {
+				basicSpells.addAll(raceLists);
+			} else {
+				openSpells.addAll(raceLists);
+			}
+		}
+		// Other race lists are considered other profession of other realms.
+		List<String> races = RaceFactory.availableRaces();
+		for (String otherRace : races) {
+			if (!otherRace.equals(character.getRace())) {
+				List<String> otherRaceLists = MagicFactory.getRaceLists(otherRace);
+				if (otherRaceLists != null) {
+					otherRealmsProfession.addAll(otherRaceLists);
+				}
+			}
+		}
+
+		// Store lists.
+		magicCategories.get(MagicListType.BASIC).setSkillsFromName(basicSpells);
+		magicCategories.get(MagicListType.OPEN).setSkillsFromName(openSpells);
+		magicCategories.get(MagicListType.CLOSED).setSkillsFromName(closeSpells);
+		magicCategories.get(MagicListType.TRIAD).setSkillsFromName(triadSpells);
+		magicCategories.get(MagicListType.COMPLEMENTARY_TRIAD).setSkillsFromName(otherTriadSpells);
+		magicCategories.get(MagicListType.OTHER_PROFESSION).setSkillsFromName(otherProfession);
 		magicCategories.get(MagicListType.OTHER_REALM_OTHER_PROFESSION).setSkillsFromName(
-				MagicFactory.getListOfOtherProfessionsOtherRealm(basicSpells, character
-						.getProfessionalRealmsOfMagicChoosen().getRealmsOfMagic(), character.getProfession()
-						.getName(),
-						MagicFactory.getElementalistTraining(character.getTrainingsNames()) == null));
-		magicCategories.get(MagicListType.OTHER_REALM_OPEN).setSkillsFromName(
-				MagicFactory.getOtherRealmOpenLists(character.getProfessionalRealmsOfMagicChoosen()
-						.getRealmsOfMagic()));
-		magicCategories.get(MagicListType.OTHER_REALM_CLOSED).setSkillsFromName(
-				MagicFactory.getOtherRealmClosedLists(character.getProfessionalRealmsOfMagicChoosen()
-						.getRealmsOfMagic()));
-		magicCategories.get(MagicListType.ARCHANUM).setSkillsFromName(MagicFactory.getArchanumOpenLists());
+				otherRealmsProfession);
+		magicCategories.get(MagicListType.OTHER_REALM_OPEN).setSkillsFromName(otherRealmsOpen);
+		magicCategories.get(MagicListType.OTHER_REALM_CLOSED).setSkillsFromName(otherRealmsClosed);
+		magicCategories.get(MagicListType.ARCHANUM).setSkillsFromName(archanumOpenLists);
 	}
 
 	public Category getMagicCategory(String categoryName) {

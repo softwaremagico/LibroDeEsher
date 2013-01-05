@@ -189,8 +189,8 @@ public class Culture {
 			try {
 				hobbyRanks = Integer.parseInt(hobbyLine);
 			} catch (NumberFormatException nfe) {
-				ShowMessage.showErrorMessage("Error al obtener los rangos de la aficiones cultural: "
-						+ hobbyLine + " en " + getName(), "Añadir aficiones de cultura.");
+				ShowMessage.showErrorMessage("Error al obtener los rangos de la aficiones culturales.\n Línea: "
+						+ hobbyLine + " en cultura" + getName(), "Añadir aficiones de cultura");
 			}
 			index++;
 		}
