@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.culture;
+
 /*
  * #%L
  * Libro de Esher
@@ -23,10 +24,16 @@ package com.softwaremagico.librodeesher.gui.culture;
  * #L%
  */
 
+import com.softwaremagico.librodeesher.core.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
+import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 
 public class HobbyPanel extends CulturePanel {
 	private static final long serialVersionUID = -1080201556731377298L;
+	private Integer lineIndex;
 
 	public HobbyPanel(CharacterPlayer character, CultureTitleLine title) {
 		this.character = character;
@@ -36,13 +43,33 @@ public class HobbyPanel extends CulturePanel {
 
 	@Override
 	protected void createElements() {
-		int i = 0;
+		lineIndex = 0;
 		for (String skill : character.getCulture().getHobbySkills()) {
-			HobbyLine hobbyLine = new HobbyLine(character, skill, this, getLineBackgroundColor(i));
-			add(hobbyLine);
-			hobbyLines.add(hobbyLine);
-			i++;
+			if (skill.toLowerCase().equals(Spanish.CULTURE_WEAPON)) {
+				for (Weapon weapon : character.getCulture().getCultureWeapons()) {
+					addHobbyLine(weapon.getName());
+				}
+			} else if (skill.toLowerCase().equals(Spanish.CULTURE_ARMOUR)) {
+				for (String armour : character.getCulture().getCultureArmours()) {
+					addHobbyLine(armour);
+				}
+			} else if (skill.toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
+				// Add open lists.
+				for (Skill spell : character.getCategory(
+						CategoryFactory.getAvailableCategory(Spanish.OPEN_LISTS)).getSkills()) {
+					addHobbyLine(spell.getName());
+				}
+			} else {
+				addHobbyLine(skill);
+			}
 		}
+	}
+
+	private void addHobbyLine(String skill) {
+		HobbyLine hobbyLine = new HobbyLine(character, skill, this, getLineBackgroundColor(lineIndex));
+		add(hobbyLine);
+		hobbyLines.add(hobbyLine);
+		lineIndex++;
 	}
 
 	protected void setRankTitle(String rankLabelText) {

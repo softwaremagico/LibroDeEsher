@@ -33,6 +33,7 @@ import java.util.List;
 
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
+import com.softwaremagico.librodeesher.core.Spanish;
 import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.pj.Language;
 import com.softwaremagico.librodeesher.pj.LanguageComparator;
@@ -125,7 +126,10 @@ public class Culture {
 					String lineaArmasCultura = lines.get(index);
 					String[] weapons = lineaArmasCultura.split(", ");
 					for (String weaponName : weapons) {
-						cultureWeapons.add(WeaponFactory.getWeapon(weaponName));
+						Weapon weapon = WeaponFactory.getWeapon(weaponName);
+						if (weapon != null) {
+							cultureWeapons.add(weapon);
+						}
 					}
 					index++;
 				}
@@ -189,8 +193,9 @@ public class Culture {
 			try {
 				hobbyRanks = Integer.parseInt(hobbyLine);
 			} catch (NumberFormatException nfe) {
-				ShowMessage.showErrorMessage("Error al obtener los rangos de la aficiones culturales.\n Línea: "
-						+ hobbyLine + " en cultura" + getName(), "Añadir aficiones de cultura");
+				ShowMessage.showErrorMessage(
+						"Error al obtener los rangos de la aficiones culturales.\n Línea: " + hobbyLine
+								+ " en cultura" + getName(), "Añadir aficiones de cultura");
 			}
 			index++;
 		}
@@ -209,12 +214,17 @@ public class Culture {
 				Category category;
 				if ((category = CategoryFactory.getAvailableCategory(hobby)) != null) {
 					for (Skill skill : category.getSkills()) {
-						//CultureSkill cultureSkill = new CultureSkill(skill.getName());
+						// CultureSkill cultureSkill = new
+						// CultureSkill(skill.getName());
 						hobbySkills.add(skill.getName());
 					}
 					// Is a skill.
 				} else if (SkillFactory.existSkill(hobby)) {
-					//CultureSkill skill = new CultureSkill(hobby);
+					hobbySkills.add(hobby);
+					// It is a special tag for a group of skills. Add it.
+				} else if (hobby.toLowerCase().equals(Spanish.CULTURE_WEAPON)
+						|| hobby.toLowerCase().equals(Spanish.CULTURE_ARMOUR)
+						|| hobby.toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
 					hobbySkills.add(hobby);
 					// Is a culture skill: add it;
 				} else if (hobby.contains("Conocimiento de la Fauna")
@@ -222,12 +232,12 @@ public class Culture {
 						|| hobby.contains("Conocimiento Cultural") || hobby.contains("Conocimiento Regional")) {
 					Category cat = CategoryFactory.getAvailableCategory("Conocimiento·General");
 					cat.addSkill(hobby);
-					//CultureSkill skill = new CultureSkill(hobby);
+					// CultureSkill skill = new CultureSkill(hobby);
 					hobbySkills.add(hobby);
 				} else if (hobby.contains("Supervivencia")) {
 					Category cat = CategoryFactory.getAvailableCategory("Exteriores·Entorno");
 					cat.addSkill(hobby);
-					//CultureSkill skill = new CultureSkill(hobby);
+					// CultureSkill skill = new CultureSkill(hobby);
 					hobbySkills.add(hobby);
 				} else { // Not recognized.
 					ShowMessage.showErrorMessage("Aficion no encontrada en cultura \"" + getName() + "\": "
@@ -282,5 +292,9 @@ public class Culture {
 			return 0;
 		}
 		return langCult.getRanks();
+	}
+
+	public List<String> getCultureArmours() {
+		return cultureArmours;
 	}
 }

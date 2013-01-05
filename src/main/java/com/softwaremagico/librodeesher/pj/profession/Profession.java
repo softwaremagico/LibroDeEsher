@@ -287,25 +287,6 @@ public class Profession {
 		}
 	}
 
-	public Integer getMaxRanksPerLevel(String categoryName) {
-		try {
-			Integer ranks;
-			if (categoryName.contains("Armas·")) {
-				// TODO seleccionar el grupo de armas correspondiente.
-				ranks = weaponCategoryCost.get(0).getMaxRanksPerLevel();
-			} else {
-				ranks = categoryCost.get(categoryName).getMaxRanksPerLevel();
-			}
-			if (ranks != null) {
-				return ranks;
-			} else {
-				return 0;
-			}
-		} catch (NullPointerException npe) {
-			return 0;
-		}
-	}
-
 	private int setSpecialSkills(List<String> lines, int index, List<ChooseSkillGroup> groupSkillsToChoose) {
 		groupSkillsToChoose = new ArrayList<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {

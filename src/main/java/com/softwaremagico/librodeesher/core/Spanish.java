@@ -1,6 +1,7 @@
 package com.softwaremagico.librodeesher.core;
 
 public class Spanish {
+	public static final String OPEN_LISTS = "Listas Abiertas de Hechizos";
 	public static final String OTHER_REALM_TRAINING_LISTS = "Listas Hechizos de Adiestramientos de Otros Reinos";
 	public static final String FIREARMS_SUFIX = "Fuego";
 	public static final String DEFAULT_NAME = " ** Nuevo Personaje ** ";
@@ -12,5 +13,8 @@ public class Spanish {
 	public static final String FIREARMS_SKILL2 = "Fuego de Supresión";
 	public static final String FIREARMS_SKILL1 = "Percepción del Entorno: Munición";
 	public static final String CHI_SUFIX = "Poderes Chi:";
-	
+	public static final String CULTURE_WEAPON = "arma";
+	public static final String CULTURE_ARMOUR = "armadura";
+	public static final String CULTURE_SPELLS = "lista de hechizos";
+
 }

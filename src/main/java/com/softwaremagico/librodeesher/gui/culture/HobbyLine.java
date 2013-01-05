@@ -60,8 +60,8 @@ public class HobbyLine extends CultureLine {
 				// Correct the spinner
 				if (parentPanel.getSpinnerValues() > character.getCulture().getHobbyRanks()) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
-				} else if (getSelectedRanks() > character.getProfession().getMaxRanksPerLevel(
-						SkillFactory.getAvailableSkill(skillName).getCategory().getName())) {
+				} else if (getSelectedRanks() > character.getMaxRanksPerCulture(
+						SkillFactory.getAvailableSkill(skillName).getCategory())) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character

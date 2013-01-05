@@ -505,6 +505,18 @@ public class CharacterPlayer {
 		return getRanksValue(skill) + getBonus(skill) + getTotalValue(skill.getCategory());
 	}
 
+	public Integer getMaxRanksPerCulture(Category category) {
+		try {
+			// Weapons cost are not still defined.
+			if (category.getGroup().equals(CategoryGroup.WEAPON)) {
+				return getProfession().getWeaponCategoryCost().get(0).getMaxRanksPerLevel();
+			}
+			return getCategoryCost(category, 0).getMaxRanksPerLevel();
+		} catch (NullPointerException npe) {
+			return 0;
+		}
+	}
+
 	public CategoryCost getCategoryCost(Category category, Integer currentRanks) {
 		if (category.getGroup().equals(CategoryGroup.WEAPON)) {
 			return getProfessionDecisions().getWeaponCost(category);
