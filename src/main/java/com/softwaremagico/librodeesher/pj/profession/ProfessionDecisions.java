@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.profession;
+
 /*
  * #%L
  * Libro de Esher
@@ -41,5 +42,22 @@ public class ProfessionDecisions {
 
 	public CategoryCost getWeaponCost(Category category) {
 		return weaponsCost.get(category);
+	}
+
+	public boolean isWeaponCostUsed(CategoryCost cost) {
+		for (CategoryCost usedCosts : weaponsCost.values()) {
+			if (usedCosts.equals(cost)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void resetWeaponCosts() {
+		weaponsCost = new Hashtable<>();
+	}
+
+	public void resetWeaponCost(Category category) {
+		weaponsCost.remove(category);
 	}
 }

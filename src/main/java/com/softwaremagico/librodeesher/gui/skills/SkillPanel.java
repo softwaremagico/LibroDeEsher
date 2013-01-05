@@ -32,6 +32,7 @@ import java.util.List;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -55,13 +56,19 @@ public class SkillPanel extends BasePanel {
 		int weapon = 0;
 
 		weaponsLines = new ArrayList<>();
+		// Add extra weapons cost if new weapons categories exists.
+		character.getProfession().extendCategoryCost(character.isFirearmsAllowed());
 		for (Category category : CategoryFactory.getCategories()) {
 			// Translate general category to player specific category.
 			category = character.getCategory(category);
 			if (character.isCategoryUseful(category)) {
 				if (category.getGroup().equals(CategoryGroup.WEAPON)) {
+					CategoryCost cost = character.getProfessionDecisions().getWeaponCost(category);
+					if (cost == null) {
+						cost = character.getFirstWeaponCostNotSelected();
+					}
 					WeaponCategoryLine wl = new WeaponCategoryLine(character, category,
-							getLineBackgroundColor(i), this, weapon);
+							getLineBackgroundColor(i), this, cost, weapon);
 					add(wl);
 					weaponsLines.add(wl);
 					weapon++;

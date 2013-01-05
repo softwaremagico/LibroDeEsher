@@ -615,6 +615,8 @@ public class CharacterPlayer {
 
 	public void setFirearmsAllowed(boolean firearmsActivated) {
 		this.firearmsAllowed = firearmsActivated;
+		// Reset weaponCosts because new Weapons are added.
+		getProfessionDecisions().resetWeaponCosts();
 	}
 
 	public boolean isChiPowersAllowed() {
@@ -631,5 +633,15 @@ public class CharacterPlayer {
 
 	public void setOtherRealmtrainingSpellsAllowed(boolean otherRealmtrainingSpells) {
 		this.otherRealmtrainingSpellsAllowed = otherRealmtrainingSpells;
+	}
+
+	public CategoryCost getFirstWeaponCostNotSelected() {
+		List<CategoryCost> costs = getProfession().getWeaponCategoryCost();
+		for (CategoryCost cost : costs) {
+			if (!getProfessionDecisions().isWeaponCostUsed(cost)) {
+				return cost;
+			}
+		}
+		return null;
 	}
 }

@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.skills;
+
 /*
  * #%L
  * Libro de Esher
@@ -49,21 +50,12 @@ public class WeaponCategoryLine extends CategoryLine {
 	private boolean updatingWeaponCost = true;
 
 	public WeaponCategoryLine(CharacterPlayer character, Category category, Color background,
-			SkillPanel parentWindow, Integer weaponIndex) {
+			SkillPanel parentWindow,CategoryCost cost, Integer weaponIndex) {
 		super(character, category, background, parentWindow);
 		this.background = background;
 		this.weaponLineNumber = weaponIndex;
 		previousSelectedIndex = weaponIndex;
-		try {
-			CategoryCost cost = character.getProfessionDecisions().getWeaponCost(category);
-			if (cost != null) {
-				costComboBox.setSelectedItem(cost);
-			} else {
-				costComboBox.setSelectedIndex(weaponIndex);
-			}
-		} catch (IllegalArgumentException iae) {
-
-		}
+		costComboBox.setSelectedItem(cost);
 		updateWeaponCost();
 		enableRanks(0); // Weapon cost does not change. Current ranks calculus
 						// is not necessary.
@@ -72,6 +64,7 @@ public class WeaponCategoryLine extends CategoryLine {
 
 	private void addItemsToComboBox() {
 		updatingWeaponCost = true;
+
 		for (CategoryCost cost : character.getProfession().getWeaponCategoryCost()) {
 			costComboBox.addItem(cost);
 		}

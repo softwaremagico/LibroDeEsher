@@ -49,12 +49,15 @@ import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.training.TrainingType;
 
 public class Profession {
+	private final static Integer HOW_MANY_EXTRA_COSTS = 5;
 	private String name;
 	private Hashtable<String, Integer> categoriesBonus;
 	private Hashtable<String, Integer> skillBonus;
 	private List<Characteristic> characteristicPreferences;
 	private List<ProfessionalRealmsOfMagicOptions> magicRealmsAvailable;
 	private List<CategoryCost> weaponCategoryCost;
+	private List<CategoryCost> extraWeaponCategoryCost; // For firearms or any
+														// new weapon category
 	private Hashtable<String, CategoryCost> categoryCost;
 	private List<ChooseSkillGroup> commonSkillsToChoose;
 	private List<ChooseSkillGroup> professionalSkillsToChoose;
@@ -158,7 +161,7 @@ public class Profession {
 				for (String realms : realmsColumns) {
 					ProfessionalRealmsOfMagicOptions realmMagicOptions = new ProfessionalRealmsOfMagicOptions();
 					realmMagicOptions.add(realms, name);
-					magicRealmsAvailable.add(realmMagicOptions);				
+					magicRealmsAvailable.add(realmMagicOptions);
 				}
 			} catch (Exception e) {
 				ShowMessage.showErrorMessage("Problemas con el reino de magia " + lines.get(index)
@@ -219,18 +222,40 @@ public class Profession {
 			}
 			index++;
 		}
-		addRepeatedCategoryCost();
+		createExtraWeaponsCosts();
 		Collections.sort(weaponCategoryCost, new CategoryCostComparator());
 		return index;
+	}
+
+	private void createExtraWeaponsCosts() {
+		extraWeaponCategoryCost = new ArrayList<>();
+		for (int i = 0; i < HOW_MANY_EXTRA_COSTS; i++) {
+			extraWeaponCategoryCost.add(new CategoryCost(weaponCategoryCost
+					.get(weaponCategoryCost.size() - 1).getRankCost()));
+		}
 	}
 
 	/**
 	 * Add some extra weaponCost for new Weapons Categories
 	 * 
 	 */
-	private void addRepeatedCategoryCost() {
-		for (int i = weaponCategoryCost.size(); i < CategoryFactory.getWeaponsCategory().size(); i++) {
-			weaponCategoryCost.add(weaponCategoryCost.get(weaponCategoryCost.size() - 1));
+	public void extendCategoryCost(boolean fireArmsEnabled) {
+		Integer totalCategories = CategoryFactory.getWeaponsCategory().size();
+		int extraCostAdded = 0;
+		// Extend if it is necessary.
+		for (int i = weaponCategoryCost.size(); i < totalCategories; i++) {
+			weaponCategoryCost.add(extraWeaponCategoryCost.get(extraCostAdded));
+			extraCostAdded++;
+		}
+		Collections.sort(weaponCategoryCost, new CategoryCostComparator());
+
+		// Calculate real number of allowed categories.
+		if (!fireArmsEnabled) {
+			totalCategories -= 2;
+		}
+		// Delete excessive categories costs.
+		for (int i = CategoryFactory.getWeaponsCategory().size() - 1; i >= totalCategories; i--) {
+			weaponCategoryCost.remove(i);
 		}
 	}
 

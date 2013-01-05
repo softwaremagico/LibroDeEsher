@@ -92,4 +92,8 @@ public class CategoryCost {
 	public String toString() {
 		return getCostTag();
 	}
+
+	public List<Integer> getRankCost() {
+		return rankCost;
+	}
 }
