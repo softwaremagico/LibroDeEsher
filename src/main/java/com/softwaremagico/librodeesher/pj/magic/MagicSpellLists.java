@@ -133,7 +133,7 @@ public class MagicSpellLists {
 		// Other race lists are considered other profession of other realms.
 		List<String> races = RaceFactory.availableRaces();
 		for (String otherRace : races) {
-			if (!otherRace.equals(character.getRace())) {
+			if (!otherRace.equals(character.getRace().getName())) {
 				List<String> otherRaceLists = MagicFactory.getRaceLists(otherRace);
 				if (otherRaceLists != null) {
 					otherRealmsProfession.addAll(otherRaceLists);

@@ -24,6 +24,9 @@ package com.softwaremagico.librodeesher.gui.culture;
  * #L%
  */
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.softwaremagico.librodeesher.core.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
@@ -54,11 +57,27 @@ public class HobbyPanel extends CulturePanel {
 					addHobbyLine(armour);
 				}
 			} else if (skill.toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
+				List<String> spells = new ArrayList<>();
 				// Add open lists.
 				for (Skill spell : character.getCategory(
 						CategoryFactory.getAvailableCategory(Spanish.OPEN_LISTS)).getSkills()) {
-					addHobbyLine(spell.getName());
+					// addHobbyLine(spell.getName());
+					spells.add(spell.getName());
 				}
+				// Add race lists. Note than spell casters has race lists as
+				// basic and not as open. Therefore are not included in the
+				// previous step.
+				for (String spell : MagicFactory.getRaceLists(character.getRace().getName())) {
+					// avoid to add a race list two times.
+					if (!spells.contains(spell)) {
+						spells.add(spell);
+					}
+				}
+				// Create line.
+				for (String spell : spells) {
+					addHobbyLine(spell);
+				}
+
 			} else {
 				addHobbyLine(skill);
 			}
