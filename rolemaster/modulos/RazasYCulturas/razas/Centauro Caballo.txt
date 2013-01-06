@@ -106,6 +106,6 @@ Yoshida, Yoshifumi, Zane, Zaneta
 
 #APELLIDOS
 ####################################
-Correprisas, Grupablanca, Trespezuñas, Crinhervida, Pelonegro
+Correprisas, Grupablanca, Trespezuñas, Crinhervida, Pelonegro, Pelambre
 
 #### FIN RAZA ####
