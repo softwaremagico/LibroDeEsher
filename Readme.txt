@@ -158,6 +158,10 @@ Versión
 0.6.0.0	Culturas
 
 
+Notas
+-------------------------
+Iconos obtenidos del Gartoon Gnome Icon Theme bajo licencia GNU.
+
 Mas información
 -------------------------
 

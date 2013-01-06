@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import com.softwaremagico.librodeesher.gui.elements.GenericCategoryLine;
+import com.softwaremagico.librodeesher.gui.elements.GenericSkillLine;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
@@ -91,14 +93,14 @@ public class SkillPanel extends BasePanel {
 		}
 	}
 
-	protected void update() {
+	public void update() {
 		parentWindow.update();
 	}
 
-	protected void updateSkillsOfCategory(Category category) {
+	public void updateSkillsOfCategory(Category category) {
 		List<SkillLine> skillLines = skillLinesPerCategory.get(category);
 		if (skillLines != null) {
-			for (SkillLine skillLine : skillLines) {
+			for (GenericSkillLine skillLine : skillLines) {
 				skillLine.updateCategory();
 			}
 		}

@@ -1,4 +1,5 @@
-package com.softwaremagico.librodeesher.gui.skills;
+package com.softwaremagico.librodeesher.gui.elements;
+
 /*
  * #%L
  * Libro de Esher
@@ -28,6 +29,7 @@ import java.awt.event.ItemListener;
 
 import javax.swing.JCheckBox;
 
+import com.softwaremagico.librodeesher.gui.skills.SkillPanel;
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
@@ -41,6 +43,30 @@ public abstract class BasicSkillLine extends BasicLine {
 	protected CharacterPlayer character;
 	protected Category category;
 	protected SkillPanel parentWindow;
+	protected boolean costPanel = false;
+	protected boolean oldRanksPanel = false;
+	protected boolean chooseRanksPanel = false;
+	protected boolean ranksValuePanel = false;
+	protected boolean bonusCategoryPanel = false;
+	protected boolean otherBonusPanel = false;
+	protected boolean objectBonusPanel = false;
+	protected boolean totalPanel = false;
+
+	public void enableColumns(boolean costPanel, boolean oldRanksPanel, boolean chooseRanksPanel,
+			boolean ranksValuePanel, boolean bonusCategoryPanel, boolean otherBonusPanel,
+			boolean objectBonusPanel, boolean totalPanel) {
+		this.costPanel = costPanel;
+		this.oldRanksPanel = oldRanksPanel;
+		this.chooseRanksPanel = chooseRanksPanel;
+		this.ranksValuePanel = ranksValuePanel;
+		this.bonusCategoryPanel = bonusCategoryPanel;
+		this.otherBonusPanel = otherBonusPanel;
+		this.objectBonusPanel = objectBonusPanel;
+		this.totalPanel = totalPanel;
+		setElements();
+	}
+	
+	protected abstract void setElements();
 
 	protected void enableRanks(Integer currentRanks) {
 		updatingValues = true;
@@ -84,7 +110,7 @@ public abstract class BasicSkillLine extends BasicLine {
 
 	protected void setRanksSelected(Integer value) {
 		updatingValues = true;
-		if (hasRanks()) {
+		if (hasRanks() && firstRank != null) {
 			if (value > 0) {
 				firstRank.setSelected(true);
 			} else {
@@ -103,9 +129,9 @@ public abstract class BasicSkillLine extends BasicLine {
 		}
 		updatingValues = false;
 	}
-	
+
 	protected abstract void update();
-	
+
 	protected abstract void setCurrentLevelRanks();
 
 	class CheckBoxListener implements ItemListener {

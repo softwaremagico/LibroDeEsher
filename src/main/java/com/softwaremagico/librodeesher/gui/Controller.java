@@ -33,6 +33,7 @@ import javax.swing.JMenu;
 
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicsWindow;
 import com.softwaremagico.librodeesher.gui.culture.CultureWindow;
+import com.softwaremagico.librodeesher.gui.history.HistoryWindow;
 import com.softwaremagico.librodeesher.gui.skills.SkillWindow;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
@@ -45,6 +46,7 @@ public class Controller {
 	List<CharacterPlayer> characters;
 	CharacterPlayer selectedCharacter;
 	OptionsWindow optionsWindow;
+	HistoryWindow historyWindow;
 
 	public Controller() {
 		characters = new ArrayList<>();
@@ -66,6 +68,7 @@ public class Controller {
 		mainGui.getMainMenu().addCultureListener(new CultureWindowsListener());
 		mainGui.getMainMenu().addSkillsAndCategoriesListener(new SkillsAndCategoriesWindowsListener());
 		mainGui.getMainMenu().addOptionsWindowListener(new OptionsWindowsListener());
+		mainGui.getMainMenu().addHistoryWindowListener(new HistoryWindowsListener());
 	}
 
 	class NewCharacterListener implements ActionListener {
@@ -193,6 +196,19 @@ public class Controller {
 			}
 			optionsWindow = new OptionsWindow(selectedCharacter);
 			optionsWindow.setVisible(true);
+		}
+	}
+
+	class HistoryWindowsListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				historyWindow.dispose();
+			} catch (NullPointerException npe) {
+			}
+			historyWindow = new HistoryWindow(selectedCharacter);
+			historyWindow.setVisible(true);
 		}
 	}
 

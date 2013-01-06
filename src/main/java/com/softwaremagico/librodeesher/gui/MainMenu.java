@@ -40,8 +40,8 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 public class MainMenu {
 	private JMenuItem newMenuItem, closeMenuItem, loadMenuItem, saveMenuItem, exportToTextMenuItem,
 			exportToPDFMenuItem, exitMenuItem;
-	private JMenuItem aboutMenuItem, cultureMenuItem, charactMenuItem, trainingMenuItem, skillsMenuItem,
-			perksMenuItem, historyMenuItem, levelUpMenuItem;
+	private JMenuItem aboutMenuItem, cultureMenuItem, professionMenuItem, charactMenuItem, trainingMenuItem,
+			skillsMenuItem, perksMenuItem, historyMenuItem, levelUpMenuItem;
 	private JMenuItem insertCharacter;
 	private JMenuItem randomName, randomCharacter;
 	private JMenuItem optionsMenu;
@@ -136,6 +136,12 @@ public class MainMenu {
 		cultureMenuItem.getAccessibleContext().setAccessibleDescription("Definir la cultura del personaje.");
 		createMenu.add(cultureMenuItem);
 
+		professionMenuItem = new JMenuItem("Profesión", KeyEvent.VK_P);
+		professionMenuItem.setIcon((Icon) RolemasterFolderStructure.getIcon("profession.png"));
+		professionMenuItem.getAccessibleContext().setAccessibleDescription(
+				"Definir la profesión del personaje.");
+		createMenu.add(professionMenuItem);
+
 		trainingMenuItem = new JMenuItem("Adiestramientos", KeyEvent.VK_R);
 		trainingMenuItem.setIcon((Icon) RolemasterFolderStructure.getIcon("training.png"));
 		trainingMenuItem.getAccessibleContext().setAccessibleDescription("Adquirir adiestramientos.");
@@ -188,7 +194,7 @@ public class MainMenu {
 		randomName.setIcon((Icon) RolemasterFolderStructure.getIcon("rename.png"));
 		randomName.getAccessibleContext().setAccessibleDescription("Genera un nombre para el personaje.");
 		randomMenu.add(randomName);
-		
+
 		randomMenu.addSeparator();
 
 		randomCharacter = new JMenuItem("Pesonaje Aleatorio", KeyEvent.VK_P);
@@ -273,9 +279,13 @@ public class MainMenu {
 	public void addCloseCharacterListener(ActionListener al) {
 		closeMenuItem.addActionListener(al);
 	}
-	
-	public void addOptionsWindowListener(ActionListener al){
+
+	public void addOptionsWindowListener(ActionListener al) {
 		optionsMenu.addActionListener(al);
+	}
+
+	public void addHistoryWindowListener(ActionListener al) {
+		historyMenuItem.addActionListener(al);
 	}
 
 	class CloseListener implements ActionListener {
@@ -294,10 +304,11 @@ public class MainMenu {
 		boolean enable = character.areCharacteristicsConfirmed();
 		charactMenuItem.setEnabled(!enable);
 		cultureMenuItem.setEnabled(enable);
+		professionMenuItem.setEnabled(enable);
 		trainingMenuItem.setEnabled(enable);
 		perksMenuItem.setEnabled(enable);
 		skillsMenuItem.setEnabled(enable);
-		historyMenuItem.setEnabled(enable);		
+		historyMenuItem.setEnabled(enable);
 		isCharacterWellFormed();
 	}
 

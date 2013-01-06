@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
-import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
 /*
  * #%L

@@ -55,6 +55,7 @@ public class SkillWindow extends BaseFrame {
 	public SkillWindow(CharacterPlayer character) {
 		this.character = character;
 		defineWindow(750, 450);
+		developmentPoints = new DevelopmentTextField();
 		// setResizable(false);
 		setElements();
 		setEvents();
@@ -85,7 +86,6 @@ public class SkillWindow extends BaseFrame {
 		pointsLabel = new JLabel("  Puntos de Desarrollo restantes: ");
 		developmentPointsPanel.add(pointsLabel);
 
-		developmentPoints = new DevelopmentTextField();
 		developmentPoints.setColumns(3);
 		developmentPoints.setEditable(false);
 		developmentPoints.setMaximumSize(new Dimension(60, 25));

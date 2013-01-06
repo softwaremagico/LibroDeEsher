@@ -36,11 +36,12 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+import com.softwaremagico.librodeesher.gui.elements.GenericCategoryLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 
-public class WeaponCategoryLine extends CategoryLine {
+public class WeaponCategoryLine extends GenericCategoryLine {
 	private static final long serialVersionUID = -4281133156537443212L;
 	private WideComboBox<CategoryCost> costComboBox;
 	private static final int COMBO_BOX_WIDTH = 55;
@@ -50,12 +51,15 @@ public class WeaponCategoryLine extends CategoryLine {
 	private boolean updatingWeaponCost = true;
 
 	public WeaponCategoryLine(CharacterPlayer character, Category category, Color background,
-			SkillPanel parentWindow,CategoryCost cost, Integer weaponIndex) {
+			SkillPanel parentWindow, CategoryCost cost, Integer weaponIndex) {
 		super(character, category, background, parentWindow);
+		enableColumns(true, true, true, true, true, true, true, true);
 		this.background = background;
 		this.weaponLineNumber = weaponIndex;
 		previousSelectedIndex = weaponIndex;
-		costComboBox.setSelectedItem(cost);
+		if (costPanel) {
+			costComboBox.setSelectedItem(cost);
+		}
 		updateWeaponCost();
 		enableRanks(0); // Weapon cost does not change. Current ranks calculus
 						// is not necessary.
@@ -96,8 +100,10 @@ public class WeaponCategoryLine extends CategoryLine {
 	}
 
 	private void updateWeaponCost() {
-		character.getProfessionDecisions().setWeaponCost(category,
-				(CategoryCost) costComboBox.getSelectedItem());
+		if (costPanel) {
+			character.getProfessionDecisions().setWeaponCost(category,
+					(CategoryCost) costComboBox.getSelectedItem());
+		}
 	}
 
 	public class ComboBoxListener implements ActionListener {

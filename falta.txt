@@ -4,3 +4,4 @@ Elegir habilidades comunes de profesiones.
 En historial y demás, cuando se escoge la opción de subir las características debe mostrar un resumen de las temporales y potenciales.
 Bonus por raza
 Si se añaden las armas de fuego cuando ya ha pasado nivel 1, se resetean los costes de las categorias de armas. Hay que volverlos a poner!
+Habilidades especializadas y generalizadas
