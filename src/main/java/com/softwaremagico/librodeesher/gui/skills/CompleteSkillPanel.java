@@ -34,7 +34,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class CompleteSkillPanel extends BasePanel {
 	private static final long serialVersionUID = -6707835769716507229L;
-	private SkillTitleLine title;
+	private SkillTitle title;
 	private SkillPanel skillPanel;
 	private CharacterPlayer character;	
 	private SkillWindow parentWindow;
@@ -49,7 +49,7 @@ public class CompleteSkillPanel extends BasePanel {
 		this.removeAll();
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-		title = new SkillTitleLine("Aficiones", "Rangos (" + character.getCulture().getHobbyRanks() + ")");
+		title = new SkillTitle();
 		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
