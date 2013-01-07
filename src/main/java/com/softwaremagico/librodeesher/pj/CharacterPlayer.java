@@ -476,12 +476,20 @@ public class CharacterPlayer {
 		return total;
 	}
 
+	public Integer getTotalRanks(Category category) {
+		return getPreviousRanks(category) + getCurrentLevelRanks(category);
+	}
+
+	public Integer getTotalRanks(Skill skill) {
+		return getPreviousRanks(skill) + getCurrentLevelRanks(skill);
+	}
+
 	public Integer getRanksValue(Category category) {
-		return category.getRankValue(getPreviousRanks(category) + getCurrentLevelRanks(category));
+		return category.getRankValue(getTotalRanks(category));
 	}
 
 	public Integer getRanksValue(Skill skill) {
-		return skill.getRankValue(this, getPreviousRanks(skill) + getCurrentLevelRanks(skill));
+		return skill.getRankValue(this, getTotalRanks(skill));
 	}
 
 	public Integer getCharacteristicsBonus(Category category) {
@@ -608,11 +616,31 @@ public class CharacterPlayer {
 		return true;
 	}
 
+	/**
+	 * Skill is useful to this character and can be used to add new ranks.
+	 * 
+	 * @param skill
+	 * @return
+	 */
 	public boolean isSkillUseful(Skill skill) {
 		if (skill.getGroup().equals(SkillGroup.CHI) && !isChiPowersAllowed()) {
 			return false;
 		}
 		if (skill.getGroup().equals(SkillGroup.FIREARM) && !isFirearmsAllowed()) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Skill has some information than need to be shown.
+	 * 
+	 * @param skill
+	 * @return
+	 */
+	public boolean isSkillInteresting(Skill skill) {
+		// No ranks and no bonus, not interesting
+		if ((getTotalRanks(skill) == 0)) {
 			return false;
 		}
 		return true;

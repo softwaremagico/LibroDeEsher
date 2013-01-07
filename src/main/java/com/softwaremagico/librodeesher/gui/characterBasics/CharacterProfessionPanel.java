@@ -24,25 +24,20 @@ package com.softwaremagico.librodeesher.gui.characterBasics;
  * #L%
  */
 
-import java.awt.AWTEvent;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.event.ChangeEvent;
 
-import com.softwaremagico.librodeesher.gui.characterBasics.CharacterRacePanel.ChangeRaceListener;
+import com.softwaremagico.librodeesher.gui.MainWindow;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
-import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
-import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 
 public class CharacterProfessionPanel extends BasePanel {
 	private static final long serialVersionUID = -4572529165916501939L;
@@ -52,8 +47,10 @@ public class CharacterProfessionPanel extends BasePanel {
 	private CharacterPlayer character;
 	private CharacterLevelPanel levelPanel;
 	private boolean updatingProfession = false;
+	private CharacterPanel parent;
 
-	protected CharacterProfessionPanel() {
+	protected CharacterProfessionPanel(CharacterPanel parent) {
+		this.parent = parent;
 		setElements();
 		setDefaultSize();
 	}
@@ -160,6 +157,7 @@ public class CharacterProfessionPanel extends BasePanel {
 			character.setProfession(getSelectedProfession());
 			updateLevelPanel();
 		}
+		parent.updateProfession();
 	}
 
 	public void setCharacter(CharacterPlayer character) {
@@ -169,7 +167,6 @@ public class CharacterProfessionPanel extends BasePanel {
 			character.setProfession(getSelectedProfession());
 		}
 	}
-	
 
 	class ChangeProfessionListener implements ActionListener {
 

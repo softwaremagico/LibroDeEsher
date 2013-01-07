@@ -61,13 +61,13 @@ public class CompleteSkillPanel extends BasePanel {
 		add(title, gridBagConstraints);
 
 		skillPanel = new SkillPanel(character, this);
-		JScrollPane weaponsScrollPanel = new JScrollPane(skillPanel,
+		JScrollPane skillsScrollPanel = new JScrollPane(skillPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		weaponsScrollPanel.setBorder(getBorder());
+		skillsScrollPanel.setBorder(getBorder());
 		// characteristicPanel.setMinimumSize(new Dimension(200, 0));
-		weaponsScrollPanel.setBounds(0, 0, weaponsScrollPanel.getWidth(),
-				weaponsScrollPanel.getHeight());
+		skillsScrollPanel.setBounds(0, 0, skillsScrollPanel.getWidth(),
+				skillsScrollPanel.getHeight());
 		// gridBagConstraints.anchor = GridBagConstraints.LINE_START;
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
@@ -77,7 +77,7 @@ public class CompleteSkillPanel extends BasePanel {
 		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
-		add(weaponsScrollPanel, gridBagConstraints);
+		add(skillsScrollPanel, gridBagConstraints);
 	}
 	
 	public void sizeChanged() {

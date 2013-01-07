@@ -15,4 +15,12 @@ public class CategoryLine extends GenericCategoryLine {
 		enableColumns(true, true, true, true, true, true, true, true);
 	}
 
+	@Override
+	protected void setCurrentLevelRanks() {
+		Integer ranks = getRanksSelected();
+		// order the ranks.
+		setRanksSelected(ranks);
+		character.setCurrentLevelRanks(category, ranks);
+	}
+
 }

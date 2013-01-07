@@ -29,7 +29,6 @@ import java.awt.event.ItemListener;
 
 import javax.swing.JCheckBox;
 
-import com.softwaremagico.librodeesher.gui.skills.SkillPanel;
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
@@ -42,7 +41,7 @@ public abstract class BasicSkillLine extends BasicLine {
 	protected JCheckBox firstRank, secondRank, thirdRank;
 	protected CharacterPlayer character;
 	protected Category category;
-	protected SkillPanel parentWindow;
+	protected BaseSkillPanel parentWindow;
 	protected boolean costPanel = false;
 	protected boolean oldRanksPanel = false;
 	protected boolean chooseRanksPanel = false;

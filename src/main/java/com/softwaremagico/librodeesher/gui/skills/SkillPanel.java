@@ -29,9 +29,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import com.softwaremagico.librodeesher.gui.elements.GenericCategoryLine;
-import com.softwaremagico.librodeesher.gui.elements.GenericSkillLine;
-import com.softwaremagico.librodeesher.gui.style.BasePanel;
+import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
@@ -39,7 +37,7 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
-public class SkillPanel extends BasePanel {
+public class SkillPanel extends BaseSkillPanel {
 	private static final long serialVersionUID = 544393371168606333L;
 	private CompleteSkillPanel parentWindow;
 	private Hashtable<Category, List<SkillLine>> skillLinesPerCategory;
@@ -100,7 +98,7 @@ public class SkillPanel extends BasePanel {
 	public void updateSkillsOfCategory(Category category) {
 		List<SkillLine> skillLines = skillLinesPerCategory.get(category);
 		if (skillLines != null) {
-			for (GenericSkillLine skillLine : skillLines) {
+			for (SkillLine skillLine : skillLines) {
 				skillLine.updateCategory();
 			}
 		}

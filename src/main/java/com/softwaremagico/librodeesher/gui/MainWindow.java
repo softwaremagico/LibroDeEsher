@@ -39,7 +39,6 @@ import javax.swing.ScrollPaneConstants;
 
 import com.softwaremagico.librodeesher.gui.characterBasics.CharacterPanel;
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicSummaryPanel;
-import com.softwaremagico.librodeesher.gui.elements.CategoriesPanel;
 import com.softwaremagico.librodeesher.gui.resistance.ResistancePanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -51,8 +50,9 @@ public class MainWindow extends BaseFrame {
 	private CharacteristicSummaryPanel characteristicsPanel;
 	private JScrollPane characteristicScrollPanel;
 	private JScrollPane resistanceScrollPanel;
-	private JScrollPane categoriesScrollPanel;
 	private MainMenu mainMenu;
+	private ResumeSkillPanel skillPanel;
+	private CharacterPlayer character;
 
 	/**
 	 * Create the frame.
@@ -66,10 +66,12 @@ public class MainWindow extends BaseFrame {
 	}
 
 	public void setCharacter(CharacterPlayer character) {
+		this.character = character;
 		characterPanel.setCharacter(character);
 		characteristicsPanel.setCharacter(character, true);
 		resistancePanel.setCharacter(character);
 		mainMenu.setCharacter(character);
+		skillPanel.update(character);
 	}
 
 	private void setElements() {
@@ -80,7 +82,7 @@ public class MainWindow extends BaseFrame {
 		mainMenu = new MainMenu();
 		setJMenuBar(mainMenu.createMenu(this));
 
-		characterPanel = new CharacterPanel();
+		characterPanel = new CharacterPanel(this);
 		characterPanel.setBorder(getBorder());
 		characterPanel.setBounds(margin, margin, characterPanel.getWidth(), characterPanel.getHeight());
 		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
@@ -147,13 +149,9 @@ public class MainWindow extends BaseFrame {
 		// gridBagConstraints.insets = new Insets(1, 5, 1, 5);
 		// getContentPane().add(emptyPanel, gridBagConstraints);
 
-		categoriesScrollPanel = new JScrollPane(new CategoriesPanel(),
-				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		categoriesScrollPanel.setBorder(getBorder());
-		categoriesScrollPanel.setMinimumSize(new Dimension(100, 100));
-		categoriesScrollPanel.setBounds(margin, margin, categoriesScrollPanel.getWidth(),
-				categoriesScrollPanel.getHeight());
+		skillPanel = new ResumeSkillPanel();
+		skillPanel.setBorder(getBorder());
+		skillPanel.setMinimumSize(new Dimension(100, 100));
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.gridheight = GridBagConstraints.REMAINDER;
 		gridBagConstraints.gridwidth = 2;
@@ -164,7 +162,7 @@ public class MainWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(1, 1, 1, 1);
-		getContentPane().add(categoriesScrollPanel, gridBagConstraints);
+		getContentPane().add(skillPanel, gridBagConstraints);
 
 	}
 
@@ -195,7 +193,7 @@ public class MainWindow extends BaseFrame {
 			}
 		});
 	}
-	
+
 	@Override
 	public void update() {
 		characterPanel.update();
@@ -210,6 +208,10 @@ public class MainWindow extends BaseFrame {
 				update();
 			}
 		});
+	}
+
+	public void updateProfession() {
+		skillPanel.update(character);
 	}
 
 }

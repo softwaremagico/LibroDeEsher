@@ -36,23 +36,23 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import com.softwaremagico.librodeesher.gui.skills.SkillPanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class GenericSkillLine extends BasicSkillLine {
 	private static final long serialVersionUID = -3194401962061016906L;
-	private JLabel bonusRankLabel, totalLabel, bonusCategory;
-	private Skill skill;
+	protected JLabel bonusRankLabel, totalLabel, bonusCategory;
+	protected Skill skill;
 	private Color background;
 
-	public GenericSkillLine(CharacterPlayer character, Skill skill, Color background, SkillPanel parentWindow) {
+	public GenericSkillLine(CharacterPlayer character, Skill skill, Color background,
+			BaseSkillPanel parentWindow) {
 		this.character = character;
 		this.skill = skill;
 		this.category = skill.getCategory();
 		this.parentWindow = parentWindow;
 		this.background = background;
-		
+
 		setBackground(background);
 		setRanksSelected(character.getCurrentLevelRanks(skill));
 	}
@@ -81,13 +81,13 @@ public class GenericSkillLine extends BasicSkillLine {
 		skillNameLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		skillNameLabel.setMinimumSize(new Dimension(200, columnHeight));
 		skillNameLabel.setPreferredSize(new Dimension(200, columnHeight));
-		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.3;
 		add(skillNameLabel, gridBagConstraints);
 
 		if (costPanel) {
-			gridBagConstraints.gridx = 1;
+			gridBagConstraints.gridx = 3;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			JLabel rankCostLabel = new JLabel("");
@@ -102,7 +102,7 @@ public class GenericSkillLine extends BasicSkillLine {
 			prevRanksLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			prevRanksLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
 			prevRanksLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
-			gridBagConstraints.gridx = 2;
+			gridBagConstraints.gridx = 5;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			add(prevRanksLabel, gridBagConstraints);
@@ -126,7 +126,7 @@ public class GenericSkillLine extends BasicSkillLine {
 			thirdRank.addItemListener(new CheckBoxListener());
 			checkBoxPane.add(thirdRank);
 
-			gridBagConstraints.gridx = 3;
+			gridBagConstraints.gridx = 7;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			checkBoxPane.setMinimumSize(new Dimension(columnWidth * 2, columnHeight));
@@ -140,7 +140,7 @@ public class GenericSkillLine extends BasicSkillLine {
 			bonusRankLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
 			bonusRankLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
 			bonusRankLabel.setFont(defaultFont);
-			gridBagConstraints.gridx = 4;
+			gridBagConstraints.gridx = 9;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			add(bonusRankLabel, gridBagConstraints);
@@ -152,7 +152,7 @@ public class GenericSkillLine extends BasicSkillLine {
 			bonusCategory.setMinimumSize(new Dimension(columnWidth, columnHeight));
 			bonusCategory.setPreferredSize(new Dimension(columnWidth, columnHeight));
 			bonusCategory.setFont(defaultFont);
-			gridBagConstraints.gridx = 5;
+			gridBagConstraints.gridx = 11;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			add(bonusCategory, gridBagConstraints);
@@ -164,7 +164,7 @@ public class GenericSkillLine extends BasicSkillLine {
 			otherBonus.setMinimumSize(new Dimension(columnWidth, columnHeight));
 			otherBonus.setPreferredSize(new Dimension(columnWidth, columnHeight));
 			otherBonus.setFont(defaultFont);
-			gridBagConstraints.gridx = 6;
+			gridBagConstraints.gridx = 13;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			add(otherBonus, gridBagConstraints);
@@ -176,7 +176,7 @@ public class GenericSkillLine extends BasicSkillLine {
 			bonusMagicObject.setMinimumSize(new Dimension(columnWidth, columnHeight));
 			bonusMagicObject.setPreferredSize(new Dimension(columnWidth, columnHeight));
 			bonusMagicObject.setFont(defaultFont);
-			gridBagConstraints.gridx = 7;
+			gridBagConstraints.gridx = 15;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			add(bonusMagicObject, gridBagConstraints);
@@ -188,7 +188,7 @@ public class GenericSkillLine extends BasicSkillLine {
 			totalLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
 			totalLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
 			totalLabel.setFont(defaultFont);
-			gridBagConstraints.gridx = 8;
+			gridBagConstraints.gridx = 17;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			add(totalLabel, gridBagConstraints);
@@ -207,20 +207,29 @@ public class GenericSkillLine extends BasicSkillLine {
 		parentWindow.update();
 	}
 
-	public void updateCategory() {
-		if (bonusCategoryPanel) {
-			bonusCategory.setText(character.getTotalValue(skill.getCategory()).toString());
-		}
-		if (totalPanel) {
-			totalLabel.setText(character.getTotalValue(skill).toString());
-		}
-	}
-
 	@Override
 	protected void setCurrentLevelRanks() {
-		Integer ranks = getRanksSelected();
-		// order the ranks.
-		setRanksSelected(ranks);
-		character.setCurrentLevelRanks(skill, ranks);
+
+	}
+
+	protected void addColumn(JPanel panel, Integer column) {
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		gridBagConstraints.fill = GridBagConstraints.CENTER;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.weighty = 0;
+		gridBagConstraints.gridx = column * 2;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0.1;
+		add(panel, gridBagConstraints);
+	}
+
+	protected void disableRankCheckBox() {
+		try{
+			firstRank.setEnabled(false);
+			secondRank.setEnabled(false);
+			thirdRank.setEnabled(false);
+		}catch(NullPointerException npe){}
 	}
 }

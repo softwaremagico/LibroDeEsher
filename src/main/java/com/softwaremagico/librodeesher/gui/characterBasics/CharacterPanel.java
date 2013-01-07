@@ -28,6 +28,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import com.softwaremagico.librodeesher.gui.MainWindow;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
@@ -37,8 +38,10 @@ public class CharacterPanel extends BasePanel {
 	private CharacterRacePanel characterRacePanel;
 	private CharacterProfessionPanel characterProfessionPanel;
 	private CharacterLevelPanel characterLevelPanel;
+	private MainWindow parent;
 
-	public CharacterPanel() {
+	public CharacterPanel(MainWindow parent) {
+		this.parent = parent;
 		setElements();
 	}
 
@@ -69,7 +72,7 @@ public class CharacterPanel extends BasePanel {
 		c.insets = new Insets(1, 5, 1, 5);
 		add(characterRacePanel, c);
 
-		characterProfessionPanel = new CharacterProfessionPanel();
+		characterProfessionPanel = new CharacterProfessionPanel(this);
 		characterRacePanel.setProfessionPanel(characterProfessionPanel);
 		characterProfessionPanel.setBounds(xPadding, xPadding, characterBasics.getWidth(),
 				characterBasics.getHeight());
@@ -80,7 +83,7 @@ public class CharacterPanel extends BasePanel {
 		c.weightx = 0.5;
 		c.insets = new Insets(1, 5, 1, 5);
 		add(characterProfessionPanel, c);
-		//characterProfessionPanel.update();
+		// characterProfessionPanel.update();
 
 		characterLevelPanel = new CharacterLevelPanel();
 		characterLevelPanel.setBounds(xPadding, xPadding, characterBasics.getWidth(),
@@ -94,8 +97,8 @@ public class CharacterPanel extends BasePanel {
 		c.insets = new Insets(1, 5, 1, 5);
 		add(characterLevelPanel, c);
 	}
-	
-	public void setCharacter(CharacterPlayer character){
+
+	public void setCharacter(CharacterPlayer character) {
 		characterBasics.setCharacter(character);
 		characterRacePanel.setCharacter(character);
 		characterProfessionPanel.setCharacter(character);
@@ -116,9 +119,9 @@ public class CharacterPanel extends BasePanel {
 			characterLevelPanel.sizeChanged();
 		}
 	}
-	
-	public void update(){
-		if(characterBasics!=null){
+
+	public void update() {
+		if (characterBasics != null) {
 			characterBasics.update();
 		}
 		if (characterRacePanel != null) {
@@ -130,6 +133,10 @@ public class CharacterPanel extends BasePanel {
 		if (characterLevelPanel != null) {
 			characterLevelPanel.update();
 		}
+	}
+
+	public void updateProfession() {
+		parent.updateProfession();
 	}
 
 }

@@ -106,12 +106,20 @@ public class WeaponCategoryLine extends GenericCategoryLine {
 		}
 	}
 
+	@Override
+	protected void setCurrentLevelRanks() {
+		Integer ranks = getRanksSelected();
+		// order the ranks.
+		setRanksSelected(ranks);
+		character.setCurrentLevelRanks(category, ranks);
+	}
+
 	public class ComboBoxListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (!updatingWeaponCost) {
 				if (weaponLineNumber != null) {
-					parentWindow.updateWeaponsCost(costComboBox.getSelectedIndex(), previousSelectedIndex,
-							weaponLineNumber);
+					((SkillPanel) parentWindow).updateWeaponsCost(costComboBox.getSelectedIndex(),
+							previousSelectedIndex, weaponLineNumber);
 				}
 				previousSelectedIndex = costComboBox.getSelectedIndex();
 				updateWeaponCost();

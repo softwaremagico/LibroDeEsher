@@ -30,6 +30,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
@@ -80,7 +81,7 @@ public class SkillTitleLine extends BasicTitleLine {
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.weighty = 0;
 
-		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.3;
 		JLabel categoryNameLabel = new JLabel("Nombre");
@@ -91,7 +92,7 @@ public class SkillTitleLine extends BasicTitleLine {
 		add(categoryNameLabel, gridBagConstraints);
 
 		if (costPanel) {
-			gridBagConstraints.gridx = 1;
+			gridBagConstraints.gridx = 3;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			JLabel rankCostLabel = new JLabel("Coste");
@@ -102,7 +103,7 @@ public class SkillTitleLine extends BasicTitleLine {
 		}
 
 		if (oldRanksPanel) {
-			gridBagConstraints.gridx = 2;
+			gridBagConstraints.gridx = 5;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			prevRanksLabel = new JLabel("Rng");
@@ -114,7 +115,7 @@ public class SkillTitleLine extends BasicTitleLine {
 		}
 
 		if (chooseRanksPanel) {
-			gridBagConstraints.gridx = 3;
+			gridBagConstraints.gridx = 7;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			currentRanksLabel = new JLabel("Rng");
@@ -128,7 +129,7 @@ public class SkillTitleLine extends BasicTitleLine {
 		if (ranksValuePanel) {
 			bonusRankLabel = new JLabel("Val");
 			bonusRankLabel.setFont(defaultFont);
-			gridBagConstraints.gridx = 4;
+			gridBagConstraints.gridx = 9;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			bonusRankLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
@@ -143,7 +144,7 @@ public class SkillTitleLine extends BasicTitleLine {
 			bonusCharLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
 			bonusCharLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
 			bonusCharLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			gridBagConstraints.gridx = 5;
+			gridBagConstraints.gridx = 11;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			add(bonusCharLabel, gridBagConstraints);
@@ -155,7 +156,7 @@ public class SkillTitleLine extends BasicTitleLine {
 			otherBonus.setPreferredSize(new Dimension(columnWidth, columnHeight));
 			otherBonus.setHorizontalAlignment(SwingConstants.CENTER);
 			otherBonus.setFont(defaultFont);
-			gridBagConstraints.gridx = 6;
+			gridBagConstraints.gridx = 13;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			add(otherBonus, gridBagConstraints);
@@ -167,7 +168,7 @@ public class SkillTitleLine extends BasicTitleLine {
 			bonusMagicObject.setMinimumSize(new Dimension(columnWidth, columnHeight));
 			bonusMagicObject.setPreferredSize(new Dimension(columnWidth, columnHeight));
 			bonusMagicObject.setHorizontalAlignment(SwingConstants.CENTER);
-			gridBagConstraints.gridx = 7;
+			gridBagConstraints.gridx = 15;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			add(bonusMagicObject, gridBagConstraints);
@@ -179,7 +180,7 @@ public class SkillTitleLine extends BasicTitleLine {
 			totalLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
 			totalLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			totalLabel.setFont(defaultFont);
-			gridBagConstraints.gridx = 8;
+			gridBagConstraints.gridx = 17;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			add(totalLabel, gridBagConstraints);
@@ -191,7 +192,7 @@ public class SkillTitleLine extends BasicTitleLine {
 		scrollBarGap.setPreferredSize(new Dimension(scrollBarSize, columnHeight));
 		scrollBarGap.setHorizontalAlignment(SwingConstants.CENTER);
 		scrollBarGap.setFont(defaultFont);
-		gridBagConstraints.gridx = 9;
+		gridBagConstraints.gridx = 19;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
 		add(scrollBarGap, gridBagConstraints);
@@ -243,5 +244,18 @@ public class SkillTitleLine extends BasicTitleLine {
 				totalLabel.setText("Total");
 			}
 		}
+	}
+	
+	protected void addColumn(JPanel panel, Integer column) {
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		gridBagConstraints.fill = GridBagConstraints.CENTER;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.weighty = 0;
+		gridBagConstraints.gridx = column * 2;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0.1;
+		add(panel, gridBagConstraints);
 	}
 }
