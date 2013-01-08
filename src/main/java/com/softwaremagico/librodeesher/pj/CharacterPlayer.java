@@ -63,7 +63,7 @@ public class CharacterPlayer {
 	private static final Integer STORED_ROLLS_NUMBER = 10;
 	private String name;
 	private SexType sex;
-	private String history;
+	private String historyText;
 
 	private Characteristics characteristics;
 	private Hashtable<String, Integer> characteristicsInitialTemporalValues;
@@ -84,6 +84,7 @@ public class CharacterPlayer {
 	private Resistances resistances;
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
 	private MagicSpellLists magicSpellLists;
+	private History history;
 
 	private boolean darkSpellsAsBasicListsAllowed = false;
 	private boolean firearmsAllowed = false;
@@ -96,6 +97,7 @@ public class CharacterPlayer {
 		characteristics = new Characteristics();
 		levelUps = new ArrayList<>();
 		levelUps.add(new LevelUp());
+		history = new History();
 		characteristicsInitialTemporalValues = new Hashtable<>();
 		characteristicsTemporalUpdatesRolls = new Hashtable<>();
 		characteristicsPotentialValues = new Hashtable<>();
@@ -502,11 +504,11 @@ public class CharacterPlayer {
 	}
 
 	public Integer getBonus(Category category) {
-		return category.getBonus() + getProfession().getCategoryBonus(category.getName());
+		return category.getBonus() + getProfession().getCategoryBonus(category.getName()) + history.getBonus(category);
 	}
 
 	public Integer getBonus(Skill skill) {
-		return getProfession().getSkillBonus(skill.getName());
+		return getProfession().getSkillBonus(skill.getName()) + history.getBonus(skill);
 	}
 
 	public Integer getTotalValue(Category category) {
@@ -699,5 +701,13 @@ public class CharacterPlayer {
 			}
 		}
 		return null;
+	}
+
+	public void setHistoryPoints(Skill skill, boolean value) {
+		history.setHistoryPoint(skill, value);
+	}
+
+	public void setHistoryPoints(Category category, boolean value) {
+		history.setHistoryPoint(category, value);
 	}
 }

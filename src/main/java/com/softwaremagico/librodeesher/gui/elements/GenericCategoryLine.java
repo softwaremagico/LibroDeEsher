@@ -31,6 +31,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -41,7 +42,7 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 
 public abstract class GenericCategoryLine extends BasicSkillLine {
 	private static final long serialVersionUID = 2914665641808878141L;
-	protected JLabel bonusRankLabel, totalLabel;
+	protected JLabel categoryNameLabel, bonusRankLabel, totalLabel;
 
 	public GenericCategoryLine(CharacterPlayer character, Category category, Color background,
 			BaseSkillPanel parentWindow) {
@@ -92,14 +93,14 @@ public abstract class GenericCategoryLine extends BasicSkillLine {
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.weighty = 0;
 
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 0.3;
-		JLabel categoryNameLabel = new JLabel(category.getName());
+		categoryNameLabel = new JLabel(category.getName());
 		categoryNameLabel.setFont(defaultFont);
 		categoryNameLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		categoryNameLabel.setMinimumSize(new Dimension(200, columnHeight));
 		categoryNameLabel.setPreferredSize(new Dimension(200, columnHeight));
+		gridBagConstraints.gridx = 1;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0.3;
 		add(categoryNameLabel, gridBagConstraints);
 
 		if (costPanel) {
@@ -112,14 +113,14 @@ public abstract class GenericCategoryLine extends BasicSkillLine {
 		}
 
 		if (oldRanksPanel) {
-			gridBagConstraints.gridx = 5;
-			gridBagConstraints.gridwidth = 1;
-			gridBagConstraints.weightx = 0.1;
 			JLabel prevRanksLabel = new JLabel(previousRanks.toString());
 			prevRanksLabel.setFont(defaultFont);
 			prevRanksLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
 			prevRanksLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
 			prevRanksLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			gridBagConstraints.gridx = 5;
+			gridBagConstraints.gridwidth = 1;
+			gridBagConstraints.weightx = 0.1;
 			add(prevRanksLabel, gridBagConstraints);
 		}
 
@@ -154,12 +155,12 @@ public abstract class GenericCategoryLine extends BasicSkillLine {
 		if (ranksValuePanel) {
 			bonusRankLabel = new JLabel(character.getRanksValue(category).toString());
 			bonusRankLabel.setFont(defaultFont);
-			gridBagConstraints.gridx = 9;
-			gridBagConstraints.gridwidth = 1;
-			gridBagConstraints.weightx = 0.1;
 			bonusRankLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
 			bonusRankLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
 			bonusRankLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			gridBagConstraints.gridx = 9;
+			gridBagConstraints.gridwidth = 1;
+			gridBagConstraints.weightx = 0.1;
 			add(bonusRankLabel, gridBagConstraints);
 		}
 
@@ -201,9 +202,9 @@ public abstract class GenericCategoryLine extends BasicSkillLine {
 
 		if (totalPanel) {
 			totalLabel = new JLabel(character.getTotalValue(category).toString());
+			totalLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			totalLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
 			totalLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
-			totalLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			totalLabel.setFont(defaultFont);
 			gridBagConstraints.gridx = 17;
 			gridBagConstraints.gridwidth = 1;
@@ -215,8 +216,12 @@ public abstract class GenericCategoryLine extends BasicSkillLine {
 	}
 
 	public void update() {
-		bonusRankLabel.setText(character.getRanksValue(category).toString());
-		totalLabel.setText(character.getTotalValue(category).toString());
+		if (bonusCategoryPanel) {
+			bonusRankLabel.setText(character.getRanksValue(category).toString());
+		}
+		if (totalPanel) {
+			totalLabel.setText(character.getTotalValue(category).toString());
+		}
 		parentWindow.update();
 		parentWindow.updateSkillsOfCategory(category);
 	}
@@ -231,15 +236,17 @@ public abstract class GenericCategoryLine extends BasicSkillLine {
 		gridBagConstraints.gridx = column * 2;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
+		panel.setBackground(background);
 		add(panel, gridBagConstraints);
 	}
-	
-	protected void disableRankCheckBox(){
-		try{
+
+	protected void disableRankCheckBox() {
+		try {
 			firstRank.setEnabled(false);
 			secondRank.setEnabled(false);
 			thirdRank.setEnabled(false);
-		}catch(NullPointerException npe){}
+		} catch (NullPointerException npe) {
+		}
 	}
 
 }

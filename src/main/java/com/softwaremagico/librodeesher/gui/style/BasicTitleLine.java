@@ -31,7 +31,7 @@ public abstract class BasicTitleLine extends BasicLine {
 	protected Color background = Color.BLACK;
 	protected Color foreground = Color.WHITE;
 	protected Color fontColor = Color.LIGHT_GRAY;
-	protected String font = "Dialog Bold";
+	protected static String font = "Dialog Bold";
 
 	/**
 	 * Create the panel.

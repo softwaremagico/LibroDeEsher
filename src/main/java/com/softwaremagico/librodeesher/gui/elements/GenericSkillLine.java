@@ -31,6 +31,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -41,7 +42,7 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class GenericSkillLine extends BasicSkillLine {
 	private static final long serialVersionUID = -3194401962061016906L;
-	protected JLabel bonusRankLabel, totalLabel, bonusCategory;
+	protected JLabel skillNameLabel, bonusRankLabel, totalLabel, bonusCategory;
 	protected Skill skill;
 	private Color background;
 
@@ -76,7 +77,7 @@ public class GenericSkillLine extends BasicSkillLine {
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.weighty = 0;
 
-		JLabel skillNameLabel = new JLabel(skill.getName());
+		skillNameLabel = new JLabel(skill.getName());
 		skillNameLabel.setFont(defaultFont);
 		skillNameLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		skillNameLabel.setMinimumSize(new Dimension(200, columnHeight));
@@ -206,6 +207,8 @@ public class GenericSkillLine extends BasicSkillLine {
 		}
 		parentWindow.update();
 	}
+	
+	
 
 	@Override
 	protected void setCurrentLevelRanks() {
@@ -222,6 +225,7 @@ public class GenericSkillLine extends BasicSkillLine {
 		gridBagConstraints.gridx = column * 2;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
+		panel.setBackground(background);
 		add(panel, gridBagConstraints);
 	}
 

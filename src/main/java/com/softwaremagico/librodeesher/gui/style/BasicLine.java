@@ -26,7 +26,6 @@ package com.softwaremagico.librodeesher.gui.style;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -39,8 +38,8 @@ public abstract class BasicLine extends BasePanel {
 	protected Color fontColor = Color.DARK_GRAY;
 	protected Integer labelDefaultWidth = 40;
 	protected Integer nameTextDefaultWidth = 80;
-	protected String font = "Dialog";
-	protected int fontSize = 12;
+	protected static String font = "Dialog";
+	protected static int fontSize = 12;
 
 	/**
 	 * Create the panel.

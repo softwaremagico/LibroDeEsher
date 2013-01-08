@@ -1,6 +1,9 @@
 package com.softwaremagico.librodeesher.gui.history;
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -10,8 +13,10 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class HistorySkillsPanel extends BaseSkillPanel {
 	private static final long serialVersionUID = -1612700951233838060L;
-	
-	public HistorySkillsPanel(CharacterPlayer character){
+	private Hashtable<Category, List<HistorySkillLine>> skillLinesPerCategory;
+
+	public HistorySkillsPanel(CharacterPlayer character) {
+		skillLinesPerCategory = new Hashtable<>();
 		setElements(character);
 	}
 
@@ -26,12 +31,17 @@ public class HistorySkillsPanel extends BaseSkillPanel {
 				add(new HistoryCategoryLine(character, category, getLineBackgroundColor(i), this));
 				i++;
 
+				List<HistorySkillLine> skillLines = new ArrayList<>();
 				for (Skill skill : category.getSkills()) {
 					if (character.isSkillInteresting(skill)) {
-						add(new HistorySkillLine(character, skill, getLineBackgroundColor(i), this));
+						HistorySkillLine skillLine = new HistorySkillLine(character, skill,
+								getLineBackgroundColor(i), this);
+						add(skillLine);
+						skillLines.add(skillLine);
 						i++;
 					}
 				}
+				skillLinesPerCategory.put(category, skillLines);
 			}
 		}
 	}
@@ -44,7 +54,12 @@ public class HistorySkillsPanel extends BaseSkillPanel {
 
 	@Override
 	public void updateSkillsOfCategory(Category category) {
-		// TODO Auto-generated method stub
+		List<HistorySkillLine> skillLines = skillLinesPerCategory.get(category);
+		if (skillLines != null) {
+			for (HistorySkillLine skillLine : skillLines) {
+				skillLine.update();
+			}
+		}
 
 	}
 }

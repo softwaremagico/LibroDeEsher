@@ -22,7 +22,7 @@ public class HistorySkillPointsPanel extends BasePanel {
 		this.parent = parent;
 		setElements();
 	}
-	
+
 	private void setElements() {
 		this.removeAll();
 		setLayout(new GridBagLayout());
@@ -56,6 +56,12 @@ public class HistorySkillPointsPanel extends BasePanel {
 		gridBagConstraints.weighty = 1;
 		add(skillsScrollPanel, gridBagConstraints);
 
+	}
+
+	public void sizeChanged() {
+		if (title != null) {
+			title.sizeChanged();
+		}
 	}
 
 }

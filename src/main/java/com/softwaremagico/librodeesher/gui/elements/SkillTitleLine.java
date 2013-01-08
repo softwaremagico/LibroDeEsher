@@ -38,6 +38,7 @@ import com.softwaremagico.librodeesher.gui.style.BasicTitleLine;
 
 public class SkillTitleLine extends BasicTitleLine {
 	private static final long serialVersionUID = 4480268296161276440L;
+	protected static final Font defaultFont = new Font(font, Font.BOLD, fontSize);
 	private static final Integer columnWidth = 30;
 	private static final Integer columnHeight = 20;
 	private JLabel prevRanksLabel, currentRanksLabel, bonusRankLabel, bonusCharLabel, bonusMagicObject,
@@ -197,8 +198,12 @@ public class SkillTitleLine extends BasicTitleLine {
 		gridBagConstraints.weightx = 0;
 		add(scrollBarGap, gridBagConstraints);
 	}
+	
+	public void sizeChanged(){
+		defaultElementsSizeChanged();
+	}
 
-	public void sizeChanged() {
+	public void defaultElementsSizeChanged() {
 		if (this.getWidth() < 800) {
 			if (oldRanksPanel) {
 				prevRanksLabel.setText("Rng");
@@ -256,6 +261,7 @@ public class SkillTitleLine extends BasicTitleLine {
 		gridBagConstraints.gridx = column * 2;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
+		panel.setBackground(background);
 		add(panel, gridBagConstraints);
 	}
 }
