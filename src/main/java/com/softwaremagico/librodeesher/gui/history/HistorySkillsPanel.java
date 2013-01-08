@@ -37,9 +37,9 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 public class HistorySkillsPanel extends BaseSkillPanel {
 	private static final long serialVersionUID = -1612700951233838060L;
 	private Hashtable<Category, List<HistorySkillLine>> skillLinesPerCategory;
-	private HistorySkillPointsPanel parent;
+	private HistoryCompleteSkillPointsPanel parent;
 
-	public HistorySkillsPanel(CharacterPlayer character, HistorySkillPointsPanel parent) {
+	public HistorySkillsPanel(CharacterPlayer character, HistoryCompleteSkillPointsPanel parent) {
 		skillLinesPerCategory = new Hashtable<>();
 		this.parent = parent;
 		setElements(character);

@@ -100,4 +100,8 @@ public class Skill {
 	public SkillGroup getGroup() {
 		return group;
 	}
+
+	public String toString() {
+		return getName();
+	}
 }

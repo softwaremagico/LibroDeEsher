@@ -532,6 +532,21 @@ public class CharacterPlayer {
 		}
 	}
 
+	/**
+	 * In culture, weapon cost are not defined. Therefore, we will use the best
+	 * value.
+	 * 
+	 * @param category
+	 * @return
+	 */
+	public Integer getCultureStimatedCategoryCost(Category category) {
+		if (category.getGroup().equals(CategoryGroup.WEAPON)) {
+			return getProfession().getWeaponCategoryCost().get(0).getRankCost(0);
+		} else {
+			return getCategoryCost(category, 0).getRankCost(0);
+		}
+	}
+
 	public CategoryCost getCategoryCost(Category category, Integer currentRanks) {
 		if (category.getGroup().equals(CategoryGroup.WEAPON)) {
 			return getProfessionDecisions().getWeaponCost(category);

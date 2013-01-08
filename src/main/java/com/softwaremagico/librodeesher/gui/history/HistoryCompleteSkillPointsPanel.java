@@ -1,4 +1,5 @@
-package com.softwaremagico.librodeesher.gui.skills;
+package com.softwaremagico.librodeesher.gui.history;
+
 /*
  * #%L
  * Libro de Esher
@@ -26,33 +27,30 @@ package com.softwaremagico.librodeesher.gui.skills;
 import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
-public class CompleteSkillPanel extends BaseScrollPanel {
-	private static final long serialVersionUID = -6707835769716507229L;
-	private SkillTitle title;
-	private SkillPanel skillPanel;
-	private SkillWindow parentWindow;
+public class HistoryCompleteSkillPointsPanel extends BaseScrollPanel {
+	private static final long serialVersionUID = 4044886584364311850L;
+	private HistoryWindow parent;
+	CharacterPlayer character;
+	private HistorySkillTitle title;
+	private HistorySkillsPanel skillPanel;
 
-	public CompleteSkillPanel(CharacterPlayer character, SkillWindow parentWindow) {
-		this.parentWindow = parentWindow;
-		title = new SkillTitle();
+	public HistoryCompleteSkillPointsPanel(CharacterPlayer character, HistoryWindow parent) {
+		this.character = character;
+		this.parent = parent;
+		title = new HistorySkillTitle();
 		addTitle(title);
-		skillPanel = new SkillPanel(character, this);
+		skillPanel = new HistorySkillsPanel(character, this);
 		addBody(skillPanel);
 	}
-	
-	
+
+	public void update() {
+		parent.update();
+	}
+
 	public void sizeChanged() {
 		if (title != null) {
 			title.sizeChanged();
 		}
-	}
-	
-	public void update() {
-		parentWindow.update();
-	}
-	
-	public void updateCategories(){
-		setElements();
 	}
 
 }

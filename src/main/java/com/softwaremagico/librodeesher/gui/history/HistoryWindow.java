@@ -43,7 +43,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 public class HistoryWindow extends BaseFrame {
 	private static final long serialVersionUID = -2770063842107842255L;
 	private CharacterPlayer character;
-	private HistorySkillPointsPanel skillPanel;
+	private HistoryCompleteSkillPointsPanel skillPanel;
 	private JLabel historyPointsLabel;
 	private PointsCounterTextField historyPoints;
 
@@ -73,7 +73,7 @@ public class HistoryWindow extends BaseFrame {
 		gridBagConstraints.weightx = 0.8;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		skillPanel = new HistorySkillPointsPanel(character, this);
+		skillPanel = new HistoryCompleteSkillPointsPanel(character, this);
 		getContentPane().add(skillPanel, gridBagConstraints);
 		
 		gridBagConstraints.fill = GridBagConstraints.BOTH;

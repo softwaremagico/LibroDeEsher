@@ -38,6 +38,7 @@ import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
 public class HobbyLine extends CultureLine {
 
+	private static final int MAX_HOBBY_COST = 40;
 	private static final long serialVersionUID = 2401612544094265349L;
 	private Skill skill;
 
@@ -65,9 +66,8 @@ public class HobbyLine extends CultureLine {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else if (getSelectedRanks() > character.getMaxRanksPerCulture(skill.getCategory())) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
-					//Cost greater than 40 can not be a hobby
-				} else if (character.getCategoryCost(skill.getCategory(), 0).getRankCost(
-						(Integer) rankSpinner.getValue()) > 40) { 
+					// Cost greater than 40 can not be a hobby
+				} else if (character.getCultureStimatedCategoryCost(skill.getCategory()) > MAX_HOBBY_COST) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character

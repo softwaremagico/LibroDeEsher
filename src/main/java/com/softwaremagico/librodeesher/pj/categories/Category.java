@@ -192,4 +192,8 @@ public abstract class Category {
 	public String getCharacterisitcsTags() {
 		return characterisitcsTags;
 	}
+
+	public String toString() {
+		return getName();
+	}
 }
