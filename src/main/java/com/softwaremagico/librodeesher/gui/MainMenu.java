@@ -42,7 +42,7 @@ public class MainMenu {
 			exportToPDFMenuItem, exitMenuItem;
 	private JMenuItem aboutMenuItem, cultureMenuItem, professionMenuItem, charactMenuItem, trainingMenuItem,
 			skillsMenuItem, perksMenuItem, historyMenuItem, levelUpMenuItem;
-	private JMenuItem insertCharacter;
+	private JMenuItem insertCharacter, insertObject;
 	private JMenuItem randomName, randomCharacter;
 	private JMenuItem optionsMenu;
 	private JFrame parentWindow;
@@ -180,6 +180,13 @@ public class MainMenu {
 		insertCharacter.setIcon((Icon) RolemasterFolderStructure.getIcon("insert_character.png"));
 		insertCharacter.getAccessibleContext().setAccessibleDescription("Insertar un personaje.");
 		createMenu.add(insertCharacter);
+		
+		createMenu.addSeparator();
+		
+		insertObject = new JMenuItem("Insertar Objeto", KeyEvent.VK_O);
+		insertObject.setIcon((Icon) RolemasterFolderStructure.getIcon("potion.png"));
+		insertObject.getAccessibleContext().setAccessibleDescription("Insertar un personaje.");
+		createMenu.add(insertObject);
 
 		return createMenu;
 	}
