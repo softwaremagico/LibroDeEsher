@@ -478,5 +478,9 @@ public class Race {
 		}
 		return langCult.getRanks();
 	}
+	
+	public Integer getHistorialPoints(){
+		return historialPoints;
+	}
 
 }

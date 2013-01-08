@@ -38,7 +38,7 @@ public class HistorySkillPointsPanel extends BasePanel {
 		gridBagConstraints.weighty = 0;
 		add(title, gridBagConstraints);
 
-		skillPanel = new HistorySkillsPanel(character);
+		skillPanel = new HistorySkillsPanel(character, this);
 		JScrollPane skillsScrollPanel = new JScrollPane(skillPanel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -55,7 +55,10 @@ public class HistorySkillPointsPanel extends BasePanel {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		add(skillsScrollPanel, gridBagConstraints);
+	}
 
+	public void update() {
+		parent.update();
 	}
 
 	public void sizeChanged() {

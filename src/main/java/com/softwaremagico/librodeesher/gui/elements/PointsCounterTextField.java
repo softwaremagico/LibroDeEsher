@@ -27,10 +27,10 @@ import java.awt.Color;
 
 import javax.swing.JTextField;
 
-public class DevelopmentTextField extends JTextField {
+public class PointsCounterTextField extends JTextField {
 	private static final long serialVersionUID = -830671781809359034L;
 
-	public void setDevelopmentPoints(Integer points) {
+	public void setPoints(Integer points) {
 		setText(points.toString());
 		if (points < 0) {
 			setForeground(Color.RED);

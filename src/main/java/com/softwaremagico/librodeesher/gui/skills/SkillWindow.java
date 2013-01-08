@@ -40,7 +40,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
-import com.softwaremagico.librodeesher.gui.elements.DevelopmentTextField;
+import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
@@ -49,20 +49,20 @@ public class SkillWindow extends BaseFrame {
 	private CharacterPlayer character;
 	private CompleteSkillPanel skillPanel;
 	private JLabel pointsLabel;
-	private DevelopmentTextField developmentPoints;
+	private PointsCounterTextField developmentPoints;
 	JCheckBoxMenuItem fireArmsMenuItem, darkSpellsMenuItem;
 
 	public SkillWindow(CharacterPlayer character) {
 		this.character = character;
 		defineWindow(750, 450);
-		developmentPoints = new DevelopmentTextField();
+		developmentPoints = new PointsCounterTextField();
 		// setResizable(false);
 		setElements();
 		setEvents();
 	}
 
 	private void setDevelopmentPointText() {
-		developmentPoints.setDevelopmentPoints(character.getRemainingDevelopmentPoints());
+		developmentPoints.setPoints(character.getRemainingDevelopmentPoints());
 	}
 
 	private void setElements() {

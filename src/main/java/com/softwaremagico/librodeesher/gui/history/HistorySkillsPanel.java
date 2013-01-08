@@ -14,9 +14,11 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 public class HistorySkillsPanel extends BaseSkillPanel {
 	private static final long serialVersionUID = -1612700951233838060L;
 	private Hashtable<Category, List<HistorySkillLine>> skillLinesPerCategory;
+	private HistorySkillPointsPanel parent;
 
-	public HistorySkillsPanel(CharacterPlayer character) {
+	public HistorySkillsPanel(CharacterPlayer character, HistorySkillPointsPanel parent) {
 		skillLinesPerCategory = new Hashtable<>();
+		this.parent = parent;
 		setElements(character);
 	}
 
@@ -48,7 +50,7 @@ public class HistorySkillsPanel extends BaseSkillPanel {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
+		parent.update();
 
 	}
 

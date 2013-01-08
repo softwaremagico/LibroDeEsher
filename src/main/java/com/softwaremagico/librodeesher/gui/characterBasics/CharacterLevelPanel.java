@@ -36,7 +36,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.softwaremagico.librodeesher.gui.elements.DevelopmentTextField;
+import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
@@ -48,7 +48,7 @@ public class CharacterLevelPanel extends BasePanel {
 	private JLabel levelLabel;
 	private JLabel developmentLabel;
 	private JLabel magicLabel;
-	private DevelopmentTextField developmentTextField;
+	private PointsCounterTextField developmentTextField;
 	private JTextField levelTextField;
 	private JComboBox<ProfessionalRealmsOfMagicOptions> magicComboBox;
 	private CharacterPlayer character;
@@ -93,7 +93,7 @@ public class CharacterLevelPanel extends BasePanel {
 		c.weightx = 0;
 		containerPanel.add(developmentLabel, c);
 
-		developmentTextField = new DevelopmentTextField();
+		developmentTextField = new PointsCounterTextField();
 		developmentTextField.setEditable(false);
 		developmentTextField.setColumns(2);
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -179,9 +179,9 @@ public class CharacterLevelPanel extends BasePanel {
 
 	private void updateDevelopmentPoints() {
 		if (character.areCharacteristicsConfirmed()) {
-			developmentTextField.setDevelopmentPoints(character.getRemainingDevelopmentPoints());
+			developmentTextField.setPoints(character.getRemainingDevelopmentPoints());
 		} else {
-			developmentTextField.setDevelopmentPoints(0);
+			developmentTextField.setPoints(0);
 		}
 	}
 
