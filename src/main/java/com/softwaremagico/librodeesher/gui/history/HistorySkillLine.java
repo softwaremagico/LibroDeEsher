@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.history;
+
 /*
  * #%L
  * Libro de Esher
@@ -60,6 +61,9 @@ public class HistorySkillLine extends GenericSkillLine {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
 			character.setHistoryPoints(skill, historyCheckBox.isSelected());
+			if (character.getRemainingHistorialPoints() < 0) {
+				historyCheckBox.setSelected(false);
+			}
 			update();
 			parent.update();
 		}

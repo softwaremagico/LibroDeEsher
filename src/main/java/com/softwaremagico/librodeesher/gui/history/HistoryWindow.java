@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.history;
+
 /*
  * #%L
  * Libro de Esher
@@ -44,6 +45,7 @@ public class HistoryWindow extends BaseFrame {
 	private static final long serialVersionUID = -2770063842107842255L;
 	private CharacterPlayer character;
 	private HistoryCompleteSkillPointsPanel skillPanel;
+	private HistoryCompleteCharacteristicPanel characteristicPanel;
 	private JLabel historyPointsLabel;
 	private PointsCounterTextField historyPoints;
 
@@ -55,7 +57,7 @@ public class HistoryWindow extends BaseFrame {
 		setElements();
 		setEvents();
 	}
-	
+
 	private void setHistorialPointText() {
 		historyPoints.setPoints(character.getRemainingHistorialPoints());
 	}
@@ -69,48 +71,56 @@ public class HistoryWindow extends BaseFrame {
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.weightx = 0.8;
+		gridBagConstraints.gridheight = 3;
+		gridBagConstraints.weightx = 0.7;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		skillPanel = new HistoryCompleteSkillPointsPanel(character, this);
 		getContentPane().add(skillPanel, gridBagConstraints);
-		
+
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 1;
 		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.gridheight = 3;
+		gridBagConstraints.weightx = 0.7;
+		gridBagConstraints.weighty = 1;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+		characteristicPanel = new HistoryCompleteCharacteristicPanel(character, this);
+		getContentPane().add(characteristicPanel, gridBagConstraints);
+
+		gridBagConstraints.fill = GridBagConstraints.BOTH;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridx = 1;
+		gridBagConstraints.gridy = 1;
+		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.weightx = 0.8;
+		gridBagConstraints.weightx = 0.3;
 		gridBagConstraints.weighty = 0;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		
 		JPanel developmentPointsPanel = new JPanel();
 		developmentPointsPanel.setLayout(new BoxLayout(developmentPointsPanel, BoxLayout.X_AXIS));
 		historyPointsLabel = new JLabel("  Puntos de Historial: ");
 		developmentPointsPanel.add(historyPointsLabel);
-
 		historyPoints.setColumns(3);
 		historyPoints.setEditable(false);
 		historyPoints.setMaximumSize(new Dimension(60, 25));
 		setHistorialPointText();
-		developmentPointsPanel.add(historyPoints);		
+		developmentPointsPanel.add(historyPoints);
 		getContentPane().add(developmentPointsPanel, gridBagConstraints);
-		
-		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
 
+		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
 		CloseButton closeButton = new CloseButton(this);
 		buttonPanel.add(closeButton);
-
 		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
 		gridBagConstraints.fill = GridBagConstraints.NONE;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 1;
+		gridBagConstraints.gridy = 2;
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 0;
+		gridBagConstraints.weightx = 0.3;
 		gridBagConstraints.weighty = 0;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		getContentPane().add(buttonPanel, gridBagConstraints);

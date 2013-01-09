@@ -71,7 +71,9 @@ public class WeaponFactory {
 			for (String weaponName : weaponsInFile) {
 				if (!weaponName.startsWith("#")) {
 					Weapon weapon = new Weapon(weaponName, weaponFileType);
+					if(!obtainedWeaponsByType.get(weaponFileType).contains(weapon)){
 					obtainedWeaponsByType.get(weaponFileType).add(weapon);
+					}
 				}
 			}
 		}

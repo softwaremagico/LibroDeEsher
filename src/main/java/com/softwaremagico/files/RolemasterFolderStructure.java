@@ -31,6 +31,7 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,33 +43,37 @@ import com.softwaremagico.librodeesher.gui.ShowMessage;
 
 public class RolemasterFolderStructure implements Serializable {
 	private static final long serialVersionUID = -528684854404121115L;
-	public static final String DIRECTORIO_CATEGORIAS = "";
 	private static final String APPLICATION_FOLDER = getApplicationInstallationDirectory();
-	public static final String ROLEMASTER_FOLDER = APPLICATION_FOLDER + File.separator + "rolemaster";
-	public final static String DIRECTORIO_TALENTOS = "talentos";
-	public final static String CULTURE_FOLDER = "culturas";
-	public static final String SPELL_FOLDER = "hechizos";
-	public final static String DIRECTORIO_ADIESTRAMIENTOS = "adiestramientos";
-	public final static String DIRECTORIO_MODULOS = ROLEMASTER_FOLDER + File.separator + "modulos";
-	public static final String DIRECTORIO_CONFIGURACION = "configuracion";
+	private static final String ROLEMASTER_FOLDER = APPLICATION_FOLDER + File.separator + "rolemaster";
+	private final static String DIRECTORIO_TALENTOS = "talentos";
+	private static final String SPELL_FOLDER = "hechizos";
+	private final static String DIRECTORIO_MODULOS = ROLEMASTER_FOLDER + File.separator + "modulos";
 	private static final String FOLDER_STORE_USER_DATA = "librodeesher";
-	public static final String ARCHIVO_CATEGORIAS = "categorias.txt";
+	private static final String CATEGORIES_FILE = "categorias.txt";
 	private static final String CONFIG_FILE = "configuracion.conf";
 	private static List<String> ficherosOcultos = getIgnoredFiles();
 	// Modulos configurados para obtener los ficheros adecuados */
-	private static List<String> modulosRolemaster = getRolemasterModulesAvailable();
-	public static List<String> disabledModules = new ArrayList<>();
-	public static final boolean verbose = false;
+	private static List<String> availableModules = getRolemasterModulesAvailable();
+	private static List<String> disabledModules = new ArrayList<>();
+	private static final boolean verbose = false;
 
-	public static List<String> getAvailableModules() {
-		List<String> modulosReales = new ArrayList<>();
-		modulosReales.addAll(modulosRolemaster);
-		modulosReales.removeAll(disabledModules);
-		return modulosReales;
+	public static List<String> getAllModules() {
+		return availableModules;
 	}
 
-	public static List<String> modulosDisponibles() {
-		return modulosRolemaster;
+	public static List<String> getAvailableModules() {
+		List<String> modules = new ArrayList<>();
+		modules.addAll(availableModules);
+		modules.removeAll(disabledModules);
+		return modules;
+	}
+
+	public static void removeDisabledModule(String module) {
+		disabledModules.remove(module);
+	}
+
+	public static List<String> getDisabledModules() {
+		return disabledModules;
 	}
 
 	public static String getVersion() {
@@ -152,8 +157,8 @@ public class RolemasterFolderStructure implements Serializable {
 
 	public static List<String> getAvailableCategoriesFiles() throws Exception {
 		List<String> categories = new ArrayList<>();
-		if (new File(ROLEMASTER_FOLDER + File.separator + ARCHIVO_CATEGORIAS).exists()) {
-			categories.add(ROLEMASTER_FOLDER + File.separator + ARCHIVO_CATEGORIAS);
+		if (new File(ROLEMASTER_FOLDER + File.separator + CATEGORIES_FILE).exists()) {
+			categories.add(ROLEMASTER_FOLDER + File.separator + CATEGORIES_FILE);
 		}
 		List<String> modulosPermitidos = getAvailableModules();
 		for (int i = 0; i < modulosPermitidos.size(); i++) {
@@ -161,9 +166,9 @@ public class RolemasterFolderStructure implements Serializable {
 					.ObtainfilesSubdirectory(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i))
 					.size() > 0) {
 				if (new File(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i) + File.separator
-						+ ARCHIVO_CATEGORIAS).exists()) {
+						+ CATEGORIES_FILE).exists()) {
 					categories.add(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i)
-							+ File.separator + ARCHIVO_CATEGORIAS);
+							+ File.separator + CATEGORIES_FILE);
 				}
 			}
 		}
@@ -216,11 +221,11 @@ public class RolemasterFolderStructure implements Serializable {
 
 	public static String getDirectoryModule(String fichero) {
 		File file;
-		for (int i = 0; i < modulosRolemaster.size(); i++) {
-			file = new File(DIRECTORIO_MODULOS + File.separator + modulosRolemaster.get(i) + File.separator
+		for (int i = 0; i < availableModules.size(); i++) {
+			file = new File(DIRECTORIO_MODULOS + File.separator + availableModules.get(i) + File.separator
 					+ fichero);
 			if (file.exists()) {
-				return DIRECTORIO_MODULOS + File.separator + modulosRolemaster.get(i) + File.separator
+				return DIRECTORIO_MODULOS + File.separator + availableModules.get(i) + File.separator
 						+ fichero;
 			}
 		}
@@ -266,5 +271,9 @@ public class RolemasterFolderStructure implements Serializable {
 			ShowMessage.showErrorMessage("Icon not found: " + iconName, "Main menu");
 			return null;
 		}
+	}
+
+	public static void setDisabledModules(List<String> disabledModules) {
+		RolemasterFolderStructure.disabledModules = disabledModules;
 	}
 }

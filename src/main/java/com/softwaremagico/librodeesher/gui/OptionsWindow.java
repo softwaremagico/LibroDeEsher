@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui;
+
 /*
  * #%L
  * Libro de Esher
@@ -31,10 +32,12 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -47,6 +50,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultFormatter;
 
+import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.librodeesher.core.Spanish;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
@@ -56,13 +60,14 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 public class OptionsWindow extends BaseFrame {
 	private static final long serialVersionUID = -8015912539177057288L;
 	private CharacterPlayer character;
-	private JCheckBox fireArmsMenuItem, darkSpellsMenuItem, chiPowers, trainingOtherRealms;
+	private JCheckBox fireArmsMenuItem, darkSpellsMenuItem, chiPowers, trainingOtherRealms, disabledCheckBox;
 	private boolean updatingState = false;
 	private JSpinner categoryMax;
+	private JComboBox<String> modulesComboBox;
 
 	public OptionsWindow(CharacterPlayer character) {
 		this.character = character;
-		defineWindow(500, 250);
+		defineWindow(500, 300);
 		setElements();
 		setCurrentCharacterConfig();
 		setResizable(false);
@@ -80,7 +85,7 @@ public class OptionsWindow extends BaseFrame {
 	private void setElements() {
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-		CheckBoxListener checkboxListener = new CheckBoxListener();
+		CheckBoxCharacterListener checkboxListener = new CheckBoxCharacterListener();
 
 		JPanel characterPanel = new JPanel();
 		characterPanel.setLayout(new BoxLayout(characterPanel, BoxLayout.Y_AXIS));
@@ -114,9 +119,9 @@ public class OptionsWindow extends BaseFrame {
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		getContentPane().add(characterPanel, gridBagConstraints);
 
-		JPanel globalOptionsPanel = new JPanel();
-		globalOptionsPanel.setLayout(new BoxLayout(globalOptionsPanel, BoxLayout.Y_AXIS));
-		globalOptionsPanel.setBorder(BorderFactory.createTitledBorder(
+		JPanel graphicOptionsPanel = new JPanel();
+		graphicOptionsPanel.setLayout(new BoxLayout(graphicOptionsPanel, BoxLayout.Y_AXIS));
+		graphicOptionsPanel.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Interfaz Gráfica"));
 
 		JPanel maxCategoryRanks = new JPanel();
@@ -136,9 +141,7 @@ public class OptionsWindow extends BaseFrame {
 		addRankSpinnerEvent();
 		categoryMax.setMaximumSize(new Dimension(70, 25));
 		maxCategoryRanks.add(categoryMax, BorderLayout.PAGE_START);
-
-		globalOptionsPanel.add(maxCategoryRanks);
-
+		graphicOptionsPanel.add(maxCategoryRanks);
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
@@ -148,7 +151,22 @@ public class OptionsWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		getContentPane().add(globalOptionsPanel, gridBagConstraints);
+		getContentPane().add(graphicOptionsPanel, gridBagConstraints);
+
+		JPanel globalPanel = createModulesPanel();
+		globalPanel.setLayout(new BoxLayout(globalPanel, BoxLayout.X_AXIS));
+		globalPanel.setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Opciones Globales"));
+		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 2;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.gridwidth = 3;
+		gridBagConstraints.weightx = 1;
+		gridBagConstraints.weighty = 1;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+		getContentPane().add(globalPanel, gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 4));
 		buttonPanel.add(new JPanel());
@@ -160,7 +178,7 @@ public class OptionsWindow extends BaseFrame {
 
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 2;
+		gridBagConstraints.gridy = 3;
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
@@ -170,7 +188,29 @@ public class OptionsWindow extends BaseFrame {
 
 	}
 
-	class CheckBoxListener implements ActionListener {
+	private JPanel createModulesPanel() {
+		JPanel modulesPanel = new JPanel();
+		modulesComboBox = createModulesComboBox();
+		modulesComboBox.addActionListener(new ModulesComboBoxAction());
+		modulesPanel.add(modulesComboBox);
+		disabledCheckBox = new JCheckBox("Deshabilitar");
+		disabledCheckBox.addActionListener(new CheckBoxDisableModulesListener());
+		modulesPanel.add(disabledCheckBox);
+		updateModulesCheckBox();
+		return modulesPanel;
+	}
+
+	private JComboBox<String> createModulesComboBox() {
+		updatingState = true;
+		JComboBox<String> modulesComboBox = new JComboBox<String>();
+		for (int i = 0; i < RolemasterFolderStructure.getAllModules().size(); i++) {
+			modulesComboBox.addItem(RolemasterFolderStructure.getAllModules().get(i));
+		}
+		updatingState = false;
+		return modulesComboBox;
+	}
+
+	class CheckBoxCharacterListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -188,6 +228,42 @@ public class OptionsWindow extends BaseFrame {
 					character.setOtherRealmtrainingSpellsAllowed(trainingOtherRealms.isSelected());
 					Config.setOtherRealmtrainingSpells(trainingOtherRealms.isSelected());
 				}
+			}
+		}
+	}
+
+	class CheckBoxDisableModulesListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (disabledCheckBox != null && modulesComboBox != null && disabledCheckBox.isSelected()) {
+				if (!RolemasterFolderStructure.getDisabledModules().contains(
+						modulesComboBox.getSelectedItem().toString())) {
+					RolemasterFolderStructure.getDisabledModules().add(
+							modulesComboBox.getSelectedItem().toString());
+				}
+			} else {
+				RolemasterFolderStructure.removeDisabledModule(modulesComboBox.getSelectedItem().toString());
+			}
+			ShowMessage.showInfoMessage(
+					"Recuerda reiniciar la aplicación para que está opción tenga efecto.", "Opciones");
+			Config.storeConfiguration();
+		}
+	}
+
+	private void updateModulesCheckBox() {
+		if (RolemasterFolderStructure.getDisabledModules().contains(modulesComboBox.getSelectedItem())) {
+			disabledCheckBox.setSelected(true);
+		} else {
+			disabledCheckBox.setSelected(false);
+		}
+	}
+
+	class ModulesComboBoxAction implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent evt) {
+			if (!updatingState) {
+				updateModulesCheckBox();
 			}
 		}
 	}

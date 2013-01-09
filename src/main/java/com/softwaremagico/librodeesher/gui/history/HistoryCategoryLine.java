@@ -58,6 +58,9 @@ public class HistoryCategoryLine extends GenericCategoryLine {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
 			character.setHistoryPoints(category, historyCheckBox.isSelected());
+			if (character.getRemainingHistorialPoints() < 0) {
+				historyCheckBox.setSelected(false);
+			}
 			update();
 		}
 	}
