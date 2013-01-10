@@ -26,20 +26,15 @@ package com.softwaremagico.librodeesher.gui.characteristic;
 
 import java.awt.GridLayout;
 
-import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import com.softwaremagico.librodeesher.gui.elements.TitleLabel;
 import com.softwaremagico.librodeesher.gui.style.BasicTitleLine;
 
 public class CharacteristicTitleLine extends BasicTitleLine {
 	private static final long serialVersionUID = 1855952180568184802L;
-	private JLabel characteristicLabel;
-	private JLabel temporalLabel;
-	private JLabel potentialTextField;
-	private JLabel basicBonusTextField;
-	private JLabel raceBonusTextField;
-	private JLabel specialBonusTextField;
-	private JLabel totalLabel;
+	private TitleLabel characteristicLabel, temporalLabel, potentialTextField, basicBonusTextField,
+			raceBonusTextField, specialBonusTextField, totalLabel;
 
 	public CharacteristicTitleLine() {
 		setElements();
@@ -49,26 +44,26 @@ public class CharacteristicTitleLine extends BasicTitleLine {
 		this.removeAll();
 		setLayout(new GridLayout(1, 6));
 
-		characteristicLabel = new JLabel("Caracter.");
-		add(createLabelInsidePanel(characteristicLabel, SwingConstants.LEFT, background, fontColor));
+		characteristicLabel = new TitleLabel("Caracter.", SwingConstants.LEFT);
+		add(characteristicLabel);
 
-		temporalLabel = new JLabel("Temp.");
-		add(createLabelInsidePanel(temporalLabel, SwingConstants.CENTER, background, fontColor));
+		temporalLabel = new TitleLabel("Temp.");
+		add(temporalLabel);
 
-		potentialTextField = new JLabel("Pot.");
-		add(createLabelInsidePanel(potentialTextField, SwingConstants.CENTER, background, fontColor));
+		potentialTextField = new TitleLabel("Pot.");
+		add(potentialTextField);
 
-		basicBonusTextField = new JLabel("Bonus");
-		add(createLabelInsidePanel(basicBonusTextField, SwingConstants.CENTER, background, fontColor));
+		basicBonusTextField = new TitleLabel("Bonus");
+		add(basicBonusTextField);
 
-		raceBonusTextField = new JLabel("Raza");
-		add(createLabelInsidePanel(raceBonusTextField, SwingConstants.CENTER, background, fontColor));
-		
-		specialBonusTextField = new JLabel("Especial");
-		add(createLabelInsidePanel(specialBonusTextField, SwingConstants.CENTER, background, fontColor));
+		raceBonusTextField = new TitleLabel("Raza");
+		add(raceBonusTextField);
 
-		totalLabel = new JLabel("Total");
-		add(createLabelInsidePanel(totalLabel, SwingConstants.CENTER, background, fontColor));
+		specialBonusTextField = new TitleLabel("Especial");
+		add(specialBonusTextField);
+
+		totalLabel = new TitleLabel("Total");
+		add(totalLabel);
 
 	}
 

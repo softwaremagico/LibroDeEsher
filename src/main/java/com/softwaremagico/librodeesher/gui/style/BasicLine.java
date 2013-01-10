@@ -31,6 +31,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 
+import com.softwaremagico.librodeesher.gui.elements.TitleLabel;
+
 public abstract class BasicLine extends BasePanel {
 	private static final long serialVersionUID = 7901507705885692683L;
 	protected Color background = Color.WHITE;
@@ -38,8 +40,6 @@ public abstract class BasicLine extends BasePanel {
 	protected Color fontColor = Color.DARK_GRAY;
 	protected Integer labelDefaultWidth = 40;
 	protected Integer nameTextDefaultWidth = 80;
-	protected static String font = "Dialog";
-	protected static int fontSize = 12;
 
 	/**
 	 * Create the panel.
@@ -63,6 +63,13 @@ public abstract class BasicLine extends BasePanel {
 	 * @param fgColor
 	 * @return
 	 */
+	public JPanel createLabelInsidePanel(TitleLabel label, int position, Color bgColor, Color fgColor) {
+		JPanel container = new JPanel(new BorderLayout());
+		container.add(label);
+		container.setBackground(bgColor);
+		return container;
+	}
+	
 	public JPanel createLabelInsidePanel(JLabel label, int position, Color bgColor, Color fgColor) {
 		label.setHorizontalAlignment(position);
 		JPanel container = new JPanel(new BorderLayout());

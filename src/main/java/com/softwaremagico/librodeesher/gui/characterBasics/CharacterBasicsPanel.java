@@ -30,22 +30,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
+import com.softwaremagico.librodeesher.gui.elements.BaseRadioButton;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.SexType;
 
 public class CharacterBasicsPanel extends BasePanel {
 	private static final long serialVersionUID = -6925539216225561309L;
-	private JRadioButton maleRadioButton;
-	private JRadioButton femaleRadioButton;
+	private BaseRadioButton maleRadioButton;
+	private BaseRadioButton femaleRadioButton;
 	private JTextField nameTextField;
 	private CharacterPlayer character;
-	private JLabel nameLabel;
+	private BaseLabel nameLabel;
 
 	public CharacterBasicsPanel() {
 		setElements();
@@ -57,7 +58,7 @@ public class CharacterBasicsPanel extends BasePanel {
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
-		nameLabel = new JLabel("Nombre:");
+		nameLabel = new BaseLabel("Nombre:");
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 0;
@@ -73,7 +74,7 @@ public class CharacterBasicsPanel extends BasePanel {
 		c.weightx = 1;
 		add(nameTextField, c);
 
-		JLabel sexLabel = new JLabel("Sexo:");
+		BaseLabel sexLabel = new BaseLabel("Sexo:");
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 0;
@@ -85,8 +86,8 @@ public class CharacterBasicsPanel extends BasePanel {
 		sexPanel.setLayout(new GridBagLayout());
 
 		// Group the radio buttons.
-		maleRadioButton = new JRadioButton("Masc.");
-		femaleRadioButton = new JRadioButton("Feme.");
+		maleRadioButton = new BaseRadioButton("Masc.");
+		femaleRadioButton = new BaseRadioButton("Feme.");
 		maleRadioButton.addActionListener(new ChangeSexListener());
 		femaleRadioButton.addActionListener(new ChangeSexListener());
 

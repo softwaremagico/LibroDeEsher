@@ -32,7 +32,6 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -40,7 +39,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
@@ -53,6 +51,7 @@ import javax.swing.text.DefaultFormatter;
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.librodeesher.core.Spanish;
+import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -128,7 +127,7 @@ public class OptionsWindow extends BaseFrame {
 		maxCategoryRanks.setLayout(new BoxLayout(maxCategoryRanks, BoxLayout.X_AXIS));
 		maxCategoryRanks.setAlignmentX(LEFT_ALIGNMENT);
 
-		JLabel maxCategoryLabel = new JLabel(" Ocultar categorías con un coste superior a: ");
+		BaseLabel maxCategoryLabel = new BaseLabel(" Ocultar categorías con un coste superior a: ");
 		maxCategoryRanks.add(maxCategoryLabel);
 
 		SpinnerModel sm;

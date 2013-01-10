@@ -36,9 +36,9 @@ import java.awt.event.ComponentListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
@@ -48,7 +48,7 @@ public class SkillWindow extends BaseFrame {
 	private static final long serialVersionUID = 3505731416535837471L;
 	private CharacterPlayer character;
 	private CompleteSkillPanel skillPanel;
-	private JLabel pointsLabel;
+	private BaseLabel pointsLabel;
 	private PointsCounterTextField developmentPoints;
 	JCheckBoxMenuItem fireArmsMenuItem, darkSpellsMenuItem;
 
@@ -83,7 +83,7 @@ public class SkillWindow extends BaseFrame {
 
 		JPanel developmentPointsPanel = new JPanel();
 		developmentPointsPanel.setLayout(new BoxLayout(developmentPointsPanel, BoxLayout.X_AXIS));
-		pointsLabel = new JLabel("  Puntos de Desarrollo restantes: ");
+		pointsLabel = new BaseLabel("  Puntos de Desarrollo restantes: ");
 		developmentPointsPanel.add(pointsLabel);
 
 		developmentPoints.setColumns(3);

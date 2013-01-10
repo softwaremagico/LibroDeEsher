@@ -32,17 +32,16 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import com.softwaremagico.librodeesher.gui.MainWindow;
+import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class CharacterProfessionPanel extends BasePanel {
 	private static final long serialVersionUID = -4572529165916501939L;
-	private JLabel professionLabel;
-	private JLabel trainingLabel;
+	private BaseLabel professionLabel;
+	private BaseLabel trainingLabel;
 	private JComboBox<String> professionComboBox;
 	private CharacterPlayer character;
 	private CharacterLevelPanel levelPanel;
@@ -60,7 +59,7 @@ public class CharacterProfessionPanel extends BasePanel {
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
-		professionLabel = new JLabel("Profesión:");
+		professionLabel = new BaseLabel("Profesión:");
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 0;
@@ -77,7 +76,7 @@ public class CharacterProfessionPanel extends BasePanel {
 		c.weightx = 1;
 		add(professionComboBox, c);
 
-		trainingLabel = new JLabel("Adiestramiento:");
+		trainingLabel = new BaseLabel("Adiestramiento:");
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 0;

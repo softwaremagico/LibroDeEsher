@@ -27,9 +27,9 @@ import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
+import com.softwaremagico.librodeesher.gui.elements.BaseCheckBox;
 import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
 import com.softwaremagico.librodeesher.gui.elements.GenericCategoryLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -37,7 +37,7 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 
 public class HistoryCategoryLine extends GenericCategoryLine {
 	private static final long serialVersionUID = -3523895407174764934L;
-	private JCheckBox historyCheckBox;
+	private BaseCheckBox historyCheckBox;
 
 	public HistoryCategoryLine(CharacterPlayer character, Category category, Color background,
 			BaseSkillPanel parentWindow) {
@@ -48,7 +48,7 @@ public class HistoryCategoryLine extends GenericCategoryLine {
 
 	private void addHistoryCheckBox() {
 		JPanel panel = new JPanel();
-		historyCheckBox = new JCheckBox("H");
+		historyCheckBox = new BaseCheckBox("H");
 		panel.add(historyCheckBox);
 		historyCheckBox.addItemListener(new CheckBoxListener());
 		addColumn(panel, 1);

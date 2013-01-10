@@ -23,14 +23,14 @@ package com.softwaremagico.librodeesher.gui.history;
  * #L%
  */
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.gui.elements.SkillTitleLine;
+import com.softwaremagico.librodeesher.gui.elements.TitleLabel;
 
 public class HistorySkillTitle extends SkillTitleLine {
 	private static final long serialVersionUID = -7713583862792690761L;
-	private JLabel historyCheckBox;
+	private TitleLabel historyLabel;
 
 	public HistorySkillTitle() {
 		enableColumns(false, false, false, false, false, false, false, true);
@@ -38,19 +38,16 @@ public class HistorySkillTitle extends SkillTitleLine {
 	}
 	
 	private void addHistoryCheckBox() {
-		JPanel panel = new JPanel();
-		historyCheckBox = new JLabel("Hist.");
-		historyCheckBox.setFont(defaultFont);
-		panel.add(historyCheckBox);
-		addColumn(panel, 1);
+		historyLabel = new TitleLabel("Hst", SwingConstants.LEFT);
+		addColumn(historyLabel, 1);
 	}
 	
 	public void sizeChanged(){
 		defaultElementsSizeChanged();
 		if (this.getWidth() < 800) {
-			historyCheckBox.setText("Hst.");
+			historyLabel.setText("Hst");
 		}else{
-			historyCheckBox.setText("Historial");
+			historyLabel.setText("Historial");
 		}
 	}
 }

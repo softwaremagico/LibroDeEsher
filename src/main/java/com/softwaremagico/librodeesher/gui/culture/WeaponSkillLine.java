@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.culture;
+
 /*
  * #%L
  * Libro de Esher
@@ -24,13 +25,11 @@ package com.softwaremagico.librodeesher.gui.culture;
  */
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
-import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
@@ -39,6 +38,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultFormatter;
 
+import com.softwaremagico.librodeesher.gui.elements.ListLabel;
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
@@ -81,10 +81,8 @@ public class WeaponSkillLine extends BasicLine {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 0;
 
-		JLabel weaponSkillLabel = new JLabel(weaponSkill.getName());
-		weaponSkillLabel.setFont(new Font(font, Font.PLAIN, fontSize));
-		add(createLabelInsidePanel(weaponSkillLabel, SwingConstants.LEFT, background, fontColor),
-				gridBagConstraints);
+		ListLabel weaponSkillLabel = new ListLabel(weaponSkill.getName(), SwingConstants.LEFT);
+		add(weaponSkillLabel, gridBagConstraints);
 
 		SpinnerModel sm = new SpinnerNumberModel(0, 0, 3, 1);
 		rankSpinner = new JSpinner(sm);
@@ -110,12 +108,12 @@ public class WeaponSkillLine extends BasicLine {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				// Correct the spinner
-				if (parentPanel.getSpinnerValues(category) > character.getCulture().getCultureRanks(
-						category)) {
+				if (parentPanel.getSpinnerValues(category) > character.getCulture().getCultureRanks(category)) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
-					//Update character
-					character.getCultureDecisions().setWeaponRanks(weaponSkill.getName(), (Integer) rankSpinner.getValue());
+					// Update character
+					character.getCultureDecisions().setWeaponRanks(weaponSkill.getName(),
+							(Integer) rankSpinner.getValue());
 				}
 			}
 		});

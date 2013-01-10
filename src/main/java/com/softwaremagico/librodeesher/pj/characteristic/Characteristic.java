@@ -23,17 +23,32 @@ package com.softwaremagico.librodeesher.pj.characteristic;
  * this program; If not, see <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
+import java.util.Hashtable;
+
 import com.softwaremagico.librodeesher.core.Dice;
 
 public class Characteristic {
-
+	public static Hashtable<String, String> characteristicAbbreviatureList;
 	private String abbreviature;
+
+	static {
+		characteristicAbbreviatureList = new Hashtable<>();
+		characteristicAbbreviatureList.put("Ag", "Agilidad");
+		characteristicAbbreviatureList.put("Co", "Constitución");
+		characteristicAbbreviatureList.put("Me", "Memoria");
+		characteristicAbbreviatureList.put("Ra", "Razón");
+		characteristicAbbreviatureList.put("Ad", "Autodisciplina");
+		characteristicAbbreviatureList.put("Em", "Empatía");
+		characteristicAbbreviatureList.put("In", "Intuición");
+		characteristicAbbreviatureList.put("Pr", "Presencia");
+		characteristicAbbreviatureList.put("Rp", "Rapidez");
+		characteristicAbbreviatureList.put("Fu", "Fuerza");
+	}
 
 	public Characteristic(String ab) {
 		abbreviature = ab;
 	}
 
-	
 	public static Integer getCharacteristicUpgrade(Integer temporalValue, Integer potentialValue) {
 		int dice1 = Dice.getRoll(10);
 		int dice2 = Dice.getRoll(10);
@@ -59,7 +74,7 @@ public class Characteristic {
 		Double d;
 		if (temporalValue < 91) {
 			return temporalValue;
-		} else{
+		} else {
 			d = Math.pow(temporalValue - 90, 2) + 90;
 		}
 		return d.intValue();
@@ -69,6 +84,13 @@ public class Characteristic {
 		return abbreviature;
 	}
 
+	public String getName() {
+		String name = characteristicAbbreviatureList.get(abbreviature);
+		if (name != null) {
+			return name;
+		}
+		return "Unknown";
+	}
 
 	@Override
 	public int hashCode() {
@@ -77,7 +99,6 @@ public class Characteristic {
 		result = prime * result + ((abbreviature == null) ? 0 : abbreviature.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -96,6 +117,4 @@ public class Characteristic {
 		return true;
 	}
 
-	
-	
 }

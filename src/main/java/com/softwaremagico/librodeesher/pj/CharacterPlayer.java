@@ -169,6 +169,7 @@ public class CharacterPlayer {
 				if (value > 90) {
 					return value;
 				} else {
+					setCharacteristicTemporalValues(abbreviature, 90);
 					return 90;
 				}
 			}

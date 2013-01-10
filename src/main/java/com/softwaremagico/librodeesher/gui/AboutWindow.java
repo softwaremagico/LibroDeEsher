@@ -29,13 +29,13 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 import com.softwaremagico.files.MyFile;
 import com.softwaremagico.files.RolemasterFolderStructure;
+import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 
@@ -73,7 +73,7 @@ public class AboutWindow extends BaseFrame {
 		gridBagConstraints.insets = new Insets(5, 5, 5, 5);
 		add(textScrollPanel, gridBagConstraints);
 
-		JLabel versionLabel = new JLabel("v" + RolemasterFolderStructure.getVersion());
+		BaseLabel versionLabel = new BaseLabel("v" + RolemasterFolderStructure.getVersion());
 		versionLabel.setMinimumSize(new Dimension(10, textDefaultHeight));
 		gridBagConstraints.anchor = GridBagConstraints.LINE_START;
 		gridBagConstraints.ipadx = xPadding;
@@ -85,7 +85,7 @@ public class AboutWindow extends BaseFrame {
 		gridBagConstraints.weighty = 0;
 		add(versionLabel, gridBagConstraints);
 
-		JLabel authorLabel = new JLabel("(Creado por Jorge Hortelano Otero)");
+		BaseLabel authorLabel = new BaseLabel("(Creado por Jorge Hortelano Otero)");
 		authorLabel.setMinimumSize(new Dimension(250, textDefaultHeight));
 		gridBagConstraints.anchor = GridBagConstraints.CENTER;
 		gridBagConstraints.ipadx = xPadding;

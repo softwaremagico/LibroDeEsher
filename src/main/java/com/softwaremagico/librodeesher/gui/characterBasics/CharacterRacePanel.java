@@ -32,17 +32,16 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 
-import com.softwaremagico.librodeesher.gui.style.BaseFrame;
+import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 
 public class CharacterRacePanel extends BasePanel {
 	private static final long serialVersionUID = 178890486518380989L;
-	private JLabel raceLabel;
-	private JLabel cultureLabel;
+	private BaseLabel raceLabel;
+	private BaseLabel cultureLabel;
 	private JComboBox<String> raceComboBox;
 	private JComboBox<String> cultureComboBox;
 	private CharacterProfessionPanel professionPanel;
@@ -59,7 +58,7 @@ public class CharacterRacePanel extends BasePanel {
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
-		raceLabel = new JLabel("Raza:");
+		raceLabel = new BaseLabel("Raza:");
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 0;
@@ -77,7 +76,7 @@ public class CharacterRacePanel extends BasePanel {
 		c.weightx = 1;
 		add(raceComboBox, c);
 
-		cultureLabel = new JLabel("Cultura:");
+		cultureLabel = new BaseLabel("Cultura:");
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 0;

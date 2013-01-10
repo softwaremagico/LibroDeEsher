@@ -7,28 +7,20 @@ public class HistoryCompleteCharacteristicPanel extends BaseScrollPanel {
 	private static final long serialVersionUID = 3944923090293710832L;
 	private HistoryWindow parent;
 	CharacterPlayer character;
-	private HistorySkillTitle title;
+	private HistoryCharacteristicTitle title;
 	private HistoryCharacteristicPanel characteristicPanel;
 
 	public HistoryCompleteCharacteristicPanel(CharacterPlayer character, HistoryWindow parent) {
 		this.character = character;
 		this.parent = parent;
-		title = new HistorySkillTitle();
+		title = new HistoryCharacteristicTitle();
 		addTitle(title);
 		characteristicPanel = new HistoryCharacteristicPanel(character, this);
 		addBody(characteristicPanel);
 	}
 
 	public void update() {
-		parent.update();
+		characteristicPanel.update();
 	}
-
-	public void sizeChanged() {
-		if (title != null) {
-			title.sizeChanged();
-		}
-	}
-
-	
 
 }

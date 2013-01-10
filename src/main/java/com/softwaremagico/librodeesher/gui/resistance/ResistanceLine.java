@@ -27,17 +27,17 @@ package com.softwaremagico.librodeesher.gui.resistance;
 import java.awt.Color;
 import java.awt.GridLayout;
 
-import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import com.softwaremagico.librodeesher.gui.elements.BoldListLabel;
+import com.softwaremagico.librodeesher.gui.elements.ListBackgroundPanel;
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 
 public class ResistanceLine extends BasicLine {
 	private static final long serialVersionUID = -5493663863154163209L;
-	private JLabel resistanceLabel;
-	private JLabel resistanceTotalLabel;
+	private BoldListLabel resistanceLabel, resistanceTotalLabel;
 	private CharacterPlayer character;
 	private ResistanceType resistance;
 
@@ -52,11 +52,11 @@ public class ResistanceLine extends BasicLine {
 		this.removeAll();
 		setLayout(new GridLayout(1, 2));
 
-		resistanceLabel = new JLabel(resistance.getAbbreviature());
-		add(createLabelInsidePanel(resistanceLabel, SwingConstants.LEFT, background, fontColor));
+		resistanceLabel = new BoldListLabel(resistance.getAbbreviature(), SwingConstants.LEFT);
+		add(new ListBackgroundPanel(resistanceLabel, background));
 
-		resistanceTotalLabel = new JLabel("0");
-		add(createLabelInsidePanel(resistanceTotalLabel, SwingConstants.RIGHT, background, fontColor));
+		resistanceTotalLabel = new BoldListLabel("0", SwingConstants.RIGHT);
+		add(new ListBackgroundPanel(resistanceTotalLabel, background));
 
 	}
 

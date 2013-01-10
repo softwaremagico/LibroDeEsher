@@ -28,26 +28,24 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
-import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionalRealmsOfMagicOptions;
 
 public class CharacterLevelPanel extends BasePanel {
 
 	private static final long serialVersionUID = -8063970435094018287L;
-	private JLabel levelLabel;
-	private JLabel developmentLabel;
-	private JLabel magicLabel;
+	private BaseLabel levelLabel;
+	private BaseLabel developmentLabel;
+	private BaseLabel magicLabel;
 	private PointsCounterTextField developmentTextField;
 	private JTextField levelTextField;
 	private JComboBox<ProfessionalRealmsOfMagicOptions> magicComboBox;
@@ -67,7 +65,7 @@ public class CharacterLevelPanel extends BasePanel {
 		JPanel containerPanel = new JPanel();
 		containerPanel.setLayout(new GridBagLayout());
 
-		levelLabel = new JLabel("Nivel:");
+		levelLabel = new BaseLabel("Nivel:");
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 0;
@@ -85,7 +83,7 @@ public class CharacterLevelPanel extends BasePanel {
 		c.weightx = 0.5;
 		containerPanel.add(levelTextField, c);
 
-		developmentLabel = new JLabel("Pts Desar.:");
+		developmentLabel = new BaseLabel("Pts Desar.:");
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 2;
@@ -111,7 +109,7 @@ public class CharacterLevelPanel extends BasePanel {
 		c.gridwidth = 2;
 		add(containerPanel, c);
 
-		magicLabel = new JLabel("Reino:");
+		magicLabel = new BaseLabel("Reino:");
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipadx = xPadding;
 		c.gridx = 0;

@@ -28,9 +28,9 @@ import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
+import com.softwaremagico.librodeesher.gui.elements.BaseCheckBox;
 import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
 import com.softwaremagico.librodeesher.gui.elements.GenericSkillLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -38,7 +38,7 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class HistorySkillLine extends GenericSkillLine {
 	private static final long serialVersionUID = 5951462195062999304L;
-	private JCheckBox historyCheckBox;
+	private BaseCheckBox historyCheckBox;
 	private BaseSkillPanel parent;
 
 	public HistorySkillLine(CharacterPlayer character, Skill skill, Color background,
@@ -51,7 +51,7 @@ public class HistorySkillLine extends GenericSkillLine {
 
 	private void addHistoryCheckBox() {
 		JPanel panel = new JPanel();
-		historyCheckBox = new JCheckBox("H");
+		historyCheckBox = new BaseCheckBox("H");
 		panel.add(historyCheckBox);
 		historyCheckBox.addItemListener(new CheckBoxListener());
 		addColumn(panel, 1);

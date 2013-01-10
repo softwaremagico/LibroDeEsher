@@ -24,16 +24,15 @@ package com.softwaremagico.librodeesher.gui.culture;
  */
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
+import com.softwaremagico.librodeesher.gui.elements.ListLabel;
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
@@ -58,9 +57,8 @@ public abstract class CultureLine extends BasicLine {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 0;
 
-		JLabel hobby = new JLabel(skillName);
-		hobby.setFont(new Font(font, Font.PLAIN, fontSize));
-		add(createLabelInsidePanel(hobby, SwingConstants.LEFT, background, fontColor), gridBagConstraints);
+		ListLabel hobby = new ListLabel(skillName, SwingConstants.LEFT);
+		add(hobby, gridBagConstraints);
 
 		SpinnerModel sm = new SpinnerNumberModel(0, 0, 3, 1);
 		rankSpinner = new JSpinner(sm);

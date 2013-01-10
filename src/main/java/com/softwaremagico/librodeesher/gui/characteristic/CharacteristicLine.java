@@ -29,13 +29,14 @@ import java.awt.GridLayout;
 
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
-import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultFormatter;
 
+import com.softwaremagico.librodeesher.gui.elements.BoldListLabel;
+import com.softwaremagico.librodeesher.gui.elements.ListBackgroundPanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -46,13 +47,9 @@ public class CharacteristicLine extends BasicLine {
 	private static final long serialVersionUID = 1855952180568184802L;
 	protected CharacterPlayer character;
 	protected Characteristic characteristic;
-	protected JLabel characteristicLabel;
 	private JSpinner temporalSpinner;
-	private JLabel potentialText;
-	private JLabel basicBonusText;
-	private JLabel raceBonusText;
-	private JLabel specialBonusText;
-	protected JLabel totalLabel;
+	protected BoldListLabel characteristicLabel, potentialText, basicBonusText, raceBonusText, specialBonusText,
+			totalLabel;
 	private BaseFrame parentWindow;
 
 	public CharacteristicLine(CharacterPlayer character, Characteristic characteristic, Color background) {
@@ -64,10 +61,10 @@ public class CharacteristicLine extends BasicLine {
 
 	protected void setElements(Color background) {
 		this.removeAll();
-		setLayout(new GridLayout(1, 7));
+		setLayout(new GridLayout(1, 0));
 
-		characteristicLabel = new JLabel(characteristic.getAbbreviature());
-		add(createLabelInsidePanel(characteristicLabel, SwingConstants.LEFT, background, fontColor));
+		characteristicLabel = new BoldListLabel(characteristic.getAbbreviature(), SwingConstants.LEFT);
+		add(new ListBackgroundPanel(characteristicLabel, background));
 
 		// SpinnerModel sm = new SpinnerNumberModel(
 		// (Integer)
@@ -79,24 +76,24 @@ public class CharacteristicLine extends BasicLine {
 		temporalSpinner.setEnabled(!character.areCharacteristicsConfirmed());
 		add(createSpinnerInsidePanel(temporalSpinner, background));
 
-		potentialText = new JLabel("0");
-		add(createLabelInsidePanel(potentialText, SwingConstants.CENTER, background, fontColor));
+		potentialText = new BoldListLabel("0");
+		add(new ListBackgroundPanel(potentialText, background));
 
-		basicBonusText = new JLabel(character
-				.getCharacteristicTemporalBonus(characteristic.getAbbreviature()).toString());
-		add(createLabelInsidePanel(basicBonusText, SwingConstants.CENTER, background, fontColor));
-
-		raceBonusText = new JLabel(character.getCharacteristicRaceBonus(characteristic.getAbbreviature())
-				.toString());
-		add(createLabelInsidePanel(raceBonusText, SwingConstants.CENTER, background, fontColor));
-
-		specialBonusText = new JLabel(character.getCharacteristicSpecialBonus(
+		basicBonusText = new BoldListLabel(character.getCharacteristicTemporalBonus(
 				characteristic.getAbbreviature()).toString());
-		add(createLabelInsidePanel(specialBonusText, SwingConstants.CENTER, background, fontColor));
+		add(new ListBackgroundPanel(basicBonusText, background));
 
-		totalLabel = new JLabel(character.getCharacteristicTotalBonus(characteristic.getAbbreviature())
+		raceBonusText = new BoldListLabel(character.getCharacteristicRaceBonus(characteristic.getAbbreviature())
 				.toString());
-		add(createLabelInsidePanel(totalLabel, SwingConstants.CENTER, background, fontColor));
+		add(new ListBackgroundPanel(raceBonusText, background));
+
+		specialBonusText = new BoldListLabel(character.getCharacteristicSpecialBonus(
+				characteristic.getAbbreviature()).toString());
+		add(new ListBackgroundPanel(specialBonusText, background));
+
+		totalLabel = new BoldListLabel(character.getCharacteristicTotalBonus(characteristic.getAbbreviature())
+				.toString());
+		add(new ListBackgroundPanel(totalLabel, background));
 
 	}
 
@@ -137,7 +134,7 @@ public class CharacteristicLine extends BasicLine {
 				// Store value.
 				character.setCharacteristicTemporalValues(characteristic.getAbbreviature(),
 						(Integer) temporalSpinner.getValue());
-				
+
 				// Range values
 				if ((Integer) temporalSpinner.getValue() < 1) {
 					temporalSpinner.setValue(1);

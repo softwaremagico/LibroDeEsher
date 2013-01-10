@@ -25,11 +25,9 @@ package com.softwaremagico.librodeesher.gui.elements;
  */
 
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -38,10 +36,9 @@ import com.softwaremagico.librodeesher.gui.style.BasicTitleLine;
 
 public class SkillTitleLine extends BasicTitleLine {
 	private static final long serialVersionUID = 4480268296161276440L;
-	protected static final Font defaultFont = new Font(font, Font.BOLD, fontSize);
 	private static final Integer columnWidth = 30;
 	private static final Integer columnHeight = 20;
-	private JLabel prevRanksLabel, currentRanksLabel, bonusRankLabel, bonusCharLabel, bonusMagicObject,
+	private TitleLabel prevRanksLabel, currentRanksLabel, bonusRankLabel, bonusCharLabel, bonusMagicObject,
 			otherBonus, totalLabel;
 	protected boolean costPanel = false;
 	protected boolean oldRanksPanel = false;
@@ -74,7 +71,6 @@ public class SkillTitleLine extends BasicTitleLine {
 		this.removeAll();
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-		Font defaultFont = new Font(font, Font.BOLD, fontSize);
 
 		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.ipadx = xPadding;
@@ -85,121 +81,85 @@ public class SkillTitleLine extends BasicTitleLine {
 		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.3;
-		JLabel categoryNameLabel = new JLabel("Nombre");
-		categoryNameLabel.setFont(defaultFont);
-		categoryNameLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		categoryNameLabel.setMinimumSize(new Dimension(200, columnHeight));
-		categoryNameLabel.setPreferredSize(new Dimension(200, columnHeight));
-		add(categoryNameLabel, gridBagConstraints);
+		TitleLabel categoryNameLabel = new TitleLabel("Nombre", SwingConstants.LEFT, 200, columnHeight);
+		add(new TitleBackgroundPanel(categoryNameLabel), gridBagConstraints);
 
 		if (costPanel) {
 			gridBagConstraints.gridx = 3;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			JLabel rankCostLabel = new JLabel("Coste");
-			rankCostLabel.setMinimumSize(new Dimension(columnWidth * 2, columnHeight));
-			rankCostLabel.setPreferredSize(new Dimension(columnWidth * 2, columnHeight));
-			rankCostLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			add(rankCostLabel, gridBagConstraints);
+			TitleLabel rankCostLabel = new TitleLabel("Coste", columnWidth * 2, columnHeight);
+			add(new TitleBackgroundPanel(rankCostLabel), gridBagConstraints);
 		}
 
 		if (oldRanksPanel) {
 			gridBagConstraints.gridx = 5;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			prevRanksLabel = new JLabel("Rng");
-			prevRanksLabel.setFont(defaultFont);
-			prevRanksLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
-			prevRanksLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
-			prevRanksLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			add(prevRanksLabel, gridBagConstraints);
+			prevRanksLabel = new TitleLabel("Rng", columnWidth, columnHeight);
+			add(new TitleBackgroundPanel(prevRanksLabel), gridBagConstraints);
 		}
 
 		if (chooseRanksPanel) {
 			gridBagConstraints.gridx = 7;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			currentRanksLabel = new JLabel("Rng");
-			currentRanksLabel.setFont(defaultFont);
-			currentRanksLabel.setMinimumSize(new Dimension(columnWidth * 2, columnHeight));
-			currentRanksLabel.setPreferredSize(new Dimension(columnWidth * 2, columnHeight));
-			currentRanksLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			add(currentRanksLabel, gridBagConstraints);
+			currentRanksLabel = new TitleLabel("Rng", columnWidth * 2, columnHeight);
+			add(new TitleBackgroundPanel(currentRanksLabel), gridBagConstraints);
 		}
 
 		if (ranksValuePanel) {
-			bonusRankLabel = new JLabel("Val");
-			bonusRankLabel.setFont(defaultFont);
 			gridBagConstraints.gridx = 9;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			bonusRankLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
-			bonusRankLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
-			bonusRankLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			add(bonusRankLabel, gridBagConstraints);
+			bonusRankLabel = new TitleLabel("Val", columnWidth, columnHeight);
+			add(new TitleBackgroundPanel(bonusRankLabel), gridBagConstraints);
 		}
 
 		if (bonusCategoryPanel) {
-			bonusCharLabel = new JLabel("Cat");
-			bonusCharLabel.setFont(defaultFont);
-			bonusCharLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
-			bonusCharLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
-			bonusCharLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			gridBagConstraints.gridx = 11;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			add(bonusCharLabel, gridBagConstraints);
+			bonusCharLabel = new TitleLabel("Cat", columnWidth, columnHeight);
+			add(new TitleBackgroundPanel(bonusCharLabel), gridBagConstraints);
 		}
 
 		if (otherBonusPanel) {
-			otherBonus = new JLabel("Bns");
-			otherBonus.setMinimumSize(new Dimension(columnWidth, columnHeight));
-			otherBonus.setPreferredSize(new Dimension(columnWidth, columnHeight));
-			otherBonus.setHorizontalAlignment(SwingConstants.CENTER);
-			otherBonus.setFont(defaultFont);
 			gridBagConstraints.gridx = 13;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			add(otherBonus, gridBagConstraints);
+			otherBonus = new TitleLabel("Bns", columnWidth, columnHeight);
+			add(new TitleBackgroundPanel(otherBonus), gridBagConstraints);
 		}
 
 		if (objectBonusPanel) {
-			bonusMagicObject = new JLabel("Obj");
-			bonusMagicObject.setFont(defaultFont);
-			bonusMagicObject.setMinimumSize(new Dimension(columnWidth, columnHeight));
-			bonusMagicObject.setPreferredSize(new Dimension(columnWidth, columnHeight));
-			bonusMagicObject.setHorizontalAlignment(SwingConstants.CENTER);
 			gridBagConstraints.gridx = 15;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			add(bonusMagicObject, gridBagConstraints);
+			bonusMagicObject = new TitleLabel("Obj", columnWidth, columnHeight);
+			add(new TitleBackgroundPanel(bonusMagicObject), gridBagConstraints);
 		}
 
 		if (totalPanel) {
-			totalLabel = new JLabel("Tot");
-			totalLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
-			totalLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
-			totalLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			totalLabel.setFont(defaultFont);
 			gridBagConstraints.gridx = 17;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			add(totalLabel, gridBagConstraints);
+			totalLabel = new TitleLabel("Tot", columnWidth, columnHeight);
+			add(new TitleBackgroundPanel(totalLabel), gridBagConstraints);
 		}
 
-		int scrollBarSize = ((Integer) UIManager.get("ScrollBar.width")).intValue();
-		JLabel scrollBarGap = new JLabel("");
-		scrollBarGap.setMinimumSize(new Dimension(scrollBarSize, columnHeight));
-		scrollBarGap.setPreferredSize(new Dimension(scrollBarSize, columnHeight));
-		scrollBarGap.setHorizontalAlignment(SwingConstants.CENTER);
-		scrollBarGap.setFont(defaultFont);
 		gridBagConstraints.gridx = 19;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
+		int scrollBarSize = ((Integer) UIManager.get("ScrollBar.width")).intValue();
+		BaseLabel scrollBarGap = new BaseLabel("");
+		scrollBarGap.setMinimumSize(new Dimension(scrollBarSize, columnHeight));
+		scrollBarGap.setPreferredSize(new Dimension(scrollBarSize, columnHeight));
+		scrollBarGap.setHorizontalAlignment(SwingConstants.CENTER);
 		add(scrollBarGap, gridBagConstraints);
 	}
-	
-	public void sizeChanged(){
+
+	public void sizeChanged() {
 		defaultElementsSizeChanged();
 	}
 
@@ -250,7 +210,7 @@ public class SkillTitleLine extends BasicTitleLine {
 			}
 		}
 	}
-	
+
 	protected void addColumn(JPanel panel, Integer column) {
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 		gridBagConstraints.fill = GridBagConstraints.CENTER;
@@ -263,5 +223,18 @@ public class SkillTitleLine extends BasicTitleLine {
 		gridBagConstraints.weightx = 0.1;
 		panel.setBackground(background);
 		add(panel, gridBagConstraints);
+	}
+	
+	protected void addColumn(TitleLabel label, Integer column) {
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		gridBagConstraints.fill = GridBagConstraints.CENTER;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.weighty = 0;
+		gridBagConstraints.gridx = column * 2;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0.1;
+		add(label, gridBagConstraints);
 	}
 }

@@ -26,14 +26,14 @@ package com.softwaremagico.librodeesher.gui.culture;
 import java.awt.Color;
 import java.awt.GridLayout;
 
-import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.style.BasicTitleLine;
 
 public class CultureTitleLine extends BasicTitleLine {
 	private static final long serialVersionUID = 4480268296161276440L;
-	private JLabel rankLabel;
+	private BaseLabel rankLabel;
 
 	public CultureTitleLine(String titleLabelText, String rankLabelText) {
 		setElements(background, titleLabelText, rankLabelText);
@@ -44,10 +44,10 @@ public class CultureTitleLine extends BasicTitleLine {
 		this.removeAll();
 		setLayout(new GridLayout(1, 2));
 
-		JLabel weaponCategoryLabel = new JLabel(labelText);
+		BaseLabel weaponCategoryLabel = new BaseLabel(labelText);
 		add(createLabelInsidePanel(weaponCategoryLabel, SwingConstants.CENTER, background, fontColor));
 
-		rankLabel = new JLabel(rankLabelText);
+		rankLabel = new BaseLabel(rankLabelText);
 		add(createLabelInsidePanel(rankLabel, SwingConstants.CENTER, background, fontColor));
 
 	}

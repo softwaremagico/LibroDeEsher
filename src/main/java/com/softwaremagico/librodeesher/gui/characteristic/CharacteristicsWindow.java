@@ -32,9 +32,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
@@ -45,7 +45,7 @@ import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 public class CharacteristicsWindow extends BaseFrame {
 	private static final long serialVersionUID = -2484205144800968016L;
 	private CompleteCharacteristicPanel characteristicPanel;
-	private JLabel spentPointsLabel;
+	private BaseLabel spentPointsLabel;
 	private CharacterPlayer character;
 	private BasicButton acceptButton;
 	private PointsCounterTextField characteristicsPointsTextField;
@@ -75,8 +75,7 @@ public class CharacteristicsWindow extends BaseFrame {
 		JPanel characteristicPointsPanel = new JPanel();
 		characteristicPointsPanel.setLayout(new BoxLayout(characteristicPointsPanel, BoxLayout.X_AXIS));
 
-		spentPointsLabel = new JLabel();
-		spentPointsLabel = new JLabel("  Puntos restantes: ");
+		spentPointsLabel = new BaseLabel("  Puntos restantes: ");
 		characteristicPointsPanel.add(spentPointsLabel);
 
 		characteristicsPointsTextField = new PointsCounterTextField();
@@ -118,10 +117,6 @@ public class CharacteristicsWindow extends BaseFrame {
 
 	private void setRemainingPoints(Integer value) {
 		characteristicsPointsTextField.setPoints(value);
-	}
-
-	private String getSpentPointsText(Integer spentPoints, Integer totalPoints) {
-		return "  Puntos restantes: " + spentPoints + " de " + totalPoints;
 	}
 
 	public void setCharacter(CharacterPlayer character) {

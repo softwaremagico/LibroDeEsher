@@ -33,9 +33,9 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
@@ -46,14 +46,14 @@ public class HistoryWindow extends BaseFrame {
 	private CharacterPlayer character;
 	private HistoryCompleteSkillPointsPanel skillPanel;
 	private HistoryCompleteCharacteristicPanel characteristicPanel;
-	private JLabel historyPointsLabel;
+	private BaseLabel historyPointsLabel;
 	private PointsCounterTextField historyPoints;
 
 	public HistoryWindow(CharacterPlayer character) {
 		this.character = character;
-		defineWindow(500, 400);
+		defineWindow(700, 400);
 		historyPoints = new PointsCounterTextField();
-		// setResizable(false);
+		setResizable(false);
 		setElements();
 		setEvents();
 	}
@@ -71,7 +71,7 @@ public class HistoryWindow extends BaseFrame {
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.gridheight = 3;
+		gridBagConstraints.gridheight = GridBagConstraints.REMAINDER;
 		gridBagConstraints.weightx = 0.7;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
@@ -80,11 +80,11 @@ public class HistoryWindow extends BaseFrame {
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 1;
+		gridBagConstraints.gridx = 1;
+		gridBagConstraints.gridy = 0;
 		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.gridheight = 3;
-		gridBagConstraints.weightx = 0.7;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.weightx = 0.3;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		characteristicPanel = new HistoryCompleteCharacteristicPanel(character, this);
@@ -101,7 +101,7 @@ public class HistoryWindow extends BaseFrame {
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		JPanel developmentPointsPanel = new JPanel();
 		developmentPointsPanel.setLayout(new BoxLayout(developmentPointsPanel, BoxLayout.X_AXIS));
-		historyPointsLabel = new JLabel("  Puntos de Historial: ");
+		historyPointsLabel = new BaseLabel("  Puntos de Historial: ");
 		developmentPointsPanel.add(historyPointsLabel);
 		historyPoints.setColumns(3);
 		historyPoints.setEditable(false);
@@ -153,5 +153,6 @@ public class HistoryWindow extends BaseFrame {
 	@Override
 	public void update() {
 		setHistorialPointText();
+		characteristicPanel.update();
 	}
 }

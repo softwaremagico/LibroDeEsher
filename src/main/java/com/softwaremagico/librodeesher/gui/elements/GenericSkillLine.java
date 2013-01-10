@@ -27,13 +27,10 @@ package com.softwaremagico.librodeesher.gui.elements;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -42,7 +39,7 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class GenericSkillLine extends BasicSkillLine {
 	private static final long serialVersionUID = -3194401962061016906L;
-	protected JLabel skillNameLabel, bonusRankLabel, totalLabel, bonusCategory;
+	protected ListLabel skillNameLabel, bonusRankLabel, totalLabel, bonusCategory;
 	protected Skill skill;
 	private Color background;
 
@@ -69,7 +66,6 @@ public class GenericSkillLine extends BasicSkillLine {
 
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-		Font defaultFont = new Font(font, Font.PLAIN, fontSize);
 
 		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.ipadx = xPadding;
@@ -77,36 +73,27 @@ public class GenericSkillLine extends BasicSkillLine {
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.weighty = 0;
 
-		skillNameLabel = new JLabel(skill.getName());
-		skillNameLabel.setFont(defaultFont);
-		skillNameLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		skillNameLabel.setMinimumSize(new Dimension(200, columnHeight));
-		skillNameLabel.setPreferredSize(new Dimension(200, columnHeight));
 		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.3;
-		add(skillNameLabel, gridBagConstraints);
+		skillNameLabel = new ListLabel(skill.getName(), SwingConstants.LEFT, 200, columnHeight);
+		add(new ListBackgroundPanel(skillNameLabel, background), gridBagConstraints);
 
 		if (costPanel) {
 			gridBagConstraints.gridx = 3;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			JLabel rankCostLabel = new JLabel("");
-			rankCostLabel.setMinimumSize(new Dimension(columnWidth * 2, columnHeight));
-			rankCostLabel.setPreferredSize(new Dimension(columnWidth * 2, columnHeight));
-			add(rankCostLabel, gridBagConstraints);
+			ListLabel rankCostLabel = new ListLabel("", columnWidth * 2, columnHeight);
+			add(new ListBackgroundPanel(rankCostLabel, background), gridBagConstraints);
 		}
 
 		if (oldRanksPanel) {
-			JLabel prevRanksLabel = new JLabel(previousRanks.toString());
-			prevRanksLabel.setFont(defaultFont);
-			prevRanksLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			prevRanksLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
-			prevRanksLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
 			gridBagConstraints.gridx = 5;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			add(prevRanksLabel, gridBagConstraints);
+			ListLabel prevRanksLabel = new ListLabel(previousRanks.toString(), SwingConstants.CENTER,
+					columnWidth, columnHeight);
+			add(new ListBackgroundPanel(prevRanksLabel, background), gridBagConstraints);
 		}
 
 		if (chooseRanksPanel) {
@@ -136,63 +123,46 @@ public class GenericSkillLine extends BasicSkillLine {
 		}
 
 		if (ranksValuePanel) {
-			bonusRankLabel = new JLabel(character.getRanksValue(skill).toString());
-			bonusRankLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			bonusRankLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
-			bonusRankLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
-			bonusRankLabel.setFont(defaultFont);
 			gridBagConstraints.gridx = 9;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			add(bonusRankLabel, gridBagConstraints);
+			bonusRankLabel = new ListLabel(character.getRanksValue(skill).toString(), columnWidth,
+					columnHeight);
+			add(new ListBackgroundPanel(bonusRankLabel, background), gridBagConstraints);
 		}
 
 		if (bonusCategoryPanel) {
-			bonusCategory = new JLabel(character.getTotalValue(skill.getCategory()).toString());
-			bonusCategory.setHorizontalAlignment(SwingConstants.CENTER);
-			bonusCategory.setMinimumSize(new Dimension(columnWidth, columnHeight));
-			bonusCategory.setPreferredSize(new Dimension(columnWidth, columnHeight));
-			bonusCategory.setFont(defaultFont);
 			gridBagConstraints.gridx = 11;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			add(bonusCategory, gridBagConstraints);
+			bonusCategory = new ListLabel(character.getTotalValue(skill.getCategory()).toString(),
+					columnWidth, columnHeight);
+			add(new ListBackgroundPanel(bonusCategory, background), gridBagConstraints);
 		}
 
 		if (otherBonusPanel) {
-			JLabel otherBonus = new JLabel(character.getBonus(skill).toString());
-			otherBonus.setHorizontalAlignment(SwingConstants.CENTER);
-			otherBonus.setMinimumSize(new Dimension(columnWidth, columnHeight));
-			otherBonus.setPreferredSize(new Dimension(columnWidth, columnHeight));
-			otherBonus.setFont(defaultFont);
 			gridBagConstraints.gridx = 13;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
+			ListLabel otherBonus = new ListLabel(character.getBonus(skill).toString(), columnWidth,
+					columnHeight);
 			add(otherBonus, gridBagConstraints);
 		}
 
 		if (objectBonusPanel) {
-			JLabel bonusMagicObject = new JLabel("0");
-			bonusMagicObject.setHorizontalAlignment(SwingConstants.CENTER);
-			bonusMagicObject.setMinimumSize(new Dimension(columnWidth, columnHeight));
-			bonusMagicObject.setPreferredSize(new Dimension(columnWidth, columnHeight));
-			bonusMagicObject.setFont(defaultFont);
 			gridBagConstraints.gridx = 15;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			add(bonusMagicObject, gridBagConstraints);
+			ListLabel bonusMagicObject = new ListLabel("0", columnWidth, columnHeight);
+			add(new ListBackgroundPanel(bonusMagicObject, background), gridBagConstraints);
 		}
 
 		if (totalPanel) {
-			totalLabel = new JLabel(character.getTotalValue(skill).toString());
-			totalLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			totalLabel.setMinimumSize(new Dimension(columnWidth, columnHeight));
-			totalLabel.setPreferredSize(new Dimension(columnWidth, columnHeight));
-			totalLabel.setFont(defaultFont);
 			gridBagConstraints.gridx = 17;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			add(totalLabel, gridBagConstraints);
+			totalLabel = new ListLabel(character.getTotalValue(skill).toString(), columnWidth, columnHeight);
+			add(new ListBackgroundPanel(totalLabel, background), gridBagConstraints);
 		}
 
 		enableRanks(previousRanks);
@@ -207,8 +177,6 @@ public class GenericSkillLine extends BasicSkillLine {
 		}
 		parentWindow.update();
 	}
-	
-	
 
 	@Override
 	protected void setCurrentLevelRanks() {
@@ -230,10 +198,11 @@ public class GenericSkillLine extends BasicSkillLine {
 	}
 
 	protected void disableRankCheckBox() {
-		try{
+		try {
 			firstRank.setEnabled(false);
 			secondRank.setEnabled(false);
 			thirdRank.setEnabled(false);
-		}catch(NullPointerException npe){}
+		} catch (NullPointerException npe) {
+		}
 	}
 }
