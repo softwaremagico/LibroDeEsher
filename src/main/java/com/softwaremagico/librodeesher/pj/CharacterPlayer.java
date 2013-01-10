@@ -31,6 +31,7 @@ import java.util.List;
 import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.librodeesher.core.Spanish;
 import com.softwaremagico.librodeesher.core.TwoDices;
+import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
@@ -159,11 +160,24 @@ public class CharacterPlayer {
 	}
 
 	public Integer getCharacteristicTemporalBonus(String abbreviature) {
-		return Characteristics.getTemporalBonus(getCharacteristicTemporalValues(abbreviature));
+		return Characteristics.getTemporalBonus(getCharacteristicTemporalValue(abbreviature));
 	}
 
-	public Integer getCharacteristicTemporalValues(String abbreviature) {
-		Integer value = characteristicsInitialTemporalValues.get(abbreviature);
+	private Integer getHistoryTemporalModification(String abbreviature) {
+		Integer temporalValue = characteristicsInitialTemporalValues.get(abbreviature);
+		Integer potentialValue = characteristicsPotentialValues.get(abbreviature);
+		for (TwoDices roll : historial.getCharacteristicsUpdates(abbreviature)) {
+			temporalValue += Characteristic.getCharacteristicUpgrade(temporalValue, potentialValue, roll);
+		}
+		return temporalValue;
+	}
+
+	public Integer getCharacteristicTemporalValue(String abbreviature) {
+		return getHistoryTemporalModification(abbreviature);
+	}
+
+	public Integer getCharacteristicInitialTemporalValue(String abbreviature) {
+		Integer value = getHistoryTemporalModification(abbreviature);
 		if (value != null) {
 			if (isMainProfessionalCharacteristic(abbreviature)) {
 				if (value > 90) {
@@ -210,13 +224,13 @@ public class CharacterPlayer {
 		return culture;
 	}
 
-	public Integer getInitialDevelopmentPoints() {
+	public Integer getTotalDevelopmentPoints() {
 		Integer total = 0;
-		total += getCharacteristicTemporalValues("Ag");
-		total += getCharacteristicTemporalValues("Co");
-		total += getCharacteristicTemporalValues("Me");
-		total += getCharacteristicTemporalValues("Ra");
-		total += getCharacteristicTemporalValues("Ad");
+		total += getCharacteristicTemporalValue("Ag");
+		total += getCharacteristicTemporalValue("Co");
+		total += getCharacteristicTemporalValue("Me");
+		total += getCharacteristicTemporalValue("Ra");
+		total += getCharacteristicTemporalValue("Ad");
 		return total / 5;
 	}
 
@@ -313,13 +327,13 @@ public class CharacterPlayer {
 	}
 
 	public Integer getRemainingDevelopmentPoints() {
-		return getInitialDevelopmentPoints() - getSpentDevelopmentPoints();
+		return getTotalDevelopmentPoints() - getSpentDevelopmentPoints();
 	}
 
 	public Integer getCharacteristicsTemporalPointsSpent() {
 		Integer total = 0;
 		for (Characteristic characteristic : characteristics.getCharacteristicsList()) {
-			total += getCharacteristicTemporalValues(characteristic.getAbbreviature());
+			total += getCharacteristicInitialTemporalValue(characteristic.getAbbreviature());
 		}
 		return total;
 	}
@@ -349,6 +363,12 @@ public class CharacterPlayer {
 				characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()).add(new TwoDices());
 			}
 		}
+	}
+
+	private TwoDices getStoredCharacteristicRoll(String abbreviature) {
+		TwoDices roll = characteristicsTemporalUpdatesRolls.get(abbreviature).remove(0);
+		setCharacteristicsTemporalUpdatesRolls();
+		return roll;
 	}
 
 	public void setCharacteristicTemporalValues(String abbreviature, Integer value) {
@@ -730,5 +750,18 @@ public class CharacterPlayer {
 
 	public Integer getRemainingHistorialPoints() {
 		return getRace().getHistorialPoints() - historial.getSpentHistoryPoints();
+	}
+
+	public void setCharacteristicHistorialUpdate(String abbreviature) {
+		TwoDices roll = getStoredCharacteristicRoll(abbreviature);
+		Integer temporalValue = getCharacteristicTemporalValue(abbreviature);
+		Integer potentialValue = characteristicsPotentialValues.get(abbreviature);
+		ShowMessage.showInfoMessage(
+				"El resultado de los dados es: [" + roll.getFirstDice() + "," + roll.getSecondDice() + "]\n"
+						+ "Por tanto, la característica ha cambiado en: "
+						+ Characteristic.getCharacteristicUpgrade(temporalValue, potentialValue, roll),
+				"Característica aumentada!");
+
+		historial.setCharactersiticUpdate(abbreviature, roll);
 	}
 }

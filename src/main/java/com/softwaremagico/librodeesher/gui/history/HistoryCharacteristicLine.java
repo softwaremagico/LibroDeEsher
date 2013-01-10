@@ -2,12 +2,16 @@ package com.softwaremagico.librodeesher.gui.history;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
+import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.gui.elements.BoldListLabel;
 import com.softwaremagico.librodeesher.gui.elements.ListBackgroundPanel;
+import com.softwaremagico.librodeesher.gui.skills.SkillPanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -43,21 +47,42 @@ public class HistoryCharacteristicLine extends BasicLine {
 		add(new ListBackgroundPanel(potentialText, background));
 
 		updateButton = new JButton("Subir");
+		updateButton.addActionListener(new UpdateButtonListener());
 		add(updateButton);
 
 		update();
 	}
 
 	public void update() {
-		temporalText.setText(character.getCharacteristicTemporalValues(characteristic.getAbbreviature())
+		temporalText.setText(character.getCharacteristicTemporalValue(characteristic.getAbbreviature())
 				.toString());
 		potentialText.setText(character.getCharacteristicPotentialValues(characteristic.getAbbreviature())
 				.toString());
-		updateButton.setEnabled(character.getRemainingHistorialPoints() > 0);
+		updateButton.setEnabled(character.getRemainingHistorialPoints() > 0
+				&& (character.getCharacteristicPotentialValues(characteristic.getAbbreviature())
+						- character.getCharacteristicTemporalValue(characteristic.getAbbreviature()) > 0));
 	}
 
 	public void setParentWindow(BaseFrame window) {
 		parentWindow = window;
 	}
 
+	public class UpdateButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			if (ShowMessage
+					.showQuestionMessage(
+							parentWindow,
+							"Esta acción invertirá un punto de historial para subr la característica \""
+									+ characteristic.getName()
+									+ "\" con una diferencia entre el valor temporal y potencial de: "
+									+ (character.getCharacteristicPotentialValues(characteristic
+											.getAbbreviature()) - character
+											.getCharacteristicTemporalValue(characteristic.getAbbreviature()))
+									+ ".\n Esta acción es permante. ¿Está seguro de continuar?",
+							"Aumento de característica")) {
+				character.setCharacteristicHistorialUpdate(characteristic.getAbbreviature());
+				parentWindow.update();
+			}
+		}
+	}
 }

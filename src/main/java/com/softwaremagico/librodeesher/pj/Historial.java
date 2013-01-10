@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj;
+
 /*
  * #%L
  * Libro de Esher
@@ -24,9 +25,13 @@ package com.softwaremagico.librodeesher.pj;
  */
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
+import com.softwaremagico.librodeesher.core.TwoDices;
+import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class Historial {
@@ -34,10 +39,12 @@ public class Historial {
 	private static final Integer CATEGORY_BONUS = 5;
 	private List<String> categories;
 	private List<String> skills;
+	private Hashtable<String, List<TwoDices>> characteristicsUpdates;
 
 	public Historial() {
 		categories = new ArrayList<>();
 		skills = new ArrayList<>();
+		characteristicsUpdates = new Hashtable<>();
 	}
 
 	public void setPoint(Skill skill, boolean value) {
@@ -75,6 +82,29 @@ public class Historial {
 	}
 
 	public Integer getSpentHistoryPoints() {
-		return skills.size() + categories.size();
+		return skills.size() + categories.size() + getCharacteristicsUpdatesPoints();
+	}
+
+	public void setCharactersiticUpdate(String abbreviature, TwoDices roll) {
+		if (characteristicsUpdates.get(abbreviature) == null) {
+			characteristicsUpdates.put(abbreviature, new ArrayList<TwoDices>());
+		}
+		characteristicsUpdates.get(abbreviature).add(roll);
+	}
+
+	private Integer getCharacteristicsUpdatesPoints() {
+		Integer total = 0;
+		for (List<TwoDices> rolls : characteristicsUpdates.values()) {
+			total += rolls.size();
+		}
+		return total;
+	}
+
+	public List<TwoDices> getCharacteristicsUpdates(String abbreviature) {
+		List<TwoDices> rolls = new ArrayList<>();
+		if (characteristicsUpdates.get(abbreviature) != null) {
+			rolls.addAll(characteristicsUpdates.get(abbreviature));
+		}
+		return rolls;
 	}
 }

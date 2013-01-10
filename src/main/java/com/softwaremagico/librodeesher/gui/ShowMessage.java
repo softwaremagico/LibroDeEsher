@@ -24,6 +24,8 @@ package com.softwaremagico.librodeesher.gui;
  * #L%
  */
 
+import java.awt.Component;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -44,6 +46,15 @@ public class ShowMessage {
 	public static void showErrorMessage(String text, String title) {
 		errortextMessage(text, title);
 		message(text, title, JOptionPane.ERROR_MESSAGE);
+	}
+
+	public static boolean showQuestionMessage(Component panel, String text, String title) {
+		int selection = JOptionPane.showOptionDialog(panel, // Componente padre
+				text, // Mensaje
+				title, // Título
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Aceptar",
+						"Cancelar" }, "Cancelar");
+		return (selection == JOptionPane.YES_OPTION);
 	}
 
 	public static void showInfoMessage(String text, String title) {

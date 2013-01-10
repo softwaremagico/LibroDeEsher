@@ -25,7 +25,7 @@ package com.softwaremagico.librodeesher.pj.characteristic;
  */
 import java.util.Hashtable;
 
-import com.softwaremagico.librodeesher.core.Dice;
+import com.softwaremagico.librodeesher.core.TwoDices;
 
 public class Characteristic {
 	public static Hashtable<String, String> characteristicAbbreviatureList;
@@ -49,23 +49,23 @@ public class Characteristic {
 		abbreviature = ab;
 	}
 
-	public static Integer getCharacteristicUpgrade(Integer temporalValue, Integer potentialValue) {
-		int dice1 = Dice.getRoll(10);
-		int dice2 = Dice.getRoll(10);
-
-		if (dice1 == dice2) {
-			if (dice1 < 6) {
-				return -dice1;
+	public static Integer getCharacteristicUpgrade(Integer temporalValue, Integer potentialValue,
+			TwoDices roll) {
+		if (roll.getFirstDice() == roll.getSecondDice()) {
+			if (roll.getFirstDice() < 6) {
+				return -roll.getFirstDice();
 			} else {
-				return dice1 * 2;
+				return Math.min(roll.getFirstDice() * 2, potentialValue - temporalValue);
 			}
 		} else {
 			if (potentialValue - temporalValue <= 10) {
-				return Math.min(dice1, dice2);
+				return Math.min(Math.min(roll.getFirstDice(), roll.getSecondDice()), potentialValue
+						- temporalValue);
 			} else if (potentialValue - temporalValue <= 20) {
-				return Math.max(dice1, dice2);
+				return Math.min(Math.max(roll.getFirstDice(), roll.getSecondDice()), potentialValue
+						- temporalValue);
 			} else {
-				return dice1 + dice2;
+				return Math.min(roll.getFirstDice() + roll.getSecondDice(), potentialValue - temporalValue);
 			}
 		}
 	}

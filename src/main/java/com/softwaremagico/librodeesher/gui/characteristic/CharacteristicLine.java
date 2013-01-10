@@ -71,7 +71,7 @@ public class CharacteristicLine extends BasicLine {
 		// character.getCharacteristicsTemporalValues(characteristic.getAbbreviation()),
 		// (Integer) 1, (Integer) MAX_VALUE, (Integer) 1);
 		temporalSpinner = new BaseSpinner();
-		temporalSpinner.setValue(character.getCharacteristicTemporalValues(characteristic.getAbbreviature()));
+		temporalSpinner.setValue(character.getCharacteristicTemporalValue(characteristic.getAbbreviature()));
 		addTemporalSpinnerEvent();
 		temporalSpinner.setEnabled(!character.areCharacteristicsConfirmed());
 		add(createSpinnerInsidePanel(temporalSpinner, background));
