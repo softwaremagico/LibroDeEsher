@@ -29,8 +29,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -55,7 +53,6 @@ public class HistoryWindow extends BaseFrame {
 		historyPoints = new PointsCounterTextField();
 		setResizable(false);
 		setElements();
-		setEvents();
 	}
 
 	private void setHistorialPointText() {
@@ -124,30 +121,6 @@ public class HistoryWindow extends BaseFrame {
 		gridBagConstraints.weighty = 0;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		getContentPane().add(buttonPanel, gridBagConstraints);
-	}
-
-	private void setEvents() {
-		addComponentListener(new ComponentListener() {
-			@Override
-			public void componentHidden(ComponentEvent e) {
-
-			}
-
-			@Override
-			public void componentMoved(ComponentEvent e) {
-
-			}
-
-			@Override
-			public void componentResized(ComponentEvent evt) {
-				skillPanel.sizeChanged();
-			}
-
-			@Override
-			public void componentShown(ComponentEvent e) {
-
-			}
-		});
 	}
 
 	@Override

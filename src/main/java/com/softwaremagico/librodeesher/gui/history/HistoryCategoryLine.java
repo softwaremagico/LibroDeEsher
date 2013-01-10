@@ -48,10 +48,10 @@ public class HistoryCategoryLine extends GenericCategoryLine {
 
 	private void addHistoryCheckBox() {
 		JPanel panel = new JPanel();
-		historyCheckBox = new BaseCheckBox("H");
+		historyCheckBox = new BaseCheckBox("");
 		panel.add(historyCheckBox);
 		historyCheckBox.addItemListener(new CheckBoxListener());
-		addColumn(panel, 1);
+		addColumn(panel, 0);
 	}
 	
 	class CheckBoxListener implements ItemListener {

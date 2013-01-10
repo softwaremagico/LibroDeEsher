@@ -39,7 +39,7 @@ public class HistorySkillTitle extends SkillTitleLine {
 	
 	private void addHistoryCheckBox() {
 		historyLabel = new TitleLabel("Hst", SwingConstants.LEFT);
-		addColumn(historyLabel, 1);
+		addColumn(historyLabel, 0);
 	}
 	
 	public void sizeChanged(){
