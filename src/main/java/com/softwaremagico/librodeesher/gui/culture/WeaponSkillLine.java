@@ -38,6 +38,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultFormatter;
 
+import com.softwaremagico.librodeesher.gui.elements.BaseSpinner;
 import com.softwaremagico.librodeesher.gui.elements.ListLabel;
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -47,7 +48,7 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 public class WeaponSkillLine extends BasicLine {
 	private static final long serialVersionUID = -4697558156145520144L;
 	private Skill weaponSkill;
-	private JSpinner rankSpinner;
+	private BaseSpinner rankSpinner;
 	private Category category;
 	private ChooseWeaponPanel parentPanel;
 	private CharacterPlayer character;
@@ -85,7 +86,7 @@ public class WeaponSkillLine extends BasicLine {
 		add(weaponSkillLabel, gridBagConstraints);
 
 		SpinnerModel sm = new SpinnerNumberModel(0, 0, 3, 1);
-		rankSpinner = new JSpinner(sm);
+		rankSpinner = new BaseSpinner(sm);
 		rankSpinner.setValue(0);
 		addRankSpinnerEvent();
 		gridBagConstraints.weightx = 0;

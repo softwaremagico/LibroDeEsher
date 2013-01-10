@@ -32,9 +32,9 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JComboBox;
-import javax.swing.JTextField;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
+import com.softwaremagico.librodeesher.gui.elements.BaseTextField;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
@@ -84,7 +84,7 @@ public class CharacterProfessionPanel extends BasePanel {
 		c.weightx = 0;
 		add(trainingLabel, c);
 
-		JTextField trainingTextField = new JTextField();
+		BaseTextField trainingTextField = new BaseTextField();
 		trainingTextField.setEditable(false);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;

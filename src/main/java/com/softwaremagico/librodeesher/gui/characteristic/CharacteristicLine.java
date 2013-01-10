@@ -29,12 +29,12 @@ import java.awt.GridLayout;
 
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
-import javax.swing.JSpinner;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultFormatter;
 
+import com.softwaremagico.librodeesher.gui.elements.BaseSpinner;
 import com.softwaremagico.librodeesher.gui.elements.BoldListLabel;
 import com.softwaremagico.librodeesher.gui.elements.ListBackgroundPanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
@@ -47,7 +47,7 @@ public class CharacteristicLine extends BasicLine {
 	private static final long serialVersionUID = 1855952180568184802L;
 	protected CharacterPlayer character;
 	protected Characteristic characteristic;
-	private JSpinner temporalSpinner;
+	private BaseSpinner temporalSpinner;
 	protected BoldListLabel characteristicLabel, potentialText, basicBonusText, raceBonusText, specialBonusText,
 			totalLabel;
 	private BaseFrame parentWindow;
@@ -70,7 +70,7 @@ public class CharacteristicLine extends BasicLine {
 		// (Integer)
 		// character.getCharacteristicsTemporalValues(characteristic.getAbbreviation()),
 		// (Integer) 1, (Integer) MAX_VALUE, (Integer) 1);
-		temporalSpinner = new JSpinner();
+		temporalSpinner = new BaseSpinner();
 		temporalSpinner.setValue(character.getCharacteristicTemporalValues(characteristic.getAbbreviature()));
 		addTemporalSpinnerEvent();
 		temporalSpinner.setEnabled(!character.areCharacteristicsConfirmed());

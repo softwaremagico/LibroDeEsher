@@ -101,7 +101,7 @@ public class HistoryWindow extends BaseFrame {
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		JPanel developmentPointsPanel = new JPanel();
 		developmentPointsPanel.setLayout(new BoxLayout(developmentPointsPanel, BoxLayout.X_AXIS));
-		historyPointsLabel = new BaseLabel("  Puntos de Historial: ");
+		historyPointsLabel = new BaseLabel("    Puntos de Historial: ");
 		developmentPointsPanel.add(historyPointsLabel);
 		historyPoints.setColumns(3);
 		historyPoints.setEditable(false);

@@ -25,9 +25,7 @@ package com.softwaremagico.librodeesher.gui.elements;
 
 import java.awt.Color;
 
-import javax.swing.JTextField;
-
-public class PointsCounterTextField extends JTextField {
+public class PointsCounterTextField extends BaseTextField {
 	private static final long serialVersionUID = -830671781809359034L;
 
 	public void setPoints(Integer points) {

@@ -209,7 +209,11 @@ public class MagicFactory {
 	}
 
 	public static List<String> getRaceLists(String race) {
-		return spellsByGroup.get(RealmOfMagic.RACE).get(race);
+		List<String> spells = spellsByGroup.get(RealmOfMagic.RACE).get(race); 
+		if(spells == null){
+			spells = new ArrayList<>();
+		}
+		return spells;
 	}
 
 	public static List<String> getArchanumOpenLists() {

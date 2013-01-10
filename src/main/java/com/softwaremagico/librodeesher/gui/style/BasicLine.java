@@ -29,8 +29,8 @@ import java.awt.Color;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 
+import com.softwaremagico.librodeesher.gui.elements.BaseSpinner;
 import com.softwaremagico.librodeesher.gui.elements.TitleLabel;
 
 public abstract class BasicLine extends BasePanel {
@@ -79,7 +79,7 @@ public abstract class BasicLine extends BasePanel {
 		return container;
 	}
 
-	public JPanel createSpinnerInsidePanel(JSpinner spinner, Color bgColor) {
+	public JPanel createSpinnerInsidePanel(BaseSpinner spinner, Color bgColor) {
 		JPanel container = new JPanel(new BorderLayout());
 		container.add(spinner);
 		container.setBackground(bgColor);

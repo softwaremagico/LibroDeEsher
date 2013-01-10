@@ -31,11 +31,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.BaseRadioButton;
+import com.softwaremagico.librodeesher.gui.elements.BaseTextField;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.SexType;
@@ -44,7 +43,7 @@ public class CharacterBasicsPanel extends BasePanel {
 	private static final long serialVersionUID = -6925539216225561309L;
 	private BaseRadioButton maleRadioButton;
 	private BaseRadioButton femaleRadioButton;
-	private JTextField nameTextField;
+	private BaseTextField nameTextField;
 	private CharacterPlayer character;
 	private BaseLabel nameLabel;
 
@@ -66,7 +65,7 @@ public class CharacterBasicsPanel extends BasePanel {
 		c.weightx = 0;
 		add(nameLabel, c);
 
-		nameTextField = new JTextField();
+		nameTextField = new BaseTextField();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
 		c.gridx = 1;

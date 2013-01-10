@@ -27,11 +27,11 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
+import com.softwaremagico.librodeesher.gui.elements.BaseSpinner;
 import com.softwaremagico.librodeesher.gui.elements.ListLabel;
 import com.softwaremagico.librodeesher.gui.style.BasicLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -39,7 +39,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 public abstract class CultureLine extends BasicLine {
 	protected static final long serialVersionUID = -8287822744700383705L;
 	protected CharacterPlayer character;
-	protected JSpinner rankSpinner;
+	protected BaseSpinner rankSpinner;
 	protected String skillName;
 	protected CulturePanel parentPanel;
 
@@ -61,11 +61,11 @@ public abstract class CultureLine extends BasicLine {
 		add(hobby, gridBagConstraints);
 
 		SpinnerModel sm = new SpinnerNumberModel(0, 0, 3, 1);
-		rankSpinner = new JSpinner(sm);
+		rankSpinner = new BaseSpinner(sm);
 		rankSpinner.setValue(0);
 		addRankSpinnerEvent();
-		gridBagConstraints.weightx = 0;
 		gridBagConstraints.gridx = 1;
+		gridBagConstraints.weightx = 0;
 		add(createSpinnerInsidePanel(rankSpinner, background), gridBagConstraints);
 
 	}

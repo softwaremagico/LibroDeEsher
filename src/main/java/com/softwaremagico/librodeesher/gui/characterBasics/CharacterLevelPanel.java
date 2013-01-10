@@ -32,9 +32,9 @@ import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
+import com.softwaremagico.librodeesher.gui.elements.BaseTextField;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -47,7 +47,7 @@ public class CharacterLevelPanel extends BasePanel {
 	private BaseLabel developmentLabel;
 	private BaseLabel magicLabel;
 	private PointsCounterTextField developmentTextField;
-	private JTextField levelTextField;
+	private BaseTextField levelTextField;
 	private JComboBox<ProfessionalRealmsOfMagicOptions> magicComboBox;
 	private CharacterPlayer character;
 	private boolean updatingMagic = false;
@@ -73,7 +73,7 @@ public class CharacterLevelPanel extends BasePanel {
 		c.weightx = 0;
 		containerPanel.add(levelLabel, c);
 
-		levelTextField = new JTextField();
+		levelTextField = new BaseTextField();
 		levelTextField.setEditable(false);
 		levelTextField.setColumns(2);
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -154,15 +154,15 @@ public class CharacterLevelPanel extends BasePanel {
 	public void sizeChanged() {
 		if (this.getWidth() < 230) {
 			levelLabel.setText("Nvl:");
-			developmentLabel.setText("PD.:");
+			developmentLabel.setText(" PD.:");
 			magicLabel.setText("Re.:");
 		} else if (this.getWidth() < 280) {
 			levelLabel.setText("Nivel:");
-			developmentLabel.setText("Pts. D.:");
+			developmentLabel.setText(" Pts. D.:");
 			magicLabel.setText("Reino:");
 		} else {
 			levelLabel.setText("Nivel:");
-			developmentLabel.setText("Pts. Des.:");
+			developmentLabel.setText(" Pts. Des.:");
 			magicLabel.setText("Reino:");
 		}
 	}

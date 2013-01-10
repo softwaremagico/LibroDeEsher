@@ -40,7 +40,6 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EtchedBorder;
@@ -52,6 +51,7 @@ import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.librodeesher.core.Spanish;
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
+import com.softwaremagico.librodeesher.gui.elements.BaseSpinner;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -61,7 +61,7 @@ public class OptionsWindow extends BaseFrame {
 	private CharacterPlayer character;
 	private JCheckBox fireArmsMenuItem, darkSpellsMenuItem, chiPowers, trainingOtherRealms, disabledCheckBox;
 	private boolean updatingState = false;
-	private JSpinner categoryMax;
+	private BaseSpinner categoryMax;
 	private JComboBox<String> modulesComboBox;
 
 	public OptionsWindow(CharacterPlayer character) {
@@ -136,7 +136,7 @@ public class OptionsWindow extends BaseFrame {
 		} catch (IllegalArgumentException iae) {
 			sm = new SpinnerNumberModel(50, 5, 999, 1);
 		}
-		categoryMax = new JSpinner(sm);
+		categoryMax = new BaseSpinner(sm);
 		addRankSpinnerEvent();
 		categoryMax.setMaximumSize(new Dimension(70, 25));
 		maxCategoryRanks.add(categoryMax, BorderLayout.PAGE_START);

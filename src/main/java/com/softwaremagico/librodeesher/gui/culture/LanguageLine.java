@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.culture;
+
 /*
  * #%L
  * Libro de Esher
@@ -36,7 +37,6 @@ import javax.swing.text.DefaultFormatter;
 
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.Language;
-import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
 public class LanguageLine extends CultureLine {
 
@@ -53,10 +53,12 @@ public class LanguageLine extends CultureLine {
 		setElements(background);
 		setBackground(background);
 		initalValue = character.getLanguageInitialRanks(language);
-		rankSpinner.setValue(initalValue);
-		SpinnerModel sm = new SpinnerNumberModel((int) initalValue, (int) initalValue, (int) character
-				.getLanguageMaxInitialRanks(language), 1);
+		SpinnerModel sm = new SpinnerNumberModel((int) initalValue, (int) initalValue,
+				(int) character.getLanguageMaxInitialRanks(language), 1);
 		rankSpinner.setModel(sm);
+
+		// Languages can have 10 ranks. We need a bigger editor.
+		rankSpinner.setColumns(2);
 	}
 
 	protected void addRankSpinnerEvent() {
