@@ -1,8 +1,10 @@
 /install_linux/
 /install_windows/
 librodeesher.deb
-/target/
+*/target/
+target/
 /.settings/
 .classpath
 .project
 *.svg
+*.prefs
