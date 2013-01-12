@@ -55,7 +55,7 @@ public class AboutWindow extends BaseFrame {
 		JTextArea textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setLineWrap(true);
-		textArea.setText(MyFile.readTextFile("Readme.txt", false));
+		textArea.setText(MyFile.readTextFile("../Readme.txt", false));
 		textArea.setCaretPosition(0);
 		
 		JScrollPane textScrollPanel = new JScrollPane(textArea,
