@@ -27,7 +27,7 @@ package com.softwaremagico.librodeesher.gui.culture;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.softwaremagico.librodeesher.core.Spanish;
+import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.magic.MagicFactory;

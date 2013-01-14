@@ -36,8 +36,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.border.Border;
 
+import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.config.Config;
-import com.softwaremagico.librodeesher.core.ShowMessage;
 import com.softwaremagico.librodeesher.gui.MainMenu;
 
 public abstract class BaseFrame extends JFrame {

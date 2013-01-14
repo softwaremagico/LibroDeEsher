@@ -27,8 +27,8 @@ package com.softwaremagico.librodeesher.pj.characteristic;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.softwaremagico.librodeesher.core.Dice;
-import com.softwaremagico.librodeesher.core.TwoDices;
+import com.softwaremagico.librodeesher.basics.Dice;
+import com.softwaremagico.librodeesher.basics.TwoDices;
 
 public class Characteristics {
 	private final static String allowedCharacteristics = "AgCoMeRaAdEmInPrRpFu";

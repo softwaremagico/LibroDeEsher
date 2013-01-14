@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.softwaremagico.librodeesher.core.ShowMessage;
+import com.softwaremagico.librodeesher.basics.ShowMessage;
 
 public class ChooseSkillGroup {
 	int chooseNumber;

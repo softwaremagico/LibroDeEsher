@@ -25,7 +25,7 @@ package com.softwaremagico.librodeesher.pj.characteristic;
  */
 import java.util.Hashtable;
 
-import com.softwaremagico.librodeesher.core.TwoDices;
+import com.softwaremagico.librodeesher.basics.TwoDices;
 
 public class Characteristic {
 	public static Hashtable<String, String> characteristicAbbreviatureList;

@@ -33,8 +33,8 @@ import java.util.List;
 
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.librodeesher.core.ShowMessage;
-import com.softwaremagico.librodeesher.core.Spanish;
+import com.softwaremagico.librodeesher.basics.ShowMessage;
+import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.Language;
 import com.softwaremagico.librodeesher.pj.LanguageComparator;
 import com.softwaremagico.librodeesher.pj.categories.Category;

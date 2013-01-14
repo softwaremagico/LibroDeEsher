@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.librodeesher.core.ShowMessage;
+import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 
 public class MagicFactory {

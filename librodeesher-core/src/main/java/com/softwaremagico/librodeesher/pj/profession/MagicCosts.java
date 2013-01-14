@@ -26,7 +26,7 @@ package com.softwaremagico.librodeesher.pj.profession;
 
 import java.util.Hashtable;
 
-import com.softwaremagico.librodeesher.core.ShowMessage;
+import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 import com.softwaremagico.librodeesher.pj.magic.MagicLevelRange;
 import com.softwaremagico.librodeesher.pj.magic.MagicListType;

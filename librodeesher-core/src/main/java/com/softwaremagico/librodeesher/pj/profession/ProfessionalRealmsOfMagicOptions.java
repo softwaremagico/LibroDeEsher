@@ -28,7 +28,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.softwaremagico.librodeesher.core.ShowMessage;
+import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 
 public class ProfessionalRealmsOfMagicOptions {

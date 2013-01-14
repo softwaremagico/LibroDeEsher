@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.core;
+package com.softwaremagico.librodeesher.basics;
 /*
  * #%L
  * Libro de Esher

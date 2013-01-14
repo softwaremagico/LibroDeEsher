@@ -28,7 +28,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.librodeesher.core.ShowMessage;
+import com.softwaremagico.librodeesher.basics.ShowMessage;
 
 public class RaceFactory {
 	public static final String RACE_FOLDER = "razas";

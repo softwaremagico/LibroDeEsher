@@ -23,7 +23,7 @@ package com.softwaremagico.librodeesher.pj.characteristic;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.core.Dice;
+import com.softwaremagico.librodeesher.basics.Dice;
 
 
 public class Appearance {

@@ -27,7 +27,7 @@ package com.softwaremagico.librodeesher.pj.categories;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.softwaremagico.librodeesher.core.ShowMessage;
+import com.softwaremagico.librodeesher.basics.ShowMessage;
 
 public class CategoryCost {
 	List<Integer> rankCost;

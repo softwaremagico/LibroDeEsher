@@ -27,7 +27,7 @@ package com.softwaremagico.librodeesher.pj.skills;
 import java.util.Hashtable;
 import java.util.List;
 
-import com.softwaremagico.librodeesher.core.Spanish;
+import com.softwaremagico.librodeesher.basics.Spanish;
 
 public class SkillFactory {
 

@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.pj;
+package com.softwaremagico.librodeesher.pj.historial;
 
 /*
  * #%L
@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import com.softwaremagico.librodeesher.core.TwoDices;
+import com.softwaremagico.librodeesher.basics.TwoDices;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 

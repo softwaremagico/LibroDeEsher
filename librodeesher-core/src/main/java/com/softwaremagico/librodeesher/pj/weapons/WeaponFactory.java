@@ -32,7 +32,7 @@ import java.util.List;
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.MyFile;
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.librodeesher.core.ShowMessage;
+import com.softwaremagico.librodeesher.basics.ShowMessage;
 
 public class WeaponFactory {
 	public final static String WEAPON_FOLDER = "armas";

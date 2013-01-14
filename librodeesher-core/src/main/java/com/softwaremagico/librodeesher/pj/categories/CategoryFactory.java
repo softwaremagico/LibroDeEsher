@@ -30,7 +30,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.librodeesher.core.ShowMessage;
+import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
@@ -40,7 +40,7 @@ import com.softwaremagico.librodeesher.pj.weapons.WeaponType;
 
 public class CategoryFactory {
 
-	private static Hashtable<String, Category> categoriesAvailable = new Hashtable<>();
+	private static Hashtable<String, Category> availableCategories = new Hashtable<>();
 	private static List<Category> weaponsCategory = new ArrayList<>();
 	private static List<Category> spellsCategory = new ArrayList<>();
 
@@ -54,7 +54,7 @@ public class CategoryFactory {
 	}
 
 	private static void addCultureSkills() {
-		Category cat = categoriesAvailable.get("Conocimiento·General");
+		Category cat = availableCategories.get("Conocimiento·General");
 		for (String culture : CultureFactory.availableCultures()) {
 			if (!culture.contains("(")) {
 				cat.addSkill("Conocimiento de la Fauna (" + culture + ")");
@@ -68,7 +68,7 @@ public class CategoryFactory {
 	private static void addWeaponsAsSkills() {
 		for (WeaponType weaponType : WeaponType.values()) {
 			List<Weapon> weaponsOfType = WeaponFactory.getWeaponsByType(weaponType);
-			Category categoryOfWeapon = categoriesAvailable.get(weaponType.getWeaponCategoryName());
+			Category categoryOfWeapon = availableCategories.get(weaponType.getWeaponCategoryName());
 			weaponsCategory.add(categoryOfWeapon);
 			categoryOfWeapon.setSkills(convertWeaponsToSkills(weaponsOfType));
 		}
@@ -117,13 +117,13 @@ public class CategoryFactory {
 	}
 
 	public static List<Category> getCategories() {
-		List<Category> categories = new ArrayList<>(categoriesAvailable.values());
+		List<Category> categories = new ArrayList<>(availableCategories.values());
 		Collections.sort(categories, new CategoryComparator());
 		return categories;
 	}
 
 	public static Category getAvailableCategory(String categoryName) {
-		return categoriesAvailable.get(categoryName);
+		return availableCategories.get(categoryName);
 	}
 
 	/**
@@ -141,11 +141,11 @@ public class CategoryFactory {
 					String categoryName = categoryAbbrevName[0];
 					try {
 						String abrevCat = categoryAbbrevName[1].replace(")", "");
-						Category cat = categoriesAvailable.get(categoryName);
+						Category cat = availableCategories.get(categoryName);
 						if (cat == null) {
 							cat = createCategory(categoryName, abrevCat, descomposed_line[1],
 									descomposed_line[2], descomposed_line[3]);
-							categoriesAvailable.put(categoryName, cat);
+							availableCategories.put(categoryName, cat);
 						} else {
 							cat.addSkills(descomposed_line[3]);
 						}
@@ -167,10 +167,10 @@ public class CategoryFactory {
 	public static Category getCategory(String categoryName, String abbrev, String characteristics,
 			String type, String skills) throws Exception {
 
-		Category cat = categoriesAvailable.get(categoryName);
+		Category cat = availableCategories.get(categoryName);
 		if (cat == null) {
 			cat = createCategory(categoryName, abbrev, characteristics, type, skills);
-			categoriesAvailable.put(categoryName, cat);
+			availableCategories.put(categoryName, cat);
 		}
 		return cat;
 	}
@@ -178,7 +178,7 @@ public class CategoryFactory {
 	public static List<Category> getWeaponsCategories() {
 		List<Category> weaponsCategories = new ArrayList<>();
 
-		for (Category category : categoriesAvailable.values()) {
+		for (Category category : availableCategories.values()) {
 			//if (category.getName().startsWith(Spanish.ARMAS_PREFIX)) {
 			if(category.getGroup().equals(CategoryGroup.WEAPON)){
 				weaponsCategories.add(category);

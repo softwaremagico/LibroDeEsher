@@ -24,7 +24,7 @@ package com.softwaremagico.librodeesher.pj.culture;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.core.ShowMessage;
+import com.softwaremagico.librodeesher.basics.ShowMessage;
 
 public class CultureSkill {
 	private Integer ranks;
