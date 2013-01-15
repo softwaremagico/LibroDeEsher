@@ -40,6 +40,7 @@ public abstract class BasicLine extends BasePanel {
 	protected Color fontColor = Color.DARK_GRAY;
 	protected Integer labelDefaultWidth = 40;
 	protected Integer nameTextDefaultWidth = 80;
+	protected static final Integer columnHeight = 20;
 
 	/**
 	 * Create the panel.
@@ -69,7 +70,7 @@ public abstract class BasicLine extends BasePanel {
 		container.setBackground(bgColor);
 		return container;
 	}
-	
+
 	public JPanel createLabelInsidePanel(JLabel label, int position, Color bgColor, Color fgColor) {
 		label.setHorizontalAlignment(position);
 		JPanel container = new JPanel(new BorderLayout());

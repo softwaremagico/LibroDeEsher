@@ -36,7 +36,6 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 public abstract class BasicSkillLine extends BasicLine {
 	private static final long serialVersionUID = 8045688485824193991L;
 	protected static final Integer columnWidth = 30;
-	protected static final Integer columnHeight = 20;
 	protected boolean updatingValues = false;
 	protected JCheckBox firstRank, secondRank, thirdRank;
 	protected CharacterPlayer character;

@@ -39,12 +39,10 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 public class HistorySkillLine extends GenericSkillLine {
 	private static final long serialVersionUID = 5951462195062999304L;
 	private BaseCheckBox historyCheckBox;
-	private BaseSkillPanel parent;
 
 	public HistorySkillLine(CharacterPlayer character, Skill skill, Color background,
 			BaseSkillPanel parentWindow) {
 		super(character, skill, background, parentWindow);
-		this.parent = parentWindow;
 		enableColumns(false, false, false, false, false, false, false, true);
 		addHistoryCheckBox();
 	}
@@ -65,7 +63,6 @@ public class HistorySkillLine extends GenericSkillLine {
 				historyCheckBox.setSelected(false);
 			}
 			update();
-			parent.update();
 		}
 	}
 

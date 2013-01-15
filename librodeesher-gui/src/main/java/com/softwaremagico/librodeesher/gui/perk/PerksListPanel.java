@@ -1,6 +1,5 @@
 package com.softwaremagico.librodeesher.gui.perk;
 
-import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
 /*
  * #%L
  * Libro de Esher GUI
@@ -25,6 +24,48 @@ import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
  * #L%
  */
 
+import java.awt.GridLayout;
+
+import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.perk.Perk;
+import com.softwaremagico.librodeesher.pj.perk.PerkFactory;
+
 public class PerksListPanel extends BaseSkillPanel {
+
+	private static final long serialVersionUID = -1612700951233838060L;
+	private PerksListCompletePanel parent;
+
+	public PerksListPanel(CharacterPlayer character, PerksListCompletePanel parent) {
+		this.parent = parent;
+		setElements(character);
+	}
+
+	public void setElements(CharacterPlayer character) {
+		this.removeAll();
+		setLayout(new GridLayout(0, 1));
+		int i = 0;
+		for (Perk perk : PerkFactory.gerPerks()) {
+			//Only perks that can be used.
+			if (perk.isPerkAllowed(character.getRace().getName(), character.getProfession().getName())) {
+				PerkLine perkLine = new PerkLine(character, perk, getLineBackgroundColor(i), this);
+				add(perkLine);
+				i++;
+			}
+		}
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void updateSkillsOfCategory(Category category) {
+		// TODO Auto-generated method stub
+
+	}
 
 }
