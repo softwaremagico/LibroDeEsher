@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.resistance;
+
 /*
  * #%L
  * Libro de Esher
@@ -24,30 +25,47 @@ package com.softwaremagico.librodeesher.pj.resistance;
  */
 
 public enum ResistanceType {
-	CANALIZATION("Canalización", "Cn"), ESSENCE("Esencia", "Es"), MENTALISM("Mentalismo", "Me"), PSIONIC("Psiónico", "Ps"), POISON("Veneno", "Vn"), DISEASE("Enfermedad", "Ef"), COLD("Frío", "Fr"), HOT("Calor", "Ca"), FEAR("Miedo", "Mi");
-	
+	CANALIZATION("Canalización", "Cn"),
+	ESSENCE("Esencia", "Es"),
+	MENTALISM("Mentalismo", "Me"),
+	PSIONIC("Psiónico", "Ps"),
+	POISON("Veneno", "Vn"),
+	DISEASE("Enfermedad", "Ef"),
+	COLD("Frío", "Fr"),
+	HOT("Calor", "Ca"),
+	FEAR("Miedo", "Mi");
+
 	private String tag;
 	private String abbreviature;
-	
-	ResistanceType(String tag, String abbreviature){
+
+	ResistanceType(String tag, String abbreviature) {
 		this.tag = tag;
 		this.abbreviature = abbreviature;
 	}
-	
-	public String getTag(){
+
+	public String getTag() {
 		return tag;
 	}
-	
-	public String getAbbreviature(){
+
+	public String getAbbreviature() {
 		return abbreviature;
 	}
-	
-    public static ResistanceType getResistancesType(String tag){
-        for(ResistanceType type : ResistanceType.values()){
-            if(type.tag.equals(tag)){
-                return type;
-            }
-        }
-        return null;
-    }
+
+	public static ResistanceType getResistancesType(String tag) {
+		for (ResistanceType type : ResistanceType.values()) {
+			if (type.tag.equals(tag)) {
+				return type;
+			}
+		}
+		return null;
+	}
+
+	public static boolean isResistanceType(String abbreviature) {
+		for (ResistanceType type : ResistanceType.values()) {
+			if (type.abbreviature.equals(abbreviature)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

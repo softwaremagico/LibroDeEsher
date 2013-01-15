@@ -437,7 +437,7 @@ public class Race {
 	}
 
 	public List<String> availableProfessions() {
-		List<String> allProfessions = ProfessionFactory.availableProfessions();
+		List<String> allProfessions = ProfessionFactory.getAvailableProfessions();
 		allProfessions.removeAll(restrictedProfessions);
 		return allProfessions;
 	}

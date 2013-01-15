@@ -44,7 +44,7 @@ public class MagicSpellLists {
 	}
 
 	private void createMagicCategories(MagicListType magicType) {
-		Category realCategory = CategoryFactory.getAvailableCategory(magicType.getCategoryName());
+		Category realCategory = CategoryFactory.getCategory(magicType.getCategoryName());
 		Category category = (Category) CategoryFactory.createCategory(realCategory.getName(), realCategory
 				.getAbbreviature(), realCategory.getCharacterisitcsTags(), realCategory.getType().getTag(),
 				null);
@@ -130,7 +130,7 @@ public class MagicSpellLists {
 			}
 		}
 		// Other race lists are considered other profession of other realms.
-		List<String> races = RaceFactory.availableRaces();
+		List<String> races = RaceFactory.getAvailableRaces();
 		for (String otherRace : races) {
 			if (!otherRace.equals(character.getRace().getName())) {
 				List<String> otherRaceLists = MagicFactory.getRaceLists(otherRace);

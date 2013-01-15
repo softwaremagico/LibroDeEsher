@@ -212,7 +212,7 @@ public class Culture {
 			for (String hobby : hobbySkillColumns) {
 				// If it is a category.
 				Category category;
-				if ((category = CategoryFactory.getAvailableCategory(hobby)) != null) {
+				if ((category = CategoryFactory.getCategory(hobby)) != null) {
 					for (Skill skill : category.getSkills()) {
 						// CultureSkill cultureSkill = new
 						// CultureSkill(skill.getName());
@@ -230,12 +230,12 @@ public class Culture {
 				} else if (hobby.contains("Conocimiento de la Fauna")
 						|| hobby.contains("Conocimiento de la Flora")
 						|| hobby.contains("Conocimiento Cultural") || hobby.contains("Conocimiento Regional")) {
-					Category cat = CategoryFactory.getAvailableCategory("Conocimiento·General");
+					Category cat = CategoryFactory.getCategory("Conocimiento·General");
 					cat.addSkill(hobby);
 					// CultureSkill skill = new CultureSkill(hobby);
 					hobbySkills.add(hobby);
 				} else if (hobby.contains("Supervivencia")) {
-					Category cat = CategoryFactory.getAvailableCategory("Exteriores·Entorno");
+					Category cat = CategoryFactory.getCategory("Exteriores·Entorno");
 					cat.addSkill(hobby);
 					// CultureSkill skill = new CultureSkill(hobby);
 					hobbySkills.add(hobby);

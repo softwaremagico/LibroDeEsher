@@ -187,7 +187,7 @@ public class Profession {
 			String categoryOrSkillName = categoryOrSkillColumns[0];
 			Integer bonus = Integer.parseInt(categoryOrSkillColumns[1]);
 			try {
-				if (CategoryFactory.getAvailableCategory(categoryOrSkillName) != null) {
+				if (CategoryFactory.getCategory(categoryOrSkillName) != null) {
 					categoriesBonus.put(categoryOrSkillName, bonus);
 				} else if (SkillFactory.getAvailableSkill(categoryOrSkillName) != null) {
 					skillBonus.put(categoryOrSkillName, bonus);
@@ -216,7 +216,7 @@ public class Profession {
 				weaponCategoryCost.add(new CategoryCost(categoryColumns[1]));
 			} else {
 				try {
-					Category cat = CategoryFactory.getAvailableCategory(categoryName);
+					Category cat = CategoryFactory.getCategory(categoryName);
 					categoryCost.put(cat.getName(), new CategoryCost(categoryColumns[1]));
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -306,7 +306,7 @@ public class Profession {
 				// A skill from category.
 				if (skillColumns[i].contains("#")) {
 					String[] categoryColumns = skillColumns[i].split("#");
-					Category cat = CategoryFactory.getAvailableCategory(categoryColumns[0]);
+					Category cat = CategoryFactory.getCategory(categoryColumns[0]);
 					if (cat != null) {
 						ChooseSkillGroup chooseSkills = new ChooseSkillGroup(
 								Integer.parseInt(categoryColumns[1]), cat.getSkills());

@@ -297,7 +297,7 @@ public class CharacterPlayer {
 		Integer total = 0;
 		List<String> categoriesWithRanks = levelUps.get(level).getCategoriesWithRanks();
 		for (String categoryName : categoriesWithRanks) {
-			Category category = CategoryFactory.getAvailableCategory(categoryName);
+			Category category = CategoryFactory.getCategory(categoryName);
 			Integer ranksUpdatedInLevel = levelUps.get(level).getCategoryRanks(categoryName);
 			for (int i = 0; i < ranksUpdatedInLevel; i++) {
 				total += getNewRankCost(category, getPreviousRanks(category) + i, i);

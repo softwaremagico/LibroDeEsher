@@ -42,7 +42,6 @@ public class CategoryFactory {
 
 	private static Hashtable<String, Category> availableCategories = new Hashtable<>();
 	private static List<Category> weaponsCategory = new ArrayList<>();
-	private static List<Category> spellsCategory = new ArrayList<>();
 
 	static {
 		try {
@@ -113,7 +112,7 @@ public class CategoryFactory {
 	}
 
 	public static boolean existCategory(String categoryName) {
-		return (getAvailableCategory(categoryName) != null);
+		return (getCategory(categoryName) != null);
 	}
 
 	public static List<Category> getCategories() {
@@ -122,7 +121,7 @@ public class CategoryFactory {
 		return categories;
 	}
 
-	public static Category getAvailableCategory(String categoryName) {
+	public static Category getCategory(String categoryName) {
 		return availableCategories.get(categoryName);
 	}
 
@@ -179,8 +178,8 @@ public class CategoryFactory {
 		List<Category> weaponsCategories = new ArrayList<>();
 
 		for (Category category : availableCategories.values()) {
-			//if (category.getName().startsWith(Spanish.ARMAS_PREFIX)) {
-			if(category.getGroup().equals(CategoryGroup.WEAPON)){
+			// if (category.getName().startsWith(Spanish.ARMAS_PREFIX)) {
+			if (category.getGroup().equals(CategoryGroup.WEAPON)) {
 				weaponsCategories.add(category);
 			}
 		}

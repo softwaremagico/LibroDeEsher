@@ -35,7 +35,7 @@ public class Language extends Skill{
 	public Language(String name, Integer ranks) {
 		super(name, SkillType.STANDAR);
 		this.ranks = ranks;
-		setCategory(CategoryFactory.getAvailableCategory("Comunicación"));
+		setCategory(CategoryFactory.getCategory("Comunicación"));
 	}
 	
 	public Integer getRanks(){

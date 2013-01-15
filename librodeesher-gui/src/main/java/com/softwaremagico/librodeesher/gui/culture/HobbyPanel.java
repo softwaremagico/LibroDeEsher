@@ -60,7 +60,7 @@ public class HobbyPanel extends CulturePanel {
 				List<String> spells = new ArrayList<>();
 				// Add open lists.
 				for (Skill spell : character.getCategory(
-						CategoryFactory.getAvailableCategory(Spanish.OPEN_LISTS)).getSkills()) {
+						CategoryFactory.getCategory(Spanish.OPEN_LISTS)).getSkills()) {
 					// addHobbyLine(spell.getName());
 					spells.add(spell.getName());
 				}

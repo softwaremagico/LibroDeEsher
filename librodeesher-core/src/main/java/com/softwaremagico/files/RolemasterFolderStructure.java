@@ -44,6 +44,8 @@ public class RolemasterFolderStructure implements Serializable {
 	private static final String FOLDER_STORE_USER_DATA = "librodeesher";
 	private static final String CATEGORIES_FILE = "categorias.txt";
 	private static final String CONFIG_FILE = "configuracion.conf";
+	private static final String PERKS_FILE = "talentos.txt";
+	private static final String PERKS_FOLDER = "talentos";
 	private static List<String> ficherosOcultos = getIgnoredFiles();
 	// Modulos configurados para obtener los ficheros adecuados */
 	private static List<String> availableModules = getRolemasterModulesAvailable();
@@ -151,9 +153,9 @@ public class RolemasterFolderStructure implements Serializable {
 	}
 
 	public static List<String> getAvailableCategoriesFiles() throws Exception {
-		List<String> categories = new ArrayList<>();
+		List<String> categoriesFiles = new ArrayList<>();
 		if (new File(ROLEMASTER_FOLDER + File.separator + CATEGORIES_FILE).exists()) {
-			categories.add(ROLEMASTER_FOLDER + File.separator + CATEGORIES_FILE);
+			categoriesFiles.add(ROLEMASTER_FOLDER + File.separator + CATEGORIES_FILE);
 		}
 		List<String> modulosPermitidos = getAvailableModules();
 		for (int i = 0; i < modulosPermitidos.size(); i++) {
@@ -162,12 +164,29 @@ public class RolemasterFolderStructure implements Serializable {
 					.size() > 0) {
 				if (new File(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i) + File.separator
 						+ CATEGORIES_FILE).exists()) {
-					categories.add(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i)
+					categoriesFiles.add(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i)
 							+ File.separator + CATEGORIES_FILE);
 				}
 			}
 		}
-		return categories;
+		return categoriesFiles;
+	}
+
+	public static List<String> getAvailablePerksFiles() throws Exception {
+		List<String> perksFile = new ArrayList<>();
+		List<String> modulosPermitidos = getAvailableModules();
+		for (int i = 0; i < modulosPermitidos.size(); i++) {
+			if (Folder
+					.ObtainfilesSubdirectory(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i))
+					.size() > 0) {
+				if (new File(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i) + File.separator
+						+ PERKS_FOLDER + File.separator + PERKS_FILE).exists()) {
+					perksFile.add(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i)
+							+ File.separator + PERKS_FOLDER + File.separator + PERKS_FILE);
+				}
+			}
+		}
+		return perksFile;
 	}
 
 	public static List<String> getSpellLines(String file) {

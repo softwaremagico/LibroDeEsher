@@ -46,7 +46,6 @@ public class CharacterRacePanel extends BasePanel {
 	private JComboBox<String> cultureComboBox;
 	private CharacterProfessionPanel professionPanel;
 	private CharacterPlayer character;
-	private boolean updatingCulture = false;
 
 	protected CharacterRacePanel() {
 		setElements();
@@ -124,7 +123,7 @@ public class CharacterRacePanel extends BasePanel {
 
 	private void updateRaceComboBox() {
 		if (raceComboBox != null) {
-			List<String> races = RaceFactory.availableRaces();
+			List<String> races = RaceFactory.getAvailableRaces();
 			Collections.sort(races);
 			for (String race : races) {
 				raceComboBox.addItem(race);

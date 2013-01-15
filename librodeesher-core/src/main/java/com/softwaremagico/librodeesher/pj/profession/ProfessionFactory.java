@@ -32,9 +32,11 @@ import com.softwaremagico.librodeesher.basics.ShowMessage;
 
 public class ProfessionFactory {
 	public static final String PROFESSION_FOLDER = "profesiones";
-	private static Hashtable<String, Profession> professionsAvailable = new Hashtable<>();
+	private static Hashtable<String, Profession> professionStored = new Hashtable<>();
+	private static List<String> availableProfessions = availableProfessions();
 
-	public static List<String> availableProfessions() {
+
+	private static List<String> availableProfessions() {
 		try {
 			return RolemasterFolderStructure.getFilesAvailable(PROFESSION_FOLDER);
 		} catch (Exception e) {
@@ -42,14 +44,18 @@ public class ProfessionFactory {
 		}
 		return null;
 	}
+	
+	public static List<String> getAvailableProfessions() {
+		return availableProfessions;
+	}
 
 	public static Profession getProfession(String professionName) {
 		try {
 			if (availableProfessions().contains(professionName)) {
-				Profession profession = professionsAvailable.get(professionName);
+				Profession profession = professionStored.get(professionName);
 				if (profession == null) {
 					profession = new Profession(professionName);
-					professionsAvailable.put(professionName, profession);
+					professionStored.put(professionName, profession);
 				}
 				return profession;
 			}

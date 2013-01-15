@@ -88,7 +88,7 @@ public class MagicFactory {
 						&& !profession.equals(currentProfession)
 						// It is a profession, not a training (except
 						// elementalist).
-						&& (ProfessionFactory.availableProfessions().contains(profession)
+						&& (ProfessionFactory.getAvailableProfessions().contains(profession)
 								|| (includeElementalist && isElementalistTraining(profession)) || profession
 									.equals(getDarkSpellTag(realm)))) {
 					List<String> otherProfessionList = spellsByGroup.get(realm).get(profession);
@@ -115,7 +115,7 @@ public class MagicFactory {
 						if (!profession.equals(OPEN_LIST_TAG)
 								&& !profession.equals(CLOSED_LIST_TAG)
 								// It is a profession, not a training
-								&& (ProfessionFactory.availableProfessions().contains(profession)
+								&& (ProfessionFactory.getAvailableProfessions().contains(profession)
 										|| (includeElementalist && isElementalistTraining(profession)) || profession
 											.equals(getDarkSpellTag(otherRealm)))) {
 							List<String> otherProfessionList = spellsByGroup.get(otherRealm).get(profession);
@@ -209,8 +209,8 @@ public class MagicFactory {
 	}
 
 	public static List<String> getRaceLists(String race) {
-		List<String> spells = spellsByGroup.get(RealmOfMagic.RACE).get(race); 
-		if(spells == null){
+		List<String> spells = spellsByGroup.get(RealmOfMagic.RACE).get(race);
+		if (spells == null) {
 			spells = new ArrayList<>();
 		}
 		return spells;

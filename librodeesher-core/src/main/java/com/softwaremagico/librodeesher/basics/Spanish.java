@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.basics;
+
 /*
  * #%L
  * Libro de Esher
@@ -41,5 +42,10 @@ public class Spanish {
 	public static final String CULTURE_SPELLS = "lista de hechizos";
 	public static final String WEAPON_CATEGORY_PREFIX = "Armas·";
 	public static final String SPELL_CATEGORY_PREFIX = "Listas ";
+	public static final String NO_BONUS_TAG = "ningun";
+	public static final String COMMON_TAG = "común";
+	public static final String APPEARANCE_TAG = "apariencia";
+	public static final String ARMOUR_TAG = "TA";
+	public static final String RESISTANCE_TAG = "TR ";
 
 }

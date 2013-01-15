@@ -32,9 +32,10 @@ import com.softwaremagico.librodeesher.basics.ShowMessage;
 
 public class RaceFactory {
 	public static final String RACE_FOLDER = "razas";
-	private static Hashtable<String, Race> racesAvailable = new Hashtable<>();
+	private static Hashtable<String, Race> racesStored = new Hashtable<>();
+	private static List<String> availableRaces = availableRaces();
 
-	public static List<String> availableRaces() {
+	private static List<String> availableRaces() {
 		try {
 			return RolemasterFolderStructure.getFilesAvailable(RACE_FOLDER);
 		} catch (Exception e) {
@@ -43,13 +44,17 @@ public class RaceFactory {
 		return null;
 	}
 
+	public static List<String> getAvailableRaces() {
+		return availableRaces;
+	}
+
 	public static Race getRace(String raceName) {
 		try {
-			if (availableRaces().contains(raceName)) {
-				Race race = racesAvailable.get(raceName);
+			if (availableRaces.contains(raceName)) {
+				Race race = racesStored.get(raceName);
 				if (race == null) {
 					race = new Race(raceName);
-					racesAvailable.put(raceName, race);
+					racesStored.put(raceName, race);
 				}
 				return race;
 			}
