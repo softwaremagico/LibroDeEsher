@@ -83,11 +83,13 @@ public class RolemasterFolderStructure implements Serializable {
 		File directory = new File(RolemasterFolderStructure.class.getProtectionDomain().getCodeSource()
 				.getLocation().getPath());
 		String path;
-		// Carga local mediante netbeans
+		// load from de IDE
 		if (directory.getParentFile().getPath().contains("target")) {
 			path = directory.getParentFile().getParentFile().getParentFile().getPath();
+			// load from librodeesher-core as dependency
+		} else if (directory.getParentFile().getPath().contains("lib")) {
+			path = directory.getParentFile().getParentFile().getPath();
 		} else {
-			// Carga desde el instalador.
 			path = directory.getParentFile().getPath();
 		}
 		try {

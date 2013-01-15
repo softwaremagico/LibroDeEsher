@@ -35,6 +35,7 @@ import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicsWindow;
 import com.softwaremagico.librodeesher.gui.culture.CultureWindow;
 import com.softwaremagico.librodeesher.gui.history.HistoryWindow;
 import com.softwaremagico.librodeesher.gui.perk.PerkWindow;
+import com.softwaremagico.librodeesher.gui.profession.ProfessionWindow;
 import com.softwaremagico.librodeesher.gui.skills.SkillWindow;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
@@ -49,6 +50,7 @@ public class Controller {
 	OptionsWindow optionsWindow;
 	HistoryWindow historyWindow;
 	PerkWindow perksWindow;
+	ProfessionWindow professionWindow;
 
 	public Controller() {
 		characters = new ArrayList<>();
@@ -72,6 +74,7 @@ public class Controller {
 		mainGui.getMainMenu().addOptionsWindowListener(new OptionsWindowsListener());
 		mainGui.getMainMenu().addHistoryWindowListener(new HistoryWindowsListener());
 		mainGui.getMainMenu().addPerksWindowListener(new PerksWindowsListener());
+		mainGui.getMainMenu().addProfessionWindowListener(new ProfessionWindowsListener());
 	}
 
 	class NewCharacterListener implements ActionListener {
@@ -225,6 +228,19 @@ public class Controller {
 			}
 			perksWindow = new PerkWindow(selectedCharacter);
 			perksWindow.setVisible(true);
+		}
+	}
+	
+	class ProfessionWindowsListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				professionWindow.dispose();
+			} catch (NullPointerException npe) {
+			}
+			professionWindow = new ProfessionWindow(selectedCharacter);
+			professionWindow.setVisible(true);
 		}
 	}
 

@@ -300,6 +300,10 @@ public class MainMenu {
 	public void addPerksWindowListener(ActionListener al) {
 		perksMenuItem.addActionListener(al);
 	}
+	
+	public void addProfessionWindowListener(ActionListener al) {
+		professionMenuItem.addActionListener(al);
+	}
 
 	class CloseListener implements ActionListener {
 

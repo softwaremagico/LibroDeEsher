@@ -73,6 +73,10 @@ public class Profession {
 		}
 	}
 
+	public List<ChooseSkillGroup> getCommonSkillsToChoose() {
+		return commonSkillsToChoose;
+	}
+
 	public boolean isCharacteristicProfessional(Characteristic characteristic) {
 		if (characteristicPreferences.size() > 0 && characteristic.equals(characteristicPreferences.get(0))) {
 			return true;
@@ -299,7 +303,7 @@ public class Profession {
 			}
 			String[] skillColumns = skillLine.split(", ");
 			for (int i = 0; i < skillColumns.length; i++) {
-				// Un grupo de habilidades de una categoria.
+				// A skill from category.
 				if (skillColumns[i].contains("#")) {
 					String[] categoryColumns = skillColumns[i].split("#");
 					Category cat = CategoryFactory.getAvailableCategory(categoryColumns[0]);
@@ -311,15 +315,14 @@ public class Profession {
 						ShowMessage.showErrorMessage("Error leyendo una categoría en habilidad común: "
 								+ lines.get(index), "Leer Profesión");
 					}
-				} else if (skillColumns[i].startsWith("{")) { // Una habilidad
-																// de un
-																// conjunto
+					// One skill of a set
+				} else if (skillColumns[i].startsWith("{")) { 
 					String skillGroup = skillColumns[i].replace("{", "").replace("}", "");
 					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1, skillGroup.replace(";", ",")
 							.split(", "));
 					groupSkillsToChoose.add(chooseSkills);
 				} else {
-					// Una habilidad.
+					// One skill.
 					Skill skill = SkillFactory.getSkill(skillColumns[i]);
 					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1, skill);
 					groupSkillsToChoose.add(chooseSkills);
