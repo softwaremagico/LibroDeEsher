@@ -25,6 +25,8 @@ package com.softwaremagico.librodeesher.gui.perk;
  */
 
 import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
+import com.softwaremagico.librodeesher.gui.history.HistorySkillTitle;
+import com.softwaremagico.librodeesher.gui.history.HistorySkillsPanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.perk.Perk;
 import com.softwaremagico.librodeesher.pj.perk.PerkFactory;
@@ -39,9 +41,16 @@ public class PerksListCompletePanel extends BaseScrollPanel {
 	PerksListCompletePanel(CharacterPlayer character, PerkWindow parent) {
 		this.parent = parent;
 		this.character = character;
-		for (Perk perk : PerkFactory.gerPerks()) {
+		title = new PerksListTitle();
+		addTitle(title);
+		perksPanel = new PerksListPanel(character, this);
+		addBody(perksPanel);
+		
+		
+		
+		/*for (Perk perk : PerkFactory.gerPerks()) {
 			System.out.println(perk.getName());
-		}
+		}*/
 	}
 
 }

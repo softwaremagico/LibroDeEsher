@@ -24,6 +24,8 @@ package com.softwaremagico.librodeesher.pj.skills;
  * #L%
  */
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -32,6 +34,7 @@ import com.softwaremagico.librodeesher.basics.Spanish;
 public class SkillFactory {
 
 	private static Hashtable<String, Skill> availableSkills = new Hashtable<>();
+	private static List<String> availableSkillsByName = new ArrayList<>();
 
 	public static Skill getSkill(String skillNameAndType) {
 		Skill skill = availableSkills.get(skillNameAndType);
@@ -60,8 +63,14 @@ public class SkillFactory {
 		}
 	}
 
+	public static List<String> getAvailableSkills() {
+		return availableSkillsByName;
+	}
+
 	public static void addSkill(Skill skill) {
 		availableSkills.put(skill.getName(), skill);
+		availableSkillsByName.add(skill.getName());
+		Collections.sort(availableSkillsByName);
 	}
 
 	public static Skill getAvailableSkill(String skillName) {
@@ -76,7 +85,7 @@ public class SkillFactory {
 		Skill skill = availableSkills.get(skillName);
 		if (skill == null) {
 			skill = createSkill(skillName, skillType);
-			availableSkills.put(skill.getName(), skill);
+			addSkill(skill);
 		}
 		return skill;
 	}

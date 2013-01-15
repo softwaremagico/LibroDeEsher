@@ -44,8 +44,10 @@ public class Spanish {
 	public static final String SPELL_CATEGORY_PREFIX = "Listas ";
 	public static final String NO_BONUS_TAG = "ningun";
 	public static final String COMMON_TAG = "común";
+	public static final String RESTRICTED_TAG = "restringida";
 	public static final String APPEARANCE_TAG = "apariencia";
 	public static final String ARMOUR_TAG = "TA";
 	public static final String RESISTANCE_TAG = "TR ";
-
+	public static final String ANY_SKILL = "cualquier habilidad";
+	public static final String ANY_CATEGORY = "cualquier categoría";
 }

@@ -1,4 +1,6 @@
 package com.softwaremagico.librodeesher.gui.perk;
+
+import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
 /*
  * #%L
  * Libro de Esher GUI
@@ -23,6 +25,6 @@ package com.softwaremagico.librodeesher.gui.perk;
  * #L%
  */
 
-public class PerksListPanel {
+public class PerksListPanel extends BaseSkillPanel {
 
 }

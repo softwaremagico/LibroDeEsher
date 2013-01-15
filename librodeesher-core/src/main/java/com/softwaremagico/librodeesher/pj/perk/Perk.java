@@ -20,9 +20,17 @@ public class Perk {
 	private Hashtable<String, Integer> resistanceBonus;
 	private Hashtable<String, Integer> characteristicBonus;
 	private Hashtable<String, Integer> categoryWithCommon;
+	private Hashtable<String, Integer> categoryWithRestricted;
 	private List<String> commonSkills;
+	private List<String> commonCategories;
+	private List<String> restrictedSkills;
+	private List<String> restrictedCategories;
+	private List<String> categoriesToChoose;
+	private List<String> skillsToChoose;
 	private Integer appareanceBonus;
 	private Integer armourClass;
+	private Integer chooseBonus;
+	private Integer chooseOptions;
 
 	public Perk(String name, Integer cost, PerkCategory classification, String description,
 			List<String> avalibleToRaces, List<String> avalibleToProfessions) {
@@ -36,12 +44,16 @@ public class Perk {
 		skillBonus = new Hashtable<>();
 		resistanceBonus = new Hashtable<>();
 		categoryWithCommon = new Hashtable<>();
+		categoryWithRestricted = new Hashtable<>();
 		characteristicBonus = new Hashtable<>();
 		conditionalCategoryBonus = new Hashtable<>();
 		conditionalSkillBonus = new Hashtable<>();
 		skillRanks = new Hashtable<>();
 		categoryRanks = new Hashtable<>();
 		commonSkills = new ArrayList<>();
+		restrictedSkills = new ArrayList<>();
+		commonCategories = new ArrayList<>();
+		restrictedCategories = new ArrayList<>();
 		appareanceBonus = 0;
 		armourClass = 1;
 	}
@@ -77,7 +89,7 @@ public class Perk {
 			conditionalSkillBonus.put(skillName, bonus);
 		}
 	}
-	
+
 	public void setSkillRanks(String skillName, Integer ranks) {
 		if (ranks == null || ranks <= 0) {
 			skillRanks.remove(skillName);
@@ -85,7 +97,7 @@ public class Perk {
 			skillRanks.put(skillName, ranks);
 		}
 	}
-	
+
 	public void setCategoryRanks(String categoryName, Integer ranks) {
 		if (ranks == null || ranks <= 0) {
 			categoryRanks.remove(categoryName);
@@ -118,12 +130,62 @@ public class Perk {
 		}
 	}
 
+	public void setCategoryToSelectRestrictedSkills(String categoryName, Integer restrictedSkills) {
+		if (restrictedSkills == null || restrictedSkills <= 0) {
+			categoryWithRestricted.remove(categoryName);
+		} else {
+			categoryWithRestricted.put(categoryName, restrictedSkills);
+		}
+	}
+
 	public void setSkillAsCommon(String skillName, boolean common) {
 		if (common == false) {
 			commonSkills.remove(skillName);
 		} else {
 			if (!commonSkills.contains(skillName)) {
 				commonSkills.add(skillName);
+			}
+		}
+	}
+
+	/**
+	 * If a category is common, means that all its skills are common.
+	 * 
+	 * @param categoryName
+	 * @param common
+	 */
+	public void setCategoryAsCommon(String categoryName, boolean common) {
+		if (common == false) {
+			commonCategories.remove(categoryName);
+		} else {
+			if (!commonCategories.contains(categoryName)) {
+				commonCategories.add(categoryName);
+			}
+		}
+	}
+
+	public void setSkillAsRestricted(String skillName, boolean restricted) {
+		if (restricted == false) {
+			restrictedSkills.remove(skillName);
+		} else {
+			if (!restrictedSkills.contains(skillName)) {
+				restrictedSkills.add(skillName);
+			}
+		}
+	}
+
+	/**
+	 * If a category is restricted, means that all its skills are restricted.
+	 * 
+	 * @param categoryName
+	 * @param common
+	 */
+	public void setCategoryAsRestricted(String categoryName, boolean restricted) {
+		if (restricted == false) {
+			restrictedCategories.remove(categoryName);
+		} else {
+			if (!restrictedCategories.contains(categoryName)) {
+				restrictedCategories.add(categoryName);
 			}
 		}
 	}
@@ -168,5 +230,37 @@ public class Perk {
 			return true;
 		}
 		return false;
+	}
+
+	public List<String> getCategoriesToChoose() {
+		return categoriesToChoose;
+	}
+
+	public void setCategoriesToChoose(List<String> categoriesToChoose) {
+		this.categoriesToChoose = categoriesToChoose;
+	}
+
+	public List<String> getSkillsToChoose() {
+		return skillsToChoose;
+	}
+
+	public void setSkillsToChoose(List<String> skillsToChoose) {
+		this.skillsToChoose = skillsToChoose;
+	}
+
+	public Integer getChooseBonus() {
+		return chooseBonus;
+	}
+
+	public void setChooseBonus(Integer chooseBonus) {
+		this.chooseBonus = chooseBonus;
+	}
+
+	public Integer getChooseOptions() {
+		return chooseOptions;
+	}
+
+	public void setChooseOptions(Integer chooseOptions) {
+		this.chooseOptions = chooseOptions;
 	}
 }

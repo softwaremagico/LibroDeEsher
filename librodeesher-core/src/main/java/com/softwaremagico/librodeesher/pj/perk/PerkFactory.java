@@ -52,7 +52,6 @@ public class PerkFactory {
 			String line = lines.get(index);
 			if (line.length() > 2) { // No end of lines.
 				try {
-					System.out.println(line);
 					String[] descomposed_line = line.split("\t");
 					String perkName = descomposed_line[0];
 					Integer cost = Integer.parseInt(descomposed_line[1]);
@@ -79,69 +78,116 @@ public class PerkFactory {
 		return index;
 	}
 
+	private static void addListToChooseBonus(Perk perk, String optionsLine) {
+		String[] set = optionsLine.split("\\(");
+		// Obtain the list to choose.
+		if (set[0].contains(Spanish.ANY_CATEGORY)) {
+			perk.setCategoriesToChoose(CategoryFactory.getAvailableCategories());
+		} else if (set[0].contains(Spanish.ANY_SKILL)) {
+			perk.setSkillsToChoose(SkillFactory.getAvailableSkills());
+		} else { // Obtain the list
+			String purgedLine = set[0].replace("{", "").replace("}", "").replace("|", ",").replace(";", ",");
+			String[] optionsToChoose = purgedLine.split(",");
+			List<String> categoriesToChoose = new ArrayList<>();
+			List<String> skillsToChoose = new ArrayList<>();
+			for (String option : optionsToChoose) {
+				if (SkillFactory.existSkill(option)) {
+					skillsToChoose.add(option);
+				} else if (CategoryFactory.existCategory(option)) {
+					categoriesToChoose.add(option);
+				}
+			}
+			perk.setCategoriesToChoose(categoriesToChoose);
+			perk.setSkillsToChoose(skillsToChoose);
+		}
+
+		// Obtain the number of options
+		String options = set[1].substring(set[1].indexOf("[") + 1, set[1].indexOf("]")).trim();
+		perk.setChooseOptions(Integer.parseInt(options));
+		// Obtain the bonus
+		String bonus = set[1].substring(set[1].indexOf("\\(") + 1, set[1].indexOf(")")).replace("*", "")
+				.replace("r", "").trim();
+		perk.setChooseBonus(Integer.parseInt(bonus));
+
+	}
+
+	private static void addDefinedBonus(Perk perk, String optionsLine) {
+		boolean conditionalBonus = false;
+		boolean ranksBonus = false;
+		String[] bonus = optionsLine.split("\\(");
+		// For each bonus.
+		String bonusName = bonus[0].trim();
+		// Only description effect.
+		if (bonusName.toLowerCase().contains(Spanish.NO_BONUS_TAG)) {
+			// DO NOTHING
+			return;
+		}
+		if (bonus[1].contains("*")) {
+			conditionalBonus = true;
+		}
+		if (bonus[1].contains("r")) {
+			ranksBonus = true;
+		}
+		String bonusString = bonus[1].replace(")", "").trim();
+		if (CategoryFactory.existCategory(bonusName)) {
+			if (bonusString.toLowerCase().contains(Spanish.COMMON_TAG)) {
+				perk.setCategoryToSelectCommonSkills(bonusName, 1);
+			} else if (bonusString.toLowerCase().contains(Spanish.RESTRICTED_TAG)) {
+				perk.setCategoryAsRestricted(bonusName, true);
+			} else {
+				Integer bonusNumber = Integer.parseInt(bonusString.replace("*", "").replace("r", ""));
+				if (conditionalBonus) {
+					perk.setCategoriesConditionalBonus(bonusName, bonusNumber);
+				} else if (ranksBonus) {
+					perk.setCategoryRanks(bonusName, bonusNumber);
+				} else {
+					perk.setCategoryBonus(bonusName, bonusNumber);
+				}
+			}
+		} else if (SkillFactory.existSkill(bonusName)) {
+			if (bonusString.toLowerCase().contains(Spanish.COMMON_TAG)) {
+				perk.setSkillAsCommon(bonusName, true);
+			} else if (bonusString.toLowerCase().contains(Spanish.RESTRICTED_TAG)) {
+				perk.setSkillAsRestricted(bonusName, true);
+			} else {
+				Integer bonusNumber = Integer.parseInt(bonusString.replace("*", "").replace("r", ""));
+				if (conditionalBonus) {
+					perk.setSkillConditionalBonus(bonusName, bonusNumber);
+				} else if (ranksBonus) {
+					perk.setSkillRanks(bonusName, bonusNumber);
+				} else {
+					perk.setSkillBonus(bonusName, bonusNumber);
+				}
+			}
+		} else if (bonusName.contains(Spanish.RESISTANCE_TAG)) {
+			Integer bonusNumber = Integer.parseInt(bonusString);
+			perk.setResistanceBonus(bonusName.replace(Spanish.RESISTANCE_TAG, "").trim(), bonusNumber);
+		} else if (Characteristics.isCharacteristicValid(bonusName)) {
+			Integer bonusNumber = Integer.parseInt(bonusString);
+			perk.setCharacteristicBonus(bonusName, bonusNumber);
+		} else if (bonusName.toLowerCase().contains(Spanish.APPEARANCE_TAG)) {
+			Integer bonusNumber = Integer.parseInt(bonusString);
+			perk.setAppareanceBonus(bonusNumber);
+		} else if (bonusName.toUpperCase().contains(Spanish.ARMOUR_TAG)) {
+			Integer bonusNumber = Integer.parseInt(bonusString);
+			perk.setArmour(bonusNumber);
+		} else {
+			ShowMessage.showErrorMessage(
+					"Bonus " + bonusName + " no reconocido en el talento:\"" + perk.getName() + "\"",
+					"Talentos");
+		}
+	}
+
 	private static void addBonuses(Perk perk, String bonusesDescription) {
 		String[] bonusesList = bonusesDescription.split(", ");
 		try {
 			for (String bonusSet : bonusesList) {
-				boolean conditionalBonus = false;
-				boolean ranksBonus = false;
-				String[] bonus = bonusSet.split("\\(");
-				// For each bonus.
-				String bonusName = bonus[0].trim();
-				// Only description effect.
-				if (bonusName.toLowerCase().contains(Spanish.NO_BONUS_TAG)) {
-					// DO NOTHING
-					return;
-				}
-
-				if (bonus[1].contains("*")) {
-					conditionalBonus = true;
-				}
-				if (bonus[1].contains("r")) {
-					ranksBonus = true;
-				}
-				String bonusString = bonus[1].replace(")", "").replace("*", "").replace("r", "").trim();
-				if (CategoryFactory.existCategory(bonusName)) {
-					if (bonusString.toLowerCase().contains(Spanish.COMMON_TAG)) {
-						perk.setCategoryToSelectCommonSkills(bonusName, 1);
-					} else {
-						Integer bonusNumber = Integer.parseInt(bonusString);
-						if (conditionalBonus) {
-							perk.setCategoriesConditionalBonus(bonusName, bonusNumber);
-						} else if (ranksBonus) {
-							perk.setCategoryRanks(bonusName, bonusNumber);
-						} else {
-							perk.setCategoryBonus(bonusName, bonusNumber);
-						}
-					}
-				} else if (SkillFactory.existSkill(bonusName)) {
-					if (bonusString.toLowerCase().contains(Spanish.COMMON_TAG)) {
-						perk.setSkillAsCommon(bonusName, true);
-					} else {
-						Integer bonusNumber = Integer.parseInt(bonusString);
-						if (conditionalBonus) {
-							perk.setSkillConditionalBonus(bonusName, bonusNumber);
-						} else if (ranksBonus) {
-							perk.setSkillRanks(bonusName, bonusNumber);
-						} else {
-							perk.setSkillBonus(bonusName, bonusNumber);
-						}
-					}
-				} else if (bonusName.contains(Spanish.RESISTANCE_TAG)) {
-					Integer bonusNumber = Integer.parseInt(bonusString);
-					perk.setResistanceBonus(bonusName.replace(Spanish.RESISTANCE_TAG, "").trim(), bonusNumber);
-				} else if (Characteristics.isCharacteristicValid(bonusName)) {
-					Integer bonusNumber = Integer.parseInt(bonusString);
-					perk.setCharacteristicBonus(bonusName, bonusNumber);
-				} else if (bonusName.toLowerCase().contains(Spanish.APPEARANCE_TAG)) {
-					Integer bonusNumber = Integer.parseInt(bonusString);
-					perk.setAppareanceBonus(bonusNumber);
-				} else if (bonusName.toUpperCase().contains(Spanish.ARMOUR_TAG)) {
-					Integer bonusNumber = Integer.parseInt(bonusString);
-					perk.setArmour(bonusNumber);
+				// A list of skills or categories to choose.
+				if (bonusSet.contains("{")) {
+					addListToChooseBonus(perk, bonusSet);
+					// One defined skill or category.
 				} else {
-					ShowMessage.showErrorMessage("Bonus " + bonusName + " no reconocido en el talento:\""
-							+ perk.getName() + "\"", "Talentos");
+					addDefinedBonus(perk, bonusSet);
 				}
 			}
 		} catch (NumberFormatException npe) {

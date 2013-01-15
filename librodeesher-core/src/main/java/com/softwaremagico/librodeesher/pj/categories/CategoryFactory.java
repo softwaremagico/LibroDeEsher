@@ -42,6 +42,7 @@ public class CategoryFactory {
 
 	private static Hashtable<String, Category> availableCategories = new Hashtable<>();
 	private static List<Category> weaponsCategory = new ArrayList<>();
+	private static List<String> availableCategoriesByName = new ArrayList<>();
 
 	static {
 		try {
@@ -50,6 +51,10 @@ public class CategoryFactory {
 			ShowMessage.showErrorMessage("Error al obtener las categorías y habilidades.", "Categorías");
 			e.printStackTrace();
 		}
+	}
+
+	public static List<String> getAvailableCategories() {
+		return availableCategoriesByName;
 	}
 
 	private static void addCultureSkills() {
@@ -145,6 +150,7 @@ public class CategoryFactory {
 							cat = createCategory(categoryName, abrevCat, descomposed_line[1],
 									descomposed_line[2], descomposed_line[3]);
 							availableCategories.put(categoryName, cat);
+							availableCategoriesByName.add(categoryName);
 						} else {
 							cat.addSkills(descomposed_line[3]);
 						}
@@ -161,6 +167,7 @@ public class CategoryFactory {
 		// Create culture specific skills
 		addCultureSkills();
 
+		Collections.sort(availableCategoriesByName);
 	}
 
 	public static Category getCategory(String categoryName, String abbrev, String characteristics,
@@ -170,6 +177,8 @@ public class CategoryFactory {
 		if (cat == null) {
 			cat = createCategory(categoryName, abbrev, characteristics, type, skills);
 			availableCategories.put(categoryName, cat);
+			availableCategoriesByName.add(categoryName);
+			Collections.sort(availableCategoriesByName);
 		}
 		return cat;
 	}
