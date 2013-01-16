@@ -31,9 +31,9 @@ import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.gui.elements.TitleBackgroundPanel;
 import com.softwaremagico.librodeesher.gui.elements.TitleLabel;
-import com.softwaremagico.librodeesher.gui.style.BasicTitleLine;
+import com.softwaremagico.librodeesher.gui.style.BaseTitleLine;
 
-public class PerksListTitle extends BasicTitleLine {
+public class PerksListTitle extends BaseTitleLine {
 	private final static Integer DEFAULT_COLUMN_WIDTH = 50;
 
 	public PerksListTitle() {

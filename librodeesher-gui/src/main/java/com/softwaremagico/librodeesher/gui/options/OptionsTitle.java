@@ -1,7 +1,7 @@
-package com.softwaremagico.librodeesher.gui.culture;
+package com.softwaremagico.librodeesher.gui.options;
 /*
  * #%L
- * Libro de Esher
+ * Libro de Esher GUI
  * %%
  * Copyright (C) 2007 - 2013 Softwaremagico
  * %%
@@ -23,36 +23,37 @@ package com.softwaremagico.librodeesher.gui.culture;
  * #L%
  */
 
-import java.awt.Color;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 import javax.swing.SwingConstants;
 
-import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
+import com.softwaremagico.librodeesher.gui.elements.TitleBackgroundPanel;
+import com.softwaremagico.librodeesher.gui.elements.TitleLabel;
 import com.softwaremagico.librodeesher.gui.style.BaseTitleLine;
 
-public class CultureTitleLine extends BaseTitleLine {
-	private static final long serialVersionUID = 4480268296161276440L;
-	private BaseLabel rankLabel;
+public class OptionsTitle  extends BaseTitleLine {
 
-	public CultureTitleLine(String titleLabelText, String rankLabelText) {
-		setElements(background, titleLabelText, rankLabelText);
-		setBackground(background);
+	protected OptionsTitle() {
+		setElements();
 	}
 
-	protected void setElements(Color background, String labelText, String rankLabelText) {
+	private void setElements() {
 		this.removeAll();
-		setLayout(new GridLayout(1, 2));
+		setLayout(new GridBagLayout());
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
-		BaseLabel weaponCategoryLabel = new BaseLabel(labelText);
-		add(createLabelInsidePanel(weaponCategoryLabel, SwingConstants.CENTER, background, fontColor));
+		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.weighty = 0;
 
-		rankLabel = new BaseLabel(rankLabelText);
-		add(createLabelInsidePanel(rankLabel, SwingConstants.CENTER, background, fontColor));
-
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+		gridBagConstraints.weightx = 1;
+		TitleLabel optionsLabel = new TitleLabel("Options", SwingConstants.LEFT);
+		add(new TitleBackgroundPanel(optionsLabel), gridBagConstraints);
 	}
-	
-	protected void setRankTitle(String rankLabelText){
-		rankLabel.setText(rankLabelText);
-	}
+
 }

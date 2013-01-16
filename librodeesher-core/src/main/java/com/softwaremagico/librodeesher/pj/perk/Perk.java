@@ -310,6 +310,24 @@ public class Perk {
 		return (categoriesToChoose.size() > 0 || skillsToChoose.size() > 0);
 	}
 
+	public String getSelectionableDescription() {
+		String options = "";
+		for (String category : categoriesToChoose) {
+			if (options.length() > 1) {
+				options += ", ";
+			}
+			options += category;
+		}
+
+		for (String skill : skillsToChoose) {
+			if (options.length() > 1) {
+				options += ", ";
+			}
+			options += skill;
+		}
+		return options;
+	}
+
 	public String getLongDescription() {
 		String longDescription = getBonusesDescription();
 		if (isSelectionableOptions()) {

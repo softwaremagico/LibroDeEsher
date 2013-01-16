@@ -26,9 +26,9 @@ package com.softwaremagico.librodeesher.gui.history;
 import java.awt.GridLayout;
 
 import com.softwaremagico.librodeesher.gui.elements.TitleLabel;
-import com.softwaremagico.librodeesher.gui.style.BasicTitleLine;
+import com.softwaremagico.librodeesher.gui.style.BaseTitleLine;
 
-public class HistoryCharacteristicTitle extends BasicTitleLine {
+public class HistoryCharacteristicTitle extends BaseTitleLine {
 	private static final long serialVersionUID = -1457813839985757112L;
 	private TitleLabel characteristicLabel, temporalLabel, potentialTextField, updateLabel;
 
@@ -51,5 +51,10 @@ public class HistoryCharacteristicTitle extends BasicTitleLine {
 
 		updateLabel = new TitleLabel("");
 		add(updateLabel);
+	}
+
+	@Override
+	public void update() {
+			
 	}
 }

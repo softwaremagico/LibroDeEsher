@@ -33,10 +33,10 @@ import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseSpinner;
 import com.softwaremagico.librodeesher.gui.elements.ListLabel;
-import com.softwaremagico.librodeesher.gui.style.BasicLine;
+import com.softwaremagico.librodeesher.gui.style.BaseLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
-public abstract class CultureLine extends BasicLine {
+public abstract class CultureLine extends BaseLine {
 	protected static final long serialVersionUID = -8287822744700383705L;
 	protected CharacterPlayer character;
 	protected BaseSpinner rankSpinner;

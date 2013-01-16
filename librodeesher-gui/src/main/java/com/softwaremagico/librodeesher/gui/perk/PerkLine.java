@@ -34,23 +34,23 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseCheckBox;
-import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
 import com.softwaremagico.librodeesher.gui.elements.ListBackgroundPanel;
 import com.softwaremagico.librodeesher.gui.elements.ListLabel;
-import com.softwaremagico.librodeesher.gui.style.BasicLine;
+import com.softwaremagico.librodeesher.gui.style.BaseLine;
+import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.perk.Perk;
 
-public class PerkLine extends BasicLine {
+public class PerkLine extends BaseLine {
 	private final static Integer DEFAULT_COLUMN_WIDTH = 50;
-	private BaseSkillPanel parent;
+	private BasePanel parent;
 	private ListLabel perkLabel, perkCost, perkCategory, perkDescription;
 	private Perk perk;
 	private Color background;
 	private BaseCheckBox perkCheckBox;
 	private CharacterPlayer character;
 
-	public PerkLine(CharacterPlayer character, Perk perk, Color background, BaseSkillPanel parentWindow) {
+	public PerkLine(CharacterPlayer character, Perk perk, Color background, BasePanel parentWindow) {
 		this.parent = parentWindow;
 		this.perk = perk;
 		this.background = background;
@@ -125,8 +125,13 @@ public class PerkLine extends BasicLine {
 					character.removePerk(perk);
 				}
 			}
-			parent.update();
+			update();
 		}
+	}
+
+	@Override
+	public void update() {
+		parent.update();
 	}
 
 }

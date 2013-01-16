@@ -29,9 +29,9 @@ import java.awt.GridLayout;
 import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.gui.elements.TitleLabel;
-import com.softwaremagico.librodeesher.gui.style.BasicTitleLine;
+import com.softwaremagico.librodeesher.gui.style.BaseTitleLine;
 
-public class CharacteristicTitleLine extends BasicTitleLine {
+public class CharacteristicTitleLine extends BaseTitleLine {
 	private static final long serialVersionUID = 1855952180568184802L;
 	private TitleLabel characteristicLabel, temporalLabel, potentialTextField, basicBonusTextField,
 			raceBonusTextField, specialBonusTextField, totalLabel;

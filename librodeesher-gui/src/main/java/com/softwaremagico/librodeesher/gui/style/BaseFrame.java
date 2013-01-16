@@ -26,7 +26,6 @@ package com.softwaremagico.librodeesher.gui.style;
 
 import java.awt.Color;
 import java.awt.Frame;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -36,9 +35,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.border.Border;
 
-import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.config.Config;
-import com.softwaremagico.librodeesher.gui.MainMenu;
 
 public abstract class BaseFrame extends JFrame {
 	private static final String FRAME_TITLE = "El Libro de Esher";

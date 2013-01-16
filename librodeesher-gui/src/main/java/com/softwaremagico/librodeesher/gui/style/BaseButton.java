@@ -27,14 +27,14 @@ import java.awt.Dimension;
 
 import javax.swing.JButton;
 
-public class BasicButton extends JButton{
+public class BaseButton extends JButton{
 	private static final long serialVersionUID = 2134660390585477867L;
 	
-	public BasicButton(){
+	public BaseButton(){
 		
 	}
 	
-	public BasicButton(String text){
+	public BaseButton(String text){
 		this.setText(text);
 	}
 

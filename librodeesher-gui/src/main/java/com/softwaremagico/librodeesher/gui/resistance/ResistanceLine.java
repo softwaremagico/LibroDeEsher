@@ -31,11 +31,11 @@ import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.gui.elements.BoldListLabel;
 import com.softwaremagico.librodeesher.gui.elements.ListBackgroundPanel;
-import com.softwaremagico.librodeesher.gui.style.BasicLine;
+import com.softwaremagico.librodeesher.gui.style.BaseLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 
-public class ResistanceLine extends BasicLine {
+public class ResistanceLine extends BaseLine {
 	private static final long serialVersionUID = -5493663863154163209L;
 	private BoldListLabel resistanceLabel, resistanceTotalLabel;
 	private CharacterPlayer character;

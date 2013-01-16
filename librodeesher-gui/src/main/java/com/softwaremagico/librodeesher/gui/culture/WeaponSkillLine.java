@@ -39,12 +39,12 @@ import javax.swing.text.DefaultFormatter;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseSpinner;
 import com.softwaremagico.librodeesher.gui.elements.ListLabel;
-import com.softwaremagico.librodeesher.gui.style.BasicLine;
+import com.softwaremagico.librodeesher.gui.style.BaseLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
-public class WeaponSkillLine extends BasicLine {
+public class WeaponSkillLine extends BaseLine {
 	private static final long serialVersionUID = -4697558156145520144L;
 	private Skill weaponSkill;
 	private BaseSpinner rankSpinner;
@@ -117,5 +117,10 @@ public class WeaponSkillLine extends BasicLine {
 				}
 			}
 		});
+	}
+
+	@Override
+	public void update() {
+				
 	}
 }

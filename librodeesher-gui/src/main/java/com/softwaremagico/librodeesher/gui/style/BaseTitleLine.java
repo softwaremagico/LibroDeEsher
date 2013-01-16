@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.style;
+
 /*
  * #%L
  * Libro de Esher
@@ -25,8 +26,7 @@ package com.softwaremagico.librodeesher.gui.style;
 
 import java.awt.Color;
 
-
-public abstract class BasicTitleLine extends BasicLine {
+public abstract class BaseTitleLine extends BaseLine {
 	private static final long serialVersionUID = 7901507705885692683L;
 	protected Color background = Color.BLACK;
 	protected Color foreground = Color.WHITE;
@@ -36,14 +36,19 @@ public abstract class BasicTitleLine extends BasicLine {
 	/**
 	 * Create the panel.
 	 */
-	public BasicTitleLine() {
+	public BaseTitleLine() {
 		setDefaultDesign();
 	}
 
 	protected void setDefaultDesign() {
-		//setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		// setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		setBackground(background);
 		setForeground(foreground);
+	}
+
+	@Override
+	public void update() {
+
 	}
 
 }

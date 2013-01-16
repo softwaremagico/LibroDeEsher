@@ -1,4 +1,5 @@
-package com.softwaremagico.librodeesher.gui.perk;
+package com.softwaremagico.librodeesher.gui.options;
+
 /*
  * #%L
  * Libro de Esher GUI
@@ -26,29 +27,32 @@ package com.softwaremagico.librodeesher.gui.perk;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
+import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
-import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
+import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
-public class PerkWindow extends BaseFrame {
-	private static final long serialVersionUID = 4804191786722149503L;
-	private CharacterPlayer character;
-	private PerksListCompletePanel perksPanel;
-	private BaseLabel perksPointsLabel;
-	private PointsCounterTextField perksPoints;
+public class SelectOption extends BasePanel {
+	CharacterPlayer character;
+	private OptionsPanel optionsPanel;
+	private BaseFrame parent;
+	private List<String> options;
+	private PointsCounterTextField optionsCount;
+	private Integer numberOfOptions;
 
-	public PerkWindow(CharacterPlayer character) {
+	SelectOption(CharacterPlayer character, BaseFrame parent, List<String> options, Integer numberOfOptions) {
+		this.parent = parent;
 		this.character = character;
-		defineWindow(750, 400);
-		perksPoints = new PointsCounterTextField();
+		this.options = options;
+		this.numberOfOptions = numberOfOptions;
 		setElements();
 	}
 
@@ -62,19 +66,20 @@ public class PerkWindow extends BaseFrame {
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.gridheight = 1;
+
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 0;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		JPanel perksPointPanel = new JPanel();
-		perksPointPanel.setLayout(new BoxLayout(perksPointPanel, BoxLayout.X_AXIS));
-		perksPointsLabel = new BaseLabel("    Puntos de Talentos: ");
-		perksPointPanel.add(perksPointsLabel);
-		perksPoints.setColumns(3);
-		perksPoints.setEditable(false);
-		perksPoints.setMaximumSize(new Dimension(60, 25));
-		setPerksPointsText();
-		perksPointPanel.add(perksPoints);
-		getContentPane().add(perksPointPanel, gridBagConstraints);
+		JPanel countPanel = new JPanel();
+		countPanel.setLayout(new BoxLayout(countPanel, BoxLayout.X_AXIS));
+		JLabel optionsLabel = new BaseLabel("    Opciones:  ");
+		countPanel.add(optionsLabel);
+		optionsCount.setColumns(3);
+		optionsCount.setEditable(false);
+		optionsCount.setMaximumSize(new Dimension(60, 25));
+		setOptionsText();
+		countPanel.add(optionsCount);
+		add(countPanel, gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
@@ -85,31 +90,22 @@ public class PerkWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		perksPanel = new PerksListCompletePanel(character, (BaseFrame)this);
-		getContentPane().add(perksPanel, gridBagConstraints);
-
-		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
-		CloseButton closeButton = new CloseButton(this);
-		buttonPanel.add(closeButton);
-		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
-		gridBagConstraints.fill = GridBagConstraints.NONE;
-		gridBagConstraints.ipadx = xPadding;
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 1;
-		gridBagConstraints.weighty = 0;
-		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		getContentPane().add(buttonPanel, gridBagConstraints);
+		optionsPanel = new OptionsPanel(this, options, numberOfOptions);
+		add(optionsPanel, gridBagConstraints);
 	}
-	
-	private void setPerksPointsText() {
-		perksPoints.setPoints(character.getRemainingPerksPoints());
+
+	private void setOptionsText(List<String> selectedOptions) {
+		optionsCount.setPoints(numberOfOptions - selectedOptions.size());
+	}
+
+	private void setOptionsText() {
+		optionsCount.setPoints(numberOfOptions);
 	}
 
 	@Override
 	public void update() {
-		setPerksPointsText();
+		List<String> selectedOptions = optionsPanel.getSelectedOptions();
+		setOptionsText(selectedOptions);
+		parent.update();
 	}
 }

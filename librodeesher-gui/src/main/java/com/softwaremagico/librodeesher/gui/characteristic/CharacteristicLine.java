@@ -38,12 +38,12 @@ import com.softwaremagico.librodeesher.gui.elements.BaseSpinner;
 import com.softwaremagico.librodeesher.gui.elements.BoldListLabel;
 import com.softwaremagico.librodeesher.gui.elements.ListBackgroundPanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
-import com.softwaremagico.librodeesher.gui.style.BasicLine;
+import com.softwaremagico.librodeesher.gui.style.BaseLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 
-public class CharacteristicLine extends BasicLine {
+public class CharacteristicLine extends BaseLine {
 	private static final long serialVersionUID = 1855952180568184802L;
 	protected CharacterPlayer character;
 	protected Characteristic characteristic;

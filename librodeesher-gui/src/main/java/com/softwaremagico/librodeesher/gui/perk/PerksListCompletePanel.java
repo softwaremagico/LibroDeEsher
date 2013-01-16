@@ -25,16 +25,17 @@ package com.softwaremagico.librodeesher.gui.perk;
  */
 
 import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
+import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class PerksListCompletePanel extends BaseScrollPanel {
 	private static final long serialVersionUID = -5606065330811602828L;
-	private PerkWindow parent;
+	private BaseFrame parent;
 	CharacterPlayer character;
 	private PerksListTitle title;
 	private PerksListPanel perksPanel;
 
-	PerksListCompletePanel(CharacterPlayer character, PerkWindow parent) {
+	PerksListCompletePanel(CharacterPlayer character, BaseFrame parent) {
 		this.parent = parent;
 		this.character = character;
 		title = new PerksListTitle();

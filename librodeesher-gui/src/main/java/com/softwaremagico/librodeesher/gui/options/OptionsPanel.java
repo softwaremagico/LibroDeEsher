@@ -1,10 +1,9 @@
-package com.softwaremagico.librodeesher.gui.elements;
-
+package com.softwaremagico.librodeesher.gui.options;
 /*
  * #%L
- * Libro de Esher
+ * Libro de Esher GUI
  * %%
- * Copyright (C) 2007 - 2012 Softwaremagico
+ * Copyright (C) 2007 - 2013 Softwaremagico
  * %%
  * This software is designed by Jorge Hortelano Otero. Jorge Hortelano Otero
  * <softwaremagico@gmail.com> C/Quart 89, 3. Valencia CP:46008 (Spain).
@@ -24,32 +23,30 @@ package com.softwaremagico.librodeesher.gui.elements;
  * #L%
  */
 
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.List;
 
-import javax.swing.JFrame;
+import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
 
-import com.softwaremagico.librodeesher.gui.style.BaseButton;
+public class OptionsPanel extends BaseScrollPanel {
+	private static final long serialVersionUID = -5606065330811602828L;
+	private SelectOption parent;
+	private OptionsTitle title;
+	private OptionsListPanel optionsListPanel;
 
-public class CloseButton extends BaseButton {
-	private static final long serialVersionUID = -3656938562430153336L;
-	private JFrame window;
-
-	public CloseButton(JFrame window) {
-		setDefaultStyle();
-		this.setText("Cerrar");
-		this.window = window;
-		this.setPreferredSize(new Dimension(80,40));
-		addActionListener(new CloseListener());
+	protected OptionsPanel(SelectOption parent, List<String> options, Integer numberOfOptions) {
+		this.parent = parent;
+		title = new OptionsTitle();
+		addTitle(title);
+		optionsListPanel = new OptionsListPanel(options, numberOfOptions, this);
+		addBody(optionsListPanel);
+	}
+	
+	protected List<String> getSelectedOptions(){
+		return optionsListPanel.getSelectedOptions();
 	}
 
-	class CloseListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			window.dispose();
-		}
+	public void update() {
+		parent.update();
 	}
 
 }

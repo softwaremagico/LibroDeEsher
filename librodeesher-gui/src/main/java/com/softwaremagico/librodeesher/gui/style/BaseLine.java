@@ -33,7 +33,7 @@ import javax.swing.JPanel;
 import com.softwaremagico.librodeesher.gui.elements.BaseSpinner;
 import com.softwaremagico.librodeesher.gui.elements.TitleLabel;
 
-public abstract class BasicLine extends BasePanel {
+public abstract class BaseLine extends BasePanel {
 	private static final long serialVersionUID = 7901507705885692683L;
 	protected Color background = Color.WHITE;
 	protected Color foregorund = Color.BLACK;
@@ -45,7 +45,7 @@ public abstract class BasicLine extends BasePanel {
 	/**
 	 * Create the panel.
 	 */
-	public BasicLine() {
+	public BaseLine() {
 		setDefaultDesign();
 	}
 

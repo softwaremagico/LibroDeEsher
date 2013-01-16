@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.perk;
+package com.softwaremagico.librodeesher.gui.options;
 
 /*
  * #%L
@@ -25,39 +25,51 @@ package com.softwaremagico.librodeesher.gui.perk;
  */
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
-import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
-import com.softwaremagico.librodeesher.pj.perk.Perk;
-import com.softwaremagico.librodeesher.pj.perk.PerkFactory;
 
-public class PerksListPanel extends BasePanel {
+public class OptionsListPanel extends BasePanel {
+	private OptionsPanel parent;
+	private List<OptionLine> optionLines;
+	private Integer numberOfOptions;
 
-	private static final long serialVersionUID = -1612700951233838060L;
-	private PerksListCompletePanel parent;
-
-	public PerksListPanel(CharacterPlayer character, PerksListCompletePanel parent) {
+	public OptionsListPanel(List<String> options, Integer numberOfOptions, OptionsPanel parent) {
 		this.parent = parent;
-		setElements(character);
+		optionLines = new ArrayList<>();
+		this.numberOfOptions = numberOfOptions;
+		setElements(options);
 	}
 
-	public void setElements(CharacterPlayer character) {
+	public void setElements(List<String> options) {
 		this.removeAll();
 		setLayout(new GridLayout(0, 1));
 		int i = 0;
-		for (Perk perk : PerkFactory.gerPerks()) {
-			//Only perks that can be used.
-			if (perk.isPerkAllowed(character.getRace().getName(), character.getProfession().getName())) {
-				PerkLine perkLine = new PerkLine(character, perk, getLineBackgroundColor(i), this);
-				add(perkLine);
-				i++;
+		for (String option : options) {
+			OptionLine optionLine = new OptionLine(option, this);
+			add(optionLine);
+			optionLines.add(optionLine);
+			i++;
+		}
+	}
+
+	protected List<String> getSelectedOptions() {
+		List<String> selectedOptions = new ArrayList<>();
+		for (OptionLine line : optionLines) {
+			if (line.isSelected()) {
+				selectedOptions.add(line.getOption());
 			}
 		}
+		return selectedOptions;
+	}
+
+	protected Integer getRemainingOptions(){
+		return numberOfOptions - getSelectedOptions().size();
 	}
 
 	public void update() {
 		parent.update();
 	}
-
 }

@@ -25,16 +25,17 @@ package com.softwaremagico.librodeesher.gui.history;
  */
 
 import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
+import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class HistoryCompleteSkillPointsPanel extends BaseScrollPanel {
 	private static final long serialVersionUID = 4044886584364311850L;
-	private HistoryWindow parent;
+	private BaseFrame parent;
 	CharacterPlayer character;
 	private HistorySkillTitle title;
 	private HistorySkillsPanel skillPanel;
 
-	public HistoryCompleteSkillPointsPanel(CharacterPlayer character, HistoryWindow parent) {
+	public HistoryCompleteSkillPointsPanel(CharacterPlayer character, BaseFrame parent) {
 		this.character = character;
 		this.parent = parent;
 		title = new HistorySkillTitle();

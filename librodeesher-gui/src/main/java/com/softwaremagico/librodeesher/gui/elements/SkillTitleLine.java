@@ -32,9 +32,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
-import com.softwaremagico.librodeesher.gui.style.BasicTitleLine;
+import com.softwaremagico.librodeesher.gui.style.BaseTitleLine;
 
-public class SkillTitleLine extends BasicTitleLine {
+public class SkillTitleLine extends BaseTitleLine {
 	private static final long serialVersionUID = 4480268296161276440L;
 	private static final Integer columnWidth = 30;
 	private static final Integer columnHeight = 20;

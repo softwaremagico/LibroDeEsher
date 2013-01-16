@@ -37,9 +37,9 @@ public abstract class BasePanel extends JPanel {
 	protected Integer inputColumns = 12;
 	protected Integer xPadding = 5;
 	protected Integer yPadding = 10;
-	
-	protected BasePanel(){
-		//setBorder(BorderFactory.createLineBorder(Color.black));
+
+	protected BasePanel() {
+		// setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 
 	protected void setDefaultSize() {
@@ -48,7 +48,7 @@ public abstract class BasePanel extends JPanel {
 		setPreferredSize(new Dimension(textDefaultWidth + inputDefaultWidth + 10, textDefaultHeight
 				* getComponentCount() / 2 + 20));
 	}
-	
+
 	protected static Color getLineBackgroundColor(int index) {
 		if (index % 2 == 0) {
 			return Color.WHITE;
@@ -56,5 +56,7 @@ public abstract class BasePanel extends JPanel {
 			return Color.LIGHT_GRAY;
 		}
 	}
+
+	public abstract void update();
 
 }

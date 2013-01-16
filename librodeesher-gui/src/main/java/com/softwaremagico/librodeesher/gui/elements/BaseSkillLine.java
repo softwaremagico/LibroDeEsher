@@ -29,11 +29,11 @@ import java.awt.event.ItemListener;
 
 import javax.swing.JCheckBox;
 
-import com.softwaremagico.librodeesher.gui.style.BasicLine;
+import com.softwaremagico.librodeesher.gui.style.BaseLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 
-public abstract class BasicSkillLine extends BasicLine {
+public abstract class BaseSkillLine extends BaseLine {
 	private static final long serialVersionUID = 8045688485824193991L;
 	protected static final Integer columnWidth = 30;
 	protected boolean updatingValues = false;
@@ -127,8 +127,6 @@ public abstract class BasicSkillLine extends BasicLine {
 		}
 		updatingValues = false;
 	}
-
-	protected abstract void update();
 
 	protected abstract void setCurrentLevelRanks();
 

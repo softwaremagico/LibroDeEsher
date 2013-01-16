@@ -38,7 +38,7 @@ import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
-import com.softwaremagico.librodeesher.gui.style.BasicButton;
+import com.softwaremagico.librodeesher.gui.style.BaseButton;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 
@@ -47,7 +47,7 @@ public class CharacteristicsWindow extends BaseFrame {
 	private CompleteCharacteristicPanel characteristicPanel;
 	private BaseLabel spentPointsLabel;
 	private CharacterPlayer character;
-	private BasicButton acceptButton;
+	private BaseButton acceptButton;
 	private PointsCounterTextField characteristicsPointsTextField;
 
 	public CharacteristicsWindow() {
@@ -96,7 +96,7 @@ public class CharacteristicsWindow extends BaseFrame {
 		getContentPane().add(characteristicPointsPanel, gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
-		acceptButton = new BasicButton("Aceptar");
+		acceptButton = new BaseButton("Aceptar");
 		acceptButton.addActionListener(new AcceptListener());
 		buttonPanel.add(acceptButton);
 

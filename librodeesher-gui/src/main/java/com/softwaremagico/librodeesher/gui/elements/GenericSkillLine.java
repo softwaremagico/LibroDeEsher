@@ -37,7 +37,7 @@ import javax.swing.SwingConstants;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
-public class GenericSkillLine extends BasicSkillLine {
+public class GenericSkillLine extends BaseSkillLine {
 	private static final long serialVersionUID = -3194401962061016906L;
 	protected ListLabel skillNameLabel, bonusRankLabel, totalLabel, bonusCategory;
 	protected Skill skill;

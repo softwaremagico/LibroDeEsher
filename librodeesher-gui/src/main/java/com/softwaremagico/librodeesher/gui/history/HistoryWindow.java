@@ -72,7 +72,7 @@ public class HistoryWindow extends BaseFrame {
 		gridBagConstraints.weightx = 0.7;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		skillPanel = new HistoryCompleteSkillPointsPanel(character, this);
+		skillPanel = new HistoryCompleteSkillPointsPanel(character, (BaseFrame)this);
 		getContentPane().add(skillPanel, gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -84,7 +84,7 @@ public class HistoryWindow extends BaseFrame {
 		gridBagConstraints.weightx = 0.3;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		characteristicPanel = new HistoryCompleteCharacteristicPanel(character, this);
+		characteristicPanel = new HistoryCompleteCharacteristicPanel(character, (BaseFrame)this);
 		getContentPane().add(characteristicPanel, gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;

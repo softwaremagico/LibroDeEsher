@@ -37,7 +37,7 @@ import javax.swing.SwingConstants;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 
-public abstract class GenericCategoryLine extends BasicSkillLine {
+public abstract class GenericCategoryLine extends BaseSkillLine {
 	private static final long serialVersionUID = 2914665641808878141L;
 	protected BoldListLabel categoryNameLabel, bonusRankLabel, totalLabel;
 

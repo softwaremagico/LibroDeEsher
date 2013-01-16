@@ -31,10 +31,10 @@ import java.awt.GridBagLayout;
 import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.gui.elements.ListLabel;
-import com.softwaremagico.librodeesher.gui.style.BasicLine;
+import com.softwaremagico.librodeesher.gui.style.BaseLine;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 
-public class WeaponCategoryLine extends BasicLine {
+public class WeaponCategoryLine extends BaseLine {
 	private static final long serialVersionUID = 4480268296161276440L;
 	private Category weaponsCategory;
 	private Integer ranks;
@@ -69,5 +69,10 @@ public class WeaponCategoryLine extends BasicLine {
 		gridBagConstraints.gridx = 1;
 		ListLabel rankLabel = new ListLabel("(" + ranks.toString() + ")");
 		add(rankLabel, gridBagConstraints);
+	}
+
+	@Override
+	public void update() {
+		
 	}
 }
