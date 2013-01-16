@@ -42,16 +42,19 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.perk.Perk;
 
 public class PerkLine extends BasicLine {
+	private final static Integer DEFAULT_COLUMN_WIDTH = 50;
 	private BaseSkillPanel parent;
-	private ListLabel perkLabel;
+	private ListLabel perkLabel, perkCost, perkCategory, perkDescription;
 	private Perk perk;
 	private Color background;
 	private BaseCheckBox perkCheckBox;
+	private CharacterPlayer character;
 
 	public PerkLine(CharacterPlayer character, Perk perk, Color background, BaseSkillPanel parentWindow) {
 		this.parent = parentWindow;
 		this.perk = perk;
 		this.background = background;
+		this.character = character;
 		setBackground(background);
 		setElements();
 	}
@@ -67,29 +70,62 @@ public class PerkLine extends BasicLine {
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.weighty = 0;
 
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0;
 		JPanel panel = new JPanel();
 		perkCheckBox = new BaseCheckBox("");
 		panel.add(perkCheckBox);
+		panel.setBackground(background);
+		perkCheckBox.setBackground(background);
 		perkCheckBox.addItemListener(new CheckBoxListener());
 		add(panel, gridBagConstraints);
 
 		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 0.3;
-		perkLabel = new ListLabel(perk.getName(), SwingConstants.LEFT, 200, columnHeight);
+		gridBagConstraints.weightx = 0;
+		perkLabel = new ListLabel(perk.getName(), SwingConstants.LEFT, DEFAULT_COLUMN_WIDTH * 6, columnHeight);
 		add(new ListBackgroundPanel(perkLabel, background), gridBagConstraints);
+
+		gridBagConstraints.gridx = 2;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0;
+		perkCost = new ListLabel(perk.getCost().toString(), SwingConstants.CENTER, DEFAULT_COLUMN_WIDTH,
+				columnHeight);
+		add(new ListBackgroundPanel(perkCost, background), gridBagConstraints);
+
+		gridBagConstraints.gridx = 3;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0;
+		perkCategory = new ListLabel(perk.getCategory().toString(), SwingConstants.CENTER,
+				DEFAULT_COLUMN_WIDTH * 2, columnHeight);
+		add(new ListBackgroundPanel(perkCategory, background), gridBagConstraints);
+
+		gridBagConstraints.gridx = 4;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 1;
+		perkDescription = new ListLabel(perk.getLongDescription().toString(), SwingConstants.LEFT);
+		add(new ListBackgroundPanel(perkDescription, background), gridBagConstraints);
 
 	}
 
 	class CheckBoxListener implements ItemListener {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
-//			character.setHistoryPoints(skill, historyCheckBox.isSelected());
-//			if (character.getRemainingHistorialPoints() < 0) {
-//				historyCheckBox.setSelected(false);
-//			}
-//			update();
-//			parent.update();
+			if (perkCheckBox.isSelected()) {
+				if (perk.getCost() <= character.getRemainingPerksPoints()) {
+					character.addPerk(perk);
+				} else {
+					perkCheckBox.setSelected(false);
+				}
+			} else {
+				if (character.getRemainingPerksPoints() + perk.getCost() < 0) {
+					perkCheckBox.setSelected(true);
+				} else {
+					character.removePerk(perk);
+				}
+			}
+			parent.update();
 		}
 	}
 

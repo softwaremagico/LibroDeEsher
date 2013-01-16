@@ -46,6 +46,8 @@ import com.softwaremagico.librodeesher.pj.level.LevelUp;
 import com.softwaremagico.librodeesher.pj.magic.MagicListType;
 import com.softwaremagico.librodeesher.pj.magic.MagicSpellLists;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
+import com.softwaremagico.librodeesher.pj.perk.Perk;
+import com.softwaremagico.librodeesher.pj.perk.PerkDecision;
 import com.softwaremagico.librodeesher.pj.profession.Profession;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionDecisions;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
@@ -87,6 +89,8 @@ public class CharacterPlayer {
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
 	private MagicSpellLists magicSpellLists;
 	private Historial historial;
+	private List<Perk> perks;
+	private Hashtable<Perk, PerkDecision> perkDecisions;
 
 	private boolean darkSpellsAsBasicListsAllowed = false;
 	private boolean firearmsAllowed = false;
@@ -103,6 +107,7 @@ public class CharacterPlayer {
 		characteristicsInitialTemporalValues = new Hashtable<>();
 		characteristicsTemporalUpdatesRolls = new Hashtable<>();
 		characteristicsPotentialValues = new Hashtable<>();
+		perkDecisions = new Hashtable<>();
 		setTemporalValuesOfCharacteristics();
 		sex = SexType.MALE;
 		cultureDecisions = new CultureDecisions();
@@ -110,6 +115,7 @@ public class CharacterPlayer {
 		professionDecisions = new ProfessionDecisions();
 		trainingsNames = new ArrayList<>();
 		trainings = new ArrayList<>();
+		perks = new ArrayList<>();
 		setDefaultConfig();
 	}
 
@@ -765,8 +771,26 @@ public class CharacterPlayer {
 
 		historial.setCharactersiticUpdate(abbreviature, roll);
 	}
-	
-	public Integer getRemainingPerksPoints(){
-		return 0;
+
+	public void addPerk(Perk perk) {
+		if (!perks.contains(perk)) {
+			perks.add(perk);
+		}
+	}
+
+	public void removePerk(Perk perk) {
+		perks.remove(perk);
+	}
+
+	private Integer getSpentPerksPoints() {
+		Integer total = 0;
+		for (Perk perk : perks) {
+			total += perk.getCost();
+		}
+		return total;
+	}
+
+	public Integer getRemainingPerksPoints() {
+		return getRace().getPerksPoints() - getSpentPerksPoints();
 	}
 }

@@ -10,7 +10,7 @@ public class Perk {
 	private String description;
 	private List<String> avalibleToRaces;
 	private List<String> avalibleToProfessions;
-	private PerkCategory classification;
+	private PerkCategory category;
 	private Hashtable<String, Integer> categoryBonus;
 	private Hashtable<String, Integer> conditionalCategoryBonus;
 	private Hashtable<String, Integer> skillBonus;
@@ -39,7 +39,7 @@ public class Perk {
 		this.description = description;
 		this.avalibleToRaces = avalibleToRaces;
 		this.avalibleToProfessions = avalibleToProfessions;
-		this.classification = classification;
+		this.category = classification;
 		categoryBonus = new Hashtable<>();
 		skillBonus = new Hashtable<>();
 		resistanceBonus = new Hashtable<>();
@@ -54,6 +54,8 @@ public class Perk {
 		restrictedSkills = new ArrayList<>();
 		commonCategories = new ArrayList<>();
 		restrictedCategories = new ArrayList<>();
+		categoriesToChoose = new ArrayList<>();
+		skillsToChoose = new ArrayList<>();
 		appareanceBonus = 0;
 		armourClass = 1;
 	}
@@ -262,5 +264,61 @@ public class Perk {
 
 	public void setChooseOptions(Integer chooseOptions) {
 		this.chooseOptions = chooseOptions;
+	}
+
+	public Integer getCost() {
+		return cost;
+	}
+
+	public PerkCategory getCategory() {
+		return category;
+	}
+
+	private String getBonusesDescription() {
+		String bonuses = "";
+		for (String category : categoryBonus.keySet()) {
+			if (bonuses.length() > 1) {
+				bonuses += ", ";
+			}
+			bonuses += category + " (" + categoryBonus.get(category) + ")";
+		}
+
+		for (String skill : skillBonus.keySet()) {
+			if (bonuses.length() > 1) {
+				bonuses += ", ";
+			}
+			bonuses += skill + " (" + skillBonus.get(skill) + ")";
+		}
+
+		for (String category : conditionalCategoryBonus.keySet()) {
+			if (bonuses.length() > 1) {
+				bonuses += ", ";
+			}
+			bonuses += category + " (" + conditionalCategoryBonus.get(category) + "*)";
+		}
+
+		for (String skill : conditionalSkillBonus.keySet()) {
+			if (bonuses.length() > 1) {
+				bonuses += ", ";
+			}
+			bonuses += skill + " (" + conditionalSkillBonus.get(skill) + "*)";
+		}
+		return bonuses;
+	}
+
+	public boolean isSelectionableOptions() {
+		return (categoriesToChoose.size() > 0 || skillsToChoose.size() > 0);
+	}
+
+	public String getLongDescription() {
+		String longDescription = getBonusesDescription();
+		if (isSelectionableOptions()) {
+			longDescription += "{Selección}";
+		}
+		if (longDescription.length() > 0) {
+			longDescription += ". ";
+		}
+		longDescription += description;
+		return longDescription;
 	}
 }

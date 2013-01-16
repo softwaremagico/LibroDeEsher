@@ -63,7 +63,7 @@ public class Race {
 	private List<Skill> restrictedSkills;
 	private List<String> availableCultures;
 	private List<String> specials;
-	private Integer talentPoints;
+	private Integer perksPoints;
 	private List<String> maleNames;
 	private List<String> femaleNames;
 	private List<String> familyNames;
@@ -377,10 +377,10 @@ public class Race {
 		while (!lines.get(index).equals("")) {
 			String talentLine = lines.get(index);
 			try {
-				talentPoints = Integer.parseInt(talentLine);
+				perksPoints = Integer.parseInt(talentLine);
 			} catch (NumberFormatException nfe) {
 				ShowMessage.showErrorMessage("Numero de puntos de talento irreconocible.", "Leer Raza");
-				talentPoints = new Integer(0);
+				perksPoints = new Integer(0);
 			}
 			index++;
 		}
@@ -481,6 +481,10 @@ public class Race {
 	
 	public Integer getHistorialPoints(){
 		return historialPoints;
+	}
+
+	public Integer getPerksPoints() {
+		return perksPoints;
 	}
 
 }

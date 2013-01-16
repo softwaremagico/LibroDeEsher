@@ -43,4 +43,8 @@ public class PerksListCompletePanel extends BaseScrollPanel {
 		addBody(perksPanel);
 	}
 
+	protected void update() {
+		parent.update();
+	}
+
 }

@@ -58,14 +58,12 @@ public class PerksListPanel extends BaseSkillPanel {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-
+		parent.update();
 	}
 
 	@Override
 	public void updateSkillsOfCategory(Category category) {
-		// TODO Auto-generated method stub
-
+		//NOTHING
 	}
 
 }

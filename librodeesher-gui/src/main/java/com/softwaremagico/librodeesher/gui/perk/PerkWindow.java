@@ -47,9 +47,8 @@ public class PerkWindow extends BaseFrame {
 
 	public PerkWindow(CharacterPlayer character) {
 		this.character = character;
-		defineWindow(700, 400);
+		defineWindow(750, 400);
 		perksPoints = new PointsCounterTextField();
-	    setResizable(false);
 		setElements();
 	}
 

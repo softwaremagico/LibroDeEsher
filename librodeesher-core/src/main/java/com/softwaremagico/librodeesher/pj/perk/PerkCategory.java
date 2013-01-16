@@ -11,10 +11,14 @@ public enum PerkCategory {
 
 	public static PerkCategory getPerkCategory(String tag) {
 		for (PerkCategory perkCategory : PerkCategory.values()) {
-			if (perkCategory.tag.equals(tag)) {
+			if (perkCategory.tag.equals(tag.toLowerCase())) {
 				return perkCategory;
 			}
 		}
 		return MAXIMUM;
+	}
+
+	public String toString() {
+		return tag.substring(0, 1).toUpperCase() + tag.substring(1);
 	}
 }

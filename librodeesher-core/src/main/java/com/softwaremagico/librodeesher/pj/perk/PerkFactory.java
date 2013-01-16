@@ -81,9 +81,9 @@ public class PerkFactory {
 	private static void addListToChooseBonus(Perk perk, String optionsLine) {
 		String[] set = optionsLine.split("\\(");
 		// Obtain the list to choose.
-		if (set[0].contains(Spanish.ANY_CATEGORY)) {
+		if (set[0].toLowerCase().contains(Spanish.ANY_CATEGORY)) {
 			perk.setCategoriesToChoose(CategoryFactory.getAvailableCategories());
-		} else if (set[0].contains(Spanish.ANY_SKILL)) {
+		} else if (set[0].toLowerCase().contains(Spanish.ANY_SKILL)) {
 			perk.setSkillsToChoose(SkillFactory.getAvailableSkills());
 		} else { // Obtain the list
 			String purgedLine = set[0].replace("{", "").replace("}", "").replace("|", ",").replace(";", ",");
@@ -91,10 +91,14 @@ public class PerkFactory {
 			List<String> categoriesToChoose = new ArrayList<>();
 			List<String> skillsToChoose = new ArrayList<>();
 			for (String option : optionsToChoose) {
+				option = option.trim();
 				if (SkillFactory.existSkill(option)) {
 					skillsToChoose.add(option);
 				} else if (CategoryFactory.existCategory(option)) {
 					categoriesToChoose.add(option);
+				} else {
+					ShowMessage.showErrorMessage("Categoría o habilidad desconocida: " + option
+							+ " en talento " + perk.getName(), "Lectura de Talentos");
 				}
 			}
 			perk.setCategoriesToChoose(categoriesToChoose);

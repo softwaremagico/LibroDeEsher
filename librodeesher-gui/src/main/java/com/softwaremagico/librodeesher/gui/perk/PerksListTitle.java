@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.perk;
+
 /*
  * #%L
  * Libro de Esher GUI
@@ -23,9 +24,66 @@ package com.softwaremagico.librodeesher.gui.perk;
  * #L%
  */
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
+import javax.swing.SwingConstants;
+
+import com.softwaremagico.librodeesher.gui.elements.TitleBackgroundPanel;
+import com.softwaremagico.librodeesher.gui.elements.TitleLabel;
 import com.softwaremagico.librodeesher.gui.style.BasicTitleLine;
 
-
 public class PerksListTitle extends BasicTitleLine {
+	private final static Integer DEFAULT_COLUMN_WIDTH = 50;
 
+	public PerksListTitle() {
+		setElements();
+	}
+
+	private void setElements() {
+		this.removeAll();
+		setLayout(new GridBagLayout());
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+
+		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.weighty = 0;
+
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0;
+		TitleLabel checkBoxLabel = new TitleLabel("", SwingConstants.LEFT, 35,
+				columnHeight);
+		add(new TitleBackgroundPanel(checkBoxLabel), gridBagConstraints);
+
+		gridBagConstraints.gridx = 1;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0;
+		TitleLabel categoryNameLabel = new TitleLabel("Nombre", SwingConstants.LEFT,
+				DEFAULT_COLUMN_WIDTH * 6, columnHeight);
+		add(new TitleBackgroundPanel(categoryNameLabel), gridBagConstraints);
+
+		gridBagConstraints.gridx = 2;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0;
+		TitleLabel costLabel = new TitleLabel("Coste", SwingConstants.CENTER, DEFAULT_COLUMN_WIDTH,
+				columnHeight);
+		add(new TitleBackgroundPanel(costLabel), gridBagConstraints);
+
+		gridBagConstraints.gridx = 3;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0;
+		TitleLabel typeLabel = new TitleLabel("Tipo", SwingConstants.CENTER, DEFAULT_COLUMN_WIDTH * 2,
+				columnHeight);
+		add(new TitleBackgroundPanel(typeLabel), gridBagConstraints);
+
+		gridBagConstraints.gridx = 4;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 1;
+		TitleLabel descriptionLabel = new TitleLabel("Descripción", SwingConstants.LEFT);
+		add(new TitleBackgroundPanel(descriptionLabel), gridBagConstraints);
+
+	}
 }
