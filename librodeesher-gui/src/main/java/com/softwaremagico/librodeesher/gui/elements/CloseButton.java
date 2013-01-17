@@ -34,21 +34,25 @@ import com.softwaremagico.librodeesher.gui.style.BaseButton;
 
 public class CloseButton extends BaseButton {
 	private static final long serialVersionUID = -3656938562430153336L;
-	private JFrame window;
+	protected JFrame window;
 
 	public CloseButton(JFrame window) {
 		setDefaultStyle();
 		this.setText("Cerrar");
 		this.window = window;
-		this.setPreferredSize(new Dimension(80,40));
+		this.setPreferredSize(new Dimension(80, 40));
 		addActionListener(new CloseListener());
+	}
+
+	protected void closeAction() {
+		window.dispose();
 	}
 
 	class CloseListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			window.dispose();
+			closeAction();
 		}
 	}
 

@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
-import com.softwaremagico.librodeesher.pj.categories.Category;
 
 public class OptionsListPanel extends BasePanel {
 	private OptionsPanel parent;
@@ -48,7 +47,7 @@ public class OptionsListPanel extends BasePanel {
 		setLayout(new GridLayout(0, 1));
 		int i = 0;
 		for (String option : options) {
-			OptionLine optionLine = new OptionLine(option, this);
+			OptionLine optionLine = new OptionLine(option, this, getLineBackgroundColor(i));
 			add(optionLine);
 			optionLines.add(optionLine);
 			i++;

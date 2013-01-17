@@ -49,6 +49,7 @@ public class PerkLine extends BaseLine {
 	private Color background;
 	private BaseCheckBox perkCheckBox;
 	private CharacterPlayer character;
+	private boolean updating = false;
 
 	public PerkLine(CharacterPlayer character, Perk perk, Color background, BasePanel parentWindow) {
 		this.parent = parentWindow;
@@ -74,12 +75,15 @@ public class PerkLine extends BaseLine {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
 		JPanel panel = new JPanel();
+		updating=true;
 		perkCheckBox = new BaseCheckBox("");
+		perkCheckBox.setSelected(character.isPerkChoosed(perk));
 		panel.add(perkCheckBox);
 		panel.setBackground(background);
 		perkCheckBox.setBackground(background);
 		perkCheckBox.addItemListener(new CheckBoxListener());
 		add(panel, gridBagConstraints);
+		updating=false;
 
 		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridwidth = 1;
@@ -112,26 +116,40 @@ public class PerkLine extends BaseLine {
 	class CheckBoxListener implements ItemListener {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
-			if (perkCheckBox.isSelected()) {
-				if (perk.getCost() <= character.getRemainingPerksPoints()) {
-					character.addPerk(perk);
+			if (!updating) {
+				if (perkCheckBox.isSelected()) {
+					if (perk.getCost() <= character.getRemainingPerksPoints()) {
+						character.addPerk(perk);
+						createSelectOptionsWindow();
+					} else {
+						perkCheckBox.setSelected(false);
+					}
 				} else {
-					perkCheckBox.setSelected(false);
+					if (character.getRemainingPerksPoints() + perk.getCost() < 0) {
+						perkCheckBox.setSelected(true);
+					} else {
+						character.removePerk(perk);
+					}
 				}
-			} else {
-				if (character.getRemainingPerksPoints() + perk.getCost() < 0) {
-					perkCheckBox.setSelected(true);
-				} else {
-					character.removePerk(perk);
-				}
+				update();
 			}
-			update();
+		}
+	}
+
+	private void createSelectOptionsWindow() {
+		if (perk.isSelectionableOptions()) {
+			PerkOptions optionsWindow = new PerkOptions(character, perk, this);
+			optionsWindow.setVisible(true);
 		}
 	}
 
 	@Override
 	public void update() {
 		parent.update();
+	}
+	
+	protected void removePerk(){
+		perkCheckBox.setSelected(false);
 	}
 
 }

@@ -50,6 +50,7 @@ public class HistorySkillLine extends GenericSkillLine {
 	private void addHistoryCheckBox() {
 		JPanel panel = new JPanel();
 		historyCheckBox = new BaseCheckBox("");
+		historyCheckBox.setSelected(character.isHistoryPointSelected(skill));
 		panel.add(historyCheckBox);
 		historyCheckBox.addItemListener(new CheckBoxListener());
 		addColumn(panel, 0);

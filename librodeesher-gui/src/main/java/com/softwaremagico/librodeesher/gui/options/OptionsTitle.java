@@ -52,7 +52,7 @@ public class OptionsTitle  extends BaseTitleLine {
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
 		gridBagConstraints.weightx = 1;
-		TitleLabel optionsLabel = new TitleLabel("Options", SwingConstants.LEFT);
+		TitleLabel optionsLabel = new TitleLabel("Listado", SwingConstants.LEFT);
 		add(new TitleBackgroundPanel(optionsLabel), gridBagConstraints);
 	}
 

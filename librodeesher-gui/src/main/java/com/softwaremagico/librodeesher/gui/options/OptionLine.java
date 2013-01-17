@@ -24,6 +24,7 @@ package com.softwaremagico.librodeesher.gui.options;
  * #L%
  */
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ItemEvent;
@@ -41,10 +42,13 @@ public class OptionLine extends BaseLine {
 	private OptionsListPanel parent;
 	private String option;
 	private BaseCheckBox optionCheckBox;
+	private Color background;
 
-	protected OptionLine(String option, OptionsListPanel parent) {
+	protected OptionLine(String option, OptionsListPanel parent, Color background) {
 		this.option = option;
 		this.parent = parent;
+		this.background = background;
+		setBackground(background);
 		setElements();
 	}
 
@@ -54,6 +58,7 @@ public class OptionLine extends BaseLine {
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
 		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+		gridBagConstraints.anchor = GridBagConstraints.LINE_START;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.gridy = 0;
@@ -68,11 +73,12 @@ public class OptionLine extends BaseLine {
 		panel.setBackground(background);
 		optionCheckBox.setBackground(background);
 		optionCheckBox.addItemListener(new CheckBoxListener());
+		panel.setBackground(background);
 		add(panel, gridBagConstraints);
 
 		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
-		gridBagConstraints.weightx = 0;
+		gridBagConstraints.weightx = 1;
 		ListLabel optionLabel = new ListLabel(option, SwingConstants.LEFT);
 		add(new ListBackgroundPanel(optionLabel, background), gridBagConstraints);
 
@@ -98,7 +104,7 @@ public class OptionLine extends BaseLine {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
 			if (parent.getRemainingOptions() < 0) {
-				optionCheckBox.setEnabled(false);
+				optionCheckBox.setSelected(false);
 			}
 			update();
 		}

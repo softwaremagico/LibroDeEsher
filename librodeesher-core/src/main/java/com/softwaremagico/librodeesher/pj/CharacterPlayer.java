@@ -755,6 +755,14 @@ public class CharacterPlayer {
 		historial.setPoint(category, value);
 	}
 
+	public boolean isHistoryPointSelected(Category category) {
+		return historial.isHistorialPointSelected(category);
+	}
+
+	public boolean isHistoryPointSelected(Skill skill) {
+		return historial.isHistorialPointSelected(skill);
+	}
+
 	public Integer getRemainingHistorialPoints() {
 		return getRace().getHistorialPoints() - historial.getSpentHistoryPoints();
 	}
@@ -773,13 +781,17 @@ public class CharacterPlayer {
 	}
 
 	public void addPerk(Perk perk) {
-		if (!perks.contains(perk)) {
+		if (!isPerkChoosed(perk)) {
 			perks.add(perk);
 		}
 	}
 
 	public void removePerk(Perk perk) {
 		perks.remove(perk);
+	}
+
+	public boolean isPerkChoosed(Perk perk) {
+		return perks.contains(perk);
 	}
 
 	private Integer getSpentPerksPoints() {
@@ -792,5 +804,21 @@ public class CharacterPlayer {
 
 	public Integer getRemainingPerksPoints() {
 		return getRace().getPerksPoints() - getSpentPerksPoints();
+	}
+
+	public void setPerkDecision(Perk perk, List<String> choosedOptions) {
+		if (choosedOptions != null && choosedOptions.size() > 0) {
+			PerkDecision perkDecision = perkDecisions.get(perk);
+			if (perkDecision == null) {
+				perkDecision = new PerkDecision();
+			}
+			if (perk.isCategorySelected(choosedOptions.get(0))) {
+				perkDecision.addCategoriesChoosen(choosedOptions);
+			}
+			if (perk.isSkillSelected(choosedOptions.get(0))) {
+				perkDecision.addSkillsChoosen(choosedOptions);
+			}
+			perkDecisions.put(perk, perkDecision);
+		}
 	}
 }

@@ -41,7 +41,7 @@ public class OptionsPanel extends BaseScrollPanel {
 		addBody(optionsListPanel);
 	}
 	
-	protected List<String> getSelectedOptions(){
+	public List<String> getSelectedOptions(){
 		return optionsListPanel.getSelectedOptions();
 	}
 

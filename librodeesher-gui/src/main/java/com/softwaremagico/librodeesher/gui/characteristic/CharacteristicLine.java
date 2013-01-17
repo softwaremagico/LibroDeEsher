@@ -48,8 +48,8 @@ public class CharacteristicLine extends BaseLine {
 	protected CharacterPlayer character;
 	protected Characteristic characteristic;
 	private BaseSpinner temporalSpinner;
-	protected BoldListLabel characteristicLabel, potentialText, basicBonusText, raceBonusText, specialBonusText,
-			totalLabel;
+	protected BoldListLabel characteristicLabel, potentialText, basicBonusText, raceBonusText,
+			specialBonusText, totalLabel;
 	private BaseFrame parentWindow;
 
 	public CharacteristicLine(CharacterPlayer character, Characteristic characteristic, Color background) {
@@ -71,10 +71,12 @@ public class CharacteristicLine extends BaseLine {
 		// character.getCharacteristicsTemporalValues(characteristic.getAbbreviation()),
 		// (Integer) 1, (Integer) MAX_VALUE, (Integer) 1);
 		temporalSpinner = new BaseSpinner();
-		temporalSpinner.setValue(character.getCharacteristicTemporalValue(characteristic.getAbbreviature()));
-		addTemporalSpinnerEvent();
+		temporalSpinner.setValue(character.getCharacteristicInitialTemporalValue(characteristic
+				.getAbbreviature()));
+
 		temporalSpinner.setEnabled(!character.areCharacteristicsConfirmed());
 		add(createSpinnerInsidePanel(temporalSpinner, background));
+		addTemporalSpinnerEvent();
 
 		potentialText = new BoldListLabel("0");
 		add(new ListBackgroundPanel(potentialText, background));
@@ -83,18 +85,17 @@ public class CharacteristicLine extends BaseLine {
 				characteristic.getAbbreviature()).toString());
 		add(new ListBackgroundPanel(basicBonusText, background));
 
-		raceBonusText = new BoldListLabel(character.getCharacteristicRaceBonus(characteristic.getAbbreviature())
-				.toString());
+		raceBonusText = new BoldListLabel(character.getCharacteristicRaceBonus(
+				characteristic.getAbbreviature()).toString());
 		add(new ListBackgroundPanel(raceBonusText, background));
 
 		specialBonusText = new BoldListLabel(character.getCharacteristicSpecialBonus(
 				characteristic.getAbbreviature()).toString());
 		add(new ListBackgroundPanel(specialBonusText, background));
 
-		totalLabel = new BoldListLabel(character.getCharacteristicTotalBonus(characteristic.getAbbreviature())
-				.toString());
+		totalLabel = new BoldListLabel(character
+				.getCharacteristicTotalBonus(characteristic.getAbbreviature()).toString());
 		add(new ListBackgroundPanel(totalLabel, background));
-
 	}
 
 	public void update() {
@@ -130,7 +131,6 @@ public class CharacteristicLine extends BaseLine {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-
 				// Store value.
 				character.setCharacteristicTemporalValues(characteristic.getAbbreviature(),
 						(Integer) temporalSpinner.getValue());
@@ -147,7 +147,6 @@ public class CharacteristicLine extends BaseLine {
 				} else if (character.getCharacteristicsTemporalPointsSpent() > Characteristics.TOTAL_CHARACTERISTICS_POINTS) {
 					temporalSpinner.setValue((Integer) temporalSpinner.getValue() - 1);
 				}
-
 				update();
 
 				if (parentWindow != null) {

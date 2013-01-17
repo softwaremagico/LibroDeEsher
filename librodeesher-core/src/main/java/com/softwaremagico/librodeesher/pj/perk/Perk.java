@@ -30,7 +30,7 @@ public class Perk {
 	private Integer appareanceBonus;
 	private Integer armourClass;
 	private Integer chooseBonus;
-	private Integer chooseOptions;
+	private Integer numberOfChooseOptions;
 
 	public Perk(String name, Integer cost, PerkCategory classification, String description,
 			List<String> avalibleToRaces, List<String> avalibleToProfessions) {
@@ -258,12 +258,20 @@ public class Perk {
 		this.chooseBonus = chooseBonus;
 	}
 
-	public Integer getChooseOptions() {
-		return chooseOptions;
+	/**
+	 * 
+	 * @return
+	 */
+	public Integer getNumberOfChooseOptions() {
+		if (numberOfChooseOptions >= 0) {
+			return numberOfChooseOptions;
+		} else {
+			return getOptionsToChoose().size() + numberOfChooseOptions;
+		}
 	}
 
 	public void setChooseOptions(Integer chooseOptions) {
-		this.chooseOptions = chooseOptions;
+		this.numberOfChooseOptions = chooseOptions;
 	}
 
 	public Integer getCost() {
@@ -308,6 +316,23 @@ public class Perk {
 
 	public boolean isSelectionableOptions() {
 		return (categoriesToChoose.size() > 0 || skillsToChoose.size() > 0);
+	}
+
+	public List<String> getOptionsToChoose() {
+		if (categoriesToChoose.size() > 0) {
+			return categoriesToChoose;
+		} else if (skillsToChoose.size() > 0) {
+			return skillsToChoose;
+		}
+		return null;
+	}
+
+	public boolean isCategorySelected(String optionName) {
+		return categoriesToChoose.contains(optionName);
+	}
+
+	public boolean isSkillSelected(String optionName) {
+		return skillsToChoose.contains(optionName);
 	}
 
 	public String getSelectionableDescription() {

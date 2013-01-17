@@ -47,7 +47,7 @@ public class Historial {
 
 	public void setPoint(Skill skill, boolean value) {
 		if (value) {
-			if (!skills.contains(skill.getName())) {
+			if (!isHistorialPointSelected(skill)) {
 				skills.add(skill.getName());
 			}
 		} else {
@@ -57,12 +57,20 @@ public class Historial {
 
 	public void setPoint(Category category, boolean value) {
 		if (value) {
-			if (!categories.contains(category.getName())) {
+			if (!isHistorialPointSelected(category)) {
 				categories.add(category.getName());
 			}
 		} else {
 			categories.remove(category.getName());
 		}
+	}
+
+	public boolean isHistorialPointSelected(Category category) {
+		return categories.contains(category.getName());
+	}
+
+	public boolean isHistorialPointSelected(Skill skill) {
+		return skills.contains(skill.getName());
 	}
 
 	public Integer getBonus(Skill skill) {

@@ -49,6 +49,7 @@ public class HistoryCategoryLine extends GenericCategoryLine {
 	private void addHistoryCheckBox() {
 		JPanel panel = new JPanel();
 		historyCheckBox = new BaseCheckBox("");
+		historyCheckBox.setSelected(character.isHistoryPointSelected(category));
 		panel.add(historyCheckBox);
 		historyCheckBox.addItemListener(new CheckBoxListener());
 		addColumn(panel, 0);

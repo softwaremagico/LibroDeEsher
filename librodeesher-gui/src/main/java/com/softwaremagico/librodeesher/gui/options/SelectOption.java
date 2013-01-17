@@ -28,6 +28,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -47,12 +48,15 @@ public class SelectOption extends BasePanel {
 	private List<String> options;
 	private PointsCounterTextField optionsCount;
 	private Integer numberOfOptions;
+	private List<String> selectedOptions;
 
-	SelectOption(CharacterPlayer character, BaseFrame parent, List<String> options, Integer numberOfOptions) {
+	public SelectOption(CharacterPlayer character, BaseFrame parent, List<String> options, Integer numberOfOptions) {
 		this.parent = parent;
 		this.character = character;
 		this.options = options;
 		this.numberOfOptions = numberOfOptions;
+		optionsCount = new PointsCounterTextField();
+		selectedOptions = new ArrayList<>();
 		setElements();
 	}
 
@@ -104,8 +108,12 @@ public class SelectOption extends BasePanel {
 
 	@Override
 	public void update() {
-		List<String> selectedOptions = optionsPanel.getSelectedOptions();
+		selectedOptions = optionsPanel.getSelectedOptions();
 		setOptionsText(selectedOptions);
 		parent.update();
+	}
+
+	public List<String> getSelectedOptions() {
+		return selectedOptions;
 	}
 }
