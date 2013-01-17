@@ -36,6 +36,7 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
+import com.softwaremagico.librodeesher.pj.characteristic.Appearance;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.culture.Culture;
@@ -91,6 +92,7 @@ public class CharacterPlayer {
 	private Historial historial;
 	private List<Perk> perks;
 	private Hashtable<Perk, PerkDecision> perkDecisions;
+	private Appearance appearance;
 
 	private boolean darkSpellsAsBasicListsAllowed = false;
 	private boolean firearmsAllowed = false;
@@ -101,6 +103,7 @@ public class CharacterPlayer {
 
 	public CharacterPlayer() {
 		characteristics = new Characteristics();
+		appearance = new Appearance();
 		levelUps = new ArrayList<>();
 		levelUps.add(new LevelUp());
 		historial = new Historial();
@@ -117,6 +120,11 @@ public class CharacterPlayer {
 		trainings = new ArrayList<>();
 		perks = new ArrayList<>();
 		setDefaultConfig();
+	}
+
+	public Integer getAppearance() {
+		return appearance.getTotal(getCharacteristicPotentialValues("Pr")) + getRace().getApperanceBonus()
+				+ getPerkApperanceBonus();
 	}
 
 	/**
@@ -163,7 +171,7 @@ public class CharacterPlayer {
 	}
 
 	public Integer getCharacteristicSpecialBonus(String abbreviature) {
-		return 0;
+		return getPerkCharacteristicBonus(abbreviature);
 	}
 
 	public Integer getCharacteristicTemporalBonus(String abbreviature) {
@@ -537,7 +545,52 @@ public class CharacterPlayer {
 	}
 
 	public Integer getBonus(Skill skill) {
-		return getProfession().getSkillBonus(skill.getName()) + historial.getBonus(skill);
+		return getProfession().getSkillBonus(skill.getName()) + historial.getBonus(skill)
+				+ getPerkBonus(skill);
+	}
+
+	public Integer getPerkApperanceBonus() {
+		Integer total = 0;
+		for (Perk perk : perks) {
+			total += perk.getAppareanceBonus();
+		}
+		return total;
+	}
+
+	public Integer getPerkCharacteristicBonus(String characteristic) {
+		Integer total = 0;
+		for (Perk perk : perks) {
+			total += perk.getCharacteristicBonus(characteristic);
+		}
+		return total;
+	}
+
+	public Integer getPerkBonus(Skill skill) {
+		Integer total = 0;
+		for (Perk perk : perks) {
+			total += perk.getBonus(skill);
+			PerkDecision decision = perkDecisions.get(perk);
+			if (decision != null) {
+				if (decision.isChose(skill)) {
+					total += perk.getChooseBonus();
+				}
+			}
+		}
+		return total;
+	}
+
+	public Integer getPerkBonus(Category category) {
+		Integer total = 0;
+		for (Perk perk : perks) {
+			total += perk.getBonus(category);
+			PerkDecision decision = perkDecisions.get(perk);
+			if (decision != null) {
+				if (decision.isChose(category)) {
+					total += perk.getChooseBonus();
+				}
+			}
+		}
+		return total;
 	}
 
 	public Integer getTotalValue(Category category) {
@@ -813,10 +866,10 @@ public class CharacterPlayer {
 				perkDecision = new PerkDecision();
 			}
 			if (perk.isCategorySelected(choosedOptions.get(0))) {
-				perkDecision.addCategoriesChoosen(choosedOptions);
+				perkDecision.addCategoriesChose(choosedOptions);
 			}
 			if (perk.isSkillSelected(choosedOptions.get(0))) {
-				perkDecision.addSkillsChoosen(choosedOptions);
+				perkDecision.addSkillsChose(choosedOptions);
 			}
 			perkDecisions.put(perk, perkDecision);
 		}

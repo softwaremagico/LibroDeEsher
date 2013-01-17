@@ -27,7 +27,6 @@ import com.softwaremagico.librodeesher.basics.Dice;
 
 
 public class Appearance {
-    private int raceBonus;
     private int dicesResult;
     
     public Appearance(){
@@ -35,6 +34,6 @@ public class Appearance {
     }
     
     public int getTotal(int presencePotentialValue){
-        return presencePotentialValue - 25 + dicesResult + raceBonus;
+        return presencePotentialValue - 25 + dicesResult;
     }
 }

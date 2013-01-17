@@ -487,4 +487,8 @@ public class Race {
 		return perksPoints;
 	}
 
+	public int getApperanceBonus() {
+		return apperanceBonus;
+	}
+
 }

@@ -28,24 +28,24 @@ Bonificación a Intuición (Menor)	10	Todos	Menor	In (3)	Otorga un +3 a Intuici�
 Bonificación a Presencia (Menor)	10	Todos	Menor	Pr (3)	Otorga un +3 a Presencia. Consulta la página 69 del libro de personajes para más información.	
 Bonificación a Rapidez (Menor)	10	Todos	Menor	Rp (3)	Otorga un +3 a Rapidez. Consulta la página 69 del libro de personajes para más información.	
 Bonificación a Fuerza (Menor)	10	Todos	Menor	Fu (3)	Otorga un +3 a Fuerza. Consulta la página 69 del libro de personajes para más información.	
-Bonificación a Agilidad (Mayor)	10	Todos	Mayor	Ag (5)	Otorga un +5 a Empatía. Consulta la página 69 del libro de personajes para más información.	
-Bonificación a Constitución (Mayor)	10	Todos	Mayor	Co (5)	Otorga un +5 a Constitución. Consulta la página 69 del libro de personajes para más información.	
-Bonificación a Memoria (Mayor)	10	Todos	Mayor	Me (5)	Otorga un +5 a Memoria. Consulta la página 69 del libro de personajes para más información.	
-Bonificación a Razón (Mayor)	10	Todos	Mayor	Ra (5)	Otorga un +5 a Razón. Consulta la página 69 del libro de personajes para más información.	
-Bonificación a Autodisciplina (Mayor)	10	Todos	Mayor	Ad (5)	Otorga un +5 a Autodisciplina. Consulta la página 69 del libro de personajes para más información.	
-Bonificación a Intuición (Mayor)	10	Todos	Mayor	In (5)	Otorga un +5 a Intuición. Consulta la página 69 del libro de personajes para más información.	
-Bonificación a Presencia (Mayor)	10	Todos	Mayor	Pr (5)	Otorga un +5 a Presencia. Consulta la página 69 del libro de personajes para más información.	
-Bonificación a Rapidez (Mayor)	10	Todos	Mayor	Rp (5)	Otorga un +5 a Rapidez. Consulta la página 69 del libro de personajes para más información.	
-Bonificación a Fuerza (Mayor)	10	Todos	Mayor	Fu (5)	Otorga un +5 a Fuerza. Consulta la página 69 del libro de personajes para más información.	
-Bonificación a Agilidad (Máximo)	10	Todos	Máximo	Ag (8)	Otorga un +8 a Empatía. Consulta la página 69 del libro de personajes para más información.	
-Bonificación a Constitución (Máximo)	10	Todos	Máximo	Co (8)	Otorga un +8 a Constitución. Consulta la página 69 del libro de personajes para más información.	
-Bonificación a Memoria (Máximo)	10	Todos	Máximo	Me (8)	Otorga un +8 a Memoria. Consulta la página 69 del libro de personajes para más información.	
-Bonificación a Razón (Máximo)	10	Todos	Máximo	Ra (8)	Otorga un +8 a Razón. Consulta la página 69 del libro de personajes para más información.	
-Bonificación a Autodisciplina (Máximo)	10	Todos	Máximo	Ad (8)	Otorga un +8 a Autodisciplina. Consulta la página 69 del libro de personajes para más información.	
-Bonificación a Intuición (Máximo)	10	Todos	Máximo	In (8)	Otorga un +8 a Intuición. Consulta la página 69 del libro de personajes para más información.	
-Bonificación a Presencia (Máximo)	10	Todos	Máximo	Pr (8)	Otorga un +8 a Presencia. Consulta la página 69 del libro de personajes para más información.	
-Bonificación a Rapidez (Máximo)	10	Todos	Máximo	Rp (8)	Otorga un +8 a Rapidez. Consulta la página 69 del libro de personajes para más información.	
-Bonificación a Fuerza (Máximo)	10	Todos	Máximo	Fu (8)	Otorga un +8 a Fuerza. Consulta la página 69 del libro de personajes para más información.	
+Bonificación a Agilidad (Mayor)	20	Todos	Mayor	Ag (5)	Otorga un +5 a Empatía. Consulta la página 69 del libro de personajes para más información.	
+Bonificación a Constitución (Mayor)	20	Todos	Mayor	Co (5)	Otorga un +5 a Constitución. Consulta la página 69 del libro de personajes para más información.	
+Bonificación a Memoria (Mayor)	20	Todos	Mayor	Me (5)	Otorga un +5 a Memoria. Consulta la página 69 del libro de personajes para más información.	
+Bonificación a Razón (Mayor)	20	Todos	Mayor	Ra (5)	Otorga un +5 a Razón. Consulta la página 69 del libro de personajes para más información.	
+Bonificación a Autodisciplina (Mayor)	20	Todos	Mayor	Ad (5)	Otorga un +5 a Autodisciplina. Consulta la página 69 del libro de personajes para más información.	
+Bonificación a Intuición (Mayor)	20	Todos	Mayor	In (5)	Otorga un +5 a Intuición. Consulta la página 69 del libro de personajes para más información.	
+Bonificación a Presencia (Mayor)	20	Todos	Mayor	Pr (5)	Otorga un +5 a Presencia. Consulta la página 69 del libro de personajes para más información.	
+Bonificación a Rapidez (Mayor)	20	Todos	Mayor	Rp (5)	Otorga un +5 a Rapidez. Consulta la página 69 del libro de personajes para más información.	
+Bonificación a Fuerza (Mayor)	20	Todos	Mayor	Fu (5)	Otorga un +5 a Fuerza. Consulta la página 69 del libro de personajes para más información.	
+Bonificación a Agilidad (Máximo)	30	Todos	Máximo	Ag (8)	Otorga un +8 a Empatía. Consulta la página 69 del libro de personajes para más información.	
+Bonificación a Constitución (Máximo)	30	Todos	Máximo	Co (8)	Otorga un +8 a Constitución. Consulta la página 69 del libro de personajes para más información.	
+Bonificación a Memoria (Máximo)	30	Todos	Máximo	Me (8)	Otorga un +8 a Memoria. Consulta la página 69 del libro de personajes para más información.	
+Bonificación a Razón (Máximo)	30	Todos	Máximo	Ra (8)	Otorga un +8 a Razón. Consulta la página 69 del libro de personajes para más información.	
+Bonificación a Autodisciplina (Máximo)	30	Todos	Máximo	Ad (8)	Otorga un +8 a Autodisciplina. Consulta la página 69 del libro de personajes para más información.	
+Bonificación a Intuición (Máximo)	30	Todos	Máximo	In (8)	Otorga un +8 a Intuición. Consulta la página 69 del libro de personajes para más información.	
+Bonificación a Presencia (Máximo)	30	Todos	Máximo	Pr (8)	Otorga un +8 a Presencia. Consulta la página 69 del libro de personajes para más información.	
+Bonificación a Rapidez (Máximo)	30	Todos	Máximo	Rp (8)	Otorga un +8 a Rapidez. Consulta la página 69 del libro de personajes para más información.	
+Bonificación a Fuerza (Máximo)	30	Todos	Máximo	Fu (8)	Otorga un +8 a Fuerza. Consulta la página 69 del libro de personajes para más información.	
 Mirada Intensa	5	Todos	Mínimo	Embaucar (10*), Sobornar (10*), Interrogar (10*), Diplomacia (10*), Liderazgo (10*), Seducción (10*), Mendigar (10*), Comerciar (10*)	Siempre que los ojos sean visibles. Consulta la página 59 para más información.	
 Duplicación	30	Todos	Máximo	Ninguno	Genera una copia exacta de ti mismo.	Consulta la página 70 del libro de personajes para más información.
 Suerte (Menor)	10	Todos	Menor	Ninguno	Tiradas abiertas a 95-100. Consulta la página 70 del libro de personajes para más información.	

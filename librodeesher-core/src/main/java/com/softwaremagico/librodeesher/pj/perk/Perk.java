@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
+
 public class Perk {
 	private String name;
 	private Integer cost;
@@ -82,6 +86,22 @@ public class Perk {
 		} else {
 			skillBonus.put(skillName, bonus);
 		}
+	}
+
+	public Integer getBonus(Skill skill) {
+		Integer bonus = skillBonus.get(skill.getName());
+		if (bonus == null) {
+			return 0;
+		}
+		return bonus;
+	}
+
+	public Integer getBonus(Category category) {
+		Integer bonus = categoryBonus.get(category.getName());
+		if (bonus == null) {
+			return 0;
+		}
+		return bonus;
 	}
 
 	public void setSkillConditionalBonus(String skillName, Integer bonus) {
@@ -363,5 +383,17 @@ public class Perk {
 		}
 		longDescription += description;
 		return longDescription;
+	}
+
+	public Integer getAppareanceBonus() {
+		return appareanceBonus;
+	}
+
+	public Integer getCharacteristicBonus(String characteristic) {
+		Integer bonus = characteristicBonus.get(characteristic);
+		if (bonus != null) {
+			return bonus;
+		}
+		return 0;
 	}
 }

@@ -37,11 +37,9 @@ public class Characteristics {
 	public final static Integer MAX_INITIAL_CHARACTERISTIC_VALUE = 100;
 
 	private List<Characteristic> characteristics;
-	private Appearance appearance;
 
 	public Characteristics() {
-		createCharacteristics();
-		appearance = new Appearance();
+		createCharacteristics();	
 	}
 
 	private void createCharacteristics() {
