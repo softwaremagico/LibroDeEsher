@@ -17,9 +17,9 @@ public class Perk {
 	private PerkCategory category;
 	private Hashtable<String, Integer> categoryBonus;
 	private Hashtable<String, Integer> conditionalCategoryBonus;
+	private Hashtable<String, Integer> categoryRanks;
 	private Hashtable<String, Integer> skillBonus;
 	private Hashtable<String, Integer> skillRanks;
-	private Hashtable<String, Integer> categoryRanks;
 	private Hashtable<String, Integer> conditionalSkillBonus;
 	private Hashtable<String, Integer> resistanceBonus;
 	private Hashtable<String, Integer> characteristicBonus;
@@ -33,7 +33,7 @@ public class Perk {
 	private List<String> skillsToChoose;
 	private Integer appareanceBonus;
 	private Integer armourClass;
-	private Integer chooseBonus;
+	private Integer chosenBonus;
 	private Integer numberOfChooseOptions;
 
 	public Perk(String name, Integer cost, PerkCategory classification, String description,
@@ -102,6 +102,22 @@ public class Perk {
 			return 0;
 		}
 		return bonus;
+	}
+
+	public Integer getRanks(Category category) {
+		Integer ranks = categoryRanks.get(category.getName());
+		if (ranks == null) {
+			return 0;
+		}
+		return ranks;
+	}
+
+	public Integer getRanks(Skill skill) {
+		Integer ranks = skillRanks.get(skill.getName());
+		if (ranks == null) {
+			return 0;
+		}
+		return ranks;
 	}
 
 	public void setSkillConditionalBonus(String skillName, Integer bonus) {
@@ -270,12 +286,12 @@ public class Perk {
 		this.skillsToChoose = skillsToChoose;
 	}
 
-	public Integer getChooseBonus() {
-		return chooseBonus;
+	public Integer getChosenBonus() {
+		return chosenBonus;
 	}
 
-	public void setChooseBonus(Integer chooseBonus) {
-		this.chooseBonus = chooseBonus;
+	public void setChosenBonus(Integer choseBonus) {
+		this.chosenBonus = choseBonus;
 	}
 
 	/**
@@ -395,5 +411,13 @@ public class Perk {
 			return bonus;
 		}
 		return 0;
+	}
+
+	public boolean isCommon(Skill skill) {
+		return commonSkills.contains(skill.getName());
+	}
+	
+	public boolean isRestricted(Skill skill) {
+		return restrictedSkills.contains(skill.getName());
 	}
 }

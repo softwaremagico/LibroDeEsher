@@ -6,26 +6,26 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class PerkDecision {
-	private List<String> categoriesToChoose;
-	private List<String> skillsToChoose;
+	private List<String> categoriesBonusChosen;
+	private List<String> skillsBonusChosen;
 
 	public PerkDecision() {
 
 	}
 
-	public void addCategoriesChose(List<String> choosed) {
-		categoriesToChoose = choosed;
+	public void setCategoriesBonusChoosen(List<String> chose) {
+		categoriesBonusChosen = chose;
 	}
 
-	public void addSkillsChose(List<String> choosed) {
-		skillsToChoose = choosed;
+	public void setSkillsBonusChoosen(List<String> chose) {
+		skillsBonusChosen = chose;
 	}
 
-	public boolean isChose(Skill skill) {
-		return skillsToChoose.contains(skill.getName());
+	public boolean isBonusChosen(Skill skill) {
+		return skillsBonusChosen.contains(skill.getName());
 	}
 
-	public boolean isChose(Category category) {
-		return categoriesToChoose.contains(category.getName());
+	public boolean isBonusChosen(Category category) {
+		return categoriesBonusChosen.contains(category.getName());
 	}
 }

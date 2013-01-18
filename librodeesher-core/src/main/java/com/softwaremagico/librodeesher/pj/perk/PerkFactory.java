@@ -111,7 +111,7 @@ public class PerkFactory {
 		// Obtain the bonus
 		String bonus = set[1].substring(set[1].indexOf("\\(") + 1, set[1].indexOf(")")).replace("*", "")
 				.replace("r", "").trim();
-		perk.setChooseBonus(Integer.parseInt(bonus));
+		perk.setChosenBonus(Integer.parseInt(bonus));
 
 	}
 

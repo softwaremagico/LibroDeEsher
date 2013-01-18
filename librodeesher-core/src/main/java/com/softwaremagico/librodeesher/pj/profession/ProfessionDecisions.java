@@ -24,16 +24,23 @@ package com.softwaremagico.librodeesher.pj.profession;
  * #L%
  */
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class ProfessionDecisions {
 	private Hashtable<Category, CategoryCost> weaponsCost;
+	private List<String> commonSkillsChose;
+	private List<String> restrictedSkillsChose;
+	private List<String> professionalSkillsChose;
 
 	public ProfessionDecisions() {
 		weaponsCost = new Hashtable<>();
+		commonSkillsChose = new ArrayList<>();
 	}
 
 	public void setWeaponCost(Category category, CategoryCost cost) {
@@ -59,5 +66,17 @@ public class ProfessionDecisions {
 
 	public void resetWeaponCost(Category category) {
 		weaponsCost.remove(category);
+	}
+
+	public boolean isCommon(Skill skill) {
+		return commonSkillsChose.contains(skill.getName());
+	}
+
+	public boolean isRestricted(Skill skill) {
+		return restrictedSkillsChose.contains(skill.getName());
+	}
+
+	public boolean isProfessional(Skill skill) {
+		return professionalSkillsChose.contains(skill.getName());
 	}
 }

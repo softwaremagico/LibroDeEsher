@@ -104,4 +104,8 @@ public class Skill {
 	public String toString() {
 		return getName();
 	}
+
+	public SkillType getType() {
+		return type;
+	}
 }

@@ -89,7 +89,7 @@ public class PerkOptions extends BaseFrame {
 
 	@Override
 	public void update() {
-		character.setPerkDecision(perk, selectedOption.getSelectedOptions());
+		character.setPerkBonusDecision(perk, selectedOption.getSelectedOptions());
 	}
 
 	class IntelligentCloseButton extends CloseButton {

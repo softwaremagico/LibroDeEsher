@@ -490,5 +490,13 @@ public class Race {
 	public int getApperanceBonus() {
 		return apperanceBonus;
 	}
+	
+	public boolean isRestricted(Skill skill) {
+		return restrictedSkills.contains(skill);
+	}
+	
+	public boolean isCommon(Skill skill) {
+		return commonSkills.contains(skill);
+	}
 
 }

@@ -61,6 +61,7 @@ import com.softwaremagico.librodeesher.pj.resistance.Resistances;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.skills.SkillGroup;
+import com.softwaremagico.librodeesher.pj.skills.SkillType;
 import com.softwaremagico.librodeesher.pj.training.Training;
 
 public class CharacterPlayer {
@@ -502,6 +503,15 @@ public class CharacterPlayer {
 		Integer total = 0;
 		total += getCulture().getCultureRanks(category);
 		total += getPreviousLevelsRanks(category);
+		total += getPerksRanks(category);
+		return total;
+	}
+
+	private Integer getPerksRanks(Category category) {
+		Integer total = 0;
+		for (Perk perk : perks) {
+			total += perk.getRanks(category);
+		}
 		return total;
 	}
 
@@ -510,7 +520,16 @@ public class CharacterPlayer {
 		total += getCulture().getCultureRanks(skill);
 		total += getCultureDecisions().getWeaponRanks(skill.getName());
 		total += getCultureDecisions().getHobbyRanks(skill.getName());
+		total += getPerksRanks(skill);
 		total += getPreviousLevelsRanks(skill);
+		return total;
+	}
+
+	private Integer getPerksRanks(Skill skill) {
+		Integer total = 0;
+		for (Perk perk : perks) {
+			total += perk.getRanks(skill);
+		}
 		return total;
 	}
 
@@ -571,8 +590,8 @@ public class CharacterPlayer {
 			total += perk.getBonus(skill);
 			PerkDecision decision = perkDecisions.get(perk);
 			if (decision != null) {
-				if (decision.isChose(skill)) {
-					total += perk.getChooseBonus();
+				if (decision.isBonusChosen(skill)) {
+					total += perk.getChosenBonus();
 				}
 			}
 		}
@@ -585,8 +604,8 @@ public class CharacterPlayer {
 			total += perk.getBonus(category);
 			PerkDecision decision = perkDecisions.get(perk);
 			if (decision != null) {
-				if (decision.isChose(category)) {
-					total += perk.getChooseBonus();
+				if (decision.isBonusChosen(category)) {
+					total += perk.getChosenBonus();
 				}
 			}
 		}
@@ -859,19 +878,59 @@ public class CharacterPlayer {
 		return getRace().getPerksPoints() - getSpentPerksPoints();
 	}
 
-	public void setPerkDecision(Perk perk, List<String> choosedOptions) {
-		if (choosedOptions != null && choosedOptions.size() > 0) {
+	public void setPerkBonusDecision(Perk perk, List<String> chosenOptions) {
+		if (chosenOptions != null && chosenOptions.size() > 0) {
 			PerkDecision perkDecision = perkDecisions.get(perk);
 			if (perkDecision == null) {
 				perkDecision = new PerkDecision();
 			}
-			if (perk.isCategorySelected(choosedOptions.get(0))) {
-				perkDecision.addCategoriesChose(choosedOptions);
+			//Is the list a category list?
+			if (perk.isCategorySelected(chosenOptions.get(0))) {
+				perkDecision.setCategoriesBonusChoosen(chosenOptions);
 			}
-			if (perk.isSkillSelected(choosedOptions.get(0))) {
-				perkDecision.addSkillsChose(choosedOptions);
+			//Is the list a skill list?
+			if (perk.isSkillSelected(chosenOptions.get(0))) {
+				perkDecision.setSkillsBonusChoosen(chosenOptions);
 			}
 			perkDecisions.put(perk, perkDecision);
 		}
+	}
+
+	public boolean isProfessional(Skill skill) {
+		return professionDecisions.isProfessional(skill);
+	}
+
+	public boolean isRestricted(Skill skill) {
+		return skill.getType().equals(SkillType.RESTRICTED) | isRestrictedByPerk(skill)
+				| professionDecisions.isRestricted(skill) | getRace().isRestricted(skill);
+	}
+
+	public boolean isCommon(Skill skill) {
+		return skill.getType().equals(SkillType.COMMON) | isCommonByPerk(skill)
+				| professionDecisions.isCommon(skill) | getRace().isCommon(skill);
+	}
+
+	private boolean isCommonByPerk(Skill skill) {
+		for (Perk perk : perks) {
+			if (perk.isCommon(skill)) {
+				return true;
+			}
+			PerkDecision decision = perkDecisions.get(perk);
+			if (decision != null) {
+				if (decision.isCommon(skill)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private boolean isRestrictedByPerk(Skill skill) {
+		for (Perk perk : perks) {
+			if (perk.isRestricted(skill)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
