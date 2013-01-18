@@ -81,6 +81,13 @@ public class PerkFactory {
 		return index;
 	}
 
+	private static ChooseType getOption(String bonusString) {
+		if (bonusString.toLowerCase().contains(Spanish.COMMON_TAG)) {
+			return ChooseType.COMMON;
+		}
+		return ChooseType.BONUS;
+	}
+
 	private static void addListToChooseBonus(Perk perk, String optionsLine) {
 		String[] set = optionsLine.split("\\(");
 
@@ -88,10 +95,17 @@ public class PerkFactory {
 		Integer options = Integer.parseInt(set[1].substring(set[1].indexOf("[") + 1, set[1].indexOf("]"))
 				.trim());
 
+		// Obtain the bonus
+		String bonusString = set[1].substring(set[1].indexOf("\\(") + 1, set[1].indexOf(")"))
+				.replace("*", "").replace("r", "").trim();
+
 		// Obtain the list to choose.
 		if (set[0].toLowerCase().contains(Spanish.ANY_CATEGORY)) {
 			perk.addCategoriesToChoose(new ChooseCategoryGroup(options, CategoryFactory.getCategories(),
-					ChooseType.BONUS));
+					getOption(bonusString)));
+		} else if (set[0].toLowerCase().contains(Spanish.ANY_WEAPON)) {
+			perk.addSkillsToChoose(new ChooseSkillGroup(options, SkillFactory.getWeaponSkills(),
+					getOption(bonusString)));
 		} else if (set[0].toLowerCase().contains(Spanish.ANY_SKILL)) {
 			perk.addSkillsToChoose(new ChooseSkillGroup(options, SkillFactory.getSkills(), ChooseType.BONUS));
 		} else { // Obtain the list
@@ -112,19 +126,17 @@ public class PerkFactory {
 			}
 			if (categoriesToChoose.size() > 0) {
 				perk.addCategoriesToChoose(new ChooseCategoryGroup(options, categoriesToChoose
-						.toArray(new String[categoriesToChoose.size()]), ChooseType.BONUS));
+						.toArray(new String[categoriesToChoose.size()]), getOption(bonusString)));
 			}
 			if (skillsToChoose.size() > 0) {
 				perk.addSkillsToChoose(new ChooseSkillGroup(options, skillsToChoose
-						.toArray(new String[skillsToChoose.size()]), ChooseType.BONUS));
+						.toArray(new String[skillsToChoose.size()]), getOption(bonusString)));
 			}
 		}
 
-		// Obtain the bonus
-		String bonus = set[1].substring(set[1].indexOf("\\(") + 1, set[1].indexOf(")")).replace("*", "")
-				.replace("r", "").trim();
-		perk.setChosenBonus(Integer.parseInt(bonus));
-
+		if (getOption(bonusString).equals(ChooseType.BONUS)) {
+			perk.setChosenBonus(Integer.parseInt(bonusString));
+		}
 	}
 
 	private static void addDefinedBonus(Perk perk, String optionsLine) {

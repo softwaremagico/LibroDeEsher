@@ -112,7 +112,7 @@ public class PerkOptions<T> extends BaseFrame {
 	private void checkSelection() {
 		if (selectedOption.getSelectedOptions().size() != chooseOptions.getNumberOfOptionsToChoose()) {
 			ShowMessage.showErrorMessage(
-					"Error. Debes seleccionar todas las opciones disponibles. El talento será eliminado.",
+					"Debes seleccionar todas las opciones disponibles. El talento será eliminado.",
 					"Talentos");
 			parent.removePerk();
 		}

@@ -31,6 +31,7 @@ import java.util.List;
 
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 
 public class SkillFactory {
 
@@ -135,6 +136,16 @@ public class SkillFactory {
 		return skills;
 	}
 
+	public static List<Skill> getWeaponSkills() {
+		List<Skill> skills = new ArrayList<>();
+		List<Category> weaponCategories = CategoryFactory.getWeaponsCategories();
+		for (Category weapon : weaponCategories) {
+			skills.addAll(getSkills(weapon));
+		}
+		Collections.sort(skills, new SkillComparator());
+		return skills;
+	}
+
 	public static List<Skill> getSkills(Category category) {
 		List<Skill> skills = new ArrayList<>();
 		for (Skill skill : availableSkills.values()) {
@@ -142,6 +153,7 @@ public class SkillFactory {
 				skills.add(skill);
 			}
 		}
+		Collections.sort(skills, new SkillComparator());
 		return skills;
 	}
 }

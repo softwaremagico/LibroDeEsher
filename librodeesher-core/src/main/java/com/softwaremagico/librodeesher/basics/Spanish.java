@@ -50,4 +50,5 @@ public class Spanish {
 	public static final String RESISTANCE_TAG = "TR ";
 	public static final String ANY_SKILL = "cualquier habilidad";
 	public static final String ANY_CATEGORY = "cualquier categoría";
+	public static final String ANY_WEAPON = "cualquier arma";
 }

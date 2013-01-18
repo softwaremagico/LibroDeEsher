@@ -66,6 +66,7 @@ public class Perk {
 		commonSkillsToChoose = new ArrayList<>();
 		appareanceBonus = 0;
 		armourClass = 1;
+		chosenBonus = 0;
 	}
 
 	public void setCategoryBonus(String categoryName, Integer bonus) {
@@ -284,7 +285,11 @@ public class Perk {
 	}
 
 	public void addSkillsToChoose(ChooseSkillGroup skillToChoose) {
-		this.skillsToChoose.add(skillToChoose);
+		if (skillToChoose.getChooseType().equals(ChooseType.COMMON)) {
+			this.commonSkillsToChoose.add(skillToChoose);
+		} else {
+			this.skillsToChoose.add(skillToChoose);
+		}
 	}
 
 	public Integer getChosenBonus() {
