@@ -91,4 +91,9 @@ public class BaseScrollPanel extends BasePanel {
 		scrollPanel.setViewportView(component);
 	}
 
+	@Override
+	public void update() {
+		
+	}
+
 }

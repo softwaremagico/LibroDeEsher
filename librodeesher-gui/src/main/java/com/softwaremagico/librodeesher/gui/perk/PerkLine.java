@@ -39,7 +39,11 @@ import com.softwaremagico.librodeesher.gui.elements.ListLabel;
 import com.softwaremagico.librodeesher.gui.style.BaseLine;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.categories.ChooseCategoryGroup;
 import com.softwaremagico.librodeesher.pj.perk.Perk;
+import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class PerkLine extends BaseLine {
 	private final static Integer DEFAULT_COLUMN_WIDTH = 50;
@@ -75,7 +79,7 @@ public class PerkLine extends BaseLine {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
 		JPanel panel = new JPanel();
-		updating=true;
+		updating = true;
 		perkCheckBox = new BaseCheckBox("");
 		perkCheckBox.setSelected(character.isPerkChoosed(perk));
 		panel.add(perkCheckBox);
@@ -83,7 +87,7 @@ public class PerkLine extends BaseLine {
 		perkCheckBox.setBackground(background);
 		perkCheckBox.addItemListener(new CheckBoxListener());
 		add(panel, gridBagConstraints);
-		updating=false;
+		updating = false;
 
 		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridwidth = 1;
@@ -137,9 +141,18 @@ public class PerkLine extends BaseLine {
 	}
 
 	private void createSelectOptionsWindow() {
-		if (perk.isSelectionableOptions()) {
-			PerkOptions optionsWindow = new PerkOptions(character, perk, this);
-			optionsWindow.setVisible(true);
+		if (perk.getCategoriesToChoose().size() > 0) {
+			for (ChooseCategoryGroup options : perk.getCategoriesToChoose()) {
+				PerkOptions<Category> optionsWindow = new PerkOptions<Category>(character, perk, options, this);
+				optionsWindow.setVisible(true);
+			}
+		}
+
+		if (perk.getSkillsToChoose().size() > 0) {
+			for (ChooseSkillGroup options : perk.getSkillsToChoose()) {
+				PerkOptions<Skill> optionsWindow = new PerkOptions<Skill>(character, perk, options, this);
+				optionsWindow.setVisible(true);
+			}
 		}
 	}
 
@@ -147,8 +160,8 @@ public class PerkLine extends BaseLine {
 	public void update() {
 		parent.update();
 	}
-	
-	protected void removePerk(){
+
+	protected void removePerk() {
 		perkCheckBox.setSelected(false);
 	}
 

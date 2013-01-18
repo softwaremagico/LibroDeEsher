@@ -1,7 +1,8 @@
-package com.softwaremagico.librodeesher.gui.elements;
+package com.softwaremagico.librodeesher.pj.skills;
+
 /*
  * #%L
- * Libro de Esher GUI
+ * Libro de Esher
  * %%
  * Copyright (C) 2007 - 2013 Softwaremagico
  * %%
@@ -23,10 +24,11 @@ package com.softwaremagico.librodeesher.gui.elements;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.gui.style.BasePanel;
+import java.util.Comparator;
 
-public class CategoriesPanel extends BasePanel {
-
-	private static final long serialVersionUID = -5217423154402630472L;
-
+public class SkillComparator implements Comparator<Skill> {
+    @Override
+    public int compare(Skill o1, Skill o2) {
+        return o1.getName().compareTo(o2.getName());
+    }
 }

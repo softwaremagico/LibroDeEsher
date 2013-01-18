@@ -9,10 +9,14 @@ import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.basics.Spanish;
+import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
+import com.softwaremagico.librodeesher.pj.categories.ChooseCategoryGroup;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
+import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
 public class PerkFactory {
@@ -80,11 +84,16 @@ public class PerkFactory {
 
 	private static void addListToChooseBonus(Perk perk, String optionsLine) {
 		String[] set = optionsLine.split("\\(");
+
+		// Obtain the number of options
+		Integer options = Integer.parseInt(set[1].substring(set[1].indexOf("[") + 1, set[1].indexOf("]"))
+				.trim());
+
 		// Obtain the list to choose.
 		if (set[0].toLowerCase().contains(Spanish.ANY_CATEGORY)) {
-			perk.setCategoriesToChoose(CategoryFactory.getAvailableCategories());
+			perk.addCategoriesToChoose(new ChooseCategoryGroup(options, CategoryFactory.getCategories()));
 		} else if (set[0].toLowerCase().contains(Spanish.ANY_SKILL)) {
-			perk.setSkillsToChoose(SkillFactory.getAvailableSkills());
+			perk.addSkillsToChoose(new ChooseSkillGroup(options, SkillFactory.getSkills()));
 		} else { // Obtain the list
 			String purgedLine = set[0].replace("{", "").replace("}", "").replace("|", ",").replace(";", ",");
 			String[] optionsToChoose = purgedLine.split(",");
@@ -101,13 +110,16 @@ public class PerkFactory {
 							+ " en talento " + perk.getName(), "Lectura de Talentos");
 				}
 			}
-			perk.setCategoriesToChoose(categoriesToChoose);
-			perk.setSkillsToChoose(skillsToChoose);
+			if (categoriesToChoose.size() > 0) {
+				perk.addCategoriesToChoose(new ChooseCategoryGroup(options, categoriesToChoose
+						.toArray(new String[categoriesToChoose.size()])));
+			}
+			if (skillsToChoose.size() > 0) {
+				perk.addSkillsToChoose(new ChooseSkillGroup(options, skillsToChoose
+						.toArray(new String[skillsToChoose.size()])));
+			}
 		}
 
-		// Obtain the number of options
-		String options = set[1].substring(set[1].indexOf("[") + 1, set[1].indexOf("]")).trim();
-		perk.setChooseOptions(Integer.parseInt(options));
 		// Obtain the bonus
 		String bonus = set[1].substring(set[1].indexOf("\\(") + 1, set[1].indexOf(")")).replace("*", "")
 				.replace("r", "").trim();

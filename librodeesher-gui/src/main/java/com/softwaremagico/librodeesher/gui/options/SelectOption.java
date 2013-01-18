@@ -35,26 +35,25 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.softwaremagico.librodeesher.basics.ChooseGroup;
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
-public class SelectOption extends BasePanel {
+public class SelectOption<T> extends BasePanel {
 	CharacterPlayer character;
 	private OptionsPanel optionsPanel;
 	private BaseFrame parent;
-	private List<String> options;
+	private ChooseGroup<T> options;
 	private PointsCounterTextField optionsCount;
-	private Integer numberOfOptions;
 	private List<String> selectedOptions;
 
-	public SelectOption(CharacterPlayer character, BaseFrame parent, List<String> options, Integer numberOfOptions) {
+	public SelectOption(CharacterPlayer character, BaseFrame parent, ChooseGroup<T> options) {
 		this.parent = parent;
 		this.character = character;
 		this.options = options;
-		this.numberOfOptions = numberOfOptions;
 		optionsCount = new PointsCounterTextField();
 		selectedOptions = new ArrayList<>();
 		setElements();
@@ -94,16 +93,16 @@ public class SelectOption extends BasePanel {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		optionsPanel = new OptionsPanel(this, options, numberOfOptions);
+		optionsPanel = new OptionsPanel(this, options.getOptionsAsString(), options.getNumberOfOptionsToChoose());
 		add(optionsPanel, gridBagConstraints);
 	}
 
 	private void setOptionsText(List<String> selectedOptions) {
-		optionsCount.setPoints(numberOfOptions - selectedOptions.size());
+		optionsCount.setPoints(options.getNumberOfOptionsToChoose() - selectedOptions.size());
 	}
 
 	private void setOptionsText() {
-		optionsCount.setPoints(numberOfOptions);
+		optionsCount.setPoints(options.getNumberOfOptionsToChoose());
 	}
 
 	@Override

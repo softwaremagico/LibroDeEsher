@@ -112,4 +112,10 @@ public class SkillFactory {
 		return skillName.replace("*", "").replace("(R)", "").replace("(r)", "").replace("(C)", "")
 				.replace("(c)", "").replace("(P)", "").replace("(p)", "");
 	}
+	
+	public static List<Skill> getSkills() {
+		List<Skill> skills = new ArrayList<>(availableSkills.values());
+		Collections.sort(skills, new SkillComparator());
+		return skills;
+	}
 }

@@ -32,6 +32,7 @@ import java.awt.Insets;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.softwaremagico.librodeesher.basics.ChooseGroup;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.options.SelectOption;
@@ -39,16 +40,18 @@ import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.perk.Perk;
 
-public class PerkOptions extends BaseFrame {
+public class PerkOptions<T> extends BaseFrame {
 	private CharacterPlayer character;
 	private Perk perk;
-	private SelectOption selectedOption;
+	private SelectOption<T> selectedOption;
 	private PerkLine parent;
+	private ChooseGroup<T> chooseOptions;
 
-	public PerkOptions(CharacterPlayer character, Perk perk, PerkLine parent) {
+	public PerkOptions(CharacterPlayer character, Perk perk, ChooseGroup<T> chooseOptions, PerkLine parent) {
 		this.character = character;
 		this.perk = perk;
 		this.parent = parent;
+		this.chooseOptions = chooseOptions;
 		defineWindow(500, 400);
 		setResizable(false);
 		setElements();
@@ -67,8 +70,7 @@ public class PerkOptions extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		selectedOption = new SelectOption(character, (BaseFrame) this, perk.getOptionsToChoose(),
-				perk.getNumberOfChooseOptions());
+		selectedOption = new SelectOption<T>(character, (BaseFrame) this, chooseOptions);
 		getContentPane().add(selectedOption, gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
@@ -99,7 +101,7 @@ public class PerkOptions extends BaseFrame {
 		}
 
 		protected void closeAction() {
-			if (selectedOption.getSelectedOptions().size() != perk.getNumberOfChooseOptions()) {
+			if (selectedOption.getSelectedOptions().size() != chooseOptions.getNumberOfOptionsToChoose()) {
 				ShowMessage
 						.showErrorMessage(
 								"Error. Debes seleccionar todas las opciones disponibles. El talento será eliminado.",

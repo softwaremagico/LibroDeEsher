@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.culture;
+
 /*
  * #%L
  * Libro de Esher
@@ -74,6 +75,10 @@ public abstract class CultureLine extends BaseLine {
 
 	protected Integer getSelectedRanks() {
 		return (Integer) rankSpinner.getValue();
+	}
+
+	public void update() {
+
 	}
 
 }

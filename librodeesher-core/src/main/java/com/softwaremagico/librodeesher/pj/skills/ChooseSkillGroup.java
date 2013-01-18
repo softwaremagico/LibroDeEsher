@@ -24,43 +24,40 @@ package com.softwaremagico.librodeesher.pj.skills;
  */
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import com.softwaremagico.librodeesher.basics.ChooseGroup;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 
-public class ChooseSkillGroup {
-	int chooseNumber;
-	List<Skill> skillGroup;
-
-	public ChooseSkillGroup(int chooseNumber, List<Skill> skillGroup) {
-		this.chooseNumber = chooseNumber;
-		this.skillGroup = skillGroup;
-	}
-
+public class ChooseSkillGroup extends ChooseGroup<Skill> {
+	
 	public ChooseSkillGroup(int chooseNumber, Skill skill) {
-		this.chooseNumber = chooseNumber;
-		List<Skill> skillGroup = new ArrayList<>();
-		skillGroup.add(skill);
-		this.skillGroup = skillGroup;
+		super(chooseNumber, skill);
 	}
-
-	public ChooseSkillGroup(int chooseNumber, Skill[] skillGroup) {
-		this.chooseNumber = chooseNumber;
-		this.skillGroup = Arrays.asList(skillGroup);
+	
+	public ChooseSkillGroup(int chooseNumber, List<Skill> skillGroup) {
+		super(chooseNumber, skillGroup);
 	}
-
+	
 	public ChooseSkillGroup(int chooseNumber, String[] skillGroup) {
-		this.chooseNumber = chooseNumber;
-		this.skillGroup = new ArrayList<>();
+		this.numberOfOptionsToChoose = chooseNumber;
 		for (String skillName : skillGroup) {
 			Skill skill = SkillFactory.getAvailableSkill(skillName);
 			if (skill != null) {
-				this.skillGroup.add(skill);
+				this.optionsGroup.add(skill);
 			} else {
 				ShowMessage.showErrorMessage("Error leyendo un conjunto de categorias. Fallo en: "
 						+ skillName, "Leer Profesión");
 			}
 		}
+	}
+
+	@Override
+	public List<String> getOptionsAsString() {
+		List<String> nameList = new ArrayList<>();
+		for(Skill skill : optionsGroup){
+			nameList.add(skill.getName());
+		}
+		return nameList;
 	}
 }

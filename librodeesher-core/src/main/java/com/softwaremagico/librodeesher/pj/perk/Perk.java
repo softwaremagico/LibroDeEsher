@@ -5,7 +5,8 @@ import java.util.Hashtable;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.pj.categories.Category;
-import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
+import com.softwaremagico.librodeesher.pj.categories.ChooseCategoryGroup;
+import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class Perk {
@@ -29,12 +30,11 @@ public class Perk {
 	private List<String> commonCategories;
 	private List<String> restrictedSkills;
 	private List<String> restrictedCategories;
-	private List<String> categoriesToChoose;
-	private List<String> skillsToChoose;
+	private List<ChooseCategoryGroup> categoriesToChoose;
+	private List<ChooseSkillGroup> skillsToChoose;
 	private Integer appareanceBonus;
 	private Integer armourClass;
 	private Integer chosenBonus;
-	private Integer numberOfChooseOptions;
 
 	public Perk(String name, Integer cost, PerkCategory classification, String description,
 			List<String> avalibleToRaces, List<String> avalibleToProfessions) {
@@ -270,20 +270,20 @@ public class Perk {
 		return false;
 	}
 
-	public List<String> getCategoriesToChoose() {
+	public List<ChooseCategoryGroup> getCategoriesToChoose() {
 		return categoriesToChoose;
 	}
 
-	public void setCategoriesToChoose(List<String> categoriesToChoose) {
-		this.categoriesToChoose = categoriesToChoose;
+	public void addCategoriesToChoose(ChooseCategoryGroup categoryToChoose) {
+		this.categoriesToChoose.add(categoryToChoose);
 	}
 
-	public List<String> getSkillsToChoose() {
+	public List<ChooseSkillGroup> getSkillsToChoose() {
 		return skillsToChoose;
 	}
 
-	public void setSkillsToChoose(List<String> skillsToChoose) {
-		this.skillsToChoose = skillsToChoose;
+	public void addSkillsToChoose(ChooseSkillGroup skillToChoose) {
+		this.skillsToChoose.add(skillToChoose);
 	}
 
 	public Integer getChosenBonus() {
@@ -294,21 +294,21 @@ public class Perk {
 		this.chosenBonus = choseBonus;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public Integer getNumberOfChooseOptions() {
-		if (numberOfChooseOptions >= 0) {
-			return numberOfChooseOptions;
-		} else {
-			return getOptionsToChoose().size() + numberOfChooseOptions;
-		}
-	}
-
-	public void setChooseOptions(Integer chooseOptions) {
-		this.numberOfChooseOptions = chooseOptions;
-	}
+	// /**
+	// *
+	// * @return
+	// */
+	// public Integer getNumberOfChooseOptions() {
+	// if (numberOfChooseOptions >= 0) {
+	// return numberOfChooseOptions;
+	// } else {
+	// return getOptionsToChoose().size() + numberOfChooseOptions;
+	// }
+	// }
+	//
+	// public void setChooseOptions(Integer chooseOptions) {
+	// this.numberOfChooseOptions = chooseOptions;
+	// }
 
 	public Integer getCost() {
 		return cost;
@@ -354,14 +354,14 @@ public class Perk {
 		return (categoriesToChoose.size() > 0 || skillsToChoose.size() > 0);
 	}
 
-	public List<String> getOptionsToChoose() {
-		if (categoriesToChoose.size() > 0) {
-			return categoriesToChoose;
-		} else if (skillsToChoose.size() > 0) {
-			return skillsToChoose;
-		}
-		return null;
-	}
+	// public List<String> getOptionsToChoose() {
+	// if (categoriesToChoose.size() > 0) {
+	// return categoriesToChoose;
+	// } else if (skillsToChoose.size() > 0) {
+	// return skillsToChoose;
+	// }
+	// return null;
+	// }
 
 	public boolean isCategorySelected(String optionName) {
 		return categoriesToChoose.contains(optionName);
@@ -373,18 +373,22 @@ public class Perk {
 
 	public String getSelectionableDescription() {
 		String options = "";
-		for (String category : categoriesToChoose) {
-			if (options.length() > 1) {
-				options += ", ";
+		for (ChooseCategoryGroup optionGroup : categoriesToChoose) {
+			for (String category : optionGroup.getOptionsAsString()) {
+				if (options.length() > 1) {
+					options += ", ";
+				}
+				options += category;
 			}
-			options += category;
 		}
 
-		for (String skill : skillsToChoose) {
-			if (options.length() > 1) {
-				options += ", ";
+		for (ChooseSkillGroup optionGroup : skillsToChoose) {
+			for (String skill : optionGroup.getOptionsAsString()) {
+				if (options.length() > 1) {
+					options += ", ";
+				}
+				options += skill;
 			}
-			options += skill;
 		}
 		return options;
 	}
@@ -416,7 +420,7 @@ public class Perk {
 	public boolean isCommon(Skill skill) {
 		return commonSkills.contains(skill.getName());
 	}
-	
+
 	public boolean isRestricted(Skill skill) {
 		return restrictedSkills.contains(skill.getName());
 	}

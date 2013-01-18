@@ -28,4 +28,14 @@ public class PerkDecision {
 	public boolean isBonusChosen(Category category) {
 		return categoriesBonusChosen.contains(category.getName());
 	}
+	
+	public boolean isCommon(Skill skill){
+		//TODO
+		return false;
+	}
+	
+	public boolean isCommon(Category category){
+		//TODO
+		return false;
+	}
 }

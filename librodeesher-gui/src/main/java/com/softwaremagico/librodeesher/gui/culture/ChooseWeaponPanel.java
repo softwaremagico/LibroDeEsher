@@ -80,4 +80,8 @@ public class ChooseWeaponPanel extends BasePanel {
 		}
 		return total;
 	}
+
+	@Override
+	public void update() {		
+	}
 }

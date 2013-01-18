@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.culture;
+
 /*
  * #%L
  * Libro de Esher
@@ -54,4 +55,8 @@ public abstract class CulturePanel extends BasePanel {
 	protected abstract void createElements();
 
 	protected abstract void setRankTitle(String rankLabelText);
+
+	public void update() {
+
+	}
 }
