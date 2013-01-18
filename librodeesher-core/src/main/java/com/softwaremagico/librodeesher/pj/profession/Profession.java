@@ -34,6 +34,7 @@ import java.util.regex.Pattern;
 
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
+import com.softwaremagico.librodeesher.basics.ChooseType;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
@@ -115,9 +116,10 @@ public class Profession {
 			lineIndex = setAvailableMagicRealms(lines, lineIndex);
 			lineIndex = setProfessionBonus(lines, lineIndex);
 			lineIndex = setCategoryCost(lines, lineIndex);
-			lineIndex = setSpecialSkills(lines, lineIndex, commonSkillsToChoose);
-			lineIndex = setSpecialSkills(lines, lineIndex, professionalSkillsToChoose);
-			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkillsToChoose);
+			lineIndex = setSpecialSkills(lines, lineIndex, commonSkillsToChoose, ChooseType.COMMON);
+			lineIndex = setSpecialSkills(lines, lineIndex, professionalSkillsToChoose,
+					ChooseType.PROFESSIONAL);
+			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkillsToChoose, ChooseType.RESTRICTED);
 			lineIndex = setMagicCost(lines, lineIndex);
 			lineIndex = setTrainingCosts(lines, lineIndex);
 		}
@@ -262,16 +264,6 @@ public class Profession {
 		}
 	}
 
-	/*
-	 * public String getCategoryCostTag(String categoryName) { try { String
-	 * cost; if (categoryName.contains("Armas·")) { // TODO seleccionar el grupo
-	 * de armas correspondiente. cost =
-	 * weaponCategoryCost.get("Armas·Categoría1").getCostTag(); } else { cost =
-	 * categoryCost.get(categoryName).getCostTag(); } if (cost != null) { return
-	 * cost; } else { return ""; } } catch (NullPointerException npe) { return
-	 * ""; } }
-	 */
-
 	public CategoryCost getCategoryCost(String categoryName) {
 		try {
 			CategoryCost cost = categoryCost.get(categoryName);
@@ -290,7 +282,8 @@ public class Profession {
 		}
 	}
 
-	private int setSpecialSkills(List<String> lines, int index, List<ChooseSkillGroup> groupSkillsToChoose) {
+	private int setSpecialSkills(List<String> lines, int index, List<ChooseSkillGroup> groupSkillsToChoose,
+			ChooseType chooseType) {
 		groupSkillsToChoose = new ArrayList<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -309,22 +302,22 @@ public class Profession {
 					Category cat = CategoryFactory.getCategory(categoryColumns[0]);
 					if (cat != null) {
 						ChooseSkillGroup chooseSkills = new ChooseSkillGroup(
-								Integer.parseInt(categoryColumns[1]), cat.getSkills());
+								Integer.parseInt(categoryColumns[1]), cat.getSkills(), chooseType);
 						groupSkillsToChoose.add(chooseSkills);
 					} else {
 						ShowMessage.showErrorMessage("Error leyendo una categoría en habilidad común: "
 								+ lines.get(index), "Leer Profesión");
 					}
 					// One skill of a set
-				} else if (skillColumns[i].startsWith("{")) { 
+				} else if (skillColumns[i].startsWith("{")) {
 					String skillGroup = skillColumns[i].replace("{", "").replace("}", "");
 					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1, skillGroup.replace(";", ",")
-							.split(", "));
+							.split(", "), chooseType);
 					groupSkillsToChoose.add(chooseSkills);
 				} else {
 					// One skill.
 					Skill skill = SkillFactory.getSkill(skillColumns[i]);
-					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1, skill);
+					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1, skill, chooseType);
 					groupSkillsToChoose.add(chooseSkills);
 				}
 			}

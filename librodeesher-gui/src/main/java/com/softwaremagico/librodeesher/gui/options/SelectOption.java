@@ -49,6 +49,7 @@ public class SelectOption<T> extends BasePanel {
 	private ChooseGroup<T> options;
 	private PointsCounterTextField optionsCount;
 	private List<String> selectedOptions;
+	private JLabel optionsLabel;
 
 	public SelectOption(CharacterPlayer character, BaseFrame parent, ChooseGroup<T> options) {
 		this.parent = parent;
@@ -57,6 +58,10 @@ public class SelectOption<T> extends BasePanel {
 		optionsCount = new PointsCounterTextField();
 		selectedOptions = new ArrayList<>();
 		setElements();
+	}
+
+	public void setPointCounterLabel(String text) {
+		optionsLabel.setText(text);
 	}
 
 	private void setElements() {
@@ -75,7 +80,7 @@ public class SelectOption<T> extends BasePanel {
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		JPanel countPanel = new JPanel();
 		countPanel.setLayout(new BoxLayout(countPanel, BoxLayout.X_AXIS));
-		JLabel optionsLabel = new BaseLabel("    Opciones:  ");
+		optionsLabel = new BaseLabel("    Opciones:  ");
 		countPanel.add(optionsLabel);
 		optionsCount.setColumns(3);
 		optionsCount.setEditable(false);
@@ -93,7 +98,8 @@ public class SelectOption<T> extends BasePanel {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		optionsPanel = new OptionsPanel(this, options.getOptionsAsString(), options.getNumberOfOptionsToChoose());
+		optionsPanel = new OptionsPanel(this, options.getOptionsAsString(),
+				options.getNumberOfOptionsToChoose());
 		add(optionsPanel, gridBagConstraints);
 	}
 

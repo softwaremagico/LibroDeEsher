@@ -8,6 +8,7 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 public class PerkDecision {
 	private List<String> categoriesBonusChosen;
 	private List<String> skillsBonusChosen;
+	private List<String> commonSkillsChosen;
 
 	public PerkDecision() {
 
@@ -28,14 +29,16 @@ public class PerkDecision {
 	public boolean isBonusChosen(Category category) {
 		return categoriesBonusChosen.contains(category.getName());
 	}
-	
-	public boolean isCommon(Skill skill){
-		//TODO
-		return false;
+
+	public boolean isCommon(Skill skill) {
+		return commonSkillsChosen.contains(skill.getName());
 	}
-	
-	public boolean isCommon(Category category){
-		//TODO
-		return false;
+
+	public List<String> getCommonSkillsChosen() {
+		return commonSkillsChosen;
+	}
+
+	public void setCommonSkillsChosen(List<String> commonSkillsChosen) {
+		this.commonSkillsChosen = commonSkillsChosen;
 	}
 }

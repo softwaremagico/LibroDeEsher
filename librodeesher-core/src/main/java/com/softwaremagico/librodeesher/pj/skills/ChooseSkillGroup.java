@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.skills;
+
 /*
  * #%L
  * Libro de Esher
@@ -27,19 +28,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.basics.ChooseGroup;
+import com.softwaremagico.librodeesher.basics.ChooseType;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 
 public class ChooseSkillGroup extends ChooseGroup<Skill> {
-	
-	public ChooseSkillGroup(int chooseNumber, Skill skill) {
-		super(chooseNumber, skill);
+
+	public ChooseSkillGroup(int chooseNumber, Skill skill, ChooseType chooseType) {
+		super(chooseNumber, skill, chooseType);
 	}
-	
-	public ChooseSkillGroup(int chooseNumber, List<Skill> skillGroup) {
-		super(chooseNumber, skillGroup);
+
+	public ChooseSkillGroup(int chooseNumber, List<Skill> skillGroup, ChooseType chooseType) {
+		super(chooseNumber, skillGroup, chooseType);
 	}
-	
-	public ChooseSkillGroup(int chooseNumber, String[] skillGroup) {
+
+	public ChooseSkillGroup(int chooseNumber, String[] skillGroup, ChooseType chooseType) {
+		super(chooseType);
 		this.numberOfOptionsToChoose = chooseNumber;
 		for (String skillName : skillGroup) {
 			Skill skill = SkillFactory.getAvailableSkill(skillName);
@@ -55,7 +58,7 @@ public class ChooseSkillGroup extends ChooseGroup<Skill> {
 	@Override
 	public List<String> getOptionsAsString() {
 		List<String> nameList = new ArrayList<>();
-		for(Skill skill : optionsGroup){
+		for (Skill skill : optionsGroup) {
 			nameList.add(skill.getName());
 		}
 		return nameList;

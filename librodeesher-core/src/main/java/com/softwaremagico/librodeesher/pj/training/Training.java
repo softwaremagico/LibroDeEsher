@@ -34,6 +34,7 @@ import java.util.regex.Pattern;
 
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
+import com.softwaremagico.librodeesher.basics.ChooseType;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
@@ -77,10 +78,10 @@ public class Training {
 			lineIndex = setTrainingSkills(lines, lineIndex);
 			lineIndex = setCharacteristicsUpgrade(lines, lineIndex);
 			lineIndex = setProfessionalRequirements(lines, lineIndex);
-			lineIndex = setSpecialSkills(lines, lineIndex, lifeSkills);
-			lineIndex = setSpecialSkills(lines, lineIndex, commonSkills);
-			lineIndex = setSpecialSkills(lines, lineIndex, professionalSkills);
-			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkills);
+			lineIndex = setSpecialSkills(lines, lineIndex, lifeSkills, ChooseType.LIFE);
+			lineIndex = setSpecialSkills(lines, lineIndex, commonSkills, ChooseType.COMMON);
+			lineIndex = setSpecialSkills(lines, lineIndex, professionalSkills, ChooseType.PROFESSIONAL);
+			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkills, ChooseType.RESTRICTED);
 		}
 	}
 
@@ -316,7 +317,7 @@ public class Training {
 		return index;
 	}
 
-	private int setSpecialSkills(List<String> lines, int index, List<ChooseSkillGroup> skillCategory) {
+	private int setSpecialSkills(List<String> lines, int index, List<ChooseSkillGroup> skillCategory, ChooseType chooseType) {
 		skillCategory = new ArrayList<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -331,7 +332,7 @@ public class Training {
 			for (int i = 0; i < skillColumns.length; i++) {
 				if (!skillColumns[i].contains("{")) {
 					Skill skill = SkillFactory.getSkill(skillColumns[i]);
-					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1, skill);
+					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1, skill, chooseType);
 					skillCategory.add(chooseSkills);
 				}
 			}

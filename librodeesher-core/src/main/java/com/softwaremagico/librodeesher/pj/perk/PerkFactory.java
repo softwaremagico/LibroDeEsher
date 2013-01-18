@@ -7,16 +7,15 @@ import java.util.List;
 
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
+import com.softwaremagico.librodeesher.basics.ChooseType;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.basics.Spanish;
-import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.categories.ChooseCategoryGroup;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
-import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
 public class PerkFactory {
@@ -91,9 +90,10 @@ public class PerkFactory {
 
 		// Obtain the list to choose.
 		if (set[0].toLowerCase().contains(Spanish.ANY_CATEGORY)) {
-			perk.addCategoriesToChoose(new ChooseCategoryGroup(options, CategoryFactory.getCategories()));
+			perk.addCategoriesToChoose(new ChooseCategoryGroup(options, CategoryFactory.getCategories(),
+					ChooseType.BONUS));
 		} else if (set[0].toLowerCase().contains(Spanish.ANY_SKILL)) {
-			perk.addSkillsToChoose(new ChooseSkillGroup(options, SkillFactory.getSkills()));
+			perk.addSkillsToChoose(new ChooseSkillGroup(options, SkillFactory.getSkills(), ChooseType.BONUS));
 		} else { // Obtain the list
 			String purgedLine = set[0].replace("{", "").replace("}", "").replace("|", ",").replace(";", ",");
 			String[] optionsToChoose = purgedLine.split(",");
@@ -112,11 +112,11 @@ public class PerkFactory {
 			}
 			if (categoriesToChoose.size() > 0) {
 				perk.addCategoriesToChoose(new ChooseCategoryGroup(options, categoriesToChoose
-						.toArray(new String[categoriesToChoose.size()])));
+						.toArray(new String[categoriesToChoose.size()]), ChooseType.BONUS));
 			}
 			if (skillsToChoose.size() > 0) {
 				perk.addSkillsToChoose(new ChooseSkillGroup(options, skillsToChoose
-						.toArray(new String[skillsToChoose.size()])));
+						.toArray(new String[skillsToChoose.size()]), ChooseType.BONUS));
 			}
 		}
 
@@ -147,7 +147,7 @@ public class PerkFactory {
 		String bonusString = bonus[1].replace(")", "").trim();
 		if (CategoryFactory.existCategory(bonusName)) {
 			if (bonusString.toLowerCase().contains(Spanish.COMMON_TAG)) {
-				perk.setCategoryToSelectCommonSkills(bonusName, 1);
+				perk.setCategoryToSelectCommonSkills(CategoryFactory.getCategory(bonusName), 1);
 			} else if (bonusString.toLowerCase().contains(Spanish.RESTRICTED_TAG)) {
 				perk.setCategoryAsRestricted(bonusName, true);
 			} else {

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import com.softwaremagico.librodeesher.basics.ChooseType;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.ChooseCategoryGroup;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
 public class Perk {
 	private String name;
@@ -32,6 +34,7 @@ public class Perk {
 	private List<String> restrictedCategories;
 	private List<ChooseCategoryGroup> categoriesToChoose;
 	private List<ChooseSkillGroup> skillsToChoose;
+	private List<ChooseSkillGroup> commonSkillsToChoose;
 	private Integer appareanceBonus;
 	private Integer armourClass;
 	private Integer chosenBonus;
@@ -60,6 +63,7 @@ public class Perk {
 		restrictedCategories = new ArrayList<>();
 		categoriesToChoose = new ArrayList<>();
 		skillsToChoose = new ArrayList<>();
+		commonSkillsToChoose = new ArrayList<>();
 		appareanceBonus = 0;
 		armourClass = 1;
 	}
@@ -160,12 +164,9 @@ public class Perk {
 		}
 	}
 
-	public void setCategoryToSelectCommonSkills(String categoryName, Integer commonSkills) {
-		if (commonSkills == null || commonSkills <= 0) {
-			categoryWithCommon.remove(categoryName);
-		} else {
-			categoryWithCommon.put(categoryName, commonSkills);
-		}
+	public void setCategoryToSelectCommonSkills(Category category, Integer commonSkills) {
+		commonSkillsToChoose.add(new ChooseSkillGroup(commonSkills, SkillFactory.getSkills(category),
+				ChooseType.COMMON));
 	}
 
 	public void setCategoryToSelectRestrictedSkills(String categoryName, Integer restrictedSkills) {
@@ -423,5 +424,9 @@ public class Perk {
 
 	public boolean isRestricted(Skill skill) {
 		return restrictedSkills.contains(skill.getName());
+	}
+
+	public List<ChooseSkillGroup> getCommonSkillsToChoose() {
+		return commonSkillsToChoose;
 	}
 }

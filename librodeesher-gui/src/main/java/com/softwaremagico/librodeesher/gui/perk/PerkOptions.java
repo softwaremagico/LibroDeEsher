@@ -28,6 +28,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -54,7 +56,12 @@ public class PerkOptions<T> extends BaseFrame {
 		this.chooseOptions = chooseOptions;
 		defineWindow(500, 400);
 		setResizable(false);
+		addWindowListener(new WindowsClose());
 		setElements();
+	}
+
+	public void setPointCounterLabel(String text) {
+		selectedOption.setPointCounterLabel(text);
 	}
 
 	private void setElements() {
@@ -91,7 +98,30 @@ public class PerkOptions<T> extends BaseFrame {
 
 	@Override
 	public void update() {
-		character.setPerkBonusDecision(perk, selectedOption.getSelectedOptions());
+		switch (chooseOptions.getChooseType()) {
+		case BONUS:
+			character.setPerkBonusDecision(perk, selectedOption.getSelectedOptions());
+			break;
+		case COMMON:
+			character.setPerkCommonDecision(perk, selectedOption.getSelectedOptions());
+			break;
+		}
+
+	}
+
+	private void checkSelection() {
+		if (selectedOption.getSelectedOptions().size() != chooseOptions.getNumberOfOptionsToChoose()) {
+			ShowMessage.showErrorMessage(
+					"Error. Debes seleccionar todas las opciones disponibles. El talento será eliminado.",
+					"Talentos");
+			parent.removePerk();
+		}
+	}
+
+	class WindowsClose extends WindowAdapter {
+		public void windowClosing(WindowEvent e) {
+			checkSelection();
+		}
 	}
 
 	class IntelligentCloseButton extends CloseButton {
@@ -101,13 +131,7 @@ public class PerkOptions<T> extends BaseFrame {
 		}
 
 		protected void closeAction() {
-			if (selectedOption.getSelectedOptions().size() != chooseOptions.getNumberOfOptionsToChoose()) {
-				ShowMessage
-						.showErrorMessage(
-								"Error. Debes seleccionar todas las opciones disponibles. El talento será eliminado.",
-								"Talentos");
-				parent.removePerk();
-			}
+			checkSelection();
 			window.dispose();
 		}
 	}

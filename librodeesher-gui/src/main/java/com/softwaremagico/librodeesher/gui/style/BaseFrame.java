@@ -99,4 +99,5 @@ public abstract class BaseFrame extends JFrame {
 			}
 		}
 	}
+
 }

@@ -57,7 +57,6 @@ import com.softwaremagico.librodeesher.pj.race.Race;
 import com.softwaremagico.librodeesher.pj.race.RaceDecisions;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
-import com.softwaremagico.librodeesher.pj.resistance.Resistances;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.skills.SkillGroup;
@@ -87,7 +86,6 @@ public class CharacterPlayer {
 	private ProfessionDecisions professionDecisions;
 	private List<String> trainingsNames;
 	private transient List<Training> trainings;
-	private Resistances resistances;
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
 	private MagicSpellLists magicSpellLists;
 	private Historial historial;
@@ -560,7 +558,7 @@ public class CharacterPlayer {
 
 	public Integer getBonus(Category category) {
 		return category.getBonus() + getProfession().getCategoryBonus(category.getName())
-				+ historial.getBonus(category);
+				+ historial.getBonus(category) + getPerkBonus(category);
 	}
 
 	public Integer getBonus(Skill skill) {
@@ -884,15 +882,25 @@ public class CharacterPlayer {
 			if (perkDecision == null) {
 				perkDecision = new PerkDecision();
 			}
-			//Is the list a category list?
+			// Is the list a category list?
 			if (perk.isCategorySelected(chosenOptions.get(0))) {
 				perkDecision.setCategoriesBonusChoosen(chosenOptions);
 			}
-			//Is the list a skill list?
+			// Is the list a skill list?
 			if (perk.isSkillSelected(chosenOptions.get(0))) {
 				perkDecision.setSkillsBonusChoosen(chosenOptions);
 			}
 			perkDecisions.put(perk, perkDecision);
+		}
+	}
+
+	public void setPerkCommonDecision(Perk perk, List<String> commonSkillsChosen) {
+		if (commonSkillsChosen != null && commonSkillsChosen.size() > 0) {
+			PerkDecision perkDecision = perkDecisions.get(perk);
+			if (perkDecision == null) {
+				perkDecision = new PerkDecision();
+			}
+			perkDecision.setCommonSkillsChosen(commonSkillsChosen);
 		}
 	}
 

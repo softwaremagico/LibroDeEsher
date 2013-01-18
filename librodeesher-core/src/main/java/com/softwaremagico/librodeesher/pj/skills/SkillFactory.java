@@ -30,11 +30,15 @@ import java.util.Hashtable;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.basics.Spanish;
+import com.softwaremagico.librodeesher.pj.categories.Category;
 
 public class SkillFactory {
 
 	private static Hashtable<String, Skill> availableSkills = new Hashtable<>();
 	private static List<String> availableSkillsByName = new ArrayList<>();
+
+	// private static Hashtable<Category, List<Skill>> skillsPerCategory = new
+	// Hashtable<>();
 
 	public static Skill getSkill(String skillNameAndType) {
 		Skill skill = availableSkills.get(skillNameAndType);
@@ -70,8 +74,20 @@ public class SkillFactory {
 	public static void addSkill(Skill skill) {
 		availableSkills.put(skill.getName(), skill);
 		availableSkillsByName.add(skill.getName());
+		// addSkillToCategoryList(skill);
 		Collections.sort(availableSkillsByName);
 	}
+
+	// private static void addSkillToCategoryList(Skill skill) {
+	// System.out.println(skill.getName() + " -> " + skill.getCategory());
+	// List<Skill> skillsOfCategory =
+	// skillsPerCategory.get(skill.getCategory());
+	// if (skillsOfCategory == null) {
+	// skillsOfCategory = new ArrayList<>();
+	// skillsPerCategory.put(skill.getCategory(), skillsOfCategory);
+	// }
+	// skillsOfCategory.add(skill);
+	// }
 
 	public static Skill getAvailableSkill(String skillName) {
 		return availableSkills.get(skillName);
@@ -112,10 +128,20 @@ public class SkillFactory {
 		return skillName.replace("*", "").replace("(R)", "").replace("(r)", "").replace("(C)", "")
 				.replace("(c)", "").replace("(P)", "").replace("(p)", "");
 	}
-	
+
 	public static List<Skill> getSkills() {
 		List<Skill> skills = new ArrayList<>(availableSkills.values());
 		Collections.sort(skills, new SkillComparator());
+		return skills;
+	}
+
+	public static List<Skill> getSkills(Category category) {
+		List<Skill> skills = new ArrayList<>();
+		for (Skill skill : availableSkills.values()) {
+			if (skill.getCategory().equals(category)) {
+				skills.add(skill);
+			}
+		}
 		return skills;
 	}
 }

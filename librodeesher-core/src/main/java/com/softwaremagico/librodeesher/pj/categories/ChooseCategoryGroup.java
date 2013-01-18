@@ -4,15 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.basics.ChooseGroup;
+import com.softwaremagico.librodeesher.basics.ChooseType;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 
 public class ChooseCategoryGroup extends ChooseGroup<Category> {
 
-	public ChooseCategoryGroup(int chooseNumber, List<Category> categoryGroup) {
-		super(chooseNumber, categoryGroup);
+	public ChooseCategoryGroup(int chooseNumber, List<Category> categoryGroup, ChooseType chooseType) {
+		super(chooseNumber, categoryGroup, chooseType);
 	}
 
-	public ChooseCategoryGroup(int chooseNumber, String[] categoryGroup) {
+	public ChooseCategoryGroup(int chooseNumber, String[] categoryGroup, ChooseType chooseType) {
+		super(chooseType);
 		this.numberOfOptionsToChoose = chooseNumber;
 		for (String categoryName : categoryGroup) {
 			Category category = CategoryFactory.getCategory(categoryName);

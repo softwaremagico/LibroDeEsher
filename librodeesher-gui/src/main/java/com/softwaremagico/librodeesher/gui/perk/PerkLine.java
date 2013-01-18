@@ -140,10 +140,19 @@ public class PerkLine extends BaseLine {
 		}
 	}
 
+	private String getBonusTag() {
+		if (perk.getChosenBonus() > 0) {
+			return "+" + perk.getChosenBonus();
+		}
+		return perk.getChosenBonus().toString();
+	}
+
 	private void createSelectOptionsWindow() {
 		if (perk.getCategoriesToChoose().size() > 0) {
 			for (ChooseCategoryGroup options : perk.getCategoriesToChoose()) {
-				PerkOptions<Category> optionsWindow = new PerkOptions<Category>(character, perk, options, this);
+				PerkOptions<Category> optionsWindow = new PerkOptions<Category>(character, perk, options,
+						this);
+				optionsWindow.setPointCounterLabel("Categorias con (" + getBonusTag() + "): ");
 				optionsWindow.setVisible(true);
 			}
 		}
@@ -151,6 +160,15 @@ public class PerkLine extends BaseLine {
 		if (perk.getSkillsToChoose().size() > 0) {
 			for (ChooseSkillGroup options : perk.getSkillsToChoose()) {
 				PerkOptions<Skill> optionsWindow = new PerkOptions<Skill>(character, perk, options, this);
+				optionsWindow.setPointCounterLabel("Habilidades con (" + getBonusTag() + "): ");
+				optionsWindow.setVisible(true);
+			}
+		}
+
+		if (perk.getCommonSkillsToChoose().size() > 0) {
+			for (ChooseSkillGroup options : perk.getCommonSkillsToChoose()) {
+				PerkOptions<Skill> optionsWindow = new PerkOptions<Skill>(character, perk, options, this);
+				optionsWindow.setPointCounterLabel("Habilidades comunes: ");
 				optionsWindow.setVisible(true);
 			}
 		}
