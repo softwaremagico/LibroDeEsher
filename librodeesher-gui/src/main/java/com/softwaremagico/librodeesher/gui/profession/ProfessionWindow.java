@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.profession;
+
 /*
  * #%L
  * Libro de Esher GUI
@@ -23,11 +24,14 @@ package com.softwaremagico.librodeesher.gui.profession;
  * #L%
  */
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -35,29 +39,142 @@ import javax.swing.JPanel;
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
+import com.softwaremagico.librodeesher.gui.options.SelectOption;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class ProfessionWindow extends BaseFrame {
 	private CharacterPlayer character;
 	private ProfessionCompleteSkillPointsPanel skillPanel;
 	private BaseLabel commonSkillsPointsLabel;
 	private PointsCounterTextField commonPoints;
-	
+	private List<SelectOption<Skill>> commonOptions;
+	private List<SelectOption<Skill>> professionalOptions;
+	private List<SelectOption<Skill>> restrictedOptions;
+	Integer widthCells, heighCells;
+
 	public ProfessionWindow(CharacterPlayer character) {
+		commonOptions = new ArrayList<>();
+		professionalOptions = new ArrayList<>();
+		restrictedOptions = new ArrayList<>();
 		this.character = character;
-		defineWindow(400, 400);
+		defineSize();
 		commonPoints = new PointsCounterTextField();
-		setResizable(false);
+		// setResizable(false);
 		setElements();
 	}
-	
+
+	private void defineSize() {
+		widthCells = Math.max(
+				Math.max(character.getProfession().getProfessionalSkillsToChoose().size(), character
+						.getProfession().getCommonSkillsToChoose().size()), character.getProfession()
+						.getRestrictedSkillsToChoose().size());
+		heighCells = 0;
+		if (!character.getProfession().getProfessionalSkillsToChoose().isEmpty()) {
+			heighCells++;
+		}
+		if (!character.getProfession().getCommonSkillsToChoose().isEmpty()) {
+			heighCells++;
+		}
+		if (!character.getProfession().getRestrictedSkillsToChoose().isEmpty()) {
+			heighCells++;
+		}
+		defineWindow(250 * widthCells, 50 + 200 * heighCells);
+	}
+
 	private void setCommonPointText() {
 		commonPoints.setPoints(character.getRemainingHistorialPoints());
 	}
-	
+
 	private void setElements() {
 		setLayout(new GridBagLayout());
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+
+		// gridBagConstraints.anchor = GridBagConstraints.LINE_END;
+		gridBagConstraints.fill = GridBagConstraints.BOTH;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.weightx = 1;
+		gridBagConstraints.weighty = 1;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+		// Add common options.
+		int i = 0;
+		for (int c = 0; c < character.getProfession().getCommonSkillsToChoose().size(); c++) {
+			gridBagConstraints.gridx = i;
+			gridBagConstraints.gridy = 0;
+			i++;
+			SelectOption<Skill> options = new SelectOption<Skill>(character, this, character.getProfession()
+					.getCommonSkillsToChoose().get(c));
+			commonOptions.add(options);
+			if (c == character.getProfession().getCommonSkillsToChoose().size() - 1) {
+				gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+			} else {
+				gridBagConstraints.gridwidth = 1;
+			}
+			options.setPointCounterLabel("   Comunes: ");
+			getContentPane().add(options, gridBagConstraints);
+		}
+		// Add professional options.
+		i = 0;
+		for (int c = 0; c < character.getProfession().getProfessionalSkillsToChoose().size(); c++) {
+			gridBagConstraints.gridx = i;
+			gridBagConstraints.gridy = 1;
+			i++;
+			SelectOption<Skill> options = new SelectOption<Skill>(character, this, character.getProfession()
+					.getProfessionalSkillsToChoose().get(c));
+			professionalOptions.add(options);
+			if (c == character.getProfession().getProfessionalSkillsToChoose().size() - 1) {
+				gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+			} else {
+				gridBagConstraints.gridwidth = 1;
+			}
+			if (commonOptions.size() > 0) {
+				gridBagConstraints.insets = new Insets(20, 2, 2, 2);
+			}
+			options.setPointCounterLabel("   Profesionales: ");
+			getContentPane().add(options, gridBagConstraints);
+		}
+		// Add restricted options.
+		i = 0;
+		for (int c = 0; c < character.getProfession().getRestrictedSkillsToChoose().size(); c++) {
+			gridBagConstraints.gridx = i;
+			gridBagConstraints.gridy = 2;
+			i++;
+			SelectOption<Skill> options = new SelectOption<Skill>(character, this, character.getProfession()
+					.getRestrictedSkillsToChoose().get(c));
+			restrictedOptions.add(options);
+			if (c == character.getProfession().getRestrictedSkillsToChoose().size() - 1) {
+				gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+			} else {
+				gridBagConstraints.gridwidth = 1;
+			}
+			if (commonOptions.size() > 0 || professionalOptions.size() > 0) {
+				gridBagConstraints.insets = new Insets(20, 2, 2, 2);
+			}
+			options.setPointCounterLabel("   Restringidas: ");
+			getContentPane().add(options, gridBagConstraints);
+		}
+
+		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+		CloseButton closeButton = new CloseButton(this);
+		buttonPanel.add(closeButton);
+		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
+		gridBagConstraints.fill = GridBagConstraints.NONE;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 3;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+		gridBagConstraints.weightx = 1;
+		gridBagConstraints.weighty = 0;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+		getContentPane().add(buttonPanel, gridBagConstraints);
+	}
+
+	public JPanel addPanel(ChooseSkillGroup chooseGroup) {
+		JPanel skillGroupPanel = new JPanel();
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -65,18 +182,6 @@ public class ProfessionWindow extends BaseFrame {
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
-		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.weightx = 1;
-		gridBagConstraints.weighty = 1;
-		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		skillPanel = new ProfessionCompleteSkillPointsPanel(character, this);
-		getContentPane().add(skillPanel, gridBagConstraints);
-
-		gridBagConstraints.fill = GridBagConstraints.BOTH;
-		gridBagConstraints.ipadx = xPadding;
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 1;
-		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 0;
@@ -90,29 +195,42 @@ public class ProfessionWindow extends BaseFrame {
 		commonPoints.setMaximumSize(new Dimension(60, 25));
 		setCommonPointText();
 		commonPointsPanel.add(commonPoints);
-		getContentPane().add(commonPointsPanel, gridBagConstraints);
+		skillGroupPanel.add(commonPointsPanel, gridBagConstraints);
 
-		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
-		CloseButton closeButton = new CloseButton(this);
-		buttonPanel.add(closeButton);
-		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
-		gridBagConstraints.fill = GridBagConstraints.NONE;
+		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 1;
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
 		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 1;
-		gridBagConstraints.weighty = 0;
+		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		getContentPane().add(buttonPanel, gridBagConstraints);
+		// skillPanel = new OptionsPanel(character, chooseGroup, this);
+		skillGroupPanel.add(skillPanel, gridBagConstraints);
+
+		return skillGroupPanel;
 	}
 
-	
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
+		List<String> selectedCommon = new ArrayList<>();
+		for (SelectOption<Skill> commonOption : commonOptions) {
+			selectedCommon.addAll(commonOption.getSelectedOptions());
+		}
+		character.setCommonSkillsChoseFromProfession(selectedCommon);
+
+		List<String> selectedProfessional = new ArrayList<>();
+		for (SelectOption<Skill> professionalOption : professionalOptions) {
+			selectedProfessional.addAll(professionalOption.getSelectedOptions());
+		}
+		character.setProfessionalSkillsChoseFromProfession(selectedProfessional);
+
+		List<String> selectedRestricted = new ArrayList<>();
+		for (SelectOption<Skill> restrictedOption : restrictedOptions) {
+			selectedRestricted.addAll(restrictedOption.getSelectedOptions());
+		}
+		character.setRestrictedSkillsChoseFromProfession(selectedRestricted);
 	}
 
 }

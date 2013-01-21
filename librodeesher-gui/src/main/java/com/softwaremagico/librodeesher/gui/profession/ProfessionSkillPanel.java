@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.profession;
+
 /*
  * #%L
  * Libro de Esher GUI
@@ -27,14 +28,20 @@ import java.awt.GridLayout;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
+import com.softwaremagico.librodeesher.gui.perk.PerkLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.perk.Perk;
+import com.softwaremagico.librodeesher.pj.perk.PerkFactory;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 
 public class ProfessionSkillPanel extends BaseSkillPanel {
 	private ProfessionCompleteSkillPointsPanel parent;
+	private ChooseSkillGroup chooseGroup;
 
-	public ProfessionSkillPanel(CharacterPlayer character, ProfessionCompleteSkillPointsPanel parent) {
+	public ProfessionSkillPanel(CharacterPlayer character, ChooseSkillGroup chooseGroup,
+			ProfessionCompleteSkillPointsPanel parent) {
+		this.chooseGroup = chooseGroup;
 		this.parent = parent;
 		setElements(character);
 	}
@@ -43,8 +50,15 @@ public class ProfessionSkillPanel extends BaseSkillPanel {
 		this.removeAll();
 		setLayout(new GridLayout(0, 1));
 		int i = 0;
-		List<ChooseSkillGroup> commonSkillsToChoose = character.getProfession().getCommonSkillsToChoose();
 		
+//		for (chooseGroup.getOptionsAsString()) {
+//			//Only perks that can be used.
+//			if (perk.isPerkAllowed(character.getRace().getName(), character.getProfession().getName())) {
+//				PerkLine perkLine = new PerkLine(character, perk, getLineBackgroundColor(i), this);
+//				add(perkLine);
+//				i++;
+//			}
+//		}
 		
 		
 	}

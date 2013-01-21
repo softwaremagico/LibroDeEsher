@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.profession;
+
 /*
  * #%L
  * Libro de Esher GUI
@@ -25,19 +26,21 @@ package com.softwaremagico.librodeesher.gui.profession;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 
 public class ProfessionCompleteSkillPointsPanel extends BaseScrollPanel {
 	private ProfessionWindow parent;
 	CharacterPlayer character;
 	private ProfessionSkillTitle title;
-	private ProfessionSkillsPanel skillPanel;
+	private ProfessionSkillPanel skillPanel;
 
-	public ProfessionCompleteSkillPointsPanel(CharacterPlayer character, ProfessionWindow parent) {
+	public ProfessionCompleteSkillPointsPanel(CharacterPlayer character, ChooseSkillGroup chooseGroup,
+			ProfessionWindow parent) {
 		this.character = character;
 		this.parent = parent;
 		title = new ProfessionSkillTitle();
 		addTitle(title);
-		skillPanel = new ProfessionSkillsPanel(character, this);
+		skillPanel = new ProfessionSkillPanel(character, chooseGroup, this);
 		addBody(skillPanel);
 	}
 

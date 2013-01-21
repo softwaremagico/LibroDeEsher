@@ -62,11 +62,22 @@ public class Profession {
 	private List<ChooseSkillGroup> commonSkillsToChoose;
 	private List<ChooseSkillGroup> professionalSkillsToChoose;
 	private List<ChooseSkillGroup> restrictedSkillsToChoose;
+	private List<String> commonSkills;
+	private List<String> professionalSkills;
+	private List<String> restrictedSkills;
+
 	private MagicCosts magicCosts;
 	private Hashtable<String, TrainingCost> trainingCosts;
 
 	public Profession(String name) {
 		this.name = name;
+		commonSkillsToChoose = new ArrayList<>();
+		professionalSkillsToChoose = new ArrayList<>();
+		restrictedSkillsToChoose = new ArrayList<>();
+		commonSkills = new ArrayList<>();
+		professionalSkills = new ArrayList<>();
+		restrictedSkills = new ArrayList<>();
+
 		try {
 			readProfessionFile(name);
 		} catch (Exception e) {
@@ -76,6 +87,14 @@ public class Profession {
 
 	public List<ChooseSkillGroup> getCommonSkillsToChoose() {
 		return commonSkillsToChoose;
+	}
+
+	public List<ChooseSkillGroup> getProfessionalSkillsToChoose() {
+		return professionalSkillsToChoose;
+	}
+
+	public List<ChooseSkillGroup> getRestrictedSkillsToChoose() {
+		return restrictedSkillsToChoose;
 	}
 
 	public boolean isCharacteristicProfessional(Characteristic characteristic) {
@@ -116,10 +135,12 @@ public class Profession {
 			lineIndex = setAvailableMagicRealms(lines, lineIndex);
 			lineIndex = setProfessionBonus(lines, lineIndex);
 			lineIndex = setCategoryCost(lines, lineIndex);
-			lineIndex = setSpecialSkills(lines, lineIndex, commonSkillsToChoose, ChooseType.COMMON);
-			lineIndex = setSpecialSkills(lines, lineIndex, professionalSkillsToChoose,
+			lineIndex = setSpecialSkills(lines, lineIndex, commonSkills, commonSkillsToChoose,
+					ChooseType.COMMON);
+			lineIndex = setSpecialSkills(lines, lineIndex, professionalSkills, professionalSkillsToChoose,
 					ChooseType.PROFESSIONAL);
-			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkillsToChoose, ChooseType.RESTRICTED);
+			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkills, restrictedSkillsToChoose,
+					ChooseType.RESTRICTED);
 			lineIndex = setMagicCost(lines, lineIndex);
 			lineIndex = setTrainingCosts(lines, lineIndex);
 		}
@@ -282,9 +303,8 @@ public class Profession {
 		}
 	}
 
-	private int setSpecialSkills(List<String> lines, int index, List<ChooseSkillGroup> groupSkillsToChoose,
-			ChooseType chooseType) {
-		groupSkillsToChoose = new ArrayList<>();
+	private int setSpecialSkills(List<String> lines, int index, List<String> groupSkills,
+			List<ChooseSkillGroup> groupSkillsToChoose, ChooseType chooseType) {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -316,9 +336,11 @@ public class Profession {
 					groupSkillsToChoose.add(chooseSkills);
 				} else {
 					// One skill.
-					Skill skill = SkillFactory.getSkill(skillColumns[i]);
-					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1, skill, chooseType);
-					groupSkillsToChoose.add(chooseSkills);
+					// Skill skill = SkillFactory.getSkill(skillColumns[i]);
+					// ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1,
+					// skill, chooseType);
+					// groupSkillsToChoose.add(chooseSkills);
+					groupSkills.add(skillColumns[i]);
 				}
 			}
 			index++;
@@ -422,6 +444,30 @@ public class Profession {
 			} else {
 				return 0;
 			}
+		}
+	}
+
+	public boolean isCommon(Skill skill) {
+		try {
+			return commonSkills.contains(skill.getName());
+		} catch (NullPointerException npe) {
+			return false;
+		}
+	}
+
+	public boolean isRestricted(Skill skill) {
+		try {
+			return restrictedSkills.contains(skill.getName());
+		} catch (NullPointerException npe) {
+			return false;
+		}
+	}
+
+	public boolean isProfessional(Skill skill) {
+		try {
+			return professionalSkills.contains(skill.getName());
+		} catch (NullPointerException npe) {
+			return false;
 		}
 	}
 }

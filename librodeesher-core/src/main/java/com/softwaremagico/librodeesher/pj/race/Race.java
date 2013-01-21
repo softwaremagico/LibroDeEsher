@@ -81,8 +81,8 @@ public class Race {
 	public String getName() {
 		return name;
 	}
-	
-	public Integer getLanguagePoints(){
+
+	public Integer getLanguagePoints() {
 		return languagePoints;
 	}
 
@@ -175,8 +175,8 @@ public class Race {
 		}
 		return index;
 	}
-	
-	public Float[] getProgressionRankValues(ProgressionCostType type){
+
+	public Float[] getProgressionRankValues(ProgressionCostType type) {
 		return progressionRankValues.get(type);
 	}
 
@@ -478,8 +478,8 @@ public class Race {
 		}
 		return langCult.getRanks();
 	}
-	
-	public Integer getHistorialPoints(){
+
+	public Integer getHistorialPoints() {
 		return historialPoints;
 	}
 
@@ -490,13 +490,21 @@ public class Race {
 	public int getApperanceBonus() {
 		return apperanceBonus;
 	}
-	
+
 	public boolean isRestricted(Skill skill) {
-		return restrictedSkills.contains(skill);
+		try {
+			return restrictedSkills.contains(skill.getName());
+		} catch (NullPointerException npe) {
+			return false;
+		}
 	}
-	
+
 	public boolean isCommon(Skill skill) {
-		return commonSkills.contains(skill);
+		try {
+			return commonSkills.contains(skill.getName());
+		} catch (NullPointerException npe) {
+			return false;
+		}
 	}
 
 }

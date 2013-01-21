@@ -41,6 +41,8 @@ public class ProfessionDecisions {
 	public ProfessionDecisions() {
 		weaponsCost = new Hashtable<>();
 		commonSkillsChose = new ArrayList<>();
+		professionalSkillsChose = new ArrayList<>();
+		restrictedSkillsChose = new ArrayList<>();
 	}
 
 	public void setWeaponCost(Category category, CategoryCost cost) {
@@ -78,5 +80,29 @@ public class ProfessionDecisions {
 
 	public boolean isProfessional(Skill skill) {
 		return professionalSkillsChose.contains(skill.getName());
+	}
+
+	public List<String> getCommonSkillsChose() {
+		return commonSkillsChose;
+	}
+
+	public void setCommonSkillsChose(List<String> commonSkillsChose) {
+		this.commonSkillsChose = commonSkillsChose;
+	}
+
+	public List<String> getRestrictedSkillsChose() {
+		return restrictedSkillsChose;
+	}
+
+	public void setRestrictedSkillsChose(List<String> restrictedSkillsChose) {
+		this.restrictedSkillsChose = restrictedSkillsChose;
+	}
+
+	public List<String> getProfessionalSkillsChose() {
+		return professionalSkillsChose;
+	}
+
+	public void setProfessionalSkillsChose(List<String> professionalSkillsChose) {
+		this.professionalSkillsChose = professionalSkillsChose;
 	}
 }

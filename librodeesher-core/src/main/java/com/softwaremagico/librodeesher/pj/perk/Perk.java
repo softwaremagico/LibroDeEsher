@@ -26,7 +26,6 @@ public class Perk {
 	private Hashtable<String, Integer> conditionalSkillBonus;
 	private Hashtable<String, Integer> resistanceBonus;
 	private Hashtable<String, Integer> characteristicBonus;
-	private Hashtable<String, Integer> categoryWithCommon;
 	private Hashtable<String, Integer> categoryWithRestricted;
 	private List<String> commonSkills;
 	private List<String> commonCategories;
@@ -50,7 +49,6 @@ public class Perk {
 		categoryBonus = new Hashtable<>();
 		skillBonus = new Hashtable<>();
 		resistanceBonus = new Hashtable<>();
-		categoryWithCommon = new Hashtable<>();
 		categoryWithRestricted = new Hashtable<>();
 		characteristicBonus = new Hashtable<>();
 		conditionalCategoryBonus = new Hashtable<>();

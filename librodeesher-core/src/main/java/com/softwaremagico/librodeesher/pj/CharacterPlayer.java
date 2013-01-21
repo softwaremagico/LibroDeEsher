@@ -536,7 +536,15 @@ public class CharacterPlayer {
 	}
 
 	public Integer getTotalRanks(Skill skill) {
-		return getPreviousRanks(skill) + getCurrentLevelRanks(skill);
+		Float modifier = (float) 1;
+		if (isRestricted(skill)) {
+			modifier = (float) 0.5;
+		} else if (isProfessional(skill)) {
+			modifier = (float) 3;
+		} else if (isCommon(skill)) {
+			modifier = (float) 2;
+		}
+		return (int) ((getPreviousRanks(skill) + getCurrentLevelRanks(skill)) * modifier);
 	}
 
 	public Integer getRanksValue(Category category) {
@@ -905,17 +913,20 @@ public class CharacterPlayer {
 	}
 
 	public boolean isProfessional(Skill skill) {
-		return professionDecisions.isProfessional(skill);
+		return skill.getType().equals(SkillType.PROFESSIONAL) || getProfession().isProfessional(skill)
+				|| professionDecisions.isProfessional(skill);
 	}
 
 	public boolean isRestricted(Skill skill) {
-		return skill.getType().equals(SkillType.RESTRICTED) | isRestrictedByPerk(skill)
-				| professionDecisions.isRestricted(skill) | getRace().isRestricted(skill);
+		return skill.getType().equals(SkillType.RESTRICTED) || isRestrictedByPerk(skill)
+				|| getProfession().isRestricted(skill) || professionDecisions.isRestricted(skill)
+				|| getRace().isRestricted(skill);
 	}
 
 	public boolean isCommon(Skill skill) {
-		return skill.getType().equals(SkillType.COMMON) | isCommonByPerk(skill)
-				| professionDecisions.isCommon(skill) | getRace().isCommon(skill);
+		return skill.getType().equals(SkillType.COMMON) || isCommonByPerk(skill)
+				|| getProfession().isCommon(skill) || professionDecisions.isCommon(skill)
+				|| getRace().isCommon(skill);
 	}
 
 	private boolean isCommonByPerk(Skill skill) {
@@ -940,5 +951,17 @@ public class CharacterPlayer {
 			}
 		}
 		return false;
+	}
+
+	public void setCommonSkillsChoseFromProfession(List<String> commonSkillsChose) {
+		professionDecisions.setCommonSkillsChose(commonSkillsChose);
+	}
+
+	public void setRestrictedSkillsChoseFromProfession(List<String> restrictedSkillsChose) {
+		professionDecisions.setRestrictedSkillsChose(restrictedSkillsChose);
+	}
+
+	public void setProfessionalSkillsChoseFromProfession(List<String> professionalSkillsChose) {
+		professionDecisions.setProfessionalSkillsChose(professionalSkillsChose);
 	}
 }

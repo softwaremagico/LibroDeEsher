@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.profession;
+
 /*
  * #%L
  * Libro de Esher GUI
@@ -23,27 +24,50 @@ package com.softwaremagico.librodeesher.gui.profession;
  * #L%
  */
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
 import javax.swing.SwingConstants;
 
-import com.softwaremagico.librodeesher.gui.elements.SkillTitleLine;
+import com.softwaremagico.librodeesher.gui.elements.TitleBackgroundPanel;
 import com.softwaremagico.librodeesher.gui.elements.TitleLabel;
+import com.softwaremagico.librodeesher.gui.style.BaseTitleLine;
 
-public class ProfessionSkillTitle extends SkillTitleLine {
-	private static final long serialVersionUID = -7713583862792690761L;
+public class ProfessionSkillTitle extends BaseTitleLine {
+	private static final Integer columnWidth = 30;
+	private static final Integer columnHeight = 20;
 	private TitleLabel professionLabel;
 
 	public ProfessionSkillTitle() {
-		enableColumns(false, false, false, false, false, false, false, true);
-		addHistoryCheckBox();
+		setBackground(background);
+		setElements();
 	}
 
-	private void addHistoryCheckBox() {
-		professionLabel = new TitleLabel("Cmn", SwingConstants.LEFT);
-		addColumn(professionLabel, 0);
+	protected void setElements() {
+		this.removeAll();
+		setLayout(new GridBagLayout());
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+
+		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.weighty = 0;
+
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0;
+		professionLabel = new TitleLabel("", SwingConstants.LEFT, columnWidth*2, columnHeight);
+		add(new TitleBackgroundPanel(professionLabel), gridBagConstraints);
+
+		gridBagConstraints.gridx = 1;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 1;
+		TitleLabel categoryNameLabel = new TitleLabel("Nombre", SwingConstants.LEFT, 200, columnHeight);
+		add(new TitleBackgroundPanel(categoryNameLabel), gridBagConstraints);
 	}
 
 	public void sizeChanged() {
-		defaultElementsSizeChanged();
 		if (this.getWidth() < 800) {
 			professionLabel.setText("Cmn");
 		} else {
