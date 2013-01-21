@@ -200,6 +200,7 @@ public class MainWindow extends BaseFrame {
 		characteristicsPanel.update();
 		resistancePanel.update();
 		mainMenu.update();
+		skillPanel.update(character);
 	}
 
 	private void addListeners() {
