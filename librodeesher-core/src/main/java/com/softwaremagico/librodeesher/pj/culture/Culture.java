@@ -35,8 +35,6 @@ import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.basics.Spanish;
-import com.softwaremagico.librodeesher.pj.Language;
-import com.softwaremagico.librodeesher.pj.LanguageComparator;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -52,7 +50,7 @@ public class Culture {
 	private Integer hobbyRanks;
 	private List<String> hobbySkills;
 	// private List<CultureLanguage> languages;
-	private Hashtable<String, Language> languages;
+	private Hashtable<String, Integer> languages;
 
 	public Culture(String name) {
 		this.name = name;
@@ -63,9 +61,9 @@ public class Culture {
 		}
 	}
 
-	public List<Language> getLanguages() {
-		List<Language> sortedLanguages = new ArrayList<Language>(languages.values());
-		Collections.sort(sortedLanguages, new LanguageComparator());
+	public List<String> getLanguages() {
+		List<String> sortedLanguages = new ArrayList<>(languages.keySet());
+		Collections.sort(sortedLanguages);
 		return sortedLanguages;
 	}
 
@@ -120,8 +118,7 @@ public class Culture {
 		}
 		try {
 			cultureWeapons = new ArrayList<>();
-			if (!lines.get(index).toLowerCase().equals("todas")
-					&& !lines.get(index).toLowerCase().equals("all")) {
+			if (!lines.get(index).toLowerCase().equals(Spanish.ALL_TAG)) {
 				while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 					String lineaArmasCultura = lines.get(index);
 					String[] weapons = lineaArmasCultura.split(", ");
@@ -227,15 +224,16 @@ public class Culture {
 						|| hobby.toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
 					hobbySkills.add(hobby);
 					// Is a culture skill: add it;
-				} else if (hobby.contains("Conocimiento de la Fauna")
-						|| hobby.contains("Conocimiento de la Flora")
-						|| hobby.contains("Conocimiento Cultural") || hobby.contains("Conocimiento Regional")) {
-					Category cat = CategoryFactory.getCategory("Conocimiento·General");
+				} else if (hobby.contains(Spanish.FAUNA_KNOWNLEDGE_TAG)
+						|| hobby.contains(Spanish.FLORA_KNOWNLEDGE_TAG)
+						|| hobby.contains(Spanish.CULTURAL_KNOWNLEDGE_TAG)
+						|| hobby.contains(Spanish.REGIONAL_KNOWNLEDGE_TAG)) {
+					Category cat = CategoryFactory.getCategory(Spanish.GENERAL_KNOWLEDGE_TAG);
 					cat.addSkill(hobby);
 					// CultureSkill skill = new CultureSkill(hobby);
 					hobbySkills.add(hobby);
-				} else if (hobby.contains("Supervivencia")) {
-					Category cat = CategoryFactory.getCategory("Exteriores·Entorno");
+				} else if (hobby.contains(Spanish.SURVIVAL_TAG)) {
+					Category cat = CategoryFactory.getCategory(Spanish.OUTDOORS_ENVIRONMENT_TAG);
 					cat.addSkill(hobby);
 					// CultureSkill skill = new CultureSkill(hobby);
 					hobbySkills.add(hobby);
@@ -259,12 +257,10 @@ public class Culture {
 			String[] languageColumn = lines.get(index).split("\t");
 			String[] languageRanks = languageColumn[1].split("/");
 			try {
-				Language language = new Language(Language.SPOKEN_TAG + " " + languageColumn[0],
-						Integer.parseInt(languageRanks[0]));
-				languages.put(language.getName(), language);
-				language = new Language(Language.WRITTEN_TAG + " " + languageColumn[0],
-						Integer.parseInt(languageRanks[1]));
-				languages.put(language.getName(), language);
+				String language = Spanish.SPOKEN_TAG + " " + languageColumn[0];
+				languages.put(language, Integer.parseInt(languageRanks[0]));
+				language = Spanish.WRITTEN_TAG + " " + languageColumn[0];
+				languages.put(language, Integer.parseInt(languageRanks[1]));
 			} catch (NumberFormatException nfe) {
 				ShowMessage.showErrorMessage("Error al obtener los rangos escritos del idioma: " + name,
 						"Añadir lenguajes de cultura");
@@ -286,12 +282,12 @@ public class Culture {
 		return categories.get("Listas Abiertas de Hechizos").getChooseRanks();
 	}
 
-	public Integer getLanguageRank(Language language) {
-		Language langCult = languages.get(language.getName());
-		if (langCult == null) {
+	public Integer getLanguageRank(String language) {
+		Integer ranks = languages.get(language);
+		if (ranks == null) {
 			return 0;
 		}
-		return langCult.getRanks();
+		return ranks;
 	}
 
 	public List<String> getCultureArmours() {

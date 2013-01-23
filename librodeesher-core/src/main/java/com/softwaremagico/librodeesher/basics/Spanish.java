@@ -25,6 +25,8 @@ package com.softwaremagico.librodeesher.basics;
  */
 
 public class Spanish {
+	public final static String SPOKEN_TAG = "Hablar";
+	public final static String WRITTEN_TAG = "Escribir";
 	public static final String OPEN_LISTS = "Listas Abiertas de Hechizos";
 	public static final String OTHER_REALM_TRAINING_LISTS = "Listas Hechizos de Adiestramientos de Otros Reinos";
 	public static final String FIREARMS_SUFIX = "Fuego";
@@ -51,4 +53,13 @@ public class Spanish {
 	public static final String ANY_SKILL = "cualquier habilidad";
 	public static final String ANY_CATEGORY = "cualquier categoría";
 	public static final String ANY_WEAPON = "cualquier arma";
+	public static final String OUTDOORS_ENVIRONMENT_TAG = "Exteriores·Entorno";
+	public static final String GENERAL_KNOWLEDGE_TAG = "Conocimiento·General";
+	public static final String FAUNA_KNOWNLEDGE_TAG = "Conocimiento de la Fauna";
+	public static final String FLORA_KNOWNLEDGE_TAG = "Conocimiento de la Flora";
+	public static final String CULTURAL_KNOWNLEDGE_TAG = "Conocimiento Cultural";
+	public static final String REGIONAL_KNOWNLEDGE_TAG = "Conocimiento Regional";
+	public static final String SURVIVAL_TAG = "Supervivencia";
+	public static final String COMUNICATION_CATEGORY = "Comunicación";
+	public static final String ALL_TAG = "todas";
 }

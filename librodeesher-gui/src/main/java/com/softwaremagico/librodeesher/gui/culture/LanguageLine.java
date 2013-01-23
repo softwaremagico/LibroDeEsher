@@ -35,18 +35,17 @@ import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultFormatter;
 
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
-import com.softwaremagico.librodeesher.pj.Language;
 
 public class LanguageLine extends CultureLine {
 
 	private static final long serialVersionUID = 2401612544094265349L;
-	protected Language language;
+	protected String language;
 	private Integer initalValue;
 
-	public LanguageLine(CharacterPlayer character, Language language, CulturePanel languagePanel,
+	public LanguageLine(CharacterPlayer character, String language, CulturePanel languagePanel,
 			Color background) {
 		this.character = character;
-		this.skillName = language.getName();
+		this.skillName = language;
 		this.parentPanel = languagePanel;
 		this.language = language;
 		setElements(background);
@@ -58,6 +57,10 @@ public class LanguageLine extends CultureLine {
 
 		// Languages can have 10 ranks. We need a bigger editor.
 		rankSpinner.setColumns(2);
+
+		// Inizialize the title.
+		parentPanel.setRankTitle("Rangos ("
+				+ (character.getRace().getLanguagePoints() - parentPanel.getSpinnerValues()) + ")");
 	}
 
 	protected void addRankSpinnerEvent() {
@@ -77,7 +80,8 @@ public class LanguageLine extends CultureLine {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character
-					character.getRaceDecisions().setLanguageRank(language, (Integer) rankSpinner.getValue());
+					character.getCultureDecisions().setLanguageRank(language,
+							(Integer) rankSpinner.getValue());
 					parentPanel.setRankTitle("Rangos ("
 							+ (character.getRace().getLanguagePoints() - parentPanel.getSpinnerValues())
 							+ ")");

@@ -31,6 +31,7 @@ import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
+import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
@@ -58,13 +59,13 @@ public class CategoryFactory {
 	}
 
 	private static void addCultureSkills() {
-		Category cat = availableCategories.get("Conocimiento·General");
+		Category cat = availableCategories.get(Spanish.GENERAL_KNOWLEDGE_TAG);
 		for (String culture : CultureFactory.availableCultures()) {
 			if (!culture.contains("(")) {
-				cat.addSkill("Conocimiento de la Fauna (" + culture + ")");
-				cat.addSkill("Conocimiento de la Flora (" + culture + ")");
-				cat.addSkill("Conocimiento Cultural (" + culture + ")");
-				cat.addSkill("Conocimiento Regional (" + culture + ")");
+				cat.addSkill(Spanish.FAUNA_KNOWNLEDGE_TAG + " (" + culture + ")");
+				cat.addSkill(Spanish.FLORA_KNOWNLEDGE_TAG + " (" + culture + ")");
+				cat.addSkill(Spanish.CULTURAL_KNOWNLEDGE_TAG + " (" + culture + ")");
+				cat.addSkill(Spanish.REGIONAL_KNOWNLEDGE_TAG + " (" + culture + ")");
 			}
 		}
 	}

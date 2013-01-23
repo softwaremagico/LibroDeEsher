@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.culture;
+
 /*
  * #%L
  * Libro de Esher
@@ -29,11 +30,37 @@ public class CultureDecisions {
 	Hashtable<String, Integer> weaponRanks;
 	Hashtable<String, Integer> hobbyRanks;
 	Hashtable<String, Integer> spellRanks;
+	Hashtable<String, Integer> languageRanks;
 
 	public CultureDecisions() {
+		languageRanks = new Hashtable<>();
 		weaponRanks = new Hashtable<>();
 		hobbyRanks = new Hashtable<>();
 		spellRanks = new Hashtable<>();
+	}
+
+	public void setLanguageRank(String language, Integer ranks) {
+		if (ranks <= 0) {
+			languageRanks.remove(language);
+		} else {
+			languageRanks.put(language, ranks);
+		}
+	}
+
+	public Integer getTotalLanguageRanks() {
+		Integer total = 0;
+		for (Integer value : languageRanks.values()) {
+			total += value;
+		}
+		return total;
+	}
+
+	public Integer getLanguageRanks(String language) {
+		Integer ranks = languageRanks.get(language);
+		if (ranks == null) {
+			return 0;
+		}
+		return ranks;
 	}
 
 	public void setWeaponRanks(String weaponSkill, Integer ranks) {

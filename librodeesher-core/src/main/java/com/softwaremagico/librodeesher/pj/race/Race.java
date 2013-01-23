@@ -34,7 +34,7 @@ import java.util.Random;
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
-import com.softwaremagico.librodeesher.pj.Language;
+import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.ProgressionCostType;
 import com.softwaremagico.librodeesher.pj.SexType;
 import com.softwaremagico.librodeesher.pj.categories.Category;
@@ -57,8 +57,8 @@ public class Race {
 	private Float restorationTime;
 	private Integer languagePoints;
 	private Integer historialPoints;
-	private Hashtable<String, Language> initialRaceLanguages;
-	private Hashtable<String, Language> maxRaceLanguages;
+	private Hashtable<String, Integer> initialRaceLanguages;
+	private Hashtable<String, Integer> maxRaceLanguages;
 	private List<Skill> commonSkills;
 	private List<Skill> restrictedSkills;
 	private List<String> availableCultures;
@@ -274,21 +274,17 @@ public class Race {
 				String[] languageRank = languageInformation[1].split("/");
 				String[] maxCultureLanguage = languageInformation[2].split("/");
 
-				Language language = new Language(Language.SPOKEN_TAG + " " + languageInformation[0],
-						Integer.parseInt(languageRank[0]));
-				initialRaceLanguages.put(language.getName(), language);
+				String language = Spanish.SPOKEN_TAG + " " + languageInformation[0];
+				initialRaceLanguages.put(language, Integer.parseInt(languageRank[0]));
 
-				language = new Language(Language.WRITTEN_TAG + " " + languageInformation[0],
-						Integer.parseInt(languageRank[1]));
-				initialRaceLanguages.put(language.getName(), language);
+				language = Spanish.WRITTEN_TAG + " " + languageInformation[0];
+				initialRaceLanguages.put(language, Integer.parseInt(languageRank[1]));
 
-				language = new Language(Language.SPOKEN_TAG + " " + languageInformation[0],
-						Integer.parseInt(maxCultureLanguage[0]));
-				maxRaceLanguages.put(language.getName(), language);
+				language = Spanish.SPOKEN_TAG + " " + languageInformation[0];
+				maxRaceLanguages.put(language, Integer.parseInt(maxCultureLanguage[0]));
 
-				language = new Language(Language.WRITTEN_TAG + " " + languageInformation[0],
-						Integer.parseInt(maxCultureLanguage[1]));
-				maxRaceLanguages.put(language.getName(), language);
+				language = Spanish.WRITTEN_TAG + " " + languageInformation[0];
+				maxRaceLanguages.put(language, Integer.parseInt(maxCultureLanguage[1]));
 
 			} catch (NumberFormatException nfe) {
 				ShowMessage.showErrorMessage("Valor de Idioma irreconocible en " + lines.get(index),
@@ -463,20 +459,20 @@ public class Race {
 		return characteristicBonus.get(abbreviature);
 	}
 
-	public Integer getLanguageInitialRanks(Language language) {
-		Language langCult = initialRaceLanguages.get(language.getName());
-		if (langCult == null) {
+	public Integer getLanguageInitialRanks(String language) {
+		Integer ranks = initialRaceLanguages.get(language);
+		if (ranks == null) {
 			return 0;
 		}
-		return langCult.getRanks();
+		return ranks;
 	}
 
-	public Integer getLanguageMaxRanks(Language language) {
-		Language langCult = maxRaceLanguages.get(language.getName());
-		if (langCult == null) {
+	public Integer getLanguageMaxRanks(String language) {
+		Integer ranks = maxRaceLanguages.get(language);
+		if (ranks == null) {
 			return 10;
 		}
-		return langCult.getRanks();
+		return ranks;
 	}
 
 	public Integer getHistorialPoints() {

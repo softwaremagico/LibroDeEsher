@@ -54,7 +54,6 @@ import com.softwaremagico.librodeesher.pj.profession.ProfessionDecisions;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionalRealmsOfMagicOptions;
 import com.softwaremagico.librodeesher.pj.race.Race;
-import com.softwaremagico.librodeesher.pj.race.RaceDecisions;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -77,7 +76,6 @@ public class CharacterPlayer {
 	private boolean characteristicsConfirmed = false;
 	private String raceName;
 	private transient Race race;
-	private RaceDecisions raceDecisions;
 	private String cultureName;
 	private transient Culture culture;
 	private CultureDecisions cultureDecisions;
@@ -113,7 +111,6 @@ public class CharacterPlayer {
 		setTemporalValuesOfCharacteristics();
 		sex = SexType.MALE;
 		cultureDecisions = new CultureDecisions();
-		raceDecisions = new RaceDecisions();
 		professionDecisions = new ProfessionDecisions();
 		trainingsNames = new ArrayList<>();
 		trainings = new ArrayList<>();
@@ -135,10 +132,6 @@ public class CharacterPlayer {
 		firearmsAllowed = Config.getFireArmsActivated();
 		chiPowersAllowed = Config.getChiPowersAllowed();
 		otherRealmtrainingSpellsAllowed = Config.getOtherRealmtrainingSpells();
-	}
-
-	public RaceDecisions getRaceDecisions() {
-		return raceDecisions;
 	}
 
 	public CultureDecisions getCultureDecisions() {
@@ -435,18 +428,16 @@ public class CharacterPlayer {
 		setCharacteristicsTemporalUpdatesRolls();
 	}
 
-	public Integer getLanguageInitialRanks(Language language) {
+	public Integer getLanguageInitialRanks(String language) {
 		return Math.max(getCulture().getLanguageRank(language), getRace().getLanguageInitialRanks(language));
 	}
 
-	public Integer getLanguagesInitialRanks() {
-		Integer total = 0;
-
-		return total;
+	public Integer getLanguageMaxInitialRanks(String language) {
+		return Math.max(getCulture().getLanguageRank(language), getRace().getLanguageMaxRanks(language));
 	}
 
-	public Integer getLanguageMaxInitialRanks(Language language) {
-		return Math.max(getCulture().getLanguageRank(language), getRace().getLanguageMaxRanks(language));
+	public Integer getLanguageRanks(String language) {
+		return Math.max(getLanguageInitialRanks(language), cultureDecisions.getLanguageRanks(language));
 	}
 
 	public Integer getCurrentLevelRanks(Category category) {
@@ -520,6 +511,9 @@ public class CharacterPlayer {
 		total += getCultureDecisions().getHobbyRanks(skill.getName());
 		total += getPerksRanks(skill);
 		total += getPreviousLevelsRanks(skill);
+		if (skill.getCategory().getName().equals(Spanish.COMUNICATION_CATEGORY)) {
+			total += getLanguageRanks(skill.getName());
+		}
 		return total;
 	}
 
@@ -535,7 +529,7 @@ public class CharacterPlayer {
 		return getPreviousRanks(category) + getCurrentLevelRanks(category);
 	}
 
-	public Integer getTotalRanks(Skill skill) {
+	public Integer getRealRanks(Skill skill) {
 		Float modifier = (float) 1;
 		if (isRestricted(skill)) {
 			modifier = (float) 0.5;
@@ -552,7 +546,7 @@ public class CharacterPlayer {
 	}
 
 	public Integer getRanksValue(Skill skill) {
-		return skill.getRankValue(this, getTotalRanks(skill));
+		return skill.getRankValue(this, getRealRanks(skill));
 	}
 
 	public Integer getCharacteristicsBonus(Category category) {
@@ -764,7 +758,7 @@ public class CharacterPlayer {
 	 */
 	public boolean isSkillInteresting(Skill skill) {
 		// No ranks and no bonus, not interesting
-		if ((getTotalRanks(skill) == 0) || getBonus(skill) > 0) {
+		if ((getRealRanks(skill) == 0) || getBonus(skill) > 0) {
 			return false;
 		}
 		return true;
