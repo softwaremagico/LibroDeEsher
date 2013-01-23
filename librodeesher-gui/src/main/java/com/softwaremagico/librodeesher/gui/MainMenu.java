@@ -44,7 +44,7 @@ public class MainMenu {
 			exportToPDFMenuItem, exitMenuItem;
 	private JMenuItem aboutMenuItem, cultureMenuItem, professionMenuItem, charactMenuItem, trainingMenuItem,
 			skillsMenuItem, perksMenuItem, historyMenuItem, levelUpMenuItem;
-	private JMenuItem insertCharacter, insertObject;
+	private JMenuItem insertCharacter, insertMagicObject, insertEquipment;
 	private JMenuItem randomName, randomCharacter;
 	private JMenuItem optionsMenu;
 	private JFrame parentWindow;
@@ -178,17 +178,22 @@ public class MainMenu {
 		createMenu.setMnemonic(KeyEvent.VK_I);
 		createMenu.getAccessibleContext().setAccessibleDescription("Insertar un personaje.");
 
-		insertCharacter = new JMenuItem("Insertar personaje", KeyEvent.VK_P);
+		insertCharacter = new JMenuItem("Insertar Personaje", KeyEvent.VK_P);
 		insertCharacter.setIcon((Icon) getIcon("insert_character.png"));
 		insertCharacter.getAccessibleContext().setAccessibleDescription("Insertar un personaje.");
 		createMenu.add(insertCharacter);
-		
+
 		createMenu.addSeparator();
-		
-		insertObject = new JMenuItem("Insertar Objeto", KeyEvent.VK_O);
-		insertObject.setIcon((Icon) getIcon("potion.png"));
-		insertObject.getAccessibleContext().setAccessibleDescription("Insertar un personaje.");
-		createMenu.add(insertObject);
+
+		insertMagicObject = new JMenuItem("Insertar Objeto Mágico", KeyEvent.VK_M);
+		insertMagicObject.setIcon((Icon) getIcon("potion.png"));
+		insertMagicObject.getAccessibleContext().setAccessibleDescription("Insertar un objeto mágico.");
+		createMenu.add(insertMagicObject);
+
+		insertEquipment = new JMenuItem("Insertar Equipo", KeyEvent.VK_E);
+		insertEquipment.setIcon((Icon) getIcon("horse.png"));
+		insertEquipment.getAccessibleContext().setAccessibleDescription("Insertar equipo.");
+		createMenu.add(insertEquipment);
 
 		return createMenu;
 	}
@@ -296,11 +301,15 @@ public class MainMenu {
 	public void addHistoryWindowListener(ActionListener al) {
 		historyMenuItem.addActionListener(al);
 	}
-	
+
 	public void addPerksWindowListener(ActionListener al) {
 		perksMenuItem.addActionListener(al);
 	}
-	
+
+	public void addTrainingWindowListener(ActionListener al) {
+		trainingMenuItem.addActionListener(al);
+	}
+
 	public void addProfessionWindowListener(ActionListener al) {
 		professionMenuItem.addActionListener(al);
 	}
@@ -343,7 +352,7 @@ public class MainMenu {
 		levelUpMenuItem.setEnabled(value);
 		saveMenuItem.setEnabled(value);
 	}
-	
+
 	public static ImageIcon getIcon(String iconName) {
 		try {
 			ImageIcon icon = new ImageIcon(MainMenu.class.getResource("/icons/" + iconName));

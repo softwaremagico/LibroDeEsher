@@ -24,8 +24,6 @@ package com.softwaremagico.librodeesher.gui.profession;
  * #L%
  */
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -33,23 +31,17 @@ import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.options.SelectOption;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
-import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class ProfessionWindow extends BaseFrame {
 	private CharacterPlayer character;
-	private ProfessionCompleteSkillPointsPanel skillPanel;
-	private BaseLabel commonSkillsPointsLabel;
-	private PointsCounterTextField commonPoints;
 	private List<SelectOption<Skill>> commonOptions;
 	private List<SelectOption<Skill>> professionalOptions;
 	private List<SelectOption<Skill>> restrictedOptions;
@@ -61,7 +53,6 @@ public class ProfessionWindow extends BaseFrame {
 		restrictedOptions = new ArrayList<>();
 		this.character = character;
 		defineSize();
-		commonPoints = new PointsCounterTextField();
 		// setResizable(false);
 		setElements();
 	}
@@ -82,10 +73,6 @@ public class ProfessionWindow extends BaseFrame {
 			heighCells++;
 		}
 		defineWindow(250 * widthCells, 50 + 200 * heighCells);
-	}
-
-	private void setCommonPointText() {
-		commonPoints.setPoints(character.getRemainingHistorialPoints());
 	}
 
 	private void setElements() {
@@ -171,45 +158,6 @@ public class ProfessionWindow extends BaseFrame {
 		gridBagConstraints.weighty = 0;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		getContentPane().add(buttonPanel, gridBagConstraints);
-	}
-
-	public JPanel addPanel(ChooseSkillGroup chooseGroup) {
-		JPanel skillGroupPanel = new JPanel();
-		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-
-		gridBagConstraints.fill = GridBagConstraints.BOTH;
-		gridBagConstraints.ipadx = xPadding;
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
-		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.weightx = 1;
-		gridBagConstraints.weighty = 0;
-		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		JPanel commonPointsPanel = new JPanel();
-		commonPointsPanel.setLayout(new BoxLayout(commonPointsPanel, BoxLayout.X_AXIS));
-		commonSkillsPointsLabel = new BaseLabel("    Habilidades Comunes: ");
-		commonPointsPanel.add(commonSkillsPointsLabel);
-		commonPoints.setColumns(3);
-		commonPoints.setEditable(false);
-		commonPoints.setMaximumSize(new Dimension(60, 25));
-		setCommonPointText();
-		commonPointsPanel.add(commonPoints);
-		skillGroupPanel.add(commonPointsPanel, gridBagConstraints);
-
-		gridBagConstraints.fill = GridBagConstraints.BOTH;
-		gridBagConstraints.ipadx = xPadding;
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
-		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.weightx = 1;
-		gridBagConstraints.weighty = 1;
-		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		// skillPanel = new OptionsPanel(character, chooseGroup, this);
-		skillGroupPanel.add(skillPanel, gridBagConstraints);
-
-		return skillGroupPanel;
 	}
 
 	@Override
