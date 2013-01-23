@@ -156,7 +156,7 @@ public class CharacterProfessionPanel extends BasePanel {
 			character.setProfession(getSelectedProfession());
 			updateLevelPanel();
 		}
-		parent.updateProfession();
+		parent.updateSkills();
 	}
 
 	public void setCharacter(CharacterPlayer character) {

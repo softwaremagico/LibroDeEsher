@@ -61,7 +61,7 @@ Listas Abiertas de Hechizos	0
 ####################
 Acechar, Acrobacias, Actuar, Arma, Armadura·Ligera, Cantar, Conocimiento Regional, Desarrollo Físico
 Emboscar, Escalar, Esconderse, Espeleología, Esprintar, Forrajear, Historia, Improvisación Poética
-Listas de Hechizos, Manejo de los Animales, Montar: Caballos, Nadar, Narrar Historias, Observación, Oratoria, Orientación Celeste
+Lista de Hechizos, Manejo de los Animales, Montar: Caballos, Nadar, Narrar Historias, Observación, Oratoria, Orientación Celeste
 Pelea, Pintura, Predicción del Clima, Rastrear, Saltar, Sintonización, Tatuar, Tocar Instrumento
 Trabajar el Cuero, Trabajar el Metal, Trepar
 

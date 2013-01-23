@@ -46,8 +46,10 @@ public class CharacterRacePanel extends BasePanel {
 	private JComboBox<String> cultureComboBox;
 	private CharacterProfessionPanel professionPanel;
 	private CharacterPlayer character;
+	private CharacterPanel parent;
 
-	protected CharacterRacePanel() {
+	protected CharacterRacePanel(CharacterPanel parent) {
+		this.parent = parent;
 		setElements();
 		setDefaultSize();
 	}
@@ -182,6 +184,7 @@ public class CharacterRacePanel extends BasePanel {
 	private void updateCulture() {
 		if (character != null) {
 			character.setCulture(getSelectedCulture());
+			updateSkillList();
 		}
 	}
 
@@ -193,6 +196,10 @@ public class CharacterRacePanel extends BasePanel {
 		raceComboBox.setEnabled(!character.areCharacteristicsConfirmed());
 	}
 
+	private void updateSkillList() {
+		parent.updateSkills();
+	}
+
 	class ChangeRaceListener implements ActionListener {
 
 		@Override
@@ -202,6 +209,7 @@ public class CharacterRacePanel extends BasePanel {
 			}
 			updateCultureComboBox();
 			updateProfessionPanel();
+			updateSkillList();
 		}
 	}
 
@@ -209,7 +217,7 @@ public class CharacterRacePanel extends BasePanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (character != null) {
+			if (character != null && cultureComboBox.getSelectedItem() != null) {
 				updateCulture();
 			}
 		}

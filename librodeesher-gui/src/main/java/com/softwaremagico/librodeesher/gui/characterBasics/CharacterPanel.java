@@ -61,7 +61,7 @@ public class CharacterPanel extends BasePanel {
 		c.insets = new Insets(1, 5, 1, 5);
 		add(characterBasics, c);
 
-		characterRacePanel = new CharacterRacePanel();
+		characterRacePanel = new CharacterRacePanel(this);
 		characterRacePanel.setBounds(xPadding, xPadding, characterBasics.getWidth(),
 				characterBasics.getHeight());
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -134,9 +134,9 @@ public class CharacterPanel extends BasePanel {
 			characterLevelPanel.update();
 		}
 	}
-
-	public void updateProfession() {
-		parent.updateProfession();
+	
+	public void updateSkills() {
+		parent.updateSkills();
 	}
 
 }

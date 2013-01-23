@@ -52,7 +52,7 @@ Desarrollo Físico	0
   *  Desarrollo Físico	2
 Listas Abiertas de Hechizos	0
   *  Lista de Hechizos	1
-  
+
 # PUNTOS AFICIONES
 ####################
 12
