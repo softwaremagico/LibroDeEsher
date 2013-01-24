@@ -64,6 +64,7 @@ public class WeaponCategoryLine extends GenericCategoryLine {
 		enableRanks(0); // Weapon cost does not change. Current ranks calculus
 						// is not necessary.
 		updatingWeaponCost = false;
+		setRanksSelected(character.getCurrentLevelRanks(category));
 	}
 
 	private void addItemsToComboBox() {

@@ -89,7 +89,6 @@ public class SkillWindow extends BaseFrame {
 		developmentPoints.setColumns(3);
 		developmentPoints.setEditable(false);
 		developmentPoints.setMaximumSize(new Dimension(60, 25));
-		setDevelopmentPointText();
 		developmentPointsPanel.add(developmentPoints);
 
 		gridBagConstraints.anchor = GridBagConstraints.CENTER;

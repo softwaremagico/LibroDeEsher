@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.skills;
+
 /*
  * #%L
  * Libro de Esher
@@ -36,13 +37,13 @@ public class CategoryLine extends GenericCategoryLine {
 			SkillPanel parentWindow) {
 		super(character, category, background, parentWindow);
 		enableColumns(true, true, true, true, true, true, true, true);
+		setRanksSelected(character.getCurrentLevelRanks(category));
 	}
 
 	@Override
 	protected void setCurrentLevelRanks() {
 		Integer ranks = getRanksSelected();
-		// order the ranks.
-		setRanksSelected(ranks);
+		setRanksSelected(ranks); // order the ranks.
 		character.setCurrentLevelRanks(category, ranks);
 	}
 

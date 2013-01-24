@@ -136,6 +136,17 @@ public class SkillFactory {
 		return skills;
 	}
 
+	public static List<Skill> getSkills(List<String> skillsNames) {
+		List<Skill> allSkills = getSkills();
+		List<Skill> skills = new ArrayList<>();
+		for(Skill skill : allSkills){
+			if(skillsNames.contains(skill.getName())){
+				skills.add(skill);
+			}
+		}
+		return skills;
+	}
+
 	public static List<Skill> getWeaponSkills() {
 		List<Skill> skills = new ArrayList<>();
 		List<Category> weaponCategories = CategoryFactory.getWeaponsCategories();
