@@ -62,7 +62,7 @@ public class SkillWindow extends BaseFrame {
 	}
 
 	private void setDevelopmentPointText() {
-		developmentPoints.setPoints(character.getRemainingDevelopmentPoints());
+		developmentPoints.setPoints(character.getDevelopmentPoints());
 	}
 
 	private void setElements() {

@@ -92,8 +92,6 @@ public class CharacterLevelPanel extends BasePanel {
 		containerPanel.add(developmentLabel, c);
 
 		developmentTextField = new PointsCounterTextField();
-		developmentTextField.setEditable(false);
-		developmentTextField.setColumns(2);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
 		c.gridx = 3;
@@ -177,7 +175,7 @@ public class CharacterLevelPanel extends BasePanel {
 
 	private void updateDevelopmentPoints() {
 		if (character.areCharacteristicsConfirmed()) {
-			developmentTextField.setPoints(character.getRemainingDevelopmentPoints());
+			developmentTextField.setPoints(character.getDevelopmentPoints());
 		} else {
 			developmentTextField.setPoints(0);
 		}

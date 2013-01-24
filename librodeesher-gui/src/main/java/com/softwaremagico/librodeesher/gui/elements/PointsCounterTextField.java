@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.elements;
+
 /*
  * #%L
  * Libro de Esher
@@ -27,6 +28,11 @@ import java.awt.Color;
 
 public class PointsCounterTextField extends BaseTextField {
 	private static final long serialVersionUID = -830671781809359034L;
+
+	public PointsCounterTextField() {
+		setEditable(false);
+		setColumns(2);
+	}
 
 	public void setPoints(Integer points) {
 		setText(points.toString());

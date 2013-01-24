@@ -25,6 +25,7 @@ package com.softwaremagico.librodeesher.pj.characteristic;
  */
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.basics.Dice;
@@ -32,6 +33,7 @@ import com.softwaremagico.librodeesher.basics.TwoDices;
 
 public class Characteristics {
 	private final static String allowedCharacteristics = "AgCoMeRaAdEmInPrRpFu";
+	public static Hashtable<String, String> characteristicAbbreviatureList;
 	public final static int TOTAL_CHARACTERISTICS_POINTS = 660;
 	public final static Integer INITIAL_CHARACTERISTIC_VALUE = 31;
 	public final static Integer MAX_INITIAL_CHARACTERISTIC_VALUE = 100;
@@ -39,21 +41,30 @@ public class Characteristics {
 	private List<Characteristic> characteristics;
 
 	public Characteristics() {
-		createCharacteristics();	
+		createCharacteristics();
+	}
+
+	static {
+		characteristicAbbreviatureList = new Hashtable<>();
+		characteristicAbbreviatureList.put("Ag", "Agilidad");
+		characteristicAbbreviatureList.put("Co", "Constitución");
+		characteristicAbbreviatureList.put("Me", "Memoria");
+		characteristicAbbreviatureList.put("Ra", "Razón");
+		characteristicAbbreviatureList.put("Ad", "Autodisciplina");
+		characteristicAbbreviatureList.put("Em", "Empatía");
+		characteristicAbbreviatureList.put("In", "Intuición");
+		characteristicAbbreviatureList.put("Pr", "Presencia");
+		characteristicAbbreviatureList.put("Rp", "Rapidez");
+		characteristicAbbreviatureList.put("Fu", "Fuerza");
 	}
 
 	private void createCharacteristics() {
 		characteristics = new ArrayList<>();
-		characteristics.add(new Characteristic("Ag"));
-		characteristics.add(new Characteristic("Co"));
-		characteristics.add(new Characteristic("Me"));
-		characteristics.add(new Characteristic("Ra"));
-		characteristics.add(new Characteristic("Ad"));
-		characteristics.add(new Characteristic("Em"));
-		characteristics.add(new Characteristic("In"));
-		characteristics.add(new Characteristic("Pr"));
-		characteristics.add(new Characteristic("Rp"));
-		characteristics.add(new Characteristic("Fu"));
+
+		for (String abbreviature : characteristicAbbreviatureList.keySet()) {
+			characteristics.add(new Characteristic(abbreviature, characteristicAbbreviatureList
+					.get(abbreviature)));
+		}
 	}
 
 	public List<Characteristic> getCharacteristicsList() {

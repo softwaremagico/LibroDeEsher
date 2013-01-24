@@ -53,7 +53,7 @@ public class Profession {
 	private String name;
 	private Hashtable<String, Integer> categoriesBonus;
 	private Hashtable<String, Integer> skillBonus;
-	private List<Characteristic> characteristicPreferences;
+	private List<String> characteristicPreferences;
 	private List<ProfessionalRealmsOfMagicOptions> magicRealmsAvailable;
 	private List<CategoryCost> weaponCategoryCost;
 	private List<CategoryCost> extraWeaponCategoryCost; // For firearms or any
@@ -67,7 +67,8 @@ public class Profession {
 	private List<String> restrictedSkills;
 
 	private MagicCosts magicCosts;
-	private Hashtable<String, TrainingCost> trainingCosts;
+	private Hashtable<String, Integer> trainingCosts;
+	private Hashtable<String, TrainingType> trainingTypes;
 
 	public Profession(String name) {
 		this.name = name;
@@ -98,10 +99,10 @@ public class Profession {
 	}
 
 	public boolean isCharacteristicProfessional(Characteristic characteristic) {
-		if (characteristicPreferences.size() > 0 && characteristic.equals(characteristicPreferences.get(0))) {
+		if (characteristicPreferences.size() > 0 && characteristic.getAbbreviature().equals(characteristicPreferences.get(0))) {
 			return true;
 		}
-		if (characteristicPreferences.size() > 1 && characteristic.equals(characteristicPreferences.get(1))) {
+		if (characteristicPreferences.size() > 1 && characteristic.getAbbreviature().equals(characteristicPreferences.get(1))) {
 			return true;
 		}
 		return false;
@@ -165,7 +166,7 @@ public class Profession {
 
 			for (String abbrev : characteristicsTags) {
 				if (Characteristics.isCharacteristicValid(abbrev)) {
-					characteristicPreferences.add(new Characteristic(abbrev));
+					characteristicPreferences.add(abbrev);
 				} else {
 					ShowMessage.showErrorMessage("Caracteristica " + abbrev + " mostrada en el archivo "
 							+ name + ".txt no existente.", "Leer Profesion");
@@ -376,6 +377,7 @@ public class Profession {
 
 	private int setTrainingCosts(List<String> lines, int index) {
 		trainingCosts = new Hashtable<>();
+		trainingTypes = new Hashtable<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -396,8 +398,8 @@ public class Profession {
 				try {
 					Integer cost = Integer.parseInt(trainingColumns[1].replace("+", "").replace("-", "")
 							.trim());
-					TrainingCost trainingCost = new TrainingCost(trainingColumns[0], cost, type);
-					trainingCosts.put(trainingColumns[0], trainingCost);
+					trainingCosts.put(trainingColumns[0], cost);
+					trainingTypes.put(trainingColumns[0], type);
 				} catch (Exception e) {
 					ShowMessage.showErrorMessage("Coste de Adiestramiento mal formado: " + lines.get(index),
 							"Leer Profesión");
@@ -469,5 +471,13 @@ public class Profession {
 		} catch (NullPointerException npe) {
 			return false;
 		}
+	}
+
+	public Integer getTrainingCost(String trainingName) {
+		Integer cost = trainingCosts.get(trainingName);
+		if (cost != null) {
+			return cost;
+		}
+		return Integer.MAX_VALUE;
 	}
 }

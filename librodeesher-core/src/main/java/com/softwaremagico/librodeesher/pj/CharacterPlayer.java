@@ -25,6 +25,7 @@ package com.softwaremagico.librodeesher.pj;
  */
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -61,6 +62,7 @@ import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.skills.SkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.SkillType;
 import com.softwaremagico.librodeesher.pj.training.Training;
+import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 
 public class CharacterPlayer {
 
@@ -325,15 +327,25 @@ public class CharacterPlayer {
 		return total;
 	}
 
+	private Integer getSpentDevelopmentPointsInTrainings(Integer level) {
+		Integer total = 0;
+		LevelUp levelUp = levelUps.get(level);
+		for (String trainingName : levelUp.getTrainings()) {
+			total += getProfession().getTrainingCost(trainingName);
+		}
+		return total;
+	}
+
 	private Integer getSpentDevelopmentPoints() {
 		if (levelUps.size() > 0) {
 			return getSpentDevelopmentPointsInCategoryRanks(levelUps.size() - 1)
-					+ getSpentDevelopmentPointsInSkillsRanks(levelUps.size() - 1);
+					+ getSpentDevelopmentPointsInSkillsRanks(levelUps.size() - 1)
+					+ getSpentDevelopmentPointsInTrainings(levelUps.size() - 1);
 		}
 		return 0;
 	}
 
-	public Integer getRemainingDevelopmentPoints() {
+	public Integer getDevelopmentPoints() {
 		return getTotalDevelopmentPoints() - getSpentDevelopmentPoints();
 	}
 
@@ -529,6 +541,10 @@ public class CharacterPlayer {
 		return getPreviousRanks(category) + getCurrentLevelRanks(category);
 	}
 
+	private Integer getTotalRanks(Skill skill) {
+		return getPreviousRanks(skill) + getCurrentLevelRanks(skill);
+	}
+
 	public Integer getRealRanks(Skill skill) {
 		Float modifier = (float) 1;
 		if (isRestricted(skill)) {
@@ -538,7 +554,7 @@ public class CharacterPlayer {
 		} else if (isCommon(skill)) {
 			modifier = (float) 2;
 		}
-		return (int) ((getPreviousRanks(skill) + getCurrentLevelRanks(skill)) * modifier);
+		return (int) (getTotalRanks(skill) * modifier);
 	}
 
 	public Integer getRanksValue(Category category) {
@@ -957,5 +973,80 @@ public class CharacterPlayer {
 
 	public void setProfessionalSkillsChoseFromProfession(List<String> professionalSkillsChose) {
 		professionDecisions.setProfessionalSkillsChose(professionalSkillsChose);
+	}
+
+	public List<String> getAvailableTrainings() {
+		List<String> availableTrainings = new ArrayList<>();
+		List<String> selectedTrainings = getSelectedTrainings();
+		for (String trainingName : TrainingFactory.getAvailableTrainings()) {
+			// Correct race of training.
+			if (TrainingFactory.getTraining(trainingName).getLimitedRaces().size() > 0) {
+				if (!TrainingFactory.getTraining(trainingName).getLimitedRaces()
+						.contains(getRace().getName())) {
+					continue;
+				}
+			}
+			// Enough developmentPoints
+			if (getTrainingCost(trainingName) > getDevelopmentPoints()) {
+				continue;
+			}
+			// Not already selected Training
+			if (selectedTrainings.contains(trainingName)) {
+				continue;
+			}
+			availableTrainings.add(trainingName);
+		}
+		Collections.sort(availableTrainings);
+		return availableTrainings;
+	}
+
+	public List<String> getSelectedTrainings() {
+		List<String> selectedTrainings = new ArrayList<>();
+		for (LevelUp level : levelUps) {
+			selectedTrainings.addAll(level.getTrainings());
+		}
+		return selectedTrainings;
+	}
+
+	private Integer getTrainingSkillCostReduction(List<Skill> skills, Training training) {
+		Integer costModification = 0;
+		for (Skill skill : skills) {
+			if (getRealRanks(skill) >= training.getSkillRequirements().get(skill.getName())) {
+				costModification += training.getSkillRequirementsCostModification().get(skill.getName());
+			}
+		}
+		return costModification;
+	}
+
+	private Integer getTrainingCharacteristicCostReduction(List<Characteristic> characteristics,
+			Training training) {
+		Integer costModification = 0;
+		for (Characteristic characteristic : characteristics) {
+			try {
+				if (getCharacteristicTemporalValue(characteristic.getAbbreviature()) >= training
+						.getCharacteristicRequirements().get(characteristic.getAbbreviature())) {
+					costModification += training.getCharacteristicRequirementsCostModification().get(
+							characteristic.getAbbreviature());
+				}
+			} catch (NullPointerException npe) {
+				// Is not a requirement. Do nothing.
+			}
+		}
+		return costModification;
+	}
+
+	public Integer getTrainingCost(String trainingName) {
+		Integer baseCost = getProfession().getTrainingCost(trainingName);
+		Training training = TrainingFactory.getTraining(trainingName);
+		baseCost += getTrainingSkillCostReduction(
+				SkillFactory.getSkills(training.getSkillRequirementsList()), training);
+		baseCost += getTrainingCharacteristicCostReduction(characteristics.getCharacteristicsList(), training);
+		return baseCost;
+	}
+
+	public void addTraining(String trainingName) {
+		if (levelUps.size() > 0) {
+			levelUps.get(levelUps.size() - 1).addTraining(trainingName);
+		}
 	}
 }

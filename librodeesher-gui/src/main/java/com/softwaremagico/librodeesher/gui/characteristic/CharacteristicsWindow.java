@@ -80,7 +80,6 @@ public class CharacteristicsWindow extends BaseFrame {
 
 		characteristicsPointsTextField = new PointsCounterTextField();
 		characteristicsPointsTextField.setColumns(3);
-		characteristicsPointsTextField.setEditable(false);
 		characteristicsPointsTextField.setMaximumSize(new Dimension(60, 25));
 		setRemainingPoints(0);
 		characteristicPointsPanel.add(characteristicsPointsTextField);

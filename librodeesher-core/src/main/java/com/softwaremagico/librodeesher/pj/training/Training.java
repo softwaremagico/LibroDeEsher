@@ -27,6 +27,7 @@ package com.softwaremagico.librodeesher.pj.training;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,9 +50,11 @@ public class Training {
 	private List<String> limitedRaces;
 	private List<TrainingSpecial> specials;
 	private List<TrainingCategory> categories;
-	private List<List<Characteristic>> updateCharacteristics; // Choose one
-	private List<MinimalCharacteristicRequired> characteristicRequirements;
-	private List<MinimalSkillRequired> skillRequirements;
+	private List<List<String>> updateCharacteristics; // Choose one
+	private Hashtable<String, Integer> characteristicRequirements;
+	private Hashtable<String, Integer> characteristicRequirementsCostModification;
+	private Hashtable<String, Integer> skillRequirements;
+	private Hashtable<String, Integer> skillRequirementsCostModification;
 	private List<ChooseSkillGroup> lifeSkills;
 	private List<ChooseSkillGroup> commonSkills;
 	private List<ChooseSkillGroup> professionalSkills;
@@ -243,11 +246,11 @@ public class Training {
 			try {
 				if (trainingLine.contains("{")) {
 					// List to choose a characteristic.
-					List<Characteristic> listToChoose = new ArrayList<>();
+					List<String> listToChoose = new ArrayList<>();
 					trainingLine = trainingLine.replace("}", "").replace("{", "");
 					String[] chars = trainingLine.replace(";", ",").split(",");
 					for (String abbrev : chars) {
-						listToChoose.add(new Characteristic(abbrev));
+						listToChoose.add(abbrev);
 					}
 					updateCharacteristics.add(listToChoose);
 				} else {
@@ -255,8 +258,8 @@ public class Training {
 					// choose).
 					String[] chars = trainingLine.replace(";", ",").split(",");
 					for (String abbrev : chars) {
-						List<Characteristic> listToChoose = new ArrayList<>();
-						listToChoose.add(new Characteristic(abbrev));
+						List<String> listToChoose = new ArrayList<>();
+						listToChoose.add(abbrev);
 						updateCharacteristics.add(listToChoose);
 					}
 				}
@@ -270,8 +273,10 @@ public class Training {
 	}
 
 	private int setProfessionalRequirements(List<String> lines, int index) {
-		characteristicRequirements = new ArrayList<>();
-		skillRequirements = new ArrayList<>();
+		characteristicRequirements = new Hashtable<>();
+		characteristicRequirementsCostModification = new Hashtable<>();
+		skillRequirements = new Hashtable<>();
+		skillRequirementsCostModification = new Hashtable<>();
 
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -286,21 +291,18 @@ public class Training {
 					String[] requirements = requirementsGroup[i].split(pattern);
 					String requirementName = requirements[0];
 					try {
-						System.out.println(requirementsGroup[i]);
 						Integer value = Integer.parseInt(requirements[1].replace(")", ""));
 						Integer costModification = Integer.parseInt(requirements[2].replace(")", ""));
 						// If it is a skill, the requirement is to have at least
 						// X ranks.
 						if (SkillFactory.existSkill(requirementName)) {
-							MinimalSkillRequired minSkill = new MinimalSkillRequired(requirementName, value,
-									costModification);
-							skillRequirements.add(minSkill);
+							skillRequirements.put(requirementName, value);
+							skillRequirementsCostModification.put(requirementName, costModification);
 						} else if (Characteristics.isCharacteristicValid(requirementName)) {
 							// It it is a characteristic, a minimal temporal
 							// value is required.
-							MinimalCharacteristicRequired minChar = new MinimalCharacteristicRequired(
-									requirementName, value, costModification);
-							characteristicRequirements.add(minChar);
+							characteristicRequirements.put(requirementName, value);
+							characteristicRequirementsCostModification.put(requirementName, costModification);
 						} else {
 							ShowMessage.showErrorMessage("Requisito desconocido: \"" + lines.get(index)
 									+ "\" del adiestramiento: " + name, "Leer adiestramientos");
@@ -317,7 +319,8 @@ public class Training {
 		return index;
 	}
 
-	private int setSpecialSkills(List<String> lines, int index, List<ChooseSkillGroup> skillCategory, ChooseType chooseType) {
+	private int setSpecialSkills(List<String> lines, int index, List<ChooseSkillGroup> skillCategory,
+			ChooseType chooseType) {
 		skillCategory = new ArrayList<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -340,6 +343,31 @@ public class Training {
 		}
 		return index;
 	}
+
+	public List<String> getLimitedRaces() {
+		return limitedRaces;
+	}
+
+	public List<String> getSkillRequirementsList() {
+		return new ArrayList<>(skillRequirements.keySet());
+	}
+
+	public Hashtable<String, Integer> getSkillRequirements() {
+		return skillRequirements;
+	}
+
+	public Hashtable<String, Integer> getSkillRequirementsCostModification() {
+		return skillRequirementsCostModification;
+	}
+
+	public Hashtable<String, Integer> getCharacteristicRequirements() {
+		return characteristicRequirements;
+	}
+
+	public Hashtable<String, Integer> getCharacteristicRequirementsCostModification() {
+		return characteristicRequirementsCostModification;
+	}
+
 }
 
 class TrainingSpecial {
@@ -396,30 +424,5 @@ class TrainingSkill {
 	public TrainingSkill(List<String> skillOptions, Integer ranks) {
 		this.skillOptions = skillOptions;
 		this.ranks = ranks;
-	}
-}
-
-class MinimalSkillRequired {
-	String skillName;
-	Integer minimalRanks;
-	Integer costModification;
-
-	public MinimalSkillRequired(String skillName, Integer minimalRanks, Integer costModification) {
-		this.skillName = skillName;
-		this.minimalRanks = minimalRanks;
-		this.costModification = costModification;
-	}
-}
-
-class MinimalCharacteristicRequired {
-	String characteristicAbbreviature;
-	Integer minimalValue;
-	Integer costModification;
-
-	public MinimalCharacteristicRequired(String characteristicAbbreviature, Integer minimalValue,
-			Integer costModification) {
-		this.characteristicAbbreviature = characteristicAbbreviature;
-		this.minimalValue = minimalValue;
-		this.costModification = costModification;
 	}
 }

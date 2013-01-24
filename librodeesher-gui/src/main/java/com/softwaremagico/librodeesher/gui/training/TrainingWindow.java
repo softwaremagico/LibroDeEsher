@@ -24,19 +24,143 @@ package com.softwaremagico.librodeesher.gui.training;
  * #L%
  */
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+
+import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
+import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
+import com.softwaremagico.librodeesher.gui.style.BaseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class TrainingWindow extends BaseFrame {
 	private CharacterPlayer character;
+	private JComboBox<String> trainingsAvailable;
+	private BaseButton addTraining;
+	private PointsCounterTextField remainingDevelopmentPoints;
+	private PointsCounterTextField costDevelopmentPoints;
+	private BaseLabel pointsLabel;
 
 	public TrainingWindow(CharacterPlayer character) {
 		this.character = character;
+		defineWindow(750, 400);
+		remainingDevelopmentPoints = new PointsCounterTextField();
+		setElements();
+	}
+
+	private void setDevelopmentPointText() {
+		if (remainingDevelopmentPoints != null) {
+			remainingDevelopmentPoints.setPoints(character.getDevelopmentPoints());
+		}
+	}
+
+	private void setDevelopmentPointCostText(Integer value) {
+		if (costDevelopmentPoints != null) {
+			costDevelopmentPoints.setPoints(value);
+		}
+	}
+
+	private void setElements() {
+		setLayout(new GridBagLayout());
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+
+		// gridBagConstraints.anchor = GridBagConstraints.LINE_END;
+		gridBagConstraints.fill = GridBagConstraints.BOTH;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0;
+		gridBagConstraints.weighty = 0;
+		getContentPane().add(createChooseTrainingPanel(), gridBagConstraints);
+		gridBagConstraints.gridx = 1;
+		getContentPane().add(createDevelopmentPointsPanel(), gridBagConstraints);
+
+	}
+
+	private void fillTrainingComboBox() {
+		trainingsAvailable.removeAllItems();
+		for (String trainingName : character.getAvailableTrainings()) {
+			trainingsAvailable.addItem(trainingName);
+		}
+	}
+
+	private JPanel createChooseTrainingPanel() {
+		JPanel container = new JPanel();
+		BaseLabel label = new BaseLabel("Adiestramientos: ");
+		container.add(label);
+		trainingsAvailable = new JComboBox<String>();
+		trainingsAvailable.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXX");
+		trainingsAvailable.addActionListener(new ChangeTrainingListener());
+		fillTrainingComboBox();
+		container.add(trainingsAvailable);
+		label = new BaseLabel(" Coste: ");
+		container.add(label);
+		costDevelopmentPoints = new PointsCounterTextField();
+		container.add(costDevelopmentPoints);
+		addTraining = new BaseButton("Añadir");
+		addTraining.addActionListener(new AddListener());
+		container.add(addTraining);
+		setTrainingCost();
+		return container;
+	}
+
+	private JPanel createDevelopmentPointsPanel() {
+		JPanel developmentPointsPanel = new JPanel();
+		developmentPointsPanel.setLayout(new BoxLayout(developmentPointsPanel, BoxLayout.X_AXIS));
+		pointsLabel = new BaseLabel("  Puntos de Desarrollo: ");
+		developmentPointsPanel.add(pointsLabel);
+		setDevelopmentPointText();
+		developmentPointsPanel.add(remainingDevelopmentPoints);
+		setDevelopmentPointText();
+		return developmentPointsPanel;
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
+		setDevelopmentPointText();
+		fillTrainingComboBox();
+	}
 
+	private void addTraining() {
+		if (trainingsAvailable.getSelectedIndex() >= 0) {
+			character.addTraining(trainingsAvailable.getSelectedItem().toString());
+			update();
+		}
+	}
+
+	private void setTrainingCost() {
+		if (trainingsAvailable.getSelectedIndex() >= 0) {
+			setDevelopmentPointCostText(character.getTrainingCost(trainingsAvailable.getSelectedItem()
+					.toString()));
+		} else {
+			setDevelopmentPointCostText(0);
+		}
+	}
+
+	class AddListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			addTraining();
+		}
+	}
+
+	class ChangeTrainingListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			setTrainingCost();
+		}
 	}
 }

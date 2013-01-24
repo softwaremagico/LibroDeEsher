@@ -36,11 +36,13 @@ public class LevelUp {
 	private Hashtable<String, Integer> skillsRanks;
 	private List<String> spellsUpdated; // More than 5 list is more expensive in
 										// Development Points.
+	private List<String> trainings;
 
 	public LevelUp() {
 		categoriesRanks = new Hashtable<>();
 		skillsRanks = new Hashtable<>();
 		spellsUpdated = new ArrayList<>();
+		trainings = new ArrayList<>(); 
 	}
 
 	public Integer getCategoryRanks(String categoryName) {
@@ -114,5 +116,13 @@ public class LevelUp {
 		} else {
 			return 4;
 		}
+	}
+
+	public List<String> getTrainings() {
+		return trainings;
+	}
+	
+	public void addTraining(String trainingName){
+		trainings.add(trainingName);
 	}
 }

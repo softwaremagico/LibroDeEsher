@@ -32,9 +32,10 @@ import com.softwaremagico.librodeesher.basics.ShowMessage;
 
 public class TrainingFactory {
 	public final static String TRAINING_FOLDER = "adiestramientos";
-	private static Hashtable<String, Training> trainingsAvailable = new Hashtable<>();
+	private static Hashtable<String, Training> trainingsStored = new Hashtable<>();
+	private static List<String> availableTraining = availableTrainings();
 
-	public static List<String> availableTrainings() {
+	private static List<String> availableTrainings() {
 		try {
 			return RolemasterFolderStructure.getFilesAvailable(TRAINING_FOLDER);
 		} catch (Exception e) {
@@ -44,20 +45,26 @@ public class TrainingFactory {
 		return null;
 	}
 
+	public static List<String> getAvailableTrainings() {
+		return availableTraining;
+	}
+
 	public static Training getTraining(String trainingName) {
 		try {
 			if (availableTrainings().contains(trainingName)) {
-				Training training = trainingsAvailable.get(trainingName);
+				Training training = trainingsStored.get(trainingName);
 				if (training == null) {
 					training = new Training(trainingName);
-					trainingsAvailable.put(trainingName, training);
+					trainingsStored.put(trainingName, training);
 				}
 				return training;
 			}
 		} catch (Exception e) {
 		}
-		/*ShowMessage.showErrorMessage("Adiestramiento no existente: " + trainingName,
-				"Creación de adiestramientos.");*/
+		/*
+		 * ShowMessage.showErrorMessage("Adiestramiento no existente: " +
+		 * trainingName, "Creación de adiestramientos.");
+		 */
 		return null;
 	}
 

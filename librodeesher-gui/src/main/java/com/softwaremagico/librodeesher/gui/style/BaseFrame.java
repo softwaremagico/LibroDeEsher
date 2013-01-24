@@ -25,6 +25,7 @@ package com.softwaremagico.librodeesher.gui.style;
  */
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
@@ -64,6 +65,7 @@ public abstract class BaseFrame extends JFrame {
 
 	protected void defineWindow(Integer width, Integer height) {
 		setSize(width, height);
+		setMinimumSize(new Dimension(width, height));
 		setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2
 				- (int) (this.getWidth() / 2), (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight()
 				/ 2 - (int) (this.getHeight() / 2));

@@ -339,7 +339,7 @@ public class MainMenu {
 	}
 
 	private void isCharacterWellFormed() {
-		Integer points = character.getRemainingDevelopmentPoints();
+		Integer points = character.getDevelopmentPoints();
 		if (points < 0 || !character.areCharacteristicsConfirmed()) {
 			enableCharacterExports(false);
 		} else {

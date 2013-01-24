@@ -28,25 +28,12 @@ import java.util.Hashtable;
 import com.softwaremagico.librodeesher.basics.TwoDices;
 
 public class Characteristic {
-	public static Hashtable<String, String> characteristicAbbreviatureList;
 	private String abbreviature;
+	private String name;
 
-	static {
-		characteristicAbbreviatureList = new Hashtable<>();
-		characteristicAbbreviatureList.put("Ag", "Agilidad");
-		characteristicAbbreviatureList.put("Co", "Constitución");
-		characteristicAbbreviatureList.put("Me", "Memoria");
-		characteristicAbbreviatureList.put("Ra", "Razón");
-		characteristicAbbreviatureList.put("Ad", "Autodisciplina");
-		characteristicAbbreviatureList.put("Em", "Empatía");
-		characteristicAbbreviatureList.put("In", "Intuición");
-		characteristicAbbreviatureList.put("Pr", "Presencia");
-		characteristicAbbreviatureList.put("Rp", "Rapidez");
-		characteristicAbbreviatureList.put("Fu", "Fuerza");
-	}
-
-	public Characteristic(String ab) {
+	public Characteristic(String ab, String name) {
 		abbreviature = ab;
+		this.name = name;
 	}
 
 	public static Integer getCharacteristicUpgrade(Integer temporalValue, Integer potentialValue,
@@ -85,11 +72,11 @@ public class Characteristic {
 	}
 
 	public String getName() {
-		String name = characteristicAbbreviatureList.get(abbreviature);
-		if (name != null) {
-			return name;
-		}
-		return "Unknown";
+		return name;
+	}
+
+	public String toString() {
+		return getName() + " (" + abbreviature + ")";
 	}
 
 	@Override
