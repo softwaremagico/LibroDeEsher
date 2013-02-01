@@ -26,19 +26,24 @@ package com.softwaremagico.librodeesher.gui.training;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
+import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.style.BaseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 
 public class TrainingWindow extends BaseFrame {
 	private CharacterPlayer character;
@@ -47,12 +52,13 @@ public class TrainingWindow extends BaseFrame {
 	private PointsCounterTextField remainingDevelopmentPoints;
 	private PointsCounterTextField costDevelopmentPoints;
 	private BaseLabel pointsLabel;
+	private CompleteCategoryPanel categoryPanel;
 
 	public TrainingWindow(CharacterPlayer character) {
 		this.character = character;
-		defineWindow(750, 400);
-		remainingDevelopmentPoints = new PointsCounterTextField();
+		defineWindow(700, 400);
 		setElements();
+		setEvents();
 	}
 
 	private void setDevelopmentPointText() {
@@ -82,9 +88,35 @@ public class TrainingWindow extends BaseFrame {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
 		gridBagConstraints.weighty = 0;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		getContentPane().add(createChooseTrainingPanel(), gridBagConstraints);
 		gridBagConstraints.gridx = 1;
 		getContentPane().add(createDevelopmentPointsPanel(), gridBagConstraints);
+
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 1;
+		gridBagConstraints.gridheight = 2;
+		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+		gridBagConstraints.weightx = 1;
+		gridBagConstraints.weighty = 1;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+		categoryPanel = new CompleteCategoryPanel(character, null);
+		getContentPane().add(categoryPanel, gridBagConstraints);
+
+		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+		CloseButton closeButton = new CloseButton(this);
+		buttonPanel.add(closeButton);
+		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
+		gridBagConstraints.fill = GridBagConstraints.NONE;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridx = 1;
+		gridBagConstraints.gridy = 3;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0;
+		gridBagConstraints.weighty = 0;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+		getContentPane().add(buttonPanel, gridBagConstraints);
 
 	}
 
@@ -108,7 +140,7 @@ public class TrainingWindow extends BaseFrame {
 		container.add(label);
 		costDevelopmentPoints = new PointsCounterTextField();
 		container.add(costDevelopmentPoints);
-		addTraining = new BaseButton("Añadir");
+		addTraining = new BaseButton(" Añadir ");
 		addTraining.addActionListener(new AddListener());
 		container.add(addTraining);
 		setTrainingCost();
@@ -117,10 +149,11 @@ public class TrainingWindow extends BaseFrame {
 
 	private JPanel createDevelopmentPointsPanel() {
 		JPanel developmentPointsPanel = new JPanel();
-		developmentPointsPanel.setLayout(new BoxLayout(developmentPointsPanel, BoxLayout.X_AXIS));
-		pointsLabel = new BaseLabel("  Puntos de Desarrollo: ");
+		//developmentPointsPanel.setLayout(new BoxLayout(developmentPointsPanel, BoxLayout.X_AXIS));
+		pointsLabel = new BaseLabel("  PD Restantes: ");
 		developmentPointsPanel.add(pointsLabel);
 		setDevelopmentPointText();
+		remainingDevelopmentPoints = new PointsCounterTextField();
 		developmentPointsPanel.add(remainingDevelopmentPoints);
 		setDevelopmentPointText();
 		return developmentPointsPanel;
@@ -129,6 +162,7 @@ public class TrainingWindow extends BaseFrame {
 	@Override
 	public void update() {
 		setDevelopmentPointText();
+		categoryPanel.update(TrainingFactory.getTraining(trainingsAvailable.getSelectedItem().toString()));
 		fillTrainingComboBox();
 	}
 
@@ -162,5 +196,29 @@ public class TrainingWindow extends BaseFrame {
 		public void actionPerformed(ActionEvent e) {
 			setTrainingCost();
 		}
+	}
+
+	private void setEvents() {
+		addComponentListener(new ComponentListener() {
+			@Override
+			public void componentResized(ComponentEvent evt) {
+				categoryPanel.sizeChanged();
+			}
+
+			@Override
+			public void componentMoved(ComponentEvent e) {
+
+			}
+
+			@Override
+			public void componentShown(ComponentEvent e) {
+
+			}
+
+			@Override
+			public void componentHidden(ComponentEvent e) {
+
+			}
+		});
 	}
 }

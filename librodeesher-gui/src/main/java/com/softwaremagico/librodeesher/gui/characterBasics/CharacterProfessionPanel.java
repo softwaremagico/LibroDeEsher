@@ -47,6 +47,7 @@ public class CharacterProfessionPanel extends BasePanel {
 	private CharacterLevelPanel levelPanel;
 	private boolean updatingProfession = false;
 	private CharacterPanel parent;
+	private BaseTextField trainingTextField;
 
 	protected CharacterProfessionPanel(CharacterPanel parent) {
 		this.parent = parent;
@@ -84,7 +85,7 @@ public class CharacterProfessionPanel extends BasePanel {
 		c.weightx = 0;
 		add(trainingLabel, c);
 
-		BaseTextField trainingTextField = new BaseTextField();
+		trainingTextField = new BaseTextField();
 		trainingTextField.setEditable(false);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 0;
@@ -119,6 +120,7 @@ public class CharacterProfessionPanel extends BasePanel {
 			updateProfessionComboBox(character.getRace().availableProfessions());
 		}
 		professionComboBox.setEnabled(!character.areCharacteristicsConfirmed());
+		updateTraining();
 	}
 
 	private void updateProfessionComboBox(List<String> professions) {
@@ -157,6 +159,18 @@ public class CharacterProfessionPanel extends BasePanel {
 			updateLevelPanel();
 		}
 		parent.updateSkills();
+	}
+
+	private void updateTraining() {
+		String text = "";
+		List<String> trainings = character.getSelectedTrainings();
+		for (int i = 0; i < trainings.size(); i++) {
+			text += trainings.get(i);
+			if (i < trainings.size() - 1) {
+				text += ", ";
+			}
+		}
+		trainingTextField.setText(text);
 	}
 
 	public void setCharacter(CharacterPlayer character) {

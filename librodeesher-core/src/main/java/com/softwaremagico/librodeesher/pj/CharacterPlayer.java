@@ -62,6 +62,8 @@ import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.skills.SkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.SkillType;
 import com.softwaremagico.librodeesher.pj.training.Training;
+import com.softwaremagico.librodeesher.pj.training.TrainingCategory;
+import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 
 public class CharacterPlayer {
@@ -86,11 +88,12 @@ public class CharacterPlayer {
 	private ProfessionDecisions professionDecisions;
 	private List<String> trainingsNames;
 	private transient List<Training> trainings;
+	private Hashtable<String, TrainingDecision> trainingDecisions;
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
 	private MagicSpellLists magicSpellLists;
 	private Historial historial;
 	private List<Perk> perks;
-	private Hashtable<Perk, PerkDecision> perkDecisions;
+	private Hashtable<String, PerkDecision> perkDecisions;
 	private Appearance appearance;
 
 	private boolean darkSpellsAsBasicListsAllowed = false;
@@ -109,6 +112,7 @@ public class CharacterPlayer {
 		characteristicsInitialTemporalValues = new Hashtable<>();
 		characteristicsTemporalUpdatesRolls = new Hashtable<>();
 		characteristicsPotentialValues = new Hashtable<>();
+		trainingDecisions = new Hashtable<>();
 		perkDecisions = new Hashtable<>();
 		setTemporalValuesOfCharacteristics();
 		sex = SexType.MALE;
@@ -908,7 +912,7 @@ public class CharacterPlayer {
 			if (perk.isSkillSelected(chosenOptions.get(0))) {
 				perkDecision.setSkillsBonusChoosen(chosenOptions);
 			}
-			perkDecisions.put(perk, perkDecision);
+			perkDecisions.put(perk.getName(), perkDecision);
 		}
 	}
 
@@ -1049,4 +1053,24 @@ public class CharacterPlayer {
 			levelUps.get(levelUps.size() - 1).addTraining(trainingName);
 		}
 	}
+
+	/**
+	 * The user must to choose one category from a training if the training has
+	 * this option and it has not been chosen before.
+	 * 
+	 * @param trainingName
+	 * @return
+	 */
+	public boolean needToChooseOneCategory(Training training, TrainingCategory trainingCategory) {
+		if (trainingCategory.needToChooseOneCategory()) {
+			TrainingDecision trainingDecision = trainingDecisions.get(training.getName());
+			if (trainingDecision == null || trainingDecision.getSelectedCategory(trainingCategory).isEmpty()) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return false;
+	}
+
 }

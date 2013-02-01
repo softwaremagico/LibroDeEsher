@@ -38,7 +38,6 @@ import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.basics.ChooseType;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
-import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -49,7 +48,7 @@ public class Training {
 	private Integer trainingTime;
 	private List<String> limitedRaces;
 	private List<TrainingSpecial> specials;
-	private List<TrainingCategory> categories;
+	private List<TrainingCategory> categoriesWithRanks;
 	private List<List<String>> updateCharacteristics; // Choose one
 	private Hashtable<String, Integer> characteristicRequirements;
 	private Hashtable<String, Integer> characteristicRequirementsCostModification;
@@ -162,11 +161,10 @@ public class Training {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
-		categories = new ArrayList<>();
+		categoriesWithRanks = new ArrayList<>();
 		TrainingCategory category = null;
 		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 			// It is a category
-			// String pattern = Pattern.quote();
 			if (!lines.get(index).contains("*")) {
 				try {
 					if (lines.get(index).contains("{")) {
@@ -188,7 +186,7 @@ public class Training {
 									Integer.parseInt(trainingCategories[2]),
 									Integer.parseInt(trainingCategories[3]),
 									Integer.parseInt(trainingCategories[4]));
-							categories.add(category);
+							categoriesWithRanks.add(category);
 
 						} else {
 							ShowMessage.showErrorMessage("Categoría no encontrada en \"" + name + "\": "
@@ -368,6 +366,14 @@ public class Training {
 		return characteristicRequirementsCostModification;
 	}
 
+	public List<TrainingCategory> getCategoriesWithRanks() {
+		return categoriesWithRanks;
+	}
+
+	public String getName() {
+		return name;
+	}
+
 }
 
 class TrainingSpecial {
@@ -382,47 +388,4 @@ class TrainingSpecial {
 	}
 }
 
-class TrainingCategory {
-	private String name;
-	private Integer categoryRanks;
-	private Integer minSkills;
-	private Integer maxSkills;
-	private Integer skillRanks;
-	private List<String> categoryOptions; // List to choose from.
-	private List<TrainingSkill> skills;
 
-	public TrainingCategory(String name, Integer categoryRanks, Integer minSkills, Integer maxSkills,
-			Integer skillRanks) {
-		this.name = name;
-		this.categoryRanks = categoryRanks;
-		this.minSkills = minSkills;
-		this.maxSkills = maxSkills;
-		skills = new ArrayList<>();
-		categoryOptions = new ArrayList<>();
-		this.skillRanks = skillRanks;
-	}
-
-	public TrainingCategory(List<String> categoryOptions, Integer ranks, Integer minSkills,
-			Integer maxSkills, Integer skillRanks) {
-		this.name = "";
-		this.categoryOptions = categoryOptions;
-		this.categoryRanks = ranks;
-		this.minSkills = minSkills;
-		this.maxSkills = maxSkills;
-		this.skillRanks = skillRanks;
-	}
-
-	protected void addSkill(TrainingSkill skill) {
-		skills.add(skill);
-	}
-}
-
-class TrainingSkill {
-	private List<String> skillOptions; // List to choose from.
-	private Integer ranks;
-
-	public TrainingSkill(List<String> skillOptions, Integer ranks) {
-		this.skillOptions = skillOptions;
-		this.ranks = ranks;
-	}
-}

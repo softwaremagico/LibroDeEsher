@@ -50,11 +50,9 @@ public class ChooseWeaponPanel extends BasePanel {
 		int i = 0;
 
 		for (Category category : CategoryFactory.getWeaponsCategories()) {
-
 			add(new WeaponCategoryLine(category, character.getCulture().getCultureRanks(category),
 					getLineBackgroundColor(i)));
 			i++;
-
 			ArrayList<WeaponSkillLine> weaponLineList = new ArrayList<>();
 			weaponLines.put(category, weaponLineList);
 			for (Weapon weapon : character.getCulture().getCultureWeapons()) {

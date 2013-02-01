@@ -1,5 +1,4 @@
-package com.softwaremagico.librodeesher.gui.elements;
-
+package com.softwaremagico.librodeesher.gui.training;
 /*
  * #%L
  * Libro de Esher GUI
@@ -24,24 +23,6 @@ package com.softwaremagico.librodeesher.gui.elements;
  * #L%
  */
 
-import java.awt.BorderLayout;
-import java.awt.Color;
+public class TrainingSkillLine {
 
-import javax.swing.JPanel;
-
-public class ListBackgroundPanel extends JPanel {
-	private static final long serialVersionUID = 8111566323041219062L;
-
-	public ListBackgroundPanel(ListLabel label, Color bgColor) {
-		setLayout(new BorderLayout());
-		setBackground(bgColor);
-		add(label);
-	}
-
-	public ListBackgroundPanel(BaseComboBox comboBox, Color bgColor) {
-		setLayout(new BorderLayout());
-		setBackground(bgColor);
-		comboBox.setBackgroundColor(bgColor);
-		add(comboBox);
-	}
 }

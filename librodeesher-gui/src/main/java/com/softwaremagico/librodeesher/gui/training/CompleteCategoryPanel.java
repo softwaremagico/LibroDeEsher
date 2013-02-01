@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.elements;
+package com.softwaremagico.librodeesher.gui.training;
 
 /*
  * #%L
@@ -24,24 +24,26 @@ package com.softwaremagico.librodeesher.gui.elements;
  * #L%
  */
 
-import java.awt.BorderLayout;
-import java.awt.Color;
+import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.training.Training;
 
-import javax.swing.JPanel;
+public class CompleteCategoryPanel extends BaseScrollPanel {
+	private CategoryTitleLine title;
+	private CategoryPanel categoryPanel;
 
-public class ListBackgroundPanel extends JPanel {
-	private static final long serialVersionUID = 8111566323041219062L;
-
-	public ListBackgroundPanel(ListLabel label, Color bgColor) {
-		setLayout(new BorderLayout());
-		setBackground(bgColor);
-		add(label);
+	public CompleteCategoryPanel(CharacterPlayer character, Training training) {
+		title = new CategoryTitleLine();
+		addTitle(title);
+		categoryPanel = new CategoryPanel(character, training, this);
+		addBody(categoryPanel);
 	}
 
-	public ListBackgroundPanel(BaseComboBox comboBox, Color bgColor) {
-		setLayout(new BorderLayout());
-		setBackground(bgColor);
-		comboBox.setBackgroundColor(bgColor);
-		add(comboBox);
+	protected void sizeChanged() {
+		title.sizeChanged();
+	}
+
+	public void update(Training training) {
+		categoryPanel.update(training);
 	}
 }
