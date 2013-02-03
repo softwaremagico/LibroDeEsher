@@ -1,9 +1,9 @@
 package com.softwaremagico.librodeesher.gui.training;
 
 import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
+import javax.swing.JPanel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
@@ -13,7 +13,6 @@ import com.softwaremagico.librodeesher.gui.elements.BaseSpinner;
 import com.softwaremagico.librodeesher.gui.elements.ListBackgroundPanel;
 import com.softwaremagico.librodeesher.gui.elements.ListLabel;
 import com.softwaremagico.librodeesher.gui.style.BaseLine;
-import com.softwaremagico.librodeesher.gui.training.TrainingCategoryLine.CategoryComboBox;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.training.TrainingCategory;
 import com.softwaremagico.librodeesher.pj.training.TrainingSkill;
@@ -80,36 +79,25 @@ public class TrainingSkillLine extends BaseLine {
 
 	protected void setElements() {
 		this.removeAll();
-		setLayout(new GridBagLayout());
-		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		setLayout(new GridLayout(1, 0));
 		setBackground(background);
 
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.ipadx = xPadding;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 1;
-		gridBagConstraints.weighty = 0;
-
-		gridBagConstraints.gridx = 0;
 		ListBackgroundPanel categoryPanel = getSkillOrGroup();
-		add(categoryPanel, gridBagConstraints);
+		add(categoryPanel);
 
-		gridBagConstraints.gridx = 1;
 		ListLabel minHab = new ListLabel("", SwingConstants.CENTER);
-		add(new ListBackgroundPanel(minHab, background), gridBagConstraints);
+		add(new ListBackgroundPanel(minHab, background));
 
-		gridBagConstraints.gridx = 2;
 		ListLabel maxHab = new ListLabel("", SwingConstants.CENTER);
-		add(new ListBackgroundPanel(maxHab, background), gridBagConstraints);
+		add(new ListBackgroundPanel(maxHab, background));
 
-		gridBagConstraints.gridx = 3;
-
-		SpinnerModel sm = new SpinnerNumberModel(0, 0, (int) category.getSkillRanks()
-				- category.getMinSkills() + 1, 1);
+		JPanel spinnerPanel = new JPanel();
+		SpinnerModel sm = new SpinnerNumberModel((int) skill.getRanks(), (int) skill.getRanks(),
+				(int) category.getSkillRanks() - category.getMinSkills() + 1, 1);
 		rankSpinner = new BaseSpinner(sm);
-		add(createSpinnerInsidePanel(rankSpinner, background), gridBagConstraints);
+		spinnerPanel.add(rankSpinner);
+		spinnerPanel.setBackground(background);
+		add(spinnerPanel, background);
 
 	}
 

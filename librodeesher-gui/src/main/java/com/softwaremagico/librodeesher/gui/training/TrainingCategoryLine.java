@@ -27,6 +27,7 @@ package com.softwaremagico.librodeesher.gui.training;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
 import javax.swing.SwingConstants;
 
@@ -75,33 +76,20 @@ public class TrainingCategoryLine extends BaseLine {
 
 	protected void setElements() {
 		this.removeAll();
-		setLayout(new GridBagLayout());
-		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		setLayout(new GridLayout(1, 0));
 		setBackground(background);
 
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.ipadx = xPadding;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 1;
-		gridBagConstraints.weighty = 0;
-
-		gridBagConstraints.gridx = 0;
 		ListBackgroundPanel categoryPanel = getCategoryOrGroup();
-		add(categoryPanel, gridBagConstraints);
+		add(categoryPanel);
 
-		gridBagConstraints.gridx = 1;
 		ListLabel minHab = new BoldListLabel(category.getMinSkills().toString(), SwingConstants.CENTER);
-		add(new ListBackgroundPanel(minHab, background), gridBagConstraints);
+		add(new ListBackgroundPanel(minHab, background));
 
-		gridBagConstraints.gridx = 2;
 		ListLabel maxHab = new BoldListLabel(category.getMaxSkills().toString(), SwingConstants.CENTER);
-		add(new ListBackgroundPanel(maxHab, background), gridBagConstraints);
+		add(new ListBackgroundPanel(maxHab, background));
 
-		gridBagConstraints.gridx = 3;
 		ranksLabel = new BoldListLabel(category.getSkillRanks().toString(), SwingConstants.CENTER);
-		add(new ListBackgroundPanel(ranksLabel, background), gridBagConstraints);
+		add(new ListBackgroundPanel(ranksLabel, background));
 
 	}
 

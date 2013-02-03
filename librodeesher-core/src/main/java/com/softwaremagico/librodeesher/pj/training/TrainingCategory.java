@@ -1,6 +1,7 @@
 package com.softwaremagico.librodeesher.pj.training;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -38,8 +39,11 @@ public class TrainingCategory {
 		if (skills == null) {
 			skills = new ArrayList<>();
 		}
-		skills.add(skill);
-		skillsPerCategory.put(categoryName, skills);
+		if (!skills.contains(skill)) {
+			skills.add(skill);
+			Collections.sort(skills, new TrainingSkillComparator());
+			skillsPerCategory.put(categoryName, skills);
+		}
 	}
 
 	/**
@@ -87,12 +91,34 @@ public class TrainingCategory {
 		return categoryOptions;
 	}
 
+	public Integer getRanksInSkills(String categoryName) {
+		Integer total = 0;
+		List<TrainingSkill> skills = skillsPerCategory.get(categoryName);
+		for (TrainingSkill skill : skills) {
+			total += skill.getRanks();
+		}
+		return total;
+	}
+
+	private boolean mustAddGeneralSkills(String categoryName) {
+		if (skillsPerCategory.get(categoryName) == null) {
+			return true;
+		}
+		if (skillsPerCategory.get(categoryName).isEmpty()) {
+			return true;
+		}
+		if (getRanksInSkills(categoryName) < skillRanks) {
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * Add any skill if category has not preselected skills.
 	 */
 	public void addGeneralSkills() {
 		for (String categoryName : categoryOptions) {
-			if (skillsPerCategory.get(categoryName) == null || skillsPerCategory.get(categoryName).isEmpty()) {
+			if (mustAddGeneralSkills(categoryName)) {
 				Category category = CategoryFactory.getCategory(categoryName);
 				for (Skill skill : category.getSkills()) {
 					addSkill(categoryName, skill.getName());

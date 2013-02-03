@@ -26,7 +26,7 @@ Manipulación del Poder	0	1	1	2
 Percepción de Poder	1	1	1	1
 {Armadura·Ligera; Armadura·Media; Armadura·Pesada}	2	1	1	2
 {Armas·2manos; Armas·Arrojadizas; Armas·Artillería; Armas·Contundentes; Armas·Asta; Armas·Filo; Armas·Proyectiles}	1	1	1	1
-Listas Básicas de Hechizos/Listas Abiertas de Hechizos	0	1	1	2
+{Listas Básicas de Hechizos; Listas Abiertas de Hechizos}	0	1	1	2
 
 #AUMENTOS CARACTERÍSTICAS
 ####################################

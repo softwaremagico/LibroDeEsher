@@ -186,20 +186,16 @@ public class Training {
 						}
 
 						trainingCategory = new TrainingCategory(categoriesOptions,
-								Integer.parseInt(categoryRanks[1]),
-								Integer.parseInt(categoryRanks[2]),
-								Integer.parseInt(categoryRanks[3]),
-								Integer.parseInt(categoryRanks[4]));
+								Integer.parseInt(categoryRanks[1]), Integer.parseInt(categoryRanks[2]),
+								Integer.parseInt(categoryRanks[3]), Integer.parseInt(categoryRanks[4]));
 					} else {
 						String[] categoryRanks = lines.get(index).split("\t");
 						if (CategoryFactory.existCategory(categoryRanks[0])) {
 							List<String> categoriesList = new ArrayList<>();
 							categoriesList.add(categoryRanks[0].trim());
 							trainingCategory = new TrainingCategory(categoriesList,
-									Integer.parseInt(categoryRanks[1]),
-									Integer.parseInt(categoryRanks[2]),
-									Integer.parseInt(categoryRanks[3]),
-									Integer.parseInt(categoryRanks[4]));
+									Integer.parseInt(categoryRanks[1]), Integer.parseInt(categoryRanks[2]),
+									Integer.parseInt(categoryRanks[3]), Integer.parseInt(categoryRanks[4]));
 							categoriesWithRanks.add(trainingCategory);
 
 						} else {
@@ -240,6 +236,10 @@ public class Training {
 				}
 			}
 			index++;
+		}
+		// Last category complete previous category skills
+		if (trainingCategory != null) {
+			trainingCategory.addGeneralSkills();
 		}
 		return index;
 	}
