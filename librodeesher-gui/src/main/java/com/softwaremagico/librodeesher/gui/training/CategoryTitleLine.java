@@ -41,7 +41,7 @@ public class CategoryTitleLine extends BaseTitleLine {
 
 	protected void setElements(Color background) {
 		this.removeAll();
-		setLayout(new GridLayout(1, 2));
+		setLayout(new GridLayout(1, 0));
 
 		categoryLabel = new BaseLabel("Opt");
 		add(createLabelInsidePanel(categoryLabel, SwingConstants.LEFT, background, fontColor));

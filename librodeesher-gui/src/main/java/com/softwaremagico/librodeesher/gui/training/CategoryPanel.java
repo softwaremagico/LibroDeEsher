@@ -25,6 +25,8 @@ package com.softwaremagico.librodeesher.gui.training;
  */
 
 import java.awt.GridLayout;
+import java.util.Hashtable;
+import java.util.List;
 
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -53,10 +55,13 @@ public class CategoryPanel extends BasePanel {
 						getLineBackgroundColor(i));
 				add(categoryLine);
 				i++;
-				for (TrainingSkill skill : category.getSkills()) {
+				String selectedCategory = category.getCategoryOptions().get(0);
+				for (TrainingSkill skill : category.getSkills(selectedCategory)) {
+					TrainingSkillLine skillLine = new TrainingSkillLine(character, category, skill, this,
+							getLineBackgroundColor(i));
+					add(skillLine);
 					i++;
 				}
-
 			}
 		}
 	}

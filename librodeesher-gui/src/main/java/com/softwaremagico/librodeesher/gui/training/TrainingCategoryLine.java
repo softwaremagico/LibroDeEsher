@@ -25,16 +25,13 @@ package com.softwaremagico.librodeesher.gui.training;
  */
 
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseComboBox;
-import com.softwaremagico.librodeesher.gui.elements.BaseComboBox.ComboBoxListener;
+import com.softwaremagico.librodeesher.gui.elements.BoldListLabel;
 import com.softwaremagico.librodeesher.gui.elements.ListBackgroundPanel;
 import com.softwaremagico.librodeesher.gui.elements.ListLabel;
 import com.softwaremagico.librodeesher.gui.style.BaseLine;
@@ -46,22 +43,28 @@ public class TrainingCategoryLine extends BaseLine {
 	private TrainingCategory category;
 	private CategoryPanel parent;
 	private ListLabel ranksLabel;
-	private CategoryComboBox<TrainingCategory> chooseCategoryComboBox = null;
+	private CategoryComboBox<String> chooseCategoryComboBox = null;
 
 	protected TrainingCategoryLine(CharacterPlayer character, TrainingCategory category,
 			CategoryPanel parent, Color background) {
 		this.character = character;
 		this.category = category;
 		this.parent = parent;
-		setElements(background);
+		this.background = background;
+		setElements();
 	}
 
 	private void addItemsToComboBox() {
+		chooseCategoryComboBox.removeAllItems();
+		for (String categoryName : category.getCategoryOptions()) {
+			chooseCategoryComboBox.addItem(categoryName);
+		}
 	}
 
 	private ListBackgroundPanel getCategoryOrGroup() {
-		if (category.needToChooseOneCategory()) {
-			ListLabel categoryLabel = new ListLabel(category.getName(), SwingConstants.LEFT);
+		if (!category.needToChooseOneCategory()) {
+			ListLabel categoryLabel = new BoldListLabel(category.getCategoryOptions().get(0),
+					SwingConstants.LEFT, 100, columnHeight);
 			return new ListBackgroundPanel(categoryLabel, background);
 		} else {
 			chooseCategoryComboBox = new CategoryComboBox<>();
@@ -70,10 +73,11 @@ public class TrainingCategoryLine extends BaseLine {
 		}
 	}
 
-	protected void setElements(Color background) {
+	protected void setElements() {
 		this.removeAll();
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		setBackground(background);
 
 		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.ipadx = xPadding;
@@ -88,15 +92,15 @@ public class TrainingCategoryLine extends BaseLine {
 		add(categoryPanel, gridBagConstraints);
 
 		gridBagConstraints.gridx = 1;
-		ListLabel minHab = new ListLabel(category.getMinSkills().toString(), SwingConstants.CENTER);
+		ListLabel minHab = new BoldListLabel(category.getMinSkills().toString(), SwingConstants.CENTER);
 		add(new ListBackgroundPanel(minHab, background), gridBagConstraints);
 
 		gridBagConstraints.gridx = 2;
-		ListLabel maxHab = new ListLabel(category.getMaxSkills().toString(), SwingConstants.CENTER);
+		ListLabel maxHab = new BoldListLabel(category.getMaxSkills().toString(), SwingConstants.CENTER);
 		add(new ListBackgroundPanel(maxHab, background), gridBagConstraints);
 
 		gridBagConstraints.gridx = 3;
-		ranksLabel = new ListLabel(category.getSkillRanks().toString(), SwingConstants.CENTER);
+		ranksLabel = new BoldListLabel(category.getSkillRanks().toString(), SwingConstants.CENTER);
 		add(new ListBackgroundPanel(ranksLabel, background), gridBagConstraints);
 
 	}
@@ -105,7 +109,7 @@ public class TrainingCategoryLine extends BaseLine {
 		ranksLabel.setText(category.getSkillRanks().toString());
 	}
 
-	public class CategoryComboBox<E> extends BaseComboBox<E> {
+	protected class CategoryComboBox<E> extends BaseComboBox<E> {
 
 		@Override
 		public void doAction() {

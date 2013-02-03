@@ -37,6 +37,7 @@ import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.basics.ChooseType;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
+import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
@@ -162,35 +163,48 @@ public class Training {
 			index++;
 		}
 		categoriesWithRanks = new ArrayList<>();
-		TrainingCategory category = null;
+		TrainingCategory trainingCategory = null;
 		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 			// It is a category
 			if (!lines.get(index).contains("*")) {
+				// complete previous category skills
+				if (trainingCategory != null) {
+					trainingCategory.addGeneralSkills();
+				}
+
 				try {
 					if (lines.get(index).contains("{")) {
 						// List of categories to choose one.
 						String[] lineColumns = lines.get(index).trim().split("}");
 						String[] categoriesList = lineColumns[0].replace("{", "").replace(";", ",")
 								.split(",");
-						String[] trainingCategories = lineColumns[1].split("\t");
-						category = new TrainingCategory(Arrays.asList(categoriesList),
-								Integer.parseInt(trainingCategories[1]),
-								Integer.parseInt(trainingCategories[2]),
-								Integer.parseInt(trainingCategories[3]),
-								Integer.parseInt(trainingCategories[4]));
+						String[] categoryRanks = lineColumns[1].split("\t");
+
+						List<String> categoriesOptions = new ArrayList<>();
+						for (String category : categoriesList) {
+							categoriesOptions.add(category.trim());
+						}
+
+						trainingCategory = new TrainingCategory(categoriesOptions,
+								Integer.parseInt(categoryRanks[1]),
+								Integer.parseInt(categoryRanks[2]),
+								Integer.parseInt(categoryRanks[3]),
+								Integer.parseInt(categoryRanks[4]));
 					} else {
-						String[] trainingCategories = lines.get(index).split("\t");
-						if (CategoryFactory.existCategory(trainingCategories[0])) {
-							category = new TrainingCategory(trainingCategories[0],
-									Integer.parseInt(trainingCategories[1]),
-									Integer.parseInt(trainingCategories[2]),
-									Integer.parseInt(trainingCategories[3]),
-									Integer.parseInt(trainingCategories[4]));
-							categoriesWithRanks.add(category);
+						String[] categoryRanks = lines.get(index).split("\t");
+						if (CategoryFactory.existCategory(categoryRanks[0])) {
+							List<String> categoriesList = new ArrayList<>();
+							categoriesList.add(categoryRanks[0].trim());
+							trainingCategory = new TrainingCategory(categoriesList,
+									Integer.parseInt(categoryRanks[1]),
+									Integer.parseInt(categoryRanks[2]),
+									Integer.parseInt(categoryRanks[3]),
+									Integer.parseInt(categoryRanks[4]));
+							categoriesWithRanks.add(trainingCategory);
 
 						} else {
 							ShowMessage.showErrorMessage("Categoría no encontrada en \"" + name + "\": "
-									+ trainingCategories[0], "Añadir habilidades de adiestramiento.");
+									+ categoryRanks[0], "Añadir habilidades de adiestramiento.");
 						}
 					}
 				} catch (NumberFormatException nfe) {
@@ -198,8 +212,9 @@ public class Training {
 							+ "\" del adiestramiento: " + name, "Leer adiestramientos");
 					break;
 				}
-			} else { // It is a skill.
-				if (category == null) {
+			} else { // It is a skill. Must come from a defined category and not
+						// a list to choose.
+				if (trainingCategory == null) {
 					ShowMessage.showErrorMessage("Habilidad sin categoria asociada: " + lines.get(index),
 							"Añadir habilidades de adiestramiento.");
 					break;
@@ -211,19 +226,14 @@ public class Training {
 						String[] skillList = lineColumns[0].replace("{", "").replace(";", ",").split(",");
 						TrainingSkill skill = new TrainingSkill(Arrays.asList(skillList),
 								Integer.parseInt(lineColumns[1].trim()));
-						category.addSkill(skill);
+						trainingCategory.addSkill(skill);
 					} else {
 						// Skill with ranges.
 						String[] trainingSkills = lines.get(index).replace("*", "").trim().split("\t");
-						List<String> skillList = new ArrayList<>();
-						skillList.add(trainingSkills[0]); // List with only one
-															// element.
-						TrainingSkill skill = new TrainingSkill(skillList,
+						addTrainingSkill(trainingCategory, trainingSkills[0],
 								Integer.parseInt(trainingSkills[1]));
-						category.addSkill(skill);
 					}
 				} catch (NumberFormatException nfe) {
-					nfe.printStackTrace();
 					ShowMessage.showErrorMessage("Numero de rangos mal formado en: \"" + lines.get(index)
 							+ "\" del adiestramiento: " + name, "Leer adiestramientos");
 					break;
@@ -232,6 +242,14 @@ public class Training {
 			index++;
 		}
 		return index;
+	}
+
+	private void addTrainingSkill(TrainingCategory trainingCategory, String skillName, Integer ranks) {
+		List<String> skillList = new ArrayList<>();
+		skillList.add(skillName); // List with only one
+									// element.
+		TrainingSkill skill = new TrainingSkill(skillList, ranks);
+		trainingCategory.addSkill(skill);
 	}
 
 	private int setCharacteristicsUpgrade(List<String> lines, int index) {
@@ -387,5 +405,3 @@ class TrainingSpecial {
 		this.bonus = bonus;
 	}
 }
-
-
