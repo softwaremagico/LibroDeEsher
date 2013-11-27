@@ -30,6 +30,7 @@
 		<license.licenseName>gnugpl</license.licenseName>
 		<license.licenseResolver>file://${basedir}/src/license</license.licenseResolver>
 		<plugin.exec.version>1.2.1</plugin.exec.version>
+		<org.testng.version>6.8.7</org.testng.version>
 	</properties>
 
 	<modules>
@@ -50,5 +51,14 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<dependencies>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${org.testng.version}</version>
+            <scope>test</scope>
+        </dependency>        
+    </dependencies>
 
 </project>
