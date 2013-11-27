@@ -69,6 +69,9 @@ import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 public class CharacterPlayer {
 
 	private static final Integer STORED_ROLLS_NUMBER = 10;
+	
+	private Long id; //database id.
+	
 	private String name;
 	private SexType sex;
 	private String historyText;
@@ -1071,6 +1074,14 @@ public class CharacterPlayer {
 			}
 		}
 		return false;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }
