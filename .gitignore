@@ -3,8 +3,9 @@
 librodeesher.deb
 */target/
 target/
-/.settings/
+.settings/
 .classpath
 .project
 *.svg
 *.prefs
+esher.db*

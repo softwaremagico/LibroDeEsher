@@ -1084,4 +1084,36 @@ public class CharacterPlayer {
 		this.id = id;
 	}
 
+	public String getHistoryText() {
+		return historyText;
+	}
+
+	public void setHistoryText(String historyText) {
+		this.historyText = historyText;
+	}
+
+	protected String getRaceName() {
+		return raceName;
+	}
+
+	protected void setRaceName(String raceName) {
+		this.raceName = raceName;
+	}
+
+	protected String getCultureName() {
+		return cultureName;
+	}
+
+	protected void setCultureName(String cultureName) {
+		this.cultureName = cultureName;
+	}
+
+	protected String getProfessionName() {
+		return professionName;
+	}
+
+	protected void setProfessionName(String professionName) {
+		this.professionName = professionName;
+	}
+
 }

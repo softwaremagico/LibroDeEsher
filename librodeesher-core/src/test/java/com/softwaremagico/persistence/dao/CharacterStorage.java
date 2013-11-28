@@ -22,8 +22,8 @@ public class CharacterStorage {
 	public void testCrud() {
 		Session session = HibernateInitializator.getSessionFactory().openSession();
 		session.beginTransaction();
-		CharacterPlayer player = (CharacterPlayer) session.save(createPlayer());
-		Assert.assertNotNull(player);
+		Long playerId = (Long) session.save(createPlayer());
+		Assert.assertNotNull(playerId);
 	}
 
 }

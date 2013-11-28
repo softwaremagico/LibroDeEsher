@@ -24,6 +24,7 @@ package com.softwaremagico.librodeesher.config;
  * #L%
  */
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -43,8 +44,8 @@ public class Config {
 	private static final String OTHER_REALM_TRAINING_SPELLS = "otherRealmTrainingSpells";
 	private static final String DISABLED_MODULES = "disabledModules";
 	private static Properties configuration = new Properties();
-	private static Boolean maximized, fireArmsActivated, darkSpellsAsBasic, chiPowersAllowed,
-			otherRealmtrainingSpells = false;
+	private static Boolean maximized = false, fireArmsActivated = false, darkSpellsAsBasic = false,
+			chiPowersAllowed = false, otherRealmsTrainingSpells = false;
 	private static Integer categoryMaxCost = 50;
 
 	static {
@@ -75,15 +76,19 @@ public class Config {
 	private static void loadConfiguration() {
 		// load a properties file
 		try {
-			configuration.load(new FileInputStream(RolemasterFolderStructure.getConfigurationFilePath()));
-			maximized = Boolean.parseBoolean(configuration.getProperty(MAXIMIZE_WINDOW_PROPERTY));
-			categoryMaxCost = Integer.parseInt(configuration.getProperty(CATEGORY_MAX_COST));
-			fireArmsActivated = Boolean.parseBoolean(configuration.getProperty(FIREARMS_ALLOWED));
-			darkSpellsAsBasic = Boolean.parseBoolean(configuration.getProperty(DARK_SPELLS_AS_BASIC_LIST));
-			chiPowersAllowed = Boolean.parseBoolean(configuration.getProperty(CHI_POWERS));
-			otherRealmtrainingSpells = Boolean.parseBoolean(configuration
-					.getProperty(OTHER_REALM_TRAINING_SPELLS));
-			loadDisabledModules(configuration.getProperty(DISABLED_MODULES));
+			System.out.println(RolemasterFolderStructure.getConfigurationFilePath());
+			File configFile = new File(RolemasterFolderStructure.getConfigurationFilePath());
+			if (configFile.exists()) {
+				configuration.load(new FileInputStream(RolemasterFolderStructure.getConfigurationFilePath()));
+				maximized = Boolean.parseBoolean(configuration.getProperty(MAXIMIZE_WINDOW_PROPERTY));
+				categoryMaxCost = Integer.parseInt(configuration.getProperty(CATEGORY_MAX_COST));
+				fireArmsActivated = Boolean.parseBoolean(configuration.getProperty(FIREARMS_ALLOWED));
+				darkSpellsAsBasic = Boolean.parseBoolean(configuration.getProperty(DARK_SPELLS_AS_BASIC_LIST));
+				chiPowersAllowed = Boolean.parseBoolean(configuration.getProperty(CHI_POWERS));
+				otherRealmsTrainingSpells = Boolean
+						.parseBoolean(configuration.getProperty(OTHER_REALM_TRAINING_SPELLS));
+				loadDisabledModules(configuration.getProperty(DISABLED_MODULES));
+			}
 		} catch (Exception e) {
 			// File not exist, first time program is executed;
 		}
@@ -92,10 +97,8 @@ public class Config {
 	public static void storeConfiguration() {
 		setProperties();
 		try {
-			configuration.store(new FileOutputStream(RolemasterFolderStructure.getConfigurationFilePath()),
-					null);
+			configuration.store(new FileOutputStream(RolemasterFolderStructure.getConfigurationFilePath()), null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -137,11 +140,11 @@ public class Config {
 	}
 
 	public static Boolean getOtherRealmtrainingSpells() {
-		return otherRealmtrainingSpells;
+		return otherRealmsTrainingSpells;
 	}
 
 	public static void setOtherRealmtrainingSpells(Boolean otherRealmtrainingSpells) {
-		Config.otherRealmtrainingSpells = otherRealmtrainingSpells;
+		Config.otherRealmsTrainingSpells = otherRealmtrainingSpells;
 	}
 
 	private static String getDisabledModules() {
