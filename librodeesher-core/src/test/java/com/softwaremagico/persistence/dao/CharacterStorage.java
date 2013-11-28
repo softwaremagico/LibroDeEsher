@@ -1,6 +1,7 @@
 package com.softwaremagico.persistence.dao;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -21,9 +22,12 @@ public class CharacterStorage {
 	@Test
 	public void testCrud() {
 		Session session = HibernateInitializator.getSessionFactory().openSession();
-		session.beginTransaction();
+		Transaction tr = session.beginTransaction();
 		Long playerId = (Long) session.save(createPlayer());
 		Assert.assertNotNull(playerId);
+		// Close transaction to delete db-journal.
+		tr.commit();
+		session.close();
 	}
 
 }
