@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import com.softwaremagico.librodeesher.basics.TwoDices;
+import com.softwaremagico.librodeesher.basics.Roll;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
@@ -37,7 +37,7 @@ public class Historial {
 	private static final Integer CATEGORY_BONUS = 5;
 	private List<String> categories;
 	private List<String> skills;
-	private Hashtable<String, List<TwoDices>> characteristicsUpdates;
+	private Hashtable<String, List<Roll>> characteristicsUpdates;
 
 	public Historial() {
 		categories = new ArrayList<>();
@@ -91,23 +91,23 @@ public class Historial {
 		return skills.size() + categories.size() + getCharacteristicsUpdatesPoints();
 	}
 
-	public void setCharactersiticUpdate(String abbreviature, TwoDices roll) {
+	public void setCharactersiticUpdate(String abbreviature, Roll roll) {
 		if (characteristicsUpdates.get(abbreviature) == null) {
-			characteristicsUpdates.put(abbreviature, new ArrayList<TwoDices>());
+			characteristicsUpdates.put(abbreviature, new ArrayList<Roll>());
 		}
 		characteristicsUpdates.get(abbreviature).add(roll);
 	}
 
 	private Integer getCharacteristicsUpdatesPoints() {
 		Integer total = 0;
-		for (List<TwoDices> rolls : characteristicsUpdates.values()) {
+		for (List<Roll> rolls : characteristicsUpdates.values()) {
 			total += rolls.size();
 		}
 		return total;
 	}
 
-	public List<TwoDices> getCharacteristicsUpdates(String abbreviature) {
-		List<TwoDices> rolls = new ArrayList<>();
+	public List<Roll> getCharacteristicsUpdates(String abbreviature) {
+		List<Roll> rolls = new ArrayList<>();
 		if (characteristicsUpdates.get(abbreviature) != null) {
 			rolls.addAll(characteristicsUpdates.get(abbreviature));
 		}

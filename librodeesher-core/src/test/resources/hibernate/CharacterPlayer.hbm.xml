@@ -4,12 +4,28 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
  
 <hibernate-mapping package="com.softwaremagico.librodeesher.pj"> 
-    <class name="CharacterPlayer" table="CharacterPlayers">
-        <id name="id" column="ID">
+    <class name="CharacterPlayer" table="T_CHARACTER">
+        <id name="id" column="id">
             <generator class="native"/>
         </id>
         <property name="name" column="name" />
+	<property name="sex" column="sex" />
         <property name="historyText" column="history" />
+	<map name="characteristicsInitialTemporalValues" table="T_INITIAL_TEMPORAL_VALUES" cascade="all">
+		<key column="id" />
+		<index column="characteristic_abbreviature" type="string"/>
+		<element column="initial_value" type="integer" />
+        </map>
+	<map name="characteristicsTemporalUpdatesRolls" table="T_TEMPORAL_UPDATES_ROLLS" cascade="all">
+		<key column="id" />
+		<index column="characteristic_abbreviature" type="string"/>
+		<element column="roll_list" type="RollGroup" />
+        </map>
+	<map name="characteristicsPotentialValues"  table="T_POTENTIAL_VALUES" cascade="all">
+		<key column="id" />
+		<index column="characteristic_abbreviature" type="string"/>
+		<element column="value" type="integer" />
+        </map>
         <property name="raceName" column="race" />
         <property name="cultureName" column="culture" />
         <property name="professionName" column="profession" />

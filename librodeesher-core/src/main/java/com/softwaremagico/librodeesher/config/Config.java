@@ -76,7 +76,6 @@ public class Config {
 	private static void loadConfiguration() {
 		// load a properties file
 		try {
-			System.out.println(RolemasterFolderStructure.getConfigurationFilePath());
 			File configFile = new File(RolemasterFolderStructure.getConfigurationFilePath());
 			if (configFile.exists()) {
 				configuration.load(new FileInputStream(RolemasterFolderStructure.getConfigurationFilePath()));

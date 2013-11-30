@@ -29,9 +29,10 @@ import java.util.Hashtable;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.basics.Dice;
-import com.softwaremagico.librodeesher.basics.TwoDices;
+import com.softwaremagico.librodeesher.basics.Roll;
 
 public class Characteristics {
+	private Long id; // database id.
 	private final static String allowedCharacteristics = "AgCoMeRaAdEmInPrRpFu";
 	public static Hashtable<String, String> characteristicAbbreviatureList;
 	public final static int TOTAL_CHARACTERISTICS_POINTS = 660;
@@ -67,7 +68,7 @@ public class Characteristics {
 		}
 	}
 
-	public List<Characteristic> getCharacteristicsList() {
+	public List<Characteristic> getCharacteristics() {
 		return characteristics;
 	}
 
@@ -210,7 +211,7 @@ public class Characteristics {
 		return 0;
 	}
 
-	public Integer setTemporalIncrease(Integer currentTemporalValue, Integer potentialValue, TwoDices twoDices) {
+	public Integer setTemporalIncrease(Integer currentTemporalValue, Integer potentialValue, Roll twoDices) {
 		Integer increase;
 		if (potentialValue - currentTemporalValue <= 10) {
 			if (twoDices.getFirstDice() != twoDices.getSecondDice()) {
@@ -244,6 +245,18 @@ public class Characteristics {
 			}
 		}
 		return increase;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setCharacteristics(List<Characteristic> characteristics) {
+		this.characteristics = characteristics;
 	}
 
 }

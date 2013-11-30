@@ -23,15 +23,16 @@ package com.softwaremagico.librodeesher.basics;
  * #L%
  */
 
-public class TwoDices {
+public class Roll {
+	private Long id; // database id.
 	private Integer firstDiceResult;
 	private Integer secondDiceResult;
 
-	public TwoDices() {
+	public Roll() {
 		initialize(10);
 	}
 
-	public TwoDices(Integer faces) {
+	public Roll(Integer faces) {
 		initialize(faces);
 	}
 
@@ -46,6 +47,14 @@ public class TwoDices {
 
 	public Integer getSecondDice(){
 		return secondDiceResult;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

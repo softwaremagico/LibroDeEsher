@@ -8,13 +8,12 @@
         <property name="format_sql">true</property>
         <property name="dialect">org.hibernate.dialect.SQLiteDialect</property>
         <property name="connection.driver_class">org.sqlite.JDBC</property>
-        <property name="connection.url">jdbc:sqlite:esher-test.db</property>
+        <property name="connection.url">jdbc:sqlite:database/esher.db</property>
         <property name="connection.username"></property>
-        <property name="connection.password"></property>         
-        <property name="hibernate.hbm2ddl.auto">create-drop</property>
+        <property name="connection.password"></property>
          
-	<mapping resource="hibernate/Roll.hbm.xml"></mapping>
-	<mapping resource="hibernate/RollGroup.hbm.xml"></mapping>
-	<mapping resource="hibernate/CharacterPlayer.hbm.xml"></mapping>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+         
+        <mapping resource="hibernate/CharacterPlayer.hbm.xml"></mapping>
     </session-factory>
 </hibernate-configuration>

@@ -28,10 +28,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
+import com.softwaremagico.librodeesher.basics.Roll;
+import com.softwaremagico.librodeesher.basics.RollGroup;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.basics.Spanish;
-import com.softwaremagico.librodeesher.basics.TwoDices;
 import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
@@ -69,17 +71,17 @@ import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 public class CharacterPlayer {
 
 	private static final Integer STORED_ROLLS_NUMBER = 10;
-	
-	private Long id; //database id.
-	
+
+	private Long id; // database id.
+
 	private String name;
 	private SexType sex;
 	private String historyText;
 
 	private Characteristics characteristics;
-	private Hashtable<String, Integer> characteristicsInitialTemporalValues;
-	private Hashtable<String, Integer> characteristicsPotentialValues;
-	private Hashtable<String, List<TwoDices>> characteristicsTemporalUpdatesRolls;
+	private Map<String, Integer> characteristicsInitialTemporalValues;
+	private Map<String, Integer> characteristicsPotentialValues;
+	private Map<String, RollGroup> characteristicsTemporalUpdatesRolls;
 	private boolean characteristicsConfirmed = false;
 	private String raceName;
 	private transient Race race;
@@ -168,7 +170,7 @@ public class CharacterPlayer {
 	}
 
 	public List<Characteristic> getCharacteristics() {
-		return characteristics.getCharacteristicsList();
+		return characteristics.getCharacteristics();
 	}
 
 	public Integer getCharacteristicSpecialBonus(String abbreviature) {
@@ -182,7 +184,7 @@ public class CharacterPlayer {
 	private Integer getHistoryTemporalModification(String abbreviature) {
 		Integer temporalValue = characteristicsInitialTemporalValues.get(abbreviature);
 		Integer potentialValue = characteristicsPotentialValues.get(abbreviature);
-		for (TwoDices roll : historial.getCharacteristicsUpdates(abbreviature)) {
+		for (Roll roll : historial.getCharacteristicsUpdates(abbreviature)) {
 			temporalValue += Characteristic.getCharacteristicUpgrade(temporalValue, potentialValue, roll);
 		}
 		return temporalValue;
@@ -358,7 +360,7 @@ public class CharacterPlayer {
 
 	public Integer getCharacteristicsTemporalPointsSpent() {
 		Integer total = 0;
-		for (Characteristic characteristic : characteristics.getCharacteristicsList()) {
+		for (Characteristic characteristic : characteristics.getCharacteristics()) {
 			total += getCharacteristicInitialTemporalValue(characteristic.getAbbreviature());
 		}
 		return total;
@@ -380,19 +382,18 @@ public class CharacterPlayer {
 	}
 
 	private void setCharacteristicsTemporalUpdatesRolls() {
-		for (Characteristic characteristic : characteristics.getCharacteristicsList()) {
+		for (Characteristic characteristic : characteristics.getCharacteristics()) {
 			if (characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()) == null) {
-				characteristicsTemporalUpdatesRolls.put(characteristic.getAbbreviature(),
-						new ArrayList<TwoDices>());
+				characteristicsTemporalUpdatesRolls.put(characteristic.getAbbreviature(), new RollGroup());
 			}
 			while (characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()).size() < STORED_ROLLS_NUMBER) {
-				characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()).add(new TwoDices());
+				characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()).add(new Roll());
 			}
 		}
 	}
 
-	private TwoDices getStoredCharacteristicRoll(String abbreviature) {
-		TwoDices roll = characteristicsTemporalUpdatesRolls.get(abbreviature).remove(0);
+	private Roll getStoredCharacteristicRoll(String abbreviature) {
+		Roll roll = characteristicsTemporalUpdatesRolls.get(abbreviature).getFirst();
 		setCharacteristicsTemporalUpdatesRolls();
 		return roll;
 	}
@@ -412,7 +413,7 @@ public class CharacterPlayer {
 	}
 
 	private void setPotentialValues() {
-		for (Characteristic characteristic : characteristics.getCharacteristicsList()) {
+		for (Characteristic characteristic : characteristics.getCharacteristics()) {
 			Integer potential = Characteristics.getPotencial(characteristicsInitialTemporalValues
 					.get(characteristic.getAbbreviature()));
 			characteristicsPotentialValues.put(characteristic.getAbbreviature(), potential);
@@ -440,7 +441,7 @@ public class CharacterPlayer {
 	}
 
 	private void setTemporalValuesOfCharacteristics() {
-		for (Characteristic characteristic : characteristics.getCharacteristicsList()) {
+		for (Characteristic characteristic : characteristics.getCharacteristics()) {
 			characteristicsInitialTemporalValues.put(characteristic.getAbbreviature(),
 					Characteristics.INITIAL_CHARACTERISTIC_VALUE);
 		}
@@ -863,7 +864,7 @@ public class CharacterPlayer {
 	}
 
 	public void setCharacteristicHistorialUpdate(String abbreviature) {
-		TwoDices roll = getStoredCharacteristicRoll(abbreviature);
+		Roll roll = getStoredCharacteristicRoll(abbreviature);
 		Integer temporalValue = getCharacteristicTemporalValue(abbreviature);
 		Integer potentialValue = characteristicsPotentialValues.get(abbreviature);
 		ShowMessage.showInfoMessage(
@@ -1047,7 +1048,7 @@ public class CharacterPlayer {
 		Training training = TrainingFactory.getTraining(trainingName);
 		baseCost += getTrainingSkillCostReduction(
 				SkillFactory.getSkills(training.getSkillRequirementsList()), training);
-		baseCost += getTrainingCharacteristicCostReduction(characteristics.getCharacteristicsList(), training);
+		baseCost += getTrainingCharacteristicCostReduction(characteristics.getCharacteristics(), training);
 		return baseCost;
 	}
 
@@ -1114,6 +1115,23 @@ public class CharacterPlayer {
 
 	protected void setProfessionName(String professionName) {
 		this.professionName = professionName;
+	}
+
+	public Map<String, Integer> getCharacteristicsInitialTemporalValues() {
+		return characteristicsInitialTemporalValues;
+	}
+
+	public void setCharacteristicsInitialTemporalValues(
+			Map<String, Integer> characteristicsInitialTemporalValues) {
+		this.characteristicsInitialTemporalValues = characteristicsInitialTemporalValues;
+	}
+
+	public Map<String, Integer> getCharacteristicsPotentialValues() {
+		return characteristicsPotentialValues;
+	}
+
+	public void setCharacteristicsPotentialValues(Map<String, Integer> characteristicsPotentialValues) {
+		this.characteristicsPotentialValues = characteristicsPotentialValues;
 	}
 
 }
