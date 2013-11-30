@@ -26,9 +26,14 @@
 		<index column="characteristic_abbreviature" type="string"/>
 		<element column="value" type="integer" />
         </map>
+	<property name="characteristicsConfirmed" column="characteristicsConfirmed" />
         <property name="raceName" column="race" />
         <property name="cultureName" column="culture" />
-        <property name="professionName" column="profession" />
-    </class>
- 
+        <property name="professionName" column="profession" />	
+	<property name="professionDecisions" column="professionDecisions" type="com.softwaremagico.librodeesher.pj.profession.ProfessionDecisions"/>	
+	<property name="darkSpellsAsBasicListsAllowed" column="darkSpellsAsBasicListsAllowed" />
+	<property name="firearmsAllowed" column="firearmsAllowed" />
+	<property name="chiPowersAllowed" column="chiPowersAllowed" />
+	<property name="otherRealmtrainingSpellsAllowed" column="otherRealmtrainingSpellsAllowed" />
+    </class> 
 </hibernate-mapping>

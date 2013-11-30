@@ -33,6 +33,7 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class ProfessionDecisions {
+	private Long id; // database id.
 	private Hashtable<Category, CategoryCost> weaponsCost;
 	private List<String> commonSkillsChose;
 	private List<String> restrictedSkillsChose;
@@ -104,5 +105,13 @@ public class ProfessionDecisions {
 
 	public void setProfessionalSkillsChose(List<String> professionalSkillsChose) {
 		this.professionalSkillsChose = professionalSkillsChose;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

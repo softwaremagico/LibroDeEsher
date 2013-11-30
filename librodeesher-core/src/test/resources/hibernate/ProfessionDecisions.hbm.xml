@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping package="com.softwaremagico.librodeesher.pj.profession"> 
+    <class name="ProfessionDecisions" table="T_PROFESSION_DECISION">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+	<list name="commonSkillsChose" cascade="all">
+		<key column="commonSkillsChose_id"/>
+		<list-index column="csc_index"/>
+		<element column="skill" type="string"/>
+	</list>
+	<list name="restrictedSkillsChose" cascade="all">
+		<key column="restrictedSkillsChose_id"/>
+		<list-index column="rsc_index"/>
+		<element column="skill" type="string"/>
+	</list>
+	<list name="professionalSkillsChose" cascade="all">
+		<key column="professionalSkillsChose_id"/>
+		<list-index column="psc_index"/>
+		<element column="skill" type="string"/>
+	</list>
+    </class> 
+</hibernate-mapping>

@@ -16,5 +16,6 @@
 	<mapping resource="hibernate/Roll.hbm.xml"></mapping>
 	<mapping resource="hibernate/RollGroup.hbm.xml"></mapping>
 	<mapping resource="hibernate/CharacterPlayer.hbm.xml"></mapping>
+	<mapping resource="hibernate/ProfessionDecisions.hbm.xml"></mapping>
     </session-factory>
 </hibernate-configuration>

@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.basics;
+
 /*
  * #%L
  * Libro de Esher
@@ -25,8 +26,8 @@ package com.softwaremagico.librodeesher.basics;
 
 public class Roll {
 	private Long id; // database id.
-	private Integer firstDiceResult;
-	private Integer secondDiceResult;
+	private Integer firstDice;
+	private Integer secondDice;
 
 	public Roll() {
 		initialize(10);
@@ -37,16 +38,16 @@ public class Roll {
 	}
 
 	private void initialize(Integer faces) {
-		firstDiceResult = Dice.getRoll(faces);
-		secondDiceResult = Dice.getRoll(faces);
-	}
-	
-	public Integer getFirstDice(){
-		return firstDiceResult;
+		firstDice = Dice.getRoll(faces);
+		secondDice = Dice.getRoll(faces);
 	}
 
-	public Integer getSecondDice(){
-		return secondDiceResult;
+	public Integer getFirstDice() {
+		return firstDice;
+	}
+
+	public Integer getSecondDice() {
+		return secondDice;
 	}
 
 	public Long getId() {
@@ -56,5 +57,13 @@ public class Roll {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
+	public void setFirstDice(Integer firstDice) {
+		this.firstDice = firstDice;
+	}
+
+	public void setSecondDice(Integer secondDice) {
+		this.secondDice = secondDice;
+	}
+
 }

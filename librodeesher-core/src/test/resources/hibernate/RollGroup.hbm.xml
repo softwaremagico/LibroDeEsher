@@ -12,7 +12,6 @@
 		<key column="rollgroup_id"/>
 		<list-index column="index"/>
 		<one-to-many class="Roll"/>
-      </list>
-    </class>
- 
+        </list>
+    </class> 
 </hibernate-mapping>

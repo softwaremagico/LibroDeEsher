@@ -83,6 +83,7 @@ public class CharacterPlayer {
 	private Map<String, Integer> characteristicsPotentialValues;
 	private Map<String, RollGroup> characteristicsTemporalUpdatesRolls;
 	private boolean characteristicsConfirmed = false;
+	
 	private String raceName;
 	private transient Race race;
 	private String cultureName;
@@ -1132,6 +1133,22 @@ public class CharacterPlayer {
 
 	public void setCharacteristicsPotentialValues(Map<String, Integer> characteristicsPotentialValues) {
 		this.characteristicsPotentialValues = characteristicsPotentialValues;
+	}
+
+	public Map<String, RollGroup> getCharacteristicsTemporalUpdatesRolls() {
+		return characteristicsTemporalUpdatesRolls;
+	}
+
+	public void setCharacteristicsTemporalUpdatesRolls(Map<String, RollGroup> characteristicsTemporalUpdatesRolls) {
+		this.characteristicsTemporalUpdatesRolls = characteristicsTemporalUpdatesRolls;
+	}
+
+	public boolean isCharacteristicsConfirmed() {
+		return characteristicsConfirmed;
+	}
+
+	public void setCharacteristicsConfirmed(boolean characteristicsConfirmed) {
+		this.characteristicsConfirmed = characteristicsConfirmed;
 	}
 
 }
