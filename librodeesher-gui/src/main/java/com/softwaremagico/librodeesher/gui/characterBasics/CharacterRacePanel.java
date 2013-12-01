@@ -139,7 +139,7 @@ public class CharacterRacePanel extends BasePanel {
 	private void updateCultureComboBox() {
 		if (cultureComboBox != null) {
 			cultureComboBox.removeAllItems();
-			List<String> cultures = RaceFactory.getRace(getSelectedRace()).availableCultures();
+			List<String> cultures = RaceFactory.getRace(getSelectedRace()).getAvailableCultures();
 			Collections.sort(cultures);
 			for (String culture : cultures) {
 				cultureComboBox.addItem(culture);

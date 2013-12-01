@@ -188,7 +188,6 @@ public class CategoryFactory {
 		List<Category> weaponsCategories = new ArrayList<>();
 
 		for (Category category : availableCategories.values()) {
-			// if (category.getName().startsWith(Spanish.ARMAS_PREFIX)) {
 			if (category.getGroup().equals(CategoryGroup.WEAPON)) {
 				weaponsCategories.add(category);
 			}

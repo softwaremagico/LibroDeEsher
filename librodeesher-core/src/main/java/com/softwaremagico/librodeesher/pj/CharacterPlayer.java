@@ -83,7 +83,7 @@ public class CharacterPlayer {
 	private Map<String, Integer> characteristicsPotentialValues;
 	private Map<String, RollGroup> characteristicsTemporalUpdatesRolls;
 	private boolean characteristicsConfirmed = false;
-	
+
 	private String raceName;
 	private transient Race race;
 	private String cultureName;
@@ -220,7 +220,7 @@ public class CharacterPlayer {
 	}
 
 	public Integer getCharacteristicTotalBonus(String abbreviature) {
-		if (abbreviature.toLowerCase().contains("ningu")) {
+		if (abbreviature.toLowerCase().contains(Spanish.NO_BONUS_TAG)) {
 			return 0;
 		}
 		if (abbreviature.toLowerCase().contains("*")) {
@@ -324,6 +324,22 @@ public class CharacterPlayer {
 		return total;
 	}
 
+	/**
+	 * Returns the skills with one or more ranks.
+	 * 
+	 * @param category
+	 * @return
+	 */
+	public List<Skill> getSkillsWithRanks(Category category) {
+		List<Skill> result = new ArrayList<>();
+		for (Skill skill : category.getSkills()) {
+			if (getTotalRanks(skill) > 0) {
+				result.add(skill);
+			}
+		}
+		return result;
+	}
+
 	private Integer getSpentDevelopmentPointsInSkillsRanks(Integer level) {
 		Integer total = 0;
 		List<String> skillsWithRanks = levelUps.get(level).getSkillsWithRanks();
@@ -359,10 +375,14 @@ public class CharacterPlayer {
 		return getTotalDevelopmentPoints() - getSpentDevelopmentPoints();
 	}
 
+	public Integer getCharacteristicsTemporalPointsSpent(String abbreviature) {
+		return Characteristic.getTemporalCost(getCharacteristicInitialTemporalValue(abbreviature));
+	}
+
 	public Integer getCharacteristicsTemporalPointsSpent() {
 		Integer total = 0;
 		for (Characteristic characteristic : characteristics.getCharacteristics()) {
-			total += getCharacteristicInitialTemporalValue(characteristic.getAbbreviature());
+			total += getCharacteristicsTemporalPointsSpent(characteristic.getAbbreviature());
 		}
 		return total;
 	}
@@ -658,7 +678,7 @@ public class CharacterPlayer {
 	}
 
 	/**
-	 * In culture, weapon cost are not defined. Therefore, we will use the best
+	 * In culture, weapon costs are not defined. Therefore, we will use the best
 	 * value.
 	 * 
 	 * @param category
@@ -841,7 +861,9 @@ public class CharacterPlayer {
 				return cost;
 			}
 		}
-		return null;
+		// Last cost for any extra categories.
+		return getProfession().getWeaponCategoryCost()
+				.get(getProfession().getWeaponCategoryCost().size() - 1);
 	}
 
 	public void setHistoryPoints(Skill skill, boolean value) {
@@ -1139,7 +1161,8 @@ public class CharacterPlayer {
 		return characteristicsTemporalUpdatesRolls;
 	}
 
-	public void setCharacteristicsTemporalUpdatesRolls(Map<String, RollGroup> characteristicsTemporalUpdatesRolls) {
+	public void setCharacteristicsTemporalUpdatesRolls(
+			Map<String, RollGroup> characteristicsTemporalUpdatesRolls) {
 		this.characteristicsTemporalUpdatesRolls = characteristicsTemporalUpdatesRolls;
 	}
 

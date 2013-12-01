@@ -428,11 +428,11 @@ public class Race {
 	 * 
 	 * @return
 	 */
-	public List<String> availableCultures() {
+	public List<String> getAvailableCultures() {
 		return CultureFactory.availableCultures(availableCultures);
 	}
 
-	public List<String> availableProfessions() {
+	public List<String> getAvailableProfessions() {
 		List<String> allProfessions = ProfessionFactory.getAvailableProfessions();
 		allProfessions.removeAll(restrictedProfessions);
 		return allProfessions;

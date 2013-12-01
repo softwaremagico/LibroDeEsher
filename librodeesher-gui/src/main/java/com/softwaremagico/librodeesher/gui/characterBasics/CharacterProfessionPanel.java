@@ -117,7 +117,7 @@ public class CharacterProfessionPanel extends BasePanel {
 
 	public void update() {
 		if (character != null && character.getRace() != null) {
-			updateProfessionComboBox(character.getRace().availableProfessions());
+			updateProfessionComboBox(character.getRace().getAvailableProfessions());
 		}
 		professionComboBox.setEnabled(!character.areCharacteristicsConfirmed());
 		updateTraining();
@@ -176,7 +176,7 @@ public class CharacterProfessionPanel extends BasePanel {
 	public void setCharacter(CharacterPlayer character) {
 		this.character = character;
 		if (character.getRace() != null) {
-			updateProfessionComboBox(character.getRace().availableProfessions());
+			updateProfessionComboBox(character.getRace().getAvailableProfessions());
 			character.setProfession(getSelectedProfession());
 		}
 	}

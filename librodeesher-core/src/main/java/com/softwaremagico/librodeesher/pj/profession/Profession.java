@@ -133,7 +133,7 @@ public class Profession {
 		if (professionFile.length() > 0) {
 			List<String> lines = Folder.readFileLines(professionFile, false);
 			lineIndex = setBasicCharacteristics(lines, lineIndex);
-			lineIndex = setAvailableMagicRealms(lines, lineIndex);
+			lineIndex = setMagicRealmsAvailable(lines, lineIndex);
 			lineIndex = setProfessionBonus(lines, lineIndex);
 			lineIndex = setCategoryCost(lines, lineIndex);
 			lineIndex = setSpecialSkills(lines, lineIndex, commonSkills, commonSkillsToChoose,
@@ -176,7 +176,7 @@ public class Profession {
 		return ++index;
 	}
 
-	private int setAvailableMagicRealms(List<String> lines, int index) {
+	private int setMagicRealmsAvailable(List<String> lines, int index) {
 		magicRealmsAvailable = new ArrayList<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;

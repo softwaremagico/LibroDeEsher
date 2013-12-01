@@ -39,6 +39,7 @@ public class Skill {
 	private SkillType type;
 	private Category category;
 	private SkillGroup group;
+	private boolean usedInRandom = true;
 
 	public Skill(String name, SkillType type) {
 		this.type = type;
@@ -108,4 +109,13 @@ public class Skill {
 	public SkillType getType() {
 		return type;
 	}
+
+	public boolean isUsedInRandom() {
+		return usedInRandom;
+	}
+
+	public void setUsedInRandom(boolean usedInRandom) {
+		this.usedInRandom = usedInRandom;
+	}
+
 }
