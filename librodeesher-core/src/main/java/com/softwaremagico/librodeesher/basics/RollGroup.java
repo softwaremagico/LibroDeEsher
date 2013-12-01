@@ -3,8 +3,20 @@ package com.softwaremagico.librodeesher.basics;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "T_ROLLS")
 public class RollGroup {
+	@Id
+	@GeneratedValue
 	private Long id; // database id.
+	
+	 @ElementCollection
 	private List<Roll> rolls;
 
 	public RollGroup() {

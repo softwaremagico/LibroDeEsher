@@ -24,7 +24,7 @@ package com.softwaremagico.librodeesher.pj.race;
  * #L%
  */
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
@@ -32,7 +32,7 @@ import com.softwaremagico.librodeesher.basics.ShowMessage;
 
 public class RaceFactory {
 	public static final String RACE_FOLDER = "razas";
-	private static Hashtable<String, Race> racesStored = new Hashtable<>();
+	private static HashMap<String, Race> racesStored = new HashMap<>();
 	private static List<String> availableRaces = availableRaces();
 
 	private static List<String> availableRaces() {

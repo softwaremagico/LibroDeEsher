@@ -25,7 +25,7 @@ package com.softwaremagico.librodeesher.pj.magic;
  */
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -42,12 +42,12 @@ public class MagicFactory {
 	private static final String ELEMENTALIST_PROFESSION = "Elementalista";
 	private static final String ELEMENTALIST_INITIAL_TAG = "mago de";
 
-	private static Hashtable<RealmOfMagic, Hashtable<String, List<String>>> spellsByGroup;
+	private static HashMap<RealmOfMagic, HashMap<String, List<String>>> spellsByGroup;
 
 	static {
-		spellsByGroup = new Hashtable<>();
+		spellsByGroup = new HashMap<>();
 		for (RealmOfMagic realms : RealmOfMagic.values()) {
-			spellsByGroup.put(realms, new Hashtable<String, List<String>>());
+			spellsByGroup.put(realms, new HashMap<String, List<String>>());
 		}
 		readSpellsFromFiles();
 	}

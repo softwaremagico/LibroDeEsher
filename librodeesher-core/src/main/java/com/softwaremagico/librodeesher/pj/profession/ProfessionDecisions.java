@@ -25,7 +25,7 @@ package com.softwaremagico.librodeesher.pj.profession;
  */
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.pj.categories.Category;
@@ -34,13 +34,13 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class ProfessionDecisions {
 	private Long id; // database id.
-	private Hashtable<Category, CategoryCost> weaponsCost;
+	private HashMap<Category, CategoryCost> weaponsCost;
 	private List<String> commonSkillsChose;
 	private List<String> restrictedSkillsChose;
 	private List<String> professionalSkillsChose;
 
 	public ProfessionDecisions() {
-		weaponsCost = new Hashtable<>();
+		weaponsCost = new HashMap<>();
 		commonSkillsChose = new ArrayList<>();
 		professionalSkillsChose = new ArrayList<>();
 		restrictedSkillsChose = new ArrayList<>();
@@ -64,7 +64,7 @@ public class ProfessionDecisions {
 	}
 
 	public void resetWeaponCosts() {
-		weaponsCost = new Hashtable<>();
+		weaponsCost = new HashMap<>();
 	}
 
 	public void resetWeaponCost(Category category) {

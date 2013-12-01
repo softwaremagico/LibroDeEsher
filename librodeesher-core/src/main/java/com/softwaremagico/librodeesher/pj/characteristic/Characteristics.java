@@ -25,8 +25,9 @@ package com.softwaremagico.librodeesher.pj.characteristic;
  */
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.softwaremagico.librodeesher.basics.Dice;
 import com.softwaremagico.librodeesher.basics.Roll;
@@ -34,7 +35,7 @@ import com.softwaremagico.librodeesher.basics.Roll;
 public class Characteristics {
 	private Long id; // database id.
 	private final static String allowedCharacteristics = "AgCoMeRaAdEmInPrRpFu";
-	public static Hashtable<String, String> characteristicAbbreviatureList;
+	public static Map<String, String> characteristicAbbreviatureList;
 	public final static int TOTAL_CHARACTERISTICS_POINTS = 660;
 	public final static Integer INITIAL_CHARACTERISTIC_VALUE = 31;
 	public final static Integer MAX_INITIAL_CHARACTERISTIC_VALUE = 100;
@@ -46,7 +47,7 @@ public class Characteristics {
 	}
 
 	static {
-		characteristicAbbreviatureList = new Hashtable<>();
+		characteristicAbbreviatureList = new HashMap<>();
 		characteristicAbbreviatureList.put("Ag", "Agilidad");
 		characteristicAbbreviatureList.put("Co", "Constitución");
 		characteristicAbbreviatureList.put("Me", "Memoria");

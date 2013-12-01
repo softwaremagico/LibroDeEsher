@@ -24,19 +24,36 @@ package com.softwaremagico.librodeesher.pj.culture;
  * #L%
  */
 
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "T_CULTURE")
 public class CultureDecisions {
-	Hashtable<String, Integer> weaponRanks;
-	Hashtable<String, Integer> hobbyRanks;
-	Hashtable<String, Integer> spellRanks;
-	Hashtable<String, Integer> languageRanks;
+	@Id
+	@GeneratedValue
+	private Long id; // database id.
+
+	@ElementCollection
+	private Map<String, Integer> weaponRanks;
+	@ElementCollection
+	private Map<String, Integer> hobbyRanks;
+	@ElementCollection
+	private Map<String, Integer> spellRanks;
+	@ElementCollection
+	private Map<String, Integer> languageRanks;
 
 	public CultureDecisions() {
-		languageRanks = new Hashtable<>();
-		weaponRanks = new Hashtable<>();
-		hobbyRanks = new Hashtable<>();
-		spellRanks = new Hashtable<>();
+		languageRanks = new HashMap<>();
+		weaponRanks = new HashMap<>();
+		hobbyRanks = new HashMap<>();
+		spellRanks = new HashMap<>();
 	}
 
 	public void setLanguageRank(String language, Integer ranks) {
@@ -125,5 +142,45 @@ public class CultureDecisions {
 			total += value;
 		}
 		return total;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Map<String, Integer> getWeaponRanks() {
+		return weaponRanks;
+	}
+
+	public void setWeaponRanks(HashMap<String, Integer> weaponRanks) {
+		this.weaponRanks = weaponRanks;
+	}
+
+	public Map<String, Integer> getHobbyRanks() {
+		return hobbyRanks;
+	}
+
+	public void setHobbyRanks(HashMap<String, Integer> hobbyRanks) {
+		this.hobbyRanks = hobbyRanks;
+	}
+
+	public Map<String, Integer> getSpellRanks() {
+		return spellRanks;
+	}
+
+	public void setSpellRanks(HashMap<String, Integer> spellRanks) {
+		this.spellRanks = spellRanks;
+	}
+
+	public Map<String, Integer> getLanguageRanks() {
+		return languageRanks;
+	}
+
+	public void setLanguageRanks(HashMap<String, Integer> languageRanks) {
+		this.languageRanks = languageRanks;
 	}
 }

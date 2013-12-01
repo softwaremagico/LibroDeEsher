@@ -1,8 +1,15 @@
 package com.softwaremagico.librodeesher.pj.level;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -31,18 +38,28 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
  * #L%
  */
 
+@Entity
+@Table(name = "T_LEVELUP")
 public class LevelUp {
-	private Hashtable<String, Integer> categoriesRanks;
-	private Hashtable<String, Integer> skillsRanks;
+	@Id
+	@GeneratedValue
+	private Long id; // database id.
+
+	@ElementCollection
+	private Map<String, Integer> categoriesRanks;
+	@ElementCollection
+	private Map<String, Integer> skillsRanks;
+	@ElementCollection
 	private List<String> spellsUpdated; // More than 5 list is more expensive in
 										// Development Points.
+	@ElementCollection
 	private List<String> trainings;
 
 	public LevelUp() {
-		categoriesRanks = new Hashtable<>();
-		skillsRanks = new Hashtable<>();
+		categoriesRanks = new HashMap<>();
+		skillsRanks = new HashMap<>();
 		spellsUpdated = new ArrayList<>();
-		trainings = new ArrayList<>(); 
+		trainings = new ArrayList<>();
 	}
 
 	public Integer getCategoryRanks(String categoryName) {
@@ -121,8 +138,44 @@ public class LevelUp {
 	public List<String> getTrainings() {
 		return trainings;
 	}
-	
-	public void addTraining(String trainingName){
+
+	public void addTraining(String trainingName) {
 		trainings.add(trainingName);
+	}
+
+	public Map<String, Integer> getCategoriesRanks() {
+		return categoriesRanks;
+	}
+
+	public void setCategoriesRanks(HashMap<String, Integer> categoriesRanks) {
+		this.categoriesRanks = categoriesRanks;
+	}
+
+	public Map<String, Integer> getSkillsRanks() {
+		return skillsRanks;
+	}
+
+	public void setSkillsRanks(HashMap<String, Integer> skillsRanks) {
+		this.skillsRanks = skillsRanks;
+	}
+
+	public List<String> getSpellsUpdated() {
+		return spellsUpdated;
+	}
+
+	public void setSpellsUpdated(List<String> spellsUpdated) {
+		this.spellsUpdated = spellsUpdated;
+	}
+
+	public void setTrainings(List<String> trainings) {
+		this.trainings = trainings;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

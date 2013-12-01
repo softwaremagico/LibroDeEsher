@@ -13,9 +13,12 @@
         <property name="connection.password"></property>         
         <property name="hibernate.hbm2ddl.auto">create-drop</property>
          
-	<mapping resource="hibernate/Roll.hbm.xml"></mapping>
-	<mapping resource="hibernate/RollGroup.hbm.xml"></mapping>
-	<mapping resource="hibernate/CharacterPlayer.hbm.xml"></mapping>
-	<mapping resource="hibernate/ProfessionDecisions.hbm.xml"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.CharacterPlayer"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.characteristic.Appearance"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.basics.RollGroup"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.basics.Roll"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.culture.CultureDecisions"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.historial.Historial"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.level.LevelUp"></mapping>
     </session-factory>
 </hibernate-configuration>

@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.characteristic;
+
 /*
  * #%L
  * Libro de Esher
@@ -23,17 +24,45 @@ package com.softwaremagico.librodeesher.pj.characteristic;
  * #L%
  */
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+
 import com.softwaremagico.librodeesher.basics.Dice;
 
-
+@Entity
+@Table(name = "T_APPEARANCE")
 public class Appearance {
-    private int dicesResult;
-    
-    public Appearance(){
-         dicesResult = Dice.getRoll(5, 10);
-    }
-    
-    public int getTotal(int presencePotentialValue){
-        return presencePotentialValue - 25 + dicesResult;
-    }
+	@Id
+	@GeneratedValue
+	private Long id; // database id.
+
+	@Column
+	private int dicesResult;
+
+	public Appearance() {
+		dicesResult = Dice.getRoll(5, 10);
+	}
+
+	public int getTotal(int presencePotentialValue) {
+		return presencePotentialValue - 25 + dicesResult;
+	}
+
+	public int getDicesResult() {
+		return dicesResult;
+	}
+
+	public void setDicesResult(int dicesResult) {
+		this.dicesResult = dicesResult;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 }

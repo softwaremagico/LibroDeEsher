@@ -26,9 +26,20 @@ package com.softwaremagico.librodeesher.pj;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.softwaremagico.librodeesher.basics.Roll;
 import com.softwaremagico.librodeesher.basics.RollGroup;
@@ -68,38 +79,55 @@ import com.softwaremagico.librodeesher.pj.training.TrainingCategory;
 import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 
+@Entity
+@Table(name = "T_CHARACTERPLAYER")
 public class CharacterPlayer {
 
 	private static final Integer STORED_ROLLS_NUMBER = 10;
 
+	@Id
+	@GeneratedValue
 	private Long id; // database id.
 
 	private String name;
 	private SexType sex;
 	private String historyText;
 
+	@Transient
 	private Characteristics characteristics;
+
+	@ElementCollection
 	private Map<String, Integer> characteristicsInitialTemporalValues;
+	@ElementCollection
 	private Map<String, Integer> characteristicsPotentialValues;
+	@ElementCollection(fetch = FetchType.LAZY)
 	private Map<String, RollGroup> characteristicsTemporalUpdatesRolls;
 	private boolean characteristicsConfirmed = false;
 
 	private String raceName;
+	@Transient
 	private transient Race race;
 	private String cultureName;
+	@Transient
 	private transient Culture culture;
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private CultureDecisions cultureDecisions;
 	private String professionName;
+	@Transient
 	private transient Profession profession;
 	private ProfessionDecisions professionDecisions;
 	private List<String> trainingsNames;
+	@Transient
 	private transient List<Training> trainings;
-	private Hashtable<String, TrainingDecision> trainingDecisions;
+	private Map<String, TrainingDecision> trainingDecisions;
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
 	private MagicSpellLists magicSpellLists;
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Historial historial;
 	private List<Perk> perks;
-	private Hashtable<String, PerkDecision> perkDecisions;
+	private Map<String, PerkDecision> perkDecisions;
+
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Appearance appearance;
 
 	private boolean darkSpellsAsBasicListsAllowed = false;
@@ -107,6 +135,7 @@ public class CharacterPlayer {
 	private boolean chiPowersAllowed = false;
 	private boolean otherRealmtrainingSpellsAllowed = false;
 
+	@ElementCollection(fetch = FetchType.LAZY)
 	private List<LevelUp> levelUps;
 
 	public CharacterPlayer() {
@@ -115,11 +144,11 @@ public class CharacterPlayer {
 		levelUps = new ArrayList<>();
 		levelUps.add(new LevelUp());
 		historial = new Historial();
-		characteristicsInitialTemporalValues = new Hashtable<>();
-		characteristicsTemporalUpdatesRolls = new Hashtable<>();
-		characteristicsPotentialValues = new Hashtable<>();
-		trainingDecisions = new Hashtable<>();
-		perkDecisions = new Hashtable<>();
+		characteristicsInitialTemporalValues = new HashMap<>();
+		characteristicsTemporalUpdatesRolls = new HashMap<>();
+		characteristicsPotentialValues = new HashMap<>();
+		trainingDecisions = new HashMap<>();
+		perkDecisions = new HashMap<>();
 		setTemporalValuesOfCharacteristics();
 		sex = SexType.MALE;
 		cultureDecisions = new CultureDecisions();

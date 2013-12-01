@@ -24,7 +24,7 @@ package com.softwaremagico.librodeesher.pj.training;
  * #L%
  */
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
@@ -32,7 +32,7 @@ import com.softwaremagico.librodeesher.basics.ShowMessage;
 
 public class TrainingFactory {
 	public final static String TRAINING_FOLDER = "adiestramientos";
-	private static Hashtable<String, Training> trainingsStored = new Hashtable<>();
+	private static HashMap<String, Training> trainingsStored = new HashMap<>();
 	private static List<String> availableTraining = availableTrainings();
 
 	private static List<String> availableTrainings() {

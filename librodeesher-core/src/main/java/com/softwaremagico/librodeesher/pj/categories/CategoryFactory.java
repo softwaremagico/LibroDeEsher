@@ -26,8 +26,9 @@ package com.softwaremagico.librodeesher.pj.categories;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
@@ -41,7 +42,7 @@ import com.softwaremagico.librodeesher.pj.weapons.WeaponType;
 
 public class CategoryFactory {
 
-	private static Hashtable<String, Category> availableCategories = new Hashtable<>();
+	private static Map<String, Category> availableCategories = new HashMap<>();
 	private static List<Category> weaponsCategory = new ArrayList<>();
 	private static List<String> availableCategoriesByName = new ArrayList<>();
 

@@ -25,7 +25,7 @@ package com.softwaremagico.librodeesher.pj.culture;
  */
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
@@ -33,7 +33,7 @@ import com.softwaremagico.librodeesher.basics.ShowMessage;
 
 public class CultureFactory {
 	public final static String CULTURE_FOLDER = "culturas";
-	private static Hashtable<String, Culture> culturesAvailable = new Hashtable<>();
+	private static HashMap<String, Culture> culturesAvailable = new HashMap<>();
 
 	public static List<String> availableCultures() {
 		try {

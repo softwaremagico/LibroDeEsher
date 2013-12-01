@@ -1,7 +1,7 @@
 package com.softwaremagico.librodeesher.pj.perk;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.basics.ChooseType;
@@ -18,15 +18,15 @@ public class Perk {
 	private List<String> avalibleToRaces;
 	private List<String> avalibleToProfessions;
 	private PerkCategory category;
-	private Hashtable<String, Integer> categoryBonus;
-	private Hashtable<String, Integer> conditionalCategoryBonus;
-	private Hashtable<String, Integer> categoryRanks;
-	private Hashtable<String, Integer> skillBonus;
-	private Hashtable<String, Integer> skillRanks;
-	private Hashtable<String, Integer> conditionalSkillBonus;
-	private Hashtable<String, Integer> resistanceBonus;
-	private Hashtable<String, Integer> characteristicBonus;
-	private Hashtable<String, Integer> categoryWithRestricted;
+	private HashMap<String, Integer> categoryBonus;
+	private HashMap<String, Integer> conditionalCategoryBonus;
+	private HashMap<String, Integer> categoryRanks;
+	private HashMap<String, Integer> skillBonus;
+	private HashMap<String, Integer> skillRanks;
+	private HashMap<String, Integer> conditionalSkillBonus;
+	private HashMap<String, Integer> resistanceBonus;
+	private HashMap<String, Integer> characteristicBonus;
+	private HashMap<String, Integer> categoryWithRestricted;
 	private List<String> commonSkills;
 	private List<String> commonCategories;
 	private List<String> restrictedSkills;
@@ -46,15 +46,15 @@ public class Perk {
 		this.avalibleToRaces = avalibleToRaces;
 		this.avalibleToProfessions = avalibleToProfessions;
 		this.category = classification;
-		categoryBonus = new Hashtable<>();
-		skillBonus = new Hashtable<>();
-		resistanceBonus = new Hashtable<>();
-		categoryWithRestricted = new Hashtable<>();
-		characteristicBonus = new Hashtable<>();
-		conditionalCategoryBonus = new Hashtable<>();
-		conditionalSkillBonus = new Hashtable<>();
-		skillRanks = new Hashtable<>();
-		categoryRanks = new Hashtable<>();
+		categoryBonus = new HashMap<>();
+		skillBonus = new HashMap<>();
+		resistanceBonus = new HashMap<>();
+		categoryWithRestricted = new HashMap<>();
+		characteristicBonus = new HashMap<>();
+		conditionalCategoryBonus = new HashMap<>();
+		conditionalSkillBonus = new HashMap<>();
+		skillRanks = new HashMap<>();
+		categoryRanks = new HashMap<>();
 		commonSkills = new ArrayList<>();
 		restrictedSkills = new ArrayList<>();
 		commonCategories = new ArrayList<>();

@@ -2,7 +2,7 @@ package com.softwaremagico.librodeesher.pj.training;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.pj.categories.Category;
@@ -15,7 +15,7 @@ public class TrainingCategory {
 	private Integer maxSkills;
 	private Integer skillRanks;
 	private List<String> categoryOptions; // List to choose one category from.
-	private Hashtable<String, List<TrainingSkill>> skillsPerCategory;
+	private HashMap<String, List<TrainingSkill>> skillsPerCategory;
 
 	public TrainingCategory(List<String> categoryOptions, Integer ranks, Integer minSkills,
 			Integer maxSkills, Integer skillRanks) {
@@ -24,7 +24,7 @@ public class TrainingCategory {
 		this.minSkills = minSkills;
 		this.maxSkills = maxSkills;
 		this.skillRanks = skillRanks;
-		skillsPerCategory = new Hashtable<>();
+		skillsPerCategory = new HashMap<>();
 	}
 
 	protected void addSkill(String categoryName, String skillName) {

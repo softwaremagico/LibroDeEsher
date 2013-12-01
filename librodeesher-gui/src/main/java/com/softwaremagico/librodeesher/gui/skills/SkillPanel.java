@@ -26,7 +26,7 @@ package com.softwaremagico.librodeesher.gui.skills;
 
 import java.awt.GridLayout;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
@@ -40,12 +40,12 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 public class SkillPanel extends BaseSkillPanel {
 	private static final long serialVersionUID = 544393371168606333L;
 	private CompleteSkillPanel parentWindow;
-	private Hashtable<Category, List<SkillLine>> skillLinesPerCategory;
+	private HashMap<Category, List<SkillLine>> skillLinesPerCategory;
 	private List<WeaponCategoryLine> weaponsLines;
 
 	public SkillPanel(CharacterPlayer character, CompleteSkillPanel parentWindow) {
 		this.parentWindow = parentWindow;
-		skillLinesPerCategory = new Hashtable<>();
+		skillLinesPerCategory = new HashMap<>();
 		setElements(character);
 	}
 

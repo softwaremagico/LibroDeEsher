@@ -28,7 +28,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -51,14 +51,14 @@ import com.softwaremagico.librodeesher.pj.training.TrainingType;
 public class Profession {
 	private final static Integer HOW_MANY_EXTRA_COSTS = 5;
 	private String name;
-	private Hashtable<String, Integer> categoriesBonus;
-	private Hashtable<String, Integer> skillBonus;
+	private HashMap<String, Integer> categoriesBonus;
+	private HashMap<String, Integer> skillBonus;
 	private List<String> characteristicPreferences;
 	private List<ProfessionalRealmsOfMagicOptions> magicRealmsAvailable;
 	private List<CategoryCost> weaponCategoryCost;
 	private List<CategoryCost> extraWeaponCategoryCost; // For firearms or any
 														// new weapon category
-	private Hashtable<String, CategoryCost> categoryCost;
+	private HashMap<String, CategoryCost> categoryCost;
 	private List<ChooseSkillGroup> commonSkillsToChoose;
 	private List<ChooseSkillGroup> professionalSkillsToChoose;
 	private List<ChooseSkillGroup> restrictedSkillsToChoose;
@@ -67,8 +67,8 @@ public class Profession {
 	private List<String> restrictedSkills;
 
 	private MagicCosts magicCosts;
-	private Hashtable<String, Integer> trainingCosts;
-	private Hashtable<String, TrainingType> trainingTypes;
+	private HashMap<String, Integer> trainingCosts;
+	private HashMap<String, TrainingType> trainingTypes;
 
 	public Profession(String name) {
 		this.name = name;
@@ -200,8 +200,8 @@ public class Profession {
 	}
 
 	private int setProfessionBonus(List<String> lines, int index) {
-		categoriesBonus = new Hashtable<>();
-		skillBonus = new Hashtable<>();
+		categoriesBonus = new HashMap<>();
+		skillBonus = new HashMap<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -226,7 +226,7 @@ public class Profession {
 	}
 
 	private int setCategoryCost(List<String> lines, int index) {
-		categoryCost = new Hashtable<>();
+		categoryCost = new HashMap<>();
 		weaponCategoryCost = new ArrayList<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -376,8 +376,8 @@ public class Profession {
 	}
 
 	private int setTrainingCosts(List<String> lines, int index) {
-		trainingCosts = new Hashtable<>();
-		trainingTypes = new Hashtable<>();
+		trainingCosts = new HashMap<>();
+		trainingTypes = new HashMap<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}

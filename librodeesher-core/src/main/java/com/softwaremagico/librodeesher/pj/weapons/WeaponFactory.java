@@ -26,7 +26,7 @@ package com.softwaremagico.librodeesher.pj.weapons;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.files.Folder;
@@ -36,7 +36,7 @@ import com.softwaremagico.librodeesher.basics.ShowMessage;
 
 public class WeaponFactory {
 	public final static String WEAPON_FOLDER = "armas";
-	private static Hashtable<WeaponType, List<Weapon>> weaponsByType;
+	private static HashMap<WeaponType, List<Weapon>> weaponsByType;
 
 	static {
 		try {
@@ -47,10 +47,10 @@ public class WeaponFactory {
 		}
 	}
 
-	private static Hashtable<WeaponType, List<Weapon>> availableWeapons() throws Exception {
+	private static HashMap<WeaponType, List<Weapon>> availableWeapons() throws Exception {
 
 		// Init variables.
-		Hashtable<WeaponType, List<Weapon>> obtainedWeaponsByType = new Hashtable<>();
+		HashMap<WeaponType, List<Weapon>> obtainedWeaponsByType = new HashMap<>();
 		for (WeaponType typeW : WeaponType.values()) {
 			List<Weapon> weapons = new ArrayList<>();
 			obtainedWeaponsByType.put(typeW, weapons);

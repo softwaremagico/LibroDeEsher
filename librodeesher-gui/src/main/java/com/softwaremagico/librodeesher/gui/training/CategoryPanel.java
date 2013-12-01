@@ -25,7 +25,7 @@ package com.softwaremagico.librodeesher.gui.training;
  */
 
 import java.awt.GridLayout;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.gui.style.BasePanel;

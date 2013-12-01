@@ -27,7 +27,7 @@ package com.softwaremagico.librodeesher.pj.race;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -47,9 +47,9 @@ import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 public class Race {
 	private String name;
 	private int apperanceBonus;
-	private Hashtable<String, Integer> characteristicBonus;
-	private Hashtable<ResistanceType, Integer> resistancesBonus;
-	private Hashtable<ProgressionCostType, Float[]> progressionRankValues;
+	private HashMap<String, Integer> characteristicBonus;
+	private HashMap<ResistanceType, Integer> resistancesBonus;
+	private HashMap<ProgressionCostType, Float[]> progressionRankValues;
 	private List<String> restrictedProfessions;
 	private Integer soulDepartTime;
 	private Integer raceType;
@@ -57,8 +57,8 @@ public class Race {
 	private Float restorationTime;
 	private Integer languagePoints;
 	private Integer historialPoints;
-	private Hashtable<String, Integer> initialRaceLanguages;
-	private Hashtable<String, Integer> maxRaceLanguages;
+	private HashMap<String, Integer> initialRaceLanguages;
+	private HashMap<String, Integer> maxRaceLanguages;
 	private List<Skill> commonSkills;
 	private List<Skill> restrictedSkills;
 	private List<String> availableCultures;
@@ -110,7 +110,7 @@ public class Race {
 	}
 
 	private int setCharacteristicsBonus(List<String> lines, int index) {
-		characteristicBonus = new Hashtable<>();
+		characteristicBonus = new HashMap<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -133,7 +133,7 @@ public class Race {
 	}
 
 	private int setResistanceBonus(List<String> lines, int index) {
-		resistancesBonus = new Hashtable<>();
+		resistancesBonus = new HashMap<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -156,7 +156,7 @@ public class Race {
 	}
 
 	private int setProgressionRankValues(List<String> lines, int index) {
-		progressionRankValues = new Hashtable<>();
+		progressionRankValues = new HashMap<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -262,8 +262,8 @@ public class Race {
 	}
 
 	private int setRaceLanguages(List<String> lines, int index) {
-		initialRaceLanguages = new Hashtable<>();
-		maxRaceLanguages = new Hashtable<>();
+		initialRaceLanguages = new HashMap<>();
+		maxRaceLanguages = new HashMap<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}

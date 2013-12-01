@@ -17,12 +17,14 @@ import com.softwaremagico.librodeesher.pj.weapons.WeaponType;
 
 public class RandomCharacterPlayer {
 	private CharacterPlayer characterPlayer;
+	private SexType sex;
 	private int finalLevel;
 	private String race, culture, profession;
 	private Integer characteristicsPoints;
 	private Integer specializationLevel;
 
-	public RandomCharacterPlayer(int finalLevel, String race, String culture, String profession) {
+	public RandomCharacterPlayer(SexType sex, String race, String culture, String profession, int finalLevel) {
+		this.sex = sex;
 		this.finalLevel = finalLevel;
 		characterPlayer = new CharacterPlayer();
 		this.race = race;
@@ -34,10 +36,27 @@ public class RandomCharacterPlayer {
 
 	private void createRandomValues() {
 		setRace();
+		setCharacterInfo();
 		setProfession();
 		setCharacteristics();
 		setMagicRealm();
 		setCulture();
+	}
+
+	private SexType getSex() {
+		if (sex == null) {
+			if (Math.random() < 0.5) {
+				sex = SexType.MALE;
+			} else {
+				sex = SexType.FEMALE;
+			}
+		}
+		return sex;
+	}
+
+	private void setCharacterInfo() {
+		characterPlayer.setSex(getSex());
+		characterPlayer.setName(characterPlayer.getRace().getRandonName(characterPlayer.getSex()));
 	}
 
 	private void setRace() {
@@ -236,5 +255,9 @@ public class RandomCharacterPlayer {
 						characterPlayer.getCultureDecisions().getHobbyRanks(hobbies.get(0)) + 1);
 			}
 		}
+	}
+
+	public CharacterPlayer getCharacterPlayer() {
+		return characterPlayer;
 	}
 }

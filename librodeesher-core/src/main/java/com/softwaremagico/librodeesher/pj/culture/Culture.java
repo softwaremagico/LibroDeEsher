@@ -28,7 +28,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.files.Folder;
@@ -46,11 +46,11 @@ public class Culture {
 	private String name;
 	private List<Weapon> cultureWeapons;
 	private List<String> cultureArmours;
-	private Hashtable<String, CultureCategory> categories;
+	private HashMap<String, CultureCategory> categories;
 	private Integer hobbyRanks;
 	private List<String> hobbySkills;
 	// private List<CultureLanguage> languages;
-	private Hashtable<String, Integer> languages;
+	private HashMap<String, Integer> languages;
 
 	public Culture(String name) {
 		this.name = name;
@@ -158,7 +158,7 @@ public class Culture {
 	}
 
 	private int setSkillRanks(List<String> lines, int index) throws Exception {
-		categories = new Hashtable<>();
+		categories = new HashMap<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -249,7 +249,7 @@ public class Culture {
 	}
 
 	private int setCultureLanguages(List<String> lines, int index) {
-		languages = new Hashtable<>();
+		languages = new HashMap<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}

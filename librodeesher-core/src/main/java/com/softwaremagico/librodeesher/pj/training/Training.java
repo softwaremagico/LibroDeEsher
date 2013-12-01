@@ -27,7 +27,7 @@ package com.softwaremagico.librodeesher.pj.training;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,10 +51,10 @@ public class Training {
 	private List<TrainingSpecial> specials;
 	private List<TrainingCategory> categoriesWithRanks;
 	private List<List<String>> updateCharacteristics; // Choose one
-	private Hashtable<String, Integer> characteristicRequirements;
-	private Hashtable<String, Integer> characteristicRequirementsCostModification;
-	private Hashtable<String, Integer> skillRequirements;
-	private Hashtable<String, Integer> skillRequirementsCostModification;
+	private HashMap<String, Integer> characteristicRequirements;
+	private HashMap<String, Integer> characteristicRequirementsCostModification;
+	private HashMap<String, Integer> skillRequirements;
+	private HashMap<String, Integer> skillRequirementsCostModification;
 	private List<ChooseSkillGroup> lifeSkills;
 	private List<ChooseSkillGroup> commonSkills;
 	private List<ChooseSkillGroup> professionalSkills;
@@ -289,10 +289,10 @@ public class Training {
 	}
 
 	private int setProfessionalRequirements(List<String> lines, int index) {
-		characteristicRequirements = new Hashtable<>();
-		characteristicRequirementsCostModification = new Hashtable<>();
-		skillRequirements = new Hashtable<>();
-		skillRequirementsCostModification = new Hashtable<>();
+		characteristicRequirements = new HashMap<>();
+		characteristicRequirementsCostModification = new HashMap<>();
+		skillRequirements = new HashMap<>();
+		skillRequirementsCostModification = new HashMap<>();
 
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -368,19 +368,19 @@ public class Training {
 		return new ArrayList<>(skillRequirements.keySet());
 	}
 
-	public Hashtable<String, Integer> getSkillRequirements() {
+	public HashMap<String, Integer> getSkillRequirements() {
 		return skillRequirements;
 	}
 
-	public Hashtable<String, Integer> getSkillRequirementsCostModification() {
+	public HashMap<String, Integer> getSkillRequirementsCostModification() {
 		return skillRequirementsCostModification;
 	}
 
-	public Hashtable<String, Integer> getCharacteristicRequirements() {
+	public HashMap<String, Integer> getCharacteristicRequirements() {
 		return characteristicRequirements;
 	}
 
-	public Hashtable<String, Integer> getCharacteristicRequirementsCostModification() {
+	public HashMap<String, Integer> getCharacteristicRequirementsCostModification() {
 		return characteristicRequirementsCostModification;
 	}
 

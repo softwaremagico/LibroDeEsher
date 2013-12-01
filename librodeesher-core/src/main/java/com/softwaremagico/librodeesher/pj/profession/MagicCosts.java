@@ -24,7 +24,7 @@ package com.softwaremagico.librodeesher.pj.profession;
  * #L%
  */
 
-import java.util.Hashtable;
+import java.util.HashMap;
 
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
@@ -32,10 +32,10 @@ import com.softwaremagico.librodeesher.pj.magic.MagicLevelRange;
 import com.softwaremagico.librodeesher.pj.magic.MagicListType;
 
 public class MagicCosts {
-	private Hashtable<MagicListType, CategoryCost[]> listCosts;
+	private HashMap<MagicListType, CategoryCost[]> listCosts;
 
 	public MagicCosts() {
-		listCosts = new Hashtable<>();
+		listCosts = new HashMap<>();
 		for (MagicListType magicType : MagicListType.values()) {
 			listCosts.put(magicType, new CategoryCost[MagicLevelRange.values().length]);
 		}

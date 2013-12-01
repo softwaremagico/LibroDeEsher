@@ -2,7 +2,7 @@ package com.softwaremagico.librodeesher.pj.perk;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.files.Folder;
@@ -19,7 +19,7 @@ import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
 public class PerkFactory {
-	private static Hashtable<String, Perk> availablePerks = new Hashtable<>();
+	private static HashMap<String, Perk> availablePerks = new HashMap<>();
 	private static List<Perk> perksList = new ArrayList<>();
 
 	static {

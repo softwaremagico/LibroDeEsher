@@ -1,16 +1,16 @@
 package com.softwaremagico.librodeesher.pj.training;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 public class TrainingDecision {
-	private Hashtable<TrainingCategory, List<String>> categoriesSelected;
-	private Hashtable<TrainingCategory, List<String>> skillsSelected;
+	private HashMap<TrainingCategory, List<String>> categoriesSelected;
+	private HashMap<TrainingCategory, List<String>> skillsSelected;
 
 	public TrainingDecision() {
-		categoriesSelected = new Hashtable<>();
-		skillsSelected = new Hashtable<>();
+		categoriesSelected = new HashMap<>();
+		skillsSelected = new HashMap<>();
 	}
 
 	public void addSelectedCategory(TrainingCategory trainingCategory, String categoryName) {

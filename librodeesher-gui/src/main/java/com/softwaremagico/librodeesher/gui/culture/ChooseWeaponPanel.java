@@ -25,7 +25,7 @@ package com.softwaremagico.librodeesher.gui.culture;
 
 import java.awt.GridLayout;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
@@ -38,7 +38,7 @@ import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 public class ChooseWeaponPanel extends BasePanel {
 
 	private static final long serialVersionUID = 544393371168606333L;
-	private Hashtable<Category, List<WeaponSkillLine>> weaponLines = new Hashtable<>();
+	private HashMap<Category, List<WeaponSkillLine>> weaponLines = new HashMap<>();
 
 	public ChooseWeaponPanel(CharacterPlayer character) {
 		setElements(character);

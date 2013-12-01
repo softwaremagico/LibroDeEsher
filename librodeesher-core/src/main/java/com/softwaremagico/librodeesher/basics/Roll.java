@@ -1,5 +1,10 @@
 package com.softwaremagico.librodeesher.basics;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /*
  * #%L
  * Libro de Esher
@@ -24,9 +29,15 @@ package com.softwaremagico.librodeesher.basics;
  * #L%
  */
 
+@Table(name = "T_ROLL")
 public class Roll {
+	@Id
+	@GeneratedValue
 	private Long id; // database id.
+	
+	@Column
 	private Integer firstDice;
+	@Column
 	private Integer secondDice;
 
 	public Roll() {

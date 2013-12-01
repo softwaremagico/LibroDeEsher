@@ -25,7 +25,7 @@ package com.softwaremagico.librodeesher.pj.magic;
  */
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -34,10 +34,10 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 
 public class MagicSpellLists {
-	private Hashtable<MagicListType, Category> magicCategories; // Spells
+	private HashMap<MagicListType, Category> magicCategories; // Spells
 
 	public MagicSpellLists() {
-		magicCategories = new Hashtable<>();
+		magicCategories = new HashMap<>();
 		for (MagicListType magicType : MagicListType.values()) {
 			createMagicCategories(magicType);
 		}

@@ -25,7 +25,7 @@ package com.softwaremagico.librodeesher.pj.culture;
  */
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.basics.ShowMessage;
@@ -33,11 +33,11 @@ import com.softwaremagico.librodeesher.basics.ShowMessage;
 public class CultureCategory {
 	private Integer ranks;
 	private Integer ranksToChoose;
-	private Hashtable<String, CultureSkill> skills;
+	private HashMap<String, CultureSkill> skills;
 	private String name;
 
 	public CultureCategory(String name, Integer ranks) {
-		skills = new Hashtable<>();
+		skills = new HashMap<>();
 		this.name = name;
 		this.ranks = ranks;
 		ranksToChoose = 0;
@@ -62,7 +62,7 @@ public class CultureCategory {
 
 	public CultureCategory(String name, String ranks) {
 		this.name = name;
-		skills = new Hashtable<>();
+		skills = new HashMap<>();
 		try {
 			this.ranks = Integer.parseInt(ranks);
 		} catch (NumberFormatException nfe) {
