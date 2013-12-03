@@ -27,9 +27,22 @@ package com.softwaremagico.librodeesher.pj.categories;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 
+@Entity
+@Table(name = "T_CATEGORY_COST")
 public class CategoryCost {
+	@Id
+	@GeneratedValue
+	private Long id; // database id.
+
+	@ElementCollection
 	List<Integer> rankCost;
 
 	public CategoryCost(List<Integer> rankCost) {
@@ -95,5 +108,17 @@ public class CategoryCost {
 
 	public List<Integer> getRankCost() {
 		return rankCost;
+	}
+
+	protected Long getId() {
+		return id;
+	}
+
+	protected void setId(Long id) {
+		this.id = id;
+	}
+
+	protected void setRankCost(List<Integer> rankCost) {
+		this.rankCost = rankCost;
 	}
 }

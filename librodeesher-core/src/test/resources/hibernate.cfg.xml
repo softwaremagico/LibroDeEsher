@@ -18,6 +18,8 @@
 	<mapping class="com.softwaremagico.librodeesher.basics.Roll"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.basics.RollGroup"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.categories.Category"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.categories.CategoryCost"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.categories.ChooseCategoryGroup"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.basics.ChooseGroup"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.culture.CultureDecisions"></mapping>

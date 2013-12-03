@@ -3,10 +3,15 @@ package com.softwaremagico.librodeesher.pj.categories;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.softwaremagico.librodeesher.basics.ChooseGroup;
 import com.softwaremagico.librodeesher.basics.ChooseType;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 
+@Entity
+@Table(name = "T_CHOOSE_CATEGORY_GROUP")
 public class ChooseCategoryGroup extends ChooseGroup<Category> {
 
 	public ChooseCategoryGroup(int chooseNumber, List<Category> categoryGroup, ChooseType chooseType) {
