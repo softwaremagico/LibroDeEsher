@@ -1,9 +1,21 @@
 package com.softwaremagico.librodeesher.pj.training;
 
-import java.util.Comparator;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "T_TRAINING_SKILL")
 public class TrainingSkill {
+	@Id
+	@GeneratedValue
+	private Long id; // database id.
+
+	@ElementCollection
 	private List<String> skillOptions; // List to choose from.
 	private Integer ranks;
 
@@ -54,5 +66,21 @@ public class TrainingSkill {
 		} else if (!skillOptions.equals(other.skillOptions))
 			return false;
 		return true;
+	}
+
+	protected Long getId() {
+		return id;
+	}
+
+	protected void setId(Long id) {
+		this.id = id;
+	}
+
+	protected void setSkillOptions(List<String> skillOptions) {
+		this.skillOptions = skillOptions;
+	}
+
+	protected void setRanks(Integer ranks) {
+		this.ranks = ranks;
 	}
 }

@@ -30,7 +30,10 @@
 	<mapping class="com.softwaremagico.librodeesher.pj.profession.ProfessionalRealmsOfMagicOptions"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.skills.Skill"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingDecision"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingCategory"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingCategoriesSelected"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingSkill"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingSkillList"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingSkillsSelected"></mapping>
     </session-factory>
 </hibernate-configuration>

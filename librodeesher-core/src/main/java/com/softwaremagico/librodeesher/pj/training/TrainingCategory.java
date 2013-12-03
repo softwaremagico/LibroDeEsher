@@ -4,21 +4,35 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
+@Entity
+@Table(name = "T_TRAINING_CATEGORY")
 public class TrainingCategory {
+	@Id
+	@GeneratedValue
+	private Long id; // database id.
 	private Integer categoryRanks;
 	private Integer minSkills;
 	private Integer maxSkills;
 	private Integer skillRanks;
+	@ElementCollection
 	private List<String> categoryOptions; // List to choose one category from.
-	private HashMap<String, List<TrainingSkill>> skillsPerCategory;
+	@ElementCollection
+	private Map<String, TrainingSkillList> skillsPerCategory;
 
-	public TrainingCategory(List<String> categoryOptions, Integer ranks, Integer minSkills,
-			Integer maxSkills, Integer skillRanks) {
+	public TrainingCategory(List<String> categoryOptions, Integer ranks, Integer minSkills, Integer maxSkills,
+			Integer skillRanks) {
 		this.categoryOptions = categoryOptions;
 		this.categoryRanks = ranks;
 		this.minSkills = minSkills;
@@ -35,14 +49,14 @@ public class TrainingCategory {
 	}
 
 	protected void addSkill(String categoryName, TrainingSkill skill) {
-		List<TrainingSkill> skills = skillsPerCategory.get(categoryName);
-		if (skills == null) {
-			skills = new ArrayList<>();
+		TrainingSkillList skillList = skillsPerCategory.get(categoryName);
+		if (skillList == null) {
+			skillList = new TrainingSkillList();
 		}
-		if (!skills.contains(skill)) {
-			skills.add(skill);
-			Collections.sort(skills, new TrainingSkillComparator());
-			skillsPerCategory.put(categoryName, skills);
+		if (!skillList.getAll().contains(skill)) {
+			skillList.add(skill);
+			Collections.sort(skillList.getAll(), new TrainingSkillComparator());
+			skillsPerCategory.put(categoryName, skillList);
 		}
 	}
 
@@ -55,12 +69,12 @@ public class TrainingCategory {
 		// A training only has defined skills if a category is not an option.
 		// Therefore, categoryOptions has size 1;
 		String categoryName = categoryOptions.get(0);
-		List<TrainingSkill> skills = skillsPerCategory.get(categoryName);
-		if (skills == null) {
-			skills = new ArrayList<>();
+		TrainingSkillList skillList = skillsPerCategory.get(categoryName);
+		if (skillList == null) {
+			skillList = new TrainingSkillList();
 		}
-		skills.add(skill);
-		skillsPerCategory.put(categoryName, skills);
+		skillList.add(skill);
+		skillsPerCategory.put(categoryName, skillList);
 	}
 
 	public Integer getMinSkills() {
@@ -76,7 +90,7 @@ public class TrainingCategory {
 	}
 
 	public List<TrainingSkill> getSkills(String categoryName) {
-		return skillsPerCategory.get(categoryName);
+		return skillsPerCategory.get(categoryName).getAll();
 	}
 
 	public boolean needToChooseOneCategory() {
@@ -93,7 +107,7 @@ public class TrainingCategory {
 
 	public Integer getRanksInSkills(String categoryName) {
 		Integer total = 0;
-		List<TrainingSkill> skills = skillsPerCategory.get(categoryName);
+		List<TrainingSkill> skills = skillsPerCategory.get(categoryName).getAll();
 		for (TrainingSkill skill : skills) {
 			total += skill.getRanks();
 		}
