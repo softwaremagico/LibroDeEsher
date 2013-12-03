@@ -30,17 +30,31 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
+@Entity
+@Table(name = "T_CATEGORY")
 public abstract class Category {
+	@Id
+	@GeneratedValue
+	private Long id; // database id.
+	
 	private String name;
 	protected String abbreviature;
 	protected CategoryType type;
 	protected CategoryGroup group;
 	private String characterisitcsTags;
+	@ElementCollection
 	private List<String> characteristicsListTags;
+	@ElementCollection
 	protected List<Skill> skills;
 	private Float[] skillRankValues; // Rank values. i.e: -15/3/2/1/0.5
 
@@ -159,6 +173,7 @@ public abstract class Category {
 			progressionCost[i] = s.nextFloat();
 			i++;
 		}
+		s.close();
 		return progressionCost;
 	}
 
@@ -195,5 +210,49 @@ public abstract class Category {
 
 	public String toString() {
 		return getName();
+	}
+
+	protected Long getId() {
+		return id;
+	}
+
+	protected void setId(Long id) {
+		this.id = id;
+	}
+
+	protected List<String> getCharacteristicsListTags() {
+		return characteristicsListTags;
+	}
+
+	protected void setCharacteristicsListTags(List<String> characteristicsListTags) {
+		this.characteristicsListTags = characteristicsListTags;
+	}
+
+	protected Float[] getSkillRankValues() {
+		return skillRankValues;
+	}
+
+	protected void setSkillRankValues(Float[] skillRankValues) {
+		this.skillRankValues = skillRankValues;
+	}
+
+	protected void setName(String name) {
+		this.name = name;
+	}
+
+	protected void setAbbreviature(String abbreviature) {
+		this.abbreviature = abbreviature;
+	}
+
+	protected void setType(CategoryType type) {
+		this.type = type;
+	}
+
+	protected void setGroup(CategoryGroup group) {
+		this.group = group;
+	}
+
+	protected void setCharacterisitcsTags(String characterisitcsTags) {
+		this.characterisitcsTags = characterisitcsTags;
 	}
 }

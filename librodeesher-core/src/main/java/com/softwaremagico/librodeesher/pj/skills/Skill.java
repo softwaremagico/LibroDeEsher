@@ -4,6 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.ProgressionCostType;
 import com.softwaremagico.librodeesher.pj.categories.Category;
@@ -33,10 +42,18 @@ import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
  * #L%
  */
 
+@Entity
+@Table(name = "T_SKILL")
 public class Skill {
+	@Id
+	@GeneratedValue
+	private Long id; // database id.
+
 	private String name;
+	@ElementCollection
 	private List<String> specialities; // A skill can have some specializations.
 	private SkillType type;
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Category category;
 	private SkillGroup group;
 	private boolean usedInRandom = true;
@@ -116,6 +133,34 @@ public class Skill {
 
 	public void setUsedInRandom(boolean usedInRandom) {
 		this.usedInRandom = usedInRandom;
+	}
+
+	protected Long getId() {
+		return id;
+	}
+
+	protected void setId(Long id) {
+		this.id = id;
+	}
+
+	protected List<String> getSpecialities() {
+		return specialities;
+	}
+
+	protected void setSpecialities(List<String> specialities) {
+		this.specialities = specialities;
+	}
+
+	protected void setName(String name) {
+		this.name = name;
+	}
+
+	protected void setType(SkillType type) {
+		this.type = type;
+	}
+
+	protected void setGroup(SkillGroup group) {
+		this.group = group;
 	}
 
 }

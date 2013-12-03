@@ -27,16 +27,31 @@ package com.softwaremagico.librodeesher.pj.profession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
+@Entity
+@Table(name = "T_PROFESSIONS_DECISION")
 public class ProfessionDecisions {
+	@Id
+	@GeneratedValue
 	private Long id; // database id.
-	private HashMap<Category, CategoryCost> weaponsCost;
+	@ElementCollection
+	private Map<Category, CategoryCost> weaponsCost;
+	@ElementCollection
 	private List<String> commonSkillsChose;
+	@ElementCollection
 	private List<String> restrictedSkillsChose;
+	@ElementCollection
 	private List<String> professionalSkillsChose;
 
 	public ProfessionDecisions() {
@@ -113,5 +128,13 @@ public class ProfessionDecisions {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	protected Map<Category, CategoryCost> getWeaponsCost() {
+		return weaponsCost;
+	}
+
+	protected void setWeaponsCost(Map<Category, CategoryCost> weaponsCost) {
+		this.weaponsCost = weaponsCost;
 	}
 }

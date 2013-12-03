@@ -31,7 +31,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -115,16 +114,23 @@ public class CharacterPlayer {
 	private String professionName;
 	@Transient
 	private transient Profession profession;
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private ProfessionDecisions professionDecisions;
+	@ElementCollection
 	private List<String> trainingsNames;
 	@Transient
 	private transient List<Training> trainings;
+	@ElementCollection
 	private Map<String, TrainingDecision> trainingDecisions;
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private MagicSpellLists magicSpellLists;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Historial historial;
+	@ElementCollection
 	private List<Perk> perks;
+	@ElementCollection
 	private Map<String, PerkDecision> perkDecisions;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -1201,6 +1207,14 @@ public class CharacterPlayer {
 
 	public void setCharacteristicsConfirmed(boolean characteristicsConfirmed) {
 		this.characteristicsConfirmed = characteristicsConfirmed;
+	}
+
+	protected MagicSpellLists getMagicSpellLists() {
+		return magicSpellLists;
+	}
+
+	protected void setMagicSpellLists(MagicSpellLists magicSpellLists) {
+		this.magicSpellLists = magicSpellLists;
 	}
 
 }

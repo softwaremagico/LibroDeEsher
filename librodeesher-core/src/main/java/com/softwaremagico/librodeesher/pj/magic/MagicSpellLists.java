@@ -27,14 +27,28 @@ package com.softwaremagico.librodeesher.pj.magic;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 
+@Entity
+@Table(name = "T_MAGIC_SPELLS")
 public class MagicSpellLists {
-	private HashMap<MagicListType, Category> magicCategories; // Spells
+	@Id
+	@GeneratedValue
+	private Long id; // database id.
+	
+	@ElementCollection
+	private Map<MagicListType, Category> magicCategories; // Spells
 
 	public MagicSpellLists() {
 		magicCategories = new HashMap<>();
@@ -161,6 +175,22 @@ public class MagicSpellLists {
 			}
 		}
 		return null;
+	}
+
+	protected Long getId() {
+		return id;
+	}
+
+	protected void setId(Long id) {
+		this.id = id;
+	}
+
+	protected Map<MagicListType, Category> getMagicCategories() {
+		return magicCategories;
+	}
+
+	protected void setMagicCategories(HashMap<MagicListType, Category> magicCategories) {
+		this.magicCategories = magicCategories;
 	}
 
 }

@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.profession;
+
 /*
  * #%L
  * Libro de Esher
@@ -28,12 +29,25 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 
+@Entity
+@Table(name = "T_PROFESSIONS_REALMS_MAGIC")
 public class ProfessionalRealmsOfMagicOptions {
+	@Id
+	@GeneratedValue
+	private Long id; // database id.
 	// Standard spellers will have only one element, hybrids will have two or
 	// more elements.
+	@ElementCollection(fetch = FetchType.LAZY)
 	private List<RealmOfMagic> magicRealmsAvailable;
 
 	public ProfessionalRealmsOfMagicOptions() {
@@ -47,8 +61,8 @@ public class ProfessionalRealmsOfMagicOptions {
 			if (realmType != null) {
 				magicRealmsAvailable.add(realmType);
 			} else {
-				ShowMessage.showErrorMessage("Problemas con el reino de magia " + realms
-						+ " mostrada en el archivo " + professionName + ".txt.", "Leer Profesion");
+				ShowMessage.showErrorMessage("Problemas con el reino de magia " + realms + " mostrada en el archivo "
+						+ professionName + ".txt.", "Leer Profesion");
 			}
 		}
 		Collections.sort(magicRealmsAvailable);
@@ -72,5 +86,21 @@ public class ProfessionalRealmsOfMagicOptions {
 			}
 		}
 		return value;
+	}
+
+	protected Long getId() {
+		return id;
+	}
+
+	protected void setId(Long id) {
+		this.id = id;
+	}
+
+	protected List<RealmOfMagic> getMagicRealmsAvailable() {
+		return magicRealmsAvailable;
+	}
+
+	protected void setMagicRealmsAvailable(List<RealmOfMagic> magicRealmsAvailable) {
+		this.magicRealmsAvailable = magicRealmsAvailable;
 	}
 }

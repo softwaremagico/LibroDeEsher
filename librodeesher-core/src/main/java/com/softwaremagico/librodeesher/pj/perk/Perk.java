@@ -3,6 +3,13 @@ package com.softwaremagico.librodeesher.pj.perk;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.basics.ChooseType;
 import com.softwaremagico.librodeesher.pj.categories.Category;
@@ -11,28 +18,52 @@ import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
+@Entity
+@Table(name = "T_PERKS")
 public class Perk {
+	@Id
+	@GeneratedValue
+	private Long id; // database id.
+
 	private String name;
 	private Integer cost;
 	private String description;
+	@ElementCollection
 	private List<String> avalibleToRaces;
+	@ElementCollection
 	private List<String> avalibleToProfessions;
 	private PerkCategory category;
-	private HashMap<String, Integer> categoryBonus;
-	private HashMap<String, Integer> conditionalCategoryBonus;
-	private HashMap<String, Integer> categoryRanks;
-	private HashMap<String, Integer> skillBonus;
-	private HashMap<String, Integer> skillRanks;
-	private HashMap<String, Integer> conditionalSkillBonus;
-	private HashMap<String, Integer> resistanceBonus;
-	private HashMap<String, Integer> characteristicBonus;
-	private HashMap<String, Integer> categoryWithRestricted;
+	@ElementCollection
+	private Map<String, Integer> categoryBonus;
+	@ElementCollection
+	private Map<String, Integer> conditionalCategoryBonus;
+	@ElementCollection
+	private Map<String, Integer> categoryRanks;
+	@ElementCollection
+	private Map<String, Integer> skillBonus;
+	@ElementCollection
+	private Map<String, Integer> skillRanks;
+	@ElementCollection
+	private Map<String, Integer> conditionalSkillBonus;
+	@ElementCollection
+	private Map<String, Integer> resistanceBonus;
+	@ElementCollection
+	private Map<String, Integer> characteristicBonus;
+	@ElementCollection
+	private Map<String, Integer> categoryWithRestricted;
+	@ElementCollection
 	private List<String> commonSkills;
+	@ElementCollection
 	private List<String> commonCategories;
+	@ElementCollection
 	private List<String> restrictedSkills;
+	@ElementCollection
 	private List<String> restrictedCategories;
+	@ElementCollection
 	private List<ChooseCategoryGroup> categoriesToChoose;
+	@ElementCollection
 	private List<ChooseSkillGroup> skillsToChoose;
+	@ElementCollection
 	private List<ChooseSkillGroup> commonSkillsToChoose;
 	private Integer appareanceBonus;
 	private Integer armourClass;
@@ -164,8 +195,8 @@ public class Perk {
 	}
 
 	public void setCategoryToSelectCommonSkills(Category category, Integer commonSkills) {
-		commonSkillsToChoose.add(new ChooseSkillGroup(commonSkills, SkillFactory.getSkills(category),
-				ChooseType.COMMON));
+		commonSkillsToChoose
+				.add(new ChooseSkillGroup(commonSkills, SkillFactory.getSkills(category), ChooseType.COMMON));
 	}
 
 	public void setCategoryToSelectRestrictedSkills(String categoryName, Integer restrictedSkills) {
@@ -431,5 +462,209 @@ public class Perk {
 
 	public List<ChooseSkillGroup> getCommonSkillsToChoose() {
 		return commonSkillsToChoose;
+	}
+
+	protected Long getId() {
+		return id;
+	}
+
+	protected void setId(Long id) {
+		this.id = id;
+	}
+
+	protected String getDescription() {
+		return description;
+	}
+
+	protected void setDescription(String description) {
+		this.description = description;
+	}
+
+	protected List<String> getAvalibleToRaces() {
+		return avalibleToRaces;
+	}
+
+	protected void setAvalibleToRaces(List<String> avalibleToRaces) {
+		this.avalibleToRaces = avalibleToRaces;
+	}
+
+	protected List<String> getAvalibleToProfessions() {
+		return avalibleToProfessions;
+	}
+
+	protected void setAvalibleToProfessions(List<String> avalibleToProfessions) {
+		this.avalibleToProfessions = avalibleToProfessions;
+	}
+
+	protected Map<String, Integer> getCategoryBonus() {
+		return categoryBonus;
+	}
+
+	protected void setCategoryBonus(HashMap<String, Integer> categoryBonus) {
+		this.categoryBonus = categoryBonus;
+	}
+
+	protected Map<String, Integer> getConditionalCategoryBonus() {
+		return conditionalCategoryBonus;
+	}
+
+	protected void setConditionalCategoryBonus(HashMap<String, Integer> conditionalCategoryBonus) {
+		this.conditionalCategoryBonus = conditionalCategoryBonus;
+	}
+
+	protected Map<String, Integer> getCategoryRanks() {
+		return categoryRanks;
+	}
+
+	protected void setCategoryRanks(HashMap<String, Integer> categoryRanks) {
+		this.categoryRanks = categoryRanks;
+	}
+
+	protected Map<String, Integer> getSkillBonus() {
+		return skillBonus;
+	}
+
+	protected void setSkillBonus(HashMap<String, Integer> skillBonus) {
+		this.skillBonus = skillBonus;
+	}
+
+	protected Map<String, Integer> getSkillRanks() {
+		return skillRanks;
+	}
+
+	protected void setSkillRanks(HashMap<String, Integer> skillRanks) {
+		this.skillRanks = skillRanks;
+	}
+
+	protected Map<String, Integer> getConditionalSkillBonus() {
+		return conditionalSkillBonus;
+	}
+
+	protected void setConditionalSkillBonus(HashMap<String, Integer> conditionalSkillBonus) {
+		this.conditionalSkillBonus = conditionalSkillBonus;
+	}
+
+	protected Map<String, Integer> getResistanceBonus() {
+		return resistanceBonus;
+	}
+
+	protected void setResistanceBonus(HashMap<String, Integer> resistanceBonus) {
+		this.resistanceBonus = resistanceBonus;
+	}
+
+	protected Map<String, Integer> getCharacteristicBonus() {
+		return characteristicBonus;
+	}
+
+	protected void setCharacteristicBonus(HashMap<String, Integer> characteristicBonus) {
+		this.characteristicBonus = characteristicBonus;
+	}
+
+	protected Map<String, Integer> getCategoryWithRestricted() {
+		return categoryWithRestricted;
+	}
+
+	protected void setCategoryWithRestricted(HashMap<String, Integer> categoryWithRestricted) {
+		this.categoryWithRestricted = categoryWithRestricted;
+	}
+
+	protected List<String> getCommonSkills() {
+		return commonSkills;
+	}
+
+	protected void setCommonSkills(List<String> commonSkills) {
+		this.commonSkills = commonSkills;
+	}
+
+	protected List<String> getCommonCategories() {
+		return commonCategories;
+	}
+
+	protected void setCommonCategories(List<String> commonCategories) {
+		this.commonCategories = commonCategories;
+	}
+
+	protected List<String> getRestrictedSkills() {
+		return restrictedSkills;
+	}
+
+	protected void setRestrictedSkills(List<String> restrictedSkills) {
+		this.restrictedSkills = restrictedSkills;
+	}
+
+	protected List<String> getRestrictedCategories() {
+		return restrictedCategories;
+	}
+
+	protected void setRestrictedCategories(List<String> restrictedCategories) {
+		this.restrictedCategories = restrictedCategories;
+	}
+
+	protected Integer getArmourClass() {
+		return armourClass;
+	}
+
+	protected void setArmourClass(Integer armourClass) {
+		this.armourClass = armourClass;
+	}
+
+	protected void setName(String name) {
+		this.name = name;
+	}
+
+	protected void setCost(Integer cost) {
+		this.cost = cost;
+	}
+
+	protected void setCategory(PerkCategory category) {
+		this.category = category;
+	}
+
+	protected void setCategoriesToChoose(List<ChooseCategoryGroup> categoriesToChoose) {
+		this.categoriesToChoose = categoriesToChoose;
+	}
+
+	protected void setSkillsToChoose(List<ChooseSkillGroup> skillsToChoose) {
+		this.skillsToChoose = skillsToChoose;
+	}
+
+	protected void setCommonSkillsToChoose(List<ChooseSkillGroup> commonSkillsToChoose) {
+		this.commonSkillsToChoose = commonSkillsToChoose;
+	}
+
+	protected void setCategoryBonus(Map<String, Integer> categoryBonus) {
+		this.categoryBonus = categoryBonus;
+	}
+
+	protected void setConditionalCategoryBonus(Map<String, Integer> conditionalCategoryBonus) {
+		this.conditionalCategoryBonus = conditionalCategoryBonus;
+	}
+
+	protected void setCategoryRanks(Map<String, Integer> categoryRanks) {
+		this.categoryRanks = categoryRanks;
+	}
+
+	protected void setSkillBonus(Map<String, Integer> skillBonus) {
+		this.skillBonus = skillBonus;
+	}
+
+	protected void setSkillRanks(Map<String, Integer> skillRanks) {
+		this.skillRanks = skillRanks;
+	}
+
+	protected void setConditionalSkillBonus(Map<String, Integer> conditionalSkillBonus) {
+		this.conditionalSkillBonus = conditionalSkillBonus;
+	}
+
+	protected void setResistanceBonus(Map<String, Integer> resistanceBonus) {
+		this.resistanceBonus = resistanceBonus;
+	}
+
+	protected void setCharacteristicBonus(Map<String, Integer> characteristicBonus) {
+		this.characteristicBonus = characteristicBonus;
+	}
+
+	protected void setCategoryWithRestricted(Map<String, Integer> categoryWithRestricted) {
+		this.categoryWithRestricted = categoryWithRestricted;
 	}
 }
