@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -48,6 +49,7 @@ public class MagicSpellLists {
 	private Long id; // database id.
 	
 	@ElementCollection
+	@CollectionTable(name = "T_MAGIC_CATEGORIES")
 	private Map<MagicListType, Category> magicCategories; // Spells
 
 	public MagicSpellLists() {

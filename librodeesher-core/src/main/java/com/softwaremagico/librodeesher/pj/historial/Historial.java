@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -50,10 +51,13 @@ public class Historial {
 	private static final Integer SKILL_BONUS = 10;
 	private static final Integer CATEGORY_BONUS = 5;
 	@ElementCollection
+	@CollectionTable(name = "T_HISTORIAL_CATEGORIES")
 	private List<String> categories;
 	@ElementCollection
+	@CollectionTable(name = "T_HISTORIAL_SKILLS")
 	private List<String> skills;
 	@ElementCollection
+	@CollectionTable(name = "T_HISTORIAL_CHARACTERISTICS_UPDATES")
 	private Map<String, RollGroup> characteristicsUpdates;
 
 	public Historial() {

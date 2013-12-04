@@ -3,6 +3,7 @@ package com.softwaremagico.librodeesher.pj.training;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ class TrainingSkillsSelected {
 	@GeneratedValue
 	private Long id; // database id.
 	@ElementCollection
+	@CollectionTable(name = "T_TRAINING_SKILLS_SELECTED_LIST_OF_SKILLS")
 	private List<String> skills;
 
 	public TrainingSkillsSelected() {

@@ -27,6 +27,7 @@ package com.softwaremagico.librodeesher.pj.culture;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,12 +42,16 @@ public class CultureDecisions {
 	private Long id; // database id.
 
 	@ElementCollection
+	@CollectionTable(name = "T_CULTURE_WEAPON_RANKS")
 	private Map<String, Integer> weaponRanks;
 	@ElementCollection
+	@CollectionTable(name = "T_CULTURE_HOBBY_RANKS")
 	private Map<String, Integer> hobbyRanks;
 	@ElementCollection
+	@CollectionTable(name = "T_CULTURE_SPELL_RANKS")
 	private Map<String, Integer> spellRanks;
 	@ElementCollection
+	@CollectionTable(name = "T_CULTURE_LANGUAGE_RANKS")
 	private Map<String, Integer> languageRanks;
 
 	public CultureDecisions() {

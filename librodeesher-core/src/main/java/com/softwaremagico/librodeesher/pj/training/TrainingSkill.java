@@ -2,6 +2,7 @@ package com.softwaremagico.librodeesher.pj.training;
 
 import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ public class TrainingSkill {
 	private Long id; // database id.
 
 	@ElementCollection
+	@CollectionTable(name = "T_TRAINING_SKILLS_OPTIONS")
 	private List<String> skillOptions; // List to choose from.
 	private Integer ranks;
 

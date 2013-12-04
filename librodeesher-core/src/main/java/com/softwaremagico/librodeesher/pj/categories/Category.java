@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -53,8 +54,10 @@ public abstract class Category {
 	protected CategoryGroup group;
 	private String characterisitcsTags;
 	@ElementCollection
+	@CollectionTable(name = "T_CHARACTERISTIC_LIST_TAG")
 	private List<String> characteristicsListTags;
 	@ElementCollection
+	@CollectionTable(name = "T_CATEGORY_SKILL_LIST")
 	protected List<Skill> skills;
 	private Float[] skillRankValues; // Rank values. i.e: -15/3/2/1/0.5
 

@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -96,10 +97,13 @@ public class CharacterPlayer {
 	private Characteristics characteristics;
 
 	@ElementCollection
+	@CollectionTable(name = "T_CHARACTERPLAYER_INITIAL_TEMPORAL_VALUES")
 	private Map<String, Integer> characteristicsInitialTemporalValues;
 	@ElementCollection
+	@CollectionTable(name = "T_CHARACTERPLAYER_POTENTIAL_VALUES")
 	private Map<String, Integer> characteristicsPotentialValues;
 	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionTable(name = "T_CHARACTERPLAYER_TEMPORAL_CHARACTERISTICS_ROLLS")
 	private Map<String, RollGroup> characteristicsTemporalUpdatesRolls;
 	private boolean characteristicsConfirmed = false;
 
@@ -117,10 +121,12 @@ public class CharacterPlayer {
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private ProfessionDecisions professionDecisions;
 	@ElementCollection
+	@CollectionTable(name = "T_CHARACTERPLAYER_TRAININGS")
 	private List<String> trainingsNames;
 	@Transient
 	private transient List<Training> trainings;
 	@ElementCollection
+	@CollectionTable(name = "T_CHARACTERPLAYER_TRAINING_DECISIONS")
 	private Map<String, TrainingDecision> trainingDecisions;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
@@ -129,8 +135,10 @@ public class CharacterPlayer {
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Historial historial;
 	@ElementCollection
+	@CollectionTable(name = "T_CHARACTERPLAYER_PERKS")
 	private List<Perk> perks;
 	@ElementCollection
+	@CollectionTable(name = "T_CHARACTERPLAYER_PERKS_DECISIONS")
 	private Map<String, PerkDecision> perkDecisions;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -142,6 +150,7 @@ public class CharacterPlayer {
 	private boolean otherRealmtrainingSpellsAllowed = false;
 
 	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionTable(name = "T_CHARACTERPLAYER_LEVEL_UP")
 	private List<LevelUp> levelUps;
 
 	public CharacterPlayer() {

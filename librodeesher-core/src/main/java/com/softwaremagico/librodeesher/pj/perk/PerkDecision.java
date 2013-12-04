@@ -2,6 +2,7 @@ package com.softwaremagico.librodeesher.pj.perk;
 
 import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,10 +20,13 @@ public class PerkDecision {
 	private Long id; // database id.
 
 	@ElementCollection
+	@CollectionTable(name = "T_PERKS_DECISION_CATEGORY_BONUS_CHOSEN")
 	private List<String> categoriesBonusChosen;
 	@ElementCollection
+	@CollectionTable(name = "T_PERKS_DECISION_SKILLS_BONUS_CHOSEN")
 	private List<String> skillsBonusChosen;
 	@ElementCollection
+	@CollectionTable(name = "T_PERKS_DECISION_COMMON_SKILLS_CHOSEN")
 	private List<String> commonSkillsChosen;
 
 	public PerkDecision() {

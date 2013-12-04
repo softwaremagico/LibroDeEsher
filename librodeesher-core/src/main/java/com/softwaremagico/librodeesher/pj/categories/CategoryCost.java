@@ -27,6 +27,7 @@ package com.softwaremagico.librodeesher.pj.categories;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,6 +44,7 @@ public class CategoryCost {
 	private Long id; // database id.
 
 	@ElementCollection
+	@CollectionTable(name = "T_RANK_COSTS")
 	List<Integer> rankCost;
 
 	public CategoryCost(List<Integer> rankCost) {

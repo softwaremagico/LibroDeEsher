@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,12 +47,16 @@ public class ProfessionDecisions {
 	@GeneratedValue
 	private Long id; // database id.
 	@ElementCollection
+	@CollectionTable(name = "T_PROFESSION_WEAPON_COST_CHOSE")
 	private Map<Category, CategoryCost> weaponsCost;
 	@ElementCollection
+	@CollectionTable(name = "T_PROFESSION_COMMON_SKILLS_CHOSE")
 	private List<String> commonSkillsChose;
 	@ElementCollection
+	@CollectionTable(name = "T_PROFESSION_RESTRICTED_SKILLS_CHOSE")
 	private List<String> restrictedSkillsChose;
 	@ElementCollection
+	@CollectionTable(name = "T_PROFESSION_PROFESSIONAL_SKILLS_CHOSE")
 	private List<String> professionalSkillsChose;
 
 	public ProfessionDecisions() {

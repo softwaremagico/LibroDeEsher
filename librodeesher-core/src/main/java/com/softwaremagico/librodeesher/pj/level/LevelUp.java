@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,13 +47,17 @@ public class LevelUp {
 	private Long id; // database id.
 
 	@ElementCollection
+	@CollectionTable(name = "T_LEVELUP_CATEGORIES_RANKS")
 	private Map<String, Integer> categoriesRanks;
 	@ElementCollection
+	@CollectionTable(name = "T_LEVELUP_SKILLS_RANKS")
 	private Map<String, Integer> skillsRanks;
 	@ElementCollection
+	@CollectionTable(name = "T_LEVEL_UP_SPELLS_UPDATED")
 	private List<String> spellsUpdated; // More than 5 list is more expensive in
 										// Development Points.
 	@ElementCollection
+	@CollectionTable(name = "T_LEVEL_UP_TRAININGS_ADQUIRED")
 	private List<String> trainings;
 
 	public LevelUp() {

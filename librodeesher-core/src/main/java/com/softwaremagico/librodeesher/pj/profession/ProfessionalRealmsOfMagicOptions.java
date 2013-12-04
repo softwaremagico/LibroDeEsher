@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -48,6 +49,7 @@ public class ProfessionalRealmsOfMagicOptions {
 	// Standard spellers will have only one element, hybrids will have two or
 	// more elements.
 	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionTable(name = "T_PROFESSION_REALMS_OF_MAGIC")
 	private List<RealmOfMagic> magicRealmsAvailable;
 
 	public ProfessionalRealmsOfMagicOptions() {

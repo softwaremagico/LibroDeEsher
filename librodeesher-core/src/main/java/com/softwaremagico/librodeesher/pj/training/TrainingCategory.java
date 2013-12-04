@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,8 +28,10 @@ public class TrainingCategory {
 	private Integer maxSkills;
 	private Integer skillRanks;
 	@ElementCollection
+	@CollectionTable(name = "T_TRAINING_CATEGORY_OPTIONS")
 	private List<String> categoryOptions; // List to choose one category from.
 	@ElementCollection
+	@CollectionTable(name = "T_TRAINING_CATEGORY_SKILLS_PER_CATEGORY")
 	private Map<String, TrainingSkillList> skillsPerCategory;
 
 	public TrainingCategory(List<String> categoryOptions, Integer ranks, Integer minSkills, Integer maxSkills,

@@ -3,6 +3,7 @@ package com.softwaremagico.librodeesher.basics;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ public class RollGroup {
 	private Long id; // database id.
 	
 	 @ElementCollection
+	 @CollectionTable(name = "T_ROLL_LIST")
 	private List<Roll> rolls;
 
 	public RollGroup() {

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,6 +52,7 @@ public class Skill {
 
 	private String name;
 	@ElementCollection
+	@CollectionTable(name = "T_SKILL_SPECIALITIES")
 	private List<String> specialities; // A skill can have some specializations.
 	private SkillType type;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,6 +23,7 @@ public abstract class ChooseGroup<T> {
 
 	protected int numberOfOptionsToChoose;
 	@ElementCollection
+	@CollectionTable(name = "T_CHOOSE_GROUP_OPTIONS")
 	protected List<T> optionsGroup;
 	protected ChooseType chooseType;
 
