@@ -1,4 +1,12 @@
 package com.softwaremagico.librodeesher.pj.categories;
+
+import java.util.Arrays;
+import java.util.List;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /*
  * #%L
  * Libro de Esher
@@ -23,9 +31,12 @@ package com.softwaremagico.librodeesher.pj.categories;
  * #L%
  */
 
-public class FdCategory extends Category  {
-	private static Float[] skillRankValues = { (float) 0, (float) 0, (float) 0, (float) 0, (float) 0 };
-	
+@Entity
+@Table(name = "T_FD_CATEGORY")
+public class FdCategory extends Category {
+	@ElementCollection
+	private static List<Float> skillRankValues = Arrays.asList((float) 0, (float) 0, (float) 0, (float) 0, (float) 0);
+
 	public FdCategory(String name, String abbreviature, String characteristicsTag) {
 		super(name, abbreviature, CategoryType.FD, characteristicsTag, skillRankValues);
 	}
@@ -42,9 +53,9 @@ public class FdCategory extends Category  {
 	public boolean hasRanks() {
 		return true;
 	}
-	
+
 	@Override
-	public Integer getBonus(){
+	public Integer getBonus() {
 		return 10;
 	}
 }

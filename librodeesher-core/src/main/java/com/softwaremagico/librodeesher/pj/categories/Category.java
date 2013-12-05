@@ -35,34 +35,40 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
-@Entity
+@MappedSuperclass
 @Table(name = "T_CATEGORY")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Category {
 	@Id
 	@GeneratedValue
 	private Long id; // database id.
-	
+
 	private String name;
 	protected String abbreviature;
 	protected CategoryType type;
 	protected CategoryGroup group;
 	private String characterisitcsTags;
 	@ElementCollection
-	@CollectionTable(name = "T_CHARACTERISTIC_LIST_TAG")
+	@CollectionTable(name = "T_CATEGORY_CHARACTERISTIC_LIST_TAG")
 	private List<String> characteristicsListTags;
 	@ElementCollection
 	@CollectionTable(name = "T_CATEGORY_SKILL_LIST")
 	protected List<Skill> skills;
-	private Float[] skillRankValues; // Rank values. i.e: -15/3/2/1/0.5
+	@ElementCollection
+	@CollectionTable(name = "T_CATEGORY_SKILL_RANKS_VALUES")
+	private List<Float> skillRankValues; // Rank values. i.e: -15/3/2/1/0.5
 
 	public Category(String name, String abbreviature, CategoryType type, String characteristicsTag,
-			Float[] skillRankValues) {
+			List<Float> skillRankValues) {
 		this.name = name;
 		this.abbreviature = abbreviature;
 		this.type = type;
@@ -149,31 +155,31 @@ public abstract class Category {
 		return getSkillRankValues(ranksNumber, skillRankValues);
 	}
 
-	public Integer getSkillRankValues(Integer ranksNumber, Float[] definedSkillRankValues) {
+	public Integer getSkillRankValues(Integer ranksNumber, List<Float> definedSkillRankValues) {
 		if (ranksNumber == 0) {
-			return definedSkillRankValues[0].intValue();
+			return definedSkillRankValues.get(0).intValue();
 		} else if (ranksNumber > 0 && ranksNumber <= 10) {
-			return definedSkillRankValues[1].intValue() * ranksNumber;
+			return definedSkillRankValues.get(1).intValue() * ranksNumber;
 		} else if (ranksNumber > 10 && ranksNumber <= 20) {
-			return definedSkillRankValues[1].intValue() * 10 + definedSkillRankValues[2].intValue()
+			return definedSkillRankValues.get(1).intValue() * 10 + definedSkillRankValues.get(2).intValue()
 					* (ranksNumber - 10);
 		} else if (ranksNumber > 20 && ranksNumber <= 30) {
-			return definedSkillRankValues[1].intValue() * 10 + definedSkillRankValues[2].intValue() * 10
-					+ definedSkillRankValues[3].intValue() * (ranksNumber - 20);
+			return definedSkillRankValues.get(1).intValue() * 10 + definedSkillRankValues.get(2).intValue() * 10
+					+ definedSkillRankValues.get(3).intValue() * (ranksNumber - 20);
 		} else {
-			return definedSkillRankValues[1].intValue() * 10 + definedSkillRankValues[2].intValue() * 10
-					+ definedSkillRankValues[3].intValue() * 10 + definedSkillRankValues[4].intValue()
+			return definedSkillRankValues.get(1).intValue() * 10 + definedSkillRankValues.get(2).intValue() * 10
+					+ definedSkillRankValues.get(3).intValue() * 10 + definedSkillRankValues.get(4).intValue()
 					* (ranksNumber - 30);
 		}
 	}
 
-	public static Float[] getConvertedProgressionString(String progression) {
+	public static List<Float> getConvertedProgressionString(String progression) {
 		Scanner s = new Scanner(progression);
 		s.useDelimiter(Pattern.quote("/"));
-		Float[] progressionCost = new Float[5];
+		List<Float> progressionCost = new ArrayList<>();
 		int i = 0;
-		while (s.hasNext() && i < progressionCost.length) {
-			progressionCost[i] = s.nextFloat();
+		while (s.hasNext() && i < 5) {
+			progressionCost.add(s.nextFloat());
 			i++;
 		}
 		s.close();
@@ -231,11 +237,11 @@ public abstract class Category {
 		this.characteristicsListTags = characteristicsListTags;
 	}
 
-	protected Float[] getSkillRankValues() {
+	protected List<Float> getSkillRankValues() {
 		return skillRankValues;
 	}
 
-	protected void setSkillRankValues(Float[] skillRankValues) {
+	protected void setSkillRankValues(List<Float> skillRankValues) {
 		this.skillRankValues = skillRankValues;
 	}
 

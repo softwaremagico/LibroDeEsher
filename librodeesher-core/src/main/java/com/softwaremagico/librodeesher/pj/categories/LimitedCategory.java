@@ -1,4 +1,12 @@
 package com.softwaremagico.librodeesher.pj.categories;
+
+import java.util.Arrays;
+import java.util.List;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /*
  * #%L
  * Libro de Esher
@@ -23,8 +31,11 @@ package com.softwaremagico.librodeesher.pj.categories;
  * #L%
  */
 
+@Entity
+@Table(name = "T_LIMITED_CATEGORY")
 public class LimitedCategory extends Category {
-	private static Float[] skillRankValues = { (float) 0, (float) 1, (float) 1, (float) 0.5, (float) 0 };
+	@ElementCollection
+	private static List<Float> skillRankValues = Arrays.asList((float) 0, (float) 1, (float) 1, (float) 0.5, (float) 0);
 
 	public LimitedCategory(String name, String abbreviature, String characteristicsTag) {
 		super(name, abbreviature, CategoryType.LIMITED, characteristicsTag, skillRankValues);

@@ -1,4 +1,8 @@
 package com.softwaremagico.librodeesher.pj.categories;
+
+import java.util.Arrays;
+import java.util.List;
+
 /*
  * #%L
  * Libro de Esher
@@ -24,10 +28,10 @@ package com.softwaremagico.librodeesher.pj.categories;
  */
 
 public class PpdCategory extends Category {
-	private static Float[] skillRankValues = { (float) 0, (float) 0, (float) 0, (float) 0, (float) 0 };
-	
+	private static List<Float> skillRankValues = Arrays.asList((float) 0, (float) 0, (float) 0, (float) 0, (float) 0);
+
 	public PpdCategory(String name, String abbreviature, String characteristicsTag) {
-		super(name, abbreviature, CategoryType.PPD,characteristicsTag, skillRankValues);
+		super(name, abbreviature, CategoryType.PPD, characteristicsTag, skillRankValues);
 	}
 
 	@Override

@@ -36,10 +36,10 @@ public class RandomCharacterPlayer {
 
 	private void createRandomValues() {
 		setRace();
-		setCharacterInfo();
 		setProfession();
-		setCharacteristics();
+		setCharacterInfo();
 		setMagicRealm();
+		setCharacteristics();
 		setCulture();
 	}
 
@@ -65,7 +65,6 @@ public class RandomCharacterPlayer {
 			race = races.get((int) (Math.random() * races.size()));
 		}
 		characterPlayer.setRace(race);
-		setCharacteristics();
 	}
 
 	private void setProfession() {
@@ -109,16 +108,13 @@ public class RandomCharacterPlayer {
 		while (characterPlayer.getCharacteristicsTemporalPointsSpent() < getTotalCharacteristicsPoints()) {
 			for (int i = 0; i < characteristics.size(); i++) {
 				Characteristic characteristic = characteristics.get(i);
-				if ((Math.random() * 100 + 1) < (characterPlayer
-						.getCharacteristicInitialTemporalValue(characteristic.getAbbreviature()) - getSpecializationLevel() * 10)
-						&& characterPlayer.getCharacteristicInitialTemporalValue(characteristic
-								.getAbbreviature()) < (Math.min(90 + getSpecializationLevel() * 4, 101))
-						&& characterPlayer.getCharacteristicsTemporalPointsSpent(characteristic
-								.getAbbreviature()) <= getTotalCharacteristicsPoints()) {
-					characterPlayer.setCharacteristicTemporalValues(
-							characteristic.getAbbreviature(),
-							characterPlayer.getCharacteristicsInitialTemporalValues().get(
-									characteristic.getAbbreviature()) + 1);
+				if ((Math.random() * 100 + 1) < (characterPlayer.getCharacteristicInitialTemporalValue(characteristic
+						.getAbbreviature()) - getSpecializationLevel() * 10)
+						&& characterPlayer.getCharacteristicInitialTemporalValue(characteristic.getAbbreviature()) < (Math
+								.min(90 + getSpecializationLevel() * 4, 101))
+						&& characterPlayer.getCharacteristicsTemporalPointsSpent(characteristic.getAbbreviature()) <= getTotalCharacteristicsPoints()) {
+					characterPlayer.setCharacteristicTemporalValues(characteristic.getAbbreviature(), characterPlayer
+							.getCharacteristicsInitialTemporalValues().get(characteristic.getAbbreviature()) + 1);
 				}
 			}
 		}
@@ -129,7 +125,7 @@ public class RandomCharacterPlayer {
 	 * Select the magic realm with the higher bonus.
 	 */
 	private void setMagicRealm() {
-		ProfessionalRealmsOfMagicOptions choseRealm = null;
+		ProfessionalRealmsOfMagicOptions chosenRealm = null;
 		int maxCharValue = 0;
 		for (int i = 0; i < characterPlayer.getProfession().getMagicRealmsAvailable().size(); i++) {
 			ProfessionalRealmsOfMagicOptions professionRealm = characterPlayer.getProfession()
@@ -140,10 +136,10 @@ public class RandomCharacterPlayer {
 			}
 			if (charValue >= maxCharValue) {
 				maxCharValue = charValue;
-				choseRealm = characterPlayer.getProfession().getMagicRealmsAvailable().get(i);
+				chosenRealm = characterPlayer.getProfession().getMagicRealmsAvailable().get(i);
 			}
 		}
-		characterPlayer.setRealmOfMagic(choseRealm);
+		characterPlayer.setRealmOfMagic(chosenRealm);
 	}
 
 	public void setCharacteristicsPoints(Integer characteristicsPoints) {
@@ -231,26 +227,25 @@ public class RandomCharacterPlayer {
 					|| characterPlayer.getSkillsWithRanks(skill.getCategory()).size() > -specializationLevel + 1) {
 				return 5 * loop;
 			}
-			return characterPlayer.getRealRanks(skill)
-					* (2 + specializationLevel + loop)
-					+ characterPlayer.getTotalRanks(skill.getCategory())
-					* 5
-					+ Math.min(characterPlayer.getCategoryCost(skill.getCategory(), 0).getRankCost().get(0),
-							15) - characterPlayer.getSkillsWithRanks(skill.getCategory()).size() * 5 + 5;
+			return characterPlayer.getRealRanks(skill) * (2 + specializationLevel + loop)
+					+ characterPlayer.getTotalRanks(skill.getCategory()) * 5
+					+ Math.min(characterPlayer.getCategoryCost(skill.getCategory(), 0).getRankCost().get(0), 15)
+					- characterPlayer.getSkillsWithRanks(skill.getCategory()).size() * 5 + 5;
 		}
 		return 0;
 	}
 
 	private void setRandomHobbyRanks() {
 		int loop = 0;
-		while (characterPlayer.getCulture().getHobbyRanks() > 0) {
+		while (characterPlayer.getCulture().getHobbyRanks()
+				- characterPlayer.getCultureDecisions().getTotalHobbyRanks() > 0) {
 			loop++;
 			List<String> hobbies = characterPlayer.getCulture().getHobbySkills();
 			Collections.shuffle(hobbies);
 
 			if (SkillFactory.getAvailableSkill(hobbies.get(0)).isUsedInRandom()
-					&& Math.random() * 100 + 1 < probablilityOfSetHobby(
-							SkillFactory.getAvailableSkill(hobbies.get(0)), loop)) {
+					&& Math.random() * 100 + 1 < probablilityOfSetHobby(SkillFactory.getAvailableSkill(hobbies.get(0)),
+							loop)) {
 				characterPlayer.getCultureDecisions().setHobbyRanks(hobbies.get(0),
 						characterPlayer.getCultureDecisions().getHobbyRanks(hobbies.get(0)) + 1);
 			}

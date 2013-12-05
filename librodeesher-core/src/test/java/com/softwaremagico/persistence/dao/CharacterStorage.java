@@ -15,7 +15,7 @@ public class CharacterStorage {
 	public void testCrud() {
 		Session session = HibernateInitializator.getSessionFactory().openSession();
 		Transaction tr = session.beginTransaction();
-		Long playerId = (Long) session.save(new RandomCharacterPlayer(null, null, null, null, 1));
+		Long playerId = (Long) session.save(new RandomCharacterPlayer(null, null, null, null, 1).getCharacterPlayer());
 		Assert.assertNotNull(playerId);
 		// Close transaction to delete db-journal.
 		tr.commit();

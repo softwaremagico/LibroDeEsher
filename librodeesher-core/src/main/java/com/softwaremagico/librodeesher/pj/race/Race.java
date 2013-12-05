@@ -49,7 +49,7 @@ public class Race {
 	private int apperanceBonus;
 	private HashMap<String, Integer> characteristicBonus;
 	private HashMap<ResistanceType, Integer> resistancesBonus;
-	private HashMap<ProgressionCostType, Float[]> progressionRankValues;
+	private HashMap<ProgressionCostType, List<Float>> progressionRankValues;
 	private List<String> restrictedProfessions;
 	private Integer soulDepartTime;
 	private Integer raceType;
@@ -176,7 +176,7 @@ public class Race {
 		return index;
 	}
 
-	public Float[] getProgressionRankValues(ProgressionCostType type) {
+	public List<Float> getProgressionRankValues(ProgressionCostType type) {
 		return progressionRankValues.get(type);
 	}
 

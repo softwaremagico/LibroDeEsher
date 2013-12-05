@@ -1,5 +1,12 @@
 package com.softwaremagico.librodeesher.pj.categories;
 
+import java.util.Arrays;
+import java.util.List;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /*
  * #%L
  * Libro de Esher
@@ -24,11 +31,14 @@ package com.softwaremagico.librodeesher.pj.categories;
  * #L%
  */
 
+@Entity
+@Table(name = "T_STANDARD_CATEGORY")
 public class StandardCategory extends Category {
-	private static Float[] skillRankValues = {(float) -15, (float)3, (float)2, (float)1, (float)0.5};
+	@ElementCollection
+	private static List<Float> skillRankValues = Arrays.asList((float) -15, (float) 3, (float) 2, (float) 1,
+			(float) 0.5);
 
-	public StandardCategory(String name, String abbreviature,
-			String characteristicsTag) {
+	public StandardCategory(String name, String abbreviature, String characteristicsTag) {
 		super(name, abbreviature, CategoryType.STANDARD, characteristicsTag, skillRankValues);
 	}
 

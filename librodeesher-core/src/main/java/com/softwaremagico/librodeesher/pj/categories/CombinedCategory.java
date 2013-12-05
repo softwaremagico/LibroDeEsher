@@ -1,4 +1,12 @@
 package com.softwaremagico.librodeesher.pj.categories;
+
+import java.util.Arrays;
+import java.util.List;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /*
  * #%L
  * Libro de Esher
@@ -23,9 +31,13 @@ package com.softwaremagico.librodeesher.pj.categories;
  * #L%
  */
 
+@Entity
+@Table(name = "T_COMBINED_CATEGORY")
 public class CombinedCategory extends Category {
-	private static Float[] skillRankValues = { (float) -30, (float) 5, (float) 3, (float) 1.5, (float) 0.5 };
-	
+	@ElementCollection
+	private static List<Float> skillRankValues = Arrays.asList((float) -30, (float) 5, (float) 3, (float) 1.5,
+			(float) 0.5);
+
 	public CombinedCategory(String name, String abbreviature, String characteristicsTag) {
 		super(name, abbreviature, CategoryType.COMBINED, characteristicsTag, skillRankValues);
 	}
