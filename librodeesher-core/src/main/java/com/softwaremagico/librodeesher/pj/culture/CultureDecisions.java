@@ -35,7 +35,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "T_CULTURE")
+@Table(name = "T_CULTUREDECISIONS")
 public class CultureDecisions {
 	@Id
 	@GeneratedValue
