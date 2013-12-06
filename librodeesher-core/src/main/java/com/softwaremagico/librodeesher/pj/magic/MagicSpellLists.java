@@ -62,7 +62,7 @@ public class MagicSpellLists {
 	private void createMagicCategories(MagicListType magicType) {
 		Category realCategory = CategoryFactory.getCategory(magicType.getCategoryName());
 		Category category = (Category) CategoryFactory.createCategory(realCategory.getName(), realCategory
-				.getAbbreviature(), realCategory.getCharacterisitcsTags(), realCategory.getType().getTag(),
+				.getAbbreviature(), realCategory.getCharacterisitcsTags(), realCategory.getCategoryType().getTag(),
 				null);
 		magicCategories.put(magicType, category);
 	}

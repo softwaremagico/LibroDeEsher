@@ -189,7 +189,7 @@ public class CategoryFactory {
 		List<Category> weaponsCategories = new ArrayList<>();
 
 		for (Category category : availableCategories.values()) {
-			if (category.getGroup().equals(CategoryGroup.WEAPON)) {
+			if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
 				weaponsCategories.add(category);
 			}
 		}

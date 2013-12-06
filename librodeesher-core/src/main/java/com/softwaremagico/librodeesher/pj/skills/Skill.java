@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -54,28 +54,28 @@ public class Skill {
 	@ElementCollection
 	@CollectionTable(name = "T_SKILL_SPECIALITIES")
 	private List<String> specialities; // A skill can have some specializations.
-	private SkillType type;
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private SkillType skilltype;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Category category;
-	private SkillGroup group;
+	private SkillGroup skillGroup;
 	private boolean usedInRandom = true;
 
 	public Skill(String name, SkillType type) {
-		this.type = type;
+		this.skilltype = type;
 		specialities = new ArrayList<>();
 		String specialityPattern = Pattern.quote("[");
 		String[] nameColumns = name.split(specialityPattern);
 		this.name = nameColumns[0].trim();
-		group = SkillGroup.STANDARD;
+		skillGroup = SkillGroup.STANDARD;
 	}
 
 	public Skill(String name, SkillType type, SkillGroup group) {
-		this.type = type;
+		this.skilltype = type;
 		specialities = new ArrayList<>();
 		String specialityPattern = Pattern.quote("[");
 		String[] nameColumns = name.split(specialityPattern);
 		this.name = nameColumns[0].trim();
-		this.group = group;
+		this.skillGroup = group;
 	}
 
 	public String getName() {
@@ -95,7 +95,7 @@ public class Skill {
 	}
 
 	public Integer getRankValue(CharacterPlayer character, Integer ranksNumber) {
-		switch (getCategory().getType()) {
+		switch (getCategory().getCategoryType()) {
 		case STANDARD:
 		case COMBINED:
 		case LIMITED:
@@ -117,16 +117,16 @@ public class Skill {
 		}
 	}
 
-	public SkillGroup getGroup() {
-		return group;
+	public SkillGroup getSkillGroup() {
+		return skillGroup;
 	}
 
 	public String toString() {
 		return getName();
 	}
 
-	public SkillType getType() {
-		return type;
+	public SkillType getSkillType() {
+		return skilltype;
 	}
 
 	public boolean isUsedInRandom() {
@@ -157,12 +157,12 @@ public class Skill {
 		this.name = name;
 	}
 
-	protected void setType(SkillType type) {
-		this.type = type;
+	protected void setSkillType(SkillType type) {
+		this.skilltype = type;
 	}
 
-	protected void setGroup(SkillGroup group) {
-		this.group = group;
+	protected void setSkillGroup(SkillGroup group) {
+		this.skillGroup = group;
 	}
 
 }

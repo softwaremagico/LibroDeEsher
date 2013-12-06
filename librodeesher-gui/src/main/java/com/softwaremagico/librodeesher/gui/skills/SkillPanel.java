@@ -62,7 +62,7 @@ public class SkillPanel extends BaseSkillPanel {
 			// Translate general category to player specific category.
 			category = character.getCategory(category);
 			if (character.isCategoryUseful(category)) {
-				if (category.getGroup().equals(CategoryGroup.WEAPON)) {
+				if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
 					CategoryCost cost = character.getProfessionDecisions().getWeaponCost(category);
 					if (cost == null) {
 						cost = character.getFirstWeaponCostNotSelected();

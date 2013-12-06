@@ -53,11 +53,11 @@ public class MagicFactory {
 	}
 
 	public static List<String> getListOfProfession(List<RealmOfMagic> realmsOfMagic, String profession) {
+		List<String> allRealmSpells = new ArrayList<>();
 		if (profession == null) {
-			return null;
+			return allRealmSpells;
 		}
 
-		List<String> allRealmSpells = new ArrayList<>();
 		List<String> spells = null;
 		// Add all spells of all realms if it is a hybrid wizard.
 		for (RealmOfMagic realm : realmsOfMagic) {

@@ -37,14 +37,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.skills.SkillComparator;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
-@MappedSuperclass
+@Entity
 @Table(name = "T_CATEGORY")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Category {
@@ -54,8 +54,8 @@ public abstract class Category {
 
 	private String name;
 	protected String abbreviature;
-	protected CategoryType type;
-	protected CategoryGroup group;
+	protected CategoryType categorytype;
+	protected CategoryGroup categoryGroup;
 	private String characterisitcsTags;
 	@ElementCollection
 	@CollectionTable(name = "T_CATEGORY_CHARACTERISTIC_LIST_TAG")
@@ -71,12 +71,12 @@ public abstract class Category {
 			List<Float> skillRankValues) {
 		this.name = name;
 		this.abbreviature = abbreviature;
-		this.type = type;
+		this.categorytype = type;
 		this.skillRankValues = skillRankValues;
 		skills = new ArrayList<>();
 		this.characterisitcsTags = characteristicsTag;
 		createCharacteristicList(characteristicsTag);
-		setGroup();
+		setCategoryGroup();
 	}
 
 	private void createCharacteristicList(String characteristicsTag) {
@@ -114,8 +114,8 @@ public abstract class Category {
 		return skills;
 	}
 
-	public CategoryType getType() {
-		return type;
+	public CategoryType getCategoryType() {
+		return categorytype;
 	}
 
 	public void setSkills(List<Skill> skills) {
@@ -164,12 +164,12 @@ public abstract class Category {
 			return definedSkillRankValues.get(1).intValue() * 10 + definedSkillRankValues.get(2).intValue()
 					* (ranksNumber - 10);
 		} else if (ranksNumber > 20 && ranksNumber <= 30) {
-			return definedSkillRankValues.get(1).intValue() * 10 + definedSkillRankValues.get(2).intValue() * 10
-					+ definedSkillRankValues.get(3).intValue() * (ranksNumber - 20);
+			return definedSkillRankValues.get(1).intValue() * 10 + definedSkillRankValues.get(2).intValue()
+					* 10 + definedSkillRankValues.get(3).intValue() * (ranksNumber - 20);
 		} else {
-			return definedSkillRankValues.get(1).intValue() * 10 + definedSkillRankValues.get(2).intValue() * 10
-					+ definedSkillRankValues.get(3).intValue() * 10 + definedSkillRankValues.get(4).intValue()
-					* (ranksNumber - 30);
+			return definedSkillRankValues.get(1).intValue() * 10 + definedSkillRankValues.get(2).intValue()
+					* 10 + definedSkillRankValues.get(3).intValue() * 10
+					+ definedSkillRankValues.get(4).intValue() * (ranksNumber - 30);
 		}
 	}
 
@@ -196,15 +196,15 @@ public abstract class Category {
 		return characteristicsListTags;
 	}
 
-	public CategoryGroup getGroup() {
-		return group;
+	public CategoryGroup getCategoryGroup() {
+		return categoryGroup;
 	}
 
-	private void setGroup() {
-		this.group = getCategoryGroup(this.getName());
+	private void setCategoryGroup() {
+		this.categoryGroup = getCategoryGroup(this.getName());
 	}
 
-	private CategoryGroup getCategoryGroup(String categoryName) {
+	private static CategoryGroup getCategoryGroup(String categoryName) {
 		if (categoryName.startsWith(Spanish.WEAPON_CATEGORY_PREFIX)) {
 			return CategoryGroup.WEAPON;
 		} else if (categoryName.startsWith(Spanish.SPELL_CATEGORY_PREFIX)) {
@@ -253,12 +253,12 @@ public abstract class Category {
 		this.abbreviature = abbreviature;
 	}
 
-	protected void setType(CategoryType type) {
-		this.type = type;
+	protected void setCategoryType(CategoryType type) {
+		this.categorytype = type;
 	}
 
 	protected void setGroup(CategoryGroup group) {
-		this.group = group;
+		this.categoryGroup = group;
 	}
 
 	protected void setCharacterisitcsTags(String characterisitcsTags) {

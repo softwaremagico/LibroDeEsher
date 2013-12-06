@@ -108,13 +108,16 @@ public class RandomCharacterPlayer {
 		while (characterPlayer.getCharacteristicsTemporalPointsSpent() < getTotalCharacteristicsPoints()) {
 			for (int i = 0; i < characteristics.size(); i++) {
 				Characteristic characteristic = characteristics.get(i);
-				if ((Math.random() * 100 + 1) < (characterPlayer.getCharacteristicInitialTemporalValue(characteristic
-						.getAbbreviature()) - getSpecializationLevel() * 10)
-						&& characterPlayer.getCharacteristicInitialTemporalValue(characteristic.getAbbreviature()) < (Math
-								.min(90 + getSpecializationLevel() * 4, 101))
-						&& characterPlayer.getCharacteristicsTemporalPointsSpent(characteristic.getAbbreviature()) <= getTotalCharacteristicsPoints()) {
-					characterPlayer.setCharacteristicTemporalValues(characteristic.getAbbreviature(), characterPlayer
-							.getCharacteristicsInitialTemporalValues().get(characteristic.getAbbreviature()) + 1);
+				if ((Math.random() * 100 + 1) < (characterPlayer
+						.getCharacteristicInitialTemporalValue(characteristic.getAbbreviature()) - getSpecializationLevel() * 10)
+						&& characterPlayer.getCharacteristicInitialTemporalValue(characteristic
+								.getAbbreviature()) < (Math.min(90 + getSpecializationLevel() * 4, 101))
+						&& characterPlayer.getCharacteristicsTemporalPointsSpent(characteristic
+								.getAbbreviature()) <= getTotalCharacteristicsPoints()) {
+					characterPlayer.setCharacteristicTemporalValues(
+							characteristic.getAbbreviature(),
+							characterPlayer.getCharacteristicsInitialTemporalValues().get(
+									characteristic.getAbbreviature()) + 1);
 				}
 			}
 		}
@@ -227,10 +230,12 @@ public class RandomCharacterPlayer {
 					|| characterPlayer.getSkillsWithRanks(skill.getCategory()).size() > -specializationLevel + 1) {
 				return 5 * loop;
 			}
-			return characterPlayer.getRealRanks(skill) * (2 + specializationLevel + loop)
-					+ characterPlayer.getTotalRanks(skill.getCategory()) * 5
-					+ Math.min(characterPlayer.getCategoryCost(skill.getCategory(), 0).getRankCost().get(0), 15)
-					- characterPlayer.getSkillsWithRanks(skill.getCategory()).size() * 5 + 5;
+			return characterPlayer.getRealRanks(skill)
+					* (2 + specializationLevel + loop)
+					+ characterPlayer.getTotalRanks(skill.getCategory())
+					* 5
+					+ Math.min(characterPlayer.getCategoryCost(skill.getCategory(), 0).getRankCost().get(0),
+							15) - characterPlayer.getSkillsWithRanks(skill.getCategory()).size() * 5 + 5;
 		}
 		return 0;
 	}
@@ -243,9 +248,10 @@ public class RandomCharacterPlayer {
 			List<String> hobbies = characterPlayer.getCulture().getHobbySkills();
 			Collections.shuffle(hobbies);
 
-			if (SkillFactory.getAvailableSkill(hobbies.get(0)).isUsedInRandom()
-					&& Math.random() * 100 + 1 < probablilityOfSetHobby(SkillFactory.getAvailableSkill(hobbies.get(0)),
-							loop)) {
+			if (hobbies.size() > 0
+					&& SkillFactory.getAvailableSkill(hobbies.get(0)).isUsedInRandom()
+					&& Math.random() * 100 + 1 < probablilityOfSetHobby(
+							SkillFactory.getAvailableSkill(hobbies.get(0)), loop)) {
 				characterPlayer.getCultureDecisions().setHobbyRanks(hobbies.get(0),
 						characterPlayer.getCultureDecisions().getHobbyRanks(hobbies.get(0)) + 1);
 			}

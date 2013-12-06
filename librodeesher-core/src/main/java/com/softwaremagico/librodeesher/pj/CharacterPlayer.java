@@ -712,7 +712,7 @@ public class CharacterPlayer {
 	public Integer getMaxRanksPerCulture(Category category) {
 		try {
 			// Weapons cost are not still defined.
-			if (category.getGroup().equals(CategoryGroup.WEAPON)) {
+			if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
 				return getProfession().getWeaponCategoryCost().get(0).getMaxRanksPerLevel();
 			}
 			return getCategoryCost(category, 0).getMaxRanksPerLevel();
@@ -729,7 +729,7 @@ public class CharacterPlayer {
 	 * @return
 	 */
 	public Integer getCultureStimatedCategoryCost(Category category) {
-		if (category.getGroup().equals(CategoryGroup.WEAPON)) {
+		if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
 			return getProfession().getWeaponCategoryCost().get(0).getRankCost(0);
 		} else {
 			return getCategoryCost(category, 0).getRankCost(0);
@@ -737,9 +737,9 @@ public class CharacterPlayer {
 	}
 
 	public CategoryCost getCategoryCost(Category category, Integer currentRanks) {
-		if (category.getGroup().equals(CategoryGroup.WEAPON)) {
+		if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
 			return getProfessionDecisions().getWeaponCost(category);
-		} else if (category.getGroup().equals(CategoryGroup.SPELL)) {
+		} else if (category.getCategoryGroup().equals(CategoryGroup.SPELL)) {
 			return getProfession().getMagicCost(MagicListType.getMagicTypeOfCategory(category.getName()),
 					currentRanks);
 		} else {
@@ -783,7 +783,7 @@ public class CharacterPlayer {
 
 	public Integer getNewRankCost(Skill skill, Integer currentRanks, Integer rankAdded) {
 		// Spell cost is increased if lots of spells are acquired in one level.
-		if (skill.getCategory().getGroup().equals(CategoryGroup.SPELL)) {
+		if (skill.getCategory().getCategoryGroup().equals(CategoryGroup.SPELL)) {
 			return getNewRankCost(skill.getCategory(), currentRanks, rankAdded)
 					* getCurrentLevel().getSpellRankMultiplier(skill);
 		} else {
@@ -805,7 +805,7 @@ public class CharacterPlayer {
 			return false;
 		}
 		// Weapons always are useful. We need to define the rank cost.
-		if (category.getGroup().equals(CategoryGroup.WEAPON)) {
+		if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
 			// Firearms only if activated
 			if (!firearmsAllowed && category.getName().contains(Spanish.FIREARMS_SUFIX)) {
 				return false;
@@ -830,10 +830,10 @@ public class CharacterPlayer {
 	 * @return
 	 */
 	public boolean isSkillUseful(Skill skill) {
-		if (skill.getGroup().equals(SkillGroup.CHI) && !isChiPowersAllowed()) {
+		if (skill.getSkillGroup().equals(SkillGroup.CHI) && !isChiPowersAllowed()) {
 			return false;
 		}
-		if (skill.getGroup().equals(SkillGroup.FIREARM) && !isFirearmsAllowed()) {
+		if (skill.getSkillGroup().equals(SkillGroup.FIREARM) && !isFirearmsAllowed()) {
 			return false;
 		}
 		return true;
@@ -854,7 +854,7 @@ public class CharacterPlayer {
 	}
 
 	public Category getCategory(Category category) {
-		if (category.getGroup().equals(CategoryGroup.SPELL)) {
+		if (category.getCategoryGroup().equals(CategoryGroup.SPELL)) {
 			return magicSpellLists.getMagicCategory(category.getName());
 		}
 		return category;
@@ -998,18 +998,18 @@ public class CharacterPlayer {
 	}
 
 	public boolean isProfessional(Skill skill) {
-		return skill.getType().equals(SkillType.PROFESSIONAL) || getProfession().isProfessional(skill)
+		return skill.getSkillType().equals(SkillType.PROFESSIONAL) || getProfession().isProfessional(skill)
 				|| professionDecisions.isProfessional(skill);
 	}
 
 	public boolean isRestricted(Skill skill) {
-		return skill.getType().equals(SkillType.RESTRICTED) || isRestrictedByPerk(skill)
+		return skill.getSkillType().equals(SkillType.RESTRICTED) || isRestrictedByPerk(skill)
 				|| getProfession().isRestricted(skill) || professionDecisions.isRestricted(skill)
 				|| getRace().isRestricted(skill);
 	}
 
 	public boolean isCommon(Skill skill) {
-		return skill.getType().equals(SkillType.COMMON) || isCommonByPerk(skill)
+		return skill.getSkillType().equals(SkillType.COMMON) || isCommonByPerk(skill)
 				|| getProfession().isCommon(skill) || professionDecisions.isCommon(skill)
 				|| getRace().isCommon(skill);
 	}

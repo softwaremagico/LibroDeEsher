@@ -86,12 +86,12 @@ public class LevelUp {
 	public void setSkillsRanks(Skill skill, Integer ranks) {
 		if (ranks <= 0) {
 			skillsRanks.remove(skill.getName());
-			if (skill.getCategory().getGroup().equals(CategoryGroup.SPELL)) {
+			if (skill.getCategory().getCategoryGroup().equals(CategoryGroup.SPELL)) {
 				spellsUpdated.remove(skill.getName());
 			}
 		} else {
 			skillsRanks.put(skill.getName(), ranks);
-			if (skill.getCategory().getGroup().equals(CategoryGroup.SPELL)) {
+			if (skill.getCategory().getCategoryGroup().equals(CategoryGroup.SPELL)) {
 				if (!spellsUpdated.contains(skill.getName())) {
 					spellsUpdated.add(skill.getName());
 				}

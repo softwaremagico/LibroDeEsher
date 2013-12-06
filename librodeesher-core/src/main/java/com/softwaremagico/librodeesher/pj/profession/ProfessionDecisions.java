@@ -48,7 +48,8 @@ public class ProfessionDecisions {
 	private Long id; // database id.
 	@ElementCollection
 	@CollectionTable(name = "T_PROFESSION_WEAPON_COST_CHOSE")
-	private Map<Category, CategoryCost> weaponsCost;
+	//Category -> cost
+	private Map<String, CategoryCost> weaponsCost;
 	@ElementCollection
 	@CollectionTable(name = "T_PROFESSION_COMMON_SKILLS_CHOSE")
 	private List<String> commonSkillsChose;
@@ -67,11 +68,11 @@ public class ProfessionDecisions {
 	}
 
 	public void setWeaponCost(Category category, CategoryCost cost) {
-		weaponsCost.put(category, cost);
+		weaponsCost.put(category.getName(), cost);
 	}
 
 	public CategoryCost getWeaponCost(Category category) {
-		return weaponsCost.get(category);
+		return weaponsCost.get(category.getName());
 	}
 
 	public boolean isWeaponCostUsed(CategoryCost cost) {
@@ -88,7 +89,7 @@ public class ProfessionDecisions {
 	}
 
 	public void resetWeaponCost(Category category) {
-		weaponsCost.remove(category);
+		weaponsCost.remove(category.getName());
 	}
 
 	public boolean isCommon(Skill skill) {
@@ -135,11 +136,11 @@ public class ProfessionDecisions {
 		this.id = id;
 	}
 
-	protected Map<Category, CategoryCost> getWeaponsCost() {
+	protected Map<String, CategoryCost> getWeaponsCost() {
 		return weaponsCost;
 	}
 
-	protected void setWeaponsCost(Map<Category, CategoryCost> weaponsCost) {
+	protected void setWeaponsCost(Map<String, CategoryCost> weaponsCost) {
 		this.weaponsCost = weaponsCost;
 	}
 }
