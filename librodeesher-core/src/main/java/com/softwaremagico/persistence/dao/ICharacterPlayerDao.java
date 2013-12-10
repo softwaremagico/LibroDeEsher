@@ -10,10 +10,8 @@ public interface ICharacterPlayerDao {
 
 	CharacterPlayer read(Long id);
 
-	CharacterPlayer save(CharacterPlayer character);
+	CharacterPlayer makePersistent(CharacterPlayer character);
 
-	CharacterPlayer update(CharacterPlayer character);
-
-	void delete(CharacterPlayer character);
+	void makeTransient(CharacterPlayer character);
 
 }

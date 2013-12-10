@@ -1226,4 +1226,76 @@ public class CharacterPlayer {
 		this.magicSpellLists = magicSpellLists;
 	}
 
+	protected List<Training> getTrainings() {
+		return trainings;
+	}
+
+	protected void setTrainings(List<Training> trainings) {
+		this.trainings = trainings;
+	}
+
+	protected Map<String, TrainingDecision> getTrainingDecisions() {
+		return trainingDecisions;
+	}
+
+	protected void setTrainingDecisions(Map<String, TrainingDecision> trainingDecisions) {
+		this.trainingDecisions = trainingDecisions;
+	}
+
+	protected Historial getHistorial() {
+		return historial;
+	}
+
+	protected void setHistorial(Historial historial) {
+		this.historial = historial;
+	}
+
+	protected List<Perk> getPerks() {
+		return perks;
+	}
+
+	protected void setPerks(List<Perk> perks) {
+		this.perks = perks;
+	}
+
+	protected Map<String, PerkDecision> getPerkDecisions() {
+		return perkDecisions;
+	}
+
+	protected void setPerkDecisions(Map<String, PerkDecision> perkDecisions) {
+		this.perkDecisions = perkDecisions;
+	}
+
+	protected List<LevelUp> getLevelUps() {
+		return levelUps;
+	}
+
+	protected void setLevelUps(List<LevelUp> levelUps) {
+		this.levelUps = levelUps;
+	}
+
+	protected ProfessionalRealmsOfMagicOptions getRealmOfMagic() {
+		return realmOfMagic;
+	}
+
+	protected void setCharacteristics(Characteristics characteristics) {
+		this.characteristics = characteristics;
+	}
+
+	protected void setCultureDecisions(CultureDecisions cultureDecisions) {
+		this.cultureDecisions = cultureDecisions;
+	}
+
+	protected void setProfessionDecisions(ProfessionDecisions professionDecisions) {
+		this.professionDecisions = professionDecisions;
+	}
+
+	protected void setTrainingsNames(List<String> trainingsNames) {
+		this.trainingsNames = trainingsNames;
+	}
+
+	protected void setAppearance(Appearance appearance) {
+		this.appearance = appearance;
+	}
+
 }

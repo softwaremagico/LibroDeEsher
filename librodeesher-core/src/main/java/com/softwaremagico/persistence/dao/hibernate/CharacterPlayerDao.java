@@ -9,7 +9,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.persistence.HibernateInitializator;
 import com.softwaremagico.persistence.dao.ICharacterPlayerDao;
 
-public class CharacterPlayerDao implements ICharacterPlayerDao {	
+public class CharacterPlayerDao implements ICharacterPlayerDao {
 	private SessionFactory sessionFactory = null;
 	private static CharacterPlayerDao instance = null;
 
@@ -32,7 +32,7 @@ public class CharacterPlayerDao implements ICharacterPlayerDao {
 	public List<CharacterPlayer> getAll() {
 		// With spring, it close and open the session. We would use
 		// sessionFactory.getCurrentSession();
-		Session session = sessionFactory.openSession();
+		Session session = getSessionFactory().openSession();
 		@SuppressWarnings("unchecked")
 		List<CharacterPlayer> characters = session.createQuery("from T_CHARACTERPLAYER").list();
 		session.close();
@@ -41,45 +41,35 @@ public class CharacterPlayerDao implements ICharacterPlayerDao {
 
 	@Override
 	public CharacterPlayer read(Long id) {
-		Session session = sessionFactory.openSession();
+		Session session = getSessionFactory().openSession();
 		CharacterPlayer character = (CharacterPlayer) session.get(CharacterPlayer.class, id);
 		session.close();
 		return character;
 	}
 
 	@Override
-	public CharacterPlayer save(CharacterPlayer character) {
-		System.out.println("1");
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		System.out.println("2");
-		Long id = (Long) session.save(character);
-		System.out.println("3");
-		character.setId(id);
-		session.getTransaction().commit();
-		System.out.println("4");
-		session.close();
-		System.out.println("5");
-		return character;
-	}
+	public CharacterPlayer makePersistent(CharacterPlayer character) {
 
-	@Override
-	public CharacterPlayer update(CharacterPlayer character) {
-		Session session = sessionFactory.openSession();
+		Session session = getSessionFactory().openSession();
 		session.beginTransaction();
-		session.merge(character);
+		session.saveOrUpdate(character);
+		// Close transaction to delete db-journal.
 		session.getTransaction().commit();
 		session.close();
 		return character;
 	}
 
 	@Override
-	public void delete(CharacterPlayer character) {
-		Session session = sessionFactory.openSession();
+	public void makeTransient(CharacterPlayer character) {
+		Session session = getSessionFactory().openSession();
 		session.beginTransaction();
 		session.delete(character);
 		session.getTransaction().commit();
 		session.close();
 
+	}
+
+	protected SessionFactory getSessionFactory() {
+		return sessionFactory;
 	}
 }

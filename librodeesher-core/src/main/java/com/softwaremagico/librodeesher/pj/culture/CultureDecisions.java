@@ -188,4 +188,21 @@ public class CultureDecisions {
 	public void setLanguageRanks(HashMap<String, Integer> languageRanks) {
 		this.languageRanks = languageRanks;
 	}
+
+	protected void setWeaponRanks(Map<String, Integer> weaponRanks) {
+		this.weaponRanks = weaponRanks;
+	}
+
+	protected void setHobbyRanks(Map<String, Integer> hobbyRanks) {
+		this.hobbyRanks = hobbyRanks;
+	}
+
+	protected void setSpellRanks(Map<String, Integer> spellRanks) {
+		this.spellRanks = spellRanks;
+	}
+
+	protected void setLanguageRanks(Map<String, Integer> languageRanks) {
+		this.languageRanks = languageRanks;
+	}
+
 }
