@@ -62,4 +62,11 @@ public class Spanish {
 	public static final String SURVIVAL_TAG = "Supervivencia";
 	public static final String COMUNICATION_CATEGORY = "Comunicación";
 	public static final String ALL_TAG = "todas";
+	public static final String OPEN_LIST_TAG = "Lista Abierta";
+	public static final String CLOSED_LIST_TAG = "Lista Cerrada";
+	public static final String ESSENCE_DARK_LIST_TAG = "Esencia Maligna";
+	public static final String CANALIZATION_DARK_LIST_TAG = "Canalización Maligna";
+	public static final String MENTALISM_DARK_LIST_TAG = "Mentalismo Maligno";
+	public static final String ELEMENTALIST_PROFESSION = "Elementalista";
+	public static final String ELEMENTALIST_INITIAL_TAG = "mago de";
 }

@@ -30,10 +30,6 @@ import java.io.Writer;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author LOCAL\jhortelano
- */
 public class MessageManager {
 
     private static final int LINE = 50;

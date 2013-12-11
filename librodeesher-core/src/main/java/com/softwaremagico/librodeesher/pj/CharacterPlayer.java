@@ -37,6 +37,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -114,11 +115,13 @@ public class CharacterPlayer {
 	@Transient
 	private transient Culture culture;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name="id")
 	private CultureDecisions cultureDecisions;
 	private String professionName;
 	@Transient
 	private transient Profession profession;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name="id")
 	private ProfessionDecisions professionDecisions;
 	@ElementCollection
 	@CollectionTable(name = "T_CHARACTERPLAYER_TRAININGS")
@@ -129,10 +132,13 @@ public class CharacterPlayer {
 	@CollectionTable(name = "T_CHARACTERPLAYER_TRAINING_DECISIONS")
 	private Map<String, TrainingDecision> trainingDecisions;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name="id")
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name="id")
 	private MagicSpellLists magicSpellLists;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name="id")
 	private Historial historial;
 	@ElementCollection
 	@CollectionTable(name = "T_CHARACTERPLAYER_PERKS")
@@ -142,6 +148,7 @@ public class CharacterPlayer {
 	private Map<String, PerkDecision> perkDecisions;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name="id")
 	private Appearance appearance;
 
 	private boolean darkSpellsAsBasicListsAllowed = false;

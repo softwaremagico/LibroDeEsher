@@ -31,16 +31,10 @@ import java.util.regex.Pattern;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
+import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 
 public class MagicFactory {
-	private static final String OPEN_LIST_TAG = "Lista Abierta";
-	private static final String CLOSED_LIST_TAG = "Lista Cerrada";
-	private static final String ESSENCE_DARK_LIST_TAG = "Esencia Maligna";
-	private static final String CANALIZATION_DARK_LIST_TAG = "Canalización Maligna";
-	private static final String MENTALISM_DARK_LIST_TAG = "Mentalismo Maligno";
-	private static final String ELEMENTALIST_PROFESSION = "Elementalista";
-	private static final String ELEMENTALIST_INITIAL_TAG = "mago de";
 
 	private static HashMap<RealmOfMagic, HashMap<String, List<String>>> spellsByGroup;
 
@@ -66,11 +60,10 @@ public class MagicFactory {
 			if (spells == null) {
 				// No spells found. If it has only one realm it is a wizard and
 				// must have spells.
-				if (!profession.equals(OPEN_LIST_TAG) && !profession.equals(CLOSED_LIST_TAG)
-						&& !profession.equals(ELEMENTALIST_PROFESSION)
+				if (!profession.equals(Spanish.OPEN_LIST_TAG) && !profession.equals(Spanish.CLOSED_LIST_TAG)
+						&& !profession.equals(Spanish.ELEMENTALIST_PROFESSION)
 						&& ProfessionFactory.getProfession(profession).getMagicRealmsAvailable().size() < 2) {
-					ShowMessage.showErrorMessage("No existen listas de hechizos para " + profession,
-							"Leer Magia");
+					ShowMessage.showErrorMessage("No existen listas de hechizos para " + profession, "Leer Magia");
 				}
 			} else {
 				allRealmSpells.addAll(spells);
@@ -84,7 +77,7 @@ public class MagicFactory {
 		List<String> lists = new ArrayList<String>();
 		for (RealmOfMagic realm : realmsOfMagic) {
 			for (String profession : spellsByGroup.get(realm).keySet()) {
-				if (!profession.equals(OPEN_LIST_TAG) && !profession.equals(CLOSED_LIST_TAG)
+				if (!profession.equals(Spanish.OPEN_LIST_TAG) && !profession.equals(Spanish.CLOSED_LIST_TAG)
 						&& !profession.equals(currentProfession)
 						// It is a profession, not a training (except
 						// elementalist).
@@ -112,8 +105,8 @@ public class MagicFactory {
 			for (RealmOfMagic otherRealm : RealmOfMagic.values()) {
 				if (!realmsOfMagic.contains(otherRealm)) {
 					for (String profession : spellsByGroup.get(otherRealm).keySet()) {
-						if (!profession.equals(OPEN_LIST_TAG)
-								&& !profession.equals(CLOSED_LIST_TAG)
+						if (!profession.equals(Spanish.OPEN_LIST_TAG)
+								&& !profession.equals(Spanish.CLOSED_LIST_TAG)
 								// It is a profession, not a training
 								&& (ProfessionFactory.getAvailableProfessions().contains(profession)
 										|| (includeElementalist && isElementalistTraining(profession)) || profession
@@ -166,7 +159,7 @@ public class MagicFactory {
 	}
 
 	public static boolean isElementalistTraining(String trainingName) {
-		return trainingName.toLowerCase().contains(ELEMENTALIST_INITIAL_TAG);
+		return trainingName.toLowerCase().contains(Spanish.ELEMENTALIST_INITIAL_TAG);
 	}
 
 	public static String getElementalistTraining(List<String> trainings) {
@@ -181,11 +174,11 @@ public class MagicFactory {
 	private static String getDarkSpellTag(RealmOfMagic realm) {
 		switch (realm) {
 		case ESSENCE:
-			return ESSENCE_DARK_LIST_TAG;
+			return Spanish.ESSENCE_DARK_LIST_TAG;
 		case CANALIZATION:
-			return CANALIZATION_DARK_LIST_TAG;
+			return Spanish.CANALIZATION_DARK_LIST_TAG;
 		case MENTALISM:
-			return MENTALISM_DARK_LIST_TAG;
+			return Spanish.MENTALISM_DARK_LIST_TAG;
 		default:
 			return "";
 		}
@@ -205,7 +198,7 @@ public class MagicFactory {
 	}
 
 	public static List<String> getOpenLists(List<RealmOfMagic> realmsOfMagic) {
-		return getListOfProfession(realmsOfMagic, OPEN_LIST_TAG);
+		return getListOfProfession(realmsOfMagic, Spanish.OPEN_LIST_TAG);
 	}
 
 	public static List<String> getRaceLists(String race) {
@@ -219,22 +212,22 @@ public class MagicFactory {
 	public static List<String> getArchanumOpenLists() {
 		List<RealmOfMagic> realmsOfMagic = new ArrayList<RealmOfMagic>();
 		realmsOfMagic.add(RealmOfMagic.ARCHANUM);
-		return getListOfProfession(realmsOfMagic, OPEN_LIST_TAG);
+		return getListOfProfession(realmsOfMagic, Spanish.OPEN_LIST_TAG);
 	}
 
 	public static List<String> getOtherRealmOpenLists(List<RealmOfMagic> realmsOfMagic) {
 		List<RealmOfMagic> otherRealms = getOtherRealms(realmsOfMagic);
-		List<String> lists = getListOfProfession(otherRealms, OPEN_LIST_TAG);
+		List<String> lists = getListOfProfession(otherRealms, Spanish.OPEN_LIST_TAG);
 		return lists;
 	}
 
 	public static List<String> getClosedLists(List<RealmOfMagic> realms) {
-		return getListOfProfession(realms, CLOSED_LIST_TAG);
+		return getListOfProfession(realms, Spanish.CLOSED_LIST_TAG);
 	}
 
 	public static List<String> getOtherRealmClosedLists(List<RealmOfMagic> realmsOfMagic) {
 		List<RealmOfMagic> otherRealms = getOtherRealms(realmsOfMagic);
-		List<String> lists = getListOfProfession(otherRealms, CLOSED_LIST_TAG);
+		List<String> lists = getListOfProfession(otherRealms, Spanish.CLOSED_LIST_TAG);
 		return lists;
 	}
 
