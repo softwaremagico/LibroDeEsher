@@ -51,6 +51,8 @@ public class ProfessionalRealmsOfMagicOptions {
 	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "T_PROFESSION_REALMS_OF_MAGIC")
 	private List<RealmOfMagic> magicRealmsAvailable;
+	
+	private String dummy="";
 
 	public ProfessionalRealmsOfMagicOptions() {
 		magicRealmsAvailable = new ArrayList<>();
@@ -104,5 +106,13 @@ public class ProfessionalRealmsOfMagicOptions {
 
 	protected void setMagicRealmsAvailable(List<RealmOfMagic> magicRealmsAvailable) {
 		this.magicRealmsAvailable = magicRealmsAvailable;
+	}
+
+	protected String getDummy() {
+		return dummy;
+	}
+
+	protected void setDummy(String dummy) {
+		this.dummy = dummy;
 	}
 }
