@@ -49,10 +49,8 @@ public class ProfessionalRealmsOfMagicOptions {
 	// Standard spellers will have only one element, hybrids will have two or
 	// more elements.
 	@ElementCollection(fetch = FetchType.LAZY)
-	@CollectionTable(name = "T_PROFESSION_REALMS_OF_MAGIC")
+	@CollectionTable(name = "T_PROFESSION_REALMS_OF_MAGIC_AVAILABLE")
 	private List<RealmOfMagic> magicRealmsAvailable;
-	
-	private String dummy="";
 
 	public ProfessionalRealmsOfMagicOptions() {
 		magicRealmsAvailable = new ArrayList<>();
@@ -108,11 +106,4 @@ public class ProfessionalRealmsOfMagicOptions {
 		this.magicRealmsAvailable = magicRealmsAvailable;
 	}
 
-	protected String getDummy() {
-		return dummy;
-	}
-
-	protected void setDummy(String dummy) {
-		this.dummy = dummy;
-	}
 }

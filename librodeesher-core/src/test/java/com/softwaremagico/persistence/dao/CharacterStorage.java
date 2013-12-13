@@ -14,6 +14,7 @@ public class CharacterStorage {
 	@Test
 	public void testCrud() {
 		CharacterPlayer characterPlayer = new RandomCharacterPlayer(null, null, null, null, 1).getCharacterPlayer();
+		System.out.println(characterPlayer.getProfessionalRealmsOfMagicChoosen().getRealmsOfMagic());
 		characterPlayerDao.makePersistent(characterPlayer);
 		Assert.assertNotNull(characterPlayer.getId());
 	}
