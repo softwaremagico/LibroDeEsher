@@ -475,6 +475,10 @@ public class Race {
 		return ranks;
 	}
 
+	public List<String> getAvailableLanguages() {
+		return new ArrayList<>(maxRaceLanguages.keySet());
+	}
+
 	public Integer getHistorialPoints() {
 		return historialPoints;
 	}

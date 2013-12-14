@@ -521,11 +521,11 @@ public class CharacterPlayer {
 	}
 
 	public Integer getLanguageInitialRanks(String language) {
-		return Math.max(getCulture().getLanguageRank(language), getRace().getLanguageInitialRanks(language));
+		return Math.max(getCulture().getLanguageMaxRanks(language), getRace().getLanguageInitialRanks(language));
 	}
 
 	public Integer getLanguageMaxInitialRanks(String language) {
-		return Math.max(getCulture().getLanguageRank(language), getRace().getLanguageMaxRanks(language));
+		return Math.max(getCulture().getLanguageMaxRanks(language), getRace().getLanguageMaxRanks(language));
 	}
 
 	public Integer getLanguageRanks(String language) {

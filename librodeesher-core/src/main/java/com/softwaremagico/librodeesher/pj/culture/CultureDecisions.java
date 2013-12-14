@@ -61,6 +61,13 @@ public class CultureDecisions {
 		spellRanks = new HashMap<>();
 	}
 
+	/**
+	 * Includes the ranks in the communication category of the culture plus the
+	 * communications ranks of the race.
+	 * 
+	 * @param language
+	 * @param ranks
+	 */
 	public void setLanguageRank(String language, Integer ranks) {
 		if (ranks <= 0) {
 			languageRanks.remove(language);

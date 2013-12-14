@@ -34,6 +34,10 @@ public class RandomCharacterPlayer {
 		createRandomValues();
 	}
 
+	public CharacterPlayer getCharacterPlayer() {
+		return characterPlayer;
+	}
+
 	private void createRandomValues() {
 		setRace();
 		setProfession();
@@ -83,6 +87,7 @@ public class RandomCharacterPlayer {
 		}
 		characterPlayer.setCulture(culture);
 		setRandomHobbyRanks();
+		setRandomCultureAndRaceLanguages();
 	}
 
 	private Integer getTotalCharacteristicsPoints() {
@@ -108,13 +113,16 @@ public class RandomCharacterPlayer {
 		while (characterPlayer.getCharacteristicsTemporalPointsSpent() < getTotalCharacteristicsPoints()) {
 			for (int i = 0; i < characteristics.size(); i++) {
 				Characteristic characteristic = characteristics.get(i);
-				if ((Math.random() * 100 + 1) < (characterPlayer.getCharacteristicInitialTemporalValue(characteristic
-						.getAbbreviature()) - getSpecializationLevel() * 10)
-						&& characterPlayer.getCharacteristicInitialTemporalValue(characteristic.getAbbreviature()) < (Math
-								.min(90 + getSpecializationLevel() * 4, 101))
-						&& characterPlayer.getCharacteristicsTemporalPointsSpent(characteristic.getAbbreviature()) <= getTotalCharacteristicsPoints()) {
-					characterPlayer.setCharacteristicTemporalValues(characteristic.getAbbreviature(), characterPlayer
-							.getCharacteristicsInitialTemporalValues().get(characteristic.getAbbreviature()) + 1);
+				if ((Math.random() * 100 + 1) < (characterPlayer
+						.getCharacteristicInitialTemporalValue(characteristic.getAbbreviature()) - getSpecializationLevel() * 10)
+						&& characterPlayer.getCharacteristicInitialTemporalValue(characteristic
+								.getAbbreviature()) < (Math.min(90 + getSpecializationLevel() * 4, 101))
+						&& characterPlayer.getCharacteristicsTemporalPointsSpent(characteristic
+								.getAbbreviature()) <= getTotalCharacteristicsPoints()) {
+					characterPlayer.setCharacteristicTemporalValues(
+							characteristic.getAbbreviature(),
+							characterPlayer.getCharacteristicsInitialTemporalValues().get(
+									characteristic.getAbbreviature()) + 1);
 				}
 			}
 		}
@@ -227,10 +235,12 @@ public class RandomCharacterPlayer {
 					|| characterPlayer.getSkillsWithRanks(skill.getCategory()).size() > -specializationLevel + 1) {
 				return 5 * loop;
 			}
-			return characterPlayer.getRealRanks(skill) * (2 + specializationLevel + loop)
-					+ characterPlayer.getTotalRanks(skill.getCategory()) * 5
-					+ Math.min(characterPlayer.getCategoryCost(skill.getCategory(), 0).getRankCost().get(0), 15)
-					- characterPlayer.getSkillsWithRanks(skill.getCategory()).size() * 5 + 5;
+			return characterPlayer.getRealRanks(skill)
+					* (2 + specializationLevel + loop)
+					+ characterPlayer.getTotalRanks(skill.getCategory())
+					* 5
+					+ Math.min(characterPlayer.getCategoryCost(skill.getCategory(), 0).getRankCost().get(0),
+							15) - characterPlayer.getSkillsWithRanks(skill.getCategory()).size() * 5 + 5;
 		}
 		return 0;
 	}
@@ -246,15 +256,42 @@ public class RandomCharacterPlayer {
 			if (hobbies.size() > 0
 					&& SkillFactory.getAvailableSkill(hobbies.get(0)) != null
 					&& SkillFactory.getAvailableSkill(hobbies.get(0)).isUsedInRandom()
-					&& Math.random() * 100 + 1 < probablilityOfSetHobby(SkillFactory.getAvailableSkill(hobbies.get(0)),
-							loop)) {
+					&& Math.random() * 100 + 1 < probablilityOfSetHobby(
+							SkillFactory.getAvailableSkill(hobbies.get(0)), loop)) {
 				characterPlayer.getCultureDecisions().setHobbyRanks(hobbies.get(0),
 						characterPlayer.getCultureDecisions().getHobbyRanks(hobbies.get(0)) + 1);
 			}
 		}
 	}
 
-	public CharacterPlayer getCharacterPlayer() {
-		return characterPlayer;
+	private int LanguageProbability(String language) {
+		if ((characterPlayer.getCultureDecisions().getLanguageRanks(language) + 1 > characterPlayer
+				.getLanguageMaxInitialRanks(language))
+				|| (characterPlayer.getCultureDecisions().getLanguageRanks(language) > 10)) {
+			return 0;
+		}
+		return characterPlayer.getCultureDecisions().getLanguageRanks(language) * specializationLevel + 15;
+	}
+
+	private void setRandomCultureAndRaceLanguages() {
+		while (characterPlayer.getRace().getLanguagePoints()
+				+ characterPlayer.getCulture().getLanguageRanksToChoose()
+				- characterPlayer.getCultureDecisions().getTotalLanguageRanks() > 0) {
+			String randomLanguage;
+			// Use culture or race language
+			if (Math.random() < 0.5) {
+				randomLanguage = characterPlayer.getCulture().getLanguagesMaxRanks()
+						.get((int) (Math.random() * characterPlayer.getCulture().getLanguagesMaxRanks().size()));
+			} else {
+				randomLanguage = characterPlayer
+						.getRace()
+						.getAvailableLanguages()
+						.get((int) (Math.random() * characterPlayer.getRace().getAvailableLanguages().size()));
+			}
+			if (Math.random() * 100 + 1 < LanguageProbability(randomLanguage)) {
+				characterPlayer.getCultureDecisions().setLanguageRank(randomLanguage,
+						characterPlayer.getCultureDecisions().getLanguageRanks(randomLanguage) + 1);
+			}
+		}
 	}
 }

@@ -42,7 +42,7 @@ public class CultureWindow extends BaseFrame {
 
 	public CultureWindow(CharacterPlayer character) {
 		this.character = character;
-		defineWindow(500, 400);
+		defineWindow(650, 400);
 		// setResizable(false);
 		setElements();
 	}

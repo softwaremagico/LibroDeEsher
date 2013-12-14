@@ -69,4 +69,5 @@ public class Spanish {
 	public static final String MENTALISM_DARK_LIST_TAG = "Mentalismo Maligno";
 	public static final String ELEMENTALIST_PROFESSION = "Elementalista";
 	public static final String ELEMENTALIST_INITIAL_TAG = "mago de";
+	public static final String CULTURE_LANGUAGE_TAG = "idiomas";
 }

@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.basics.ShowMessage;
+import com.softwaremagico.librodeesher.basics.Spanish;
 
 public class CultureCategory {
 	private Integer ranks;
@@ -55,8 +56,8 @@ public class CultureCategory {
 		}
 		return skill;
 	}
-	
-	public List<CultureSkill> getSkills(){
+
+	public List<CultureSkill> getSkills() {
 		return new ArrayList<CultureSkill>(skills.values());
 	}
 
@@ -75,7 +76,9 @@ public class CultureCategory {
 	public CultureSkill addSkillFromLine(String skillLine) {
 		skillLine = skillLine.replace("*", "").trim();
 		String[] skillColumns = skillLine.split("\t");
-		if (skillColumns[0].equals("Arma") || skillColumns[0].equals("Lista de Hechizos")) {
+		if (skillColumns[0].toLowerCase().equals(Spanish.CULTURE_WEAPON)
+				|| skillColumns[0].toLowerCase().equals(Spanish.CULTURE_SPELLS)
+				|| skillColumns[0].toLowerCase().equals(Spanish.CULTURE_LANGUAGE_TAG)) {
 			try {
 				ranksToChoose = Integer.parseInt(skillColumns[1]);
 			} catch (NumberFormatException nfe) {
@@ -92,12 +95,13 @@ public class CultureCategory {
 
 	/**
 	 * This ranks are for magic and weapons only.
+	 * 
 	 * @return
 	 */
-	public Integer getChooseRanks(){
+	public Integer getChooseRanks() {
 		return ranksToChoose;
 	}
-	
+
 	public Integer getRanks() {
 		return ranks;
 	}

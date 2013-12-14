@@ -50,7 +50,7 @@ public class Culture {
 	private Integer hobbyRanks;
 	private List<String> hobbySkills;
 	// private List<CultureLanguage> languages;
-	private HashMap<String, Integer> languages;
+	private HashMap<String, Integer> languagesMaxRanks;
 
 	public Culture(String name) {
 		this.name = name;
@@ -61,8 +61,8 @@ public class Culture {
 		}
 	}
 
-	public List<String> getLanguages() {
-		List<String> sortedLanguages = new ArrayList<>(languages.keySet());
+	public List<String> getLanguagesMaxRanks() {
+		List<String> sortedLanguages = new ArrayList<>(languagesMaxRanks.keySet());
 		Collections.sort(sortedLanguages);
 		return sortedLanguages;
 	}
@@ -108,7 +108,7 @@ public class Culture {
 			lineIndex = setSkillRanks(lines, lineIndex);
 			lineIndex = setHobbyRanks(lines, lineIndex);
 			lineIndex = setHobbySkillsAndCategories(lines, lineIndex);
-			lineIndex = setCultureLanguages(lines, lineIndex);
+			lineIndex = setCultureMaxLanguages(lines, lineIndex);
 		}
 	}
 
@@ -248,8 +248,8 @@ public class Culture {
 		return index;
 	}
 
-	private int setCultureLanguages(List<String> lines, int index) {
-		languages = new HashMap<>();
+	private int setCultureMaxLanguages(List<String> lines, int index) {
+		languagesMaxRanks = new HashMap<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -258,9 +258,9 @@ public class Culture {
 			String[] languageRanks = languageColumn[1].split("/");
 			try {
 				String language = Spanish.SPOKEN_TAG + " " + languageColumn[0];
-				languages.put(language, Integer.parseInt(languageRanks[0]));
+				languagesMaxRanks.put(language, Integer.parseInt(languageRanks[0]));
 				language = Spanish.WRITTEN_TAG + " " + languageColumn[0];
-				languages.put(language, Integer.parseInt(languageRanks[1]));
+				languagesMaxRanks.put(language, Integer.parseInt(languageRanks[1]));
 			} catch (NumberFormatException nfe) {
 				ShowMessage.showErrorMessage("Error al obtener los rangos escritos del idioma: " + name,
 						"Añadir lenguajes de cultura");
@@ -281,9 +281,13 @@ public class Culture {
 	public Integer getSpellRanks() {
 		return categories.get("Listas Abiertas de Hechizos").getChooseRanks();
 	}
+	
+	public Integer getLanguageRanksToChoose(){
+		return categories.get("Comunicación").getChooseRanks();
+	}
 
-	public Integer getLanguageRank(String language) {
-		Integer ranks = languages.get(language);
+	public Integer getLanguageMaxRanks(String language) {
+		Integer ranks = languagesMaxRanks.get(language);
 		if (ranks == null) {
 			return 0;
 		}

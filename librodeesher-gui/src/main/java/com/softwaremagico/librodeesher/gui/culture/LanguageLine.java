@@ -58,9 +58,8 @@ public class LanguageLine extends CultureLine {
 		// Languages can have 10 ranks. We need a bigger editor.
 		rankSpinner.setColumns(2);
 
-		// Inizialize the title.
-		parentPanel.setRankTitle("Rangos ("
-				+ (character.getRace().getLanguagePoints() - parentPanel.getSpinnerValues()) + ")");
+		// Initialize the title.
+		setTitle();
 	}
 
 	protected void addRankSpinnerEvent() {
@@ -73,21 +72,27 @@ public class LanguageLine extends CultureLine {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				// Max language points limit.
-				if (parentPanel.getSpinnerValues() > character.getRace().getLanguagePoints()) {
+				if (parentPanel.getSpinnerValues() > character.getRace().getLanguagePoints()
+						+ character.getCulture().getLanguageRanksToChoose()) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
-				} else if ((Integer) rankSpinner.getValue() > character.getRace().getLanguageMaxRanks(
-						language)) { // Race language limit.
+					// Race and culture language limit.
+				} else if ((Integer) rankSpinner.getValue() > character.getLanguageMaxInitialRanks(language)) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character
 					character.getCultureDecisions().setLanguageRank(language,
 							(Integer) rankSpinner.getValue());
-					parentPanel.setRankTitle("Rangos ("
-							+ (character.getRace().getLanguagePoints() - parentPanel.getSpinnerValues())
-							+ ")");
+					setTitle();
 				}
 			}
 		});
+	}
+
+	private void setTitle() {
+		parentPanel.setRankTitle("Rangos ("
+				+ (character.getRace().getLanguagePoints()
+						+ character.getCulture().getLanguageRanksToChoose() - parentPanel.getSpinnerValues())
+				+ ")");
 	}
 
 	@Override

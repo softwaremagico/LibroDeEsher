@@ -55,6 +55,7 @@ import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.BaseSpinner;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
+import com.softwaremagico.librodeesher.gui.style.Fonts;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class OptionsWindow extends BaseFrame {
@@ -129,6 +130,7 @@ public class OptionsWindow extends BaseFrame {
 		maxCategoryRanks.setAlignmentX(LEFT_ALIGNMENT);
 
 		BaseLabel maxCategoryLabel = new BaseLabel(" Ocultar categorías con un coste superior a: ");
+		maxCategoryLabel.setFont(Fonts.getInstance().getDefaultFont());
 		maxCategoryRanks.add(maxCategoryLabel);
 
 		SpinnerModel sm;
