@@ -433,19 +433,19 @@ public class RandomCharacterPlayer {
 	/**
 	 * Probabilidad que se incremente al generar un personaje aleatoriamente.
 	 */
-	public int ProbabilidadSubida(Category category) {
+	public int rankProbability(Category category) {
 		int probability = 0;
 		if (category.isNotUsedInRandom()) {
 			return -100;
 		}
-		if (characterPlayer.getNewRankCost(category, currentRanks, currentRanks + 1) <= Config
+		if (characterPlayer.getNewRankCost(category, characterPlayer.getCurrentLevelRanks(category), characterPlayer.getCurrentLevelRanks(category) + 1) <= Config
 				.getCategoryMaxCost()) {
-			if (Personaje.getInstance().PuntosDesarrolloNoGastados() >= Personaje.getInstance()
+			if (characterPlayer.getRemainingDevelopmentPoints() >= Personaje.getInstance()
 					.CosteCategoriaYHabilidad(this, nuevosRangos + 1, null)
 					&& TipoCategoria().equals("EstÃ¡ndar")) {
 				probability += DevolverValorCaracteristicas();
 				probability += CategoriaPreferida();
-				probability -= CaroCategoria();
+				probability -= categoryCostProbability();
 				probability += BonusTieneHabilidadComun();
 				probability += Esher.IntentosAsignarPD() * 3;
 				if (Esher.inteligencia) {
@@ -500,7 +500,7 @@ public class RandomCharacterPlayer {
 	/**
 	 * Cuanto cuesta en puntos de desarrollo.
 	 */
-	private int CaroCategoria() {
+	private int categoryCostProbability() {
 		return (Personaje.getInstance().CosteCategoriaYHabilidad(this, nuevosRangos, null) - 5) * 10;
 	}
 
