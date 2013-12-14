@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.config.Config;
+import com.softwaremagico.librodeesher.config.Log;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
@@ -379,15 +380,18 @@ public class RandomCharacterPlayer {
 		// Lo barajamos para que haya más aleatoriedad.
 		for (int i = 0; i < shuffledCategoryList.size(); i++) {
 			Category cat = shuffledCategoryList.get(i);
-			if (Math.random() * 100 + 1 < cat.ProbabilidadSubida()) {
-				Log.info("Nuevo rango en categoría " + cat.DevolverNombre());
-				cat.nuevosRangos++;
+			if (Math.random() * 100 + 1 < rankProbability(cat)) {
+				characterPlayer
+						.getLevelUps()
+						.get(0)
+						.setCategoryRanks(cat.getName(),
+								characterPlayer.getLevelUps().get(0).getCategoryRanks(cat.getName()) + 1);
 			}
 			List<Skill> shuffledSkillList = cat.getSkills();
 			Collections.shuffle(shuffledSkillList);
 			for (int j = 0; j < shuffledSkillList.size(); j++) {
 				Skill skill = shuffledSkillList.get(j);
-				if (generator.nextInt(100) + 1 < skill.ProbabilidadSubida()) {
+				if (Math.random() * 100 + 1 < skill.ProbabilidadSubida()) {
 					// Contar los hechizos subidos para aplicar el multiplicador
 					// por mas de 5 listas.
 					if (skill.nuevosRangos == 0) {
@@ -438,8 +442,8 @@ public class RandomCharacterPlayer {
 		if (category.isNotUsedInRandom()) {
 			return -100;
 		}
-		if (characterPlayer.getNewRankCost(category, characterPlayer.getCurrentLevelRanks(category), characterPlayer.getCurrentLevelRanks(category) + 1) <= Config
-				.getCategoryMaxCost()) {
+		if (characterPlayer.getNewRankCost(category, characterPlayer.getCurrentLevelRanks(category),
+				characterPlayer.getCurrentLevelRanks(category) + 1) <= Config.getCategoryMaxCost()) {
 			if (characterPlayer.getRemainingDevelopmentPoints() >= Personaje.getInstance()
 					.CosteCategoriaYHabilidad(this, nuevosRangos + 1, null)
 					&& TipoCategoria().equals("EstÃ¡ndar")) {
@@ -466,33 +470,36 @@ public class RandomCharacterPlayer {
 	/**
 	 * Devuelve un modificador de acuerdo con algunos criterios.
 	 */
-	private int AplicarInteligenciaALaAleatorizacion() {
+	private int smartBonus(Category category) {
 		int bonus = 0;
 		// No ponemos armas de fuego si no tienen nada.
-		if (!Esher.armasFuegoPermitidas && nombre.contains("ArmasÂ·Fuego") && DevolverRangos() == 0) {
+		if (!characterPlayer.isFirearmsAllowed() && category.getName().contains(Spanish.FIREARMS_SUFIX)) {
 			bonus = -10000;
 		}
-		if (nombre.equals("ArmaduraÂ·Ligera") && Total() > 10) {
+		if (category.getName().equals(Spanish.LIGHT_ARMOUR_TAG)
+				&& characterPlayer.getTotalValue(category) > 10) {
 			return -1000;
 		}
-		if (nombre.equals("ArmaduraÂ·Media") && Total() > 20) {
+		if (category.getName().equals(Spanish.MEDIUM_ARMOUR_TAG)
+				&& characterPlayer.getTotalValue(category) > 20) {
 			return -1000;
 		}
-		if (nombre.equals("ArmaduraÂ·Pesada") && Total() > 30) {
+		if (category.getName().equals(Spanish.HEAVY_ARMOUR_TAG)
+				&& characterPlayer.getTotalValue(category) > 30) {
 			return -1000;
 		}
-		// Si hay rangos en habilidades es muy probable que se suba la
-		// categoria.
-		if (DevolverRangos() == 0) {
+		// Category with skills with ranks, more probability
+		if (characterPlayer.getTotalRanks(category) == 0) {
 			bonus += (30 + DevolverHabilidadesConRangos() * 20);
 			bonus += (30 + DevolverHabilidadesConRangosSugeridos() * 20);
+
+			// Se potencia la categoria con habilidades comunes o profesionales.
+			if (ExisteHabilidadComunOProfesional()) {
+				bonus += 50;
+			}
 		}
-		// Se potencia la categoria con habilidades comunes o profesionales.
-		if (ExisteHabilidadComunOProfesional()) {
-			bonus += 50;
-		}
-		if (DevolverRangos() > 10) {
-			bonus -= (8 - DevolverRangos()) * 10;
+		if (characterPlayer.getTotalRanks(category) > 10) {
+			bonus -= (8 - characterPlayer.getTotalRanks(category)) * 10;
 		}
 		return bonus;
 	}
@@ -514,10 +521,6 @@ public class RandomCharacterPlayer {
 			prob = 30;
 		}
 		return prob;
-	}
-
-	public void DeshabilitarAleatorio(boolean value) {
-		noElegirAleatorio = value;
 	}
 
 	int BonusTieneHabilidadComun() {

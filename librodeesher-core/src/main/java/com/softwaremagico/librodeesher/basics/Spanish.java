@@ -70,4 +70,7 @@ public class Spanish {
 	public static final String ELEMENTALIST_PROFESSION = "Elementalista";
 	public static final String ELEMENTALIST_INITIAL_TAG = "mago de";
 	public static final String CULTURE_LANGUAGE_TAG = "idiomas";
+	public static final String LIGHT_ARMOUR_TAG = "Armadura·Ligera";
+	public static final String MEDIUM_ARMOUR_TAG = "Armadura·Media";
+	public static final String HEAVY_ARMOUR_TAG = "Armadura·Pesada";
 }
