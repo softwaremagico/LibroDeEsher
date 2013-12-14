@@ -63,7 +63,7 @@ public class TrainingWindow extends BaseFrame {
 
 	private void setDevelopmentPointText() {
 		if (remainingDevelopmentPoints != null) {
-			remainingDevelopmentPoints.setPoints(character.getDevelopmentPoints());
+			remainingDevelopmentPoints.setPoints(character.getRemainingDevelopmentPoints());
 		}
 	}
 

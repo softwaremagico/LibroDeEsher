@@ -175,7 +175,7 @@ public class CharacterLevelPanel extends BasePanel {
 
 	private void updateDevelopmentPoints() {
 		if (character.areCharacteristicsConfirmed()) {
-			developmentTextField.setPoints(character.getDevelopmentPoints());
+			developmentTextField.setPoints(character.getRemainingDevelopmentPoints());
 		} else {
 			developmentTextField.setPoints(0);
 		}

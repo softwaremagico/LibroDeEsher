@@ -32,6 +32,7 @@ import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.gui.elements.ListLabel;
 import com.softwaremagico.librodeesher.gui.style.BaseLine;
+import com.softwaremagico.librodeesher.gui.style.Fonts;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 
 public class WeaponCategoryLine extends BaseLine {
@@ -61,6 +62,7 @@ public class WeaponCategoryLine extends BaseLine {
 		gridBagConstraints.weighty = 0;
 
 		ListLabel weaponCategoryLabel = new ListLabel(weaponsCategory.getName(), SwingConstants.LEFT);
+		weaponCategoryLabel.setFont(Fonts.getInstance().getBoldFont());
 		add(weaponCategoryLabel, gridBagConstraints);
 
 		gridBagConstraints.anchor = GridBagConstraints.CENTER;

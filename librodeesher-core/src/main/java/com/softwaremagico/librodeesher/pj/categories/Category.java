@@ -66,6 +66,7 @@ public abstract class Category {
 	@ElementCollection
 	@CollectionTable(name = "T_CATEGORY_SKILL_RANKS_VALUES")
 	private List<Float> skillRankValues; // Rank values. i.e: -15/3/2/1/0.5
+	private boolean notUsedInRandom = false;
 
 	public Category(String name, String abbreviature, CategoryType type, String characteristicsTag,
 			List<Float> skillRankValues) {
@@ -104,6 +105,15 @@ public abstract class Category {
 	public void setSkillsFromName(List<String> skillsNames) {
 		skills = new ArrayList<>();
 		addSkillsFromName(skillsNames);
+	}
+
+	public Skill getSkill(String skillName) {
+		for (Skill skill : skills) {
+			if (skill.getName().equals(skillName)) {
+				return skill;
+			}
+		}
+		return null;
 	}
 
 	public String getAbbreviature() {
@@ -263,5 +273,13 @@ public abstract class Category {
 
 	protected void setCharacterisitcsTags(String characterisitcsTags) {
 		this.characterisitcsTags = characterisitcsTags;
+	}
+
+	public boolean isNotUsedInRandom() {
+		return notUsedInRandom;
+	}
+
+	public void setNotUsedInRandom(boolean notUsedInRandom) {
+		this.notUsedInRandom = notUsedInRandom;
 	}
 }

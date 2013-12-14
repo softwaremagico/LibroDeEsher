@@ -422,7 +422,7 @@ public class CharacterPlayer {
 		return 0;
 	}
 
-	public Integer getDevelopmentPoints() {
+	public Integer getRemainingDevelopmentPoints() {
 		return getTotalDevelopmentPoints() - getSpentDevelopmentPoints();
 	}
 
@@ -1069,7 +1069,7 @@ public class CharacterPlayer {
 				}
 			}
 			// Enough developmentPoints
-			if (getTrainingCost(trainingName) > getDevelopmentPoints()) {
+			if (getTrainingCost(trainingName) > getRemainingDevelopmentPoints()) {
 				continue;
 			}
 			// Not already selected Training

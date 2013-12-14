@@ -26,6 +26,7 @@ package com.softwaremagico.librodeesher.gui.culture;
 
 import java.util.List;
 
+import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
 
@@ -44,7 +45,7 @@ public class SpellPanel extends CulturePanel {
 
 		if (character.getCulture().getSpellRanks() != 0) {
 			List<String> spellLists = MagicFactory.getListOfProfession(character.getProfessionalRealmsOfMagicChoosen()
-					.getRealmsOfMagic(), "Lista Abierta");
+					.getRealmsOfMagic(), Spanish.OPEN_LIST_TAG);
 
 			for (String spell : spellLists) {
 				SpellLine hobbyLine = new SpellLine(character, spell, this, getLineBackgroundColor(i));

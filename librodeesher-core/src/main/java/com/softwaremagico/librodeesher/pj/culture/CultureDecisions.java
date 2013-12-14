@@ -34,6 +34,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
+
 @Entity
 @Table(name = "T_CULTUREDECISIONS")
 public class CultureDecisions {
@@ -106,6 +109,14 @@ public class CultureDecisions {
 			return 0;
 		}
 		return value;
+	}
+
+	public Integer getTotalWeaponRanks(Category category) {
+		Integer total = 0;
+		for (Skill skill : category.getSkills()) {
+			total += getWeaponRanks(skill.getName());
+		}
+		return total;
 	}
 
 	public void setHobbyRanks(String hobby, Integer ranks) {
