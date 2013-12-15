@@ -53,6 +53,9 @@ public class LevelUp {
 	@CollectionTable(name = "T_LEVELUP_SKILLS_RANKS")
 	private Map<String, Integer> skillsRanks;
 	@ElementCollection
+	@CollectionTable(name = "T_LEVELUP_GENERALIZED_SKILLS")
+	private List<String> generalizedSkills;
+	@ElementCollection
 	@CollectionTable(name = "T_LEVEL_UP_SPELLS_UPDATED")
 	private List<String> spellsUpdated; // More than 5 list is more expensive in
 										// Development Points.
@@ -65,6 +68,7 @@ public class LevelUp {
 		skillsRanks = new HashMap<>();
 		spellsUpdated = new ArrayList<>();
 		trainings = new ArrayList<>();
+		generalizedSkills = new ArrayList<>();
 	}
 
 	public Integer getCategoryRanks(String categoryName) {
@@ -182,5 +186,21 @@ public class LevelUp {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public List<String> getGeneralizedSkills() {
+		return generalizedSkills;
+	}
+
+	public void setGeneralizedSkills(List<String> generalizedSkills) {
+		this.generalizedSkills = generalizedSkills;
+	}
+
+	public void setCategoriesRanks(Map<String, Integer> categoriesRanks) {
+		this.categoriesRanks = categoriesRanks;
+	}
+
+	public void setSkillsRanks(Map<String, Integer> skillsRanks) {
+		this.skillsRanks = skillsRanks;
 	}
 }

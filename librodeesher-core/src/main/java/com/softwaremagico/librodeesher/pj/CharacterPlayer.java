@@ -115,13 +115,13 @@ public class CharacterPlayer {
 	@Transient
 	private transient Culture culture;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="id")
+	@JoinColumn(name = "id")
 	private CultureDecisions cultureDecisions;
 	private String professionName;
 	@Transient
 	private transient Profession profession;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="id")
+	@JoinColumn(name = "id")
 	private ProfessionDecisions professionDecisions;
 	@ElementCollection
 	@CollectionTable(name = "T_CHARACTERPLAYER_TRAININGS")
@@ -132,13 +132,13 @@ public class CharacterPlayer {
 	@CollectionTable(name = "T_CHARACTERPLAYER_TRAINING_DECISIONS")
 	private Map<String, TrainingDecision> trainingDecisions;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="id")
+	@JoinColumn(name = "id")
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="id")
+	@JoinColumn(name = "id")
 	private MagicSpellLists magicSpellLists;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="id")
+	@JoinColumn(name = "id")
 	private Historial historial;
 	@ElementCollection
 	@CollectionTable(name = "T_CHARACTERPLAYER_PERKS")
@@ -148,7 +148,7 @@ public class CharacterPlayer {
 	private Map<String, PerkDecision> perkDecisions;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="id")
+	@JoinColumn(name = "id")
 	private Appearance appearance;
 
 	private boolean darkSpellsAsBasicListsAllowed = false;
@@ -521,7 +521,8 @@ public class CharacterPlayer {
 	}
 
 	public Integer getLanguageInitialRanks(String language) {
-		return Math.max(getCulture().getLanguageMaxRanks(language), getRace().getLanguageInitialRanks(language));
+		return Math.max(getCulture().getLanguageMaxRanks(language),
+				getRace().getLanguageInitialRanks(language));
 	}
 
 	public Integer getLanguageMaxInitialRanks(String language) {
@@ -623,12 +624,19 @@ public class CharacterPlayer {
 
 	private Integer getTotalRanks(Skill skill) {
 		return getPreviousRanks(skill) + getCurrentLevelRanks(skill);
+
 	}
 
 	public Integer getRealRanks(Skill skill) {
 		Float modifier = (float) 1;
 		if (isRestricted(skill)) {
 			modifier = (float) 0.5;
+		} else if (isGeneralized(skill)) {
+			if (isCommon(skill) || isProfessional(skill)) {
+				modifier = (float) 1;
+			} else {
+				modifier = (float) 0.5;
+			}
 		} else if (isProfessional(skill)) {
 			modifier = (float) 3;
 		} else if (isCommon(skill)) {
@@ -1273,7 +1281,7 @@ public class CharacterPlayer {
 		this.perkDecisions = perkDecisions;
 	}
 
-	protected List<LevelUp> getLevelUps() {
+	public List<LevelUp> getLevelUps() {
 		return levelUps;
 	}
 
@@ -1303,6 +1311,35 @@ public class CharacterPlayer {
 
 	protected void setAppearance(Appearance appearance) {
 		this.appearance = appearance;
+	}
+
+	public boolean hasCommonOrProfessionalSkill(Category category) {
+		for (Skill skill : category.getSkills()) {
+			if ((isCommon(skill) || isProfessional(skill)) && !isRestricted(skill)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isSpecialized(Skill skill) {
+		// TODO
+		return false;
+	}
+
+	public void setGeneralized(Skill skill) {
+		if (!getLevelUps().get(getLevelUps().size() - 1).getGeneralizedSkills().contains(skill.getName())) {
+			getLevelUps().get(getLevelUps().size() - 1).getGeneralizedSkills().add(skill.getName());
+		}
+	}
+
+	public boolean isGeneralized(Skill skill) {
+		for (LevelUp level : getLevelUps()) {
+			if (level.getGeneralizedSkills().contains(skill.getName())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

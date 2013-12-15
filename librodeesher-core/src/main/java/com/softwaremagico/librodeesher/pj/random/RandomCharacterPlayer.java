@@ -1,14 +1,18 @@
-package com.softwaremagico.librodeesher.pj;
+package com.softwaremagico.librodeesher.pj.random;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.librodeesher.config.Log;
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.SexType;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
+import com.softwaremagico.librodeesher.pj.categories.CategoryType;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
@@ -22,6 +26,7 @@ import com.softwaremagico.librodeesher.pj.weapons.WeaponType;
 
 public class RandomCharacterPlayer {
 	private final static int MAX_TRIES = 5;
+	private int tries = 0;
 	private CharacterPlayer characterPlayer;
 	private SexType sex;
 	private int finalLevel;
@@ -29,6 +34,7 @@ public class RandomCharacterPlayer {
 	private Integer characteristicsPoints;
 	// Specialization level [-2...2]
 	private Integer specializationLevel;
+	private Map<String, Integer> suggestedSkillsRanks;
 
 	public RandomCharacterPlayer(SexType sex, String race, String culture, String profession, int finalLevel) {
 		this.sex = sex;
@@ -367,11 +373,11 @@ public class RandomCharacterPlayer {
 	private void setDevelopmentPoints() {
 		List<Category> shuffledCategoryList = CategoryFactory.getCategories();
 		Collections.shuffle(shuffledCategoryList);
-		while (characterPlayer.getRemainingDevelopmentPoints() > 0 && IntentosAsignarPD() <= MAX_TRIES) {
-			if (obtenerAdiestramientos) {
-				ObtenerAdiestramientosSugeridos();
-				ObtenerAdiestramientoAleatorio();
-			}
+		while (characterPlayer.getRemainingDevelopmentPoints() > 0 && tries <= MAX_TRIES) {
+			// if (obtenerAdiestramientos) {
+			// ObtenerAdiestramientosSugeridos();
+			// ObtenerAdiestramientoAleatorio();
+			// }
 			ObtenerRangosAleatorios(shuffledCategoryList);
 		}
 	}
@@ -380,7 +386,8 @@ public class RandomCharacterPlayer {
 		// Lo barajamos para que haya más aleatoriedad.
 		for (int i = 0; i < shuffledCategoryList.size(); i++) {
 			Category cat = shuffledCategoryList.get(i);
-			if (Math.random() * 100 + 1 < rankProbability(cat)) {
+			if (Math.random() * 100 + 1 < new CategoryProbability(characterPlayer, cat, tries,
+					suggestedSkillsRanks, specializationLevel).rankProbability()) {
 				characterPlayer
 						.getLevelUps()
 						.get(0)
@@ -394,12 +401,10 @@ public class RandomCharacterPlayer {
 				if (Math.random() * 100 + 1 < skill.ProbabilidadSubida()) {
 					// Contar los hechizos subidos para aplicar el multiplicador
 					// por mas de 5 listas.
-					if (skill.nuevosRangos == 0) {
+					if (characterPlayer.getCurrentLevelRanks(skill) == 0) {
 						skill.multiplicadorCosteHechizos = Personaje.getInstance()
 								.DevolverMultiplicadoCosteHechizos();
 					}
-					Log.info("Nuevo rango en habilidad " + skill.DevolverNombre());
-					skill.IncrementarNuevosRangos(1);
 					// Si da opciones de nuevas habilidades, se incluyen ahora.
 					if (skill.habilidadesNuevasPosibles.size() > 0
 							&& cat.NumeroHabilidadesExistes(skill.habilidadesNuevasPosibles) == 0) {
@@ -408,132 +413,30 @@ public class RandomCharacterPlayer {
 					}
 					// Permitimos que una habilidad tenga posibilidades de subir
 					// dos rangos.
-					if (Esher.especializacion > 0) {
+					if (specializationLevel > 0) {
 						j--;
 					}
 					// Permitimos que el PNJ pueda coger alguna especialización.
 					for (int k = 0; k < skill.especializacionPosible.size(); k++) {
 						// Si no existe ya...
 						if (!skill.especializacion.contains(skill.especializacionPosible.get(k))
-								&& !skill.EsGeneralizada()) {
+								&& !characterPlayer.isGeneralized(skill)) {
 							// Se le da una posibilidad de añadirse.
-							if (generator.nextInt(100) < Esher.especializacion) {
+							if (Math.random() * 100 < specializationLevel) {
 								skill.AñadirEspecializacion(true, skill.especializacionPosible.get(k), "");
 							}
 						}
 					}
 					// O una generalización.
-					if (!skill.EsRestringida() && !skill.especializada) {
-						if (generator.nextInt(100) < -Esher.especializacion) {
-							skill.HacerGeneralizada();
+					if (!characterPlayer.isRestricted(skill) && !characterPlayer.isSpecialized(skill)) {
+						if (Math.random() * 100 + 1 < -specializationLevel) {
+							characterPlayer.setGeneralized(skill);
 						}
 					}
 				}
 			}
 		}
-		Esher.bucleHabilidades++;
+		tries++;
 	}
 
-	/**
-	 * Probabilidad que se incremente al generar un personaje aleatoriamente.
-	 */
-	public int rankProbability(Category category) {
-		int probability = 0;
-		if (category.isNotUsedInRandom()) {
-			return -100;
-		}
-		if (characterPlayer.getNewRankCost(category, characterPlayer.getCurrentLevelRanks(category),
-				characterPlayer.getCurrentLevelRanks(category) + 1) <= Config.getCategoryMaxCost()) {
-			if (characterPlayer.getRemainingDevelopmentPoints() >= Personaje.getInstance()
-					.CosteCategoriaYHabilidad(this, nuevosRangos + 1, null)
-					&& TipoCategoria().equals("EstÃ¡ndar")) {
-				probability += DevolverValorCaracteristicas();
-				probability += CategoriaPreferida();
-				probability -= categoryCostProbability();
-				probability += BonusTieneHabilidadComun();
-				probability += Esher.IntentosAsignarPD() * 3;
-				if (Esher.inteligencia) {
-					probability += AplicarInteligenciaALaAleatorizacion();
-				}
-				if (probability > 90) {
-					probability = 90;
-				}
-				if (probability < 1) {
-					probability = 1;
-				}
-				return probability;
-			}
-		}
-		return 0;
-	}
-
-	/**
-	 * Devuelve un modificador de acuerdo con algunos criterios.
-	 */
-	private int smartBonus(Category category) {
-		int bonus = 0;
-		// No ponemos armas de fuego si no tienen nada.
-		if (!characterPlayer.isFirearmsAllowed() && category.getName().contains(Spanish.FIREARMS_SUFIX)) {
-			bonus = -10000;
-		}
-		if (category.getName().equals(Spanish.LIGHT_ARMOUR_TAG)
-				&& characterPlayer.getTotalValue(category) > 10) {
-			return -1000;
-		}
-		if (category.getName().equals(Spanish.MEDIUM_ARMOUR_TAG)
-				&& characterPlayer.getTotalValue(category) > 20) {
-			return -1000;
-		}
-		if (category.getName().equals(Spanish.HEAVY_ARMOUR_TAG)
-				&& characterPlayer.getTotalValue(category) > 30) {
-			return -1000;
-		}
-		// Category with skills with ranks, more probability
-		if (characterPlayer.getTotalRanks(category) == 0) {
-			bonus += (30 + DevolverHabilidadesConRangos() * 20);
-			bonus += (30 + DevolverHabilidadesConRangosSugeridos() * 20);
-
-			// Se potencia la categoria con habilidades comunes o profesionales.
-			if (ExisteHabilidadComunOProfesional()) {
-				bonus += 50;
-			}
-		}
-		if (characterPlayer.getTotalRanks(category) > 10) {
-			bonus -= (8 - characterPlayer.getTotalRanks(category)) * 10;
-		}
-		return bonus;
-	}
-
-	/**
-	 * Cuanto cuesta en puntos de desarrollo.
-	 */
-	private int categoryCostProbability() {
-		return (Personaje.getInstance().CosteCategoriaYHabilidad(this, nuevosRangos, null) - 5) * 10;
-	}
-
-	/**
-	 * Las categorias preferidas son aquellas que tienen mÃ¡s rangos asignados.
-	 */
-	int CategoriaPreferida() {
-		int prob;
-		prob = (rangos) * (Esher.especializacion + 4);
-		if (prob > 30) {
-			prob = 30;
-		}
-		return prob;
-	}
-
-	int BonusTieneHabilidadComun() {
-		int bonus = 0;
-		for (Habilidad habilidad : listaHabilidades) {
-			if (habilidad.EsComun()) {
-				bonus += 20;
-			}
-		}
-		if (DevolverRangos() == 0) {
-			return bonus;
-		} else {
-			return bonus / 10;
-		}
-	}
 }
