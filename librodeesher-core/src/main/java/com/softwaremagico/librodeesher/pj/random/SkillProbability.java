@@ -2,7 +2,11 @@ package com.softwaremagico.librodeesher.pj.random;
 
 import java.util.Map;
 
+import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
+import com.softwaremagico.librodeesher.pj.categories.CategoryType;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class SkillProbability {
@@ -10,13 +14,15 @@ public class SkillProbability {
 	private Skill skill;
 	private Map<String, Integer> suggestedSkillsRanks;
 	private int tries;
+	private Integer specializationLevel;
 
 	public SkillProbability(CharacterPlayer characterPlayer, Skill skill, int tries,
-			Map<String, Integer> suggestedSkillsRanks) {
+			Map<String, Integer> suggestedSkillsRanks, Integer specializationLevel) {
 		this.characterPlayer = characterPlayer;
 		this.skill = skill;
 		this.suggestedSkillsRanks = suggestedSkillsRanks;
-		this.tries=tries;
+		this.tries = tries;
+		this.specializationLevel = specializationLevel;
 	}
 
 	/**
@@ -32,9 +38,9 @@ public class SkillProbability {
 			return -1000;
 		}
 
-		if (nuevosRangos <= 3) {
-			if (Personaje.getInstance().PuntosDesarrolloNoGastados() >= Personaje.getInstance()
-					.CosteCategoriaYHabilidad(categoriaPadre, nuevosRangos, this)) {
+		if (characterPlayer.getCurrentLevelRanks(skill) <= 3) {
+			if (characterPlayer.getRemainingDevelopmentPoints() >= Personaje.getInstance()
+					.CosteCategoriaYHabilidad(categoriaPadre, characterPlayer.getCurrentLevelRanks(skill), this)) {
 				probability += categoriaPadre.CategoriaPreferida() / 3;
 				probability += HabilidadPreferida();
 				probability += FacilidadHabilidad();
@@ -42,18 +48,18 @@ public class SkillProbability {
 				probability += tries * 3;
 				probability += AplicarEspecializacionPersonaje();
 				probability += HabilidadAtrasada();
-					probability += HabilidadesPreferidasHechiceros();
-					probability += HabilidadesPreferidasLuchadores();
-					probability += AplicarInteligenciaALaAleatorizacion();
-					probability += HabilidadAbsurda();
+				probability += HabilidadesPreferidasHechiceros();
+				probability += HabilidadesPreferidasLuchadores();
+				probability += AplicarInteligenciaALaAleatorizacion();
+				probability += ridicolousSkill();
 				// Ponemos una cota superior y una cota inferior.
 				if (probability > 90) {
 					probability = 90;
 				}
-				if (probability < 1 && categoriaPadre.DevolverRangos() > 0) {
+				if (probability < 1 && categoriaPadre.characterPlayer.getRealRanks(skill) > 0) {
 					probability = 1;
 				}
-				probability += MaximoRangos();
+				probability += maxRanks();
 				return probability;
 			}
 		}
@@ -71,7 +77,7 @@ public class SkillProbability {
 		bonus += Math.max(
 				Personaje.getInstance().nivel
 						- (Personaje.getInstance().CosteCategoriaYHabilidad(categoriaPadre, 0, this))
-						- DevolverRangos() * 2, 0);
+						- characterPlayer.getRealRanks(skill) * 2, 0);
 		return bonus;
 	}
 
@@ -80,13 +86,13 @@ public class SkillProbability {
 	 */
 	private int CaroHabilidad() {
 		// Las que valen uno de coste son casi obligatorias cogerlas.
-		if (Personaje.getInstance().CosteCategoriaYHabilidad(categoriaPadre, nuevosRangos, this) == 1) {
+		if (Personaje.getInstance().CosteCategoriaYHabilidad(categoriaPadre, characterPlayer.getCurrentLevelRanks(skill), this) == 1) {
 			return -100;
 		}
-		if (categoriaPadre.DevolverNombre().equals("Listas BÃ¡sicas de Hechizos")) {
-			return (Personaje.getInstance().CosteCategoriaYHabilidad(categoriaPadre, nuevosRangos, this) - 8) * 10;
+		if (categoriaPadre.skill.getName().toLowerCase().equals("Listas BÃ¡sicas de Hechizos")) {
+			return (Personaje.getInstance().CosteCategoriaYHabilidad(categoriaPadre, characterPlayer.getCurrentLevelRanks(skill), this) - 8) * 10;
 		}
-		return (Personaje.getInstance().CosteCategoriaYHabilidad(categoriaPadre, nuevosRangos, this) - 5) * 10;
+		return (Personaje.getInstance().CosteCategoriaYHabilidad(categoriaPadre, characterPlayer.getCurrentLevelRanks(skill), this) - 5) * 10;
 	}
 
 	/**
@@ -98,20 +104,23 @@ public class SkillProbability {
 	}
 
 	private int AleatorizacionPorRaza() {
-		// Los caballos para uno y los lobos para otros.
-		if (DevolverNombre().equals("Montar: Caballos") && Personaje.getInstance().raza.contains("Orco")) {
+		// Horses for human and wolfs for orcs
+		if (skill.getName().toLowerCase().contains(Spanish.HORSES_TAG)
+				&& characterPlayer.getRace().getName().toLowerCase().contains(Spanish.ORCS_TAG)) {
 			return -1000;
 		}
-		if (DevolverNombre().equals("Montar: Lobos") && !Personaje.getInstance().raza.contains("Orco")) {
+		if (skill.getName().toLowerCase().contains(Spanish.WOLF_TAG)
+				&& !characterPlayer.getRace().getName().toLowerCase().contains(Spanish.ORCS_TAG)) {
 			return -1000;
 		}
-		if (DevolverNombre().equals("Montar: Osos") && !Personaje.getInstance().raza.contains("Enanos")) {
+		if (skill.getName().toLowerCase().contains(Spanish.BEARS_TAG)
+				&& !characterPlayer.getRace().getName().toLowerCase().contains(Spanish.DWARF_TAG)) {
 			return -1000;
 		}
 
-		// Los ataques raciales com mordisco y demÃ¡s, solo para aquellos a los
-		// que sea comunes.
-		if (nombre.startsWith("Ataque Racial: ") && !EsComun()) {
+		// Only racial attacks if it is a common skill.
+		if (skill.getName().toLowerCase().startsWith(Spanish.RACIAL_ATTACK_TAG)
+				&& !characterPlayer.isCommon(skill)) {
 			return -1000;
 		}
 		return 0;
@@ -124,10 +133,11 @@ public class SkillProbability {
 		// Para los hechiceros.
 		if (Personaje.getInstance().EsHechicero()) {
 			// Potenciamos que existan las listas bÃ¡sicas (al menos 3)
-			if (categoriaPadre.DevolverNombre().equals("Listas BÃ¡sicas de Hechizos")) {
-				if (categoriaPadre.DevolverHabilidadesConNuevosRangos() < Esher.especializacion + 2) {
-					if (DevolverRangos() < Personaje.getInstance().nivel + Esher.especializacion + 2) {
-						if (categoriaPadre.DevolverHabilidadesConNuevosRangos() < Esher.especializacion + 1) {
+			if (categoriaPadre.skill.getName().toLowerCase().equals("Listas BÃ¡sicas de Hechizos")) {
+				if (characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() < specializationLevel + 2) {
+					if (characterPlayer.getRealRanks(skill) < Personaje.getInstance().nivel
+							+ specializationLevel + 2) {
+						if (characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() < specializationLevel + 1) {
 							if (Personaje.getInstance().EsSemiHechicero()) {
 								bonus += 65;
 							} else {
@@ -146,10 +156,11 @@ public class SkillProbability {
 				}
 			}
 
-			if (categoriaPadre.DevolverNombre().equals("Listas Abiertas de Hechizos")) {
-				if (categoriaPadre.DevolverHabilidadesConNuevosRangos() < Esher.especializacion + 2) {
-					if (DevolverRangos() < Personaje.getInstance().nivel + Esher.especializacion + 2) {
-						if (categoriaPadre.DevolverHabilidadesConNuevosRangos() == 0) {
+			if (categoriaPadre.skill.getName().toLowerCase().equals("Listas Abiertas de Hechizos")) {
+				if (characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() < specializationLevel + 2) {
+					if (characterPlayer.getRealRanks(skill) < Personaje.getInstance().nivel
+							+ specializationLevel + 2) {
+						if (characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() == 0) {
 							if (Personaje.getInstance().EsSemiHechicero()) {
 								bonus += 35;
 							} else {
@@ -163,10 +174,11 @@ public class SkillProbability {
 					}
 				}
 			}
-			if (categoriaPadre.DevolverNombre().equals("Listas Cerradas de Hechizos")) {
-				if (categoriaPadre.DevolverHabilidadesConRangos() < 3) {
-					if (DevolverRangos() < Personaje.getInstance().nivel + Esher.especializacion + 2) {
-						if (categoriaPadre.DevolverHabilidadesConNuevosRangos() == 0) {
+			if (categoriaPadre.skill.getName().toLowerCase().equals("Listas Cerradas de Hechizos")) {
+				if (characterPlayer.getSkillsWithRanks(skill.getCategory()).size() < 3) {
+					if (characterPlayer.getRealRanks(skill) < Personaje.getInstance().nivel
+							+ specializationLevel + 2) {
+						if (characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() == 0) {
 							bonus += 20;
 						} else {
 							bonus += 10;
@@ -176,35 +188,40 @@ public class SkillProbability {
 					}
 				}
 			}
-			if (categoriaPadre.DevolverNombre().equals("Listas BÃ¡sicas de otras Profesiones")) {
-				if (DevolverRangos() < Personaje.getInstance().nivel + Esher.especializacion + 2
-						&& categoriaPadre.DevolverHabilidadesConNuevosRangos() < 1) {
+			if (categoriaPadre.skill.getName().toLowerCase().equals("Listas BÃ¡sicas de otras Profesiones")) {
+				if (characterPlayer.getRealRanks(skill) < Personaje.getInstance().nivel + specializationLevel
+						+ 2
+						&& characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() < 1) {
 					bonus += 5;
 				} else {
 					bonus -= 150;
 				}
 			}
-			if (categoriaPadre.DevolverNombre().equals("Listas Abiertas de otros Reinos")) {
-				if (DevolverRangos() > Personaje.getInstance().nivel + Esher.especializacion + 2
-						|| categoriaPadre.DevolverHabilidadesConNuevosRangos() > 1) {
+			if (categoriaPadre.skill.getName().toLowerCase().equals("Listas Abiertas de otros Reinos")) {
+				if (characterPlayer.getRealRanks(skill) > Personaje.getInstance().nivel + specializationLevel
+						+ 2
+						|| characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() > 1) {
 					bonus -= 150;
 				}
 			}
-			if (categoriaPadre.DevolverNombre().equals("Listas Cerradas de otros Reinos")) {
-				if (DevolverRangos() > Personaje.getInstance().nivel + Esher.especializacion + 2
-						|| categoriaPadre.DevolverHabilidadesConNuevosRangos() > 1) {
+			if (categoriaPadre.skill.getName().toLowerCase().equals("Listas Cerradas de otros Reinos")) {
+				if (characterPlayer.getRealRanks(skill) > Personaje.getInstance().nivel + specializationLevel
+						+ 2
+						|| characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() > 1) {
 					bonus -= 150;
 				}
 			}
-			if (categoriaPadre.DevolverNombre().equals("Listas BÃ¡sicas de otros Reinos")) {
-				if (DevolverRangos() > Personaje.getInstance().nivel + Esher.especializacion + 2
-						|| categoriaPadre.DevolverHabilidadesConNuevosRangos() > 1) {
+			if (categoriaPadre.skill.getName().toLowerCase().equals("Listas BÃ¡sicas de otros Reinos")) {
+				if (characterPlayer.getRealRanks(skill) > Personaje.getInstance().nivel + specializationLevel
+						+ 2
+						|| characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() > 1) {
 					bonus -= 150;
 				}
 			}
-			if (categoriaPadre.DevolverNombre().equals("Listas Abiertas Arcanas")) {
-				if (DevolverRangos() > Personaje.getInstance().nivel + Esher.especializacion + 2
-						|| categoriaPadre.DevolverHabilidadesConNuevosRangos() > 2) {
+			if (categoriaPadre.skill.getName().toLowerCase().equals("Listas Abiertas Arcanas")) {
+				if (characterPlayer.getRealRanks(skill) > Personaje.getInstance().nivel + specializationLevel
+						+ 2
+						|| characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() > 2) {
 					bonus -= 150;
 				}
 			}
@@ -212,22 +229,24 @@ public class SkillProbability {
 				String elemento = nombre.replaceAll("Hechizos Dirigidos de ", "");
 				if (((hab = Personaje.getInstance().DevolverHabilidadDeNombre("Ley del ", elemento)) != null || (hab = Personaje
 						.getInstance().DevolverHabilidadDeNombre("Ley de ", elemento)) != null)
-						&& hab.DevolverRangos() > 0) {
-					bonus += 10 * (hab.DevolverRangos() - DevolverRangos());
+						&& hab.characterPlayer.getRealRanks(skill) > 0) {
+					bonus += 10 * (hab.characterPlayer.getRealRanks(skill) - characterPlayer
+							.getRealRanks(skill));
 				} else {
 					bonus -= 150;
 				}
 			}
-			if (nombre.equals("Desarrollo de Puntos de Poder")) {
-				if (nuevosRangos == 0) {
+			if (skill.getName().toLowerCase().equals("Desarrollo de Puntos de Poder")) {
+				if (characterPlayer.getCurrentLevelRanks(skill) == 0) {
 					bonus += 50;
 				} else {
-					if (rangos + nuevosRangos < Personaje.getInstance().nivel) {
-						bonus += 10 * (Personaje.getInstance().nivel - rangos + nuevosRangos);
+					if (rangos + characterPlayer.getCurrentLevelRanks(skill) < Personaje.getInstance().nivel) {
+						bonus += 10 * (Personaje.getInstance().nivel - rangos + characterPlayer.getCurrentLevelRanks(skill));
 					}
 					// Al menos tener PPs suficientes para lanzar el mejor
 					// hechizo.
-					if (Personaje.getInstance().DevolverMaximoNivelHechizos() > Total()) {
+					if (Personaje.getInstance().DevolverMaximoNivelHechizos() > characterPlayer
+							.getTotalValue(skill)) {
 						bonus += 100;
 					}
 				}
@@ -244,40 +263,42 @@ public class SkillProbability {
 		// Tampoco interesa demasiados artes marciales si no es monje.
 		if (!Personaje.getInstance().profesion.contains("Monje")
 				&& (categoriaPadre.DevolverNombre().startsWith("Artes MarcialesÂ·"))
-				&& categoriaPadre.DevolverHabilidadesConNuevosRangos() > 0
+				&& characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() > 0
 				&& (Personaje.getInstance().CosteCategoriaYHabilidad(categoriaPadre, 0, this) > 2)) {
 			bonus -= 100;
 		}
 
 		// Para los guerreros.
 		if (Personaje.getInstance().EsCombatiente()) {
-			if ((categoriaPadre.DevolverNombre().startsWith("ArmasÂ·")) && nuevosRangos == 0
+			if ((skill.getCategory().getCategoryGroup().equals(CategoryGroup.WEAPON)) && characterPlayer.getCurrentLevelRanks(skill) == 0
 					&& categoriaPadre.costeRango[0] < 2) {
-				if (categoriaPadre.DevolverHabilidadesConNuevosRangos() < 2) {
+				if (characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() < 2) {
 					bonus += 20;
 				}
-				if (categoriaPadre.DevolverHabilidadesConNuevosRangos() < 3) {
+				if (characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() < 3) {
 					bonus += 10;
 				}
 			}
 
-			if (nombre.equals("Desarrollo FÃ­sico") && DevolverRangos() < 10 && nuevosRangos == 0) {
+			if (skill.getName().toLowerCase().equals("Desarrollo FÃ­sico")
+					&& characterPlayer.getRealRanks(skill) < 10 && characterPlayer.getCurrentLevelRanks(skill) == 0) {
 				bonus += 20;
 			}
 			// A veces lo no hechiceros tienen hechizos de opciones de
 			// adiestramiento o cultura.
-			if (nombre.equals("Desarrollo de Puntos de Poder")) {
-				Categoria cat1 = Personaje.getInstance().DevolverCategoriaDeNombre(
+			if (skill.getName().toLowerCase().equals("Desarrollo de Puntos de Poder")) {
+				Category cat1 = Personaje.getInstance().DevolverCategoriaDeNombre(
 						"Listas Abiertas de Hechizos");
-				Categoria cat2 = Personaje.getInstance().DevolverCategoriaDeNombre(
+				Category cat2 = Personaje.getInstance().DevolverCategoriaDeNombre(
 						"Listas Cerradas de Hechizos");
 
-				if (Total() < Math.max(cat1.DevolverMaximoRangosEnHabilidad(),
-						cat2.DevolverMaximoRangosEnHabilidad())) {
+				if (characterPlayer.getTotalValue(skill) < Math.max(cat1.DevolvermaxRanksEnHabilidad(),
+						cat2.DevolvermaxRanksEnHabilidad())) {
 					bonus += Math.min(10 * Personaje.getInstance().nivel, 50);
 				}
 			}
-			if (categoriaPadre.DevolverNombre().startsWith("ArmaduraÂ·") && Total() < 30) {
+			if (categoriaPadre.DevolverNombre().startsWith("ArmaduraÂ·")
+					&& characterPlayer.getTotalValue(skill) < 30) {
 				bonus += 20;
 			}
 		}
@@ -288,37 +309,43 @@ public class SkillProbability {
 	private int AleatorizacionPorRangos() {
 		int bonus = 0;
 
-		/* Nunca mÃ¡s de 50 rangos en una habilidad */
-		if (DevolverRangos() >= 50) {
+		// No more than 50 ranks
+		if (characterPlayer.getRealRanks(skill) >= 50) {
 			return -1000;
 		}
 
 		// Siempre va bien tener algunos puntos de vida.
-		if (nombre.equals("Desarrollo FÃ­sico") && DevolverRangos() == 0) {
+		if (skill.getCategory().getCategoryType().equals(CategoryType.FD)
+				&& characterPlayer.getRealRanks(skill) == 0) {
 			bonus += 40;
 		}
 
-		// No tiene sentido subir un idioma mÃ¡s de 10 rangos;
-		if (categoriaPadre.DevolverNombre().equals("ComunicaciÃ³n") && DevolverRangos() > 9) {
+		// No more than 10 ranks per language.
+		if (skill.getCategory().getName().toLowerCase().contains(Spanish.COMUNICATION_CATEGORY)
+				&& characterPlayer.getRealRanks(skill) > 9) {
 			return -1000;
 		}
 
-		// Las habilidades de comunicaciÃ³n tienen muchos rangos, por lo que
-		// tienen demasiadas probabilidades de subir.
-		if (categoriaPadre.DevolverNombre().equals("ComunicaciÃ³n") && DevolverRangos() > 60) {
+		// No so much communication skills.
+		if (skill.getCategory().getName().toLowerCase().contains(Spanish.COMUNICATION_CATEGORY)
+				&& characterPlayer.getRealRanks(skill) > 60) {
 			bonus -= 40;
 		}
 
-		if (DevolverNombre().equals("Cuero Blando") && Total() > 30) {
+		if (skill.getName().toLowerCase().equals(Spanish.SOFT_LEATHER_TAG)
+				&& characterPlayer.getTotalValue(skill) > 30) {
 			return -1000;
 		}
-		if (DevolverNombre().equals("Cuero Endurecido") && Total() > 90) {
+		if (skill.getName().toLowerCase().equals(Spanish.HARD_LEATHER_TAG)
+				&& characterPlayer.getTotalValue(skill) > 90) {
 			return -1000;
 		}
-		if (DevolverNombre().equals("Cota de Mallas") && Total() > 100) {
+		if (skill.getName().toLowerCase().equals(Spanish.CHAINMAIL_TAG)
+				&& characterPlayer.getTotalValue(skill) > 100) {
 			return -1000;
 		}
-		if (DevolverNombre().equals("Coraza") && Total() > 120) {
+		if (skill.getName().toLowerCase().equals(Spanish.CUIRASS_TAG)
+				&& characterPlayer.getTotalValue(skill) > 120) {
 			return -1000;
 		}
 
@@ -326,7 +353,7 @@ public class SkillProbability {
 		 * Cuando se tiene muchos rangos, es tonteria subir mÃ¡s de un rango en
 		 * una habilidad por nivel
 		 */
-		if (DevolverRangos() > 10 && nuevosRangos > 0) {
+		if (characterPlayer.getRealRanks(skill) > 10 && characterPlayer.getCurrentLevelRanks(skill) > 0) {
 			bonus -= 50;
 		}
 
@@ -335,20 +362,22 @@ public class SkillProbability {
 
 	private int AleatorizacionPorHabilidad() {
 		int bonus = 0;
-		/* Es tonterÃ­a incluir el Main Gauche si no tiene ningun arma mas. */
-		if (DevolverNombre().equals("Main Gauche") && categoriaPadre.DevolverHabilidadesConRangos() < 1) {
+		// Main Guache cannot be the first weapon.
+		if (skill.getName().toLowerCase().equals(Spanish.MAIN_GAUCHE_TAG)
+				&& characterPlayer.getSkillsWithRanks(skill.getCategory()).size() < 1) {
 			return -10000;
 		}
 
-		// Evitemos que aleatoriamente se lancen rocas.
-		if (nombre.contains("Rocas") && DevolverRangos() < 1) {
+		// No rocks in random characters.
+		if (skill.getName().toLowerCase().contains(Spanish.ROCKS_TAG)
+				&& characterPlayer.getRealRanks(skill) < 1) {
 			return -10000;
 		}
 
 		// A veces se aprenden demasiados tipos de armas.
-		if ((categoriaPadre.DevolverNombre().startsWith("ArmasÂ·"))
-				&& categoriaPadre.DevolverHabilidadesConNuevosRangos() > (3 - Personaje.getInstance()
-						.CosteCategoriaYHabilidad(categoriaPadre, 0, this))
+		if ((skill.getCategory().getCategoryGroup().equals(CategoryGroup.WEAPON))
+				&& characterPlayer.getSkillsWithRanks(skill.getCategory()).size() > (3 - characterPlayer
+						.getNewRankCost(skill.getCategory(), 0, 1))
 				|| Personaje.getInstance().DevolverArmasAprendidasEnEsteNivel() > 5) {
 			bonus -= 50;
 		}
@@ -356,45 +385,45 @@ public class SkillProbability {
 	}
 
 	private int AleatorizacionPorOpciones() {
-		if (!Esher.armasFuegoPermitidas && categoriaPadre.DevolverNombre().contains("Armas")
-				&& categoriaPadre.DevolverNombre().contains("Fuego")) {
+		if (!characterPlayer.isFirearmsAllowed()
+				&& skill.getCategory().getCategoryGroup().equals(CategoryGroup.WEAPON)
+				&& skill.getCategory().getName().toLowerCase().contains(Spanish.FIREARMS_SUFIX)) {
 			return -10000;
 		}
 
-		if (!Esher.armasFuegoPermitidas && categoriaPadre.DevolverNombre().contains("Maniobras de Combate")
-				&& DevolverNombre().contains("Fuego")) {
+		if (!characterPlayer.isFirearmsAllowed()
+				&& skill.getCategory().getName().toLowerCase().contains(Spanish.COMBAT_SKILLS_TAG)
+				&& skill.getName().toLowerCase().contains(Spanish.FIREARMS_SUFIX)) {
 			return -10000;
 		}
 		return 0;
 	}
 
 	/**
-	 * Habilidades relacionadas con la profesion del personaje.
+	 * Some skills for spellcsters.
 	 * 
 	 * @return
 	 */
 	private int HabilidadesPreferidasHechiceros() {
 		// Algunos hechizos son mejores.
-		if (Esher.inteligencia) {
-			if (Personaje.getInstance().EsHechicero()) {
-				if (Personaje.getInstance().reino.contains("Esencia")) {
-					if (nombre.equals("MaestrÃ­a de los Escudos")) {
-						return Math.max(50 - Esher.especializacion * 8, 10);
-					}
-					if (nombre.equals("Sendas de la Rapidez")) {
-						return Math.max(20 - Esher.especializacion * 5, 0);
-					}
+		if (Personaje.getInstance().EsHechicero()) {
+			if (Personaje.getInstance().reino.contains("Esencia")) {
+				if (skill.getName().toLowerCase().equals(Spanish.SHIELD_SPELLS_TAG)) {
+					return Math.max(50 - specializationLevel * 8, 10);
 				}
-				if (Personaje.getInstance().reino.contains("Mentalismo")) {
-					if (nombre.equals("EvasiÃ³n de los Ataques")) {
-						return Math.max(50 - Esher.especializacion * 8, 10);
-					}
-					if (nombre.equals("AutocuraciÃ³n")) {
-						return Math.max(30 - Esher.especializacion * 5, 5);
-					}
-					if (nombre.equals("Velocidad")) {
-						return Math.max(20 - Esher.especializacion * 5, 0);
-					}
+				if (skill.getName().toLowerCase().equals(Spanish.QUICKNESS_SPELLS_TAG)) {
+					return Math.max(20 - specializationLevel * 5, 0);
+				}
+			}
+			if (Personaje.getInstance().reino.contains("Mentalismo")) {
+				if (skill.getName().toLowerCase().equals(Spanish.DODGE_SPELLS_TAG)) {
+					return Math.max(50 - specializationLevel * 8, 10);
+				}
+				if (skill.getName().toLowerCase().equals(Spanish.AUTOHEALTH_SPELLS_TAG)) {
+					return Math.max(30 - specializationLevel * 5, 5);
+				}
+				if (skill.getName().toLowerCase().equals(Spanish.SPEED_SPELLS_TAG)) {
+					return Math.max(20 - specializationLevel * 5, 0);
 				}
 			}
 		}
@@ -407,12 +436,10 @@ public class SkillProbability {
 	 * @return
 	 */
 	private int HabilidadesPreferidasLuchadores() {
-		if (Esher.inteligencia) {
-			if (Personaje.getInstance().EsCombatiente()) {
-				if (Personaje.getInstance().adiestramientosAntiguos.contains("Caballero")) {
-					if (nombre.equals("Montar: Caballos")) {
-						return 50;
-					}
+		if (Personaje.getInstance().EsCombatiente()) {
+			if (Personaje.getInstance().adiestramientosAntiguos.contains("Caballero")) {
+				if (skill.getName().toLowerCase().equals("Montar: Caballos")) {
+					return 50;
 				}
 			}
 		}
@@ -425,80 +452,76 @@ public class SkillProbability {
 	 */
 	private int AplicarEspecializacionPersonaje() {
 		int bonus = 0;
-		// Una pequeÃ±a penalizaciÃ³n al aÃ±adir habilidades nuevas que no son
-		// tÃ­picas.
-		if (DevolverRangos() == 0 && !(EsProfesional() || EsComun())) {
-			bonus -= Math.pow(categoriaPadre.DevolverHabilidadesConRangos(), 2) * (Esher.especializacion + 1)
-					* 10;
+		// A malus for not tipics skills
+		if (characterPlayer.getRealRanks(skill) == 0
+				&& !(characterPlayer.isProfessional(skill) || characterPlayer.isCommon(skill))) {
+			bonus -= Math.pow(characterPlayer.getSkillsWithRanks(skill.getCategory()).size(), 2)
+					* (specializationLevel + 1) * 10;
 		}
 		// Evitar demasiada variedad de arma.
-		if (categoriaPadre.DevolverNombre().startsWith("ArmasÂ·")) {
-			if (DevolverRangos() - rangosCultura < 2) {
-				bonus -= Personaje.getInstance().DevolverArmasAprendidas() * (Esher.especializacion + 1) * 5;
+		if (skill.getCategory().getCategoryGroup().equals(CategoryGroup.WEAPON)) {
+			if (characterPlayer.getRealRanks(skill) - rangosCultura < 2) {
+				bonus -= Personaje.getInstance().DevolverArmasAprendidas() * (specializationLevel + 1) * 5;
 			}
 		}
 		// No aÃ±adir demasiados rangos en habilidades de una misma categoria.
-		bonus -= Math.max(Math.pow(categoriaPadre.DevolverHabilidadesConNuevosRangos(), 3)
-				* (Esher.especializacion + 1) * 3, 0);
+		bonus -= Math.max(Math.pow(characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size(), 3)
+				* (specializationLevel + 1) * 3, 0);
 		return bonus;
 	}
 
 	/**
-	 * Da preferencia a aquellas habilidades del personaje que ya han sido
-	 * subidas.
+	 * More important skills with ranks.
 	 */
 	private int HabilidadPreferida() {
 		int prob;
-		prob = (DevolverRangos()) * 5 + (RangosGastadosEnEspecializacion() * 15);
-		if (prob > 50 + RangosGastadosEnEspecializacion() * 15) {
-			prob = 50 + RangosGastadosEnEspecializacion() * 15;
+		prob = (characterPlayer.getRealRanks(skill)) * 5
+				+ (characterPlayer.getRanksSpentInSpecializations(skill) * 15);
+		if (prob > 50 + characterPlayer.getRanksSpentInSpecializations(skill) * 15) {
+			prob = 50 + characterPlayer.getRanksSpentInSpecializations(skill) * 15;
 		}
 		return prob;
 	}
 
 	/**
-	 * Las habilidades comunes y profesionales son mÃ¡s importantes para el
-	 * Personaje.getInstance().
+	 * Select common and professional skills.
 	 */
 	private int FacilidadHabilidad() {
-		if (generalizada) {
+		if (characterPlayer.isGeneralized(skill)) {
 			return 50 - CaroHabilidad() * 5;
 		}
-		if (EsRestringida()) {
+		if (characterPlayer.isRestricted(skill)) {
 			return -1000;
 		}
-		if (EsProfesional()) {
+		if (characterPlayer.isProfessional(skill)) {
 			return 90 - CaroHabilidad() * 10;
 		}
-		if (EsComun()) {
+		if (characterPlayer.isCommon(skill)) {
 			return 75 - CaroHabilidad() * 10;
 		}
 		return 0;
 	}
 
 	/**
-	 * Existen ciertas habilidades que son absurdas tenerlas salvo ocasiones
-	 * especiales.
+	 * Avoid weird skills.
 	 * 
 	 * @return
 	 */
-	private int HabilidadAbsurda() {
-		if (nombre.contains("LicantropÃ­a") || nombre.contains("Osos") || nombre.contains("Camellos")) {
+	private int ridicolousSkill() {
+		if (skill.getName().toLowerCase().contains(Spanish.LICANTROPY_TAG)
+				|| skill.getName().toLowerCase().contains(Spanish.BEARS_TAG)
+				|| skill.getName().toLowerCase().contains(Spanish.CAMEL_TAG)) {
 			return -1000;
 		}
 		return 0;
 	}
 
-	private int MaximoRangos() {
-		if (Personaje.getInstance().nivel == 1 && (DevolverRangos() > 10 && !estiloDeVida)
-				|| (DevolverRangos() > 15 && estiloDeVida)) {
+	private int maxRanks() {
+		if (characterPlayer.getLevelUps().size() == 1
+				&& (characterPlayer.getRemainingDevelopmentPoints() > 10 && !estiloDeVida)
+				|| (characterPlayer.getRemainingDevelopmentPoints() > 15 && estiloDeVida)) {
 			return -1000;
 		}
 		return 0;
 	}
-
-	public void DeshabilitarAleatorio(boolean value) {
-		noElegirAleatorio = value;
-	}
-
 }

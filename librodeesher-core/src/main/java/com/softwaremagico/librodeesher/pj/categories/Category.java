@@ -215,9 +215,9 @@ public abstract class Category {
 	}
 
 	private static CategoryGroup getCategoryGroup(String categoryName) {
-		if (categoryName.startsWith(Spanish.WEAPON_CATEGORY_PREFIX)) {
+		if (categoryName.toLowerCase().startsWith(Spanish.WEAPON_CATEGORY_PREFIX)) {
 			return CategoryGroup.WEAPON;
-		} else if (categoryName.startsWith(Spanish.SPELL_CATEGORY_PREFIX)) {
+		} else if (categoryName.toLowerCase().startsWith(Spanish.SPELL_CATEGORY_PREFIX)) {
 			return CategoryGroup.SPELL;
 		}
 		return CategoryGroup.STANDARD;

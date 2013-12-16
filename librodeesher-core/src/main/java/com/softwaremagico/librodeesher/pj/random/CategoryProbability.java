@@ -67,15 +67,15 @@ public class CategoryProbability {
 		if (!characterPlayer.isFirearmsAllowed() && category.getName().contains(Spanish.FIREARMS_SUFIX)) {
 			bonus = -10000;
 		}
-		if (category.getName().equals(Spanish.LIGHT_ARMOUR_TAG)
+		if (category.getName().toLowerCase().equals(Spanish.LIGHT_ARMOUR_TAG)
 				&& characterPlayer.getTotalValue(category) > 10) {
 			return -1000;
 		}
-		if (category.getName().equals(Spanish.MEDIUM_ARMOUR_TAG)
+		if (category.getName().toLowerCase().equals(Spanish.MEDIUM_ARMOUR_TAG)
 				&& characterPlayer.getTotalValue(category) > 20) {
 			return -1000;
 		}
-		if (category.getName().equals(Spanish.HEAVY_ARMOUR_TAG)
+		if (category.getName().toLowerCase().equals(Spanish.HEAVY_ARMOUR_TAG)
 				&& characterPlayer.getTotalValue(category) > 30) {
 			return -1000;
 		}

@@ -114,7 +114,7 @@ public class SkillFactory {
 
 	private static Skill createSkill(String skillName, SkillType skillType) {
 		SkillGroup group = SkillGroup.STANDARD;
-		if (skillName.startsWith(Spanish.CHI_SUFIX)) {
+		if (skillName.toLowerCase().startsWith(Spanish.CHI_SUFIX)) {
 			group = SkillGroup.CHI;
 		}
 		if (skillName.startsWith(Spanish.FIREARMS_SKILL1) || skillName.startsWith(Spanish.FIREARMS_SKILL2)

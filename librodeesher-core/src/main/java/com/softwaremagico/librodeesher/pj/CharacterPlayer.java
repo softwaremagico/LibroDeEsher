@@ -390,6 +390,16 @@ public class CharacterPlayer {
 		}
 		return result;
 	}
+	
+	public List<Skill> getSkillsWithNewRanks(Category category) {
+		List<Skill> result = new ArrayList<>();
+		for (Skill skill : category.getSkills()) {
+			if (getCurrentLevelRanks(skill) > 0) {
+				result.add(skill);
+			}
+		}
+		return result;
+	}
 
 	private Integer getSpentDevelopmentPointsInSkillsRanks(Integer level) {
 		Integer total = 0;
@@ -604,7 +614,7 @@ public class CharacterPlayer {
 		total += getCultureDecisions().getHobbyRanks(skill.getName());
 		total += getPerksRanks(skill);
 		total += getPreviousLevelsRanks(skill);
-		if (skill.getCategory().getName().equals(Spanish.COMUNICATION_CATEGORY)) {
+		if (skill.getCategory().getName().toLowerCase().equals(Spanish.COMUNICATION_CATEGORY)) {
 			total += getLanguageRanks(skill.getName());
 		}
 		return total;
@@ -1342,4 +1352,11 @@ public class CharacterPlayer {
 		return false;
 	}
 
+	public Integer getRanksSpentInSpecializations(Skill skill) {
+		int total = 0;
+		for (LevelUp level : levelUps) {
+			total += level.getRanksSpentInSpecializations(skill);
+		}
+		return total;
+	}
 }

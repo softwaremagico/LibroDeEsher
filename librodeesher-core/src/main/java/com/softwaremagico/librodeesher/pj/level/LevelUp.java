@@ -63,6 +63,10 @@ public class LevelUp {
 	@CollectionTable(name = "T_LEVEL_UP_TRAININGS_ADQUIRED")
 	private List<String> trainings;
 
+	@ElementCollection
+	@CollectionTable(name = "T_LEVEL_UP_SKILL_SPECIALIZATIONS")
+	private List<String> skillSpecializations;
+
 	public LevelUp() {
 		categoriesRanks = new HashMap<>();
 		skillsRanks = new HashMap<>();
@@ -202,5 +206,23 @@ public class LevelUp {
 
 	public void setSkillsRanks(Map<String, Integer> skillsRanks) {
 		this.skillsRanks = skillsRanks;
+	}
+
+	public List<String> getSkillSpecializations() {
+		return skillSpecializations;
+	}
+
+	public void setSkillSpecializations(List<String> skillSpecializations) {
+		this.skillSpecializations = skillSpecializations;
+	}
+
+	public Integer getRanksSpentInSpecializations(Skill skill) {
+		int total = 0;
+		for (String speciality : skill.getSpecialities()) {
+			if (skillSpecializations.contains(speciality)) {
+				total++;
+			}
+		}
+		return total;
 	}
 }
