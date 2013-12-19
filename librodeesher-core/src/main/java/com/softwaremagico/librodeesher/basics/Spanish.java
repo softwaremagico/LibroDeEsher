@@ -27,7 +27,6 @@ package com.softwaremagico.librodeesher.basics;
 public class Spanish {
 	public final static String SPOKEN_TAG = "Hablar";
 	public final static String WRITTEN_TAG = "Escribir";
-	public static final String OPEN_LISTS = "Listas Abiertas de Hechizos";
 	public static final String OTHER_REALM_TRAINING_LISTS = "Listas Hechizos de Adiestramientos de Otros Reinos";
 	public static final String FIREARMS_SUFIX = "Fuego";
 	public static final String DEFAULT_NAME = " ** Nuevo Personaje ** ";
@@ -81,7 +80,7 @@ public class Spanish {
 	public static final String ROCKS_TAG = "rocas";
 	public static final String MAIN_GAUCHE_TAG = "main gauche";
 	public static final String COMBAT_SKILLS_TAG = "maniobras de combate";
-	public static final String SHIELD_SPELLS_TAG = "maestrí­a de los escudos";
+	public static final String SHIELD_SPELLS_TAG = "maestría de los escudos";
 	public static final String QUICKNESS_SPELLS_TAG = "sendas de la rapidez";
 	public static final String SPEED_SPELLS_TAG = "velocidad";
 	public static final String DODGE_SPELLS_TAG = "evasión de los ataques";
@@ -93,4 +92,5 @@ public class Spanish {
 	public static final String ORCS_TAG = "orco";
 	public static final String DWARF_TAG = "enano";
 	public static final String RACIAL_ATTACK_TAG = "ataque racial";
+	public static final String AIMED_SPELLS = "Hechizos Dirigidos de";
 }

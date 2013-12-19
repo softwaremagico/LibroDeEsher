@@ -281,7 +281,7 @@ public class CharacterPlayer {
 				+ getCharacteristicSpecialBonus(abbreviature);
 	}
 
-	public Integer getCharacterLevel() {
+	public Integer getCurrentLevelNumber() {
 		return levelUps.size();
 	}
 
