@@ -266,6 +266,7 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			selectedCharacter.increaseLevel();
+			mainGui.update();
 		}
 	}
 

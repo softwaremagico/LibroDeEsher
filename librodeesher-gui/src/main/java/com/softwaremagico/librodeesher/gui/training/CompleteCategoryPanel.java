@@ -29,13 +29,14 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.training.Training;
 
 public class CompleteCategoryPanel extends BaseScrollPanel {
+	private static final long serialVersionUID = -8277707872122891420L;
 	private CategoryTitleLine title;
-	private CategoryPanel categoryPanel;
+	private TrainingCategoryPanel categoryPanel;
 
 	public CompleteCategoryPanel(CharacterPlayer character, Training training) {
 		title = new CategoryTitleLine();
 		addTitle(title);
-		categoryPanel = new CategoryPanel(character, training, this);
+		categoryPanel = new TrainingCategoryPanel(character, training, this);
 		addBody(categoryPanel);
 	}
 
@@ -43,7 +44,7 @@ public class CompleteCategoryPanel extends BaseScrollPanel {
 		title.sizeChanged();
 	}
 
-	public void update(Training training) {
-		categoryPanel.update(training);
+	public void update() {
+		categoryPanel.update();
 	}
 }

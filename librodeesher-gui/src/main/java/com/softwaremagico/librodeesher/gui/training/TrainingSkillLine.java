@@ -3,10 +3,15 @@ package com.softwaremagico.librodeesher.gui.training;
 import java.awt.Color;
 import java.awt.GridLayout;
 
+import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.text.DefaultFormatter;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseComboBox;
 import com.softwaremagico.librodeesher.gui.elements.BaseSpinner;
@@ -42,33 +47,35 @@ import com.softwaremagico.librodeesher.pj.training.TrainingSkill;
  */
 
 public class TrainingSkillLine extends BaseLine {
+	private static final long serialVersionUID = 8590311992050051013L;
 	private CharacterPlayer character;
-	private TrainingCategory category;
-	private TrainingSkill skill;
-	private CategoryPanel parent;
+	private TrainingCategory trainingCategory;
+	private TrainingSkill trainingSkill;
+	private TrainingCategoryPanel parentPanel;
 	private SkillComboBox<String> chooseSkillsComboBox = null;
 	protected BaseSpinner rankSpinner;
 
 	protected TrainingSkillLine(CharacterPlayer character, TrainingCategory category, TrainingSkill skill,
-			CategoryPanel parent, Color background) {
+			TrainingCategoryPanel parent, Color background) {
 		this.character = character;
-		this.skill = skill;
-		this.parent = parent;
-		this.category = category;
+		this.trainingSkill = skill;
+		this.parentPanel = parent;
+		this.trainingCategory = category;
 		this.background = background;
 		setElements();
 	}
 
 	private void addItemsToComboBox() {
 		chooseSkillsComboBox.removeAllItems();
-		for (String categoryName : skill.getSkillOptions()) {
+		for (String categoryName : trainingSkill.getSkillOptions()) {
 			chooseSkillsComboBox.addItem(categoryName);
 		}
 	}
 
 	private ListBackgroundPanel getSkillOrGroup() {
-		if (!skill.needToChooseOneSkill()) {
-			ListLabel categoryLabel = new ListLabel(skill.getName(), SwingConstants.LEFT, 150, columnHeight);
+		if (!trainingSkill.needToChooseOneSkill()) {
+			ListLabel categoryLabel = new ListLabel(trainingSkill.getName(), SwingConstants.LEFT, 150,
+					columnHeight);
 			return new ListBackgroundPanel(categoryLabel, background);
 		} else {
 			chooseSkillsComboBox = new SkillComboBox<>();
@@ -92,13 +99,39 @@ public class TrainingSkillLine extends BaseLine {
 		add(new ListBackgroundPanel(maxHab, background));
 
 		JPanel spinnerPanel = new JPanel();
-		SpinnerModel sm = new SpinnerNumberModel((int) skill.getRanks(), (int) skill.getRanks(),
-				(int) category.getSkillRanks() - category.getMinSkills() + 1, 1);
+		SpinnerModel sm = new SpinnerNumberModel((int) trainingSkill.getRanks(),
+				(int) trainingSkill.getRanks(), (int) trainingCategory.getSkillRanks()
+						- trainingCategory.getMinSkills() + 1, 1);
 		rankSpinner = new BaseSpinner(sm);
 		spinnerPanel.add(rankSpinner);
 		spinnerPanel.setBackground(background);
 		add(spinnerPanel, background);
+		addRankSpinnerEvent();
+	}
 
+	protected void addRankSpinnerEvent() {
+		JComponent comp = rankSpinner.getEditor();
+		JFormattedTextField field = (JFormattedTextField) comp.getComponent(0);
+		DefaultFormatter formatter = (DefaultFormatter) field.getFormatter();
+		formatter.setCommitsOnValidEdit(true);
+		rankSpinner.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				// Correct the spinner
+				if (parentPanel.getSpinnerValues() > trainingCategory.getSkillRanks()) {
+					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
+				} else {
+					// Update character
+					character.getTrainingDecisions(parentPanel.getTraining().getName()).addSkillRank(
+							trainingCategory, trainingSkill, (Integer) rankSpinner.getValue());
+				}
+			}
+		});
+	}
+
+	public int getSelectedRanks() {
+		return (Integer) rankSpinner.getValue();
 	}
 
 	protected class SkillComboBox<E> extends BaseComboBox<E> {

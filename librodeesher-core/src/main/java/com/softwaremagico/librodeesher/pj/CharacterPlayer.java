@@ -1306,6 +1306,10 @@ public class CharacterPlayer {
 	protected void setTrainings(List<Training> trainings) {
 		this.trainings = trainings;
 	}
+	
+	public TrainingDecision getTrainingDecisions(String trainingName) {
+		return trainingDecisions.get(trainingName);
+	}
 
 	protected Map<String, TrainingDecision> getTrainingDecisions() {
 		return trainingDecisions;

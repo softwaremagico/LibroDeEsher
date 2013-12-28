@@ -47,4 +47,5 @@ class TrainingSkillsSelected {
 	protected void setSkills(List<String> skills) {
 		this.skills = skills;
 	}
+	
 }

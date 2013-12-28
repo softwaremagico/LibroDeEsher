@@ -25,26 +25,31 @@ package com.softwaremagico.librodeesher.gui.training;
  */
 
 import java.awt.GridLayout;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.softwaremagico.librodeesher.gui.culture.WeaponSkillLine;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingCategory;
 import com.softwaremagico.librodeesher.pj.training.TrainingSkill;
 
-public class CategoryPanel extends BasePanel {
+public class TrainingCategoryPanel extends BasePanel {
+	private static final long serialVersionUID = -1784471371595517238L;
 	private CharacterPlayer character;
 	private CompleteCategoryPanel parent;
+	private List<TrainingSkillLine> trainingSkillLines = new ArrayList<>();
+	private Training training;
 
-	public CategoryPanel(CharacterPlayer character, Training training, CompleteCategoryPanel parent) {
+	public TrainingCategoryPanel(CharacterPlayer character, Training training, CompleteCategoryPanel parent) {
 		this.character = character;
 		this.parent = parent;
-		setElements(training);
+		this.training = training;
+		setElements();
 	}
 
-	private void setElements(Training training) {
+	private void setElements() {
 		this.removeAll();
 		setLayout(new GridLayout(0, 1));
 		int i = 0;
@@ -61,6 +66,7 @@ public class CategoryPanel extends BasePanel {
 							getLineBackgroundColor(i));
 					add(skillLine);
 					i++;
+					trainingSkillLines.add(skillLine);
 				}
 			}
 		}
@@ -70,8 +76,16 @@ public class CategoryPanel extends BasePanel {
 	public void update() {
 	}
 
-	public void update(Training training) {
-		setElements(training);
+	protected Integer getSpinnerValues() {
+		Integer total = 0;
+		for (TrainingSkillLine lines : trainingSkillLines) {
+			total += lines.getSelectedRanks();
+		}
+		return total;
+	}
+
+	public Training getTraining() {
+		return training;
 	}
 
 }

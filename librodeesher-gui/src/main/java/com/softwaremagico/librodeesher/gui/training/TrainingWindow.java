@@ -162,7 +162,7 @@ public class TrainingWindow extends BaseFrame {
 	@Override
 	public void update() {
 		setDevelopmentPointText();
-		categoryPanel.update(TrainingFactory.getTraining(trainingsAvailable.getSelectedItem().toString()));
+		categoryPanel.update();
 		fillTrainingComboBox();
 	}
 

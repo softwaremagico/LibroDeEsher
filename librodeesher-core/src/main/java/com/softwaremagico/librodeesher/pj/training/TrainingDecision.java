@@ -46,6 +46,10 @@ public class TrainingDecision {
 		}
 		return categories.getAll();
 	}
+	
+	public void addSkillRank(TrainingCategory trainingCategory, TrainingSkill skill, int ranks){
+		skillsSelected.get(trainingCategory)
+	}
 
 	protected Long getId() {
 		return id;
