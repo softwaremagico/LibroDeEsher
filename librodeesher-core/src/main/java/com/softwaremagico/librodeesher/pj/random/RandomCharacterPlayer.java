@@ -411,25 +411,19 @@ public class RandomCharacterPlayer {
 						j--;
 					}
 
-					// Permitimos que el PNJ pueda coger alguna especialización.
+					// Add specializations.
 					for (int k = 0; k < skill.getSpecialities().size(); k++) {
-						// Si no existe ya...
-						if (!characterPlayer.getSkillSpecializations(skill).contains(
-								skill.getSpecialities().get(k))
-								&& !characterPlayer.isGeneralized(skill)) {
-							// Se le da una posibilidad de añadirse.
-							if (Math.random() * 100 < specializationLevel) {
-								characterPlayer.addSkillSpecialization(skill.getSpecialities().get(k));
-							}
+						// Se le da una posibilidad de añadirse.
+						if (Math.random() * 100 < specializationLevel) {
+							characterPlayer.addSkillSpecialization(skill, skill.getSpecialities().get(k));
 						}
 					}
-					// // O una generalización.
-					// if (!characterPlayer.isRestricted(skill) &&
-					// !characterPlayer.isSpecialized(skill)) {
-					// if (Math.random() * 100 + 1 < -specializationLevel) {
-					// characterPlayer.setGeneralized(skill);
-					// }
-					// }
+					// Or generalization
+					if (!characterPlayer.isRestricted(skill) && !characterPlayer.isSkillSpecialized(skill)) {
+						if (Math.random() * 100 < -specializationLevel) {
+							characterPlayer.addSkillGeneralized(skill);
+						}
+					}
 				}
 			}
 		}

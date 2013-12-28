@@ -502,9 +502,9 @@ public class SkillProbability {
 	private int HabilidadPreferida() {
 		int prob;
 		prob = (characterPlayer.getRealRanks(skill)) * 5
-				+ (characterPlayer.getRanksSpentInSpecializations(skill) * 15);
-		if (prob > 50 + characterPlayer.getRanksSpentInSpecializations(skill) * 15) {
-			prob = 50 + characterPlayer.getRanksSpentInSpecializations(skill) * 15;
+				+ (characterPlayer.getRanksSpentInSkillSpecializations(skill) * 15);
+		if (prob > 50 + characterPlayer.getRanksSpentInSkillSpecializations(skill) * 15) {
+			prob = 50 + characterPlayer.getRanksSpentInSkillSpecializations(skill) * 15;
 		}
 		return prob;
 	}
@@ -513,7 +513,7 @@ public class SkillProbability {
 	 * Select common and professional skills.
 	 */
 	private int FacilidadHabilidad() {
-		if (characterPlayer.isGeneralized(skill)) {
+		if (characterPlayer.isSkillGeneralized(skill)) {
 			return 50 - skillExpensiveness() * 5;
 		}
 		if (characterPlayer.isRestricted(skill)) {

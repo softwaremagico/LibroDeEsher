@@ -688,7 +688,7 @@ public class CharacterPlayer {
 		Float modifier = (float) 1;
 		if (isRestricted(skill)) {
 			modifier = (float) 0.5;
-		} else if (isGeneralized(skill)) {
+		} else if (isSkillGeneralized(skill)) {
 			if (isCommon(skill) || isProfessional(skill)) {
 				modifier = (float) 1;
 			} else {
@@ -1193,7 +1193,7 @@ public class CharacterPlayer {
 
 	public void addTraining(String trainingName) {
 		if (levelUps.size() > 0) {
-			levelUps.get(levelUps.size() - 1).addTraining(trainingName);
+			getCurrentLevel().addTraining(trainingName);
 		}
 	}
 
@@ -1398,17 +1398,20 @@ public class CharacterPlayer {
 		return specialities;
 	}
 
-	public void addSkillSpecialization(String specialization) {
-		getCurrentLevel().addSkillSpecialization(specialization);
-	}
+	public void addSkillSpecialization(Skill skill, String specialization) {
 
-	public void setGeneralized(Skill skill) {
-		if (!getLevelUps().get(getLevelUps().size() - 1).getGeneralizedSkills().contains(skill.getName())) {
-			getLevelUps().get(getLevelUps().size() - 1).getGeneralizedSkills().add(skill.getName());
+		if (!getSkillSpecializations(skill).contains(specialization) && !isSkillGeneralized(skill)) {
+			getCurrentLevel().addSkillSpecialization(specialization);
 		}
 	}
 
-	public boolean isGeneralized(Skill skill) {
+	public void addSkillGeneralized(Skill skill) {
+		if (!isSkillGeneralized(skill)) {
+			getCurrentLevel().getGeneralizedSkills().add(skill.getName());
+		}
+	}
+
+	public boolean isSkillGeneralized(Skill skill) {
 		for (LevelUp level : getLevelUps()) {
 			if (level.getGeneralizedSkills().contains(skill.getName())) {
 				return true;
@@ -1417,7 +1420,7 @@ public class CharacterPlayer {
 		return false;
 	}
 
-	public Integer getRanksSpentInSpecializations(Skill skill) {
+	public Integer getRanksSpentInSkillSpecializations(Skill skill) {
 		int total = 0;
 		for (LevelUp level : levelUps) {
 			total += level.getRanksSpentInSpecializations(skill);
