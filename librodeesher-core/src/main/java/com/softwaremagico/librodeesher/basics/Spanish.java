@@ -27,6 +27,8 @@ package com.softwaremagico.librodeesher.basics;
 public class Spanish {
 	public final static String SPOKEN_TAG = "Hablar";
 	public final static String WRITTEN_TAG = "Escribir";
+	public static final String OPEN_LISTS = "Listas Abiertas de Hechizos";
+	public static final String CLOSED_LISTS = "Listas Hechizos de Adiestramientos de Otros Reinos";
 	public static final String OTHER_REALM_TRAINING_LISTS = "Listas Hechizos de Adiestramientos de Otros Reinos";
 	public static final String FIREARMS_SUFIX = "Fuego";
 	public static final String DEFAULT_NAME = " ** Nuevo Personaje ** ";
@@ -63,6 +65,7 @@ public class Spanish {
 	public static final String ALL_TAG = "todas";
 	public static final String OPEN_LIST_TAG = "Lista Abierta";
 	public static final String CLOSED_LIST_TAG = "Lista Cerrada";
+	public static final String BASIC_LIST_TAG = "listas básicas de hechizos";
 	public static final String ESSENCE_DARK_LIST_TAG = "Esencia Maligna";
 	public static final String CANALIZATION_DARK_LIST_TAG = "Canalización Maligna";
 	public static final String MENTALISM_DARK_LIST_TAG = "Mentalismo Maligno";
@@ -93,4 +96,9 @@ public class Spanish {
 	public static final String DWARF_TAG = "enano";
 	public static final String RACIAL_ATTACK_TAG = "ataque racial";
 	public static final String AIMED_SPELLS = "Hechizos Dirigidos de";
+	public static final String ADRENAL_SKILL = "adrenal";
+	public static final String MONK_PROFESSION = "monk";
+	public static final String KNIGHT_TRAINING = "caballero";
+	public static final String MARTIAL_ARTS_PREFIX = "artes marciales·";
+	public static final String SPELL_LAW_PREFIX = "ley del";
 }

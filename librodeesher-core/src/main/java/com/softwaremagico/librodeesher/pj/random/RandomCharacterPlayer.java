@@ -6,13 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.softwaremagico.librodeesher.basics.Spanish;
-import com.softwaremagico.librodeesher.config.Config;
-import com.softwaremagico.librodeesher.config.Log;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.SexType;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
-import com.softwaremagico.librodeesher.pj.categories.CategoryType;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
@@ -383,60 +380,59 @@ public class RandomCharacterPlayer {
 	}
 
 	private void ObtenerRangosAleatorios(List<Category> shuffledCategoryList) {
-		// Lo barajamos para que haya más aleatoriedad.
+		// shuffle it!
 		for (int i = 0; i < shuffledCategoryList.size(); i++) {
 			Category cat = shuffledCategoryList.get(i);
 			if (Math.random() * 100 + 1 < new CategoryProbability(characterPlayer, cat, tries,
 					suggestedSkillsRanks, specializationLevel).rankProbability()) {
-				characterPlayer
-						.getLevelUps()
-						.get(0)
-						.setCategoryRanks(cat.getName(),
-								characterPlayer.getLevelUps().get(0).getCategoryRanks(cat.getName()) + 1);
+				characterPlayer.getCurrentLevel().setCategoryRanks(cat.getName(),
+						characterPlayer.getCurrentLevel().getCategoryRanks(cat.getName()) + 1);
 			}
 			List<Skill> shuffledSkillList = cat.getSkills();
 			Collections.shuffle(shuffledSkillList);
 			for (int j = 0; j < shuffledSkillList.size(); j++) {
 				Skill skill = shuffledSkillList.get(j);
-				if (Math.random() * 100 + 1 < skill.ProbabilidadSubida()) {
-					// Contar los hechizos subidos para aplicar el multiplicador
-					// por mas de 5 listas.
-					if (characterPlayer.getCurrentLevelRanks(skill) == 0) {
-						skill.multiplicadorCosteHechizos = Personaje.getInstance()
-								.DevolverMultiplicadoCosteHechizos();
-					}
+				if (Math.random() * 100 + 1 < new SkillProbability(characterPlayer, skill, tries,
+						suggestedSkillsRanks, specializationLevel).getRankProbability()) {
+					characterPlayer.getCurrentLevel().setSkillsRanks(skill,
+							characterPlayer.getCurrentLevel().getSkillsRanks(skill.getName()) + 1);
 					// Si da opciones de nuevas habilidades, se incluyen ahora.
-					if (skill.habilidadesNuevasPosibles.size() > 0
-							&& cat.NumeroHabilidadesExistes(skill.habilidadesNuevasPosibles) == 0) {
-						cat.AddHabilidad(Habilidad.getSkill(cat, skill.habilidadesNuevasPosibles
-								.get(generator.nextInt(skill.habilidadesNuevasPosibles.size()))));
-					}
-					// Permitimos que una habilidad tenga posibilidades de subir
-					// dos rangos.
+					// if (skill.habilidadesNuevasPosibles.size() > 0
+					// &&
+					// cat.NumeroHabilidadesExistes(skill.habilidadesNuevasPosibles)
+					// == 0) {
+					// cat.AddHabilidad(Habilidad.getSkill(cat,
+					// skill.habilidadesNuevasPosibles
+					// .get(generator.nextInt(skill.habilidadesNuevasPosibles.size()))));
+					// }
+
+					// A skill can be updated more than one rank.
 					if (specializationLevel > 0) {
 						j--;
 					}
+
 					// Permitimos que el PNJ pueda coger alguna especialización.
-					for (int k = 0; k < skill.especializacionPosible.size(); k++) {
+					for (int k = 0; k < skill.getSpecialities().size(); k++) {
 						// Si no existe ya...
-						if (!skill.especializacion.contains(skill.especializacionPosible.get(k))
+						if (!characterPlayer.getSkillSpecializations(skill).contains(
+								skill.getSpecialities().get(k))
 								&& !characterPlayer.isGeneralized(skill)) {
 							// Se le da una posibilidad de añadirse.
 							if (Math.random() * 100 < specializationLevel) {
-								skill.AñadirEspecializacion(true, skill.especializacionPosible.get(k), "");
+								characterPlayer.addSkillSpecialization(skill.getSpecialities().get(k));
 							}
 						}
 					}
-					// O una generalización.
-					if (!characterPlayer.isRestricted(skill) && !characterPlayer.isSpecialized(skill)) {
-						if (Math.random() * 100 + 1 < -specializationLevel) {
-							characterPlayer.setGeneralized(skill);
-						}
-					}
+					// // O una generalización.
+					// if (!characterPlayer.isRestricted(skill) &&
+					// !characterPlayer.isSpecialized(skill)) {
+					// if (Math.random() * 100 + 1 < -specializationLevel) {
+					// characterPlayer.setGeneralized(skill);
+					// }
+					// }
 				}
 			}
 		}
 		tries++;
 	}
-
 }

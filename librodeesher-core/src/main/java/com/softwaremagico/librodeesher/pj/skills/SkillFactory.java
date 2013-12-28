@@ -107,6 +107,16 @@ public class SkillFactory {
 		return skill;
 	}
 
+	public static Skill getSkill(String skillPrefix, String containText) {
+		for (Skill skill : availableSkills.values()) {
+			if (skill.getName().toLowerCase().startsWith(skillPrefix)
+					&& skill.getName().toLowerCase().contains((containText))) {
+				return skill;
+			}
+		}
+		return null;
+	}
+
 	private static Skill createSkill(String skillNameAndType) {
 		SkillType skillType = SkillType.getSkillType(skillNameAndType);
 		return createSkill(removeTypeFromName(skillNameAndType), skillType);
@@ -139,8 +149,8 @@ public class SkillFactory {
 	public static List<Skill> getSkills(List<String> skillsNames) {
 		List<Skill> allSkills = getSkills();
 		List<Skill> skills = new ArrayList<>();
-		for(Skill skill : allSkills){
-			if(skillsNames.contains(skill.getName())){
+		for (Skill skill : allSkills) {
+			if (skillsNames.contains(skill.getName())) {
 				skills.add(skill);
 			}
 		}

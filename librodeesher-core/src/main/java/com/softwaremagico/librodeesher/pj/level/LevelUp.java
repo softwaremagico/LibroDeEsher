@@ -208,8 +208,22 @@ public class LevelUp {
 		this.skillsRanks = skillsRanks;
 	}
 
+	public List<String> getSkillSpecializations(Skill skill) {
+		List<String> specialities = new ArrayList<>();
+		for (String speciality : skill.getSpecialities()) {
+			if (getSkillSpecializations().contains(speciality)) {
+				specialities.add(speciality);
+			}
+		}
+		return specialities;
+	}
+
 	public List<String> getSkillSpecializations() {
 		return skillSpecializations;
+	}
+	
+	public void addSkillSpecialization(String specialization){
+		skillSpecializations.add(specialization);
 	}
 
 	public void setSkillSpecializations(List<String> skillSpecializations) {

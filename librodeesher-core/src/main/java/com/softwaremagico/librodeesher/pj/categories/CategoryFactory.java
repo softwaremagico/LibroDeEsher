@@ -129,7 +129,27 @@ public class CategoryFactory {
 	}
 
 	public static Category getCategory(String categoryName) {
-		return availableCategories.get(categoryName);
+		Category category = availableCategories.get(categoryName);
+		if (category != null) {
+			return category;
+		}
+		// Category name in different case;
+		for (Category availableCategory : availableCategories.values()) {
+			if (availableCategory.getName().toLowerCase().equals(categoryName.toLowerCase())) {
+				return availableCategory;
+			}
+		}
+		return null;
+	}
+
+	public static Category getCategory(String categoryPrefix, String containText) {
+		for (Category availableCategory : availableCategories.values()) {
+			if (availableCategory.getName().toLowerCase().startsWith(categoryPrefix)
+					&& availableCategory.getName().toLowerCase().contains((containText))) {
+				return availableCategory;
+			}
+		}
+		return null;
 	}
 
 	/**

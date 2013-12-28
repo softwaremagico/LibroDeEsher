@@ -197,6 +197,53 @@ public class CharacterPlayer {
 		otherRealmtrainingSpellsAllowed = Config.getOtherRealmtrainingSpells();
 	}
 
+	/**
+	 * Is a non magic profession.
+	 */
+	public boolean isFighter() {
+		if (getRealmOfMagic().getRealmsOfMagic().size() < 3) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Can cast spells.
+	 * 
+	 * @return
+	 */
+	public boolean isWizard() {
+		return isPureWizard() || isHybridWizard() || isSemiWizard();
+	}
+
+	/**
+	 * Is a pure wizard.
+	 * 
+	 * @return
+	 */
+	public boolean isPureWizard() {
+		return (getNewRankCost(CategoryFactory.getCategory(Spanish.BASIC_LIST_TAG), 0, 1) == 3);
+	}
+
+	/**
+	 * Wizards of two realms.
+	 * 
+	 * @return
+	 */
+	public boolean isHybridWizard() {
+		return (getNewRankCost(CategoryFactory.getCategory(Spanish.BASIC_LIST_TAG), 0, 1) == 3 && getRealmOfMagic()
+				.getRealmsOfMagic().size() == 2);
+	}
+
+	/**
+	 * Is semi wizard.
+	 * 
+	 * @return
+	 */
+	public boolean isSemiWizard() {
+		return (getNewRankCost(CategoryFactory.getCategory(Spanish.BASIC_LIST_TAG), 0, 1) == 6);
+	}
+
 	public CultureDecisions getCultureDecisions() {
 		return cultureDecisions;
 	}
@@ -390,7 +437,7 @@ public class CharacterPlayer {
 		}
 		return result;
 	}
-	
+
 	public List<Skill> getSkillsWithNewRanks(Category category) {
 		List<Skill> result = new ArrayList<>();
 		for (Skill skill : category.getSkills()) {
@@ -559,7 +606,7 @@ public class CharacterPlayer {
 		}
 	}
 
-	private LevelUp getCurrentLevel() {
+	public LevelUp getCurrentLevel() {
 		return levelUps.get(levelUps.size() - 1);
 	}
 
@@ -1332,9 +1379,27 @@ public class CharacterPlayer {
 		return false;
 	}
 
-	public boolean isSpecialized(Skill skill) {
-		// TODO
+	public boolean isSkillSpecialized(Skill skill) {
+		for (String speciality : skill.getSpecialities()) {
+			for (LevelUp level : getLevelUps()) {
+				if (level.getSkillSpecializations().contains(speciality)) {
+					return true;
+				}
+			}
+		}
 		return false;
+	}
+
+	public List<String> getSkillSpecializations(Skill skill) {
+		List<String> specialities = new ArrayList<>();
+		for (LevelUp level : getLevelUps()) {
+			specialities.addAll(level.getSkillSpecializations(skill));
+		}
+		return specialities;
+	}
+
+	public void addSkillSpecialization(String specialization) {
+		getCurrentLevel().addSkillSpecialization(specialization);
 	}
 
 	public void setGeneralized(Skill skill) {
@@ -1359,4 +1424,19 @@ public class CharacterPlayer {
 		}
 		return total;
 	}
+
+	public int getWeaponsLearnedInCurrentLevel() {
+		int skillsIncreased = 0;
+		for (Category category : CategoryFactory.getCategories()) {
+			if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
+				skillsIncreased += getSkillsWithNewRanks(category).size();
+			}
+		}
+		return skillsIncreased;
+	}
+
+	public boolean isLifeStyle(Skill skill) {
+		return false;
+	}
+
 }
