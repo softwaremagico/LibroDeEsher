@@ -78,6 +78,7 @@ public class Controller {
 		mainGui.getMainMenu().addPerksWindowListener(new PerksWindowsListener());
 		mainGui.getMainMenu().addProfessionWindowListener(new ProfessionWindowsListener());
 		mainGui.getMainMenu().addTrainingWindowListener(new TrainingWindowsListener());
+		mainGui.getMainMenu().addLevelUpActionListener(new IncreaseLevelActionListener());
 	}
 
 	class NewCharacterListener implements ActionListener {
@@ -220,7 +221,7 @@ public class Controller {
 			historyWindow.setVisible(true);
 		}
 	}
-	
+
 	class PerksWindowsListener implements ActionListener {
 
 		@Override
@@ -233,7 +234,7 @@ public class Controller {
 			perksWindow.setVisible(true);
 		}
 	}
-	
+
 	class ProfessionWindowsListener implements ActionListener {
 
 		@Override
@@ -246,7 +247,7 @@ public class Controller {
 			professionWindow.setVisible(true);
 		}
 	}
-	
+
 	class TrainingWindowsListener implements ActionListener {
 
 		@Override
@@ -257,6 +258,14 @@ public class Controller {
 			}
 			trainingWindow = new TrainingWindow(selectedCharacter);
 			trainingWindow.setVisible(true);
+		}
+	}
+
+	class IncreaseLevelActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			selectedCharacter.increaseLevel();
 		}
 	}
 

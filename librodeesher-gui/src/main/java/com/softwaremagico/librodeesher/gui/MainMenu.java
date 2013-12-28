@@ -313,6 +313,10 @@ public class MainMenu {
 	public void addProfessionWindowListener(ActionListener al) {
 		professionMenuItem.addActionListener(al);
 	}
+	
+	public void addLevelUpActionListener(ActionListener al) {
+		levelUpMenuItem.addActionListener(al);
+	}
 
 	class CloseListener implements ActionListener {
 

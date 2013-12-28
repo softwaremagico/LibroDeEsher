@@ -164,7 +164,6 @@ public class CharacterPlayer {
 		characteristics = new Characteristics();
 		appearance = new Appearance();
 		levelUps = new ArrayList<>();
-		levelUps.add(new LevelUp());
 		historial = new Historial();
 		characteristicsInitialTemporalValues = new HashMap<>();
 		characteristicsTemporalUpdatesRolls = new HashMap<>();
@@ -179,6 +178,8 @@ public class CharacterPlayer {
 		trainings = new ArrayList<>();
 		perks = new ArrayList<>();
 		setDefaultConfig();
+		// Start in level 1.
+		increaseLevel();
 	}
 
 	public Integer getAppearance() {
@@ -1440,6 +1441,10 @@ public class CharacterPlayer {
 
 	public boolean isLifeStyle(Skill skill) {
 		return false;
+	}
+
+	public void increaseLevel() {
+		levelUps.add(new LevelUp());
 	}
 
 }
