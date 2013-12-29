@@ -103,12 +103,12 @@ public class Skill {
 			return getCategory().getSkillRankValues(ranksNumber);
 		case PPD:
 			Integer total = 0;
-			for (RealmOfMagic realm : character.getProfessionalRealmsOfMagicChoosen().getRealmsOfMagic()) {
+			for (RealmOfMagic realm : character.getRealmOfMagic().getRealmsOfMagic()) {
 				ProgressionCostType progressionValue = ProgressionCostType.getProgressionCostType(realm);
 				total += getCategory().getSkillRankValues(ranksNumber,
 						character.getRace().getProgressionRankValues(progressionValue));
 			}
-			return total / character.getProfessionalRealmsOfMagicChoosen().getRealmsOfMagic().size();
+			return total / character.getRealmOfMagic().getRealmsOfMagic().size();
 		case FD:
 			return getCategory().getSkillRankValues(ranksNumber,
 					character.getRace().getProgressionRankValues(ProgressionCostType.PHYSICAL_DEVELOPMENT));

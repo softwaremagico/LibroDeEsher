@@ -44,7 +44,7 @@ public class SpellPanel extends CulturePanel {
 		int i = 0;
 
 		if (character.getCulture().getSpellRanks() != 0) {
-			List<String> spellLists = MagicFactory.getListOfProfession(character.getProfessionalRealmsOfMagicChoosen()
+			List<String> spellLists = MagicFactory.getListOfProfession(character.getRealmOfMagic()
 					.getRealmsOfMagic(), Spanish.OPEN_LIST_TAG);
 
 			for (String spell : spellLists) {

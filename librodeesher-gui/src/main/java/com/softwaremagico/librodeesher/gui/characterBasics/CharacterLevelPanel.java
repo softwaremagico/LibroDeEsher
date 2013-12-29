@@ -138,9 +138,9 @@ public class CharacterLevelPanel extends BasePanel {
 				for (ProfessionalRealmsOfMagicOptions magicRealm : magicRealms) {
 					magicComboBox.addItem(magicRealm);
 				}
-				if (character.getProfessionalRealmsOfMagicChoosen() != null) {
-					magicComboBox.setSelectedItem(character.getProfessionalRealmsOfMagicChoosen());
-					if (getSelectedRealmOfMagic() != character.getProfessionalRealmsOfMagicChoosen()) {
+				if (character.getRealmOfMagic() != null) {
+					magicComboBox.setSelectedItem(character.getRealmOfMagic());
+					if (getSelectedRealmOfMagic() != character.getRealmOfMagic()) {
 						updateRealmOfMagic();
 					}
 				}

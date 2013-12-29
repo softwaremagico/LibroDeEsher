@@ -377,10 +377,6 @@ public class CharacterPlayer {
 		return race;
 	}
 
-	public ProfessionalRealmsOfMagicOptions getProfessionalRealmsOfMagicChoosen() {
-		return realmOfMagic;
-	}
-
 	public Integer getResistanceBonus(ResistanceType type) {
 		switch (type) {
 		case CANALIZATION:
@@ -1351,7 +1347,7 @@ public class CharacterPlayer {
 		this.levelUps = levelUps;
 	}
 
-	protected ProfessionalRealmsOfMagicOptions getRealmOfMagic() {
+	public ProfessionalRealmsOfMagicOptions getRealmOfMagic() {
 		return realmOfMagic;
 	}
 

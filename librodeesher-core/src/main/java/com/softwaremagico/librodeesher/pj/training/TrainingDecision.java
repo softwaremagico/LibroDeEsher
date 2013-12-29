@@ -48,7 +48,8 @@ public class TrainingDecision {
 	}
 	
 	public void addSkillRank(TrainingCategory trainingCategory, TrainingSkill skill, int ranks){
-		skillsSelected.get(trainingCategory)
+		//TODO
+		//skillsSelected.get(trainingCategory)
 	}
 
 	protected Long getId() {

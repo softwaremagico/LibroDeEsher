@@ -70,11 +70,11 @@ public class MagicSpellLists {
 	public void orderSpellListsByCategory(CharacterPlayer character) {
 		// For each profession, the own profession list are basic lists.
 		List<String> basicSpells = new ArrayList<>();
-		basicSpells.addAll(MagicFactory.getListOfProfession(character.getProfessionalRealmsOfMagicChoosen()
+		basicSpells.addAll(MagicFactory.getListOfProfession(character.getRealmOfMagic()
 				.getRealmsOfMagic(), character.getProfession().getName()));
 		// Dark spells can be basic lists.
 		if (character.isDarkSpellsAsBasicListsAllowed()) {
-			List<String> darklistList = MagicFactory.getDarkLists(character.getProfessionalRealmsOfMagicChoosen()
+			List<String> darklistList = MagicFactory.getDarkLists(character.getRealmOfMagic()
 					.getRealmsOfMagic());
 			if (darklistList != null) {
 				basicSpells.addAll(darklistList);
@@ -82,7 +82,7 @@ public class MagicSpellLists {
 		}
 		// For elementalist, the training lists are basic lists.
 		List<String> elementalistList = MagicFactory.getListOfProfession(character
-				.getProfessionalRealmsOfMagicChoosen().getRealmsOfMagic(), MagicFactory
+				.getRealmOfMagic().getRealmsOfMagic(), MagicFactory
 				.getElementalistTraining(character.getTrainingsNames()));
 		if (elementalistList != null) {
 			basicSpells.addAll(elementalistList);
@@ -90,41 +90,41 @@ public class MagicSpellLists {
 
 		// Open list.
 		List<String> openSpells = new ArrayList<>();
-		openSpells = MagicFactory.getOpenLists(character.getProfessionalRealmsOfMagicChoosen().getRealmsOfMagic());
+		openSpells = MagicFactory.getOpenLists(character.getRealmOfMagic().getRealmsOfMagic());
 
 		// Close lists
 		List<String> closeSpells = new ArrayList<>();
-		closeSpells = MagicFactory.getClosedLists(character.getProfessionalRealmsOfMagicChoosen().getRealmsOfMagic());
+		closeSpells = MagicFactory.getClosedLists(character.getRealmOfMagic().getRealmsOfMagic());
 
 		// Triad.
 		List<String> triadSpells = new ArrayList<>();
 		triadSpells = MagicFactory.getListOfOwnTriad(
-				character.getProfessionalRealmsOfMagicChoosen().getRealmsOfMagic(), character.getTrainingsNames());
+				character.getRealmOfMagic().getRealmsOfMagic(), character.getTrainingsNames());
 		List<String> otherTriadSpells = new ArrayList<>();
-		otherTriadSpells = MagicFactory.getListOfOtherTriad(character.getProfessionalRealmsOfMagicChoosen()
+		otherTriadSpells = MagicFactory.getListOfOtherTriad(character.getRealmOfMagic()
 				.getRealmsOfMagic(), character.getTrainingsNames());
 
 		// Other professions.
 		// Only no elementalist has elementalis list as other professions.
 		List<String> otherProfession = new ArrayList<>();
 		otherProfession = MagicFactory.getListOfOtherProfessions(basicSpells, character
-				.getProfessionalRealmsOfMagicChoosen().getRealmsOfMagic(), character.getProfession().getName(),
+				.getRealmOfMagic().getRealmsOfMagic(), character.getProfession().getName(),
 				MagicFactory.getElementalistTraining(character.getTrainingsNames()) == null);
 
 		// Other Realms professions.
 		List<String> otherRealmsProfession = new ArrayList<>();
 		otherRealmsProfession = MagicFactory.getListOfOtherProfessionsOtherRealm(basicSpells, character
-				.getProfessionalRealmsOfMagicChoosen().getRealmsOfMagic(), character.getProfession().getName(),
+				.getRealmOfMagic().getRealmsOfMagic(), character.getProfession().getName(),
 				MagicFactory.getElementalistTraining(character.getTrainingsNames()) == null);
 
 		// Open list other realm.
 		List<String> otherRealmsOpen = new ArrayList<>();
-		otherRealmsOpen = MagicFactory.getOtherRealmOpenLists(character.getProfessionalRealmsOfMagicChoosen()
+		otherRealmsOpen = MagicFactory.getOtherRealmOpenLists(character.getRealmOfMagic()
 				.getRealmsOfMagic());
 
 		// Close list other realm.
 		List<String> otherRealmsClosed = new ArrayList<>();
-		otherRealmsClosed = MagicFactory.getOtherRealmClosedLists(character.getProfessionalRealmsOfMagicChoosen()
+		otherRealmsClosed = MagicFactory.getOtherRealmClosedLists(character.getRealmOfMagic()
 				.getRealmsOfMagic());
 
 		// Archanum Open lists

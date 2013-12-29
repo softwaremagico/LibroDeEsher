@@ -315,7 +315,7 @@ public class RandomCharacterPlayer {
 		while (characterPlayer.getCultureDecisions().getTotalSpellRanks() < characterPlayer.getCulture()
 				.getSpellRanks()) {
 			List<String> spellLists = MagicFactory.getListOfProfession(characterPlayer
-					.getProfessionalRealmsOfMagicChoosen().getRealmsOfMagic(), Spanish.OPEN_LIST_TAG);
+					.getRealmOfMagic().getRealmsOfMagic(), Spanish.OPEN_LIST_TAG);
 			String choseSpell = spellLists.get((int) (Math.random() * spellLists.size()));
 			characterPlayer.getCultureDecisions().setSpellRanks(choseSpell,
 					characterPlayer.getCultureDecisions().getSpellRanks(choseSpell) + 1);

@@ -429,7 +429,7 @@ public class SkillProbability {
 	private int HabilidadesPreferidasHechiceros() {
 		// Algunos hechizos son mejores.
 		if (characterPlayer.isWizard()) {
-			if (characterPlayer.getProfessionalRealmsOfMagicChoosen().getRealmsOfMagic()
+			if (characterPlayer.getRealmOfMagic().getRealmsOfMagic()
 					.equals(RealmOfMagic.ESSENCE)) {
 				if (skill.getName().toLowerCase().equals(Spanish.SHIELD_SPELLS_TAG)) {
 					return Math.max(50 - specializationLevel * 8, 10);
@@ -438,7 +438,7 @@ public class SkillProbability {
 					return Math.max(20 - specializationLevel * 5, 0);
 				}
 			}
-			if (characterPlayer.getProfessionalRealmsOfMagicChoosen().getRealmsOfMagic()
+			if (characterPlayer.getRealmOfMagic().getRealmsOfMagic()
 					.equals(RealmOfMagic.MENTALISM)) {
 				if (skill.getName().toLowerCase().equals(Spanish.DODGE_SPELLS_TAG)) {
 					return Math.max(50 - specializationLevel * 8, 10);
