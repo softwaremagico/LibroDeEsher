@@ -128,13 +128,13 @@ public abstract class BaseSkillLine extends BaseLine {
 		updatingValues = false;
 	}
 
-	protected abstract void setCurrentLevelRanks();
+	protected abstract void updateCharacterPlayerWithCurrentLevelRanks();
 
 	class CheckBoxListener implements ItemListener {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
 			if (!updatingValues) {
-				setCurrentLevelRanks();
+				updateCharacterPlayerWithCurrentLevelRanks();
 				update();
 			}
 		}

@@ -67,7 +67,7 @@ public class HistoryCategoryLine extends GenericCategoryLine {
 	}
 
 	@Override
-	protected void setCurrentLevelRanks() {
+	protected void updateCharacterPlayerWithCurrentLevelRanks() {
 		// NO RANKS
 	}
 

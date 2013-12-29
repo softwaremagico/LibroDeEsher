@@ -271,7 +271,7 @@ public class OptionsWindow extends BaseFrame {
 	}
 
 	@Override
-	public void update() {
+	public void updateFrame() {
 		// TODO Auto-generated method stub
 
 	}

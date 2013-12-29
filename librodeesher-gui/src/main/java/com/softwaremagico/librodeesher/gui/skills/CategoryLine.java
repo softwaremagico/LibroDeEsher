@@ -41,7 +41,7 @@ public class CategoryLine extends GenericCategoryLine {
 	}
 
 	@Override
-	protected void setCurrentLevelRanks() {
+	protected void updateCharacterPlayerWithCurrentLevelRanks() {
 		Integer ranks = getRanksSelected();
 		setRanksSelected(ranks); // order the ranks.
 		character.setCurrentLevelRanks(category, ranks);

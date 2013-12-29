@@ -124,7 +124,7 @@ public class HistoryWindow extends BaseFrame {
 	}
 
 	@Override
-	public void update() {
+	public void updateFrame() {
 		setHistorialPointText();
 		characteristicPanel.update();
 	}

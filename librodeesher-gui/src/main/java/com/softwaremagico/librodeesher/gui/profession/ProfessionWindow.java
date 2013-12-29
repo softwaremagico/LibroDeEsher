@@ -161,7 +161,7 @@ public class ProfessionWindow extends BaseFrame {
 	}
 
 	@Override
-	public void update() {
+	public void updateFrame() {
 		List<String> selectedCommon = new ArrayList<>();
 		for (SelectOption<Skill> commonOption : commonOptions) {
 			selectedCommon.addAll(commonOption.getSelectedOptions());

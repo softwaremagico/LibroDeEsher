@@ -146,7 +146,7 @@ public class CharacteristicsWindow extends BaseFrame {
 	}
 
 	@Override
-	public void update() {
+	public void updateFrame() {
 		setRemainingPoints(Characteristics.TOTAL_CHARACTERISTICS_POINTS
 				- character.getCharacteristicsTemporalPointsSpent());
 		acceptButton.setEnabled(!character.areCharacteristicsConfirmed());

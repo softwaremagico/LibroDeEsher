@@ -179,7 +179,7 @@ public class GenericSkillLine extends BaseSkillLine {
 	}
 
 	@Override
-	protected void setCurrentLevelRanks() {
+	protected void updateCharacterPlayerWithCurrentLevelRanks() {
 
 	}
 

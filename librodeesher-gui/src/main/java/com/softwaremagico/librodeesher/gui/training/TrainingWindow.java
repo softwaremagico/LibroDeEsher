@@ -160,7 +160,7 @@ public class TrainingWindow extends BaseFrame {
 	}
 
 	@Override
-	public void update() {
+	public void updateFrame() {
 		setDevelopmentPointText();
 		categoryPanel.update();
 		fillTrainingComboBox();
@@ -169,7 +169,7 @@ public class TrainingWindow extends BaseFrame {
 	private void addTraining() {
 		if (trainingsAvailable.getSelectedIndex() >= 0) {
 			character.addTraining(trainingsAvailable.getSelectedItem().toString());
-			update();
+			updateFrame();
 		}
 	}
 

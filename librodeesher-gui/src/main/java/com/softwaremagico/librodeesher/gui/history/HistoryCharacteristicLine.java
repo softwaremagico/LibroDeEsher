@@ -103,7 +103,7 @@ public class HistoryCharacteristicLine extends BaseLine {
 									+ ".\n Esta acción es permante. ¿Está seguro de continuar?",
 							"Aumento de característica")) {
 				character.setCharacteristicHistorialUpdate(characteristic.getAbbreviature());
-				parentWindow.update();
+				parentWindow.updateFrame();
 			}
 		}
 	}

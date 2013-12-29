@@ -97,7 +97,7 @@ public class PerkOptions<T> extends BaseFrame {
 	}
 
 	@Override
-	public void update() {
+	public void updateFrame() {
 		switch (chooseOptions.getChooseType()) {
 		case BONUS:
 			character.setPerkBonusDecision(perk, selectedOption.getSelectedOptions());

@@ -856,7 +856,7 @@ public class CharacterPlayer {
 		// If you have X currentRanks, the cost of the new one will be
 		// currentRanks + 1;
 		CategoryCost cost = getCategoryCost(category, currentRanks + 1);
-		if (cost == null) {
+		if (cost == null || cost.getRankCost(rankAdded) == null) {
 			return Integer.MAX_VALUE;
 		}
 

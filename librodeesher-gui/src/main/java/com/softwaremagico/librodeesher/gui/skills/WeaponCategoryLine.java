@@ -99,7 +99,7 @@ public class WeaponCategoryLine extends GenericCategoryLine {
 	}
 
 	@Override
-	protected void setCurrentLevelRanks() {
+	protected void updateCharacterPlayerWithCurrentLevelRanks() {
 		Integer ranks = getRanksSelected();
 		// order the ranks.
 		setRanksSelected(ranks);

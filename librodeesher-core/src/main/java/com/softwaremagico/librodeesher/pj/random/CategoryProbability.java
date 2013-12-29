@@ -35,8 +35,11 @@ public class CategoryProbability {
 		if (category.isNotUsedInRandom()) {
 			return -100;
 		}
-		if (characterPlayer.getNewRankCost(category, characterPlayer.getCurrentLevelRanks(category),
-				characterPlayer.getCurrentLevelRanks(category) + 1) <= Config.getCategoryMaxCost()) {
+
+		Integer cost = characterPlayer.getNewRankCost(category,
+				characterPlayer.getCurrentLevelRanks(category),
+				characterPlayer.getCurrentLevelRanks(category) + 1);
+		if (cost != null && cost <= Config.getCategoryMaxCost()) {
 			if (characterPlayer.getRemainingDevelopmentPoints() >= characterPlayer.getNewRankCost(category,
 					characterPlayer.getCurrentLevelRanks(category), 1)
 					&& category.getCategoryType().equals(CategoryType.STANDARD)) {
@@ -98,7 +101,8 @@ public class CategoryProbability {
 	private List<Skill> getSkillsWithSuggestedRanks() {
 		List<Skill> skills = new ArrayList<>();
 		for (Skill skill : category.getSkills()) {
-			if (suggestedSkillsRanks.get(skill.getName()) > 0) {
+			if (suggestedSkillsRanks.get(skill.getName()) != null
+					&& suggestedSkillsRanks.get(skill.getName()) > 0) {
 				skills.add(skill);
 			}
 		}

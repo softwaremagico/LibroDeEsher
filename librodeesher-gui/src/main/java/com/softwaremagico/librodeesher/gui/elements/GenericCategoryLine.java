@@ -107,7 +107,8 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 5;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			BoldListLabel prevRanksLabel = new BoldListLabel(previousRanks.toString(), columnWidth, columnHeight);
+			BoldListLabel prevRanksLabel = new BoldListLabel(previousRanks.toString(), columnWidth,
+					columnHeight);
 			add(new ListBackgroundPanel(prevRanksLabel, background), gridBagConstraints);
 		}
 
@@ -152,7 +153,8 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 11;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			BoldListLabel bonusCharLabel = new BoldListLabel(character.getCharacteristicsBonus(category).toString(), columnWidth, columnHeight);
+			BoldListLabel bonusCharLabel = new BoldListLabel(character.getCharacteristicsBonus(category)
+					.toString(), columnWidth, columnHeight);
 			add(new ListBackgroundPanel(bonusCharLabel, background), gridBagConstraints);
 		}
 
@@ -160,7 +162,8 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 13;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			BoldListLabel otherBonus = new BoldListLabel(character.getBonus(category).toString(), columnWidth, columnHeight);
+			BoldListLabel otherBonus = new BoldListLabel(character.getBonus(category).toString(),
+					columnWidth, columnHeight);
 			add(new ListBackgroundPanel(otherBonus, background), gridBagConstraints);
 		}
 
@@ -176,7 +179,8 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 17;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			totalLabel = new BoldListLabel(character.getTotalValue(category).toString(), columnWidth, columnHeight);
+			totalLabel = new BoldListLabel(character.getTotalValue(category).toString(), columnWidth,
+					columnHeight);
 			add(new ListBackgroundPanel(totalLabel, background), gridBagConstraints);
 		}
 
@@ -215,6 +219,10 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			thirdRank.setEnabled(false);
 		} catch (NullPointerException npe) {
 		}
+	}
+
+	public void updateRanks() {
+		setRanksSelected(character.getCurrentLevelRanks(category));
 	}
 
 }

@@ -41,7 +41,7 @@ public class ResumedSkillLine extends GenericSkillLine {
 	}
 	
 	@Override
-	protected void setCurrentLevelRanks() {
+	protected void updateCharacterPlayerWithCurrentLevelRanks() {
 		setRanksSelected(character.getCurrentLevelRanks(skill));
 	}
 

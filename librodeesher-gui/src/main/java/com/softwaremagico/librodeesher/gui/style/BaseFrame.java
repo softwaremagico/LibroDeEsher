@@ -75,7 +75,7 @@ public abstract class BaseFrame extends JFrame {
 		return border;
 	}
 
-	public abstract void update();
+	public abstract void updateFrame();
 
 	class WindowsSizeChange extends WindowAdapter {
 		BaseFrame window;

@@ -33,6 +33,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBoxMenuItem;
@@ -41,8 +43,10 @@ import javax.swing.JPanel;
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
+import com.softwaremagico.librodeesher.gui.elements.RandomButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 
 public class SkillWindow extends BaseFrame {
 	private static final long serialVersionUID = 3505731416535837471L;
@@ -105,6 +109,24 @@ public class SkillWindow extends BaseFrame {
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
 
+		RandomButton randomButton = new RandomButton() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void RandomAction() {
+				Integer tries = 0;
+				while (character.getRemainingDevelopmentPoints() > 0
+						&& tries <= RandomCharacterPlayer.MAX_TRIES) {
+					RandomCharacterPlayer.setWeaponCosts(character);
+					RandomCharacterPlayer.setRandomRanks(character, 0, new HashMap<String, Integer>(), tries);
+					tries++;
+				}
+				updateFrame();
+				updateSkillFrame();
+			}
+		};
+		buttonPanel.add(randomButton);
+
 		CloseButton closeButton = new CloseButton(this);
 		buttonPanel.add(closeButton);
 
@@ -120,6 +142,12 @@ public class SkillWindow extends BaseFrame {
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		getContentPane().add(buttonPanel, gridBagConstraints);
 
+	}
+
+	private void updateSkillFrame() {
+		if (skillPanel != null) {
+			skillPanel.updateRanks();
+		}
 	}
 
 	private void setEvents() {
@@ -147,7 +175,7 @@ public class SkillWindow extends BaseFrame {
 	}
 
 	@Override
-	public void update() {
+	public void updateFrame() {
 		setDevelopmentPointText();
 	}
 
@@ -157,5 +185,5 @@ public class SkillWindow extends BaseFrame {
 		public void actionPerformed(ActionEvent e) {
 
 		}
-	}	
+	}
 }

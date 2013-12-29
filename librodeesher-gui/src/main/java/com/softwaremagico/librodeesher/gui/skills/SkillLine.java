@@ -39,9 +39,13 @@ public class SkillLine extends GenericSkillLine {
 		enableColumns(true, true, true, true, true, true, true, true);
 		setRanksSelected(character.getCurrentLevelRanks(skill));
 	}
+	
+	protected void updateRanks(){
+		setRanksSelected(character.getCurrentLevelRanks(skill));
+	}
 
 	@Override
-	protected void setCurrentLevelRanks() {
+	protected void updateCharacterPlayerWithCurrentLevelRanks() {
 		Integer ranks = getRanksSelected();
 		setRanksSelected(ranks); // order the ranks.
 		character.setCurrentLevelRanks(skill, ranks);

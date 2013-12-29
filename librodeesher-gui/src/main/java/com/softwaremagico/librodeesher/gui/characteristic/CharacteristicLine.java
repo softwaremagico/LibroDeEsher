@@ -150,7 +150,7 @@ public class CharacteristicLine extends BaseLine {
 				update();
 
 				if (parentWindow != null) {
-					parentWindow.update();
+					parentWindow.updateFrame();
 				}
 			}
 		});

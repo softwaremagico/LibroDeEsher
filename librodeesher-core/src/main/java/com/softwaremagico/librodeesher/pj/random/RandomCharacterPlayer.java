@@ -22,8 +22,8 @@ import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 import com.softwaremagico.librodeesher.pj.weapons.WeaponType;
 
 public class RandomCharacterPlayer {
-	private final static int MAX_TRIES = 5;
-	private int tries = 0;
+	public final static int MAX_TRIES = 5;
+	private Integer tries = 0;
 	private CharacterPlayer characterPlayer;
 	private SexType sex;
 	private int finalLevel;
@@ -88,7 +88,7 @@ public class RandomCharacterPlayer {
 			profession = professions.get((int) (Math.random() * professions.size()));
 		}
 		characterPlayer.setProfession(profession);
-		setWeaponCosts();
+		setWeaponCosts(characterPlayer);
 	}
 
 	private void setCulture() {
@@ -178,23 +178,23 @@ public class RandomCharacterPlayer {
 		characterPlayer.setRealmOfMagic(chosenRealm);
 	}
 
-	public void setCharacteristicsPoints(Integer characteristicsPoints) {
-		this.characteristicsPoints = characteristicsPoints;
+	public static void setCharacteristicsPoints(Integer totalPoints) {
+		characteristicsPoints = totalPoints;
 	}
 
 	public void setSpecializationLevel(Integer specializationLevel) {
 		this.specializationLevel = specializationLevel;
 	}
 
-	private void setWeaponCosts() {
-		List<Category> weaponCategories = shuffleWeapons();
+	public static void setWeaponCosts(CharacterPlayer characterPlayer) {
+		List<Category> weaponCategories = shuffleWeapons(characterPlayer);
 		for (Category weaponCategory : weaponCategories) {
 			characterPlayer.getProfessionDecisions().setWeaponCost(weaponCategory,
 					characterPlayer.getFirstWeaponCostNotSelected());
 		}
 	}
 
-	private List<Category> shuffleWeapons() {
+	private static List<Category> shuffleWeapons(CharacterPlayer characterPlayer) {
 		List<Category> shuffledWeapons = new ArrayList<>();
 		List<Category> handToHand = new ArrayList<>();
 		List<Category> distance = new ArrayList<>();
@@ -383,18 +383,20 @@ public class RandomCharacterPlayer {
 	}
 
 	private void setDevelopmentPoints() {
-		List<Category> shuffledCategoryList = CategoryFactory.getCategories();
-		Collections.shuffle(shuffledCategoryList);
 		while (characterPlayer.getRemainingDevelopmentPoints() > 0 && tries <= MAX_TRIES) {
 			// if (obtenerAdiestramientos) {
 			// ObtenerAdiestramientosSugeridos();
 			// ObtenerAdiestramientoAleatorio();
 			// }
-			ObtenerRangosAleatorios(shuffledCategoryList);
+			setRandomRanks(characterPlayer, specializationLevel, suggestedSkillsRanks, tries);
+			tries++;
 		}
 	}
 
-	private void ObtenerRangosAleatorios(List<Category> shuffledCategoryList) {
+	public static void setRandomRanks(CharacterPlayer characterPlayer, int specializationLevel,
+			Map<String, Integer> suggestedSkillsRanks, Integer tries) {
+		List<Category> shuffledCategoryList = CategoryFactory.getCategories();
+		Collections.shuffle(shuffledCategoryList);
 		// shuffle it!
 		for (int i = 0; i < shuffledCategoryList.size(); i++) {
 			Category cat = shuffledCategoryList.get(i);
@@ -442,6 +444,5 @@ public class RandomCharacterPlayer {
 				}
 			}
 		}
-		tries++;
 	}
 }

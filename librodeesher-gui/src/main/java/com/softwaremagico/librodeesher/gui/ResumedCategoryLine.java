@@ -42,7 +42,7 @@ public class ResumedCategoryLine extends GenericCategoryLine {
 	}
 
 	@Override
-	protected void setCurrentLevelRanks() {
+	protected void updateCharacterPlayerWithCurrentLevelRanks() {
 		setRanksSelected(character.getCurrentLevelRanks(category));
 	}
 

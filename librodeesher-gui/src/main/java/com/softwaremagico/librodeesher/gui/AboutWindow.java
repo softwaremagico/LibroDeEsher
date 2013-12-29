@@ -112,7 +112,7 @@ public class AboutWindow extends BaseFrame {
 	}
 
 	@Override
-	public void update() {
+	public void updateFrame() {
 		
 	}
 

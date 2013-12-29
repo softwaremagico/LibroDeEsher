@@ -45,7 +45,7 @@ public class PerksListCompletePanel extends BaseScrollPanel {
 	}
 
 	public void update() {
-		parent.update();
+		parent.updateFrame();
 	}
 
 }

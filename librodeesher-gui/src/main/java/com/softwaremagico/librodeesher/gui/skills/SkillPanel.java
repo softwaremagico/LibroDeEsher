@@ -42,6 +42,7 @@ public class SkillPanel extends BaseSkillPanel {
 	private CompleteSkillPanel parentWindow;
 	private HashMap<Category, List<SkillLine>> skillLinesPerCategory;
 	private List<WeaponCategoryLine> weaponsLines;
+	private List<CategoryLine> categoryLines;
 
 	public SkillPanel(CharacterPlayer character, CompleteSkillPanel parentWindow) {
 		this.parentWindow = parentWindow;
@@ -56,6 +57,7 @@ public class SkillPanel extends BaseSkillPanel {
 		int weapon = 0;
 
 		weaponsLines = new ArrayList<>();
+		categoryLines = new ArrayList<>();
 		// Add extra weapons cost if new weapons categories exists.
 		character.getProfession().extendCategoryCost(character.isFirearmsAllowed());
 		for (Category category : CategoryFactory.getCategories()) {
@@ -73,7 +75,10 @@ public class SkillPanel extends BaseSkillPanel {
 					weaponsLines.add(wl);
 					weapon++;
 				} else {
-					add(new CategoryLine(character, category, getLineBackgroundColor(i), this));
+					CategoryLine categoryLine = new CategoryLine(character, category,
+							getLineBackgroundColor(i), this);
+					categoryLines.add(categoryLine);
+					add(categoryLine);
 				}
 				i++;
 
@@ -112,6 +117,20 @@ public class SkillPanel extends BaseSkillPanel {
 				if (weaponsLines.get(i).getSelectedIndex() == newUsedItemIndex) {
 					weaponsLines.get(i).setSelectedIndex(oldUsedItemIndex);
 				}
+			}
+		}
+	}
+
+	public void updateRanks() {
+		for (CategoryLine categoryLine : categoryLines) {
+			categoryLine.updateRanks();
+		}
+		for (WeaponCategoryLine weaponLine : weaponsLines) {
+			weaponLine.updateRanks();
+		}
+		for (Category category : skillLinesPerCategory.keySet()) {
+			for (SkillLine skillLine : skillLinesPerCategory.get(category)) {
+				skillLine.updateRanks();
 			}
 		}
 	}

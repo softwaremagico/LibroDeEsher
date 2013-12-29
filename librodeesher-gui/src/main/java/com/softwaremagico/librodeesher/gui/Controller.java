@@ -87,7 +87,7 @@ public class Controller {
 			selectedCharacter = new CharacterPlayer();
 			characters.add(selectedCharacter);
 			mainGui.setCharacter(selectedCharacter);
-			mainGui.update();
+			mainGui.updateFrame();
 			updateCharacterListToMenu();
 		}
 	}
@@ -103,7 +103,7 @@ public class Controller {
 				selectedCharacter = characters.get(0);
 			}
 			mainGui.setCharacter(selectedCharacter);
-			mainGui.update();
+			mainGui.updateFrame();
 			updateCharacterListToMenu();
 		}
 	}
@@ -112,7 +112,7 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			selectedCharacter.setName(selectedCharacter.getRace().getRandonName(selectedCharacter.getSex()));
-			mainGui.update();
+			mainGui.updateFrame();
 			updateCharacterListToMenu();
 		}
 	}
@@ -191,7 +191,7 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			selectedCharacter = menu.getCharacter();
 			mainGui.setCharacter(selectedCharacter);
-			mainGui.update();
+			mainGui.updateFrame();
 			updateCharacterListToMenu();
 		}
 	}
@@ -266,7 +266,7 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			selectedCharacter.increaseLevel();
-			mainGui.update();
+			mainGui.updateFrame();
 		}
 	}
 

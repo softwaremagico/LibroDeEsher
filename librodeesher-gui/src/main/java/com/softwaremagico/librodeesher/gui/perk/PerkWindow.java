@@ -109,7 +109,7 @@ public class PerkWindow extends BaseFrame {
 	}
 
 	@Override
-	public void update() {
+	public void updateFrame() {
 		setPerksPointsText();
 	}
 }

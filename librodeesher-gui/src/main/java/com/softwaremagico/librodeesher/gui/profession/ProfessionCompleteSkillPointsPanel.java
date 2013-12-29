@@ -45,7 +45,7 @@ public class ProfessionCompleteSkillPointsPanel extends BaseScrollPanel {
 	}
 
 	public void update() {
-		parent.update();
+		parent.updateFrame();
 	}
 
 	public void sizeChanged() {

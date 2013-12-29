@@ -43,7 +43,7 @@ public class HistoryCompleteSkillPointsPanel extends BaseScrollPanel {
 	}
 
 	public void update() {
-		parent.update();
+		parent.updateFrame();
 	}
 
 	public void sizeChanged() {

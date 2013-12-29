@@ -115,7 +115,7 @@ public class SelectOption<T> extends BasePanel {
 	public void update() {
 		selectedOptions = optionsPanel.getSelectedOptions();
 		setOptionsText(selectedOptions);
-		parent.update();
+		parent.updateFrame();
 	}
 
 	public List<String> getSelectedOptions() {

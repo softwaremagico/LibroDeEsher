@@ -48,11 +48,15 @@ public class CompleteSkillPanel extends BaseScrollPanel {
 	}
 	
 	public void update() {
-		parentWindow.update();
+		parentWindow.updateFrame();
 	}
 	
 	public void updateCategories(){
 		setElements();
+	}
+	
+	public void updateRanks(){
+		skillPanel.updateRanks();
 	}
 
 }

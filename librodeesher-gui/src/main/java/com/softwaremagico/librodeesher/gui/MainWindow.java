@@ -195,7 +195,7 @@ public class MainWindow extends BaseFrame {
 	}
 
 	@Override
-	public void update() {
+	public void updateFrame() {
 		characterPanel.update();
 		characteristicsPanel.update();
 		resistancePanel.update();
@@ -206,7 +206,7 @@ public class MainWindow extends BaseFrame {
 	private void addListeners() {
 		addWindowListener(new WindowAdapter() {
 			public void windowActivated(WindowEvent e) {
-				update();
+				updateFrame();
 			}
 		});
 	}
