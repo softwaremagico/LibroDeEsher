@@ -41,30 +41,30 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 @Entity
-@Table(name = "T_PROFESSIONS_DECISION")
+@Table(name = "T_PROFESSION_DECISIONS")
 public class ProfessionDecisions {
 	@Id
 	@GeneratedValue
-	private Long id; // database id.
-	@ElementCollection
-	@CollectionTable(name = "T_PROFESSION_WEAPON_COST_CHOSE")
+	private Long professionDecissionsId; // database id.
 	//Category -> cost
+	@ElementCollection
+	@CollectionTable(name = "T_PROFESSION_WEAPON_COST_CHOSEN")
 	private Map<String, CategoryCost> weaponsCost;
 	@ElementCollection
-	@CollectionTable(name = "T_PROFESSION_COMMON_SKILLS_CHOSE")
-	private List<String> commonSkillsChose;
+	@CollectionTable(name = "T_PROFESSION_COMMON_SKILLS_CHOSEN")
+	private List<String> commonSkillsChosen;
 	@ElementCollection
-	@CollectionTable(name = "T_PROFESSION_RESTRICTED_SKILLS_CHOSE")
-	private List<String> restrictedSkillsChose;
+	@CollectionTable(name = "T_PROFESSION_RESTRICTED_SKILLS_CHOSEN")
+	private List<String> restrictedSkillsChosen;
 	@ElementCollection
-	@CollectionTable(name = "T_PROFESSION_PROFESSIONAL_SKILLS_CHOSE")
-	private List<String> professionalSkillsChose;
+	@CollectionTable(name = "T_PROFESSION_PROFESSIONAL_SKILLS_CHOSEN")
+	private List<String> professionalSkillsChosen;
 
 	public ProfessionDecisions() {
 		weaponsCost = new HashMap<>();
-		commonSkillsChose = new ArrayList<>();
-		professionalSkillsChose = new ArrayList<>();
-		restrictedSkillsChose = new ArrayList<>();
+		commonSkillsChosen = new ArrayList<>();
+		professionalSkillsChosen = new ArrayList<>();
+		restrictedSkillsChosen = new ArrayList<>();
 	}
 
 	public void setWeaponCost(Category category, CategoryCost cost) {
@@ -93,54 +93,54 @@ public class ProfessionDecisions {
 	}
 
 	public boolean isCommon(Skill skill) {
-		return commonSkillsChose.contains(skill.getName());
+		return commonSkillsChosen.contains(skill.getName());
 	}
 
 	public boolean isRestricted(Skill skill) {
-		return restrictedSkillsChose.contains(skill.getName());
+		return restrictedSkillsChosen.contains(skill.getName());
 	}
 
 	public boolean isProfessional(Skill skill) {
-		return professionalSkillsChose.contains(skill.getName());
+		return professionalSkillsChosen.contains(skill.getName());
 	}
 
-	public List<String> getCommonSkillsChose() {
-		return commonSkillsChose;
+	protected Long getProfessionDecissionsId() {
+		return professionDecissionsId;
 	}
 
-	public void setCommonSkillsChose(List<String> commonSkillsChose) {
-		this.commonSkillsChose = commonSkillsChose;
+	protected void setProfessionDecissionsId(Long professionDecissionsId) {
+		this.professionDecissionsId = professionDecissionsId;
 	}
 
-	public List<String> getRestrictedSkillsChose() {
-		return restrictedSkillsChose;
-	}
-
-	public void setRestrictedSkillsChose(List<String> restrictedSkillsChose) {
-		this.restrictedSkillsChose = restrictedSkillsChose;
-	}
-
-	public List<String> getProfessionalSkillsChose() {
-		return professionalSkillsChose;
-	}
-
-	public void setProfessionalSkillsChose(List<String> professionalSkillsChose) {
-		this.professionalSkillsChose = professionalSkillsChose;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	protected Map<String, CategoryCost> getWeaponsCost() {
+	public Map<String, CategoryCost> getWeaponsCost() {
 		return weaponsCost;
 	}
 
-	protected void setWeaponsCost(Map<String, CategoryCost> weaponsCost) {
+	public void setWeaponsCost(Map<String, CategoryCost> weaponsCost) {
 		this.weaponsCost = weaponsCost;
+	}
+
+	public List<String> getCommonSkillsChosen() {
+		return commonSkillsChosen;
+	}
+
+	public void setCommonSkillsChosen(List<String> commonSkillsChosen) {
+		this.commonSkillsChosen = commonSkillsChosen;
+	}
+
+	public List<String> getRestrictedSkillsChosen() {
+		return restrictedSkillsChosen;
+	}
+
+	public void setRestrictedSkillsChosen(List<String> restrictedSkillsChosen) {
+		this.restrictedSkillsChosen = restrictedSkillsChosen;
+	}
+
+	public List<String> getProfessionalSkillsChosen() {
+		return professionalSkillsChosen;
+	}
+
+	public void setProfessionalSkillsChosen(List<String> professionalSkillsChosen) {
+		this.professionalSkillsChosen = professionalSkillsChosen;
 	}
 }

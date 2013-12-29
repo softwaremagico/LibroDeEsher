@@ -209,7 +209,8 @@ public class Race {
 			soulDepartTime = Integer.parseInt(lines.get(index));
 			index++;
 		} catch (NumberFormatException nfe) {
-			ShowMessage.showErrorMessage("Numero de partida del alma irreconocible.", "Leer Raza");
+			ShowMessage.showErrorMessage("Numero de partida del alma irreconocible en '" + name + "'.",
+					"Leer Raza");
 			soulDepartTime = new Integer(0);
 		}
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
@@ -219,7 +220,8 @@ public class Race {
 			raceType = Integer.parseInt(lines.get(index));
 			index++;
 		} catch (NumberFormatException nfe) {
-			ShowMessage.showErrorMessage("Numero de tipo de raza irreconocible.", "Leer Raza");
+			ShowMessage.showErrorMessage("Numero de tipo de raza irreconocible en '" + name + "'.",
+					"Leer Raza");
 			raceType = new Integer(0);
 		}
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
@@ -245,7 +247,8 @@ public class Race {
 			languagePoints = Integer.parseInt(lines.get(index));
 			index++;
 		} catch (NumberFormatException nfe) {
-			ShowMessage.showErrorMessage("Numero de puntos de idiomas irreconocible.", "Leer Raza");
+			ShowMessage.showErrorMessage("Numero de puntos de idiomas irreconocible en '" + name + "'.",
+					"Leer Raza");
 			languagePoints = new Integer(0);
 		}
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
@@ -255,7 +258,8 @@ public class Race {
 			historialPoints = Integer.parseInt(lines.get(index));
 			index++;
 		} catch (NumberFormatException nfe) {
-			ShowMessage.showErrorMessage("Numero de puntos de historial irreconocible.", "Leer Raza");
+			ShowMessage.showErrorMessage("Numero de puntos de historial irreconocible en '" + name + "'.",
+					"Leer Raza");
 			historialPoints = new Integer(0);
 		}
 		return index;

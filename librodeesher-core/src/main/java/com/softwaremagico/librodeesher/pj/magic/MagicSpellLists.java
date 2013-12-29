@@ -46,7 +46,7 @@ import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 public class MagicSpellLists {
 	@Id
 	@GeneratedValue
-	private Long id; // database id.
+	private Long magicSpellListId; // database id.
 
 	@ElementCollection
 	@CollectionTable(name = "T_MAGIC_CATEGORIES")
@@ -176,19 +176,19 @@ public class MagicSpellLists {
 		return null;
 	}
 
-	protected Long getId() {
-		return id;
-	}
-
-	protected void setId(Long id) {
-		this.id = id;
-	}
-
 	protected Map<MagicListType, Category> getMagicCategories() {
 		return magicCategories;
 	}
 
-	protected void setMagicCategories(HashMap<MagicListType, Category> magicCategories) {
+	protected Long getMagicSpellListId() {
+		return magicSpellListId;
+	}
+
+	protected void setMagicSpellListId(Long magicSpellListId) {
+		this.magicSpellListId = magicSpellListId;
+	}
+
+	protected void setMagicCategories(Map<MagicListType, Category> magicCategories) {
 		this.magicCategories = magicCategories;
 	}
 

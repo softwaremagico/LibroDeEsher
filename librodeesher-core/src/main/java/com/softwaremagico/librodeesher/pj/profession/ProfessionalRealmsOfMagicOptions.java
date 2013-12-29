@@ -45,7 +45,7 @@ import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 public class ProfessionalRealmsOfMagicOptions {
 	@Id
 	@GeneratedValue
-	private Long id; // database id.
+	private Long professionalRealmId; // database id.
 	// Standard spellers will have only one element, hybrids will have two or
 	// more elements.
 	@ElementCollection(fetch = FetchType.LAZY)
@@ -90,20 +90,20 @@ public class ProfessionalRealmsOfMagicOptions {
 		return value;
 	}
 
-	protected Long getId() {
-		return id;
-	}
-
-	protected void setId(Long id) {
-		this.id = id;
-	}
-
 	protected List<RealmOfMagic> getMagicRealmsAvailable() {
 		return magicRealmsAvailable;
 	}
 
 	protected void setMagicRealmsAvailable(List<RealmOfMagic> magicRealmsAvailable) {
 		this.magicRealmsAvailable = magicRealmsAvailable;
+	}
+
+	public Long getProfessionalRealmId() {
+		return professionalRealmId;
+	}
+
+	public void setProfessionalRealmId(Long professionalRealmId) {
+		this.professionalRealmId = professionalRealmId;
 	}
 
 }

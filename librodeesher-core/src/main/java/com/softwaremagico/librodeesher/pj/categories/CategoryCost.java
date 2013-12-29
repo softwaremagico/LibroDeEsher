@@ -41,7 +41,7 @@ import com.softwaremagico.librodeesher.basics.ShowMessage;
 public class CategoryCost {
 	@Id
 	@GeneratedValue
-	private Long id; // database id.
+	private Long categoryCostId; // database id.
 
 	@ElementCollection
 	@CollectionTable(name = "T_RANK_COSTS")
@@ -112,15 +112,15 @@ public class CategoryCost {
 		return rankCost;
 	}
 
-	protected Long getId() {
-		return id;
-	}
-
-	protected void setId(Long id) {
-		this.id = id;
-	}
-
 	protected void setRankCost(List<Integer> rankCost) {
 		this.rankCost = rankCost;
+	}
+
+	protected Long getCategoryCostId() {
+		return categoryCostId;
+	}
+
+	protected void setCategoryCostId(Long categoryCostId) {
+		this.categoryCostId = categoryCostId;
 	}
 }

@@ -121,7 +121,7 @@ public class CharacterPlayer {
 	@Transient
 	private transient Profession profession;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "professionDecissionsId")
 	private ProfessionDecisions professionDecisions;
 	@ElementCollection
 	@CollectionTable(name = "T_CHARACTERPLAYER_TRAININGS")
@@ -132,7 +132,7 @@ public class CharacterPlayer {
 	@CollectionTable(name = "T_CHARACTERPLAYER_TRAINING_DECISIONS")
 	private Map<String, TrainingDecision> trainingDecisions;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "professionalRealmId")
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id")
@@ -1108,15 +1108,15 @@ public class CharacterPlayer {
 	}
 
 	public void setCommonSkillsChoseFromProfession(List<String> commonSkillsChose) {
-		professionDecisions.setCommonSkillsChose(commonSkillsChose);
+		professionDecisions.setCommonSkillsChosen(commonSkillsChose);
 	}
 
 	public void setRestrictedSkillsChoseFromProfession(List<String> restrictedSkillsChose) {
-		professionDecisions.setRestrictedSkillsChose(restrictedSkillsChose);
+		professionDecisions.setRestrictedSkillsChosen(restrictedSkillsChose);
 	}
 
 	public void setProfessionalSkillsChoseFromProfession(List<String> professionalSkillsChose) {
-		professionDecisions.setProfessionalSkillsChose(professionalSkillsChose);
+		professionDecisions.setProfessionalSkillsChosen(professionalSkillsChose);
 	}
 
 	public List<String> getAvailableTrainings() {
