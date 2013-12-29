@@ -46,7 +46,7 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 public class Historial {
 	@Id
 	@GeneratedValue
-	private Long id; // database id.
+	private Long historialId; // database id.
 
 	private static final Integer SKILL_BONUS = 10;
 	private static final Integer CATEGORY_BONUS = 5;
@@ -135,14 +135,6 @@ public class Historial {
 		return rolls;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public List<String> getCategories() {
 		return categories;
 	}
@@ -163,7 +155,15 @@ public class Historial {
 		return characteristicsUpdates;
 	}
 
-	public void setCharacteristicsUpdates(HashMap<String, RollGroup> characteristicsUpdates) {
+	protected Long getHistorialId() {
+		return historialId;
+	}
+
+	protected void setHistorialId(Long historialId) {
+		this.historialId = historialId;
+	}
+
+	protected void setCharacteristicsUpdates(Map<String, RollGroup> characteristicsUpdates) {
 		this.characteristicsUpdates = characteristicsUpdates;
 	}
 }

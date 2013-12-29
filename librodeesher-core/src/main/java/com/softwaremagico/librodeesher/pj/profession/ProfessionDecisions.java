@@ -45,7 +45,7 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 public class ProfessionDecisions {
 	@Id
 	@GeneratedValue
-	private Long professionDecissionsId; // database id.
+	private Long professionDecisionsId; // database id.
 	//Category -> cost
 	@ElementCollection
 	@CollectionTable(name = "T_PROFESSION_WEAPON_COST_CHOSEN")
@@ -104,12 +104,12 @@ public class ProfessionDecisions {
 		return professionalSkillsChosen.contains(skill.getName());
 	}
 
-	protected Long getProfessionDecissionsId() {
-		return professionDecissionsId;
+	protected Long getProfessionDecisionsId() {
+		return professionDecisionsId;
 	}
 
-	protected void setProfessionDecissionsId(Long professionDecissionsId) {
-		this.professionDecissionsId = professionDecissionsId;
+	protected void setProfessionDecisionsId(Long professionDecisionsId) {
+		this.professionDecisionsId = professionDecisionsId;
 	}
 
 	public Map<String, CategoryCost> getWeaponsCost() {

@@ -28,7 +28,7 @@ public class RandomCharacterPlayer {
 	private SexType sex;
 	private int finalLevel;
 	private String race, culture, profession;
-	private Integer characteristicsPoints;
+	private static Integer characteristicsPoints;
 	// Specialization level [-2...2]
 	private Integer specializationLevel;
 	private Map<String, Integer> suggestedSkillsRanks;
@@ -53,7 +53,7 @@ public class RandomCharacterPlayer {
 		setProfession();
 		setCharacterInfo();
 		setMagicRealm();
-		setCharacteristics();
+		setCharacteristics(characterPlayer, getSpecializationLevel());
 		setCulture();
 		setLevels();
 	}
@@ -103,7 +103,7 @@ public class RandomCharacterPlayer {
 		setRandomCultureSpells();
 	}
 
-	private Integer getTotalCharacteristicsPoints() {
+	private static Integer getTotalCharacteristicsPoints() {
 		if (characteristicsPoints == null) {
 			characteristicsPoints = Characteristics.TOTAL_CHARACTERISTICS_POINTS;
 		}
@@ -118,27 +118,42 @@ public class RandomCharacterPlayer {
 	}
 
 	/**
-	 * Set characteristics
+	 * Set random characteristics. Characteristics that generates development
+	 * points have a little of advantage.
 	 */
-	private void setCharacteristics() {
+	public static void setCharacteristics(CharacterPlayer characterPlayer, int specializationLevel) {
 		List<Characteristic> characteristics = characterPlayer.getCharacteristics();
 
 		while (characterPlayer.getCharacteristicsTemporalPointsSpent() < getTotalCharacteristicsPoints()) {
 			for (int i = 0; i < characteristics.size(); i++) {
 				Characteristic characteristic = characteristics.get(i);
-				if ((Math.random() * 100 + 1) < (characterPlayer
-						.getCharacteristicInitialTemporalValue(characteristic.getAbbreviature()) - getSpecializationLevel() * 10)
+				// Max probability 90%. Preferred characteristics with points.
+				if ((Math.random() * 100 + 1) < Math.min((Math.max(
+						(characterPlayer.getCharacteristicInitialTemporalValue(characteristic
+								.getAbbreviature()) - Characteristics.INITIAL_CHARACTERISTIC_VALUE)
+								* Math.max(1, specializationLevel * 5), 5)), 90)
+						// Temporal values has a max limit.
 						&& characterPlayer.getCharacteristicInitialTemporalValue(characteristic
-								.getAbbreviature()) < (Math.min(90 + getSpecializationLevel() * 4, 101))
-						&& characterPlayer.getCharacteristicsTemporalPointsSpent(characteristic
-								.getAbbreviature()) <= getTotalCharacteristicsPoints()) {
+								.getAbbreviature()) < (Math.min(90 + specializationLevel * 5, 101))
+						// Cost affordable.
+						&& Characteristic.getTemporalCost(characterPlayer
+								.getCharacteristicInitialTemporalValue(characteristic.getAbbreviature()) + 1)
+								- Characteristic.getTemporalCost(characterPlayer
+										.getCharacteristicInitialTemporalValue(characteristic
+												.getAbbreviature())) <= getTotalCharacteristicsPoints()
+								- characterPlayer.getCharacteristicsTemporalPointsSpent()) {
 					characterPlayer.setCharacteristicTemporalValues(
 							characteristic.getAbbreviature(),
 							characterPlayer.getCharacteristicsInitialTemporalValues().get(
 									characteristic.getAbbreviature()) + 1);
+					// Add new point to same characteristic.
+					if (specializationLevel > 0) {
+						i--;
+					}
 				}
 			}
 		}
+
 		characterPlayer.setCharacteristicsAsConfirmed();
 	}
 
@@ -314,8 +329,8 @@ public class RandomCharacterPlayer {
 	private void setRandomCultureSpells() {
 		while (characterPlayer.getCultureDecisions().getTotalSpellRanks() < characterPlayer.getCulture()
 				.getSpellRanks()) {
-			List<String> spellLists = MagicFactory.getListOfProfession(characterPlayer
-					.getRealmOfMagic().getRealmsOfMagic(), Spanish.OPEN_LIST_TAG);
+			List<String> spellLists = MagicFactory.getListOfProfession(characterPlayer.getRealmOfMagic()
+					.getRealmsOfMagic(), Spanish.OPEN_LIST_TAG);
 			String choseSpell = spellLists.get((int) (Math.random() * spellLists.size()));
 			characterPlayer.getCultureDecisions().setSpellRanks(choseSpell,
 					characterPlayer.getCultureDecisions().getSpellRanks(choseSpell) + 1);

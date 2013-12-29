@@ -88,7 +88,7 @@ public class CharacterPlayer {
 
 	@Id
 	@GeneratedValue
-	private Long id; // database id.
+	private Long characterPlayerId; // database id.
 
 	private String name;
 	private SexType sex;
@@ -111,18 +111,21 @@ public class CharacterPlayer {
 	private String raceName;
 	@Transient
 	private transient Race race;
+
 	private String cultureName;
 	@Transient
 	private transient Culture culture;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "cultureDecisionsId")
 	private CultureDecisions cultureDecisions;
+
 	private String professionName;
 	@Transient
 	private transient Profession profession;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "professionDecissionsId")
+	@JoinColumn(name = "professionDecisionsId")
 	private ProfessionDecisions professionDecisions;
+
 	@ElementCollection
 	@CollectionTable(name = "T_CHARACTERPLAYER_TRAININGS")
 	private List<String> trainingsNames;
@@ -131,15 +134,18 @@ public class CharacterPlayer {
 	@ElementCollection
 	@CollectionTable(name = "T_CHARACTERPLAYER_TRAINING_DECISIONS")
 	private Map<String, TrainingDecision> trainingDecisions;
+
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "professionalRealmId")
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "magicSpellListId")
 	private MagicSpellLists magicSpellLists;
+
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "historialId")
 	private Historial historial;
+
 	@ElementCollection
 	@CollectionTable(name = "T_CHARACTERPLAYER_PERKS")
 	private List<Perk> perks;
@@ -294,6 +300,13 @@ public class CharacterPlayer {
 		return getHistoryTemporalModification(abbreviature);
 	}
 
+	/**
+	 * Temporal value of the characteristic when starting the creation of the
+	 * character.
+	 * 
+	 * @param abbreviature
+	 * @return
+	 */
 	public Integer getCharacteristicInitialTemporalValue(String abbreviature) {
 		Integer value = getHistoryTemporalModification(abbreviature);
 		if (value != null) {
@@ -1213,14 +1226,6 @@ public class CharacterPlayer {
 		return false;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getHistoryText() {
 		return historyText;
 	}
@@ -1302,7 +1307,7 @@ public class CharacterPlayer {
 	protected void setTrainings(List<Training> trainings) {
 		this.trainings = trainings;
 	}
-	
+
 	public TrainingDecision getTrainingDecisions(String trainingName) {
 		return trainingDecisions.get(trainingName);
 	}
@@ -1445,6 +1450,14 @@ public class CharacterPlayer {
 
 	public void increaseLevel() {
 		levelUps.add(new LevelUp());
+	}
+
+	public Long getCharacterPlayerId() {
+		return characterPlayerId;
+	}
+
+	protected void setCharacterPlayerId(Long characterPlayerId) {
+		this.characterPlayerId = characterPlayerId;
 	}
 
 }

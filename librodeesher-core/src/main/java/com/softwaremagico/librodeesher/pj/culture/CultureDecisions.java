@@ -32,6 +32,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.pj.categories.Category;
@@ -42,7 +43,7 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 public class CultureDecisions {
 	@Id
 	@GeneratedValue
-	private Long id; // database id.
+	private Long cultureDecisionsId; // database id.
 
 	@ElementCollection
 	@CollectionTable(name = "T_CULTURE_WEAPON_RANKS")
@@ -167,14 +168,6 @@ public class CultureDecisions {
 		return total;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public Map<String, Integer> getWeaponRanks() {
 		return weaponRanks;
 	}
@@ -221,6 +214,14 @@ public class CultureDecisions {
 
 	protected void setLanguageRanks(Map<String, Integer> languageRanks) {
 		this.languageRanks = languageRanks;
+	}
+
+	protected Long getCultureDecisionsId() {
+		return cultureDecisionsId;
+	}
+
+	protected void setCultureDecisionsId(Long cultureDecisionsId) {
+		this.cultureDecisionsId = cultureDecisionsId;
 	}
 
 }

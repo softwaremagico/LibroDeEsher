@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.characteristic;
+
 /*
  * #%L
  * Libro de Esher
@@ -37,10 +38,12 @@ import javax.swing.JPanel;
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
+import com.softwaremagico.librodeesher.gui.elements.RandomButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BaseButton;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
+import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 
 public class CharacteristicsWindow extends BaseFrame {
 	private static final long serialVersionUID = -2484205144800968016L;
@@ -48,6 +51,7 @@ public class CharacteristicsWindow extends BaseFrame {
 	private BaseLabel spentPointsLabel;
 	private CharacterPlayer character;
 	private BaseButton acceptButton;
+	private RandomButton randomButton;
 	private PointsCounterTextField characteristicsPointsTextField;
 
 	public CharacteristicsWindow() {
@@ -95,6 +99,18 @@ public class CharacteristicsWindow extends BaseFrame {
 		getContentPane().add(characteristicPointsPanel, gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+
+		randomButton = new RandomButton() {
+			private static final long serialVersionUID = -191742354787985492L;
+
+			@Override
+			public void RandomAction() {
+				RandomCharacterPlayer.setCharacteristics(character, 0);
+				setCharacter(character);
+			}
+		};
+		buttonPanel.add(randomButton);
+
 		acceptButton = new BaseButton("Aceptar");
 		acceptButton.addActionListener(new AcceptListener());
 		buttonPanel.add(acceptButton);
@@ -125,6 +141,7 @@ public class CharacteristicsWindow extends BaseFrame {
 		setRemainingPoints(Characteristics.TOTAL_CHARACTERISTICS_POINTS
 				- character.getCharacteristicsTemporalPointsSpent());
 		acceptButton.setEnabled(!character.areCharacteristicsConfirmed());
+		randomButton.setEnabled(acceptButton.isEnabled());
 		setPotential();
 	}
 
@@ -133,6 +150,7 @@ public class CharacteristicsWindow extends BaseFrame {
 		setRemainingPoints(Characteristics.TOTAL_CHARACTERISTICS_POINTS
 				- character.getCharacteristicsTemporalPointsSpent());
 		acceptButton.setEnabled(!character.areCharacteristicsConfirmed());
+		randomButton.setEnabled(acceptButton.isEnabled());
 	}
 
 	public void setPotential() {
@@ -145,6 +163,7 @@ public class CharacteristicsWindow extends BaseFrame {
 		public void actionPerformed(ActionEvent e) {
 			character.setCharacteristicsAsConfirmed();
 			acceptButton.setEnabled(!character.areCharacteristicsConfirmed());
+			randomButton.setEnabled(acceptButton.isEnabled());
 			setPotential();
 		}
 	}
