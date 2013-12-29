@@ -46,25 +46,35 @@ public class SkillProbability {
 			if (characterPlayer.getRemainingDevelopmentPoints() >= characterPlayer.getNewRankCost(
 					skill.getCategory(), characterPlayer.getCurrentLevelRanks(skill),
 					characterPlayer.getCurrentLevelRanks(skill) + 1)) {
+				System.out.println("-----------------------");
+				System.out.println(preferredCategory() / 3);
 				probability += preferredCategory() / 3;
-				probability += HabilidadPreferida();
-				probability += FacilidadHabilidad();
+				System.out.println(preferredSkill());
+				probability += preferredSkill();
+				System.out.println(bestSkills());
+				probability += bestSkills();
+				System.out.println(skillExpensiveness());
 				probability -= skillExpensiveness();
-				probability += tries * 3;
-				probability += AplicarEspecializacionPersonaje();
+				System.out.println(applyCharacterSpecialization());
+				probability += applyCharacterSpecialization();
+				System.out.println(stillNotUsedSkill());
 				probability += stillNotUsedSkill();
-				probability += HabilidadesPreferidasHechiceros();
-				probability += HabilidadesPreferidasLuchadores();
+				System.out.println(wizardPreferredSkills());
+				probability += wizardPreferredSkills();
+				System.out.println(warriorsPreferredSkills());
+				probability += warriorsPreferredSkills();
+				System.out.println(smartRandomness());
 				probability += smartRandomness();
+				System.out.println(ridicolousSkill());
 				probability += ridicolousSkill();
+				System.out.println(maxRanks());
+				probability += maxRanks();
 				// Ponemos una cota superior y una cota inferior.
 				if (probability > 90) {
 					probability = 90;
+				} else if (probability < tries * 3) {
+					probability = tries * 3;
 				}
-				if (probability < 1 && characterPlayer.getRealRanks(skill) > 0) {
-					probability = 1;
-				}
-				probability += maxRanks();
 				return probability;
 			}
 		}
@@ -426,7 +436,7 @@ public class SkillProbability {
 	 * 
 	 * @return
 	 */
-	private int HabilidadesPreferidasHechiceros() {
+	private int wizardPreferredSkills() {
 		// Algunos hechizos son mejores.
 		if (characterPlayer.isWizard()) {
 			if (characterPlayer.getRealmOfMagic().getRealmsOfMagic()
@@ -459,7 +469,7 @@ public class SkillProbability {
 	 * 
 	 * @return
 	 */
-	private int HabilidadesPreferidasLuchadores() {
+	private int warriorsPreferredSkills() {
 		if (characterPlayer.isFighter()) {
 			if (skill.getName().toLowerCase().equals(Spanish.HORSES_TAG)) {
 				for (String training : characterPlayer.getTrainingsNames()) {
@@ -476,7 +486,7 @@ public class SkillProbability {
 	 * Permite seleccionar si un personaje quiere muchas habilidades de pocos
 	 * rangos o pocas habilidades de muchos rangos.
 	 */
-	private int AplicarEspecializacionPersonaje() {
+	private int applyCharacterSpecialization() {
 		int bonus = 0;
 		// A malus for not tipics skills
 		if (characterPlayer.getRealRanks(skill) == 0
@@ -499,7 +509,7 @@ public class SkillProbability {
 	/**
 	 * More important skills with ranks.
 	 */
-	private int HabilidadPreferida() {
+	private int preferredSkill() {
 		int prob;
 		prob = (characterPlayer.getRealRanks(skill)) * 5
 				+ (characterPlayer.getRanksSpentInSkillSpecializations(skill) * 15);
@@ -512,7 +522,7 @@ public class SkillProbability {
 	/**
 	 * Select common and professional skills.
 	 */
-	private int FacilidadHabilidad() {
+	private int bestSkills() {
 		if (characterPlayer.isSkillGeneralized(skill)) {
 			return 50 - skillExpensiveness() * 5;
 		}
@@ -544,8 +554,8 @@ public class SkillProbability {
 
 	private int maxRanks() {
 		if (characterPlayer.getCurrentLevelNumber() == 1
-				&& ((characterPlayer.getRemainingDevelopmentPoints() > 10 && !characterPlayer
-						.isLifeStyle(skill)) || (characterPlayer.getRemainingDevelopmentPoints() > 15))) {
+				&& ((characterPlayer.getRealRanks(skill) > 10 && !characterPlayer
+						.isLifeStyle(skill)) || (characterPlayer.getRealRanks(skill) > 15))) {
 			return -1000;
 		}
 		return 0;

@@ -107,7 +107,8 @@ public class WeaponCategoryLine extends GenericCategoryLine {
 	}
 
 	public class WeaponComboBox<E> extends BaseComboBox<E> {
-		
+		private static final long serialVersionUID = -6417842795397244151L;
+
 		@Override
 		public void doAction() {
 			if (!updatingWeaponCost) {
