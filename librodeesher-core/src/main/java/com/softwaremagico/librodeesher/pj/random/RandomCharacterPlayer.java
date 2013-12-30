@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import com.softwaremagico.files.Log;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.SexType;
@@ -409,10 +410,15 @@ public class RandomCharacterPlayer {
 			Collections.shuffle(shuffledSkillList);
 			for (int j = 0; j < shuffledSkillList.size(); j++) {
 				Skill skill = shuffledSkillList.get(j);
-				if (Math.random() * 100 + 1 < new SkillProbability(characterPlayer, skill, tries,
-						suggestedSkillsRanks, specializationLevel).getRankProbability()) {
+				int roll = (int) (Math.random() * 100 + 1);
+				int probability = new SkillProbability(characterPlayer, skill, tries, suggestedSkillsRanks,
+						specializationLevel).getRankProbability();
+				Log.info(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName() + "' ("
+						+ probability + "%), roll: " + roll);
+				if (roll < probability) {
 					characterPlayer.getCurrentLevel().setSkillsRanks(skill,
 							characterPlayer.getCurrentLevel().getSkillsRanks(skill.getName()) + 1);
+					Log.info(RandomCharacterPlayer.class.getName(), "\tRank added!");
 					// Si da opciones de nuevas habilidades, se incluyen ahora.
 					// if (skill.habilidadesNuevasPosibles.size() > 0
 					// &&

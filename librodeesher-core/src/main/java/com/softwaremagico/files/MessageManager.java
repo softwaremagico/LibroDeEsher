@@ -34,25 +34,25 @@ public class MessageManager {
 
     private static final int LINE = 50;
 
-    public static void basicErrorMessage(String text, String title) {
-        Log.severe(text);
+    public static void basicErrorMessage(String className, String text, String title) {
+        Log.severe(className, text);
         showGraphicMessage(text, title, JOptionPane.ERROR_MESSAGE);
     }
 
-    public static void errorMessage(Throwable throwable) {
+    public static void errorMessage(String className, Throwable throwable) {
         String error = getStackTrace(throwable);
-        basicErrorMessage(error, "Error");
+        basicErrorMessage(className, error, "Error");
         throwable.printStackTrace();
     }
     
-    public static void infoMessage(String text, String title){
+    public static void infoMessage(String className, String text, String title){
         showGraphicMessage(text, title, JOptionPane.INFORMATION_MESSAGE);
-        Log.finest(title + ": " + text);
+        Log.info(className, "("+title + ") " + text);
     }
 
-    public static void customMessage(String text, String title, int option) {
+    public static void customMessage(String className, String text, String title, int option) {
         showGraphicMessage(text, title, option);
-        Log.finest(title + ": " + text);
+        Log.info(className, "("+title + ") " + text);
     }
 
     public static void showGraphicMessage(String text, String title, int option) {

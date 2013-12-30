@@ -1,4 +1,5 @@
 package com.softwaremagico.files;
+
 /*
  * #%L
  * KendoTournamentGenerator
@@ -25,80 +26,110 @@ package com.softwaremagico.files;
  * #L%
  */
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.logging.FileHandler;
-import java.util.logging.Formatter;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Log {
 
-    private static final Logger logger = Logger.getLogger("EsherLog");
-    private static final Level logLevel = Level.ALL; //INFO, OFF, ALL, ... 
-    private static final int maxBytes = 10000000;
-    private static final int numLogFiles = 10;
+	private static final Logger logger = LoggerFactory.getLogger("com.softwaremagico.esher");
 
-    static {
-        try {
-            FileHandler fh = new FileHandler(Path.returnLogFile(), maxBytes, numLogFiles, true);
-            logger.addHandler(fh);
-            logger.setLevel(logLevel);
-            //fh.setFormatter(new SimpleFormatter());
-            fh.setFormatter(getCustomFormatter());
-        } catch (IOException | SecurityException ex) {
-            MessageManager.basicErrorMessage("Logger failed. Probably the log file can not be created. Error Message: " + ex.getMessage(), "Logger");
-        }
-    }
+	private Log() {
+	}
 
-    /**
-     * Defines our own formatter.
-     */
-    public static Formatter getCustomFormatter() {
-        return new Formatter() {
-            //StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+	/**
+	 * Events that have business meaning (i.e. creating category, deleting form,
+	 * ...). To follow user actions.
+	 * 
+	 * @param message
+	 */
+	private static void info(String message) {
+		logger.info(message);
+	}
 
-            @Override
-            public String format(LogRecord record) {
-                String text = record.getLevel() + " [" + new Date() + "] " + " - " + record.getMessage() + "\n";
-                return text;
-            }
-        };
-    }
+	/**
+	 * Events that have business meaning (i.e. creating category, deleting form,
+	 * ...). To follow user actions.
+	 */
+	public static void info(String className, String message) {
+		info(className + ": " + message);
+	}
 
-    private Log() {
-    }
+	/**
+	 * Shows not critical errors. I.e. Email address not found, permissions not
+	 * allowed for this user, ...
+	 * 
+	 * @param message
+	 */
+	private static void warning(String message) {
+		logger.warn(message);
+	}
 
-    public static void info(String message) {
-        logger.info(message);
-    }
+	/**
+	 * Shows not critical errors. I.e. Email address not found, permissions not
+	 * allowed for this user, ...
+	 * 
+	 * @param message
+	 */
+	public static void warning(String className, String message) {
+		warning(className + ": " + message);
+	}
 
-    public static void config(String message) {
-        logger.config(message);
-    }
+	/**
+	 * For following the trace of the execution. I.e. Knowing if the application
+	 * access to a method, opening database connection, etc.
+	 * 
+	 * @param message
+	 */
+	private static void debug(String message) {
+		logger.debug(message);
+	}
 
-    public static void warning(String message) {
-        logger.warning(message);
-    }
+	/**
+	 * For following the trace of the execution. I.e. Knowing if the application
+	 * access to a method, opening database connection, etc.
+	 */
+	public static void debug(String className, String message) {
+		debug(className + ": " + message);
+	}
 
-    public static void debug(String message) {
-        logger.finest(message);
-    }
+	/**
+	 * To log any not expected error that can cause application malfuncionality.
+	 * I.e. couldn't open database connection, etc..
+	 * 
+	 * @param message
+	 */
+	private static void severe(String message) {
+		logger.error(message);
+	}
 
-    public static void severe(String message) {
-        logger.severe(message);
-    }
+	/**
+	 * To log any not expected error that can cause application malfuncionality.
+	 * 
+	 * @param message
+	 */
+	public static void severe(String className, String message) {
+		severe(className + ": " + message);
+	}
 
-    public static void fine(String message) {
-        logger.fine(message);
-    }
+	/**
+	 * To log java exceptions and log also the stack trace.
+	 * 
+	 * @param className
+	 * @param throwable
+	 */
+	public static void errorMessage(String className, Throwable throwable) {
+		String error = getStackTrace(throwable);
+		severe(className, error);
+	}
 
-    public static void finer(String message) {
-        logger.finer(message);
-    }
-
-    public static void finest(String messsage) {
-        logger.finest(messsage);
-    }
+	private static String getStackTrace(Throwable throwable) {
+		Writer writer = new StringWriter();
+		PrintWriter printWriter = new PrintWriter(writer);
+		throwable.printStackTrace(printWriter);
+		return writer.toString();
+	}
 }

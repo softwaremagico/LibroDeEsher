@@ -1,4 +1,5 @@
 package com.softwaremagico.files;
+
 /*
  * #%L
  * KendoTournamentGenerator
@@ -37,204 +38,205 @@ import java.util.List;
 
 public class Folder {
 
-    public String folderName;
-    private List<String> files = new ArrayList<>();
+	public String folderName;
+	private List<String> files = new ArrayList<>();
 
-    /**
-     * Creates a new instance of Folder
-     */
-    public Folder(String tmp_directory) throws Exception {
-        folderName = tmp_directory;
-    }
+	/**
+	 * Creates a new instance of Folder
+	 */
+	public Folder(String tmp_directory) throws Exception {
+		folderName = tmp_directory;
+	}
 
-    public String ReturnFolder() {
-        return folderName;
-    }
+	public String ReturnFolder() {
+		return folderName;
+	}
 
-    public static List<String> obtainFolders(String src) throws Exception {
-        //Creamos el Objeto File con la URL que queremos desplegar
-        File dir = new File(src);
-        List<String> lista = new ArrayList<>();
-        if (dir.isDirectory()) {
-            //tomamos los files contenidos en la URL dada
-            String[] archivos = dir.list();
-            for (String file : archivos) {
-                if (new File(src + File.separator + file).isDirectory()) {
-                    lista.add(file);
-                }
-            }
-        } else {
-            throw new Exception("Error: El directorio '" + dir.getPath() + "' no existe");
-        }
-        return lista;
-    }
+	public static List<String> obtainFolders(String src) throws Exception {
+		// Creamos el Objeto File con la URL que queremos desplegar
+		File dir = new File(src);
+		List<String> lista = new ArrayList<>();
+		if (dir.isDirectory()) {
+			// tomamos los files contenidos en la URL dada
+			String[] archivos = dir.list();
+			for (String file : archivos) {
+				if (new File(src + File.separator + file).isDirectory()) {
+					lista.add(file);
+				}
+			}
+		} else {
+			throw new Exception("Error: El directorio '" + dir.getPath() + "' no existe");
+		}
+		return lista;
+	}
 
-    private static List<String> searchfiles(String directory) throws Exception {
-        File dir = new File(directory);
-        String[] ficheros = dir.list();
-        List<String> filesDisponibles = new ArrayList<>();
-        filesDisponibles.addAll(Arrays.asList(ficheros));
+	private static List<String> searchfiles(String directory) throws Exception {
+		File dir = new File(directory);
+		String[] ficheros = dir.list();
+		List<String> filesDisponibles = new ArrayList<>();
+		filesDisponibles.addAll(Arrays.asList(ficheros));
 
-        List<String> listaDatos = new ArrayList<>();
-        for (int i = 0; i < filesDisponibles.size(); i++) {
-            String dato = filesDisponibles.get(i);
-            dato = dato.replaceAll(".txt", "");
-            if (!dato.contains("svn")) {
-                if (!dato.contains("plantilla")) {
-                    listaDatos.add(dato);
-                }
-            }
-        }
-        return listaDatos;
-    }
+		List<String> listaDatos = new ArrayList<>();
+		for (int i = 0; i < filesDisponibles.size(); i++) {
+			String dato = filesDisponibles.get(i);
+			dato = dato.replaceAll(".txt", "");
+			if (!dato.contains("svn")) {
+				if (!dato.contains("plantilla")) {
+					listaDatos.add(dato);
+				}
+			}
+		}
+		return listaDatos;
+	}
 
-    public static List<String> ObtainfilesSubdirectory(String subdirectory) {
-        try {
-            return searchfiles(subdirectory);
-        } catch (Exception e) {
-            return new ArrayList<>();
-        }
-    }
+	public static List<String> ObtainfilesSubdirectory(String subdirectory) {
+		try {
+			return searchfiles(subdirectory);
+		} catch (Exception e) {
+			return new ArrayList<>();
+		}
+	}
 
-    public List<String> Disponiblesfiles() {
-        return files;
-    }
+	public List<String> Disponiblesfiles() {
+		return files;
+	}
 
-    public static List<String> readFileLines(String filename, boolean verbose) throws IOException {
-        return MyFile.inLines(filename, verbose);
-    }
+	public static List<String> readFileLines(String filename, boolean verbose) throws IOException {
+		return MyFile.inLines(filename, verbose);
+	}
 
-    public static String readFileAsText(String filename, boolean verbose) throws IOException {
-        return MyFile.inString(filename, verbose).trim();
-    }
+	public static String readFileAsText(String filename, boolean verbose) throws IOException {
+		return MyFile.inString(filename, verbose).trim();
+	}
 
-    /**
-     * Store text in a file. The text must be written in a String list.
-     *
-     * @param dataList The text to be written
-     * @file the path to the file.
-     */
-    public static boolean saveListInFile(List dataList, String file) {
-        File outputFile;
-        byte b[];
-        //Se guarda en el filename
-        outputFile = new File(file);
-        try {
-            outputFile.delete();
-        } catch (Exception e) {
-        }
-        try {
-            FileOutputStream outputChannel = new FileOutputStream(outputFile);
-            for (int i = 0; i < dataList.size(); i++) {
-                b = (dataList.get(i).toString() + System.getProperty("line.separator")).getBytes();
-                try {
-                    outputChannel.write(b);
-                } catch (IOException ex) {
-                }
-            }
-            try {
-                outputChannel.close();
-            } catch (IOException ex) {
-                return false;
-            }
-        } catch (FileNotFoundException ex) {
-            String text = "Impossible to generate the file:\n\t" + file
-                    + "\nCheck the Folder.\n";
-            MessageManager.basicErrorMessage(text, "Directories");
-            return false;
-        }
-        return true;
-    }
+	/**
+	 * Store text in a file. The text must be written in a String list.
+	 * 
+	 * @param dataList
+	 *            The text to be written
+	 * @file the path to the file.
+	 */
+	public static boolean saveListInFile(List dataList, String file) {
+		File outputFile;
+		byte b[];
+		// Se guarda en el filename
+		outputFile = new File(file);
+		try {
+			outputFile.delete();
+		} catch (Exception e) {
+		}
+		try {
+			FileOutputStream outputChannel = new FileOutputStream(outputFile);
+			for (int i = 0; i < dataList.size(); i++) {
+				b = (dataList.get(i).toString() + System.getProperty("line.separator")).getBytes();
+				try {
+					outputChannel.write(b);
+				} catch (IOException ex) {
+				}
+			}
+			try {
+				outputChannel.close();
+			} catch (IOException ex) {
+				return false;
+			}
+		} catch (FileNotFoundException ex) {
+			String text = "Impossible to generate the file:\n\t" + file + "\nCheck the Folder.\n";
+			MessageManager.basicErrorMessage(Folder.class.getName(), text, "Directories");
+			return false;
+		}
+		return true;
+	}
 
-    /**
-     * Store text in a file. The text must be written in a String list.
-     *
-     * @param dataList The text to be written
-     * @file the path to the file.
-     */
-    public static void saveTextInFile(String text, String file) {
-        File outputFile;
-        byte b[];
-        //Se guarda en el filename
-        outputFile = new File(file);
-        try {
-            FileOutputStream outputChannel = new FileOutputStream(outputFile);
+	/**
+	 * Store text in a file. The text must be written in a String list.
+	 * 
+	 * @param dataList
+	 *            The text to be written
+	 * @file the path to the file.
+	 */
+	public static void saveTextInFile(String text, String file) {
+		File outputFile;
+		byte b[];
+		// Se guarda en el filename
+		outputFile = new File(file);
+		try {
+			FileOutputStream outputChannel = new FileOutputStream(outputFile);
 
-            b = text.getBytes();
-            try {
-                outputChannel.write(b);
-            } catch (IOException ex) {
-            }
+			b = text.getBytes();
+			try {
+				outputChannel.write(b);
+			} catch (IOException ex) {
+			}
 
-            try {
-                outputChannel.close();
-            } catch (IOException ex) {
-            }
-        } catch (FileNotFoundException ex) {
-            String msg = "Impossible to generate file:\n\t" + file
-                    + ". \nIs the working directory created properly?\n"
-                    + "Check into \"Configuration -> Configurate the Computer\"";
-            MessageManager.basicErrorMessage(msg, "directories");
-        }
-    }
+			try {
+				outputChannel.close();
+			} catch (IOException ex) {
+			}
+		} catch (FileNotFoundException ex) {
+			String msg = "Impossible to generate file:\n\t" + file
+					+ ". \nIs the working directory created properly?\n"
+					+ "Check into \"Configuration -> Configurate the Computer\"";
+			MessageManager.basicErrorMessage(Folder.class.getName(), msg, "directories");
+		}
+	}
 
-    public static void appendTextToFile(String text, String file) {
-        FileWriter fw = null;
-        try {
-            boolean append = true;
-            fw = new FileWriter(file, append);
-            fw.write(text); //appends the string to the file
-        } catch (IOException ex) {
-        } finally {
-            try {
-                fw.close();
-            } catch (IOException ex) {
-            }
-        }
-    }
+	public static void appendTextToFile(String text, String file) {
+		FileWriter fw = null;
+		try {
+			boolean append = true;
+			fw = new FileWriter(file, append);
+			fw.write(text); // appends the string to the file
+		} catch (IOException ex) {
+		} finally {
+			try {
+				fw.close();
+			} catch (IOException ex) {
+			}
+		}
+	}
 
-    /**
-     * Get all files in a subfolder with the defined extension.
-     *
-     * @param folder
-     * @param extension if extension is null, will return all files in the
-     * folder.
-     * @return
-     */
-    public static List<String> obtainFilesInFolder(String folder, final String extension) {
-        File dir = new File(folder);
-        List<String> fileNames = new ArrayList<>();
+	/**
+	 * Get all files in a subfolder with the defined extension.
+	 * 
+	 * @param folder
+	 * @param extension
+	 *            if extension is null, will return all files in the folder.
+	 * @return
+	 */
+	public static List<String> obtainFilesInFolder(String folder, final String extension) {
+		File dir = new File(folder);
+		List<String> fileNames = new ArrayList<>();
 
-        File[] files;
+		File[] files;
 
-        if (extension != null) {
-            files = dir.listFiles(new FilenameFilter() {
-                @Override
-                public boolean accept(File dir, String filename) {
-                    return filename.endsWith(extension);
-                }
-            });
-        } else {
-            files = dir.listFiles();
-        }
+		if (extension != null) {
+			files = dir.listFiles(new FilenameFilter() {
+				@Override
+				public boolean accept(File dir, String filename) {
+					return filename.endsWith(extension);
+				}
+			});
+		} else {
+			files = dir.listFiles();
+		}
 
-        for (File f : files) {
-            fileNames.add(f.getName());
-        }
+		for (File f : files) {
+			fileNames.add(f.getName());
+		}
 
-        return fileNames;
-    }
+		return fileNames;
+	}
 
-    public static void generateFolder(String file) {
-        File f = new File(file);
-        try {
-            f.mkdir();
-        } catch (Exception e) {
-        }
-    }
-    
-    public static void makeFolderIfNotExist(String file) {
-        File f = new File(file);
-        f.mkdir();
-    }
+	public static void generateFolder(String file) {
+		File f = new File(file);
+		try {
+			f.mkdir();
+		} catch (Exception e) {
+		}
+	}
+
+	public static void makeFolderIfNotExist(String file) {
+		File f = new File(file);
+		f.mkdir();
+	}
 }

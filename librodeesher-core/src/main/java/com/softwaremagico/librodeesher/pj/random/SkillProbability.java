@@ -2,6 +2,7 @@ package com.softwaremagico.librodeesher.pj.random;
 
 import java.util.Map;
 
+import com.softwaremagico.files.Log;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
@@ -46,7 +47,7 @@ public class SkillProbability {
 			if (characterPlayer.getRemainingDevelopmentPoints() >= characterPlayer.getNewRankCost(
 					skill.getCategory(), characterPlayer.getCurrentLevelRanks(skill),
 					characterPlayer.getCurrentLevelRanks(skill) + 1)) {
-				System.out.println("-----------------------");
+				
 				System.out.println(preferredCategory() / 3);
 				probability += preferredCategory() / 3;
 				System.out.println(preferredSkill());
@@ -439,8 +440,7 @@ public class SkillProbability {
 	private int wizardPreferredSkills() {
 		// Algunos hechizos son mejores.
 		if (characterPlayer.isWizard()) {
-			if (characterPlayer.getRealmOfMagic().getRealmsOfMagic()
-					.equals(RealmOfMagic.ESSENCE)) {
+			if (characterPlayer.getRealmOfMagic().getRealmsOfMagic().equals(RealmOfMagic.ESSENCE)) {
 				if (skill.getName().toLowerCase().equals(Spanish.SHIELD_SPELLS_TAG)) {
 					return Math.max(50 - specializationLevel * 8, 10);
 				}
@@ -448,8 +448,7 @@ public class SkillProbability {
 					return Math.max(20 - specializationLevel * 5, 0);
 				}
 			}
-			if (characterPlayer.getRealmOfMagic().getRealmsOfMagic()
-					.equals(RealmOfMagic.MENTALISM)) {
+			if (characterPlayer.getRealmOfMagic().getRealmsOfMagic().equals(RealmOfMagic.MENTALISM)) {
 				if (skill.getName().toLowerCase().equals(Spanish.DODGE_SPELLS_TAG)) {
 					return Math.max(50 - specializationLevel * 8, 10);
 				}
@@ -554,8 +553,8 @@ public class SkillProbability {
 
 	private int maxRanks() {
 		if (characterPlayer.getCurrentLevelNumber() == 1
-				&& ((characterPlayer.getRealRanks(skill) > 10 && !characterPlayer
-						.isLifeStyle(skill)) || (characterPlayer.getRealRanks(skill) > 15))) {
+				&& ((characterPlayer.getRealRanks(skill) > 10 && !characterPlayer.isLifeStyle(skill)) || (characterPlayer
+						.getRealRanks(skill) > 15))) {
 			return -1000;
 		}
 		return 0;
