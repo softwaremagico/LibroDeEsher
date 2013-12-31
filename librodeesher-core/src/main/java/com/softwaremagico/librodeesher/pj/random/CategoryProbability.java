@@ -37,12 +37,9 @@ public class CategoryProbability {
 			return -100;
 		}
 
-		Integer cost = characterPlayer.getNewRankCost(category,
-				characterPlayer.getCurrentLevelRanks(category),
-				characterPlayer.getCurrentLevelRanks(category) + 1);
+		Integer cost = characterPlayer.getNewRankCost(category);
 		if (cost != null && cost <= Config.getCategoryMaxCost()) {
-			if (characterPlayer.getRemainingDevelopmentPoints() >= characterPlayer.getNewRankCost(category,
-					characterPlayer.getCurrentLevelRanks(category), 1)
+			if (characterPlayer.getRemainingDevelopmentPoints() >= characterPlayer.getNewRankCost(category)
 					&& category.getCategoryType().equals(CategoryType.STANDARD)) {
 				Log.debug(CategoryProbability.class.getName(),
 						"Probability of category '" + category.getName() + "'");
@@ -126,7 +123,7 @@ public class CategoryProbability {
 	 * How much it cost.
 	 */
 	private int categoryCostProbability() {
-		return (characterPlayer.getNewRankCost(category, characterPlayer.getCurrentLevelRanks(category), 1) - 5) * 10;
+		return (characterPlayer.getNewRankCost(category) - 5) * 10;
 	}
 
 	/**

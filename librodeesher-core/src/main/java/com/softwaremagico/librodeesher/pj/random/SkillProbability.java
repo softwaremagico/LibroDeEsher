@@ -36,28 +36,15 @@ public class SkillProbability {
 	public int getRankProbability() {
 		int probability = 0;
 		Log.debug(SkillProbability.class.getName(), "1");
-		if (!skill.isUsedInRandom() && characterPlayer.getRealRanks(skill) < 1) {
-			return -100;
+
+		// Avoid strange skills.
+		if (!skill.isUsedInRandom() && !characterPlayer.isCommon(skill)
+				&& suggestedSkillsRanks.get(skill.getName()) == 0) {
+			return Integer.MAX_VALUE;
 		}
 
-		Log.debug(SkillProbability.class.getName(), "2");
-		if (!skill.isUsedInRandom() && suggestedSkillsRanks.get(skill.getName()) == 0) {
-			return -1000;
-		}
-
-		Log.debug(
-				SkillProbability.class.getName(),
-				characterPlayer.getCurrentLevelRanks(skill)
-						+ " -> "
-						+ characterPlayer.getRemainingDevelopmentPoints()
-						+ " >= "
-						+ characterPlayer.getNewRankCost(skill, characterPlayer.getCurrentLevelRanks(skill),
-								characterPlayer.getTotalRanks(skill)) + " -- "
-						+ characterPlayer.getTotalRanks(skill));
 		if (characterPlayer.getCurrentLevelRanks(skill) <= 3) {
-			if (characterPlayer.getRemainingDevelopmentPoints() >= characterPlayer.getNewRankCost(
-					skill.getCategory(), characterPlayer.getTotalRanks(skill),
-					characterPlayer.getCurrentLevelRanks(skill))) {
+			if (characterPlayer.getRemainingDevelopmentPoints() >= characterPlayer.getNewRankCost(skill)) {
 
 				Log.debug(SkillProbability.class.getName(), "Probability of skill '" + skill.getName() + "'");
 				int preferredCategory = preferredCategory() / 3;
@@ -116,7 +103,7 @@ public class SkillProbability {
 		int bonus = 0;
 		bonus += Math.max(
 				characterPlayer.getCurrentLevelNumber()
-						- (characterPlayer.getNewRankCost(skill.getCategory(), 0, 1))
+						- characterPlayer.getNewRankCost(skill)
 						- characterPlayer.getRealRanks(skill) * 2, 0);
 		return bonus;
 	}
@@ -126,19 +113,15 @@ public class SkillProbability {
 	 */
 	private int skillExpensiveness() {
 		// Cheapest category must be used!
-		if (characterPlayer.getNewRankCost(skill.getCategory(), characterPlayer.getCurrentLevelRanks(skill),
-				characterPlayer.getCurrentLevelRanks(skill) + 1) == 1) {
+		if (characterPlayer.getNewRankCost(skill) == 1) {
 			return -100;
 		}
 		// Spells are a little more expensive that common categories. We make a
 		// softer probability.
 		if (skill.getCategory().getName().toLowerCase().equals(Spanish.BASIC_LIST_TAG)) {
-			return (characterPlayer.getNewRankCost(skill.getCategory(),
-					characterPlayer.getCurrentLevelRanks(skill),
-					characterPlayer.getCurrentLevelRanks(skill) + 1) - 8) * 10;
+			return (characterPlayer.getNewRankCost(skill) - 8) * 10;
 		}
-		return (characterPlayer.getNewRankCost(skill.getCategory(),
-				characterPlayer.getCurrentLevelRanks(skill), characterPlayer.getCurrentLevelRanks(skill) + 1) - 5) * 10;
+		return (characterPlayer.getNewRankCost(skill) - 5) * 10;
 	}
 
 	/**
@@ -153,21 +136,24 @@ public class SkillProbability {
 		// Horses for human and wolfs for orcs
 		if (skill.getName().toLowerCase().contains(Spanish.HORSES_TAG)
 				&& characterPlayer.getRace().getName().toLowerCase().contains(Spanish.ORCS_TAG)) {
-			return -1000;
+			return Integer.MAX_VALUE;
 		}
 		if (skill.getName().toLowerCase().contains(Spanish.WOLF_TAG)
 				&& !characterPlayer.getRace().getName().toLowerCase().contains(Spanish.ORCS_TAG)) {
-			return -1000;
+			return Integer.MAX_VALUE;
 		}
 		if (skill.getName().toLowerCase().contains(Spanish.BEARS_TAG)
 				&& !characterPlayer.getRace().getName().toLowerCase().contains(Spanish.DWARF_TAG)) {
-			return -1000;
+			return Integer.MAX_VALUE;
 		}
-
-		// Only racial attacks if it is a common skill.
-		if (skill.getName().toLowerCase().startsWith(Spanish.RACIAL_ATTACK_TAG)
-				&& !characterPlayer.isCommon(skill)) {
-			return -1000;
+		if (skill.getName().toLowerCase().contains(Spanish.CAMEL_TAG)
+				&& !characterPlayer.getCulture().getName().toLowerCase().contains(Spanish.DESERT)) {
+			return Integer.MAX_VALUE;
+		}
+		if (skill.getName().toLowerCase().contains(Spanish.ELEMENTAL_MOUNT)
+				&& !characterPlayer.getProfession().getName().toLowerCase()
+						.contains(Spanish.ELEMENTALIST_PROFESSION)) {
+			return Integer.MAX_VALUE;
 		}
 		return 0;
 	}
@@ -551,7 +537,7 @@ public class SkillProbability {
 			return 50 - skillExpensiveness() * 5;
 		}
 		if (characterPlayer.isRestricted(skill)) {
-			return -1000;
+			return -Integer.MAX_VALUE;
 		}
 		if (characterPlayer.isProfessional(skill)) {
 			return 90 - skillExpensiveness() * 10;

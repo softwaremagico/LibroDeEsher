@@ -101,4 +101,6 @@ public class Spanish {
 	public static final String KNIGHT_TRAINING = "caballero";
 	public static final String MARTIAL_ARTS_PREFIX = "artes marciales·";
 	public static final String SPELL_LAW_PREFIX = "ley del";
+	public static final String ELEMENTAL_MOUNT = "montura elemental";
+	public static final String DESERT = "desierto";
 }

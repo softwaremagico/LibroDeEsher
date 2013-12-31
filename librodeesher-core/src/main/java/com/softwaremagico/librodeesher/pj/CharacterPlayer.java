@@ -689,7 +689,7 @@ public class CharacterPlayer {
 		return getPreviousRanks(category) + getCurrentLevelRanks(category);
 	}
 
-	public Integer getTotalRanks(Skill skill) {
+	private Integer getTotalRanks(Skill skill) {
 		return getPreviousRanks(skill) + getCurrentLevelRanks(skill);
 
 	}
@@ -872,6 +872,16 @@ public class CharacterPlayer {
 	}
 
 	/**
+	 * Obtains the cost for purchasing a new rank.
+	 * 
+	 * @param category
+	 * @return
+	 */
+	public Integer getNewRankCost(Category category) {
+		return getNewRankCost(category, getTotalRanks(category), getCurrentLevelRanks(category));
+	}
+
+	/**
 	 * 
 	 * @param skill
 	 *            skill to be updated.
@@ -894,6 +904,16 @@ public class CharacterPlayer {
 			return getNewRankCost(skill.getCategory(), currentRanks, rankAdded);
 		}
 
+	}
+
+	/**
+	 * Obtains the cost for purchasing a new rank.
+	 * 
+	 * @param skill
+	 * @return
+	 */
+	public Integer getNewRankCost(Skill skill) {
+		return getNewRankCost(skill, getRealRanks(skill), getCurrentLevelRanks(skill));
 	}
 
 	/**
