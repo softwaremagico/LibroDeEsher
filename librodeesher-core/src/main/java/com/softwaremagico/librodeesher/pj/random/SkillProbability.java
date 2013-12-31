@@ -2,7 +2,6 @@ package com.softwaremagico.librodeesher.pj.random;
 
 import java.util.Map;
 
-import com.softwaremagico.files.Log;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
@@ -13,6 +12,7 @@ import com.softwaremagico.librodeesher.pj.magic.MagicListType;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
+import com.softwaremagico.log.Log;
 
 public class SkillProbability {
 	private CharacterPlayer characterPlayer;
@@ -35,47 +35,72 @@ public class SkillProbability {
 	 */
 	public int getRankProbability() {
 		int probability = 0;
+		Log.debug(SkillProbability.class.getName(), "1");
 		if (!skill.isUsedInRandom() && characterPlayer.getRealRanks(skill) < 1) {
 			return -100;
 		}
 
+		Log.debug(SkillProbability.class.getName(), "2");
 		if (!skill.isUsedInRandom() && suggestedSkillsRanks.get(skill.getName()) == 0) {
 			return -1000;
 		}
 
+		Log.debug(
+				SkillProbability.class.getName(),
+				characterPlayer.getCurrentLevelRanks(skill)
+						+ " -> "
+						+ characterPlayer.getRemainingDevelopmentPoints()
+						+ " >= "
+						+ characterPlayer.getNewRankCost(skill, characterPlayer.getCurrentLevelRanks(skill),
+								characterPlayer.getTotalRanks(skill)) + " -- "
+						+ characterPlayer.getTotalRanks(skill));
 		if (characterPlayer.getCurrentLevelRanks(skill) <= 3) {
 			if (characterPlayer.getRemainingDevelopmentPoints() >= characterPlayer.getNewRankCost(
-					skill.getCategory(), characterPlayer.getCurrentLevelRanks(skill),
-					characterPlayer.getCurrentLevelRanks(skill) + 1)) {
-				
-				System.out.println(preferredCategory() / 3);
-				probability += preferredCategory() / 3;
-				System.out.println(preferredSkill());
-				probability += preferredSkill();
-				System.out.println(bestSkills());
-				probability += bestSkills();
-				System.out.println(skillExpensiveness());
-				probability -= skillExpensiveness();
-				System.out.println(applyCharacterSpecialization());
-				probability += applyCharacterSpecialization();
-				System.out.println(stillNotUsedSkill());
-				probability += stillNotUsedSkill();
-				System.out.println(wizardPreferredSkills());
-				probability += wizardPreferredSkills();
-				System.out.println(warriorsPreferredSkills());
-				probability += warriorsPreferredSkills();
-				System.out.println(smartRandomness());
-				probability += smartRandomness();
-				System.out.println(ridicolousSkill());
-				probability += ridicolousSkill();
-				System.out.println(maxRanks());
-				probability += maxRanks();
+					skill.getCategory(), characterPlayer.getTotalRanks(skill),
+					characterPlayer.getCurrentLevelRanks(skill))) {
+
+				Log.debug(SkillProbability.class.getName(), "Probability of skill '" + skill.getName() + "'");
+				int preferredCategory = preferredCategory() / 3;
+				Log.debug(SkillProbability.class.getName(), "\t Preferred Category: " + preferredCategory);
+				probability += preferredCategory;
+				int preferredSkill = preferredSkill();
+				Log.debug(SkillProbability.class.getName(), "\t Preferred Skill: " + preferredSkill);
+				probability += preferredSkill;
+				int bestSkills = bestSkills();
+				Log.debug(SkillProbability.class.getName(), "\t Best Skills: " + bestSkills);
+				probability += bestSkills;
+				int skillExpensiveness = -skillExpensiveness();
+				Log.debug(SkillProbability.class.getName(), "\t Skill expensiveness: " + skillExpensiveness);
+				probability += skillExpensiveness;
+				int applyCharacterSpecialization = applyCharacterSpecialization();
+				Log.debug(SkillProbability.class.getName(), "\t Specialization: "
+						+ applyCharacterSpecialization);
+				probability += applyCharacterSpecialization;
+				int stillNotUsedSkill = stillNotUsedSkill();
+				Log.debug(SkillProbability.class.getName(), "\t Still not used: " + stillNotUsedSkill);
+				probability += stillNotUsedSkill;
+				int wizardPreferredSkills = wizardPreferredSkills();
+				Log.debug(SkillProbability.class.getName(), "\t Wizard skill: " + wizardPreferredSkills);
+				probability += wizardPreferredSkills;
+				int warriorsPreferredSkills = warriorsPreferredSkills();
+				Log.debug(SkillProbability.class.getName(), "\t Warrior skill: " + warriorsPreferredSkills);
+				probability += warriorsPreferredSkills;
+				int smartRandomness = smartRandomness();
+				Log.debug(SkillProbability.class.getName(), "\t Smart randomness: " + smartRandomness);
+				probability += smartRandomness;
+				int ridicolousSkill = ridicolousSkill();
+				Log.debug(SkillProbability.class.getName(), "\t Ridicolous Skill: " + ridicolousSkill);
+				probability += ridicolousSkill;
+				int maxRanks = maxRanks();
+				Log.debug(SkillProbability.class.getName(), "\t Max ranks: " + maxRanks);
+				probability += maxRanks;
 				// Ponemos una cota superior y una cota inferior.
 				if (probability > 90) {
 					probability = 90;
 				} else if (probability < tries * 3) {
 					probability = tries * 3;
 				}
+				Log.debug(SkillProbability.class.getName(), "\t Total: " + probability);
 				return probability;
 			}
 		}

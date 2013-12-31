@@ -1,4 +1,4 @@
-package com.softwaremagico.files;
+package com.softwaremagico.log;
 
 /*
  * #%L
@@ -30,14 +30,14 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
 public class Log {
 
-	private static final Logger logger = LoggerFactory.getLogger("com.softwaremagico.esher");
-
+	private static final Logger logger = Logger.getLogger("com.softwaremagico.esher");
+	
 	private Log() {
+		
 	}
 
 	/**

@@ -18,4 +18,5 @@ tmp
 *.zip
 esher.db*
 esher-test.db*
+LibroDeEsher.log*
 

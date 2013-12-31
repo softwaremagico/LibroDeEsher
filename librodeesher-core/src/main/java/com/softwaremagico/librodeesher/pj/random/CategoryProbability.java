@@ -10,6 +10,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryType;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.log.Log;
 
 public class CategoryProbability {
 	private CharacterPlayer characterPlayer;
@@ -43,18 +44,30 @@ public class CategoryProbability {
 			if (characterPlayer.getRemainingDevelopmentPoints() >= characterPlayer.getNewRankCost(category,
 					characterPlayer.getCurrentLevelRanks(category), 1)
 					&& category.getCategoryType().equals(CategoryType.STANDARD)) {
-				probability += characterPlayer.getCharacteristicsBonus(category);
-				probability += preferredCategory();
-				probability -= categoryCostProbability();
-				probability += bonusCommonSkills();
-				probability += tries * 3;
-				probability += smartBonus();
+				Log.debug(CategoryProbability.class.getName(),
+						"Probability of category '" + category.getName() + "'");
+				int getCharacteristicsBonus = characterPlayer.getCharacteristicsBonus(category);
+				Log.debug(CategoryProbability.class.getName(), "\t Characteristic bonus: "
+						+ getCharacteristicsBonus);
+				probability += getCharacteristicsBonus;
+				int preferredCategory = preferredCategory();
+				Log.debug(CategoryProbability.class.getName(), "\t Preferred category: " + preferredCategory);
+				probability += preferredCategory;
+				int categoryCostProbability = -categoryCostProbability();
+				Log.debug(CategoryProbability.class.getName(), "\t Category cost: " + categoryCostProbability);
+				probability += categoryCostProbability;
+				int bonusCommonSkills = bonusCommonSkills();
+				Log.debug(CategoryProbability.class.getName(), "\t Common skills: " + bonusCommonSkills);
+				probability += bonusCommonSkills;
+				int smartBonus = smartBonus();
+				Log.debug(CategoryProbability.class.getName(), "\t Smart bonus: " + bonusCommonSkills);
+				probability += smartBonus;
 				if (probability > 90) {
 					probability = 90;
+				} else if (probability < tries * 3) {
+					probability = tries * 3;
 				}
-				if (probability < 1) {
-					probability = 1;
-				}
+				Log.debug(CategoryProbability.class.getName(), "\t Total: " + probability);
 				return probability;
 			}
 		}

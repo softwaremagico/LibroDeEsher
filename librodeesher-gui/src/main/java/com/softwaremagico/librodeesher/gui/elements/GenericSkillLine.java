@@ -39,7 +39,8 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class GenericSkillLine extends BaseSkillLine {
 	private static final long serialVersionUID = -3194401962061016906L;
-	protected ListLabel skillNameLabel, bonusRankLabel, totalLabel, bonusCategory;
+	protected ListLabel skillNameLabel, bonusRankLabel, totalLabel, bonusCategory, otherBonus,
+			prevRanksLabel, bonusMagicObject;
 	protected Skill skill;
 	private Color background;
 
@@ -91,8 +92,8 @@ public class GenericSkillLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 5;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			ListLabel prevRanksLabel = new ListLabel(previousRanks.toString(), SwingConstants.CENTER,
-					columnWidth, columnHeight);
+			prevRanksLabel = new ListLabel(previousRanks.toString(), SwingConstants.CENTER, columnWidth,
+					columnHeight);
 			add(new ListBackgroundPanel(prevRanksLabel, background), gridBagConstraints);
 		}
 
@@ -144,8 +145,7 @@ public class GenericSkillLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 13;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			ListLabel otherBonus = new ListLabel(character.getBonus(skill).toString(), columnWidth,
-					columnHeight);
+			otherBonus = new ListLabel(character.getBonus(skill).toString(), columnWidth, columnHeight);
 			add(otherBonus, gridBagConstraints);
 		}
 
@@ -153,7 +153,7 @@ public class GenericSkillLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 15;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			ListLabel bonusMagicObject = new ListLabel("0", columnWidth, columnHeight);
+			bonusMagicObject = new ListLabel("0", columnWidth, columnHeight);
 			add(new ListBackgroundPanel(bonusMagicObject, background), gridBagConstraints);
 		}
 
@@ -176,6 +176,15 @@ public class GenericSkillLine extends BaseSkillLine {
 			totalLabel.setText(character.getTotalValue(skill).toString());
 		}
 		parentWindow.update();
+	}
+
+	public void updateRankValues() {
+		prevRanksLabel.setText(character.getPreviousRanks(skill).toString());
+		bonusRankLabel.setText(character.getRanksValue(skill).toString());
+		bonusCategory.setText(character.getTotalValue(skill.getCategory()).toString());
+		otherBonus.setText(character.getBonus(skill).toString());
+		bonusMagicObject.setText("0");
+		totalLabel.setText(character.getTotalValue(skill).toString());
 	}
 
 	@Override

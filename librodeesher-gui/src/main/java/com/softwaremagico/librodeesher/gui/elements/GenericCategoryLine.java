@@ -39,7 +39,8 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 
 public abstract class GenericCategoryLine extends BaseSkillLine {
 	private static final long serialVersionUID = 2914665641808878141L;
-	protected BoldListLabel categoryNameLabel, bonusRankLabel, totalLabel;
+	protected BoldListLabel categoryNameLabel, bonusRankLabel, totalLabel, prevRanksLabel, bonusCharLabel,
+			otherBonus, bonusMagicObject;
 
 	public GenericCategoryLine(CharacterPlayer character, Category category, Color background,
 			BaseSkillPanel parentWindow) {
@@ -107,8 +108,7 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 5;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			BoldListLabel prevRanksLabel = new BoldListLabel(previousRanks.toString(), columnWidth,
-					columnHeight);
+			prevRanksLabel = new BoldListLabel(previousRanks.toString(), columnWidth, columnHeight);
 			add(new ListBackgroundPanel(prevRanksLabel, background), gridBagConstraints);
 		}
 
@@ -153,8 +153,8 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 11;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			BoldListLabel bonusCharLabel = new BoldListLabel(character.getCharacteristicsBonus(category)
-					.toString(), columnWidth, columnHeight);
+			bonusCharLabel = new BoldListLabel(character.getCharacteristicsBonus(category).toString(),
+					columnWidth, columnHeight);
 			add(new ListBackgroundPanel(bonusCharLabel, background), gridBagConstraints);
 		}
 
@@ -162,8 +162,7 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 13;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			BoldListLabel otherBonus = new BoldListLabel(character.getBonus(category).toString(),
-					columnWidth, columnHeight);
+			otherBonus = new BoldListLabel(character.getBonus(category).toString(), columnWidth, columnHeight);
 			add(new ListBackgroundPanel(otherBonus, background), gridBagConstraints);
 		}
 
@@ -171,7 +170,7 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 15;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			BoldListLabel bonusMagicObject = new BoldListLabel("0", columnWidth, columnHeight);
+			bonusMagicObject = new BoldListLabel("0", columnWidth, columnHeight);
 			add(new ListBackgroundPanel(bonusMagicObject, background), gridBagConstraints);
 		}
 
@@ -221,8 +220,17 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 		}
 	}
 
-	public void updateRanks() {
+	public void updateCurrentRanks() {
 		setRanksSelected(character.getCurrentLevelRanks(category));
+	}
+
+	public void updateRankValues() {
+		prevRanksLabel.setText(character.getPreviousRanks(category).toString());
+		bonusRankLabel.setText(character.getRanksValue(category).toString());
+		bonusCharLabel.setText(character.getCharacteristicsBonus(category).toString());
+		otherBonus.setText(character.getBonus(category).toString());
+		bonusMagicObject.setText("0");
+		totalLabel.setText(character.getTotalValue(category).toString());
 	}
 
 }

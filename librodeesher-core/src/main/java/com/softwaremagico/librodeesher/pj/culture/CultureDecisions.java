@@ -32,7 +32,6 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.pj.categories.Category;

@@ -229,7 +229,7 @@ public class CharacterPlayer {
 	 * @return
 	 */
 	public boolean isPureWizard() {
-		return (getNewRankCost(CategoryFactory.getCategory(Spanish.BASIC_LIST_TAG), 0, 1) == 3);
+		return (getNewRankCost(CategoryFactory.getCategory(Spanish.BASIC_LIST_TAG), 0, 0) == 3);
 	}
 
 	/**
@@ -238,7 +238,7 @@ public class CharacterPlayer {
 	 * @return
 	 */
 	public boolean isHybridWizard() {
-		return (getNewRankCost(CategoryFactory.getCategory(Spanish.BASIC_LIST_TAG), 0, 1) == 3 && getRealmOfMagic()
+		return (getNewRankCost(CategoryFactory.getCategory(Spanish.BASIC_LIST_TAG), 0, 0) == 3 && getRealmOfMagic()
 				.getRealmsOfMagic().size() == 2);
 	}
 
@@ -248,7 +248,7 @@ public class CharacterPlayer {
 	 * @return
 	 */
 	public boolean isSemiWizard() {
-		return (getNewRankCost(CategoryFactory.getCategory(Spanish.BASIC_LIST_TAG), 0, 1) == 6);
+		return (getNewRankCost(CategoryFactory.getCategory(Spanish.BASIC_LIST_TAG), 0, 0) == 6);
 	}
 
 	public CultureDecisions getCultureDecisions() {
@@ -689,7 +689,7 @@ public class CharacterPlayer {
 		return getPreviousRanks(category) + getCurrentLevelRanks(category);
 	}
 
-	private Integer getTotalRanks(Skill skill) {
+	public Integer getTotalRanks(Skill skill) {
 		return getPreviousRanks(skill) + getCurrentLevelRanks(skill);
 
 	}
@@ -818,22 +818,29 @@ public class CharacterPlayer {
 		}
 	}
 
-	public CategoryCost getCategoryCost(Category category, Integer currentRanks) {
+	/**
+	 * Get the definition of the rank cost.
+	 * 
+	 * @param category
+	 * @param currentListRanks
+	 *            current ranks spent in this skill. In magic, higher levels are
+	 *            more expensive.
+	 * @return
+	 */
+	public CategoryCost getCategoryCost(Category category, Integer currentListRanks) {
 		if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
 			return getProfessionDecisions().getWeaponCost(category);
 		} else if (category.getCategoryGroup().equals(CategoryGroup.SPELL)) {
 			return getProfession().getMagicCost(MagicListType.getMagicTypeOfCategory(category.getName()),
-					currentRanks);
+					currentListRanks);
 		} else {
 			return getProfession().getCategoryCost(category.getName());
 		}
 	}
 
-	public Integer getMaxRanksPerLevel(Category category, Integer currentRanks) {
+	public Integer getMaxRanksPerLevel(Category category, Integer currentListRanks) {
 		try {
-			// CurrentRanks + 1 to ensure that we do not have more ranks when
-			// update spell range cost.
-			return getCategoryCost(category, currentRanks + 1).getMaxRanksPerLevel();
+			return getCategoryCost(category, currentListRanks).getMaxRanksPerLevel();
 		} catch (NullPointerException npe) {
 			return 0;
 		}
@@ -846,7 +853,8 @@ public class CharacterPlayer {
 	 *            category to be updated.
 	 * @param currentRanks
 	 *            Current ranks in category or skill. Must include old levels
-	 *            ranks and previous ranks included in this new level.
+	 *            ranks and previous ranks included in this new level. Only used
+	 *            for spell cost (higher level spells are more expensive).
 	 * @param rankAdded
 	 *            If it is the first, second or third rank added at this level
 	 *            [0, 1, 2].
@@ -855,7 +863,7 @@ public class CharacterPlayer {
 	public Integer getNewRankCost(Category category, Integer currentRanks, Integer rankAdded) {
 		// If you have X currentRanks, the cost of the new one will be
 		// currentRanks + 1;
-		CategoryCost cost = getCategoryCost(category, currentRanks + 1);
+		CategoryCost cost = getCategoryCost(category, currentRanks);
 		if (cost == null || cost.getRankCost(rankAdded) == null) {
 			return Integer.MAX_VALUE;
 		}
@@ -863,8 +871,22 @@ public class CharacterPlayer {
 		return cost.getRankCost(rankAdded);
 	}
 
+	/**
+	 * 
+	 * @param skill
+	 *            skill to be updated.
+	 * @param currentRanks
+	 *            Current ranks in category or skill. Must include old levels
+	 *            ranks and previous ranks included in this new level. Only used
+	 *            for spell cost.
+	 * @param rankAdded
+	 *            If it is the first, second or third rank added at this level
+	 *            [0, 1, 2].
+	 * @return
+	 */
 	public Integer getNewRankCost(Skill skill, Integer currentRanks, Integer rankAdded) {
-		// Spell cost is increased if lots of spells are acquired in one level.
+		// Spell cost is increased if lots of spells are acquired in one level
+		// and also if spells of high level are purchased.
 		if (skill.getCategory().getCategoryGroup().equals(CategoryGroup.SPELL)) {
 			return getNewRankCost(skill.getCategory(), currentRanks, rankAdded)
 					* getCurrentLevel().getSpellRankMultiplier(skill);
@@ -895,7 +917,7 @@ public class CharacterPlayer {
 			return true;
 		}
 		// Expensive categories are useless.
-		if (getNewRankCost(category, 0, 0) > Config.getCategoryMaxCost()) {
+		if (getNewRankCost(category, 0, getTotalRanks(category)) > Config.getCategoryMaxCost()) {
 			return false;
 		}
 		if (category.getName().equals(Spanish.OTHER_REALM_TRAINING_LISTS)

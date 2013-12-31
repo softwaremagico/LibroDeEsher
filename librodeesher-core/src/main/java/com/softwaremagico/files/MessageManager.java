@@ -30,6 +30,8 @@ import java.io.Writer;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import com.softwaremagico.log.Log;
+
 public class MessageManager {
 
     private static final int LINE = 50;

@@ -123,14 +123,17 @@ public class SkillPanel extends BaseSkillPanel {
 
 	public void updateRanks() {
 		for (CategoryLine categoryLine : categoryLines) {
-			categoryLine.updateRanks();
+			categoryLine.updateCurrentRanks();
+			categoryLine.updateRankValues();
 		}
 		for (WeaponCategoryLine weaponLine : weaponsLines) {
-			weaponLine.updateRanks();
+			weaponLine.updateCurrentRanks();
+			weaponLine.updateRankValues();
 		}
 		for (Category category : skillLinesPerCategory.keySet()) {
 			for (SkillLine skillLine : skillLinesPerCategory.get(category)) {
 				skillLine.updateRanks();
+				skillLine.updateRankValues();
 			}
 		}
 	}

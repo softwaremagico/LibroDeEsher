@@ -99,10 +99,12 @@ public class Profession {
 	}
 
 	public boolean isCharacteristicProfessional(Characteristic characteristic) {
-		if (characteristicPreferences.size() > 0 && characteristic.getAbbreviature().equals(characteristicPreferences.get(0))) {
+		if (characteristicPreferences.size() > 0
+				&& characteristic.getAbbreviature().equals(characteristicPreferences.get(0))) {
 			return true;
 		}
-		if (characteristicPreferences.size() > 1 && characteristic.getAbbreviature().equals(characteristicPreferences.get(1))) {
+		if (characteristicPreferences.size() > 1
+				&& characteristic.getAbbreviature().equals(characteristicPreferences.get(1))) {
 			return true;
 		}
 		return false;
@@ -147,8 +149,8 @@ public class Profession {
 		}
 	}
 
-	public CategoryCost getMagicCost(MagicListType listType, Integer ranks) {
-		return magicCosts.getListCost(listType, MagicLevelRange.getLevelRange(ranks));
+	public CategoryCost getMagicCost(MagicListType listType, Integer currentListranks) {
+		return magicCosts.getListCost(listType, MagicLevelRange.getLevelRange(currentListranks + 1));
 	}
 
 	public CategoryCost getMagicCost(MagicListType listType, MagicLevelRange levelRange) {
