@@ -184,7 +184,7 @@ public class CharacterPlayer {
 		trainings = new ArrayList<>();
 		perks = new ArrayList<>();
 		setDefaultConfig();
-		// Start in level 1.
+		// Starts in level 1.
 		increaseLevel();
 	}
 
