@@ -38,7 +38,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.MapKey;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -100,11 +101,15 @@ public class CharacterPlayer {
 	@ElementCollection
 	@CollectionTable(name = "T_CHARACTERPLAYER_INITIAL_TEMPORAL_VALUES")
 	private Map<String, Integer> characteristicsInitialTemporalValues;
+
 	@ElementCollection
 	@CollectionTable(name = "T_CHARACTERPLAYER_POTENTIAL_VALUES")
 	private Map<String, Integer> characteristicsPotentialValues;
-	@ElementCollection(fetch = FetchType.LAZY)
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@CollectionTable(name = "T_CHARACTERPLAYER_TEMPORAL_CHARACTERISTICS_ROLLS")
+	@JoinColumn(name = "rollGroupId")
+	@MapKey(name = "characteristicAbbreviature")
 	private Map<String, RollGroup> characteristicsTemporalUpdatesRolls;
 	private boolean characteristicsConfirmed = false;
 
@@ -115,46 +120,56 @@ public class CharacterPlayer {
 	private String cultureName;
 	@Transient
 	private transient Culture culture;
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "cultureDecisionsId")
+	@Transient
+	// @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	// @JoinColumn(name = "cultureDecisionsId")
 	private CultureDecisions cultureDecisions;
 
 	private String professionName;
 	@Transient
 	private transient Profession profession;
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "professionDecisionsId")
+	@Transient
+	// @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	// @JoinColumn(name = "professionDecisionsId")
 	private ProfessionDecisions professionDecisions;
 
-	@ElementCollection
-	@CollectionTable(name = "T_CHARACTERPLAYER_TRAININGS")
+	@Transient
+	// @ElementCollection
+	// @CollectionTable(name = "T_CHARACTERPLAYER_TRAININGS")
 	private List<String> trainingsNames;
 	@Transient
 	private transient List<Training> trainings;
-	@ElementCollection
-	@CollectionTable(name = "T_CHARACTERPLAYER_TRAINING_DECISIONS")
+	@Transient
+	// @ElementCollection
+	// @CollectionTable(name = "T_CHARACTERPLAYER_TRAINING_DECISIONS")
 	private Map<String, TrainingDecision> trainingDecisions;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "professionalRealmId")
+	@Transient
+	// @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	// @JoinColumn(name = "professionalRealmId")
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "magicSpellListId")
+	@Transient
+	// @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	// @JoinColumn(name = "magicSpellListId")
 	private MagicSpellLists magicSpellLists;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "historialId")
+	@Transient
+	// @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	// @JoinColumn(name = "historialId")
 	private Historial historial;
 
-	@ElementCollection
-	@CollectionTable(name = "T_CHARACTERPLAYER_PERKS")
+	@Transient
+	// @ElementCollection
+	// @CollectionTable(name = "T_CHARACTERPLAYER_PERKS")
 	private List<Perk> perks;
-	@ElementCollection
-	@CollectionTable(name = "T_CHARACTERPLAYER_PERKS_DECISIONS")
+	@Transient
+	// @ElementCollection
+	// @CollectionTable(name = "T_CHARACTERPLAYER_PERKS_DECISIONS")
 	private Map<String, PerkDecision> perkDecisions;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id")
+	@Transient
+	// @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	// @JoinColumn(name = "id")
 	private Appearance appearance;
 
 	private boolean darkSpellsAsBasicListsAllowed = false;
@@ -162,8 +177,9 @@ public class CharacterPlayer {
 	private boolean chiPowersAllowed = false;
 	private boolean otherRealmtrainingSpellsAllowed = false;
 
-	@ElementCollection(fetch = FetchType.LAZY)
-	@CollectionTable(name = "T_CHARACTERPLAYER_LEVEL_UP")
+	@Transient
+	// @ElementCollection(fetch = FetchType.LAZY)
+	// @CollectionTable(name = "T_CHARACTERPLAYER_LEVEL_UP")
 	private List<LevelUp> levelUps;
 
 	public CharacterPlayer() {
@@ -194,8 +210,8 @@ public class CharacterPlayer {
 	}
 
 	/**
-	 * Default config is stored in a file and changed with the options windows.
-	 * When a new character is created, it uses this default config options.
+	 * Default config is stored in a file and changed with the options windows. When a new character is created, it uses
+	 * this default config options.
 	 */
 	private void setDefaultConfig() {
 		darkSpellsAsBasicListsAllowed = Config.getDarkSpellsAsBasic();
@@ -301,8 +317,7 @@ public class CharacterPlayer {
 	}
 
 	/**
-	 * Temporal value of the characteristic when starting the creation of the
-	 * character.
+	 * Temporal value of the characteristic when starting the creation of the character.
 	 * 
 	 * @param abbreviature
 	 * @return
@@ -523,7 +538,8 @@ public class CharacterPlayer {
 	private void setCharacteristicsTemporalUpdatesRolls() {
 		for (Characteristic characteristic : characteristics.getCharacteristics()) {
 			if (characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()) == null) {
-				characteristicsTemporalUpdatesRolls.put(characteristic.getAbbreviature(), new RollGroup());
+				characteristicsTemporalUpdatesRolls.put(characteristic.getAbbreviature(),
+						new RollGroup(characteristic.getAbbreviature()));
 			}
 			while (characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()).size() < STORED_ROLLS_NUMBER) {
 				characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()).add(new Roll());
@@ -553,8 +569,8 @@ public class CharacterPlayer {
 
 	private void setPotentialValues() {
 		for (Characteristic characteristic : characteristics.getCharacteristics()) {
-			Integer potential = Characteristics.getPotencial(characteristicsInitialTemporalValues
-					.get(characteristic.getAbbreviature()));
+			Integer potential = Characteristics.getPotencial(characteristicsInitialTemporalValues.get(characteristic
+					.getAbbreviature()));
 			characteristicsPotentialValues.put(characteristic.getAbbreviature(), potential);
 		}
 	}
@@ -588,8 +604,7 @@ public class CharacterPlayer {
 	}
 
 	public Integer getLanguageInitialRanks(String language) {
-		return Math.max(getCulture().getLanguageMaxRanks(language),
-				getRace().getLanguageInitialRanks(language));
+		return Math.max(getCulture().getLanguageMaxRanks(language), getRace().getLanguageInitialRanks(language));
 	}
 
 	public Integer getLanguageMaxInitialRanks(String language) {
@@ -735,8 +750,7 @@ public class CharacterPlayer {
 	}
 
 	public Integer getBonus(Skill skill) {
-		return getProfession().getSkillBonus(skill.getName()) + historial.getBonus(skill)
-				+ getPerkBonus(skill);
+		return getProfession().getSkillBonus(skill.getName()) + historial.getBonus(skill) + getPerkBonus(skill);
 	}
 
 	public Integer getPerkApperanceBonus() {
@@ -804,8 +818,7 @@ public class CharacterPlayer {
 	}
 
 	/**
-	 * In culture, weapon costs are not defined. Therefore, we will use the best
-	 * value.
+	 * In culture, weapon costs are not defined. Therefore, we will use the best value.
 	 * 
 	 * @param category
 	 * @return
@@ -823,8 +836,7 @@ public class CharacterPlayer {
 	 * 
 	 * @param category
 	 * @param currentListRanks
-	 *            current ranks spent in this skill. In magic, higher levels are
-	 *            more expensive.
+	 *            current ranks spent in this skill. In magic, higher levels are more expensive.
 	 * @return
 	 */
 	public CategoryCost getCategoryCost(Category category, Integer currentListRanks) {
@@ -852,12 +864,10 @@ public class CharacterPlayer {
 	 * @param category
 	 *            category to be updated.
 	 * @param currentRanks
-	 *            Current ranks in category or skill. Must include old levels
-	 *            ranks and previous ranks included in this new level. Only used
-	 *            for spell cost (higher level spells are more expensive).
+	 *            Current ranks in category or skill. Must include old levels ranks and previous ranks included in this
+	 *            new level. Only used for spell cost (higher level spells are more expensive).
 	 * @param rankAdded
-	 *            If it is the first, second or third rank added at this level
-	 *            [0, 1, 2].
+	 *            If it is the first, second or third rank added at this level [0, 1, 2].
 	 * @return
 	 */
 	public Integer getNewRankCost(Category category, Integer currentRanks, Integer rankAdded) {
@@ -886,12 +896,10 @@ public class CharacterPlayer {
 	 * @param skill
 	 *            skill to be updated.
 	 * @param currentRanks
-	 *            Current ranks in category or skill. Must include old levels
-	 *            ranks and previous ranks included in this new level. Only used
-	 *            for spell cost.
+	 *            Current ranks in category or skill. Must include old levels ranks and previous ranks included in this
+	 *            new level. Only used for spell cost.
 	 * @param rankAdded
-	 *            If it is the first, second or third rank added at this level
-	 *            [0, 1, 2].
+	 *            If it is the first, second or third rank added at this level [0, 1, 2].
 	 * @return
 	 */
 	public Integer getNewRankCost(Skill skill, Integer currentRanks, Integer rankAdded) {
@@ -917,8 +925,7 @@ public class CharacterPlayer {
 	}
 
 	/**
-	 * A category is not used if it has not skills or the cost is more than the
-	 * selected in the configuration.
+	 * A category is not used if it has not skills or the cost is more than the selected in the configuration.
 	 * 
 	 * @param category
 	 * @return
@@ -940,8 +947,7 @@ public class CharacterPlayer {
 		if (getNewRankCost(category, 0, getTotalRanks(category)) > Config.getCategoryMaxCost()) {
 			return false;
 		}
-		if (category.getName().equals(Spanish.OTHER_REALM_TRAINING_LISTS)
-				&& !isOtherRealmtrainingSpellsAllowed()) {
+		if (category.getName().equals(Spanish.OTHER_REALM_TRAINING_LISTS) && !isOtherRealmtrainingSpellsAllowed()) {
 			return false;
 		}
 		return true;
@@ -1030,8 +1036,7 @@ public class CharacterPlayer {
 			}
 		}
 		// Last cost for any extra categories.
-		return getProfession().getWeaponCategoryCost()
-				.get(getProfession().getWeaponCategoryCost().size() - 1);
+		return getProfession().getWeaponCategoryCost().get(getProfession().getWeaponCategoryCost().size() - 1);
 	}
 
 	public void setHistoryPoints(Skill skill, boolean value) {
@@ -1134,8 +1139,7 @@ public class CharacterPlayer {
 
 	public boolean isCommon(Skill skill) {
 		return skill.getSkillType().equals(SkillType.COMMON) || isCommonByPerk(skill)
-				|| getProfession().isCommon(skill) || professionDecisions.isCommon(skill)
-				|| getRace().isCommon(skill);
+				|| getProfession().isCommon(skill) || professionDecisions.isCommon(skill) || getRace().isCommon(skill);
 	}
 
 	private boolean isCommonByPerk(Skill skill) {
@@ -1180,8 +1184,7 @@ public class CharacterPlayer {
 		for (String trainingName : TrainingFactory.getAvailableTrainings()) {
 			// Correct race of training.
 			if (TrainingFactory.getTraining(trainingName).getLimitedRaces().size() > 0) {
-				if (!TrainingFactory.getTraining(trainingName).getLimitedRaces()
-						.contains(getRace().getName())) {
+				if (!TrainingFactory.getTraining(trainingName).getLimitedRaces().contains(getRace().getName())) {
 					continue;
 				}
 			}
@@ -1217,8 +1220,7 @@ public class CharacterPlayer {
 		return costModification;
 	}
 
-	private Integer getTrainingCharacteristicCostReduction(List<Characteristic> characteristics,
-			Training training) {
+	private Integer getTrainingCharacteristicCostReduction(List<Characteristic> characteristics, Training training) {
 		Integer costModification = 0;
 		for (Characteristic characteristic : characteristics) {
 			try {
@@ -1237,8 +1239,7 @@ public class CharacterPlayer {
 	public Integer getTrainingCost(String trainingName) {
 		Integer baseCost = getProfession().getTrainingCost(trainingName);
 		Training training = TrainingFactory.getTraining(trainingName);
-		baseCost += getTrainingSkillCostReduction(
-				SkillFactory.getSkills(training.getSkillRequirementsList()), training);
+		baseCost += getTrainingSkillCostReduction(SkillFactory.getSkills(training.getSkillRequirementsList()), training);
 		baseCost += getTrainingCharacteristicCostReduction(characteristics.getCharacteristics(), training);
 		return baseCost;
 	}
@@ -1250,8 +1251,8 @@ public class CharacterPlayer {
 	}
 
 	/**
-	 * The user must to choose one category from a training if the training has
-	 * this option and it has not been chosen before.
+	 * The user must to choose one category from a training if the training has this option and it has not been chosen
+	 * before.
 	 * 
 	 * @param trainingName
 	 * @return
@@ -1304,8 +1305,7 @@ public class CharacterPlayer {
 		return characteristicsInitialTemporalValues;
 	}
 
-	public void setCharacteristicsInitialTemporalValues(
-			Map<String, Integer> characteristicsInitialTemporalValues) {
+	public void setCharacteristicsInitialTemporalValues(Map<String, Integer> characteristicsInitialTemporalValues) {
 		this.characteristicsInitialTemporalValues = characteristicsInitialTemporalValues;
 	}
 
@@ -1321,8 +1321,7 @@ public class CharacterPlayer {
 		return characteristicsTemporalUpdatesRolls;
 	}
 
-	public void setCharacteristicsTemporalUpdatesRolls(
-			Map<String, RollGroup> characteristicsTemporalUpdatesRolls) {
+	public void setCharacteristicsTemporalUpdatesRolls(Map<String, RollGroup> characteristicsTemporalUpdatesRolls) {
 		this.characteristicsTemporalUpdatesRolls = characteristicsTemporalUpdatesRolls;
 	}
 

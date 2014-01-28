@@ -5,6 +5,8 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.softwaremagico.librodeesher.basics.Roll;
+import com.softwaremagico.librodeesher.basics.RollGroup;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.persistence.HibernateInitializator;
 import com.softwaremagico.persistence.dao.ICharacterPlayerDao;
@@ -45,6 +47,17 @@ public class CharacterPlayerDao implements ICharacterPlayerDao {
 		CharacterPlayer character = (CharacterPlayer) session.get(CharacterPlayer.class, id);
 		session.close();
 		return character;
+	}
+
+	@Override
+	public Roll makePersistent(Roll roll) {
+		Session session = getSessionFactory().openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(roll);
+		// Close transaction to delete db-journal.
+		session.getTransaction().commit();
+		session.close();
+		return roll;
 	}
 
 	@Override

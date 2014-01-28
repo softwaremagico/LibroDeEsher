@@ -35,8 +35,8 @@ import javax.persistence.Table;
 public class Roll {
 	@Id
 	@GeneratedValue
-	private Long id; // database id.
-	
+	private Long rollId; // database id.
+
 	@Column
 	private Integer firstDice;
 	@Column
@@ -63,12 +63,12 @@ public class Roll {
 		return secondDice;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getRollId() {
+		return rollId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setRollId(Long id) {
+		this.rollId = id;
 	}
 
 	public void setFirstDice(Integer firstDice) {
@@ -77,6 +77,10 @@ public class Roll {
 
 	public void setSecondDice(Integer secondDice) {
 		this.secondDice = secondDice;
+	}
+
+	public String toString() {
+		return "(" + firstDice + "," + secondDice + ")";
 	}
 
 }
