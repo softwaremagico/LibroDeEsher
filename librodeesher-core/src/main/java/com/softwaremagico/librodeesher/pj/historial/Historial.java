@@ -114,7 +114,7 @@ public class Historial {
 
 	public void setCharactersiticUpdate(String abbreviature, Roll roll) {
 		if (characteristicsUpdates.get(abbreviature) == null) {
-			characteristicsUpdates.put(abbreviature, new RollGroup());
+			characteristicsUpdates.put(abbreviature, new RollGroup(abbreviature));
 		}
 		characteristicsUpdates.get(abbreviature).add(roll);
 	}

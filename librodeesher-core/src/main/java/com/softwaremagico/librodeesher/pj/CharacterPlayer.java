@@ -40,6 +40,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -120,9 +121,9 @@ public class CharacterPlayer {
 	private String cultureName;
 	@Transient
 	private transient Culture culture;
-	@Transient
-	// @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	// @JoinColumn(name = "cultureDecisionsId")
+
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cultureDecisionsId")
 	private CultureDecisions cultureDecisions;
 
 	private String professionName;
@@ -133,9 +134,8 @@ public class CharacterPlayer {
 	// @JoinColumn(name = "professionDecisionsId")
 	private ProfessionDecisions professionDecisions;
 
-	@Transient
-	// @ElementCollection
-	// @CollectionTable(name = "T_CHARACTERPLAYER_TRAININGS")
+	@ElementCollection
+	@CollectionTable(name = "T_CHARACTERPLAYER_TRAININGS")
 	private List<String> trainingsNames;
 	@Transient
 	private transient List<Training> trainings;
@@ -167,9 +167,8 @@ public class CharacterPlayer {
 	// @CollectionTable(name = "T_CHARACTERPLAYER_PERKS_DECISIONS")
 	private Map<String, PerkDecision> perkDecisions;
 
-	@Transient
-	// @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	// @JoinColumn(name = "id")
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "id")
 	private Appearance appearance;
 
 	private boolean darkSpellsAsBasicListsAllowed = false;
