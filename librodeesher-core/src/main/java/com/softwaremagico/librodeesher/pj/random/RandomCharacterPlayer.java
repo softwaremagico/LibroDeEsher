@@ -57,8 +57,8 @@ public class RandomCharacterPlayer {
 		setCharacteristics(characterPlayer, getSpecializationLevel());
 		setCulture();
 		setDevelopmentPoints();
-		//setHistoryPoints();
-		//setPerksPoints();
+		setHistoryPoints(characterPlayer, getSpecializationLevel());
+		// setPerksPoints();
 		setLevels();
 	}
 
@@ -256,7 +256,7 @@ public class RandomCharacterPlayer {
 		return shuffledWeapons;
 	}
 
-	private int probablilityOfSetHobby(Skill skill, int loop) throws NullPointerException {
+	private int getProbablilityOfSetHobby(Skill skill, int loop) throws NullPointerException {
 		if (skill != null) {
 			// Max skills achieved or unused category.
 			if (characterPlayer.getTotalRanks(skill.getCategory()) == 0
@@ -282,15 +282,15 @@ public class RandomCharacterPlayer {
 			if (hobbies.size() > 0
 					&& SkillFactory.getAvailableSkill(hobbies.get(0)) != null
 					&& SkillFactory.getAvailableSkill(hobbies.get(0)).isUsedInRandom()
-					&& Math.random() * 100 + 1 < probablilityOfSetHobby(SkillFactory.getAvailableSkill(hobbies.get(0)),
-							loop)) {
+					&& Math.random() * 100 + 1 < getProbablilityOfSetHobby(
+							SkillFactory.getAvailableSkill(hobbies.get(0)), loop)) {
 				characterPlayer.getCultureDecisions().setHobbyRanks(hobbies.get(0),
 						characterPlayer.getCultureDecisions().getHobbyRanks(hobbies.get(0)) + 1);
 			}
 		}
 	}
 
-	private int LanguageProbability(String language) {
+	private int getLanguageProbability(String language) {
 		if ((characterPlayer.getCultureDecisions().getLanguageRanks(language) + 1 > characterPlayer
 				.getLanguageMaxInitialRanks(language))
 				|| (characterPlayer.getCultureDecisions().getLanguageRanks(language) > 10)) {
@@ -311,7 +311,7 @@ public class RandomCharacterPlayer {
 				randomLanguage = characterPlayer.getRace().getAvailableLanguages()
 						.get((int) (Math.random() * characterPlayer.getRace().getAvailableLanguages().size()));
 			}
-			if (Math.random() * 100 + 1 < LanguageProbability(randomLanguage)) {
+			if (Math.random() * 100 + 1 < getLanguageProbability(randomLanguage)) {
 				characterPlayer.getCultureDecisions().setLanguageRank(randomLanguage,
 						characterPlayer.getCultureDecisions().getLanguageRanks(randomLanguage) + 1);
 			}
@@ -360,7 +360,7 @@ public class RandomCharacterPlayer {
 	}
 
 	/**
-	 * Obtains the levesl greater than one. 
+	 * Obtains the levesl greater than one.
 	 */
 	private void setLevels() {
 		while (characterPlayer.getLevelUps().size() < finalLevel) {
@@ -403,7 +403,6 @@ public class RandomCharacterPlayer {
 				Log.info(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName() + "' (" + probability
 						+ "%), roll: " + roll);
 				if (roll < probability) {
-					System.out.println("Rank added!");
 					characterPlayer.getCurrentLevel().setSkillsRanks(skill,
 							characterPlayer.getCurrentLevel().getSkillsRanks(skill.getName()) + 1);
 					Log.info(RandomCharacterPlayer.class.getName(), "\tRank added!");
@@ -437,6 +436,36 @@ public class RandomCharacterPlayer {
 					}
 				}
 			}
+		}
+	}
+
+	/**
+	 * Sets randomly the history points.
+	 */
+	public static void setHistoryPoints(CharacterPlayer characterPlayer, int specializationLevel) {
+		int loops = 0;
+		while (characterPlayer.getRace().getHistorialPoints() < characterPlayer.getRemainingHistorialPoints()) {
+			List<Category> shuffledCategoryList = CategoryFactory.getCategories();
+			Collections.shuffle(shuffledCategoryList);
+			for (int i = 0; i < shuffledCategoryList.size(); i++) {
+				Category category = shuffledCategoryList.get(i);
+				if (Math.random() * 80 + 20 < characterPlayer.getTotalValue(category) / 3
+						+ (8 - characterPlayer.getNewRankCost(category, 0, 1) * specializationLevel + 3) + loops) {
+					characterPlayer.setHistoryPoints(category, true);
+				} else {
+					List<Skill> shuffledSkillList = category.getSkills();
+					Collections.shuffle(shuffledSkillList);
+					for (int j = 0; j < shuffledSkillList.size(); j++) {
+						Skill skill = shuffledSkillList.get(j);
+						if (Math.random() * 80 + 20 < characterPlayer.getTotalValue(skill) / 3
+								- (8 - characterPlayer.getNewRankCost(category, 0, 1) * specializationLevel + 3)
+								+ loops) {
+							characterPlayer.setHistoryPoints(skill, true);
+						}
+					}
+				}
+			}
+			loops += 10;
 		}
 	}
 }
