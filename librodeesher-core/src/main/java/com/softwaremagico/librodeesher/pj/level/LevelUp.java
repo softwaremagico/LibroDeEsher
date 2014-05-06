@@ -136,7 +136,7 @@ public class LevelUp {
 	 * @return
 	 */
 	public Integer getSpellRankMultiplier(Skill skill) {
-		Integer spellLists = null;
+		int spellLists = 0;
 		for (int i = 0; i < spellsUpdated.size(); i++) {
 			if (spellsUpdated.get(i).equals(skill.getName())) {
 				spellLists = i + 1;

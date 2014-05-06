@@ -56,6 +56,9 @@ public class RandomCharacterPlayer {
 		setMagicRealm();
 		setCharacteristics(characterPlayer, getSpecializationLevel());
 		setCulture();
+		setDevelopmentPoints();
+		//setHistoryPoints();
+		//setPerksPoints();
 		setLevels();
 	}
 
@@ -356,13 +359,14 @@ public class RandomCharacterPlayer {
 		}
 	}
 
+	/**
+	 * Obtains the levesl greater than one. 
+	 */
 	private void setLevels() {
-		while (characterPlayer.getLevelUps().size() <= finalLevel) {
+		while (characterPlayer.getLevelUps().size() < finalLevel) {
+			Log.info(this.getClass().getName(), " -----------  Subida de Nivel  --------------");
+			characterPlayer.increaseLevel();
 			setDevelopmentPoints();
-			if (characterPlayer.getLevelUps().size() < finalLevel) {
-				Log.info(this.getClass().getName(), " -----------  Subida de Nivel  --------------");
-				characterPlayer.increaseLevel();
-			}
 		}
 	}
 
@@ -379,7 +383,6 @@ public class RandomCharacterPlayer {
 
 	public static void setRandomRanks(CharacterPlayer characterPlayer, int specializationLevel,
 			Map<String, Integer> suggestedSkillsRanks, Integer tries) {
-		System.out.println("----------------------------------");
 		List<Category> shuffledCategoryList = CategoryFactory.getCategories();
 		Collections.shuffle(shuffledCategoryList);
 		// shuffle it!

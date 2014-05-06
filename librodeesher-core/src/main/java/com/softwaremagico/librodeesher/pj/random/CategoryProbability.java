@@ -41,11 +41,9 @@ public class CategoryProbability {
 		if (cost != null && cost <= Config.getCategoryMaxCost()) {
 			if (characterPlayer.getRemainingDevelopmentPoints() >= characterPlayer.getNewRankCost(category)
 					&& category.getCategoryType().equals(CategoryType.STANDARD)) {
-				Log.debug(CategoryProbability.class.getName(),
-						"Probability of category '" + category.getName() + "'");
+				Log.debug(CategoryProbability.class.getName(), "Probability of category '" + category.getName() + "'");
 				int getCharacteristicsBonus = characterPlayer.getCharacteristicsBonus(category);
-				Log.debug(CategoryProbability.class.getName(), "\t Characteristic bonus: "
-						+ getCharacteristicsBonus);
+				Log.debug(CategoryProbability.class.getName(), "\t Characteristic bonus: " + getCharacteristicsBonus);
 				probability += getCharacteristicsBonus;
 				int preferredCategory = preferredCategory();
 				Log.debug(CategoryProbability.class.getName(), "\t Preferred category: " + preferredCategory);
@@ -111,7 +109,7 @@ public class CategoryProbability {
 	private List<Skill> getSkillsWithSuggestedRanks() {
 		List<Skill> skills = new ArrayList<>();
 		for (Skill skill : category.getSkills()) {
-			if (suggestedSkillsRanks.get(skill.getName()) != null
+			if (suggestedSkillsRanks != null && suggestedSkillsRanks.get(skill.getName()) != null
 					&& suggestedSkillsRanks.get(skill.getName()) > 0) {
 				skills.add(skill);
 			}
