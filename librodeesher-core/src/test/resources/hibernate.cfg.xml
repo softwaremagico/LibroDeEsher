@@ -7,10 +7,10 @@
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
         <property name="dialect">org.hibernate.dialect.SQLiteDialect</property>
-        <property name="connection.driver_class">org.sqlite.JDBC</property>
-        <property name="connection.url">jdbc:sqlite:esher-test.db</property>
-        <property name="connection.username"></property>
-        <property name="connection.password"></property>         
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/esher</property>
+        <property name="connection.username">esher</property>
+        <property name="connection.password">esher</property>         
         <property name="hibernate.hbm2ddl.auto">create-drop</property>
          
 	<mapping class="com.softwaremagico.librodeesher.pj.CharacterPlayer"></mapping>

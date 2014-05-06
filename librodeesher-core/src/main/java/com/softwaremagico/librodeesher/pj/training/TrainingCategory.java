@@ -7,9 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -21,7 +23,8 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 @Table(name = "T_TRAINING_CATEGORY")
 public class TrainingCategory {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	@Column(name = "ID", unique = true, nullable = false)
 	private Long id; // database id.
 	private Integer categoryRanks;
 	private Integer minSkills;

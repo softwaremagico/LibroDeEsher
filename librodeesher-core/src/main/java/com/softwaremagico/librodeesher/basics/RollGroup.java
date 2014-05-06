@@ -5,9 +5,11 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -17,7 +19,8 @@ import javax.persistence.Table;
 @Table(name = "T_ROLL_GROUP")
 public class RollGroup {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	@Column(name = "ID", unique = true, nullable = false)
 	private Long rollGroupId; // database id.
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -31,9 +31,11 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -46,15 +48,16 @@ import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
 @Entity
 @Table(name = "T_CATEGORY")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Category {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	@Column(name = "ID", unique = true, nullable = false)
 	private Long id; // database id.
 
 	private String name;
 	protected String abbreviature;
-	protected CategoryType categorytype;
+	protected CategoryType categoryType;
 	protected CategoryGroup categoryGroup;
 	private String characterisitcsTags;
 	@ElementCollection
@@ -72,7 +75,7 @@ public abstract class Category {
 			List<Float> skillRankValues) {
 		this.name = name;
 		this.abbreviature = abbreviature;
-		this.categorytype = type;
+		this.categoryType = type;
 		this.skillRankValues = skillRankValues;
 		skills = new ArrayList<>();
 		this.characterisitcsTags = characteristicsTag;
@@ -125,7 +128,7 @@ public abstract class Category {
 	}
 
 	public CategoryType getCategoryType() {
-		return categorytype;
+		return categoryType;
 	}
 
 	public void setSkills(List<Skill> skills) {
@@ -264,7 +267,7 @@ public abstract class Category {
 	}
 
 	protected void setCategoryType(CategoryType type) {
-		this.categorytype = type;
+		this.categoryType = type;
 	}
 
 	protected void setGroup(CategoryGroup group) {

@@ -32,10 +32,12 @@ import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKey;
@@ -89,15 +91,15 @@ public class CharacterPlayer {
 	private static final Integer STORED_ROLLS_NUMBER = 10;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	@Column(name = "ID", unique = true, nullable = false)
 	private Long characterPlayerId; // database id.
 
 	private String name;
 	private SexType sex;
 	private String historyText;
 
-	@Transient
-	private Characteristics characteristics;
+	private static Characteristics characteristics = new Characteristics();
 
 	@ElementCollection
 	@CollectionTable(name = "T_CHARACTERPLAYER_INITIAL_TEMPORAL_VALUES")
@@ -144,31 +146,29 @@ public class CharacterPlayer {
 	// @CollectionTable(name = "T_CHARACTERPLAYER_TRAINING_DECISIONS")
 	private Map<String, TrainingDecision> trainingDecisions;
 
-	@Transient
-	// @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	// @JoinColumn(name = "professionalRealmId")
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "professionalRealmId")
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
+
 	@Transient
-	// @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	// @JoinColumn(name = "magicSpellListId")
+	//@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "magicSpellListId")
 	private MagicSpellLists magicSpellLists;
 
 	@Transient
-	// @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	// @JoinColumn(name = "historialId")
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "historialId")
 	private Historial historial;
 
-	@Transient
-	// @ElementCollection
-	// @CollectionTable(name = "T_CHARACTERPLAYER_PERKS")
+	@ElementCollection
+	@CollectionTable(name = "T_CHARACTERPLAYER_PERKS")
 	private List<Perk> perks;
-	@Transient
-	// @ElementCollection
-	// @CollectionTable(name = "T_CHARACTERPLAYER_PERKS_DECISIONS")
+
+	@ElementCollection
+	@CollectionTable(name = "T_CHARACTERPLAYER_PERKS_DECISIONS")
 	private Map<String, PerkDecision> perkDecisions;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id")
 	private Appearance appearance;
 
 	private boolean darkSpellsAsBasicListsAllowed = false;
@@ -182,7 +182,6 @@ public class CharacterPlayer {
 	private List<LevelUp> levelUps;
 
 	public CharacterPlayer() {
-		characteristics = new Characteristics();
 		appearance = new Appearance();
 		levelUps = new ArrayList<>();
 		historial = new Historial();

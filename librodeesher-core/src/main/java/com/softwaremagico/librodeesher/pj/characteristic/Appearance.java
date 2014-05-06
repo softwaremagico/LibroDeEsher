@@ -26,6 +26,7 @@ package com.softwaremagico.librodeesher.pj.characteristic;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
@@ -36,7 +37,8 @@ import com.softwaremagico.librodeesher.basics.Dice;
 @Table(name = "T_APPEARANCE")
 public class Appearance {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	@Column(name = "ID", unique = true, nullable = false)
 	private Long id; // database id.
 
 	@Column

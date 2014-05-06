@@ -28,9 +28,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -40,7 +42,8 @@ import com.softwaremagico.librodeesher.basics.ShowMessage;
 @Table(name = "T_CATEGORY_COST")
 public class CategoryCost {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	@Column(name = "ID", unique = true, nullable = false)
 	private Long categoryCostId; // database id.
 
 	@ElementCollection

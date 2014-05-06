@@ -33,14 +33,13 @@ import com.softwaremagico.librodeesher.basics.Dice;
 import com.softwaremagico.librodeesher.basics.Roll;
 
 public class Characteristics {
-	private Long id; // database id.
 	private final static String allowedCharacteristics = "AgCoMeRaAdEmInPrRpFu";
 	public static Map<String, String> characteristicAbbreviatureList;
 	public final static int TOTAL_CHARACTERISTICS_POINTS = 660;
 	public final static Integer INITIAL_CHARACTERISTIC_VALUE = 31;
 	public final static Integer MAX_INITIAL_CHARACTERISTIC_VALUE = 100;
 
-	private List<Characteristic> characteristics;
+	private static List<Characteristic> characteristics;
 
 	public Characteristics() {
 		createCharacteristics();
@@ -60,16 +59,15 @@ public class Characteristics {
 		characteristicAbbreviatureList.put("Fu", "Fuerza");
 	}
 
-	private void createCharacteristics() {
+	private static void createCharacteristics() {
 		characteristics = new ArrayList<>();
 
 		for (String abbreviature : characteristicAbbreviatureList.keySet()) {
-			characteristics.add(new Characteristic(abbreviature, characteristicAbbreviatureList
-					.get(abbreviature)));
+			characteristics.add(new Characteristic(abbreviature, characteristicAbbreviatureList.get(abbreviature)));
 		}
 	}
 
-	public List<Characteristic> getCharacteristics() {
+	public static List<Characteristic> getCharacteristics() {
 		return characteristics;
 	}
 
@@ -77,7 +75,7 @@ public class Characteristics {
 		return allowedCharacteristics.contains(abbrev);
 	}
 
-	public Characteristic getCharacteristicFromAbbreviature(String abrev) {
+	public static Characteristic getCharacteristicFromAbbreviature(String abrev) {
 		for (int i = 0; i < characteristics.size(); i++) {
 			Characteristic characteristic = characteristics.get(i);
 			if (characteristic.getAbbreviature().equals(abrev)) {
@@ -212,7 +210,7 @@ public class Characteristics {
 		return 0;
 	}
 
-	public Integer setTemporalIncrease(Integer currentTemporalValue, Integer potentialValue, Roll twoDices) {
+	public static Integer setTemporalIncrease(Integer currentTemporalValue, Integer potentialValue, Roll twoDices) {
 		Integer increase;
 		if (potentialValue - currentTemporalValue <= 10) {
 			if (twoDices.getFirstDice() != twoDices.getSecondDice()) {
@@ -248,16 +246,8 @@ public class Characteristics {
 		return increase;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public void setCharacteristics(List<Characteristic> characteristics) {
-		this.characteristics = characteristics;
+		Characteristics.characteristics = characteristics;
 	}
 
 }

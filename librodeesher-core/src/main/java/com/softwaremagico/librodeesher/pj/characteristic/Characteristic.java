@@ -3,7 +3,6 @@ package com.softwaremagico.librodeesher.pj.characteristic;
 import com.softwaremagico.librodeesher.basics.Roll;
 
 public class Characteristic {
-	private Long id; //database id.
 	private String abbreviature;
 	private String name;
 
@@ -78,14 +77,6 @@ public class Characteristic {
 		} else if (!abbreviature.equals(other.abbreviature))
 			return false;
 		return true;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public void setAbbreviature(String abbreviature) {
