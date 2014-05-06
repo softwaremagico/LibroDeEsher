@@ -29,13 +29,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKey;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.pj.categories.Category;
@@ -50,8 +55,9 @@ public class ProfessionDecisions {
 	@Column(name = "ID", unique = true, nullable = false)
 	private Long professionDecisionsId; // database id.
 	//Category -> cost
-	@ElementCollection
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@CollectionTable(name = "T_PROFESSION_WEAPON_COST_CHOSEN")
+	@JoinColumn(name = "categoryCostId")	
 	private Map<String, CategoryCost> weaponsCost;
 	@ElementCollection
 	@CollectionTable(name = "T_PROFESSION_COMMON_SKILLS_CHOSEN")

@@ -131,9 +131,8 @@ public class CharacterPlayer {
 	private String professionName;
 	@Transient
 	private transient Profession profession;
-	@Transient
-	// @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	// @JoinColumn(name = "professionDecisionsId")
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "professionDecisionsId")
 	private ProfessionDecisions professionDecisions;
 
 	@ElementCollection
@@ -141,9 +140,8 @@ public class CharacterPlayer {
 	private List<String> trainingsNames;
 	@Transient
 	private transient List<Training> trainings;
-	@Transient
-	// @ElementCollection
-	// @CollectionTable(name = "T_CHARACTERPLAYER_TRAINING_DECISIONS")
+	@ElementCollection
+	@CollectionTable(name = "T_CHARACTERPLAYER_TRAINING_DECISIONS")
 	private Map<String, TrainingDecision> trainingDecisions;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -151,8 +149,8 @@ public class CharacterPlayer {
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
 
 	@Transient
-	//@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//@JoinColumn(name = "magicSpellListId")
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "magicSpellListId")
 	private MagicSpellLists magicSpellLists;
 
 	@Transient
@@ -176,9 +174,9 @@ public class CharacterPlayer {
 	private boolean chiPowersAllowed = false;
 	private boolean otherRealmtrainingSpellsAllowed = false;
 
-	@Transient
-	// @ElementCollection(fetch = FetchType.LAZY)
-	// @CollectionTable(name = "T_CHARACTERPLAYER_LEVEL_UP")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@CollectionTable(name = "T_CHARACTERPLAYER_LEVEL_UP")
+	@JoinColumn(name = "id")
 	private List<LevelUp> levelUps;
 
 	public CharacterPlayer() {

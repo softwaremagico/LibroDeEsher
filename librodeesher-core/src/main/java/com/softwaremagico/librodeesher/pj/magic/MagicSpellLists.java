@@ -29,13 +29,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -51,8 +55,9 @@ public class MagicSpellLists {
 	@Column(name = "ID", unique = true, nullable = false)
 	private Long magicSpellListId; // database id.
 
-	@ElementCollection
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@CollectionTable(name = "T_MAGIC_CATEGORIES")
+	@JoinColumn(name = "id")	
 	private Map<MagicListType, Category> magicCategories; // Spells
 
 	public MagicSpellLists() {
