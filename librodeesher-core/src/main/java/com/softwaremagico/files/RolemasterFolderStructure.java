@@ -98,7 +98,6 @@ public class RolemasterFolderStructure implements Serializable {
 			// Delete '%20' if whitespaces are present.
 			path = URLDecoder.decode(path, "utf-8");
 		} catch (UnsupportedEncodingException ex) {
-			System.out.println("PATH2: " + path);
 			return path;
 		}
 		//If it is a maven dependency (i.e. when executing maven exec java)

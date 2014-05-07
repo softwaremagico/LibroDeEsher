@@ -89,8 +89,8 @@ public class Race {
 	private void readRaceFile(String raceName) throws Exception {
 		int lineIndex = 0;
 
-		String raceFile = RolemasterFolderStructure.getDirectoryModule(RaceFactory.RACE_FOLDER
-				+ File.separator + raceName + ".txt");
+		String raceFile = RolemasterFolderStructure.getDirectoryModule(RaceFactory.RACE_FOLDER + File.separator
+				+ raceName + ".txt");
 		if (raceFile.length() > 0) {
 			List<String> lines = Folder.readFileLines(raceFile, false);
 
@@ -170,8 +170,8 @@ public class Race {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			ShowMessage.showErrorMessage("Problema al leer los costes de progresiones de la raza " + name
-					+ ".", "Leer Raza");
+			ShowMessage.showErrorMessage("Problema al leer los costes de progresiones de la raza " + name + ".",
+					"Leer Raza");
 		}
 		return index;
 	}
@@ -195,8 +195,8 @@ public class Race {
 				index++;
 			}
 		} catch (Exception e) {
-			ShowMessage.showErrorMessage("Problema al leer las profesiones restringidas de la raza " + name
-					+ ".", "Leer Raza");
+			ShowMessage.showErrorMessage("Problema al leer las profesiones restringidas de la raza " + name + ".",
+					"Leer Raza");
 		}
 		return index;
 	}
@@ -209,8 +209,7 @@ public class Race {
 			soulDepartTime = Integer.parseInt(lines.get(index));
 			index++;
 		} catch (NumberFormatException nfe) {
-			ShowMessage.showErrorMessage("Numero de partida del alma irreconocible en '" + name + "'.",
-					"Leer Raza");
+			ShowMessage.showErrorMessage("Numero de partida del alma irreconocible en '" + name + "'.", "Leer Raza");
 			soulDepartTime = new Integer(0);
 		}
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
@@ -220,8 +219,7 @@ public class Race {
 			raceType = Integer.parseInt(lines.get(index));
 			index++;
 		} catch (NumberFormatException nfe) {
-			ShowMessage.showErrorMessage("Numero de tipo de raza irreconocible en '" + name + "'.",
-					"Leer Raza");
+			ShowMessage.showErrorMessage("Numero de tipo de raza irreconocible en '" + name + "'.", "Leer Raza");
 			raceType = new Integer(0);
 		}
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
@@ -236,8 +234,8 @@ public class Race {
 			restorationTime = Float.parseFloat(lines.get(index).replace(",", "."));
 			index++;
 		} catch (NumberFormatException nfe) {
-			ShowMessage.showErrorMessage("Numero de tiempo de recuperación irreconocible en línea " + index
-					+ ".", "Leer Raza");
+			ShowMessage.showErrorMessage("Numero de tiempo de recuperación irreconocible en línea " + index + ".",
+					"Leer Raza");
 			restorationTime = new Float(0);
 		}
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
@@ -247,8 +245,7 @@ public class Race {
 			languagePoints = Integer.parseInt(lines.get(index));
 			index++;
 		} catch (NumberFormatException nfe) {
-			ShowMessage.showErrorMessage("Numero de puntos de idiomas irreconocible en '" + name + "'.",
-					"Leer Raza");
+			ShowMessage.showErrorMessage("Numero de puntos de idiomas irreconocible en '" + name + "'.", "Leer Raza");
 			languagePoints = new Integer(0);
 		}
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
@@ -258,8 +255,7 @@ public class Race {
 			historialPoints = Integer.parseInt(lines.get(index));
 			index++;
 		} catch (NumberFormatException nfe) {
-			ShowMessage.showErrorMessage("Numero de puntos de historial irreconocible en '" + name + "'.",
-					"Leer Raza");
+			ShowMessage.showErrorMessage("Numero de puntos de historial irreconocible en '" + name + "'.", "Leer Raza");
 			historialPoints = new Integer(0);
 		}
 		return index;
@@ -291,11 +287,10 @@ public class Race {
 				maxRaceLanguages.put(language, Integer.parseInt(maxCultureLanguage[1]));
 
 			} catch (NumberFormatException nfe) {
-				ShowMessage.showErrorMessage("Valor de Idioma irreconocible en " + lines.get(index),
-						"Leer Raza");
+				ShowMessage.showErrorMessage("Valor de Idioma irreconocible en " + lines.get(index), "Leer Raza");
 			} catch (Exception e) {
-				ShowMessage.showErrorMessage("Error leyendo la linea de idiomas \"" + lines.get(index)
-						+ "\" en línea " + index + ".", "Leer Raza");
+				ShowMessage.showErrorMessage("Error leyendo la linea de idiomas \"" + lines.get(index) + "\" en línea "
+						+ index + ".", "Leer Raza");
 			}
 			index++;
 		}
@@ -509,6 +504,22 @@ public class Race {
 		} catch (NullPointerException npe) {
 			return false;
 		}
+	}
+
+	public Integer getSoulDepartTime() {
+		return soulDepartTime;
+	}
+
+	public Integer getRaceType() {
+		return raceType;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public Float getRestorationTime() {
+		return restorationTime;
 	}
 
 }

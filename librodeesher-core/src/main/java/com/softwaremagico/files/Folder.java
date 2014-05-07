@@ -116,10 +116,10 @@ public class Folder {
 	 *            The text to be written
 	 * @file the path to the file.
 	 */
-	public static boolean saveListInFile(List dataList, String file) {
+	public static boolean saveListInFile(List<String> dataList, String file) {
 		File outputFile;
 		byte b[];
-		// Se guarda en el filename
+		// Store it
 		outputFile = new File(file);
 		try {
 			outputFile.delete();
@@ -173,8 +173,7 @@ public class Folder {
 			} catch (IOException ex) {
 			}
 		} catch (FileNotFoundException ex) {
-			String msg = "Impossible to generate file:\n\t" + file
-					+ ". \nIs the working directory created properly?\n"
+			String msg = "Impossible to generate file:\n\t" + file + ". \nIs the working directory created properly?\n"
 					+ "Check into \"Configuration -> Configurate the Computer\"";
 			MessageManager.basicErrorMessage(Folder.class.getName(), msg, "directories");
 		}

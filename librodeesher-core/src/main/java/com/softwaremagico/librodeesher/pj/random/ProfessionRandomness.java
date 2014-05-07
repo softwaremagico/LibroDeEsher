@@ -127,7 +127,7 @@ public class ProfessionRandomness {
 				Skill basicList = SkillFactory.getSkill(Spanish.SPELL_LAW_PREFIX, elemento);
 
 				// Already has a rank in an elementalist list. Increase aimed spells skill.
-				if (characterPlayer.getRealRanks(basicList) > 0) {
+				if (basicList != null && characterPlayer.getRealRanks(basicList) > 0) {
 					return 10 * (characterPlayer.getRealRanks(basicList) - characterPlayer.getRealRanks(skill));
 				} else {
 					return -100;
