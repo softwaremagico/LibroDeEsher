@@ -59,6 +59,7 @@ public class RaceFactory {
 				return race;
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		ShowMessage.showErrorMessage("Raza no existente: " + raceName, "Creación de raza");
 		return null;
