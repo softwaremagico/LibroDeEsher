@@ -7,7 +7,7 @@ package com.softwaremagico.librodeesher.gui.characterBasics;
  * Copyright (C) 2007 - 2012 Softwaremagico
  * %%
  * This software is designed by Jorge Hortelano Otero. Jorge Hortelano Otero
- * <softwaremagico@gmail.com> C/Quart 89, 3. Valencia CP:46008 (Spain).
+ * <softwaremagico@gmail.com> Valencia (Spain).
  *  
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -37,6 +37,7 @@ import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
+import com.softwaremagico.log.Log;
 
 public class CharacterRacePanel extends BasePanel {
 	private static final long serialVersionUID = 178890486518380989L;
@@ -139,10 +140,14 @@ public class CharacterRacePanel extends BasePanel {
 	private void updateCultureComboBox() {
 		if (cultureComboBox != null) {
 			cultureComboBox.removeAllItems();
-			List<String> cultures = RaceFactory.getRace(getSelectedRace()).getAvailableCultures();
-			Collections.sort(cultures);
-			for (String culture : cultures) {
-				cultureComboBox.addItem(culture);
+			try {
+				List<String> cultures = RaceFactory.getRace(getSelectedRace()).getAvailableCultures();
+				Collections.sort(cultures);
+				for (String culture : cultures) {
+					cultureComboBox.addItem(culture);
+				}
+			} catch (NullPointerException npe) {
+				Log.errorMessage(CharacterRacePanel.class.getName(), npe);
 			}
 			if (character != null) {
 				if (character.getCulture() != null) {

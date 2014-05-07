@@ -39,6 +39,7 @@ import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 import com.softwaremagico.librodeesher.pj.weapons.WeaponFactory;
 import com.softwaremagico.librodeesher.pj.weapons.WeaponType;
+import com.softwaremagico.log.Log;
 
 public class CategoryFactory {
 
@@ -76,7 +77,11 @@ public class CategoryFactory {
 			List<Weapon> weaponsOfType = WeaponFactory.getWeaponsByType(weaponType);
 			Category categoryOfWeapon = availableCategories.get(weaponType.getWeaponCategoryName());
 			weaponsCategory.add(categoryOfWeapon);
+			try{
 			categoryOfWeapon.setSkills(convertWeaponsToSkills(weaponsOfType));
+			}catch(NullPointerException npe){
+				Log.errorMessage(CategoryFactory.class.getName(), npe);
+			}
 		}
 
 	}

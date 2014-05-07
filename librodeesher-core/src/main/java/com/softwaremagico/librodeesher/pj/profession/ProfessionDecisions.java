@@ -39,7 +39,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -54,10 +53,10 @@ public class ProfessionDecisions {
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "ID", unique = true, nullable = false)
 	private Long professionDecisionsId; // database id.
-	//Category -> cost
+	// Category -> cost
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@CollectionTable(name = "T_PROFESSION_WEAPON_COST_CHOSEN")
-	@JoinColumn(name = "categoryCostId")	
+	@JoinColumn(name = "categoryCostId")
 	private Map<String, CategoryCost> weaponsCost;
 	@ElementCollection
 	@CollectionTable(name = "T_PROFESSION_COMMON_SKILLS_CHOSEN")
@@ -82,6 +81,10 @@ public class ProfessionDecisions {
 
 	public CategoryCost getWeaponCost(Category category) {
 		return weaponsCost.get(category.getName());
+	}
+
+	public boolean isWeaponCostDecided() {
+		return weaponsCost.size() > 0;
 	}
 
 	public boolean isWeaponCostUsed(CategoryCost cost) {

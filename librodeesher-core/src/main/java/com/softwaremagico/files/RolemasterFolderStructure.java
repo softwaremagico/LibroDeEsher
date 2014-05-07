@@ -116,7 +116,7 @@ public class RolemasterFolderStructure implements Serializable {
 		List<String> files = new ArrayList<>();
 		List<String> modulosPermitidos = getAvailableModules();
 		for (int i = 0; i < modulosPermitidos.size(); i++) {
-			files.addAll(Folder.ObtainfilesSubdirectory(DIRECTORIO_MODULOS + File.separator
+			files.addAll(Folder.obtainfilesSubdirectory(DIRECTORIO_MODULOS + File.separator
 					+ modulosPermitidos.get(i) + File.separator + folder));
 		}
 		List<String> fileList = new ArrayList<>();
@@ -134,7 +134,7 @@ public class RolemasterFolderStructure implements Serializable {
 		List<String> files = new ArrayList<>();
 		List<String> modulosPermitidos = getAvailableModules();
 		for (int i = 0; i < modulosPermitidos.size(); i++) {
-			List<String> fileList = Folder.ObtainfilesSubdirectory(DIRECTORIO_MODULOS + File.separator
+			List<String> fileList = Folder.obtainfilesSubdirectory(DIRECTORIO_MODULOS + File.separator
 					+ modulosPermitidos.get(i) + File.separator + folder);
 			for (String file : fileList) {
 				files.add(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i) + File.separator
@@ -160,7 +160,7 @@ public class RolemasterFolderStructure implements Serializable {
 		List<String> modulosPermitidos = getAvailableModules();
 		for (int i = 0; i < modulosPermitidos.size(); i++) {
 			if (Folder
-					.ObtainfilesSubdirectory(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i))
+					.obtainfilesSubdirectory(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i))
 					.size() > 0) {
 				if (new File(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i) + File.separator
 						+ CATEGORIES_FILE).exists()) {
@@ -177,7 +177,7 @@ public class RolemasterFolderStructure implements Serializable {
 		List<String> modulosPermitidos = getAvailableModules();
 		for (int i = 0; i < modulosPermitidos.size(); i++) {
 			if (Folder
-					.ObtainfilesSubdirectory(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i))
+					.obtainfilesSubdirectory(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i))
 					.size() > 0) {
 				if (new File(DIRECTORIO_MODULOS + File.separator + modulosPermitidos.get(i) + File.separator
 						+ PERKS_FOLDER + File.separator + PERKS_FILE).exists()) {

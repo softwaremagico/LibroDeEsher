@@ -72,24 +72,24 @@ public class Folder {
 
 	private static List<String> searchfiles(String directory) throws Exception {
 		File dir = new File(directory);
-		String[] ficheros = dir.list();
-		List<String> filesDisponibles = new ArrayList<>();
-		filesDisponibles.addAll(Arrays.asList(ficheros));
+		String[] files = dir.list();
+		List<String> filesAvailable = new ArrayList<>();
+		filesAvailable.addAll(Arrays.asList(files));
 
 		List<String> listaDatos = new ArrayList<>();
-		for (int i = 0; i < filesDisponibles.size(); i++) {
-			String dato = filesDisponibles.get(i);
-			dato = dato.replaceAll(".txt", "");
-			if (!dato.contains("svn")) {
-				if (!dato.contains("plantilla")) {
-					listaDatos.add(dato);
+		for (int i = 0; i < filesAvailable.size(); i++) {
+			String data = filesAvailable.get(i);
+			data = data.replaceAll(".txt", "");
+			if (!data.contains("svn")) {
+				if (!data.contains("plantilla")) {
+					listaDatos.add(data);
 				}
 			}
 		}
 		return listaDatos;
 	}
 
-	public static List<String> ObtainfilesSubdirectory(String subdirectory) {
+	public static List<String> obtainfilesSubdirectory(String subdirectory) {
 		try {
 			return searchfiles(subdirectory);
 		} catch (Exception e) {
@@ -97,7 +97,7 @@ public class Folder {
 		}
 	}
 
-	public List<String> Disponiblesfiles() {
+	public List<String> availableFiles() {
 		return files;
 	}
 

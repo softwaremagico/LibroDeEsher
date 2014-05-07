@@ -7,7 +7,7 @@ package com.softwaremagico.librodeesher.gui.history;
  * Copyright (C) 2007 - 2013 Softwaremagico
  * %%
  * This software is designed by Jorge Hortelano Otero. Jorge Hortelano Otero
- * <softwaremagico@gmail.com> C/Quart 89, 3. Valencia CP:46008 (Spain).
+ * <softwaremagico@gmail.com> Valencia (Spain).
  *  
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -29,6 +29,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.util.HashMap;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -36,8 +37,10 @@ import javax.swing.JPanel;
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
+import com.softwaremagico.librodeesher.gui.elements.RandomButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 
 public class HistoryWindow extends BaseFrame {
 	private static final long serialVersionUID = -2770063842107842255L;
@@ -72,7 +75,7 @@ public class HistoryWindow extends BaseFrame {
 		gridBagConstraints.weightx = 0.7;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		skillPanel = new HistoryCompleteSkillPointsPanel(character, (BaseFrame)this);
+		skillPanel = new HistoryCompleteSkillPointsPanel(character, (BaseFrame) this);
 		getContentPane().add(skillPanel, gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -84,7 +87,7 @@ public class HistoryWindow extends BaseFrame {
 		gridBagConstraints.weightx = 0.3;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		characteristicPanel = new HistoryCompleteCharacteristicPanel(character, (BaseFrame)this);
+		characteristicPanel = new HistoryCompleteCharacteristicPanel(character, (BaseFrame) this);
 		getContentPane().add(characteristicPanel, gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -108,6 +111,23 @@ public class HistoryWindow extends BaseFrame {
 		getContentPane().add(developmentPointsPanel, gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+
+		RandomButton randomButton = new RandomButton() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void RandomAction() {
+				Integer tries = 0;
+				while (character.getRemainingHistorialPoints() > 0
+						&& tries <= RandomCharacterPlayer.MAX_TRIES) {
+					RandomCharacterPlayer.setHistoryPoints(character, 0);
+					tries++;
+				}
+				updateFrame();
+			}
+		};
+		buttonPanel.add(randomButton);
+
 		CloseButton closeButton = new CloseButton(this);
 		buttonPanel.add(closeButton);
 		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
