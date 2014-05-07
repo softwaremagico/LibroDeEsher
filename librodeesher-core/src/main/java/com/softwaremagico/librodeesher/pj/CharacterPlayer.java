@@ -700,7 +700,7 @@ public class CharacterPlayer {
 		return getPreviousRanks(category) + getCurrentLevelRanks(category);
 	}
 
-	private Integer getTotalRanks(Skill skill) {
+	public Integer getTotalRanks(Skill skill) {
 		return getPreviousRanks(skill) + getCurrentLevelRanks(skill);
 
 	}

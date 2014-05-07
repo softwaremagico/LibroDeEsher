@@ -177,12 +177,12 @@ public abstract class Category {
 			return definedSkillRankValues.get(1).intValue() * 10 + definedSkillRankValues.get(2).intValue()
 					* (ranksNumber - 10);
 		} else if (ranksNumber > 20 && ranksNumber <= 30) {
-			return definedSkillRankValues.get(1).intValue() * 10 + definedSkillRankValues.get(2).intValue()
-					* 10 + definedSkillRankValues.get(3).intValue() * (ranksNumber - 20);
+			return definedSkillRankValues.get(1).intValue() * 10 + definedSkillRankValues.get(2).intValue() * 10
+					+ definedSkillRankValues.get(3).intValue() * (ranksNumber - 20);
 		} else {
-			return definedSkillRankValues.get(1).intValue() * 10 + definedSkillRankValues.get(2).intValue()
-					* 10 + definedSkillRankValues.get(3).intValue() * 10
-					+ definedSkillRankValues.get(4).intValue() * (ranksNumber - 30);
+			return definedSkillRankValues.get(1).intValue() * 10 + definedSkillRankValues.get(2).intValue() * 10
+					+ definedSkillRankValues.get(3).intValue() * 10 + definedSkillRankValues.get(4).intValue()
+					* (ranksNumber - 30);
 		}
 	}
 

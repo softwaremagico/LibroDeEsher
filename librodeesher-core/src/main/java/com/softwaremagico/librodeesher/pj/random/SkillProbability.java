@@ -4,14 +4,10 @@ import java.util.Map;
 
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
-import com.softwaremagico.librodeesher.pj.categories.Category;
-import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.categories.CategoryType;
-import com.softwaremagico.librodeesher.pj.magic.MagicListType;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
-import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.log.Log;
 
 public class SkillProbability {
@@ -125,8 +121,9 @@ public class SkillProbability {
 	 * Devuelve un modificador de acuerdo con algunos criterios.
 	 */
 	private int smartRandomness() {
-		return randomnessByRace() + randomnessByProfession() + randomnessByRanks() + randomnessBySkill()
-				+ randomnessByOptions();
+		return randomnessByRace()
+				+ ProfessionRandomness.preferredSkillByProfession(characterPlayer, skill, specializationLevel)
+				+ randomnessByRanks() + randomnessBySkill() + randomnessByOptions();
 	}
 
 	private int randomnessByRace() {
@@ -152,190 +149,6 @@ public class SkillProbability {
 			return Integer.MAX_VALUE;
 		}
 		return 0;
-	}
-
-	private int randomnessByProfession() {
-		int bonus = 0;
-
-		// Para los hechiceros.
-		if (characterPlayer.isWizard()) {
-			// At least 3 basic lists.
-			if (skill.getCategory().getName().toLowerCase().equals(MagicListType.BASIC.getCategoryName().toLowerCase())) {
-				if (characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() < specializationLevel + 2) {
-					if (characterPlayer.getRealRanks(skill) < characterPlayer.getCurrentLevelNumber()
-							+ specializationLevel + 2) {
-						if (characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() < specializationLevel + 1) {
-							if (characterPlayer.isSemiWizard()) {
-								bonus += 65;
-							} else {
-								bonus += 50;
-							}
-						} else {
-							if (characterPlayer.isSemiWizard()) {
-								bonus += 35;
-							} else {
-								bonus += 25;
-							}
-						}
-					} else {
-						return -150;
-					}
-				}
-			}
-
-			if (skill.getCategory().getName().toLowerCase().equals(MagicListType.OPEN.getCategoryName().toLowerCase())) {
-				if (characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() < specializationLevel + 2) {
-					if (characterPlayer.getRealRanks(skill) < characterPlayer.getCurrentLevelNumber()
-							+ specializationLevel + 2) {
-						if (characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() == 0) {
-							if (characterPlayer.isSemiWizard()) {
-								bonus += 35;
-							} else {
-								bonus += 20;
-							}
-						} else {
-							bonus += 15;
-						}
-					} else {
-						return -100;
-					}
-				}
-			}
-			if (skill.getCategory().getName().toLowerCase()
-					.equals(MagicListType.CLOSED.getCategoryName().toLowerCase())) {
-				if (characterPlayer.getSkillsWithRanks(skill.getCategory()).size() < 3) {
-					if (characterPlayer.getRealRanks(skill) < characterPlayer.getCurrentLevelNumber()
-							+ specializationLevel + 2) {
-						if (characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() == 0) {
-							bonus += 20;
-						} else {
-							bonus += 10;
-						}
-					} else {
-						return -150;
-					}
-				}
-			}
-			if (skill.getCategory().getName().toLowerCase()
-					.equals(MagicListType.OTHER_PROFESSION.getCategoryName().toLowerCase())) {
-				if (characterPlayer.getRealRanks(skill) < characterPlayer.getCurrentLevelNumber() + specializationLevel
-						+ 2
-						&& characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() < 1) {
-					bonus += 5;
-				} else {
-					bonus -= 150;
-				}
-			}
-			if (skill.getCategory().getName().toLowerCase()
-					.equals(MagicListType.OTHER_REALM_OPEN.getCategoryName().toLowerCase())) {
-				if (characterPlayer.getRealRanks(skill) > characterPlayer.getCurrentLevelNumber() + specializationLevel
-						+ 2
-						|| characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() > 1) {
-					bonus -= 150;
-				}
-			}
-			if (skill.getCategory().getName().toLowerCase()
-					.equals(MagicListType.OTHER_REALM_CLOSED.getCategoryName().toLowerCase())) {
-				if (characterPlayer.getRealRanks(skill) > characterPlayer.getCurrentLevelNumber() + specializationLevel
-						+ 2
-						|| characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() > 1) {
-					bonus -= 150;
-				}
-			}
-			if (skill.getCategory().getName().toLowerCase()
-					.equals(MagicListType.OTHER_REALM_OTHER_PROFESSION.getCategoryName().toLowerCase())) {
-				if (characterPlayer.getRealRanks(skill) > characterPlayer.getCurrentLevelNumber() + specializationLevel
-						+ 2
-						|| characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() > 1) {
-					bonus -= 150;
-				}
-			}
-			if (skill.getCategory().getName().toLowerCase()
-					.equals(MagicListType.ARCHANUM.getCategoryName().toLowerCase())) {
-				if (characterPlayer.getRealRanks(skill) > characterPlayer.getCurrentLevelNumber() + specializationLevel
-						+ 2
-						|| characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() > 2) {
-					bonus -= 150;
-				}
-			}
-			if (skill.getName().startsWith(Spanish.AIMED_SPELLS)) {
-				String elemento = skill.getName().replaceAll(Spanish.AIMED_SPELLS, "");
-
-				Skill basicList = SkillFactory.getSkill(Spanish.SPELL_LAW_PREFIX, elemento);
-
-				if (characterPlayer.getRealRanks(basicList) > 0) {
-					bonus += 10 * (characterPlayer.getRealRanks(basicList) - characterPlayer.getRealRanks(skill));
-				} else {
-					bonus -= 150;
-				}
-			}
-			if (skill.getName().toLowerCase().equals("Desarrollo de Puntos de Poder")) {
-				if (characterPlayer.getCurrentLevelRanks(skill) == 0) {
-					bonus += 50;
-				} else {
-					if (characterPlayer.getRealRanks(skill) + characterPlayer.getCurrentLevelRanks(skill) < characterPlayer
-							.getCurrentLevelNumber()) {
-						bonus += 10 * (characterPlayer.getCurrentLevelNumber() - characterPlayer.getRealRanks(skill) + characterPlayer
-								.getCurrentLevelRanks(skill));
-					}
-					// Needs enough PPs.
-					if (characterPlayer.getTotalValue((CategoryFactory.getCategory("Desarrollo de Puntos de Poder"))
-							.getSkills().get(0)) < characterPlayer.getRanksValue(skill)) {
-						bonus += 100;
-					}
-				}
-			}
-		}
-
-		// Adrenal movements for monk.
-		if (!characterPlayer.getProfession().getName().contains(Spanish.MONK_PROFESSION)) {
-			if (skill.getName().toLowerCase().contains(Spanish.ADRENAL_SKILL)) {
-				bonus -= 50;
-			}
-		}
-
-		// Not so many martial arts for non monks professions.
-		if ((skill.getCategory().getName().toLowerCase().startsWith(Spanish.MARTIAL_ARTS_PREFIX))
-				&& characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() > 0
-				&& (characterPlayer.getNewRankCost(skill.getCategory(), 0, 1) > 3)) {
-			bonus -= 100;
-		}
-
-		// For warriors.
-		if (characterPlayer.isFighter()) {
-			if ((skill.getCategory().getCategoryGroup().equals(CategoryGroup.WEAPON))
-					&& characterPlayer.getCurrentLevelRanks(skill) == 0
-					&& characterPlayer.getCategoryCost(skill.getCategory(), 0).getRankCost().get(0) < 2) {
-				if (characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() < 2) {
-					bonus += 20;
-				}
-				if (characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() < 3) {
-					bonus += 10;
-				}
-			}
-
-			if (skill.getCategory().getCategoryType().equals(CategoryType.FD)
-					&& characterPlayer.getRealRanks(skill) < 10 && characterPlayer.getCurrentLevelRanks(skill) == 0) {
-				bonus += 20;
-			}
-			// A veces lo no hechiceros tienen hechizos de opciones de
-			// adiestramiento o cultura.
-			if (skill.getCategory().getCategoryType().equals(CategoryType.PPD)) {
-				Category cat1 = characterPlayer.getCategory(CategoryFactory.getCategory(Spanish.OPEN_LISTS));
-				Category cat2 = characterPlayer.getCategory(CategoryFactory.getCategory(Spanish.CLOSED_LISTS));
-
-				if (characterPlayer.getTotalValue(skill) < Math.max(characterPlayer.getMaxRanksPerLevel(cat1, 0),
-						characterPlayer.getMaxRanksPerLevel(cat2, 0))) {
-					bonus += Math.min(10 * characterPlayer.getCurrentLevelNumber(), 50);
-				}
-			}
-			if (skill.getCategory().getName().startsWith(Spanish.CULTURE_ARMOUR)
-					&& characterPlayer.getTotalValue(skill) < 30) {
-				bonus += 20;
-			}
-		}
-
-		return bonus;
 	}
 
 	private int randomnessByRanks() {
@@ -420,7 +233,7 @@ public class SkillProbability {
 				&& skill.getName().toLowerCase().contains(Spanish.FIREARMS_SUFIX)) {
 			return -10000;
 		}
-		
+
 		if (!characterPlayer.isChiPowersAllowed() && skill.getName().toLowerCase().startsWith(Spanish.CHI_SUFIX)) {
 			return -10000;
 		}
