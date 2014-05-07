@@ -446,7 +446,7 @@ public class RandomCharacterPlayer {
 	 */
 	public static void setHistoryPoints(CharacterPlayer characterPlayer, int specializationLevel) {
 		int loops = 0;
-		while (characterPlayer.getRace().getHistorialPoints() < characterPlayer.getRemainingHistorialPoints()) {
+		while (characterPlayer.getRemainingHistorialPoints() > 0) {
 			List<Category> shuffledCategoryList = CategoryFactory.getCategories();
 			Collections.shuffle(shuffledCategoryList);
 			for (int i = 0; i < shuffledCategoryList.size(); i++) {

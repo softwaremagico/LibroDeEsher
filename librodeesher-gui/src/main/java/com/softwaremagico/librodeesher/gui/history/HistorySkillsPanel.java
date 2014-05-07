@@ -74,7 +74,6 @@ public class HistorySkillsPanel extends BaseSkillPanel {
 	@Override
 	public void update() {
 		parent.update();
-
 	}
 
 	@Override

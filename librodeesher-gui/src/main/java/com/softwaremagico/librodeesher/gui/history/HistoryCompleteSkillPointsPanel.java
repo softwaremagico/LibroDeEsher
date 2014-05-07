@@ -42,6 +42,7 @@ public class HistoryCompleteSkillPointsPanel extends BaseScrollPanel {
 		addBody(skillPanel);
 	}
 
+	@Override
 	public void update() {
 		parent.updateFrame();
 	}
