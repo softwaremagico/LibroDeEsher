@@ -48,7 +48,7 @@ public class CategoryCost {
 
 	@ElementCollection
 	@CollectionTable(name = "T_RANK_COSTS")
-	List<Integer> rankCost;
+	private List<Integer> rankCost;
 
 	public CategoryCost(List<Integer> rankCost) {
 		this.rankCost = rankCost;

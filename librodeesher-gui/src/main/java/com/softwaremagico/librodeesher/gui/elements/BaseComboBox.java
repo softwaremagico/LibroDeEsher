@@ -65,6 +65,7 @@ public abstract class BaseComboBox<E> extends JComboBox<E> {
 		addActionListener(new ComboBoxListener());
 	}
 
+	@Override
 	public void doLayout() {
 		try {
 			super.doLayout();
@@ -73,14 +74,16 @@ public abstract class BaseComboBox<E> extends JComboBox<E> {
 		}
 	}
 
-	public Dimension getSize() {
-		Dimension dim = new Dimension((int) (COMBO_BOX_WIDTH * 1.2), COMBO_BOX_HEIGHT);
-		return dim;
-	}
+//	@Override
+//	public Dimension getSize() {
+//		Dimension dim = new Dimension((int) (COMBO_BOX_WIDTH * 1.2), COMBO_BOX_HEIGHT);
+//		return dim;
+//	}
 
 	public abstract void doAction();
 
 	public class ComboBoxListener implements ActionListener {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			doAction();
 		}

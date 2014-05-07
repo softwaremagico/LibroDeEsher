@@ -69,6 +69,7 @@ public class WeaponCategoryLine extends GenericCategoryLine {
 		updatingWeaponCost = false;
 	}
 
+	@Override
 	protected JPanel createCostPanel() {
 		JPanel costPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 1, 1));
 		costComboBox = new WeaponComboBox<>();
