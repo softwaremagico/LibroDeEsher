@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.history;
+
 /*
  * #%L
  * Libro de Esher
@@ -37,11 +38,15 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 public class HistorySkillsPanel extends BaseSkillPanel {
 	private static final long serialVersionUID = -1612700951233838060L;
 	private HashMap<Category, List<HistorySkillLine>> skillLinesPerCategory;
+	private HashMap<HistoryCategoryLine, List<HistorySkillLine>> skillLinesPerCategoryLine;
 	private HistoryCompleteSkillPointsPanel parent;
+	private List<HistoryCategoryLine> categoryLines;
 
 	public HistorySkillsPanel(CharacterPlayer character, HistoryCompleteSkillPointsPanel parent) {
 		skillLinesPerCategory = new HashMap<>();
+		skillLinesPerCategoryLine = new HashMap<>();
 		this.parent = parent;
+		categoryLines = new ArrayList<>();
 		setElements(character);
 	}
 
@@ -53,7 +58,10 @@ public class HistorySkillsPanel extends BaseSkillPanel {
 			// Translate general category to player specific category.
 			category = character.getCategory(category);
 			if (character.isCategoryUseful(category)) {
-				add(new HistoryCategoryLine(character, category, getLineBackgroundColor(i), this));
+				HistoryCategoryLine categoryLine = new HistoryCategoryLine(character, category,
+						getLineBackgroundColor(i), this);
+				add(categoryLine);
+				categoryLines.add(categoryLine);
 				i++;
 
 				List<HistorySkillLine> skillLines = new ArrayList<>();
@@ -67,6 +75,7 @@ public class HistorySkillsPanel extends BaseSkillPanel {
 					}
 				}
 				skillLinesPerCategory.put(category, skillLines);
+				skillLinesPerCategoryLine.put(categoryLine, skillLines);
 			}
 		}
 	}
@@ -82,6 +91,15 @@ public class HistorySkillsPanel extends BaseSkillPanel {
 		if (skillLines != null) {
 			for (HistorySkillLine skillLine : skillLines) {
 				skillLine.update();
+			}
+		}
+	}
+
+	public void updateHistoryLines() {
+		for(HistoryCategoryLine categoryLine : skillLinesPerCategoryLine.keySet()){
+			categoryLine.updateComboBox();
+			for(HistorySkillLine skillLine : skillLinesPerCategoryLine.get(categoryLine)){
+				skillLine.updateComboBox();
 			}
 		}
 	}

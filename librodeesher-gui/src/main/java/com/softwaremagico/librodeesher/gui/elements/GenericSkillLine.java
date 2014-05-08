@@ -214,4 +214,8 @@ public class GenericSkillLine extends BaseSkillLine {
 		} catch (NullPointerException npe) {
 		}
 	}
+
+	public Skill getSkill() {
+		return skill;
+	}
 }

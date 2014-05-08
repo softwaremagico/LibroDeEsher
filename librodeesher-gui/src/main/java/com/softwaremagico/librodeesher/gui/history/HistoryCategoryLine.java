@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.history;
+
 /*
  * #%L
  * Libro de Esher
@@ -54,7 +55,7 @@ public class HistoryCategoryLine extends GenericCategoryLine {
 		historyCheckBox.addItemListener(new CheckBoxListener());
 		addColumn(panel, 0);
 	}
-	
+
 	class CheckBoxListener implements ItemListener {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
@@ -64,6 +65,10 @@ public class HistoryCategoryLine extends GenericCategoryLine {
 			}
 			update();
 		}
+	}
+
+	public void updateComboBox() {
+		historyCheckBox.setSelected(character.isHistoryPointSelected(getCategory()));
 	}
 
 	@Override

@@ -66,5 +66,9 @@ public class HistorySkillLine extends GenericSkillLine {
 			update();
 		}
 	}
+	
+	public void updateComboBox() {
+		historyCheckBox.setSelected(character.isHistoryPointSelected(getSkill()));
+	}
 
 }

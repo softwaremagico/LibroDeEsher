@@ -124,6 +124,7 @@ public class HistoryWindow extends BaseFrame {
 					tries++;
 				}
 				updateFrame();
+				updateHistoryLines();
 			}
 		};
 		buttonPanel.add(randomButton);
@@ -147,5 +148,9 @@ public class HistoryWindow extends BaseFrame {
 	public void updateFrame() {
 		setHistorialPointText();
 		characteristicPanel.update();
+	}
+	
+	public void updateHistoryLines(){
+		skillPanel.updateHistoryLines();
 	}
 }

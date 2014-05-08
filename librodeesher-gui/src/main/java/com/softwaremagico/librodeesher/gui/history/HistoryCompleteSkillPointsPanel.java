@@ -53,4 +53,8 @@ public class HistoryCompleteSkillPointsPanel extends BaseScrollPanel {
 		}
 	}
 
+	public void updateHistoryLines() {
+		skillPanel.updateHistoryLines();
+	}
+
 }

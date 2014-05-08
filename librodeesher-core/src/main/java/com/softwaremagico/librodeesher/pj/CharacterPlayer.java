@@ -973,10 +973,10 @@ public class CharacterPlayer {
 	 */
 	public boolean isSkillInteresting(Skill skill) {
 		// No ranks and no bonus, not interesting
-		if ((getRealRanks(skill) == 0) || getBonus(skill) > 0) {
-			return false;
+		if ((getTotalRanks(skill) > 0) || getBonus(skill) > 0) {
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	public Category getCategory(Category category) {
