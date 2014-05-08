@@ -482,4 +482,8 @@ public class Profession {
 		}
 		return Integer.MAX_VALUE;
 	}
+
+	public List<String> getCharacteristicPreferences() {
+		return characteristicPreferences;
+	}
 }

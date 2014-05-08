@@ -99,8 +99,6 @@ public class CharacterPlayer {
 	private SexType sex;
 	private String historyText;
 
-	private static Characteristics characteristics = new Characteristics();
-
 	@ElementCollection
 	@CollectionTable(name = "T_CHARACTERPLAYER_INITIAL_TEMPORAL_VALUES")
 	private Map<String, Integer> characteristicsInitialTemporalValues;
@@ -288,7 +286,7 @@ public class CharacterPlayer {
 	}
 
 	public List<Characteristic> getCharacteristics() {
-		return characteristics.getCharacteristics();
+		return Characteristics.getCharacteristics();
 	}
 
 	public Integer getCharacteristicSpecialBonus(String abbreviature) {
@@ -510,7 +508,7 @@ public class CharacterPlayer {
 
 	public Integer getCharacteristicsTemporalPointsSpent() {
 		Integer total = 0;
-		for (Characteristic characteristic : characteristics.getCharacteristics()) {
+		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
 			total += getCharacteristicsTemporalPointsSpent(characteristic.getAbbreviature());
 		}
 		return total;
@@ -522,7 +520,7 @@ public class CharacterPlayer {
 
 	public boolean isMainProfessionalCharacteristic(String abbreviature) {
 		return getProfession().isCharacteristicProfessional(
-				characteristics.getCharacteristicFromAbbreviature(abbreviature));
+				Characteristics.getCharacteristicFromAbbreviature(abbreviature));
 	}
 
 	public void setCharacteristicsAsConfirmed() {
@@ -532,7 +530,7 @@ public class CharacterPlayer {
 	}
 
 	private void setCharacteristicsTemporalUpdatesRolls() {
-		for (Characteristic characteristic : characteristics.getCharacteristics()) {
+		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
 			if (characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()) == null) {
 				characteristicsTemporalUpdatesRolls.put(characteristic.getAbbreviature(),
 						new RollGroup(characteristic.getAbbreviature()));
@@ -564,7 +562,7 @@ public class CharacterPlayer {
 	}
 
 	private void setPotentialValues() {
-		for (Characteristic characteristic : characteristics.getCharacteristics()) {
+		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
 			Integer potential = Characteristics.getPotencial(characteristicsInitialTemporalValues.get(characteristic
 					.getAbbreviature()));
 			characteristicsPotentialValues.put(characteristic.getAbbreviature(), potential);
@@ -592,7 +590,7 @@ public class CharacterPlayer {
 	}
 
 	private void setTemporalValuesOfCharacteristics() {
-		for (Characteristic characteristic : characteristics.getCharacteristics()) {
+		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
 			characteristicsInitialTemporalValues.put(characteristic.getAbbreviature(),
 					Characteristics.INITIAL_CHARACTERISTIC_VALUE);
 		}
@@ -1236,7 +1234,7 @@ public class CharacterPlayer {
 		Integer baseCost = getProfession().getTrainingCost(trainingName);
 		Training training = TrainingFactory.getTraining(trainingName);
 		baseCost += getTrainingSkillCostReduction(SkillFactory.getSkills(training.getSkillRequirementsList()), training);
-		baseCost += getTrainingCharacteristicCostReduction(characteristics.getCharacteristics(), training);
+		baseCost += getTrainingCharacteristicCostReduction(Characteristics.getCharacteristics(), training);
 		return baseCost;
 	}
 
@@ -1391,10 +1389,6 @@ public class CharacterPlayer {
 
 	public ProfessionalRealmsOfMagicOptions getRealmOfMagic() {
 		return realmOfMagic;
-	}
-
-	protected void setCharacteristics(Characteristics characteristics) {
-		this.characteristics = characteristics;
 	}
 
 	protected void setCultureDecisions(CultureDecisions cultureDecisions) {

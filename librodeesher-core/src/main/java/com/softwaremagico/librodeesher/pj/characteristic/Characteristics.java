@@ -39,11 +39,7 @@ public class Characteristics {
 	public final static Integer INITIAL_CHARACTERISTIC_VALUE = 31;
 	public final static Integer MAX_INITIAL_CHARACTERISTIC_VALUE = 100;
 
-	private static List<Characteristic> characteristics;
-
-	public Characteristics() {
-		createCharacteristics();
-	}
+	private static List<Characteristic> characteristics = new ArrayList<>();
 
 	static {
 		characteristicAbbreviatureList = new LinkedHashMap<>();
@@ -57,10 +53,6 @@ public class Characteristics {
 		characteristicAbbreviatureList.put("Pr", "Presencia");
 		characteristicAbbreviatureList.put("Rp", "Rapidez");
 		characteristicAbbreviatureList.put("Fu", "Fuerza");
-	}
-
-	private static void createCharacteristics() {
-		characteristics = new ArrayList<>();
 
 		for (String abbreviature : characteristicAbbreviatureList.keySet()) {
 			characteristics.add(new Characteristic(abbreviature, characteristicAbbreviatureList.get(abbreviature)));
