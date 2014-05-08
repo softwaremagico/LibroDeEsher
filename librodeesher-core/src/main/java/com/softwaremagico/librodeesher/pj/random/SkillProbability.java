@@ -108,7 +108,7 @@ public class SkillProbability {
 	private int skillExpensiveness() {
 		// Cheapest category must be used!
 		if (characterPlayer.getNewRankCost(skill) == 1) {
-			return -100;
+			return -50;
 		}
 		// Spells are a little more expensive that common categories. We make a
 		// softer probability.
@@ -122,7 +122,7 @@ public class SkillProbability {
 	 * Devuelve un modificador de acuerdo con algunos criterios.
 	 */
 	private int smartRandomness() {
-		return randomnessByRace()
+		return randomnessByRace() + randomnessByCulture()
 				+ ProfessionRandomness.preferredSkillByProfession(characterPlayer, skill, specializationLevel)
 				+ randomnessByRanks() + randomnessBySkill() + randomnessByOptions();
 	}
@@ -150,6 +150,16 @@ public class SkillProbability {
 			return MAX_VALUE;
 		}
 		return 0;
+	}
+	
+	private int randomnessByCulture(){
+		int bonus = 0;
+		// Only communication skills that already has ranks (to avoid extrange languages!).
+		if (skill.getCategory().getName().toLowerCase().contains(Spanish.COMUNICATION_CATEGORY)
+				&& characterPlayer.getTotalRanks(skill) == 0) {
+			bonus -= 40;
+		}
+		return bonus;
 	}
 
 	private int randomnessByRanks() {
