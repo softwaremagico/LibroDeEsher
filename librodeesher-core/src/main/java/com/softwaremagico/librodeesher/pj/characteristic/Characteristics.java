@@ -25,7 +25,7 @@ package com.softwaremagico.librodeesher.pj.characteristic;
  */
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,7 +46,7 @@ public class Characteristics {
 	}
 
 	static {
-		characteristicAbbreviatureList = new HashMap<>();
+		characteristicAbbreviatureList = new LinkedHashMap<>();
 		characteristicAbbreviatureList.put("Ag", "Agilidad");
 		characteristicAbbreviatureList.put("Co", "Constitución");
 		characteristicAbbreviatureList.put("Me", "Memoria");
