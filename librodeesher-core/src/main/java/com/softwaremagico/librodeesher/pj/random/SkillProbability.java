@@ -11,6 +11,7 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.log.Log;
 
 public class SkillProbability {
+	private final static int MAX_VALUE = 1000;
 	private CharacterPlayer characterPlayer;
 	private Skill skill;
 	private Map<String, Integer> suggestedSkillsRanks;
@@ -36,7 +37,7 @@ public class SkillProbability {
 		// Avoid strange skills.
 		if (!skill.isUsedInRandom() && !characterPlayer.isCommon(skill) && suggestedSkillsRanks != null
 				&& suggestedSkillsRanks.get(skill.getName()) != null && suggestedSkillsRanks.get(skill.getName()) == 0) {
-			return Integer.MAX_VALUE;
+			return MAX_VALUE;
 		}
 
 		if (characterPlayer.getCurrentLevelRanks(skill) <= 3) {
@@ -130,23 +131,23 @@ public class SkillProbability {
 		// Horses for human and wolfs for orcs
 		if (skill.getName().toLowerCase().contains(Spanish.HORSES_TAG)
 				&& characterPlayer.getRace().getName().toLowerCase().contains(Spanish.ORCS_TAG)) {
-			return Integer.MAX_VALUE;
+			return MAX_VALUE;
 		}
 		if (skill.getName().toLowerCase().contains(Spanish.WOLF_TAG)
 				&& !characterPlayer.getRace().getName().toLowerCase().contains(Spanish.ORCS_TAG)) {
-			return Integer.MAX_VALUE;
+			return MAX_VALUE;
 		}
 		if (skill.getName().toLowerCase().contains(Spanish.BEARS_TAG)
 				&& !characterPlayer.getRace().getName().toLowerCase().contains(Spanish.DWARF_TAG)) {
-			return Integer.MAX_VALUE;
+			return MAX_VALUE;
 		}
 		if (skill.getName().toLowerCase().contains(Spanish.CAMEL_TAG)
 				&& !characterPlayer.getCulture().getName().toLowerCase().contains(Spanish.DESERT)) {
-			return Integer.MAX_VALUE;
+			return MAX_VALUE;
 		}
 		if (skill.getName().toLowerCase().contains(Spanish.ELEMENTAL_MOUNT)
 				&& !characterPlayer.getProfession().getName().toLowerCase().contains(Spanish.ELEMENTALIST_PROFESSION)) {
-			return Integer.MAX_VALUE;
+			return MAX_VALUE;
 		}
 		return 0;
 	}
@@ -156,7 +157,7 @@ public class SkillProbability {
 
 		// No more than 50 ranks
 		if (characterPlayer.getRealRanks(skill) >= 50) {
-			return -1000;
+			return -MAX_VALUE;
 		}
 
 		// Point life are always good!
@@ -167,7 +168,7 @@ public class SkillProbability {
 		// No more than 10 ranks per language.
 		if (skill.getCategory().getName().toLowerCase().contains(Spanish.COMUNICATION_CATEGORY)
 				&& characterPlayer.getRealRanks(skill) > 9) {
-			return -1000;
+			return -MAX_VALUE;
 		}
 
 		// No so much communication skills.
@@ -177,16 +178,16 @@ public class SkillProbability {
 		}
 
 		if (skill.getName().toLowerCase().equals(Spanish.SOFT_LEATHER_TAG) && characterPlayer.getTotalValue(skill) > 30) {
-			return -1000;
+			return -MAX_VALUE;
 		}
 		if (skill.getName().toLowerCase().equals(Spanish.HARD_LEATHER_TAG) && characterPlayer.getTotalValue(skill) > 90) {
-			return -1000;
+			return -MAX_VALUE;
 		}
 		if (skill.getName().toLowerCase().equals(Spanish.CHAINMAIL_TAG) && characterPlayer.getTotalValue(skill) > 100) {
-			return -1000;
+			return -MAX_VALUE;
 		}
 		if (skill.getName().toLowerCase().equals(Spanish.CUIRASS_TAG) && characterPlayer.getTotalValue(skill) > 120) {
-			return -1000;
+			return -MAX_VALUE;
 		}
 
 		/*
@@ -204,12 +205,12 @@ public class SkillProbability {
 		// Main Guache cannot be the first weapon.
 		if (skill.getName().toLowerCase().equals(Spanish.MAIN_GAUCHE_TAG)
 				&& characterPlayer.getSkillsWithRanks(skill.getCategory()).size() < 1) {
-			return -10000;
+			return -MAX_VALUE;
 		}
 
 		// No rocks in random characters.
 		if (skill.getName().toLowerCase().contains(Spanish.ROCKS_TAG) && characterPlayer.getRealRanks(skill) < 1) {
-			return -10000;
+			return -MAX_VALUE;
 		}
 
 		// Sometimes too much weapons are learned.
@@ -230,17 +231,17 @@ public class SkillProbability {
 	private int randomnessByOptions() {
 		if (!characterPlayer.isFirearmsAllowed() && skill.getCategory().getCategoryGroup().equals(CategoryGroup.WEAPON)
 				&& skill.getCategory().getName().toLowerCase().contains(Spanish.FIREARMS_SUFIX)) {
-			return -10000;
+			return -MAX_VALUE;
 		}
 
 		if (!characterPlayer.isFirearmsAllowed()
 				&& skill.getCategory().getName().toLowerCase().contains(Spanish.COMBAT_SKILLS_TAG)
 				&& skill.getName().toLowerCase().contains(Spanish.FIREARMS_SUFIX)) {
-			return -10000;
+			return -MAX_VALUE;
 		}
 
 		if (!characterPlayer.isChiPowersAllowed() && skill.getName().toLowerCase().startsWith(Spanish.CHI_SUFIX)) {
-			return -10000;
+			return -MAX_VALUE;
 		}
 		return 0;
 	}
@@ -356,7 +357,7 @@ public class SkillProbability {
 			return Math.max(0, 50 - characterPlayer.getNewRankCost(skill) * 20);
 		}
 		if (characterPlayer.isRestricted(skill)) {
-			return -10000;
+			return -MAX_VALUE;
 		}
 		if (characterPlayer.isProfessional(skill)) {
 			return Math.max(0, 90 - characterPlayer.getNewRankCost(skill) * 20);
@@ -377,15 +378,15 @@ public class SkillProbability {
 				&& (skill.getName().toLowerCase().contains(Spanish.LICANTROPY_TAG)
 						|| skill.getName().toLowerCase().contains(Spanish.BEARS_TAG) || skill.getName().toLowerCase()
 						.contains(Spanish.CAMEL_TAG))) {
-			return -1000;
+			return -MAX_VALUE;
 		}
 		return 0;
 	}
 
 	private int maxRanks() {
 		if (((characterPlayer.getRealRanks(skill) > 10 && !characterPlayer.isLifeStyle(skill)) || (characterPlayer
-						.getRealRanks(skill) > 15))) {
-			return -1000;
+				.getRealRanks(skill) > 15))) {
+			return -MAX_VALUE;
 		}
 		return 0;
 	}
