@@ -159,7 +159,7 @@ public class SkillProbability {
 			return -1000;
 		}
 
-		// Siempre va bien tener algunos puntos de vida.
+		// Point life are always good!
 		if (skill.getCategory().getCategoryType().equals(CategoryType.FD) && characterPlayer.getRealRanks(skill) == 0) {
 			bonus += 40;
 		}
@@ -172,7 +172,7 @@ public class SkillProbability {
 
 		// No so much communication skills.
 		if (skill.getCategory().getName().toLowerCase().contains(Spanish.COMUNICATION_CATEGORY)
-				&& characterPlayer.getRealRanks(skill) > 60) {
+				&& characterPlayer.getTotalValue(skill) > 60) {
 			bonus -= 40;
 		}
 
@@ -218,6 +218,11 @@ public class SkillProbability {
 						.getNewRankCost(skill.getCategory(), 0, 1))
 				|| characterPlayer.getWeaponsLearnedInCurrentLevel() > 5 - specializationLevel) {
 			bonus -= 50;
+		}
+
+		// Not so many skills of the same category.
+		if (!characterPlayer.getSkillsWithNewRanks(skill.getCategory()).contains(skill)) {
+			bonus -= characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() * (specializationLevel + 2);
 		}
 		return bonus;
 	}
@@ -351,7 +356,7 @@ public class SkillProbability {
 			return Math.max(0, 50 - characterPlayer.getNewRankCost(skill) * 20);
 		}
 		if (characterPlayer.isRestricted(skill)) {
-			return -Integer.MAX_VALUE;
+			return -10000;
 		}
 		if (characterPlayer.isProfessional(skill)) {
 			return Math.max(0, 90 - characterPlayer.getNewRankCost(skill) * 20);
@@ -378,8 +383,7 @@ public class SkillProbability {
 	}
 
 	private int maxRanks() {
-		if (characterPlayer.getCurrentLevelNumber() == 1
-				&& ((characterPlayer.getRealRanks(skill) > 10 && !characterPlayer.isLifeStyle(skill)) || (characterPlayer
+		if (((characterPlayer.getRealRanks(skill) > 10 && !characterPlayer.isLifeStyle(skill)) || (characterPlayer
 						.getRealRanks(skill) > 15))) {
 			return -1000;
 		}
