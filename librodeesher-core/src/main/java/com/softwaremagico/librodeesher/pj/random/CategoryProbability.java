@@ -57,10 +57,9 @@ public class CategoryProbability {
 				int smartBonus = smartBonus();
 				Log.debug(CategoryProbability.class.getName(), "\t Smart bonus: " + bonusCommonSkills);
 				probability += smartBonus;
+				probability += tries * 3;
 				if (probability > 90) {
 					probability = 90;
-				} else if (probability < tries * 3) {
-					probability = tries * 3;
 				}
 				Log.debug(CategoryProbability.class.getName(), "\t Total: " + probability);
 				return probability;
@@ -121,7 +120,7 @@ public class CategoryProbability {
 	 * How much it cost.
 	 */
 	private int categoryCostProbability() {
-		return (characterPlayer.getNewRankCost(category) - 5) * 10;
+		return (int) ((Math.pow(characterPlayer.getNewRankCost(category), 2))) * 2;
 	}
 
 	/**

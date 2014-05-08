@@ -456,6 +456,12 @@ public class RandomCharacterPlayer {
 			}
 		}
 	}
+	
+	private static List<Category> getProfessionalShuffledCategories(){
+		List<Category> categoryList = CategoryFactory.getCategories();
+		Collections.shuffle(categoryList);
+		return categoryList;
+	}
 
 	/**
 	 * Sets randomly the history points.
@@ -463,8 +469,7 @@ public class RandomCharacterPlayer {
 	public static void setHistoryPoints(CharacterPlayer characterPlayer, int specializationLevel) {
 		int loops = 0;
 		while (characterPlayer.getRemainingHistorialPoints() > 0) {
-			List<Category> shuffledCategoryList = CategoryFactory.getCategories();
-			Collections.shuffle(shuffledCategoryList);
+			List<Category> shuffledCategoryList = getProfessionalShuffledCategories();
 			for (int i = 0; i < shuffledCategoryList.size(); i++) {
 				Category category = shuffledCategoryList.get(i);
 				if (!characterPlayer.isHistoryPointSelected(category)
