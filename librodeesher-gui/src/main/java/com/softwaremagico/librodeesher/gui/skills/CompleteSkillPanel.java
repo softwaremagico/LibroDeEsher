@@ -58,5 +58,9 @@ public class CompleteSkillPanel extends BaseScrollPanel {
 	public void updateRanks(){
 		skillPanel.updateRanks();
 	}
+	
+	public void updateWeaponCost(){
+		skillPanel.updateWeaponCost();
+	}
 
 }

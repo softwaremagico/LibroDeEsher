@@ -43,8 +43,10 @@ public class SkillPanel extends BaseSkillPanel {
 	private HashMap<Category, List<SkillLine>> skillLinesPerCategory;
 	private List<WeaponCategoryLine> weaponsLines;
 	private List<CategoryLine> categoryLines;
+	private CharacterPlayer characterPlayer;
 
 	public SkillPanel(CharacterPlayer character, CompleteSkillPanel parentWindow) {
+		characterPlayer = character;
 		this.parentWindow = parentWindow;
 		skillLinesPerCategory = new HashMap<>();
 		setElements(character);
@@ -135,6 +137,12 @@ public class SkillPanel extends BaseSkillPanel {
 				skillLine.updateRanks();
 				skillLine.updateRankValues();
 			}
+		}
+	}
+
+	public void updateWeaponCost() {
+		for (WeaponCategoryLine weaponLine : weaponsLines) {
+			weaponLine.setSelected(characterPlayer.getProfessionDecisions().getWeaponCost(weaponLine.getCategory()));
 		}
 	}
 }

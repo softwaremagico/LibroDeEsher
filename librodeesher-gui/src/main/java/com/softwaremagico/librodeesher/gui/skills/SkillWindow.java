@@ -146,6 +146,7 @@ public class SkillWindow extends BaseFrame {
 	private void updateSkillFrame() {
 		if (skillPanel != null) {
 			skillPanel.updateRanks();
+			skillPanel.updateWeaponCost();
 		}
 	}
 

@@ -53,7 +53,7 @@ public class WeaponCategoryLine extends GenericCategoryLine {
 		if (costPanel) {
 			costComboBox.setSelectedItem(cost);
 		}
-		updateWeaponCost();
+		updatePlayerWeaponCost();
 		enableRanks(0); // Weapon cost does not change. Current ranks calculus
 						// is not necessary.
 		updatingWeaponCost = false;
@@ -91,8 +91,12 @@ public class WeaponCategoryLine extends GenericCategoryLine {
 	protected void setSelectedIndex(Integer value) {
 		costComboBox.setSelectedIndex(value);
 	}
+	
+	protected void setSelected(CategoryCost categoryCost){
+		costComboBox.setSelectedItem(categoryCost);
+	}
 
-	private void updateWeaponCost() {
+	private void updatePlayerWeaponCost() {
 		if (costPanel) {
 			character.getProfessionDecisions().setWeaponCost(category,
 					(CategoryCost) costComboBox.getSelectedItem());
@@ -118,7 +122,7 @@ public class WeaponCategoryLine extends GenericCategoryLine {
 							previousSelectedIndex, weaponLineNumber);
 				}
 				previousSelectedIndex = costComboBox.getSelectedIndex();
-				updateWeaponCost();
+				updatePlayerWeaponCost();
 				enableRanks(0); // Weapon cost does not change. Current ranks
 								// calculus is not necessary.
 				parentWindow.update();
