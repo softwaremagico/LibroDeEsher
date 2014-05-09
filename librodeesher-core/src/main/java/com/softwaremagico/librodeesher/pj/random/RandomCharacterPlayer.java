@@ -486,6 +486,10 @@ public class RandomCharacterPlayer {
 			List<Category> shuffledCategoryList = getProfessionalShuffledCategories();
 			for (int i = 0; i < shuffledCategoryList.size(); i++) {
 				Category category = shuffledCategoryList.get(i);
+				//Avoid some categories.
+				if(category.getName().toLowerCase().contains(Spanish.COMUNICATION_CATEGORY)){
+					continue;
+				}
 				if (!characterPlayer.isHistoryPointSelected(category)
 						&& characterPlayer.getRemainingHistorialPoints() > 0
 						&& characterPlayer.getTotalRanks(category) > 0
