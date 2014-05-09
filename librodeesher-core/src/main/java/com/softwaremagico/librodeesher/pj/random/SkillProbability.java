@@ -32,7 +32,6 @@ public class SkillProbability {
 	 */
 	public int getRankProbability() {
 		int probability = 0;
-		Log.debug(SkillProbability.class.getName(), "1");
 
 		// Avoid strange skills.
 		if (!skill.isUsedInRandom() && !characterPlayer.isCommon(skill) && suggestedSkillsRanks != null
@@ -72,8 +71,11 @@ public class SkillProbability {
 				Log.debug(SkillProbability.class.getName(), "\t Smart randomness: " + smartRandomness);
 				probability += smartRandomness;
 				int ridicolousSkill = ridicolousSkill();
-				Log.debug(SkillProbability.class.getName(), "\t Ridicolous Skill: " + ridicolousSkill);
+				Log.debug(SkillProbability.class.getName(), "\t Ridicolous randomness: " + smartRandomness);
 				probability += ridicolousSkill;
+				int culturaslSkill = culturalSkill();
+				Log.debug(SkillProbability.class.getName(), "\t Cultural Skill: " + ridicolousSkill);
+				probability += culturaslSkill;
 				int maxRanks = maxRanks();
 				Log.debug(SkillProbability.class.getName(), "\t Max ranks: " + maxRanks);
 				probability += maxRanks;
@@ -151,8 +153,8 @@ public class SkillProbability {
 		}
 		return 0;
 	}
-	
-	private int randomnessByCulture(){
+
+	private int randomnessByCulture() {
 		int bonus = 0;
 		// Only communication skills that already has ranks (to avoid extrange languages!).
 		if (skill.getCategory().getName().toLowerCase().contains(Spanish.COMUNICATION_CATEGORY)
@@ -388,6 +390,27 @@ public class SkillProbability {
 				&& (skill.getName().toLowerCase().contains(Spanish.LICANTROPY_TAG)
 						|| skill.getName().toLowerCase().contains(Spanish.BEARS_TAG) || skill.getName().toLowerCase()
 						.contains(Spanish.CAMEL_TAG))) {
+			return -MAX_VALUE;
+		}
+		return 0;
+	}
+
+	private int culturalSkill() {
+		// No cultural knowledge from other cultures.
+		if (skill.getName().toLowerCase().startsWith(Spanish.REGIONAL_KNOWNLEDGE_TAG)
+				&& !skill.getName().toLowerCase().contains(characterPlayer.getCulture().getName())) {
+			return -MAX_VALUE;
+		}
+		if (skill.getName().toLowerCase().startsWith(Spanish.CULTURAL_KNOWNLEDGE_TAG)
+				&& !skill.getName().toLowerCase().contains(characterPlayer.getCulture().getName())) {
+			return -MAX_VALUE;
+		}
+		if (skill.getName().toLowerCase().startsWith(Spanish.FAUNA_KNOWNLEDGE_TAG)
+				&& !skill.getName().toLowerCase().contains(characterPlayer.getCulture().getName())) {
+			return -MAX_VALUE;
+		}
+		if (skill.getName().toLowerCase().startsWith(Spanish.FLORA_KNOWNLEDGE_TAG)
+				&& !skill.getName().toLowerCase().contains(characterPlayer.getCulture().getName())) {
 			return -MAX_VALUE;
 		}
 		return 0;
