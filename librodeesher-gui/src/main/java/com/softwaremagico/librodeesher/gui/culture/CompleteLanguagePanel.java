@@ -38,7 +38,7 @@ public class CompleteLanguagePanel extends BaseScrollPanel {
 		title = new CultureTitleLine("Idiomas", "Rangos (" + 0 + ")");
 		addTitle(title);
 		languagePanel = new LanguagePanel(character, title);
-		addBody(languagePanel);
+		setBody(languagePanel);
 	}
 
 	protected void setRankTitle(String rankLabelText) {

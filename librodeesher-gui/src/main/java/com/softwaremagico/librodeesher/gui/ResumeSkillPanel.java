@@ -35,7 +35,7 @@ public class ResumeSkillPanel extends BaseScrollPanel {
 		title = new ResumeSkillTitle();
 		addTitle(title);
 		skillPanel = new SkillListPanel();
-		addBody(skillPanel);
+		setBody(skillPanel);
 	}
 
 	public void update(CharacterPlayer character) {

@@ -32,6 +32,7 @@ import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.style.BaseTitleLine;
 
 public class CategoryTitleLine extends BaseTitleLine {
+	private static final long serialVersionUID = -6541968274982104115L;
 	private BaseLabel categoryLabel, minHabLabel, maxHabLabel, rankLabel;
 
 	public CategoryTitleLine() {

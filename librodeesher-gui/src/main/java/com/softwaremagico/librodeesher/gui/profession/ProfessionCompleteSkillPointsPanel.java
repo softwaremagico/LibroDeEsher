@@ -41,7 +41,7 @@ public class ProfessionCompleteSkillPointsPanel extends BaseScrollPanel {
 		title = new ProfessionSkillTitle();
 		addTitle(title);
 		skillPanel = new ProfessionSkillPanel(character, chooseGroup, this);
-		addBody(skillPanel);
+		setBody(skillPanel);
 	}
 
 	public void update() {

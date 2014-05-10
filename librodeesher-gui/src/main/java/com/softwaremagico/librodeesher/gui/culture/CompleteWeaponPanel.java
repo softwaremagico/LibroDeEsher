@@ -35,6 +35,6 @@ public class CompleteWeaponPanel extends BaseScrollPanel {
 		title = new CultureTitleLine("Armas", "Rangos");
 		addTitle(title);
 		weaponPanel = new ChooseWeaponPanel(character);
-		addBody(weaponPanel);
+		setBody(weaponPanel);
 	}
 }

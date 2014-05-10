@@ -36,7 +36,7 @@ public class CompleteHobbiesPanel extends BaseScrollPanel {
 		title = new CultureTitleLine("Aficiones", "Rangos (" + character.getCulture().getHobbyRanks() + ")");
 		addTitle(title);
 		weaponPanel = new HobbyPanel(character, title);
-		addBody(weaponPanel);
+		setBody(weaponPanel);
 	}
 
 	protected void setRankTitle(String rankLabelText) {

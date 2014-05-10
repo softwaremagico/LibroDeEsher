@@ -41,7 +41,7 @@ public class PerksListCompletePanel extends BaseScrollPanel {
 		title = new PerksListTitle();
 		addTitle(title);
 		perksPanel = new PerksListPanel(character, this);
-		addBody(perksPanel);
+		setBody(perksPanel);
 	}
 
 	public void update() {

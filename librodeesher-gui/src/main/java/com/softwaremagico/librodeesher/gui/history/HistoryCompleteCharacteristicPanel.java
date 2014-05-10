@@ -41,7 +41,7 @@ public class HistoryCompleteCharacteristicPanel extends BaseScrollPanel {
 		addTitle(title);
 		characteristicPanel = new HistoryCharacteristicPanel(character, this);
 		characteristicPanel.setParentWindow(parent);
-		addBody(characteristicPanel);
+		setBody(characteristicPanel);
 	}
 
 	public void update() {

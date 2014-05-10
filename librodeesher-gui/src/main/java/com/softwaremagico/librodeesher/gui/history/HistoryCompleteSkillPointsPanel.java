@@ -39,7 +39,7 @@ public class HistoryCompleteSkillPointsPanel extends BaseScrollPanel {
 		title = new HistorySkillTitle();
 		addTitle(title);
 		skillPanel = new HistorySkillsPanel(character, this);
-		addBody(skillPanel);
+		setBody(skillPanel);
 	}
 
 	@Override

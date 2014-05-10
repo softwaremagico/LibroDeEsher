@@ -36,7 +36,7 @@ public class CompleteSpellPanel extends BaseScrollPanel {
 		title = new CultureTitleLine("Hechizos", "Rangos (" + character.getCulture().getSpellRanks() + ")");
 		addTitle(title);
 		spellPanel = new SpellPanel(character, title);
-		addBody(spellPanel);
+		setBody(spellPanel);
 	}
 
 	protected void setRankTitle(String rankLabelText) {

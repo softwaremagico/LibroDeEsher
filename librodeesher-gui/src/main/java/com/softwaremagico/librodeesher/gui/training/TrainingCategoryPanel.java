@@ -26,9 +26,10 @@ package com.softwaremagico.librodeesher.gui.training;
 
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import com.softwaremagico.librodeesher.gui.culture.WeaponSkillLine;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.training.Training;
@@ -40,12 +41,12 @@ public class TrainingCategoryPanel extends BasePanel {
 	private CharacterPlayer character;
 	private CompleteCategoryPanel parent;
 	private List<TrainingSkillLine> trainingSkillLines = new ArrayList<>();
+	private Map<TrainingCategory, List<TrainingSkillLine>> trainingSkillLinesPerCategory = new HashMap<>();
 	private Training training;
 
-	public TrainingCategoryPanel(CharacterPlayer character, Training training, CompleteCategoryPanel parent) {
+	public TrainingCategoryPanel(CharacterPlayer character, CompleteCategoryPanel parent) {
 		this.character = character;
 		this.parent = parent;
-		this.training = training;
 		setElements();
 	}
 
@@ -59,6 +60,8 @@ public class TrainingCategoryPanel extends BasePanel {
 				TrainingCategoryLine categoryLine = new TrainingCategoryLine(character, category, this,
 						getLineBackgroundColor(i));
 				add(categoryLine);
+				trainingSkillLinesPerCategory.put(category, new ArrayList<TrainingSkillLine>());
+
 				i++;
 				String selectedCategory = category.getCategoryOptions().get(0);
 				for (TrainingSkill skill : category.getSkills(selectedCategory)) {
@@ -67,13 +70,19 @@ public class TrainingCategoryPanel extends BasePanel {
 					add(skillLine);
 					i++;
 					trainingSkillLines.add(skillLine);
+					trainingSkillLinesPerCategory.get(category).add(skillLine);
 				}
 			}
 		}
 	}
 
+	public void setTraining(Training training) {
+		this.training = training;
+	}
+
 	@Override
 	public void update() {
+		setElements();
 	}
 
 	protected Integer getSpinnerValues() {
@@ -82,6 +91,24 @@ public class TrainingCategoryPanel extends BasePanel {
 			total += lines.getSelectedRanks();
 		}
 		return total;
+	}
+
+	protected Integer getSpinnerValues(TrainingCategory category) {
+		Integer total = 0;
+		if (trainingSkillLinesPerCategory.get(category) != null) {
+			for (TrainingSkillLine lines : trainingSkillLinesPerCategory.get(category)) {
+				total += lines.getSelectedRanks();
+			}
+			return total;
+		}
+		return 0;
+	}
+
+	protected Integer getSkillsPerCategory(TrainingCategory category) {
+		if (trainingSkillLinesPerCategory.get(category) != null) {
+			return trainingSkillLinesPerCategory.get(category).size();
+		}
+		return 0;
 	}
 
 	public Training getTraining() {

@@ -32,18 +32,30 @@ public class CompleteCategoryPanel extends BaseScrollPanel {
 	private static final long serialVersionUID = -8277707872122891420L;
 	private CategoryTitleLine title;
 	private TrainingCategoryPanel categoryPanel;
+	private Training training;
+	private CharacterPlayer character;
 
-	public CompleteCategoryPanel(CharacterPlayer character, Training training) {
+	public CompleteCategoryPanel(CharacterPlayer character) {
+		this.character=character;
 		title = new CategoryTitleLine();
 		addTitle(title);
-		categoryPanel = new TrainingCategoryPanel(character, training, this);
-		addBody(categoryPanel);
+		categoryPanel = new TrainingCategoryPanel(character, this);
+		setBody(categoryPanel);
 	}
 
 	protected void sizeChanged() {
 		title.sizeChanged();
 	}
 
+	public void setTraining(Training training) {
+		this.training = training;
+		categoryPanel = new TrainingCategoryPanel(character, this);
+		setBody(categoryPanel);
+		categoryPanel.setTraining(training);
+		update();
+	}
+
+	@Override
 	public void update() {
 		categoryPanel.update();
 	}

@@ -1,7 +1,7 @@
 package com.softwaremagico.librodeesher.pj.training;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -21,18 +21,18 @@ class TrainingSkillsSelected {
 	private Long id; // database id.
 	@ElementCollection
 	@CollectionTable(name = "T_TRAINING_SKILLS_SELECTED_LIST_OF_SKILLS")
-	private List<String> skills;
+	private Map<TrainingSkill, Integer> skills;
 
 	public TrainingSkillsSelected() {
-		skills = new ArrayList<>();
+		skills = new HashMap<>();
 	}
 
-	public void add(String categoryName) {
-		skills.add(categoryName);
-	}
-
-	public List<String> getAll() {
-		return skills;
+	public void put(TrainingSkill skill, int ranks) {
+		if (ranks == 0) {
+			skills.remove(skill);
+		} else {
+			skills.put(skill, ranks);
+		}
 	}
 
 	protected Long getId() {
@@ -43,12 +43,12 @@ class TrainingSkillsSelected {
 		this.id = id;
 	}
 
-	protected List<String> getSkills() {
+	protected Map<TrainingSkill, Integer> getSkills() {
 		return skills;
 	}
 
-	protected void setSkills(List<String> skills) {
+	protected void setSkills(Map<TrainingSkill, Integer> skills) {
 		this.skills = skills;
 	}
-	
+
 }

@@ -37,7 +37,7 @@ public class CompleteSkillPanel extends BaseScrollPanel {
 		title = new SkillTitle();
 		addTitle(title);
 		skillPanel = new SkillPanel(character, this);
-		addBody(skillPanel);
+		setBody(skillPanel);
 	}
 	
 	

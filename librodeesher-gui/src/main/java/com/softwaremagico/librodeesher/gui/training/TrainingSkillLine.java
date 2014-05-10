@@ -118,8 +118,11 @@ public class TrainingSkillLine extends BaseLine {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				// Correct the spinner
-				if (parentPanel.getSpinnerValues() > trainingCategory.getSkillRanks()) {
+				// Correct the spinner if too much ranks
+				if (parentPanel.getSpinnerValues(trainingCategory) > trainingCategory.getSkillRanks()) {
+					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
+					// Correct the spinner if too much skills.
+				} else if (parentPanel.getSkillsPerCategory(trainingCategory) > trainingCategory.getMaxSkills()) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character
@@ -135,6 +138,7 @@ public class TrainingSkillLine extends BaseLine {
 	}
 
 	protected class SkillComboBox<E> extends BaseComboBox<E> {
+		private static final long serialVersionUID = 7410336849188101092L;
 
 		@Override
 		public void doAction() {

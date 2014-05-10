@@ -38,7 +38,7 @@ public class OptionsPanel extends BaseScrollPanel {
 		title = new OptionsTitle();
 		addTitle(title);
 		optionsListPanel = new OptionsListPanel(options, numberOfOptions, this);
-		addBody(optionsListPanel);
+		setBody(optionsListPanel);
 	}
 	
 	public List<String> getSelectedOptions(){

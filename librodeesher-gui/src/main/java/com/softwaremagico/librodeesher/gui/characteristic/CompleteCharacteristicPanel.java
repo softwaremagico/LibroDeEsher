@@ -37,7 +37,7 @@ public class CompleteCharacteristicPanel extends BaseScrollPanel {
 		title = new CharacteristicTitleLine();
 		addTitle(title);
 		characteristicPanel = new CharacteristicPanel();
-		addBody(characteristicPanel);
+		setBody(characteristicPanel);
 	}
 
 	public void setPotential() {

@@ -49,10 +49,12 @@ public class TrainingDecision {
 		}
 		return categories.getAll();
 	}
-	
-	public void addSkillRank(TrainingCategory trainingCategory, TrainingSkill skill, int ranks){
-		//TODO
-		//skillsSelected.get(trainingCategory)
+
+	public void addSkillRank(TrainingCategory trainingCategory, TrainingSkill skill, int ranks) {
+		if (skillsSelected.get(trainingCategory) == null) {
+			skillsSelected.put(trainingCategory, new TrainingSkillsSelected());
+		}
+		skillsSelected.get(trainingCategory).put(skill, ranks);
 	}
 
 	protected Long getId() {

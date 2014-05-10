@@ -24,6 +24,7 @@ package com.softwaremagico.librodeesher.gui.training;
  * #L%
  */
 
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -33,19 +34,21 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
+import com.softwaremagico.librodeesher.gui.elements.BaseTextField;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.style.BaseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 
 public class TrainingWindow extends BaseFrame {
+	private static final long serialVersionUID = 3835272249277413846L;
 	private CharacterPlayer character;
 	private JComboBox<String> trainingsAvailable;
 	private BaseButton addTraining;
@@ -53,10 +56,12 @@ public class TrainingWindow extends BaseFrame {
 	private PointsCounterTextField costDevelopmentPoints;
 	private BaseLabel pointsLabel;
 	private CompleteCategoryPanel categoryPanel;
+	private Training lastSelectedTraining = null;
+	private BaseTextField selectedTrainingName;
 
 	public TrainingWindow(CharacterPlayer character) {
 		this.character = character;
-		defineWindow(700, 400);
+		defineWindow(700, 500);
 		setElements();
 		setEvents();
 	}
@@ -86,7 +91,7 @@ public class TrainingWindow extends BaseFrame {
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 0;
+		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 0;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		getContentPane().add(createChooseTrainingPanel(), gridBagConstraints);
@@ -95,12 +100,22 @@ public class TrainingWindow extends BaseFrame {
 
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 1;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+		gridBagConstraints.weightx = 1;
+		gridBagConstraints.weighty = 0;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+		JPanel selectedTraining = createSelectedTrainingPanel();
+		getContentPane().add(selectedTraining, gridBagConstraints);
+
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 2;
 		gridBagConstraints.gridheight = 2;
 		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		categoryPanel = new CompleteCategoryPanel(character, null);
+		categoryPanel = new CompleteCategoryPanel(character);
 		getContentPane().add(categoryPanel, gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
@@ -110,7 +125,7 @@ public class TrainingWindow extends BaseFrame {
 		gridBagConstraints.fill = GridBagConstraints.NONE;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 3;
+		gridBagConstraints.gridy = 4;
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
@@ -149,20 +164,31 @@ public class TrainingWindow extends BaseFrame {
 
 	private JPanel createDevelopmentPointsPanel() {
 		JPanel developmentPointsPanel = new JPanel();
-		//developmentPointsPanel.setLayout(new BoxLayout(developmentPointsPanel, BoxLayout.X_AXIS));
 		pointsLabel = new BaseLabel("  PD Restantes: ");
 		developmentPointsPanel.add(pointsLabel);
-		setDevelopmentPointText();
 		remainingDevelopmentPoints = new PointsCounterTextField();
 		developmentPointsPanel.add(remainingDevelopmentPoints);
 		setDevelopmentPointText();
 		return developmentPointsPanel;
 	}
 
+	private JPanel createSelectedTrainingPanel() {
+		JPanel selectedPanel = new JPanel(new FlowLayout(FlowLayout.LEFT) );
+		BaseLabel training = new BaseLabel("Adiestramiento Seleccionado:");
+		selectedPanel.add(training);
+		selectedTrainingName = new BaseTextField();
+		selectedTrainingName.setEditable(false);
+		selectedTrainingName.setColumns(15);
+		selectedPanel.add(selectedTrainingName);
+		return selectedPanel;
+	}
+
 	@Override
 	public void updateFrame() {
 		setDevelopmentPointText();
-		categoryPanel.update();
+		lastSelectedTraining = TrainingFactory.getTraining(trainingsAvailable.getSelectedItem().toString());
+		categoryPanel.setTraining(lastSelectedTraining);
+		selectedTrainingName.setText(lastSelectedTraining.getName());
 		fillTrainingComboBox();
 	}
 

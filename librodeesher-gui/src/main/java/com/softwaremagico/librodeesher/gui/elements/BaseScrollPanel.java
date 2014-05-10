@@ -87,7 +87,7 @@ public class BaseScrollPanel extends BasePanel {
 		titlePanel.add(component, titleGridBagConstraints);
 	}
 
-	public void addBody(Component component) {
+	public void setBody(Component component) {
 		scrollPanel.setViewportView(component);
 	}
 
