@@ -80,4 +80,8 @@ public class TrainingDecision {
 	protected void setSkillsSelected(Map<TrainingCategory, TrainingSkillsSelected> skillsSelected) {
 		this.skillsSelected = skillsSelected;
 	}
+
+	public void removeSkillsSelected(TrainingCategory trainingCategory) {
+		skillsSelected.remove(trainingCategory);
+	}
 }

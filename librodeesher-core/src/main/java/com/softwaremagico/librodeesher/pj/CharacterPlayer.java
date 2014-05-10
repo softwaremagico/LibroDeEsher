@@ -1361,7 +1361,7 @@ public class CharacterPlayer {
 		this.trainings = trainings;
 	}
 
-	public TrainingDecision getTrainingDecisions(String trainingName) {
+	public TrainingDecision getTrainingDecision(String trainingName) {
 		if (trainingDecisions.get(trainingName) == null) {
 			trainingDecisions.put(trainingName, new TrainingDecision());
 		}

@@ -126,7 +126,7 @@ public class TrainingSkillLine extends BaseLine {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character
-					character.getTrainingDecisions(parentPanel.getTraining().getName()).addSkillRank(
+					character.getTrainingDecision(parentPanel.getTraining().getName()).addSkillRank(
 							trainingCategory, trainingSkill, (Integer) rankSpinner.getValue());
 				}
 			}
