@@ -24,6 +24,7 @@ package com.softwaremagico.librodeesher.gui.training;
  * #L%
  */
 
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,7 +41,6 @@ public class TrainingCategoryPanel extends BasePanel {
 	private static final long serialVersionUID = -1784471371595517238L;
 	private CharacterPlayer character;
 	private CompleteCategoryPanel parent;
-	private List<TrainingSkillLine> trainingSkillLines = new ArrayList<>();
 	private Map<TrainingCategory, List<TrainingSkillLine>> trainingSkillLinesPerCategory = new HashMap<>();
 	private Training training;
 
@@ -56,21 +56,20 @@ public class TrainingCategoryPanel extends BasePanel {
 		int i = 0;
 
 		if (training != null) {
-			for (TrainingCategory category : training.getCategoriesWithRanks()) {
-				TrainingCategoryLine categoryLine = new TrainingCategoryLine(character, category, this,
-						getLineBackgroundColor(i));
+			for (TrainingCategory trainingCategory : training.getCategoriesWithRanks()) {
+				TrainingCategoryLine categoryLine = new TrainingCategoryLine(character, trainingCategory,
+						this, getLineBackgroundColor(i));
 				add(categoryLine);
-				trainingSkillLinesPerCategory.put(category, new ArrayList<TrainingSkillLine>());
+				trainingSkillLinesPerCategory.put(trainingCategory, new ArrayList<TrainingSkillLine>());
 
 				i++;
-				String selectedCategory = category.getCategoryOptions().get(0);
-				for (TrainingSkill skill : category.getSkills(selectedCategory)) {
-					TrainingSkillLine skillLine = new TrainingSkillLine(character, category, skill, this,
-							getLineBackgroundColor(i));
+				String selectedCategory = trainingCategory.getCategoryOptions().get(0);
+				for (TrainingSkill skill : trainingCategory.getSkills(selectedCategory)) {
+					TrainingSkillLine skillLine = new TrainingSkillLine(character, trainingCategory, skill,
+							this, getLineBackgroundColor(i));
 					add(skillLine);
 					i++;
-					trainingSkillLines.add(skillLine);
-					trainingSkillLinesPerCategory.get(category).add(skillLine);
+					trainingSkillLinesPerCategory.get(trainingCategory).add(skillLine);
 				}
 			}
 		}
@@ -87,32 +86,70 @@ public class TrainingCategoryPanel extends BasePanel {
 
 	protected Integer getSpinnerValues() {
 		Integer total = 0;
-		for (TrainingSkillLine lines : trainingSkillLines) {
-			total += lines.getSelectedRanks();
+		for (List<TrainingSkillLine> skills : trainingSkillLinesPerCategory.values()) {
+			for (TrainingSkillLine lines : skills) {
+				total += lines.getSelectedRanks();
+			}
 		}
 		return total;
 	}
 
-	protected Integer getSpinnerValues(TrainingCategory category) {
+	protected Integer getSpinnerValues(TrainingCategory trainingCategory) {
 		Integer total = 0;
-		if (trainingSkillLinesPerCategory.get(category) != null) {
-			for (TrainingSkillLine lines : trainingSkillLinesPerCategory.get(category)) {
-				total += lines.getSelectedRanks();
+		if (trainingSkillLinesPerCategory.get(trainingCategory) != null) {
+			for (TrainingSkillLine line : trainingSkillLinesPerCategory.get(trainingCategory)) {
+				total += line.getSelectedRanks();
 			}
 			return total;
 		}
 		return 0;
 	}
 
-	protected Integer getSkillsPerCategory(TrainingCategory category) {
-		if (trainingSkillLinesPerCategory.get(category) != null) {
-			return trainingSkillLinesPerCategory.get(category).size();
+	protected Integer getSkillsPerCategory(TrainingCategory trainingCategory) {
+		if (trainingSkillLinesPerCategory.get(trainingCategory) != null) {
+			return trainingSkillLinesPerCategory.get(trainingCategory).size();
 		}
 		return 0;
 	}
 
 	public Training getTraining() {
 		return training;
+	}
+
+	protected void removeSkillLinesOfCategory(TrainingCategory trainingCategory) {
+		if (trainingSkillLinesPerCategory.get(trainingCategory) != null) {
+			for (TrainingSkillLine line : trainingSkillLinesPerCategory.get(trainingCategory)) {
+				this.remove(line);
+			}
+			trainingSkillLinesPerCategory.put(trainingCategory, new ArrayList<TrainingSkillLine>());
+		}
+	}
+
+	protected void addSkillLinesOfCategory(TrainingCategory trainingCategory, int selectedCategory) {
+		// Get the index of the category.
+		int index = -1;
+		for (int i = 0; i < this.getComponents().length; i++) {
+			Component component = this.getComponents()[i];
+			if (component instanceof TrainingCategoryLine) {
+				System.out.println("Component!");
+				if (((TrainingCategoryLine) component).getTrainingCategory().equals(trainingCategory)) {
+					index = i+1;
+					break;
+				}
+			}
+		}
+		if (index >= 0 && selectedCategory < trainingCategory.getCategoryOptions().size()) {
+			String selectedCategoryName = trainingCategory.getCategoryOptions().get(selectedCategory);
+			for (TrainingSkill skill : trainingCategory.getSkills(selectedCategoryName)) {
+				TrainingSkillLine skillLine = new TrainingSkillLine(character, trainingCategory, skill, this,
+						getLineBackgroundColor(index));
+				add(skillLine, index);
+				index++;
+				trainingSkillLinesPerCategory.get(trainingCategory).add(skillLine);
+			}
+		}
+		this.revalidate();
+		this.repaint();
 	}
 
 }

@@ -81,15 +81,16 @@ public class TrainingCategoryLine extends BaseLine {
 		ListBackgroundPanel categoryPanel = getCategoryOrGroup();
 		add(categoryPanel);
 
-		ListLabel minHab = new BoldListLabel(trainingCategory.getMinSkills().toString(), SwingConstants.CENTER);
+		ListLabel minHab = new BoldListLabel(trainingCategory.getMinSkills().toString(),
+				SwingConstants.CENTER);
 		add(new ListBackgroundPanel(minHab, background));
 
-		ListLabel maxHab = new BoldListLabel(trainingCategory.getMaxSkills().toString(), SwingConstants.CENTER);
+		ListLabel maxHab = new BoldListLabel(trainingCategory.getMaxSkills().toString(),
+				SwingConstants.CENTER);
 		add(new ListBackgroundPanel(maxHab, background));
 
 		ranksLabel = new BoldListLabel(trainingCategory.getSkillRanks().toString(), SwingConstants.CENTER);
 		add(new ListBackgroundPanel(ranksLabel, background));
-
 	}
 
 	private void setRanksNumber() {
@@ -100,13 +101,20 @@ public class TrainingCategoryLine extends BaseLine {
 
 		@Override
 		public void doAction() {
-
+			// Remove skills of old category.
+			parentPanel.removeSkillLinesOfCategory(trainingCategory);
+			// add new skills in the correct place.
+			parentPanel.addSkillLinesOfCategory(trainingCategory, chooseCategoryComboBox.getSelectedIndex());
 		}
 	}
 
 	@Override
 	public void update() {
 		setRanksNumber();
+	}
+
+	public TrainingCategory getTrainingCategory() {
+		return trainingCategory;
 	}
 
 }
