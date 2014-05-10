@@ -46,7 +46,7 @@ public class RolemasterFolderStructure implements Serializable {
 	private static final String CONFIG_FILE = "configuracion.conf";
 	private static final String PERKS_FILE = "talentos.txt";
 	private static final String PERKS_FOLDER = "talentos";
-	private static List<String> ficherosOcultos = getIgnoredFiles();
+	private static List<String> ignoredFiles = getIgnoredFiles();
 	// Modulos configurados para obtener los ficheros adecuados */
 	private static List<String> availableModules = getRolemasterModulesAvailable();
 	private static List<String> disabledModules = new ArrayList<>();
@@ -111,7 +111,7 @@ public class RolemasterFolderStructure implements Serializable {
 		List<String> ignoredFiles = new ArrayList<>();
 		ignoredFiles.add("plantilla");
 		ignoredFiles.add("costes");
-		ignoredFiles.add("Raciales");
+		ignoredFiles.add("raciales");
 		ignoredFiles.add(".txt~");
 		return ignoredFiles;
 	}
@@ -125,8 +125,8 @@ public class RolemasterFolderStructure implements Serializable {
 		}
 		List<String> fileList = new ArrayList<>();
 		for (int i = 0; i < files.size(); i++) {
-			for (int j = 0; j < ficherosOcultos.size(); j++) {
-				if (!files.get(i).contains(ficherosOcultos.get(j)) && !fileList.contains(files.get(i))) {
+			for (int j = 0; j < ignoredFiles.size(); j++) {
+				if (!files.get(i).toLowerCase().contains(ignoredFiles.get(j)) && !fileList.contains(files.get(i))) {
 					fileList.add(files.get(i));
 				}
 			}
@@ -147,8 +147,8 @@ public class RolemasterFolderStructure implements Serializable {
 		}
 		List<String> fileList = new ArrayList<>();
 		for (int i = 0; i < files.size(); i++) {
-			for (int j = 0; j < ficherosOcultos.size(); j++) {
-				if (!files.get(i).contains(ficherosOcultos.get(j)) && !fileList.contains(files.get(i))) {
+			for (int j = 0; j < ignoredFiles.size(); j++) {
+				if (!files.get(i).contains(ignoredFiles.get(j)) && !fileList.contains(files.get(i))) {
 					fileList.add(files.get(i));
 				}
 			}

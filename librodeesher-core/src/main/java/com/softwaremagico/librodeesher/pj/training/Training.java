@@ -187,6 +187,7 @@ public class Training {
 						trainingCategory = new TrainingCategory(categoriesOptions,
 								Integer.parseInt(categoryRanks[1]), Integer.parseInt(categoryRanks[2]),
 								Integer.parseInt(categoryRanks[3]), Integer.parseInt(categoryRanks[4]));
+						categoriesWithRanks.add(trainingCategory);
 					} else {
 						String[] categoryRanks = lines.get(index).split("\t");
 						if (CategoryFactory.existCategory(categoryRanks[0])) {
