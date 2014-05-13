@@ -80,10 +80,10 @@ public class SkillProbability {
 				Log.debug(SkillProbability.class.getName(), "\t Max ranks: " + maxRanks);
 				probability += maxRanks;
 				// Ponemos una cota superior y una cota inferior.
-				if (probability > 90) {
+				if (probability > 90 && probability < 150) {
 					probability = 90;
-				} else if (probability < tries * 3) {
-					probability = tries * 3;
+				} else if (probability > 0) {
+					probability += tries * 3;
 				}
 				Log.debug(SkillProbability.class.getName(), "\t Total: " + probability);
 				return probability;
@@ -115,9 +115,13 @@ public class SkillProbability {
 		// Spells are a little more expensive that common categories. We make a
 		// softer probability.
 		if (skill.getCategory().getName().toLowerCase().equals(Spanish.BASIC_LIST_TAG)) {
-			return (characterPlayer.getNewRankCost(skill) - 8) * 10;
+			if (characterPlayer.isHybridWizard()) {
+				return (int) (Math.pow((characterPlayer.getNewRankCost(skill) - 4), 2) * 2);
+			} else {
+				return (int) (Math.pow((characterPlayer.getNewRankCost(skill) - 2), 2) * 2);
+			}
 		}
-		return (characterPlayer.getNewRankCost(skill) - 5) * 10;
+		return (int) (Math.pow((characterPlayer.getNewRankCost(skill) - 1), 2) * 5);
 	}
 
 	/**
@@ -342,10 +346,10 @@ public class SkillProbability {
 		// Not too much weapons.
 		if (skill.getCategory().getCategoryGroup().equals(CategoryGroup.WEAPON)) {
 			bonus -= characterPlayer.getWeaponsLearnedInCurrentLevel() * (specializationLevel + 1) * 5;
+		} else {
+			// Not so many skills in one category.
+			bonus -= characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size() * (specializationLevel + 1) * 5;
 		}
-		// Not so many skills in one category.
-		bonus -= Math.max(Math.pow(characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size(), 3)
-				* (specializationLevel + 1) * 3, 0);
 		return bonus;
 	}
 
