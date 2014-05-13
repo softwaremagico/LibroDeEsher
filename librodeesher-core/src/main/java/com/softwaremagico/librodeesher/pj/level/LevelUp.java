@@ -158,6 +158,10 @@ public class LevelUp {
 	public void addTraining(String trainingName) {
 		trainings.add(trainingName);
 	}
+	
+	public void removeTraining(String trainingName){
+		trainings.remove(trainingName);
+	}
 
 	public Map<String, Integer> getCategoriesRanks() {
 		return categoriesRanks;

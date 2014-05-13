@@ -54,6 +54,10 @@ public class CompleteCategoryPanel extends BaseScrollPanel {
 		categoryPanel.setTraining(training);
 		update();
 	}
+	
+	public void removeTraining(){
+		
+	}
 
 	@Override
 	public void update() {

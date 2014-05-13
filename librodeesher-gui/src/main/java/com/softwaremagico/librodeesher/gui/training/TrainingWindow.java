@@ -61,7 +61,7 @@ public class TrainingWindow extends BaseFrame {
 
 	public TrainingWindow(CharacterPlayer character) {
 		this.character = character;
-		defineWindow(700, 500);
+		defineWindow(750, 500);
 		setElements();
 		setEvents();
 	}
@@ -92,9 +92,9 @@ public class TrainingWindow extends BaseFrame {
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 1;
-		gridBagConstraints.weighty = 0;
-		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+		gridBagConstraints.weighty = 0;		
 		getContentPane().add(createChooseTrainingPanel(), gridBagConstraints);
+		gridBagConstraints.weightx = 0;
 		gridBagConstraints.gridx = 1;
 		getContentPane().add(createDevelopmentPointsPanel(), gridBagConstraints);
 
@@ -104,7 +104,6 @@ public class TrainingWindow extends BaseFrame {
 		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 0;
-		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		JPanel selectedTraining = createSelectedTrainingPanel();
 		getContentPane().add(selectedTraining, gridBagConstraints);
 
@@ -114,23 +113,32 @@ public class TrainingWindow extends BaseFrame {
 		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
-		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		categoryPanel = new CompleteCategoryPanel(character);
 		getContentPane().add(categoryPanel, gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+
+		BaseButton acceptButton = new BaseButton("Aceptar");
+		acceptButton.addActionListener(new AcceptListener());
+		buttonPanel.add(acceptButton);
+
+		BaseButton cancelButton = new BaseButton("Cancelar");
+		cancelButton.addActionListener(new CancelListener());
+		buttonPanel.add(cancelButton);
+
 		CloseButton closeButton = new CloseButton(this);
 		buttonPanel.add(closeButton);
+
 		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
 		gridBagConstraints.fill = GridBagConstraints.NONE;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridy = 4;
 		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
 		gridBagConstraints.weightx = 0;
 		gridBagConstraints.weighty = 0;
-		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+
 		getContentPane().add(buttonPanel, gridBagConstraints);
 
 	}
@@ -173,7 +181,7 @@ public class TrainingWindow extends BaseFrame {
 	}
 
 	private JPanel createSelectedTrainingPanel() {
-		JPanel selectedPanel = new JPanel(new FlowLayout(FlowLayout.LEFT) );
+		JPanel selectedPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		BaseLabel training = new BaseLabel("Adiestramiento Seleccionado:");
 		selectedPanel.add(training);
 		selectedTrainingName = new BaseTextField();
@@ -192,11 +200,12 @@ public class TrainingWindow extends BaseFrame {
 		fillTrainingComboBox();
 	}
 
-	private void addTraining() {
-		if (trainingsAvailable.getSelectedIndex() >= 0) {
-			character.addTraining(trainingsAvailable.getSelectedItem().toString());
-			updateFrame();
-		}
+	private void clearData() {
+		setDevelopmentPointText();
+		lastSelectedTraining = null;
+		categoryPanel.setTraining(lastSelectedTraining);
+		selectedTrainingName.setText("");
+		fillTrainingComboBox();
 	}
 
 	private void setTrainingCost() {
@@ -205,22 +214,6 @@ public class TrainingWindow extends BaseFrame {
 					.toString()));
 		} else {
 			setDevelopmentPointCostText(0);
-		}
-	}
-
-	class AddListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			addTraining();
-		}
-	}
-
-	class ChangeTrainingListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			setTrainingCost();
 		}
 	}
 
@@ -246,5 +239,41 @@ public class TrainingWindow extends BaseFrame {
 
 			}
 		});
+	}
+
+	class AddListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (trainingsAvailable.getSelectedIndex() >= 0) {
+				character.addTraining(trainingsAvailable.getSelectedItem().toString());
+				updateFrame();
+			}
+		}
+	}
+
+	class ChangeTrainingListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			setTrainingCost();
+		}
+	}
+
+	class AcceptListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			clearData();
+		}
+	}
+
+	class CancelListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			character.removeTraining(lastSelectedTraining);
+			clearData();
+		}
 	}
 }

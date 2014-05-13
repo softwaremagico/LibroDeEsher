@@ -1512,4 +1512,11 @@ public class CharacterPlayer {
 		this.characterPlayerId = characterPlayerId;
 	}
 
+	public void removeTraining(Training training) {
+		if (training != null) {
+			trainingDecisions.remove(training.getName());
+			getCurrentLevel().removeTraining(training.getName());
+		}
+	}
+
 }
