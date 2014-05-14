@@ -24,76 +24,31 @@ package com.softwaremagico.librodeesher.gui.history;
  */
 
 import java.awt.Color;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-
 import com.softwaremagico.librodeesher.basics.ShowMessage;
-import com.softwaremagico.librodeesher.gui.elements.BoldListLabel;
-import com.softwaremagico.librodeesher.gui.elements.ListBackgroundPanel;
-import com.softwaremagico.librodeesher.gui.style.BaseFrame;
-import com.softwaremagico.librodeesher.gui.style.BaseLine;
+import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicUpLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 
-public class HistoryCharacteristicLine extends BaseLine {
+public class HistoryCharacteristicLine extends CharacteristicUpLine {
 	private static final long serialVersionUID = 5817155091343950674L;
-	protected CharacterPlayer character;
-	protected Characteristic characteristic;
-	private BoldListLabel characteristicLabel, temporalText, potentialText;
-	private BaseFrame parentWindow;
-	private JButton updateButton;
 
 	public HistoryCharacteristicLine(CharacterPlayer character, Characteristic characteristic,
 			Color background) {
-		this.character = character;
-		this.characteristic = characteristic;
-		setElements(background);
-		setBackground(background);
+		super(character, characteristic, background);
 	}
 
-	protected void setElements(Color background) {
-		this.removeAll();
-		setLayout(new GridLayout(1, 0, 3, 3));
-
-		characteristicLabel = new BoldListLabel(characteristic.getAbbreviature(), SwingConstants.LEFT);
-		add(new ListBackgroundPanel(characteristicLabel, background));
-
-		temporalText = new BoldListLabel("0");
-		add(new ListBackgroundPanel(temporalText, background));
-
-		potentialText = new BoldListLabel("0");
-		add(new ListBackgroundPanel(potentialText, background));
-
-		updateButton = new JButton("Subir");
-		updateButton.addActionListener(new UpdateButtonListener());
-		add(updateButton);
-
-		update();
-	}
-
-	public void update() {
-		temporalText.setText(character.getCharacteristicTemporalValue(characteristic.getAbbreviature())
-				.toString());
-		potentialText.setText(character.getCharacteristicPotentialValues(characteristic.getAbbreviature())
-				.toString());
-		updateButton.setEnabled(character.getRemainingHistorialPoints() > 0
-				&& (character.getCharacteristicPotentialValues(characteristic.getAbbreviature())
-						- character.getCharacteristicTemporalValue(characteristic.getAbbreviature()) > 0));
-	}
-
-	public void setParentWindow(BaseFrame window) {
-		parentWindow = window;
+	public void addAcceptListener(){
+		getUpdateButton().addActionListener(new UpdateButtonListener());
 	}
 
 	public class UpdateButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (ShowMessage
 					.showQuestionMessage(
-							parentWindow,
+							getParentWindow(),
 							"Esta acción invertirá un punto de historial para subr la característica \""
 									+ characteristic.getName()
 									+ "\" con una diferencia entre el valor temporal y potencial de: "
@@ -103,7 +58,7 @@ public class HistoryCharacteristicLine extends BaseLine {
 									+ ".\n Esta acción es permante. ¿Está seguro de continuar?",
 							"Aumento de característica")) {
 				character.setCharacteristicHistorialUpdate(characteristic.getAbbreviature());
-				parentWindow.updateFrame();
+				getParentWindow().updateFrame();
 			}
 		}
 	}

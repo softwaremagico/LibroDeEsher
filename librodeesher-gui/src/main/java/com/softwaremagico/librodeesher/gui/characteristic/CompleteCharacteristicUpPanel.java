@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.history;
+package com.softwaremagico.librodeesher.gui.characteristic;
 
 /*
  * #%L
@@ -24,24 +24,34 @@ package com.softwaremagico.librodeesher.gui.history;
  * #L%
  */
 
-import java.awt.Color;
-
-import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicUpLine;
-import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicUpPanel;
+import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
+import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
-public class HistoryCharacteristicPanel extends CharacteristicUpPanel {
-	private static final long serialVersionUID = -3311606513343600118L;
+public abstract class CompleteCharacteristicUpPanel extends BaseScrollPanel {
+	private static final long serialVersionUID = 3944923090293710832L;
+	private CharacterPlayer character;
+	private CharacteristicUpTitle title;
+	private CharacteristicUpPanel characteristicPanel;
 
-	public HistoryCharacteristicPanel(CharacterPlayer character, HistoryCompleteCharacteristicPanel parent) {
-		super(character, parent);
+	public CompleteCharacteristicUpPanel(CharacterPlayer character, BaseFrame parent) {
+		this.character = character;
+		title = new CharacteristicUpTitle();
+		addTitle(title);
+		characteristicPanel = createBodyPanel();
+		characteristicPanel.setParentWindow(parent);
+		setBody(characteristicPanel);
+	}
+
+	public abstract CharacteristicUpPanel createBodyPanel();
+
+	public CharacterPlayer getCharacter() {
+		return character;
 	}
 
 	@Override
-	public CharacteristicUpLine createLine(CharacterPlayer character, Integer characteristicIndex,
-			Color background) {
-		return new HistoryCharacteristicLine(character, character.getCharacteristics().get(
-				characteristicIndex), background);
+	public void update() {
+		characteristicPanel.update();
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.history;
+package com.softwaremagico.librodeesher.gui.characteristic;
 /*
  * #%L
  * Libro de Esher GUI
@@ -28,11 +28,11 @@ import java.awt.GridLayout;
 import com.softwaremagico.librodeesher.gui.elements.TitleLabel;
 import com.softwaremagico.librodeesher.gui.style.BaseTitleLine;
 
-public class HistoryCharacteristicTitle extends BaseTitleLine {
+public class CharacteristicUpTitle extends BaseTitleLine {
 	private static final long serialVersionUID = -1457813839985757112L;
 	private TitleLabel characteristicLabel, temporalLabel, potentialTextField, updateLabel;
 
-	public HistoryCharacteristicTitle() {
+	public CharacteristicUpTitle() {
 		setElements();
 	}
 

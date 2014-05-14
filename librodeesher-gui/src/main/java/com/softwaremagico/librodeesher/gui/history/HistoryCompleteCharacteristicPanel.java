@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.history;
+
 /*
  * #%L
  * Libro de Esher GUI
@@ -23,29 +24,21 @@ package com.softwaremagico.librodeesher.gui.history;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
+import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicUpPanel;
+import com.softwaremagico.librodeesher.gui.characteristic.CompleteCharacteristicUpPanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
-public class HistoryCompleteCharacteristicPanel extends BaseScrollPanel {
+public class HistoryCompleteCharacteristicPanel extends CompleteCharacteristicUpPanel {
 	private static final long serialVersionUID = 3944923090293710832L;
-	private BaseFrame parent;
-	CharacterPlayer character;
-	private HistoryCharacteristicTitle title;
-	private HistoryCharacteristicPanel characteristicPanel;
 
 	public HistoryCompleteCharacteristicPanel(CharacterPlayer character, BaseFrame parent) {
-		this.character = character;
-		this.parent = parent;
-		title = new HistoryCharacteristicTitle();
-		addTitle(title);
-		characteristicPanel = new HistoryCharacteristicPanel(character, this);
-		characteristicPanel.setParentWindow(parent);
-		setBody(characteristicPanel);
+		super(character, parent);
 	}
-
-	public void update() {
-		characteristicPanel.update();
+	
+	@Override
+	public CharacteristicUpPanel createBodyPanel(){
+		return new HistoryCharacteristicPanel(getCharacter(), this);
 	}
 
 }
