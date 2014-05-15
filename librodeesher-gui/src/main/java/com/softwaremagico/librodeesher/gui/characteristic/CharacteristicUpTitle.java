@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.characteristic;
+
 /*
  * #%L
  * Libro de Esher GUI
@@ -55,6 +56,26 @@ public class CharacteristicUpTitle extends BaseTitleLine {
 
 	@Override
 	public void update() {
-			
+
+	}
+
+	public void sizeChanged() {
+		if (this.getWidth() < 600) {
+			characteristicLabel.setText("Caract");
+		} else {
+			characteristicLabel.setText("Característica");
+		}
+
+		if (this.getWidth() < 400) {
+			temporalLabel.setText("Tem");
+		} else {
+			temporalLabel.setText("Temporal");
+		}
+
+		if (this.getWidth() < 400) {
+			potentialTextField.setText("Pot");
+		} else {
+			potentialTextField.setText("Potencial");
+		}
 	}
 }

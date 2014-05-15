@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.history;
+
 /*
  * #%L
  * Libro de Esher GUI
@@ -40,11 +41,13 @@ public class HistoryCharacteristicLine extends CharacteristicUpLine {
 		super(character, characteristic, background);
 	}
 
-	public void addAcceptListener(){
+	@Override
+	public void addAcceptListener() {
 		getUpdateButton().addActionListener(new UpdateButtonListener());
 	}
 
 	public class UpdateButtonListener implements ActionListener {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (ShowMessage
 					.showQuestionMessage(
@@ -61,5 +64,16 @@ public class HistoryCharacteristicLine extends CharacteristicUpLine {
 				getParentWindow().updateFrame();
 			}
 		}
+	}
+
+	@Override
+	public void setAcceptEnabled() {
+		getUpdateButton()
+				.setEnabled(
+						character.getRemainingHistorialPoints() > 0
+								&& (character.getCharacteristicPotentialValues(characteristic
+										.getAbbreviature())
+										- character.getCharacteristicTemporalValue(characteristic
+												.getAbbreviature()) > 0));
 	}
 }

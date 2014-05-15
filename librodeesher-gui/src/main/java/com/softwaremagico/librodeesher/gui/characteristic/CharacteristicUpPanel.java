@@ -45,7 +45,7 @@ public abstract class CharacteristicUpPanel extends BasePanel {
 
 	private void setElements(CharacterPlayer character) {
 		this.removeAll();
-		setLayout(new GridLayout(10, 1));
+		setLayout(new GridLayout(0, 1));
 
 		Color background;
 		for (int i = 0; i < character.getCharacteristics().size(); i++) {

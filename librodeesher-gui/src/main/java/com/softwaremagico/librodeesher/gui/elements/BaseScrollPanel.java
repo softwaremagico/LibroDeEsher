@@ -48,7 +48,7 @@ public class BaseScrollPanel extends BasePanel {
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
 		titlePanel = new JPanel();
-		gridBagConstraints.fill = GridBagConstraints.BOTH;
+		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 0;

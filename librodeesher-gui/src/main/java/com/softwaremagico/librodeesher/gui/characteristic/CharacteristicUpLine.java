@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.characteristic;
+
 /*
  * #%L
  * Libro de Esher GUI
@@ -44,8 +45,7 @@ public abstract class CharacteristicUpLine extends BaseLine {
 	private BaseFrame parentWindow;
 	private JButton updateButton;
 
-	public CharacteristicUpLine(CharacterPlayer character, Characteristic characteristic,
-			Color background) {
+	public CharacteristicUpLine(CharacterPlayer character, Characteristic characteristic, Color background) {
 		this.character = character;
 		this.characteristic = characteristic;
 		setElements(background);
@@ -71,17 +71,21 @@ public abstract class CharacteristicUpLine extends BaseLine {
 
 		update();
 	}
-	
+
 	public abstract void addAcceptListener();
 
+	/**
+	 * Decides when the Accept button will be enabled or disabled.
+	 */
+	public abstract void setAcceptEnabled();
+
+	@Override
 	public void update() {
 		temporalText.setText(character.getCharacteristicTemporalValue(characteristic.getAbbreviature())
 				.toString());
 		potentialText.setText(character.getCharacteristicPotentialValues(characteristic.getAbbreviature())
 				.toString());
-		updateButton.setEnabled(character.getRemainingHistorialPoints() > 0
-				&& (character.getCharacteristicPotentialValues(characteristic.getAbbreviature())
-						- character.getCharacteristicTemporalValue(characteristic.getAbbreviature()) > 0));
+		setAcceptEnabled();
 	}
 
 	public void setParentWindow(BaseFrame window) {
