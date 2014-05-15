@@ -30,7 +30,7 @@ import com.softwaremagico.librodeesher.gui.elements.TitleLabel;
 import com.softwaremagico.librodeesher.gui.style.BaseTitleLine;
 
 public class CharacteristicUpTitle extends BaseTitleLine {
-	private static final long serialVersionUID = -1457813839985757112L;
+	private static final long serialVersionUID = 8983336623653594103L;
 	private TitleLabel characteristicLabel, temporalLabel, potentialTextField, updateLabel;
 
 	public CharacteristicUpTitle() {

@@ -33,7 +33,7 @@ import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public abstract class CharacteristicUpPanel extends BasePanel {
-	private static final long serialVersionUID = -3311606513343600118L;
+	private static final long serialVersionUID = 3613694602175558891L;
 	private CompleteCharacteristicUpPanel parent;
 	private List<CharacteristicUpLine> lines;
 

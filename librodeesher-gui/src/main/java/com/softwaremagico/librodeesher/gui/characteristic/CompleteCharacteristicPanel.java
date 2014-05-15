@@ -29,7 +29,7 @@ import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class CompleteCharacteristicPanel extends BaseScrollPanel {
-	private static final long serialVersionUID = -1990965342534961094L;
+	private static final long serialVersionUID = 5455664180858912382L;
 	private CharacteristicPanel characteristicPanel;
 	private CharacteristicTitleLine title;
 

@@ -38,7 +38,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 
 public abstract class CharacteristicUpLine extends BaseLine {
-	private static final long serialVersionUID = 5817155091343950674L;
+	private static final long serialVersionUID = -7664364625714636655L;
 	protected CharacterPlayer character;
 	protected Characteristic characteristic;
 	private BoldListLabel characteristicLabel, temporalText, potentialText;
