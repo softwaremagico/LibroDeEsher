@@ -25,13 +25,12 @@ package com.softwaremagico.librodeesher.gui.history;
  */
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.util.HashMap;
 
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
@@ -54,7 +53,7 @@ public class HistoryWindow extends BaseFrame {
 		this.character = character;
 		defineWindow(700, 420);
 		historyPoints = new PointsCounterTextField();
-		//setResizable(false);
+		// setResizable(false);
 		setElements();
 	}
 
@@ -84,7 +83,7 @@ public class HistoryWindow extends BaseFrame {
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.weightx = 0.3;
+		gridBagConstraints.weightx = 0.4;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		characteristicPanel = new HistoryCompleteCharacteristicPanel(character, (BaseFrame) this);
@@ -94,14 +93,13 @@ public class HistoryWindow extends BaseFrame {
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridy = 1;
-		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
 		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.weightx = 0.3;
+		gridBagConstraints.weightx = 0.4;
 		gridBagConstraints.weighty = 0;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		JPanel developmentPointsPanel = new JPanel();
-		developmentPointsPanel.setLayout(new BoxLayout(developmentPointsPanel, BoxLayout.X_AXIS));
-		historyPointsLabel = new BaseLabel("    Puntos de Historial: ");
+		JPanel developmentPointsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		historyPointsLabel = new BaseLabel("Puntos de Historial: ");
 		developmentPointsPanel.add(historyPointsLabel);
 		historyPoints.setColumns(3);
 		historyPoints.setEditable(false);
@@ -118,8 +116,7 @@ public class HistoryWindow extends BaseFrame {
 			@Override
 			public void RandomAction() {
 				Integer tries = 0;
-				while (character.getRemainingHistorialPoints() > 0
-						&& tries <= RandomCharacterPlayer.MAX_TRIES) {
+				while (character.getRemainingHistorialPoints() > 0 && tries <= RandomCharacterPlayer.MAX_TRIES) {
 					RandomCharacterPlayer.setHistoryPoints(character, 0);
 					tries++;
 				}
@@ -149,8 +146,8 @@ public class HistoryWindow extends BaseFrame {
 		setHistorialPointText();
 		characteristicPanel.update();
 	}
-	
-	public void updateHistoryLines(){
+
+	public void updateHistoryLines() {
 		skillPanel.updateHistoryLines();
 	}
 }
