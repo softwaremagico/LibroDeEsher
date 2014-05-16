@@ -56,5 +56,9 @@ public class HistoryCompleteSkillPointsPanel extends BaseScrollPanel {
 	public void updateHistoryLines() {
 		skillPanel.updateHistoryLines();
 	}
+	
+	public void hideUselessSkills(boolean hideUselessSkills) {
+		skillPanel.hideUselessSkills(hideUselessSkills);
+	}
 
 }

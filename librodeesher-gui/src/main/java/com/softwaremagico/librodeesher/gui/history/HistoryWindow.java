@@ -30,9 +30,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
+import com.softwaremagico.librodeesher.gui.elements.BaseCheckBox;
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
@@ -48,6 +51,7 @@ public class HistoryWindow extends BaseFrame {
 	private HistoryCompleteCharacteristicPanel characteristicPanel;
 	private BaseLabel historyPointsLabel;
 	private PointsCounterTextField historyPoints;
+	private BaseCheckBox hideUselessSkillsCheckBox;
 
 	public HistoryWindow(CharacterPlayer character) {
 		this.character = character;
@@ -70,7 +74,7 @@ public class HistoryWindow extends BaseFrame {
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.gridheight = GridBagConstraints.REMAINDER;
+		gridBagConstraints.gridheight = 2;
 		gridBagConstraints.weightx = 0.7;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
@@ -88,6 +92,22 @@ public class HistoryWindow extends BaseFrame {
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		characteristicPanel = new HistoryCompleteCharacteristicPanel(character, (BaseFrame) this);
 		getContentPane().add(characteristicPanel, gridBagConstraints);
+
+		gridBagConstraints.fill = GridBagConstraints.BOTH;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 2;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.weightx = 0.7;
+		gridBagConstraints.weighty = 0;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+		JPanel hideUselessSkillsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		hideUselessSkillsCheckBox = new BaseCheckBox("Mostrar todas las habilidades.");
+		hideUselessSkillsCheckBox.addActionListener(new HideUselessSkillsActionListener());
+		hideUselessSkillsPanel.add(hideUselessSkillsCheckBox);
+		hideUselessSkillsPanel.add(hideUselessSkillsCheckBox);
+		getContentPane().add(hideUselessSkillsPanel, gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
@@ -150,4 +170,11 @@ public class HistoryWindow extends BaseFrame {
 	public void updateHistoryLines() {
 		skillPanel.updateHistoryLines();
 	}
+
+	class HideUselessSkillsActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent actionEvent) {
+			skillPanel.hideUselessSkills(!hideUselessSkillsCheckBox.isSelected());
+		}
+	};
 }

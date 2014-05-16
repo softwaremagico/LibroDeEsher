@@ -41,8 +41,11 @@ public class HistorySkillsPanel extends BaseSkillPanel {
 	private HashMap<HistoryCategoryLine, List<HistorySkillLine>> skillLinesPerCategoryLine;
 	private HistoryCompleteSkillPointsPanel parent;
 	private List<HistoryCategoryLine> categoryLines;
+	private boolean hideUselessSkills = true;
+	private CharacterPlayer characterPlayer;
 
 	public HistorySkillsPanel(CharacterPlayer character, HistoryCompleteSkillPointsPanel parent) {
+		this.characterPlayer = character;
 		skillLinesPerCategory = new HashMap<>();
 		skillLinesPerCategoryLine = new HashMap<>();
 		this.parent = parent;
@@ -57,7 +60,7 @@ public class HistorySkillsPanel extends BaseSkillPanel {
 		for (Category category : CategoryFactory.getCategories()) {
 			// Translate general category to player specific category.
 			category = character.getCategory(category);
-			if (character.isCategoryUseful(category)) {
+			if (!hideUselessSkills || character.isCategoryUseful(category)) {
 				HistoryCategoryLine categoryLine = new HistoryCategoryLine(character, category,
 						getLineBackgroundColor(i), this);
 				add(categoryLine);
@@ -66,9 +69,9 @@ public class HistorySkillsPanel extends BaseSkillPanel {
 
 				List<HistorySkillLine> skillLines = new ArrayList<>();
 				for (Skill skill : category.getSkills()) {
-					if (character.isSkillInteresting(skill)) {
-						HistorySkillLine skillLine = new HistorySkillLine(character, skill,
-								getLineBackgroundColor(i), this);
+					if (!hideUselessSkills || character.isSkillInteresting(skill)) {
+						HistorySkillLine skillLine = new HistorySkillLine(character, skill, getLineBackgroundColor(i),
+								this);
 						add(skillLine);
 						skillLines.add(skillLine);
 						i++;
@@ -78,6 +81,7 @@ public class HistorySkillsPanel extends BaseSkillPanel {
 				skillLinesPerCategoryLine.put(categoryLine, skillLines);
 			}
 		}
+		this.revalidate();
 	}
 
 	@Override
@@ -96,11 +100,16 @@ public class HistorySkillsPanel extends BaseSkillPanel {
 	}
 
 	public void updateHistoryLines() {
-		for(HistoryCategoryLine categoryLine : skillLinesPerCategoryLine.keySet()){
+		for (HistoryCategoryLine categoryLine : skillLinesPerCategoryLine.keySet()) {
 			categoryLine.updateComboBox();
-			for(HistorySkillLine skillLine : skillLinesPerCategoryLine.get(categoryLine)){
+			for (HistorySkillLine skillLine : skillLinesPerCategoryLine.get(categoryLine)) {
 				skillLine.updateComboBox();
 			}
 		}
+	}
+
+	public void hideUselessSkills(boolean hideUselessSkills) {
+		this.hideUselessSkills = hideUselessSkills;
+		setElements(characterPlayer);
 	}
 }
