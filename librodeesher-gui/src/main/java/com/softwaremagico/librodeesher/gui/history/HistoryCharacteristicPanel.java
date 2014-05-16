@@ -28,12 +28,13 @@ import java.awt.Color;
 
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicUpLine;
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicUpPanel;
+import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class HistoryCharacteristicPanel extends CharacteristicUpPanel {
 	private static final long serialVersionUID = -3311606513343600118L;
 
-	public HistoryCharacteristicPanel(CharacterPlayer character, HistoryCompleteCharacteristicPanel parent) {
+	public HistoryCharacteristicPanel(CharacterPlayer character, BaseScrollPanel parent) {
 		super(character, parent);
 	}
 

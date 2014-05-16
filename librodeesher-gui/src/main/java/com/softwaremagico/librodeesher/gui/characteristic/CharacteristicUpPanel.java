@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.characteristic;
+
 /*
  * #%L
  * Libro de Esher GUI
@@ -28,16 +29,17 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public abstract class CharacteristicUpPanel extends BasePanel {
 	private static final long serialVersionUID = 3613694602175558891L;
-	private CompleteCharacteristicUpPanel parent;
+	private BaseScrollPanel parent;
 	private List<CharacteristicUpLine> lines;
 
-	public CharacteristicUpPanel(CharacterPlayer character, CompleteCharacteristicUpPanel parent) {
+	public CharacteristicUpPanel(CharacterPlayer character, BaseScrollPanel parent) {
 		this.parent = parent;
 		lines = new ArrayList<>();
 		setElements(character);
@@ -77,7 +79,7 @@ public abstract class CharacteristicUpPanel extends BasePanel {
 	}
 
 	@Override
-	public CompleteCharacteristicUpPanel getParent() {
+	public BaseScrollPanel getParent() {
 		return parent;
 	}
 
