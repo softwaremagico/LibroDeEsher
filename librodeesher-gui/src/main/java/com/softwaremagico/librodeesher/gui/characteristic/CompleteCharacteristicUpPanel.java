@@ -26,24 +26,25 @@ package com.softwaremagico.librodeesher.gui.characteristic;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
+import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public abstract class CompleteCharacteristicUpPanel extends BaseScrollPanel {
 	private static final long serialVersionUID = 3944923090293710832L;
 	private CharacterPlayer character;
 	private CharacteristicUpTitle title;
-	private CharacteristicUpPanel characteristicPanel;
+	private BasePanel characteristicPanel;
 
 	public CompleteCharacteristicUpPanel(CharacterPlayer character, BaseFrame parent) {
 		this.character = character;
 		title = new CharacteristicUpTitle();
 		addTitle(title);
 		characteristicPanel = createBodyPanel();
-		characteristicPanel.setParentWindow(parent);
+		((CharacteristicUpPanel) characteristicPanel).setParentWindow(parent);
 		setBody(characteristicPanel);
 	}
 
-	public abstract CharacteristicUpPanel createBodyPanel();
+	public abstract BasePanel createBodyPanel();
 
 	public CharacterPlayer getCharacter() {
 		return character;

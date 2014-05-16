@@ -24,9 +24,9 @@ package com.softwaremagico.librodeesher.gui.history;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicUpPanel;
 import com.softwaremagico.librodeesher.gui.characteristic.CompleteCharacteristicUpPanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
+import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class HistoryCompleteCharacteristicPanel extends CompleteCharacteristicUpPanel {
@@ -37,7 +37,7 @@ public class HistoryCompleteCharacteristicPanel extends CompleteCharacteristicUp
 	}
 	
 	@Override
-	public CharacteristicUpPanel createBodyPanel(){
+	public BasePanel createBodyPanel(){
 		return new HistoryCharacteristicPanel(getCharacter(), this);
 	}
 
