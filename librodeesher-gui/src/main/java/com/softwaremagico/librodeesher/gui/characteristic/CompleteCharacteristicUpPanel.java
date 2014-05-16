@@ -40,8 +40,10 @@ public abstract class CompleteCharacteristicUpPanel extends BaseScrollPanel {
 		title = new CharacteristicUpTitle();
 		addTitle(title);
 		characteristicPanel = createBodyPanel();
-		((CharacteristicUpPanel) characteristicPanel).setParentWindow(parent);
-		setBody(characteristicPanel);
+		if (characteristicPanel instanceof CharacteristicUpPanel) {
+			((CharacteristicUpPanel) characteristicPanel).setParentWindow(parent);
+			setBody(characteristicPanel);
+		}
 	}
 
 	public abstract BasePanel createBodyPanel();
