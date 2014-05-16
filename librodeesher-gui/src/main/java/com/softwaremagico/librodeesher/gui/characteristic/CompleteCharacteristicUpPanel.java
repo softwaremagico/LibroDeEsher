@@ -43,8 +43,8 @@ public abstract class CompleteCharacteristicUpPanel extends BaseScrollPanel {
 		characteristicPanel = createBodyPanel();
 		if (characteristicPanel instanceof CharacteristicUpPanel) {
 			((CharacteristicUpPanel) characteristicPanel).setParentWindow(parent);
-			setBody(characteristicPanel);
 		}
+		setBody(characteristicPanel);
 	}
 
 	public abstract BasePanel createBodyPanel();
@@ -65,7 +65,7 @@ public abstract class CompleteCharacteristicUpPanel extends BaseScrollPanel {
 	}
 
 	public BaseTitleLine getTitle() {
-		return new CharacteristicTitleLine();
+		return new CharacteristicUpTitle();
 	}
 
 }
