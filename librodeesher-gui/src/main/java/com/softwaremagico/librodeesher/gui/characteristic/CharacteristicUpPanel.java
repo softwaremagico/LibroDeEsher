@@ -36,10 +36,10 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public abstract class CharacteristicUpPanel extends BasePanel {
 	private static final long serialVersionUID = 3613694602175558891L;
-	private BaseScrollPanel parent;
+	private CompleteCharacteristicUpPanel parent;
 	private List<CharacteristicUpLine> lines;
 
-	public CharacteristicUpPanel(CharacterPlayer character, BaseScrollPanel parent) {
+	public CharacteristicUpPanel(CharacterPlayer character, CompleteCharacteristicUpPanel parent) {
 		this.parent = parent;
 		lines = new ArrayList<>();
 		//setElements(character);

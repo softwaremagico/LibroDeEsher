@@ -31,17 +31,16 @@ import java.util.List;
 
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicUpLine;
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicUpPanel;
+import com.softwaremagico.librodeesher.gui.characteristic.CompleteCharacteristicUpPanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class HistoryCharacteristicPanel extends CharacteristicUpPanel {
 	private static final long serialVersionUID = -3311606513343600118L;
-	private HistoryCompleteCharacteristicPanel parent;
 	private List<CharacteristicUpLine> lines;
 
-	public HistoryCharacteristicPanel(CharacterPlayer character, HistoryCompleteCharacteristicPanel parent) {
+	public HistoryCharacteristicPanel(CharacterPlayer character, CompleteCharacteristicUpPanel parent) {
 		super(character, parent);
-		this.parent = parent;
 		lines = new ArrayList<>();
 		setElements(character);
 	}
