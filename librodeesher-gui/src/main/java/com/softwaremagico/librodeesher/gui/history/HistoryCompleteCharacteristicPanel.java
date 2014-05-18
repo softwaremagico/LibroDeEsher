@@ -35,10 +35,10 @@ public class HistoryCompleteCharacteristicPanel extends CompleteCharacteristicUp
 	public HistoryCompleteCharacteristicPanel(CharacterPlayer character, BaseFrame parent) {
 		super(character, parent);
 	}
-	
+
 	@Override
-	public BasePanel createBodyPanel(){
-		return new HistoryCharacteristicPanel(getCharacter(), this);
+	public BasePanel createBodyPanel() {
+		return new HistoryCharacteristicPanel(getCharacter());
 	}
 
 }

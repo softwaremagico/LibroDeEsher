@@ -29,43 +29,40 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public abstract class CharacteristicUpPanel extends BasePanel {
 	private static final long serialVersionUID = 3613694602175558891L;
-	private CompleteCharacteristicUpPanel parent;
 	private List<CharacteristicUpLine> lines;
 
-	public CharacteristicUpPanel(CharacterPlayer character, CompleteCharacteristicUpPanel parent) {
-		this.parent = parent;
+	public CharacteristicUpPanel(CharacterPlayer character) {
 		lines = new ArrayList<>();
-		//setElements(character);
+		setElements(character);
 	}
-//
-//	private void setElements(CharacterPlayer character) {
-//		this.removeAll();
-//		setLayout(new GridLayout(0, 1));
-//
-//		Color background;
-//		for (int i = 0; i < character.getCharacteristics().size(); i++) {
-//			if (i % 2 == 0) {
-//				background = Color.WHITE;
-//			} else {
-//				background = Color.LIGHT_GRAY;
-//			}
-//
-//			CharacteristicUpLine characteristicLine = createLine(character, i, background);
-//			lines.add(characteristicLine);
-//			add(characteristicLine);
-//		}
-//	}
-//
-//	public abstract CharacteristicUpLine createLine(CharacterPlayer character, Integer characteristicIndex,
-//			Color background);
-//
+
+	private void setElements(CharacterPlayer character) {
+		this.removeAll();
+		setLayout(new GridLayout(0, 1));
+
+		Color background;
+		for (int i = 0; i < character.getCharacteristics().size(); i++) {
+			if (i % 2 == 0) {
+				background = Color.WHITE;
+			} else {
+				background = Color.LIGHT_GRAY;
+			}
+
+			CharacteristicUpLine characteristicLine = createLine(character, i, background);
+			lines.add(characteristicLine);
+			add(characteristicLine);
+		}
+	}
+
+	public abstract CharacteristicUpLine createLine(CharacterPlayer character, Integer characteristicIndex,
+			Color background);
+
 	public void update() {
 		for (CharacteristicUpLine line : lines) {
 			line.update();
@@ -77,10 +74,4 @@ public abstract class CharacteristicUpPanel extends BasePanel {
 			line.setParentWindow(window);
 		}
 	}
-//
-//	@Override
-//	public BaseScrollPanel getParent() {
-//		return parent;
-//	}
-
 }
