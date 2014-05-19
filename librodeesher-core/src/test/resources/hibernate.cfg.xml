@@ -18,6 +18,7 @@
 	<mapping class="com.softwaremagico.librodeesher.pj.characteristic.Appearance"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.basics.Roll"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.basics.RollGroup"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.categories.Category"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.categories.CategoryCost"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.categories.ChooseCategoryGroup"></mapping>

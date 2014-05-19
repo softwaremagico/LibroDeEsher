@@ -28,17 +28,16 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import com.softwaremagico.librodeesher.basics.Roll;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicUpLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 
 public class HistoryCharacteristicLine extends CharacteristicUpLine {
 	private static final long serialVersionUID = 5817155091343950674L;
 
-	public HistoryCharacteristicLine(CharacterPlayer character, Characteristic characteristic,
-			Color background) {
+	public HistoryCharacteristicLine(CharacterPlayer character, Characteristic characteristic, Color background) {
 		super(character, characteristic, background);
 	}
 
@@ -50,27 +49,28 @@ public class HistoryCharacteristicLine extends CharacteristicUpLine {
 	public class UpdateButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (ShowMessage
-					.showQuestionMessage(
-							getParentWindow(),
-							"Esta acción invertirá un punto de historial para subr la característica \""
-									+ characteristic.getName()
-									+ "\" con una diferencia entre el valor temporal y potencial de: "
-									+ (character.getCharacteristicPotentialValues(characteristic
-											.getAbbreviature()) - character
-											.getCharacteristicTemporalValue(characteristic.getAbbreviature()))
-									+ ".\n Esta acción es permante. ¿Está seguro de continuar?",
-							"Aumento de característica")) {
+			if (ShowMessage.showQuestionMessage(
+					getParentWindow(),
+					"Esta acción invertirá un punto de historial para subr la característica \""
+							+ characteristic.getName()
+							+ "\" con una diferencia entre el valor temporal y potencial de: "
+							+ (character.getCharacteristicPotentialValue(characteristic.getAbbreviature()) - character
+									.getCharacteristicTemporalValue(characteristic.getAbbreviature()))
+							+ ".\n Esta acción es permante. ¿Está seguro de continuar?", "Aumento de característica")) {
 
-				Roll roll = character.setCharacteristicHistorialUpdate(characteristic.getAbbreviature());
-				Integer temporalValue = character.getCharacteristicTemporalValue(characteristic
+				CharacteristicRoll characteristicRoll = character.setCharacteristicHistorialUpdate(characteristic
 						.getAbbreviature());
-				Integer potentialValue = character.getCharacteristicsPotentialValues().get(
-						characteristic.getAbbreviature());
-				ShowMessage.showInfoMessage("El resultado de los dados es: [" + roll.getFirstDice() + ","
-						+ roll.getSecondDice() + "]\n" + "Por tanto, la característica ha cambiado en: "
-						+ Characteristic.getCharacteristicUpgrade(temporalValue, potentialValue, roll),
-						"Característica aumentada!");
+				ShowMessage.showInfoMessage(
+						"El resultado de los dados es: ["
+								+ characteristicRoll.getRoll().getFirstDice()
+								+ ","
+								+ characteristicRoll.getRoll().getSecondDice()
+								+ "]\n"
+								+ "Por tanto, la característica ha cambiado en: "
+								+ Characteristic.getCharacteristicUpgrade(
+										characteristicRoll.getCharacteristicTemporalValue(),
+										characteristicRoll.getCharacteristicPotentialValue(),
+										characteristicRoll.getRoll()), "Característica aumentada!");
 
 				getParentWindow().updateFrame();
 			}
@@ -79,12 +79,9 @@ public class HistoryCharacteristicLine extends CharacteristicUpLine {
 
 	@Override
 	public void setAcceptEnabled() {
-		getUpdateButton()
-				.setEnabled(
-						character.getRemainingHistorialPoints() > 0
-								&& (character.getCharacteristicPotentialValues(characteristic
-										.getAbbreviature())
-										- character.getCharacteristicTemporalValue(characteristic
-												.getAbbreviature()) > 0));
+		getUpdateButton().setEnabled(
+				character.getRemainingHistorialPoints() > 0
+						&& (character.getCharacteristicPotentialValue(characteristic.getAbbreviature())
+								- character.getCharacteristicTemporalValue(characteristic.getAbbreviature()) > 0));
 	}
 }

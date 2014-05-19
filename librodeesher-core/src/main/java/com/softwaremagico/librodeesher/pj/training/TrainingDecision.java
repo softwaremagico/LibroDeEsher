@@ -17,6 +17,7 @@ import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.basics.Roll;
 import com.softwaremagico.librodeesher.basics.RollGroup;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 
 @Entity
 @Table(name = "T_TRAINING_DECISION")
@@ -32,13 +33,13 @@ public class TrainingDecision {
 	@CollectionTable(name = "T_TRAINING_DECISION_SKILLS_SELECTED")
 	private Map<TrainingCategory, TrainingSkillsSelected> skillsSelected;
 	@ElementCollection
-	@CollectionTable(name = "T_TRAINING_CHARACTERISTICS_UPDATES")
-	private Map<String, RollGroup> characteristicsUpdates;
+	@CollectionTable(name = "T_HISTORIAL_CHARACTERISTICS_UPDATES")
+	private List<CharacteristicRoll> characteristicsUpdates;
 
 	public TrainingDecision() {
 		categoriesSelected = new HashMap<>();
 		skillsSelected = new HashMap<>();
-		characteristicsUpdates = new HashMap<>();
+		characteristicsUpdates = new ArrayList<>();
 	}
 
 	public void addSelectedCategory(TrainingCategory trainingCategory, String categoryName) {
@@ -93,26 +94,28 @@ public class TrainingDecision {
 		skillsSelected.remove(trainingCategory);
 	}
 
-	public void setCharactersiticUpdate(String abbreviature, Roll roll) {
-		if (characteristicsUpdates.get(abbreviature) == null) {
-			characteristicsUpdates.put(abbreviature, new RollGroup(abbreviature));
-		}
-		characteristicsUpdates.get(abbreviature).add(roll);
+	public void addCharactersiticUpdate(String abbreviature, Integer currentTemporalValue,
+			Integer currentPotentialValue, Roll roll) {
+		characteristicsUpdates.add(new CharacteristicRoll(abbreviature, currentTemporalValue, currentPotentialValue,
+				roll));
 	}
 
-	public List<Roll> getCharacteristicsUpdates(String abbreviature) {
-		List<Roll> rolls = new ArrayList<>();
-		if (characteristicsUpdates.get(abbreviature) != null) {
-			rolls.addAll(characteristicsUpdates.get(abbreviature).getRolls());
+	public List<CharacteristicRoll> getCharacteristicsUpdates(String abbreviature) {
+		List<CharacteristicRoll> returnList = new ArrayList<>();
+		for (CharacteristicRoll characteristicRollGroup : characteristicsUpdates) {
+			if (characteristicRollGroup.getCharacteristicAbbreviature().equals(abbreviature)) {
+				returnList.add(characteristicRollGroup);
+			}
 		}
-		return rolls;
+
+		return returnList;
 	}
 
-	public Map<String, RollGroup> getCharacteristicsUpdates() {
+	public List<CharacteristicRoll> getCharacteristicsUpdates() {
 		return characteristicsUpdates;
 	}
 
-	protected void setCharacteristicsUpdates(Map<String, RollGroup> characteristicsUpdates) {
+	protected void setCharacteristicsUpdates(List<CharacteristicRoll> characteristicsUpdates) {
 		this.characteristicsUpdates = characteristicsUpdates;
 	}
 }

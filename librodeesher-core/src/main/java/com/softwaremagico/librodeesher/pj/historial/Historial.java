@@ -25,9 +25,7 @@ package com.softwaremagico.librodeesher.pj.historial;
  */
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -39,8 +37,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.basics.Roll;
-import com.softwaremagico.librodeesher.basics.RollGroup;
 import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 @Entity
@@ -61,12 +59,12 @@ public class Historial {
 	private List<String> skills;
 	@ElementCollection
 	@CollectionTable(name = "T_HISTORIAL_CHARACTERISTICS_UPDATES")
-	private Map<String, CharacteristicRollGroup> characteristicsUpdates;
+	private List<CharacteristicRoll> characteristicsUpdates;
 
 	public Historial() {
 		categories = new ArrayList<>();
 		skills = new ArrayList<>();
-		characteristicsUpdates = new HashMap<>();
+		characteristicsUpdates = new ArrayList<>();
 	}
 
 	public void setPoint(Skill skill, boolean value) {
@@ -115,27 +113,27 @@ public class Historial {
 		return skills.size() + categories.size() + getCharacteristicsUpdatesPoints();
 	}
 
-	public void setCharactersiticUpdate(String abbreviature, Roll roll) {
-		if (characteristicsUpdates.get(abbreviature) == null) {
-			characteristicsUpdates.put(abbreviature, new RollGroup(abbreviature));
-		}
-		characteristicsUpdates.get(abbreviature).add(roll);
+	public CharacteristicRoll addCharactersiticUpdate(String abbreviature, Integer currentTemporalValue,
+			Integer currentPotentialValue, Roll roll) {
+		CharacteristicRoll characteristicRoll = new CharacteristicRoll(abbreviature, currentTemporalValue,
+				currentPotentialValue, roll);
+		characteristicsUpdates.add(characteristicRoll);
+		return characteristicRoll;
 	}
 
 	private Integer getCharacteristicsUpdatesPoints() {
-		Integer total = 0;
-		for (RollGroup rollGroup : characteristicsUpdates.values()) {
-			total += rollGroup.getRolls().size();
-		}
-		return total;
+		return characteristicsUpdates.size();
 	}
 
-	public List<Roll> getCharacteristicsUpdates(String abbreviature) {
-		List<Roll> rolls = new ArrayList<>();
-		if (characteristicsUpdates.get(abbreviature) != null) {
-			rolls.addAll(characteristicsUpdates.get(abbreviature).getRolls());
+	public List<CharacteristicRoll> getCharacteristicsUpdates(String abbreviature) {
+		List<CharacteristicRoll> returnList = new ArrayList<>();
+		for (CharacteristicRoll characteristicRollGroup : characteristicsUpdates) {
+			if (characteristicRollGroup.getCharacteristicAbbreviature().equals(abbreviature)) {
+				returnList.add(characteristicRollGroup);
+			}
 		}
-		return rolls;
+
+		return returnList;
 	}
 
 	public List<String> getCategories() {
@@ -154,7 +152,7 @@ public class Historial {
 		this.skills = skills;
 	}
 
-	public Map<String, RollGroup> getCharacteristicsUpdates() {
+	public List<CharacteristicRoll> getCharacteristicsUpdates() {
 		return characteristicsUpdates;
 	}
 
@@ -166,7 +164,7 @@ public class Historial {
 		this.historialId = historialId;
 	}
 
-	protected void setCharacteristicsUpdates(Map<String, RollGroup> characteristicsUpdates) {
+	protected void setCharacteristicsUpdates(List<CharacteristicRoll> characteristicsUpdates) {
 		this.characteristicsUpdates = characteristicsUpdates;
 	}
 }

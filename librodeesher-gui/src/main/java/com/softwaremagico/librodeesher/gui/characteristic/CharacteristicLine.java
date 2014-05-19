@@ -117,7 +117,7 @@ public class CharacteristicLine extends BaseLine {
 	}
 
 	public void setPotential() {
-		potentialText.setText(character.getCharacteristicPotentialValues(characteristic.getAbbreviature())
+		potentialText.setText(character.getCharacteristicPotentialValue(characteristic.getAbbreviature())
 				.toString());
 		temporalSpinner.setEnabled(!character.areCharacteristicsConfirmed());
 	}

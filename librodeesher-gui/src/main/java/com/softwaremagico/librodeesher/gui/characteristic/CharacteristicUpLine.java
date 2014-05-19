@@ -83,7 +83,7 @@ public abstract class CharacteristicUpLine extends BaseLine {
 	public void update() {
 		temporalText.setText(character.getCharacteristicTemporalValue(characteristic.getAbbreviature())
 				.toString());
-		potentialText.setText(character.getCharacteristicPotentialValues(characteristic.getAbbreviature())
+		potentialText.setText(character.getCharacteristicPotentialValue(characteristic.getAbbreviature())
 				.toString());
 		setAcceptEnabled();
 	}

@@ -48,7 +48,6 @@ import javax.persistence.Transient;
 
 import com.softwaremagico.librodeesher.basics.Roll;
 import com.softwaremagico.librodeesher.basics.RollGroup;
-import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.librodeesher.pj.categories.Category;
@@ -57,6 +56,7 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.characteristic.Appearance;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.culture.Culture;
 import com.softwaremagico.librodeesher.pj.culture.CultureDecisions;
@@ -199,13 +199,13 @@ public class CharacterPlayer {
 	}
 
 	public Integer getAppearance() {
-		return appearance.getTotal(getCharacteristicPotentialValues("Pr")) + getRace().getApperanceBonus()
+		return appearance.getTotal(getCharacteristicPotentialValue("Pr")) + getRace().getApperanceBonus()
 				+ getPerkApperanceBonus();
 	}
 
 	/**
-	 * Default config is stored in a file and changed with the options windows.
-	 * When a new character is created, it uses this default config options.
+	 * Default config is stored in a file and changed with the options windows. When a new character is created, it uses
+	 * this default config options.
 	 */
 	private void setDefaultConfig() {
 		darkSpellsAsBasicListsAllowed = Config.getDarkSpellsAsBasic();
@@ -273,7 +273,7 @@ public class CharacterPlayer {
 		return characteristicsConfirmed;
 	}
 
-	public Integer getCharacteristicPotentialValues(String abbreviature) {
+	public Integer getCharacteristicPotentialValue(String abbreviature) {
 		Integer potential = characteristicsPotentialValues.get(abbreviature);
 		if (potential != null) {
 			return potential;
@@ -297,33 +297,33 @@ public class CharacterPlayer {
 		return Characteristics.getTemporalBonus(getCharacteristicTemporalValue(abbreviature));
 	}
 
-	private Integer getHistoryTemporalModification(String abbreviature) {
+	private Integer getTemporalModifications(String abbreviature) {
 		Integer temporalValue = characteristicsInitialTemporalValues.get(abbreviature);
-		Integer potentialValue = characteristicsPotentialValues.get(abbreviature);
-		for (TrainingDecision training : getTrainingDecisions()) {
-			for (Roll roll : training.getCharacteristicsUpdates(abbreviature)) {
-
+		for (TrainingDecision training : getTrainingDecisions().values()) {
+			for (CharacteristicRoll roll : training.getCharacteristicsUpdates(abbreviature)) {
+				temporalValue += Characteristic.getCharacteristicUpgrade(roll.getCharacteristicTemporalValue(),
+						roll.getCharacteristicTemporalValue(), roll.getRoll());
 			}
 		}
-		for (Roll roll : historial.getCharacteristicsUpdates(abbreviature)) {
-			temporalValue += Characteristic.getCharacteristicUpgrade(temporalValue, potentialValue, roll);
+		for (CharacteristicRoll roll : historial.getCharacteristicsUpdates(abbreviature)) {
+			temporalValue += Characteristic.getCharacteristicUpgrade(roll.getCharacteristicTemporalValue(),
+					roll.getCharacteristicPotentialValue(), roll.getRoll());
 		}
 		return temporalValue;
 	}
 
 	public Integer getCharacteristicTemporalValue(String abbreviature) {
-		return getHistoryTemporalModification(abbreviature);
+		return getTemporalModifications(abbreviature);
 	}
 
 	/**
-	 * Temporal value of the characteristic when starting the creation of the
-	 * character.
+	 * Temporal value of the characteristic when starting the creation of the character.
 	 * 
 	 * @param abbreviature
 	 * @return
 	 */
 	public Integer getCharacteristicInitialTemporalValue(String abbreviature) {
-		Integer value = getHistoryTemporalModification(abbreviature);
+		Integer value = getTemporalModifications(abbreviature);
 		if (value != null) {
 			if (isMainProfessionalCharacteristic(abbreviature)) {
 				if (value > 90) {
@@ -538,8 +538,8 @@ public class CharacterPlayer {
 	private void setCharacteristicsTemporalUpdatesRolls() {
 		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
 			if (characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()) == null) {
-				characteristicsTemporalUpdatesRolls.put(characteristic.getAbbreviature(), new RollGroup(
-						characteristic.getAbbreviature()));
+				characteristicsTemporalUpdatesRolls.put(characteristic.getAbbreviature(),
+						new RollGroup(characteristic.getAbbreviature()));
 			}
 			while (characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()).size() < STORED_ROLLS_NUMBER) {
 				characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()).add(new Roll());
@@ -569,8 +569,8 @@ public class CharacterPlayer {
 
 	private void setPotentialValues() {
 		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
-			Integer potential = Characteristics.getPotencial(characteristicsInitialTemporalValues
-					.get(characteristic.getAbbreviature()));
+			Integer potential = Characteristics.getPotencial(characteristicsInitialTemporalValues.get(characteristic
+					.getAbbreviature()));
 			characteristicsPotentialValues.put(characteristic.getAbbreviature(), potential);
 		}
 	}
@@ -604,8 +604,7 @@ public class CharacterPlayer {
 	}
 
 	public Integer getLanguageInitialRanks(String language) {
-		return Math.max(getCulture().getLanguageMaxRanks(language),
-				getRace().getLanguageInitialRanks(language));
+		return Math.max(getCulture().getLanguageMaxRanks(language), getRace().getLanguageInitialRanks(language));
 	}
 
 	public Integer getLanguageMaxInitialRanks(String language) {
@@ -751,8 +750,7 @@ public class CharacterPlayer {
 	}
 
 	public Integer getBonus(Skill skill) {
-		return getProfession().getSkillBonus(skill.getName()) + historial.getBonus(skill)
-				+ getPerkBonus(skill);
+		return getProfession().getSkillBonus(skill.getName()) + historial.getBonus(skill) + getPerkBonus(skill);
 	}
 
 	public Integer getPerkApperanceBonus() {
@@ -820,8 +818,7 @@ public class CharacterPlayer {
 	}
 
 	/**
-	 * In culture, weapon costs are not defined. Therefore, we will use the best
-	 * value.
+	 * In culture, weapon costs are not defined. Therefore, we will use the best value.
 	 * 
 	 * @param category
 	 * @return
@@ -839,8 +836,7 @@ public class CharacterPlayer {
 	 * 
 	 * @param category
 	 * @param currentListRanks
-	 *            current ranks spent in this skill. In magic, higher levels are
-	 *            more expensive.
+	 *            current ranks spent in this skill. In magic, higher levels are more expensive.
 	 * @return
 	 */
 	public CategoryCost getCategoryCost(Category category, Integer currentListRanks) {
@@ -868,12 +864,10 @@ public class CharacterPlayer {
 	 * @param category
 	 *            category to be updated.
 	 * @param currentRanks
-	 *            Current ranks in category or skill. Must include old levels
-	 *            ranks and previous ranks included in this new level. Only used
-	 *            for spell cost (higher level spells are more expensive).
+	 *            Current ranks in category or skill. Must include old levels ranks and previous ranks included in this
+	 *            new level. Only used for spell cost (higher level spells are more expensive).
 	 * @param rankAdded
-	 *            If it is the first, second or third rank added at this level
-	 *            [0, 1, 2].
+	 *            If it is the first, second or third rank added at this level [0, 1, 2].
 	 * @return
 	 */
 	public Integer getNewRankCost(Category category, Integer currentRanks, Integer rankAdded) {
@@ -902,12 +896,10 @@ public class CharacterPlayer {
 	 * @param skill
 	 *            skill to be updated.
 	 * @param currentRanks
-	 *            Current ranks in category or skill. Must include old levels
-	 *            ranks and previous ranks included in this new level. Only used
-	 *            for spell cost.
+	 *            Current ranks in category or skill. Must include old levels ranks and previous ranks included in this
+	 *            new level. Only used for spell cost.
 	 * @param rankAdded
-	 *            If it is the first, second or third rank added at this level
-	 *            [0, 1, 2].
+	 *            If it is the first, second or third rank added at this level [0, 1, 2].
 	 * @return
 	 */
 	public Integer getNewRankCost(Skill skill, Integer currentRanks, Integer rankAdded) {
@@ -933,8 +925,7 @@ public class CharacterPlayer {
 	}
 
 	/**
-	 * A category is not used if it has not skills or the cost is more than the
-	 * selected in the configuration.
+	 * A category is not used if it has not skills or the cost is more than the selected in the configuration.
 	 * 
 	 * @param category
 	 * @return
@@ -956,8 +947,7 @@ public class CharacterPlayer {
 		if (getNewRankCost(category, 0, getTotalRanks(category)) > Config.getCategoryMaxCost()) {
 			return false;
 		}
-		if (category.getName().equals(Spanish.OTHER_REALM_TRAINING_LISTS)
-				&& !isOtherRealmtrainingSpellsAllowed()) {
+		if (category.getName().equals(Spanish.OTHER_REALM_TRAINING_LISTS) && !isOtherRealmtrainingSpellsAllowed()) {
 			return false;
 		}
 		return true;
@@ -1046,8 +1036,7 @@ public class CharacterPlayer {
 			}
 		}
 		// Last cost for any extra categories.
-		return getProfession().getWeaponCategoryCost()
-				.get(getProfession().getWeaponCategoryCost().size() - 1);
+		return getProfession().getWeaponCategoryCost().get(getProfession().getWeaponCategoryCost().size() - 1);
 	}
 
 	public void setHistoryPoints(Skill skill, boolean value) {
@@ -1070,15 +1059,17 @@ public class CharacterPlayer {
 		return getRace().getHistorialPoints() - historial.getSpentHistoryPoints();
 	}
 
-	public Roll setCharacteristicHistorialUpdate(String abbreviature) {
+	public CharacteristicRoll setCharacteristicHistorialUpdate(String abbreviature) {
 		Roll roll = getStoredCharacteristicRoll(abbreviature);
-		historial.setCharactersiticUpdate(abbreviature, roll);
-		return roll;
+		CharacteristicRoll characteristicRoll = historial.addCharactersiticUpdate(abbreviature,
+				getCharacteristicTemporalValue(abbreviature), getCharacteristicPotentialValue(abbreviature), roll);
+		return characteristicRoll;
 	}
 
 	public Roll setCharacteristicTrainingUpdate(String abbreviature, String trainingName) {
 		Roll roll = getStoredCharacteristicRoll(abbreviature);
-		getTrainingDecision(trainingName).setCharactersiticUpdate(abbreviature, roll);
+		getTrainingDecision(trainingName).addCharactersiticUpdate(abbreviature,
+				getCharacteristicTemporalValue(abbreviature), getCharacteristicPotentialValue(abbreviature), roll);
 		return roll;
 	}
 
@@ -1149,8 +1140,7 @@ public class CharacterPlayer {
 
 	public boolean isCommon(Skill skill) {
 		return skill.getSkillType().equals(SkillType.COMMON) || isCommonByPerk(skill)
-				|| getProfession().isCommon(skill) || professionDecisions.isCommon(skill)
-				|| getRace().isCommon(skill);
+				|| getProfession().isCommon(skill) || professionDecisions.isCommon(skill) || getRace().isCommon(skill);
 	}
 
 	private boolean isCommonByPerk(Skill skill) {
@@ -1195,8 +1185,7 @@ public class CharacterPlayer {
 		for (String trainingName : TrainingFactory.getAvailableTrainings()) {
 			// Correct race of training.
 			if (TrainingFactory.getTraining(trainingName).getLimitedRaces().size() > 0) {
-				if (!TrainingFactory.getTraining(trainingName).getLimitedRaces()
-						.contains(getRace().getName())) {
+				if (!TrainingFactory.getTraining(trainingName).getLimitedRaces().contains(getRace().getName())) {
 					continue;
 				}
 			}
@@ -1232,8 +1221,7 @@ public class CharacterPlayer {
 		return costModification;
 	}
 
-	private Integer getTrainingCharacteristicCostReduction(List<Characteristic> characteristics,
-			Training training) {
+	private Integer getTrainingCharacteristicCostReduction(List<Characteristic> characteristics, Training training) {
 		Integer costModification = 0;
 		for (Characteristic characteristic : characteristics) {
 			try {
@@ -1252,8 +1240,7 @@ public class CharacterPlayer {
 	public Integer getTrainingCost(String trainingName) {
 		Integer baseCost = getProfession().getTrainingCost(trainingName);
 		Training training = TrainingFactory.getTraining(trainingName);
-		baseCost += getTrainingSkillCostReduction(
-				SkillFactory.getSkills(training.getSkillRequirementsList()), training);
+		baseCost += getTrainingSkillCostReduction(SkillFactory.getSkills(training.getSkillRequirementsList()), training);
 		baseCost += getTrainingCharacteristicCostReduction(Characteristics.getCharacteristics(), training);
 		return baseCost;
 	}
@@ -1265,8 +1252,8 @@ public class CharacterPlayer {
 	}
 
 	/**
-	 * The user must to choose one category from a training if the training has
-	 * this option and it has not been chosen before.
+	 * The user must to choose one category from a training if the training has this option and it has not been chosen
+	 * before.
 	 * 
 	 * @param trainingName
 	 * @return
@@ -1319,8 +1306,7 @@ public class CharacterPlayer {
 		return characteristicsInitialTemporalValues;
 	}
 
-	public void setCharacteristicsInitialTemporalValues(
-			Map<String, Integer> characteristicsInitialTemporalValues) {
+	public void setCharacteristicsInitialTemporalValues(Map<String, Integer> characteristicsInitialTemporalValues) {
 		this.characteristicsInitialTemporalValues = characteristicsInitialTemporalValues;
 	}
 
@@ -1336,8 +1322,7 @@ public class CharacterPlayer {
 		return characteristicsTemporalUpdatesRolls;
 	}
 
-	public void setCharacteristicsTemporalUpdatesRolls(
-			Map<String, RollGroup> characteristicsTemporalUpdatesRolls) {
+	public void setCharacteristicsTemporalUpdatesRolls(Map<String, RollGroup> characteristicsTemporalUpdatesRolls) {
 		this.characteristicsTemporalUpdatesRolls = characteristicsTemporalUpdatesRolls;
 	}
 
