@@ -92,7 +92,7 @@ public class TrainingWindow extends BaseFrame {
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 1;
-		gridBagConstraints.weighty = 0;		
+		gridBagConstraints.weighty = 0;
 		getContentPane().add(createChooseTrainingPanel(), gridBagConstraints);
 		gridBagConstraints.weightx = 0;
 		gridBagConstraints.gridx = 1;
@@ -241,6 +241,10 @@ public class TrainingWindow extends BaseFrame {
 		});
 	}
 
+	private void obtainCharacteristicsUpdates() {
+		
+	}
+
 	class AddListener implements ActionListener {
 
 		@Override
@@ -264,6 +268,7 @@ public class TrainingWindow extends BaseFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			obtainCharacteristicsUpdates();
 			clearData();
 		}
 	}

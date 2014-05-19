@@ -300,6 +300,11 @@ public class CharacterPlayer {
 	private Integer getHistoryTemporalModification(String abbreviature) {
 		Integer temporalValue = characteristicsInitialTemporalValues.get(abbreviature);
 		Integer potentialValue = characteristicsPotentialValues.get(abbreviature);
+		for (TrainingDecision training : getTrainingDecisions()) {
+			for (Roll roll : training.getCharacteristicsUpdates(abbreviature)) {
+
+			}
+		}
 		for (Roll roll : historial.getCharacteristicsUpdates(abbreviature)) {
 			temporalValue += Characteristic.getCharacteristicUpgrade(temporalValue, potentialValue, roll);
 		}
@@ -1065,17 +1070,16 @@ public class CharacterPlayer {
 		return getRace().getHistorialPoints() - historial.getSpentHistoryPoints();
 	}
 
-	public void setCharacteristicHistorialUpdate(String abbreviature) {
+	public Roll setCharacteristicHistorialUpdate(String abbreviature) {
 		Roll roll = getStoredCharacteristicRoll(abbreviature);
-		Integer temporalValue = getCharacteristicTemporalValue(abbreviature);
-		Integer potentialValue = characteristicsPotentialValues.get(abbreviature);
-		ShowMessage.showInfoMessage(
-				"El resultado de los dados es: [" + roll.getFirstDice() + "," + roll.getSecondDice() + "]\n"
-						+ "Por tanto, la característica ha cambiado en: "
-						+ Characteristic.getCharacteristicUpgrade(temporalValue, potentialValue, roll),
-				"Característica aumentada!");
-
 		historial.setCharactersiticUpdate(abbreviature, roll);
+		return roll;
+	}
+
+	public Roll setCharacteristicTrainingUpdate(String abbreviature, String trainingName) {
+		Roll roll = getStoredCharacteristicRoll(abbreviature);
+		getTrainingDecision(trainingName).setCharactersiticUpdate(abbreviature, roll);
+		return roll;
 	}
 
 	public void addPerk(Perk perk) {

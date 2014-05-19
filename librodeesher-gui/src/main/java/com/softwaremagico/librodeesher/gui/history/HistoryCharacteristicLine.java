@@ -28,6 +28,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import com.softwaremagico.librodeesher.basics.Roll;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicUpLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -60,7 +61,17 @@ public class HistoryCharacteristicLine extends CharacteristicUpLine {
 											.getCharacteristicTemporalValue(characteristic.getAbbreviature()))
 									+ ".\n Esta acción es permante. ¿Está seguro de continuar?",
 							"Aumento de característica")) {
-				character.setCharacteristicHistorialUpdate(characteristic.getAbbreviature());
+
+				Roll roll = character.setCharacteristicHistorialUpdate(characteristic.getAbbreviature());
+				Integer temporalValue = character.getCharacteristicTemporalValue(characteristic
+						.getAbbreviature());
+				Integer potentialValue = character.getCharacteristicsPotentialValues().get(
+						characteristic.getAbbreviature());
+				ShowMessage.showInfoMessage("El resultado de los dados es: [" + roll.getFirstDice() + ","
+						+ roll.getSecondDice() + "]\n" + "Por tanto, la característica ha cambiado en: "
+						+ Characteristic.getCharacteristicUpgrade(temporalValue, potentialValue, roll),
+						"Característica aumentada!");
+
 				getParentWindow().updateFrame();
 			}
 		}

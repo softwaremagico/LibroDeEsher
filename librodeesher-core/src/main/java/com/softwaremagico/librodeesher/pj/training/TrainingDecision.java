@@ -1,5 +1,6 @@
 package com.softwaremagico.librodeesher.pj.training;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.softwaremagico.librodeesher.basics.Roll;
+import com.softwaremagico.librodeesher.basics.RollGroup;
+
 @Entity
 @Table(name = "T_TRAINING_DECISION")
 public class TrainingDecision {
@@ -27,10 +31,14 @@ public class TrainingDecision {
 	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "T_TRAINING_DECISION_SKILLS_SELECTED")
 	private Map<TrainingCategory, TrainingSkillsSelected> skillsSelected;
+	@ElementCollection
+	@CollectionTable(name = "T_TRAINING_CHARACTERISTICS_UPDATES")
+	private Map<String, RollGroup> characteristicsUpdates;
 
 	public TrainingDecision() {
 		categoriesSelected = new HashMap<>();
 		skillsSelected = new HashMap<>();
+		characteristicsUpdates = new HashMap<>();
 	}
 
 	public void addSelectedCategory(TrainingCategory trainingCategory, String categoryName) {
@@ -83,5 +91,28 @@ public class TrainingDecision {
 
 	public void removeSkillsSelected(TrainingCategory trainingCategory) {
 		skillsSelected.remove(trainingCategory);
+	}
+
+	public void setCharactersiticUpdate(String abbreviature, Roll roll) {
+		if (characteristicsUpdates.get(abbreviature) == null) {
+			characteristicsUpdates.put(abbreviature, new RollGroup(abbreviature));
+		}
+		characteristicsUpdates.get(abbreviature).add(roll);
+	}
+
+	public List<Roll> getCharacteristicsUpdates(String abbreviature) {
+		List<Roll> rolls = new ArrayList<>();
+		if (characteristicsUpdates.get(abbreviature) != null) {
+			rolls.addAll(characteristicsUpdates.get(abbreviature).getRolls());
+		}
+		return rolls;
+	}
+
+	public Map<String, RollGroup> getCharacteristicsUpdates() {
+		return characteristicsUpdates;
+	}
+
+	protected void setCharacteristicsUpdates(Map<String, RollGroup> characteristicsUpdates) {
+		this.characteristicsUpdates = characteristicsUpdates;
 	}
 }

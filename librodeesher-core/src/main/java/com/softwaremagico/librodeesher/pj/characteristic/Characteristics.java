@@ -67,10 +67,10 @@ public class Characteristics {
 		return allowedCharacteristics.contains(abbrev);
 	}
 
-	public static Characteristic getCharacteristicFromAbbreviature(String abrev) {
+	public static Characteristic getCharacteristicFromAbbreviature(String abbreviature) {
 		for (int i = 0; i < characteristics.size(); i++) {
 			Characteristic characteristic = characteristics.get(i);
-			if (characteristic.getAbbreviature().equals(abrev)) {
+			if (characteristic.getAbbreviature().equals(abbreviature)) {
 				return characteristic;
 			}
 		}
