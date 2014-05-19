@@ -34,13 +34,13 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
-import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.options.SelectOption;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class ProfessionWindow extends BaseFrame {
+	private static final long serialVersionUID = -1395591756061099850L;
 	private CharacterPlayer character;
 	private List<SelectOption<Skill>> commonOptions;
 	private List<SelectOption<Skill>> professionalOptions;

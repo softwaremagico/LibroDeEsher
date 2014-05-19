@@ -38,7 +38,7 @@ public class HistoryCompleteCharacteristicPanel extends CompleteCharacteristicUp
 
 	@Override
 	public BasePanel createBodyPanel() {
-		return new HistoryCharacteristicPanel(getCharacter());
+		return new HistoryCharacteristicPanel(getCharacter(), getCharacter().getCharacteristics());
 	}
 
 }

@@ -57,7 +57,7 @@ public class HistoryWindow extends BaseFrame {
 		this.character = character;
 		defineWindow(700, 420);
 		historyPoints = new PointsCounterTextField();
-		// setResizable(false);
+		setResizable(false);
 		setElements();
 	}
 

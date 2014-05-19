@@ -32,14 +32,19 @@ import java.util.List;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 
 public abstract class CharacteristicUpPanel extends BasePanel {
 	private static final long serialVersionUID = 3613694602175558891L;
 	private List<CharacteristicUpLine> lines;
+	private List<Characteristic> characteristics;
 
-	public CharacteristicUpPanel(CharacterPlayer character) {
+	public CharacteristicUpPanel(CharacterPlayer character, List<Characteristic> characteristics) {
 		lines = new ArrayList<>();
-		setElements(character);
+		this.characteristics = characteristics;
+		if (characteristics != null && !characteristics.isEmpty()) {
+			setElements(character);
+		}
 	}
 
 	private void setElements(CharacterPlayer character) {
@@ -47,20 +52,21 @@ public abstract class CharacteristicUpPanel extends BasePanel {
 		setLayout(new GridLayout(0, 1));
 
 		Color background;
-		for (int i = 0; i < character.getCharacteristics().size(); i++) {
+		for (int i = 0; i < characteristics.size(); i++) {
 			if (i % 2 == 0) {
 				background = Color.WHITE;
 			} else {
 				background = Color.LIGHT_GRAY;
 			}
 
-			CharacteristicUpLine characteristicLine = createLine(character, i, background);
+			CharacteristicUpLine characteristicLine = createLine(character, characteristics.get(i),
+					background);
 			lines.add(characteristicLine);
 			add(characteristicLine);
 		}
 	}
 
-	public abstract CharacteristicUpLine createLine(CharacterPlayer character, Integer characteristicIndex,
+	public abstract CharacteristicUpLine createLine(CharacterPlayer character, Characteristic characteristic,
 			Color background);
 
 	public void update() {
