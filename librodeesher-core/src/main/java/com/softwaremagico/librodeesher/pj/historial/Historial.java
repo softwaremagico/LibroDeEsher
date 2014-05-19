@@ -61,7 +61,7 @@ public class Historial {
 	private List<String> skills;
 	@ElementCollection
 	@CollectionTable(name = "T_HISTORIAL_CHARACTERISTICS_UPDATES")
-	private Map<String, RollGroup> characteristicsUpdates;
+	private Map<String, CharacteristicRollGroup> characteristicsUpdates;
 
 	public Historial() {
 		categories = new ArrayList<>();

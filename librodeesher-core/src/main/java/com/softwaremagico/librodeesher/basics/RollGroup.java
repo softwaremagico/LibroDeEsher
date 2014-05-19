@@ -63,6 +63,7 @@ public class RollGroup {
 		this.rollGroupId = id;
 	}
 
+	@Override
 	public String toString() {
 		return rolls + "";
 	}
