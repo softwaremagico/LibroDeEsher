@@ -24,21 +24,24 @@ package com.softwaremagico.librodeesher.gui.history;
  * #L%
  */
 
+import java.util.List;
+
 import com.softwaremagico.librodeesher.gui.characteristic.CompleteCharacteristicUpPanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 
 public class HistoryCompleteCharacteristicPanel extends CompleteCharacteristicUpPanel {
 	private static final long serialVersionUID = 3944923090293710832L;
 
 	public HistoryCompleteCharacteristicPanel(CharacterPlayer character, BaseFrame parent) {
-		super(character, parent);
+		super(character, parent, character.getCharacteristics());
 	}
 
 	@Override
-	public BasePanel createBodyPanel() {
-		return new HistoryCharacteristicPanel(getCharacter(), getCharacter().getCharacteristics());
+	public BasePanel createBodyPanel(List<Characteristic> availableCharacteristics) {
+		return new HistoryCharacteristicPanel(getCharacter(), availableCharacteristics);
 	}
 
 }

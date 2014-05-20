@@ -24,11 +24,14 @@ package com.softwaremagico.librodeesher.gui.characteristic;
  * #L%
  */
 
+import java.util.List;
+
 import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.gui.style.BaseTitleLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 
 public abstract class CompleteCharacteristicUpPanel extends BaseScrollPanel {
 	private static final long serialVersionUID = 3944923090293710832L;
@@ -36,18 +39,19 @@ public abstract class CompleteCharacteristicUpPanel extends BaseScrollPanel {
 	private BaseTitleLine title;
 	private BasePanel characteristicPanel;
 
-	public CompleteCharacteristicUpPanel(CharacterPlayer character, BaseFrame parent) {
+	public CompleteCharacteristicUpPanel(CharacterPlayer character, BaseFrame parent,
+			List<Characteristic> availableCharacteristics) {
 		this.character = character;
 		title = getTitle();
 		addTitle(title);
-		characteristicPanel = createBodyPanel();
+		characteristicPanel = createBodyPanel(availableCharacteristics);
 		if (characteristicPanel instanceof CharacteristicUpPanel) {
 			((CharacteristicUpPanel) characteristicPanel).setParentWindow(parent);
 		}
 		setBody(characteristicPanel);
 	}
 
-	public abstract BasePanel createBodyPanel();
+	public abstract BasePanel createBodyPanel(List<Characteristic> availableCharacteristics);
 
 	public CharacterPlayer getCharacter() {
 		return character;

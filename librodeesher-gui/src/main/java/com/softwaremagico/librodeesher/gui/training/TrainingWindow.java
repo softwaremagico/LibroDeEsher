@@ -33,10 +33,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.BaseTextField;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
@@ -44,6 +46,8 @@ import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.style.BaseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 
@@ -119,7 +123,7 @@ public class TrainingWindow extends BaseFrame {
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
 
 		BaseButton acceptButton = new BaseButton("Aceptar");
-		acceptButton.addActionListener(new AcceptListener());
+		acceptButton.addActionListener(new AcceptListener(this));
 		buttonPanel.add(acceptButton);
 
 		BaseButton cancelButton = new BaseButton("Cancelar");
@@ -242,7 +246,28 @@ public class TrainingWindow extends BaseFrame {
 	}
 
 	private void obtainCharacteristicsUpdates() {
-		
+		List<List<String>> characteristicsUpdates = lastSelectedTraining.getUpdateCharacteristics();
+		for (List<String> characteristicSet : characteristicsUpdates) {
+			int selectedChar = 0;
+			if (characteristicSet.size() > 1) {
+				// while(){
+
+				// }
+			}
+			CharacteristicRoll characteristicRoll = character.setCharacteristicTrainingUpdate(
+					characteristicSet.get(selectedChar), lastSelectedTraining.getName());
+			ShowMessage.showInfoMessage(
+					"El resultado de los dados es: ["
+							+ characteristicRoll.getRoll().getFirstDice()
+							+ ","
+							+ characteristicRoll.getRoll().getSecondDice()
+							+ "]\n"
+							+ "Por tanto, la característica ha cambiado en: "
+							+ Characteristic.getCharacteristicUpgrade(
+									characteristicRoll.getCharacteristicTemporalValue(),
+									characteristicRoll.getCharacteristicPotentialValue(),
+									characteristicRoll.getRoll()), "Característica aumentada!");
+		}
 	}
 
 	class AddListener implements ActionListener {
@@ -265,11 +290,20 @@ public class TrainingWindow extends BaseFrame {
 	}
 
 	class AcceptListener implements ActionListener {
+		BaseFrame window;
+
+		AcceptListener(BaseFrame window) {
+			this.window = window;
+		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			obtainCharacteristicsUpdates();
-			clearData();
+			if (ShowMessage.showQuestionMessage(window, "Esta acción confirmará el adistramiento \""
+					+ lastSelectedTraining.getName()
+					+ "\".\n Esta acción es permante. ¿Está seguro de continuar?", "Adiestramiento")) {
+				obtainCharacteristicsUpdates();
+				clearData();
+			}
 		}
 	}
 

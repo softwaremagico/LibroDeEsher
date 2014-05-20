@@ -51,7 +51,7 @@ public class HistoryCharacteristicLine extends CharacteristicUpLine {
 		public void actionPerformed(ActionEvent e) {
 			if (ShowMessage.showQuestionMessage(
 					getParentWindow(),
-					"Esta acción invertirá un punto de historial para subr la característica \""
+					"Esta acción invertirá un punto de historial para subir la característica \""
 							+ characteristic.getName()
 							+ "\" con una diferencia entre el valor temporal y potencial de: "
 							+ (character.getCharacteristicPotentialValue(characteristic.getAbbreviature()) - character

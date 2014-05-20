@@ -16,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.basics.Roll;
-import com.softwaremagico.librodeesher.basics.RollGroup;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 
 @Entity
@@ -94,10 +93,12 @@ public class TrainingDecision {
 		skillsSelected.remove(trainingCategory);
 	}
 
-	public void addCharactersiticUpdate(String abbreviature, Integer currentTemporalValue,
+	public CharacteristicRoll addCharactersiticUpdate(String abbreviature, Integer currentTemporalValue,
 			Integer currentPotentialValue, Roll roll) {
-		characteristicsUpdates.add(new CharacteristicRoll(abbreviature, currentTemporalValue, currentPotentialValue,
-				roll));
+		CharacteristicRoll characteristicRoll = new CharacteristicRoll(abbreviature, currentTemporalValue,
+				currentPotentialValue, roll);
+		characteristicsUpdates.add(characteristicRoll);
+		return characteristicRoll;
 	}
 
 	public List<CharacteristicRoll> getCharacteristicsUpdates(String abbreviature) {

@@ -392,6 +392,10 @@ public class Training {
 		return name;
 	}
 
+	public List<List<String>> getUpdateCharacteristics() {
+		return updateCharacteristics;
+	}
+
 }
 
 class TrainingSpecial {
