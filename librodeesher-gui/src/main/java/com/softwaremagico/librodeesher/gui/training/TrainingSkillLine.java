@@ -122,7 +122,7 @@ public class TrainingSkillLine extends BaseLine {
 				if (parentPanel.getSpinnerValues(trainingCategory) > trainingCategory.getSkillRanks()) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 					// Correct the spinner if too much skills.
-				} else if (parentPanel.getSkillsPerCategory(trainingCategory) > trainingCategory.getMaxSkills()) {
+				} else if (parentPanel.getSkillsWithRanks(trainingCategory) > trainingCategory.getMaxSkills()) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character

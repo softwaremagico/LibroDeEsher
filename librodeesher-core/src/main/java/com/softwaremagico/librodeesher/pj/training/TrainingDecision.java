@@ -119,4 +119,8 @@ public class TrainingDecision {
 	protected void setCharacteristicsUpdates(List<CharacteristicRoll> characteristicsUpdates) {
 		this.characteristicsUpdates = characteristicsUpdates;
 	}
+
+	public void addCharacteristicUpdate(CharacteristicRoll characteristicRoll) {
+		characteristicsUpdates.add(characteristicRoll);
+	}
 }

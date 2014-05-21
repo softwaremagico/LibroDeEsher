@@ -105,6 +105,19 @@ public class TrainingCategoryPanel extends BasePanel {
 		return 0;
 	}
 
+	protected Integer getSkillsWithRanks(TrainingCategory trainingCategory) {
+		Integer total = 0;
+		if (trainingSkillLinesPerCategory.get(trainingCategory) != null) {
+			for (TrainingSkillLine line : trainingSkillLinesPerCategory.get(trainingCategory)) {
+				if (line.getSelectedRanks() > 0) {
+					total++;
+				}
+			}
+			return total;
+		}
+		return 0;
+	}
+
 	protected Integer getSkillsPerCategory(TrainingCategory trainingCategory) {
 		if (trainingSkillLinesPerCategory.get(trainingCategory) != null) {
 			return trainingSkillLinesPerCategory.get(trainingCategory).size();
@@ -131,9 +144,8 @@ public class TrainingCategoryPanel extends BasePanel {
 		for (int i = 0; i < this.getComponents().length; i++) {
 			Component component = this.getComponents()[i];
 			if (component instanceof TrainingCategoryLine) {
-				System.out.println("Component!");
 				if (((TrainingCategoryLine) component).getTrainingCategory().equals(trainingCategory)) {
-					index = i+1;
+					index = i + 1;
 					break;
 				}
 			}

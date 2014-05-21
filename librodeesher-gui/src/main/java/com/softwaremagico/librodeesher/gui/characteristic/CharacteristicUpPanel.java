@@ -80,4 +80,8 @@ public abstract class CharacteristicUpPanel extends BasePanel {
 			line.setParentWindow(window);
 		}
 	}
+
+	public List<CharacteristicUpLine> getLines() {
+		return lines;
+	}
 }

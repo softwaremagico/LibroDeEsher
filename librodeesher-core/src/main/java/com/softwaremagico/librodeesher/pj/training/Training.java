@@ -27,6 +27,8 @@ package com.softwaremagico.librodeesher.pj.training;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -285,6 +287,13 @@ public class Training {
 			}
 			index++;
 		}
+		// Sort updates. First list with one elements.
+		Collections.sort(updateCharacteristics, new Comparator<List<String>>() {
+			public int compare(List<String> a1, List<String> a2) {
+				return a1.size() - a2.size(); // assumes you want biggest to
+												// smallest
+			}
+		});
 		return index;
 	}
 

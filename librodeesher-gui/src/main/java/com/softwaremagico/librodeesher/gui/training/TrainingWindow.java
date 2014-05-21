@@ -33,6 +33,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComboBox;
@@ -48,12 +49,13 @@ import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
+import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 
 public class TrainingWindow extends BaseFrame {
 	private static final long serialVersionUID = 3835272249277413846L;
-	private CharacterPlayer character;
+	private CharacterPlayer characterPlayer;
 	private JComboBox<String> trainingsAvailable;
 	private BaseButton addTraining;
 	private PointsCounterTextField remainingDevelopmentPoints;
@@ -64,7 +66,7 @@ public class TrainingWindow extends BaseFrame {
 	private BaseTextField selectedTrainingName;
 
 	public TrainingWindow(CharacterPlayer character) {
-		this.character = character;
+		this.characterPlayer = character;
 		defineWindow(750, 500);
 		setElements();
 		setEvents();
@@ -72,7 +74,7 @@ public class TrainingWindow extends BaseFrame {
 
 	private void setDevelopmentPointText() {
 		if (remainingDevelopmentPoints != null) {
-			remainingDevelopmentPoints.setPoints(character.getRemainingDevelopmentPoints());
+			remainingDevelopmentPoints.setPoints(characterPlayer.getRemainingDevelopmentPoints());
 		}
 	}
 
@@ -117,7 +119,7 @@ public class TrainingWindow extends BaseFrame {
 		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
-		categoryPanel = new CompleteCategoryPanel(character);
+		categoryPanel = new CompleteCategoryPanel(characterPlayer);
 		getContentPane().add(categoryPanel, gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
@@ -149,7 +151,7 @@ public class TrainingWindow extends BaseFrame {
 
 	private void fillTrainingComboBox() {
 		trainingsAvailable.removeAllItems();
-		for (String trainingName : character.getAvailableTrainings()) {
+		for (String trainingName : characterPlayer.getAvailableTrainings()) {
 			trainingsAvailable.addItem(trainingName);
 		}
 	}
@@ -214,7 +216,7 @@ public class TrainingWindow extends BaseFrame {
 
 	private void setTrainingCost() {
 		if (trainingsAvailable.getSelectedIndex() >= 0) {
-			setDevelopmentPointCostText(character.getTrainingCost(trainingsAvailable.getSelectedItem()
+			setDevelopmentPointCostText(characterPlayer.getTrainingCost(trainingsAvailable.getSelectedItem()
 					.toString()));
 		} else {
 			setDevelopmentPointCostText(0);
@@ -246,27 +248,46 @@ public class TrainingWindow extends BaseFrame {
 	}
 
 	private void obtainCharacteristicsUpdates() {
-		List<List<String>> characteristicsUpdates = lastSelectedTraining.getUpdateCharacteristics();
-		for (List<String> characteristicSet : characteristicsUpdates) {
-			int selectedChar = 0;
-			if (characteristicSet.size() > 1) {
-				// while(){
-
-				// }
+		if (lastSelectedTraining != null) {
+			List<List<String>> characteristicsUpdates = lastSelectedTraining.getUpdateCharacteristics();
+			// for (List<String> characteristicSet : characteristicsUpdates) {
+			while (characterPlayer.getTrainingDecision(lastSelectedTraining.getName())
+					.getCharacteristicsUpdates().size() < characteristicsUpdates.size()) {
+				List<String> characteristicSet = characteristicsUpdates.get(characterPlayer
+						.getTrainingDecision(lastSelectedTraining.getName()).getCharacteristicsUpdates()
+						.size());
+				// List is sorted from small to biggest list.
+				if (characteristicSet.size() == 1) {
+					CharacteristicRoll characteristicRoll = characterPlayer.setCharacteristicTrainingUpdate(
+							characteristicSet.get(0), lastSelectedTraining.getName());
+					ShowMessage.showInfoMessage(
+							"Hay una aumento para la característica '"
+									+ characteristicSet.get(0)
+									+ "'.\n El resultado de los dados es: ["
+									+ characteristicRoll.getRoll().getFirstDice()
+									+ ","
+									+ characteristicRoll.getRoll().getSecondDice()
+									+ "]\n"
+									+ "Por tanto, la característica ha cambiado en: "
+									+ Characteristic.getCharacteristicUpgrade(
+											characteristicRoll.getCharacteristicTemporalValue(),
+											characteristicRoll.getCharacteristicPotentialValue(),
+											characteristicRoll.getRoll()), "Característica aumentada!");
+					characterPlayer.getTrainingDecision(lastSelectedTraining.getName())
+							.addCharacteristicUpdate(characteristicRoll);
+				} else {
+					// Show window for choosing one.
+					TrainingCharacteristicsUpWindow characteristicWindow;
+					List<Characteristic> characteristics = new ArrayList<>();
+					for (String charTag : characteristicSet) {
+						characteristics.add(Characteristics.getCharacteristicFromAbbreviature(charTag));
+					}
+					characteristicWindow = new TrainingCharacteristicsUpWindow(characterPlayer,
+							characteristics);
+					characteristicWindow.setTraining(lastSelectedTraining.getName());
+					characteristicWindow.setVisible(true);
+				}
 			}
-			CharacteristicRoll characteristicRoll = character.setCharacteristicTrainingUpdate(
-					characteristicSet.get(selectedChar), lastSelectedTraining.getName());
-			ShowMessage.showInfoMessage(
-					"El resultado de los dados es: ["
-							+ characteristicRoll.getRoll().getFirstDice()
-							+ ","
-							+ characteristicRoll.getRoll().getSecondDice()
-							+ "]\n"
-							+ "Por tanto, la característica ha cambiado en: "
-							+ Characteristic.getCharacteristicUpgrade(
-									characteristicRoll.getCharacteristicTemporalValue(),
-									characteristicRoll.getCharacteristicPotentialValue(),
-									characteristicRoll.getRoll()), "Característica aumentada!");
 		}
 	}
 
@@ -275,7 +296,7 @@ public class TrainingWindow extends BaseFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (trainingsAvailable.getSelectedIndex() >= 0) {
-				character.addTraining(trainingsAvailable.getSelectedItem().toString());
+				characterPlayer.addTraining(trainingsAvailable.getSelectedItem().toString());
 				updateFrame();
 			}
 		}
@@ -311,7 +332,7 @@ public class TrainingWindow extends BaseFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			character.removeTraining(lastSelectedTraining);
+			characterPlayer.removeTraining(lastSelectedTraining);
 			clearData();
 		}
 	}

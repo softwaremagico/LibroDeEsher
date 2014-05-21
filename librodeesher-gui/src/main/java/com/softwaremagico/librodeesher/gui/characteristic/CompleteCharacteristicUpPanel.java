@@ -72,4 +72,8 @@ public abstract class CompleteCharacteristicUpPanel extends BaseScrollPanel {
 		return new CharacteristicUpTitle();
 	}
 
+	public BasePanel getCharacteristicPanel() {
+		return characteristicPanel;
+	}
+
 }
