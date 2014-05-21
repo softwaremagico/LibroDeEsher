@@ -268,7 +268,7 @@ public class Training {
 					trainingLine = trainingLine.replace("}", "").replace("{", "");
 					String[] chars = trainingLine.replace(";", ",").split(",");
 					for (String abbrev : chars) {
-						listToChoose.add(abbrev);
+						listToChoose.add(abbrev.trim());
 					}
 					updateCharacteristics.add(listToChoose);
 				} else {
@@ -277,7 +277,7 @@ public class Training {
 					String[] chars = trainingLine.replace(";", ",").split(",");
 					for (String abbrev : chars) {
 						List<String> listToChoose = new ArrayList<>();
-						listToChoose.add(abbrev);
+						listToChoose.add(abbrev.trim());
 						updateCharacteristics.add(listToChoose);
 					}
 				}
