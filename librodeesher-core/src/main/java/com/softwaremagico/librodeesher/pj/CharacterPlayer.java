@@ -88,8 +88,6 @@ import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 @Table(name = "T_CHARACTERPLAYER")
 public class CharacterPlayer {
 
-	private static final Integer STORED_ROLLS_NUMBER = 10;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "ID", unique = true, nullable = false)
@@ -542,9 +540,6 @@ public class CharacterPlayer {
 			if (characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()) == null) {
 				characteristicsTemporalUpdatesRolls.put(characteristic.getAbbreviature(), new RollGroup(
 						characteristic.getAbbreviature()));
-			}
-			while (characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()).size() < STORED_ROLLS_NUMBER) {
-				characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()).add(new Roll());
 			}
 		}
 	}

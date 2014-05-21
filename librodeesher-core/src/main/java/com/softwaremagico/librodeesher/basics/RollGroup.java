@@ -18,6 +18,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "T_ROLL_GROUP")
 public class RollGroup {
+
+	private static final Integer STORED_ROLLS_NUMBER = 10;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "ID", unique = true, nullable = false)
@@ -33,6 +36,13 @@ public class RollGroup {
 	public RollGroup(String characteristicAbbreviature) {
 		rolls = new ArrayList<Roll>();
 		this.characteristicAbbreviature = characteristicAbbreviature;
+		fillUpRolls();
+	}
+
+	private void fillUpRolls() {
+		while (rolls.size() < STORED_ROLLS_NUMBER) {
+			rolls.add(new Roll());
+		}
 	}
 
 	public List<Roll> getRolls() {
@@ -52,7 +62,9 @@ public class RollGroup {
 	}
 
 	public Roll getFirst() {
-		return rolls.remove(0);
+		Roll roll = rolls.remove(0);
+		fillUpRolls();
+		return roll;
 	}
 
 	public Long getRollGroupId() {
