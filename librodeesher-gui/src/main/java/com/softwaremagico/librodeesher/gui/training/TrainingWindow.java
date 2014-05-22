@@ -37,7 +37,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import com.softwaremagico.librodeesher.basics.ShowMessage;
@@ -46,6 +45,7 @@ import com.softwaremagico.librodeesher.gui.elements.BaseTextField;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.style.BaseButton;
+import com.softwaremagico.librodeesher.gui.style.BaseDialog;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
@@ -65,7 +65,7 @@ public class TrainingWindow extends BaseFrame {
 	private CompleteCategoryPanel categoryPanel;
 	private Training lastSelectedTraining = null;
 	private BaseTextField selectedTrainingName;
-	private JDialog selectCharacteristicDialog;
+	private BaseDialog selectCharacteristicDialog;
 
 	public TrainingWindow(CharacterPlayer character) {
 		this.characterPlayer = character;
@@ -218,8 +218,8 @@ public class TrainingWindow extends BaseFrame {
 
 	private void setTrainingCost() {
 		if (trainingsAvailable.getSelectedIndex() >= 0) {
-			setDevelopmentPointCostText(characterPlayer
-					.getTrainingCost(trainingsAvailable.getSelectedItem().toString()));
+			setDevelopmentPointCostText(characterPlayer.getTrainingCost(trainingsAvailable.getSelectedItem()
+					.toString()));
 		} else {
 			setDevelopmentPointCostText(0);
 		}
@@ -253,10 +253,11 @@ public class TrainingWindow extends BaseFrame {
 		if (lastSelectedTraining != null) {
 			List<List<String>> characteristicsUpdates = lastSelectedTraining.getUpdateCharacteristics();
 			// for (List<String> characteristicSet : characteristicsUpdates) {
-			while (characterPlayer.getTrainingDecision(lastSelectedTraining.getName()).getCharacteristicsUpdates()
-					.size() < characteristicsUpdates.size()) {
+			while (characterPlayer.getTrainingDecision(lastSelectedTraining.getName())
+					.getCharacteristicsUpdates().size() < characteristicsUpdates.size()) {
 				List<String> characteristicSet = characteristicsUpdates.get(characterPlayer
-						.getTrainingDecision(lastSelectedTraining.getName()).getCharacteristicsUpdates().size());
+						.getTrainingDecision(lastSelectedTraining.getName()).getCharacteristicsUpdates()
+						.size());
 				// List is sorted from small to biggest list.
 				if (characteristicSet.size() == 1) {
 					CharacteristicRoll characteristicRoll = characterPlayer.setCharacteristicTrainingUpdate(
@@ -274,28 +275,32 @@ public class TrainingWindow extends BaseFrame {
 											characteristicRoll.getCharacteristicTemporalValue(),
 											characteristicRoll.getCharacteristicPotentialValue(),
 											characteristicRoll.getRoll()), "Característica aumentada!");
-					characterPlayer.getTrainingDecision(lastSelectedTraining.getName()).addCharacteristicUpdate(
-							characteristicRoll);
+					characterPlayer.getTrainingDecision(lastSelectedTraining.getName())
+							.addCharacteristicUpdate(characteristicRoll);
 				} else {
-					// Show window for choosing one.
-					TrainingCharacteristicsUpWindow characteristicWindow;
-					List<Characteristic> characteristics = new ArrayList<>();
+					// Select chars
+					List<Characteristic> availableCharacteristics = new ArrayList<>();
 					for (String charTag : characteristicSet) {
-						characteristics.add(Characteristics.getCharacteristicFromAbbreviature(charTag));
+						availableCharacteristics.add(Characteristics
+								.getCharacteristicFromAbbreviature(charTag));
 					}
-					characteristicWindow = new TrainingCharacteristicsUpWindow(characterPlayer, characteristics);
-					characteristicWindow.setTraining(lastSelectedTraining.getName());
 					// characteristicWindow.setVisible(true);
-					createDialog(characteristicWindow);
+					createDialog(availableCharacteristics);
 				}
 			}
 		}
 	}
 
-	private void createDialog(TrainingCharacteristicsUpWindow characteristicWindow) {
-		selectCharacteristicDialog = new JDialog(this, "El Libro de Esher", true);
+	private void createDialog(List<Characteristic> availableCharacteristics) {
+		selectCharacteristicDialog = new BaseDialog(this, "El Libro de Esher", true);
+
+		TrainingCharacteristicsUpPanel characteristicWindow = new TrainingCharacteristicsUpPanel(
+				characterPlayer, availableCharacteristics, selectCharacteristicDialog);
+		characteristicWindow.setTraining(lastSelectedTraining.getName());
+
 		selectCharacteristicDialog.setContentPane(characteristicWindow);
 		selectCharacteristicDialog.pack();
+		selectCharacteristicDialog.center();
 		selectCharacteristicDialog.setVisible(true);
 	}
 
@@ -328,8 +333,8 @@ public class TrainingWindow extends BaseFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (ShowMessage.showQuestionMessage(window, "Esta acción confirmará el adistramiento \""
-					+ lastSelectedTraining.getName() + "\".\n Esta acción es permante. ¿Está seguro de continuar?",
-					"Adiestramiento")) {
+					+ lastSelectedTraining.getName()
+					+ "\".\n Esta acción es permante. ¿Está seguro de continuar?", "Adiestramiento")) {
 				obtainCharacteristicsUpdates();
 				clearData();
 			}

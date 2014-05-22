@@ -28,6 +28,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 import com.softwaremagico.librodeesher.gui.style.BaseButton;
@@ -35,17 +36,32 @@ import com.softwaremagico.librodeesher.gui.style.BaseButton;
 public class CloseButton extends BaseButton {
 	private static final long serialVersionUID = -3656938562430153336L;
 	protected JFrame window;
+	protected JDialog dialog;
 
-	public CloseButton(JFrame window) {
+	public CloseButton(JDialog dialog) {
+		this.dialog = dialog;
+		setElements();
+	}
+
+	public CloseButton(JFrame window) {		
+		this.window = window;
+		setElements();
+	}
+
+	private void setElements() {
 		setDefaultStyle();
 		this.setText("Cerrar");
-		this.window = window;
 		this.setPreferredSize(new Dimension(80, 40));
 		addActionListener(new CloseListener());
 	}
 
 	protected void closeAction() {
-		window.dispose();
+		if (window != null) {
+			window.dispose();
+		}
+		if (dialog != null) {
+			dialog.dispose();
+		}
 	}
 
 	class CloseListener implements ActionListener {

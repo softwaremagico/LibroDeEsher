@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.training;
+
 /*
  * #%L
  * Libro de Esher (GUI)
@@ -32,22 +33,23 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
-import com.softwaremagico.librodeesher.gui.style.BaseFrame;
+import com.softwaremagico.librodeesher.gui.style.BaseDialog;
+import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 
-public class TrainingCharacteristicsUpWindow extends BaseFrame {
+public class TrainingCharacteristicsUpPanel extends BasePanel {
 	private static final long serialVersionUID = -8559166972944477169L;
 	private CharacterPlayer characterPlayer;
 	private TrainingCompleteCharacteristicPanel characteristicPanel;
+	private BaseDialog parent;
 
-	public TrainingCharacteristicsUpWindow(CharacterPlayer characterPlayer,
-			List<Characteristic> availableCharacteristics) {
+	public TrainingCharacteristicsUpPanel(CharacterPlayer characterPlayer,
+			List<Characteristic> availableCharacteristics, BaseDialog parent) {
 		this.characterPlayer = characterPlayer;
-		defineWindow(300, 400);
+		this.parent = parent;
 		// setResizable(false);
 		setElements(availableCharacteristics);
-		setAlwaysOnTop(true);
 	}
 
 	private void setElements(List<Characteristic> availableCharacteristics) {
@@ -63,12 +65,12 @@ public class TrainingCharacteristicsUpWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		characteristicPanel = new TrainingCompleteCharacteristicPanel(characterPlayer, (BaseFrame) this,
+		characteristicPanel = new TrainingCompleteCharacteristicPanel(characterPlayer, null,
 				availableCharacteristics);
-		getContentPane().add(characteristicPanel, gridBagConstraints);
+		add(characteristicPanel, gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
-		CloseButton closeButton = new CloseButton(this);
+		CloseButton closeButton = new CloseButton(parent);
 		buttonPanel.add(closeButton);
 		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
 		gridBagConstraints.fill = GridBagConstraints.NONE;
@@ -80,16 +82,17 @@ public class TrainingCharacteristicsUpWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 0;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		getContentPane().add(buttonPanel, gridBagConstraints);
+		add(buttonPanel, gridBagConstraints);
+		
+	}
+
+	public void setTraining(String training) {
+		characteristicPanel.setTraining(training);
 	}
 
 	@Override
-	public void updateFrame() {
+	public void update() {
 
-	}
-	
-	public void setTraining(String training) {
-		characteristicPanel.setTraining(training);
 	}
 
 }
