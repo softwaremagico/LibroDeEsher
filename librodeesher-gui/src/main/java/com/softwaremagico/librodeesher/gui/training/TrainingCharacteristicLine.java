@@ -30,6 +30,7 @@ import java.awt.event.ActionListener;
 
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicUpLine;
+import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
@@ -37,9 +38,9 @@ import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 public class TrainingCharacteristicLine extends CharacteristicUpLine {
 	private static final long serialVersionUID = -9002920559029367594L;
 	private String training;
+	private BasePanel parent;
 
-	public TrainingCharacteristicLine(CharacterPlayer character, Characteristic characteristic,
-			Color background) {
+	public TrainingCharacteristicLine(CharacterPlayer character, Characteristic characteristic, Color background) {
 		super(character, characteristic, background);
 	}
 
@@ -53,18 +54,20 @@ public class TrainingCharacteristicLine extends CharacteristicUpLine {
 		public void actionPerformed(ActionEvent e) {
 			CharacteristicRoll characteristicRoll = character.setCharacteristicTrainingUpdate(
 					characteristic.getAbbreviature(), training);
-			ShowMessage.showInfoMessage(
-					"El resultado de los dados es: ["
-							+ characteristicRoll.getRoll().getFirstDice()
-							+ ","
-							+ characteristicRoll.getRoll().getSecondDice()
-							+ "]\n"
-							+ "Por tanto, la característica ha cambiado en: "
-							+ Characteristic.getCharacteristicUpgrade(
-									characteristicRoll.getCharacteristicTemporalValue(),
-									characteristicRoll.getCharacteristicPotentialValue(),
-									characteristicRoll.getRoll()), "Característica aumentada!");
+			ShowMessage
+					.showInfoMessage(
+							"El resultado de los dados es: ["
+									+ characteristicRoll.getRoll().getFirstDice()
+									+ ","
+									+ characteristicRoll.getRoll().getSecondDice()
+									+ "]\n"
+									+ "Por tanto, la característica ha cambiado en: "
+									+ Characteristic.getCharacteristicUpgrade(
+											characteristicRoll.getCharacteristicTemporalValue(),
+											characteristicRoll.getCharacteristicPotentialValue(),
+											characteristicRoll.getRoll()), "Característica aumentada!");
 			character.getTrainingDecision(training).addCharacteristicUpdate(characteristicRoll);
+			parent.update();
 		}
 	}
 
@@ -75,5 +78,9 @@ public class TrainingCharacteristicLine extends CharacteristicUpLine {
 
 	public void setTraining(String training) {
 		this.training = training;
+	}
+
+	public void setParent(BasePanel parent) {
+		this.parent = parent;
 	}
 }

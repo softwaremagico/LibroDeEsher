@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.training;
+
 /*
  * #%L
  * Libro de Esher (GUI)
@@ -39,9 +40,10 @@ public class TrainingCharacteristicPanel extends CharacteristicUpPanel {
 	}
 
 	@Override
-	public CharacteristicUpLine createLine(CharacterPlayer character, Characteristic characteristic,
-			Color background) {
-		return new TrainingCharacteristicLine(character, characteristic, background);
+	public CharacteristicUpLine createLine(CharacterPlayer character, Characteristic characteristic, Color background) {
+		TrainingCharacteristicLine charLine = new TrainingCharacteristicLine(character, characteristic, background);
+		charLine.setParent(this);
+		return charLine;
 	}
 
 	public void setTraining(String training) {
@@ -49,4 +51,5 @@ public class TrainingCharacteristicPanel extends CharacteristicUpPanel {
 			((TrainingCharacteristicLine) line).setTraining(training);
 		}
 	}
+
 }

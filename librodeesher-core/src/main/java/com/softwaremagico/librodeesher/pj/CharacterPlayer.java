@@ -202,8 +202,8 @@ public class CharacterPlayer {
 	}
 
 	/**
-	 * Default config is stored in a file and changed with the options windows.
-	 * When a new character is created, it uses this default config options.
+	 * Default config is stored in a file and changed with the options windows. When a new character is created, it uses
+	 * this default config options.
 	 */
 	private void setDefaultConfig() {
 		darkSpellsAsBasicListsAllowed = Config.getDarkSpellsAsBasic();
@@ -299,9 +299,8 @@ public class CharacterPlayer {
 		Integer temporalValue = characteristicsInitialTemporalValues.get(abbreviature);
 		for (TrainingDecision training : getTrainingDecisions().values()) {
 			for (CharacteristicRoll roll : training.getCharacteristicsUpdates(abbreviature)) {
-				temporalValue += Characteristic.getCharacteristicUpgrade(
-						roll.getCharacteristicTemporalValue(), roll.getCharacteristicTemporalValue(),
-						roll.getRoll());
+				temporalValue += Characteristic.getCharacteristicUpgrade(roll.getCharacteristicTemporalValue(),
+						roll.getCharacteristicPotentialValue(), roll.getRoll());
 			}
 		}
 		for (CharacteristicRoll roll : historial.getCharacteristicsUpdates(abbreviature)) {
@@ -316,8 +315,7 @@ public class CharacterPlayer {
 	}
 
 	/**
-	 * Temporal value of the characteristic when starting the creation of the
-	 * character.
+	 * Temporal value of the characteristic when starting the creation of the character.
 	 * 
 	 * @param abbreviature
 	 * @return
@@ -538,8 +536,8 @@ public class CharacterPlayer {
 	private void setCharacteristicsTemporalUpdatesRolls() {
 		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
 			if (characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()) == null) {
-				characteristicsTemporalUpdatesRolls.put(characteristic.getAbbreviature(), new RollGroup(
-						characteristic.getAbbreviature()));
+				characteristicsTemporalUpdatesRolls.put(characteristic.getAbbreviature(),
+						new RollGroup(characteristic.getAbbreviature()));
 			}
 		}
 	}
@@ -566,8 +564,8 @@ public class CharacterPlayer {
 
 	private void setPotentialValues() {
 		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
-			Integer potential = Characteristics.getPotencial(characteristicsInitialTemporalValues
-					.get(characteristic.getAbbreviature()));
+			Integer potential = Characteristics.getPotencial(characteristicsInitialTemporalValues.get(characteristic
+					.getAbbreviature()));
 			characteristicsPotentialValues.put(characteristic.getAbbreviature(), potential);
 		}
 	}
@@ -601,8 +599,7 @@ public class CharacterPlayer {
 	}
 
 	public Integer getLanguageInitialRanks(String language) {
-		return Math.max(getCulture().getLanguageMaxRanks(language),
-				getRace().getLanguageInitialRanks(language));
+		return Math.max(getCulture().getLanguageMaxRanks(language), getRace().getLanguageInitialRanks(language));
 	}
 
 	public Integer getLanguageMaxInitialRanks(String language) {
@@ -748,8 +745,7 @@ public class CharacterPlayer {
 	}
 
 	public Integer getBonus(Skill skill) {
-		return getProfession().getSkillBonus(skill.getName()) + historial.getBonus(skill)
-				+ getPerkBonus(skill);
+		return getProfession().getSkillBonus(skill.getName()) + historial.getBonus(skill) + getPerkBonus(skill);
 	}
 
 	public Integer getPerkApperanceBonus() {
@@ -817,8 +813,7 @@ public class CharacterPlayer {
 	}
 
 	/**
-	 * In culture, weapon costs are not defined. Therefore, we will use the best
-	 * value.
+	 * In culture, weapon costs are not defined. Therefore, we will use the best value.
 	 * 
 	 * @param category
 	 * @return
@@ -836,8 +831,7 @@ public class CharacterPlayer {
 	 * 
 	 * @param category
 	 * @param currentListRanks
-	 *            current ranks spent in this skill. In magic, higher levels are
-	 *            more expensive.
+	 *            current ranks spent in this skill. In magic, higher levels are more expensive.
 	 * @return
 	 */
 	public CategoryCost getCategoryCost(Category category, Integer currentListRanks) {
@@ -865,12 +859,10 @@ public class CharacterPlayer {
 	 * @param category
 	 *            category to be updated.
 	 * @param currentRanks
-	 *            Current ranks in category or skill. Must include old levels
-	 *            ranks and previous ranks included in this new level. Only used
-	 *            for spell cost (higher level spells are more expensive).
+	 *            Current ranks in category or skill. Must include old levels ranks and previous ranks included in this
+	 *            new level. Only used for spell cost (higher level spells are more expensive).
 	 * @param rankAdded
-	 *            If it is the first, second or third rank added at this level
-	 *            [0, 1, 2].
+	 *            If it is the first, second or third rank added at this level [0, 1, 2].
 	 * @return
 	 */
 	public Integer getNewRankCost(Category category, Integer currentRanks, Integer rankAdded) {
@@ -899,12 +891,10 @@ public class CharacterPlayer {
 	 * @param skill
 	 *            skill to be updated.
 	 * @param currentRanks
-	 *            Current ranks in category or skill. Must include old levels
-	 *            ranks and previous ranks included in this new level. Only used
-	 *            for spell cost.
+	 *            Current ranks in category or skill. Must include old levels ranks and previous ranks included in this
+	 *            new level. Only used for spell cost.
 	 * @param rankAdded
-	 *            If it is the first, second or third rank added at this level
-	 *            [0, 1, 2].
+	 *            If it is the first, second or third rank added at this level [0, 1, 2].
 	 * @return
 	 */
 	public Integer getNewRankCost(Skill skill, Integer currentRanks, Integer rankAdded) {
@@ -930,8 +920,7 @@ public class CharacterPlayer {
 	}
 
 	/**
-	 * A category is not used if it has not skills or the cost is more than the
-	 * selected in the configuration.
+	 * A category is not used if it has not skills or the cost is more than the selected in the configuration.
 	 * 
 	 * @param category
 	 * @return
@@ -953,8 +942,7 @@ public class CharacterPlayer {
 		if (getNewRankCost(category, 0, getTotalRanks(category)) > Config.getCategoryMaxCost()) {
 			return false;
 		}
-		if (category.getName().equals(Spanish.OTHER_REALM_TRAINING_LISTS)
-				&& !isOtherRealmtrainingSpellsAllowed()) {
+		if (category.getName().equals(Spanish.OTHER_REALM_TRAINING_LISTS) && !isOtherRealmtrainingSpellsAllowed()) {
 			return false;
 		}
 		return true;
@@ -1043,8 +1031,7 @@ public class CharacterPlayer {
 			}
 		}
 		// Last cost for any extra categories.
-		return getProfession().getWeaponCategoryCost()
-				.get(getProfession().getWeaponCategoryCost().size() - 1);
+		return getProfession().getWeaponCategoryCost().get(getProfession().getWeaponCategoryCost().size() - 1);
 	}
 
 	public void setHistoryPoints(Skill skill, boolean value) {
@@ -1070,16 +1057,14 @@ public class CharacterPlayer {
 	public CharacteristicRoll setCharacteristicHistorialUpdate(String abbreviature) {
 		Roll roll = getStoredCharacteristicRoll(abbreviature);
 		CharacteristicRoll characteristicRoll = historial.addCharactersiticUpdate(abbreviature,
-				getCharacteristicTemporalValue(abbreviature), getCharacteristicPotentialValue(abbreviature),
-				roll);
+				getCharacteristicTemporalValue(abbreviature), getCharacteristicPotentialValue(abbreviature), roll);
 		return characteristicRoll;
 	}
 
 	public CharacteristicRoll setCharacteristicTrainingUpdate(String abbreviature, String trainingName) {
 		Roll roll = getStoredCharacteristicRoll(abbreviature);
-		CharacteristicRoll characteristicRoll = getTrainingDecision(trainingName).addCharactersiticUpdate(
-				abbreviature, getCharacteristicTemporalValue(abbreviature),
-				getCharacteristicPotentialValue(abbreviature), roll);
+		CharacteristicRoll characteristicRoll = getTrainingDecision(trainingName).addCharactersiticUpdate(abbreviature,
+				getCharacteristicTemporalValue(abbreviature), getCharacteristicPotentialValue(abbreviature), roll);
 		return characteristicRoll;
 	}
 
@@ -1150,8 +1135,7 @@ public class CharacterPlayer {
 
 	public boolean isCommon(Skill skill) {
 		return skill.getSkillType().equals(SkillType.COMMON) || isCommonByPerk(skill)
-				|| getProfession().isCommon(skill) || professionDecisions.isCommon(skill)
-				|| getRace().isCommon(skill);
+				|| getProfession().isCommon(skill) || professionDecisions.isCommon(skill) || getRace().isCommon(skill);
 	}
 
 	private boolean isCommonByPerk(Skill skill) {
@@ -1196,8 +1180,7 @@ public class CharacterPlayer {
 		for (String trainingName : TrainingFactory.getAvailableTrainings()) {
 			// Correct race of training.
 			if (TrainingFactory.getTraining(trainingName).getLimitedRaces().size() > 0) {
-				if (!TrainingFactory.getTraining(trainingName).getLimitedRaces()
-						.contains(getRace().getName())) {
+				if (!TrainingFactory.getTraining(trainingName).getLimitedRaces().contains(getRace().getName())) {
 					continue;
 				}
 			}
@@ -1233,8 +1216,7 @@ public class CharacterPlayer {
 		return costModification;
 	}
 
-	private Integer getTrainingCharacteristicCostReduction(List<Characteristic> characteristics,
-			Training training) {
+	private Integer getTrainingCharacteristicCostReduction(List<Characteristic> characteristics, Training training) {
 		Integer costModification = 0;
 		for (Characteristic characteristic : characteristics) {
 			try {
@@ -1253,8 +1235,7 @@ public class CharacterPlayer {
 	public Integer getTrainingCost(String trainingName) {
 		Integer baseCost = getProfession().getTrainingCost(trainingName);
 		Training training = TrainingFactory.getTraining(trainingName);
-		baseCost += getTrainingSkillCostReduction(
-				SkillFactory.getSkills(training.getSkillRequirementsList()), training);
+		baseCost += getTrainingSkillCostReduction(SkillFactory.getSkills(training.getSkillRequirementsList()), training);
 		baseCost += getTrainingCharacteristicCostReduction(Characteristics.getCharacteristics(), training);
 		return baseCost;
 	}
@@ -1266,8 +1247,8 @@ public class CharacterPlayer {
 	}
 
 	/**
-	 * The user must to choose one category from a training if the training has
-	 * this option and it has not been chosen before.
+	 * The user must to choose one category from a training if the training has this option and it has not been chosen
+	 * before.
 	 * 
 	 * @param trainingName
 	 * @return
@@ -1320,8 +1301,7 @@ public class CharacterPlayer {
 		return characteristicsInitialTemporalValues;
 	}
 
-	public void setCharacteristicsInitialTemporalValues(
-			Map<String, Integer> characteristicsInitialTemporalValues) {
+	public void setCharacteristicsInitialTemporalValues(Map<String, Integer> characteristicsInitialTemporalValues) {
 		this.characteristicsInitialTemporalValues = characteristicsInitialTemporalValues;
 	}
 
@@ -1337,8 +1317,7 @@ public class CharacterPlayer {
 		return characteristicsTemporalUpdatesRolls;
 	}
 
-	public void setCharacteristicsTemporalUpdatesRolls(
-			Map<String, RollGroup> characteristicsTemporalUpdatesRolls) {
+	public void setCharacteristicsTemporalUpdatesRolls(Map<String, RollGroup> characteristicsTemporalUpdatesRolls) {
 		this.characteristicsTemporalUpdatesRolls = characteristicsTemporalUpdatesRolls;
 	}
 
