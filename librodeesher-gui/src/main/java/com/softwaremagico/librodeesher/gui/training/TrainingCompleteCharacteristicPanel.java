@@ -26,6 +26,7 @@ package com.softwaremagico.librodeesher.gui.training;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.gui.characteristic.CompleteCharacteristicUpPanel;
+import com.softwaremagico.librodeesher.gui.style.BaseDialog;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -46,6 +47,10 @@ public class TrainingCompleteCharacteristicPanel extends CompleteCharacteristicU
 
 	public void setTraining(String training) {
 		((TrainingCharacteristicPanel) getCharacteristicPanel()).setTraining(training);
+	}
+	
+	public void setParent(BaseDialog baseDialog){
+		((TrainingCharacteristicPanel)getCharacteristicPanel()).setParent(baseDialog);
 	}
 
 }

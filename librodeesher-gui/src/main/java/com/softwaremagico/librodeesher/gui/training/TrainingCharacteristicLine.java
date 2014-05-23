@@ -30,7 +30,7 @@ import java.awt.event.ActionListener;
 
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicUpLine;
-import com.softwaremagico.librodeesher.gui.style.BasePanel;
+import com.softwaremagico.librodeesher.gui.style.BaseDialog;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
@@ -38,7 +38,7 @@ import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 public class TrainingCharacteristicLine extends CharacteristicUpLine {
 	private static final long serialVersionUID = -9002920559029367594L;
 	private String training;
-	private BasePanel parent;
+	private BaseDialog parent;
 
 	public TrainingCharacteristicLine(CharacterPlayer character, Characteristic characteristic, Color background) {
 		super(character, characteristic, background);
@@ -66,8 +66,9 @@ public class TrainingCharacteristicLine extends CharacteristicUpLine {
 											characteristicRoll.getCharacteristicTemporalValue(),
 											characteristicRoll.getCharacteristicPotentialValue(),
 											characteristicRoll.getRoll()), "Característica aumentada!");
-			character.getTrainingDecision(training).addCharacteristicUpdate(characteristicRoll);
-			parent.update();
+			if (parent != null) {
+				parent.dispose();
+			}
 		}
 	}
 
@@ -80,7 +81,7 @@ public class TrainingCharacteristicLine extends CharacteristicUpLine {
 		this.training = training;
 	}
 
-	public void setParent(BasePanel parent) {
+	public void setParent(BaseDialog parent) {
 		this.parent = parent;
 	}
 }

@@ -32,7 +32,7 @@ public class TrainingDecision {
 	@CollectionTable(name = "T_TRAINING_DECISION_SKILLS_SELECTED")
 	private Map<TrainingCategory, TrainingSkillsSelected> skillsSelected;
 	@ElementCollection
-	@CollectionTable(name = "T_HISTORIAL_CHARACTERISTICS_UPDATES")
+	@CollectionTable(name = "T_TRAINING_CHARACTERISTICS_UPDATES")
 	private List<CharacteristicRoll> characteristicsUpdates;
 
 	public TrainingDecision() {

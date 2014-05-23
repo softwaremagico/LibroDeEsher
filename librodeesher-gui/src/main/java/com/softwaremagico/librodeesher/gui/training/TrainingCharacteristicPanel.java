@@ -29,6 +29,7 @@ import java.util.List;
 
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicUpLine;
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicUpPanel;
+import com.softwaremagico.librodeesher.gui.style.BaseDialog;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 
@@ -42,13 +43,18 @@ public class TrainingCharacteristicPanel extends CharacteristicUpPanel {
 	@Override
 	public CharacteristicUpLine createLine(CharacterPlayer character, Characteristic characteristic, Color background) {
 		TrainingCharacteristicLine charLine = new TrainingCharacteristicLine(character, characteristic, background);
-		charLine.setParent(this);
 		return charLine;
 	}
 
 	public void setTraining(String training) {
 		for (CharacteristicUpLine line : getLines()) {
 			((TrainingCharacteristicLine) line).setTraining(training);
+		}
+	}
+
+	public void setParent(BaseDialog baseDialog) {
+		for (CharacteristicUpLine line : getLines()) {
+			((TrainingCharacteristicLine) line).setParent(baseDialog);
 		}
 	}
 

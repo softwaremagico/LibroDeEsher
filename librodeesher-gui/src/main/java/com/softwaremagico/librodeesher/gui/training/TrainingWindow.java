@@ -218,8 +218,8 @@ public class TrainingWindow extends BaseFrame {
 
 	private void setTrainingCost() {
 		if (trainingsAvailable.getSelectedIndex() >= 0) {
-			setDevelopmentPointCostText(characterPlayer.getTrainingCost(trainingsAvailable.getSelectedItem()
-					.toString()));
+			setDevelopmentPointCostText(characterPlayer
+					.getTrainingCost(trainingsAvailable.getSelectedItem().toString()));
 		} else {
 			setDevelopmentPointCostText(0);
 		}
@@ -253,11 +253,10 @@ public class TrainingWindow extends BaseFrame {
 		if (lastSelectedTraining != null) {
 			List<List<String>> characteristicsUpdates = lastSelectedTraining.getUpdateCharacteristics();
 			// for (List<String> characteristicSet : characteristicsUpdates) {
-			while (characterPlayer.getTrainingDecision(lastSelectedTraining.getName())
-					.getCharacteristicsUpdates().size() < characteristicsUpdates.size()) {
+			while (characterPlayer.getTrainingDecision(lastSelectedTraining.getName()).getCharacteristicsUpdates()
+					.size() < characteristicsUpdates.size()) {
 				List<String> characteristicSet = characteristicsUpdates.get(characterPlayer
-						.getTrainingDecision(lastSelectedTraining.getName()).getCharacteristicsUpdates()
-						.size());
+						.getTrainingDecision(lastSelectedTraining.getName()).getCharacteristicsUpdates().size());
 				// List is sorted from small to biggest list.
 				if (characteristicSet.size() == 1) {
 					CharacteristicRoll characteristicRoll = characterPlayer.setCharacteristicTrainingUpdate(
@@ -275,33 +274,35 @@ public class TrainingWindow extends BaseFrame {
 											characteristicRoll.getCharacteristicTemporalValue(),
 											characteristicRoll.getCharacteristicPotentialValue(),
 											characteristicRoll.getRoll()), "Característica aumentada!");
-					characterPlayer.getTrainingDecision(lastSelectedTraining.getName())
-							.addCharacteristicUpdate(characteristicRoll);
+					characterPlayer.getTrainingDecision(lastSelectedTraining.getName()).addCharacteristicUpdate(
+							characteristicRoll);
 				} else {
 					// Select chars
 					List<Characteristic> availableCharacteristics = new ArrayList<>();
 					for (String charTag : characteristicSet) {
-						availableCharacteristics.add(Characteristics
-								.getCharacteristicFromAbbreviature(charTag));
+						availableCharacteristics.add(Characteristics.getCharacteristicFromAbbreviature(charTag));
 					}
 					// characteristicWindow.setVisible(true);
-					createDialog(availableCharacteristics);
+					createDialog(availableCharacteristics);					
 				}
+				System.out.println(characterPlayer.getTrainingDecision(lastSelectedTraining.getName()).getCharacteristicsUpdates()
+						.size() +" < " +characteristicsUpdates.size());
 			}
 		}
 	}
 
-	private void createDialog(List<Characteristic> availableCharacteristics) {
+	private BaseDialog createDialog(List<Characteristic> availableCharacteristics) {
 		selectCharacteristicDialog = new BaseDialog(this, "El Libro de Esher", true);
 
-		TrainingCharacteristicsUpPanel characteristicWindow = new TrainingCharacteristicsUpPanel(
-				characterPlayer, availableCharacteristics, selectCharacteristicDialog);
+		TrainingCharacteristicsUpPanel characteristicWindow = new TrainingCharacteristicsUpPanel(characterPlayer,
+				availableCharacteristics, selectCharacteristicDialog);
 		characteristicWindow.setTraining(lastSelectedTraining.getName());
 
 		selectCharacteristicDialog.setContentPane(characteristicWindow);
 		selectCharacteristicDialog.pack();
 		selectCharacteristicDialog.center();
 		selectCharacteristicDialog.setVisible(true);
+		return selectCharacteristicDialog;
 	}
 
 	class AddListener implements ActionListener {
@@ -333,8 +334,8 @@ public class TrainingWindow extends BaseFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (ShowMessage.showQuestionMessage(window, "Esta acción confirmará el adistramiento \""
-					+ lastSelectedTraining.getName()
-					+ "\".\n Esta acción es permante. ¿Está seguro de continuar?", "Adiestramiento")) {
+					+ lastSelectedTraining.getName() + "\".\n Esta acción es permante. ¿Está seguro de continuar?",
+					"Adiestramiento")) {
 				obtainCharacteristicsUpdates();
 				clearData();
 			}

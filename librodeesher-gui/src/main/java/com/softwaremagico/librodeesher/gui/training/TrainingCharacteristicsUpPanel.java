@@ -42,12 +42,12 @@ public class TrainingCharacteristicsUpPanel extends BasePanel {
 	private static final long serialVersionUID = -8559166972944477169L;
 	private CharacterPlayer characterPlayer;
 	private TrainingCompleteCharacteristicPanel characteristicPanel;
-	private BaseDialog parent;
+	private BaseDialog dialog;
 
 	public TrainingCharacteristicsUpPanel(CharacterPlayer characterPlayer,
-			List<Characteristic> availableCharacteristics, BaseDialog parent) {
+			List<Characteristic> availableCharacteristics, BaseDialog dialog) {
 		this.characterPlayer = characterPlayer;
-		this.parent = parent;
+		this.dialog = dialog;
 		// setResizable(false);
 		setElements(availableCharacteristics);
 	}
@@ -65,12 +65,12 @@ public class TrainingCharacteristicsUpPanel extends BasePanel {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		characteristicPanel = new TrainingCompleteCharacteristicPanel(characterPlayer, null,
-				availableCharacteristics);
+		characteristicPanel = new TrainingCompleteCharacteristicPanel(characterPlayer, null, availableCharacteristics);
+		characteristicPanel.setParent(dialog);
 		add(characteristicPanel, gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
-		CloseButton closeButton = new CloseButton(parent);
+		CloseButton closeButton = new CloseButton(dialog);
 		buttonPanel.add(closeButton);
 		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
 		gridBagConstraints.fill = GridBagConstraints.NONE;
@@ -83,7 +83,7 @@ public class TrainingCharacteristicsUpPanel extends BasePanel {
 		gridBagConstraints.weighty = 0;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		add(buttonPanel, gridBagConstraints);
-		
+
 	}
 
 	public void setTraining(String training) {
