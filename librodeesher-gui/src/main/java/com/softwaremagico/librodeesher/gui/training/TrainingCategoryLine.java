@@ -98,6 +98,7 @@ public class TrainingCategoryLine extends BaseLine {
 	}
 
 	protected class CategoryComboBox<E> extends BaseComboBox<E> {
+		private static final long serialVersionUID = -2235910396163201201L;
 
 		@Override
 		public void doAction() {
@@ -117,6 +118,10 @@ public class TrainingCategoryLine extends BaseLine {
 
 	public TrainingCategory getTrainingCategory() {
 		return trainingCategory;
+	}
+
+	public String getChoosedCategory() {
+		return chooseCategoryComboBox.getSelectedItem().toString();
 	}
 
 }

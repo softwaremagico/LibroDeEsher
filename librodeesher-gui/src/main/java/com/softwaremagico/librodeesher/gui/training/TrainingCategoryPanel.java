@@ -40,13 +40,12 @@ import com.softwaremagico.librodeesher.pj.training.TrainingSkill;
 public class TrainingCategoryPanel extends BasePanel {
 	private static final long serialVersionUID = -1784471371595517238L;
 	private CharacterPlayer character;
-	private CompleteCategoryPanel parent;
 	private Map<TrainingCategory, List<TrainingSkillLine>> trainingSkillLinesPerCategory = new HashMap<>();
+	private List<TrainingCategoryLine> trainingCategoryLines;
 	private Training training;
 
 	public TrainingCategoryPanel(CharacterPlayer character, CompleteCategoryPanel parent) {
 		this.character = character;
-		this.parent = parent;
 		setElements();
 	}
 
@@ -55,11 +54,14 @@ public class TrainingCategoryPanel extends BasePanel {
 		setLayout(new GridLayout(0, 1));
 		int i = 0;
 
+		trainingCategoryLines = new ArrayList<>();
+
 		if (training != null) {
 			for (TrainingCategory trainingCategory : training.getCategoriesWithRanks()) {
 				TrainingCategoryLine categoryLine = new TrainingCategoryLine(character, trainingCategory,
 						this, getLineBackgroundColor(i));
 				add(categoryLine);
+				trainingCategoryLines.add(categoryLine);
 				trainingSkillLinesPerCategory.put(trainingCategory, new ArrayList<TrainingSkillLine>());
 
 				i++;
@@ -164,4 +166,16 @@ public class TrainingCategoryPanel extends BasePanel {
 		this.repaint();
 	}
 
+	public boolean repeatedCategory() {
+		List<String> categories = new ArrayList<>();
+		if (trainingCategoryLines != null) {
+			for (TrainingCategoryLine categoryLine : trainingCategoryLines) {
+				if (categories.contains(categoryLine.getChoosedCategory())) {
+					return true;
+				}
+				categories.add(categoryLine.getChoosedCategory());
+			}
+		}
+		return false;
+	}
 }
