@@ -44,7 +44,7 @@ public class TrainingProbability {
 	protected static int trainingRandomness(CharacterPlayer characterPlayer, String trainingName, int specialization) {
 		int cost = characterPlayer.getProfession().getTrainingCost(trainingName);
 		// No training from different realm of magic.
-		// if (!ad.reino) {
+		// if (!training.reino) {
 		// return 0;
 		// }
 		if (cost > characterPlayer.getRemainingDevelopmentPoints()) {
@@ -100,9 +100,10 @@ public class TrainingProbability {
 		}
 	}
 
-	public static void setRandomCharacteristicsUpgrades(CharacterPlayer characterPlayer, String trainingName) {
-		for (int i = 0; i < TrainingFactory.getTraining(trainingName).getUpdateCharacteristics().size(); i++) {
-			--Comprobar que no existen ya los aumentos de caracteristicas. 
+	public static void setRandomCharacteristicsUpgrades(CharacterPlayer characterPlayer, String trainingName) {		
+		//Only do it for remaining characteristic updates (if any).
+		for (int i = characterPlayer.getTrainingDecision(trainingName).getCharacteristicsUpdates().size(); i < TrainingFactory
+				.getTraining(trainingName).getUpdateCharacteristics().size(); i++) {
 			List<String> availableUpdates = TrainingFactory.getTraining(trainingName).getUpdateCharacteristics().get(i);
 			// Order by profession preferences.
 			boolean updated = false;
