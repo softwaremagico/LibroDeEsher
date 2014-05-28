@@ -39,6 +39,7 @@ import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.basics.ChooseType;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
+import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
@@ -96,8 +97,8 @@ public class Training {
 		try {
 			trainingTime = Integer.parseInt(lines.get(index));
 		} catch (Exception e) {
-			ShowMessage.showErrorMessage("Problema con la linea: \"" + lines.get(index)
-					+ "\" del adiestramiento " + name, "Leer adiestramientos");
+			ShowMessage.showErrorMessage("Problema con la linea: \"" + lines.get(index) + "\" del adiestramiento "
+					+ name, "Leer adiestramientos");
 		}
 		return ++index;
 	}
@@ -117,8 +118,8 @@ public class Training {
 					}
 				}
 			} catch (ArrayIndexOutOfBoundsException aiofb) {
-				ShowMessage.showErrorMessage("Problema con la linea: \"" + trainingLine
-						+ "\" del adiestramiento " + name, "Leer adiestramientos");
+				ShowMessage.showErrorMessage("Problema con la linea: \"" + trainingLine + "\" del adiestramiento "
+						+ name, "Leer adiestramientos");
 			}
 			index++;
 		}
@@ -151,8 +152,8 @@ public class Training {
 				}
 				specials.add(new TrainingSpecial(special, bonus, probability));
 			} catch (ArrayIndexOutOfBoundsException aiofb) {
-				ShowMessage.showErrorMessage("Problema con la linea: \"" + trainingLine
-						+ "\" del adiestramiento " + name, "Leer adiestramientos");
+				ShowMessage.showErrorMessage("Problema con la linea: \"" + trainingLine + "\" del adiestramiento "
+						+ name, "Leer adiestramientos");
 			}
 			index++;
 		}
@@ -177,8 +178,7 @@ public class Training {
 					if (lines.get(index).contains("{")) {
 						// List of categories to choose one.
 						String[] lineColumns = lines.get(index).trim().split("}");
-						String[] categoriesList = lineColumns[0].replace("{", "").replace(";", ",")
-								.split(",");
+						String[] categoriesList = lineColumns[0].replace("{", "").replace(";", ",").split(",");
 						String[] categoryRanks = lineColumns[1].split("\t");
 
 						List<String> categoriesOptions = new ArrayList<>();
@@ -186,18 +186,18 @@ public class Training {
 							categoriesOptions.add(category.trim());
 						}
 
-						trainingCategory = new TrainingCategory(categoriesOptions,
-								Integer.parseInt(categoryRanks[1]), Integer.parseInt(categoryRanks[2]),
-								Integer.parseInt(categoryRanks[3]), Integer.parseInt(categoryRanks[4]));
+						trainingCategory = new TrainingCategory(categoriesOptions, Integer.parseInt(categoryRanks[1]),
+								Integer.parseInt(categoryRanks[2]), Integer.parseInt(categoryRanks[3]),
+								Integer.parseInt(categoryRanks[4]));
 						categoriesWithRanks.add(trainingCategory);
 					} else {
 						String[] categoryRanks = lines.get(index).split("\t");
 						if (CategoryFactory.existCategory(categoryRanks[0])) {
 							List<String> categoriesList = new ArrayList<>();
 							categoriesList.add(categoryRanks[0].trim());
-							trainingCategory = new TrainingCategory(categoriesList,
-									Integer.parseInt(categoryRanks[1]), Integer.parseInt(categoryRanks[2]),
-									Integer.parseInt(categoryRanks[3]), Integer.parseInt(categoryRanks[4]));
+							trainingCategory = new TrainingCategory(categoriesList, Integer.parseInt(categoryRanks[1]),
+									Integer.parseInt(categoryRanks[2]), Integer.parseInt(categoryRanks[3]),
+									Integer.parseInt(categoryRanks[4]));
 							categoriesWithRanks.add(trainingCategory);
 
 						} else {
@@ -228,8 +228,7 @@ public class Training {
 					} else {
 						// Skill with ranges.
 						String[] trainingSkills = lines.get(index).replace("*", "").trim().split("\t");
-						addTrainingSkill(trainingCategory, trainingSkills[0],
-								Integer.parseInt(trainingSkills[1]));
+						addTrainingSkill(trainingCategory, trainingSkills[0], Integer.parseInt(trainingSkills[1]));
 					}
 				} catch (NumberFormatException nfe) {
 					ShowMessage.showErrorMessage("Numero de rangos mal formado en: \"" + lines.get(index)
@@ -272,18 +271,21 @@ public class Training {
 					}
 					updateCharacteristics.add(listToChoose);
 				} else {
-					// List of only one characteristic (Player is not allowed to
-					// choose).
-					String[] chars = trainingLine.replace(";", ",").split(",");
-					for (String abbrev : chars) {
-						List<String> listToChoose = new ArrayList<>();
-						listToChoose.add(abbrev.trim());
-						updateCharacteristics.add(listToChoose);
+					// Ignore nothing tag.
+					if (!trainingLine.toLowerCase().contains(Spanish.NOTHING_TAG)) {
+						// List of only one characteristic (Player is not allowed to
+						// choose).
+						String[] chars = trainingLine.replace(";", ",").split(",");
+						for (String abbrev : chars) {
+							List<String> listToChoose = new ArrayList<>();
+							listToChoose.add(abbrev.trim());
+							updateCharacteristics.add(listToChoose);
+						}
 					}
 				}
 			} catch (Exception e) {
-				ShowMessage.showErrorMessage("Problema con la linea: \"" + trainingLine
-						+ "\" del adiestramiento " + name, "Leer Adiestramiento");
+				ShowMessage.showErrorMessage("Problema con la linea: \"" + trainingLine + "\" del adiestramiento "
+						+ name, "Leer Adiestramiento");
 			}
 			index++;
 		}

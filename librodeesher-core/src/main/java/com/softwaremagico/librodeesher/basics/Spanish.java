@@ -45,7 +45,7 @@ public class Spanish {
 	public static final String CULTURE_SPELLS = "lista de hechizos";
 	public static final String WEAPON_CATEGORY_PREFIX = "armas·";
 	public static final String SPELL_CATEGORY_PREFIX = "listas ";
-	public static final String NO_BONUS_TAG = "ningun";
+	public static final String NOTHING_TAG = "ningun";
 	public static final String COMMON_TAG = "común";
 	public static final String RESTRICTED_TAG = "restringida";
 	public static final String APPEARANCE_TAG = "apariencia";

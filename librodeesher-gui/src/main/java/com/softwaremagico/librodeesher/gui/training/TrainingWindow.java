@@ -291,9 +291,6 @@ public class TrainingWindow extends BaseFrame {
 					// characteristicWindow.setVisible(true);
 					createDialog(availableCharacteristics);
 				}
-				System.out.println(characterPlayer.getTrainingDecision(lastSelectedTraining.getName())
-						.getCharacteristicsUpdates().size()
-						+ " < " + characteristicsUpdates.size());
 			}
 		}
 	}

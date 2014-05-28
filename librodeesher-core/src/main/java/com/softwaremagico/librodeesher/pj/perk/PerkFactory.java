@@ -146,7 +146,7 @@ public class PerkFactory {
 		// For each bonus.
 		String bonusName = bonus[0].trim();
 		// Only description effect.
-		if (bonusName.toLowerCase().contains(Spanish.NO_BONUS_TAG)) {
+		if (bonusName.toLowerCase().contains(Spanish.NOTHING_TAG)) {
 			// DO NOTHING
 			return;
 		}

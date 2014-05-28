@@ -345,7 +345,7 @@ public class CharacterPlayer {
 	}
 
 	public Integer getCharacteristicTotalBonus(String abbreviature) {
-		if (abbreviature.toLowerCase().contains(Spanish.NO_BONUS_TAG)) {
+		if (abbreviature.toLowerCase().contains(Spanish.NOTHING_TAG)) {
 			return 0;
 		}
 		if (abbreviature.toLowerCase().contains("*")) {
