@@ -58,8 +58,8 @@ public class TrainingCategoryPanel extends BasePanel {
 
 		if (training != null) {
 			for (TrainingCategory trainingCategory : training.getCategoriesWithRanks()) {
-				TrainingCategoryLine categoryLine = new TrainingCategoryLine(character, trainingCategory,
-						this, getLineBackgroundColor(i));
+				TrainingCategoryLine categoryLine = new TrainingCategoryLine(character, trainingCategory, this,
+						getLineBackgroundColor(i));
 				add(categoryLine);
 				trainingCategoryLines.add(categoryLine);
 				trainingSkillLinesPerCategory.put(trainingCategory, new ArrayList<TrainingSkillLine>());
@@ -67,8 +67,8 @@ public class TrainingCategoryPanel extends BasePanel {
 				i++;
 				String selectedCategory = trainingCategory.getCategoryOptions().get(0);
 				for (TrainingSkill skill : trainingCategory.getSkills(selectedCategory)) {
-					TrainingSkillLine skillLine = new TrainingSkillLine(character, trainingCategory, skill,
-							this, getLineBackgroundColor(i));
+					TrainingSkillLine skillLine = new TrainingSkillLine(character, trainingCategory, skill, this,
+							getLineBackgroundColor(i));
 					add(skillLine);
 					i++;
 					trainingSkillLinesPerCategory.get(trainingCategory).add(skillLine);
@@ -170,10 +170,12 @@ public class TrainingCategoryPanel extends BasePanel {
 		List<String> categories = new ArrayList<>();
 		if (trainingCategoryLines != null) {
 			for (TrainingCategoryLine categoryLine : trainingCategoryLines) {
-				if (categories.contains(categoryLine.getChoosedCategory())) {
-					return true;
+				if (categoryLine.getTrainingCategory().needToChooseOneCategory()) {
+					if (categories.contains(categoryLine.getChoosedCategory())) {
+						return true;
+					}
+					categories.add(categoryLine.getChoosedCategory());
 				}
-				categories.add(categoryLine.getChoosedCategory());
 			}
 		}
 		return false;

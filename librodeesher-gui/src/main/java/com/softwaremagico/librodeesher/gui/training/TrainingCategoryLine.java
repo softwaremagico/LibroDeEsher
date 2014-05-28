@@ -121,6 +121,9 @@ public class TrainingCategoryLine extends BaseLine {
 	}
 
 	public String getChoosedCategory() {
+		if (!trainingCategory.needToChooseOneCategory()) {
+			return trainingCategory.getCategoryOptions().get(0).toString();
+		}
 		return chooseCategoryComboBox.getSelectedItem().toString();
 	}
 
