@@ -494,4 +494,8 @@ public class Profession {
 		}
 		return false;
 	}
+
+	public HashMap<String, TrainingType> getTrainingTypes() {
+		return trainingTypes;
+	}
 }

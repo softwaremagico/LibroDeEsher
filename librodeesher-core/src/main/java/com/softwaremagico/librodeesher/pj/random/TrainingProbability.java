@@ -8,6 +8,7 @@ import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
+import com.softwaremagico.librodeesher.pj.training.TrainingType;
 
 public class TrainingProbability {
 
@@ -38,14 +39,13 @@ public class TrainingProbability {
 				|| training.contains(Spanish.ELEMENTALIST_PROFESSION);
 	}
 
-	protected static int trainingRandomness(CharacterPlayer characterPlayer, String trainingName,
-			int specialization) {
+	protected static int trainingRandomness(CharacterPlayer characterPlayer, String trainingName, int specialization) {
 		Training training = TrainingFactory.getTraining(trainingName);
 		int cost = characterPlayer.getProfession().getTrainingCost(trainingName);
 		// No training from different realm of magic.
-		if (!ad.reino) {
-			return 0;
-		}
+//		if (!ad.reino) {
+//			return 0;
+//		}
 		if (cost > characterPlayer.getRemainingDevelopmentPoints()) {
 			return 0;
 		}
@@ -53,16 +53,15 @@ public class TrainingProbability {
 		int probability = ((28 - cost) * 2 + characterPlayer.getLevelUps().size() - ((characterPlayer
 				.getTrainingsNames().size() + specialization) * 20));
 
-		if (Personaje.getInstance().costesAdiestramientos.EsAdiestramientoPreferido(trainingName)) {
+		if (characterPlayer.getProfession().getTrainingTypes().get(trainingName).equals(TrainingType.FAVOURITE)) {
 			probability += 25;
 		}
 
-		if (probability < 1
-				&& (characterPlayer.getTrainingsNames().size() < characterPlayer.getLevelUps().size() / 10)) {
+		if (probability < 1 && (characterPlayer.getTrainingsNames().size() < characterPlayer.getLevelUps().size() / 10)) {
 			probability = 1;
 		}
 
-		if (Personaje.getInstance().costesAdiestramientos.EsAdiestramientoProhibido(trainingName)) {
+		if (characterPlayer.getProfession().getTrainingTypes().get(trainingName).equals(TrainingType.FORBIDDEN)) {
 			probability -= 1500;
 		}
 

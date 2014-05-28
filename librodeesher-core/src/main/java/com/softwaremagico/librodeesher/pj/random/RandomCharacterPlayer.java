@@ -416,7 +416,7 @@ public class RandomCharacterPlayer {
 		while (characterPlayer.getRemainingDevelopmentPoints() > 0 && tries <= MAX_TRIES) {
 			// if (obtenerAdiestramientos) {
 			// ObtenerAdiestramientosSugeridos();
-			getRandomTrainings(characterPlayer);
+			getRandomTrainings(characterPlayer, specializationLevel);
 			// }
 			setRandomRanks(characterPlayer, specializationLevel, suggestedSkillsRanks, tries);
 			tries++;
@@ -542,11 +542,11 @@ public class RandomCharacterPlayer {
 		}
 	}
 
-	private static void getRandomTrainings(CharacterPlayer characterPlayer) {
+	private static void getRandomTrainings(CharacterPlayer characterPlayer, int specializationLevel) {
 		List<String> trainings = TrainingProbability.shuffleTrainings(characterPlayer);
 		for (int i = 0; i < trainings.size(); i++) {
 			String training = trainings.get(i);
-			int probability = TrainingProbability.trainingRandomness(training);
+			int probability = TrainingProbability.trainingRandomness(characterPlayer, training, specializationLevel);
 			if (Math.random() * 100 < probability) {
 				setRandomTraining(characterPlayer, training);
 			}
@@ -556,15 +556,15 @@ public class RandomCharacterPlayer {
 	public static void setRandomTraining(CharacterPlayer characterPlayer, String trainingName) {
 		Training training = TrainingFactory.getTraining(trainingName);
 		
-        //Seleccionar aleatoriamente las habilidades.
-        Personaje.getInstance().adiestramiento.RepartirRangosEnCategoriasDeFormaAleatoria();
-
-        //Seleccionar aleatoriamente los aumentos de características.
-        Personaje.getInstance().adiestramiento.RepartirCaracterísticasParaSubirAleatoriamente();
-
-        //Aceptar los cambios.
-        Personaje.getInstance().ConfirmarAdiestramiento();
-        adiestramientos_escogidos_en_nivel++;
+//        //Seleccionar aleatoriamente las habilidades.
+//        Personaje.getInstance().adiestramiento.RepartirRangosEnCategoriasDeFormaAleatoria();
+//
+//        //Seleccionar aleatoriamente los aumentos de características.
+//        Personaje.getInstance().adiestramiento.RepartirCaracterísticasParaSubirAleatoriamente();
+//
+//        //Aceptar los cambios.
+//        Personaje.getInstance().ConfirmarAdiestramiento();
+//        adiestramientos_escogidos_en_nivel++;
 	}
 
 }
