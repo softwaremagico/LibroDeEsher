@@ -61,7 +61,7 @@ public class MagicFactory {
 				// No spells found. If it has only one realm it is a wizard and
 				// must have spells.
 				if (!profession.equals(Spanish.OPEN_LIST_TAG) && !profession.equals(Spanish.CLOSED_LIST_TAG)
-						&& !profession.equals(Spanish.ELEMENTALIST_PROFESSION)
+						&& !profession.toLowerCase().equals(Spanish.ELEMENTALIST_PROFESSION)
 						&& ProfessionFactory.getProfession(profession).getMagicRealmsAvailable().size() < 2) {
 					ShowMessage.showErrorMessage("No existen listas de hechizos para " + profession, "Leer Magia");
 				}

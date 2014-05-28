@@ -36,6 +36,7 @@ import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.basics.ChooseType;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
+import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
@@ -485,5 +486,12 @@ public class Profession {
 
 	public List<String> getCharacteristicPreferences() {
 		return characteristicPreferences;
+	}
+
+	public boolean isElementalist() {
+		if (getName().equals(Spanish.ELEMENTALIST_PROFESSION)) {
+			return true;
+		}
+		return false;
 	}
 }

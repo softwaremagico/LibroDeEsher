@@ -69,7 +69,7 @@ public class Spanish {
 	public static final String ESSENCE_DARK_LIST_TAG = "Esencia Maligna";
 	public static final String CANALIZATION_DARK_LIST_TAG = "Canalización Maligna";
 	public static final String MENTALISM_DARK_LIST_TAG = "Mentalismo Maligno";
-	public static final String ELEMENTALIST_PROFESSION = "Elementalista";
+	public static final String ELEMENTALIST_PROFESSION = "elementalista";
 	public static final String ELEMENTALIST_INITIAL_TAG = "mago de";
 	public static final String CULTURE_LANGUAGE_TAG = "idiomas";
 	public static final String LIGHT_ARMOUR_TAG = "armadura·ligera";
