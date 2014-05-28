@@ -1061,7 +1061,7 @@ public class CharacterPlayer {
 		return characteristicRoll;
 	}
 
-	public CharacteristicRoll setCharacteristicTrainingUpdate(String abbreviature, String trainingName) {
+	public CharacteristicRoll getNewCharacteristicTrainingUpdate(String abbreviature, String trainingName) {
 		Roll roll = getStoredCharacteristicRoll(abbreviature);
 		CharacteristicRoll characteristicRoll = getTrainingDecision(trainingName).addCharactersiticUpdate(abbreviature,
 				getCharacteristicTemporalValue(abbreviature), getCharacteristicPotentialValue(abbreviature), roll);

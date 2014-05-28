@@ -264,7 +264,7 @@ public class TrainingWindow extends BaseFrame {
 						.size());
 				// List is sorted from small to biggest list.
 				if (characteristicSet.size() == 1) {
-					CharacteristicRoll characteristicRoll = characterPlayer.setCharacteristicTrainingUpdate(
+					CharacteristicRoll characteristicRoll = characterPlayer.getNewCharacteristicTrainingUpdate(
 							characteristicSet.get(0), lastSelectedTraining.getName());
 					ShowMessage.showInfoMessage(
 							"Hay una aumento para la característica '"

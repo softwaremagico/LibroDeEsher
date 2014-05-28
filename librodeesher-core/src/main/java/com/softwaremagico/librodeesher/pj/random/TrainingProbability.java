@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingCategory;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
@@ -100,31 +101,46 @@ public class TrainingProbability {
 	}
 
 	public static void setRandomCharacteristicsUpgrades(CharacterPlayer characterPlayer, String trainingName) {
-		String caractAnt = "";
-		String caracterist;
-		for (int i = 0; i < listadoAumentosPosiblesCaracteristicas.size(); i++) {
-			List<String> listado = listadoAumentosPosiblesCaracteristicas.get(i);
-			do {
-				caracterist = listado.get(Esher.generator.nextInt(listado.size()));
-			} while (caracterist.equals(caractAnt));
-			AñadirAumentoCaracteristicaSeleccionadaAdiestramiento(caracterist);
-			caractAnt = caracterist;
+		for (int i = 0; i < TrainingFactory.getTraining(trainingName).getUpdateCharacteristics().size(); i++) {
+			--Comprobar que no existen ya los aumentos de caracteristicas. 
+			List<String> availableUpdates = TrainingFactory.getTraining(trainingName).getUpdateCharacteristics().get(i);
+			// Order by profession preferences.
+			boolean updated = false;
+			String lastCharacteristicChecked = "";
+			for (String abbreviature : characterPlayer.getProfession().getCharacteristicPreferences()) {
+				// Available for update.
+				if (availableUpdates.contains(abbreviature)) {
+					lastCharacteristicChecked = abbreviature;
+					// Good to be updated if: long distance, medium distance per values > 70 or short distance per
+					// values > 85
+					if (characterPlayer.getCharacteristicTemporalValue(abbreviature)
+							- characterPlayer.getCharacteristicPotentialValue(abbreviature) > 20
+							|| (characterPlayer.getCharacteristicTemporalValue(abbreviature)
+									- characterPlayer.getCharacteristicPotentialValue(abbreviature) > 10 && characterPlayer
+									.getCharacteristicTemporalValue(abbreviature) > 70)
+							|| (characterPlayer.getCharacteristicTemporalValue(abbreviature)
+									- characterPlayer.getCharacteristicPotentialValue(abbreviature) > 5 && characterPlayer
+									.getCharacteristicTemporalValue(abbreviature) > 85)) {
+						AñadirAumentoCaracteristicaSeleccionadaAdiestramiento(characterPlayer, trainingName,
+								abbreviature);
+						updated = true;
+						break;
+					}
+				}
+			}
+			// Updates are mandatory. Update the last one to avoid decreasing an important one.
+			if (!updated) {
+				AñadirAumentoCaracteristicaSeleccionadaAdiestramiento(characterPlayer, trainingName,
+						lastCharacteristicChecked);
+			}
 		}
 	}
 
-	private static void AñadirAumentoCaracteristicaSeleccionadaAdiestramiento(String car) {
-		if (numeroCaracteristicasSeleccionadas < listadoAumentosPosiblesCaracteristicas.size()) {
-			if (car.equals("reino")) {
-				car = Personaje.getInstance().CaracteristicasDeReino();
-			}
-			if (!caracteristicasParaAumentar.contains(car)) {
-				caracteristicasParaAumentar.add(car);
-				numeroCaracteristicasSeleccionadas++;
-			} else {
-				MostrarMensaje.showErrorMessage("Aumento de caracter��sticas " + car + " ya seleccionado. Se ignora.",
-						"Error de selecci��n");
-			}
-		}
+	private static void AñadirAumentoCaracteristicaSeleccionadaAdiestramiento(CharacterPlayer characterPlayer,
+			String trainingName, String abbreviature) {
+		CharacteristicRoll characteristicRoll = characterPlayer.getNewCharacteristicTrainingUpdate(abbreviature,
+				trainingName);
+		characterPlayer.getTrainingDecision(trainingName).addCharacteristicUpdate(characteristicRoll);
 	}
 
 }
