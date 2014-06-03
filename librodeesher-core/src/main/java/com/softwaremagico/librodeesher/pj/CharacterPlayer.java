@@ -83,6 +83,7 @@ import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingCategory;
 import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
+import com.softwaremagico.librodeesher.pj.training.TrainingSkill;
 
 @Entity
 @Table(name = "T_CHARACTERPLAYER")
@@ -1501,6 +1502,18 @@ public class CharacterPlayer {
 			trainingDecisions.remove(training.getName());
 			getCurrentLevel().removeTraining(training.getName());
 		}
+	}
+
+	public int getSkillsWithRanks(String trainingName, TrainingCategory trainingCategory) {
+		TrainingDecision trainingDecision = getTrainingDecision(trainingName);
+		Map<TrainingSkill, Integer> skillRanks = trainingDecision.getSkillRanks(trainingCategory);
+		int result = 0;
+		for (TrainingSkill skill : skillRanks.keySet()) {
+			if (skillRanks.get(skill) != null && skillRanks.get(skill) > 0) {
+				result++;
+			}
+		}
+		return result;
 	}
 
 }

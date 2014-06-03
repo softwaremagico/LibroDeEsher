@@ -85,6 +85,27 @@ public class TrainingDecision {
 		return skillsSelected;
 	}
 
+	public Map<TrainingSkill, Integer> getSkillRanks(TrainingCategory trainingCategory) {
+		Map<TrainingSkill, Integer> result = new HashMap<>();
+		TrainingCategoriesSelected categorySelected = categoriesSelected.get(trainingCategory);
+		if (categorySelected != null) {
+			TrainingSkillsSelected trainingSkills = skillsSelected.get(categorySelected);
+			if (trainingSkills != null) {
+				result = trainingSkills.getSkills();
+			}
+		}
+		return result;
+	}
+
+	public Map<TrainingSkill, Integer> getSkillRanks(TrainingCategoriesSelected categorySelected) {
+		TrainingSkillsSelected trainingSkills = skillsSelected.get(categorySelected);
+		Map<TrainingSkill, Integer> result = new HashMap<>();
+		if (trainingSkills != null) {
+			result = trainingSkills.getSkills();
+		}
+		return result;
+	}
+
 	protected void setSkillsSelected(Map<TrainingCategory, TrainingSkillsSelected> skillsSelected) {
 		this.skillsSelected = skillsSelected;
 	}

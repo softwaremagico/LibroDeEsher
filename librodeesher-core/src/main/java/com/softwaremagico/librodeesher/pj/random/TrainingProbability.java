@@ -82,7 +82,8 @@ public class TrainingProbability {
 			while (characterPlayer.getTrainingDecision(trainingName)
 					.DevolverTotalRangosHabilidadesGastadosGrupoAdiestramiento(trainingCategory.nombre) < trainingCategory.rangosHabilidades
 					&& ret == 0) {
-				if (trainingCategory.DevolverNumeroHabilidadesConRangos() < trainingCategory.getMinSkills()) {
+				if (characterPlayer.getSkillsWithRanks(trainingName, trainingCategory) < trainingCategory
+						.getMinSkills()) {
 					if (!trainingCategory.AñadirRangoNuevaHabilidad()) {
 						ret = trainingCategory.AñadirUnRangoAleatorio();
 					}
@@ -100,8 +101,8 @@ public class TrainingProbability {
 		}
 	}
 
-	public static void setRandomCharacteristicsUpgrades(CharacterPlayer characterPlayer, String trainingName) {		
-		//Only do it for remaining characteristic updates (if any).
+	public static void setRandomCharacteristicsUpgrades(CharacterPlayer characterPlayer, String trainingName) {
+		// Only do it for remaining characteristic updates (if any).
 		for (int i = characterPlayer.getTrainingDecision(trainingName).getCharacteristicsUpdates().size(); i < TrainingFactory
 				.getTraining(trainingName).getUpdateCharacteristics().size(); i++) {
 			List<String> availableUpdates = TrainingFactory.getTraining(trainingName).getUpdateCharacteristics().get(i);
