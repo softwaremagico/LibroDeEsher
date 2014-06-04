@@ -15,7 +15,12 @@ public class CategoryComparatorBySkillWithRanks implements Comparator<String> {
 	}
 
 	public int compare(String category1, String category2) {
-		return characterPlayer.getSkillsWithRanks(CategoryFactory.getCategory(category1)).size()
-				- characterPlayer.getSkillsWithRanks(CategoryFactory.getCategory(category2)).size();
+		int skillsIn1 = characterPlayer.getSkillsWithRanks(CategoryFactory.getCategory(category1)).size();
+		int skillsIn2 = characterPlayer.getSkillsWithRanks(CategoryFactory.getCategory(category2)).size();
+		if (skillsIn1 == skillsIn2) {
+			//Return -1, 0 or 1 randomly.
+			return (int) (Math.random() * 3 + 1) - 2;
+		}
+		return skillsIn1 - skillsIn2;
 	}
 }
