@@ -6,11 +6,11 @@ import java.util.List;
 
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.categories.CategoryComparatorBySkillWithLessRanks;
 import com.softwaremagico.librodeesher.pj.categories.CategoryComparatorBySkillWithRanks;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingCategory;
-import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 import com.softwaremagico.librodeesher.pj.training.TrainingType;
 
@@ -100,18 +100,23 @@ public class TrainingProbability {
 		for (TrainingCategory trainingCategory : training.getCategoriesWithRanks()) {
 			// Choose one category option.
 			List<String> availableCategories = trainingCategory.getCategoryOptions();
-			Collections.sort(availableCategories, new CategoryComparatorBySkillWithRanks(characterPlayer));
-			
-			//Select category from list.
-			int index=0;
-			while(true){
+			if (specialization >= 0) {
+				Collections.sort(availableCategories, new CategoryComparatorBySkillWithRanks(characterPlayer));
+			} else {
+				Collections.sort(availableCategories, new CategoryComparatorBySkillWithLessRanks(characterPlayer));
+			}
+
+			// Select category from list.
+			int index = 0;
+			while (true) {
 				String categoryName = availableCategories.get(index % availableCategories.size());
-				int probability = specialization * 40 + 5;
-						if (Math.random() * 100 < probability) {
-							characterPlayer.getTrainingDecision(trainingName).addSelectedCategory(trainingCategory, categoryName);
-							break;
-						}
-						index ++;
+				int probability = Math.abs(specialization * 30) + 15;
+				if (Math.random() * 100 < probability) {
+					characterPlayer.getTrainingDecision(trainingName).addSelectedCategory(trainingCategory,
+							categoryName);
+					break;
+				}
+				index++;
 			}
 
 			// Order skills by probability.
@@ -119,29 +124,29 @@ public class TrainingProbability {
 			// Set ranks to skills.
 		}
 
-//		for (int i = 0; i < training.getCategoriesWithRanks().size(); i++) {
-//			TrainingCategory trainingCategory = training.getCategoriesWithRanks().get(i);
-//			while (characterPlayer.getTrainingDecision(trainingName)
-//					.DevolverTotalRangosHabilidadesGastadosGrupoAdiestramiento(trainingCategory.nombre) < characterPlayer
-//					.getSkillsRanks(trainingName, trainingCategory)
-//					&& ret == 0) {
-//				if (characterPlayer.getSkillsWithRanks(trainingName, trainingCategory) < trainingCategory
-//						.getMinSkills()) {
-//					if (!trainingCategory.AñadirRangoNuevaHabilidad()) {
-//						ret = trainingCategory.AñadirUnRangoAleatorio();
-//					}
-//				} else {
-//					if (DevolverNumeroHabilidadesConRangosDeGrupo(trainingCategory.nombre) < trainingCategory
-//							.getMaxSkills()) {
-//						ret = trainingCategory.AñadirUnRangoAleatorio();
-//					} else {
-//						if (!trainingCategory.AñadirUnRangoHabilidadExistente()) {
-//							ret = trainingCategory.AñadirUnRangoAleatorio();
-//						}
-//					}
-//				}
-//			}
-//		}
+		// for (int i = 0; i < training.getCategoriesWithRanks().size(); i++) {
+		// TrainingCategory trainingCategory = training.getCategoriesWithRanks().get(i);
+		// while (characterPlayer.getTrainingDecision(trainingName)
+		// .DevolverTotalRangosHabilidadesGastadosGrupoAdiestramiento(trainingCategory.nombre) < characterPlayer
+		// .getSkillsRanks(trainingName, trainingCategory)
+		// && ret == 0) {
+		// if (characterPlayer.getSkillsWithRanks(trainingName, trainingCategory) < trainingCategory
+		// .getMinSkills()) {
+		// if (!trainingCategory.AñadirRangoNuevaHabilidad()) {
+		// ret = trainingCategory.AñadirUnRangoAleatorio();
+		// }
+		// } else {
+		// if (DevolverNumeroHabilidadesConRangosDeGrupo(trainingCategory.nombre) < trainingCategory
+		// .getMaxSkills()) {
+		// ret = trainingCategory.AñadirUnRangoAleatorio();
+		// } else {
+		// if (!trainingCategory.AñadirUnRangoHabilidadExistente()) {
+		// ret = trainingCategory.AñadirUnRangoAleatorio();
+		// }
+		// }
+		// }
+		// }
+		// }
 	}
 
 	public static void setRandomCharacteristicsUpgrades(CharacterPlayer characterPlayer, String trainingName) {

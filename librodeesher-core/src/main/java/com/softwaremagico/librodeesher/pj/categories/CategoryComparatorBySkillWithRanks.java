@@ -4,6 +4,9 @@ import java.util.Comparator;
 
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
+/**
+ * Order a list of categories for characters with high level of specialization.
+ */
 public class CategoryComparatorBySkillWithRanks implements Comparator<String> {
 	private CharacterPlayer characterPlayer;
 
