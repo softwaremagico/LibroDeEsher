@@ -18,8 +18,6 @@ import com.softwaremagico.librodeesher.pj.profession.ProfessionalRealmsOfMagicOp
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
-import com.softwaremagico.librodeesher.pj.training.Training;
-import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 import com.softwaremagico.librodeesher.pj.weapons.WeaponType;
 import com.softwaremagico.log.Log;
@@ -531,14 +529,14 @@ public class RandomCharacterPlayer {
 			String training = trainings.get(i);
 			int probability = TrainingProbability.trainingRandomness(characterPlayer, training, specializationLevel);
 			if (Math.random() * 100 < probability) {
-				setRandomTraining(characterPlayer, training);
+				setRandomTraining(characterPlayer, training, specializationLevel);
 			}
 		}
 	}
 
-	public static void setRandomTraining(CharacterPlayer characterPlayer, String trainingName) {
+	public static void setRandomTraining(CharacterPlayer characterPlayer, String trainingName, int specializationLevel) {
 		// Set random skill ranks
-		TrainingProbability.setRandomCategoryRanks(characterPlayer, trainingName);
+		TrainingProbability.setRandomCategoryRanks(characterPlayer, trainingName, specializationLevel);
 
 		// Set characteristics upgrades.
 		TrainingProbability.setRandomCharacteristicsUpgrades(characterPlayer, trainingName);

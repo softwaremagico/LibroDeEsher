@@ -129,7 +129,7 @@ public class CategoryFactory {
 
 	public static List<Category> getCategories() {
 		List<Category> categories = new ArrayList<>(availableCategories.values());
-		Collections.sort(categories, new CategoryComparator());
+		Collections.sort(categories, new CategoryComparatorByName());
 		return categories;
 	}
 
@@ -219,7 +219,7 @@ public class CategoryFactory {
 			}
 		}
 
-		Collections.sort(weaponsCategories, new CategoryComparator());
+		Collections.sort(weaponsCategories, new CategoryComparatorByName());
 		return weaponsCategories;
 	}
 

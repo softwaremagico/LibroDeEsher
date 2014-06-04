@@ -1516,4 +1516,16 @@ public class CharacterPlayer {
 		return result;
 	}
 
+	public int getSkillsRanks(String trainingName, TrainingCategory trainingCategory) {
+		TrainingDecision trainingDecision = getTrainingDecision(trainingName);
+		Map<TrainingSkill, Integer> skillRanks = trainingDecision.getSkillRanks(trainingCategory);
+		int result = 0;
+		for (TrainingSkill skill : skillRanks.keySet()) {
+			if (skillRanks.get(skill) != null && skillRanks.get(skill) > 0) {
+				result += skillRanks.get(skill);
+			}
+		}
+		return result;
+	}
+
 }

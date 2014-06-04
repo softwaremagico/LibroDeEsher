@@ -6,9 +6,11 @@ import java.util.List;
 
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.categories.CategoryComparatorBySkillWithRanks;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingCategory;
+import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 import com.softwaremagico.librodeesher.pj.training.TrainingType;
 
@@ -51,6 +53,23 @@ public class TrainingProbability {
 			return 0;
 		}
 
+		// Has not the characteristics requirements.
+		Training training = TrainingFactory.getTraining(trainingName);
+		for (String abbreviature : training.getCharacteristicRequirements().keySet()) {
+			if (training.getCharacteristicRequirements().get(abbreviature) > characterPlayer
+					.getCharacteristicTemporalValue(abbreviature)) {
+				return 0;
+			}
+		}
+
+		// Has not the skills requirements.
+		// for (String skill : training.getSkillRequirements().keySet()) {
+		// if (training.getSkillRequirements().get(skill) > characterPlayer.getRealRanks(SkillFactory.getSkill(skill)))
+		// {
+		// return 0;
+		// }
+		// }
+
 		int probability = ((28 - cost) * 2 + characterPlayer.getLevelUps().size() - ((characterPlayer
 				.getTrainingsNames().size() + specialization) * 20));
 
@@ -74,31 +93,55 @@ public class TrainingProbability {
 		return probability / (characterPlayer.getCurrentLevel().getTrainings().size() + 1);
 	}
 
-	public static void setRandomCategoryRanks(CharacterPlayer characterPlayer, String trainingName) {
-		int ret = 0;
+	public static void setRandomCategoryRanks(CharacterPlayer characterPlayer, String trainingName, int specialization) {
 		Training training = TrainingFactory.getTraining(trainingName);
-		for (int i = 0; i < training.getCategoriesWithRanks().size(); i++) {
-			TrainingCategory trainingCategory = training.getCategoriesWithRanks().get(i);
-			while (characterPlayer.getTrainingDecision(trainingName)
-					.DevolverTotalRangosHabilidadesGastadosGrupoAdiestramiento(trainingCategory.nombre) < trainingCategory.rangosHabilidades
-					&& ret == 0) {
-				if (characterPlayer.getSkillsWithRanks(trainingName, trainingCategory) < trainingCategory
-						.getMinSkills()) {
-					if (!trainingCategory.AñadirRangoNuevaHabilidad()) {
-						ret = trainingCategory.AñadirUnRangoAleatorio();
-					}
-				} else {
-					if (DevolverNumeroHabilidadesConRangosDeGrupo(trainingCategory.nombre) < trainingCategory
-							.getMaxSkills()) {
-						ret = trainingCategory.AñadirUnRangoAleatorio();
-					} else {
-						if (!trainingCategory.AñadirUnRangoHabilidadExistente()) {
-							ret = trainingCategory.AñadirUnRangoAleatorio();
+
+		// For each category
+		for (TrainingCategory trainingCategory : training.getCategoriesWithRanks()) {
+			// Choose one category option.
+			List<String> availableCategories = trainingCategory.getCategoryOptions();
+			Collections.sort(availableCategories, new CategoryComparatorBySkillWithRanks(characterPlayer));
+			
+			//Select category from list.
+			int index=0;
+			while(true){
+				String categoryName = availableCategories.get(index % availableCategories.size());
+				int probability = specialization * 40 + 5;
+						if (Math.random() * 100 < probability) {
+							characterPlayer.getTrainingDecision(trainingName).addSelectedCategory(trainingCategory, categoryName);
+							break;
 						}
-					}
-				}
+						index ++;
 			}
+
+			// Order skills by probability.
+
+			// Set ranks to skills.
 		}
+
+//		for (int i = 0; i < training.getCategoriesWithRanks().size(); i++) {
+//			TrainingCategory trainingCategory = training.getCategoriesWithRanks().get(i);
+//			while (characterPlayer.getTrainingDecision(trainingName)
+//					.DevolverTotalRangosHabilidadesGastadosGrupoAdiestramiento(trainingCategory.nombre) < characterPlayer
+//					.getSkillsRanks(trainingName, trainingCategory)
+//					&& ret == 0) {
+//				if (characterPlayer.getSkillsWithRanks(trainingName, trainingCategory) < trainingCategory
+//						.getMinSkills()) {
+//					if (!trainingCategory.AñadirRangoNuevaHabilidad()) {
+//						ret = trainingCategory.AñadirUnRangoAleatorio();
+//					}
+//				} else {
+//					if (DevolverNumeroHabilidadesConRangosDeGrupo(trainingCategory.nombre) < trainingCategory
+//							.getMaxSkills()) {
+//						ret = trainingCategory.AñadirUnRangoAleatorio();
+//					} else {
+//						if (!trainingCategory.AñadirUnRangoHabilidadExistente()) {
+//							ret = trainingCategory.AñadirUnRangoAleatorio();
+//						}
+//					}
+//				}
+//			}
+//		}
 	}
 
 	public static void setRandomCharacteristicsUpgrades(CharacterPlayer characterPlayer, String trainingName) {
@@ -123,8 +166,7 @@ public class TrainingProbability {
 							|| (characterPlayer.getCharacteristicTemporalValue(abbreviature)
 									- characterPlayer.getCharacteristicPotentialValue(abbreviature) > 5 && characterPlayer
 									.getCharacteristicTemporalValue(abbreviature) > 85)) {
-						AñadirAumentoCaracteristicaSeleccionadaAdiestramiento(characterPlayer, trainingName,
-								abbreviature);
+						addCharacteristicUpdate(characterPlayer, trainingName, abbreviature);
 						updated = true;
 						break;
 					}
@@ -132,14 +174,13 @@ public class TrainingProbability {
 			}
 			// Updates are mandatory. Update the last one to avoid decreasing an important one.
 			if (!updated) {
-				AñadirAumentoCaracteristicaSeleccionadaAdiestramiento(characterPlayer, trainingName,
-						lastCharacteristicChecked);
+				addCharacteristicUpdate(characterPlayer, trainingName, lastCharacteristicChecked);
 			}
 		}
 	}
 
-	private static void AñadirAumentoCaracteristicaSeleccionadaAdiestramiento(CharacterPlayer characterPlayer,
-			String trainingName, String abbreviature) {
+	private static void addCharacteristicUpdate(CharacterPlayer characterPlayer, String trainingName,
+			String abbreviature) {
 		CharacteristicRoll characteristicRoll = characterPlayer.getNewCharacteristicTrainingUpdate(abbreviature,
 				trainingName);
 		characterPlayer.getTrainingDecision(trainingName).addCharacteristicUpdate(characteristicRoll);
