@@ -407,20 +407,20 @@ public class RandomCharacterPlayer {
 
 	public static void setRandomRanks(CharacterPlayer characterPlayer, int specializationLevel,
 			Map<String, Integer> suggestedSkillsRanks, Integer tries) {
-		List<Category> shuffledCategoryList = CategoryFactory.getCategories();
-		Collections.shuffle(shuffledCategoryList);
+		List<Category> sortedCategoriesByCost = CategoryFactory.getCategories();
+		Collections.sort(sortedCategoriesByCost, new SortCategoryByCost(characterPlayer));
 		// shuffle it!
-		for (int i = 0; i < shuffledCategoryList.size(); i++) {
-			Category cat = shuffledCategoryList.get(i);
+		for (int i = 0; i < sortedCategoriesByCost.size(); i++) {
+			Category cat = sortedCategoriesByCost.get(i);
 			if (Math.random() * 100 + 1 < new CategoryProbability(characterPlayer, cat, tries, suggestedSkillsRanks,
 					specializationLevel).rankProbability()) {
 				characterPlayer.getCurrentLevel().setCategoryRanks(cat.getName(),
 						characterPlayer.getCurrentLevel().getCategoryRanks(cat.getName()) + 1);
 			}
-			List<Skill> shuffledSkillList = cat.getSkills();
-			Collections.shuffle(shuffledSkillList);
-			for (int j = 0; j < shuffledSkillList.size(); j++) {
-				Skill skill = shuffledSkillList.get(j);
+			List<Skill> shuffledCategorySkills = cat.getSkills();
+			Collections.shuffle(shuffledCategorySkills);
+			for (int j = 0; j < shuffledCategorySkills.size(); j++) {
+				Skill skill = shuffledCategorySkills.get(j);
 				int roll = (int) (Math.random() * 100 + 1);
 				int probability = new SkillProbability(characterPlayer, skill, tries, suggestedSkillsRanks,
 						specializationLevel).getRankProbability();
