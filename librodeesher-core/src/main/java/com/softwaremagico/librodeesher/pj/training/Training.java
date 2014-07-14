@@ -50,7 +50,7 @@ public class Training {
 	private String name;
 	private Integer trainingTime;
 	private List<String> limitedRaces;
-	private List<TrainingSpecial> specials;
+	private List<TrainingObjects> objects;
 	private List<TrainingCategory> categoriesWithRanks;
 	private List<List<String>> updateCharacteristics; // Choose one
 	private HashMap<String, Integer> characteristicRequirements;
@@ -67,14 +67,16 @@ public class Training {
 		try {
 			readTrainingFile(name);
 		} catch (Exception ex) {
-			Logger.getLogger(Training.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Training.class.getName()).log(Level.SEVERE, null,
+					ex);
 		}
 	}
 
 	private void readTrainingFile(String trainingName) throws Exception {
 		int lineIndex = 0;
-		String trainingFile = RolemasterFolderStructure.getDirectoryModule(TrainingFactory.TRAINING_FOLDER
-				+ File.separator + trainingName + ".txt");
+		String trainingFile = RolemasterFolderStructure
+				.getDirectoryModule(TrainingFactory.TRAINING_FOLDER
+						+ File.separator + trainingName + ".txt");
 		if (trainingFile.length() > 0) {
 			List<String> lines = Folder.readFileLines(trainingFile, false);
 			lineIndex = setTrainingTime(lines, lineIndex);
@@ -83,10 +85,14 @@ public class Training {
 			lineIndex = setTrainingSkills(lines, lineIndex);
 			lineIndex = setCharacteristicsUpgrade(lines, lineIndex);
 			lineIndex = setProfessionalRequirements(lines, lineIndex);
-			lineIndex = setSpecialSkills(lines, lineIndex, lifeSkills, ChooseType.LIFE);
-			lineIndex = setSpecialSkills(lines, lineIndex, commonSkills, ChooseType.COMMON);
-			lineIndex = setSpecialSkills(lines, lineIndex, professionalSkills, ChooseType.PROFESSIONAL);
-			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkills, ChooseType.RESTRICTED);
+			lineIndex = setSpecialSkills(lines, lineIndex, lifeSkills,
+					ChooseType.LIFE);
+			lineIndex = setSpecialSkills(lines, lineIndex, commonSkills,
+					ChooseType.COMMON);
+			lineIndex = setSpecialSkills(lines, lineIndex, professionalSkills,
+					ChooseType.PROFESSIONAL);
+			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkills,
+					ChooseType.RESTRICTED);
 		}
 	}
 
@@ -97,8 +103,10 @@ public class Training {
 		try {
 			trainingTime = Integer.parseInt(lines.get(index));
 		} catch (Exception e) {
-			ShowMessage.showErrorMessage("Problema con la linea: \"" + lines.get(index) + "\" del adiestramiento "
-					+ name, "Leer adiestramientos");
+			ShowMessage.showErrorMessage(
+					"Problema con la linea: \"" + lines.get(index)
+							+ "\" del adiestramiento " + name,
+					"Leer adiestramientos");
 		}
 		return ++index;
 	}
@@ -108,7 +116,8 @@ public class Training {
 			index++;
 		}
 		limitedRaces = new ArrayList<>();
-		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
+		while (!lines.get(index).equals("")
+				&& !lines.get(index).startsWith("#")) {
 			String trainingLine = lines.get(index);
 			try {
 				String[] limitedRacesColumn = trainingLine.split(", ");
@@ -118,8 +127,9 @@ public class Training {
 					}
 				}
 			} catch (ArrayIndexOutOfBoundsException aiofb) {
-				ShowMessage.showErrorMessage("Problema con la linea: \"" + trainingLine + "\" del adiestramiento "
-						+ name, "Leer adiestramientos");
+				ShowMessage.showErrorMessage("Problema con la linea: \""
+						+ trainingLine + "\" del adiestramiento " + name,
+						"Leer adiestramientos");
 			}
 			index++;
 		}
@@ -132,7 +142,7 @@ public class Training {
 		}
 		int bonus;
 		int probability = 0;
-		specials = new ArrayList<>();
+		objects = new ArrayList<>();
 		while (!lines.get(index).equals("")) {
 			String trainingLine = lines.get(index);
 			try {
@@ -146,14 +156,17 @@ public class Training {
 						bonus = 0;
 					}
 				} catch (NumberFormatException nfe) {
-					ShowMessage.showErrorMessage("Formato de porcentaje de especial \"" + special
-							+ "\" erróneo en adiestramiento " + name, "Leer adiestramientos");
+					ShowMessage.showErrorMessage(
+							"Formato de porcentaje de especial \"" + special
+									+ "\" erróneo en adiestramiento " + name,
+							"Leer adiestramientos");
 					continue;
 				}
-				specials.add(new TrainingSpecial(special, bonus, probability));
+				objects.add(new TrainingObjects(special, bonus, probability));
 			} catch (ArrayIndexOutOfBoundsException aiofb) {
-				ShowMessage.showErrorMessage("Problema con la linea: \"" + trainingLine + "\" del adiestramiento "
-						+ name, "Leer adiestramientos");
+				ShowMessage.showErrorMessage("Problema con la linea: \""
+						+ trainingLine + "\" del adiestramiento " + name,
+						"Leer adiestramientos");
 			}
 			index++;
 		}
@@ -166,7 +179,8 @@ public class Training {
 		}
 		categoriesWithRanks = new ArrayList<>();
 		TrainingCategory trainingCategory = null;
-		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
+		while (!lines.get(index).equals("")
+				&& !lines.get(index).startsWith("#")) {
 			// It is a category
 			if (!lines.get(index).contains("*")) {
 				// complete previous category skills
@@ -177,8 +191,10 @@ public class Training {
 				try {
 					if (lines.get(index).contains("{")) {
 						// List of categories to choose one.
-						String[] lineColumns = lines.get(index).trim().split("}");
-						String[] categoriesList = lineColumns[0].replace("{", "").replace(";", ",").split(",");
+						String[] lineColumns = lines.get(index).trim()
+								.split("}");
+						String[] categoriesList = lineColumns[0]
+								.replace("{", "").replace(";", ",").split(",");
 						String[] categoryRanks = lineColumns[1].split("\t");
 
 						List<String> categoriesOptions = new ArrayList<>();
@@ -186,8 +202,11 @@ public class Training {
 							categoriesOptions.add(category.trim());
 						}
 
-						trainingCategory = new TrainingCategory(categoriesOptions, Integer.parseInt(categoryRanks[1]),
-								Integer.parseInt(categoryRanks[2]), Integer.parseInt(categoryRanks[3]),
+						trainingCategory = new TrainingCategory(
+								categoriesOptions,
+								Integer.parseInt(categoryRanks[1]),
+								Integer.parseInt(categoryRanks[2]),
+								Integer.parseInt(categoryRanks[3]),
 								Integer.parseInt(categoryRanks[4]));
 						categoriesWithRanks.add(trainingCategory);
 					} else {
@@ -195,44 +214,62 @@ public class Training {
 						if (CategoryFactory.existCategory(categoryRanks[0])) {
 							List<String> categoriesList = new ArrayList<>();
 							categoriesList.add(categoryRanks[0].trim());
-							trainingCategory = new TrainingCategory(categoriesList, Integer.parseInt(categoryRanks[1]),
-									Integer.parseInt(categoryRanks[2]), Integer.parseInt(categoryRanks[3]),
+							trainingCategory = new TrainingCategory(
+									categoriesList,
+									Integer.parseInt(categoryRanks[1]),
+									Integer.parseInt(categoryRanks[2]),
+									Integer.parseInt(categoryRanks[3]),
 									Integer.parseInt(categoryRanks[4]));
 							categoriesWithRanks.add(trainingCategory);
 
 						} else {
-							ShowMessage.showErrorMessage("Categoría no encontrada en \"" + name + "\": "
-									+ categoryRanks[0], "Añadir habilidades de adiestramiento.");
+							ShowMessage.showErrorMessage(
+									"Categoría no encontrada en \"" + name
+											+ "\": " + categoryRanks[0],
+									"Añadir habilidades de adiestramiento.");
 						}
 					}
 				} catch (NumberFormatException nfe) {
-					ShowMessage.showErrorMessage("Numero de rangos mal formado en: \"" + lines.get(index)
-							+ "\" del adiestramiento: " + name, "Leer adiestramientos");
+					ShowMessage.showErrorMessage(
+							"Numero de rangos mal formado en: \""
+									+ lines.get(index)
+									+ "\" del adiestramiento: " + name,
+							"Leer adiestramientos");
 					break;
 				}
 			} else { // It is a skill. Must come from a defined category and not
 						// a list to choose.
 				if (trainingCategory == null) {
-					ShowMessage.showErrorMessage("Habilidad sin categoria asociada: " + lines.get(index),
+					ShowMessage.showErrorMessage(
+							"Habilidad sin categoria asociada: "
+									+ lines.get(index),
 							"Añadir habilidades de adiestramiento.");
 					break;
 				}
 				try {
 					if (lines.get(index).contains("{")) {
 						// List of skills to choose one.
-						String[] lineColumns = lines.get(index).replace("*", "").trim().split("}");
-						String[] skillList = lineColumns[0].replace("{", "").replace(";", ",").split(",");
-						TrainingSkill skill = new TrainingSkill(Arrays.asList(skillList),
+						String[] lineColumns = lines.get(index)
+								.replace("*", "").trim().split("}");
+						String[] skillList = lineColumns[0].replace("{", "")
+								.replace(";", ",").split(",");
+						TrainingSkill skill = new TrainingSkill(
+								Arrays.asList(skillList),
 								Integer.parseInt(lineColumns[1].trim()));
 						trainingCategory.addSkill(skill);
 					} else {
 						// Skill with ranges.
-						String[] trainingSkills = lines.get(index).replace("*", "").trim().split("\t");
-						addTrainingSkill(trainingCategory, trainingSkills[0], Integer.parseInt(trainingSkills[1]));
+						String[] trainingSkills = lines.get(index)
+								.replace("*", "").trim().split("\t");
+						addTrainingSkill(trainingCategory, trainingSkills[0],
+								Integer.parseInt(trainingSkills[1]));
 					}
 				} catch (NumberFormatException nfe) {
-					ShowMessage.showErrorMessage("Numero de rangos mal formado en: \"" + lines.get(index)
-							+ "\" del adiestramiento: " + name, "Leer adiestramientos");
+					ShowMessage.showErrorMessage(
+							"Numero de rangos mal formado en: \""
+									+ lines.get(index)
+									+ "\" del adiestramiento: " + name,
+							"Leer adiestramientos");
 					break;
 				}
 			}
@@ -245,7 +282,8 @@ public class Training {
 		return index;
 	}
 
-	private void addTrainingSkill(TrainingCategory trainingCategory, String skillName, Integer ranks) {
+	private void addTrainingSkill(TrainingCategory trainingCategory,
+			String skillName, Integer ranks) {
 		List<String> skillList = new ArrayList<>();
 		skillList.add(skillName); // List with only one
 									// element.
@@ -258,13 +296,15 @@ public class Training {
 			index++;
 		}
 		updateCharacteristics = new ArrayList<>();
-		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
+		while (!lines.get(index).equals("")
+				&& !lines.get(index).startsWith("#")) {
 			String trainingLine = lines.get(index);
 			try {
 				if (trainingLine.contains("{")) {
 					// List to choose a characteristic.
 					List<String> listToChoose = new ArrayList<>();
-					trainingLine = trainingLine.replace("}", "").replace("{", "");
+					trainingLine = trainingLine.replace("}", "").replace("{",
+							"");
 					String[] chars = trainingLine.replace(";", ",").split(",");
 					for (String abbrev : chars) {
 						listToChoose.add(abbrev.trim());
@@ -272,10 +312,13 @@ public class Training {
 					updateCharacteristics.add(listToChoose);
 				} else {
 					// Ignore nothing tag.
-					if (!trainingLine.toLowerCase().contains(Spanish.NOTHING_TAG)) {
-						// List of only one characteristic (Player is not allowed to
+					if (!trainingLine.toLowerCase().contains(
+							Spanish.NOTHING_TAG)) {
+						// List of only one characteristic (Player is not
+						// allowed to
 						// choose).
-						String[] chars = trainingLine.replace(";", ",").split(",");
+						String[] chars = trainingLine.replace(";", ",").split(
+								",");
 						for (String abbrev : chars) {
 							List<String> listToChoose = new ArrayList<>();
 							listToChoose.add(abbrev.trim());
@@ -284,8 +327,9 @@ public class Training {
 					}
 				}
 			} catch (Exception e) {
-				ShowMessage.showErrorMessage("Problema con la linea: \"" + trainingLine + "\" del adiestramiento "
-						+ name, "Leer Adiestramiento");
+				ShowMessage.showErrorMessage("Problema con la linea: \""
+						+ trainingLine + "\" del adiestramiento " + name,
+						"Leer Adiestramiento");
 			}
 			index++;
 		}
@@ -309,7 +353,8 @@ public class Training {
 			index++;
 		}
 
-		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
+		while (!lines.get(index).equals("")
+				&& !lines.get(index).startsWith("#")) {
 			if (!lines.get(index).toLowerCase().contains("ningun")) {
 				String[] requirementsGroup = lines.get(index).split(", ");
 				for (int i = 0; i < requirementsGroup.length; i++) {
@@ -318,25 +363,36 @@ public class Training {
 					String[] requirements = requirementsGroup[i].split(pattern);
 					String requirementName = requirements[0];
 					try {
-						Integer value = Integer.parseInt(requirements[1].replace(")", ""));
-						Integer costModification = Integer.parseInt(requirements[2].replace(")", ""));
+						Integer value = Integer.parseInt(requirements[1]
+								.replace(")", ""));
+						Integer costModification = Integer
+								.parseInt(requirements[2].replace(")", ""));
 						// If it is a skill, the requirement is to have at least
 						// X ranks.
 						if (SkillFactory.existSkill(requirementName)) {
 							skillRequirements.put(requirementName, value);
-							skillRequirementsCostModification.put(requirementName, costModification);
-						} else if (Characteristics.isCharacteristicValid(requirementName)) {
+							skillRequirementsCostModification.put(
+									requirementName, costModification);
+						} else if (Characteristics
+								.isCharacteristicValid(requirementName)) {
 							// It it is a characteristic, a minimal temporal
 							// value is required.
-							characteristicRequirements.put(requirementName, value);
-							characteristicRequirementsCostModification.put(requirementName, costModification);
+							characteristicRequirements.put(requirementName,
+									value);
+							characteristicRequirementsCostModification.put(
+									requirementName, costModification);
 						} else {
-							ShowMessage.showErrorMessage("Requisito desconocido: \"" + lines.get(index)
-									+ "\" del adiestramiento: " + name, "Leer adiestramientos");
+							ShowMessage.showErrorMessage(
+									"Requisito desconocido: \""
+											+ lines.get(index)
+											+ "\" del adiestramiento: " + name,
+									"Leer adiestramientos");
 						}
 					} catch (NumberFormatException nfe) {
-						ShowMessage.showErrorMessage("Requisito mal formado: \"" + lines.get(index)
-								+ "\" del adiestramiento: " + name, "Leer adiestramientos");
+						ShowMessage.showErrorMessage(
+								"Requisito mal formado: \"" + lines.get(index)
+										+ "\" del adiestramiento: " + name,
+								"Leer adiestramientos");
 						continue;
 					}
 				}
@@ -346,23 +402,26 @@ public class Training {
 		return index;
 	}
 
-	private int setSpecialSkills(List<String> lines, int index, List<ChooseSkillGroup> skillCategory,
-			ChooseType chooseType) {
+	private int setSpecialSkills(List<String> lines, int index,
+			List<ChooseSkillGroup> skillCategory, ChooseType chooseType) {
 		skillCategory = new ArrayList<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
 
-		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
+		while (!lines.get(index).equals("")
+				&& !lines.get(index).startsWith("#")) {
 			String skillLine = lines.get(index);
-			if (skillLine.toLowerCase().contains("ningun") || skillLine.toLowerCase().contains("nothing")) {
+			if (skillLine.toLowerCase().contains("ningun")
+					|| skillLine.toLowerCase().contains("nothing")) {
 				break;
 			}
 			String[] skillColumns = skillLine.split(", ");
 			for (int i = 0; i < skillColumns.length; i++) {
 				if (!skillColumns[i].contains("{")) {
 					Skill skill = SkillFactory.getSkill(skillColumns[i]);
-					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1, skill, chooseType);
+					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1,
+							skill, chooseType);
 					skillCategory.add(chooseSkills);
 				}
 			}
@@ -407,16 +466,7 @@ public class Training {
 		return updateCharacteristics;
 	}
 
-}
-
-class TrainingSpecial {
-	private String name;
-	private int bonus;
-	private int probability;
-
-	public TrainingSpecial(String name, int bonus, int probability) {
-		this.name = name;
-		this.probability = probability;
-		this.bonus = bonus;
+	public List<TrainingObjects> getObjects() {
+		return objects;
 	}
 }

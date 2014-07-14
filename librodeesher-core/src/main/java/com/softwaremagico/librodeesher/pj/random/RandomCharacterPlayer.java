@@ -541,7 +541,8 @@ public class RandomCharacterPlayer {
 		// Set characteristics upgrades.
 		TrainingProbability.setRandomCharacteristicsUpgrades(characterPlayer, trainingName);
 		
-		//TrainingProbability.setRandomObjects(characterPlayer, trainingName);
+		// Set random Objects.
+		TrainingProbability.setRandomObjects(characterPlayer, trainingName);
 	}
 
 }

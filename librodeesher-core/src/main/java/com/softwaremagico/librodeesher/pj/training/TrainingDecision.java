@@ -34,11 +34,15 @@ public class TrainingDecision {
 	@ElementCollection
 	@CollectionTable(name = "T_TRAINING_CHARACTERISTICS_UPDATES")
 	private List<CharacteristicRoll> characteristicsUpdates;
+	@ElementCollection
+	@CollectionTable(name = "T_TRAINING_OBJECTS")
+	private List<TrainingObjects> equipment; 
 
 	public TrainingDecision() {
 		categoriesSelected = new HashMap<>();
 		skillsSelected = new HashMap<>();
 		characteristicsUpdates = new ArrayList<>();
+		equipment = new ArrayList<>();
 	}
 
 	public void addSelectedCategory(TrainingCategory trainingCategory, String categoryName) {
@@ -143,5 +147,9 @@ public class TrainingDecision {
 
 	public void addCharacteristicUpdate(CharacteristicRoll characteristicRoll) {
 		characteristicsUpdates.add(characteristicRoll);
+	}
+
+	public List<TrainingObjects> getEquipment() {
+		return equipment;
 	}
 }
