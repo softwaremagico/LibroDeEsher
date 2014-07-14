@@ -15,7 +15,7 @@ public class CharacterStorage {
 	public void testCrud() {
 		CharacterPlayer characterPlayer = new RandomCharacterPlayer(null, null, null, null, 1).getCharacterPlayer();
 		characterPlayerDao.makePersistent(characterPlayer);
-		Assert.assertNotNull(characterPlayer.getCharacterPlayerId());
+		Assert.assertNotNull(characterPlayer.getId());
 	}
 
 }

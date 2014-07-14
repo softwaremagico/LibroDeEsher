@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.elements;
+
 /*
  * #%L
  * Libro de Esher GUI
@@ -32,10 +33,12 @@ import java.util.Vector;
 import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
 
+
 public abstract class BaseComboBox<E> extends JComboBox<E> {
 	private static final int COMBO_BOX_WIDTH = 55;
 	private static final int COMBO_BOX_HEIGHT = 20;
 	private static final long serialVersionUID = -8969953615732925312L;
+
 
 	public BaseComboBox() {
 		setStyle();
@@ -74,11 +77,12 @@ public abstract class BaseComboBox<E> extends JComboBox<E> {
 		}
 	}
 
-//	@Override
-//	public Dimension getSize() {
-//		Dimension dim = new Dimension((int) (COMBO_BOX_WIDTH * 1.2), COMBO_BOX_HEIGHT);
-//		return dim;
-//	}
+	// @Override
+	// public Dimension getSize() {
+	// Dimension dim = new Dimension((int) (COMBO_BOX_WIDTH * 1.2),
+	// COMBO_BOX_HEIGHT);
+	// return dim;
+	// }
 
 	public abstract void doAction();
 

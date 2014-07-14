@@ -32,13 +32,9 @@ import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
@@ -84,15 +80,11 @@ import com.softwaremagico.librodeesher.pj.training.TrainingCategory;
 import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 import com.softwaremagico.librodeesher.pj.training.TrainingSkill;
+import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_CHARACTERPLAYER")
-public class CharacterPlayer {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "ID", unique = true, nullable = false)
-	private Long characterPlayerId; // database id.
+public class CharacterPlayer extends StorableObject {
 
 	private String name;
 	private SexType sex;
@@ -1487,14 +1479,6 @@ public class CharacterPlayer {
 
 	public void increaseLevel() {
 		levelUps.add(new LevelUp());
-	}
-
-	public Long getCharacterPlayerId() {
-		return characterPlayerId;
-	}
-
-	protected void setCharacterPlayerId(Long characterPlayerId) {
-		this.characterPlayerId = characterPlayerId;
 	}
 
 	public void removeTraining(Training training) {

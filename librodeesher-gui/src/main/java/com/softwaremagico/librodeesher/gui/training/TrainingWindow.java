@@ -51,6 +51,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
+import com.softwaremagico.librodeesher.pj.random.TrainingProbability;
 import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 
@@ -294,6 +295,10 @@ public class TrainingWindow extends BaseFrame {
 			}
 		}
 	}
+	
+	private void setTrainingObjects() {
+		TrainingProbability.setRandomObjects(characterPlayer, lastSelectedTraining.getName());
+	}
 
 	private BaseDialog createDialog(List<Characteristic> availableCharacteristics) {
 		selectCharacteristicDialog = new BaseDialog(this, "El Libro de Esher", true);
@@ -344,6 +349,7 @@ public class TrainingWindow extends BaseFrame {
 				if (ShowMessage.showQuestionMessage(window, "Esta acción confirmará el adistramiento \""
 						+ lastSelectedTraining.getName()
 						+ "\".\n Esta acción es permante. ¿Está seguro de continuar?", "Adiestramiento")) {
+					setTrainingObjects();
 					obtainCharacteristicsUpdates();
 					clearData();
 				}
