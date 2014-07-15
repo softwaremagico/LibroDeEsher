@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.elements;
+
 /*
  * #%L
  * Libro de Esher GUI
@@ -23,32 +24,66 @@ package com.softwaremagico.librodeesher.gui.elements;
  * #L%
  */
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import com.softwaremagico.librodeesher.gui.style.Fonts;
 
 public class BaseSpinner extends JSpinner {
 	private static final long serialVersionUID = -5360733915257515036L;
+	private List<SpinnerValueChangedListener> valueChangedListeners;
 
 	public BaseSpinner() {
 		setDefaultFont();
+		valueChangedListeners = new ArrayList<>();
+		enableCustomEvents();
 	}
 
 	public BaseSpinner(SpinnerModel sm) {
 		super(sm);
 		setDefaultFont();
+		valueChangedListeners = new ArrayList<>();
+		enableCustomEvents();
 	}
 
 	protected void setDefaultFont() {
 		setFont(Fonts.getInstance().getBoldFont());
 	}
-	
-	public void setColumns(int value){
+
+	public void setColumns(int value) {
 		JComponent editor = getEditor();
-		JFormattedTextField tf = ((JSpinner.DefaultEditor) editor).getTextField();
+		JFormattedTextField tf = ((JSpinner.DefaultEditor) editor)
+				.getTextField();
 		tf.setColumns(value);
 	}
+
+	public void addSpinnerValueChangedListener(
+			SpinnerValueChangedListener listener) {
+		valueChangedListeners.add(listener);
+	}
+
+	public void removeSpinnerValueChangedListener(
+			SpinnerValueChangedListener listener) {
+		valueChangedListeners.remove(listener);
+	}
+
+	private void enableCustomEvents() {
+		addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				for (SpinnerValueChangedListener listener : valueChangedListeners) {
+					listener.valueChanged((Integer) getValue());
+				}
+			}
+		});
+	}
+
 }

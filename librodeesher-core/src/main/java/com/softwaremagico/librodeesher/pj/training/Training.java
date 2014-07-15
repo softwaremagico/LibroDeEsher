@@ -50,7 +50,7 @@ public class Training {
 	private String name;
 	private Integer trainingTime;
 	private List<String> limitedRaces;
-	private List<TrainingObjects> objects;
+	private List<TrainingObject> objects;
 	private List<TrainingCategory> categoriesWithRanks;
 	private List<List<String>> updateCharacteristics; // Choose one
 	private HashMap<String, Integer> characteristicRequirements;
@@ -162,7 +162,7 @@ public class Training {
 							"Leer adiestramientos");
 					continue;
 				}
-				objects.add(new TrainingObjects(special, bonus, probability));
+				objects.add(new TrainingObject(special, bonus, probability));
 			} catch (ArrayIndexOutOfBoundsException aiofb) {
 				ShowMessage.showErrorMessage("Problema con la linea: \""
 						+ trainingLine + "\" del adiestramiento " + name,
@@ -466,7 +466,7 @@ public class Training {
 		return updateCharacteristics;
 	}
 
-	public List<TrainingObjects> getObjects() {
+	public List<TrainingObject> getObjects() {
 		return objects;
 	}
 }

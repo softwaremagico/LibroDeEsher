@@ -1,14 +1,19 @@
 package com.softwaremagico.librodeesher.pj.training;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
 import com.softwaremagico.persistence.StorableObject;
 
-public class TrainingObjects extends StorableObject implements MagicObject {
+@Entity
+@Table(name = "T_TRAINING_OBJECT")
+public class TrainingObject extends StorableObject implements MagicObject {
 	private String name;
 	private int bonus;
 	private int probability;
 
-	public TrainingObjects(String name, int bonus, int probability) {
+	public TrainingObject(String name, int bonus, int probability) {
 		this.name = name;
 		this.probability = probability;
 		this.bonus = bonus;

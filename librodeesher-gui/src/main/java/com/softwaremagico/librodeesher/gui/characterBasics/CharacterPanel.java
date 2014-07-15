@@ -138,5 +138,4 @@ public class CharacterPanel extends BasePanel {
 	public void updateSkills() {
 		parent.updateSkills();
 	}
-
 }

@@ -19,8 +19,9 @@ public class CategoryProbability {
 	private Map<String, Integer> suggestedSkillsRanks;
 	private Integer specializationLevel;
 
-	CategoryProbability(CharacterPlayer characterPlayer, Category category, int tries,
-			Map<String, Integer> suggestedSkillsRanks, Integer specializationLevel) {
+	CategoryProbability(CharacterPlayer characterPlayer, Category category,
+			int tries, Map<String, Integer> suggestedSkillsRanks,
+			Integer specializationLevel) {
 		this.characterPlayer = characterPlayer;
 		this.category = category;
 		this.tries = tries;
@@ -39,29 +40,38 @@ public class CategoryProbability {
 
 		Integer cost = characterPlayer.getNewRankCost(category);
 		if (cost != null && cost <= Config.getCategoryMaxCost()) {
-			if (characterPlayer.getRemainingDevelopmentPoints() >= characterPlayer.getNewRankCost(category)
+			if (characterPlayer.getRemainingDevelopmentPoints() >= characterPlayer
+					.getNewRankCost(category)
 					&& category.getCategoryType().equals(CategoryType.STANDARD)) {
-				Log.debug(CategoryProbability.class.getName(), "Probability of category '" + category.getName() + "'");
-				int getCharacteristicsBonus = characterPlayer.getCharacteristicsBonus(category);
-				Log.debug(CategoryProbability.class.getName(), "\t Characteristic bonus: " + getCharacteristicsBonus);
+				Log.debug(CategoryProbability.class.getName(),
+						"Probability of category '" + category.getName() + "'");
+				int getCharacteristicsBonus = characterPlayer
+						.getCharacteristicsBonus(category);
+				Log.debug(CategoryProbability.class.getName(),
+						"\t Characteristic bonus: " + getCharacteristicsBonus);
 				probability += getCharacteristicsBonus;
 				int preferredCategory = preferredCategory();
-				Log.debug(CategoryProbability.class.getName(), "\t Preferred category: " + preferredCategory);
+				Log.debug(CategoryProbability.class.getName(),
+						"\t Preferred category: " + preferredCategory);
 				probability += preferredCategory;
 				int categoryCostProbability = -categoryCostProbability();
-				Log.debug(CategoryProbability.class.getName(), "\t Category cost: " + categoryCostProbability);
+				Log.debug(CategoryProbability.class.getName(),
+						"\t Category cost: " + categoryCostProbability);
 				probability += categoryCostProbability;
 				int bonusCommonSkills = bonusCommonSkills();
-				Log.debug(CategoryProbability.class.getName(), "\t Common skills: " + bonusCommonSkills);
+				Log.debug(CategoryProbability.class.getName(),
+						"\t Common skills: " + bonusCommonSkills);
 				probability += bonusCommonSkills;
 				int smartBonus = smartBonus();
-				Log.debug(CategoryProbability.class.getName(), "\t Smart bonus: " + bonusCommonSkills);
+				Log.debug(CategoryProbability.class.getName(),
+						"\t Smart bonus: " + bonusCommonSkills);
 				probability += smartBonus;
 				probability += tries * 3;
 				if (probability > 90) {
 					probability = 90;
 				}
-				Log.debug(CategoryProbability.class.getName(), "\t Total: " + probability);
+				Log.debug(CategoryProbability.class.getName(), "\t Total: "
+						+ probability);
 				return probability;
 			}
 		}
@@ -74,7 +84,8 @@ public class CategoryProbability {
 	private int smartBonus() {
 		int bonus = 0;
 		// No ponemos armas de fuego si no tienen nada.
-		if (!characterPlayer.isFirearmsAllowed() && category.getName().contains(Spanish.FIREARMS_SUFIX)) {
+		if (!characterPlayer.isFirearmsAllowed()
+				&& category.getName().contains(Spanish.FIREARMS_SUFIX)) {
 			bonus = -10000;
 		}
 		if (category.getName().toLowerCase().equals(Spanish.LIGHT_ARMOUR_TAG)
@@ -108,12 +119,19 @@ public class CategoryProbability {
 	private List<Skill> getSkillsWithSuggestedRanks() {
 		List<Skill> skills = new ArrayList<>();
 		for (Skill skill : category.getSkills()) {
-			if (suggestedSkillsRanks != null && suggestedSkillsRanks.get(skill.getName()) != null
-					&& suggestedSkillsRanks.get(skill.getName()) > 0) {
+			if (getSuggestedSkillRanks(skill.getName()) > 0) {
 				skills.add(skill);
 			}
 		}
 		return skills;
+	}
+
+	private Integer getSuggestedSkillRanks(String skillName) {
+		if (suggestedSkillsRanks.get(skillName) == null
+				|| suggestedSkillsRanks.get(skillName) < 0) {
+			return 0;
+		}
+		return suggestedSkillsRanks.get(skillName);
 	}
 
 	/**
@@ -128,7 +146,8 @@ public class CategoryProbability {
 	 */
 	private int preferredCategory() {
 		int prob;
-		prob = (characterPlayer.getTotalRanks(category)) * (specializationLevel + 4);
+		prob = (characterPlayer.getTotalRanks(category))
+				* (specializationLevel + 4);
 		if (prob > 30) {
 			prob = 30;
 		}

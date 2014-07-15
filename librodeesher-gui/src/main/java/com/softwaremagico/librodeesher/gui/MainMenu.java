@@ -277,6 +277,10 @@ public class MainMenu {
 	public void addRandomNameListener(ActionListener al) {
 		randomName.addActionListener(al);
 	}
+	
+	public void addRandomCharacterListener(ActionListener al) {
+		randomCharacter.addActionListener(al);
+	}
 
 	public void addCultureListener(ActionListener al) {
 		cultureMenuItem.addActionListener(al);

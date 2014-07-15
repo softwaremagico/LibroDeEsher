@@ -36,23 +36,25 @@ import com.softwaremagico.librodeesher.gui.culture.CultureWindow;
 import com.softwaremagico.librodeesher.gui.history.HistoryWindow;
 import com.softwaremagico.librodeesher.gui.perk.PerkWindow;
 import com.softwaremagico.librodeesher.gui.profession.ProfessionWindow;
+import com.softwaremagico.librodeesher.gui.random.RandomWindow;
 import com.softwaremagico.librodeesher.gui.skills.SkillWindow;
 import com.softwaremagico.librodeesher.gui.training.TrainingWindow;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class Controller {
-	MainWindow mainGui;
-	AboutWindow aboutWindow;
-	CharacteristicsWindow characteristicWindow;
-	CultureWindow cultureWindow;
-	SkillWindow skillWindow;
-	List<CharacterPlayer> characters;
-	CharacterPlayer selectedCharacter;
-	OptionsWindow optionsWindow;
-	HistoryWindow historyWindow;
-	PerkWindow perksWindow;
-	ProfessionWindow professionWindow;
-	TrainingWindow trainingWindow;
+	private MainWindow mainGui;
+	private AboutWindow aboutWindow;
+	private CharacteristicsWindow characteristicWindow;
+	private CultureWindow cultureWindow;
+	private SkillWindow skillWindow;
+	private List<CharacterPlayer> characters;
+	private CharacterPlayer selectedCharacter;
+	private OptionsWindow optionsWindow;
+	private HistoryWindow historyWindow;
+	private PerkWindow perksWindow;
+	private ProfessionWindow professionWindow;
+	private TrainingWindow trainingWindow;
+	private RandomWindow randomWindow;
 
 	public Controller() {
 		characters = new ArrayList<>();
@@ -66,19 +68,31 @@ public class Controller {
 	}
 
 	private void addMainMenuActionListeners() {
-		mainGui.getMainMenu().addNewCharacterListener(new NewCharacterListener());
-		mainGui.getMainMenu().addCloseCharacterListener(new CloseCharacterListener());
+		mainGui.getMainMenu().addNewCharacterListener(
+				new NewCharacterListener());
+		mainGui.getMainMenu().addCloseCharacterListener(
+				new CloseCharacterListener());
 		mainGui.getMainMenu().addAboutMenuItemListener(new AboutBoxListener());
-		mainGui.getMainMenu().addCharacteristicsWindowMenuItemListener(new CharacteristicWindowsListener());
+		mainGui.getMainMenu().addCharacteristicsWindowMenuItemListener(
+				new CharacteristicWindowsListener());
 		mainGui.getMainMenu().addRandomNameListener(new RandomNameListener());
+		mainGui.getMainMenu().addRandomCharacterListener(
+				new RandomCharacterListener());
 		mainGui.getMainMenu().addCultureListener(new CultureWindowsListener());
-		mainGui.getMainMenu().addSkillsAndCategoriesListener(new SkillsAndCategoriesWindowsListener());
-		mainGui.getMainMenu().addOptionsWindowListener(new OptionsWindowsListener());
-		mainGui.getMainMenu().addHistoryWindowListener(new HistoryWindowsListener());
-		mainGui.getMainMenu().addPerksWindowListener(new PerksWindowsListener());
-		mainGui.getMainMenu().addProfessionWindowListener(new ProfessionWindowsListener());
-		mainGui.getMainMenu().addTrainingWindowListener(new TrainingWindowsListener());
-		mainGui.getMainMenu().addLevelUpActionListener(new IncreaseLevelActionListener());
+		mainGui.getMainMenu().addSkillsAndCategoriesListener(
+				new SkillsAndCategoriesWindowsListener());
+		mainGui.getMainMenu().addOptionsWindowListener(
+				new OptionsWindowsListener());
+		mainGui.getMainMenu().addHistoryWindowListener(
+				new HistoryWindowsListener());
+		mainGui.getMainMenu()
+				.addPerksWindowListener(new PerksWindowsListener());
+		mainGui.getMainMenu().addProfessionWindowListener(
+				new ProfessionWindowsListener());
+		mainGui.getMainMenu().addTrainingWindowListener(
+				new TrainingWindowsListener());
+		mainGui.getMainMenu().addLevelUpActionListener(
+				new IncreaseLevelActionListener());
 	}
 
 	class NewCharacterListener implements ActionListener {
@@ -111,9 +125,22 @@ public class Controller {
 	class RandomNameListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			selectedCharacter.setName(selectedCharacter.getRace().getRandonName(selectedCharacter.getSex()));
+			selectedCharacter.setName(selectedCharacter.getRace()
+					.getRandonName(selectedCharacter.getSex()));
 			mainGui.updateFrame();
 			updateCharacterListToMenu();
+		}
+	}
+
+	class RandomCharacterListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				randomWindow.dispose();
+			} catch (NullPointerException npe) {
+			}
+			randomWindow = new RandomWindow(selectedCharacter);
+			randomWindow.setVisible(true);
 		}
 	}
 
@@ -174,8 +201,10 @@ public class Controller {
 		JMenu characterListMenu = mainGui.getMainMenu().getCharacterListMenu();
 		characterListMenu.removeAll();
 		for (CharacterPlayer character : characters) {
-			CharacterMenuItem characterMenu = new CharacterMenuItem(character, selectedCharacter);
-			characterMenu.addActionListener(new SelectedCharacterListener(characterMenu));
+			CharacterMenuItem characterMenu = new CharacterMenuItem(character,
+					selectedCharacter);
+			characterMenu.addActionListener(new SelectedCharacterListener(
+					characterMenu));
 			characterListMenu.add(characterMenu);
 		}
 	}

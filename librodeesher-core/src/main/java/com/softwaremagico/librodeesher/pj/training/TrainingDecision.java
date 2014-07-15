@@ -36,7 +36,7 @@ public class TrainingDecision {
 	private List<CharacteristicRoll> characteristicsUpdates;
 	@ElementCollection
 	@CollectionTable(name = "T_TRAINING_OBJECTS")
-	private List<TrainingObjects> equipment; 
+	private List<TrainingObject> equipment; 
 
 	public TrainingDecision() {
 		categoriesSelected = new HashMap<>();
@@ -149,7 +149,7 @@ public class TrainingDecision {
 		characteristicsUpdates.add(characteristicRoll);
 	}
 
-	public List<TrainingObjects> getEquipment() {
+	public List<TrainingObject> getEquipment() {
 		return equipment;
 	}
 }

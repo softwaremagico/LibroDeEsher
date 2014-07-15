@@ -23,9 +23,7 @@ package com.softwaremagico.librodeesher.gui.elements;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.pj.skills.Skill;
+public interface SpinnerValueChangedListener {
 
-public interface SkillChangedListener {
-
-	public void skillChanged(Skill skill);
+	public void valueChanged(int value);
 }
