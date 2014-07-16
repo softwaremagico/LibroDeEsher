@@ -28,11 +28,16 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -41,12 +46,17 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseSpinner;
+import com.softwaremagico.librodeesher.gui.elements.BaseTextField;
 import com.softwaremagico.librodeesher.gui.elements.CategoryChangedListener;
 import com.softwaremagico.librodeesher.gui.elements.CategoryComboBox;
+import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.SkillChangedListener;
 import com.softwaremagico.librodeesher.gui.elements.SkillComboBox;
 import com.softwaremagico.librodeesher.gui.elements.SpinnerValueChangedListener;
+import com.softwaremagico.librodeesher.gui.elements.TrainingComboBox;
+import com.softwaremagico.librodeesher.gui.style.BaseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
+import com.softwaremagico.librodeesher.gui.style.Fonts;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
@@ -63,11 +73,15 @@ public class RandomWindow extends BaseFrame {
 	private RandomCharacterPlayer randomPlayer;
 	private Map<String, Integer> suggestedSkillsRanks;
 	private Map<String, Integer> suggestedCategoriesRanks;
+	private TrainingComboBox trainingComboBox;
+	private BaseTextField suggestedTraining;
+	private List<String> suggestedTrainingList;
 
 	public RandomWindow(CharacterPlayer characterPlayer) {
 		this.characterPlayer = characterPlayer;
 		suggestedCategoriesRanks = new HashMap<>();
 		suggestedSkillsRanks = new HashMap<>();
+		suggestedTrainingList = new ArrayList<>();
 		defineWindow(500, 400);
 		setResizable(false);
 		setElements();
@@ -82,16 +96,30 @@ public class RandomWindow extends BaseFrame {
 	private void setElements() {
 		JPanel panel = new JPanel();
 		panel.setBorder(new EmptyBorder(MARGIN, MARGIN, MARGIN, MARGIN));
-		panel.setLayout(new GridLayout(0, 1));
-		panel.add(createSpecializationPanel());
-		panel.add(createCategoryPanel());
+		panel.setLayout(new GridBagLayout());
+
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.anchor = GridBagConstraints.CENTER;
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.ipadx = xPadding;
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		constraints.weightx = 1;
+		constraints.weighty = 1;
+
+		panel.add(createSpecializationPanel(), constraints);
+		constraints.gridy = 1;
+		panel.add(createCategoryPanel(), constraints);
+		constraints.gridy = 2;
+		panel.add(createTrainingPanel(), constraints);
+		constraints.gridy = 3;
+		constraints.weighty = 0;
+		panel.add(createButtonPanel(), constraints);
+		add(panel);
 	}
 
 	private JPanel createSpecializationPanel() {
-		JPanel panel = new JPanel();
-		panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory
-				.createEtchedBorder(), new EmptyBorder(MARGIN, MARGIN,
-				MARGIN / 2, MARGIN)));
+		JPanel panel = createBasicPanel();
 
 		GridBagLayout layout = new GridBagLayout();
 		panel.setLayout(layout);
@@ -100,21 +128,52 @@ public class RandomWindow extends BaseFrame {
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.ipadx = xPadding;
 		constraints.gridx = 0;
-		constraints.gridy = 0;
 		constraints.weightx = 1;
 		constraints.weighty = 1;
 
+		JLabel titleLabel = new JLabel("Aleatorización de Habilidades:");
+		titleLabel.setFont(Fonts.getInstance().getBoldFont());
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridy = 0;
+		constraints.gridwidth = 3;
+		panel.add(titleLabel, constraints);
+
+		constraints.gridy = 1;
 		generalizationSpecializationSlider = createSpecializedSlider();
 		panel.add(generalizationSpecializationSlider, constraints);
 
 		return panel;
 	}
 
+	private JPanel createButtonPanel() {
+		JPanel buttonPanel = new JPanel(new GridLayout(1, 4));
+		buttonPanel.setMaximumSize(new Dimension(500, 40));
+		buttonPanel.add(new JPanel());
+		buttonPanel.add(new JPanel());
+
+		JButton acceptButton = new BaseButton("Aceptar");
+		acceptButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (characterPlayer.getName() == null
+						|| characterPlayer.getName().length() == 0) {
+					characterPlayer.setName(characterPlayer.getRace()
+							.getRandonName(characterPlayer.getSex()));
+				}
+				CharacterPlayer randomCharacterPlayer = new RandomCharacterPlayer(
+						characterPlayer, 1).getCharacterPlayer();
+			}
+		});
+		buttonPanel.add(acceptButton);
+
+		CloseButton closeButton = new CloseButton(this);
+		buttonPanel.add(closeButton);
+
+		return buttonPanel;
+	}
+
 	private JPanel createCategoryPanel() {
-		JPanel panel = new JPanel();
-		panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory
-				.createEtchedBorder(), new EmptyBorder(MARGIN, MARGIN,
-				MARGIN / 2, MARGIN)));
+		JPanel panel = createBasicPanel();
 
 		GridBagLayout layout = new GridBagLayout();
 		panel.setLayout(layout);
@@ -128,6 +187,7 @@ public class RandomWindow extends BaseFrame {
 		constraints.weighty = 0;
 
 		JLabel titleLabel = new JLabel("Habilidades Deseadas:");
+		titleLabel.setFont(Fonts.getInstance().getBoldFont());
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.gridx = 0;
 		constraints.gridy = 0;
@@ -186,8 +246,8 @@ public class RandomWindow extends BaseFrame {
 	}
 
 	private JSlider createSpecializedSlider() {
-		final int GENERALIZED = -2;
-		final int SPECIALIZED = 2;
+		final int GENERALIZED = -3;
+		final int SPECIALIZED = 3;
 		final int INIT = 0;
 
 		JSlider generalizationSpecializationSlider = new JSlider(
@@ -211,6 +271,7 @@ public class RandomWindow extends BaseFrame {
 
 	private CategoryComboBox createCategoryComboBox() {
 		CategoryComboBox categoryComboBox = new CategoryComboBox();
+		categoryComboBox.setNormalStyle();
 		categoryComboBox
 				.addCategoryChangedListener(new CategoryChangedListener() {
 					@Override
@@ -226,6 +287,7 @@ public class RandomWindow extends BaseFrame {
 
 	private SkillComboBox createSkillComboBox() {
 		SkillComboBox skillComboBox = new SkillComboBox();
+		skillComboBox.setNormalStyle();
 		skillComboBox.addSkillChangedListener(new SkillChangedListener() {
 			@Override
 			public void skillChanged(Skill skill) {
@@ -240,6 +302,102 @@ public class RandomWindow extends BaseFrame {
 			}
 		});
 		return skillComboBox;
+	}
+
+	private JPanel createTrainingPanel() {
+		JPanel panel = createBasicPanel();
+
+		GridBagLayout layout = new GridBagLayout();
+		panel.setLayout(layout);
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.anchor = GridBagConstraints.CENTER;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.ipadx = xPadding;
+		constraints.gridx = 0;
+		constraints.weightx = 1;
+		constraints.weighty = 1;
+
+		JLabel titleLabel = new JLabel("Adiestramientos Preferidos:");
+		titleLabel.setFont(Fonts.getInstance().getBoldFont());
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridy = 0;
+		constraints.gridwidth = 3;
+		panel.add(titleLabel, constraints);
+
+		trainingComboBox = createTrainingComboBox();
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		constraints.gridwidth = 3;
+		panel.add(trainingComboBox, constraints);
+
+		BaseButton acceptTraining = new BaseButton("Aceptar");
+		acceptTraining.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String training = (String) trainingComboBox.getSelectedItem();
+				suggestedTrainingList.add(training);
+				trainingComboBox.setElements(
+						characterPlayer.getAvailableTrainings(),
+						suggestedTrainingList);
+				setSuggestedTrainingsToTextField();
+			}
+		});
+		constraints.gridx = 3;
+		constraints.gridy = 1;
+		constraints.gridwidth = 1;
+		panel.add(acceptTraining, constraints);
+
+		suggestedTraining = new BaseTextField("Seleccionados: ");
+		constraints.gridx = 0;
+		constraints.gridy = 2;
+		constraints.gridwidth = 3;
+		panel.add(suggestedTraining, constraints);
+
+		BaseButton eraseButton = new BaseButton("Borrar");
+		eraseButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				suggestedTrainingList = new ArrayList<>();
+				trainingComboBox.setElements(
+						characterPlayer.getAvailableTrainings(),
+						suggestedTrainingList);
+				setSuggestedTrainingsToTextField();
+			}
+		});
+		constraints.gridx = 3;
+		constraints.gridy = 2;
+		constraints.gridwidth = 1;
+		panel.add(eraseButton, constraints);
+
+		setSuggestedTrainingsToTextField();
+
+		return panel;
+	}
+
+	private TrainingComboBox createTrainingComboBox() {
+		TrainingComboBox trainingComboBox = new TrainingComboBox(
+				characterPlayer.getAvailableTrainings(), suggestedTrainingList);
+		trainingComboBox.setNormalStyle();
+		return trainingComboBox;
+	}
+
+	private void setSuggestedTrainingsToTextField() {
+		String text = "";
+		for (int i = 0; i < suggestedTrainingList.size(); i++) {
+			text += suggestedTrainingList.get(i);
+			if (i < suggestedTrainingList.size() - 1) {
+				text += ", ";
+			}
+		}
+		suggestedTraining.setText(text);
+	}
+
+	private JPanel createBasicPanel() {
+		JPanel panel = new JPanel();
+		panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory
+				.createEtchedBorder(), new EmptyBorder(MARGIN, MARGIN,
+				MARGIN / 2, MARGIN)));
+		return panel;
 	}
 
 	public void setSuggestedCategoryRanks(String categoryName, int ranks) {

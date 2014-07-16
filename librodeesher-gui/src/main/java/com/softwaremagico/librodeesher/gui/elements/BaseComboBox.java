@@ -36,36 +36,44 @@ import javax.swing.JComboBox;
 
 public abstract class BaseComboBox<E> extends JComboBox<E> {
 	private static final int COMBO_BOX_WIDTH = 55;
-	private static final int COMBO_BOX_HEIGHT = 20;
+	private static final int COMBO_BOX_SLIM_HEIGHT = 20;
+	private static final int COMBO_BOX_NORMAL_HEIGHT = 25;
 	private static final long serialVersionUID = -8969953615732925312L;
 
 
 	public BaseComboBox() {
-		setStyle();
+		setSlimStyle();
+		addActionListener(new ComboBoxListener());
 	}
 
 	public BaseComboBox(ComboBoxModel<E> aModel) {
 		super(aModel);
-		setStyle();
+		setSlimStyle();
+		addActionListener(new ComboBoxListener());
 	}
 
 	public BaseComboBox(final E[] items) {
 		super(items);
-		setStyle();
+		setSlimStyle();
+		addActionListener(new ComboBoxListener());
 	}
 
 	public BaseComboBox(Vector<E> items) {
 		super(items);
-		setStyle();
+		setSlimStyle();
+		addActionListener(new ComboBoxListener());
 	}
 
 	public void setBackgroundColor(Color background) {
 		this.setBackground(background);
 	}
 
-	private void setStyle() {
-		setPreferredSize(new Dimension(COMBO_BOX_WIDTH, COMBO_BOX_HEIGHT));
-		addActionListener(new ComboBoxListener());
+	public void setSlimStyle() {
+		setPreferredSize(new Dimension(COMBO_BOX_WIDTH, COMBO_BOX_SLIM_HEIGHT));
+	}
+	
+	public void setNormalStyle() {
+		setPreferredSize(new Dimension(COMBO_BOX_WIDTH, COMBO_BOX_NORMAL_HEIGHT));
 	}
 
 	@Override

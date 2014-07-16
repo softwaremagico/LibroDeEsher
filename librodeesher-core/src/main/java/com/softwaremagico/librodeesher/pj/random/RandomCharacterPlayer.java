@@ -31,10 +31,11 @@ public class RandomCharacterPlayer {
 	private int finalLevel;
 	private String race, culture, profession;
 	private static Integer characteristicsPoints;
-	// Specialization level [-2...2]
+	// Specialization level [-3...3]
 	private Integer specializationLevel;
 	private Map<String, Integer> suggestedSkillsRanks;
 	private Map<String, Integer> suggestedCategoriesRanks;
+	private List<String> suggestedTrainings;
 
 	public RandomCharacterPlayer(SexType sex, String race, String culture,
 			String profession, int finalLevel) {

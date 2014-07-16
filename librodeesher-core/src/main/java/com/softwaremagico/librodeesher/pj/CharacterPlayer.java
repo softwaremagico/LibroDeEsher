@@ -129,8 +129,9 @@ public class CharacterPlayer extends StorableObject {
 	private List<String> trainingsNames;
 	@Transient
 	private transient List<Training> trainings;
-	@ElementCollection
-	@CollectionTable(name = "T_CHARACTERPLAYER_TRAINING_DECISIONS")
+	//@ElementCollection
+	//@CollectionTable(name = "T_CHARACTERPLAYER_TRAINING_DECISIONS")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Map<String, TrainingDecision> trainingDecisions;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
