@@ -2,10 +2,9 @@ package com.softwaremagico.librodeesher.basics;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.softwaremagico.persistence.StorableObject;
 
 /*
  * #%L
@@ -33,15 +32,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "T_ROLL")
-public class Roll {
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "ID", unique = true, nullable = false)
-	private Long rollId; // database id.
-
-	@Column
+public class Roll extends StorableObject {
 	private Integer firstDice;
-	@Column
 	private Integer secondDice;
 
 	public Roll() {
@@ -52,9 +44,9 @@ public class Roll {
 		initialize(faces);
 	}
 
-	private void initialize(Integer faces) {
-		firstDice = Dice.getRoll(faces);
-		secondDice = Dice.getRoll(faces);
+	private void initialize(Integer diceFaces) {
+		firstDice = Dice.getRoll(diceFaces);
+		secondDice = Dice.getRoll(diceFaces);
 	}
 
 	public Integer getFirstDice() {
@@ -65,14 +57,6 @@ public class Roll {
 		return secondDice;
 	}
 
-	public Long getRollId() {
-		return rollId;
-	}
-
-	public void setRollId(Long id) {
-		this.rollId = id;
-	}
-
 	public void setFirstDice(Integer firstDice) {
 		this.firstDice = firstDice;
 	}
@@ -81,6 +65,7 @@ public class Roll {
 		this.secondDice = secondDice;
 	}
 
+	@Override
 	public String toString() {
 		return "(" + firstDice + "," + secondDice + ")";
 	}

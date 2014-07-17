@@ -27,27 +27,24 @@ package com.softwaremagico.librodeesher.pj.historial;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.basics.Roll;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_HISTORIAL")
-public class Historial {
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "ID", unique = true, nullable = false)
-	private Long historialId; // database id.
+public class Historial extends StorableObject {
 
 	private static final Integer SKILL_BONUS = 10;
 	private static final Integer CATEGORY_BONUS = 5;
@@ -57,8 +54,9 @@ public class Historial {
 	@ElementCollection
 	@CollectionTable(name = "T_HISTORIAL_SKILLS")
 	private List<String> skills;
-	@ElementCollection
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@CollectionTable(name = "T_HISTORIAL_CHARACTERISTICS_UPDATES")
+	@OrderColumn(name = "roll_index")
 	private List<CharacteristicRoll> characteristicsUpdates;
 
 	public Historial() {
@@ -154,14 +152,6 @@ public class Historial {
 
 	public List<CharacteristicRoll> getCharacteristicsUpdates() {
 		return characteristicsUpdates;
-	}
-
-	protected Long getHistorialId() {
-		return historialId;
-	}
-
-	protected void setHistorialId(Long historialId) {
-		this.historialId = historialId;
 	}
 
 	protected void setCharacteristicsUpdates(List<CharacteristicRoll> characteristicsUpdates) {

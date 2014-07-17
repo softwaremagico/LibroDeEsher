@@ -15,6 +15,4 @@ public interface ICharacterPlayerDao {
 
 	void makeTransient(CharacterPlayer character);
 
-	Roll makePersistent(Roll roll);
-
 }

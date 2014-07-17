@@ -28,25 +28,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_CULTUREDECISIONS")
-public class CultureDecisions {
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "ID", unique = true, nullable = false)
-	private Long cultureDecisionsId; // database id.
-
+public class CultureDecisions extends StorableObject {
 	@ElementCollection
 	@CollectionTable(name = "T_CULTURE_WEAPON_RANKS")
 	private Map<String, Integer> weaponRanks;
@@ -216,14 +208,6 @@ public class CultureDecisions {
 
 	protected void setLanguageRanks(Map<String, Integer> languageRanks) {
 		this.languageRanks = languageRanks;
-	}
-
-	protected Long getCultureDecisionsId() {
-		return cultureDecisionsId;
-	}
-
-	protected void setCultureDecisionsId(Long cultureDecisionsId) {
-		this.cultureDecisionsId = cultureDecisionsId;
 	}
 
 }

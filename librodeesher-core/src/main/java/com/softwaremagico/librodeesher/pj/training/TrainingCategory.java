@@ -6,39 +6,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
-@Entity
-@Table(name = "T_TRAINING_CATEGORY")
 public class TrainingCategory {
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "ID", unique = true, nullable = false)
-	private Long id; // database id.
 	private Integer categoryRanks;
 	private Integer minSkills;
 	private Integer maxSkills;
 	private Integer skillRanks;
-	@ElementCollection
-	@CollectionTable(name = "T_TRAINING_CATEGORY_OPTIONS")
 	private List<String> categoryOptions; // List to choose one category from.
-	@ElementCollection
-	@CollectionTable(name = "T_TRAINING_CATEGORY_SKILLS_PER_CATEGORY")
 	private Map<String, TrainingSkillList> skillsPerCategory;
 
-	public TrainingCategory(List<String> categoryOptions, Integer ranks, Integer minSkills, Integer maxSkills,
-			Integer skillRanks) {
+	public TrainingCategory(List<String> categoryOptions, Integer ranks, Integer minSkills,
+			Integer maxSkills, Integer skillRanks) {
 		this.categoryOptions = categoryOptions;
 		this.categoryRanks = ranks;
 		this.minSkills = minSkills;
@@ -113,7 +94,8 @@ public class TrainingCategory {
 
 	public Integer getRanksInSkills(String categoryName) {
 		Integer total = 0;
-		List<TrainingSkill> skills = skillsPerCategory.get(categoryName).getAll();
+		List<TrainingSkill> skills = skillsPerCategory.get(categoryName)
+				.getAll();
 		for (TrainingSkill skill : skills) {
 			total += skill.getRanks();
 		}

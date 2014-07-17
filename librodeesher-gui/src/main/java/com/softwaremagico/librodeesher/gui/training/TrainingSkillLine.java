@@ -20,6 +20,7 @@ import com.softwaremagico.librodeesher.gui.elements.ListLabel;
 import com.softwaremagico.librodeesher.gui.style.BaseLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.training.TrainingCategory;
+import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 import com.softwaremagico.librodeesher.pj.training.TrainingSkill;
 
 /*
@@ -126,8 +127,8 @@ public class TrainingSkillLine extends BaseLine {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character
-					character.getTrainingDecision(parentPanel.getTraining().getName()).addSkillRank(
-							trainingCategory, trainingSkill, (Integer) rankSpinner.getValue());
+					character.getTrainingDecision(parentPanel.getTraining().getName()).addSkillRank(TrainingFactory.getTraining(parentPanel.getTraining().getName()).getTrainingCategoryIndex(
+							trainingCategory), trainingSkill, (Integer) rankSpinner.getValue());
 				}
 			}
 		});

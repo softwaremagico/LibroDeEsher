@@ -31,13 +31,9 @@ import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -45,14 +41,11 @@ import javax.persistence.Table;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_PROFESSION_DECISIONS")
-public class ProfessionDecisions {
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "ID", unique = true, nullable = false)
-	private Long professionDecisionsId; // database id.
+public class ProfessionDecisions extends StorableObject {
 	// Category -> cost
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@CollectionTable(name = "T_PROFESSION_WEAPON_COST_CHOSEN")
@@ -116,14 +109,6 @@ public class ProfessionDecisions {
 		return professionalSkillsChosen.contains(skill.getName());
 	}
 
-	protected Long getProfessionDecisionsId() {
-		return professionDecisionsId;
-	}
-
-	protected void setProfessionDecisionsId(Long professionDecisionsId) {
-		this.professionDecisionsId = professionDecisionsId;
-	}
-
 	public Map<String, CategoryCost> getWeaponsCost() {
 		return weaponsCost;
 	}
@@ -152,7 +137,8 @@ public class ProfessionDecisions {
 		return professionalSkillsChosen;
 	}
 
-	public void setProfessionalSkillsChosen(List<String> professionalSkillsChosen) {
+	public void setProfessionalSkillsChosen(
+			List<String> professionalSkillsChosen) {
 		this.professionalSkillsChosen = professionalSkillsChosen;
 	}
 }

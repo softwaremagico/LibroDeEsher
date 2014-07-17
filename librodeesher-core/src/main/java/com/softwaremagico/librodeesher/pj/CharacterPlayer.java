@@ -36,9 +36,9 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -98,10 +98,8 @@ public class CharacterPlayer extends StorableObject {
 	@CollectionTable(name = "T_CHARACTERPLAYER_POTENTIAL_VALUES")
 	private Map<String, Integer> characteristicsPotentialValues;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@CollectionTable(name = "T_CHARACTERPLAYER_TEMPORAL_CHARACTERISTICS_ROLLS")
-	@JoinColumn(name = "rollGroupId")
-	@MapKey(name = "characteristicAbbreviature")
 	private Map<String, RollGroup> characteristicsTemporalUpdatesRolls;
 	private boolean characteristicsConfirmed = false;
 
@@ -113,14 +111,14 @@ public class CharacterPlayer extends StorableObject {
 	@Transient
 	private transient Culture culture;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "cultureDecisionsId")
 	private CultureDecisions cultureDecisions;
 
 	private String professionName;
 	@Transient
 	private transient Profession profession;
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "professionDecisionsId")
 	private ProfessionDecisions professionDecisions;
 
@@ -129,26 +127,25 @@ public class CharacterPlayer extends StorableObject {
 	private List<String> trainingsNames;
 	@Transient
 	private transient List<Training> trainings;
-	//@ElementCollection
-	//@CollectionTable(name = "T_CHARACTERPLAYER_TRAINING_DECISIONS")
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@CollectionTable(name = "T_CHARACTERPLAYER_TRAINING_DECISIONS")
 	private Map<String, TrainingDecision> trainingDecisions;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "professionalRealmId")
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
 
 	@Transient
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "magicSpellListId")
 	private MagicSpellLists magicSpellLists;
 
 	@Transient
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "historialId")
 	private Historial historial;
 
-	@ElementCollection
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@CollectionTable(name = "T_CHARACTERPLAYER_PERKS")
 	private List<Perk> perks;
 
@@ -164,9 +161,9 @@ public class CharacterPlayer extends StorableObject {
 	private boolean chiPowersAllowed = false;
 	private boolean otherRealmtrainingSpellsAllowed = false;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@CollectionTable(name = "T_CHARACTERPLAYER_LEVEL_UP")
-	@JoinColumn(name = "id")
+	@OrderColumn(name = "level_index")
 	private List<LevelUp> levelUps;
 
 	public CharacterPlayer() {
@@ -191,13 +188,13 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getAppearance() {
-		return appearance.getTotal(getCharacteristicPotentialValue("Pr")) + getRace().getApperanceBonus()
-				+ getPerkApperanceBonus();
+		return appearance.getTotal(getCharacteristicPotentialValue("Pr"))
+				+ getRace().getApperanceBonus() + getPerkApperanceBonus();
 	}
 
 	/**
-	 * Default config is stored in a file and changed with the options windows. When a new character is created, it uses
-	 * this default config options.
+	 * Default config is stored in a file and changed with the options windows.
+	 * When a new character is created, it uses this default config options.
 	 */
 	private void setDefaultConfig() {
 		darkSpellsAsBasicListsAllowed = Config.getDarkSpellsAsBasic();
@@ -231,7 +228,8 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public boolean isPureWizard() {
-		return (getNewRankCost(CategoryFactory.getCategory(Spanish.BASIC_LIST_TAG), 0, 0) == 3);
+		return (getNewRankCost(
+				CategoryFactory.getCategory(Spanish.BASIC_LIST_TAG), 0, 0) == 3);
 	}
 
 	/**
@@ -240,7 +238,8 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public boolean isHybridWizard() {
-		return (getNewRankCost(CategoryFactory.getCategory(Spanish.BASIC_LIST_TAG), 0, 0) == 3 && getRealmOfMagic()
+		return (getNewRankCost(
+				CategoryFactory.getCategory(Spanish.BASIC_LIST_TAG), 0, 0) == 3 && getRealmOfMagic()
 				.getRealmsOfMagic().size() == 2);
 	}
 
@@ -250,7 +249,8 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public boolean isSemiWizard() {
-		return (getNewRankCost(CategoryFactory.getCategory(Spanish.BASIC_LIST_TAG), 0, 0) == 6);
+		return (getNewRankCost(
+				CategoryFactory.getCategory(Spanish.BASIC_LIST_TAG), 0, 0) == 6);
 	}
 
 	public CultureDecisions getCultureDecisions() {
@@ -286,19 +286,25 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getCharacteristicTemporalBonus(String abbreviature) {
-		return Characteristics.getTemporalBonus(getCharacteristicTemporalValue(abbreviature));
+		return Characteristics
+				.getTemporalBonus(getCharacteristicTemporalValue(abbreviature));
 	}
 
 	private Integer getTemporalModifications(String abbreviature) {
-		Integer temporalValue = characteristicsInitialTemporalValues.get(abbreviature);
+		Integer temporalValue = characteristicsInitialTemporalValues
+				.get(abbreviature);
 		for (TrainingDecision training : getTrainingDecisions().values()) {
-			for (CharacteristicRoll roll : training.getCharacteristicsUpdates(abbreviature)) {
-				temporalValue += Characteristic.getCharacteristicUpgrade(roll.getCharacteristicTemporalValue(),
+			for (CharacteristicRoll roll : training
+					.getCharacteristicsUpdates(abbreviature)) {
+				temporalValue += Characteristic.getCharacteristicUpgrade(
+						roll.getCharacteristicTemporalValue(),
 						roll.getCharacteristicPotentialValue(), roll.getRoll());
 			}
 		}
-		for (CharacteristicRoll roll : historial.getCharacteristicsUpdates(abbreviature)) {
-			temporalValue += Characteristic.getCharacteristicUpgrade(roll.getCharacteristicTemporalValue(),
+		for (CharacteristicRoll roll : historial
+				.getCharacteristicsUpdates(abbreviature)) {
+			temporalValue += Characteristic.getCharacteristicUpgrade(
+					roll.getCharacteristicTemporalValue(),
 					roll.getCharacteristicPotentialValue(), roll.getRoll());
 		}
 		return temporalValue;
@@ -309,7 +315,8 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * Temporal value of the characteristic when starting the creation of the character.
+	 * Temporal value of the characteristic when starting the creation of the
+	 * character.
 	 * 
 	 * @param abbreviature
 	 * @return
@@ -345,7 +352,8 @@ public class CharacterPlayer extends StorableObject {
 		if (abbreviature.toLowerCase().contains("*")) {
 			return getBonusCharacteristicOfRealmOfMagic();
 		}
-		return getCharacteristicTemporalBonus(abbreviature) + getCharacteristicRaceBonus(abbreviature)
+		return getCharacteristicTemporalBonus(abbreviature)
+				+ getCharacteristicRaceBonus(abbreviature)
 				+ getCharacteristicSpecialBonus(abbreviature);
 	}
 
@@ -428,12 +436,15 @@ public class CharacterPlayer extends StorableObject {
 
 	private Integer getSpentDevelopmentPointsInCategoryRanks(Integer level) {
 		Integer total = 0;
-		List<String> categoriesWithRanks = levelUps.get(level).getCategoriesWithRanks();
+		List<String> categoriesWithRanks = levelUps.get(level)
+				.getCategoriesWithRanks();
 		for (String categoryName : categoriesWithRanks) {
 			Category category = CategoryFactory.getCategory(categoryName);
-			Integer ranksUpdatedInLevel = levelUps.get(level).getCategoryRanks(categoryName);
+			Integer ranksUpdatedInLevel = levelUps.get(level).getCategoryRanks(
+					categoryName);
 			for (int i = 0; i < ranksUpdatedInLevel; i++) {
-				total += getNewRankCost(category, getPreviousRanks(category) + i, i);
+				total += getNewRankCost(category, getPreviousRanks(category)
+						+ i, i);
 			}
 		}
 		return total;
@@ -470,7 +481,8 @@ public class CharacterPlayer extends StorableObject {
 		List<String> skillsWithRanks = levelUps.get(level).getSkillsWithRanks();
 		for (String skillName : skillsWithRanks) {
 			Skill skill = SkillFactory.getAvailableSkill(skillName);
-			Integer ranksUpdatedInLevel = levelUps.get(level).getSkillsRanks(skillName);
+			Integer ranksUpdatedInLevel = levelUps.get(level).getSkillsRanks(
+					skillName);
 			for (int i = 0; i < ranksUpdatedInLevel; i++) {
 				total += getNewRankCost(skill, getPreviousRanks(skill) + i, i);
 			}
@@ -501,24 +513,30 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getCharacteristicsTemporalPointsSpent(String abbreviature) {
-		return Characteristic.getTemporalCost(getCharacteristicInitialTemporalValue(abbreviature));
+		return Characteristic
+				.getTemporalCost(getCharacteristicInitialTemporalValue(abbreviature));
 	}
 
 	public Integer getCharacteristicsTemporalPointsSpent() {
 		Integer total = 0;
-		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
-			total += getCharacteristicsTemporalPointsSpent(characteristic.getAbbreviature());
+		for (Characteristic characteristic : Characteristics
+				.getCharacteristics()) {
+			total += getCharacteristicsTemporalPointsSpent(characteristic
+					.getAbbreviature());
 		}
 		return total;
 	}
 
-	public boolean isMainProfessionalCharacteristic(Characteristic characteristic) {
+	public boolean isMainProfessionalCharacteristic(
+			Characteristic characteristic) {
 		return getProfession().isCharacteristicProfessional(characteristic);
 	}
 
 	public boolean isMainProfessionalCharacteristic(String abbreviature) {
-		return getProfession().isCharacteristicProfessional(
-				Characteristics.getCharacteristicFromAbbreviature(abbreviature));
+		return getProfession()
+				.isCharacteristicProfessional(
+						Characteristics
+								.getCharacteristicFromAbbreviature(abbreviature));
 	}
 
 	public void setCharacteristicsAsConfirmed() {
@@ -528,21 +546,26 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	private void setCharacteristicsTemporalUpdatesRolls() {
-		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
-			if (characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()) == null) {
-				characteristicsTemporalUpdatesRolls.put(characteristic.getAbbreviature(),
+		for (Characteristic characteristic : Characteristics
+				.getCharacteristics()) {
+			if (characteristicsTemporalUpdatesRolls.get(characteristic
+					.getAbbreviature()) == null) {
+				characteristicsTemporalUpdatesRolls.put(characteristic
+						.getAbbreviature(),
 						new RollGroup(characteristic.getAbbreviature()));
 			}
 		}
 	}
 
 	private Roll getStoredCharacteristicRoll(String abbreviature) {
-		Roll roll = characteristicsTemporalUpdatesRolls.get(abbreviature).getFirst();
+		Roll roll = characteristicsTemporalUpdatesRolls.get(abbreviature)
+				.getFirst();
 		setCharacteristicsTemporalUpdatesRolls();
 		return roll;
 	}
 
-	public void setCharacteristicTemporalValues(String abbreviature, Integer value) {
+	public void setCharacteristicTemporalValues(String abbreviature,
+			Integer value) {
 		characteristicsInitialTemporalValues.put(abbreviature, value);
 	}
 
@@ -557,15 +580,19 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	private void setPotentialValues() {
-		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
-			Integer potential = Characteristics.getPotencial(characteristicsInitialTemporalValues.get(characteristic
-					.getAbbreviature()));
-			characteristicsPotentialValues.put(characteristic.getAbbreviature(), potential);
+		for (Characteristic characteristic : Characteristics
+				.getCharacteristics()) {
+			Integer potential = Characteristics
+					.getPotencial(characteristicsInitialTemporalValues
+							.get(characteristic.getAbbreviature()));
+			characteristicsPotentialValues.put(
+					characteristic.getAbbreviature(), potential);
 		}
 	}
 
 	public void setProfession(String professionName) {
-		if (this.professionName == null || !this.professionName.equals(professionName)) {
+		if (this.professionName == null
+				|| !this.professionName.equals(professionName)) {
 			this.professionName = professionName;
 			setTemporalValuesOfCharacteristics();
 			magicSpellLists = new MagicSpellLists();
@@ -585,23 +612,28 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	private void setTemporalValuesOfCharacteristics() {
-		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
-			characteristicsInitialTemporalValues.put(characteristic.getAbbreviature(),
+		for (Characteristic characteristic : Characteristics
+				.getCharacteristics()) {
+			characteristicsInitialTemporalValues.put(
+					characteristic.getAbbreviature(),
 					Characteristics.INITIAL_CHARACTERISTIC_VALUE);
 		}
 		setCharacteristicsTemporalUpdatesRolls();
 	}
 
 	public Integer getLanguageInitialRanks(String language) {
-		return Math.max(getCulture().getLanguageMaxRanks(language), getRace().getLanguageInitialRanks(language));
+		return Math.max(getCulture().getLanguageMaxRanks(language), getRace()
+				.getLanguageInitialRanks(language));
 	}
 
 	public Integer getLanguageMaxInitialRanks(String language) {
-		return Math.max(getCulture().getLanguageMaxRanks(language), getRace().getLanguageMaxRanks(language));
+		return Math.max(getCulture().getLanguageMaxRanks(language), getRace()
+				.getLanguageMaxRanks(language));
 	}
 
 	public Integer getLanguageRanks(String language) {
-		return Math.max(getLanguageInitialRanks(language), cultureDecisions.getLanguageRanks(language));
+		return Math.max(getLanguageInitialRanks(language),
+				cultureDecisions.getLanguageRanks(language));
 	}
 
 	public Integer getCurrentLevelRanks(Category category) {
@@ -675,7 +707,8 @@ public class CharacterPlayer extends StorableObject {
 		total += getCultureDecisions().getHobbyRanks(skill.getName());
 		total += getPerksRanks(skill);
 		total += getPreviousLevelsRanks(skill);
-		if (skill.getCategory().getName().toLowerCase().equals(Spanish.COMUNICATION_CATEGORY)) {
+		if (skill.getCategory().getName().toLowerCase()
+				.equals(Spanish.COMUNICATION_CATEGORY)) {
 			total += getLanguageRanks(skill.getName());
 		}
 		return total;
@@ -726,7 +759,8 @@ public class CharacterPlayer extends StorableObject {
 
 	public Integer getCharacteristicsBonus(Category category) {
 		Integer total = 0;
-		List<String> characteristicsAbbreviature = category.getCharacteristics();
+		List<String> characteristicsAbbreviature = category
+				.getCharacteristics();
 		for (String characteristic : characteristicsAbbreviature) {
 			total += getCharacteristicTotalBonus(characteristic);
 		}
@@ -734,12 +768,14 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getBonus(Category category) {
-		return category.getBonus() + getProfession().getCategoryBonus(category.getName())
+		return category.getBonus()
+				+ getProfession().getCategoryBonus(category.getName())
 				+ historial.getBonus(category) + getPerkBonus(category);
 	}
 
 	public Integer getBonus(Skill skill) {
-		return getProfession().getSkillBonus(skill.getName()) + historial.getBonus(skill) + getPerkBonus(skill);
+		return getProfession().getSkillBonus(skill.getName())
+				+ historial.getBonus(skill) + getPerkBonus(skill);
 	}
 
 	public Integer getPerkApperanceBonus() {
@@ -787,18 +823,21 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getTotalValue(Category category) {
-		return getRanksValue(category) + getBonus(category) + getCharacteristicsBonus(category);
+		return getRanksValue(category) + getBonus(category)
+				+ getCharacteristicsBonus(category);
 	}
 
 	public Integer getTotalValue(Skill skill) {
-		return getRanksValue(skill) + getBonus(skill) + getTotalValue(skill.getCategory());
+		return getRanksValue(skill) + getBonus(skill)
+				+ getTotalValue(skill.getCategory());
 	}
 
 	public Integer getMaxRanksPerCulture(Category category) {
 		try {
 			// Weapons cost are not still defined.
 			if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
-				return getProfession().getWeaponCategoryCost().get(0).getMaxRanksPerLevel();
+				return getProfession().getWeaponCategoryCost().get(0)
+						.getMaxRanksPerLevel();
 			}
 			return getCategoryCost(category, 0).getMaxRanksPerLevel();
 		} catch (NullPointerException npe) {
@@ -807,14 +846,16 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * In culture, weapon costs are not defined. Therefore, we will use the best value.
+	 * In culture, weapon costs are not defined. Therefore, we will use the best
+	 * value.
 	 * 
 	 * @param category
 	 * @return
 	 */
 	public Integer getCultureStimatedCategoryCost(Category category) {
 		if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
-			return getProfession().getWeaponCategoryCost().get(0).getRankCost(0);
+			return getProfession().getWeaponCategoryCost().get(0)
+					.getRankCost(0);
 		} else {
 			return getCategoryCost(category, 0).getRankCost(0);
 		}
@@ -825,23 +866,28 @@ public class CharacterPlayer extends StorableObject {
 	 * 
 	 * @param category
 	 * @param currentListRanks
-	 *            current ranks spent in this skill. In magic, higher levels are more expensive.
+	 *            current ranks spent in this skill. In magic, higher levels are
+	 *            more expensive.
 	 * @return
 	 */
-	public CategoryCost getCategoryCost(Category category, Integer currentListRanks) {
+	public CategoryCost getCategoryCost(Category category,
+			Integer currentListRanks) {
 		if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
 			return getProfessionDecisions().getWeaponCost(category);
 		} else if (category.getCategoryGroup().equals(CategoryGroup.SPELL)) {
-			return getProfession().getMagicCost(MagicListType.getMagicTypeOfCategory(category.getName()),
+			return getProfession().getMagicCost(
+					MagicListType.getMagicTypeOfCategory(category.getName()),
 					currentListRanks);
 		} else {
 			return getProfession().getCategoryCost(category.getName());
 		}
 	}
 
-	public Integer getMaxRanksPerLevel(Category category, Integer currentListRanks) {
+	public Integer getMaxRanksPerLevel(Category category,
+			Integer currentListRanks) {
 		try {
-			return getCategoryCost(category, currentListRanks).getMaxRanksPerLevel();
+			return getCategoryCost(category, currentListRanks)
+					.getMaxRanksPerLevel();
 		} catch (NullPointerException npe) {
 			return 0;
 		}
@@ -853,13 +899,16 @@ public class CharacterPlayer extends StorableObject {
 	 * @param category
 	 *            category to be updated.
 	 * @param currentRanks
-	 *            Current ranks in category or skill. Must include old levels ranks and previous ranks included in this
-	 *            new level. Only used for spell cost (higher level spells are more expensive).
+	 *            Current ranks in category or skill. Must include old levels
+	 *            ranks and previous ranks included in this new level. Only used
+	 *            for spell cost (higher level spells are more expensive).
 	 * @param rankAdded
-	 *            If it is the first, second or third rank added at this level [0, 1, 2].
+	 *            If it is the first, second or third rank added at this level
+	 *            [0, 1, 2].
 	 * @return
 	 */
-	public Integer getNewRankCost(Category category, Integer currentRanks, Integer rankAdded) {
+	public Integer getNewRankCost(Category category, Integer currentRanks,
+			Integer rankAdded) {
 		// If you have X currentRanks, the cost of the new one will be
 		// currentRanks + 1;
 		CategoryCost cost = getCategoryCost(category, currentRanks);
@@ -877,7 +926,8 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public Integer getNewRankCost(Category category) {
-		return getNewRankCost(category, getTotalRanks(category), getCurrentLevelRanks(category));
+		return getNewRankCost(category, getTotalRanks(category),
+				getCurrentLevelRanks(category));
 	}
 
 	/**
@@ -885,13 +935,16 @@ public class CharacterPlayer extends StorableObject {
 	 * @param skill
 	 *            skill to be updated.
 	 * @param currentRanks
-	 *            Current ranks in category or skill. Must include old levels ranks and previous ranks included in this
-	 *            new level. Only used for spell cost.
+	 *            Current ranks in category or skill. Must include old levels
+	 *            ranks and previous ranks included in this new level. Only used
+	 *            for spell cost.
 	 * @param rankAdded
-	 *            If it is the first, second or third rank added at this level [0, 1, 2].
+	 *            If it is the first, second or third rank added at this level
+	 *            [0, 1, 2].
 	 * @return
 	 */
-	public Integer getNewRankCost(Skill skill, Integer currentRanks, Integer rankAdded) {
+	public Integer getNewRankCost(Skill skill, Integer currentRanks,
+			Integer rankAdded) {
 		// Spell cost is increased if lots of spells are acquired in one level
 		// and also if spells of high level are purchased.
 		if (skill.getCategory().getCategoryGroup().equals(CategoryGroup.SPELL)) {
@@ -910,11 +963,13 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public Integer getNewRankCost(Skill skill) {
-		return getNewRankCost(skill, getRealRanks(skill), getCurrentLevelRanks(skill));
+		return getNewRankCost(skill, getRealRanks(skill),
+				getCurrentLevelRanks(skill));
 	}
 
 	/**
-	 * A category is not used if it has not skills or the cost is more than the selected in the configuration.
+	 * A category is not used if it has not skills or the cost is more than the
+	 * selected in the configuration.
 	 * 
 	 * @param category
 	 * @return
@@ -927,16 +982,19 @@ public class CharacterPlayer extends StorableObject {
 		// Weapons always are useful. We need to define the rank cost.
 		if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
 			// Firearms only if activated
-			if (!firearmsAllowed && category.getName().contains(Spanish.FIREARMS_SUFIX)) {
+			if (!firearmsAllowed
+					&& category.getName().contains(Spanish.FIREARMS_SUFIX)) {
 				return false;
 			}
 			return true;
 		}
 		// Expensive categories are useless.
-		if (getNewRankCost(category, 0, getTotalRanks(category)) > Config.getCategoryMaxCost()) {
+		if (getNewRankCost(category, 0, getTotalRanks(category)) > Config
+				.getCategoryMaxCost()) {
 			return false;
 		}
-		if (category.getName().equals(Spanish.OTHER_REALM_TRAINING_LISTS) && !isOtherRealmtrainingSpellsAllowed()) {
+		if (category.getName().equals(Spanish.OTHER_REALM_TRAINING_LISTS)
+				&& !isOtherRealmtrainingSpellsAllowed()) {
 			return false;
 		}
 		return true;
@@ -949,10 +1007,12 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public boolean isSkillUseful(Skill skill) {
-		if (skill.getSkillGroup().equals(SkillGroup.CHI) && !isChiPowersAllowed()) {
+		if (skill.getSkillGroup().equals(SkillGroup.CHI)
+				&& !isChiPowersAllowed()) {
 			return false;
 		}
-		if (skill.getSkillGroup().equals(SkillGroup.FIREARM) && !isFirearmsAllowed()) {
+		if (skill.getSkillGroup().equals(SkillGroup.FIREARM)
+				&& !isFirearmsAllowed()) {
 			return false;
 		}
 		return true;
@@ -1013,7 +1073,8 @@ public class CharacterPlayer extends StorableObject {
 		return otherRealmtrainingSpellsAllowed;
 	}
 
-	public void setOtherRealmtrainingSpellsAllowed(boolean otherRealmtrainingSpells) {
+	public void setOtherRealmtrainingSpellsAllowed(
+			boolean otherRealmtrainingSpells) {
 		this.otherRealmtrainingSpellsAllowed = otherRealmtrainingSpells;
 	}
 
@@ -1025,7 +1086,8 @@ public class CharacterPlayer extends StorableObject {
 			}
 		}
 		// Last cost for any extra categories.
-		return getProfession().getWeaponCategoryCost().get(getProfession().getWeaponCategoryCost().size() - 1);
+		return getProfession().getWeaponCategoryCost().get(
+				getProfession().getWeaponCategoryCost().size() - 1);
 	}
 
 	public void setHistoryPoints(Skill skill, boolean value) {
@@ -1045,20 +1107,27 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getRemainingHistorialPoints() {
-		return getRace().getHistorialPoints() - historial.getSpentHistoryPoints();
+		return getRace().getHistorialPoints()
+				- historial.getSpentHistoryPoints();
 	}
 
-	public CharacteristicRoll setCharacteristicHistorialUpdate(String abbreviature) {
+	public CharacteristicRoll setCharacteristicHistorialUpdate(
+			String abbreviature) {
 		Roll roll = getStoredCharacteristicRoll(abbreviature);
-		CharacteristicRoll characteristicRoll = historial.addCharactersiticUpdate(abbreviature,
-				getCharacteristicTemporalValue(abbreviature), getCharacteristicPotentialValue(abbreviature), roll);
+		CharacteristicRoll characteristicRoll = historial
+				.addCharactersiticUpdate(abbreviature,
+						getCharacteristicTemporalValue(abbreviature),
+						getCharacteristicPotentialValue(abbreviature), roll);
 		return characteristicRoll;
 	}
 
-	public CharacteristicRoll getNewCharacteristicTrainingUpdate(String abbreviature, String trainingName) {
+	public CharacteristicRoll getNewCharacteristicTrainingUpdate(
+			String abbreviature, String trainingName) {
 		Roll roll = getStoredCharacteristicRoll(abbreviature);
-		CharacteristicRoll characteristicRoll = getTrainingDecision(trainingName).addCharactersiticUpdate(abbreviature,
-				getCharacteristicTemporalValue(abbreviature), getCharacteristicPotentialValue(abbreviature), roll);
+		CharacteristicRoll characteristicRoll = getTrainingDecision(
+				trainingName).addCharactersiticUpdate(abbreviature,
+				getCharacteristicTemporalValue(abbreviature),
+				getCharacteristicPotentialValue(abbreviature), roll);
 		return characteristicRoll;
 	}
 
@@ -1117,19 +1186,24 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public boolean isProfessional(Skill skill) {
-		return skill.getSkillType().equals(SkillType.PROFESSIONAL) || getProfession().isProfessional(skill)
+		return skill.getSkillType().equals(SkillType.PROFESSIONAL)
+				|| getProfession().isProfessional(skill)
 				|| professionDecisions.isProfessional(skill);
 	}
 
 	public boolean isRestricted(Skill skill) {
-		return skill.getSkillType().equals(SkillType.RESTRICTED) || isRestrictedByPerk(skill)
-				|| getProfession().isRestricted(skill) || professionDecisions.isRestricted(skill)
+		return skill.getSkillType().equals(SkillType.RESTRICTED)
+				|| isRestrictedByPerk(skill)
+				|| getProfession().isRestricted(skill)
+				|| professionDecisions.isRestricted(skill)
 				|| getRace().isRestricted(skill);
 	}
 
 	public boolean isCommon(Skill skill) {
-		return skill.getSkillType().equals(SkillType.COMMON) || isCommonByPerk(skill)
-				|| getProfession().isCommon(skill) || professionDecisions.isCommon(skill) || getRace().isCommon(skill);
+		return skill.getSkillType().equals(SkillType.COMMON)
+				|| isCommonByPerk(skill) || getProfession().isCommon(skill)
+				|| professionDecisions.isCommon(skill)
+				|| getRace().isCommon(skill);
 	}
 
 	private boolean isCommonByPerk(Skill skill) {
@@ -1156,16 +1230,20 @@ public class CharacterPlayer extends StorableObject {
 		return false;
 	}
 
-	public void setCommonSkillsChoseFromProfession(List<String> commonSkillsChose) {
+	public void setCommonSkillsChoseFromProfession(
+			List<String> commonSkillsChose) {
 		professionDecisions.setCommonSkillsChosen(commonSkillsChose);
 	}
 
-	public void setRestrictedSkillsChoseFromProfession(List<String> restrictedSkillsChose) {
+	public void setRestrictedSkillsChoseFromProfession(
+			List<String> restrictedSkillsChose) {
 		professionDecisions.setRestrictedSkillsChosen(restrictedSkillsChose);
 	}
 
-	public void setProfessionalSkillsChoseFromProfession(List<String> professionalSkillsChose) {
-		professionDecisions.setProfessionalSkillsChosen(professionalSkillsChose);
+	public void setProfessionalSkillsChoseFromProfession(
+			List<String> professionalSkillsChose) {
+		professionDecisions
+				.setProfessionalSkillsChosen(professionalSkillsChose);
 	}
 
 	public List<String> getAvailableTrainings() {
@@ -1173,8 +1251,10 @@ public class CharacterPlayer extends StorableObject {
 		List<String> selectedTrainings = getSelectedTrainings();
 		for (String trainingName : TrainingFactory.getAvailableTrainings()) {
 			// Correct race of training.
-			if (TrainingFactory.getTraining(trainingName).getLimitedRaces().size() > 0) {
-				if (!TrainingFactory.getTraining(trainingName).getLimitedRaces().contains(getRace().getName())) {
+			if (TrainingFactory.getTraining(trainingName).getLimitedRaces()
+					.size() > 0) {
+				if (!TrainingFactory.getTraining(trainingName)
+						.getLimitedRaces().contains(getRace().getName())) {
 					continue;
 				}
 			}
@@ -1200,24 +1280,32 @@ public class CharacterPlayer extends StorableObject {
 		return selectedTrainings;
 	}
 
-	private Integer getTrainingSkillCostReduction(List<Skill> skills, Training training) {
+	private Integer getTrainingSkillCostReduction(List<Skill> skills,
+			Training training) {
 		Integer costModification = 0;
 		for (Skill skill : skills) {
-			if (getRealRanks(skill) >= training.getSkillRequirements().get(skill.getName())) {
-				costModification += training.getSkillRequirementsCostModification().get(skill.getName());
+			if (getRealRanks(skill) >= training.getSkillRequirements().get(
+					skill.getName())) {
+				costModification += training
+						.getSkillRequirementsCostModification().get(
+								skill.getName());
 			}
 		}
 		return costModification;
 	}
 
-	private Integer getTrainingCharacteristicCostReduction(List<Characteristic> characteristics, Training training) {
+	private Integer getTrainingCharacteristicCostReduction(
+			List<Characteristic> characteristics, Training training) {
 		Integer costModification = 0;
 		for (Characteristic characteristic : characteristics) {
 			try {
-				if (getCharacteristicTemporalValue(characteristic.getAbbreviature()) >= training
-						.getCharacteristicRequirements().get(characteristic.getAbbreviature())) {
-					costModification += training.getCharacteristicRequirementsCostModification().get(
-							characteristic.getAbbreviature());
+				if (getCharacteristicTemporalValue(characteristic
+						.getAbbreviature()) >= training
+						.getCharacteristicRequirements().get(
+								characteristic.getAbbreviature())) {
+					costModification += training
+							.getCharacteristicRequirementsCostModification()
+							.get(characteristic.getAbbreviature());
 				}
 			} catch (NullPointerException npe) {
 				// Is not a requirement. Do nothing.
@@ -1229,8 +1317,11 @@ public class CharacterPlayer extends StorableObject {
 	public Integer getTrainingCost(String trainingName) {
 		Integer baseCost = getProfession().getTrainingCost(trainingName);
 		Training training = TrainingFactory.getTraining(trainingName);
-		baseCost += getTrainingSkillCostReduction(SkillFactory.getSkills(training.getSkillRequirementsList()), training);
-		baseCost += getTrainingCharacteristicCostReduction(Characteristics.getCharacteristics(), training);
+		baseCost += getTrainingSkillCostReduction(
+				SkillFactory.getSkills(training.getSkillRequirementsList()),
+				training);
+		baseCost += getTrainingCharacteristicCostReduction(
+				Characteristics.getCharacteristics(), training);
 		return baseCost;
 	}
 
@@ -1241,16 +1332,22 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * The user must to choose one category from a training if the training has this option and it has not been chosen
-	 * before.
+	 * The user must to choose one category from a training if the training has
+	 * this option and it has not been chosen before.
 	 * 
 	 * @param trainingName
 	 * @return
 	 */
-	public boolean needToChooseOneCategory(Training training, TrainingCategory trainingCategory) {
+	public boolean needToChooseOneCategory(Training training,
+			TrainingCategory trainingCategory) {
 		if (trainingCategory.needToChooseOneCategory()) {
-			TrainingDecision trainingDecision = trainingDecisions.get(training.getName());
-			if (trainingDecision == null || trainingDecision.getSelectedCategory(trainingCategory).isEmpty()) {
+			TrainingDecision trainingDecision = trainingDecisions.get(training
+					.getName());
+			if (trainingDecision == null
+					|| trainingDecision
+							.getSelectedCategory(
+									training.getTrainingCategoryIndex(trainingCategory))
+							.isEmpty()) {
 				return true;
 			} else {
 				return false;
@@ -1295,7 +1392,8 @@ public class CharacterPlayer extends StorableObject {
 		return characteristicsInitialTemporalValues;
 	}
 
-	public void setCharacteristicsInitialTemporalValues(Map<String, Integer> characteristicsInitialTemporalValues) {
+	public void setCharacteristicsInitialTemporalValues(
+			Map<String, Integer> characteristicsInitialTemporalValues) {
 		this.characteristicsInitialTemporalValues = characteristicsInitialTemporalValues;
 	}
 
@@ -1303,7 +1401,8 @@ public class CharacterPlayer extends StorableObject {
 		return characteristicsPotentialValues;
 	}
 
-	public void setCharacteristicsPotentialValues(Map<String, Integer> characteristicsPotentialValues) {
+	public void setCharacteristicsPotentialValues(
+			Map<String, Integer> characteristicsPotentialValues) {
 		this.characteristicsPotentialValues = characteristicsPotentialValues;
 	}
 
@@ -1311,7 +1410,8 @@ public class CharacterPlayer extends StorableObject {
 		return characteristicsTemporalUpdatesRolls;
 	}
 
-	public void setCharacteristicsTemporalUpdatesRolls(Map<String, RollGroup> characteristicsTemporalUpdatesRolls) {
+	public void setCharacteristicsTemporalUpdatesRolls(
+			Map<String, RollGroup> characteristicsTemporalUpdatesRolls) {
 		this.characteristicsTemporalUpdatesRolls = characteristicsTemporalUpdatesRolls;
 	}
 
@@ -1346,11 +1446,12 @@ public class CharacterPlayer extends StorableObject {
 		return trainingDecisions.get(trainingName);
 	}
 
-	protected Map<String, TrainingDecision> getTrainingDecisions() {
+	public Map<String, TrainingDecision> getTrainingDecisions() {
 		return trainingDecisions;
 	}
 
-	protected void setTrainingDecisions(Map<String, TrainingDecision> trainingDecisions) {
+	protected void setTrainingDecisions(
+			Map<String, TrainingDecision> trainingDecisions) {
 		this.trainingDecisions = trainingDecisions;
 	}
 
@@ -1362,7 +1463,7 @@ public class CharacterPlayer extends StorableObject {
 		this.historial = historial;
 	}
 
-	protected List<Perk> getPerks() {
+	public List<Perk> getPerks() {
 		return perks;
 	}
 
@@ -1394,7 +1495,8 @@ public class CharacterPlayer extends StorableObject {
 		this.cultureDecisions = cultureDecisions;
 	}
 
-	protected void setProfessionDecisions(ProfessionDecisions professionDecisions) {
+	protected void setProfessionDecisions(
+			ProfessionDecisions professionDecisions) {
 		this.professionDecisions = professionDecisions;
 	}
 
@@ -1408,7 +1510,8 @@ public class CharacterPlayer extends StorableObject {
 
 	public boolean hasCommonOrProfessionalSkill(Category category) {
 		for (Skill skill : category.getSkills()) {
-			if ((isCommon(skill) || isProfessional(skill)) && !isRestricted(skill)) {
+			if ((isCommon(skill) || isProfessional(skill))
+					&& !isRestricted(skill)) {
 				return true;
 			}
 		}
@@ -1436,7 +1539,8 @@ public class CharacterPlayer extends StorableObject {
 
 	public void addSkillSpecialization(Skill skill, String specialization) {
 
-		if (!getSkillSpecializations(skill).contains(specialization) && !isSkillGeneralized(skill)) {
+		if (!getSkillSpecializations(skill).contains(specialization)
+				&& !isSkillGeneralized(skill)) {
 			getCurrentLevel().addSkillSpecialization(specialization);
 		}
 	}
@@ -1489,9 +1593,11 @@ public class CharacterPlayer extends StorableObject {
 		}
 	}
 
-	public int getSkillsWithRanks(String trainingName, TrainingCategory trainingCategory) {
+	public int getSkillsWithRanks(String trainingName,
+			TrainingCategory trainingCategory) {
 		TrainingDecision trainingDecision = getTrainingDecision(trainingName);
-		Map<TrainingSkill, Integer> skillRanks = trainingDecision.getSkillRanks(trainingCategory);
+		Map<TrainingSkill, Integer> skillRanks = trainingDecision
+				.getSkillRanks(trainingCategory);
 		int result = 0;
 		for (TrainingSkill skill : skillRanks.keySet()) {
 			if (skillRanks.get(skill) != null && skillRanks.get(skill) > 0) {
@@ -1501,9 +1607,11 @@ public class CharacterPlayer extends StorableObject {
 		return result;
 	}
 
-	public int getSkillsRanks(String trainingName, TrainingCategory trainingCategory) {
+	public int getSkillsRanks(String trainingName,
+			TrainingCategory trainingCategory) {
 		TrainingDecision trainingDecision = getTrainingDecision(trainingName);
-		Map<TrainingSkill, Integer> skillRanks = trainingDecision.getSkillRanks(trainingCategory);
+		Map<TrainingSkill, Integer> skillRanks = trainingDecision
+				.getSkillRanks(trainingCategory);
 		int result = 0;
 		for (TrainingSkill skill : skillRanks.keySet()) {
 			if (skillRanks.get(skill) != null && skillRanks.get(skill) > 0) {
@@ -1511,6 +1619,14 @@ public class CharacterPlayer extends StorableObject {
 			}
 		}
 		return result;
+	}
+
+	public Map<String, Integer> getCharacteristicInitialTemporalValue() {
+		return characteristicsInitialTemporalValues;
+	}
+	
+	public Map<String, Integer> getCharacteristicPotencialValue() {
+		return characteristicsPotentialValues;
 	}
 
 }

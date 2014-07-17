@@ -5,9 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
@@ -21,23 +22,26 @@ import com.softwaremagico.persistence.StorableObject;
 @Table(name = "T_TRAINING_DECISION")
 public class TrainingDecision extends StorableObject {
 
-	@ElementCollection
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@CollectionTable(name = "T_TRAINING_DECISION_CATEGORY_SELECTED")
-	// To solve org.hibernate.loader.MultipleBagFetchException: cannot
+	// For avoiding error org.hibernate.loader.MultipleBagFetchException: cannot
 	// simultaneously fetch multiple bags
+	// (http://stackoverflow.com/questions/4334970/hibernate-cannot-simultaneously-fetch-multiple-bags)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private Map<TrainingCategory, TrainingCategoriesSelected> categoriesSelected;
-	@ElementCollection
+	//TrainingCategoryIndex -> TrainingCategoriesSelected
+	private Map<Integer, TrainingCategoriesSelected> categoriesSelected;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(name = "T_TRAINING_DECISION_SKILLS_SELECTED")
+	//TrainingCategoryIndex -> TrainingSkillsSelected
+	private Map<Integer, TrainingSkillsSelected> skillsSelected;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private Map<TrainingCategory, TrainingSkillsSelected> skillsSelected;
-	@ElementCollection
 	@CollectionTable(name = "T_TRAINING_CHARACTERISTICS_UPDATES")
-	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<CharacteristicRoll> characteristicsUpdates;
-	@ElementCollection
-	@CollectionTable(name = "T_TRAINING_OBJECTS")
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
+	@CollectionTable(name = "T_TRAINING_OBJECTS")
 	private List<TrainingObject> equipment;
 
 	public TrainingDecision() {
@@ -47,7 +51,7 @@ public class TrainingDecision extends StorableObject {
 		equipment = new ArrayList<>();
 	}
 
-	public void addSelectedCategory(TrainingCategory trainingCategory,
+	public void addSelectedCategory(Integer trainingCategory,
 			String categoryName) {
 		TrainingCategoriesSelected categories = categoriesSelected
 				.get(trainingCategory);
@@ -58,7 +62,7 @@ public class TrainingDecision extends StorableObject {
 		categoriesSelected.put(trainingCategory, categories);
 	}
 
-	public List<String> getSelectedCategory(TrainingCategory trainingCategory) {
+	public List<String> getSelectedCategory(Integer trainingCategory) {
 		TrainingCategoriesSelected categories = categoriesSelected
 				.get(trainingCategory);
 		if (categories == null) {
@@ -67,7 +71,7 @@ public class TrainingDecision extends StorableObject {
 		return categories.getAll();
 	}
 
-	public void addSkillRank(TrainingCategory trainingCategory,
+	public void addSkillRank(Integer trainingCategory,
 			TrainingSkill skill, int ranks) {
 		if (skillsSelected.get(trainingCategory) == null) {
 			skillsSelected.put(trainingCategory, new TrainingSkillsSelected());
@@ -75,16 +79,16 @@ public class TrainingDecision extends StorableObject {
 		skillsSelected.get(trainingCategory).put(skill, ranks);
 	}
 
-	protected Map<TrainingCategory, TrainingCategoriesSelected> getCategoriesSelected() {
+	protected Map<Integer, TrainingCategoriesSelected> getCategoriesSelected() {
 		return categoriesSelected;
 	}
 
 	protected void setCategoriesSelected(
-			Map<TrainingCategory, TrainingCategoriesSelected> categoriesSelected) {
+			Map<Integer, TrainingCategoriesSelected> categoriesSelected) {
 		this.categoriesSelected = categoriesSelected;
 	}
 
-	protected Map<TrainingCategory, TrainingSkillsSelected> getSkillsSelected() {
+	protected Map<Integer, TrainingSkillsSelected> getSkillsSelected() {
 		return skillsSelected;
 	}
 
@@ -115,7 +119,7 @@ public class TrainingDecision extends StorableObject {
 	}
 
 	protected void setSkillsSelected(
-			Map<TrainingCategory, TrainingSkillsSelected> skillsSelected) {
+			Map<Integer, TrainingSkillsSelected> skillsSelected) {
 		this.skillsSelected = skillsSelected;
 	}
 

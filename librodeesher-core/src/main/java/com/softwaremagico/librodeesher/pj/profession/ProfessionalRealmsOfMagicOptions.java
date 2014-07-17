@@ -30,25 +30,18 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
+import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_PROFESSIONS_REALMS_MAGIC")
-public class ProfessionalRealmsOfMagicOptions {
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "ID", unique = true, nullable = false)
-	private Long professionalRealmId; // database id.
+public class ProfessionalRealmsOfMagicOptions extends StorableObject {
 	// Standard spellers will have only one element, hybrids will have two or
 	// more elements.
 	@ElementCollection(fetch = FetchType.LAZY)
@@ -99,14 +92,6 @@ public class ProfessionalRealmsOfMagicOptions {
 
 	protected void setMagicRealmsAvailable(List<RealmOfMagic> magicRealmsAvailable) {
 		this.magicRealmsAvailable = magicRealmsAvailable;
-	}
-
-	public Long getProfessionalRealmId() {
-		return professionalRealmId;
-	}
-
-	public void setProfessionalRealmId(Long professionalRealmId) {
-		this.professionalRealmId = professionalRealmId;
 	}
 
 }

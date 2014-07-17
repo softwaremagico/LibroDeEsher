@@ -12,7 +12,8 @@
         <property name="connection.url">jdbc:mysql://localhost:3306/test-esher</property>
         <property name="connection.username">esher</property>
         <property name="connection.password">esher</property>         
-        <property name="hibernate.hbm2ddl.auto">update</property>
+	<property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.hbm2ddl.auto">create-drop</property>
          
 	<mapping class="com.softwaremagico.librodeesher.pj.CharacterPlayer"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.characteristic.Appearance"></mapping>

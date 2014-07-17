@@ -135,7 +135,7 @@ public class TrainingProbability {
 				if (Math.random() * 100 < probability) {
 					characterPlayer
 							.getTrainingDecision(trainingName)
-							.addSelectedCategory(trainingCategory, categoryName);
+							.addSelectedCategory(training.getTrainingCategoryIndex(trainingCategory), categoryName);
 					break;
 				}
 				index++;

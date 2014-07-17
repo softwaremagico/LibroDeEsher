@@ -71,6 +71,13 @@ public class Training {
 					ex);
 		}
 	}
+	
+	/**
+	 * Returns the index of a TrainingCategory. Used to store into database only the index and not the POJO.
+	 */
+	public Integer getTrainingCategoryIndex(TrainingCategory trainingCategory){
+		return categoriesWithRanks.indexOf(trainingCategory);
+	}
 
 	private void readTrainingFile(String trainingName) throws Exception {
 		int lineIndex = 0;
@@ -202,8 +209,7 @@ public class Training {
 							categoriesOptions.add(category.trim());
 						}
 
-						trainingCategory = new TrainingCategory(
-								categoriesOptions,
+						trainingCategory = new TrainingCategory(categoriesOptions,
 								Integer.parseInt(categoryRanks[1]),
 								Integer.parseInt(categoryRanks[2]),
 								Integer.parseInt(categoryRanks[3]),
@@ -214,8 +220,7 @@ public class Training {
 						if (CategoryFactory.existCategory(categoryRanks[0])) {
 							List<String> categoriesList = new ArrayList<>();
 							categoriesList.add(categoryRanks[0].trim());
-							trainingCategory = new TrainingCategory(
-									categoriesList,
+							trainingCategory = new TrainingCategory(categoriesList,
 									Integer.parseInt(categoryRanks[1]),
 									Integer.parseInt(categoryRanks[2]),
 									Integer.parseInt(categoryRanks[3]),

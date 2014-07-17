@@ -2,28 +2,24 @@ package com.softwaremagico.persistence.dao.hibernate;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.Hibernate;
 
-import com.softwaremagico.librodeesher.basics.Roll;
-import com.softwaremagico.librodeesher.basics.RollGroup;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
-import com.softwaremagico.persistence.HibernateInitializator;
 import com.softwaremagico.persistence.dao.ICharacterPlayerDao;
 
-public class CharacterPlayerDao implements ICharacterPlayerDao {
-	private SessionFactory sessionFactory = null;
+public class CharacterPlayerDao extends GenericDao<CharacterPlayer> implements
+		ICharacterPlayerDao {
 	private static CharacterPlayerDao instance = null;
 
-	private CharacterPlayerDao() {
-		sessionFactory = HibernateInitializator.getSessionFactory();
+	public CharacterPlayerDao(Class<CharacterPlayer> type) {
+		super(type);
 	}
 
 	public static CharacterPlayerDao getInstance() {
 		if (instance == null) {
 			synchronized (CharacterPlayerDao.class) {
 				if (instance == null) {
-					instance = new CharacterPlayerDao();
+					instance = new CharacterPlayerDao(CharacterPlayer.class);
 				}
 			}
 		}
@@ -31,58 +27,16 @@ public class CharacterPlayerDao implements ICharacterPlayerDao {
 	}
 
 	@Override
-	public List<CharacterPlayer> getAll() {
-		// With spring, it close and open the session. We would use
-		// sessionFactory.getCurrentSession();
-		Session session = getSessionFactory().openSession();
-		@SuppressWarnings("unchecked")
-		List<CharacterPlayer> characters = session.createQuery("from T_CHARACTERPLAYER").list();
-		session.close();
-		return characters;
-	}
+	protected void initializeSets(List<CharacterPlayer> elements) {
+		for (CharacterPlayer player : elements) {
+			// Initializes the sets for lazy-loading (within the same session)
+			Hibernate.initialize(player.getCharacteristicInitialTemporalValue());
+			Hibernate.initialize(player.getCharacteristicPotencialValue());
+			Hibernate.initialize(player.getCharacteristicsTemporalUpdatesRolls());
+			Hibernate.initialize(player.getTrainingsNames());
+			Hibernate.initialize(player.getTrainingDecisions());
+			Hibernate.initialize(player.getPerks());
+		}
 
-	@Override
-	public CharacterPlayer read(Long id) {
-		Session session = getSessionFactory().openSession();
-		CharacterPlayer character = (CharacterPlayer) session.get(CharacterPlayer.class, id);
-		session.close();
-		return character;
-	}
-
-	@Override
-	public Roll makePersistent(Roll roll) {
-		Session session = getSessionFactory().openSession();
-		session.beginTransaction();
-		session.saveOrUpdate(roll);
-		// Close transaction to delete db-journal.
-		session.getTransaction().commit();
-		session.close();
-		return roll;
-	}
-
-	@Override
-	public CharacterPlayer makePersistent(CharacterPlayer character) {
-
-		Session session = getSessionFactory().openSession();
-		session.beginTransaction();
-		session.saveOrUpdate(character);
-		// Close transaction to delete db-journal.
-		session.getTransaction().commit();
-		session.close();
-		return character;
-	}
-
-	@Override
-	public void makeTransient(CharacterPlayer character) {
-		Session session = getSessionFactory().openSession();
-		session.beginTransaction();
-		session.delete(character);
-		session.getTransaction().commit();
-		session.close();
-
-	}
-
-	protected SessionFactory getSessionFactory() {
-		return sessionFactory;
 	}
 }
