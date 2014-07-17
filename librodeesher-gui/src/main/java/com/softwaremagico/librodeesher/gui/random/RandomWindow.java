@@ -109,15 +109,51 @@ public class RandomWindow extends BaseFrame {
 		constraints.weightx = 1;
 		constraints.weighty = 1;
 
-		panel.add(createSpecializationPanel(), constraints);
+		panel.add(createLevelPanel(), constraints);
 		constraints.gridy = 1;
-		panel.add(createCategoryPanel(), constraints);
+		panel.add(createSpecializationPanel(), constraints);
 		constraints.gridy = 2;
-		panel.add(createTrainingPanel(), constraints);
+		panel.add(createCategoryPanel(), constraints);
 		constraints.gridy = 3;
+		panel.add(createTrainingPanel(), constraints);
+		constraints.gridy = 4;
 		constraints.weighty = 0;
 		panel.add(createButtonPanel(), constraints);
 		add(panel);
+	}
+
+	private JPanel createLevelPanel() {
+		JPanel panel = createBasicPanel();
+
+		GridBagLayout layout = new GridBagLayout();
+		panel.setLayout(layout);
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.anchor = GridBagConstraints.CENTER;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.ipadx = xPadding;
+		constraints.gridx = 0;
+		constraints.weightx = 1;
+		constraints.weighty = 1;
+
+		JLabel titleLabel = new JLabel("Personaje:");
+		titleLabel.setFont(Fonts.getInstance().getBoldFont());
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridy = 0;
+		constraints.gridwidth = 3;
+		panel.add(titleLabel, constraints);
+
+		JLabel levelLabel = new JLabel("Nivel:");
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		constraints.gridwidth = 3;
+		panel.add(levelLabel, constraints);
+
+		BaseSpinner levelSpinner = createLevelSpinner();
+		constraints.gridx = 3;
+		panel.add(levelSpinner, constraints);
+
+		return panel;
 	}
 
 	private JPanel createSpecializationPanel() {
@@ -157,14 +193,14 @@ public class RandomWindow extends BaseFrame {
 		acceptButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//Set name if not set.
+				// Set name if not set.
 				if (characterPlayer.getName() == null
 						|| characterPlayer.getName().length() == 0) {
 					characterPlayer.setName(characterPlayer.getRace()
 							.getRandonName(characterPlayer.getSex()));
 				}
-				//Launch listeners.
-				for(RandomCharacterUpdatedListener listener : randomCharacterUpdatedListeners){
+				// Launch listeners.
+				for (RandomCharacterUpdatedListener listener : randomCharacterUpdatedListeners) {
 					listener.updatedCharacter(characterPlayer);
 				}
 			}
@@ -473,5 +509,15 @@ public class RandomWindow extends BaseFrame {
 	public void removeRandomCharacterUpdatedListeners(
 			RandomCharacterUpdatedListener listener) {
 		randomCharacterUpdatedListeners.remove(listener);
+	}
+
+	private BaseSpinner createLevelSpinner() {
+		SpinnerModel levelModel = new SpinnerNumberModel(1, 1, 100, 1);
+		BaseSpinner levelSpinner = new BaseSpinner(levelModel);
+		return levelSpinner;
+	}
+
+	public int getFinalLevel() {
+		return 1;
 	}
 }

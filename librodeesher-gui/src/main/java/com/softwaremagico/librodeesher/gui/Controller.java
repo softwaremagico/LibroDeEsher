@@ -148,7 +148,7 @@ public class Controller {
 						public void updatedCharacter(CharacterPlayer character) {
 							characters.remove(selectedCharacter);
 							selectedCharacter = new RandomCharacterPlayer(
-									character, 1).getCharacterPlayer();
+									character, randomWindow.getFinalLevel()).getCharacterPlayer();
 							characters.add(selectedCharacter);
 							//update GUI
 							mainGui.setCharacter(selectedCharacter);
