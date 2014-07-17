@@ -679,6 +679,7 @@ public class RandomCharacterPlayer {
 
 	public static void setRandomTraining(CharacterPlayer characterPlayer,
 			String trainingName, int specializationLevel) {
+		characterPlayer.addTraining(trainingName);
 		// Set random skill ranks
 		TrainingProbability.setRandomCategoryRanks(characterPlayer,
 				trainingName, specializationLevel);
