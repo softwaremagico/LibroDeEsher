@@ -24,22 +24,16 @@ package com.softwaremagico.librodeesher.pj.characteristic;
  * #L%
  */
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.basics.Dice;
+import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_APPEARANCE")
-public class Appearance {
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "ID", unique = true, nullable = false)
-	private Long id; // database id.
+public class Appearance extends StorableObject {
 
 	@Column
 	private int dicesResult;
@@ -58,13 +52,5 @@ public class Appearance {
 
 	public void setDicesResult(int dicesResult) {
 		this.dicesResult = dicesResult;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 }

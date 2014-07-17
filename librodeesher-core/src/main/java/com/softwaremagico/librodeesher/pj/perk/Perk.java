@@ -6,12 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.basics.ChooseType;
@@ -20,14 +16,11 @@ import com.softwaremagico.librodeesher.pj.categories.ChooseCategoryGroup;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
+import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_PERKS")
-public class Perk {
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "ID", unique = true, nullable = false)
-	private Long id; // database id.
+public class Perk extends StorableObject {
 
 	private String name;
 	private Integer cost;
@@ -484,14 +477,6 @@ public class Perk {
 
 	public List<ChooseSkillGroup> getCommonSkillsToChoose() {
 		return commonSkillsToChoose;
-	}
-
-	protected Long getId() {
-		return id;
-	}
-
-	protected void setId(Long id) {
-		this.id = id;
 	}
 
 	protected String getDescription() {

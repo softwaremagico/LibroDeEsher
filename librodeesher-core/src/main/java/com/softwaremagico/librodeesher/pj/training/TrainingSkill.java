@@ -3,21 +3,15 @@ package com.softwaremagico.librodeesher.pj.training;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_TRAINING_SKILL")
-public class TrainingSkill {
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "ID", unique = true, nullable = false)
-	private Long id; // database id.
+public class TrainingSkill extends StorableObject {
 
 	@ElementCollection
 	@CollectionTable(name = "T_TRAINING_SKILLS_OPTIONS")
@@ -71,14 +65,6 @@ public class TrainingSkill {
 		} else if (!skillOptions.equals(other.skillOptions))
 			return false;
 		return true;
-	}
-
-	protected Long getId() {
-		return id;
-	}
-
-	protected void setId(Long id) {
-		this.id = id;
 	}
 
 	protected void setSkillOptions(List<String> skillOptions) {

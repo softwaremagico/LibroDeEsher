@@ -31,12 +31,8 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
@@ -45,15 +41,12 @@ import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillComparator;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
+import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_CATEGORY")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Category {
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "ID", unique = true, nullable = false)
-	private Long id; // database id.
+public abstract class Category extends StorableObject {
 
 	private String name;
 	protected String abbreviature;
@@ -71,8 +64,8 @@ public abstract class Category {
 	private List<Float> skillRankValues; // Rank values. i.e: -15/3/2/1/0.5
 	private boolean notUsedInRandom = false;
 
-	public Category(String name, String abbreviature, CategoryType type, String characteristicsTag,
-			List<Float> skillRankValues) {
+	public Category(String name, String abbreviature, CategoryType type,
+			String characteristicsTag, List<Float> skillRankValues) {
 		this.name = name;
 		this.abbreviature = abbreviature;
 		this.categoryType = type;
@@ -168,20 +161,26 @@ public abstract class Category {
 		return getSkillRankValues(ranksNumber, skillRankValues);
 	}
 
-	public Integer getSkillRankValues(Integer ranksNumber, List<Float> definedSkillRankValues) {
+	public Integer getSkillRankValues(Integer ranksNumber,
+			List<Float> definedSkillRankValues) {
 		if (ranksNumber == 0) {
 			return definedSkillRankValues.get(0).intValue();
 		} else if (ranksNumber > 0 && ranksNumber <= 10) {
 			return definedSkillRankValues.get(1).intValue() * ranksNumber;
 		} else if (ranksNumber > 10 && ranksNumber <= 20) {
-			return definedSkillRankValues.get(1).intValue() * 10 + definedSkillRankValues.get(2).intValue()
+			return definedSkillRankValues.get(1).intValue() * 10
+					+ definedSkillRankValues.get(2).intValue()
 					* (ranksNumber - 10);
 		} else if (ranksNumber > 20 && ranksNumber <= 30) {
-			return definedSkillRankValues.get(1).intValue() * 10 + definedSkillRankValues.get(2).intValue() * 10
-					+ definedSkillRankValues.get(3).intValue() * (ranksNumber - 20);
+			return definedSkillRankValues.get(1).intValue() * 10
+					+ definedSkillRankValues.get(2).intValue() * 10
+					+ definedSkillRankValues.get(3).intValue()
+					* (ranksNumber - 20);
 		} else {
-			return definedSkillRankValues.get(1).intValue() * 10 + definedSkillRankValues.get(2).intValue() * 10
-					+ definedSkillRankValues.get(3).intValue() * 10 + definedSkillRankValues.get(4).intValue()
+			return definedSkillRankValues.get(1).intValue() * 10
+					+ definedSkillRankValues.get(2).intValue() * 10
+					+ definedSkillRankValues.get(3).intValue() * 10
+					+ definedSkillRankValues.get(4).intValue()
 					* (ranksNumber - 30);
 		}
 	}
@@ -218,9 +217,11 @@ public abstract class Category {
 	}
 
 	private static CategoryGroup getCategoryGroup(String categoryName) {
-		if (categoryName.toLowerCase().startsWith(Spanish.WEAPON_CATEGORY_PREFIX)) {
+		if (categoryName.toLowerCase().startsWith(
+				Spanish.WEAPON_CATEGORY_PREFIX)) {
 			return CategoryGroup.WEAPON;
-		} else if (categoryName.toLowerCase().startsWith(Spanish.SPELL_CATEGORY_PREFIX)) {
+		} else if (categoryName.toLowerCase().startsWith(
+				Spanish.SPELL_CATEGORY_PREFIX)) {
 			return CategoryGroup.SPELL;
 		}
 		return CategoryGroup.STANDARD;
@@ -234,19 +235,12 @@ public abstract class Category {
 		return getName();
 	}
 
-	protected Long getId() {
-		return id;
-	}
-
-	protected void setId(Long id) {
-		this.id = id;
-	}
-
 	protected List<String> getCharacteristicsListTags() {
 		return characteristicsListTags;
 	}
 
-	protected void setCharacteristicsListTags(List<String> characteristicsListTags) {
+	protected void setCharacteristicsListTags(
+			List<String> characteristicsListTags) {
 		this.characteristicsListTags = characteristicsListTags;
 	}
 

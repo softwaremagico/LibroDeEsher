@@ -6,13 +6,9 @@ import java.util.regex.Pattern;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -20,6 +16,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.ProgressionCostType;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
+import com.softwaremagico.persistence.StorableObject;
 
 /*
  * #%L
@@ -47,11 +44,7 @@ import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 
 @Entity
 @Table(name = "T_SKILL")
-public class Skill {
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "ID", unique = true, nullable = false)
-	private Long id; // database id.
+public class Skill extends StorableObject{
 
 	private String name;
 	@ElementCollection
@@ -138,14 +131,6 @@ public class Skill {
 
 	public void setUsedInRandom(boolean usedInRandom) {
 		this.usedInRandom = usedInRandom;
-	}
-
-	protected Long getId() {
-		return id;
-	}
-
-	protected void setId(Long id) {
-		this.id = id;
 	}
 
 	public List<String> getSpecialities() {

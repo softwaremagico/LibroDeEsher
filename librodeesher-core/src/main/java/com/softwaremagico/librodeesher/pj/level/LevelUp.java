@@ -6,16 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.persistence.StorableObject;
 
 /*
  * #%L
@@ -43,11 +40,7 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 @Entity
 @Table(name = "T_LEVELUP")
-public class LevelUp {
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "ID", unique = true, nullable = false)
-	private Long id; // database id.
+public class LevelUp extends StorableObject {
 
 	@ElementCollection
 	@CollectionTable(name = "T_LEVELUP_CATEGORIES_RANKS")
@@ -189,14 +182,6 @@ public class LevelUp {
 
 	public void setTrainings(List<String> trainings) {
 		this.trainings = trainings;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public List<String> getGeneralizedSkills() {

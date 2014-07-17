@@ -28,23 +28,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.softwaremagico.librodeesher.basics.ShowMessage;
+import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_CATEGORY_COST")
-public class CategoryCost {
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "ID", unique = true, nullable = false)
-	private Long categoryCostId; // database id.
+public class CategoryCost extends StorableObject {
 
 	@ElementCollection
 	@CollectionTable(name = "T_RANK_COSTS")
@@ -117,13 +110,5 @@ public class CategoryCost {
 
 	protected void setRankCost(List<Integer> rankCost) {
 		this.rankCost = rankCost;
-	}
-
-	protected Long getCategoryCostId() {
-		return categoryCostId;
-	}
-
-	protected void setCategoryCostId(Long categoryCostId) {
-		this.categoryCostId = categoryCostId;
 	}
 }

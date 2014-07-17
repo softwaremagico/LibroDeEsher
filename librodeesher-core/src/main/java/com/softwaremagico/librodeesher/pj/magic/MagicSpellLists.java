@@ -31,12 +31,8 @@ import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -45,14 +41,11 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
+import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_MAGIC_SPELLS")
-public class MagicSpellLists {
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "ID", unique = true, nullable = false)
-	private Long magicSpellListId; // database id.
+public class MagicSpellLists extends StorableObject {
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@CollectionTable(name = "T_MAGIC_CATEGORIES")
@@ -185,14 +178,6 @@ public class MagicSpellLists {
 
 	protected Map<MagicListType, Category> getMagicCategories() {
 		return magicCategories;
-	}
-
-	protected Long getMagicSpellListId() {
-		return magicSpellListId;
-	}
-
-	protected void setMagicSpellListId(Long magicSpellListId) {
-		this.magicSpellListId = magicSpellListId;
 	}
 
 	protected void setMagicCategories(Map<MagicListType, Category> magicCategories) {
