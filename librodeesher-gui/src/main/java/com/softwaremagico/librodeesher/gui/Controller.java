@@ -36,10 +36,12 @@ import com.softwaremagico.librodeesher.gui.culture.CultureWindow;
 import com.softwaremagico.librodeesher.gui.history.HistoryWindow;
 import com.softwaremagico.librodeesher.gui.perk.PerkWindow;
 import com.softwaremagico.librodeesher.gui.profession.ProfessionWindow;
+import com.softwaremagico.librodeesher.gui.random.RandomCharacterUpdatedListener;
 import com.softwaremagico.librodeesher.gui.random.RandomWindow;
 import com.softwaremagico.librodeesher.gui.skills.SkillWindow;
 import com.softwaremagico.librodeesher.gui.training.TrainingWindow;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 
 public class Controller {
 	private MainWindow mainGui;
@@ -140,6 +142,21 @@ public class Controller {
 			} catch (NullPointerException npe) {
 			}
 			randomWindow = new RandomWindow(selectedCharacter);
+			randomWindow
+					.addRandomCharacterUpdatedListeners(new RandomCharacterUpdatedListener() {
+						@Override
+						public void updatedCharacter(CharacterPlayer character) {
+							characters.remove(selectedCharacter);
+							selectedCharacter = new RandomCharacterPlayer(
+									character, 1).getCharacterPlayer();
+							characters.add(selectedCharacter);
+							//update GUI
+							mainGui.setCharacter(selectedCharacter);
+							mainGui.updateFrame();
+							updateCharacterListToMenu();
+							randomWindow.dispose();
+						}
+					});
 			randomWindow.setVisible(true);
 		}
 	}

@@ -76,12 +76,14 @@ public class RandomWindow extends BaseFrame {
 	private TrainingComboBox trainingComboBox;
 	private BaseTextField suggestedTraining;
 	private List<String> suggestedTrainingList;
+	private List<RandomCharacterUpdatedListener> randomCharacterUpdatedListeners;
 
 	public RandomWindow(CharacterPlayer characterPlayer) {
 		this.characterPlayer = characterPlayer;
 		suggestedCategoriesRanks = new HashMap<>();
 		suggestedSkillsRanks = new HashMap<>();
 		suggestedTrainingList = new ArrayList<>();
+		randomCharacterUpdatedListeners = new ArrayList<>();
 		defineWindow(500, 400);
 		setResizable(false);
 		setElements();
@@ -155,13 +157,16 @@ public class RandomWindow extends BaseFrame {
 		acceptButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//Set name if not set.
 				if (characterPlayer.getName() == null
 						|| characterPlayer.getName().length() == 0) {
 					characterPlayer.setName(characterPlayer.getRace()
 							.getRandonName(characterPlayer.getSex()));
 				}
-				CharacterPlayer randomCharacterPlayer = new RandomCharacterPlayer(
-						characterPlayer, 1).getCharacterPlayer();
+				//Launch listeners.
+				for(RandomCharacterUpdatedListener listener : randomCharacterUpdatedListeners){
+					listener.updatedCharacter(characterPlayer);
+				}
 			}
 		});
 		buttonPanel.add(acceptButton);
@@ -458,5 +463,15 @@ public class RandomWindow extends BaseFrame {
 					}
 				});
 		return skillSpinner;
+	}
+
+	public void addRandomCharacterUpdatedListeners(
+			RandomCharacterUpdatedListener listener) {
+		randomCharacterUpdatedListeners.add(listener);
+	}
+
+	public void removeRandomCharacterUpdatedListeners(
+			RandomCharacterUpdatedListener listener) {
+		randomCharacterUpdatedListeners.remove(listener);
 	}
 }
