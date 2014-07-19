@@ -61,14 +61,14 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 public class OptionsWindow extends BaseFrame {
 	private static final long serialVersionUID = -8015912539177057288L;
 	private CharacterPlayer character;
-	private JCheckBox fireArmsMenuItem, darkSpellsMenuItem, chiPowers, trainingOtherRealms, disabledCheckBox;
+	private JCheckBox fireArmsMenuItem, darkSpellsMenuItem, chiPowers, trainingOtherRealms, disabledCheckBox, pdfSortCategories;
 	private boolean updatingState = false;
 	private BaseSpinner categoryMax;
 	private JComboBox<String> modulesComboBox;
 
 	public OptionsWindow(CharacterPlayer character) {
 		this.character = character;
-		defineWindow(500, 300);
+		defineWindow(500, 400);
 		setElements();
 		setCurrentCharacterConfig();
 		setResizable(false);
@@ -119,6 +119,27 @@ public class OptionsWindow extends BaseFrame {
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		getContentPane().add(characterPanel, gridBagConstraints);
+		
+		JPanel pdfOptionsPanel = new JPanel();
+		pdfOptionsPanel.setLayout(new BoxLayout(pdfOptionsPanel, BoxLayout.Y_AXIS));
+		pdfOptionsPanel.setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Creación de Fichas"));
+		
+		pdfSortCategories = new JCheckBox(Spanish.PDF_SORT_SKILLS);
+		pdfSortCategories.addActionListener(checkboxListener);
+		pdfOptionsPanel.add(pdfSortCategories);
+		
+		gridBagConstraints.fill = GridBagConstraints.BOTH;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 1;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.gridwidth = 3;
+		gridBagConstraints.weightx = 1;
+		gridBagConstraints.weighty = 1;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+		getContentPane().add(pdfOptionsPanel, gridBagConstraints);
+		
 
 		JPanel graphicOptionsPanel = new JPanel();
 		graphicOptionsPanel.setLayout(new BoxLayout(graphicOptionsPanel, BoxLayout.Y_AXIS));
@@ -147,7 +168,7 @@ public class OptionsWindow extends BaseFrame {
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 1;
+		gridBagConstraints.gridy = 2;
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.gridwidth = 3;
 		gridBagConstraints.weightx = 1;
@@ -162,7 +183,7 @@ public class OptionsWindow extends BaseFrame {
 		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 2;
+		gridBagConstraints.gridy = 3;
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.gridwidth = 3;
 		gridBagConstraints.weightx = 1;
@@ -180,7 +201,7 @@ public class OptionsWindow extends BaseFrame {
 
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 3;
+		gridBagConstraints.gridy = 4;
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
@@ -228,7 +249,10 @@ public class OptionsWindow extends BaseFrame {
 					Config.setChiPowersAllowed(chiPowers.isSelected());
 				} else if (e.getActionCommand().equals(Spanish.OTHER_TRAINING_SPELLS)) {
 					character.setOtherRealmtrainingSpellsAllowed(trainingOtherRealms.isSelected());
-					Config.setOtherRealmtrainingSpells(trainingOtherRealms.isSelected());
+					Config.setOtherRealmTrainingSpells(trainingOtherRealms.isSelected());
+				} else if (e.getActionCommand().equals(Spanish.PDF_SORT_SKILLS)) {
+					character.setOtherRealmtrainingSpellsAllowed(pdfSortCategories.isSelected());
+					Config.setPdfSortSkills(pdfSortCategories.isSelected());
 				}
 			}
 		}

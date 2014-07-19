@@ -32,7 +32,7 @@ public class ExploreWindowForRlm extends ExploreWindow  {
 	}
 
 	public String exploreWindows(String title, int mode, String file) {
-		return super.exploreWindows(title, mode, file, new RlmFilter());
+		return super.exploreWindows(title, mode, file, new RlmFilter(), null);
 	}
 
 	private class RlmFilter extends javax.swing.filechooser.FileFilter {

@@ -321,6 +321,10 @@ public class MainMenu {
 	public void addLevelUpActionListener(ActionListener al) {
 		levelUpMenuItem.addActionListener(al);
 	}
+	
+	public void addSheetPdfActionListener(ActionListener al){
+		exportToPDFMenuItem.addActionListener(al);
+	}
 
 	class CloseListener implements ActionListener {
 

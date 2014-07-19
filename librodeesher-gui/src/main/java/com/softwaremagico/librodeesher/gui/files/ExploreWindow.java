@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.files;
+
 /*
  * #%L
  * Libro de Esher GUI
@@ -25,13 +26,13 @@ package com.softwaremagico.librodeesher.gui.files;
 
 import java.io.File;
 
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 
 public abstract class ExploreWindow {
-	private JFileChooser fc;
 	private static String explorationFolder;
 	private String defaultFileName;
 
@@ -43,28 +44,42 @@ public abstract class ExploreWindow {
 		return defaultFileName;
 	}
 
+	public static JFileChooser createFileChooser(String title, int mode,
+			String file, javax.swing.filechooser.FileFilter filter,
+			JComponent accesory, String defaultFileName) {
+		JFileChooser fc = new JFileChooser(new File(
+				getDefaultExplorationFolder() + File.separator));
+		fc.setFileFilter(filter);
+		fc.setFileSelectionMode(mode);
+		if (accesory != null) {
+			fc.setAccessory(accesory);
+		}
+		if (file.length() == 0 && !title.equals("Load")) {
+			fc.setSelectedFile(new File(defaultFileName));
+		} else {
+			fc.setSelectedFile(new File(file));
+		}
+		return fc;
+	}
+
 	public String exploreWindows(String title, int mode, String file,
-			javax.swing.filechooser.FileFilter filter) {
+			javax.swing.filechooser.FileFilter filter, JComponent accesory) {
 		JFrame frame = null;
 		try {
-			fc = new JFileChooser(new File(getDefaultExplorationFolder() + File.separator));
-			fc.setFileFilter(filter);
-			fc.setFileSelectionMode(mode);
-			if (file.length() == 0 && !title.equals("Load")) {
-				fc.setSelectedFile(new File(getDefaultFileName()));
-			} else {
-				fc.setSelectedFile(new File(file));
-			}
+			JFileChooser fc = createFileChooser(title, mode, file, filter,
+					accesory, getDefaultFileName());
 			int fcReturn = fc.showDialog(frame, title);
 			if (fcReturn == JFileChooser.APPROVE_OPTION) {
 				setDefaultExplorationFolder(fc.getSelectedFile().toString());
 				if (fc.getSelectedFile().isDirectory()) {
-					return fc.getSelectedFile().toString() + File.pathSeparator + getDefaultFileName();
+					return fc.getSelectedFile().toString() + File.pathSeparator
+							+ getDefaultFileName();
 				}
 				return fc.getSelectedFile().toString();
 			}
 		} catch (NullPointerException npe) {
-			ShowMessage.showErrorMessage("Valor nulo.", "Error al abrir un fichero.");
+			ShowMessage.showErrorMessage("Valor nulo.",
+					"Error al abrir un fichero.");
 		}
 		return "";
 	}

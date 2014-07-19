@@ -22,7 +22,6 @@ import com.softwaremagico.files.Path;
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.basics.Experience;
 import com.softwaremagico.librodeesher.basics.Spanish;
-import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.ProgressionCostType;
 import com.softwaremagico.librodeesher.pj.categories.Category;
@@ -41,10 +40,12 @@ import com.softwaremagico.log.Log;
 public class PdfSheet {
 	private CharacterPlayer characterPlayer;
 	private boolean twoFaced;
+	private boolean sortedSkills;
 
-	public PdfSheet(CharacterPlayer characterPlayer, String path)
-			throws Exception {
+	public PdfSheet(CharacterPlayer characterPlayer, String path,
+			boolean sortedSkills) throws Exception {
 		this.characterPlayer = characterPlayer;
+		this.sortedSkills = sortedSkills;
 		if (characterPlayer == null) {
 			PersonajeHojaBlanco();
 		} else {
@@ -212,6 +213,7 @@ public class PdfSheet {
 
 				if (characterPlayer != null
 						&& i < CategoryFactory.getAvailableCategories().size()) {
+					System.out.println(cat.getName());
 					texto = characterPlayer.getProfession()
 							.getCategoryCost(cat.getName()).getCostTag();
 				} else {
@@ -846,7 +848,7 @@ public class PdfSheet {
 
 		if (characterPlayer != null) {
 			// Add skills and add lines for new ones.
-			if (!Config.isSortedSkills()) {
+			if (sortedSkills) {
 				for (int i = 0; i < CategoryFactory.getAvailableCategories()
 						.size(); i++) {
 					Category cat = CategoryFactory.getCategory(CategoryFactory

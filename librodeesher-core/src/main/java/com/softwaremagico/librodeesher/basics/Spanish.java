@@ -36,6 +36,7 @@ public class Spanish {
 	public static final String DARKSPELLS_CHECKBOX_TEXT = "Permitir el uso de listas de hechizos malignas como básicas.";
 	public static final String CHI_POWERS_TEXT = "Permitir el uso de poderes Chi.";
 	public static final String OTHER_TRAINING_SPELLS = "Permitir el uso de listas de adiestramientos de otros reinos.";
+	public static final String PDF_SORT_SKILLS = "Ordenar habilidades alfabéticamente.";
 	public static final String FIREARMS_SKILL3 = "Fuego Rápido";
 	public static final String FIREARMS_SKILL2 = "Fuego de Supresión";
 	public static final String FIREARMS_SKILL1 = "Percepción del Entorno: Munición";
@@ -104,5 +105,6 @@ public class Spanish {
 	public static final String ELEMENTAL_MOUNT = "montura elemental";
 	public static final String DESERT = "desierto";
 	public static final String PHISICAL_DEVELOPMENT_SKILL = "Desarrollo Físico";
+	public static final String POWER_POINTS_CATEGORY = "Desarrollo de Puntos de Poder";
 	public static final String POWER_POINTS_DEVELOPMENT_SKILL = "Desarrollo de Puntos de Poder";
 }

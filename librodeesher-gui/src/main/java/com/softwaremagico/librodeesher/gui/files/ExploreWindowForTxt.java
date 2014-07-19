@@ -32,7 +32,7 @@ public class ExploreWindowForTxt extends ExploreWindow {
 	}
 
 	public String exploreWindows(String title, int mode, String file) {
-		return super.exploreWindows(title, mode, file, new TxtFilter());
+		return super.exploreWindows(title, mode, file, new TxtFilter(), null);
 	}
 
 	private class TxtFilter extends javax.swing.filechooser.FileFilter {

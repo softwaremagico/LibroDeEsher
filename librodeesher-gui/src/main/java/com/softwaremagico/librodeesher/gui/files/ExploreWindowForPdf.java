@@ -23,7 +23,6 @@ package com.softwaremagico.librodeesher.gui.files;
  * #L%
  */
 
-import java.io.File;
 
 public class ExploreWindowForPdf extends ExploreWindow {
 	
@@ -33,20 +32,6 @@ public class ExploreWindowForPdf extends ExploreWindow {
 	}
 
 	public String exploreWindows(String title, int mode, String file) {
-		return super.exploreWindows(title, mode, file, new PdfFilter());
-	}
-
-	private class PdfFilter extends javax.swing.filechooser.FileFilter {
-
-		@Override
-		public boolean accept(File file) {
-			String filename = file.getName();
-			return file.isDirectory() || filename.endsWith(".pdf");
-		}
-
-		@Override
-		public String getDescription() {
-			return "Portable Document Format";
-		}
+		return super.exploreWindows(title, mode, file, new PdfFilter(), null);
 	}
 }

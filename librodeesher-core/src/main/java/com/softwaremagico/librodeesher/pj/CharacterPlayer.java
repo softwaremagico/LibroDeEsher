@@ -87,7 +87,7 @@ import com.softwaremagico.persistence.StorableObject;
 @Table(name = "T_CHARACTERPLAYER")
 public class CharacterPlayer extends StorableObject {
 	public final static String SOFTWARE_VERSION = "2.0.0";
-	//Store into the database the software version of creation.
+	// Store into the database the software version of creation.
 	private String version = SOFTWARE_VERSION;
 	private String name;
 	private SexType sex;
@@ -1686,13 +1686,13 @@ public class CharacterPlayer extends StorableObject {
 		// TODO
 		return new ArrayList<>();
 	}
-	
+
 	/**
 	 * A list of all magic equipment obtained from trainings, history,...
 	 * 
 	 * @return
 	 */
-	public List<TrainingItem> getMagicItems(){
+	public List<TrainingItem> getMagicItems() {
 		// TODO
 		return new ArrayList<>();
 	}
@@ -1750,7 +1750,7 @@ public class CharacterPlayer extends StorableObject {
 			ProgressionCostType progressionValue = ProgressionCostType
 					.getProgressionCostType(realm);
 			total += CategoryFactory
-					.getCategory("")
+					.getCategory(Spanish.POWER_POINTS_CATEGORY)
 					.getSkillRankValues(
 							getTotalRanks(SkillFactory
 									.getSkill(Spanish.POWER_POINTS_DEVELOPMENT_SKILL)),
