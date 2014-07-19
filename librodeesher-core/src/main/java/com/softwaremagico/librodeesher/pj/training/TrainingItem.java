@@ -8,12 +8,12 @@ import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_TRAINING_OBJECT")
-public class TrainingObject extends StorableObject implements MagicObject {
+public class TrainingItem extends StorableObject implements MagicObject {
 	private String name;
 	private int bonus;
 	private int probability;
 
-	public TrainingObject(String name, int bonus, int probability) {
+	public TrainingItem(String name, int bonus, int probability) {
 		this.name = name;
 		this.probability = probability;
 		this.bonus = bonus;

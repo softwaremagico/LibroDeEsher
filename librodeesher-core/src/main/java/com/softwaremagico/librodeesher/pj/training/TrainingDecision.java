@@ -42,7 +42,7 @@ public class TrainingDecision extends StorableObject {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(name = "T_TRAINING_OBJECTS")
-	private List<TrainingObject> equipment;
+	private List<TrainingItem> equipment;
 
 	public TrainingDecision() {
 		categoriesSelected = new HashMap<>();
@@ -162,7 +162,7 @@ public class TrainingDecision extends StorableObject {
 		characteristicsUpdates.add(characteristicRoll);
 	}
 
-	public List<TrainingObject> getEquipment() {
+	public List<TrainingItem> getEquipment() {
 		return equipment;
 	}
 }

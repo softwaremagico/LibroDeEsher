@@ -29,7 +29,7 @@ public enum CategoryType {
     LIMITED("Limitada"),
     SPECIAL("Especial"),
     PPD("DPP"),
-    FD("DF");
+    PD("DF");
     
     private String tag;
     

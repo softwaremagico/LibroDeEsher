@@ -40,6 +40,6 @@
 	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingSkill"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingSkillList"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingSkillsSelected"></mapping>
-	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingObject"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingItem"></mapping>
     </session-factory>
 </hibernate-configuration>

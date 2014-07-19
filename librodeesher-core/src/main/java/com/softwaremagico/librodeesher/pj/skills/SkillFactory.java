@@ -34,12 +34,8 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 
 public class SkillFactory {
-
 	private static HashMap<String, Skill> availableSkills = new HashMap<>();
 	private static List<String> availableSkillsByName = new ArrayList<>();
-
-	// private static HashMap<Category, List<Skill>> skillsPerCategory = new
-	// HashMap<>();
 
 	public static Skill getSkill(String skillNameAndType) {
 		Skill skill = availableSkills.get(skillNameAndType);
@@ -75,20 +71,8 @@ public class SkillFactory {
 	public static void addSkill(Skill skill) {
 		availableSkills.put(skill.getName(), skill);
 		availableSkillsByName.add(skill.getName());
-		// addSkillToCategoryList(skill);
 		Collections.sort(availableSkillsByName);
 	}
-
-	// private static void addSkillToCategoryList(Skill skill) {
-	// System.out.println(skill.getName() + " -> " + skill.getCategory());
-	// List<Skill> skillsOfCategory =
-	// skillsPerCategory.get(skill.getCategory());
-	// if (skillsOfCategory == null) {
-	// skillsOfCategory = new ArrayList<>();
-	// skillsPerCategory.put(skill.getCategory(), skillsOfCategory);
-	// }
-	// skillsOfCategory.add(skill);
-	// }
 
 	public static Skill getAvailableSkill(String skillName) {
 		return availableSkills.get(skillName);

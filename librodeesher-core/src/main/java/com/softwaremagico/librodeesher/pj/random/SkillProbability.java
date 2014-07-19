@@ -210,7 +210,7 @@ public class SkillProbability {
 		}
 
 		// Point life are always good!
-		if (skill.getCategory().getCategoryType().equals(CategoryType.FD)
+		if (skill.getCategory().getCategoryType().equals(CategoryType.PD)
 				&& characterPlayer.getRealRanks(skill) == 0) {
 			bonus += 40;
 		}

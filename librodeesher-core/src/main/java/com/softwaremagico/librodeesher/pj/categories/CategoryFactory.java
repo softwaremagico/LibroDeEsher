@@ -108,7 +108,7 @@ public class CategoryFactory {
 		case PPD:
 			cat = new PpdCategory(categoryName, abbreviature, characteristicsTag);
 			break;
-		case FD:
+		case PD:
 			cat = new FdCategory(categoryName, abbreviature, characteristicsTag);
 			break;
 		case LIMITED:

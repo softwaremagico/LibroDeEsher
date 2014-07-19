@@ -1,4 +1,5 @@
 package com.softwaremagico.files;
+
 /*
  * #%L
  * KendoTournamentGenerator
@@ -27,71 +28,73 @@ package com.softwaremagico.files;
 
 import java.io.File;
 
-/**
- *
- * @author jorge
- */
 public class Path {
 
-    private Path() {
-    }
+	private Path() {
+	}
 
-    public static String returnRootPath() {
-        String soName = System.getProperty("os.name");
-        if (soName.contains("Linux") || soName.contains("linux")) {
-            File f = new File("/usr/share/libro-de-esher");
-            if (f.exists()) {
-                return f.getPath() + File.separator;
-            } else {
-                return "";
-            }
-        } else if (soName.contains("Windows") || soName.contains("windows") || soName.contains("vista") || soName.contains("Vista")) {
-            return "";
-        }
-        return "";
-    }
+	public static String getRootPath() {
+		String soName = System.getProperty("os.name");
+		if (soName.contains("Linux") || soName.contains("linux")) {
+			File f = new File("/usr/share/libro-de-esher");
+			if (f.exists()) {
+				return f.getPath() + File.separator;
+			} else {
+				return "";
+			}
+		} else if (soName.contains("Windows") || soName.contains("windows")
+				|| soName.contains("vista") || soName.contains("Vista")) {
+			return "";
+		}
+		return "";
+	}
 
-    public static String returnImagePath() {
-        return returnRootPath() + "images" + File.separator;
-    }
+	public static String getImagePath() {
+		return getRootPath() + "images" + File.separator;
+	}
 
-    public static String returnTranslatorPath() {
-        return returnRootPath() + "translations" + File.separator;
-    }
+	public static String getTranslatorPath() {
+		return getRootPath() + "translations" + File.separator;
+	}
 
-    public static String returnBackgroundPath() {
-        return returnImagePath() + "background" + File.separator + "background.png";
-    }
+	public static String getBackgroundPath() {
+		return getImagePath() + "background" + File.separator
+				+ "background.png";
+	}
 
-    public static String returnBannerPath() {
-        return returnImagePath() + "banner" + File.separator + "banner.png";
-    }
+	public static String getBannerPath() {
+		return getImagePath() + "banner" + File.separator + "banner.png";
+	}
 
-    public static String returnLogoPath() {
-        return returnImagePath() + "logo" + File.separator + "kendoUV.gif";
-    }
+	public static String getLogoPath() {
+		return getImagePath() + "logo" + File.separator + "kendoUV.gif";
+	}
 
-    public static String returnDefaultBanner() {
-        return returnDefault() + "defaultBanner.png";
-    }
+	public static String getDefaultBanner() {
+		return getDefault() + "defaultBanner.png";
+	}
 
-    public static String returnMainPhoto() {
-        return returnDefault() + "mainPhoto.png";
-    }
+	public static String getMainPhoto() {
+		return getDefault() + "mainPhoto.png";
+	}
 
-    public static String returnDefault() {
-        return returnImagePath() + "defaults" + File.separator;
-    }
+	public static String getDefault() {
+		return getImagePath() + "defaults" + File.separator;
+	}
 
-    public static String returnManualPath() {
-        return returnRootPath() + "manual" + File.separator;
-    }
+	public static String getManualPath() {
+		return getRootPath() + "manual" + File.separator;
+	}
 
-    public static String returnLogFile() {
-        return "librodeesher.log";
-    }
+	public static String getLogFile() {
+		return "librodeesher.log";
+	}
 
-    public static String returnIconFolder() {
-        return returnImagePath() + "icons" + File.separator;
-    }
+	public static String getIconFolder() {
+		return getImagePath() + "icons" + File.separator;
+	}
+
+	public static String getDefaultPdfPath() {
+		return System.getProperty("user.home");
+	}
 }

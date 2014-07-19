@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj;
+
 /*
  * #%L
  * Libro de Esher
@@ -24,6 +25,19 @@ package com.softwaremagico.librodeesher.pj;
  */
 
 public enum SexType {
-    MALE,
-    FEMALE;
+	MALE("Varón"), FEMALE("Mujer");
+
+	private String tag = "";
+
+	SexType(String tag) {
+		this.tag = tag;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public String toString() {
+		return getTag();
+	}
 }

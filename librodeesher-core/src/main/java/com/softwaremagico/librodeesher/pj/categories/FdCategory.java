@@ -38,7 +38,7 @@ public class FdCategory extends Category {
 	private static List<Float> skillRankValues = Arrays.asList((float) 0, (float) 0, (float) 0, (float) 0, (float) 0);
 
 	public FdCategory(String name, String abbreviature, String characteristicsTag) {
-		super(name, abbreviature, CategoryType.FD, characteristicsTag, skillRankValues);
+		super(name, abbreviature, CategoryType.PD, characteristicsTag, skillRankValues);
 	}
 
 	@Override

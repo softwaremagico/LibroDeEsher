@@ -178,7 +178,7 @@ public class ProfessionRandomness {
 				}
 			}
 
-			if (skill.getCategory().getCategoryType().equals(CategoryType.FD)
+			if (skill.getCategory().getCategoryType().equals(CategoryType.PD)
 					&& characterPlayer.getRealRanks(skill) < 10 && characterPlayer.getCurrentLevelRanks(skill) == 0) {
 				return 20;
 			}

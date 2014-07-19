@@ -103,4 +103,6 @@ public class Spanish {
 	public static final String SPELL_LAW_PREFIX = "ley del";
 	public static final String ELEMENTAL_MOUNT = "montura elemental";
 	public static final String DESERT = "desierto";
+	public static final String PHISICAL_DEVELOPMENT_SKILL = "Desarrollo Físico";
+	public static final String POWER_POINTS_DEVELOPMENT_SKILL = "Desarrollo de Puntos de Poder";
 }

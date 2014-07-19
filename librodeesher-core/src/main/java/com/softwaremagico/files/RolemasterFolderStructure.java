@@ -46,6 +46,7 @@ public class RolemasterFolderStructure implements Serializable {
 	private static final String CONFIG_FILE = "configuracion.conf";
 	private static final String PERKS_FILE = "talentos.txt";
 	private static final String PERKS_FOLDER = "talentos";
+	private static final String SHEET_FOLDER = "fichas";
 	private static List<String> ignoredFiles = getIgnoredFiles();
 	// Modulos configurados para obtener los ficheros adecuados */
 	private static List<String> availableModules = getRolemasterModulesAvailable();
@@ -206,18 +207,6 @@ public class RolemasterFolderStructure implements Serializable {
 		return spellLines;
 	}
 
-	public static List<String> LeerLineasTalentos(String file) {
-		List<String> lineasFicheroTalentos = new ArrayList<>();
-		List<String> ficherosTalentos = getPathOfFile(DIRECTORIO_TALENTOS + File.separator + file);
-		for (int i = 0; i < ficherosTalentos.size(); i++) {
-			try {
-				lineasFicheroTalentos.addAll(Folder.readFileLines(ficherosTalentos.get(i), verbose));
-			} catch (IOException ex) {
-			}
-		}
-		return lineasFicheroTalentos;
-	}
-
 	public static List<String> getCategoryFile(String file) {
 		try {
 			return Folder.readFileLines(file, verbose);
@@ -283,5 +272,9 @@ public class RolemasterFolderStructure implements Serializable {
 
 	public static void setDisabledModules(List<String> disabledModules) {
 		RolemasterFolderStructure.disabledModules = disabledModules;
+	}
+	
+	public static String getSheetFolder(){
+		return ROLEMASTER_FOLDER + File.separator + SHEET_FOLDER;
 	}
 }

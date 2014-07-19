@@ -106,7 +106,7 @@ public class CategoryProbability {
 			bonus += (30 + getSkillsWithSuggestedRanks().size() * 20);
 
 			// Bonus to common or professional skills.
-			if (characterPlayer.hasCommonOrProfessionalSkill(category)) {
+			if (characterPlayer.hasCommonOrProfessionalSkills(category)) {
 				bonus += 50;
 			}
 		}

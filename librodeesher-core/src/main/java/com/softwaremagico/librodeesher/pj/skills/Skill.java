@@ -77,7 +77,7 @@ public class Skill extends StorableObject{
 	public String getName() {
 		return name;
 	}
-
+	
 	public void setCategory(Category category) {
 		this.category = category;
 	}
@@ -105,7 +105,7 @@ public class Skill extends StorableObject{
 						character.getRace().getProgressionRankValues(progressionValue));
 			}
 			return total / character.getRealmOfMagic().getRealmsOfMagic().size();
-		case FD:
+		case PD:
 			return getCategory().getSkillRankValues(ranksNumber,
 					character.getRace().getProgressionRankValues(ProgressionCostType.PHYSICAL_DEVELOPMENT));
 		default:

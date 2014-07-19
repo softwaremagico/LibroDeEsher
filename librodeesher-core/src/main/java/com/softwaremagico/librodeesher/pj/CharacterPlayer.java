@@ -79,13 +79,16 @@ import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingCategory;
 import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
+import com.softwaremagico.librodeesher.pj.training.TrainingItem;
 import com.softwaremagico.librodeesher.pj.training.TrainingSkill;
 import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_CHARACTERPLAYER")
 public class CharacterPlayer extends StorableObject {
-
+	public final static String SOFTWARE_VERSION = "2.0.0";
+	//Store into the database the software version of creation.
+	private String version = SOFTWARE_VERSION;
 	private String name;
 	private SexType sex;
 	private String historyText;
@@ -403,6 +406,10 @@ public class CharacterPlayer extends StorableObject {
 			race = RaceFactory.getRace(raceName);
 		}
 		return race;
+	}
+
+	public Integer getDefensiveBonus() {
+		return getCharacteristicTotalBonus("Rp") * 3;
 	}
 
 	public Integer getResistanceBonus(ResistanceType type) {
@@ -727,8 +734,22 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getTotalRanks(Skill skill) {
-		return getPreviousRanks(skill) + getCurrentLevelRanks(skill);
+		return getPreviousRanks(skill) + getCurrentLevelRanks(skill)
+				- getSkillSpecializations(skill).size();
+	}
 
+	/**
+	 * Get total ranks for a specialized skill.
+	 * 
+	 * @param skill
+	 * @return
+	 */
+	public Integer getSpecializedRanks(Skill skill) {
+		if (getTotalRanks(skill.getCategory()) > 0) {
+			return getTotalRanks(skill) * 2;
+		} else {
+			return (int) (getTotalRanks(skill) * 1.5);
+		}
 	}
 
 	public Integer getRealRanks(Skill skill) {
@@ -757,6 +778,10 @@ public class CharacterPlayer extends StorableObject {
 		return skill.getRankValue(this, getRealRanks(skill));
 	}
 
+	public Integer getSpecializedRanksValue(Skill skill) {
+		return skill.getRankValue(this, getSpecializedRanks(skill));
+	}
+
 	public Integer getCharacteristicsBonus(Category category) {
 		Integer total = 0;
 		List<String> characteristicsAbbreviature = category
@@ -770,12 +795,14 @@ public class CharacterPlayer extends StorableObject {
 	public Integer getBonus(Category category) {
 		return category.getBonus()
 				+ getProfession().getCategoryBonus(category.getName())
-				+ historial.getBonus(category) + getPerkBonus(category);
+				+ getHistorial().getBonus(category) + getPerkBonus(category)
+				+ getConditionalPerkBonus(category) + getItemBonus(category);
 	}
 
 	public Integer getBonus(Skill skill) {
 		return getProfession().getSkillBonus(skill.getName())
-				+ historial.getBonus(skill) + getPerkBonus(skill);
+				+ getHistorial().getBonus(skill) + getPerkBonus(skill)
+				+ getConditionalPerkBonus(skill) + getItemBonus(skill);
 	}
 
 	public Integer getPerkApperanceBonus() {
@@ -808,6 +835,14 @@ public class CharacterPlayer extends StorableObject {
 		return total;
 	}
 
+	public Integer getConditionalPerkBonus(Skill skill) {
+		Integer total = 0;
+		for (Perk perk : perks) {
+			total += perk.getConditionalSkillBonus().get(skill.getName());
+		}
+		return total;
+	}
+
 	public Integer getPerkBonus(Category category) {
 		Integer total = 0;
 		for (Perk perk : perks) {
@@ -822,6 +857,14 @@ public class CharacterPlayer extends StorableObject {
 		return total;
 	}
 
+	public Integer getConditionalPerkBonus(Category category) {
+		Integer total = 0;
+		for (Perk perk : perks) {
+			total += perk.getConditionalCategoryBonus().get(category.getName());
+		}
+		return total;
+	}
+
 	public Integer getTotalValue(Category category) {
 		return getRanksValue(category) + getBonus(category)
 				+ getCharacteristicsBonus(category);
@@ -829,6 +872,11 @@ public class CharacterPlayer extends StorableObject {
 
 	public Integer getTotalValue(Skill skill) {
 		return getRanksValue(skill) + getBonus(skill)
+				+ getTotalValue(skill.getCategory());
+	}
+
+	public Integer getSpecializedTotalValue(Skill skill) {
+		return getSpecializedRanksValue(skill) + getBonus(skill)
 				+ getTotalValue(skill.getCategory());
 	}
 
@@ -1455,7 +1503,7 @@ public class CharacterPlayer extends StorableObject {
 		this.trainingDecisions = trainingDecisions;
 	}
 
-	protected Historial getHistorial() {
+	public Historial getHistorial() {
 		return historial;
 	}
 
@@ -1508,7 +1556,7 @@ public class CharacterPlayer extends StorableObject {
 		this.appearance = appearance;
 	}
 
-	public boolean hasCommonOrProfessionalSkill(Category category) {
+	public boolean hasCommonOrProfessionalSkills(Category category) {
 		for (Skill skill : category.getSkills()) {
 			if ((isCommon(skill) || isProfessional(skill))
 					&& !isRestricted(skill)) {
@@ -1624,9 +1672,95 @@ public class CharacterPlayer extends StorableObject {
 	public Map<String, Integer> getCharacteristicInitialTemporalValue() {
 		return characteristicsInitialTemporalValues;
 	}
-	
+
 	public Map<String, Integer> getCharacteristicPotencialValue() {
 		return characteristicsPotentialValues;
 	}
 
+	/**
+	 * A list of all non-magic equipment obtained from trainings, history,...
+	 * 
+	 * @return
+	 */
+	public List<String> getEquipment() {
+		// TODO
+		return new ArrayList<>();
+	}
+	
+	/**
+	 * A list of all magic equipment obtained from trainings, history,...
+	 * 
+	 * @return
+	 */
+	public List<TrainingItem> getMagicItems(){
+		// TODO
+		return new ArrayList<>();
+	}
+
+	public int getItemBonus(Category category) {
+		return 0;
+	}
+
+	public int getItemBonus(Skill skill) {
+		return 0;
+	}
+
+	/**
+	 * Gets the PPD progression for all types of wizards.
+	 * 
+	 * @return
+	 */
+	public List<Float> getPowerPointsDevelopmentCost() {
+		List<Float> calculatedPpds = new ArrayList<>();
+		for (int i = 0; i < 5; i++) {
+			float value = 0;
+			for (RealmOfMagic realm : getRealmOfMagic().getRealmsOfMagic()) {
+				ProgressionCostType progressionValue = ProgressionCostType
+						.getProgressionCostType(realm);
+				List<Float> ppdOfRealm = getRace().getProgressionRankValues(
+						progressionValue);
+				value += ppdOfRealm.get(i);
+			}
+			calculatedPpds.add(value
+					/ getRealmOfMagic().getRealmsOfMagic().size());
+		}
+		return calculatedPpds;
+	}
+
+	public int getMovementCapacity() {
+		return (15 + getCharacteristicTotalBonus("Rp") + getPerkMovementBonus());
+	}
+
+	public int getPerkMovementBonus() {
+		int total = 0;
+		for (Perk perk : getPerks()) {
+			total += perk.getMovementBonus();
+		}
+		return total;
+	}
+
+	/**
+	 * Obtains the number of Power Points.
+	 * 
+	 * @return
+	 */
+	public int getPowerPoints() {
+		Integer total = 0;
+		for (RealmOfMagic realm : getRealmOfMagic().getRealmsOfMagic()) {
+			ProgressionCostType progressionValue = ProgressionCostType
+					.getProgressionCostType(realm);
+			total += CategoryFactory
+					.getCategory("")
+					.getSkillRankValues(
+							getTotalRanks(SkillFactory
+									.getSkill(Spanish.POWER_POINTS_DEVELOPMENT_SKILL)),
+							getRace()
+									.getProgressionRankValues(progressionValue));
+		}
+		return total / getRealmOfMagic().getRealmsOfMagic().size();
+	}
+
+	public String getVersion() {
+		return version;
+	}
 }

@@ -47,6 +47,7 @@ public class Config {
 	private static Boolean maximized = false, fireArmsActivated = false, darkSpellsAsBasic = false,
 			chiPowersAllowed = false, otherRealmsTrainingSpells = false;
 	private static Integer categoryMaxCost = 50;
+	private static boolean sortedSkills;
 
 	static {
 		loadConfiguration();
@@ -157,6 +158,14 @@ public class Config {
 	private static void loadDisabledModules(String line) {
 		String[] values = line.split(DEFAULT_SEPARATION_CHAR);
 		RolemasterFolderStructure.setDisabledModules(new ArrayList<String>(Arrays.asList(values)));
+	}
+
+	public static boolean isSortedSkills() {
+		return sortedSkills;
+	}
+
+	public static void setSortedSkills(boolean sortedSkills) {
+		Config.sortedSkills = sortedSkills;
 	}
 
 }

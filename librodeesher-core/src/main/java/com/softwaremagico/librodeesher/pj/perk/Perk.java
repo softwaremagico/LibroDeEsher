@@ -83,6 +83,7 @@ public class Perk extends StorableObject {
 	private Integer appareanceBonus;
 	private Integer armourClass;
 	private Integer chosenBonus;
+	private Integer movementBonus;
 
 	public Perk(String name, Integer cost, PerkCategory classification, String description,
 			List<String> avalibleToRaces, List<String> avalibleToProfessions) {
@@ -111,6 +112,7 @@ public class Perk extends StorableObject {
 		appareanceBonus = 0;
 		armourClass = 1;
 		chosenBonus = 0;
+		movementBonus = 0;
 	}
 
 	public void setCategoryBonus(String categoryName, Integer bonus) {
@@ -511,7 +513,7 @@ public class Perk extends StorableObject {
 		this.categoryBonus = categoryBonus;
 	}
 
-	protected Map<String, Integer> getConditionalCategoryBonus() {
+	public Map<String, Integer> getConditionalCategoryBonus() {
 		return conditionalCategoryBonus;
 	}
 
@@ -543,7 +545,7 @@ public class Perk extends StorableObject {
 		this.skillRanks = skillRanks;
 	}
 
-	protected Map<String, Integer> getConditionalSkillBonus() {
+	public Map<String, Integer> getConditionalSkillBonus() {
 		return conditionalSkillBonus;
 	}
 
@@ -673,5 +675,13 @@ public class Perk extends StorableObject {
 
 	protected void setCategoryWithRestricted(Map<String, Integer> categoryWithRestricted) {
 		this.categoryWithRestricted = categoryWithRestricted;
+	}
+
+	public Integer getMovementBonus() {
+		return movementBonus;
+	}
+
+	public void setMovementBonus(Integer movementBonus) {
+		this.movementBonus = movementBonus;
 	}
 }
