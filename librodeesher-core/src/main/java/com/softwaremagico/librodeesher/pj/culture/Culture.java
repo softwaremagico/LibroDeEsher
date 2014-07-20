@@ -37,7 +37,6 @@ import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
-import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;

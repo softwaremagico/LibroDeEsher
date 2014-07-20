@@ -1024,27 +1024,23 @@ public class CharacterPlayer extends StorableObject {
 	 * @param category
 	 * @return
 	 */
-	public boolean isCategoryUseful(Category category) {
-		// Categories without skills are useless.
-		if (getCategory(category).getSkills().size() == 0) {
-			return false;
-		}
-		// Weapons always are useful. We need to define the rank cost.
+	public boolean isCategoryUseful(Category category) {		
+		// Weapons are allowed upsted cost is not set.
 		if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
-			// Firearms only if activated
-			if (!firearmsAllowed
+			if (!isFirearmsAllowed()
 					&& category.getName().contains(Spanish.FIREARMS_SUFIX)) {
 				return false;
 			}
 			return true;
 		}
-		// Expensive categories are useless.
-		if (getNewRankCost(category, 0, getTotalRanks(category)) > Config
-				.getCategoryMaxCost()) {
+		// Hide forbidden categories.
+		if (!isOtherRealmtrainingSpellsAllowed()
+				&& category.getName()
+						.equals(Spanish.OTHER_REALM_TRAINING_LISTS)) {
 			return false;
 		}
-		if (category.getName().equals(Spanish.OTHER_REALM_TRAINING_LISTS)
-				&& !isOtherRealmtrainingSpellsAllowed()) {
+		// Expensive categories are useless.
+		if (getNewRankCost(category, 0, 0) > Config.getCategoryMaxCost()) {
 			return false;
 		}
 		return true;
@@ -1076,9 +1072,9 @@ public class CharacterPlayer extends StorableObject {
 	 */
 	public boolean isSkillInteresting(Skill skill) {
 		// Skill tags are not interesting
-		if (skill.getName().toLowerCase().equals(Spanish.CULTURE_WEAPON) 
-				|| skill.getName().toLowerCase().equals(Spanish.CULTURE_ARMOUR) 
-						|| skill.getName().toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
+		if (skill.getName().toLowerCase().equals(Spanish.CULTURE_WEAPON)
+				|| skill.getName().toLowerCase().equals(Spanish.CULTURE_ARMOUR)
+				|| skill.getName().toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
 			return false;
 		}
 		// No ranks and no bonus, not interesting
@@ -1706,10 +1702,12 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public int getItemBonus(Category category) {
+		// TODO
 		return 0;
 	}
 
 	public int getItemBonus(Skill skill) {
+		// TODO
 		return 0;
 	}
 
@@ -1753,19 +1751,8 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public int getPowerPoints() {
-		Integer total = 0;
-		for (RealmOfMagic realm : getRealmOfMagic().getRealmsOfMagic()) {
-			ProgressionCostType progressionValue = ProgressionCostType
-					.getProgressionCostType(realm);
-			total += CategoryFactory
-					.getCategory(Spanish.POWER_POINTS_CATEGORY)
-					.getSkillRankValues(
-							getTotalRanks(SkillFactory
-									.getSkill(Spanish.POWER_POINTS_DEVELOPMENT_SKILL)),
-							getRace()
-									.getProgressionRankValues(progressionValue));
-		}
-		return total / getRealmOfMagic().getRealmsOfMagic().size();
+		return getTotalValue(SkillFactory
+				.getSkill(Spanish.POWER_POINTS_DEVELOPMENT_SKILL));
 	}
 
 	public String getVersion() {

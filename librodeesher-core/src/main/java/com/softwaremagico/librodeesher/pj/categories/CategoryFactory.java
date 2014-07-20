@@ -42,7 +42,6 @@ import com.softwaremagico.librodeesher.pj.weapons.WeaponType;
 import com.softwaremagico.log.Log;
 
 public class CategoryFactory {
-
 	private static Map<String, Category> availableCategories = new HashMap<>();
 	private static List<Category> weaponsCategory = new ArrayList<>();
 	private static List<String> availableCategoriesByName = new ArrayList<>();
