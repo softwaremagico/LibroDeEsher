@@ -38,6 +38,7 @@ import com.softwaremagico.librodeesher.pj.txt.ExportToText;
 import com.softwaremagico.log.Log;
 
 public class PdfSheet {
+	private final static String EMPTY_VALUE = "_____";
 	private CharacterPlayer characterPlayer;
 	private boolean twoFaced;
 	private boolean sortedSkills;
@@ -229,13 +230,13 @@ public class PdfSheet {
 						if (characterPlayer != null) {
 							text = characterPlayer.getPreviousRanks(category) + "";
 						} else {
-							text = "_____";
+							text = EMPTY_VALUE;
 						}
 					} else {
 						text = "na";
 					}
 				} else {
-					text = "_____";
+					text = EMPTY_VALUE;
 				}
 				p = new Paragraph(text, FontFactory.getFont(font, fontSize));
 				cell = new PdfPCell(p);
@@ -295,7 +296,7 @@ public class PdfSheet {
 						&& i < CategoryFactory.getAvailableCategories().size()) {
 					text = characterPlayer.getRanksValue(category) + "";
 				} else {
-					text = "_____";
+					text = EMPTY_VALUE;
 				}
 				p = new Paragraph(text, FontFactory.getFont(font, fontSize));
 				cell = new PdfPCell(p);
@@ -307,7 +308,7 @@ public class PdfSheet {
 						&& i < CategoryFactory.getAvailableCategories().size()) {
 					text = characterPlayer.getCharacteristicsBonus(category) + "";
 				} else {
-					text = "_____";
+					text = EMPTY_VALUE;
 				}
 				p = new Paragraph(text, FontFactory.getFont(font, fontSize));
 				cell = new PdfPCell(p);
@@ -321,7 +322,7 @@ public class PdfSheet {
 							+ characterPlayer.getProfession().getCategoryBonus(
 									category.getName()) + "";
 				} else {
-					text = "_____";
+					text = EMPTY_VALUE;
 				}
 				p = new Paragraph(text, FontFactory.getFont(font, fontSize));
 				cell = new PdfPCell(p);
@@ -350,7 +351,7 @@ public class PdfSheet {
 						text += "(" + letra + ")";
 					}
 				} else {
-					text = "_____";
+					text = EMPTY_VALUE;
 				}
 				p = new Paragraph(text, FontFactory.getFont(font, fontSize));
 				cell = new PdfPCell(p);
@@ -363,7 +364,7 @@ public class PdfSheet {
 						&& i < CategoryFactory.getAvailableCategories().size()) {
 					text = characterPlayer.getItemBonus(category) + "";
 				} else {
-					text = "_____";
+					text = EMPTY_VALUE;
 				}
 				p = new Paragraph(text, FontFactory.getFont(font, fontSize));
 				cell = new PdfPCell(p);
@@ -375,7 +376,7 @@ public class PdfSheet {
 						&& i < CategoryFactory.getAvailableCategories().size()) {
 					text = characterPlayer.getTotalValue(category) + "";
 				} else {
-					text = "_____";
+					text = EMPTY_VALUE;
 				}
 				p = new Paragraph(text, FontFactory.getFont(font, fontSize));
 				cell = new PdfPCell(p);
@@ -499,10 +500,10 @@ public class PdfSheet {
 		if (characterPlayer != null) {
 			texto = characterPlayer.getItemBonus(skill) + "";
 		} else {
-			texto = "__";
+			texto = EMPTY_VALUE;
 		}
 		if (texto.equals("0")) {
-			texto = "__";
+			texto = EMPTY_VALUE;
 		}
 		p = new Paragraph(texto, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
@@ -538,7 +539,7 @@ public class PdfSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
-		p = new Paragraph("____", FontFactory.getFont(font, fontSize));
+		p = new Paragraph(EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -555,7 +556,7 @@ public class PdfSheet {
 				texto = characterPlayer.getTotalValue(skill) + "";
 			}
 		} else {
-			texto = "__";
+			texto = EMPTY_VALUE;
 		}
 		p = new Paragraph(texto, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
@@ -629,10 +630,10 @@ public class PdfSheet {
 		if (characterPlayer != null) {
 			texto = characterPlayer.getItemBonus(hab) + "";
 		} else {
-			texto = "__";
+			texto = EMPTY_VALUE;
 		}
 		if (texto.equals("0")) {
-			texto = "__";
+			texto = EMPTY_VALUE;
 		}
 		p = new Paragraph(texto, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
@@ -670,7 +671,7 @@ public class PdfSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
-		p = new Paragraph("____", FontFactory.getFont(font, fontSize));
+		p = new Paragraph(EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -687,7 +688,7 @@ public class PdfSheet {
 				texto = characterPlayer.getSpecializedTotalValue(hab) + "";
 			}
 		} else {
-			texto = "__";
+			texto = EMPTY_VALUE;
 		}
 		p = new Paragraph(texto, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
@@ -710,7 +711,7 @@ public class PdfSheet {
 		cell.setPaddingLeft(5f);
 		table.addCell(cell);
 
-		p = new Paragraph("_____", FontFactory.getFont(font, fontSize));
+		p = new Paragraph(EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -725,37 +726,37 @@ public class PdfSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
-		p = new Paragraph("   _____", FontFactory.getFont(font, fontSize));
+		p = new Paragraph("   "+EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
-		p = new Paragraph("  _____", FontFactory.getFont(font, fontSize));
+		p = new Paragraph("  "+EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
-		p = new Paragraph("  _____", FontFactory.getFont(font, fontSize));
+		p = new Paragraph("  "+EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
-		p = new Paragraph("_____", FontFactory.getFont(font, fontSize));
+		p = new Paragraph(EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
-		p = new Paragraph("_____", FontFactory.getFont(font, fontSize));
+		p = new Paragraph(EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
-		p = new Paragraph("_____", FontFactory.getFont(font, fontSize));
+		p = new Paragraph(EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -968,7 +969,7 @@ public class PdfSheet {
 		if (characterPlayer != null) {
 			p = new Paragraph(tr + "", FontFactory.getFont(font, fontSize));
 		} else {
-			p = new Paragraph(" _____", FontFactory.getFont(font, fontSize));
+			p = new Paragraph(" "+EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		}
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
@@ -980,7 +981,7 @@ public class PdfSheet {
 					characterPlayer.getCharacteristicTotalBonus(characteristicAbbreviature)
 							* 3 + "", FontFactory.getFont(font, fontSize));
 		} else {
-			p = new Paragraph(" _____", FontFactory.getFont(font, fontSize));
+			p = new Paragraph(" "+EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		}
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
@@ -998,7 +999,7 @@ public class PdfSheet {
 					(characterPlayer.getCharacteristicTotalBonus(characteristicAbbreviature) * 3 + tr)
 							+ "    ", FontFactory.getFont(font, fontSize));
 		} else {
-			p = new Paragraph("______", FontFactory.getFont(font, fontSize));
+			p = new Paragraph(EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		}
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
@@ -1135,7 +1136,7 @@ public class PdfSheet {
 			p = new Paragraph(characterPlayer.getRace().getSoulDepartTime()
 					+ "", FontFactory.getFont(font, fontSize));
 		} else {
-			p = new Paragraph("____", FontFactory.getFont(font, fontSize));
+			p = new Paragraph(EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		}
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
@@ -1148,7 +1149,7 @@ public class PdfSheet {
 			p = new Paragraph(characterPlayer.getRace().getRestorationTime()
 					+ "   ", FontFactory.getFont(font, fontSize));
 		} else {
-			p = new Paragraph("____             ", FontFactory.getFont(font,
+			p = new Paragraph(EMPTY_VALUE+"             ", FontFactory.getFont(font,
 					fontSize));
 		}
 		cell = new PdfPCell(p);
@@ -1531,7 +1532,7 @@ public class PdfSheet {
 								.get(i).getAbbreviature())
 								+ "", FontFactory.getFont(font, fontSize));
 			} else {
-				p = new Paragraph("  ____", FontFactory.getFont(font, fontSize));
+				p = new Paragraph("  "+EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 			}
 			cell = new PdfPCell(p);
 			cell.setBorderWidth(0);
@@ -1544,7 +1545,7 @@ public class PdfSheet {
 								characteristics.get(i).getAbbreviature())
 						+ "", FontFactory.getFont(font, fontSize));
 			} else {
-				p = new Paragraph("  ____", FontFactory.getFont(font, fontSize));
+				p = new Paragraph("  "+EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 			}
 			cell = new PdfPCell(p);
 			cell.setBorderWidth(0);
@@ -1557,7 +1558,7 @@ public class PdfSheet {
 								.get(i).getAbbreviature())
 								+ "", FontFactory.getFont(font, fontSize));
 			} else {
-				p = new Paragraph("  ____", FontFactory.getFont(font, fontSize));
+				p = new Paragraph("  "+EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 			}
 			cell = new PdfPCell(p);
 			cell.setBorderWidth(0);
@@ -1570,7 +1571,7 @@ public class PdfSheet {
 								.get(i).getAbbreviature())
 								+ "", FontFactory.getFont(font, fontSize));
 			} else {
-				p = new Paragraph("  ____", FontFactory.getFont(font, fontSize));
+				p = new Paragraph("  "+EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 			}
 			cell = new PdfPCell(p);
 			cell.setBorderWidth(0);
@@ -1584,7 +1585,7 @@ public class PdfSheet {
 										.get(i).getAbbreviature()),
 						FontFactory.getFont(font, fontSize));
 			} else {
-				p = new Paragraph("    ____", FontFactory.getFont(font,
+				p = new Paragraph("    "+EMPTY_VALUE, FontFactory.getFont(font,
 						fontSize));
 			}
 			cell = new PdfPCell(p);
