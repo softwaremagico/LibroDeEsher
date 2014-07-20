@@ -150,6 +150,7 @@ public class RandomWindow extends BaseFrame {
 		panel.add(levelLabel, constraints);
 
 		BaseSpinner levelSpinner = createLevelSpinner();
+		constraints.gridwidth = 1;
 		constraints.gridx = 3;
 		panel.add(levelSpinner, constraints);
 

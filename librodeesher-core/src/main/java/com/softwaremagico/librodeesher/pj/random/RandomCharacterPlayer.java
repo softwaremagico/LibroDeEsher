@@ -53,8 +53,8 @@ public class RandomCharacterPlayer {
 
 		createRandomValues();
 	}
-	
-	public RandomCharacterPlayer(CharacterPlayer characterPlayer, int finalLevel){
+
+	public RandomCharacterPlayer(CharacterPlayer characterPlayer, int finalLevel) {
 		this.sex = characterPlayer.getSex();
 		suggestedSkillsRanks = new HashMap<>();
 		suggestedCategoriesRanks = new HashMap<>();
@@ -375,21 +375,21 @@ public class RandomCharacterPlayer {
 		while (characterPlayer.getCulture().getHobbyRanks()
 				- characterPlayer.getCultureDecisions().getTotalHobbyRanks() > 0) {
 			loop++;
-			List<String> hobbies = characterPlayer.getCulture()
-					.getHobbySkills();
+			List<String> hobbies = characterPlayer.getRealHobbySkills();
 			Collections.shuffle(hobbies);
 
-			if (hobbies.size() > 0
-					&& SkillFactory.getAvailableSkill(hobbies.get(0)) != null
-					&& SkillFactory.getAvailableSkill(hobbies.get(0))
-							.isUsedInRandom()
-					&& Math.random() * 100 + 1 < getProbablilityOfSetHobby(
-							SkillFactory.getAvailableSkill(hobbies.get(0)),
-							loop)) {
-				characterPlayer.getCultureDecisions().setHobbyRanks(
-						hobbies.get(0),
-						characterPlayer.getCultureDecisions().getHobbyRanks(
-								hobbies.get(0)) + 1);
+			if (hobbies.size() > 0) {
+				String skill = hobbies.get(0);
+				if (SkillFactory.getAvailableSkill(skill) != null
+						&& !SkillFactory.getAvailableSkill(skill)
+								.isRare()
+						&& Math.random() * 100 + 1 < getProbablilityOfSetHobby(
+								SkillFactory.getAvailableSkill(skill), loop)) {
+					characterPlayer.getCultureDecisions().setHobbyRanks(
+							skill,
+							characterPlayer.getCultureDecisions()
+									.getHobbyRanks(skill) + 1);
+				}
 			}
 		}
 	}
@@ -458,7 +458,7 @@ public class RandomCharacterPlayer {
 					if (weapon.getType().getWeaponCategoryName()
 							.equals(category.getName())) {
 						Skill weaponSkill = category.getSkill(weapon.getName());
-						if (weaponSkill != null && weaponSkill.isUsedInRandom()) {
+						if (weaponSkill != null && weaponSkill.isRare()) {
 							weaponsOfCategory.add(weaponSkill);
 						}
 					}

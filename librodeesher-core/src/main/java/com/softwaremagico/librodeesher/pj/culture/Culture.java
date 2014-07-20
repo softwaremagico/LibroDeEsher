@@ -37,6 +37,7 @@ import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
+import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
@@ -69,8 +70,8 @@ public class Culture {
 
 	public List<String> getHobbySkills() {
 		return hobbySkills;
-	}
-
+	}	
+	
 	public List<Weapon> getCultureWeapons() {
 		return cultureWeapons;
 	}
@@ -131,7 +132,7 @@ public class Culture {
 					index++;
 				}
 			} else {
-				cultureWeapons = WeaponFactory.getAllWeapons();
+				cultureWeapons = WeaponFactory.getAllStandardWeapons();
 				index++;
 			}
 		} catch (IndexOutOfBoundsException iof) {
@@ -210,7 +211,7 @@ public class Culture {
 				// If it is a category.
 				Category category;
 				if ((category = CategoryFactory.getCategory(hobby)) != null) {
-					for (Skill skill : category.getSkills()) {
+					for (Skill skill : category.getNonRareSkills()) {
 						// CultureSkill cultureSkill = new
 						// CultureSkill(skill.getName());
 						hobbySkills.add(skill.getName());

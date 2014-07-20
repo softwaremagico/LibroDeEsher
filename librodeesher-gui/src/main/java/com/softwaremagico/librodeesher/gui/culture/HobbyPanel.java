@@ -24,15 +24,7 @@ package com.softwaremagico.librodeesher.gui.culture;
  * #L%
  */
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
-import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
-import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
-import com.softwaremagico.librodeesher.pj.skills.Skill;
-import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 
 public class HobbyPanel extends CulturePanel {
 	private static final long serialVersionUID = -1080201556731377298L;
@@ -47,45 +39,14 @@ public class HobbyPanel extends CulturePanel {
 	@Override
 	protected void createElements() {
 		lineIndex = 0;
-		for (String skill : character.getCulture().getHobbySkills()) {
-			if (skill.toLowerCase().equals(Spanish.CULTURE_WEAPON)) {
-				for (Weapon weapon : character.getCulture().getCultureWeapons()) {
-					addHobbyLine(weapon.getName());
-				}
-			} else if (skill.toLowerCase().equals(Spanish.CULTURE_ARMOUR)) {
-				for (String armour : character.getCulture().getCultureArmours()) {
-					addHobbyLine(armour);
-				}
-			} else if (skill.toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
-				List<String> spells = new ArrayList<>();
-				// Add open lists.
-				for (Skill spell : character.getCategory(
-						CategoryFactory.getCategory(Spanish.OPEN_LISTS)).getSkills()) {
-					// addHobbyLine(spell.getName());
-					spells.add(spell.getName());
-				}
-				// Add race lists. Note than spell casters has race lists as
-				// basic and not as open. Therefore are not included in the
-				// previous step.
-				for (String spell : MagicFactory.getRaceLists(character.getRace().getName())) {
-					// avoid to add a race list two times.
-					if (!spells.contains(spell)) {
-						spells.add(spell);
-					}
-				}
-				// Create line.
-				for (String spell : spells) {
-					addHobbyLine(spell);
-				}
-
-			} else {
-				addHobbyLine(skill);
-			}
+		for (String skill : character.getRealHobbySkills()) {
+			addHobbyLine(skill);
 		}
 	}
 
 	private void addHobbyLine(String skill) {
-		HobbyLine hobbyLine = new HobbyLine(character, skill, this, getLineBackgroundColor(lineIndex));
+		HobbyLine hobbyLine = new HobbyLine(character, skill, this,
+				getLineBackgroundColor(lineIndex));
 		add(hobbyLine);
 		hobbyLines.add(hobbyLine);
 		lineIndex++;

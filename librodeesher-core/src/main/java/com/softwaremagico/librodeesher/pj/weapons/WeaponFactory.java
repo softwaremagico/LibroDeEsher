@@ -42,12 +42,14 @@ public class WeaponFactory {
 		try {
 			weaponsByType = availableWeapons();
 		} catch (Exception e) {
-			ShowMessage.showErrorMessage("Problemas al obtener las armas.", "Creación de armas");
+			ShowMessage.showErrorMessage("Problemas al obtener las armas.",
+					"Creación de armas");
 			e.printStackTrace();
 		}
 	}
 
-	private static HashMap<WeaponType, List<Weapon>> availableWeapons() throws Exception {
+	private static HashMap<WeaponType, List<Weapon>> availableWeapons()
+			throws Exception {
 
 		// Init variables.
 		HashMap<WeaponType, List<Weapon>> obtainedWeaponsByType = new HashMap<>();
@@ -57,21 +59,25 @@ public class WeaponFactory {
 		}
 
 		// Find all files with weapons.
-		List<String> weaponFiles = RolemasterFolderStructure.getFilesAvailableCompletePath(WEAPON_FOLDER);
+		List<String> weaponFiles = RolemasterFolderStructure
+				.getFilesAvailableCompletePath(WEAPON_FOLDER);
 
 		// Read each file.
 		for (String weaponFile : weaponFiles) {
-			List<String> weaponsInFile = Folder.readFileLines(weaponFile + ".txt", false);
+			List<String> weaponsInFile = Folder.readFileLines(weaponFile
+					+ ".txt", false);
 
 			File file = new File(weaponFile + ".txt");
 			String weaponTypeName = file.getName();
 
-			WeaponType weaponFileType = WeaponType.getWeaponType(MyFile.fileWithouExtension(weaponTypeName));
+			WeaponType weaponFileType = WeaponType.getWeaponType(MyFile
+					.fileWithouExtension(weaponTypeName));
 			for (String weaponName : weaponsInFile) {
 				if (!weaponName.startsWith("#")) {
 					Weapon weapon = new Weapon(weaponName, weaponFileType);
-					if(!obtainedWeaponsByType.get(weaponFileType).contains(weapon)){
-					obtainedWeaponsByType.get(weaponFileType).add(weapon);
+					if (!obtainedWeaponsByType.get(weaponFileType).contains(
+							weapon)) {
+						obtainedWeaponsByType.get(weaponFileType).add(weapon);
 					}
 				}
 			}
@@ -86,6 +92,25 @@ public class WeaponFactory {
 			weapons.addAll(getWeaponsByType(type));
 		}
 		return weapons;
+	}
+
+	/**
+	 * Return all weapons that are not marked as rare.
+	 * 
+	 * @return
+	 */
+	public static List<Weapon> getAllStandardWeapons() {
+		List<Weapon> weapons = new ArrayList<>();
+		for (WeaponType type : WeaponType.values()) {
+			weapons.addAll(getWeaponsByType(type));
+		}
+		List<Weapon> filteredWeapons = new ArrayList<>();
+		for (Weapon weapon : weapons) {
+			if(!weapon.isRare()){
+				filteredWeapons.add(weapon);
+			}
+		}
+		return filteredWeapons;
 	}
 
 	public static List<Weapon> getWeaponsByType(WeaponType type) {

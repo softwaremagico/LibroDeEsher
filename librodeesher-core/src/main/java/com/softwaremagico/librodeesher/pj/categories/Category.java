@@ -36,6 +36,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -59,6 +60,9 @@ public abstract class Category extends StorableObject {
 	@ElementCollection
 	@CollectionTable(name = "T_CATEGORY_SKILL_LIST")
 	protected List<Skill> skills;
+	// Subset of skills that are without an '*' in the name.
+	@Transient
+	private List<Skill> normalSkills = null;
 	@ElementCollection
 	@CollectionTable(name = "T_CATEGORY_SKILL_RANKS_VALUES")
 	private List<Float> skillRankValues; // Rank values. i.e: -15/3/2/1/0.5
@@ -118,6 +122,20 @@ public abstract class Category extends StorableObject {
 
 	public List<Skill> getSkills() {
 		return skills;
+	}
+
+	public List<Skill> getNonRareSkills() {
+		if (normalSkills != null) {
+			return normalSkills;
+		}
+		List<Skill> filteredSkills = new ArrayList<>();
+		for (Skill skill : getSkills()) {
+			if (!skill.isRare()) {
+				filteredSkills.add(skill);
+			}
+		}
+		normalSkills = filteredSkills;
+		return filteredSkills;
 	}
 
 	public CategoryType getCategoryType() {

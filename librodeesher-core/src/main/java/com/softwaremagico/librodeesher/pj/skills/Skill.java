@@ -54,7 +54,7 @@ public class Skill extends StorableObject{
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Category category;
 	private SkillGroup skillGroup;
-	private boolean usedInRandom = true;
+	private boolean rare = true;
 
 	public Skill(String name, SkillType type) {
 		this.skilltype = type;
@@ -125,12 +125,12 @@ public class Skill extends StorableObject{
 		return skilltype;
 	}
 
-	public boolean isUsedInRandom() {
-		return usedInRandom;
+	public boolean isRare() {
+		return rare;
 	}
 
-	public void setUsedInRandom(boolean usedInRandom) {
-		this.usedInRandom = usedInRandom;
+	public void setRare(boolean rare) {
+		this.rare = rare;
 	}
 
 	public List<String> getSpecialities() {

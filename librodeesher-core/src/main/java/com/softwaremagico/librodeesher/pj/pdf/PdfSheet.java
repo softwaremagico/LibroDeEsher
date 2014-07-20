@@ -436,14 +436,14 @@ public class PdfSheet {
 						.getDirectContent());
 	}
 
-	private void addSkillLine(Skill hab, String font, int fontSize,
+	private void addSkillLine(Skill skill, String font, int fontSize,
 			PdfPTable table, int line) throws BadElementException,
 			MalformedURLException, IOException {
 		String texto;
 		PdfPCell cell;
 
 		if (characterPlayer != null) {
-			texto = hab.getName() + " " + hab.getSkillType().getTag();
+			texto = skill.getName() + " " + skill.getSkillType().getTag();
 			texto.trim();
 		} else {
 			texto = "___________________________________________";
@@ -457,7 +457,7 @@ public class PdfSheet {
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			texto = characterPlayer.getPreviousRanks(hab) + "";
+			texto = characterPlayer.getPreviousRanks(skill) + "";
 		} else {
 			texto = "__";
 		}
@@ -469,13 +469,13 @@ public class PdfSheet {
 
 		cell = new PdfPCell(
 				DevolverCuadradosNuevosRangos(characterPlayer
-						.getCurrentLevelRanks(hab)));
+						.getCurrentLevelRanks(skill)));
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			texto = "  " + characterPlayer.getRanksValue(hab) + "";
+			texto = "  " + characterPlayer.getRanksValue(skill) + "";
 		} else {
 			texto = "   __";
 		}
@@ -486,7 +486,7 @@ public class PdfSheet {
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			texto = characterPlayer.getTotalValue(hab.getCategory()) + "";
+			texto = characterPlayer.getTotalValue(skill.getCategory()) + "";
 		} else {
 			texto = "__";
 		}
@@ -497,7 +497,7 @@ public class PdfSheet {
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			texto = characterPlayer.getItemBonus(hab) + "";
+			texto = characterPlayer.getItemBonus(skill) + "";
 		} else {
 			texto = "__";
 		}
@@ -512,20 +512,20 @@ public class PdfSheet {
 
 		if (characterPlayer != null) {
 			texto = characterPlayer.getProfession()
-					.getSkillBonus(hab.getName())
-					+ characterPlayer.getHistorial().getBonus(hab)
-					+ characterPlayer.getPerkBonus(hab) + "";
+					.getSkillBonus(skill.getName())
+					+ characterPlayer.getHistorial().getBonus(skill)
+					+ characterPlayer.getPerkBonus(skill) + "";
 		} else {
 			texto = "__";
 		}
 		String letra = "";
-		if (characterPlayer.getHistorial().getBonus(hab) > 0) {
+		if (characterPlayer.getHistorial().getBonus(skill) > 0) {
 			letra += "H";
 		}
 
-		if (characterPlayer.getPerkBonus(hab) != 0) {
+		if (characterPlayer.getPerkBonus(skill) != 0) {
 			letra += "T";
-			if (characterPlayer.getConditionalPerkBonus(hab) != 0) {
+			if (characterPlayer.getConditionalPerkBonus(skill) != 0) {
 				letra += "*";
 			}
 		}
@@ -545,14 +545,14 @@ public class PdfSheet {
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			if (characterPlayer.getItemBonus(hab) > 0
-					|| characterPlayer.getConditionalPerkBonus(hab) > 0) {
-				texto = characterPlayer.getTotalValue(hab)
-						- characterPlayer.getItemBonus(hab)
-						- characterPlayer.getConditionalPerkBonus(hab) + "/"
-						+ characterPlayer.getTotalValue(hab) + "";
+			if (characterPlayer.getItemBonus(skill) > 0
+					|| characterPlayer.getConditionalPerkBonus(skill) > 0) {
+				texto = characterPlayer.getTotalValue(skill)
+						- characterPlayer.getItemBonus(skill)
+						- characterPlayer.getConditionalPerkBonus(skill) + "/"
+						+ characterPlayer.getTotalValue(skill) + "";
 			} else {
-				texto = characterPlayer.getTotalValue(hab) + "";
+				texto = characterPlayer.getTotalValue(skill) + "";
 			}
 		} else {
 			texto = "__";
@@ -789,14 +789,14 @@ public class PdfSheet {
 				+ File.separator + "RMHP3.png");
 	}
 
-	private int NuevaHabilidad(PdfPTable table, Document document,
+	private int newSkill(PdfPTable table, Document document,
 			PdfWriter writer, String font, int fontsize, float[] widths,
-			List<Skill> habilidades, int alreadyAddedSkills)
+			List<Skill> skills, int alreadyAddedSkills)
 			throws DocumentException, MalformedURLException, IOException,
 			Exception {
 
-		for (int j = 0; j < habilidades.size(); j++) {
-			Skill skill = habilidades.get(j);
+		for (int j = 0; j < skills.size(); j++) {
+			Skill skill = skills.get(j);
 			if (alreadyAddedSkills > 56) {
 				AddNewSkillPage(table, document, writer, font, fontsize);
 				table.flushContent();
@@ -807,7 +807,7 @@ public class PdfSheet {
 				alreadyAddedSkills = 0;
 			}
 
-			if (characterPlayer.isSkillUseful(skill)) {
+			if (characterPlayer.isSkillInteresting(skill)) {
 				alreadyAddedSkills++;
 				addSkillLine(skill, font, fontsize, table,
 						alreadyAddedSkills);
@@ -830,7 +830,7 @@ public class PdfSheet {
 		return alreadyAddedSkills;
 	}
 
-	private void AddTablaValoresHabilidades(Document document,
+	private void addSkillTable(Document document,
 			PdfWriter writer, String font) throws DocumentException,
 			MalformedURLException, IOException, Exception {
 		float[] widths = { 0.36f, 0.07f, 0.085f, 0.065f, 0.065f, 0.065f,
@@ -842,23 +842,23 @@ public class PdfSheet {
 		table.setTotalWidth(document.getPageSize().getWidth() - 65);
 		PdfPCell cell;
 		int fontsize = 6;
-
 		int skillLines = 0;
 
 		if (characterPlayer != null) {
 			// Add skills and add lines for new ones.
-			if (sortedSkills) {
+			if (!sortedSkills) {
 				for (int i = 0; i < CategoryFactory.getAvailableCategories()
 						.size(); i++) {
-					Category cat = CategoryFactory.getCategory(CategoryFactory
+					Category category = CategoryFactory.getCategory(CategoryFactory
 							.getAvailableCategories().get(i));
-					skillLines = NuevaHabilidad(table, document, writer, font,
-							fontsize, widths, cat.getSkills(), skillLines);
+					skillLines = newSkill(table, document, writer, font,
+							fontsize, widths, category.getSkills(), skillLines);
 				}
+				//Add skills sorted
 			} else {
-				List<Skill> habilidadesOrdenadas = SkillFactory.getSkills();
-				skillLines = NuevaHabilidad(table, document, writer, font,
-						fontsize, widths, habilidadesOrdenadas, skillLines);
+				List<Skill> sortedSkills = SkillFactory.getSkills();
+				skillLines = newSkill(table, document, writer, font,
+						fontsize, widths, sortedSkills, skillLines);
 			}
 		}
 		while (skillLines < 57) {
@@ -886,7 +886,7 @@ public class PdfSheet {
 		AddImagenFondo(document, RolemasterFolderStructure.getSheetFolder()
 				+ File.separator + "RMHP3.png");
 		AddTablaNombreHabilidades(document, writer, font);
-		AddTablaValoresHabilidades(document, writer, font);
+		addSkillTable(document, writer, font);
 	}
 
 	private void PersonajePagina2PDF(Document document, PdfWriter writer,

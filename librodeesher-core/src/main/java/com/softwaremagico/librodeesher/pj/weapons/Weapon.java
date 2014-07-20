@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.weapons;
+
 /*
  * #%L
  * Libro de Esher
@@ -35,9 +36,18 @@ public class Weapon {
 	public String getName() {
 		return name;
 	}
-	
-	public WeaponType getType(){
+
+	public WeaponType getType() {
 		return type;
+	}
+
+	/**
+	 * Is rare if it has an '*' in the name.
+	 * 
+	 * @return
+	 */
+	public boolean isRare() {
+		return name.contains("*");
 	}
 
 	@Override
@@ -64,5 +74,5 @@ public class Weapon {
 			return false;
 		return true;
 	}
-	
+
 }

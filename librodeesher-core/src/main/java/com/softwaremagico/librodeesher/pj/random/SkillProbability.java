@@ -35,7 +35,7 @@ public class SkillProbability {
 		int probability = 0;
 
 		// Avoid strange skills.
-		if (!skill.isUsedInRandom() && !characterPlayer.isCommon(skill)
+		if (!skill.isRare() && !characterPlayer.isCommon(skill)
 				&& suggestedSkillsRanks != null
 				&& suggestedSkillsRanks.get(skill.getName()) != null
 				&& suggestedSkillsRanks.get(skill.getName()) == 0) {

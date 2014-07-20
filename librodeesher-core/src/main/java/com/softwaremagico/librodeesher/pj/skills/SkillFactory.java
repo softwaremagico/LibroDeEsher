@@ -105,7 +105,7 @@ public class SkillFactory {
 		SkillType skillType = SkillType.getSkillType(skillNameAndType);
 		Skill skill = createSkill(removeTypeFromName(skillNameAndType), skillType);
 		// "*" is used to avoid skills to be used in random characters. 
-		skill.setUsedInRandom(!skillNameAndType.contains("*"));
+		skill.setRare(!skillNameAndType.contains("*"));
 		return skill;
 	}
 

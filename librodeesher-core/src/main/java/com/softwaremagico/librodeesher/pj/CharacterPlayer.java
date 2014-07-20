@@ -59,6 +59,7 @@ import com.softwaremagico.librodeesher.pj.culture.CultureDecisions;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.historial.Historial;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
+import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
 import com.softwaremagico.librodeesher.pj.magic.MagicListType;
 import com.softwaremagico.librodeesher.pj.magic.MagicSpellLists;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
@@ -81,6 +82,7 @@ import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 import com.softwaremagico.librodeesher.pj.training.TrainingItem;
 import com.softwaremagico.librodeesher.pj.training.TrainingSkill;
+import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 import com.softwaremagico.persistence.StorableObject;
 
 @Entity
@@ -1073,6 +1075,12 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public boolean isSkillInteresting(Skill skill) {
+		// Skill tags are not interesting
+		if (skill.getName().toLowerCase().equals(Spanish.CULTURE_WEAPON) 
+				|| skill.getName().toLowerCase().equals(Spanish.CULTURE_ARMOUR) 
+						|| skill.getName().toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
+			return false;
+		}
 		// No ranks and no bonus, not interesting
 		if ((getTotalRanks(skill) > 0) || getBonus(skill) > 0) {
 			return true;
@@ -1763,4 +1771,52 @@ public class CharacterPlayer extends StorableObject {
 	public String getVersion() {
 		return version;
 	}
+
+	/**
+	 * Convert special tags as 'weapon' or 'armor' to real skills names
+	 * depending on the culture possibilities.
+	 * 
+	 * @return
+	 */
+	public List<String> getRealHobbySkills() {
+		List<String> realSkills = new ArrayList<>();
+		for (String skill : getCulture().getHobbySkills()) {
+			if (skill.toLowerCase().equals(Spanish.CULTURE_WEAPON)) {
+				for (Weapon weapon : getCulture().getCultureWeapons()) {
+					realSkills.add(weapon.getName());
+				}
+			} else if (skill.toLowerCase().equals(Spanish.CULTURE_ARMOUR)) {
+				for (String armour : getCulture().getCultureArmours()) {
+					realSkills.add(armour);
+				}
+			} else if (skill.toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
+				List<String> spells = new ArrayList<>();
+				// Add open lists.
+				for (Skill spell : getCategory(
+						CategoryFactory.getCategory(Spanish.OPEN_LISTS))
+						.getSkills()) {
+					// addHobbyLine(spell.getName());
+					spells.add(spell.getName());
+				}
+				// Add race lists. Note than spell casters has race lists as
+				// basic and not as open. Therefore are not included in the
+				// previous step.
+				for (String spell : MagicFactory.getRaceLists(getRace()
+						.getName())) {
+					// avoid to add a race list two times.
+					if (!spells.contains(spell)) {
+						spells.add(spell);
+					}
+				}
+				// Create line.
+				for (String spell : spells) {
+					realSkills.add(spell);
+				}
+			} else {
+				realSkills.add(skill);
+			}
+		}
+		return realSkills;
+	}
+
 }
