@@ -5,11 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import com.softwaremagico.librodeesher.basics.ChooseType;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.ChooseCategoryGroup;
@@ -17,69 +12,30 @@ import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbrevia
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
-import com.softwaremagico.persistence.StorableObject;
 
-@Entity
-@Table(name = "T_PERKS")
-public class Perk extends StorableObject {
+public class Perk {
 
 	private String name;
 	private Integer cost;
 	private String description;
-	@ElementCollection
-	@CollectionTable(name = "T_PERK_AVAILABLE_TO_RACES")
 	private List<String> avalibleToRaces;
-	@ElementCollection
-	@CollectionTable(name = "T_PERK_AVAILABLE_TO_PROFESSIONS")
 	private List<String> avalibleToProfessions;
 	private PerkCategory category;
-	@ElementCollection
-	@CollectionTable(name = "T_PERK_CATEGORY_BONUS")
 	private Map<String, Integer> categoryBonus;
-	@ElementCollection
-	@CollectionTable(name = "T_PERK_CONDITIONAL_CATEGORY_BONUS")
 	private Map<String, Integer> conditionalCategoryBonus;
-	@ElementCollection
-	@CollectionTable(name = "T_PERK_CATEGORY_RANKS")
 	private Map<String, Integer> categoryRanks;
-	@ElementCollection
-	@CollectionTable(name = "T_PERK_SKILL_BONUS")
 	private Map<String, Integer> skillBonus;
-	@ElementCollection
-	@CollectionTable(name = "T_PERK_SKILL_RANKS")
 	private Map<String, Integer> skillRanks;
-	@ElementCollection
-	@CollectionTable(name = "T_PERK_CONDITIONAL_SKILL_BONUS")
 	private Map<String, Integer> conditionalSkillBonus;
-	@ElementCollection
-	@CollectionTable(name = "T_PERK_RESISTANCE_BONUS")
 	private Map<String, Integer> resistanceBonus;
-	@ElementCollection
-	@CollectionTable(name = "T_PERK_CHARACTERISTIC_BONUS")
 	private Map<CharacteristicsAbbreviature, Integer> characteristicBonus;
-	@ElementCollection
-	@CollectionTable(name = "T_PERK_CATEGORY_WITH_RESTRICTED")
 	private Map<String, Integer> categoryWithRestricted;
-	@ElementCollection
-	@CollectionTable(name = "T_PERK_COMMON_SKILLS")
 	private List<String> commonSkills;
-	@ElementCollection
-	@CollectionTable(name = "T_PERK_COMMON_CATEGORIES")
 	private List<String> commonCategories;
-	@ElementCollection
-	@CollectionTable(name = "T_PERK_RESTRICTED_SKILLS")
 	private List<String> restrictedSkills;
-	@ElementCollection
-	@CollectionTable(name = "T_PERK_RESTRICTED_CATEGORIES")
 	private List<String> restrictedCategories;
-	@ElementCollection
-	@CollectionTable(name = "T_PERK_CATEGORIES_TO_CHOOSE")
 	private List<ChooseCategoryGroup> categoriesToChoose;
-	@ElementCollection
-	@CollectionTable(name = "T_PERK_SKILLS_TO_CHOOSE")
 	private List<ChooseSkillGroup> skillsToChoose;
-	@ElementCollection
-	@CollectionTable(name = "T_PERK_COMMON_SKILLS_TO_CHOOSE")
 	private List<ChooseSkillGroup> commonSkillsToChoose;
 	private Integer appareanceBonus;
 	private Integer armourClass;

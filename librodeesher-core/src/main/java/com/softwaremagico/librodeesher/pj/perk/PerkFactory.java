@@ -276,5 +276,14 @@ public class PerkFactory {
 	public static Perk getPerk(String name) {
 		return availablePerks.get(name);
 	}
+	
+	/**
+	 * One perk can be identified by the name.
+	 * @param selectedPerk
+	 * @return
+	 */
+	public static Perk getPerk(SelectedPerk selectedPerk){
+		return getPerk(selectedPerk.getName());
+	}
 
 }

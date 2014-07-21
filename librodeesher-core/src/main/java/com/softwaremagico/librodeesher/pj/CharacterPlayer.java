@@ -66,6 +66,8 @@ import com.softwaremagico.librodeesher.pj.magic.MagicSpellLists;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.perk.Perk;
 import com.softwaremagico.librodeesher.pj.perk.PerkDecision;
+import com.softwaremagico.librodeesher.pj.perk.PerkFactory;
+import com.softwaremagico.librodeesher.pj.perk.SelectedPerk;
 import com.softwaremagico.librodeesher.pj.profession.Profession;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionDecisions;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
@@ -142,18 +144,19 @@ public class CharacterPlayer extends StorableObject {
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
 
 	@Transient
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "magicSpellListId")
+	// List are obtained when loading the character.
 	private MagicSpellLists magicSpellLists;
-
 	@Transient
+	// Checks to only recreate the lists one time.
+	private boolean magicSpellListsObtained;
+
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "historialId")
 	private Historial historial;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	@CollectionTable(name = "T_CHARACTERPLAYER_PERKS")
-	private List<Perk> perks;
+	@CollectionTable(name = "T_CHARACTERPLAYER_SELECTED_PERKS")
+	private List<SelectedPerk> selectedPerks;
 
 	@ElementCollection
 	@CollectionTable(name = "T_CHARACTERPLAYER_PERKS_DECISIONS")
@@ -187,7 +190,8 @@ public class CharacterPlayer extends StorableObject {
 		professionDecisions = new ProfessionDecisions();
 		trainingsNames = new ArrayList<>();
 		trainings = new ArrayList<>();
-		perks = new ArrayList<>();
+		selectedPerks = new ArrayList<>();
+		magicSpellListsObtained = false;
 		setDefaultConfig();
 		// Starts in level 1.
 		increaseLevel();
@@ -236,8 +240,7 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public boolean isPureWizard() {
-		return (getNewRankCost(
-				CategoryFactory.getCategory(Spanish.BASIC_LIST_TAG), 0, 0) == 3);
+		return (getNewRankCost(getCategory(Spanish.BASIC_LIST_TAG), 0, 0) == 3);
 	}
 
 	/**
@@ -246,8 +249,7 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public boolean isHybridWizard() {
-		return (getNewRankCost(
-				CategoryFactory.getCategory(Spanish.BASIC_LIST_TAG), 0, 0) == 3 && getRealmOfMagic()
+		return (getNewRankCost(getCategory(Spanish.BASIC_LIST_TAG), 0, 0) == 3 && getRealmOfMagic()
 				.getRealmsOfMagic().size() == 2);
 	}
 
@@ -257,8 +259,7 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public boolean isSemiWizard() {
-		return (getNewRankCost(
-				CategoryFactory.getCategory(Spanish.BASIC_LIST_TAG), 0, 0) == 6);
+		return (getNewRankCost(getCategory(Spanish.BASIC_LIST_TAG), 0, 0) == 6);
 	}
 
 	public CultureDecisions getCultureDecisions() {
@@ -459,7 +460,7 @@ public class CharacterPlayer extends StorableObject {
 		List<String> categoriesWithRanks = levelUps.get(level)
 				.getCategoriesWithRanks();
 		for (String categoryName : categoriesWithRanks) {
-			Category category = CategoryFactory.getCategory(categoryName);
+			Category category = getCategory(categoryName);
 			Integer ranksUpdatedInLevel = levelUps.get(level).getCategoryRanks(
 					categoryName);
 			for (int i = 0; i < ranksUpdatedInLevel; i++) {
@@ -562,7 +563,6 @@ public class CharacterPlayer extends StorableObject {
 	public void setCharacteristicsAsConfirmed() {
 		setPotentialValues();
 		characteristicsConfirmed = true;
-		magicSpellLists.orderSpellListsByCategory(this);
 	}
 
 	private void setCharacteristicsTemporalUpdatesRolls() {
@@ -616,7 +616,6 @@ public class CharacterPlayer extends StorableObject {
 				|| !this.professionName.equals(professionName)) {
 			this.professionName = professionName;
 			setTemporalValuesOfCharacteristics();
-			magicSpellLists = new MagicSpellLists();
 		}
 	}
 
@@ -715,8 +714,8 @@ public class CharacterPlayer extends StorableObject {
 
 	private Integer getPerksRanks(Category category) {
 		Integer total = 0;
-		for (Perk perk : perks) {
-			total += perk.getRanks(category);
+		for (SelectedPerk perk : selectedPerks) {
+			total += PerkFactory.getPerk(perk).getRanks(category);
 		}
 		return total;
 	}
@@ -737,8 +736,8 @@ public class CharacterPlayer extends StorableObject {
 
 	private Integer getPerksRanks(Skill skill) {
 		Integer total = 0;
-		for (Perk perk : perks) {
-			total += perk.getRanks(skill);
+		for (SelectedPerk perk : selectedPerks) {
+			total += PerkFactory.getPerk(perk).getRanks(skill);
 		}
 		return total;
 	}
@@ -821,8 +820,8 @@ public class CharacterPlayer extends StorableObject {
 
 	public Integer getPerkApperanceBonus() {
 		Integer total = 0;
-		for (Perk perk : perks) {
-			total += perk.getAppareanceBonus();
+		for (SelectedPerk perk : selectedPerks) {
+			total += PerkFactory.getPerk(perk).getAppareanceBonus();
 		}
 		return total;
 	}
@@ -830,20 +829,21 @@ public class CharacterPlayer extends StorableObject {
 	public Integer getPerkCharacteristicBonus(
 			CharacteristicsAbbreviature characteristic) {
 		Integer total = 0;
-		for (Perk perk : perks) {
-			total += perk.getCharacteristicBonus(characteristic);
+		for (SelectedPerk perk : selectedPerks) {
+			total += PerkFactory.getPerk(perk).getCharacteristicBonus(
+					characteristic);
 		}
 		return total;
 	}
 
 	public Integer getPerkBonus(Skill skill) {
 		Integer total = 0;
-		for (Perk perk : perks) {
-			total += perk.getBonus(skill);
+		for (SelectedPerk perk : selectedPerks) {
+			total += PerkFactory.getPerk(perk).getBonus(skill);
 			PerkDecision decision = perkDecisions.get(perk);
 			if (decision != null) {
 				if (decision.isBonusChosen(skill)) {
-					total += perk.getChosenBonus();
+					total += PerkFactory.getPerk(perk).getChosenBonus();
 				}
 			}
 		}
@@ -852,20 +852,21 @@ public class CharacterPlayer extends StorableObject {
 
 	public Integer getConditionalPerkBonus(Skill skill) {
 		Integer total = 0;
-		for (Perk perk : perks) {
-			total += perk.getConditionalSkillBonus().get(skill.getName());
+		for (SelectedPerk perk : selectedPerks) {
+			total += PerkFactory.getPerk(perk).getConditionalSkillBonus()
+					.get(skill.getName());
 		}
 		return total;
 	}
 
 	public Integer getPerkBonus(Category category) {
 		Integer total = 0;
-		for (Perk perk : perks) {
-			total += perk.getBonus(category);
+		for (SelectedPerk perk : selectedPerks) {
+			total += PerkFactory.getPerk(perk).getBonus(category);
 			PerkDecision decision = perkDecisions.get(perk);
 			if (decision != null) {
 				if (decision.isBonusChosen(category)) {
-					total += perk.getChosenBonus();
+					total += PerkFactory.getPerk(perk).getChosenBonus();
 				}
 			}
 		}
@@ -874,8 +875,9 @@ public class CharacterPlayer extends StorableObject {
 
 	public Integer getConditionalPerkBonus(Category category) {
 		Integer total = 0;
-		for (Perk perk : perks) {
-			total += perk.getConditionalCategoryBonus().get(category.getName());
+		for (SelectedPerk perk : selectedPerks) {
+			total += PerkFactory.getPerk(perk).getConditionalCategoryBonus()
+					.get(category.getName());
 		}
 		return total;
 	}
@@ -1097,11 +1099,27 @@ public class CharacterPlayer extends StorableObject {
 		return false;
 	}
 
+	/**
+	 * Some categories depend on the profession of the character (as spell
+	 * lists).
+	 * 
+	 * @param category
+	 * @return
+	 */
 	public Category getCategory(Category category) {
-		if (category.getCategoryGroup().equals(CategoryGroup.SPELL)) {
-			return magicSpellLists.getMagicCategory(category.getName());
+		if (isCharacteristicsConfirmed()
+				&& category.getCategoryGroup().equals(CategoryGroup.SPELL)) {
+			return getMagicSpellLists().getMagicCategory(category.getName());
 		}
 		return category;
+	}
+
+	public Category getCategory(String categoryName) {
+		Category category = CategoryFactory.getCategory(categoryName);
+		if (category != null) {
+			return getCategory(category);
+		}
+		return null;
 	}
 
 	public List<String> getTrainingsNames() {
@@ -1198,21 +1216,37 @@ public class CharacterPlayer extends StorableObject {
 
 	public void addPerk(Perk perk) {
 		if (!isPerkChoosed(perk)) {
-			perks.add(perk);
+			selectedPerks.add(new SelectedPerk(perk));
 		}
 	}
 
 	public void removePerk(Perk perk) {
-		perks.remove(perk);
+		SelectedPerk perkToRemove = null;
+		for (SelectedPerk selectedPerk : selectedPerks) {
+			if (selectedPerk.getName().equals(perk.getName())
+					&& selectedPerk.getCost() == perk.getCost()) {
+				perkToRemove = selectedPerk;
+				break;
+			}
+		}
+		if (perkToRemove != null) {
+			selectedPerks.remove(perkToRemove);
+		}
 	}
 
 	public boolean isPerkChoosed(Perk perk) {
-		return perks.contains(perk);
+		for (SelectedPerk selectedPerk : selectedPerks) {
+			if (selectedPerk.getName().equals(perk.getName())
+					&& selectedPerk.getCost() == perk.getCost()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private Integer getSpentPerksPoints() {
 		Integer total = 0;
-		for (Perk perk : perks) {
+		for (SelectedPerk perk : selectedPerks) {
 			total += perk.getCost();
 		}
 		return total;
@@ -1272,8 +1306,8 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	private boolean isCommonByPerk(Skill skill) {
-		for (Perk perk : perks) {
-			if (perk.isCommon(skill)) {
+		for (SelectedPerk perk : selectedPerks) {
+			if (PerkFactory.getPerk(perk).isCommon(skill)) {
 				return true;
 			}
 			PerkDecision decision = perkDecisions.get(perk);
@@ -1287,8 +1321,8 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	private boolean isRestrictedByPerk(Skill skill) {
-		for (Perk perk : perks) {
-			if (perk.isRestricted(skill)) {
+		for (SelectedPerk perk : selectedPerks) {
+			if (PerkFactory.getPerk(perk).isRestricted(skill)) {
 				return true;
 			}
 		}
@@ -1489,6 +1523,13 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	protected MagicSpellLists getMagicSpellLists() {
+		if (magicSpellLists == null) {
+			magicSpellLists = new MagicSpellLists();
+		}
+		if (characteristicsConfirmed && !magicSpellListsObtained) {
+			magicSpellLists.orderSpellListsByCategory(this);
+			magicSpellListsObtained = true;
+		}
 		return magicSpellLists;
 	}
 
@@ -1529,11 +1570,18 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public List<Perk> getPerks() {
+		List<Perk> perks = new ArrayList<>();
+		for (SelectedPerk selectedPerk : selectedPerks) {
+			perks.add(PerkFactory.getPerk(selectedPerk));
+		}
 		return perks;
 	}
 
 	protected void setPerks(List<Perk> perks) {
-		this.perks = perks;
+		selectedPerks.clear();
+		for (Perk perk : perks) {
+			selectedPerks.add(new SelectedPerk(perk));
+		}
 	}
 
 	protected Map<String, PerkDecision> getPerkDecisions() {

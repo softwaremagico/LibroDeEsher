@@ -30,42 +30,22 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillComparator;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
-import com.softwaremagico.persistence.StorableObject;
 
-@Entity
-@Table(name = "T_CATEGORY")
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Category extends StorableObject {
-
+public abstract class Category {
 	private String name;
 	protected String abbreviature;
 	protected CategoryType categoryType;
 	protected CategoryGroup categoryGroup;
 	private String characterisitcsTags;
-	@ElementCollection
-	@CollectionTable(name = "T_CATEGORY_CHARACTERISTIC_LIST_TAG")
 	private List<CharacteristicsAbbreviature> characteristics;
-	@ElementCollection
-	@CollectionTable(name = "T_CATEGORY_SKILL_LIST")
 	protected List<Skill> skills;
 	// Subset of skills that are without an '*' in the name.
-	@Transient
 	private List<Skill> normalSkills = null;
-	@ElementCollection
-	@CollectionTable(name = "T_CATEGORY_SKILL_RANKS_VALUES")
 	private List<Float> skillRankValues; // Rank values. i.e: -15/3/2/1/0.5
 	private boolean notUsedInRandom = false;
 
@@ -83,7 +63,8 @@ public abstract class Category extends StorableObject {
 
 	private void createCharacteristicList(String characteristicsTag) {
 		characteristics = new ArrayList<>();
-		String[] characteristicsTags = characteristicsTag.split(Pattern.quote("/"));
+		String[] characteristicsTags = characteristicsTag.split(Pattern
+				.quote("/"));
 		for (String characteristic : characteristicsTags) {
 			characteristics.add(CharacteristicsAbbreviature
 					.getCharacteristicsAbbreviature(characteristic));

@@ -29,27 +29,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 import com.softwaremagico.persistence.StorableObject;
 
-@Entity
-@Table(name = "T_MAGIC_SPELLS")
-public class MagicSpellLists extends StorableObject {
-
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@CollectionTable(name = "T_MAGIC_CATEGORIES")
-	@JoinColumn(name = "id")	
+public class MagicSpellLists extends StorableObject {	
 	private Map<MagicListType, Category> magicCategories; // Spells
 
 	public MagicSpellLists() {
@@ -105,7 +91,7 @@ public class MagicSpellLists extends StorableObject {
 				.getRealmsOfMagic(), character.getTrainingsNames());
 
 		// Other professions.
-		// Only no elementalist has elementalis list as other professions.
+		// Only no elementalist has elementalist list as other professions.
 		List<String> otherProfession = new ArrayList<>();
 		otherProfession = MagicFactory.getListOfOtherProfessions(basicSpells, character
 				.getRealmOfMagic().getRealmsOfMagic(), character.getProfession().getName(),

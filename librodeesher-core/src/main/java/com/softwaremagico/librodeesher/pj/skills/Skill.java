@@ -4,19 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.ProgressionCostType;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
-import com.softwaremagico.persistence.StorableObject;
 
 /*
  * #%L
@@ -42,16 +33,10 @@ import com.softwaremagico.persistence.StorableObject;
  * #L%
  */
 
-@Entity
-@Table(name = "T_SKILL")
-public class Skill extends StorableObject{
-
+public class Skill {
 	private String name;
-	@ElementCollection
-	@CollectionTable(name = "T_SKILL_SPECIALITIES")
 	private List<String> specialities; // A skill can have some specializations.
 	private SkillType skilltype;
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Category category;
 	private SkillGroup skillGroup;
 	private boolean rare = true;
@@ -77,7 +62,7 @@ public class Skill extends StorableObject{
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setCategory(Category category) {
 		this.category = category;
 	}
@@ -99,15 +84,22 @@ public class Skill extends StorableObject{
 			return getCategory().getSkillRankValues(ranksNumber);
 		case PPD:
 			Integer total = 0;
-			for (RealmOfMagic realm : character.getRealmOfMagic().getRealmsOfMagic()) {
-				ProgressionCostType progressionValue = ProgressionCostType.getProgressionCostType(realm);
-				total += getCategory().getSkillRankValues(ranksNumber,
-						character.getRace().getProgressionRankValues(progressionValue));
+			for (RealmOfMagic realm : character.getRealmOfMagic()
+					.getRealmsOfMagic()) {
+				ProgressionCostType progressionValue = ProgressionCostType
+						.getProgressionCostType(realm);
+				total += getCategory().getSkillRankValues(
+						ranksNumber,
+						character.getRace().getProgressionRankValues(
+								progressionValue));
 			}
-			return total / character.getRealmOfMagic().getRealmsOfMagic().size();
+			return total
+					/ character.getRealmOfMagic().getRealmsOfMagic().size();
 		case PD:
-			return getCategory().getSkillRankValues(ranksNumber,
-					character.getRace().getProgressionRankValues(ProgressionCostType.PHYSICAL_DEVELOPMENT));
+			return getCategory().getSkillRankValues(
+					ranksNumber,
+					character.getRace().getProgressionRankValues(
+							ProgressionCostType.PHYSICAL_DEVELOPMENT));
 		default:
 			return 0;
 		}

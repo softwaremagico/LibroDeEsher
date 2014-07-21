@@ -3,10 +3,6 @@ package com.softwaremagico.librodeesher.pj.categories;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 /*
  * #%L
  * Libro de Esher
@@ -31,10 +27,7 @@ import javax.persistence.Table;
  * #L%
  */
 
-@Entity
-@Table(name = "T_SPECIAL_CATEGORY")
 public class SpecialCategory extends Category {
-	@ElementCollection
 	private static List<Float> skillRankValues = Arrays.asList((float) 0, (float) 6, (float) 5, (float) 4, (float) 3);
 
 	public SpecialCategory(String name, String abbreviature, String characteristicsTag) {

@@ -143,7 +143,7 @@ public class ProfessionRandomness {
 								.getCurrentLevelRanks(skill));
 					}
 					// Needs enough PPs.
-					if (characterPlayer.getTotalValue((CategoryFactory.getCategory("Desarrollo de Puntos de Poder"))
+					if (characterPlayer.getTotalValue((characterPlayer.getCategory(Spanish.POWER_POINTS_CATEGORY))
 							.getSkills().get(0)) < characterPlayer.getRanksValue(skill)) {
 						return 100;
 					}

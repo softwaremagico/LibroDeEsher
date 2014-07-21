@@ -46,7 +46,6 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_HISTORIAL")
 public class Historial extends StorableObject {
-
 	private static final Integer SKILL_BONUS = 10;
 	private static final Integer CATEGORY_BONUS = 5;
 	@ElementCollection

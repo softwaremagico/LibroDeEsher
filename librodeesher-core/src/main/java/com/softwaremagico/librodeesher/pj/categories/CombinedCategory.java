@@ -3,10 +3,6 @@ package com.softwaremagico.librodeesher.pj.categories;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 /*
  * #%L
  * Libro de Esher
@@ -31,10 +27,7 @@ import javax.persistence.Table;
  * #L%
  */
 
-@Entity
-@Table(name = "T_COMBINED_CATEGORY")
 public class CombinedCategory extends Category {
-	@ElementCollection
 	private static List<Float> skillRankValues = Arrays.asList((float) -30, (float) 5, (float) 3, (float) 1.5,
 			(float) 0.5);
 
