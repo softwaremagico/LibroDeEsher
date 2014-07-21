@@ -63,7 +63,7 @@ public class CharacteristicLine extends BaseLine {
 		this.removeAll();
 		setLayout(new GridLayout(1, 0));
 
-		characteristicLabel = new BoldListLabel(characteristic.getAbbreviature(), SwingConstants.LEFT);
+		characteristicLabel = new BoldListLabel(characteristic.getAbbreviature().toString(), SwingConstants.LEFT);
 		add(new ListBackgroundPanel(characteristicLabel, background));
 
 		// SpinnerModel sm = new SpinnerNumberModel(
@@ -141,7 +141,7 @@ public class CharacteristicLine extends BaseLine {
 				} else if ((Integer) temporalSpinner.getValue() > Characteristics.MAX_INITIAL_CHARACTERISTIC_VALUE) {
 					temporalSpinner.setValue(Characteristics.MAX_INITIAL_CHARACTERISTIC_VALUE);
 				} else if ((Integer) temporalSpinner.getValue() < 90
-						&& character.isMainProfessionalCharacteristic(characteristic)) {
+						&& character.isMainProfessionalCharacteristic(characteristic.getAbbreviature())) {
 					temporalSpinner.setValue(90);
 					// Development points restrictions.
 				} else if (character.getCharacteristicsTemporalPointsSpent() > Characteristics.TOTAL_CHARACTERISTICS_POINTS) {

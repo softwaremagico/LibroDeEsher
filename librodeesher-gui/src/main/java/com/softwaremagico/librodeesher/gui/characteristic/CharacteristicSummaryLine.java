@@ -42,17 +42,19 @@ public class CharacteristicSummaryLine extends CharacteristicLine {
 		super(character, characteristic, background);
 	}
 
+	@Override
 	protected void setElements(Color background) {
 		this.removeAll();
 		setLayout(new GridLayout(1, 2));
 
-		characteristicLabel = new BoldListLabel(characteristic.getAbbreviature(), SwingConstants.LEFT);
+		characteristicLabel = new BoldListLabel(characteristic.getAbbreviature().toString(), SwingConstants.LEFT);
 		add(new ListBackgroundPanel(characteristicLabel, background));
 
 		totalLabel = new BoldListLabel("0", SwingConstants.RIGHT);
 		add(new ListBackgroundPanel(totalLabel, background));
 	}
 
+	@Override
 	public void update() {
 		if (totalLabel != null && character.areCharacteristicsConfirmed()) {
 			totalLabel.setText(character.getCharacteristicTotalBonus(characteristic.getAbbreviature())

@@ -56,7 +56,7 @@ public abstract class CharacteristicUpLine extends BaseLine {
 		this.removeAll();
 		setLayout(new GridLayout(1, 0, 3, 3));
 
-		characteristicLabel = new BoldListLabel(characteristic.getAbbreviature(), SwingConstants.LEFT);
+		characteristicLabel = new BoldListLabel(characteristic.getAbbreviature().toString(), SwingConstants.LEFT);
 		add(new ListBackgroundPanel(characteristicLabel, background));
 
 		temporalText = new BoldListLabel("0");

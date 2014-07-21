@@ -29,6 +29,7 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.categories.CategoryType;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.race.Race;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
@@ -964,7 +965,7 @@ public class PdfSheet {
 	}
 
 	private PdfPTable createResistenceTable(String font, int fontSize, int tr,
-			String characteristicAbbreviature) {
+			CharacteristicsAbbreviature characteristicAbbreviature) {
 		PdfPCell cell;
 		Paragraph p;
 		float[] widths = { 0.37f, 0.15f, 0.15f, 0.165f, 0.15f };
@@ -1038,9 +1039,10 @@ public class PdfSheet {
 			cell = new PdfPCell(createResistenceTable(font, fontSize,
 					characterPlayer
 							.getResistanceBonus(ResistanceType.CANALIZATION),
-					"In"));
+					CharacteristicsAbbreviature.INTUITION));
 		} else {
-			cell = new PdfPCell(createResistenceTable(font, fontSize, 0, ""));
+			cell = new PdfPCell(createResistenceTable(font, fontSize, 0,
+					CharacteristicsAbbreviature.NULL));
 		}
 		cell.setBorderWidth(0);
 		cell.setMinimumHeight(10);
@@ -1050,9 +1052,10 @@ public class PdfSheet {
 		if (characterPlayer != null) {
 			cell = new PdfPCell(createResistenceTable(font, fontSize,
 					characterPlayer.getResistanceBonus(ResistanceType.ESSENCE),
-					"Em"));
+					CharacteristicsAbbreviature.EMPATHY));
 		} else {
-			cell = new PdfPCell(createResistenceTable(font, fontSize, 0, ""));
+			cell = new PdfPCell(createResistenceTable(font, fontSize, 0,
+					CharacteristicsAbbreviature.NULL));
 		}
 		cell.setBorderWidth(0);
 		cell.setMinimumHeight(11);
@@ -1062,9 +1065,9 @@ public class PdfSheet {
 		if (characterPlayer != null) {
 			cell = new PdfPCell(
 					createResistenceTable(font, fontSize, characterPlayer
-							.getResistanceBonus(ResistanceType.MENTALISM), "Pr"));
+							.getResistanceBonus(ResistanceType.MENTALISM), CharacteristicsAbbreviature.PRESENCE));
 		} else {
-			cell = new PdfPCell(createResistenceTable(font, fontSize, 0, ""));
+			cell = new PdfPCell(createResistenceTable(font, fontSize, 0, CharacteristicsAbbreviature.NULL));
 		}
 		cell.setBorderWidth(0);
 		cell.setMinimumHeight(10);
@@ -1074,9 +1077,9 @@ public class PdfSheet {
 		if (characterPlayer != null) {
 			cell = new PdfPCell(createResistenceTable(font, fontSize,
 					characterPlayer.getResistanceBonus(ResistanceType.DISEASE),
-					"Co"));
+					CharacteristicsAbbreviature.CONSTITUTION));
 		} else {
-			cell = new PdfPCell(createResistenceTable(font, fontSize, 0, ""));
+			cell = new PdfPCell(createResistenceTable(font, fontSize, 0, CharacteristicsAbbreviature.NULL));
 		}
 		cell.setBorderWidth(0);
 		cell.setMinimumHeight(11);
@@ -1086,9 +1089,9 @@ public class PdfSheet {
 		if (characterPlayer != null) {
 			cell = new PdfPCell(createResistenceTable(font, fontSize,
 					characterPlayer.getResistanceBonus(ResistanceType.POISON),
-					"Co"));
+					CharacteristicsAbbreviature.CONSTITUTION));
 		} else {
-			cell = new PdfPCell(createResistenceTable(font, fontSize, 0, ""));
+			cell = new PdfPCell(createResistenceTable(font, fontSize, 0, CharacteristicsAbbreviature.NULL));
 		}
 		cell.setBorderWidth(0);
 		cell.setMinimumHeight(10);
@@ -1098,9 +1101,9 @@ public class PdfSheet {
 		if (characterPlayer != null) {
 			cell = new PdfPCell(createResistenceTable(font, fontSize,
 					characterPlayer.getResistanceBonus(ResistanceType.FEAR),
-					"Ad"));
+					CharacteristicsAbbreviature.SELFDISCIPLINE));
 		} else {
-			cell = new PdfPCell(createResistenceTable(font, fontSize, 0, ""));
+			cell = new PdfPCell(createResistenceTable(font, fontSize, 0, CharacteristicsAbbreviature.NULL));
 		}
 		cell.setBorderWidth(0);
 		cell.setMinimumHeight(11);
@@ -1689,7 +1692,8 @@ public class PdfSheet {
 		tabla.addCell(cell);
 
 		if (characterPlayer != null) {
-			int value = characterPlayer.getCharacteristicTotalBonus("Co") / 2;
+			int value = characterPlayer
+					.getCharacteristicTotalBonus(CharacteristicsAbbreviature.CONSTITUTION) / 2;
 			if (value < 0) {
 				value = 0;
 			}
@@ -1727,10 +1731,11 @@ public class PdfSheet {
 		tabla.addCell(cell);
 
 		if (characterPlayer != null) {
-			int puntos = Math.min(characterPlayer
-					.getCharacteristicTotalBonus("Co") * 2, characterPlayer
-					.getTotalValue(SkillFactory
-							.getSkill(Spanish.PHISICAL_DEVELOPMENT_SKILL)));
+			int puntos = Math
+					.min(characterPlayer
+							.getCharacteristicTotalBonus(CharacteristicsAbbreviature.CONSTITUTION) * 2,
+							characterPlayer.getTotalValue(SkillFactory
+									.getSkill(Spanish.PHISICAL_DEVELOPMENT_SKILL)));
 			if (puntos < 1) {
 				puntos = 1;
 			}

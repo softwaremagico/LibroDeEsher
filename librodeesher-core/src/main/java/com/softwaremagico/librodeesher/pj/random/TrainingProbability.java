@@ -9,6 +9,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.CategoryComparatorBySkillWithLessRanks;
 import com.softwaremagico.librodeesher.pj.categories.CategoryComparatorBySkillWithRanks;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingCategory;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
@@ -58,7 +59,7 @@ public class TrainingProbability {
 
 		// Has not the characteristics requirements.
 		Training training = TrainingFactory.getTraining(trainingName);
-		for (String abbreviature : training.getCharacteristicRequirements()
+		for (CharacteristicsAbbreviature abbreviature : training.getCharacteristicRequirements()
 				.keySet()) {
 			if (training.getCharacteristicRequirements().get(abbreviature) > characterPlayer
 					.getCharacteristicTemporalValue(abbreviature)) {
@@ -182,36 +183,36 @@ public class TrainingProbability {
 		for (int i = characterPlayer.getTrainingDecision(trainingName)
 				.getCharacteristicsUpdates().size(); i < TrainingFactory
 				.getTraining(trainingName).getUpdateCharacteristics().size(); i++) {
-			List<String> availableUpdates = TrainingFactory
+			List<CharacteristicsAbbreviature> availableUpdates = TrainingFactory
 					.getTraining(trainingName).getUpdateCharacteristics()
 					.get(i);
 			// Order by profession preferences.
 			boolean updated = false;
-			String lastCharacteristicChecked = "";
-			for (String abbreviature : characterPlayer.getProfession()
+			CharacteristicsAbbreviature lastCharacteristicChecked = null;
+			for (CharacteristicsAbbreviature characteristic : characterPlayer.getProfession()
 					.getCharacteristicPreferences()) {
 				// Available for update.
-				if (availableUpdates.contains(abbreviature)) {
-					lastCharacteristicChecked = abbreviature;
+				if (availableUpdates.contains(characteristic)) {
 					// Good to be updated if: long distance, medium distance per
 					// values > 70 or short distance per
 					// values > 85
+					lastCharacteristicChecked = characteristic;
 					if (characterPlayer
-							.getCharacteristicTemporalValue(abbreviature)
+							.getCharacteristicTemporalValue(characteristic)
 							- characterPlayer
-									.getCharacteristicPotentialValue(abbreviature) > 20
+									.getCharacteristicPotentialValue(characteristic) > 20
 							|| (characterPlayer
-									.getCharacteristicTemporalValue(abbreviature)
+									.getCharacteristicTemporalValue(characteristic)
 									- characterPlayer
-											.getCharacteristicPotentialValue(abbreviature) > 10 && characterPlayer
-									.getCharacteristicTemporalValue(abbreviature) > 70)
+											.getCharacteristicPotentialValue(characteristic) > 10 && characterPlayer
+									.getCharacteristicTemporalValue(characteristic) > 70)
 							|| (characterPlayer
-									.getCharacteristicTemporalValue(abbreviature)
+									.getCharacteristicTemporalValue(characteristic)
 									- characterPlayer
-											.getCharacteristicPotentialValue(abbreviature) > 5 && characterPlayer
-									.getCharacteristicTemporalValue(abbreviature) > 85)) {
+											.getCharacteristicPotentialValue(characteristic) > 5 && characterPlayer
+									.getCharacteristicTemporalValue(characteristic) > 85)) {
 						addCharacteristicUpdate(characterPlayer, trainingName,
-								abbreviature);
+								characteristic);
 						updated = true;
 						break;
 					}
@@ -228,7 +229,7 @@ public class TrainingProbability {
 
 	private static void addCharacteristicUpdate(
 			CharacterPlayer characterPlayer, String trainingName,
-			String abbreviature) {
+			CharacteristicsAbbreviature abbreviature) {
 		CharacteristicRoll characteristicRoll = characterPlayer
 				.getNewCharacteristicTrainingUpdate(abbreviature, trainingName);
 		characterPlayer.getTrainingDecision(trainingName)

@@ -39,6 +39,7 @@ import javax.persistence.Table;
 import com.softwaremagico.librodeesher.basics.Roll;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.persistence.StorableObject;
 
@@ -111,7 +112,7 @@ public class Historial extends StorableObject {
 		return skills.size() + categories.size() + getCharacteristicsUpdatesPoints();
 	}
 
-	public CharacteristicRoll addCharactersiticUpdate(String abbreviature, Integer currentTemporalValue,
+	public CharacteristicRoll addCharactersiticUpdate(CharacteristicsAbbreviature abbreviature, Integer currentTemporalValue,
 			Integer currentPotentialValue, Roll roll) {
 		CharacteristicRoll characteristicRoll = new CharacteristicRoll(abbreviature, currentTemporalValue,
 				currentPotentialValue, roll);
@@ -123,7 +124,7 @@ public class Historial extends StorableObject {
 		return characteristicsUpdates.size();
 	}
 
-	public List<CharacteristicRoll> getCharacteristicsUpdates(String abbreviature) {
+	public List<CharacteristicRoll> getCharacteristicsUpdates(CharacteristicsAbbreviature abbreviature) {
 		List<CharacteristicRoll> returnList = new ArrayList<>();
 		for (CharacteristicRoll characteristicRollGroup : characteristicsUpdates) {
 			if (characteristicRollGroup.getCharacteristicAbbreviature().equals(abbreviature)) {

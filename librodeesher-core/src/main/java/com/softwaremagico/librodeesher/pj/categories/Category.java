@@ -39,6 +39,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.softwaremagico.librodeesher.basics.Spanish;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillComparator;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
@@ -56,7 +57,7 @@ public abstract class Category extends StorableObject {
 	private String characterisitcsTags;
 	@ElementCollection
 	@CollectionTable(name = "T_CATEGORY_CHARACTERISTIC_LIST_TAG")
-	private List<String> characteristicsListTags;
+	private List<CharacteristicsAbbreviature> characteristics;
 	@ElementCollection
 	@CollectionTable(name = "T_CATEGORY_SKILL_LIST")
 	protected List<Skill> skills;
@@ -81,10 +82,11 @@ public abstract class Category extends StorableObject {
 	}
 
 	private void createCharacteristicList(String characteristicsTag) {
-		characteristicsListTags = new ArrayList<>();
-		String[] characteristics = characteristicsTag.split(Pattern.quote("/"));
-		for (String characteristic : characteristics) {
-			characteristicsListTags.add(characteristic);
+		characteristics = new ArrayList<>();
+		String[] characteristicsTags = characteristicsTag.split(Pattern.quote("/"));
+		for (String characteristic : characteristicsTags) {
+			characteristics.add(CharacteristicsAbbreviature
+					.getCharacteristicsAbbreviature(characteristic));
 		}
 	}
 
@@ -222,8 +224,8 @@ public abstract class Category extends StorableObject {
 		return 0;
 	}
 
-	public List<String> getCharacteristics() {
-		return characteristicsListTags;
+	public List<CharacteristicsAbbreviature> getCharacteristics() {
+		return characteristics;
 	}
 
 	public CategoryGroup getCategoryGroup() {
@@ -253,13 +255,9 @@ public abstract class Category extends StorableObject {
 		return getName();
 	}
 
-	protected List<String> getCharacteristicsListTags() {
-		return characteristicsListTags;
-	}
-
 	protected void setCharacteristicsListTags(
-			List<String> characteristicsListTags) {
-		this.characteristicsListTags = characteristicsListTags;
+			List<CharacteristicsAbbreviature> characteristicsListTags) {
+		this.characteristics = characteristicsListTags;
 	}
 
 	protected List<Float> getSkillRankValues() {

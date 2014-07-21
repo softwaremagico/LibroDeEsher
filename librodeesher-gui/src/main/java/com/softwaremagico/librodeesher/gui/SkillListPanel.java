@@ -45,7 +45,6 @@ public class SkillListPanel extends BaseSkillPanel {
 		for (Category category : CategoryFactory.getCategories()) {
 			// Translate general category to player specific category.
 			category = character.getCategory(category);
-			System.out.println(category + "-->" + character.isCategoryUseful(category));
 			if (character.isCategoryUseful(category)) {
 				add(new ResumedCategoryLine(character, category, getLineBackgroundColor(i), this));
 				i++;

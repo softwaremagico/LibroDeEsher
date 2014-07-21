@@ -38,6 +38,7 @@ import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.ProgressionCostType;
 import com.softwaremagico.librodeesher.pj.SexType;
 import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
@@ -47,7 +48,7 @@ import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 public class Race {
 	private String name;
 	private int apperanceBonus;
-	private HashMap<String, Integer> characteristicBonus;
+	private HashMap<CharacteristicsAbbreviature, Integer> characteristicBonus;
 	private HashMap<ResistanceType, Integer> resistancesBonus;
 	private HashMap<ProgressionCostType, List<Float>> progressionRankValues;
 	private List<String> restrictedProfessions;
@@ -120,17 +121,21 @@ public class Race {
 					&& !lines.get(index).startsWith("#")) {
 				String characteristicLine = lines.get(index);
 				String[] characteristicValue = characteristicLine.split("\t");
-				if (characteristicValue[0].equals("Ap")) {
+				if (characteristicValue[0]
+						.equals(CharacteristicsAbbreviature.APPEARENCE
+								.getAbbreviature())) {
 					apperanceBonus = Integer.parseInt(characteristicValue[1]);
 				} else {
-					characteristicBonus.put(characteristicValue[0],
-							Integer.parseInt(characteristicValue[1]));
+					characteristicBonus
+							.put(CharacteristicsAbbreviature
+									.getCharacteristicsAbbreviature(characteristicValue[0]),
+									Integer.parseInt(characteristicValue[1]));
 				}
 				index++;
 			}
 		} catch (Exception e) {
 			ShowMessage.showErrorMessage(
-					"Problema al leer las características de la raza " + name
+					"Error al leer las características de la raza " + name
 							+ ". Los bonus pueden no ser correctos.",
 					"Leer Raza");
 		}
@@ -516,7 +521,8 @@ public class Race {
 		return name + " " + surname;
 	}
 
-	public Integer getCharacteristicBonus(String abbreviature) {
+	public Integer getCharacteristicBonus(
+			CharacteristicsAbbreviature abbreviature) {
 		return characteristicBonus.get(abbreviature);
 	}
 

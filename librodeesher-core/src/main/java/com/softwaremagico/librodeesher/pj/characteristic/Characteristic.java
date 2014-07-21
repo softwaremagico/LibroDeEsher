@@ -3,31 +3,33 @@ package com.softwaremagico.librodeesher.pj.characteristic;
 import com.softwaremagico.librodeesher.basics.Roll;
 
 public class Characteristic {
-	private String abbreviature;
-	private String name;
+	private CharacteristicsAbbreviature abbreviature;
 
-	public Characteristic(String ab, String name) {
-		abbreviature = ab;
-		this.name = name;
+	public Characteristic(CharacteristicsAbbreviature abbreviature) {
+		this.abbreviature = abbreviature;
 	}
 
-	public static Integer getCharacteristicUpgrade(Integer temporalValue, Integer potentialValue,
-			Roll roll) {
+	public static Integer getCharacteristicUpgrade(Integer temporalValue,
+			Integer potentialValue, Roll roll) {
 		if (roll.getFirstDice() == roll.getSecondDice()) {
 			if (roll.getFirstDice() < 6) {
 				return -roll.getFirstDice();
 			} else {
-				return Math.min(roll.getFirstDice() * 2, potentialValue - temporalValue);
+				return Math.min(roll.getFirstDice() * 2, potentialValue
+						- temporalValue);
 			}
 		} else {
 			if (potentialValue - temporalValue <= 10) {
-				return Math.min(Math.min(roll.getFirstDice(), roll.getSecondDice()), potentialValue
-						- temporalValue);
+				return Math.min(
+						Math.min(roll.getFirstDice(), roll.getSecondDice()),
+						potentialValue - temporalValue);
 			} else if (potentialValue - temporalValue <= 20) {
-				return Math.min(Math.max(roll.getFirstDice(), roll.getSecondDice()), potentialValue
-						- temporalValue);
+				return Math.min(
+						Math.max(roll.getFirstDice(), roll.getSecondDice()),
+						potentialValue - temporalValue);
 			} else {
-				return Math.min(roll.getFirstDice() + roll.getSecondDice(), potentialValue - temporalValue);
+				return Math.min(roll.getFirstDice() + roll.getSecondDice(),
+						potentialValue - temporalValue);
 			}
 		}
 	}
@@ -42,12 +44,12 @@ public class Characteristic {
 		return d.intValue();
 	}
 
-	public String getAbbreviature() {
+	public CharacteristicsAbbreviature getAbbreviature() {
 		return abbreviature;
 	}
 
 	public String getName() {
-		return name;
+		return abbreviature.getName();
 	}
 
 	public String toString() {
@@ -58,7 +60,8 @@ public class Characteristic {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((abbreviature == null) ? 0 : abbreviature.hashCode());
+		result = prime * result
+				+ ((abbreviature == null) ? 0 : abbreviature.hashCode());
 		return result;
 	}
 
@@ -79,12 +82,8 @@ public class Characteristic {
 		return true;
 	}
 
-	public void setAbbreviature(String abbreviature) {
+	public void setAbbreviature(CharacteristicsAbbreviature abbreviature) {
 		this.abbreviature = abbreviature;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 }

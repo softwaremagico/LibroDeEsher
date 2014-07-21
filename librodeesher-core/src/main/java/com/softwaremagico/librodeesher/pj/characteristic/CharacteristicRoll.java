@@ -2,6 +2,8 @@ package com.softwaremagico.librodeesher.pj.characteristic;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -12,14 +14,15 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_CHARACTERISTIC_ROLL_GROUP")
 public class CharacteristicRoll extends StorableObject {
-	private String characteristicAbbreviature;
+	@Enumerated(EnumType.STRING)
+	private CharacteristicsAbbreviature characteristicAbbreviature;
 	private Integer characteristicPotentialValue;
 	private Integer characteristicTemporalValue;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Roll roll;
 
-	public CharacteristicRoll(String characteristicAbbreviature,
+	public CharacteristicRoll(CharacteristicsAbbreviature characteristicAbbreviature,
 			Integer characteristicTemporalValue,
 			Integer characteristicPotentialValue, Roll roll) {
 		this.characteristicAbbreviature = characteristicAbbreviature;
@@ -36,7 +39,7 @@ public class CharacteristicRoll extends StorableObject {
 		return characteristicTemporalValue;
 	}
 
-	public String getCharacteristicAbbreviature() {
+	public CharacteristicsAbbreviature getCharacteristicAbbreviature() {
 		return characteristicAbbreviature;
 	}
 

@@ -42,6 +42,7 @@ import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
@@ -52,9 +53,10 @@ public class Training {
 	private List<String> limitedRaces;
 	private List<TrainingItem> objects;
 	private List<TrainingCategory> categoriesWithRanks;
-	private List<List<String>> updateCharacteristics; // Choose one
-	private HashMap<String, Integer> characteristicRequirements;
-	private HashMap<String, Integer> characteristicRequirementsCostModification;
+	private List<List<CharacteristicsAbbreviature>> updateCharacteristics; // Choose
+																			// one
+	private HashMap<CharacteristicsAbbreviature, Integer> characteristicRequirements;
+	private HashMap<CharacteristicsAbbreviature, Integer> characteristicRequirementsCostModification;
 	private HashMap<String, Integer> skillRequirements;
 	private HashMap<String, Integer> skillRequirementsCostModification;
 	private List<ChooseSkillGroup> lifeSkills;
@@ -71,11 +73,12 @@ public class Training {
 					ex);
 		}
 	}
-	
+
 	/**
-	 * Returns the index of a TrainingCategory. Used to store into database only the index and not the POJO.
+	 * Returns the index of a TrainingCategory. Used to store into database only
+	 * the index and not the POJO.
 	 */
-	public Integer getTrainingCategoryIndex(TrainingCategory trainingCategory){
+	public Integer getTrainingCategoryIndex(TrainingCategory trainingCategory) {
 		return categoriesWithRanks.indexOf(trainingCategory);
 	}
 
@@ -209,7 +212,8 @@ public class Training {
 							categoriesOptions.add(category.trim());
 						}
 
-						trainingCategory = new TrainingCategory(categoriesOptions,
+						trainingCategory = new TrainingCategory(
+								categoriesOptions,
 								Integer.parseInt(categoryRanks[1]),
 								Integer.parseInt(categoryRanks[2]),
 								Integer.parseInt(categoryRanks[3]),
@@ -220,7 +224,8 @@ public class Training {
 						if (CategoryFactory.existCategory(categoryRanks[0])) {
 							List<String> categoriesList = new ArrayList<>();
 							categoriesList.add(categoryRanks[0].trim());
-							trainingCategory = new TrainingCategory(categoriesList,
+							trainingCategory = new TrainingCategory(
+									categoriesList,
 									Integer.parseInt(categoryRanks[1]),
 									Integer.parseInt(categoryRanks[2]),
 									Integer.parseInt(categoryRanks[3]),
@@ -307,12 +312,13 @@ public class Training {
 			try {
 				if (trainingLine.contains("{")) {
 					// List to choose a characteristic.
-					List<String> listToChoose = new ArrayList<>();
+					List<CharacteristicsAbbreviature> listToChoose = new ArrayList<>();
 					trainingLine = trainingLine.replace("}", "").replace("{",
 							"");
 					String[] chars = trainingLine.replace(";", ",").split(",");
 					for (String abbrev : chars) {
-						listToChoose.add(abbrev.trim());
+						listToChoose.add(CharacteristicsAbbreviature
+								.getCharacteristicsAbbreviature(abbrev.trim()));
 					}
 					updateCharacteristics.add(listToChoose);
 				} else {
@@ -325,8 +331,10 @@ public class Training {
 						String[] chars = trainingLine.replace(";", ",").split(
 								",");
 						for (String abbrev : chars) {
-							List<String> listToChoose = new ArrayList<>();
-							listToChoose.add(abbrev.trim());
+							List<CharacteristicsAbbreviature> listToChoose = new ArrayList<>();
+							listToChoose.add(CharacteristicsAbbreviature
+									.getCharacteristicsAbbreviature(abbrev
+											.trim()));
 							updateCharacteristics.add(listToChoose);
 						}
 					}
@@ -339,12 +347,15 @@ public class Training {
 			index++;
 		}
 		// Sort updates. First list with one elements.
-		Collections.sort(updateCharacteristics, new Comparator<List<String>>() {
-			public int compare(List<String> a1, List<String> a2) {
-				return a1.size() - a2.size(); // assumes you want biggest to
-												// smallest
-			}
-		});
+		Collections.sort(updateCharacteristics,
+				new Comparator<List<CharacteristicsAbbreviature>>() {
+					public int compare(List<CharacteristicsAbbreviature> a1,
+							List<CharacteristicsAbbreviature> a2) {
+						return a1.size() - a2.size(); // assumes you want
+														// biggest to
+														// smallest
+					}
+				});
 		return index;
 	}
 
@@ -382,10 +393,14 @@ public class Training {
 								.isCharacteristicValid(requirementName)) {
 							// It it is a characteristic, a minimal temporal
 							// value is required.
-							characteristicRequirements.put(requirementName,
-									value);
-							characteristicRequirementsCostModification.put(
-									requirementName, costModification);
+							characteristicRequirements
+									.put(CharacteristicsAbbreviature
+											.getCharacteristicsAbbreviature(requirementName),
+											value);
+							characteristicRequirementsCostModification
+									.put(CharacteristicsAbbreviature
+											.getCharacteristicsAbbreviature(requirementName),
+											costModification);
 						} else {
 							ShowMessage.showErrorMessage(
 									"Requisito desconocido: \""
@@ -451,11 +466,11 @@ public class Training {
 		return skillRequirementsCostModification;
 	}
 
-	public HashMap<String, Integer> getCharacteristicRequirements() {
+	public HashMap<CharacteristicsAbbreviature, Integer> getCharacteristicRequirements() {
 		return characteristicRequirements;
 	}
 
-	public HashMap<String, Integer> getCharacteristicRequirementsCostModification() {
+	public HashMap<CharacteristicsAbbreviature, Integer> getCharacteristicRequirementsCostModification() {
 		return characteristicRequirementsCostModification;
 	}
 
@@ -467,11 +482,15 @@ public class Training {
 		return name;
 	}
 
-	public List<List<String>> getUpdateCharacteristics() {
+	public List<List<CharacteristicsAbbreviature>> getUpdateCharacteristics() {
 		return updateCharacteristics;
 	}
 
 	public List<TrainingItem> getObjects() {
 		return objects;
+	}
+
+	public Integer getTrainingTime() {
+		return trainingTime;
 	}
 }

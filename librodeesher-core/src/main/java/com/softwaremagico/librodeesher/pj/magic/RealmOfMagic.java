@@ -1,5 +1,7 @@
 package com.softwaremagico.librodeesher.pj.magic;
 
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
+
 /*
  * #%L
  * Libro de Esher
@@ -25,17 +27,22 @@ package com.softwaremagico.librodeesher.pj.magic;
  */
 
 public enum RealmOfMagic {
-	CANALIZATION("Canalización", "In"), 
-	ESSENCE("Esencia", "Em"), 
-	MENTALISM("Mentalismo", "Pr"), 
-	PSIONIC("Psiónico","Ad"), 
-	ARCHANUM("Arcano", ""), 
-	RACE("Racial", "");
+	CANALIZATION("Canalización", CharacteristicsAbbreviature.INTUITION),
+
+	ESSENCE("Esencia", CharacteristicsAbbreviature.EMPATHY),
+
+	MENTALISM("Mentalismo", CharacteristicsAbbreviature.PRESENCE),
+
+	PSIONIC("Psiónico", CharacteristicsAbbreviature.SELFDISCIPLINE),
+
+	ARCHANUM("Arcano", CharacteristicsAbbreviature.NULL),
+
+	RACE("Racial", CharacteristicsAbbreviature.NULL);
 
 	private String name;
-	private String characteristic;
+	private CharacteristicsAbbreviature characteristic;
 
-	private RealmOfMagic(String tag, String characteristic) {
+	private RealmOfMagic(String tag, CharacteristicsAbbreviature characteristic) {
 		this.name = tag;
 		this.characteristic = characteristic;
 	}
@@ -44,7 +51,7 @@ public enum RealmOfMagic {
 		return name;
 	}
 
-	public String getCharacteristic() {
+	public CharacteristicsAbbreviature getCharacteristic() {
 		return characteristic;
 	}
 

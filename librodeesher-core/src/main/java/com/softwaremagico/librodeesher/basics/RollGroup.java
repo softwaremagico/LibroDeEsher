@@ -6,11 +6,14 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.persistence.StorableObject;
 
 @Entity
@@ -24,9 +27,10 @@ public class RollGroup extends StorableObject {
 	@OrderColumn(name = "roll_index")
 	private List<Roll> rolls;
 
-	private String characteristicAbbreviature;
+	@Enumerated(EnumType.STRING) 
+	private CharacteristicsAbbreviature characteristicAbbreviature;
 
-	public RollGroup(String characteristicAbbreviature) {
+	public RollGroup(CharacteristicsAbbreviature characteristicAbbreviature) {
 		rolls = new ArrayList<Roll>();
 		this.characteristicAbbreviature = characteristicAbbreviature;
 		fillUpRolls();
@@ -65,11 +69,11 @@ public class RollGroup extends StorableObject {
 		return rolls + "";
 	}
 
-	public String getCharacteristicAbbreviature() {
+	public CharacteristicsAbbreviature getCharacteristicAbbreviature() {
 		return characteristicAbbreviature;
 	}
 
-	public void setCharacteristicAbbreviature(String characteristicAbbreviature) {
+	public void setCharacteristicAbbreviature(CharacteristicsAbbreviature characteristicAbbreviature) {
 		this.characteristicAbbreviature = characteristicAbbreviature;
 	}
 

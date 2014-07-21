@@ -51,6 +51,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.random.TrainingProbability;
 import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
@@ -256,11 +257,11 @@ public class TrainingWindow extends BaseFrame {
 
 	private void obtainCharacteristicsUpdates() {
 		if (lastSelectedTraining != null) {
-			List<List<String>> characteristicsUpdates = lastSelectedTraining.getUpdateCharacteristics();
+			List<List<CharacteristicsAbbreviature>> characteristicsUpdates = lastSelectedTraining.getUpdateCharacteristics();
 			// for (List<String> characteristicSet : characteristicsUpdates) {
 			while (characterPlayer.getTrainingDecision(lastSelectedTraining.getName())
 					.getCharacteristicsUpdates().size() < characteristicsUpdates.size()) {
-				List<String> characteristicSet = characteristicsUpdates.get(characterPlayer
+				List<CharacteristicsAbbreviature> characteristicSet = characteristicsUpdates.get(characterPlayer
 						.getTrainingDecision(lastSelectedTraining.getName()).getCharacteristicsUpdates()
 						.size());
 				// List is sorted from small to biggest list.
@@ -285,7 +286,7 @@ public class TrainingWindow extends BaseFrame {
 				} else {
 					// Select chars
 					List<Characteristic> availableCharacteristics = new ArrayList<>();
-					for (String charTag : characteristicSet) {
+					for (CharacteristicsAbbreviature charTag : characteristicSet) {
 						availableCharacteristics.add(Characteristics
 								.getCharacteristicFromAbbreviature(charTag));
 					}

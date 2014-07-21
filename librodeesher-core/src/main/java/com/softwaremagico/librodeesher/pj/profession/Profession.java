@@ -42,6 +42,7 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.magic.MagicLevelRange;
 import com.softwaremagico.librodeesher.pj.magic.MagicListType;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
@@ -54,7 +55,7 @@ public class Profession {
 	private String name;
 	private HashMap<String, Integer> categoriesBonus;
 	private HashMap<String, Integer> skillBonus;
-	private List<String> characteristicPreferences;
+	private List<CharacteristicsAbbreviature> characteristicPreferences;
 	private List<ProfessionalRealmsOfMagicOptions> magicRealmsAvailable;
 	private List<CategoryCost> weaponCategoryCost;
 	private List<CategoryCost> extraWeaponCategoryCost; // For firearms or any
@@ -99,7 +100,7 @@ public class Profession {
 		return restrictedSkillsToChoose;
 	}
 
-	public boolean isCharacteristicProfessional(Characteristic characteristic) {
+	public boolean isCharacteristicProfessional(CharacteristicsAbbreviature characteristic) {
 		if (characteristicPreferences.size() > 0
 				&& characteristic.getAbbreviature().equals(characteristicPreferences.get(0))) {
 			return true;
@@ -169,7 +170,7 @@ public class Profession {
 
 			for (String abbrev : characteristicsTags) {
 				if (Characteristics.isCharacteristicValid(abbrev)) {
-					characteristicPreferences.add(abbrev);
+					characteristicPreferences.add(CharacteristicsAbbreviature.getCharacteristicsAbbreviature(abbrev));
 				} else {
 					ShowMessage.showErrorMessage("Caracteristica " + abbrev + " mostrada en el archivo "
 							+ name + ".txt no existente.", "Leer Profesion");
@@ -484,7 +485,7 @@ public class Profession {
 		return Integer.MAX_VALUE;
 	}
 
-	public List<String> getCharacteristicPreferences() {
+	public List<CharacteristicsAbbreviature> getCharacteristicPreferences() {
 		return characteristicPreferences;
 	}
 

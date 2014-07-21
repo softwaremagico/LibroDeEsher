@@ -54,6 +54,7 @@ import com.softwaremagico.librodeesher.pj.characteristic.Appearance;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.culture.Culture;
 import com.softwaremagico.librodeesher.pj.culture.CultureDecisions;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
@@ -97,15 +98,15 @@ public class CharacterPlayer extends StorableObject {
 
 	@ElementCollection
 	@CollectionTable(name = "T_CHARACTERPLAYER_INITIAL_TEMPORAL_VALUES")
-	private Map<String, Integer> characteristicsInitialTemporalValues;
+	private Map<CharacteristicsAbbreviature, Integer> characteristicsInitialTemporalValues;
 
 	@ElementCollection
 	@CollectionTable(name = "T_CHARACTERPLAYER_POTENTIAL_VALUES")
-	private Map<String, Integer> characteristicsPotentialValues;
+	private Map<CharacteristicsAbbreviature, Integer> characteristicsPotentialValues;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@CollectionTable(name = "T_CHARACTERPLAYER_TEMPORAL_CHARACTERISTICS_ROLLS")
-	private Map<String, RollGroup> characteristicsTemporalUpdatesRolls;
+	private Map<CharacteristicsAbbreviature, RollGroup> characteristicsTemporalUpdatesRolls;
 	private boolean characteristicsConfirmed = false;
 
 	private String raceName;
@@ -193,7 +194,9 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getAppearance() {
-		return appearance.getTotal(getCharacteristicPotentialValue("Pr"))
+		return appearance
+				.getTotal(getCharacteristicPotentialValue(CharacteristicsAbbreviature
+						.getCharacteristicsAbbreviature("Pr")))
 				+ getRace().getApperanceBonus() + getPerkApperanceBonus();
 	}
 
@@ -270,7 +273,8 @@ public class CharacterPlayer extends StorableObject {
 		return characteristicsConfirmed;
 	}
 
-	public Integer getCharacteristicPotentialValue(String abbreviature) {
+	public Integer getCharacteristicPotentialValue(
+			CharacteristicsAbbreviature abbreviature) {
 		Integer potential = characteristicsPotentialValues.get(abbreviature);
 		if (potential != null) {
 			return potential;
@@ -278,7 +282,8 @@ public class CharacterPlayer extends StorableObject {
 		return 0;
 	}
 
-	public Integer getCharacteristicRaceBonus(String abbreviature) {
+	public Integer getCharacteristicRaceBonus(
+			CharacteristicsAbbreviature abbreviature) {
 		return getRace().getCharacteristicBonus(abbreviature);
 	}
 
@@ -286,16 +291,19 @@ public class CharacterPlayer extends StorableObject {
 		return Characteristics.getCharacteristics();
 	}
 
-	public Integer getCharacteristicSpecialBonus(String abbreviature) {
+	public Integer getCharacteristicSpecialBonus(
+			CharacteristicsAbbreviature abbreviature) {
 		return getPerkCharacteristicBonus(abbreviature);
 	}
 
-	public Integer getCharacteristicTemporalBonus(String abbreviature) {
+	public Integer getCharacteristicTemporalBonus(
+			CharacteristicsAbbreviature abbreviature) {
 		return Characteristics
 				.getTemporalBonus(getCharacteristicTemporalValue(abbreviature));
 	}
 
-	private Integer getTemporalModifications(String abbreviature) {
+	private Integer getTemporalModifications(
+			CharacteristicsAbbreviature abbreviature) {
 		Integer temporalValue = characteristicsInitialTemporalValues
 				.get(abbreviature);
 		for (TrainingDecision training : getTrainingDecisions().values()) {
@@ -315,7 +323,8 @@ public class CharacterPlayer extends StorableObject {
 		return temporalValue;
 	}
 
-	public Integer getCharacteristicTemporalValue(String abbreviature) {
+	public Integer getCharacteristicTemporalValue(
+			CharacteristicsAbbreviature abbreviature) {
 		return getTemporalModifications(abbreviature);
 	}
 
@@ -326,7 +335,8 @@ public class CharacterPlayer extends StorableObject {
 	 * @param abbreviature
 	 * @return
 	 */
-	public Integer getCharacteristicInitialTemporalValue(String abbreviature) {
+	public Integer getCharacteristicInitialTemporalValue(
+			CharacteristicsAbbreviature abbreviature) {
 		Integer value = getTemporalModifications(abbreviature);
 		if (value != null) {
 			if (isMainProfessionalCharacteristic(abbreviature)) {
@@ -350,11 +360,12 @@ public class CharacterPlayer extends StorableObject {
 		return total / realmOfMagic.getRealmsOfMagic().size();
 	}
 
-	public Integer getCharacteristicTotalBonus(String abbreviature) {
-		if (abbreviature.toLowerCase().contains(Spanish.NOTHING_TAG)) {
+	public Integer getCharacteristicTotalBonus(
+			CharacteristicsAbbreviature abbreviature) {
+		if (abbreviature.equals(CharacteristicsAbbreviature.NULL)) {
 			return 0;
 		}
-		if (abbreviature.toLowerCase().contains("*")) {
+		if (abbreviature.equals(CharacteristicsAbbreviature.MAGIC_REALM)) {
 			return getBonusCharacteristicOfRealmOfMagic();
 		}
 		return getCharacteristicTemporalBonus(abbreviature)
@@ -377,11 +388,11 @@ public class CharacterPlayer extends StorableObject {
 
 	public Integer getTotalDevelopmentPoints() {
 		Integer total = 0;
-		total += getCharacteristicTemporalValue("Ag");
-		total += getCharacteristicTemporalValue("Co");
-		total += getCharacteristicTemporalValue("Me");
-		total += getCharacteristicTemporalValue("Ra");
-		total += getCharacteristicTemporalValue("Ad");
+		total += getCharacteristicTemporalValue(CharacteristicsAbbreviature.AGILITY);
+		total += getCharacteristicTemporalValue(CharacteristicsAbbreviature.CONSTITUTION);
+		total += getCharacteristicTemporalValue(CharacteristicsAbbreviature.MEMORY);
+		total += getCharacteristicTemporalValue(CharacteristicsAbbreviature.REASON);
+		total += getCharacteristicTemporalValue(CharacteristicsAbbreviature.SELFDISCIPLINE);
 		return total / 5;
 	}
 
@@ -411,29 +422,29 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getDefensiveBonus() {
-		return getCharacteristicTotalBonus("Rp") * 3;
+		return getCharacteristicTotalBonus(CharacteristicsAbbreviature.SPEED) * 3;
 	}
 
 	public Integer getResistanceBonus(ResistanceType type) {
 		switch (type) {
 		case CANALIZATION:
-			return getCharacteristicTotalBonus("In") * 3;
+			return getCharacteristicTotalBonus(CharacteristicsAbbreviature.INTUITION) * 3;
 		case ESSENCE:
-			return getCharacteristicTotalBonus("Em") * 3;
+			return getCharacteristicTotalBonus(CharacteristicsAbbreviature.EMPATHY) * 3;
 		case MENTALISM:
-			return getCharacteristicTotalBonus("In") * 3;
+			return getCharacteristicTotalBonus(CharacteristicsAbbreviature.PRESENCE) * 3;
 		case PSIONIC:
 			return 0;
 		case POISON:
-			return getCharacteristicTotalBonus("Co") * 3;
+			return getCharacteristicTotalBonus(CharacteristicsAbbreviature.CONSTITUTION) * 3;
 		case DISEASE:
-			return getCharacteristicTotalBonus("Co") * 3;
+			return getCharacteristicTotalBonus(CharacteristicsAbbreviature.CONSTITUTION) * 3;
 		case COLD:
 			return 0;
 		case HOT:
 			return 0;
 		case FEAR:
-			return getCharacteristicTotalBonus("Ad") * 3;
+			return getCharacteristicTotalBonus(CharacteristicsAbbreviature.SELFDISCIPLINE) * 3;
 		default:
 			return 0;
 		}
@@ -521,7 +532,8 @@ public class CharacterPlayer extends StorableObject {
 		return getTotalDevelopmentPoints() - getSpentDevelopmentPoints();
 	}
 
-	public Integer getCharacteristicsTemporalPointsSpent(String abbreviature) {
+	public Integer getCharacteristicsTemporalPointsSpent(
+			CharacteristicsAbbreviature abbreviature) {
 		return Characteristic
 				.getTemporalCost(getCharacteristicInitialTemporalValue(abbreviature));
 	}
@@ -537,15 +549,14 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public boolean isMainProfessionalCharacteristic(
-			Characteristic characteristic) {
+			CharacteristicsAbbreviature characteristic) {
 		return getProfession().isCharacteristicProfessional(characteristic);
 	}
 
 	public boolean isMainProfessionalCharacteristic(String abbreviature) {
-		return getProfession()
-				.isCharacteristicProfessional(
-						Characteristics
-								.getCharacteristicFromAbbreviature(abbreviature));
+		return getProfession().isCharacteristicProfessional(
+				CharacteristicsAbbreviature
+						.getCharacteristicsAbbreviature(abbreviature));
 	}
 
 	public void setCharacteristicsAsConfirmed() {
@@ -566,15 +577,16 @@ public class CharacterPlayer extends StorableObject {
 		}
 	}
 
-	private Roll getStoredCharacteristicRoll(String abbreviature) {
+	private Roll getStoredCharacteristicRoll(
+			CharacteristicsAbbreviature abbreviature) {
 		Roll roll = characteristicsTemporalUpdatesRolls.get(abbreviature)
 				.getFirst();
 		setCharacteristicsTemporalUpdatesRolls();
 		return roll;
 	}
 
-	public void setCharacteristicTemporalValues(String abbreviature,
-			Integer value) {
+	public void setCharacteristicTemporalValues(
+			CharacteristicsAbbreviature abbreviature, Integer value) {
 		characteristicsInitialTemporalValues.put(abbreviature, value);
 	}
 
@@ -786,9 +798,9 @@ public class CharacterPlayer extends StorableObject {
 
 	public Integer getCharacteristicsBonus(Category category) {
 		Integer total = 0;
-		List<String> characteristicsAbbreviature = category
+		List<CharacteristicsAbbreviature> characteristicsAbbreviature = category
 				.getCharacteristics();
-		for (String characteristic : characteristicsAbbreviature) {
+		for (CharacteristicsAbbreviature characteristic : characteristicsAbbreviature) {
 			total += getCharacteristicTotalBonus(characteristic);
 		}
 		return total;
@@ -815,7 +827,8 @@ public class CharacterPlayer extends StorableObject {
 		return total;
 	}
 
-	public Integer getPerkCharacteristicBonus(String characteristic) {
+	public Integer getPerkCharacteristicBonus(
+			CharacteristicsAbbreviature characteristic) {
 		Integer total = 0;
 		for (Perk perk : perks) {
 			total += perk.getCharacteristicBonus(characteristic);
@@ -1024,7 +1037,7 @@ public class CharacterPlayer extends StorableObject {
 	 * @param category
 	 * @return
 	 */
-	public boolean isCategoryUseful(Category category) {		
+	public boolean isCategoryUseful(Category category) {
 		// Weapons are allowed upsted cost is not set.
 		if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
 			if (!isFirearmsAllowed()
@@ -1164,7 +1177,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public CharacteristicRoll setCharacteristicHistorialUpdate(
-			String abbreviature) {
+			CharacteristicsAbbreviature abbreviature) {
 		Roll roll = getStoredCharacteristicRoll(abbreviature);
 		CharacteristicRoll characteristicRoll = historial
 				.addCharactersiticUpdate(abbreviature,
@@ -1174,7 +1187,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public CharacteristicRoll getNewCharacteristicTrainingUpdate(
-			String abbreviature, String trainingName) {
+			CharacteristicsAbbreviature abbreviature, String trainingName) {
 		Roll roll = getStoredCharacteristicRoll(abbreviature);
 		CharacteristicRoll characteristicRoll = getTrainingDecision(
 				trainingName).addCharactersiticUpdate(abbreviature,
@@ -1440,30 +1453,30 @@ public class CharacterPlayer extends StorableObject {
 		this.professionName = professionName;
 	}
 
-	public Map<String, Integer> getCharacteristicsInitialTemporalValues() {
+	public Map<CharacteristicsAbbreviature, Integer> getCharacteristicsInitialTemporalValues() {
 		return characteristicsInitialTemporalValues;
 	}
 
 	public void setCharacteristicsInitialTemporalValues(
-			Map<String, Integer> characteristicsInitialTemporalValues) {
+			Map<CharacteristicsAbbreviature, Integer> characteristicsInitialTemporalValues) {
 		this.characteristicsInitialTemporalValues = characteristicsInitialTemporalValues;
 	}
 
-	public Map<String, Integer> getCharacteristicsPotentialValues() {
+	public Map<CharacteristicsAbbreviature, Integer> getCharacteristicsPotentialValues() {
 		return characteristicsPotentialValues;
 	}
 
 	public void setCharacteristicsPotentialValues(
-			Map<String, Integer> characteristicsPotentialValues) {
+			Map<CharacteristicsAbbreviature, Integer> characteristicsPotentialValues) {
 		this.characteristicsPotentialValues = characteristicsPotentialValues;
 	}
 
-	public Map<String, RollGroup> getCharacteristicsTemporalUpdatesRolls() {
+	public Map<CharacteristicsAbbreviature, RollGroup> getCharacteristicsTemporalUpdatesRolls() {
 		return characteristicsTemporalUpdatesRolls;
 	}
 
 	public void setCharacteristicsTemporalUpdatesRolls(
-			Map<String, RollGroup> characteristicsTemporalUpdatesRolls) {
+			Map<CharacteristicsAbbreviature, RollGroup> characteristicsTemporalUpdatesRolls) {
 		this.characteristicsTemporalUpdatesRolls = characteristicsTemporalUpdatesRolls;
 	}
 
@@ -1673,11 +1686,11 @@ public class CharacterPlayer extends StorableObject {
 		return result;
 	}
 
-	public Map<String, Integer> getCharacteristicInitialTemporalValue() {
+	public Map<CharacteristicsAbbreviature, Integer> getCharacteristicInitialTemporalValue() {
 		return characteristicsInitialTemporalValues;
 	}
 
-	public Map<String, Integer> getCharacteristicPotencialValue() {
+	public Map<CharacteristicsAbbreviature, Integer> getCharacteristicPotencialValue() {
 		return characteristicsPotentialValues;
 	}
 
@@ -1734,7 +1747,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public int getMovementCapacity() {
-		return (15 + getCharacteristicTotalBonus("Rp") + getPerkMovementBonus());
+		return (15 + getCharacteristicTotalBonus(CharacteristicsAbbreviature.SPEED) + getPerkMovementBonus());
 	}
 
 	public int getPerkMovementBonus() {

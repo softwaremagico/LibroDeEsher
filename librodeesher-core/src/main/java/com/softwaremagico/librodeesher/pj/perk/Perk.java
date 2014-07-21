@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import com.softwaremagico.librodeesher.basics.ChooseType;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.ChooseCategoryGroup;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
@@ -55,7 +56,7 @@ public class Perk extends StorableObject {
 	private Map<String, Integer> resistanceBonus;
 	@ElementCollection
 	@CollectionTable(name = "T_PERK_CHARACTERISTIC_BONUS")
-	private Map<String, Integer> characteristicBonus;
+	private Map<CharacteristicsAbbreviature, Integer> characteristicBonus;
 	@ElementCollection
 	@CollectionTable(name = "T_PERK_CATEGORY_WITH_RESTRICTED")
 	private Map<String, Integer> categoryWithRestricted;
@@ -203,7 +204,7 @@ public class Perk extends StorableObject {
 		}
 	}
 
-	public void setCharacteristicBonus(String characteristic, Integer bonus) {
+	public void setCharacteristicBonus(CharacteristicsAbbreviature characteristic, Integer bonus) {
 		if (bonus == null || bonus <= 0) {
 			characteristicBonus.remove(characteristic);
 		} else {
@@ -461,7 +462,7 @@ public class Perk extends StorableObject {
 		return appareanceBonus;
 	}
 
-	public Integer getCharacteristicBonus(String characteristic) {
+	public Integer getCharacteristicBonus(CharacteristicsAbbreviature characteristic) {
 		Integer bonus = characteristicBonus.get(characteristic);
 		if (bonus != null) {
 			return bonus;
@@ -561,11 +562,11 @@ public class Perk extends StorableObject {
 		this.resistanceBonus = resistanceBonus;
 	}
 
-	protected Map<String, Integer> getCharacteristicBonus() {
+	protected Map<CharacteristicsAbbreviature, Integer> getCharacteristicBonus() {
 		return characteristicBonus;
 	}
 
-	protected void setCharacteristicBonus(HashMap<String, Integer> characteristicBonus) {
+	protected void setCharacteristicBonus(HashMap<CharacteristicsAbbreviature, Integer> characteristicBonus) {
 		this.characteristicBonus = characteristicBonus;
 	}
 
@@ -669,7 +670,7 @@ public class Perk extends StorableObject {
 		this.resistanceBonus = resistanceBonus;
 	}
 
-	protected void setCharacteristicBonus(Map<String, Integer> characteristicBonus) {
+	protected void setCharacteristicBonus(Map<CharacteristicsAbbreviature, Integer> characteristicBonus) {
 		this.characteristicBonus = characteristicBonus;
 	}
 

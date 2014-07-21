@@ -25,7 +25,6 @@ package com.softwaremagico.librodeesher.pj.characteristic;
  */
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,21 +41,26 @@ public class Characteristics {
 	private static List<Characteristic> characteristics = new ArrayList<>();
 
 	static {
-		characteristicAbbreviatureList = new LinkedHashMap<>();
-		characteristicAbbreviatureList.put("Ag", "Agilidad");
-		characteristicAbbreviatureList.put("Co", "Constitución");
-		characteristicAbbreviatureList.put("Me", "Memoria");
-		characteristicAbbreviatureList.put("Ra", "Razón");
-		characteristicAbbreviatureList.put("Ad", "Autodisciplina");
-		characteristicAbbreviatureList.put("Em", "Empatía");
-		characteristicAbbreviatureList.put("In", "Intuición");
-		characteristicAbbreviatureList.put("Pr", "Presencia");
-		characteristicAbbreviatureList.put("Rp", "Rapidez");
-		characteristicAbbreviatureList.put("Fu", "Fuerza");
-
-		for (String abbreviature : characteristicAbbreviatureList.keySet()) {
-			characteristics.add(new Characteristic(abbreviature, characteristicAbbreviatureList.get(abbreviature)));
-		}
+		characteristics.add(new Characteristic(
+				CharacteristicsAbbreviature.AGILITY));
+		characteristics.add(new Characteristic(
+				CharacteristicsAbbreviature.CONSTITUTION));
+		characteristics.add(new Characteristic(
+				CharacteristicsAbbreviature.MEMORY));
+		characteristics.add(new Characteristic(
+				CharacteristicsAbbreviature.REASON));
+		characteristics.add(new Characteristic(
+				CharacteristicsAbbreviature.SELFDISCIPLINE));
+		characteristics.add(new Characteristic(
+				CharacteristicsAbbreviature.EMPATHY));
+		characteristics.add(new Characteristic(
+				CharacteristicsAbbreviature.INTUITION));
+		characteristics.add(new Characteristic(
+				CharacteristicsAbbreviature.PRESENCE));
+		characteristics.add(new Characteristic(
+				CharacteristicsAbbreviature.SPEED));
+		characteristics.add(new Characteristic(
+				CharacteristicsAbbreviature.STRENGTH));
 	}
 
 	public static List<Characteristic> getCharacteristics() {
@@ -67,7 +71,8 @@ public class Characteristics {
 		return allowedCharacteristics.contains(abbrev);
 	}
 
-	public static Characteristic getCharacteristicFromAbbreviature(String abbreviature) {
+	public static Characteristic getCharacteristicFromAbbreviature(
+			CharacteristicsAbbreviature abbreviature) {
 		for (int i = 0; i < characteristics.size(); i++) {
 			Characteristic characteristic = characteristics.get(i);
 			if (characteristic.getAbbreviature().equals(abbreviature)) {
@@ -202,11 +207,13 @@ public class Characteristics {
 		return 0;
 	}
 
-	public static Integer setTemporalIncrease(Integer currentTemporalValue, Integer potentialValue, Roll twoDices) {
+	public static Integer setTemporalIncrease(Integer currentTemporalValue,
+			Integer potentialValue, Roll twoDices) {
 		Integer increase;
 		if (potentialValue - currentTemporalValue <= 10) {
 			if (twoDices.getFirstDice() != twoDices.getSecondDice()) {
-				increase = Math.min(twoDices.getFirstDice(), twoDices.getSecondDice());
+				increase = Math.min(twoDices.getFirstDice(),
+						twoDices.getSecondDice());
 			} else {
 				if (twoDices.getFirstDice() < 6) {
 					increase = -twoDices.getFirstDice();
@@ -216,7 +223,8 @@ public class Characteristics {
 			}
 		} else if (potentialValue - currentTemporalValue <= 20) {
 			if (twoDices.getFirstDice() != twoDices.getSecondDice()) {
-				increase = Math.max(twoDices.getFirstDice(), twoDices.getSecondDice());
+				increase = Math.max(twoDices.getFirstDice(),
+						twoDices.getSecondDice());
 			} else {
 				if (twoDices.getFirstDice() < 6) {
 					increase = -twoDices.getFirstDice();
