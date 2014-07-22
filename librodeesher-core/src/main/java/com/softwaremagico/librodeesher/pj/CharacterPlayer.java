@@ -852,9 +852,13 @@ public class CharacterPlayer extends StorableObject {
 
 	public Integer getConditionalPerkBonus(Skill skill) {
 		Integer total = 0;
-		for (SelectedPerk perk : selectedPerks) {
-			total += PerkFactory.getPerk(perk).getConditionalSkillBonus()
-					.get(skill.getName());
+		for (SelectedPerk perk : selectedPerks) {			
+			Integer bonus = PerkFactory.getPerk(perk)
+					.getConditionalSkillBonus().get(skill.getName());
+			if (bonus != null) {
+				total += bonus;
+			}
+
 		}
 		return total;
 	}
@@ -876,8 +880,11 @@ public class CharacterPlayer extends StorableObject {
 	public Integer getConditionalPerkBonus(Category category) {
 		Integer total = 0;
 		for (SelectedPerk perk : selectedPerks) {
-			total += PerkFactory.getPerk(perk).getConditionalCategoryBonus()
-					.get(category.getName());
+			Integer bonus = PerkFactory.getPerk(perk)
+					.getConditionalBonus(category);
+			if (bonus != null) {
+				total += bonus;
+			}
 		}
 		return total;
 	}

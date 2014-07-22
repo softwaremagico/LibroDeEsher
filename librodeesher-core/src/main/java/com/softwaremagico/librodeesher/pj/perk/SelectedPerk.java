@@ -11,7 +11,7 @@ public class SelectedPerk extends StorableObject {
 	private String name;
 	private Integer cost;
 	
-	public SelectedPerk(){
+	protected SelectedPerk(){
 		
 	}
 	
@@ -26,5 +26,10 @@ public class SelectedPerk extends StorableObject {
 
 	public Integer getCost() {
 		return cost;
+	}
+	
+	@Override
+	public String toString(){
+		return getName();
 	}
 }

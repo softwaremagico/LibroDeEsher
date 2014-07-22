@@ -103,6 +103,14 @@ public class Perk {
 		}
 		return bonus;
 	}
+	
+	public Integer getConditionalBonus(Skill skill) {
+		Integer bonus = getConditionalSkillBonus().get(skill.getName());
+		if (bonus == null) {
+			return 0;
+		}
+		return bonus;
+	}
 
 	public Integer getBonus(Category category) {
 		Integer bonus = categoryBonus.get(category.getName());
@@ -111,6 +119,14 @@ public class Perk {
 		}
 		return bonus;
 	}
+	
+	public Integer getConditionalBonus(Category category) {
+		Integer bonus = getConditionalCategoryBonus().get(category.getName());
+		if (bonus == null) {
+			return 0;
+		}
+		return bonus;
+	} 
 
 	public Integer getRanks(Category category) {
 		Integer ranks = categoryRanks.get(category.getName());
