@@ -25,6 +25,7 @@ import com.softwaremagico.log.Log;
 
 public class RandomCharacterPlayer {
 	public final static int MAX_TRIES = 5;
+	private static final int MAX_HOBBY_COST = 40;
 	private Integer tries = 0;
 	private CharacterPlayer characterPlayer;
 	private SexType sex;
@@ -358,7 +359,7 @@ public class RandomCharacterPlayer {
 							.size() > -specializationLevel + 1) {
 				return 5 * loop;
 			}
-			if(skill.isRare()){
+			if (skill.isRare()) {
 				return 0;
 			}
 			return characterPlayer.getRealRanks(skill)
@@ -385,18 +386,35 @@ public class RandomCharacterPlayer {
 			Collections.shuffle(hobbies);
 
 			if (hobbies.size() > 0) {
-				String skill = hobbies.get(0);
-				if (SkillFactory.getAvailableSkill(skill) != null
-						&& !SkillFactory.getAvailableSkill(skill).isRare()
-						&& Math.random() * 100 + 1 < getProbablilityOfSetHobby(
-								characterPlayer,
-								SkillFactory.getAvailableSkill(skill), loop,
-								specializationLevel)) {
-					characterPlayer.getCultureDecisions().setHobbyRanks(
-							skill,
-							characterPlayer.getCultureDecisions()
-									.getHobbyRanks(skill) + 1);
+				String skillName = hobbies.get(0);
+				// Cost greater than 40 can not be a hobby
+				if (characterPlayer.getCultureStimatedCategoryCost(SkillFactory
+						.getAvailableSkill(skillName).getCategory()) <= MAX_HOBBY_COST) {
+					// Only if a new rank can be added to the hobby.
+					if (characterPlayer.getCultureDecisions().getHobbyRanks(
+							skillName) < characterPlayer
+							.getMaxRanksPerCulture(SkillFactory
+									.getAvailableSkill(skillName).getCategory())) {
+						if (SkillFactory.getAvailableSkill(skillName) != null
+								&& !SkillFactory.getAvailableSkill(skillName)
+										.isRare()
+								&& Math.random() * 100 + 1 < getProbablilityOfSetHobby(
+										characterPlayer,
+										SkillFactory
+												.getAvailableSkill(skillName),
+										loop, specializationLevel)) {
+							characterPlayer
+									.getCultureDecisions()
+									.setHobbyRanks(
+											skillName,
+											characterPlayer
+													.getCultureDecisions()
+													.getHobbyRanks(skillName) + 1);
+						}
+					}
 				}
+			} else {
+				break;
 			}
 		}
 	}
@@ -433,12 +451,24 @@ public class RandomCharacterPlayer {
 						.get((int) (Math.random() * characterPlayer.getRace()
 								.getAvailableLanguages().size()));
 			}
-			if (Math.random() * 100 + 1 < getLanguageProbability(
-					characterPlayer, randomLanguage, specializationLevel)) {
-				characterPlayer.getCultureDecisions().setLanguageRank(
-						randomLanguage,
-						characterPlayer.getCultureDecisions().getLanguageRanks(
-								randomLanguage) + 1);
+			// Enought points
+			if (characterPlayer.getCultureDecisions().getTotalLanguageRanks() < characterPlayer
+					.getRace().getLanguagePoints()
+					+ characterPlayer.getCulture().getLanguageRanksToChoose()) {
+				// Max limit of language.
+				if (characterPlayer.getLanguageInitialRanks(randomLanguage)
+						+ characterPlayer.getCultureDecisions()
+								.getLanguageRanks(randomLanguage) < characterPlayer
+							.getLanguageMaxInitialRanks(randomLanguage)) {
+					if (Math.random() * 100 + 1 < getLanguageProbability(
+							characterPlayer, randomLanguage,
+							specializationLevel)) {
+						characterPlayer.getCultureDecisions().setLanguageRank(
+								randomLanguage,
+								characterPlayer.getCultureDecisions()
+										.getLanguageRanks(randomLanguage) + 1);
+					}
+				}
 			}
 		}
 	}

@@ -43,7 +43,7 @@ public class HobbyLine extends CultureLine {
 	private Skill skill;
 
 	public HobbyLine(CharacterPlayer character, String hobby, CulturePanel hobbyPanel, Color background) {
-		this.character = character;
+		this.characterPlayer = character;
 		this.skillName = hobby;
 		skill = SkillFactory.getAvailableSkill(skillName);
 		this.parentPanel = hobbyPanel;
@@ -62,20 +62,20 @@ public class HobbyLine extends CultureLine {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				// Correct the spinner
-				if (parentPanel.getSpinnerValues() > character.getCulture().getHobbyRanks()) {
+				if (parentPanel.getSpinnerValues() > characterPlayer.getCulture().getHobbyRanks()) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
-				} else if (getSelectedRanks() > character.getMaxRanksPerCulture(skill.getCategory())) {
+				} else if (getSelectedRanks() > characterPlayer.getMaxRanksPerCulture(skill.getCategory())) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 					// Cost greater than 40 can not be a hobby
-				} else if (character.getCultureStimatedCategoryCost(skill.getCategory()) > MAX_HOBBY_COST) {
+				} else if (characterPlayer.getCultureStimatedCategoryCost(skill.getCategory()) > MAX_HOBBY_COST) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character
-					character.getCultureDecisions()
+					characterPlayer.getCultureDecisions()
 							.setHobbyRanks(skillName, (Integer) rankSpinner.getValue());
 				}
 				parentPanel.setRankTitle("Rangos ("
-						+ (character.getCulture().getHobbyRanks() - character.getCultureDecisions()
+						+ (characterPlayer.getCulture().getHobbyRanks() - characterPlayer.getCultureDecisions()
 								.getTotalHobbyRanks()) + ")");
 			}
 		});

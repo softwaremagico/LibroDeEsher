@@ -39,7 +39,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public abstract class CultureLine extends BaseLine {
 	protected static final long serialVersionUID = -8287822744700383705L;
-	protected CharacterPlayer character;
+	protected CharacterPlayer characterPlayer;
 	protected BaseSpinner rankSpinner;
 	protected String skillName;
 	protected CulturePanel parentPanel;
