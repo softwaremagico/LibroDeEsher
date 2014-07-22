@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.culture;
+
 /*
  * #%L
  * Libro de Esher
@@ -33,8 +34,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
+import com.softwaremagico.librodeesher.gui.elements.RandomButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 
 public class CultureWindow extends BaseFrame {
 	private static final long serialVersionUID = -3866934730061829486L;
@@ -60,7 +63,8 @@ public class CultureWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		getContentPane().add(new CompleteWeaponPanel(character), gridBagConstraints);
+		getContentPane().add(new CompleteWeaponPanel(character),
+				gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
@@ -71,7 +75,8 @@ public class CultureWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		getContentPane().add(new CompleteHobbiesPanel(character), gridBagConstraints);
+		getContentPane().add(new CompleteHobbiesPanel(character),
+				gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
@@ -82,7 +87,8 @@ public class CultureWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		getContentPane().add(new CompleteLanguagePanel(character), gridBagConstraints);
+		getContentPane().add(new CompleteLanguagePanel(character),
+				gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
@@ -93,12 +99,25 @@ public class CultureWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 0;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		getContentPane().add(new CompleteSpellPanel(character), gridBagConstraints);
+		getContentPane().add(new CompleteSpellPanel(character),
+				gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
 		JPanel emptyPanel = new JPanel();
 		buttonPanel.add(emptyPanel);
 
+		RandomButton randomButton = new RandomButton() {
+			private static final long serialVersionUID = 3347462905897024435L;
+
+			@Override
+			public void RandomAction() {
+				RandomCharacterPlayer.setWeaponCosts(character);
+				RandomCharacterPlayer.setCulture(character, character
+						.getCulture().getName(), 0);
+				updateFrame();
+			}
+		};
+		buttonPanel.add(randomButton);
 		CloseButton closeButton = new CloseButton(this);
 		buttonPanel.add(closeButton);
 
@@ -116,8 +135,10 @@ public class CultureWindow extends BaseFrame {
 
 	@Override
 	public void updateFrame() {
-		// TODO Auto-generated method stub
-
+		getContentPane().removeAll();
+		setElements();
+		revalidate();
+		repaint();
 	}
 
 	class AcceptListener implements ActionListener {

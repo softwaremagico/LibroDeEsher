@@ -1704,6 +1704,8 @@ public class CharacterPlayer extends StorableObject {
 
 	public void increaseLevel() {
 		levelUps.add(new LevelUp());
+		//Reset id to force to be saved as a new record.
+		setId(null);
 	}
 
 	public void removeTraining(Training training) {
