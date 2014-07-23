@@ -117,7 +117,7 @@ public class SkillWindow extends BaseFrame {
 				RandomCharacterPlayer.setWeaponCosts(character);
 				while (character.getRemainingDevelopmentPoints() > 0
 						&& tries <= RandomCharacterPlayer.MAX_TRIES) {
-					RandomCharacterPlayer.setRandomRanks(character, 0, new HashMap<String, Integer>(), tries);
+					RandomCharacterPlayer.setRandomRanks(character, 0, new HashMap<String, Integer>(), tries, character.getCurrentLevelNumber());
 					tries++;
 				}
 				updateFrame();

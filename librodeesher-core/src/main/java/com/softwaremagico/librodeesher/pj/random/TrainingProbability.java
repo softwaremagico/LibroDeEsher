@@ -44,8 +44,10 @@ public class TrainingProbability {
 		for (int j = 0; j < elementalistTrainings.size(); j++) {
 			allTrainings.add(0, elementalistTrainings.get(j));
 		}
-		for (String training : suggestedTrainings) {
-			allTrainings.add(0, training);
+		if (suggestedTrainings != null) {
+			for (String training : suggestedTrainings) {
+				allTrainings.add(0, training);
+			}
 		}
 		return allTrainings;
 	}
@@ -88,16 +90,21 @@ public class TrainingProbability {
 		// }
 
 		// Suggested training
-		suggestedTrainings.removeAll(characterPlayer.getSelectedTrainings());
-		if (suggestedTrainings.contains(trainingName)
-				&& characterPlayer.getTrainingCost(trainingName) <= characterPlayer
-						.getRemainingDevelopmentPoints()) {
-			// At least one training per level
-			if (characterPlayer.getCurrentLevel().getTrainings().isEmpty()) {
-				return 100;
-			} else if (suggestedTrainings.size() > finalLevel
-					- characterPlayer.getCurrentLevelNumber()) {
-				return 100;
+		if (suggestedTrainings != null) {
+			if (characterPlayer.getSelectedTrainings() != null) {
+				suggestedTrainings.removeAll(characterPlayer
+						.getSelectedTrainings());
+			}
+			if (suggestedTrainings.contains(trainingName)
+					&& characterPlayer.getTrainingCost(trainingName) <= characterPlayer
+							.getRemainingDevelopmentPoints()) {
+				// At least one training per level
+				if (characterPlayer.getCurrentLevel().getTrainings().isEmpty()) {
+					return 100;
+				} else if (suggestedTrainings.size() > finalLevel
+						- characterPlayer.getCurrentLevelNumber()) {
+					return 100;
+				}
 			}
 		}
 
