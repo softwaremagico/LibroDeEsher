@@ -11,6 +11,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.SexType;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
+import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
@@ -18,6 +19,7 @@ import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionalRealmsOfMagicOptions;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.skills.SkillComparatorByRanks;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 import com.softwaremagico.librodeesher.pj.weapons.WeaponType;
@@ -382,34 +384,47 @@ public class RandomCharacterPlayer {
 		while (characterPlayer.getCulture().getHobbyRanks()
 				- characterPlayer.getCultureDecisions().getTotalHobbyRanks() > 0) {
 			loop++;
-			List<String> hobbies = characterPlayer.getRealHobbySkills();
-			Collections.shuffle(hobbies);
+			List<String> hobbyNames = characterPlayer.getRealHobbySkills();
+			List<Skill> hobbies = new ArrayList<>();
+			for (String hobbyName : hobbyNames) {
+				hobbies.add(SkillFactory.getAvailableSkill(hobbyName));
+			}
 
+			// Order by specialization.
+			sortSkillsBySpecialization(characterPlayer, hobbies, specializationLevel);
+			
 			if (hobbies.size() > 0) {
-				String skillName = hobbies.get(0);
+				Skill skill = hobbies.get(0);
+				int weaponsRanks = 0;
 				// Cost greater than 40 can not be a hobby
-				if (characterPlayer.getCultureStimatedCategoryCost(SkillFactory
-						.getAvailableSkill(skillName).getCategory()) <= MAX_HOBBY_COST) {
+				if (characterPlayer.getCultureStimatedCategoryCost(skill
+						.getCategory()) <= MAX_HOBBY_COST) {
 					// Only if a new rank can be added to the hobby.
 					if (characterPlayer.getCultureDecisions().getHobbyRanks(
-							skillName) < characterPlayer
-							.getMaxRanksPerCulture(SkillFactory
-									.getAvailableSkill(skillName).getCategory())) {
-						if (SkillFactory.getAvailableSkill(skillName) != null
-								&& !SkillFactory.getAvailableSkill(skillName)
-										.isRare()
-								&& Math.random() * 100 + 1 < getProbablilityOfSetHobby(
-										characterPlayer,
-										SkillFactory
-												.getAvailableSkill(skillName),
-										loop, specializationLevel)) {
+							skill.getName()) < characterPlayer
+							.getMaxRanksPerCulture(skill.getCategory())) {
+						if (skill != null
+								&& !skill.isRare()
+								&& Math.random() * 100
+										// Penalization for too many weapons
+										+ (skill.getCategory()
+												.getCategoryGroup()
+												.equals(CategoryGroup.WEAPON) ? weaponsRanks * 5
+												: 0) < getProbablilityOfSetHobby(
+											characterPlayer, skill, loop,
+											specializationLevel)) {
 							characterPlayer
 									.getCultureDecisions()
 									.setHobbyRanks(
-											skillName,
+											skill.getName(),
 											characterPlayer
 													.getCultureDecisions()
-													.getHobbyRanks(skillName) + 1);
+													.getHobbyRanks(
+															skill.getName()) + 1);
+							// New weapon rank added. Increase counter.
+							weaponsRanks += skill.getCategory()
+									.getCategoryGroup()
+									.equals(CategoryGroup.WEAPON) ? 1 : 0;
 						}
 					}
 				}
@@ -451,7 +466,7 @@ public class RandomCharacterPlayer {
 						.get((int) (Math.random() * characterPlayer.getRace()
 								.getAvailableLanguages().size()));
 			}
-			// Enought points
+			// Enough points
 			if (characterPlayer.getCultureDecisions().getTotalLanguageRanks() < characterPlayer
 					.getRace().getLanguagePoints()
 					+ characterPlayer.getCulture().getLanguageRanksToChoose()) {
@@ -573,7 +588,11 @@ public class RandomCharacterPlayer {
 								cat.getName()) + 1);
 			}
 			List<Skill> shuffledCategorySkills = cat.getSkills();
-			Collections.shuffle(shuffledCategorySkills);
+
+			// Order by specialization.
+			sortSkillsBySpecialization(characterPlayer, shuffledCategorySkills, specializationLevel);
+			
+
 			for (int j = 0; j < shuffledCategorySkills.size(); j++) {
 				Skill skill = shuffledCategorySkills.get(j);
 				int roll = (int) (Math.random() * 100 + 1);
@@ -673,7 +692,7 @@ public class RandomCharacterPlayer {
 					characterPlayer.setHistoryPoints(category, true);
 				} else {
 					List<Skill> shuffledSkillList = category.getSkills();
-					Collections.shuffle(shuffledSkillList);
+					sortSkillsBySpecialization(characterPlayer, shuffledSkillList, specializationLevel);
 					for (int j = 0; j < shuffledSkillList.size(); j++) {
 						Skill skill = shuffledSkillList.get(j);
 						if (!characterPlayer.isHistoryPointSelected(skill)
@@ -731,6 +750,24 @@ public class RandomCharacterPlayer {
 
 		// Set random Objects.
 		TrainingProbability.setRandomObjects(characterPlayer, trainingName);
+	}
+
+	/**
+	 * Sorts a list of skills. 
+	 * @param skills
+	 * @param specializationLevel
+	 */
+	private static void sortSkillsBySpecialization(CharacterPlayer characterPlayer, List<Skill> skills,
+			int specializationLevel) {
+		if (specializationLevel == 0) {
+			Collections.shuffle(skills);
+		} else {
+			Collections.sort(skills,
+					new SkillComparatorByRanks(characterPlayer));
+			if (specializationLevel < 0) {
+				Collections.reverse(skills);
+			}
+		}
 	}
 
 }
