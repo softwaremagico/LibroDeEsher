@@ -18,26 +18,36 @@ import com.softwaremagico.librodeesher.pj.training.TrainingType;
 public class TrainingProbability {
 
 	protected static List<String> shuffleTrainings(
-			CharacterPlayer characterPlayer) {
-		List<String> trainings = TrainingFactory.getAvailableTrainings();
-		Collections.shuffle(trainings);
-		List<String> trainingList = new ArrayList<>();
+			CharacterPlayer characterPlayer, List<String> suggestedTrainings) {
+		List<String> allTrainings = TrainingFactory.getAvailableTrainings();
+		Collections.shuffle(allTrainings);
+
+		// Suggested trainings at the begin
+		if (suggestedTrainings != null) {
+			allTrainings.removeAll(suggestedTrainings);
+		}
+
 		// For elementalist, elementalist training first.
+		List<String> elementalistTrainings = new ArrayList<>();
 		if (characterPlayer.getProfession().isElementalist()) {
-			for (int i = 0; i < trainings.size(); i++) {
-				String ad = trainings.get(i);
+			for (int i = 0; i < allTrainings.size(); i++) {
+				String ad = allTrainings.get(i);
 				if (isElementalistTraining(ad)) {
-					trainingList.add(ad);
-					trainings.remove(i);
+					elementalistTrainings.add(ad);
+					allTrainings.remove(i);
 					i--;
 				}
 			}
-			Collections.shuffle(trainingList);
 		}
-		for (int j = 0; j < trainings.size(); j++) {
-			trainingList.add(trainings.get(j));
+
+		// Add preferences to the beggining.
+		for (int j = 0; j < elementalistTrainings.size(); j++) {
+			allTrainings.add(0, elementalistTrainings.get(j));
 		}
-		return trainingList;
+		for (String training : suggestedTrainings) {
+			allTrainings.add(0, training);
+		}
+		return allTrainings;
 	}
 
 	private static boolean isElementalistTraining(String training) {
@@ -46,7 +56,8 @@ public class TrainingProbability {
 	}
 
 	protected static int trainingRandomness(CharacterPlayer characterPlayer,
-			String trainingName, int specialization) {
+			String trainingName, int specialization,
+			List<String> suggestedTrainings, int finalLevel) {
 		int cost = characterPlayer.getProfession()
 				.getTrainingCost(trainingName);
 		// No training from different realm of magic.
@@ -59,8 +70,8 @@ public class TrainingProbability {
 
 		// Has not the characteristics requirements.
 		Training training = TrainingFactory.getTraining(trainingName);
-		for (CharacteristicsAbbreviature abbreviature : training.getCharacteristicRequirements()
-				.keySet()) {
+		for (CharacteristicsAbbreviature abbreviature : training
+				.getCharacteristicRequirements().keySet()) {
 			if (training.getCharacteristicRequirements().get(abbreviature) > characterPlayer
 					.getCharacteristicTemporalValue(abbreviature)) {
 				return 0;
@@ -75,6 +86,20 @@ public class TrainingProbability {
 		// return 0;
 		// }
 		// }
+
+		// Suggested training
+		suggestedTrainings.removeAll(characterPlayer.getSelectedTrainings());
+		if (suggestedTrainings.contains(trainingName)
+				&& characterPlayer.getTrainingCost(trainingName) <= characterPlayer
+						.getRemainingDevelopmentPoints()) {
+			// At least one training per level
+			if (characterPlayer.getCurrentLevel().getTrainings().isEmpty()) {
+				return 100;
+			} else if (suggestedTrainings.size() > finalLevel
+					- characterPlayer.getCurrentLevelNumber()) {
+				return 100;
+			}
+		}
 
 		int probability = ((28 - cost) * 2
 				+ characterPlayer.getLevelUps().size() - ((characterPlayer
@@ -136,7 +161,9 @@ public class TrainingProbability {
 				if (Math.random() * 100 < probability) {
 					characterPlayer
 							.getTrainingDecision(trainingName)
-							.addSelectedCategory(training.getTrainingCategoryIndex(trainingCategory), categoryName);
+							.addSelectedCategory(
+									training.getTrainingCategoryIndex(trainingCategory),
+									categoryName);
 					break;
 				}
 				index++;
@@ -189,8 +216,8 @@ public class TrainingProbability {
 			// Order by profession preferences.
 			boolean updated = false;
 			CharacteristicsAbbreviature lastCharacteristicChecked = null;
-			for (CharacteristicsAbbreviature characteristic : characterPlayer.getProfession()
-					.getCharacteristicPreferences()) {
+			for (CharacteristicsAbbreviature characteristic : characterPlayer
+					.getProfession().getCharacteristicPreferences()) {
 				// Available for update.
 				if (availableUpdates.contains(characteristic)) {
 					// Good to be updated if: long distance, medium distance per

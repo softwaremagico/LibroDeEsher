@@ -16,17 +16,20 @@ public class CategoryProbability {
 	private CharacterPlayer characterPlayer;
 	private Category category;
 	private int tries = 0;
-	private Map<String, Integer> suggestedSkillsRanks;
+	private Map<String, Integer> suggestedCategoryRanks;
 	private Integer specializationLevel;
+	private int finalLevel;
 
-	CategoryProbability(CharacterPlayer characterPlayer, Category category,
-			int tries, Map<String, Integer> suggestedSkillsRanks,
-			Integer specializationLevel) {
+	public CategoryProbability(CharacterPlayer characterPlayer,
+			Category category, int tries,
+			Map<String, Integer> suggestedSkillsRanks,
+			Integer specializationLevel, int finalLevel) {
 		this.characterPlayer = characterPlayer;
 		this.category = category;
 		this.tries = tries;
-		this.suggestedSkillsRanks = suggestedSkillsRanks;
+		this.suggestedCategoryRanks = suggestedSkillsRanks;
 		this.specializationLevel = specializationLevel;
+		this.finalLevel = finalLevel;
 	}
 
 	/**
@@ -39,6 +42,20 @@ public class CategoryProbability {
 		}
 
 		Integer cost = characterPlayer.getNewRankCost(category);
+
+		// Suggested ranks
+		if (characterPlayer.getTotalRanks(category) < suggestedCategoryRanks
+				.get(category.getName())
+				&& cost <= characterPlayer.getRemainingDevelopmentPoints()) {
+			if (characterPlayer.getCurrentLevelRanks(category) == 0) {
+				return 100;
+			} else if (characterPlayer.getTotalRanks(category) < suggestedCategoryRanks
+					.get(category.getName()) - finalLevel
+					&& characterPlayer.getNewRankCost(category) < 40) {
+				return 100;
+			}
+		}
+
 		if (cost != null && cost <= Config.getCategoryMaxCost()) {
 			if (characterPlayer.getRemainingDevelopmentPoints() >= characterPlayer
 					.getNewRankCost(category)
@@ -127,11 +144,11 @@ public class CategoryProbability {
 	}
 
 	private Integer getSuggestedSkillRanks(String skillName) {
-		if (suggestedSkillsRanks.get(skillName) == null
-				|| suggestedSkillsRanks.get(skillName) < 0) {
+		if (suggestedCategoryRanks.get(skillName) == null
+				|| suggestedCategoryRanks.get(skillName) < 0) {
 			return 0;
 		}
-		return suggestedSkillsRanks.get(skillName);
+		return suggestedCategoryRanks.get(skillName);
 	}
 
 	/**

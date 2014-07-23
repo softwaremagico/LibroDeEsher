@@ -17,15 +17,17 @@ public class SkillProbability {
 	private Map<String, Integer> suggestedSkillsRanks;
 	private int tries;
 	private Integer specializationLevel;
+	private int finalLevel;
 
 	public SkillProbability(CharacterPlayer characterPlayer, Skill skill,
 			int tries, Map<String, Integer> suggestedSkillsRanks,
-			Integer specializationLevel) {
+			Integer specializationLevel, int finalLevel) {
 		this.characterPlayer = characterPlayer;
 		this.skill = skill;
 		this.suggestedSkillsRanks = suggestedSkillsRanks;
 		this.tries = tries;
 		this.specializationLevel = specializationLevel;
+		this.finalLevel = finalLevel;
 	}
 
 	/**
@@ -35,16 +37,30 @@ public class SkillProbability {
 		int probability = 0;
 
 		// Avoid strange skills.
-		if (!skill.isRare() && !characterPlayer.isCommon(skill)
+		if (skill.isRare() && !characterPlayer.isCommon(skill)
 				&& suggestedSkillsRanks != null
 				&& suggestedSkillsRanks.get(skill.getName()) != null
 				&& suggestedSkillsRanks.get(skill.getName()) == 0) {
 			return MAX_VALUE;
 		}
 
+		Integer cost = characterPlayer.getNewRankCost(skill);
+
+		// Suggested ranks
+		if (characterPlayer.getTotalRanks(skill) < suggestedSkillsRanks
+				.get(skill.getName())
+				&& cost <= characterPlayer.getRemainingDevelopmentPoints()) {
+			if (characterPlayer.getCurrentLevelRanks(skill) == 0) {
+				return 100;
+			} else if (characterPlayer.getTotalRanks(skill) < suggestedSkillsRanks
+					.get(skill.getName()) - finalLevel
+					&& characterPlayer.getNewRankCost(skill) < 40) {
+				return 100;
+			}
+		}
+
 		if (characterPlayer.getCurrentLevelRanks(skill) <= 3) {
-			if (characterPlayer.getRemainingDevelopmentPoints() >= characterPlayer
-					.getNewRankCost(skill)) {
+			if (characterPlayer.getRemainingDevelopmentPoints() >= cost) {
 
 				Log.debug(SkillProbability.class.getName(),
 						"Probability of skill '" + skill.getName() + "'");
@@ -96,7 +112,7 @@ public class SkillProbability {
 				Log.debug(SkillProbability.class.getName(), "\t Max ranks: "
 						+ maxRanks);
 				probability += maxRanks;
-				// Ponemos una cota superior y una cota inferior.
+				// Max and min value
 				if (probability > 90 && probability < 150) {
 					probability = 90;
 				} else if (probability > 0) {

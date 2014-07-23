@@ -391,8 +391,9 @@ public class RandomCharacterPlayer {
 			}
 
 			// Order by specialization.
-			sortSkillsBySpecialization(characterPlayer, hobbies, specializationLevel);
-			
+			sortSkillsBySpecialization(characterPlayer, hobbies,
+					specializationLevel);
+
 			if (hobbies.size() > 0) {
 				Skill skill = hobbies.get(0);
 				int weaponsRanks = 0;
@@ -551,7 +552,7 @@ public class RandomCharacterPlayer {
 	private void setLevels() {
 		while (characterPlayer.getLevelUps().size() < finalLevel) {
 			Log.info(this.getClass().getName(),
-					" -----------  Subida de Nivel  --------------");
+					" -----------  Level UP!  --------------");
 			characterPlayer.increaseLevel();
 			setDevelopmentPoints();
 		}
@@ -562,17 +563,18 @@ public class RandomCharacterPlayer {
 				&& tries <= MAX_TRIES) {
 			// if (obtenerAdiestramientos) {
 			// ObtenerAdiestramientosSugeridos();
-			getRandomTrainings(characterPlayer, specializationLevel);
+			getRandomTrainings(characterPlayer, specializationLevel,
+					suggestedTrainings, finalLevel);
 			// }
 			setRandomRanks(characterPlayer, specializationLevel,
-					suggestedSkillsRanks, tries);
+					suggestedSkillsRanks, tries, finalLevel);
 			tries++;
 		}
 	}
 
 	public static void setRandomRanks(CharacterPlayer characterPlayer,
 			int specializationLevel, Map<String, Integer> suggestedSkillsRanks,
-			Integer tries) {
+			Integer tries, int finalLevel) {
 		List<Category> sortedCategoriesByCost = CategoryFactory.getCategories();
 		Collections.sort(sortedCategoriesByCost, new SortCategoryByCost(
 				characterPlayer));
@@ -581,7 +583,7 @@ public class RandomCharacterPlayer {
 			Category cat = sortedCategoriesByCost.get(i);
 			if (Math.random() * 100 + 1 < new CategoryProbability(
 					characterPlayer, cat, tries, suggestedSkillsRanks,
-					specializationLevel).rankProbability()) {
+					specializationLevel, finalLevel).rankProbability()) {
 				characterPlayer.getCurrentLevel().setCategoryRanks(
 						cat.getName(),
 						characterPlayer.getCurrentLevel().getCategoryRanks(
@@ -590,15 +592,15 @@ public class RandomCharacterPlayer {
 			List<Skill> shuffledCategorySkills = cat.getSkills();
 
 			// Order by specialization.
-			sortSkillsBySpecialization(characterPlayer, shuffledCategorySkills, specializationLevel);
-			
+			sortSkillsBySpecialization(characterPlayer, shuffledCategorySkills,
+					specializationLevel);
 
 			for (int j = 0; j < shuffledCategorySkills.size(); j++) {
 				Skill skill = shuffledCategorySkills.get(j);
 				int roll = (int) (Math.random() * 100 + 1);
 				int probability = new SkillProbability(characterPlayer, skill,
-						tries, suggestedSkillsRanks, specializationLevel)
-						.getRankProbability();
+						tries, suggestedSkillsRanks, specializationLevel,
+						finalLevel).getRankProbability();
 				Log.debug(RandomCharacterPlayer.class.getName(), "Skill '"
 						+ skill.getName() + "' (" + probability + "%), roll: "
 						+ roll);
@@ -692,7 +694,8 @@ public class RandomCharacterPlayer {
 					characterPlayer.setHistoryPoints(category, true);
 				} else {
 					List<Skill> shuffledSkillList = category.getSkills();
-					sortSkillsBySpecialization(characterPlayer, shuffledSkillList, specializationLevel);
+					sortSkillsBySpecialization(characterPlayer,
+							shuffledSkillList, specializationLevel);
 					for (int j = 0; j < shuffledSkillList.size(); j++) {
 						Skill skill = shuffledSkillList.get(j);
 						if (!characterPlayer.isHistoryPointSelected(skill)
@@ -723,13 +726,15 @@ public class RandomCharacterPlayer {
 	}
 
 	private static void getRandomTrainings(CharacterPlayer characterPlayer,
-			int specializationLevel) {
-		List<String> trainings = TrainingProbability
-				.shuffleTrainings(characterPlayer);
+			int specializationLevel, List<String> suggestedTrainings,
+			int finalLevel) {
+		List<String> trainings = TrainingProbability.shuffleTrainings(
+				characterPlayer, suggestedTrainings);
 		for (int i = 0; i < trainings.size(); i++) {
 			String training = trainings.get(i);
 			int probability = TrainingProbability.trainingRandomness(
-					characterPlayer, training, specializationLevel);
+					characterPlayer, training, specializationLevel,
+					suggestedTrainings, finalLevel);
 			if (Math.random() * 100 < probability) {
 				setRandomTraining(characterPlayer, training,
 						specializationLevel);
@@ -753,11 +758,13 @@ public class RandomCharacterPlayer {
 	}
 
 	/**
-	 * Sorts a list of skills. 
+	 * Sorts a list of skills.
+	 * 
 	 * @param skills
 	 * @param specializationLevel
 	 */
-	private static void sortSkillsBySpecialization(CharacterPlayer characterPlayer, List<Skill> skills,
+	private static void sortSkillsBySpecialization(
+			CharacterPlayer characterPlayer, List<Skill> skills,
 			int specializationLevel) {
 		if (specializationLevel == 0) {
 			Collections.shuffle(skills);

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  Libro de Esher (GUI)
+  %%
+  Copyright (C) 2007 - 2014 Softwaremagico
+  %%
+  This software is designed by Jorge Hortelano Otero. Jorge Hortelano Otero
+  <softwaremagico@gmail.com> Valencia (Spain).
+   
+  This program is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free Software
+  Foundation; either version 2 of the License, or (at your option) any later
+  version.
+   
+  This program is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+  details.
+   
+  You should have received a copy of the GNU General Public License along with
+  this program; If not, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+  #L%
+  -->
+
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd"> 
+ 
+<hibernate-configuration>
+    <session-factory>
+        <property name="show_sql">false</property>
+        <property name="format_sql">true</property>
+        <!-- <property name="dialect">org.hibernate.dialect.SQLiteDialect</property> 
+	<property name="connection.driver_class">org.sqlite.JDBC</property> -->
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/esher</property>
+        <property name="connection.username">esher</property>
+        <property name="connection.password">esher</property>         
+	<property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+         
+	<mapping class="com.softwaremagico.librodeesher.pj.CharacterPlayer"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.characteristic.Appearance"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.basics.Roll"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.basics.RollGroup"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.categories.CategoryCost"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.basics.ChooseGroup"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.culture.CultureDecisions"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.historial.Historial"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.level.LevelUp"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.magic.MagicSpellLists"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.perk.PerkDecision"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.perk.SelectedPerk"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.profession.ProfessionDecisions"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.profession.ProfessionalRealmsOfMagicOptions"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingDecision"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingCategory"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingCategoriesSelected"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingSkill"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingSkillList"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingSkillsSelected"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingItem"></mapping>
+    </session-factory>
+</hibernate-configuration>
