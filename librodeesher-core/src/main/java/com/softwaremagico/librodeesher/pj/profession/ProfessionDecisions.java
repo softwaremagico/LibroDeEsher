@@ -38,6 +38,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -53,12 +56,15 @@ public class ProfessionDecisions extends StorableObject {
 	private Map<String, CategoryCost> weaponsCost;
 	@ElementCollection
 	@CollectionTable(name = "T_PROFESSION_COMMON_SKILLS_CHOSEN")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> commonSkillsChosen;
 	@ElementCollection
 	@CollectionTable(name = "T_PROFESSION_RESTRICTED_SKILLS_CHOSEN")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> restrictedSkillsChosen;
 	@ElementCollection
 	@CollectionTable(name = "T_PROFESSION_PROFESSIONAL_SKILLS_CHOSEN")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> professionalSkillsChosen;
 
 	public ProfessionDecisions() {

@@ -32,6 +32,7 @@ public abstract class StorableObject {
 
 	public StorableObject() {
 		creationTime = new java.sql.Timestamp(new java.util.Date().getTime());
+		updateTime = new java.sql.Timestamp(new java.util.Date().getTime());
 		comparationId = IdGenerator.createId();
 	}
 

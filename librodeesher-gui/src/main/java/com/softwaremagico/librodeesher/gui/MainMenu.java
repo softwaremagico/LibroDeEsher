@@ -325,6 +325,14 @@ public class MainMenu {
 	public void addSheetPdfActionListener(ActionListener al){
 		exportToPDFMenuItem.addActionListener(al);
 	}
+	
+	public void addSaveActionListener(ActionListener al){
+		saveMenuItem.addActionListener(al);
+	}
+	
+	public void addLoadActionListener(ActionListener al){
+		loadMenuItem.addActionListener(al);
+	}
 
 	class CloseListener implements ActionListener {
 

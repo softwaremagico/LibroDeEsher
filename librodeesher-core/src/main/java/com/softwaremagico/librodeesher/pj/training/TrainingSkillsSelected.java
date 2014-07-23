@@ -8,6 +8,9 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import com.softwaremagico.persistence.StorableObject;
 
 @Entity
@@ -15,6 +18,7 @@ import com.softwaremagico.persistence.StorableObject;
 class TrainingSkillsSelected extends StorableObject {
 	@ElementCollection
 	@CollectionTable(name = "T_TRAINING_SKILLS_SELECTED_LIST_OF_SKILLS")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<TrainingSkill, Integer> skills;
 
 	public TrainingSkillsSelected() {

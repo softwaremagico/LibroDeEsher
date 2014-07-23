@@ -10,6 +10,9 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.persistence.StorableObject;
@@ -44,23 +47,29 @@ public class LevelUp extends StorableObject {
 
 	@ElementCollection
 	@CollectionTable(name = "T_LEVELUP_CATEGORIES_RANKS")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<String, Integer> categoriesRanks;
 	@ElementCollection
 	@CollectionTable(name = "T_LEVELUP_SKILLS_RANKS")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<String, Integer> skillsRanks;
 	@ElementCollection
 	@CollectionTable(name = "T_LEVELUP_GENERALIZED_SKILLS")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> generalizedSkills;
 	@ElementCollection
 	@CollectionTable(name = "T_LEVEL_UP_SPELLS_UPDATED")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> spellsUpdated; // More than 5 list is more expensive in
 										// Development Points.
 	@ElementCollection
 	@CollectionTable(name = "T_LEVEL_UP_TRAININGS_ADQUIRED")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> trainings;
 
 	@ElementCollection
 	@CollectionTable(name = "T_LEVEL_UP_SKILL_SPECIALIZATIONS")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> skillSpecializations;
 
 	public LevelUp() {

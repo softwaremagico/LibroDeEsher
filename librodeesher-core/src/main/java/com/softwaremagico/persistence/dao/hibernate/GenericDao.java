@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 
 import com.softwaremagico.persistence.HibernateInitializator;
@@ -107,6 +108,7 @@ public abstract class GenericDao<T> extends StorableObjectDao<T> implements
 			List<T> objects = session.createQuery(
 					"from " + getType().getSimpleName()).list();
 			initializeSets(objects);
+			session.createCriteria(type).addOrder(Order.desc("updateTime"));
 			session.getTransaction().commit();
 			return objects;
 		} catch (RuntimeException e) {

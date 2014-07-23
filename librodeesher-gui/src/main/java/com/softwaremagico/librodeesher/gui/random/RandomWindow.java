@@ -59,18 +59,16 @@ import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.Fonts;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
-import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class RandomWindow extends BaseFrame {
 	private static final long serialVersionUID = -2265764014622959400L;
-	private static final Integer MARGIN = 10;
+
 	private CharacterPlayer characterPlayer;
 	private JSlider generalizationSpecializationSlider;
 	private CategoryComboBox categoryComboBox;
 	private SkillComboBox skillComboBox;
 	private BaseSpinner categorySpinner, skillSpinner;
-	private RandomCharacterPlayer randomPlayer;
 	private Map<String, Integer> suggestedSkillsRanks;
 	private Map<String, Integer> suggestedCategoriesRanks;
 	private TrainingComboBox trainingComboBox;

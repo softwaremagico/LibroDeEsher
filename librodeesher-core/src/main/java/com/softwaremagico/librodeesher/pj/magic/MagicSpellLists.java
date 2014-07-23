@@ -69,7 +69,7 @@ public class MagicSpellLists extends StorableObject {
 		// For elementalist, the training lists are basic lists.
 		List<String> elementalistList = MagicFactory.getListOfProfession(character
 				.getRealmOfMagic().getRealmsOfMagic(), MagicFactory
-				.getElementalistTraining(character.getTrainingsNames()));
+				.getElementalistTraining(character.getSelectedTrainings()));
 		if (elementalistList != null) {
 			basicSpells.addAll(elementalistList);
 		}
@@ -85,23 +85,23 @@ public class MagicSpellLists extends StorableObject {
 		// Triad.
 		List<String> triadSpells = new ArrayList<>();
 		triadSpells = MagicFactory.getListOfOwnTriad(
-				character.getRealmOfMagic().getRealmsOfMagic(), character.getTrainingsNames());
+				character.getRealmOfMagic().getRealmsOfMagic(), character.getSelectedTrainings());
 		List<String> otherTriadSpells = new ArrayList<>();
 		otherTriadSpells = MagicFactory.getListOfOtherTriad(character.getRealmOfMagic()
-				.getRealmsOfMagic(), character.getTrainingsNames());
+				.getRealmsOfMagic(), character.getSelectedTrainings());
 
 		// Other professions.
 		// Only no elementalist has elementalist list as other professions.
 		List<String> otherProfession = new ArrayList<>();
 		otherProfession = MagicFactory.getListOfOtherProfessions(basicSpells, character
 				.getRealmOfMagic().getRealmsOfMagic(), character.getProfession().getName(),
-				MagicFactory.getElementalistTraining(character.getTrainingsNames()) == null);
+				MagicFactory.getElementalistTraining(character.getSelectedTrainings()) == null);
 
 		// Other Realms professions.
 		List<String> otherRealmsProfession = new ArrayList<>();
 		otherRealmsProfession = MagicFactory.getListOfOtherProfessionsOtherRealm(basicSpells, character
 				.getRealmOfMagic().getRealmsOfMagic(), character.getProfession().getName(),
-				MagicFactory.getElementalistTraining(character.getTrainingsNames()) == null);
+				MagicFactory.getElementalistTraining(character.getSelectedTrainings()) == null);
 
 		// Open list other realm.
 		List<String> otherRealmsOpen = new ArrayList<>();

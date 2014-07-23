@@ -8,6 +8,9 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import com.softwaremagico.persistence.StorableObject;
 
 @Entity
@@ -16,6 +19,7 @@ class TrainingCategoriesSelected extends StorableObject {
 
 	@ElementCollection
 	@CollectionTable(name = "T_TRAINING_CATEGORIES")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> categories;
 
 	public TrainingCategoriesSelected() {

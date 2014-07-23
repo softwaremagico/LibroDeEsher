@@ -11,15 +11,15 @@ public class CharacterPlayerDao extends GenericDao<CharacterPlayer> implements
 		ICharacterPlayerDao {
 	private static CharacterPlayerDao instance = null;
 
-	public CharacterPlayerDao(Class<CharacterPlayer> type) {
-		super(type);
+	public CharacterPlayerDao() {
+		super(CharacterPlayer.class);
 	}
 
 	public static CharacterPlayerDao getInstance() {
 		if (instance == null) {
 			synchronized (CharacterPlayerDao.class) {
 				if (instance == null) {
-					instance = new CharacterPlayerDao(CharacterPlayer.class);
+					instance = new CharacterPlayerDao();
 				}
 			}
 		}
@@ -33,9 +33,12 @@ public class CharacterPlayerDao extends GenericDao<CharacterPlayer> implements
 			Hibernate.initialize(player.getCharacteristicInitialTemporalValue());
 			Hibernate.initialize(player.getCharacteristicPotencialValue());
 			Hibernate.initialize(player.getCharacteristicsTemporalUpdatesRolls());
-			Hibernate.initialize(player.getTrainingsNames());
 			Hibernate.initialize(player.getTrainingDecisions());
 			Hibernate.initialize(player.getPerks());
+			Hibernate.initialize(player.getHistorial());
+			Hibernate.initialize(player.getRealmOfMagic());
+			Hibernate.initialize(player.getProfessionDecisions());
+			Hibernate.initialize(player.getCultureDecisions());
 		}
 
 	}

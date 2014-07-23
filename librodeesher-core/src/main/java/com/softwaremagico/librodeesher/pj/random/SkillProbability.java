@@ -413,7 +413,7 @@ public class SkillProbability {
 		if (characterPlayer.isFighter()) {
 			// Knights ride horses.
 			if (skill.getName().toLowerCase().equals(Spanish.HORSES_TAG)) {
-				for (String training : characterPlayer.getTrainingsNames()) {
+				for (String training : characterPlayer.getSelectedTrainings()) {
 					if (training.toLowerCase().equals(Spanish.KNIGHT_TRAINING)) {
 						return 50;
 					}

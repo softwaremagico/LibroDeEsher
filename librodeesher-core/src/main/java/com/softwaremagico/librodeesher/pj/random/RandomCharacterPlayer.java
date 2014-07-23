@@ -514,7 +514,7 @@ public class RandomCharacterPlayer {
 					if (weapon.getType().getWeaponCategoryName()
 							.equals(category.getName())) {
 						Skill weaponSkill = category.getSkill(weapon.getName());
-						if (weaponSkill != null && weaponSkill.isRare()) {
+						if (weaponSkill != null && !weaponSkill.isRare()) {
 							weaponsOfCategory.add(weaponSkill);
 						}
 					}

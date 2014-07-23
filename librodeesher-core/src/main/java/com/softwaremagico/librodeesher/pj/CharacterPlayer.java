@@ -130,9 +130,6 @@ public class CharacterPlayer extends StorableObject {
 	@JoinColumn(name = "professionDecisionsId")
 	private ProfessionDecisions professionDecisions;
 
-	@ElementCollection
-	@CollectionTable(name = "T_CHARACTERPLAYER_TRAININGS")
-	private List<String> trainingsNames;
 	@Transient
 	private transient List<Training> trainings;
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -188,7 +185,6 @@ public class CharacterPlayer extends StorableObject {
 		sex = SexType.MALE;
 		cultureDecisions = new CultureDecisions();
 		professionDecisions = new ProfessionDecisions();
-		trainingsNames = new ArrayList<>();
 		trainings = new ArrayList<>();
 		selectedPerks = new ArrayList<>();
 		magicSpellListsObtained = false;
@@ -1129,10 +1125,6 @@ public class CharacterPlayer extends StorableObject {
 		return null;
 	}
 
-	public List<String> getTrainingsNames() {
-		return trainingsNames;
-	}
-
 	public boolean isDarkSpellsAsBasicListsAllowed() {
 		return darkSpellsAsBasicListsAllowed;
 	}
@@ -1618,10 +1610,6 @@ public class CharacterPlayer extends StorableObject {
 	protected void setProfessionDecisions(
 			ProfessionDecisions professionDecisions) {
 		this.professionDecisions = professionDecisions;
-	}
-
-	protected void setTrainingsNames(List<String> trainingsNames) {
-		this.trainingsNames = trainingsNames;
 	}
 
 	protected void setAppearance(Appearance appearance) {

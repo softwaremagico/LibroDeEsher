@@ -7,6 +7,9 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.persistence.StorableObject;
@@ -14,15 +17,17 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_PERKS_DECISION")
 public class PerkDecision extends StorableObject {
-
 	@ElementCollection
 	@CollectionTable(name = "T_PERKS_DECISION_CATEGORY_BONUS_CHOSEN")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> categoriesBonusChosen;
 	@ElementCollection
 	@CollectionTable(name = "T_PERKS_DECISION_SKILLS_BONUS_CHOSEN")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> skillsBonusChosen;
 	@ElementCollection
 	@CollectionTable(name = "T_PERKS_DECISION_COMMON_SKILLS_CHOSEN")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> commonSkillsChosen;
 
 	public PerkDecision() {

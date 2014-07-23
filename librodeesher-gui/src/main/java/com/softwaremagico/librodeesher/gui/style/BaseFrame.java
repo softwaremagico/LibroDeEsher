@@ -41,6 +41,7 @@ import com.softwaremagico.librodeesher.config.Config;
 public abstract class BaseFrame extends JFrame {
 	private static final String FRAME_TITLE = "El Libro de Esher";
 	private static final long serialVersionUID = 3812264811213028556L;
+	public static final Integer MARGIN = 10;
 	protected static final int margin = 5;
 	protected Integer textDefaultWidth = 80;
 	protected Integer textDefaultHeight = 25;

@@ -32,6 +32,9 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.persistence.StorableObject;
 
@@ -41,7 +44,12 @@ public class CategoryCost extends StorableObject {
 
 	@ElementCollection
 	@CollectionTable(name = "T_RANK_COSTS")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Integer> rankCost;
+	
+	protected CategoryCost(){
+		
+	}	
 
 	public CategoryCost(List<Integer> rankCost) {
 		this.rankCost = rankCost;

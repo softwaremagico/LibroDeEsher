@@ -12,6 +12,10 @@ public class TrainingItem extends StorableObject implements MagicObject {
 	private String name;
 	private int bonus;
 	private int probability;
+	
+	protected TrainingItem(){
+		
+	}
 
 	public TrainingItem(String name, int bonus, int probability) {
 		this.name = name;

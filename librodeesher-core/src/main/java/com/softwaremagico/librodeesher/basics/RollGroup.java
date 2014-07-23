@@ -30,6 +30,10 @@ public class RollGroup extends StorableObject {
 	@Enumerated(EnumType.STRING) 
 	private CharacteristicsAbbreviature characteristicAbbreviature;
 
+	protected RollGroup(){
+		rolls = new ArrayList<Roll>();
+	}
+	
 	public RollGroup(CharacteristicsAbbreviature characteristicAbbreviature) {
 		rolls = new ArrayList<Roll>();
 		this.characteristicAbbreviature = characteristicAbbreviature;

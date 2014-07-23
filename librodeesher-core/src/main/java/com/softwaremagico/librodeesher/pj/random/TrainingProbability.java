@@ -78,7 +78,7 @@ public class TrainingProbability {
 
 		int probability = ((28 - cost) * 2
 				+ characterPlayer.getLevelUps().size() - ((characterPlayer
-				.getTrainingsNames().size() + specialization) * 20));
+				.getSelectedTrainings().size() + specialization) * 20));
 
 		if (characterPlayer.getProfession().getTrainingTypes()
 				.get(trainingName).equals(TrainingType.FAVOURITE)) {
@@ -86,7 +86,7 @@ public class TrainingProbability {
 		}
 
 		if (probability < 1
-				&& (characterPlayer.getTrainingsNames().size() < characterPlayer
+				&& (characterPlayer.getSelectedTrainings().size() < characterPlayer
 						.getLevelUps().size() / 10)) {
 			probability = 1;
 		}
@@ -99,7 +99,7 @@ public class TrainingProbability {
 		// Elementalist must select a training.
 		if (characterPlayer.getProfession().isElementalist()
 				&& isElementalistTraining(trainingName)
-				&& characterPlayer.getTrainingsNames().isEmpty()) {
+				&& characterPlayer.getSelectedTrainings().isEmpty()) {
 			probability += 1000;
 		}
 		return probability

@@ -7,6 +7,9 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import com.softwaremagico.persistence.StorableObject;
 
 @Entity
@@ -15,6 +18,7 @@ public class TrainingSkill extends StorableObject {
 
 	@ElementCollection
 	@CollectionTable(name = "T_TRAINING_SKILLS_OPTIONS")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> skillOptions; // List to choose from.
 	private Integer ranks;
 
