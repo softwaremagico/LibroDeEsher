@@ -128,4 +128,12 @@ public class TrainingCategory {
 			}
 		}
 	}
+
+	public Integer getCategoryRanks() {
+		return categoryRanks;
+	}
+
+	public Map<String, TrainingSkillList> getSkillsPerCategory() {
+		return skillsPerCategory;
+	}
 }

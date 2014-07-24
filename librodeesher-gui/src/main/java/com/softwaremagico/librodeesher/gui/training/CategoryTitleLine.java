@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.training;
+
 /*
  * #%L
  * Libro de Esher GUI
@@ -33,7 +34,8 @@ import com.softwaremagico.librodeesher.gui.style.BaseTitleLine;
 
 public class CategoryTitleLine extends BaseTitleLine {
 	private static final long serialVersionUID = -6541968274982104115L;
-	private BaseLabel categoryLabel, minHabLabel, maxHabLabel, rankLabel;
+	private BaseLabel categoryLabel, ranksLabel, minHabLabel, maxHabLabel,
+			rankLabel;
 
 	public CategoryTitleLine() {
 		setElements(background);
@@ -45,16 +47,24 @@ public class CategoryTitleLine extends BaseTitleLine {
 		setLayout(new GridLayout(1, 0));
 
 		categoryLabel = new BaseLabel("Opt");
-		add(createLabelInsidePanel(categoryLabel, SwingConstants.LEFT, background, fontColor));
+		add(createLabelInsidePanel(categoryLabel, SwingConstants.LEFT,
+				background, fontColor));
+
+		ranksLabel = new BaseLabel("rk");
+		add(createLabelInsidePanel(ranksLabel, SwingConstants.CENTER,
+				background, fontColor));
 
 		minHabLabel = new BaseLabel("mH");
-		add(createLabelInsidePanel(minHabLabel, SwingConstants.CENTER, background, fontColor));
+		add(createLabelInsidePanel(minHabLabel, SwingConstants.CENTER,
+				background, fontColor));
 
 		maxHabLabel = new BaseLabel("MH)");
-		add(createLabelInsidePanel(maxHabLabel, SwingConstants.CENTER, background, fontColor));
+		add(createLabelInsidePanel(maxHabLabel, SwingConstants.CENTER,
+				background, fontColor));
 
 		rankLabel = new BaseLabel("Rk");
-		add(createLabelInsidePanel(rankLabel, SwingConstants.CENTER, background, fontColor));
+		add(createLabelInsidePanel(rankLabel, SwingConstants.CENTER,
+				background, fontColor));
 
 	}
 
@@ -66,11 +76,13 @@ public class CategoryTitleLine extends BaseTitleLine {
 			rankLabel.setText("Rk)");
 		} else if (this.getWidth() < 400) {
 			categoryLabel.setText("Opcion.");
+			ranksLabel.setText("Rngs");
 			minHabLabel.setText("Hb. min");
 			maxHabLabel.setText("Hb. max");
 			rankLabel.setText("Rangos");
 		} else {
 			categoryLabel.setText("Opciones");
+			ranksLabel.setText("Rangos");
 			minHabLabel.setText("Habilidades mínimas");
 			maxHabLabel.setText("Habilidades máximas");
 			rankLabel.setText("Rangos");

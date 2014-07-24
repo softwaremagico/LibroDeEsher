@@ -127,11 +127,15 @@ public class TrainingSkillLine extends BaseLine {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character
-					character.getTrainingDecision(parentPanel.getTraining().getName()).addSkillRank(TrainingFactory.getTraining(parentPanel.getTraining().getName()).getTrainingCategoryIndex(
-							trainingCategory), trainingSkill, (Integer) rankSpinner.getValue());
+					setSkillRanks();
 				}
 			}
 		});
+	}
+	
+	public void setSkillRanks(){
+		character.getTrainingDecision(parentPanel.getTraining().getName()).setSkillRank(TrainingFactory.getTraining(parentPanel.getTraining().getName()).getTrainingCategoryIndex(
+				trainingCategory), trainingSkill, (Integer) rankSpinner.getValue());
 	}
 
 	public int getSelectedRanks() {

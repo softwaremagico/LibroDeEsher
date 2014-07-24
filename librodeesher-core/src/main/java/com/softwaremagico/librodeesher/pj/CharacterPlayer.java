@@ -85,6 +85,7 @@ import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 import com.softwaremagico.librodeesher.pj.training.TrainingItem;
 import com.softwaremagico.librodeesher.pj.training.TrainingSkill;
+import com.softwaremagico.librodeesher.pj.training.TrainingSkillList;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 import com.softwaremagico.persistence.StorableObject;
 
@@ -130,8 +131,6 @@ public class CharacterPlayer extends StorableObject {
 	@JoinColumn(name = "professionDecisionsId")
 	private ProfessionDecisions professionDecisions;
 
-	@Transient
-	private transient List<Training> trainings;
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@CollectionTable(name = "T_CHARACTERPLAYER_TRAINING_DECISIONS")
 	private Map<String, TrainingDecision> trainingDecisions;
@@ -171,9 +170,9 @@ public class CharacterPlayer extends StorableObject {
 	@CollectionTable(name = "T_CHARACTERPLAYER_LEVEL_UP")
 	@OrderColumn(name = "level_index")
 	private List<LevelUp> levelUps;
-	
+
 	@Override
-	public void resetIds(){
+	public void resetIds() {
 		resetIds(this);
 		resetIds(levelUps);
 		resetIds(appearance);
@@ -202,7 +201,6 @@ public class CharacterPlayer extends StorableObject {
 		sex = SexType.MALE;
 		cultureDecisions = new CultureDecisions();
 		professionDecisions = new ProfessionDecisions();
-		trainings = new ArrayList<>();
 		selectedPerks = new ArrayList<>();
 		magicSpellListsObtained = false;
 		setDefaultConfig();
@@ -722,6 +720,8 @@ public class CharacterPlayer extends StorableObject {
 		total += getCulture().getCultureRanks(category);
 		total += getPreviousLevelsRanks(category);
 		total += getPerksRanks(category);
+		total += getTrainingRanks(category);
+
 		return total;
 	}
 
@@ -743,6 +743,51 @@ public class CharacterPlayer extends StorableObject {
 		if (skill.getCategory().getName().toLowerCase()
 				.equals(Spanish.COMUNICATION_CATEGORY)) {
 			total += getLanguageRanks(skill.getName());
+		}
+		total += getTrainingRanks(skill);
+
+		return total;
+	}
+
+	private Integer getTrainingRanks(Skill skill) {
+		int total = 0;
+		for (String trainingName : getTrainings()) {
+			Training training = TrainingFactory.getTraining(trainingName);
+			for (TrainingCategory trainingCategory : training
+					.getCategoriesWithRanks()) {
+				TrainingDecision trainingDecision = getTrainingDecision(training
+						.getName());
+				total += trainingDecision.getSkillRank(
+						training.getTrainingCategoryIndex(trainingCategory),
+						skill);
+			}
+		}
+		return total;
+	}
+
+	private Integer getTrainingRanks(Category category) {
+		int total = 0;
+		for (String trainingName : getTrainings()) {
+			Training training = TrainingFactory.getTraining(trainingName);
+			for (TrainingCategory trainingCategory : training
+					.getCategoriesWithRanks()) {
+				// Default category
+				if (trainingCategory.getCategoryOptions().size() == 1
+						&& trainingCategory.getCategoryOptions().get(0)
+								.equals(category.getName())) {
+					total += trainingCategory.getCategoryRanks();
+				} else {
+					// Selected category from list
+					TrainingDecision trainingDecision = getTrainingDecisions()
+							.get(trainingName);
+					if (trainingDecision
+							.getSelectedCategory(
+									training.getTrainingCategoryIndex(trainingCategory))
+							.contains(category.getName())) {
+						total += trainingCategory.getCategoryRanks();
+					}
+				}
+			}
 		}
 		return total;
 	}
@@ -865,7 +910,7 @@ public class CharacterPlayer extends StorableObject {
 
 	public Integer getConditionalPerkBonus(Skill skill) {
 		Integer total = 0;
-		for (SelectedPerk perk : selectedPerks) {			
+		for (SelectedPerk perk : selectedPerks) {
 			Integer bonus = PerkFactory.getPerk(perk)
 					.getConditionalSkillBonus().get(skill.getName());
 			if (bonus != null) {
@@ -893,8 +938,8 @@ public class CharacterPlayer extends StorableObject {
 	public Integer getConditionalPerkBonus(Category category) {
 		Integer total = 0;
 		for (SelectedPerk perk : selectedPerks) {
-			Integer bonus = PerkFactory.getPerk(perk)
-					.getConditionalBonus(category);
+			Integer bonus = PerkFactory.getPerk(perk).getConditionalBonus(
+					category);
 			if (bonus != null) {
 				total += bonus;
 			}
@@ -1553,14 +1598,6 @@ public class CharacterPlayer extends StorableObject {
 		this.magicSpellLists = magicSpellLists;
 	}
 
-	protected List<Training> getTrainings() {
-		return trainings;
-	}
-
-	protected void setTrainings(List<Training> trainings) {
-		this.trainings = trainings;
-	}
-
 	public TrainingDecision getTrainingDecision(String trainingName) {
 		if (trainingDecisions.get(trainingName) == null) {
 			trainingDecisions.put(trainingName, new TrainingDecision());
@@ -1663,7 +1700,6 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public void addSkillSpecialization(Skill skill, String specialization) {
-
 		if (!getSkillSpecializations(skill).contains(specialization)
 				&& !isSkillGeneralized(skill)) {
 			getCurrentLevel().addSkillSpecialization(specialization);
@@ -1709,7 +1745,7 @@ public class CharacterPlayer extends StorableObject {
 
 	public void increaseLevel() {
 		levelUps.add(new LevelUp());
-		//Reset id to force to be saved as a new record.
+		// Reset id to force to be saved as a new record.
 		resetIds();
 	}
 
@@ -1879,6 +1915,14 @@ public class CharacterPlayer extends StorableObject {
 			}
 		}
 		return realSkills;
+	}
+
+	public List<String> getTrainings() {
+		List<String> trainings = new ArrayList<>();
+		for (LevelUp level : levelUps) {
+			trainings.addAll(level.getTrainings());
+		}
+		return trainings;
 	}
 
 }

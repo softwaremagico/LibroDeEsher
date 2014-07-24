@@ -17,8 +17,14 @@ import org.hibernate.annotations.LazyCollectionOption;
 import com.softwaremagico.librodeesher.basics.Roll;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.persistence.StorableObject;
 
+/**
+ * Categories that are already defined are not stored in this class, can be
+ * obtained from training class. Skills that are already defined are stored in
+ * this class as a list with one element.
+ */
 @Entity
 @Table(name = "T_TRAINING_DECISION")
 public class TrainingDecision extends StorableObject {
@@ -35,6 +41,8 @@ public class TrainingDecision extends StorableObject {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(name = "T_TRAINING_DECISION_SKILLS_SELECTED")
 	// TrainingCategoryIndex -> TrainingSkillsSelected
+	// Defines all ranks in a skill for a training. If no skills selected
+	// options is a list with one skill.
 	private Map<Integer, TrainingSkillsSelected> skillsSelected;
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -81,12 +89,36 @@ public class TrainingDecision extends StorableObject {
 		return categories.getAll();
 	}
 
-	public void addSkillRank(Integer trainingCategory, TrainingSkill skill,
+	public void setSkillRank(Integer trainingCategory, TrainingSkill skill,
 			int ranks) {
 		if (skillsSelected.get(trainingCategory) == null) {
 			skillsSelected.put(trainingCategory, new TrainingSkillsSelected());
 		}
 		skillsSelected.get(trainingCategory).put(skill, ranks);
+	}
+
+	public int getSkillRank(Integer trainingCategory, TrainingSkill skill) {
+		if (skillsSelected.get(trainingCategory) == null || skillsSelected.get(trainingCategory).getSkills().get(skill)==null) {
+			return 0;
+		}
+		return skillsSelected.get(trainingCategory).getSkills().get(skill);
+	}
+
+	public int getSkillRank(Integer trainingCategory, Skill skill) {
+		if (skillsSelected.get(trainingCategory) == null) {
+			return 0;
+		}
+		for (TrainingSkill trainingSkill : skillsSelected.get(trainingCategory)
+				.getSkills().keySet()) {
+			if (trainingSkill.getName().equals(skill.getName())) {
+				return getSkillRank(trainingCategory, trainingSkill);
+			}
+		}
+		return 0;
+	}
+
+	public void clearSkillRanks() {
+		skillsSelected.clear();
 	}
 
 	protected Map<Integer, TrainingCategoriesSelected> getCategoriesSelected() {

@@ -32,7 +32,7 @@ public class TrainingSkillList extends StorableObject {
 		resetIds(trainingSkills);
 	}
 
-	protected List<TrainingSkill> getTrainingSkills() {
+	public List<TrainingSkill> getTrainingSkills() {
 		return trainingSkills;
 	}
 

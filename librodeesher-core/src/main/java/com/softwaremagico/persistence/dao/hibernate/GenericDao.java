@@ -20,7 +20,6 @@ public abstract class GenericDao<T> extends StorableObjectDao<T> implements
 	private SessionFactory sessionFactory = null;
 
 	public GenericDao(Class<T> type) {
-		sessionFactory = HibernateInitializator.getSessionFactory();
 		this.type = type;
 	}
 
@@ -29,6 +28,9 @@ public abstract class GenericDao<T> extends StorableObjectDao<T> implements
 	}
 
 	protected SessionFactory getSessionFactory() {
+		if(sessionFactory==null){
+			sessionFactory = HibernateInitializator.getSessionFactory();
+		}
 		return sessionFactory;
 	}
 

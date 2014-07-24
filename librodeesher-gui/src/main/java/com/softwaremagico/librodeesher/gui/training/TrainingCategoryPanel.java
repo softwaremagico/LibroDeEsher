@@ -165,6 +165,14 @@ public class TrainingCategoryPanel extends BasePanel {
 		this.revalidate();
 		this.repaint();
 	}
+	
+	public void setSkillRanks(){
+		for(TrainingCategory trainingCategory : trainingSkillLinesPerCategory.keySet()){
+			for(TrainingSkillLine skillLine : trainingSkillLinesPerCategory.get(trainingCategory)){
+				skillLine.setSkillRanks();
+			}
+		}
+	}
 
 	public boolean repeatedCategory() {
 		List<String> categories = new ArrayList<>();

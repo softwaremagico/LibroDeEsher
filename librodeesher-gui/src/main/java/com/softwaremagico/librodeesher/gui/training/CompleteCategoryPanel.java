@@ -65,4 +65,8 @@ public class CompleteCategoryPanel extends BaseScrollPanel {
 	public boolean repeatedCategory() {
 		return categoryPanel.repeatedCategory();
 	}
+
+	public void setSkillRanks() {
+		categoryPanel.setSkillRanks();
+	}
 }

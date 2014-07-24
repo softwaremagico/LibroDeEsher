@@ -80,6 +80,10 @@ public class TrainingCategoryLine extends BaseLine {
 
 		ListBackgroundPanel categoryPanel = getCategoryOrGroup();
 		add(categoryPanel);
+		
+		ListLabel ranks = new BoldListLabel(trainingCategory.getCategoryRanks().toString(),
+				SwingConstants.CENTER);
+		add(new ListBackgroundPanel(ranks, background));
 
 		ListLabel minHab = new BoldListLabel(trainingCategory.getMinSkills().toString(),
 				SwingConstants.CENTER);
