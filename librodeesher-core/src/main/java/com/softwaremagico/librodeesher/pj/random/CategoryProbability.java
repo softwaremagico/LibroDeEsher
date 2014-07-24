@@ -44,15 +44,18 @@ public class CategoryProbability {
 		Integer cost = characterPlayer.getNewRankCost(category);
 
 		// Suggested ranks
-		if (characterPlayer.getTotalRanks(category) < suggestedCategoryRanks
-				.get(category.getName())
-				&& cost <= characterPlayer.getRemainingDevelopmentPoints()) {
-			if (characterPlayer.getCurrentLevelRanks(category) == 0) {
-				return 100;
-			} else if (characterPlayer.getTotalRanks(category) < suggestedCategoryRanks
-					.get(category.getName()) - finalLevel
-					&& characterPlayer.getNewRankCost(category) < 40) {
-				return 100;
+		if (suggestedCategoryRanks != null
+				&& suggestedCategoryRanks.get(category.getName()) != null) {
+			if (characterPlayer.getTotalRanks(category) < suggestedCategoryRanks
+					.get(category.getName())
+					&& cost <= characterPlayer.getRemainingDevelopmentPoints()) {
+				if (characterPlayer.getCurrentLevelRanks(category) == 0) {
+					return 100;
+				} else if (characterPlayer.getTotalRanks(category) < suggestedCategoryRanks
+						.get(category.getName()) - finalLevel
+						&& characterPlayer.getNewRankCost(category) < 40) {
+					return 100;
+				}
 			}
 		}
 

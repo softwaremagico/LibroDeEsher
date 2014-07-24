@@ -47,15 +47,18 @@ public class SkillProbability {
 		Integer cost = characterPlayer.getNewRankCost(skill);
 
 		// Suggested ranks
-		if (characterPlayer.getTotalRanks(skill) < suggestedSkillsRanks
-				.get(skill.getName())
-				&& cost <= characterPlayer.getRemainingDevelopmentPoints()) {
-			if (characterPlayer.getCurrentLevelRanks(skill) == 0) {
-				return 100;
-			} else if (characterPlayer.getTotalRanks(skill) < suggestedSkillsRanks
-					.get(skill.getName()) - finalLevel
-					&& characterPlayer.getNewRankCost(skill) < 40) {
-				return 100;
+		if (suggestedSkillsRanks != null
+				&& suggestedSkillsRanks.get(skill.getName()) != null) {
+			if (characterPlayer.getTotalRanks(skill) < suggestedSkillsRanks
+					.get(skill.getName())
+					&& cost <= characterPlayer.getRemainingDevelopmentPoints()) {
+				if (characterPlayer.getCurrentLevelRanks(skill) == 0) {
+					return 100;
+				} else if (characterPlayer.getTotalRanks(skill) < suggestedSkillsRanks
+						.get(skill.getName()) - finalLevel
+						&& characterPlayer.getNewRankCost(skill) < 40) {
+					return 100;
+				}
 			}
 		}
 
