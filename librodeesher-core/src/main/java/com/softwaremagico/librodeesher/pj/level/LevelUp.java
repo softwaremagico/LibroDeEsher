@@ -79,6 +79,11 @@ public class LevelUp extends StorableObject {
 		trainings = new ArrayList<>();
 		generalizedSkills = new ArrayList<>();
 	}
+	
+	@Override
+	public void resetIds(){
+		resetIds(this);
+	}
 
 	public Integer getCategoryRanks(String categoryName) {
 		Integer ranks = categoriesRanks.get(categoryName);

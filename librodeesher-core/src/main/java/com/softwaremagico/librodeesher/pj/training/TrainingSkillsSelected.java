@@ -24,6 +24,12 @@ class TrainingSkillsSelected extends StorableObject {
 	public TrainingSkillsSelected() {
 		skills = new HashMap<>();
 	}
+	
+	@Override
+	public void resetIds(){
+		resetIds(this);
+		resetIds(skills);
+	}
 
 	public void put(TrainingSkill skill, int ranks) {
 		if (ranks == 0) {

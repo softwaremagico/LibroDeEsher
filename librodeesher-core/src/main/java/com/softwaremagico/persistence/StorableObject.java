@@ -1,6 +1,8 @@
 package com.softwaremagico.persistence;
 
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,6 +46,31 @@ public abstract class StorableObject {
 		this.id = id;
 	}
 
+	public abstract void resetIds();
+
+	public void resetIds(StorableObject object) {
+		setId(null);
+	}
+
+	public void resetIds(List<? extends StorableObject> list) {
+		for (StorableObject object : list) {
+			resetIds(object);
+		}
+	}
+
+	public void resetIds(Map<?, ?> map) {
+		for (Object key : map.keySet()) {
+			if (key instanceof StorableObject) {
+				resetIds((StorableObject)key);
+			}
+		}
+		for (Object value : map.values()) {
+			if (value instanceof StorableObject) {
+				resetIds((StorableObject)value);
+			}
+		}
+	}
+
 	public Timestamp getCreationTime() {
 		if (creationTime != null) {
 			return creationTime;
@@ -66,7 +93,6 @@ public abstract class StorableObject {
 			return updateTime;
 		}
 	}
-
 
 	public void setCreationTime(Timestamp dateCreated) {
 		this.creationTime = dateCreated;
@@ -100,10 +126,6 @@ public abstract class StorableObject {
 		} else if (!comparationId.equals(other.comparationId))
 			return false;
 		return true;
-	}
-
-	public void resetIds() {
-		setId(null);
 	}
 
 }

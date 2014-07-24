@@ -33,9 +33,8 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
-import com.softwaremagico.persistence.StorableObject;
 
-public class MagicSpellLists extends StorableObject {	
+public class MagicSpellLists {	
 	private Map<MagicListType, Category> magicCategories; // Spells
 
 	public MagicSpellLists() {

@@ -27,6 +27,11 @@ public class TrainingSkill extends StorableObject {
 		this.ranks = ranks;
 	}
 
+	@Override
+	public void resetIds() {
+		resetIds(this);
+	}
+
 	public List<String> getSkillOptions() {
 		return skillOptions;
 	}
@@ -50,7 +55,8 @@ public class TrainingSkill extends StorableObject {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((skillOptions == null) ? 0 : skillOptions.hashCode());
+		result = prime * result
+				+ ((skillOptions == null) ? 0 : skillOptions.hashCode());
 		return result;
 	}
 

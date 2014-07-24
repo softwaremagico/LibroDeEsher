@@ -33,6 +33,11 @@ public class PerkDecision extends StorableObject {
 	public PerkDecision() {
 
 	}
+	
+	@Override
+	public void resetIds(){
+		resetIds(this);
+	}
 
 	public void setCategoriesBonusChoosen(List<String> chose) {
 		categoriesBonusChosen = chose;

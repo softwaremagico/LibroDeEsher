@@ -19,6 +19,11 @@ public class SelectedPerk extends StorableObject {
 		name = perk.getName();
 		cost = perk.getCost();
 	}
+	
+	@Override
+	public void resetIds(){
+		resetIds(this);
+	}
 
 	public String getName() {
 		return name;

@@ -25,6 +25,11 @@ class TrainingCategoriesSelected extends StorableObject {
 	public TrainingCategoriesSelected() {
 		categories = new ArrayList<>();
 	}
+	
+	@Override
+	public void resetIds(){
+		resetIds(this);
+	}
 
 	public void add(String categoryName) {
 		categories.add(categoryName);

@@ -41,6 +41,11 @@ public class Appearance extends StorableObject {
 	public Appearance() {
 		dicesResult = Dice.getRoll(5, 10);
 	}
+	
+	@Override
+	public void resetIds(){
+		resetIds(this);
+	}
 
 	public int getTotal(int presencePotentialValue) {
 		return presencePotentialValue - 25 + dicesResult;

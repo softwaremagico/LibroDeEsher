@@ -16,6 +16,11 @@ public class TrainingItem extends StorableObject implements MagicObject {
 	protected TrainingItem(){
 		
 	}
+	
+	@Override
+	public void resetIds(){
+		resetIds(this);
+	}
 
 	public TrainingItem(String name, int bonus, int probability) {
 		this.name = name;

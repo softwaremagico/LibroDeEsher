@@ -22,13 +22,19 @@ public class CharacteristicRoll extends StorableObject {
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Roll roll;
 
-	public CharacteristicRoll(CharacteristicsAbbreviature characteristicAbbreviature,
+	public CharacteristicRoll(
+			CharacteristicsAbbreviature characteristicAbbreviature,
 			Integer characteristicTemporalValue,
 			Integer characteristicPotentialValue, Roll roll) {
 		this.characteristicAbbreviature = characteristicAbbreviature;
 		this.characteristicTemporalValue = characteristicTemporalValue;
 		this.characteristicPotentialValue = characteristicPotentialValue;
 		this.roll = roll;
+	}
+
+	@Override
+	public void resetIds() {
+		resetIds(this);
 	}
 
 	public Integer getCharacteristicPotentialValue() {

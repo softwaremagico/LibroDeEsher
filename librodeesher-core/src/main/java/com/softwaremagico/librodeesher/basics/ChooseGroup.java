@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.softwaremagico.persistence.StorableObject;
-
-public abstract class ChooseGroup<T>  extends StorableObject {
+public abstract class ChooseGroup<T> {
 
 	protected int numberOfOptionsToChoose;
 	protected List<T> optionsGroup;

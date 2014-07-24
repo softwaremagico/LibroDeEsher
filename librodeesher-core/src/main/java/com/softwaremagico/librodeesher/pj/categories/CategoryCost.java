@@ -48,7 +48,7 @@ public class CategoryCost extends StorableObject {
 	private List<Integer> rankCost;
 	
 	protected CategoryCost(){
-		
+		rankCost=new ArrayList<>();
 	}	
 
 	public CategoryCost(List<Integer> rankCost) {
@@ -57,6 +57,11 @@ public class CategoryCost extends StorableObject {
 
 	public CategoryCost(String rankCost) {
 		this.rankCost = covertStringToCost(rankCost);
+	}
+	
+	@Override
+	public void resetIds(){
+		resetIds(this);
 	}
 
 	public static List<Integer> covertStringToCost(String costString) {

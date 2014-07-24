@@ -1,6 +1,5 @@
 package com.softwaremagico.librodeesher.basics;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -42,6 +41,11 @@ public class Roll extends StorableObject {
 
 	public Roll(Integer faces) {
 		initialize(faces);
+	}
+	
+	@Override
+	public void resetIds(){
+		resetIds(this);
 	}
 
 	private void initialize(Integer diceFaces) {

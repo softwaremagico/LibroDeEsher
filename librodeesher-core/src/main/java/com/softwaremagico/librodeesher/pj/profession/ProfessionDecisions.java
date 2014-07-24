@@ -73,6 +73,12 @@ public class ProfessionDecisions extends StorableObject {
 		professionalSkillsChosen = new ArrayList<>();
 		restrictedSkillsChosen = new ArrayList<>();
 	}
+	
+	@Override
+	public void resetIds(){
+		resetIds(this);
+		resetIds(weaponsCost);
+	}
 
 	public void setWeaponCost(Category category, CategoryCost cost) {
 		weaponsCost.put(category.getName(), cost);

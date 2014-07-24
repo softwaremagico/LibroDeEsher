@@ -29,12 +29,12 @@ public class TrainingDecision extends StorableObject {
 	// simultaneously fetch multiple bags
 	// (http://stackoverflow.com/questions/4334970/hibernate-cannot-simultaneously-fetch-multiple-bags)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	//TrainingCategoryIndex -> TrainingCategoriesSelected
+	// TrainingCategoryIndex -> TrainingCategoriesSelected
 	private Map<Integer, TrainingCategoriesSelected> categoriesSelected;
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(name = "T_TRAINING_DECISION_SKILLS_SELECTED")
-	//TrainingCategoryIndex -> TrainingSkillsSelected
+	// TrainingCategoryIndex -> TrainingSkillsSelected
 	private Map<Integer, TrainingSkillsSelected> skillsSelected;
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -50,6 +50,15 @@ public class TrainingDecision extends StorableObject {
 		skillsSelected = new HashMap<>();
 		characteristicsUpdates = new ArrayList<>();
 		equipment = new ArrayList<>();
+	}
+
+	@Override
+	public void resetIds() {
+		resetIds(this);
+		resetIds(equipment);
+		resetIds(characteristicsUpdates);
+		resetIds(skillsSelected);
+		resetIds(categoriesSelected);
 	}
 
 	public void addSelectedCategory(Integer trainingCategory,
@@ -72,8 +81,8 @@ public class TrainingDecision extends StorableObject {
 		return categories.getAll();
 	}
 
-	public void addSkillRank(Integer trainingCategory,
-			TrainingSkill skill, int ranks) {
+	public void addSkillRank(Integer trainingCategory, TrainingSkill skill,
+			int ranks) {
 		if (skillsSelected.get(trainingCategory) == null) {
 			skillsSelected.put(trainingCategory, new TrainingSkillsSelected());
 		}

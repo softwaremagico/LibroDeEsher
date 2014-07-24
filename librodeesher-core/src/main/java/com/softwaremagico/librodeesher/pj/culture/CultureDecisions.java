@@ -58,12 +58,17 @@ public class CultureDecisions extends StorableObject {
 	@CollectionTable(name = "T_CULTURE_LANGUAGE_RANKS")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<String, Integer> languageRanks;
-
+	
 	public CultureDecisions() {
 		languageRanks = new HashMap<>();
 		weaponRanks = new HashMap<>();
 		hobbyRanks = new HashMap<>();
 		spellRanks = new HashMap<>();
+	}
+	
+	@Override
+	public void resetIds(){
+		resetIds(this);
 	}
 
 	/**

@@ -171,6 +171,23 @@ public class CharacterPlayer extends StorableObject {
 	@CollectionTable(name = "T_CHARACTERPLAYER_LEVEL_UP")
 	@OrderColumn(name = "level_index")
 	private List<LevelUp> levelUps;
+	
+	@Override
+	public void resetIds(){
+		resetIds(this);
+		resetIds(levelUps);
+		resetIds(appearance);
+		resetIds(perkDecisions);
+		resetIds(selectedPerks);
+		resetIds(characteristicsInitialTemporalValues);
+		resetIds(characteristicsPotentialValues);
+		resetIds(characteristicsTemporalUpdatesRolls);
+		resetIds(cultureDecisions);
+		resetIds(professionDecisions);
+		resetIds(trainingDecisions);
+		resetIds(realmOfMagic);
+		resetIds(historial);
+	}
 
 	public CharacterPlayer() {
 		appearance = new Appearance();
@@ -1693,7 +1710,7 @@ public class CharacterPlayer extends StorableObject {
 	public void increaseLevel() {
 		levelUps.add(new LevelUp());
 		//Reset id to force to be saved as a new record.
-		setId(null);
+		resetIds();
 	}
 
 	public void removeTraining(Training training) {

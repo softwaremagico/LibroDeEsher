@@ -25,6 +25,12 @@ public class TrainingSkillList extends StorableObject {
 	public TrainingSkillList() {
 		trainingSkills = new ArrayList<>();
 	}
+	
+	@Override
+	public void resetIds(){
+		resetIds(this);
+		resetIds(trainingSkills);
+	}
 
 	protected List<TrainingSkill> getTrainingSkills() {
 		return trainingSkills;
