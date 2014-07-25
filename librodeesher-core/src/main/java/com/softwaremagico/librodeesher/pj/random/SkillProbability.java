@@ -15,17 +15,15 @@ public class SkillProbability {
 	private CharacterPlayer characterPlayer;
 	private Skill skill;
 	private Map<String, Integer> suggestedSkillsRanks;
-	private int tries;
 	private Integer specializationLevel;
 	private int finalLevel;
 
 	public SkillProbability(CharacterPlayer characterPlayer, Skill skill,
-			int tries, Map<String, Integer> suggestedSkillsRanks,
+			Map<String, Integer> suggestedSkillsRanks,
 			Integer specializationLevel, int finalLevel) {
 		this.characterPlayer = characterPlayer;
 		this.skill = skill;
 		this.suggestedSkillsRanks = suggestedSkillsRanks;
-		this.tries = tries;
 		this.specializationLevel = specializationLevel;
 		this.finalLevel = finalLevel;
 	}
@@ -79,7 +77,7 @@ public class SkillProbability {
 				Log.debug(SkillProbability.class.getName(), "\t Best Skills: "
 						+ bestSkills);
 				probability += bestSkills;
-				int skillExpensiveness = -skillExpensiveness();
+				int skillExpensiveness = skillExpensiveness();
 				Log.debug(SkillProbability.class.getName(),
 						"\t Skill expensiveness: " + skillExpensiveness);
 				probability += skillExpensiveness;
@@ -105,12 +103,12 @@ public class SkillProbability {
 				probability += smartRandomness;
 				int ridicolousSkill = ridicolousSkill();
 				Log.debug(SkillProbability.class.getName(),
-						"\t Ridicolous randomness: " + smartRandomness);
+						"\t Ridicolous randomness: " + ridicolousSkill);
 				probability += ridicolousSkill;
-				int culturaslSkill = culturalSkill();
+				int culturalSkill = culturalSkill();
 				Log.debug(SkillProbability.class.getName(),
-						"\t Cultural Skill: " + ridicolousSkill);
-				probability += culturaslSkill;
+						"\t Cultural Skill: " + culturalSkill);
+				probability += culturalSkill;
 				int maxRanks = maxRanks();
 				Log.debug(SkillProbability.class.getName(), "\t Max ranks: "
 						+ maxRanks);
@@ -118,8 +116,6 @@ public class SkillProbability {
 				// Max and min value
 				if (probability > 90 && probability < 150) {
 					probability = 90;
-				} else if (probability > 0) {
-					probability += tries * 3;
 				}
 				Log.debug(SkillProbability.class.getName(), "\t Total: "
 						+ probability);
@@ -144,26 +140,29 @@ public class SkillProbability {
 	}
 
 	/**
-	 * Cuanto cuesta en puntos de desarrollo.
+	 * Cost in development points.
 	 */
 	private int skillExpensiveness() {
 		// Spells are a little more expensive that common categories. We make a
 		// softer probability.
 		if (skill.getCategory().getCategoryGroup().equals(CategoryGroup.SPELL)) {
 			if (characterPlayer.isHybridWizard()) {
-				return -(int) (Math.pow(
-						(9 - characterPlayer.getNewRankCost(skill)), 2) * 2);
+				return (30 - (int) (Math.pow(
+						characterPlayer.getNewRankCost(skill) - 2, 2)));
 			}
 			if (characterPlayer.isWizard()) {
-				return -(int) (Math.pow(
-						(7 - characterPlayer.getNewRankCost(skill)), 2) * 2);
+				return (30 - (int) (Math.pow(
+						characterPlayer.getNewRankCost(skill), 2)));
 			}
 		}
-		return -(int) (Math.pow((3 - characterPlayer.getNewRankCost(skill)), 2) * 5);
+		return Math
+				.max(1,
+						30 - (int) ((Math.pow(
+								characterPlayer.getNewRankCost(skill), 2)) * 3));
 	}
 
 	/**
-	 * Devuelve un modificador de acuerdo con algunos criterios.
+	 * Some extra criteria to avoid weird characters.
 	 */
 	private int smartRandomness() {
 		return randomnessByRace()
@@ -337,7 +336,7 @@ public class SkillProbability {
 	 * @return
 	 */
 	private int wizardPreferredSkills() {
-		// Algunos hechizos son mejores.
+		// Some spells are preferred. 
 		if (characterPlayer.isWizard()) {
 			if (characterPlayer.getRealmOfMagic().getRealmsOfMagic()
 					.equals(RealmOfMagic.ESSENCE)) {

@@ -1164,6 +1164,17 @@ public class CharacterPlayer extends StorableObject {
 		return false;
 	}
 
+	public List<Category> getSpellsCategories() {
+		List<Category> spellCategories = new ArrayList<>();
+		for (String categoryName : CategoryFactory.getAvailableCategories()) {
+			Category category = getCategory(categoryName);
+			if (category.getCategoryGroup().equals(CategoryGroup.SPELL)) {
+				spellCategories.add(category);
+			}
+		}
+		return spellCategories;
+	}
+
 	/**
 	 * Some categories depend on the profession of the character (as spell
 	 * lists).

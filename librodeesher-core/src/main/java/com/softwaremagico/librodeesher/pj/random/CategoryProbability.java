@@ -15,18 +15,15 @@ import com.softwaremagico.log.Log;
 public class CategoryProbability {
 	private CharacterPlayer characterPlayer;
 	private Category category;
-	private int tries = 0;
 	private Map<String, Integer> suggestedCategoryRanks;
 	private Integer specializationLevel;
 	private int finalLevel;
 
 	public CategoryProbability(CharacterPlayer characterPlayer,
-			Category category, int tries,
-			Map<String, Integer> suggestedSkillsRanks,
+			Category category, Map<String, Integer> suggestedSkillsRanks,
 			Integer specializationLevel, int finalLevel) {
 		this.characterPlayer = characterPlayer;
 		this.category = category;
-		this.tries = tries;
 		this.suggestedCategoryRanks = suggestedSkillsRanks;
 		this.specializationLevel = specializationLevel;
 		this.finalLevel = finalLevel;
@@ -74,7 +71,7 @@ public class CategoryProbability {
 				Log.debug(CategoryProbability.class.getName(),
 						"\t Preferred category: " + preferredCategory);
 				probability += preferredCategory;
-				int categoryCostProbability = -categoryCostProbability();
+				int categoryCostProbability = categoryCostProbability();
 				Log.debug(CategoryProbability.class.getName(),
 						"\t Category cost: " + categoryCostProbability);
 				probability += categoryCostProbability;
@@ -86,7 +83,6 @@ public class CategoryProbability {
 				Log.debug(CategoryProbability.class.getName(),
 						"\t Smart bonus: " + bonusCommonSkills);
 				probability += smartBonus;
-				probability += tries * 3;
 				if (probability > 90) {
 					probability = 90;
 				}
@@ -158,7 +154,8 @@ public class CategoryProbability {
 	 * How much it cost.
 	 */
 	private int categoryCostProbability() {
-		return (int) ((Math.pow(characterPlayer.getNewRankCost(category), 2))) * 2;
+		return Math.max(1, 50 - (int) ((Math.pow(
+				characterPlayer.getNewRankCost(category), 2)) * 2));
 	}
 
 	/**
