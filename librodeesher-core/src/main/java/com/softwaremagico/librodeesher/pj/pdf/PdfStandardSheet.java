@@ -41,7 +41,7 @@ import com.softwaremagico.log.Log;
 public class PdfStandardSheet {
 	private final static String EMPTY_VALUE = "_____";
 	private CharacterPlayer characterPlayer;
-	private boolean twoFaced;
+	protected boolean twoFaced;
 	private boolean sortedSkills;
 
 	public PdfStandardSheet(CharacterPlayer characterPlayer, String path,
@@ -68,14 +68,14 @@ public class PdfStandardSheet {
 		try {
 			PdfWriter writer = PdfWriter.getInstance(document,
 					new FileOutputStream(path));
-			cratePdf(document, writer);
+			createPdf(document, writer);
 		} catch (FileNotFoundException fnfe) {
 			Log.errorMessage(PdfStandardSheet.class.getName(), fnfe);
 			throw fnfe;
 		}
 	}
 
-	private void cratePdf(Document document, PdfWriter writer)
+	private void createPdf(Document document, PdfWriter writer)
 			throws Exception {
 		String font = FontFactory.HELVETICA;
 

@@ -1,6 +1,8 @@
 package com.softwaremagico.librodeesher.pj.pdf;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
@@ -12,10 +14,12 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.softwaremagico.files.Path;
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
@@ -45,6 +49,48 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 	}
 
 	@Override
+	public void characterPDF(String path) throws Exception {
+		Document document = new Document(PageSize.A4);
+
+		table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+		table.setTotalWidth(document.getPageSize().getWidth() - 60);
+
+		if (path == null) {
+			path = Path.getDefaultPdfPath() + File.separator + "RMFesher.pdf";
+		} else if (!path.endsWith(".pdf")) {
+			path += ".pdf";
+		}
+		try {
+			PdfWriter writer = PdfWriter.getInstance(document,
+					new FileOutputStream(path));
+			createPdf(document, writer);
+		} catch (FileNotFoundException fnfe) {
+			Log.errorMessage(PdfStandardSheet.class.getName(), fnfe);
+			throw fnfe;
+		}
+	}
+
+	private void createPdf(Document document, PdfWriter writer)
+			throws Exception {
+		String font = FontFactory.HELVETICA;
+
+		twoFaced = (getCharacterPlayer().getPerks().size() > 0
+				|| getCharacterPlayer().getRace().getSpecials().size() > 0 || getCharacterPlayer()
+				.getEquipment().size() > 0);
+
+		countLines();
+
+		DocumentData(document, writer);
+		document.open();
+		characteristicsPage(document, writer, font);
+		if (twoFaced) {
+			equipmentPage(document, writer, font);
+		}
+		categoriesPage(document, writer, font);
+		document.close();
+	}
+
+	@Override
 	protected void categoriesPage(Document document, PdfWriter writer,
 			String font) throws Exception {
 		document.newPage();
@@ -66,8 +112,6 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 
 		cell = new PdfPCell(createHeader());
 		cell.setColspan(2);
-		System.out.println(cell);
-		System.out.println(table);
 		table.addCell(cell);
 
 		for (int i = 0; i < CategoryFactory.getAvailableCategories().size(); i++) {
@@ -834,9 +878,9 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		return false;
 	}
 
-	protected void addNewSkillPage(Document document,
-			PdfWriter writer, String font) throws BadElementException,
-			MalformedURLException, IOException, DocumentException {
+	protected void addNewSkillPage(Document document, PdfWriter writer,
+			String font) throws BadElementException, MalformedURLException,
+			IOException, DocumentException {
 		PdfPCell cell;
 
 		// Cerramos pagina anterior.
@@ -865,5 +909,39 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		table.addCell(cell);
 
 		column = 0;
+	}
+
+	private void countLines() {
+		int predictedLines = 0;
+		int categoriasAMostrar = 0;
+		int habilidadesAMostrar = 0;
+		int categoriesWithoutSkills = 0;
+
+		for (int i = 0; i < CategoryFactory.getAvailableCategories().size(); i++) {
+			Category category = getCharacterPlayer().getCategory(
+					CategoryFactory.getAvailableCategories().get(i));
+			if (getCharacterPlayer().isCategoryUseful(category)) {
+				categoriasAMostrar++;
+
+				int added = 0;
+				for (int j = 0; j < category.getSkills().size(); j++) {
+					Skill skill = category.getSkills().get(j);
+					if (getCharacterPlayer().isSkillUseful(skill)) {
+						habilidadesAMostrar++;
+						added++;
+					}
+				}
+
+				if (added == 0) {
+					categoriesWithoutSkills++;
+				}
+
+			}
+		}
+		predictedLines = categoriasAMostrar * 4 + habilidadesAMostrar
+				+ categoriesWithoutSkills;
+		remainingLines = (maxLines * 2) - (predictedLines % (maxLines * 2));
+		pages = (int) Math.ceil((double) predictedLines
+				/ (double) (maxLines * 2));
 	}
 }
