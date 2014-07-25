@@ -147,23 +147,19 @@ public class SkillProbability {
 	 * Cuanto cuesta en puntos de desarrollo.
 	 */
 	private int skillExpensiveness() {
-		// Cheapest category must be used!
-		if (characterPlayer.getNewRankCost(skill) == 1) {
-			return -50;
-		}
 		// Spells are a little more expensive that common categories. We make a
 		// softer probability.
-		if (skill.getCategory().getName().toLowerCase()
-				.equals(Spanish.BASIC_LIST_TAG)) {
+		if (skill.getCategory().getCategoryGroup().equals(CategoryGroup.SPELL)) {
 			if (characterPlayer.isHybridWizard()) {
-				return (int) (Math.pow(
-						(characterPlayer.getNewRankCost(skill) - 4), 2) * 2);
-			} else {
-				return (int) (Math.pow(
-						(characterPlayer.getNewRankCost(skill) - 2), 2) * 2);
+				return -(int) (Math.pow(
+						(9 - characterPlayer.getNewRankCost(skill)), 2) * 2);
+			}
+			if (characterPlayer.isWizard()) {
+				return -(int) (Math.pow(
+						(7 - characterPlayer.getNewRankCost(skill)), 2) * 2);
 			}
 		}
-		return (int) (Math.pow((characterPlayer.getNewRankCost(skill) - 1), 2) * 5);
+		return -(int) (Math.pow((3 - characterPlayer.getNewRankCost(skill)), 2) * 5);
 	}
 
 	/**

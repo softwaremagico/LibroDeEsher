@@ -10,6 +10,7 @@ import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.SexType;
 import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.categories.CategoryComparatorByCost;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
@@ -28,6 +29,7 @@ import com.softwaremagico.log.Log;
 public class RandomCharacterPlayer {
 	public final static int MAX_TRIES = 5;
 	private static final int MAX_HOBBY_COST = 40;
+	private static final int MAX_RANDOM_COST = 20;
 	private Integer tries = 0;
 	private CharacterPlayer characterPlayer;
 	private SexType sex;
@@ -355,14 +357,14 @@ public class RandomCharacterPlayer {
 			CharacterPlayer characterPlayer, Skill skill, int loop,
 			int specializationLevel) throws NullPointerException {
 		if (skill != null) {
+			if (skill.isRare()) {
+				return 0 + loop;
+			}
 			// Max skills achieved or unused category.
 			if (characterPlayer.getTotalRanks(skill.getCategory()) == 0
 					|| characterPlayer.getSkillsWithRanks(skill.getCategory())
 							.size() > -specializationLevel + 1) {
 				return 5 * loop;
-			}
-			if (skill.isRare()) {
-				return 0;
 			}
 			return characterPlayer.getRealRanks(skill)
 					* (2 + specializationLevel + loop)
@@ -373,7 +375,7 @@ public class RandomCharacterPlayer {
 									.getCategoryCost(skill.getCategory(), 0)
 									.getRankCost().get(0), 15)
 					- characterPlayer.getSkillsWithRanks(skill.getCategory())
-							.size() * 5 + 5;
+							.size() * 5 + 5 + loop;
 		}
 		return 0;
 	}
@@ -405,7 +407,6 @@ public class RandomCharacterPlayer {
 							skill.getName()) < characterPlayer
 							.getMaxRanksPerCulture(skill.getCategory())) {
 						if (skill != null
-								&& !skill.isRare()
 								&& Math.random() * 100
 										// Penalization for too many weapons
 										+ (skill.getCategory()
@@ -561,11 +562,8 @@ public class RandomCharacterPlayer {
 	private void setDevelopmentPoints() {
 		while (characterPlayer.getRemainingDevelopmentPoints() > 0
 				&& tries <= MAX_TRIES) {
-			// if (obtenerAdiestramientos) {
-			// ObtenerAdiestramientosSugeridos();
 			getRandomTrainings(characterPlayer, specializationLevel,
 					suggestedTrainings, finalLevel);
-			// }
 			setRandomRanks(characterPlayer, specializationLevel,
 					suggestedSkillsRanks, tries, finalLevel);
 			tries++;
@@ -575,71 +573,81 @@ public class RandomCharacterPlayer {
 	public static void setRandomRanks(CharacterPlayer characterPlayer,
 			int specializationLevel, Map<String, Integer> suggestedSkillsRanks,
 			Integer tries, int finalLevel) {
+		int developmentPoints = characterPlayer.getRemainingDevelopmentPoints();
 		List<Category> sortedCategoriesByCost = CategoryFactory.getCategories();
-		Collections.sort(sortedCategoriesByCost, new SortCategoryByCost(
-				characterPlayer));
 		// shuffle it!
+		Collections.sort(sortedCategoriesByCost, new CategoryComparatorByCost(
+				characterPlayer));
 		for (int i = 0; i < sortedCategoriesByCost.size(); i++) {
-			Category cat = sortedCategoriesByCost.get(i);
+			if (developmentPoints < 1) {
+				break;
+			}
+			Category category = characterPlayer
+					.getCategory(sortedCategoriesByCost.get(i));
 			if (Math.random() * 100 + 1 < new CategoryProbability(
-					characterPlayer, cat, tries, suggestedSkillsRanks,
+					characterPlayer, category, tries, suggestedSkillsRanks,
 					specializationLevel, finalLevel).rankProbability()) {
 				characterPlayer.getCurrentLevel().setCategoryRanks(
-						cat.getName(),
+						category.getName(),
 						characterPlayer.getCurrentLevel().getCategoryRanks(
-								cat.getName()) + 1);
+								category.getName())
+								+ tries);
+				developmentPoints = characterPlayer
+						.getRemainingDevelopmentPoints();
 			}
-			List<Skill> shuffledCategorySkills = cat.getSkills();
+			List<Skill> shuffledCategorySkills = category.getSkills();
 
 			// Order by specialization.
 			sortSkillsBySpecialization(characterPlayer, shuffledCategorySkills,
 					specializationLevel);
 
-			for (int j = 0; j < shuffledCategorySkills.size(); j++) {
-				Skill skill = shuffledCategorySkills.get(j);
-				int roll = (int) (Math.random() * 100 + 1);
-				int probability = new SkillProbability(characterPlayer, skill,
-						tries, suggestedSkillsRanks, specializationLevel,
-						finalLevel).getRankProbability();
-				Log.debug(RandomCharacterPlayer.class.getName(), "Skill '"
-						+ skill.getName() + "' (" + probability + "%), roll: "
-						+ roll);
-				if (roll < probability) {
-					characterPlayer.getCurrentLevel().setSkillsRanks(
-							skill,
-							characterPlayer.getCurrentLevel().getSkillsRanks(
-									skill.getName()) + 1);
-					Log.info(RandomCharacterPlayer.class.getName(), "Skill '"
+			if (characterPlayer.getNewRankCost(category) < MAX_RANDOM_COST) {
+				for (int j = 0; j < shuffledCategorySkills.size(); j++) {
+					if (developmentPoints < 1) {
+						break;
+					}
+					Skill skill = shuffledCategorySkills.get(j);
+					System.out.println(skill.getName());
+					int roll = (int) (Math.random() * 100 + 1);
+					int probability = new SkillProbability(characterPlayer,
+							skill, tries, suggestedSkillsRanks,
+							specializationLevel, finalLevel)
+							.getRankProbability();
+					Log.debug(RandomCharacterPlayer.class.getName(), "Skill '"
 							+ skill.getName() + "' (" + probability
-							+ "%), roll: " + roll + " ¡Added!");
-					// Si da opciones de nuevas habilidades, se incluyen ahora.
-					// if (skill.habilidadesNuevasPosibles.size() > 0
-					// &&
-					// cat.NumeroHabilidadesExistes(skill.habilidadesNuevasPosibles)
-					// == 0) {
-					// cat.AddHabilidad(Habilidad.getSkill(cat,
-					// skill.habilidadesNuevasPosibles
-					// .get(generator.nextInt(skill.habilidadesNuevasPosibles.size()))));
-					// }
+							+ "%), roll: " + roll);
+					if (roll < probability + tries) {
+						characterPlayer.getCurrentLevel().setSkillsRanks(
+								skill,
+								characterPlayer.getCurrentLevel()
+										.getSkillsRanks(skill.getName())
+										+ tries);
+						Log.info(RandomCharacterPlayer.class.getName(),
+								"Skill '" + skill.getName() + "' ("
+										+ probability + "%), roll: " + roll
+										+ " ¡Added!");
+						developmentPoints = characterPlayer
+								.getRemainingDevelopmentPoints();
 
-					// A skill can be updated more than one rank.
-					if (specializationLevel > 0) {
-						j--;
-					}
-
-					// Add specializations.
-					for (int k = 0; k < skill.getSpecialities().size(); k++) {
-						// Se le da una posibilidad de añadirse.
-						if (Math.random() * 100 < specializationLevel) {
-							characterPlayer.addSkillSpecialization(skill, skill
-									.getSpecialities().get(k));
+						// A skill can be updated more than one rank.
+						if (specializationLevel > 0) {
+							j--;
 						}
-					}
-					// Or generalization
-					if (!characterPlayer.isRestricted(skill)
-							&& !characterPlayer.isSkillSpecialized(skill)) {
-						if (Math.random() * 100 < -specializationLevel) {
-							characterPlayer.addSkillGeneralized(skill);
+
+						// Add specializations.
+						for (int k = 0; k < skill.getSpecialities().size(); k++) {
+							// Se le da una posibilidad de añadirse.
+							if (Math.random() * 100 < specializationLevel) {
+								characterPlayer.addSkillSpecialization(skill,
+										skill.getSpecialities().get(k));
+							}
+						}
+						// Or generalization
+						if (!characterPlayer.isRestricted(skill)
+								&& !characterPlayer.isSkillSpecialized(skill)) {
+							if (Math.random() * 100 < -specializationLevel) {
+								characterPlayer.addSkillGeneralized(skill);
+							}
 						}
 					}
 				}
@@ -647,9 +655,11 @@ public class RandomCharacterPlayer {
 		}
 	}
 
-	private static List<Category> getProfessionalShuffledCategories() {
+	private static List<Category> getProfessionalShuffledCategories(
+			CharacterPlayer characterPlayer) {
 		List<Category> categoryList = CategoryFactory.getCategories();
-		Collections.shuffle(categoryList);
+		Collections.sort(categoryList, new CategoryComparatorByCost(
+				characterPlayer));
 		return categoryList;
 	}
 
@@ -660,9 +670,10 @@ public class RandomCharacterPlayer {
 			int specializationLevel) {
 		int loops = 0;
 		while (characterPlayer.getRemainingHistorialPoints() > 0) {
-			List<Category> shuffledCategoryList = getProfessionalShuffledCategories();
+			List<Category> shuffledCategoryList = getProfessionalShuffledCategories(characterPlayer);
 			for (int i = 0; i < shuffledCategoryList.size(); i++) {
-				Category category = shuffledCategoryList.get(i);
+				Category category = characterPlayer
+						.getCategory(shuffledCategoryList.get(i));
 				// Avoid some categories.
 				if (category.getName().toLowerCase()
 						.contains(Spanish.COMUNICATION_CATEGORY)) {

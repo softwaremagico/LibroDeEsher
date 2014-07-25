@@ -276,4 +276,8 @@ public abstract class Category {
 	public void setNotUsedInRandom(boolean notUsedInRandom) {
 		this.notUsedInRandom = notUsedInRandom;
 	}
+
+	public String getName(int length) {
+		return getName().substring(0, Math.min(length - 1, getName().length()));
+	}
 }

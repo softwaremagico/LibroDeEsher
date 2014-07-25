@@ -144,5 +144,9 @@ public class Skill {
 	protected void setSkillGroup(SkillGroup group) {
 		this.skillGroup = group;
 	}
+	
+	public String getName(int length) {
+		return getName().substring(0, Math.min(length - 1, getName().length()));
+	}
 
 }
