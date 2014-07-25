@@ -584,14 +584,17 @@ public class RandomCharacterPlayer {
 			getRandomTrainings(characterPlayer, specializationLevel,
 					suggestedTrainings, finalLevel);
 			setRandomRanks(characterPlayer, specializationLevel,
-					suggestedSkillsRanks, tries, finalLevel, categoryProbabilityStored, skillProbabilityStored);
+					suggestedSkillsRanks, tries, finalLevel,
+					categoryProbabilityStored, skillProbabilityStored);
 			tries++;
 		}
 	}
 
 	public static void setRandomRanks(CharacterPlayer characterPlayer,
 			int specializationLevel, Map<String, Integer> suggestedSkillsRanks,
-			Integer tries, int finalLevel, Map<Category, Integer> categoryProbabilityStored, Map<Skill, Integer> skillProbabilityStored) {
+			Integer tries, int finalLevel,
+			Map<Category, Integer> categoryProbabilityStored,
+			Map<Skill, Integer> skillProbabilityStored) {
 		int developmentPoints = characterPlayer.getRemainingDevelopmentPoints();
 		List<Category> sortedCategoriesByCost = CategoryFactory.getCategories();
 		// shuffle it!
@@ -611,8 +614,8 @@ public class RandomCharacterPlayer {
 						specializationLevel, finalLevel).rankProbability();
 				categoryProbabilityStored.put(category, categoryProbability);
 			}
-			System.out.println(category.getName() + ": "+ categoryProbabilityStored
-					.get(category)+"%");
+			System.out.println(category.getName() + ": "
+					+ categoryProbabilityStored.get(category) + "%");
 			if (Math.random() * 100 + 1 < categoryProbabilityStored
 					.get(category) + tries * 3) {
 				characterPlayer.getCurrentLevel().setCategoryRanks(
@@ -645,7 +648,8 @@ public class RandomCharacterPlayer {
 								.getRankProbability();
 						skillProbabilityStored.put(skill, probability);
 					}
-					System.out.println("\t"+skill.getName()+": "+skillProbabilityStored.get(skill)+"%");
+					System.out.println("\t" + skill.getName() + ": "
+							+ skillProbabilityStored.get(skill) + "%");
 					Log.debug(RandomCharacterPlayer.class.getName(),
 							"Skill '" + skill.getName() + "' ("
 									+ skillProbabilityStored.get(skill)
@@ -673,7 +677,8 @@ public class RandomCharacterPlayer {
 						if (!characterPlayer.isRestricted(skill)
 								&& !characterPlayer.isSkillGeneralized(skill)) {
 							for (int k = 0; k < skill.getSpecialities().size(); k++) {
-								//Only specialization value of 3 can generate specialized skills.
+								// Only specialization value of 3 can generate
+								// specialized skills.
 								if (Math.random() * 100 < specializationLevel - 2) {
 									characterPlayer.addSkillSpecialization(
 											skill,
@@ -684,7 +689,8 @@ public class RandomCharacterPlayer {
 						// Or generalization
 						if (!characterPlayer.isRestricted(skill)
 								&& !characterPlayer.isSkillSpecialized(skill)) {
-							//Only generalized value of -3 can generate generalized skills. 
+							// Only generalized value of -3 can generate
+							// generalized skills.
 							if (Math.random() * 100 < -specializationLevel + 2) {
 								characterPlayer.addSkillGeneralized(skill);
 							}
@@ -726,22 +732,8 @@ public class RandomCharacterPlayer {
 						// If only one skill, is better to use the point into
 						// the skill.
 						&& category.getSkills().size() > 1
-						&& Math.random() * 80 + 20 < characterPlayer
-								.getTotalValue(category)
-								/ 3
-								+ (8
-										- characterPlayer.getNewRankCost(
-												category, 0, 1)
-										* specializationLevel + 3)
-								+ loops
-								// More skills, better
-								+ characterPlayer.getSkillsWithRanks(category)
-										.size()
-								* 3
-								+ ProfessionRandomness
-										.preferredCategoryByProfession(
-												characterPlayer, category,
-												specializationLevel) / 2) {
+						&& Math.random() * 100 < characterPlayer
+								.getTotalValue(category) - 10 + loops) {
 					characterPlayer.setHistoryPoints(category, true);
 				} else {
 					List<Skill> shuffledSkillList = category.getSkills();
@@ -753,20 +745,8 @@ public class RandomCharacterPlayer {
 								&& characterPlayer
 										.getRemainingHistorialPoints() > 0
 								&& characterPlayer.isSkillInteresting(skill)
-								&& Math.random() * 80 + 20 < characterPlayer
-										.getTotalValue(skill)
-										/ 3
-										- (8
-												- characterPlayer
-														.getNewRankCost(
-																category, 0, 1)
-												* specializationLevel + 3)
-										+ loops
-										+ ProfessionRandomness
-												.preferredSkillByProfession(
-														characterPlayer, skill,
-														specializationLevel)
-										/ 2) {
+								&& Math.random() * 100 < characterPlayer
+										.getTotalValue(skill) - 20 + loops) {
 							characterPlayer.setHistoryPoints(skill, true);
 						}
 					}
