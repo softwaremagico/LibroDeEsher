@@ -732,10 +732,13 @@ public class RandomCharacterPlayer {
 						// If only one skill, is better to use the point into
 						// the skill.
 						&& category.getSkills().size() > 1
-						&& Math.random() * 100 < characterPlayer
-								.getTotalValue(category) - 10 + loops) {
+						&& Math.random() * 100 < (characterPlayer
+								.getTotalValue(category) - 15 + loops)*3) {
 					characterPlayer.setHistoryPoints(category, true);
-				} else {
+				}
+				if (!category.getName().equals(Spanish.COMUNICATION_CATEGORY)
+						&& !category.getName().startsWith(
+								Spanish.REGIONAL_KNOWNLEDGE_TAG)) {
 					List<Skill> shuffledSkillList = category.getSkills();
 					sortSkillsBySpecialization(characterPlayer,
 							shuffledSkillList, specializationLevel);
@@ -745,14 +748,14 @@ public class RandomCharacterPlayer {
 								&& characterPlayer
 										.getRemainingHistorialPoints() > 0
 								&& characterPlayer.isSkillInteresting(skill)
-								&& Math.random() * 100 < characterPlayer
-										.getTotalValue(skill) - 20 + loops) {
+								&& Math.random() * 100 < (characterPlayer
+										.getTotalValue(skill) - 25 + loops)*3) {
 							characterPlayer.setHistoryPoints(skill, true);
 						}
 					}
 				}
 			}
-			loops += 10;
+			loops++;
 		}
 	}
 

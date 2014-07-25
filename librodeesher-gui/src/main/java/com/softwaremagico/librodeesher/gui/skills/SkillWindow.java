@@ -34,6 +34,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBoxMenuItem;
@@ -45,7 +46,9 @@ import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.elements.RandomButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class SkillWindow extends BaseFrame {
 	private static final long serialVersionUID = 3505731416535837471L;
@@ -85,7 +88,8 @@ public class SkillWindow extends BaseFrame {
 		getContentPane().add(skillPanel, gridBagConstraints);
 
 		JPanel developmentPointsPanel = new JPanel();
-		developmentPointsPanel.setLayout(new BoxLayout(developmentPointsPanel, BoxLayout.X_AXIS));
+		developmentPointsPanel.setLayout(new BoxLayout(developmentPointsPanel,
+				BoxLayout.X_AXIS));
 		pointsLabel = new BaseLabel("  Puntos de Desarrollo restantes: ");
 		developmentPointsPanel.add(pointsLabel);
 
@@ -115,9 +119,16 @@ public class SkillWindow extends BaseFrame {
 			public void RandomAction() {
 				Integer tries = 0;
 				RandomCharacterPlayer.setWeaponCosts(character);
+				// Store probability to increase speed.
+				Map<Skill, Integer> skillProbabilityStored = new HashMap<>();
+				Map<Category, Integer> categoryProbabilityStored = new HashMap<>();
+
 				while (character.getRemainingDevelopmentPoints() > 0
 						&& tries <= RandomCharacterPlayer.MAX_TRIES) {
-					RandomCharacterPlayer.setRandomRanks(character, 0, new HashMap<String, Integer>(), tries, character.getCurrentLevelNumber());
+					RandomCharacterPlayer.setRandomRanks(character, 0,
+							new HashMap<String, Integer>(), tries,
+							character.getCurrentLevelNumber(),
+							categoryProbabilityStored, skillProbabilityStored);
 					tries++;
 				}
 				updateFrame();

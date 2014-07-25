@@ -448,16 +448,16 @@ public class PdfStandardSheet {
 	private void addSkillLine(Skill skill, String font, int fontSize,
 			PdfPTable table, int line) throws BadElementException,
 			MalformedURLException, IOException {
-		String texto;
+		String text;
 		PdfPCell cell;
 
 		if (characterPlayer != null) {
-			texto = skill.getName() + " " + skill.getSkillType().getTag();
-			texto.trim();
+			text = skill.getName() + " " + skill.getSkillType().getTag();
+			text.trim();
 		} else {
-			texto = "___________________________________________";
+			text = "___________________________________________";
 		}
-		Paragraph p = new Paragraph(texto, FontFactory.getFont(font, fontSize));
+		Paragraph p = new Paragraph(text, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setMinimumHeight(11 + line % 2);
 		cell.setBorderWidth(0);
@@ -466,11 +466,11 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			texto = characterPlayer.getPreviousRanks(skill) + "";
+			text = characterPlayer.getPreviousRanks(skill) + "";
 		} else {
-			texto = "__";
+			text = "__";
 		}
-		p = new Paragraph(texto, FontFactory.getFont(font, fontSize));
+		p = new Paragraph(text, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -484,64 +484,64 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			texto = "  " + characterPlayer.getRanksValue(skill) + "";
+			text = "  " + characterPlayer.getRanksValue(skill) + "";
 		} else {
-			texto = "   __";
+			text = "   __";
 		}
-		p = new Paragraph(texto, FontFactory.getFont(font, fontSize));
+		p = new Paragraph(text, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			texto = characterPlayer.getTotalValue(skill.getCategory()) + "";
+			text = characterPlayer.getTotalValue(skill.getCategory()) + "";
 		} else {
-			texto = "__";
+			text = "__";
 		}
-		p = new Paragraph(texto, FontFactory.getFont(font, fontSize));
+		p = new Paragraph(text, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			texto = characterPlayer.getItemBonus(skill) + "";
+			text = characterPlayer.getItemBonus(skill) + "";
 		} else {
-			texto = EMPTY_VALUE;
+			text = EMPTY_VALUE;
 		}
-		if (texto.equals("0")) {
-			texto = EMPTY_VALUE;
+		if (text.equals("0")) {
+			text = EMPTY_VALUE;
 		}
-		p = new Paragraph(texto, FontFactory.getFont(font, fontSize));
+		p = new Paragraph(text, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			texto = characterPlayer.getProfession().getSkillBonus(
+			text = characterPlayer.getProfession().getSkillBonus(
 					skill.getName())
 					+ characterPlayer.getHistorial().getBonus(skill)
 					+ characterPlayer.getPerkBonus(skill) + "";
 		} else {
-			texto = "__";
+			text = "__";
 		}
-		String letra = "";
+		String letter = "";
 		if (characterPlayer.getHistorial().getBonus(skill) > 0) {
-			letra += "H";
+			letter += "H";
 		}
 
 		if (characterPlayer.getPerkBonus(skill) != 0) {
-			letra += "T";
+			letter += "T";
 			if (characterPlayer.getConditionalPerkBonus(skill) != 0) {
-				letra += "*";
+				letter += "*";
 			}
 		}
-		if (!letra.equals("")) {
-			texto += "(" + letra + ")";
+		if (!letter.equals("")) {
+			text += "(" + letter + ")";
 		}
-		p = new Paragraph(texto, FontFactory.getFont(font, fontSize));
+		p = new Paragraph(text, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -556,17 +556,17 @@ public class PdfStandardSheet {
 		if (characterPlayer != null) {
 			if (characterPlayer.getItemBonus(skill) > 0
 					|| characterPlayer.getConditionalPerkBonus(skill) > 0) {
-				texto = characterPlayer.getTotalValue(skill)
+				text = characterPlayer.getTotalValue(skill)
 						- characterPlayer.getItemBonus(skill)
 						- characterPlayer.getConditionalPerkBonus(skill) + "/"
 						+ characterPlayer.getTotalValue(skill) + "";
 			} else {
-				texto = characterPlayer.getTotalValue(skill) + "";
+				text = characterPlayer.getTotalValue(skill) + "";
 			}
 		} else {
-			texto = EMPTY_VALUE;
+			text = EMPTY_VALUE;
 		}
-		p = new Paragraph(texto, FontFactory.getFont(font, fontSize));
+		p = new Paragraph(text, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -774,7 +774,7 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 	}
 
-	private void addNewSkillPage(PdfPTable table, Document document,
+	protected void addNewSkillPage(PdfPTable table, Document document,
 			PdfWriter writer, String font, int fontSize)
 			throws BadElementException, DocumentException,
 			MalformedURLException, IOException, Exception {
@@ -1976,7 +1976,7 @@ public class PdfStandardSheet {
 		addEmptyText(document, writer, font, fontSize);
 	}
 
-	private Image getNewRanksImage(int ranks)
+	protected Image getNewRanksImage(int ranks)
 			throws BadElementException, MalformedURLException, IOException {
 		Image image;
 		switch (ranks) {
@@ -2011,5 +2011,9 @@ public class PdfStandardSheet {
 		image.scalePercent(28);
 
 		return image;
+	}
+
+	public CharacterPlayer getCharacterPlayer() {
+		return characterPlayer;
 	}
 }

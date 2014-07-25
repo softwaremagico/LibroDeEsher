@@ -48,7 +48,8 @@ import com.softwaremagico.librodeesher.gui.random.RandomWindow;
 import com.softwaremagico.librodeesher.gui.skills.SkillWindow;
 import com.softwaremagico.librodeesher.gui.training.TrainingWindow;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
-import com.softwaremagico.librodeesher.pj.pdf.PdfSheet;
+import com.softwaremagico.librodeesher.pj.pdf.PdfCombinedSheet;
+import com.softwaremagico.librodeesher.pj.pdf.PdfStandardSheet;
 import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 import com.softwaremagico.log.Log;
 import com.softwaremagico.persistence.dao.hibernate.CharacterPlayerDao;
@@ -106,7 +107,10 @@ public class Controller {
 				new TrainingWindowsListener());
 		mainGui.getMainMenu().addLevelUpActionListener(
 				new IncreaseLevelActionListener());
-		mainGui.getMainMenu().addSheetPdfActionListener(new ExportToPdf());
+		mainGui.getMainMenu().addStandardSheetPdfActionListener(
+				new ExportToStandardPdf());
+		mainGui.getMainMenu().addCombinedSheetPdfActionListener(
+				new ExportToCombinedPdf());
 		mainGui.getMainMenu().addSaveActionListener(new SaveCharacterPlayer());
 		mainGui.getMainMenu().addLoadActionListener(new LoadCharacterPlayer());
 	}
@@ -155,7 +159,7 @@ public class Controller {
 		}
 	}
 
-	class ExportToPdf implements ActionListener {
+	class ExportToStandardPdf implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForPdfWithOptions selectPdf = new ExploreWindowForPdfWithOptions(
@@ -168,7 +172,36 @@ public class Controller {
 						@Override
 						public void accept(String path, boolean sortSkills) {
 							try {
-								new PdfSheet(selectedCharacter, path,
+								new PdfStandardSheet(selectedCharacter, path,
+										sortSkills);
+								MessageManager.infoMessage(
+										Controller.class.getName(),
+										"Ficha creada correctamente.", "PDF");
+							} catch (Exception e1) {
+								MessageManager.basicErrorMessage(
+										Controller.class.getName(),
+										"Error al crear el PDF.", "PDF");
+								e1.printStackTrace();
+							}
+						}
+					});
+		}
+	}
+
+	class ExportToCombinedPdf implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ExploreWindowForPdfWithOptions selectPdf = new ExploreWindowForPdfWithOptions(
+					"Hoja en PDF", JFileChooser.FILES_ONLY,
+					getCharacterNameFormatted() + ".pdf", new PdfFilter(),
+					null, "");
+			selectPdf.setVisible(true);
+			selectPdf
+					.addAcceptListener(new ExploreWindowsWithOptionsListener() {
+						@Override
+						public void accept(String path, boolean sortSkills) {
+							try {
+								new PdfCombinedSheet(selectedCharacter, path,
 										sortSkills);
 								MessageManager.infoMessage(
 										Controller.class.getName(),
