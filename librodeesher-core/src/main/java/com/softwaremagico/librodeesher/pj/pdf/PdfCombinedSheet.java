@@ -32,12 +32,11 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 	private int lines = 0;
 	private int listada = 0;
 	private int maxLines = 71;
-	int column = 0;
-	static int fontSize = 6;
+	private int column = 0;
+	private static int fontSize = 6;
 	private int page = 1;
 	private PdfPTable tableColumn = new PdfPTable(1);
-	float[] mainWidths = { 0.45f, 0.45f };
-	private PdfPTable table = new PdfPTable(mainWidths);
+	private PdfPTable table;
 	private int categoriesToShown = 0;
 	private int remainingLines = 0;
 	private int pages = 0;
@@ -51,7 +50,8 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 	@Override
 	public void characterPDF(String path) throws Exception {
 		Document document = new Document(PageSize.A4);
-
+		float[] mainWidths = { 0.45f, 0.45f };
+		table = new PdfPTable(mainWidths);
 		table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.setTotalWidth(document.getPageSize().getWidth() - 60);
 
@@ -86,21 +86,16 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		if (twoFaced) {
 			equipmentPage(document, writer, font);
 		}
-		categoriesPage(document, writer, font);
+		combinedPage(document, writer, font);
 		document.close();
 	}
 
-	@Override
-	protected void categoriesPage(Document document, PdfWriter writer,
+	private void combinedPage(Document document, PdfWriter writer,
 			String font) throws Exception {
 		document.newPage();
 		createBackgroundImage(document,
 				RolemasterFolderStructure.getSheetFolder() + File.separator
 						+ "RMHPComb.png");
-		/*
-		 * AddTablaNombreCat(document, writer, font);
-		 * AddTablaValoresCategorias(document, writer, font);
-		 */
 		combinedSkillsPage(document, writer, font);
 	}
 

@@ -85,7 +85,6 @@ import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 import com.softwaremagico.librodeesher.pj.training.TrainingItem;
 import com.softwaremagico.librodeesher.pj.training.TrainingSkill;
-import com.softwaremagico.librodeesher.pj.training.TrainingSkillList;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 import com.softwaremagico.persistence.StorableObject;
 

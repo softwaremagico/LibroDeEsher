@@ -901,7 +901,7 @@ public class PdfStandardSheet {
 		addSkillTable(document, writer, font);
 	}
 
-	protected void categoriesPage(Document document, PdfWriter writer,
+	private void categoriesPage(Document document, PdfWriter writer,
 			String font) throws Exception {
 		document.newPage();
 		createBackgroundImage(document, RolemasterFolderStructure.getSheetFolder()
@@ -1839,43 +1839,43 @@ public class PdfStandardSheet {
 			String font, int fontSize) {
 		PdfPCell cell;
 		float[] widths = { 0.295f, 0.605f };
-		PdfPTable tablaPagina = new PdfPTable(widths);
-		tablaPagina.getDefaultCell().setHorizontalAlignment(
+		PdfPTable table = new PdfPTable(widths);
+		table.getDefaultCell().setHorizontalAlignment(
 				Element.ALIGN_CENTER);
-		tablaPagina.setTotalWidth(document.getPageSize().getWidth() - 60);
+		table.setTotalWidth(document.getPageSize().getWidth() - 60);
 
 		cell = new PdfPCell(createMainHeader(font, fontSize));
 		cell.setBorderWidth(0);
 		cell.setMinimumHeight(58);
 		cell.setColspan(2);
 		cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-		tablaPagina.addCell(cell);
+		table.addCell(cell);
 
 		cell = new PdfPCell(createMainPageLeftFrame(font,
 				fontSize));
 		cell.setBorderWidth(0);
 		cell.setMinimumHeight(document.getPageSize().getHeight() - 145);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		tablaPagina.addCell(cell);
+		table.addCell(cell);
 
 		cell = new PdfPCell(createMainPageRightFrame(font,
 				fontSize));
 		cell.setBorderWidth(0);
 		cell.setMinimumHeight(document.getPageSize().getHeight() - 145);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		tablaPagina.addCell(cell);
+		table.addCell(cell);
 
 		cell = new PdfPCell(createSignature(font, fontSize));
 		cell.setBorderWidth(0);
 		cell.setColspan(2);
 		cell.setMinimumHeight(30);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		tablaPagina.addCell(cell);
+		table.addCell(cell);
 
 		// PdfPCell celda = new PdfPCell();
-		tablaPagina.writeSelectedRows(0, -1, 30, document.getPageSize()
+		table.writeSelectedRows(0, -1, 30, document.getPageSize()
 				.getHeight() - 37, writer.getDirectContent());
-		tablaPagina.flushContent();
+		table.flushContent();
 	}
 
 	void characteristicsPage(Document document, PdfWriter writer, String font)

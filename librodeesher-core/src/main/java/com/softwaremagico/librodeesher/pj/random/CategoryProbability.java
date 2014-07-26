@@ -39,18 +39,21 @@ public class CategoryProbability {
 		}
 
 		Integer cost = characterPlayer.getNewRankCost(category);
+		
+		if(cost > characterPlayer.getRemainingDevelopmentPoints()){
+			return 0;
+		}
 
 		// Suggested ranks
 		if (suggestedCategoryRanks != null
 				&& suggestedCategoryRanks.get(category.getName()) != null) {
 			if (characterPlayer.getTotalRanks(category) < suggestedCategoryRanks
-					.get(category.getName())
-					&& cost <= characterPlayer.getRemainingDevelopmentPoints()) {
+					.get(category.getName())) {
 				if (characterPlayer.getCurrentLevelRanks(category) == 0) {
 					return 100;
 				} else if (characterPlayer.getTotalRanks(category) < suggestedCategoryRanks
 						.get(category.getName()) - finalLevel
-						&& characterPlayer.getNewRankCost(category) < 40) {
+						&& cost < 40) {
 					return 100;
 				}
 			}
@@ -81,7 +84,7 @@ public class CategoryProbability {
 				probability += bonusCommonSkills;
 				int smartBonus = smartBonus();
 				Log.debug(CategoryProbability.class.getName(),
-						"\t Smart bonus: " + bonusCommonSkills);
+						"\t Smart bonus: " + smartBonus);
 				probability += smartBonus;
 				if (probability > 90) {
 					probability = 90;

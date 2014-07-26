@@ -44,12 +44,15 @@ public class SkillProbability {
 
 		Integer cost = characterPlayer.getNewRankCost(skill);
 
+		if (cost > characterPlayer.getRemainingDevelopmentPoints()) {
+			return 0;
+		}
+
 		// Suggested ranks
 		if (suggestedSkillsRanks != null
 				&& suggestedSkillsRanks.get(skill.getName()) != null) {
 			if (characterPlayer.getTotalRanks(skill) < suggestedSkillsRanks
-					.get(skill.getName())
-					&& cost <= characterPlayer.getRemainingDevelopmentPoints()) {
+					.get(skill.getName())) {
 				if (characterPlayer.getCurrentLevelRanks(skill) == 0) {
 					return 100;
 				} else if (characterPlayer.getTotalRanks(skill) < suggestedSkillsRanks
@@ -243,6 +246,18 @@ public class SkillProbability {
 			bonus -= 40;
 		}
 
+		// No so much regional knowledge from different cultures.
+		if (skill.getCategory().getName().toLowerCase()
+				.contains(Spanish.REGIONAL_KNOWNLEDGE_TAG)
+				&& !skill
+						.getName()
+						.toLowerCase()
+						.contains(
+								characterPlayer.getCulture().getName()
+										.toLowerCase())) {
+			bonus -= 40;
+		}
+
 		if (skill.getName().toLowerCase().equals(Spanish.SOFT_LEATHER_TAG)
 				&& characterPlayer.getTotalValue(skill) > 30) {
 			return -MAX_VALUE;
@@ -336,7 +351,7 @@ public class SkillProbability {
 	 * @return
 	 */
 	private int wizardPreferredSkills() {
-		// Some spells are preferred. 
+		// Some spells are preferred.
 		if (characterPlayer.isWizard()) {
 			if (characterPlayer.getRealmOfMagic().getRealmsOfMagic()
 					.equals(RealmOfMagic.ESSENCE)) {

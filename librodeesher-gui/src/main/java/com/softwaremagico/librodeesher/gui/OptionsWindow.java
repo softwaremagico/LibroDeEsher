@@ -68,7 +68,7 @@ public class OptionsWindow extends BaseFrame {
 
 	public OptionsWindow(CharacterPlayer character) {
 		this.character = character;
-		defineWindow(500, 400);
+		defineWindow(500, 350);
 		setElements();
 		setCurrentCharacterConfig();
 		setResizable(false);
@@ -125,9 +125,9 @@ public class OptionsWindow extends BaseFrame {
 		pdfOptionsPanel.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Creación de Fichas"));
 		
-		pdfSortCategories = new JCheckBox(Spanish.PDF_SORT_SKILLS);
-		pdfSortCategories.addActionListener(checkboxListener);
-		pdfOptionsPanel.add(pdfSortCategories);
+//		pdfSortCategories = new JCheckBox(Spanish.PDF_SORT_SKILLS);
+//		pdfSortCategories.addActionListener(checkboxListener);
+//		pdfOptionsPanel.add(pdfSortCategories);
 		
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;

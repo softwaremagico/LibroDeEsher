@@ -118,6 +118,7 @@ public class RandomCharacterPlayer {
 		setHistoryPoints(characterPlayer, getSpecializationLevel());
 		// setPerksPoints();
 		setLevels();
+		System.out.println("Random calculation finished!");
 	}
 
 	private SexType getSex() {
@@ -197,6 +198,7 @@ public class RandomCharacterPlayer {
 	 */
 	public static void setCharacteristics(CharacterPlayer characterPlayer,
 			int specializationLevel) {
+		int loop = 0;
 		while (characterPlayer.getCharacteristicsTemporalPointsSpent() < getTotalCharacteristicsPoints()) {
 			for (int i = 0; i < characterPlayer.getProfession()
 					.getCharacteristicPreferences().size(); i++) {
@@ -214,7 +216,7 @@ public class RandomCharacterPlayer {
 										.getCharacteristicInitialTemporalValue(characteristic
 												.getAbbreviature()) - Characteristics.INITIAL_CHARACTERISTIC_VALUE)
 										* Math.max(1, specializationLevel * 5),
-								5)), 90)
+								5+loop)), 90)
 						// Temporal values has a max limit.
 						&& characterPlayer
 								.getCharacteristicInitialTemporalValue(characteristic
@@ -255,6 +257,7 @@ public class RandomCharacterPlayer {
 					}
 				}
 			}
+			loop++;
 		}
 
 		characterPlayer.setCharacteristicsAsConfirmed();
@@ -660,11 +663,11 @@ public class RandomCharacterPlayer {
 								characterPlayer.getCurrentLevel()
 										.getSkillsRanks(skill.getName())
 										+ tries);
-						skillProbabilityStored.remove(skill);
 						Log.info(RandomCharacterPlayer.class.getName(),
 								"Skill '" + skill.getName() + "' ("
 										+ skillProbabilityStored.get(skill)
-										+ "%), roll: " + roll + " ¡Added!");
+										+ "%), roll: " + roll + " Added!");
+						skillProbabilityStored.remove(skill);
 						developmentPoints = characterPlayer
 								.getRemainingDevelopmentPoints();
 
