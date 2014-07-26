@@ -1276,7 +1276,7 @@ public class CharacterPlayer extends StorableObject {
 		return characteristicRoll;
 	}
 
-	public CharacteristicRoll getNewCharacteristicTrainingUpdate(
+	public CharacteristicRoll addNewCharacteristicTrainingUpdate(
 			CharacteristicsAbbreviature abbreviature, String trainingName) {
 		Roll roll = getStoredCharacteristicRoll(abbreviature);
 		CharacteristicRoll characteristicRoll = getTrainingDecision(

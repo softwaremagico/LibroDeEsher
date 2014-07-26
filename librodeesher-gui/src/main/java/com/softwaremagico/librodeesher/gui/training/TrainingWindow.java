@@ -277,7 +277,7 @@ public class TrainingWindow extends BaseFrame {
 				// List is sorted from small to biggest list.
 				if (characteristicSet.size() == 1) {
 					CharacteristicRoll characteristicRoll = characterPlayer
-							.getNewCharacteristicTrainingUpdate(
+							.addNewCharacteristicTrainingUpdate(
 									characteristicSet.get(0),
 									lastSelectedTraining.getName());
 					ShowMessage
@@ -300,9 +300,6 @@ public class TrainingWindow extends BaseFrame {
 													characteristicRoll
 															.getRoll()),
 									"Característica aumentada!");
-					characterPlayer.getTrainingDecision(
-							lastSelectedTraining.getName())
-							.addCharacteristicUpdate(characteristicRoll);
 				} else {
 					// Select chars
 					List<Characteristic> availableCharacteristics = new ArrayList<>();

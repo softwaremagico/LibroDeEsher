@@ -8,7 +8,6 @@ import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.CategoryComparatorBySkillWithLessRanks;
 import com.softwaremagico.librodeesher.pj.categories.CategoryComparatorBySkillWithRanks;
-import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingCategory;
@@ -245,8 +244,8 @@ public class TrainingProbability {
 									- characterPlayer
 											.getCharacteristicPotentialValue(characteristic) > 5 && characterPlayer
 									.getCharacteristicTemporalValue(characteristic) > 85)) {
-						addCharacteristicUpdate(characterPlayer, trainingName,
-								characteristic);
+						characterPlayer.addNewCharacteristicTrainingUpdate(
+								characteristic, trainingName);
 						updated = true;
 						break;
 					}
@@ -255,19 +254,10 @@ public class TrainingProbability {
 			// Updates are mandatory. Update the last one to avoid decreasing an
 			// important one.
 			if (!updated) {
-				addCharacteristicUpdate(characterPlayer, trainingName,
-						lastCharacteristicChecked);
+				characterPlayer.addNewCharacteristicTrainingUpdate(
+						lastCharacteristicChecked, trainingName);
 			}
 		}
-	}
-
-	private static void addCharacteristicUpdate(
-			CharacterPlayer characterPlayer, String trainingName,
-			CharacteristicsAbbreviature abbreviature) {
-		CharacteristicRoll characteristicRoll = characterPlayer
-				.getNewCharacteristicTrainingUpdate(abbreviature, trainingName);
-		characterPlayer.getTrainingDecision(trainingName)
-				.addCharacteristicUpdate(characteristicRoll);
 	}
 
 	public static void setRandomObjects(CharacterPlayer characterPlayer,

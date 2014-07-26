@@ -52,7 +52,7 @@ public class TrainingCharacteristicLine extends CharacteristicUpLine {
 	public class UpdateButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			CharacteristicRoll characteristicRoll = character.getNewCharacteristicTrainingUpdate(
+			CharacteristicRoll characteristicRoll = character.addNewCharacteristicTrainingUpdate(
 					characteristic.getAbbreviature(), training);
 			ShowMessage
 					.showInfoMessage(
