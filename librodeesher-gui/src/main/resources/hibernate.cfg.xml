@@ -37,7 +37,7 @@
 	<!-- SQLITE -->
         <property name="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</property> 
 	<property name="connection.driver_class">org.sqlite.JDBC</property> 
-	<property name="hibernate.connection.url">jdbc:sqlite:test-esher.db</property>
+	<property name="hibernate.connection.url">jdbc:sqlite:esher.db</property>
 	
 	<!-- MYSQL -->
 	<!-- <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
