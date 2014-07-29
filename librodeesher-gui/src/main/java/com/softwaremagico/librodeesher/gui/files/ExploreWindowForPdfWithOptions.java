@@ -49,7 +49,7 @@ public class ExploreWindowForPdfWithOptions extends BaseFrame {
 			javax.swing.filechooser.FileFilter filter, JComponent accesory,
 			String defaultFileName) {
 		listeners = new ArrayList<>();
-		defineWindow(500, 400);
+		defineWindow(550, 500);
 		setLayout(new BorderLayout());
 
 		JPanel optionsPanel = new JPanel();

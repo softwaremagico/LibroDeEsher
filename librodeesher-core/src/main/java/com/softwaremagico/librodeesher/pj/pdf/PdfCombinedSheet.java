@@ -42,9 +42,8 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 	private int pages = 0;
 	private int writtenPages = 0;
 
-	public PdfCombinedSheet(CharacterPlayer characterPlayer, String path,
-			boolean sortedSkills) throws Exception {
-		super(characterPlayer, path, sortedSkills);
+	public PdfCombinedSheet(CharacterPlayer characterPlayer, String path) throws Exception {
+		super(characterPlayer, path, false);
 	}
 
 	@Override
@@ -908,21 +907,21 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 
 	private void countLines() {
 		int predictedLines = 0;
-		int categoriasAMostrar = 0;
-		int habilidadesAMostrar = 0;
+		int categoriesToShow = 0;
+		int skillsToShow = 0;
 		int categoriesWithoutSkills = 0;
 
 		for (int i = 0; i < CategoryFactory.getAvailableCategories().size(); i++) {
 			Category category = getCharacterPlayer().getCategory(
 					CategoryFactory.getAvailableCategories().get(i));
 			if (getCharacterPlayer().isCategoryUseful(category)) {
-				categoriasAMostrar++;
+				categoriesToShow++;
 
 				int added = 0;
 				for (int j = 0; j < category.getSkills().size(); j++) {
 					Skill skill = category.getSkills().get(j);
 					if (getCharacterPlayer().isSkillUseful(skill)) {
-						habilidadesAMostrar++;
+						skillsToShow++;
 						added++;
 					}
 				}
@@ -933,7 +932,13 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 
 			}
 		}
-		predictedLines = categoriasAMostrar * 4 + habilidadesAMostrar
+		System.out.println("-------------");
+		System.out.println(categoriesToShow);
+		System.out.println(skillsToShow);
+		System.out.println(categoriesWithoutSkills);
+		System.out.println(maxLines);
+		
+		predictedLines = categoriesToShow * 4 + skillsToShow
 				+ categoriesWithoutSkills;
 		remainingLines = (maxLines * 2) - (predictedLines % (maxLines * 2));
 		pages = (int) Math.ceil((double) predictedLines

@@ -18,6 +18,7 @@ public class CharacterStorage {
 		characterPlayerDao.makePersistent(characterPlayer);
 		Assert.assertNotNull(characterPlayer.getId());
 		Assert.assertNotNull(characterPlayer.getTotalValue(SkillFactory.getAvailableSkill("Trepar")));
+		Assert.assertTrue(characterPlayer.getRemainingDevelopmentPoints() >= 0);
 	}
 
 }
