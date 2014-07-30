@@ -38,7 +38,6 @@ public class RolemasterFolderStructure implements Serializable {
 	private static final long serialVersionUID = -528684854404121115L;
 	private static final String APPLICATION_FOLDER = getApplicationInstallationDirectory();
 	private static final String ROLEMASTER_FOLDER = APPLICATION_FOLDER + File.separator + "rolemaster";
-	private final static String DIRECTORIO_TALENTOS = "talentos";
 	private static final String SPELL_FOLDER = "hechizos";
 	private final static String MODULES_DIRECTORY = ROLEMASTER_FOLDER + File.separator + "modulos";
 	private static final String FOLDER_STORE_USER_DATA = "librodeesher";
@@ -73,8 +72,8 @@ public class RolemasterFolderStructure implements Serializable {
 	}
 
 	private static String getApplicationInstallationDirectory() {
-		File directory = new File(RolemasterFolderStructure.class.getProtectionDomain().getCodeSource()
-				.getLocation().getPath());
+		File directory = new File(RolemasterFolderStructure.class.getProtectionDomain().getCodeSource().getLocation()
+				.getPath());
 		String path;
 		// load from de IDE
 		if (directory.getParentFile().getPath().contains("target")) {
@@ -91,9 +90,9 @@ public class RolemasterFolderStructure implements Serializable {
 		} catch (UnsupportedEncodingException ex) {
 			return path;
 		}
-		//If it is a maven dependency (i.e. when executing maven exec java)
-		if(path.contains(".m2")){
-			path="../";
+		// If it is a maven dependency (i.e. when executing maven exec java)
+		if (path.contains(".m2")) {
+			path = "../";
 		}
 		return path;
 	}
@@ -111,8 +110,8 @@ public class RolemasterFolderStructure implements Serializable {
 		List<String> files = new ArrayList<>();
 		List<String> modulosPermitidos = getAvailableModules();
 		for (int i = 0; i < modulosPermitidos.size(); i++) {
-			files.addAll(Folder.obtainfilesSubdirectory(MODULES_DIRECTORY + File.separator
-					+ modulosPermitidos.get(i) + File.separator + folder));
+			files.addAll(Folder.obtainfilesSubdirectory(MODULES_DIRECTORY + File.separator + modulosPermitidos.get(i)
+					+ File.separator + folder));
 		}
 		List<String> fileList = new ArrayList<>();
 		for (int i = 0; i < files.size(); i++) {
@@ -132,8 +131,8 @@ public class RolemasterFolderStructure implements Serializable {
 			List<String> fileList = Folder.obtainfilesSubdirectory(MODULES_DIRECTORY + File.separator
 					+ modulosPermitidos.get(i) + File.separator + folder);
 			for (String file : fileList) {
-				files.add(MODULES_DIRECTORY + File.separator + modulosPermitidos.get(i) + File.separator
-						+ folder + File.separator + file);
+				files.add(MODULES_DIRECTORY + File.separator + modulosPermitidos.get(i) + File.separator + folder
+						+ File.separator + file);
 			}
 		}
 		List<String> fileList = new ArrayList<>();
@@ -154,13 +153,11 @@ public class RolemasterFolderStructure implements Serializable {
 		}
 		List<String> modulosPermitidos = getAvailableModules();
 		for (int i = 0; i < modulosPermitidos.size(); i++) {
-			if (Folder
-					.obtainfilesSubdirectory(MODULES_DIRECTORY + File.separator + modulosPermitidos.get(i))
-					.size() > 0) {
+			if (Folder.obtainfilesSubdirectory(MODULES_DIRECTORY + File.separator + modulosPermitidos.get(i)).size() > 0) {
 				if (new File(MODULES_DIRECTORY + File.separator + modulosPermitidos.get(i) + File.separator
 						+ CATEGORIES_FILE).exists()) {
-					categoriesFiles.add(MODULES_DIRECTORY + File.separator + modulosPermitidos.get(i)
-							+ File.separator + CATEGORIES_FILE);
+					categoriesFiles.add(MODULES_DIRECTORY + File.separator + modulosPermitidos.get(i) + File.separator
+							+ CATEGORIES_FILE);
 				}
 			}
 		}
@@ -171,13 +168,11 @@ public class RolemasterFolderStructure implements Serializable {
 		List<String> perksFile = new ArrayList<>();
 		List<String> modulosPermitidos = getAvailableModules();
 		for (int i = 0; i < modulosPermitidos.size(); i++) {
-			if (Folder
-					.obtainfilesSubdirectory(MODULES_DIRECTORY + File.separator + modulosPermitidos.get(i))
-					.size() > 0) {
+			if (Folder.obtainfilesSubdirectory(MODULES_DIRECTORY + File.separator + modulosPermitidos.get(i)).size() > 0) {
 				if (new File(MODULES_DIRECTORY + File.separator + modulosPermitidos.get(i) + File.separator
 						+ PERKS_FOLDER + File.separator + PERKS_FILE).exists()) {
-					perksFile.add(MODULES_DIRECTORY + File.separator + modulosPermitidos.get(i)
-							+ File.separator + PERKS_FOLDER + File.separator + PERKS_FILE);
+					perksFile.add(MODULES_DIRECTORY + File.separator + modulosPermitidos.get(i) + File.separator
+							+ PERKS_FOLDER + File.separator + PERKS_FILE);
 				}
 			}
 		}
@@ -219,11 +214,9 @@ public class RolemasterFolderStructure implements Serializable {
 	public static String getDirectoryModule(String fichero) {
 		File file;
 		for (int i = 0; i < availableModules.size(); i++) {
-			file = new File(MODULES_DIRECTORY + File.separator + availableModules.get(i) + File.separator
-					+ fichero);
+			file = new File(MODULES_DIRECTORY + File.separator + availableModules.get(i) + File.separator + fichero);
 			if (file.exists()) {
-				return MODULES_DIRECTORY + File.separator + availableModules.get(i) + File.separator
-						+ fichero;
+				return MODULES_DIRECTORY + File.separator + availableModules.get(i) + File.separator + fichero;
 			}
 		}
 		return "";
@@ -239,8 +232,7 @@ public class RolemasterFolderStructure implements Serializable {
 	 * Return the path of the configuration file.
 	 * 
 	 * @param write
-	 *            True if is for writting a new configuration file. False for
-	 *            reading.
+	 *            True if is for writting a new configuration file. False for reading.
 	 * @return
 	 */
 	public static String getConfigurationFilePath() {
@@ -251,8 +243,8 @@ public class RolemasterFolderStructure implements Serializable {
 		List<String> ficheros = new ArrayList<>();
 		List<String> modulosPermitidos = getAvailableModules();
 		for (int i = 0; i < modulosPermitidos.size(); i++) {
-			File file = new File(MODULES_DIRECTORY + File.separator + modulosPermitidos.get(i)
-					+ File.separator + fichero);
+			File file = new File(MODULES_DIRECTORY + File.separator + modulosPermitidos.get(i) + File.separator
+					+ fichero);
 			if (file.exists()) {
 				ficheros.add(file.toString());
 			}
@@ -263,8 +255,8 @@ public class RolemasterFolderStructure implements Serializable {
 	public static void setDisabledModules(List<String> disabledModules) {
 		RolemasterFolderStructure.disabledModules = disabledModules;
 	}
-	
-	public static String getSheetFolder(){
+
+	public static String getSheetFolder() {
 		return ROLEMASTER_FOLDER + File.separator + SHEET_FOLDER;
 	}
 }
