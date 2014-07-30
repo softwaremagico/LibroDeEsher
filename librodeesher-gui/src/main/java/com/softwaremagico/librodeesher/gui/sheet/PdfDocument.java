@@ -49,7 +49,7 @@ import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.softwaremagico.files.MyFile;
-import com.softwaremagico.files.RolemasterFolderStructure;
+import com.softwaremagico.files.Version;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 
 public abstract class PdfDocument {
@@ -68,7 +68,7 @@ public abstract class PdfDocument {
 	protected Document documentData(Document document) {
 		document.addTitle("Hoja de Personaje");
 		document.addAuthor("Software Magico");
-		document.addCreator("Libro de Esher v." + RolemasterFolderStructure.getVersion());
+		document.addCreator("Libro de Esher v." + Version.getVersion());
 		document.addSubject("Rolemaster");
 		document.addKeywords("Libro de Esher, Rolemaster, Hoja de Personaje, RLM");
 		document.addCreationDate();

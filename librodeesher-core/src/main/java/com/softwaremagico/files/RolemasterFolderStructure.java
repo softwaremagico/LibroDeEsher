@@ -72,16 +72,6 @@ public class RolemasterFolderStructure implements Serializable {
 		return disabledModules;
 	}
 
-	public static String getVersion() {
-		String text;
-		text = MyFile.readTextFile(RolemasterFolderStructure.class.getResource("/version.txt").getPath(),
-				false);
-		if (text != null && text.length() > 0) {
-			return text;
-		}
-		return MyFile.readTextFromJar("/version.txt");
-	}
-
 	private static String getApplicationInstallationDirectory() {
 		File directory = new File(RolemasterFolderStructure.class.getProtectionDomain().getCodeSource()
 				.getLocation().getPath());

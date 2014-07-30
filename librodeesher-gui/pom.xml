@@ -56,6 +56,9 @@
 							<classpathPrefix>lib/</classpathPrefix>
 							<mainClass>${mainClass}</mainClass>
 						</manifest>
+						<manifestEntries>
+							<Implementation-Version>${project.parent.version}</Implementation-Version>
+						</manifestEntries>
 					</archive>
 				</configuration>
 				<version>2.4</version>
