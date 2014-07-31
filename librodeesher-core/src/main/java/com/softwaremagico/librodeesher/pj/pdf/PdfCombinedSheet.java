@@ -31,7 +31,7 @@ import com.softwaremagico.log.Log;
 public class PdfCombinedSheet extends PdfStandardSheet {
 	private int lines = 0;
 	private int listada = 0;
-	private int maxLines = 71;
+	private final static int MAX_LINES = 71;
 	private int column = 0;
 	private static int fontSize = 6;
 	private int page = 1;
@@ -252,8 +252,8 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		}
 
 		// Last lines
-		if (lines > maxLines - 5) {
-			for (int i = lines; i <= maxLines; i++) {
+		if (lines > MAX_LINES - 5) {
+			for (int i = lines; i <= MAX_LINES; i++) {
 				tableHab = emptySkillList(cat, font);
 				cell = new PdfPCell(tableHab);
 				cell.setBorderWidth(0);
@@ -304,9 +304,9 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		}
 
 		// Last category
-		if (lines < maxLines && last && !lastFilled) {
+		if (lines < MAX_LINES && last && !lastFilled) {
 			for (int j = column; j < 2; j++) {
-				for (int i = lines; i <= maxLines; i++) {
+				for (int i = lines; i <= MAX_LINES; i++) {
 					tableHab = emptySkillList(cat, font);
 					cell = new PdfPCell(tableHab);
 					cell.setBorderWidth(0);
@@ -849,7 +849,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 			String font) throws BadElementException, MalformedURLException,
 			IOException, DocumentException {
 		PdfPCell cell;
-		if (lines > maxLines) {
+		if (lines > MAX_LINES) {
 			cell = new PdfPCell(tableColumn);
 			cell.setBorderWidth(1);
 			cell.setColspan(1);
@@ -932,16 +932,11 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 
 			}
 		}
-		System.out.println("-------------");
-		System.out.println(categoriesToShow);
-		System.out.println(skillsToShow);
-		System.out.println(categoriesWithoutSkills);
-		System.out.println(maxLines);
 		
 		predictedLines = categoriesToShow * 4 + skillsToShow
 				+ categoriesWithoutSkills;
-		remainingLines = (maxLines * 2) - (predictedLines % (maxLines * 2));
+		remainingLines = (MAX_LINES * 2) - (predictedLines % (MAX_LINES * 2));
 		pages = (int) Math.ceil((double) predictedLines
-				/ (double) (maxLines * 2));
+				/ (double) (MAX_LINES * 2));
 	}
 }
