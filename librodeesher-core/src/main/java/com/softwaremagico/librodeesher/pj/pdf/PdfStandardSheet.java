@@ -44,8 +44,8 @@ public class PdfStandardSheet {
 	protected boolean twoFaced;
 	private boolean sortedSkills;
 
-	public PdfStandardSheet(CharacterPlayer characterPlayer, String path,
-			boolean sortedSkills) throws Exception {
+	public PdfStandardSheet(CharacterPlayer characterPlayer, String path, boolean sortedSkills)
+			throws MalformedURLException, DocumentException, IOException {
 		this.characterPlayer = characterPlayer;
 		this.sortedSkills = sortedSkills;
 		if (characterPlayer == null) {
@@ -57,8 +57,12 @@ public class PdfStandardSheet {
 
 	/**
 	 * Creates a character sheet in a pdf format.
+	 * 
+	 * @throws DocumentException
+	 * @throws IOException
+	 * @throws MalformedURLException
 	 */
-	public void characterPDF(String path) throws Exception {
+	public void characterPDF(String path) throws DocumentException, MalformedURLException, IOException {
 		Document document = new Document(PageSize.A4);
 		if (path == null) {
 			path = Path.getDefaultPdfPath() + File.separator + "RMFesher.pdf";
@@ -66,8 +70,7 @@ public class PdfStandardSheet {
 			path += ".pdf";
 		}
 		try {
-			PdfWriter writer = PdfWriter.getInstance(document,
-					new FileOutputStream(path));
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
 			createPdf(document, writer);
 		} catch (FileNotFoundException fnfe) {
 			Log.errorMessage(PdfStandardSheet.class.getName(), fnfe);
@@ -75,12 +78,11 @@ public class PdfStandardSheet {
 		}
 	}
 
-	private void createPdf(Document document, PdfWriter writer)
-			throws Exception {
+	private void createPdf(Document document, PdfWriter writer) throws BadElementException, MalformedURLException,
+			DocumentException, IOException {
 		String font = FontFactory.HELVETICA;
 
-		twoFaced = (characterPlayer.getPerks().size() > 0
-				|| characterPlayer.getRace().getSpecials().size() > 0 || characterPlayer
+		twoFaced = (characterPlayer.getPerks().size() > 0 || characterPlayer.getRace().getSpecials().size() > 0 || characterPlayer
 				.getEquipment().size() > 0);
 
 		DocumentData(document, writer);
@@ -100,12 +102,11 @@ public class PdfStandardSheet {
 		document.close();
 	}
 
-	private void whitePage() throws Exception {
+	private void whitePage() throws DocumentException, MalformedURLException, IOException {
 		String font = FontFactory.HELVETICA;
 
 		Document document = new Document(PageSize.A4);
-		PdfWriter writer = PdfWriter.getInstance(document,
-				new FileOutputStream("RMFesher.pdf"));
+		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("RMFesher.pdf"));
 		DocumentData(document, writer);
 		document.open();
 		characteristicsPage(document, writer, font);
@@ -125,8 +126,7 @@ public class PdfStandardSheet {
 		return document;
 	}
 
-	void createBackgroundImage(Document document, String imagen)
-			throws BadElementException, DocumentException,
+	void createBackgroundImage(Document document, String imagen) throws BadElementException, DocumentException,
 			MalformedURLException, IOException {
 		Image png;
 
@@ -136,8 +136,7 @@ public class PdfStandardSheet {
 		document.add(png);
 	}
 
-	private void addCategoryTable(Document document, PdfWriter writer,
-			String font) {
+	private void addCategoryTable(Document document, PdfWriter writer, String font) {
 		PdfPTable table = new PdfPTable(1);
 		table.getDefaultCell().setBorderWidth(0);
 		table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -146,8 +145,7 @@ public class PdfStandardSheet {
 
 		Paragraph p;
 		if (characterPlayer != null) {
-			p = new Paragraph(characterPlayer.getName(), FontFactory.getFont(
-					font, fontSize));
+			p = new Paragraph(characterPlayer.getName(), FontFactory.getFont(font, fontSize));
 		} else {
 			p = new Paragraph("", FontFactory.getFont(font, fontSize + 2));
 		}
@@ -155,18 +153,14 @@ public class PdfStandardSheet {
 		cell.setBorderWidth(0);
 		table.addCell(cell);
 
-		table.writeSelectedRows(0, -1,
-				3 * document.getPageSize().getWidth() / 4 + 20, document
-						.getPageSize().getHeight() - 45, writer
-						.getDirectContent());
+		table.writeSelectedRows(0, -1, 3 * document.getPageSize().getWidth() / 4 + 20, document.getPageSize()
+				.getHeight() - 45, writer.getDirectContent());
 		table.flushContent();
 	}
 
-	private void addCategoryValuesTable(Document document, PdfWriter writer,
-			String font) throws DocumentException, MalformedURLException,
-			IOException {
-		float[] widths = { 0.23f, 0.09f, 0.07f, 0.07f, 0.085f, 0.065f, 0.065f,
-				0.065f, 0.065f, 0.065f, 0.065f };
+	private void addCategoryValuesTable(Document document, PdfWriter writer, String font) throws DocumentException,
+			MalformedURLException, IOException {
+		float[] widths = { 0.23f, 0.09f, 0.07f, 0.07f, 0.085f, 0.065f, 0.065f, 0.065f, 0.065f, 0.065f, 0.065f };
 		PdfPTable table = new PdfPTable(widths);
 		table.getDefaultCell().setBorderWidth(0);
 		table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -180,12 +174,10 @@ public class PdfStandardSheet {
 		// Add categories and spaces for a new ones.
 		for (int i = 0; i < 60 + omitidas; i++) {
 			if (i < CategoryFactory.getAvailableCategories().size()) {
-				category = CategoryFactory.getCategory(CategoryFactory
-						.getAvailableCategories().get(i));
+				category = CategoryFactory.getCategory(CategoryFactory.getAvailableCategories().get(i));
 			}
 
-			if (characterPlayer.isCategoryUseful(category)
-					|| i >= CategoryFactory.getAvailableCategories().size()) {
+			if (characterPlayer.isCategoryUseful(category) || i >= CategoryFactory.getAvailableCategories().size()) {
 
 				// Generamos una fila de Category.
 				if (i < CategoryFactory.getAvailableCategories().size()) {
@@ -193,8 +185,7 @@ public class PdfStandardSheet {
 				} else {
 					text = "_______________________";
 				}
-				Paragraph p = new Paragraph(text, FontFactory.getFont(font,
-						fontSize));
+				Paragraph p = new Paragraph(text, FontFactory.getFont(font, fontSize));
 				cell = new PdfPCell(p);
 				cell.setMinimumHeight(11 + (i - omitidas) % 2);
 				cell.setBorderWidth(0);
@@ -213,10 +204,8 @@ public class PdfStandardSheet {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 
-				if (characterPlayer != null
-						&& i < CategoryFactory.getAvailableCategories().size()) {
-					text = characterPlayer.getCategoryCost(category, 0)
-							.getCostTag();
+				if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
+					text = characterPlayer.getCategoryCost(category, 0).getCostTag();
 				} else {
 					text = "_________";
 				}
@@ -227,11 +216,9 @@ public class PdfStandardSheet {
 				table.addCell(cell);
 
 				if (i < CategoryFactory.getAvailableCategories().size()) {
-					if (category.getCategoryType()
-							.equals(CategoryType.STANDARD)) {
+					if (category.getCategoryType().equals(CategoryType.STANDARD)) {
 						if (characterPlayer != null) {
-							text = characterPlayer.getPreviousRanks(category)
-									+ "";
+							text = characterPlayer.getPreviousRanks(category) + "";
 						} else {
 							text = EMPTY_VALUE;
 						}
@@ -248,49 +235,34 @@ public class PdfStandardSheet {
 				table.addCell(cell);
 
 				if (i < CategoryFactory.getAvailableCategories().size()) {
-					if (category.getCategoryType()
-							.equals(CategoryType.STANDARD)) {
+					if (category.getCategoryType().equals(CategoryType.STANDARD)) {
 						Image image;
 						if (characterPlayer == null) {
-							image = Image.getInstance(RolemasterFolderStructure
-									.getSheetFolder()
-									+ File.separator
-									+ "cuadros"
-									+ File.separator
-									+ "cuadros0.png");
+							image = Image.getInstance(RolemasterFolderStructure.getSheetFolder() + File.separator
+									+ "cuadros" + File.separator + "cuadros0.png");
 							image.scalePercent(28);
 						} else {
-							image = getNewRanksImage(characterPlayer
-									.getCurrentLevelRanks(category));
+							image = getNewRanksImage(characterPlayer.getCurrentLevelRanks(category));
 						}
 						cell = new PdfPCell(image);
 					}
 
-					if (category.getCategoryType()
-							.equals(CategoryType.COMBINED)) {
+					if (category.getCategoryType().equals(CategoryType.COMBINED)) {
 						text = "*";
-						p = new Paragraph(text, FontFactory.getFont(font,
-								fontSize));
+						p = new Paragraph(text, FontFactory.getFont(font, fontSize));
 						cell = new PdfPCell(p);
 					}
 					if (category.getCategoryType().equals(CategoryType.LIMITED)
-							|| category.getCategoryType().equals(
-									CategoryType.SPECIAL)
-							|| category.getCategoryType().equals(
-									CategoryType.PPD)
-							|| category.getCategoryType().equals(
-									CategoryType.PD)) {
+							|| category.getCategoryType().equals(CategoryType.SPECIAL)
+							|| category.getCategoryType().equals(CategoryType.PPD)
+							|| category.getCategoryType().equals(CategoryType.PD)) {
 						text = "+";
-						p = new Paragraph(text, FontFactory.getFont(font,
-								fontSize));
+						p = new Paragraph(text, FontFactory.getFont(font, fontSize));
 						cell = new PdfPCell(p);
 					}
 				} else {
 					Image image;
-					image = Image.getInstance(RolemasterFolderStructure
-							.getSheetFolder()
-							+ File.separator
-							+ "cuadros"
+					image = Image.getInstance(RolemasterFolderStructure.getSheetFolder() + File.separator + "cuadros"
 							+ File.separator + "cuadros0.png");
 					image.scalePercent(28);
 					cell = new PdfPCell(image);
@@ -299,8 +271,7 @@ public class PdfStandardSheet {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 
-				if (characterPlayer != null
-						&& i < CategoryFactory.getAvailableCategories().size()) {
+				if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
 					text = characterPlayer.getRanksValue(category) + "";
 				} else {
 					text = EMPTY_VALUE;
@@ -311,9 +282,19 @@ public class PdfStandardSheet {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 
-				if (characterPlayer != null
-						&& i < CategoryFactory.getAvailableCategories().size()) {
-					text = characterPlayer.getCharacteristicsBonus(category)
+				if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
+					text = characterPlayer.getCharacteristicsBonus(category) + "";
+				} else {
+					text = EMPTY_VALUE;
+				}
+				p = new Paragraph(text, FontFactory.getFont(font, fontSize));
+				cell = new PdfPCell(p);
+				cell.setBorderWidth(0);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
+
+				if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
+					text = category.getBonus() + characterPlayer.getProfession().getCategoryBonus(category.getName())
 							+ "";
 				} else {
 					text = EMPTY_VALUE;
@@ -324,24 +305,9 @@ public class PdfStandardSheet {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 
-				if (characterPlayer != null
-						&& i < CategoryFactory.getAvailableCategories().size()) {
-					text = category.getBonus()
-							+ characterPlayer.getProfession().getCategoryBonus(
-									category.getName()) + "";
-				} else {
-					text = EMPTY_VALUE;
-				}
-				p = new Paragraph(text, FontFactory.getFont(font, fontSize));
-				cell = new PdfPCell(p);
-				cell.setBorderWidth(0);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
-
-				if (characterPlayer != null
-						&& i < CategoryFactory.getAvailableCategories().size()) {
-					text = (characterPlayer.getHistorial().getBonus(category) + characterPlayer
-							.getPerkBonus(category)) + "";
+				if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
+					text = (characterPlayer.getHistorial().getBonus(category) + characterPlayer.getPerkBonus(category))
+							+ "";
 					String letra = "";
 
 					if (characterPlayer.getHistorial().getBonus(category) > 0) {
@@ -368,8 +334,7 @@ public class PdfStandardSheet {
 				table.addCell(cell);
 
 				// Magic Items
-				if (characterPlayer != null
-						&& i < CategoryFactory.getAvailableCategories().size()) {
+				if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
 					text = characterPlayer.getItemBonus(category) + "";
 				} else {
 					text = EMPTY_VALUE;
@@ -380,8 +345,7 @@ public class PdfStandardSheet {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 
-				if (characterPlayer != null
-						&& i < CategoryFactory.getAvailableCategories().size()) {
+				if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
 					text = characterPlayer.getTotalValue(category) + "";
 				} else {
 					text = EMPTY_VALUE;
@@ -404,14 +368,11 @@ public class PdfStandardSheet {
 		cell.setVerticalAlignment(Element.ALIGN_BOTTOM);
 		table.addCell(cell);
 
-		table.writeSelectedRows(0, -1, 34,
-				document.getPageSize().getHeight() - 97,
-				writer.getDirectContent());
+		table.writeSelectedRows(0, -1, 34, document.getPageSize().getHeight() - 97, writer.getDirectContent());
 		table.flushContent();
 	}
 
-	private void addSkillNameTable(Document document, PdfWriter writer,
-			String font) {
+	private void addSkillNameTable(Document document, PdfWriter writer, String font) {
 		PdfPTable table = new PdfPTable(1);
 		table.getDefaultCell().setBorderWidth(0);
 		table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -420,8 +381,7 @@ public class PdfStandardSheet {
 
 		Paragraph p;
 		if (characterPlayer != null) {
-			p = new Paragraph(characterPlayer.getName(), FontFactory.getFont(
-					font, fontSize));
+			p = new Paragraph(characterPlayer.getName(), FontFactory.getFont(font, fontSize));
 		} else {
 			p = new Paragraph("", FontFactory.getFont(font, fontSize));
 		}
@@ -430,8 +390,7 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			p = new Paragraph(characterPlayer.getCurrentLevelNumber() + "",
-					FontFactory.getFont(font, fontSize));
+			p = new Paragraph(characterPlayer.getCurrentLevelNumber() + "", FontFactory.getFont(font, fontSize));
 		} else {
 			p = new Paragraph("", FontFactory.getFont(font, fontSize));
 		}
@@ -439,15 +398,12 @@ public class PdfStandardSheet {
 		cell.setBorderWidth(0);
 		table.addCell(cell);
 
-		table.writeSelectedRows(0, -1,
-				3 * document.getPageSize().getWidth() / 4 - 80, document
-						.getPageSize().getHeight() - 65, writer
-						.getDirectContent());
+		table.writeSelectedRows(0, -1, 3 * document.getPageSize().getWidth() / 4 - 80, document.getPageSize()
+				.getHeight() - 65, writer.getDirectContent());
 	}
 
-	private void addSkillLine(Skill skill, String font, int fontSize,
-			PdfPTable table, int line) throws BadElementException,
-			MalformedURLException, IOException {
+	private void addSkillLine(Skill skill, String font, int fontSize, PdfPTable table, int line)
+			throws BadElementException, MalformedURLException, IOException {
 		String text;
 		PdfPCell cell;
 
@@ -476,9 +432,7 @@ public class PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
-		cell = new PdfPCell(
-				getNewRanksImage(characterPlayer
-						.getCurrentLevelRanks(skill)));
+		cell = new PdfPCell(getNewRanksImage(characterPlayer.getCurrentLevelRanks(skill)));
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
@@ -520,10 +474,8 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			text = characterPlayer.getProfession().getSkillBonus(
-					skill.getName())
-					+ characterPlayer.getHistorial().getBonus(skill)
-					+ characterPlayer.getPerkBonus(skill) + "";
+			text = characterPlayer.getProfession().getSkillBonus(skill.getName())
+					+ characterPlayer.getHistorial().getBonus(skill) + characterPlayer.getPerkBonus(skill) + "";
 		} else {
 			text = "__";
 		}
@@ -554,12 +506,10 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			if (characterPlayer.getItemBonus(skill) > 0
-					|| characterPlayer.getConditionalPerkBonus(skill) > 0) {
-				text = characterPlayer.getTotalValue(skill)
-						- characterPlayer.getItemBonus(skill)
-						- characterPlayer.getConditionalPerkBonus(skill) + "/"
-						+ characterPlayer.getTotalValue(skill) + "";
+			if (characterPlayer.getItemBonus(skill) > 0 || characterPlayer.getConditionalPerkBonus(skill) > 0) {
+				text = characterPlayer.getTotalValue(skill) - characterPlayer.getItemBonus(skill)
+						- characterPlayer.getConditionalPerkBonus(skill) + "/" + characterPlayer.getTotalValue(skill)
+						+ "";
 			} else {
 				text = characterPlayer.getTotalValue(skill) + "";
 			}
@@ -573,17 +523,13 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 	}
 
-	private void addSpecializedSkillLine(Skill hab, String font, int fontSize,
-			PdfPTable table, int i, int specializedIndex)
-			throws BadElementException, MalformedURLException, IOException {
+	private void addSpecializedSkillLine(Skill hab, String font, int fontSize, PdfPTable table, int i,
+			int specializedIndex) throws BadElementException, MalformedURLException, IOException {
 		String texto;
 		PdfPCell cell;
 
 		if (characterPlayer != null) {
-			texto = hab.getName()
-					+ " ("
-					+ characterPlayer.getSkillSpecializations(hab).get(
-							specializedIndex) + ")";
+			texto = hab.getName() + " (" + characterPlayer.getSkillSpecializations(hab).get(specializedIndex) + ")";
 		} else {
 			texto = "___________________________________________";
 		}
@@ -604,8 +550,8 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 
 		Image image;
-		image = Image.getInstance(RolemasterFolderStructure.getSheetFolder()
-				+ File.separator + "cuadros" + File.separator + "cuadros0.png");
+		image = Image.getInstance(RolemasterFolderStructure.getSheetFolder() + File.separator + "cuadros"
+				+ File.separator + "cuadros0.png");
 
 		image.scalePercent(28);
 		cell = new PdfPCell(image);
@@ -650,10 +596,8 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			texto = characterPlayer.getProfession()
-					.getSkillBonus(hab.getName())
-					+ characterPlayer.getHistorial().getBonus(hab)
-					+ characterPlayer.getPerkBonus(hab) + "";
+			texto = characterPlayer.getProfession().getSkillBonus(hab.getName())
+					+ characterPlayer.getHistorial().getBonus(hab) + characterPlayer.getPerkBonus(hab) + "";
 		} else {
 			texto = "__";
 		}
@@ -686,10 +630,8 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			if (characterPlayer.getItemBonus(hab) > 0
-					|| characterPlayer.getConditionalPerkBonus(hab) > 0) {
-				texto = characterPlayer.getSpecializedTotalValue(hab)
-						- characterPlayer.getItemBonus(hab)
+			if (characterPlayer.getItemBonus(hab) > 0 || characterPlayer.getConditionalPerkBonus(hab) > 0) {
+				texto = characterPlayer.getSpecializedTotalValue(hab) - characterPlayer.getItemBonus(hab)
 						- characterPlayer.getConditionalPerkBonus(hab) + "/"
 						+ characterPlayer.getSpecializedTotalValue(hab) + "";
 			} else {
@@ -705,13 +647,10 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 	}
 
-	private void addEmptySkillLine(String font, int fontSize,
-			PdfPTable table, int i) throws BadElementException,
+	private void addEmptySkillLine(String font, int fontSize, PdfPTable table, int i) throws BadElementException,
 			MalformedURLException, IOException {
 		PdfPCell cell;
-		Paragraph p = new Paragraph(
-				"___________________________________________",
-				FontFactory.getFont(font, fontSize));
+		Paragraph p = new Paragraph("___________________________________________", FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setMinimumHeight(11 + i % 2);
 		cell.setBorderWidth(0);
@@ -726,30 +665,27 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 
 		Image image;
-		image = Image.getInstance(RolemasterFolderStructure.getSheetFolder()
-				+ File.separator + "cuadros" + File.separator + "cuadros0.png");
+		image = Image.getInstance(RolemasterFolderStructure.getSheetFolder() + File.separator + "cuadros"
+				+ File.separator + "cuadros0.png");
 		image.scalePercent(28);
 		cell = new PdfPCell(image);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
-		p = new Paragraph("   " + EMPTY_VALUE, FontFactory.getFont(font,
-				fontSize));
+		p = new Paragraph("   " + EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
-		p = new Paragraph("  " + EMPTY_VALUE, FontFactory.getFont(font,
-				fontSize));
+		p = new Paragraph("  " + EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
-		p = new Paragraph("  " + EMPTY_VALUE, FontFactory.getFont(font,
-				fontSize));
+		p = new Paragraph("  " + EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -774,10 +710,8 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 	}
 
-	protected void addNewSkillPage(PdfPTable table, Document document,
-			PdfWriter writer, String font, int fontSize)
-			throws BadElementException, DocumentException,
-			MalformedURLException, IOException, Exception {
+	protected void addNewSkillPage(PdfPTable table, Document document, PdfWriter writer, String font, int fontSize)
+			throws BadElementException, DocumentException, MalformedURLException, IOException {
 		PdfPCell cell;
 		// Cerramos pagina anterior.
 		cell = new PdfPCell(createSignature(font, fontSize));
@@ -787,9 +721,7 @@ public class PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		cell.setVerticalAlignment(Element.ALIGN_BOTTOM);
 		table.addCell(cell);
-		table.writeSelectedRows(0, -1, 34,
-				document.getPageSize().getHeight() - 129,
-				writer.getDirectContent());
+		table.writeSelectedRows(0, -1, 34, document.getPageSize().getHeight() - 129, writer.getDirectContent());
 		table.flushContent();
 		// Generamos el reverso en blanco.
 		if (twoFaced) {
@@ -797,14 +729,12 @@ public class PdfStandardSheet {
 		}
 		// Generamos una nueva.
 		document.newPage();
-		createBackgroundImage(document, RolemasterFolderStructure.getSheetFolder()
-				+ File.separator + "RMHP3.png");
+		createBackgroundImage(document, RolemasterFolderStructure.getSheetFolder() + File.separator + "RMHP3.png");
 	}
 
-	private int newSkill(PdfPTable table, Document document, PdfWriter writer,
-			String font, int fontsize, float[] widths, List<Skill> skills,
-			int alreadyAddedSkills) throws DocumentException,
-			MalformedURLException, IOException, Exception {
+	private int newSkill(PdfPTable table, Document document, PdfWriter writer, String font, int fontsize,
+			float[] widths, List<Skill> skills, int alreadyAddedSkills) throws DocumentException,
+			MalformedURLException, IOException {
 
 		for (int j = 0; j < skills.size(); j++) {
 			Skill skill = skills.get(j);
@@ -812,8 +742,7 @@ public class PdfStandardSheet {
 				addNewSkillPage(table, document, writer, font, fontsize);
 				table.flushContent();
 				table.getDefaultCell().setBorderWidth(0);
-				table.getDefaultCell().setHorizontalAlignment(
-						Element.ALIGN_CENTER);
+				table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.setTotalWidth(document.getPageSize().getWidth() - 65);
 				alreadyAddedSkills = 0;
 			}
@@ -821,16 +750,13 @@ public class PdfStandardSheet {
 			if (characterPlayer.isSkillInteresting(skill)) {
 				alreadyAddedSkills++;
 				addSkillLine(skill, font, fontsize, table, alreadyAddedSkills);
-				for (int m = 0; m < characterPlayer.getSkillSpecializations(
-						skill).size(); m++) {
-					addSpecializedSkillLine(skill, font, fontsize, table,
-							alreadyAddedSkills, m);
+				for (int m = 0; m < characterPlayer.getSkillSpecializations(skill).size(); m++) {
+					addSpecializedSkillLine(skill, font, fontsize, table, alreadyAddedSkills, m);
 					if (alreadyAddedSkills > 56) {
 						addNewSkillPage(table, document, writer, font, fontsize);
 						table.flushContent();
 						table.getDefaultCell().setBorderWidth(0);
-						table.getDefaultCell().setHorizontalAlignment(
-								Element.ALIGN_CENTER);
+						table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 						table.setTotalWidth(document.getPageSize().getWidth() - 65);
 						alreadyAddedSkills = 0;
 					}
@@ -841,11 +767,9 @@ public class PdfStandardSheet {
 		return alreadyAddedSkills;
 	}
 
-	private void addSkillTable(Document document, PdfWriter writer, String font)
-			throws DocumentException, MalformedURLException, IOException,
-			Exception {
-		float[] widths = { 0.36f, 0.07f, 0.085f, 0.065f, 0.065f, 0.065f,
-				0.065f, 0.065f, 0.065f };
+	private void addSkillTable(Document document, PdfWriter writer, String font) throws DocumentException,
+			MalformedURLException, IOException {
+		float[] widths = { 0.36f, 0.07f, 0.085f, 0.065f, 0.065f, 0.065f, 0.065f, 0.065f, 0.065f };
 		PdfPTable table = new PdfPTable(widths);
 		table.getDefaultCell().setBorderWidth(0);
 		table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -858,19 +782,15 @@ public class PdfStandardSheet {
 		if (characterPlayer != null) {
 			// Add skills and add lines for new ones.
 			if (!sortedSkills) {
-				for (int i = 0; i < CategoryFactory.getAvailableCategories()
-						.size(); i++) {
-					Category category = CategoryFactory
-							.getCategory(CategoryFactory
-									.getAvailableCategories().get(i));
-					skillLines = newSkill(table, document, writer, font,
-							fontsize, widths, category.getSkills(), skillLines);
+				for (int i = 0; i < CategoryFactory.getAvailableCategories().size(); i++) {
+					Category category = CategoryFactory.getCategory(CategoryFactory.getAvailableCategories().get(i));
+					skillLines = newSkill(table, document, writer, font, fontsize, widths, category.getSkills(),
+							skillLines);
 				}
 				// Add skills sorted
 			} else {
 				List<Skill> sortedSkills = SkillFactory.getSkills();
-				skillLines = newSkill(table, document, writer, font, fontsize,
-						widths, sortedSkills, skillLines);
+				skillLines = newSkill(table, document, writer, font, fontsize, widths, sortedSkills, skillLines);
 			}
 		}
 		while (skillLines < 57) {
@@ -886,43 +806,36 @@ public class PdfStandardSheet {
 		cell.setVerticalAlignment(Element.ALIGN_BOTTOM);
 		table.addCell(cell);
 
-		table.writeSelectedRows(0, -1, 34,
-				document.getPageSize().getHeight() - 129,
-				writer.getDirectContent());
+		table.writeSelectedRows(0, -1, 34, document.getPageSize().getHeight() - 129, writer.getDirectContent());
 		table.flushContent();
 	}
 
-	private void skillPage(Document document, PdfWriter writer,
-			String font) throws Exception {
+	private void skillPage(Document document, PdfWriter writer, String font) throws BadElementException,
+			MalformedURLException, DocumentException, IOException {
 		document.newPage();
-		createBackgroundImage(document, RolemasterFolderStructure.getSheetFolder()
-				+ File.separator + "RMHP3.png");
+		createBackgroundImage(document, RolemasterFolderStructure.getSheetFolder() + File.separator + "RMHP3.png");
 		addSkillNameTable(document, writer, font);
 		addSkillTable(document, writer, font);
 	}
 
-	private void categoriesPage(Document document, PdfWriter writer,
-			String font) throws Exception {
+	private void categoriesPage(Document document, PdfWriter writer, String font) throws BadElementException,
+			MalformedURLException, DocumentException, IOException {
 		document.newPage();
-		createBackgroundImage(document, RolemasterFolderStructure.getSheetFolder()
-				+ File.separator + "RMHP2.png");
+		createBackgroundImage(document, RolemasterFolderStructure.getSheetFolder() + File.separator + "RMHP2.png");
 		addCategoryTable(document, writer, font);
 		addCategoryValuesTable(document, writer, font);
 		// El reverso en blanco para no desentonar.
 		// if(twoFaced) PersonajePaginaVacia(document, writer, font);
 	}
 
-	private PdfPTable createMainHeader(String font,
-			int fontSize) {
+	private PdfPTable createMainHeader(String font, int fontSize) {
 		PdfPCell cell;
 		Paragraph p;
 		float[] widths = { 0.26f, 0.23f, 0.51f };
 		PdfPTable table = new PdfPTable(widths);
 
 		if (characterPlayer != null) {
-			p = new Paragraph(
-					Experience.getMinExperienceForLevel(characterPlayer
-							.getCurrentLevelNumber()) + "",
+			p = new Paragraph(Experience.getMinExperienceForLevel(characterPlayer.getCurrentLevelNumber()) + "",
 					FontFactory.getFont(font, fontSize + 2));
 		} else {
 			p = new Paragraph("", FontFactory.getFont(font, fontSize + 2));
@@ -935,8 +848,7 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			p = new Paragraph(characterPlayer.getCurrentLevelNumber() + "",
-					FontFactory.getFont(font, fontSize + 2));
+			p = new Paragraph(characterPlayer.getCurrentLevelNumber() + "", FontFactory.getFont(font, fontSize + 2));
 		} else {
 			p = new Paragraph("", FontFactory.getFont(font, fontSize + 2));
 		}
@@ -948,8 +860,7 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			p = new Paragraph(characterPlayer.getName(), FontFactory.getFont(
-					font, fontSize));
+			p = new Paragraph(characterPlayer.getName(), FontFactory.getFont(font, fontSize));
 		} else {
 			p = new Paragraph("", FontFactory.getFont(font, fontSize + 2));
 		}
@@ -980,8 +891,7 @@ public class PdfStandardSheet {
 		if (characterPlayer != null) {
 			p = new Paragraph(tr + "", FontFactory.getFont(font, fontSize));
 		} else {
-			p = new Paragraph(" " + EMPTY_VALUE, FontFactory.getFont(font,
-					fontSize));
+			p = new Paragraph(" " + EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		}
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
@@ -989,12 +899,10 @@ public class PdfStandardSheet {
 		tablaResistencia.addCell(cell);
 
 		if (characterPlayer != null) {
-			p = new Paragraph(
-					characterPlayer.getCharacteristicTotalBonus(characteristicAbbreviature)
-							* 3 + "", FontFactory.getFont(font, fontSize));
+			p = new Paragraph(characterPlayer.getCharacteristicTotalBonus(characteristicAbbreviature) * 3 + "",
+					FontFactory.getFont(font, fontSize));
 		} else {
-			p = new Paragraph(" " + EMPTY_VALUE, FontFactory.getFont(font,
-					fontSize));
+			p = new Paragraph(" " + EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		}
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
@@ -1008,9 +916,8 @@ public class PdfStandardSheet {
 		tablaResistencia.addCell(cell);
 
 		if (characterPlayer != null) {
-			p = new Paragraph(
-					(characterPlayer.getCharacteristicTotalBonus(characteristicAbbreviature) * 3 + tr)
-							+ "    ", FontFactory.getFont(font, fontSize));
+			p = new Paragraph((characterPlayer.getCharacteristicTotalBonus(characteristicAbbreviature) * 3 + tr)
+					+ "    ", FontFactory.getFont(font, fontSize));
 		} else {
 			p = new Paragraph(EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		}
@@ -1037,12 +944,10 @@ public class PdfStandardSheet {
 
 		if (characterPlayer != null) {
 			cell = new PdfPCell(createResistenceTable(font, fontSize,
-					characterPlayer
-							.getResistanceBonus(ResistanceType.CANALIZATION),
+					characterPlayer.getResistanceBonus(ResistanceType.CANALIZATION),
 					CharacteristicsAbbreviature.INTUITION));
 		} else {
-			cell = new PdfPCell(createResistenceTable(font, fontSize, 0,
-					CharacteristicsAbbreviature.NULL));
+			cell = new PdfPCell(createResistenceTable(font, fontSize, 0, CharacteristicsAbbreviature.NULL));
 		}
 		cell.setBorderWidth(0);
 		cell.setMinimumHeight(10);
@@ -1051,11 +956,9 @@ public class PdfStandardSheet {
 
 		if (characterPlayer != null) {
 			cell = new PdfPCell(createResistenceTable(font, fontSize,
-					characterPlayer.getResistanceBonus(ResistanceType.ESSENCE),
-					CharacteristicsAbbreviature.EMPATHY));
+					characterPlayer.getResistanceBonus(ResistanceType.ESSENCE), CharacteristicsAbbreviature.EMPATHY));
 		} else {
-			cell = new PdfPCell(createResistenceTable(font, fontSize, 0,
-					CharacteristicsAbbreviature.NULL));
+			cell = new PdfPCell(createResistenceTable(font, fontSize, 0, CharacteristicsAbbreviature.NULL));
 		}
 		cell.setBorderWidth(0);
 		cell.setMinimumHeight(11);
@@ -1063,9 +966,8 @@ public class PdfStandardSheet {
 		tablaResistencias.addCell(cell);
 
 		if (characterPlayer != null) {
-			cell = new PdfPCell(
-					createResistenceTable(font, fontSize, characterPlayer
-							.getResistanceBonus(ResistanceType.MENTALISM), CharacteristicsAbbreviature.PRESENCE));
+			cell = new PdfPCell(createResistenceTable(font, fontSize,
+					characterPlayer.getResistanceBonus(ResistanceType.MENTALISM), CharacteristicsAbbreviature.PRESENCE));
 		} else {
 			cell = new PdfPCell(createResistenceTable(font, fontSize, 0, CharacteristicsAbbreviature.NULL));
 		}
@@ -1087,9 +989,9 @@ public class PdfStandardSheet {
 		tablaResistencias.addCell(cell);
 
 		if (characterPlayer != null) {
-			cell = new PdfPCell(createResistenceTable(font, fontSize,
-					characterPlayer.getResistanceBonus(ResistanceType.POISON),
-					CharacteristicsAbbreviature.CONSTITUTION));
+			cell = new PdfPCell(
+					createResistenceTable(font, fontSize, characterPlayer.getResistanceBonus(ResistanceType.POISON),
+							CharacteristicsAbbreviature.CONSTITUTION));
 		} else {
 			cell = new PdfPCell(createResistenceTable(font, fontSize, 0, CharacteristicsAbbreviature.NULL));
 		}
@@ -1099,9 +1001,9 @@ public class PdfStandardSheet {
 		tablaResistencias.addCell(cell);
 
 		if (characterPlayer != null) {
-			cell = new PdfPCell(createResistenceTable(font, fontSize,
-					characterPlayer.getResistanceBonus(ResistanceType.FEAR),
-					CharacteristicsAbbreviature.SELFDISCIPLINE));
+			cell = new PdfPCell(
+					createResistenceTable(font, fontSize, characterPlayer.getResistanceBonus(ResistanceType.FEAR),
+							CharacteristicsAbbreviature.SELFDISCIPLINE));
 		} else {
 			cell = new PdfPCell(createResistenceTable(font, fontSize, 0, CharacteristicsAbbreviature.NULL));
 		}
@@ -1119,8 +1021,7 @@ public class PdfStandardSheet {
 		PdfPTable tablaResistencias = new PdfPTable(1);
 
 		if (characterPlayer != null) {
-			p = new Paragraph(characterPlayer.getDefensiveBonus() + "    ",
-					FontFactory.getFont(font, fontSize));
+			p = new Paragraph(characterPlayer.getDefensiveBonus() + "    ", FontFactory.getFont(font, fontSize));
 		} else {
 			p = new Paragraph("_________", FontFactory.getFont(font, fontSize));
 		}
@@ -1148,8 +1049,7 @@ public class PdfStandardSheet {
 		tablaRaza.addCell(cell);
 
 		if (characterPlayer != null) {
-			p = new Paragraph(characterPlayer.getRace().getSoulDepartTime()
-					+ "", FontFactory.getFont(font, fontSize));
+			p = new Paragraph(characterPlayer.getRace().getSoulDepartTime() + "", FontFactory.getFont(font, fontSize));
 		} else {
 			p = new Paragraph(EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		}
@@ -1161,11 +1061,10 @@ public class PdfStandardSheet {
 		tablaRaza.addCell(cell);
 
 		if (characterPlayer != null) {
-			p = new Paragraph(characterPlayer.getRace().getRestorationTime()
-					+ "   ", FontFactory.getFont(font, fontSize));
+			p = new Paragraph(characterPlayer.getRace().getRestorationTime() + "   ", FontFactory.getFont(font,
+					fontSize));
 		} else {
-			p = new Paragraph(EMPTY_VALUE + "             ",
-					FontFactory.getFont(font, fontSize));
+			p = new Paragraph(EMPTY_VALUE + "             ", FontFactory.getFont(font, fontSize));
 		}
 		cell = new PdfPCell(p);
 		cell.setColspan(2);
@@ -1176,10 +1075,8 @@ public class PdfStandardSheet {
 		tablaRaza.addCell(cell);
 
 		if (characterPlayer != null) {
-			p = new Paragraph(characterPlayer.getRace()
-					.getProgressionRankValuesAsString(
-							ProgressionCostType.PHYSICAL_DEVELOPMENT),
-					FontFactory.getFont(font, fontSize + 2));
+			p = new Paragraph(characterPlayer.getRace().getProgressionRankValuesAsString(
+					ProgressionCostType.PHYSICAL_DEVELOPMENT), FontFactory.getFont(font, fontSize + 2));
 		} else {
 			p = new Paragraph("   ", FontFactory.getFont(font, fontSize + 2));
 		}
@@ -1192,9 +1089,7 @@ public class PdfStandardSheet {
 		tablaRaza.addCell(cell);
 
 		if (characterPlayer != null) {
-			p = new Paragraph(
-					Race.getProgressionRankValuesAsString(characterPlayer
-							.getPowerPointsDevelopmentCost()),
+			p = new Paragraph(Race.getProgressionRankValuesAsString(characterPlayer.getPowerPointsDevelopmentCost()),
 					FontFactory.getFont(font, fontSize + 2));
 		} else {
 			p = new Paragraph("   ", FontFactory.getFont(font, fontSize + 2));
@@ -1305,10 +1200,8 @@ public class PdfStandardSheet {
 
 		String linea = "______________________________";
 		if (characterPlayer != null) {
-			texto = characterPlayer.getCulture().getName()
-					+ "  "
-					+ linea.substring(characterPlayer.getCulture().getName()
-							.length());
+			texto = characterPlayer.getCulture().getName() + "  "
+					+ linea.substring(characterPlayer.getCulture().getName().length());
 		} else {
 			texto = linea;
 		}
@@ -1385,8 +1278,7 @@ public class PdfStandardSheet {
 
 		if (characterPlayer != null) {
 			texto = "";
-			for (RealmOfMagic realm : characterPlayer.getRealmOfMagic()
-					.getRealmsOfMagic()) {
+			for (RealmOfMagic realm : characterPlayer.getRealmOfMagic().getRealmsOfMagic()) {
 				if (texto.length() > 0) {
 					texto += "/";
 				}
@@ -1446,8 +1338,7 @@ public class PdfStandardSheet {
 		return tabla;
 	}
 
-	private PdfPTable createMainPageLeftFrame(String font,
-			int fontSize) {
+	private PdfPTable createMainPageLeftFrame(String font, int fontSize) {
 		PdfPCell cell;
 		PdfPTable tablaIzquierda = new PdfPTable(1);
 
@@ -1496,8 +1387,7 @@ public class PdfStandardSheet {
 		return tablaIzquierda;
 	}
 
-	private PdfPTable createRuneTable(String font,
-			int fontSize) {
+	private PdfPTable createRuneTable(String font, int fontSize) {
 		float[] widths = { 0.79f, 0.21f };
 		PdfPTable tablaMarco = new PdfPTable(widths);
 		Paragraph p;
@@ -1518,8 +1408,7 @@ public class PdfStandardSheet {
 	}
 
 	private PdfPTable createCharacteristicsTable(String font, int fontSize) {
-		List<Characteristic> characteristics = Characteristics
-				.getCharacteristics();
+		List<Characteristic> characteristics = Characteristics.getCharacteristics();
 		float[] widths = { 0.30f, 0.10f, 0.10f, 0.10f, 0.10f, 0.10f, 0.20f };
 		PdfPTable tablaCaracteristicas = new PdfPTable(widths);
 		Paragraph p;
@@ -1542,13 +1431,10 @@ public class PdfStandardSheet {
 			tablaCaracteristicas.addCell(cell);
 
 			if (characterPlayer != null) {
-				p = new Paragraph(
-						characterPlayer.getCharacteristicTemporalValue(characteristics
-								.get(i).getAbbreviature())
-								+ "", FontFactory.getFont(font, fontSize));
+				p = new Paragraph(characterPlayer.getCharacteristicTemporalValue(characteristics.get(i)
+						.getAbbreviature()) + "", FontFactory.getFont(font, fontSize));
 			} else {
-				p = new Paragraph("  " + EMPTY_VALUE, FontFactory.getFont(font,
-						fontSize));
+				p = new Paragraph("  " + EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 			}
 			cell = new PdfPCell(p);
 			cell.setBorderWidth(0);
@@ -1556,13 +1442,11 @@ public class PdfStandardSheet {
 			tablaCaracteristicas.addCell(cell);
 
 			if (characterPlayer != null) {
-				p = new Paragraph(characterPlayer
-						.getCharacteristicPotencialValue().get(
-								characteristics.get(i).getAbbreviature())
+				p = new Paragraph(characterPlayer.getCharacteristicPotencialValue().get(
+						characteristics.get(i).getAbbreviature())
 						+ "", FontFactory.getFont(font, fontSize));
 			} else {
-				p = new Paragraph("  " + EMPTY_VALUE, FontFactory.getFont(font,
-						fontSize));
+				p = new Paragraph("  " + EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 			}
 			cell = new PdfPCell(p);
 			cell.setBorderWidth(0);
@@ -1570,13 +1454,10 @@ public class PdfStandardSheet {
 			tablaCaracteristicas.addCell(cell);
 
 			if (characterPlayer != null) {
-				p = new Paragraph(
-						characterPlayer.getCharacteristicTemporalBonus(characteristics
-								.get(i).getAbbreviature())
-								+ "", FontFactory.getFont(font, fontSize));
+				p = new Paragraph(characterPlayer.getCharacteristicTemporalBonus(characteristics.get(i)
+						.getAbbreviature()) + "", FontFactory.getFont(font, fontSize));
 			} else {
-				p = new Paragraph("  " + EMPTY_VALUE, FontFactory.getFont(font,
-						fontSize));
+				p = new Paragraph("  " + EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 			}
 			cell = new PdfPCell(p);
 			cell.setBorderWidth(0);
@@ -1584,13 +1465,10 @@ public class PdfStandardSheet {
 			tablaCaracteristicas.addCell(cell);
 
 			if (characterPlayer != null) {
-				p = new Paragraph(
-						characterPlayer.getCharacteristicRaceBonus(characteristics
-								.get(i).getAbbreviature())
-								+ "", FontFactory.getFont(font, fontSize));
+				p = new Paragraph(characterPlayer.getCharacteristicRaceBonus(characteristics.get(i).getAbbreviature())
+						+ "", FontFactory.getFont(font, fontSize));
 			} else {
-				p = new Paragraph("  " + EMPTY_VALUE, FontFactory.getFont(font,
-						fontSize));
+				p = new Paragraph("  " + EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 			}
 			cell = new PdfPCell(p);
 			cell.setBorderWidth(0);
@@ -1598,14 +1476,11 @@ public class PdfStandardSheet {
 			tablaCaracteristicas.addCell(cell);
 
 			if (characterPlayer != null) {
-				p = new Paragraph(
-						"    "
-								+ characterPlayer.getCharacteristicSpecialBonus(characteristics
-										.get(i).getAbbreviature()),
+				p = new Paragraph("    "
+						+ characterPlayer.getCharacteristicSpecialBonus(characteristics.get(i).getAbbreviature()),
 						FontFactory.getFont(font, fontSize));
 			} else {
-				p = new Paragraph("    " + EMPTY_VALUE, FontFactory.getFont(
-						font, fontSize));
+				p = new Paragraph("    " + EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 			}
 			cell = new PdfPCell(p);
 			cell.setBorderWidth(0);
@@ -1613,10 +1488,8 @@ public class PdfStandardSheet {
 			tablaCaracteristicas.addCell(cell);
 
 			if (characterPlayer != null) {
-				p = new Paragraph(
-						characterPlayer.getCharacteristicTotalBonus(characteristics
-								.get(i).getAbbreviature())
-								+ "", FontFactory.getFont(font, fontSize));
+				p = new Paragraph(characterPlayer.getCharacteristicTotalBonus(characteristics.get(i).getAbbreviature())
+						+ "", FontFactory.getFont(font, fontSize));
 			} else {
 				p = new Paragraph("", FontFactory.getFont(font, fontSize));
 			}
@@ -1655,9 +1528,8 @@ public class PdfStandardSheet {
 		tabla.addCell(cell);
 
 		if (characterPlayer != null) {
-			p = new Paragraph(characterPlayer.getTotalValue(SkillFactory
-					.getSkill(Spanish.PHISICAL_DEVELOPMENT_SKILL)) + "",
-					FontFactory.getFont(font, fontSize + 3));
+			p = new Paragraph(characterPlayer.getTotalValue(SkillFactory.getSkill(Spanish.PHISICAL_DEVELOPMENT_SKILL))
+					+ "", FontFactory.getFont(font, fontSize + 3));
 		} else {
 			p = new Paragraph("", FontFactory.getFont(font, fontSize + 3));
 		}
@@ -1673,8 +1545,7 @@ public class PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		tabla.addCell(cell);
 		if (characterPlayer != null) {
-			p = new Paragraph(characterPlayer.getPowerPoints() + "",
-					FontFactory.getFont(font, fontSize + 3));
+			p = new Paragraph(characterPlayer.getPowerPoints() + "", FontFactory.getFont(font, fontSize + 3));
 		} else {
 			p = new Paragraph("", FontFactory.getFont(font, fontSize + 3));
 		}
@@ -1692,8 +1563,7 @@ public class PdfStandardSheet {
 		tabla.addCell(cell);
 
 		if (characterPlayer != null) {
-			int value = characterPlayer
-					.getCharacteristicTotalBonus(CharacteristicsAbbreviature.CONSTITUTION) / 2;
+			int value = characterPlayer.getCharacteristicTotalBonus(CharacteristicsAbbreviature.CONSTITUTION) / 2;
 			if (value < 0) {
 				value = 0;
 			}
@@ -1731,11 +1601,9 @@ public class PdfStandardSheet {
 		tabla.addCell(cell);
 
 		if (characterPlayer != null) {
-			int puntos = Math
-					.min(characterPlayer
-							.getCharacteristicTotalBonus(CharacteristicsAbbreviature.CONSTITUTION) * 2,
-							characterPlayer.getTotalValue(SkillFactory
-									.getSkill(Spanish.PHISICAL_DEVELOPMENT_SKILL)));
+			int puntos = Math.min(
+					characterPlayer.getCharacteristicTotalBonus(CharacteristicsAbbreviature.CONSTITUTION) * 2,
+					characterPlayer.getTotalValue(SkillFactory.getSkill(Spanish.PHISICAL_DEVELOPMENT_SKILL)));
 			if (puntos < 1) {
 				puntos = 1;
 			}
@@ -1780,10 +1648,8 @@ public class PdfStandardSheet {
 		Paragraph p;
 		PdfPCell cell;
 
-		p = new Paragraph(
-				"Generado con El Libro de Esher, herramienta para Rolemaster V"
-						+ characterPlayer.getVersion() + "",
-				FontFactory.getFont(font, fontSize));
+		p = new Paragraph("Generado con El Libro de Esher, herramienta para Rolemaster V"
+				+ characterPlayer.getVersion() + "", FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -1793,8 +1659,7 @@ public class PdfStandardSheet {
 		return tabla;
 	}
 
-	private PdfPTable createMainPageRightFrame(String font,
-			int fontSize) {
+	private PdfPTable createMainPageRightFrame(String font, int fontSize) {
 		PdfPCell cell;
 		Paragraph p;
 		PdfPTable tablaDerecha = new PdfPTable(1);
@@ -1835,13 +1700,11 @@ public class PdfStandardSheet {
 		return tablaDerecha;
 	}
 
-	private void addMainTable(Document document, PdfWriter writer,
-			String font, int fontSize) {
+	private void addMainTable(Document document, PdfWriter writer, String font, int fontSize) {
 		PdfPCell cell;
 		float[] widths = { 0.295f, 0.605f };
 		PdfPTable table = new PdfPTable(widths);
-		table.getDefaultCell().setHorizontalAlignment(
-				Element.ALIGN_CENTER);
+		table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.setTotalWidth(document.getPageSize().getWidth() - 60);
 
 		cell = new PdfPCell(createMainHeader(font, fontSize));
@@ -1851,15 +1714,13 @@ public class PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 		table.addCell(cell);
 
-		cell = new PdfPCell(createMainPageLeftFrame(font,
-				fontSize));
+		cell = new PdfPCell(createMainPageLeftFrame(font, fontSize));
 		cell.setBorderWidth(0);
 		cell.setMinimumHeight(document.getPageSize().getHeight() - 145);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
-		cell = new PdfPCell(createMainPageRightFrame(font,
-				fontSize));
+		cell = new PdfPCell(createMainPageRightFrame(font, fontSize));
 		cell.setBorderWidth(0);
 		cell.setMinimumHeight(document.getPageSize().getHeight() - 145);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -1873,16 +1734,14 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 
 		// PdfPCell celda = new PdfPCell();
-		table.writeSelectedRows(0, -1, 30, document.getPageSize()
-				.getHeight() - 37, writer.getDirectContent());
+		table.writeSelectedRows(0, -1, 30, document.getPageSize().getHeight() - 37, writer.getDirectContent());
 		table.flushContent();
 	}
 
-	void characteristicsPage(Document document, PdfWriter writer, String font)
-			throws Exception {
+	void characteristicsPage(Document document, PdfWriter writer, String font) throws BadElementException,
+			MalformedURLException, DocumentException, IOException {
 		int fontSize = 7;
-		createBackgroundImage(document, RolemasterFolderStructure.getSheetFolder()
-				+ File.separator + "RMHP1.png");
+		createBackgroundImage(document, RolemasterFolderStructure.getSheetFolder() + File.separator + "RMHP1.png");
 		addMainTable(document, writer, font, fontSize);
 	}
 
@@ -1898,19 +1757,16 @@ public class PdfStandardSheet {
 		return ExportToText.exportItems(characterPlayer);
 	}
 
-	private void addSpecialText(Document document, PdfWriter writer,
-			String font, int fontSize) {
+	private void addSpecialText(Document document, PdfWriter writer, String font, int fontSize) {
 		PdfPCell cell;
 		Paragraph p;
 
 		float[] widths = { 1 };
 		PdfPTable tablaPagina = new PdfPTable(widths);
-		tablaPagina.getDefaultCell().setHorizontalAlignment(
-				Element.ALIGN_CENTER);
+		tablaPagina.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 		tablaPagina.setTotalWidth(document.getPageSize().getWidth() - 60);
 
-		String texto = exportPerks() + "\n\n" + exportSpecials()
-				+ "\n" + exportItems();
+		String texto = exportPerks() + "\n\n" + exportSpecials() + "\n" + exportItems();
 		p = new Paragraph(texto, FontFactory.getFont(font, fontSize - 1));
 
 		cell = new PdfPCell(p);
@@ -1926,20 +1782,17 @@ public class PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		tablaPagina.addCell(cell);
 
-		tablaPagina.writeSelectedRows(0, -1, 30, document.getPageSize()
-				.getHeight() - 37, writer.getDirectContent());
+		tablaPagina.writeSelectedRows(0, -1, 30, document.getPageSize().getHeight() - 37, writer.getDirectContent());
 		tablaPagina.flushContent();
 	}
 
-	private void addEmptyText(Document document, PdfWriter writer,
-			String font, int fontSize) {
+	private void addEmptyText(Document document, PdfWriter writer, String font, int fontSize) {
 		PdfPCell cell;
 		Paragraph p;
 
 		float[] widths = { 1 };
 		PdfPTable tablaPagina = new PdfPTable(widths);
-		tablaPagina.getDefaultCell().setHorizontalAlignment(
-				Element.ALIGN_CENTER);
+		tablaPagina.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 		tablaPagina.setTotalWidth(document.getPageSize().getWidth() - 60);
 
 		p = new Paragraph("", FontFactory.getFont(font, fontSize));
@@ -1957,55 +1810,39 @@ public class PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		tablaPagina.addCell(cell);
 
-		tablaPagina.writeSelectedRows(0, -1, 30, document.getPageSize()
-				.getHeight() - 37, writer.getDirectContent());
+		tablaPagina.writeSelectedRows(0, -1, 30, document.getPageSize().getHeight() - 37, writer.getDirectContent());
 		tablaPagina.flushContent();
 	}
 
-	void equipmentPage(Document document, PdfWriter writer, String font)
-			throws Exception {
+	void equipmentPage(Document document, PdfWriter writer, String font) {
 		int fontSize = 9;
 		document.newPage();
 		addSpecialText(document, writer, font, fontSize);
 	}
 
-	private void whitePage(Document document, PdfWriter writer,
-			String font) throws Exception {
+	private void whitePage(Document document, PdfWriter writer, String font) {
 		int fontSize = 9;
 		document.newPage();
 		addEmptyText(document, writer, font, fontSize);
 	}
 
-	protected Image getNewRanksImage(int ranks)
-			throws BadElementException, MalformedURLException, IOException {
+	protected Image getNewRanksImage(int ranks) throws BadElementException, MalformedURLException, IOException {
 		Image image;
 		switch (ranks) {
 		case 1:
-			image = Image.getInstance(RolemasterFolderStructure
-					.getSheetFolder()
-					+ File.separator
-					+ "cuadros"
+			image = Image.getInstance(RolemasterFolderStructure.getSheetFolder() + File.separator + "cuadros"
 					+ File.separator + "cuadros1.png");
 			break;
 		case 2:
-			image = Image.getInstance(RolemasterFolderStructure
-					.getSheetFolder()
-					+ File.separator
-					+ "cuadros"
+			image = Image.getInstance(RolemasterFolderStructure.getSheetFolder() + File.separator + "cuadros"
 					+ File.separator + "cuadros2.png");
 			break;
 		case 3:
-			image = Image.getInstance(RolemasterFolderStructure
-					.getSheetFolder()
-					+ File.separator
-					+ "cuadros"
+			image = Image.getInstance(RolemasterFolderStructure.getSheetFolder() + File.separator + "cuadros"
 					+ File.separator + "cuadros3.png");
 			break;
 		default:
-			image = Image.getInstance(RolemasterFolderStructure
-					.getSheetFolder()
-					+ File.separator
-					+ "cuadros"
+			image = Image.getInstance(RolemasterFolderStructure.getSheetFolder() + File.separator + "cuadros"
 					+ File.separator + "cuadros0.png");
 		}
 		image.scalePercent(28);

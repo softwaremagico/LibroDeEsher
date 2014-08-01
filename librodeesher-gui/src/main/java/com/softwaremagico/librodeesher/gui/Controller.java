@@ -26,12 +26,14 @@ package com.softwaremagico.librodeesher.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 
+import com.itextpdf.text.DocumentException;
 import com.softwaremagico.files.MessageManager;
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicsWindow;
 import com.softwaremagico.librodeesher.gui.culture.CultureWindow;
@@ -157,9 +159,9 @@ public class Controller {
 					try {
 						new PdfStandardSheet(selectedCharacter, path, sortSkills);
 						MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.", "PDF");
-					} catch (Exception e1) {
+					} catch (DocumentException | IOException ex) {
 						MessageManager.basicErrorMessage(Controller.class.getName(), "Error al crear el PDF.", "PDF");
-						e1.printStackTrace();
+						ex.printStackTrace();
 					}
 				}
 			});
@@ -175,9 +177,9 @@ public class Controller {
 			try {
 				new PdfCombinedSheet(selectedCharacter, path);
 				MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.", "PDF");
-			} catch (Exception e1) {
+			} catch (DocumentException | IOException ex) {
 				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al crear el PDF.", "PDF");
-				e1.printStackTrace();
+				ex.printStackTrace();
 			}
 		}
 	}
