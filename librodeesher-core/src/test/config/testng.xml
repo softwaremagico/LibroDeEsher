@@ -2,12 +2,14 @@
 <suite thread-count="1" verbose="1" name="LibroDeEsher">
 	<test name="CharacterCrud" enabled="true" preserve-order="true">
 		<groups>
-			<run>
+			<run>				
+				<include name="characterCreation" />
 				<include name="characterStorage" />
+				<include name="characterPdf" />
 			</run>
 		</groups>
 		<classes>
-			<class name="com.softwaremagico.persistence.dao.CharacterStorage" />
+			<class name="com.softwaremagico.librodeesher.pj.CharacterCreationTest" />
 		</classes>
 	</test>
 </suite>
