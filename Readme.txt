@@ -1,10 +1,11 @@
 Introducción
 -----------
-"Quien posea el poder de invocar toda clase de criaturas inimagiables, tiene el mismo poder que un dios."
+Los latidos de su corazón retumbaban en sus oídos mientras corría a través de los largos corredores. "Pixie, no...., silfide no...., gnomo, no..." gesticulaban sus labios en voz baja mientras pasaba las hojas de ese viejo que tenía entre sus manos. Se conocía estos pasillos como la palma de su mano, lo que le permitía buscar lo que necesitaba mientras escapaba al corazón de su guarida. Debía apremiarse, ya que estaban muy cerca. El eco trasladaba hasta allí las risas y emoción de aquellos intrusos en busca de riquezas. "Goblin, no..., orco, quizá aunque necesito algo más grande...". No entendía como un grupo de razas tan dispares como elfos, humanos o enanos se podían juntar entre ellos para saquear su hogar. Entraron sin avisar y sus no muy bien pagados esbirros murieron rápidamente. Quizá debería haber preparado mejor sus defensas en vez de haber dedicado estos últimos días a sus placeres personales. Los aventureros tenían sed de sangre esa tarde y no en otro momento. Ahora era ya tarde para lamentarse y su única posibilidad era invocar algo lo suficientemente grande o terrorífico para que, al menos, fuera una diversión para los intrusos y los retrasaran. Quizá la tarde acabara antes de que los llegaran hasta él y por la noche, pudiera preparar mejor las estancias que todavía quedaran intactas; o quizás, al menos, esta derrota fuera una vergüenza total y pudiera morir con el poco honor que le quedaba. "Centauro, no...". Nada de lo que encontraba le gustaba, "Laan, no...". Un grito en la distancia le indicó que el último de sus esbirros había caído. "Hada, no...", había ya recorrido la mitad de las hojas del libro y no tenía todavía nada. "Gratar, no.." sus dedos siguieron hasta que, finalmente, se pararon en una hoja: "Troll de guerra". Sus labios repitieron otra vez "Troll de guerra" mientras sus dedos tamorilleaban el libro y sus pasos se hacían más lentos su mente empezaba a ver una salida. "Troll de guerra", sí, podría funcionar, "Troll" sonaba lo suficientemente grande y "Guerra" era tan terrorífico como lo que buscaba, juntas, esas dos palabras tenían el sabor de la solución que necesitaba. "Troll de Guerra" volvió a decir cada vez en voz más alta, como si saboreara estas palabras. Si tenía el suficiente poder para invocar uno o dos lo suficientemente grandes para bloquear este corredor quizá tendría una posibilidad y la tarde no sería un desastre después de todo... 
 
-Este programa, no es más que un grimorio digital, un libro que permita invocar héroes, criaturas o demonios. Pretendo que cada lector pueda incluir sus páginas, a su gusto, permitiendo así crear todos los personajes que deseen para sus partidas. 
+Esta aplicación es un programa que permite crear personajes o monstruos de una forma rápida o detallada. Pudiendo ayudarte en tus partidas de Rolemaster ahorrandote tiempo en la preparación de estos. Permite a cada usuario incluir sus propias razas y profesiones de una forma rápida y personal, dando así la flexibilidad necesaria para cualquier tipo de partida. 
+
 El Libro de Esher ha sido desarrollado por Jorge Hortelano Otero. Espero que te sea realmente útil a la hora de evitar el tedioso trabajo de realizar un PJ o simplemente te ayude con tus PNJs. 
-Lo distribuyo como software libre, asi que puedes utilizarlo o modificarlo a tu gusto mientras dejes estas palabras y el nombre del autor original (osease, yo).  Para más información leete la licencia GNU en el fichero adjunto. 
+Lo distribuyo como software libre, asi que puedes utilizarlo o modificarlo a tu gusto según la licencia GNU adjunta a este programa. 
 
 Instalacion:
 ----------
@@ -16,18 +17,13 @@ Ejecucion:
 Para ejecutar el program escribir en consola:
 "java -jar dist\LibroDeEsher.jar"
 
-O utilizar los ficheros Linux.sh o Windows.bat dependiendo del sistema operativo utilizado. Este script intentará buscar la última versión de java en tu sistema y ejecutarlo. 
+O utilizar los ficheros ejecutables según el sistema operativo utilizado. 
 
 Subida de Nivel Remota:
 ----------
 Desde la versión 0.98 existe la posibilidad de que los jugadores se suban el nivel de su personaje en casa, tranquilamente y sin supervisión alguna. Esto se ha hecho intentando que sea la forma más segura posible y evitar que estos hagan trampas. Para ello, el DJ como el jugador tiene un copia del personaje en sus respectivos ordenadores. El jugador puede utilizar este programa de forma que puede gastar sus puntos de desarrollo como desee según las normas establecidas. Una vez hecho, debe de exportar SOLAMENTE la subida de nivel y no todo el persoanje, y enviarlo por email al DJ. El DJ actualiza la versión del personaje de la que dispone en su ordenador, mostrando los puntos de desarrollo que se han gastado (y comprobar que no se han gastado de más) e imprimiendo la ficha después. 
 Para la siguiente subida de nivel, es aconsejable que el DJ vuelva a enviar el personaje actualizado al jugador. Lo que no se debe hacer nunca es que el DJ cambie el fichero con la ficha de personaje por la ficha de personaje del jugador, ya que este si que puede haber sido alterado. 
 Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadores solamente para jugar y no para realizar modificaciones en las fichas. 
-
-
-Problemas posibles
-----------
-Existe un problema conocido con el generador de personajes. Normalmente se debe a que los ficheros con las características y las habilidades se bajan en un formato extraño (ocurre en Windows en la mayoría de ordenadores). Si te pasa este problema (lo reconocerás por que al abrir el fichero rolemaster/características.txt los acentos se ven de forma extraña), visita la página web del Libro de Esher y descargate el fichero rolemaster_win.zip y sustituye el contenido del programa por el de este fichero.
 
 
 Versión
@@ -161,6 +157,7 @@ Versión
 Notas
 -------------------------
 Iconos obtenidos del Gartoon Gnome Icon Theme bajo licencia GNU.
+Utilización de la librería iText para la generación de las fichas en PDF. 
 
 Mas información
 -------------------------
