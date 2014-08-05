@@ -107,8 +107,7 @@ public abstract class GenericDao<T> extends StorableObjectDao<T> implements
 		session.beginTransaction();
 		try {
 			@SuppressWarnings("unchecked")
-			List<T> objects = session.createQuery(
-					"from " + getType().getSimpleName()).list();
+			List<T> objects = session.createCriteria(getType()).list();
 			initializeSets(objects);
 			session.createCriteria(type).addOrder(Order.desc("updateTime"));
 			session.getTransaction().commit();
