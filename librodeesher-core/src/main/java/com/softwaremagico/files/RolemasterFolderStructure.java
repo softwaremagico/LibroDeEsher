@@ -47,7 +47,7 @@ public class RolemasterFolderStructure implements Serializable {
 	private static final String PERKS_FOLDER = "talentos";
 	private static final String SHEET_FOLDER = "fichas";
 	private static List<String> ignoredFiles = getIgnoredFiles();
-	// Modulos configurados para obtener los ficheros adecuados */
+	// Configured modules to obtain desired files. 
 	private static List<String> availableModules = getRolemasterModulesAvailable();
 	private static List<String> disabledModules = new ArrayList<>();
 	private static final boolean verbose = false;
@@ -239,12 +239,12 @@ public class RolemasterFolderStructure implements Serializable {
 		return getPathFolderInHome() + File.separator + CONFIG_FILE;
 	}
 
-	private static List<String> getPathOfFile(String fichero) {
+	private static List<String> getPathOfFile(String fileName) {
 		List<String> ficheros = new ArrayList<>();
 		List<String> modulosPermitidos = getAvailableModules();
 		for (int i = 0; i < modulosPermitidos.size(); i++) {
 			File file = new File(MODULES_DIRECTORY + File.separator + modulosPermitidos.get(i) + File.separator
-					+ fichero);
+					+ fileName);
 			if (file.exists()) {
 				ficheros.add(file.toString());
 			}
