@@ -1178,7 +1178,7 @@ public class PdfStandardSheet {
 		PdfPCell cell;
 		Paragraph p;
 		PdfPTable tabla = new PdfPTable(1);
-		String texto;
+		String text;
 
 		p = new Paragraph("", FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
@@ -1200,13 +1200,15 @@ public class PdfStandardSheet {
 
 		String linea = "______________________________";
 		if (characterPlayer != null) {
-			texto = characterPlayer.getCulture().getName() + "  "
-					+ linea.substring(characterPlayer.getCulture().getName().length());
+			text = characterPlayer.getCulture().getName();
+			if (characterPlayer.getCulture().getName().length() < linea.length()) {
+				text += " " + linea.substring(characterPlayer.getCulture().getName().length());
+			}
 		} else {
-			texto = linea;
+			text = linea;
 		}
 
-		p = new Paragraph(texto, FontFactory.getFont(font, fontSize));
+		p = new Paragraph(text, FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setMinimumHeight(11);
