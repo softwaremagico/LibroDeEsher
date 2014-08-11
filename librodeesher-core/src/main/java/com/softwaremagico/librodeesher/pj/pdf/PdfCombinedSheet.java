@@ -30,7 +30,7 @@ import com.softwaremagico.log.Log;
 
 public class PdfCombinedSheet extends PdfStandardSheet {
 	private int lines = 0;
-	private int listada = 0;
+	private int showed = 0;
 	private final static int MAX_LINES = 71;
 	private int column = 0;
 	private static int fontSize = 6;
@@ -207,7 +207,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		Skill hab;
 		PdfPTable tableHab;
 		int added = 0;
-		listada = 0;
+		showed = 0;
 		boolean lastFilled = false;
 
 		/* TITULO */
@@ -217,10 +217,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		tableColumn.addCell(cell);
 		lines++;
 
-		if (newColumnRequired(document, writer, font)) {
-			tableColumn = new PdfPTable(1);
-			tableColumn.flushContent();
-		}
+		newColumnRequired(document, writer, font);
 
 		// Skills list.
 		for (int i = 0; i < cat.getSkills().size(); i++) {
@@ -233,10 +230,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 				lines++;
 				added++;
 
-				if (newColumnRequired(document, writer, font)) {
-					tableColumn = new PdfPTable(1);
-					tableColumn.flushContent();
-				}
+				newColumnRequired(document, writer, font);
 			}
 		}
 
@@ -251,10 +245,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 				added++;
 				remainingLines--;
 			}
-			if (newColumnRequired(document, writer, font)) {
-				tableColumn = new PdfPTable(1);
-				tableColumn.flushContent();
-			}
+			newColumnRequired(document, writer, font);
 			if (last) {
 				lastFilled = true;
 			}
@@ -268,10 +259,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 			tableColumn.addCell(cell);
 			lines++;
 			added++;
-			if (newColumnRequired(document, writer, font)) {
-				tableColumn = new PdfPTable(1);
-				tableColumn.flushContent();
-			}
+			newColumnRequired(document, writer, font);
 		}
 
 		// remaining space shared among categories
@@ -285,10 +273,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 				lines++;
 				added++;
 				remainingLines--;
-				if (newColumnRequired(document, writer, font)) {
-					tableColumn = new PdfPTable(1);
-					tableColumn.flushContent();
-				}
+				newColumnRequired(document, writer, font);
 			}
 		}
 
@@ -304,10 +289,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 					added++;
 					remainingLines--;
 				}
-				if (newColumnRequired(document, writer, font)) {
-					tableColumn = new PdfPTable(1);
-					tableColumn.flushContent();
-				}
+				newColumnRequired(document, writer, font);
 			}
 		}
 	}
@@ -318,12 +300,12 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		PdfPCell cell;
 		BaseColor background;
 
-		if (listada % 2 == 1) {
+		if (showed % 2 == 1) {
 			background = BaseColor.WHITE;
 		} else {
 			background = BaseColor.LIGHT_GRAY;
 		}
-		listada++;
+		showed++;
 
 		float[] widths = { 0.32f, 0.05f, 0.15f, 0.08f, 0.10f, 0.10f, 0.10f, 0.10f };
 		PdfPTable tableHab = new PdfPTable(widths);
@@ -450,12 +432,12 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 
 		float[] widths = { 0.31f, 0.06f, 0.15f, 0.08f, 0.10f, 0.10f, 0.10f, 0.10f };
 
-		if (listada % 2 == 1) {
+		if (showed % 2 == 1) {
 			background = BaseColor.WHITE;
 		} else {
 			background = BaseColor.LIGHT_GRAY;
 		}
-		listada++;
+		showed++;
 
 		PdfPTable tableHab = new PdfPTable(widths);
 		tableHab.flushContent();
@@ -710,10 +692,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		tableColumn.addCell(cell);
 
-		if (newColumnRequired(document, writer, font)) {
-			tableColumn = new PdfPTable(1);
-			tableColumn.flushContent();
-		}
+		newColumnRequired(document, writer, font);
 
 		categoriesToShown--;
 		return cell;
