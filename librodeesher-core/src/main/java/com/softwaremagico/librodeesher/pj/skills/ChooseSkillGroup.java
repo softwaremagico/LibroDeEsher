@@ -27,15 +27,10 @@ package com.softwaremagico.librodeesher.pj.skills;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import com.softwaremagico.librodeesher.basics.ChooseGroup;
 import com.softwaremagico.librodeesher.basics.ChooseType;
 import com.softwaremagico.librodeesher.basics.ShowMessage;
 
-@Entity
-@Table(name = "T_CHOOSE_SKILL_GROUP")
 public class ChooseSkillGroup extends ChooseGroup<Skill> {
 
 	public ChooseSkillGroup(int chooseNumber, Skill skill, ChooseType chooseType) {
@@ -68,4 +63,5 @@ public class ChooseSkillGroup extends ChooseGroup<Skill> {
 		}
 		return nameList;
 	}
+
 }

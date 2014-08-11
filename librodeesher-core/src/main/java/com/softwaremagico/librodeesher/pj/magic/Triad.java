@@ -54,9 +54,9 @@ public class Triad {
 		first_triad.get(Element.ICE).add("mago del hielo");
 		first_triad.get(Element.WATER).add("mago del agua");
 
-		first_triad.get(Element.EARTH).add("mago de la tierra");
-		first_triad.get(Element.AIR).add("mago del aire");
-		first_triad.get(Element.LIGHT).add("mago de la luz");
+		second_triad.get(Element.EARTH).add("mago de la tierra");
+		second_triad.get(Element.AIR).add("mago del aire");
+		second_triad.get(Element.LIGHT).add("mago de la luz");
 	}
 
 	public static List<Element> getSameTriadElements(Element element) {
