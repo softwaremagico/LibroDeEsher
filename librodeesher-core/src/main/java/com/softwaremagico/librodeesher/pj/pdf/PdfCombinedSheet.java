@@ -35,7 +35,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 	private int column = 0;
 	private static int fontSize = 6;
 	private int page = 1;
-	private PdfPTable tableColumn = new PdfPTable(1);
+	private PdfPTable tableColumn;
 	private PdfPTable table;
 	private int categoriesToShown = 0;
 	private int remainingLines = 0;
@@ -104,6 +104,8 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell = new PdfPCell(createHeader());
 		cell.setColspan(2);
 		table.addCell(cell);
+		
+		tableColumn = new PdfPTable(1);
 
 		for (int i = 0; i < CategoryFactory.getAvailableCategories().size(); i++) {
 			category = CategoryFactory.getCategory(CategoryFactory.getAvailableCategories().get(i));

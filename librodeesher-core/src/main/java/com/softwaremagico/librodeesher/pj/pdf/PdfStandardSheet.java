@@ -1547,7 +1547,8 @@ public class PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		tabla.addCell(cell);
 		if (characterPlayer != null) {
-			p = new Paragraph(characterPlayer.getPowerPoints() + "", FontFactory.getFont(font, fontSize + 3));
+			p = new Paragraph(Math.max(characterPlayer.getPowerPoints(), 0) + "", FontFactory.getFont(font,
+					fontSize + 3));
 		} else {
 			p = new Paragraph("", FontFactory.getFont(font, fontSize + 3));
 		}
@@ -1588,11 +1589,8 @@ public class PdfStandardSheet {
 		tabla.addCell(cell);
 
 		if (characterPlayer != null) {
-			int value = characterPlayer.getBonusCharacteristicOfRealmOfMagic() / 2;
-			if (value < 1) {
-				value = 1;
-			}
-			p = new Paragraph(value + "", FontFactory.getFont(font, fontSize));
+			p = new Paragraph(Math.max(characterPlayer.getBonusCharacteristicOfRealmOfMagic() / 2, 1) + "",
+					FontFactory.getFont(font, fontSize));
 		} else {
 			p = new Paragraph(EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		}
@@ -1628,11 +1626,8 @@ public class PdfStandardSheet {
 		tabla.addCell(cell);
 
 		if (characterPlayer != null) {
-			int puntos = characterPlayer.getPowerPoints() / 2;
-			if (puntos < 1) {
-				puntos = 1;
-			}
-			p = new Paragraph(puntos + "", FontFactory.getFont(font, fontSize));
+			p = new Paragraph(Math.max(characterPlayer.getPowerPoints() / 2, 1) + "", FontFactory.getFont(font,
+					fontSize));
 		} else {
 			p = new Paragraph("__", FontFactory.getFont(font, fontSize));
 		}
