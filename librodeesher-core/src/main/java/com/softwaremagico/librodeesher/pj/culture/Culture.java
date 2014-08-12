@@ -33,7 +33,6 @@ import java.util.List;
 
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
@@ -69,8 +68,8 @@ public class Culture {
 
 	public List<String> getHobbySkills() {
 		return hobbySkills;
-	}	
-	
+	}
+
 	public List<Weapon> getCultureWeapons() {
 		return cultureWeapons;
 	}
@@ -181,7 +180,7 @@ public class Culture {
 		return index;
 	}
 
-	private int setHobbyRanks(List<String> lines, int index) {
+	private int setHobbyRanks(List<String> lines, int index) throws InvalidCultureException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -190,16 +189,15 @@ public class Culture {
 			try {
 				hobbyRanks = Integer.parseInt(hobbyLine);
 			} catch (NumberFormatException nfe) {
-				ShowMessage.showErrorMessage(
-						"Error al obtener los rangos de la aficiones culturales.\n Línea: " + hobbyLine
-								+ "\nEn cultura: " + getName(), "Añadir aficiones de cultura");
+				throw new InvalidCultureException("Error al obtener los rangos de la aficiones culturales.\n Línea: "
+						+ hobbyLine + "\nEn cultura: " + getName() + ". Razón: " + nfe.getMessage());
 			}
 			index++;
 		}
 		return index;
 	}
 
-	private int setHobbySkillsAndCategories(List<String> lines, int index) {
+	private int setHobbySkillsAndCategories(List<String> lines, int index) throws InvalidCultureException {
 		hobbySkills = new ArrayList<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -224,8 +222,7 @@ public class Culture {
 						|| hobby.toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
 					hobbySkills.add(hobby);
 					// Is a culture skill: add it;
-				} else if (hobby.contains(Spanish.FAUNA_KNOWNLEDGE_TAG)
-						|| hobby.contains(Spanish.FLORA_KNOWNLEDGE_TAG)
+				} else if (hobby.contains(Spanish.FAUNA_KNOWNLEDGE_TAG) || hobby.contains(Spanish.FLORA_KNOWNLEDGE_TAG)
 						|| hobby.contains(Spanish.CULTURAL_KNOWNLEDGE_TAG)
 						|| hobby.contains(Spanish.REGIONAL_KNOWNLEDGE_TAG)) {
 					Category cat = CategoryFactory.getCategory(Spanish.GENERAL_KNOWLEDGE_TAG);
@@ -238,8 +235,8 @@ public class Culture {
 					// CultureSkill skill = new CultureSkill(hobby);
 					hobbySkills.add(hobby);
 				} else { // Not recognized.
-					ShowMessage.showErrorMessage("Aficion no encontrada en cultura \"" + getName() + "\": "
-							+ hobby, "Añadir aficiones de cultura");
+					throw new InvalidCultureException("Afición no encontrada en cultura \"" + getName() + "\": "
+							+ hobby);
 				}
 			}
 			index++;
@@ -248,7 +245,7 @@ public class Culture {
 		return index;
 	}
 
-	private int setCultureMaxLanguages(List<String> lines, int index) {
+	private int setCultureMaxLanguages(List<String> lines, int index) throws InvalidCultureException {
 		languagesMaxRanks = new HashMap<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -262,8 +259,8 @@ public class Culture {
 				language = Spanish.WRITTEN_TAG + " " + languageColumn[0];
 				languagesMaxRanks.put(language, Integer.parseInt(languageRanks[1]));
 			} catch (NumberFormatException nfe) {
-				ShowMessage.showErrorMessage("Error al obtener los rangos escritos del idioma: " + name,
-						"Añadir lenguajes de cultura");
+				throw new InvalidCultureException("Error al obtener los rangos escritos del idioma: " + name
+						+ ". Razón: " + nfe.getMessage());
 			}
 			index++;
 		}
@@ -281,8 +278,8 @@ public class Culture {
 	public Integer getSpellRanks() {
 		return categories.get("Listas Abiertas de Hechizos").getChooseRanks();
 	}
-	
-	public Integer getLanguageRanksToChoose(){
+
+	public Integer getLanguageRanksToChoose() {
 		return categories.get("Comunicación").getChooseRanks();
 	}
 

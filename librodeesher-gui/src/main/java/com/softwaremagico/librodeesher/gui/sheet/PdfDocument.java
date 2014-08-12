@@ -50,7 +50,7 @@ import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.softwaremagico.files.MyFile;
 import com.softwaremagico.files.Version;
-import com.softwaremagico.librodeesher.basics.ShowMessage;
+import com.softwaremagico.librodeesher.gui.ShowMessage;
 
 public abstract class PdfDocument {
 	protected int fontSize = 12;

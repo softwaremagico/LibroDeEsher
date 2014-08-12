@@ -48,7 +48,6 @@ import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultFormatter;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;

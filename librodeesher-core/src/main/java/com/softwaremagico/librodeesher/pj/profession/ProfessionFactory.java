@@ -28,28 +28,27 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.librodeesher.basics.ShowMessage;
+import com.softwaremagico.log.Log;
 
 public class ProfessionFactory {
 	public static final String PROFESSION_FOLDER = "profesiones";
 	private static HashMap<String, Profession> professionStored = new HashMap<>();
 	private static List<String> availableProfessions = availableProfessions();
 
-
 	private static List<String> availableProfessions() {
 		try {
 			return RolemasterFolderStructure.getFilesAvailable(PROFESSION_FOLDER);
 		} catch (Exception e) {
-			ShowMessage.showErrorMessage("Problema al obtener las profesiones disponibles.", "Profesiones disponibles");
+			Log.errorMessage(ProfessionFactory.class.getName(), e);
 		}
 		return null;
 	}
-	
+
 	public static List<String> getAvailableProfessions() {
 		return availableProfessions;
 	}
 
-	public static Profession getProfession(String professionName) {
+	public static Profession getProfession(String professionName) throws InvalidProfessionException {
 		try {
 			if (availableProfessions().contains(professionName)) {
 				Profession profession = professionStored.get(professionName);
@@ -61,8 +60,6 @@ public class ProfessionFactory {
 			}
 		} catch (Exception e) {
 		}
-		ShowMessage.showErrorMessage("Profesion no existente: " + professionName, "Creación de profesiones.");
-		return null;
-
+		throw new InvalidProfessionException("Profesion no existente: " + professionName);
 	}
 }

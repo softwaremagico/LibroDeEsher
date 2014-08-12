@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.librodeesher.basics.ShowMessage;
+import com.softwaremagico.log.Log;
 
 public class RaceFactory {
 	public static final String RACE_FOLDER = "razas";
@@ -39,7 +39,7 @@ public class RaceFactory {
 		try {
 			return RolemasterFolderStructure.getFilesAvailable(RACE_FOLDER);
 		} catch (Exception e) {
-			ShowMessage.showErrorMessage("Problema al obtener las razas disponibles.", "Razas disponibles");
+			Log.errorMessage(RaceFactory.class.getName(), e);
 		}
 		return null;
 	}
@@ -48,7 +48,7 @@ public class RaceFactory {
 		return availableRaces;
 	}
 
-	public static Race getRace(String raceName) {
+	public static Race getRace(String raceName) throws InvalidRaceException {
 		try {
 			if (availableRaces.contains(raceName)) {
 				Race race = racesStored.get(raceName);
@@ -61,8 +61,6 @@ public class RaceFactory {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		ShowMessage.showErrorMessage("Raza no existente: " + raceName, "Creación de raza");
-		return null;
-
+		throw new InvalidRaceException("Raza no existente: " + raceName);
 	}
 }

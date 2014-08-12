@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.librodeesher.basics.ShowMessage;
+import com.softwaremagico.log.Log;
 
 public class CultureFactory {
 	public final static String CULTURE_FOLDER = "culturas";
@@ -39,8 +39,8 @@ public class CultureFactory {
 		try {
 			return RolemasterFolderStructure.getFilesAvailable(CULTURE_FOLDER);
 		} catch (Exception e) {
-			ShowMessage.showErrorMessage("Problema al obtener las culturas disponibles.",
-					"Culturas disponibles");
+			Log.errorMessage(CultureFactory.class.getName(), e);
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -76,7 +76,7 @@ public class CultureFactory {
 		return cultures;
 	}
 
-	public static Culture getCulture(String cultureName) {
+	public static Culture getCulture(String cultureName) throws InvalidCultureException {
 		try {
 			if (availableCultures().contains(cultureName)) {
 				Culture culture = culturesAvailable.get(cultureName);
@@ -88,8 +88,6 @@ public class CultureFactory {
 			}
 		} catch (Exception e) {
 		}
-		ShowMessage.showErrorMessage("Cultura no existente: " + cultureName, "Creación de culturas");
-		return null;
-
+		throw new InvalidCultureException("Cultura no existente: " + cultureName);
 	}
 }

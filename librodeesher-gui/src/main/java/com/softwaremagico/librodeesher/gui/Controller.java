@@ -51,8 +51,10 @@ import com.softwaremagico.librodeesher.gui.random.RandomWindow;
 import com.softwaremagico.librodeesher.gui.skills.SkillWindow;
 import com.softwaremagico.librodeesher.gui.training.TrainingWindow;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
 import com.softwaremagico.librodeesher.pj.pdf.PdfCombinedSheet;
 import com.softwaremagico.librodeesher.pj.pdf.PdfStandardSheet;
+import com.softwaremagico.librodeesher.pj.profession.InvalidProfessionException;
 import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 import com.softwaremagico.log.Log;
 import com.softwaremagico.persistence.dao.hibernate.CharacterPlayerDao;
@@ -232,8 +234,12 @@ public class Controller {
 				@Override
 				public void updatedCharacter(CharacterPlayer character) {
 					characters.remove(selectedCharacter);
-					selectedCharacter = new RandomCharacterPlayer(character, randomWindow.getFinalLevel())
-							.getCharacterPlayer();
+					try {
+						selectedCharacter = new RandomCharacterPlayer(character, randomWindow.getFinalLevel())
+								.getCharacterPlayer();
+					} catch (MagicDefinitionException | InvalidProfessionException e) {
+						ShowMessage.showErrorMessage(e.getMessage(), "Error");
+					}
 					characters.add(selectedCharacter);
 					// update GUI
 					mainGui.setCharacter(selectedCharacter);

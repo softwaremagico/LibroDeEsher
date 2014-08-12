@@ -3,8 +3,10 @@ package com.softwaremagico.librodeesher.pj;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
 import com.softwaremagico.librodeesher.pj.pdf.PdfCombinedSheet;
 import com.softwaremagico.librodeesher.pj.pdf.PdfStandardSheet;
+import com.softwaremagico.librodeesher.pj.profession.InvalidProfessionException;
 import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.persistence.dao.hibernate.CharacterPlayerDao;
@@ -16,7 +18,7 @@ public class CharacterCreationTest {
 	private CharacterPlayer characterPlayer;
 
 	@Test(groups = { "characterCreation" })
-	public void createCharacter() {
+	public void createCharacter() throws MagicDefinitionException, InvalidProfessionException {
 		characterPlayer = new RandomCharacterPlayer(null, null, null, null, 1).getCharacterPlayer();
 
 	}

@@ -28,7 +28,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import com.softwaremagico.librodeesher.basics.ShowMessage;
+import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicUpLine;
 import com.softwaremagico.librodeesher.gui.style.BaseDialog;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;

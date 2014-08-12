@@ -30,8 +30,8 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.basics.Spanish;
+import com.softwaremagico.librodeesher.pj.profession.InvalidProfessionException;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 
 public class MagicFactory {
@@ -46,7 +46,8 @@ public class MagicFactory {
 		readSpellsFromFiles();
 	}
 
-	public static List<String> getListOfProfession(List<RealmOfMagic> realmsOfMagic, String profession) {
+	public static List<String> getListOfProfession(List<RealmOfMagic> realmsOfMagic, String profession)
+			throws MagicDefinitionException, InvalidProfessionException {
 		List<String> allRealmSpells = new ArrayList<>();
 		if (profession == null) {
 			return allRealmSpells;
@@ -63,7 +64,7 @@ public class MagicFactory {
 				if (!profession.equals(Spanish.OPEN_LIST_TAG) && !profession.equals(Spanish.CLOSED_LIST_TAG)
 						&& !profession.toLowerCase().equals(Spanish.ELEMENTALIST_PROFESSION)
 						&& ProfessionFactory.getProfession(profession).getMagicRealmsAvailable().size() < 2) {
-					ShowMessage.showErrorMessage("No existen listas de hechizos para " + profession, "Leer Magia");
+					throw new MagicDefinitionException("No existen listas de hechizos para " + profession);
 				}
 			} else {
 				allRealmSpells.addAll(spells);
@@ -128,7 +129,8 @@ public class MagicFactory {
 		return lists;
 	}
 
-	public static List<String> getListOfOwnTriad(List<RealmOfMagic> realmsOfMagic, List<String> trainings) {
+	public static List<String> getListOfOwnTriad(List<RealmOfMagic> realmsOfMagic, List<String> trainings)
+			throws MagicDefinitionException, InvalidProfessionException {
 		List<String> lists = new ArrayList<String>();
 		String trainingName = getElementalistTraining(trainings);
 		if (trainingName != null) {
@@ -143,7 +145,8 @@ public class MagicFactory {
 		return lists;
 	}
 
-	public static List<String> getListOfOtherTriad(List<RealmOfMagic> realmsOfMagic, List<String> trainings) {
+	public static List<String> getListOfOtherTriad(List<RealmOfMagic> realmsOfMagic, List<String> trainings)
+			throws MagicDefinitionException, InvalidProfessionException {
 		List<String> lists = new ArrayList<String>();
 		String trainingName = getElementalistTraining(trainings);
 		if (trainingName != null) {
@@ -184,7 +187,8 @@ public class MagicFactory {
 		}
 	}
 
-	public static List<String> getDarkLists(List<RealmOfMagic> realmsOfMagic) {
+	public static List<String> getDarkLists(List<RealmOfMagic> realmsOfMagic) throws MagicDefinitionException,
+			InvalidProfessionException {
 		List<String> result = new ArrayList<>();
 		for (RealmOfMagic realm : realmsOfMagic) {
 			List<RealmOfMagic> newRealms = new ArrayList<>();
@@ -197,7 +201,8 @@ public class MagicFactory {
 		return result;
 	}
 
-	public static List<String> getOpenLists(List<RealmOfMagic> realmsOfMagic) {
+	public static List<String> getOpenLists(List<RealmOfMagic> realmsOfMagic) throws MagicDefinitionException,
+			InvalidProfessionException {
 		return getListOfProfession(realmsOfMagic, Spanish.OPEN_LIST_TAG);
 	}
 
@@ -209,23 +214,26 @@ public class MagicFactory {
 		return spells;
 	}
 
-	public static List<String> getArchanumOpenLists() {
+	public static List<String> getArchanumOpenLists() throws MagicDefinitionException, InvalidProfessionException {
 		List<RealmOfMagic> realmsOfMagic = new ArrayList<RealmOfMagic>();
 		realmsOfMagic.add(RealmOfMagic.ARCHANUM);
 		return getListOfProfession(realmsOfMagic, Spanish.OPEN_LIST_TAG);
 	}
 
-	public static List<String> getOtherRealmOpenLists(List<RealmOfMagic> realmsOfMagic) {
+	public static List<String> getOtherRealmOpenLists(List<RealmOfMagic> realmsOfMagic)
+			throws MagicDefinitionException, InvalidProfessionException {
 		List<RealmOfMagic> otherRealms = getOtherRealms(realmsOfMagic);
 		List<String> lists = getListOfProfession(otherRealms, Spanish.OPEN_LIST_TAG);
 		return lists;
 	}
 
-	public static List<String> getClosedLists(List<RealmOfMagic> realms) {
+	public static List<String> getClosedLists(List<RealmOfMagic> realms) throws MagicDefinitionException,
+			InvalidProfessionException {
 		return getListOfProfession(realms, Spanish.CLOSED_LIST_TAG);
 	}
 
-	public static List<String> getOtherRealmClosedLists(List<RealmOfMagic> realmsOfMagic) {
+	public static List<String> getOtherRealmClosedLists(List<RealmOfMagic> realmsOfMagic)
+			throws MagicDefinitionException, InvalidProfessionException {
 		List<RealmOfMagic> otherRealms = getOtherRealms(realmsOfMagic);
 		List<String> lists = getListOfProfession(otherRealms, Spanish.CLOSED_LIST_TAG);
 		return lists;

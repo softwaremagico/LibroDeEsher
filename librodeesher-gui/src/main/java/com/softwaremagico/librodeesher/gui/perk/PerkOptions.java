@@ -35,7 +35,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.softwaremagico.librodeesher.basics.ChooseGroup;
-import com.softwaremagico.librodeesher.basics.ShowMessage;
+import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.options.SelectOption;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;

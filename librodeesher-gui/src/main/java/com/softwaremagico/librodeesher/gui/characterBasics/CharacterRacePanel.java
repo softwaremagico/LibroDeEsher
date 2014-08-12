@@ -33,9 +33,11 @@ import java.util.List;
 
 import javax.swing.JComboBox;
 
+import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.race.InvalidRaceException;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 import com.softwaremagico.log.Log;
 
@@ -141,10 +143,15 @@ public class CharacterRacePanel extends BasePanel {
 		if (cultureComboBox != null) {
 			cultureComboBox.removeAllItems();
 			try {
-				List<String> cultures = RaceFactory.getRace(getSelectedRace()).getAvailableCultures();
-				Collections.sort(cultures);
-				for (String culture : cultures) {
-					cultureComboBox.addItem(culture);
+				List<String> cultures;
+				try {
+					cultures = RaceFactory.getRace(getSelectedRace()).getAvailableCultures();
+					Collections.sort(cultures);
+					for (String culture : cultures) {
+						cultureComboBox.addItem(culture);
+					}
+				} catch (InvalidRaceException e) {
+					ShowMessage.showErrorMessage(e.getMessage(), "Error");
 				}
 			} catch (NullPointerException npe) {
 				Log.errorMessage(CharacterRacePanel.class.getName(), npe);

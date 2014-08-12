@@ -32,7 +32,7 @@ import java.util.List;
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.MyFile;
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.librodeesher.basics.ShowMessage;
+import com.softwaremagico.log.Log;
 
 public class WeaponFactory {
 	public final static String WEAPON_FOLDER = "armas";
@@ -42,14 +42,12 @@ public class WeaponFactory {
 		try {
 			weaponsByType = availableWeapons();
 		} catch (Exception e) {
-			ShowMessage.showErrorMessage("Problemas al obtener las armas.",
-					"Creación de armas");
+			Log.errorMessage(WeaponFactory.class.getName(), e);
 			e.printStackTrace();
 		}
 	}
 
-	private static HashMap<WeaponType, List<Weapon>> availableWeapons()
-			throws Exception {
+	private static HashMap<WeaponType, List<Weapon>> availableWeapons() throws Exception {
 
 		// Init variables.
 		HashMap<WeaponType, List<Weapon>> obtainedWeaponsByType = new HashMap<>();
@@ -59,24 +57,20 @@ public class WeaponFactory {
 		}
 
 		// Find all files with weapons.
-		List<String> weaponFiles = RolemasterFolderStructure
-				.getFilesAvailableCompletePath(WEAPON_FOLDER);
+		List<String> weaponFiles = RolemasterFolderStructure.getFilesAvailableCompletePath(WEAPON_FOLDER);
 
 		// Read each file.
 		for (String weaponFile : weaponFiles) {
-			List<String> weaponsInFile = Folder.readFileLines(weaponFile
-					+ ".txt", false);
+			List<String> weaponsInFile = Folder.readFileLines(weaponFile + ".txt", false);
 
 			File file = new File(weaponFile + ".txt");
 			String weaponTypeName = file.getName();
 
-			WeaponType weaponFileType = WeaponType.getWeaponType(MyFile
-					.fileWithouExtension(weaponTypeName));
+			WeaponType weaponFileType = WeaponType.getWeaponType(MyFile.fileWithouExtension(weaponTypeName));
 			for (String weaponName : weaponsInFile) {
 				if (!weaponName.startsWith("#")) {
 					Weapon weapon = new Weapon(weaponName, weaponFileType);
-					if (!obtainedWeaponsByType.get(weaponFileType).contains(
-							weapon)) {
+					if (!obtainedWeaponsByType.get(weaponFileType).contains(weapon)) {
 						obtainedWeaponsByType.get(weaponFileType).add(weapon);
 					}
 				}
@@ -106,7 +100,7 @@ public class WeaponFactory {
 		}
 		List<Weapon> filteredWeapons = new ArrayList<>();
 		for (Weapon weapon : weapons) {
-			if(!weapon.isRare()){
+			if (!weapon.isRare()) {
 				filteredWeapons.add(weapon);
 			}
 		}

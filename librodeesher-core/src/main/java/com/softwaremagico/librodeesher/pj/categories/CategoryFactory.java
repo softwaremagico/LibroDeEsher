@@ -31,7 +31,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -50,7 +49,7 @@ public class CategoryFactory {
 		try {
 			getCategoriesFromFiles();
 		} catch (Exception e) {
-			ShowMessage.showErrorMessage("Error al obtener las categorías y habilidades.", "Categorías");
+			Log.errorMessage(CategoryFactory.class.getName(), e);
 			e.printStackTrace();
 		}
 	}
@@ -76,9 +75,9 @@ public class CategoryFactory {
 			List<Weapon> weaponsOfType = WeaponFactory.getWeaponsByType(weaponType);
 			Category categoryOfWeapon = availableCategories.get(weaponType.getWeaponCategoryName());
 			weaponsCategory.add(categoryOfWeapon);
-			try{
-			categoryOfWeapon.setSkills(convertWeaponsToSkills(weaponsOfType));
-			}catch(NullPointerException npe){
+			try {
+				categoryOfWeapon.setSkills(convertWeaponsToSkills(weaponsOfType));
+			} catch (NullPointerException npe) {
 				Log.errorMessage(CategoryFactory.class.getName(), npe);
 			}
 		}
@@ -93,8 +92,8 @@ public class CategoryFactory {
 		return skills;
 	}
 
-	public static Category createCategory(String categoryName, String abbreviature,
-			String characteristicsTag, String type, String skills) {
+	public static Category createCategory(String categoryName, String abbreviature, String characteristicsTag,
+			String type, String skills) {
 		CategoryType catType = CategoryType.getCategoryType(type);
 		Category cat;
 		switch (catType) {
@@ -173,16 +172,15 @@ public class CategoryFactory {
 						String abrevCat = categoryAbbrevName[1].replace(")", "");
 						Category cat = availableCategories.get(categoryName);
 						if (cat == null) {
-							cat = createCategory(categoryName, abrevCat, descomposed_line[1],
-									descomposed_line[2], descomposed_line[3]);
+							cat = createCategory(categoryName, abrevCat, descomposed_line[1], descomposed_line[2],
+									descomposed_line[3]);
 							availableCategories.put(categoryName, cat);
 							availableCategoriesByName.add(categoryName);
 						} else {
 							cat.addSkills(descomposed_line[3]);
 						}
 					} catch (ArrayIndexOutOfBoundsException aiofb) {
-						ShowMessage.showErrorMessage("Abreviatura de categoria mal definida en "
-								+ categoryName, "Lectura de Categorías");
+						throw new InvalidCategoryException("Abreviatura de categoria mal definida en " + categoryName);
 					}
 				}
 			}
@@ -196,8 +194,8 @@ public class CategoryFactory {
 		Collections.sort(availableCategoriesByName);
 	}
 
-	public static Category getCategory(String categoryName, String abbrev, String characteristics,
-			String type, String skills) throws Exception {
+	public static Category getCategory(String categoryName, String abbrev, String characteristics, String type,
+			String skills) throws Exception {
 
 		Category cat = availableCategories.get(categoryName);
 		if (cat == null) {

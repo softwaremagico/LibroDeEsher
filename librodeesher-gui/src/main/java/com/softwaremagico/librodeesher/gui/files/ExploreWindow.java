@@ -30,7 +30,7 @@ import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
-import com.softwaremagico.librodeesher.basics.ShowMessage;
+import com.softwaremagico.librodeesher.gui.ShowMessage;
 
 public abstract class ExploreWindow {
 	private static String explorationFolder;

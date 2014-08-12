@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.librodeesher.basics.ShowMessage;
+import com.softwaremagico.log.Log;
 
 public class TrainingFactory {
 	public final static String TRAINING_FOLDER = "adiestramientos";
@@ -39,8 +39,7 @@ public class TrainingFactory {
 		try {
 			return RolemasterFolderStructure.getFilesAvailable(TRAINING_FOLDER);
 		} catch (Exception e) {
-			ShowMessage.showErrorMessage("Problema al obtener los adiestramientos disponibles.",
-					"Adiestramientos disponibles");
+			Log.errorMessage(TrainingFactory.class.getName(), e);
 		}
 		return null;
 	}
@@ -62,8 +61,7 @@ public class TrainingFactory {
 		} catch (Exception e) {
 		}
 		/*
-		 * ShowMessage.showErrorMessage("Adiestramiento no existente: " +
-		 * trainingName, "Creación de adiestramientos.");
+		 * ShowMessage.showErrorMessage("Adiestramiento no existente: " + trainingName, "Creación de adiestramientos.");
 		 */
 		return null;
 	}

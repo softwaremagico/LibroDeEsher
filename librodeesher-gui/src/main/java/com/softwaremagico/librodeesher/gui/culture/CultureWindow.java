@@ -33,10 +33,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
+import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.RandomButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
+import com.softwaremagico.librodeesher.pj.profession.InvalidProfessionException;
 import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 
 public class CultureWindow extends BaseFrame {
@@ -63,8 +66,7 @@ public class CultureWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		getContentPane().add(new CompleteWeaponPanel(character),
-				gridBagConstraints);
+		getContentPane().add(new CompleteWeaponPanel(character), gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
@@ -75,8 +77,7 @@ public class CultureWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		getContentPane().add(new CompleteHobbiesPanel(character),
-				gridBagConstraints);
+		getContentPane().add(new CompleteHobbiesPanel(character), gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
@@ -87,8 +88,7 @@ public class CultureWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		getContentPane().add(new CompleteLanguagePanel(character),
-				gridBagConstraints);
+		getContentPane().add(new CompleteLanguagePanel(character), gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
@@ -99,8 +99,7 @@ public class CultureWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 0;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		getContentPane().add(new CompleteSpellPanel(character),
-				gridBagConstraints);
+		getContentPane().add(new CompleteSpellPanel(character), gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
 		JPanel emptyPanel = new JPanel();
@@ -112,8 +111,11 @@ public class CultureWindow extends BaseFrame {
 			@Override
 			public void RandomAction() {
 				RandomCharacterPlayer.setWeaponCosts(character);
-				RandomCharacterPlayer.setCulture(character, character
-						.getCulture().getName(), 0);
+				try {
+					RandomCharacterPlayer.setCulture(character, character.getCulture().getName(), 0);
+				} catch (MagicDefinitionException | InvalidProfessionException e) {
+					ShowMessage.showErrorMessage(e.getMessage(), "Error");
+				}
 				updateFrame();
 			}
 		};

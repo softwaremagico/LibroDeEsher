@@ -39,7 +39,7 @@ import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import com.softwaremagico.librodeesher.basics.ShowMessage;
+import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.BaseTextField;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;

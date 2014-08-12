@@ -59,8 +59,10 @@ import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbrevia
 import com.softwaremagico.librodeesher.pj.culture.Culture;
 import com.softwaremagico.librodeesher.pj.culture.CultureDecisions;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
+import com.softwaremagico.librodeesher.pj.culture.InvalidCultureException;
 import com.softwaremagico.librodeesher.pj.historial.Historial;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
+import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
 import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
 import com.softwaremagico.librodeesher.pj.magic.MagicListType;
 import com.softwaremagico.librodeesher.pj.magic.MagicSpellLists;
@@ -69,10 +71,12 @@ import com.softwaremagico.librodeesher.pj.perk.Perk;
 import com.softwaremagico.librodeesher.pj.perk.PerkDecision;
 import com.softwaremagico.librodeesher.pj.perk.PerkFactory;
 import com.softwaremagico.librodeesher.pj.perk.SelectedPerk;
+import com.softwaremagico.librodeesher.pj.profession.InvalidProfessionException;
 import com.softwaremagico.librodeesher.pj.profession.Profession;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionDecisions;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionalRealmsOfMagicOptions;
+import com.softwaremagico.librodeesher.pj.race.InvalidRaceException;
 import com.softwaremagico.librodeesher.pj.race.Race;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
@@ -374,7 +378,11 @@ public class CharacterPlayer extends StorableObject {
 		if (cultureName == null)
 			return null;
 		if (culture == null || !cultureName.equals(culture.getName())) {
-			culture = CultureFactory.getCulture(cultureName);
+			try {
+				culture = CultureFactory.getCulture(cultureName);
+			} catch (InvalidCultureException e) {
+				return null;
+			}
 		}
 		return culture;
 	}
@@ -400,7 +408,11 @@ public class CharacterPlayer extends StorableObject {
 		if (professionName == null)
 			return null;
 		if (profession == null || !professionName.equals(profession.getName())) {
-			profession = ProfessionFactory.getProfession(professionName);
+			try {
+				profession = ProfessionFactory.getProfession(professionName);
+			} catch (InvalidProfessionException e) {
+				return null;
+			}
 		}
 		return profession;
 	}
@@ -409,7 +421,11 @@ public class CharacterPlayer extends StorableObject {
 		if (raceName == null)
 			return null;
 		if (race == null || !raceName.equals(race.getName())) {
-			race = RaceFactory.getRace(raceName);
+			try {
+				race = RaceFactory.getRace(raceName);
+			} catch (InvalidRaceException e) {
+				return null;
+			}
 		}
 		return race;
 	}
@@ -1474,8 +1490,12 @@ public class CharacterPlayer extends StorableObject {
 			magicSpellLists = new MagicSpellLists();
 		}
 		if (characteristicsConfirmed && !magicSpellListsObtained) {
-			magicSpellLists.orderSpellListsByCategory(this);
-			magicSpellListsObtained = true;
+			try {
+				magicSpellLists.orderSpellListsByCategory(this);
+				magicSpellListsObtained = true;
+			} catch (MagicDefinitionException | InvalidProfessionException e) {
+				magicSpellLists = new MagicSpellLists();
+			}			
 		}
 		return magicSpellLists;
 	}

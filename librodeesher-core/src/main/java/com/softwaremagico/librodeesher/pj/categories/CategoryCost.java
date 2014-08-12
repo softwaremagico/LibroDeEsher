@@ -35,7 +35,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.persistence.StorableObject;
 
 @Entity
@@ -46,25 +45,25 @@ public class CategoryCost extends StorableObject {
 	@CollectionTable(name = "T_RANK_COSTS")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Integer> rankCost;
-	
-	protected CategoryCost(){
-		rankCost=new ArrayList<>();
-	}	
+
+	protected CategoryCost() {
+		rankCost = new ArrayList<>();
+	}
 
 	public CategoryCost(List<Integer> rankCost) {
 		this.rankCost = rankCost;
 	}
 
-	public CategoryCost(String rankCost) {
+	public CategoryCost(String rankCost) throws InvalidCategoryException {
 		this.rankCost = covertStringToCost(rankCost);
 	}
-	
+
 	@Override
-	public void resetIds(){
+	public void resetIds() {
 		resetIds(this);
 	}
 
-	public static List<Integer> covertStringToCost(String costString) {
+	public static List<Integer> covertStringToCost(String costString) throws InvalidCategoryException {
 		List<Integer> cost = new ArrayList<>();
 		String[] costColumn = costString.split("/");
 		try {
@@ -76,7 +75,7 @@ public class CategoryCost extends StorableObject {
 				}
 			}
 		} catch (Exception e) {
-			ShowMessage.showErrorMessage("Coste mal formado.", "Personaje");
+			throw new InvalidCategoryException("Coste mal formado: " + costString);
 		}
 
 		return cost;

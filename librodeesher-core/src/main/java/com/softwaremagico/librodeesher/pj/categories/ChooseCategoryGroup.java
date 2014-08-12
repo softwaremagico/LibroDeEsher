@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.softwaremagico.librodeesher.basics.ChooseGroup;
 import com.softwaremagico.librodeesher.basics.ChooseType;
-import com.softwaremagico.librodeesher.basics.ShowMessage;
 
 public class ChooseCategoryGroup extends ChooseGroup<Category> {
 
@@ -13,7 +12,8 @@ public class ChooseCategoryGroup extends ChooseGroup<Category> {
 		super(chooseNumber, categoryGroup, chooseType);
 	}
 
-	public ChooseCategoryGroup(int chooseNumber, String[] categoryGroup, ChooseType chooseType) {
+	public ChooseCategoryGroup(int chooseNumber, String[] categoryGroup, ChooseType chooseType)
+			throws InvalidCategoryException {
 		super(chooseType);
 		this.numberOfOptionsToChoose = chooseNumber;
 		for (String categoryName : categoryGroup) {
@@ -21,8 +21,7 @@ public class ChooseCategoryGroup extends ChooseGroup<Category> {
 			if (category != null) {
 				this.optionsGroup.add(category);
 			} else {
-				ShowMessage.showErrorMessage("Error leyendo un conjunto de categorias. Fallo en: "
-						+ categoryName, "Leer Profesión");
+				throw new InvalidCategoryException("Error leyendo un conjunto de categorias. Fallo en: " + categoryName);
 			}
 		}
 	}

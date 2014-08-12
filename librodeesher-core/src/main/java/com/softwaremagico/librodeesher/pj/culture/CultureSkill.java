@@ -24,8 +24,6 @@ package com.softwaremagico.librodeesher.pj.culture;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.basics.ShowMessage;
-
 public class CultureSkill {
 	private Integer ranks;
 	private String name;
@@ -47,13 +45,12 @@ public class CultureSkill {
 		this.ranks = ranks;
 	}
 
-	public void setRanks(String ranks) {
+	public void setRanks(String ranks) throws InvalidCultureException {
 		try {
 			this.ranks = Integer.parseInt(ranks);
 		} catch (NumberFormatException nfe) {
-			ShowMessage.showErrorMessage(
-					"Error al obtener los rangos de la habilidad cultural: " + getName(),
-					"Añadir habilidades de cultura.");
+			throw new InvalidCultureException("Error al obtener los rangos de la habilidad cultural: " + getName()
+					+ ". Razón: " + nfe.getMessage());
 		}
 	}
 

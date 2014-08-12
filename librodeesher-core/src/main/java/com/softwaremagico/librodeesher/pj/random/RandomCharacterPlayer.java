@@ -15,8 +15,10 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
+import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
 import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
+import com.softwaremagico.librodeesher.pj.profession.InvalidProfessionException;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionalRealmsOfMagicOptions;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -48,7 +50,8 @@ public class RandomCharacterPlayer {
 
 	// Store probability to increase speed.
 
-	public RandomCharacterPlayer(SexType sex, String race, String culture, String profession, int finalLevel) {
+	public RandomCharacterPlayer(SexType sex, String race, String culture, String profession, int finalLevel)
+			throws MagicDefinitionException, InvalidProfessionException {
 		Log.info(this.getClass().getName(), "--------------------");
 		Log.info(this.getClass().getName(), "New Random Character");
 		Log.info(this.getClass().getName(), "--------------------");
@@ -64,7 +67,8 @@ public class RandomCharacterPlayer {
 		createRandomValues();
 	}
 
-	public RandomCharacterPlayer(CharacterPlayer characterPlayer, int finalLevel) {
+	public RandomCharacterPlayer(CharacterPlayer characterPlayer, int finalLevel) throws MagicDefinitionException,
+			InvalidProfessionException {
 		this.sex = characterPlayer.getSex();
 		suggestedSkillsRanks = new HashMap<>();
 		suggestedCategoriesRanks = new HashMap<>();
@@ -97,7 +101,7 @@ public class RandomCharacterPlayer {
 		}
 	}
 
-	private void createRandomValues() {
+	private void createRandomValues() throws MagicDefinitionException, InvalidProfessionException {
 		System.out.println("Creating Race.");
 		setRace();
 		System.out.println("Selecting Profession.");
@@ -157,7 +161,8 @@ public class RandomCharacterPlayer {
 		}
 	}
 
-	public static void setCulture(CharacterPlayer characterPlayer, String culture, int specializationLevel) {
+	public static void setCulture(CharacterPlayer characterPlayer, String culture, int specializationLevel)
+			throws MagicDefinitionException, InvalidProfessionException {
 		if (culture == null) {
 			List<String> cultures = characterPlayer.getRace().getAvailableCultures();
 			culture = cultures.get((int) (Math.random() * cultures.size()));
@@ -434,7 +439,8 @@ public class RandomCharacterPlayer {
 		}
 	}
 
-	private static void setRandomCultureSpells(CharacterPlayer characterPlayer) {
+	private static void setRandomCultureSpells(CharacterPlayer characterPlayer) throws MagicDefinitionException,
+			InvalidProfessionException {
 		while (characterPlayer.getCultureDecisions().getTotalSpellRanks() < characterPlayer.getCulture()
 				.getSpellRanks()) {
 			List<String> spellLists = MagicFactory.getListOfProfession(characterPlayer.getRealmOfMagic()
@@ -544,7 +550,8 @@ public class RandomCharacterPlayer {
 						break;
 					}
 					Skill skill = shuffledCategorySkills.get(j);
-					Log.debug(RandomCharacterPlayer.class.getName(),characterPlayer.getNewRankCost(skill) + ">" + developmentPoints);
+					Log.debug(RandomCharacterPlayer.class.getName(), characterPlayer.getNewRankCost(skill) + ">"
+							+ developmentPoints);
 					if (characterPlayer.getNewRankCost(skill) > developmentPoints) {
 						break;
 					}
@@ -561,7 +568,8 @@ public class RandomCharacterPlayer {
 						characterPlayer.getCurrentLevel().setSkillsRanks(skill,
 								characterPlayer.getCurrentLevel().getSkillsRanks(skill.getName()) + tries);
 						Log.info(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName() + "' ("
-								+ skillProbabilityStored.get(skill) + "%), roll: " + roll + " Added! ("+characterPlayer.getRemainingDevelopmentPoints()+")");
+								+ skillProbabilityStored.get(skill) + "%), roll: " + roll + " Added! ("
+								+ characterPlayer.getRemainingDevelopmentPoints() + ")");
 						for (Skill skillToRemove : category.getSkills()) {
 							skillProbabilityStored.remove(skillToRemove);
 						}

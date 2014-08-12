@@ -37,7 +37,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.persistence.StorableObject;
 
@@ -54,21 +53,21 @@ public class ProfessionalRealmsOfMagicOptions extends StorableObject {
 	public ProfessionalRealmsOfMagicOptions() {
 		magicRealmsAvailable = new ArrayList<>();
 	}
-	
+
 	@Override
-	public void resetIds(){
+	public void resetIds() {
 		resetIds(this);
 	}
 
-	public void add(String realms, String professionName) {
+	public void add(String realms, String professionName) throws InvalidProfessionException {
 		String[] hybridRealms = realms.split(Pattern.quote("/"));
 		for (String realm : hybridRealms) {
 			RealmOfMagic realmType = RealmOfMagic.getMagicRealm(realm);
 			if (realmType != null) {
 				magicRealmsAvailable.add(realmType);
 			} else {
-				ShowMessage.showErrorMessage("Problemas con el reino de magia " + realms + " mostrada en el archivo "
-						+ professionName + ".txt.", "Leer Profesion");
+				throw new InvalidProfessionException("Problemas con el reino de magia " + realms
+						+ " mostrada en el archivo " + professionName + ".txt.");
 			}
 		}
 		Collections.sort(magicRealmsAvailable);

@@ -29,7 +29,6 @@ import java.util.List;
 
 import com.softwaremagico.librodeesher.basics.ChooseGroup;
 import com.softwaremagico.librodeesher.basics.ChooseType;
-import com.softwaremagico.librodeesher.basics.ShowMessage;
 
 public class ChooseSkillGroup extends ChooseGroup<Skill> {
 
@@ -41,7 +40,7 @@ public class ChooseSkillGroup extends ChooseGroup<Skill> {
 		super(chooseNumber, skillGroup, chooseType);
 	}
 
-	public ChooseSkillGroup(int chooseNumber, String[] skillGroup, ChooseType chooseType) {
+	public ChooseSkillGroup(int chooseNumber, String[] skillGroup, ChooseType chooseType) throws InvalidSkillException {
 		super(chooseType);
 		this.numberOfOptionsToChoose = chooseNumber;
 		for (String skillName : skillGroup) {
@@ -49,8 +48,7 @@ public class ChooseSkillGroup extends ChooseGroup<Skill> {
 			if (skill != null) {
 				this.optionsGroup.add(skill);
 			} else {
-				ShowMessage.showErrorMessage("Error leyendo un conjunto de categorias. Fallo en: " + skillName,
-						"Leer Profesión");
+				throw new InvalidSkillException("Error leyendo un conjunto de categorias. Fallo en: " + skillName);
 			}
 		}
 	}

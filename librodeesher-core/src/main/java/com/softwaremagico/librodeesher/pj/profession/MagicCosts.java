@@ -26,8 +26,8 @@ package com.softwaremagico.librodeesher.pj.profession;
 
 import java.util.HashMap;
 
-import com.softwaremagico.librodeesher.basics.ShowMessage;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
+import com.softwaremagico.librodeesher.pj.categories.InvalidCategoryException;
 import com.softwaremagico.librodeesher.pj.magic.MagicLevelRange;
 import com.softwaremagico.librodeesher.pj.magic.MagicListType;
 
@@ -41,10 +41,10 @@ public class MagicCosts {
 		}
 	}
 
-	public boolean setMagicCost(MagicListType listType, MagicLevelRange level, String cost) {
+	public boolean setMagicCost(MagicListType listType, MagicLevelRange level, String cost)
+			throws InvalidProfessionException, InvalidCategoryException {
 		if (listType == null || level == null || cost == null) {
-			ShowMessage.showErrorMessage("Coste de lista de hechizos mal formado.", "Asignar costes magia");
-			return false;
+			throw new InvalidProfessionException("Coste de lista de hechizos mal formado.");
 		}
 		CategoryCost[] listCosts = getListCost(listType);
 		Integer levelRange = getListLevelSeparation(level);
@@ -54,9 +54,8 @@ public class MagicCosts {
 			listCosts[levelRange] = listCost;
 			return true;
 		} else {
-			ShowMessage.showErrorMessage("Coste de lista de hechizos mal formado.", "Asignar costes magia");
+			throw new InvalidProfessionException("Coste de lista de hechizos mal formado.");
 		}
-		return false;
 	}
 
 	private CategoryCost[] getListCost(MagicListType listType) {

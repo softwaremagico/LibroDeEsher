@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.basics;
+package com.softwaremagico.librodeesher.gui;
 
 /*
  * #%L
