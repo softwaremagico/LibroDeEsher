@@ -224,7 +224,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		// Skills list.
 		for (int i = 0; i < cat.getSkills().size(); i++) {
 			hab = cat.getSkills().get(i);
-			if (getCharacterPlayer().isSkillUseful(hab)) {
+			if (getCharacterPlayer().isSkillInteresting(hab)) {
 				tableHab = skillLine(hab, font);
 				cell = new PdfPCell(tableHab);
 				cell.setBorderWidth(0);
@@ -659,8 +659,8 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setPaddingLeft(5f);
 		categoryTable.addCell(cell);
 
-		p = new Paragraph("Prof: " + category.getBonus()
-				+ getCharacterPlayer().getProfession().getCategoryBonus(category.getName()), FontFactory.getFont(font,
+		p = new Paragraph("Prof: " + (category.getBonus()
+				+ getCharacterPlayer().getProfession().getCategoryBonus(category.getName())), FontFactory.getFont(font,
 				fontSize));
 		cell = new PdfPCell(p);
 		cell.setMinimumHeight(15);
