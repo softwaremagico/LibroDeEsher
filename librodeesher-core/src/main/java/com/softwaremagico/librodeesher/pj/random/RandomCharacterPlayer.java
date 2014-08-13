@@ -570,6 +570,10 @@ public class RandomCharacterPlayer {
 						Log.info(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName() + "' ("
 								+ skillProbabilityStored.get(skill) + "%), roll: " + roll + " Added! ("
 								+ characterPlayer.getRemainingDevelopmentPoints() + ")");
+						if (characterPlayer.getRemainingDevelopmentPoints() < 0) {
+							Log.info(RandomCharacterPlayer.class.getName(), "Skill Ranks:" + characterPlayer.getCurrentLevel().getSkillsRanks(skill.getName()));
+							Log.info(RandomCharacterPlayer.class.getName(), "Skill Ranks Cost:" + characterPlayer.getNewRankCost(skill, 1, characterPlayer.getCurrentLevel().getSkillsRanks(skill.getName())));
+						}
 						for (Skill skillToRemove : category.getSkills()) {
 							skillProbabilityStored.remove(skillToRemove);
 						}

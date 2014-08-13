@@ -525,10 +525,13 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	private Integer getSpentDevelopmentPoints() {
-		if (levelUps.size() > 0) {
-			return getSpentDevelopmentPointsInCategoryRanks(levelUps.size() - 1)
-					+ getSpentDevelopmentPointsInSkillsRanks(levelUps.size() - 1)
-					+ getSpentDevelopmentPointsInTrainings(levelUps.size() - 1);
+		return getSpentDevelopmentPoints(levelUps.size() - 1);
+	}
+
+	private Integer getSpentDevelopmentPoints(int level) {
+		if (level < levelUps.size()) {
+			return getSpentDevelopmentPointsInCategoryRanks(level) + getSpentDevelopmentPointsInSkillsRanks(level)
+					+ getSpentDevelopmentPointsInTrainings(level);
 		}
 		return 0;
 	}
@@ -1495,7 +1498,7 @@ public class CharacterPlayer extends StorableObject {
 				magicSpellListsObtained = true;
 			} catch (MagicDefinitionException | InvalidProfessionException e) {
 				magicSpellLists = new MagicSpellLists();
-			}			
+			}
 		}
 		return magicSpellLists;
 	}
