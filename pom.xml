@@ -26,6 +26,7 @@
 
 	<properties>
 		<url>http://librodeesher.sourceforge.net/</url>
+		<main.basedir>${project.basedir}</main.basedir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<license.licenseName>gnugpl</license.licenseName>
 		<license.licenseResolver>file://${basedir}/src/license</license.licenseResolver>
