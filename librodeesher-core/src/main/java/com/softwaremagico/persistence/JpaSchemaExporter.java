@@ -170,7 +170,6 @@ public class JpaSchemaExporter {
 		}
 		gen.createDatabaseScript(HibernateDialect.MYSQL, directory, true);
 		gen.updateDatabaseScript(HibernateDialect.MYSQL, directory, host, port, user, password);
-		System.exit(0);
 	}
 
 	private static String getDate() {

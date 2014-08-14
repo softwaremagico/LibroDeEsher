@@ -291,7 +291,7 @@ return "em";
 if (hab.DevolverNombre().equals("Garrote")) {
 return "ga";
 }
-if (hab.DevolverNombre().equals("L��tigo")) {
+if (hab.DevolverNombre().equals("Látigo")) {
 return "lg";
 }
 if (hab.DevolverNombre().equals("Martillo de Guerra")) {
