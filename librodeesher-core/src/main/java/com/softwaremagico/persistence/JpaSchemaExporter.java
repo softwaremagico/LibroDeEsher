@@ -11,6 +11,8 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 
+import com.softwaremagico.log.Log;
+
 @SuppressWarnings("rawtypes")
 public class JpaSchemaExporter {
 	private static final String DATABASE_NAME = "esher";
@@ -18,19 +20,20 @@ public class JpaSchemaExporter {
 	private static final String DEFAULT_DATABASE_PORT = "3306";
 	private static final String DEFAULT_DATABASE_USER = "esher";
 	private static final String DEFAULT_DATABASE_PASSWORD = "esher";
-	private static final String PACKET_TO_SCAN = "com.softwaremagico.librodeesher";
+	private static final String[] PACKETS_TO_SCAN = { "com.softwaremagico.librodeesher" };
 	private static final String DEFAULT_OUTPUT_DIRECTORY = "../database/";
 	private Configuration cfg;
 
-	public JpaSchemaExporter(String packageName) {
+	public JpaSchemaExporter(String[] packagesName) {
 		cfg = new Configuration();
 		try {
-			for (Class clazz : getClasses(packageName)) {
-				cfg.addAnnotatedClass(clazz);
+			for (int i = 0; i < packagesName.length; i++) {
+				for (Class clazz : getClasses(packagesName[i])) {
+					cfg.addAnnotatedClass(clazz);
+				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.errorMessage(JpaSchemaExporter.class.getName(), e);
 		}
 	}
 
@@ -131,7 +134,7 @@ public class JpaSchemaExporter {
 	 *            args[0] -> directory, args[1] -> user, args[2] -> password, args[3] -> host, args[4] -> port
 	 */
 	public static void main(String[] args) {
-		JpaSchemaExporter gen = new JpaSchemaExporter(PACKET_TO_SCAN);
+		JpaSchemaExporter gen = new JpaSchemaExporter(PACKETS_TO_SCAN);
 		String directory;
 		if (args.length == 0) {
 			directory = DEFAULT_OUTPUT_DIRECTORY;
@@ -167,6 +170,7 @@ public class JpaSchemaExporter {
 		}
 		gen.createDatabaseScript(HibernateDialect.MYSQL, directory, true);
 		gen.updateDatabaseScript(HibernateDialect.MYSQL, directory, host, port, user, password);
+		System.exit(0);
 	}
 
 	private static String getDate() {
