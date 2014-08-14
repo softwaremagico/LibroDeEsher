@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.pj.pdf;
+package com.softwaremagico.librodeesher.pj.export.pdf;
 
 import java.io.File;
 import java.io.FileNotFoundException;

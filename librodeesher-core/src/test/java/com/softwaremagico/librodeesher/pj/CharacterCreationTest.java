@@ -3,9 +3,9 @@ package com.softwaremagico.librodeesher.pj;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.softwaremagico.librodeesher.pj.export.pdf.PdfCombinedSheet;
+import com.softwaremagico.librodeesher.pj.export.pdf.PdfStandardSheet;
 import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
-import com.softwaremagico.librodeesher.pj.pdf.PdfCombinedSheet;
-import com.softwaremagico.librodeesher.pj.pdf.PdfStandardSheet;
 import com.softwaremagico.librodeesher.pj.profession.InvalidProfessionException;
 import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
