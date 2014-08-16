@@ -768,7 +768,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 	}
 
 	private void closePage(Document document, PdfWriter writer, String font) {
-		PdfPCell cell = new PdfPCell(createSignature(font, fontSize));
+		PdfPCell cell = new PdfPCell(createFooter(font, fontSize));
 		cell.setBorderWidth(0);
 		cell.setColspan(2);
 		cell.setMinimumHeight(20);

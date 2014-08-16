@@ -30,12 +30,12 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryType;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
+import com.softwaremagico.librodeesher.pj.export.txt.TxtSheet;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.race.Race;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
-import com.softwaremagico.librodeesher.pj.txt.ExportToText;
 import com.softwaremagico.log.Log;
 
 public class PdfStandardSheet {
@@ -360,7 +360,7 @@ public class PdfStandardSheet {
 			}
 		}
 
-		cell = new PdfPCell(createSignature(font, fontSize + 1));
+		cell = new PdfPCell(createFooter(font, fontSize + 1));
 		cell.setBorderWidth(0);
 		cell.setColspan(11);
 		cell.setMinimumHeight(20);
@@ -714,7 +714,7 @@ public class PdfStandardSheet {
 			throws BadElementException, DocumentException, MalformedURLException, IOException {
 		PdfPCell cell;
 		// Cerramos pagina anterior.
-		cell = new PdfPCell(createSignature(font, fontSize));
+		cell = new PdfPCell(createFooter(font, fontSize));
 		cell.setBorderWidth(0);
 		cell.setColspan(9);
 		cell.setMinimumHeight(20);
@@ -798,7 +798,7 @@ public class PdfStandardSheet {
 			addEmptySkillLine(font, fontsize, table, skillLines);
 		}
 
-		cell = new PdfPCell(createSignature(font, fontsize + 1));
+		cell = new PdfPCell(createFooter(font, fontsize + 1));
 		cell.setBorderWidth(0);
 		cell.setColspan(9);
 		cell.setMinimumHeight(20);
@@ -875,7 +875,7 @@ public class PdfStandardSheet {
 		return table;
 	}
 
-	private PdfPTable createResistenceTable(String font, int fontSize, int tr,
+	private PdfPTable createResistenceTable(String font, int fontSize, int trBonus,
 			CharacteristicsAbbreviature characteristicAbbreviature) {
 		PdfPCell cell;
 		Paragraph p;
@@ -889,7 +889,7 @@ public class PdfStandardSheet {
 		tablaResistencia.addCell(cell);
 
 		if (characterPlayer != null) {
-			p = new Paragraph(tr + "", FontFactory.getFont(font, fontSize));
+			p = new Paragraph(trBonus + "", FontFactory.getFont(font, fontSize));
 		} else {
 			p = new Paragraph(" " + EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 		}
@@ -916,7 +916,7 @@ public class PdfStandardSheet {
 		tablaResistencia.addCell(cell);
 
 		if (characterPlayer != null) {
-			p = new Paragraph((characterPlayer.getCharacteristicTotalBonus(characteristicAbbreviature) * 3 + tr)
+			p = new Paragraph((characterPlayer.getCharacteristicTotalBonus(characteristicAbbreviature) * 3 + trBonus)
 					+ "    ", FontFactory.getFont(font, fontSize));
 		} else {
 			p = new Paragraph(EMPTY_VALUE, FontFactory.getFont(font, fontSize));
@@ -1640,7 +1640,7 @@ public class PdfStandardSheet {
 		return tabla;
 	}
 
-	PdfPTable createSignature(String font, int fontSize) {
+	PdfPTable createFooter(String font, int fontSize) {
 		PdfPTable tabla = new PdfPTable(1);
 		Paragraph p;
 		PdfPCell cell;
@@ -1723,7 +1723,7 @@ public class PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
-		cell = new PdfPCell(createSignature(font, fontSize));
+		cell = new PdfPCell(createFooter(font, fontSize));
 		cell.setBorderWidth(0);
 		cell.setColspan(2);
 		cell.setMinimumHeight(30);
@@ -1743,15 +1743,15 @@ public class PdfStandardSheet {
 	}
 
 	public String exportSpecials() {
-		return ExportToText.exportSpecials(characterPlayer);
+		return TxtSheet.exportSpecials(characterPlayer);
 	}
 
 	public String exportPerks() {
-		return ExportToText.exportPerks(characterPlayer);
+		return TxtSheet.exportPerks(characterPlayer);
 	}
 
 	public String exportItems() {
-		return ExportToText.exportItems(characterPlayer);
+		return TxtSheet.exportItems(characterPlayer);
 	}
 
 	private void addSpecialText(Document document, PdfWriter writer, String font, int fontSize) {
@@ -1773,7 +1773,7 @@ public class PdfStandardSheet {
 		cell.setMinimumHeight(document.getPageSize().getHeight() - 90);
 		tablaPagina.addCell(cell);
 
-		cell = new PdfPCell(createSignature(font, fontSize - 2));
+		cell = new PdfPCell(createFooter(font, fontSize - 2));
 		cell.setBorderWidth(0);
 		cell.setMinimumHeight(30);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -1801,7 +1801,7 @@ public class PdfStandardSheet {
 		cell.setMinimumHeight(document.getPageSize().getHeight() - 90);
 		tablaPagina.addCell(cell);
 
-		cell = new PdfPCell(createSignature(font, fontSize - 2));
+		cell = new PdfPCell(createFooter(font, fontSize - 2));
 		cell.setBorderWidth(0);
 		cell.setMinimumHeight(30);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
