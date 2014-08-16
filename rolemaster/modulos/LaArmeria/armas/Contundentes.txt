@@ -1,7 +1,7 @@
 #Generalizaciones: 
-Jitte *
-Sai *
-Látigo de Acero *
-Abanico de Combate *
-Gato de Nueve Colas
-Red de Gladiador
+Jitte *	ji
+Sai *	sai
+Látigo de Acero *	lga
+Abanico de Combate *	ab
+Gato de Nueve Colas	g9c
+Red de Gladiador	rgla

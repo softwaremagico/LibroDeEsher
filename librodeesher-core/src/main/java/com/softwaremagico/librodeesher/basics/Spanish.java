@@ -108,4 +108,20 @@ public class Spanish {
 	public static final String PHISICAL_DEVELOPMENT_SKILL = "Desarrollo Físico";
 	public static final String POWER_POINTS_CATEGORY = "Desarrollo de Puntos de Poder";
 	public static final String POWER_POINTS_DEVELOPMENT_SKILL = "Desarrollo de Puntos de Poder";
+	public static final String WEAPONS_EDGE = "Armas·Filo";
+	public static final String WEAPONS_POLE = "Armas·Asta";
+	public static final String WEAPONS_HAMMERS = "Armas·Contundentes";
+	public static final String WEAPONS_TWOHANDS = "Armas·2manos";
+	public static final String WEAPONS_THROWABLE = "Armas·Arrojadizas";
+	public static final String WEAPONS_PROJECTILE = "Armas·Proyectiles";
+	public static final String WEAPONS_FIREARMS_ONEHAND = "Armas·Fuego 1manos";
+	public static final String WEAPONS_FIREARMS_TWOHANDS = "Armas·Fuego 2manos";
+	public static final String WEAPONS_MARTIALS_HITS = "Artes Marciales·Golpes";
+	public static final String WEAPONS_MARTIALS_KICKS = "Artes Marciales·Barridos";
+	public static final String WEAPONS_MARTIALS_MANIOBRES = "Artes Marciales·Maniobras de Combate";
+	public static final String WEAPONS_SPECIALS = "Ataques Especiales";
+	public static final String WEAPONS_CLAW = "Ataque Racial: Extremidades";
+	public static final String WEAPONS_BITE = "Ataque Racial: Boca";
+	public static final String WEAPONS_OTHERS = "Ataque Racial: Otros";
+	
 }

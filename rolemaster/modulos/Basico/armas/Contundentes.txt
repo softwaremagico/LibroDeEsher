@@ -1,6 +1,6 @@
 #Generalizaciones: 
-Estrella de la Mañana
-Garrote
-Látigo
-Martillo de Guerra
-Maza
+Estrella de la Mañana	em
+Garrote	ga
+Látigo	lg
+Martillo de Guerra	mr
+Maza	ma

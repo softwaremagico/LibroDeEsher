@@ -1,7 +1,7 @@
 #Generalizaciones: 
-Cutlass
-Florete *
-Cuchillo
-Espada Larga
-Wakizashi *
-Garfio de Tigre *
+Cutlass	cut
+Florete *	flo
+Cuchillo	cu
+Espada Larga	elar
+Wakizashi *	wa
+Garfio de Tigre *	gart

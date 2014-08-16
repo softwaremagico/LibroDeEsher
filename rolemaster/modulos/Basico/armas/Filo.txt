@@ -1,9 +1,9 @@
 #Generalizaciones: 
-Alfanje
-Cimitarra
-Daga
-Espada
-Espada Corta
-Estoque
-Hacha de Mano
-Main Gauche
+Alfanje	af
+Cimitarra	ci
+Daga	da
+Espada	ea
+Espada Corta	ec
+Estoque	et
+Hacha de Mano	hm
+Main Gauche	mg

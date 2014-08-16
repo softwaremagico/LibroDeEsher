@@ -490,7 +490,7 @@ public class SkillProbability {
 	 * Select common and professional skills.
 	 */
 	private int bestSkills() {
-		if (characterPlayer.isSkillGeneralized(skill)) {
+		if (characterPlayer.isGeneralized(skill)) {
 			return Math.max(0, 50 - characterPlayer.getNewRankCost(skill) * 20);
 		}
 		if (characterPlayer.isRestricted(skill)) {

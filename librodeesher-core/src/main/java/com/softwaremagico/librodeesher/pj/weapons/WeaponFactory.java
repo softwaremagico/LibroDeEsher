@@ -67,9 +67,10 @@ public class WeaponFactory {
 			String weaponTypeName = file.getName();
 
 			WeaponType weaponFileType = WeaponType.getWeaponType(MyFile.fileWithouExtension(weaponTypeName));
-			for (String weaponName : weaponsInFile) {
-				if (!weaponName.startsWith("#")) {
-					Weapon weapon = new Weapon(weaponName, weaponFileType);
+			for (String line : weaponsInFile) {
+				if (!line.startsWith("#")) {
+					String[] weaponName = line.split("\t"); 
+					Weapon weapon = new Weapon(weaponName[0], weaponFileType, weaponName[1]);
 					if (!obtainedWeaponsByType.get(weaponFileType).contains(weapon)) {
 						obtainedWeaponsByType.get(weaponFileType).add(weapon);
 					}

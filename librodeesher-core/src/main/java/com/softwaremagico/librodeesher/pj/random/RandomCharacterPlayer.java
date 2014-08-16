@@ -585,7 +585,7 @@ public class RandomCharacterPlayer {
 						}
 
 						// Add specializations.
-						if (!characterPlayer.isRestricted(skill) && !characterPlayer.isSkillGeneralized(skill)) {
+						if (!characterPlayer.isRestricted(skill) && !characterPlayer.isGeneralized(skill)) {
 							for (int k = 0; k < skill.getSpecialities().size(); k++) {
 								// Only specialization value of 3 can generate
 								// specialized skills.
@@ -599,7 +599,7 @@ public class RandomCharacterPlayer {
 							// Only generalized value of -3 can generate
 							// generalized skills.
 							if (Math.random() * 100 < -specializationLevel + 2) {
-								characterPlayer.addSkillGeneralized(skill);
+								characterPlayer.addGeneralized(skill);
 							}
 						}
 					}

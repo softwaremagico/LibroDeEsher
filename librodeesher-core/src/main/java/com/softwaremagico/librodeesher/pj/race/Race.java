@@ -54,7 +54,7 @@ public class Race {
 	private List<String> restrictedProfessions;
 	private Integer soulDepartTime;
 	private Integer raceType;
-	private String size;
+	private RaceSize size;
 	private Float restorationTime;
 	private Integer languagePoints;
 	private Integer historialPoints;
@@ -265,7 +265,7 @@ public class Race {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
-		size = lines.get(index);
+		size = RaceSize.getRaceSize(lines.get(index));
 		index++;
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -578,7 +578,7 @@ public class Race {
 		return raceType;
 	}
 
-	public String getSize() {
+	public RaceSize getSize() {
 		return size;
 	}
 

@@ -1,19 +1,19 @@
 #Generalizaciones: 
-Nagamaki *
-Naginata *
-Bardiche *
-Hacha Picuda *
-Bec de Corbin *
-Fauchard *
-Guja *
-Bisarma *
-Arpón
-Lanza Pesada *
-Martillo Lucerne *
-Atrapa Hombres *
-Horca
-Partisan *
-Pica	
-Ranscur *
-Poleaxe
-Tridente
+Nagamaki *	ngk
+Naginata *	ngt
+Bardiche *	bdc
+Hacha Picuda *	hpi
+Bec de Corbin *	bco
+Fauchard *	fau
+Guja *	guj
+Bisarma *	bis
+Arpón	arp
+Lanza Pesada *	lap
+Martillo Lucerne *	luc
+Atrapa Hombres *	ath
+Horca	hor
+Partisan *	prt
+Pica	pi
+Ranscur *	ra
+Poleaxe	plx
+Tridente	tri

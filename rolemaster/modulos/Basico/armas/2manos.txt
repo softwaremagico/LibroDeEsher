@@ -1,6 +1,6 @@
 #Generalizaciones:  
-Cayado
-Espadón
-Hacha de Batalla
-Mangual
-Pica de Guerra
+Cayado	ca
+Espadón	e2
+Hacha de Batalla	hb
+Mangual	mg
+Pica de Guerra	pc

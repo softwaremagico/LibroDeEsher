@@ -582,7 +582,7 @@ public class Perk {
 		this.restrictedCategories = restrictedCategories;
 	}
 
-	protected Integer getArmourClass() {
+	public Integer getArmourClass() {
 		return armourClass;
 	}
 

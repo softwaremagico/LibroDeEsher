@@ -1,3 +1,3 @@
 #Generalizaciones: 
-Boleadoras
-Daga Arrojadiza
+Boleadoras	bo
+Daga Arrojadiza	daA

@@ -1,4 +1,4 @@
 #Generalizaciones: 
-Sable *
-Kama *
-Wakizashi *
+Sable *	sa
+Kama *	km
+Wakizashi *	wa

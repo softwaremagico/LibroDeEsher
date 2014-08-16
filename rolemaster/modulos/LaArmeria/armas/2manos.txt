@@ -1,12 +1,12 @@
 #Generalizaciones:  
-Hacha Bastarda
-Espada Bastarda
-Espada Grande
-Cimitarra Larga
-Katana *
-Kyotetsu-shoge *
-Ninjato *
-No Dachi *
-Martillo Cometa *
-Nunchaku *
-Aklys *
+Hacha Bastarda	hbt
+Espada Bastarda	ebt
+Espada Grande	eg
+Cimitarra Larga	cl	
+Katana *	ka
+Kyotetsu-shoge *	ks
+Ninjato *	ni
+No Dachi *	nd
+Martillo Cometa *	co
+Nunchaku *	nu
+Aklys *	ak

@@ -852,7 +852,7 @@ public class CharacterPlayer extends StorableObject {
 		Float modifier = (float) 1;
 		if (isRestricted(skill)) {
 			modifier = (float) 0.5;
-		} else if (isSkillGeneralized(skill)) {
+		} else if (isGeneralized(skill)) {
 			if (isCommon(skill) || isProfessional(skill)) {
 				modifier = (float) 1;
 			} else {
@@ -919,6 +919,12 @@ public class CharacterPlayer extends StorableObject {
 		return total;
 	}
 
+	/**
+	 * Get all bonus related to a skill: conditional and concrete.
+	 * 
+	 * @param skill
+	 * @return
+	 */
 	public Integer getPerkBonus(Skill skill) {
 		Integer total = 0;
 		for (SelectedPerk perk : selectedPerks) {
@@ -1741,18 +1747,18 @@ public class CharacterPlayer extends StorableObject {
 
 	public void addSkillSpecialization(Skill skill, String specialization) {
 		if (!getSkillSpecializations(skill).contains(specialization)
-				&& !isSkillGeneralized(skill)) {
+				&& !isGeneralized(skill)) {
 			getCurrentLevel().addSkillSpecialization(specialization);
 		}
 	}
 
-	public void addSkillGeneralized(Skill skill) {
-		if (!isSkillGeneralized(skill)) {
+	public void addGeneralized(Skill skill) {
+		if (!isGeneralized(skill)) {
 			getCurrentLevel().getGeneralizedSkills().add(skill.getName());
 		}
 	}
 
-	public boolean isSkillGeneralized(Skill skill) {
+	public boolean isGeneralized(Skill skill) {
 		for (LevelUp level : getLevelUps()) {
 			if (level.getGeneralizedSkills().contains(skill.getName())) {
 				return true;
@@ -1963,6 +1969,16 @@ public class CharacterPlayer extends StorableObject {
 			trainings.addAll(level.getTrainings());
 		}
 		return trainings;
+	}
+
+	public int getArmourClass() {
+		int armourClass = 1;
+		for (Perk perk : getPerks()) {
+			if (perk.getArmourClass() > armourClass) {
+				armourClass = perk.getArmourClass();
+			}
+		}
+		return armourClass;
 	}
 
 }

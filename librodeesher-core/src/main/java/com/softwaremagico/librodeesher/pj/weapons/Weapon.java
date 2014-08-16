@@ -27,8 +27,9 @@ package com.softwaremagico.librodeesher.pj.weapons;
 public class Weapon {
 	private String name;
 	private WeaponType type;
+	private String abbreviature;
 
-	Weapon(String name, WeaponType type) {
+	Weapon(String name, WeaponType type, String abbreviature) {
 		this.name = name;
 		this.type = type;
 	}
@@ -73,6 +74,10 @@ public class Weapon {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	public String getAbbreviature() {
+		return abbreviature;
 	}
 
 }
