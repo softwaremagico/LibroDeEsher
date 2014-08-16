@@ -1,6 +1,10 @@
 package com.softwaremagico.librodeesher.pj.export.txt;
 
+import java.util.List;
+
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
+import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.perk.Perk;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
@@ -17,34 +21,33 @@ public class TxtSheet {
 	 * Genera un texto con el nombre, raza, profesion y otros detalles del
 	 * characterPlayer.
 	 */
-	public String ExportarATextDetalles() {
-		return characterPlayer.DevolverNombreCompleto() + "\tNº "
-				+ characterPlayer.nivel + "\n" + characterPlayer.raza + "\n"
-				+ characterPlayer.profesion + "\n";
+	public static String basicCharacterInfo(CharacterPlayer characterPlayer) {
+		return characterPlayer.getName() + "\tNº "
+				+ characterPlayer.getCurrentLevelNumber() + "\n" + characterPlayer.getRace().getName() + "\n"
+				+ characterPlayer.getProfession().getName() + "\n";
 	}
 
-	private String ExportarATextoCaracteristicas() {
+	private static String getCharacteristicsInfo(CharacterPlayer characterPlayer) {
+		List<Characteristic> characteristics = Characteristics.getCharacteristics();
 		String text = "Caract\tTemp\tPot\tTot\tRaza\tEsp\tTotal\n";
 		text += "---------------------------------------------------------------------------------\n";
-		for (int i = 0; i < characterPlayer.caracteristicas.Size(); i++) {
+		for (int i = 0; i < characteristics.size(); i++) {
 			text = text
-					+ characterPlayer.caracteristicas.Get(i)
-							.DevolverAbreviatura()
+					+ characteristics.get(i).getAbbreviature().getAbbreviature()
 					+ "\t"
-					+ characterPlayer.caracteristicas.Get(i)
-							.ObtenerPuntosTemporal()
+					+ characterPlayer.getCharacteristicTemporalValue(characteristics.get(i)
+							.getAbbreviature())
 					+ "\t"
-					+ characterPlayer.caracteristicas.Get(i)
-							.ObtenerPuntosPotencial()
+					+ characterPlayer.getCharacteristicPotencialValue().get(
+							characteristics.get(i).getAbbreviature())
 					+ "\t"
-					+ characterPlayer.caracteristicas.Get(i)
-							.ObtenerValorTemporal()
+					+ characterPlayer.getCharacteristicTemporalBonus(characteristics.get(i)
+							.getAbbreviature())
 					+ "\t"
-					+ characterPlayer.caracteristicas.Get(i).ObtenerValorRaza()
+					+ characterPlayer.getCharacteristicRaceBonus(characteristics.get(i).getAbbreviature())
 					+ "\t"
-					+ characterPlayer.caracteristicas.Get(i)
-							.ObtenerPuntosEspecial() + "\t"
-					+ characterPlayer.caracteristicas.Get(i).Total() + "\n";
+					+ characterPlayer.getCharacteristicSpecialBonus(characteristics.get(i).getAbbreviature()) + "\t"
+					+ characterPlayer.getCharacteristicTotalBonus(characteristics.get(i).getAbbreviature()) + "\n";
 		}
 		return text;
 	}
@@ -244,8 +247,8 @@ return text;
 		if (!file.endsWith(".txt")) {
 			file += ".txt";
 		}
-		String texto = ExportarATextDetalles() + "\n\n"
-				+ ExportarATextoCaracteristicas() + "\n\n" + ExportarTRs()
+		String texto = basicCharacterInfo() + "\n\n"
+				+ getCharacteristicsInfo() + "\n\n" + ExportarTRs()
 				+ "\n\n" + ExportarATextoHabilidades() + "\n\n" + exportPerks()
 				+ "\n\n" + exportSpecials() + "\n\n" + exportItems();
 		DirectorioRolemaster.GuardarEnFichero(texto, file);
