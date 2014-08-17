@@ -6,6 +6,7 @@
 				<include name="characterCreation" />
 				<include name="characterStorage" />
 				<include name="characterPdf" />
+				<include name="characterTxt" />
 			</run>
 		</groups>
 		<classes>

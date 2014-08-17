@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfCombinedSheet;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfStandardSheet;
+import com.softwaremagico.librodeesher.pj.export.txt.TxtSheet;
 import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
 import com.softwaremagico.librodeesher.pj.profession.InvalidProfessionException;
 import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
@@ -15,6 +16,8 @@ import com.softwaremagico.persistence.dao.hibernate.CharacterPlayerDao;
 public class CharacterCreationTest {
 	private final static String PDF_PATH_STANDARD = System.getProperty("java.io.tmpdir") + "/testStnd.pdf";
 	private final static String PDF_PATH_COMBINED = System.getProperty("java.io.tmpdir") + "/testCmb.pdf";
+	private final static String TXT_PATH = System.getProperty("java.io.tmpdir") + "/testStandard.txt";
+	private final static String TXT_ABBREVIATED_PATH = System.getProperty("java.io.tmpdir") + "/testAbbreviated.txt";
 	private CharacterPlayerDao characterPlayerDao = CharacterPlayerDao.getInstance();
 	private CharacterPlayer characterPlayer;
 
@@ -40,6 +43,16 @@ public class CharacterCreationTest {
 	@Test(groups = { "characterPdf" }, dependsOnMethods = { "storeCharacter" })
 	public void combinedPdf() throws Exception {
 		new PdfCombinedSheet(characterPlayer, PDF_PATH_COMBINED);
+	}
+	
+	@Test(groups = { "characterTxt" }, dependsOnMethods = { "storeCharacter" })
+	public void exportStandardTxt() throws Exception {
+		new TxtSheet(characterPlayer).exportSheet(TXT_PATH);
+	}
+	
+	@Test(groups = { "characterTxt" }, dependsOnMethods = { "storeCharacter" })
+	public void exportAbbreviatedTxt() throws Exception {
+		new TxtSheet(characterPlayer).exportCharacterAbbreviature(TXT_ABBREVIATED_PATH);
 	}
 
 }

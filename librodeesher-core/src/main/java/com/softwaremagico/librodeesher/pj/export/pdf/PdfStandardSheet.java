@@ -523,13 +523,13 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 	}
 
-	private void addSpecializedSkillLine(Skill hab, String font, int fontSize, PdfPTable table, int i,
+	private void addSpecializedSkillLine(Skill skill, String font, int fontSize, PdfPTable table, int i,
 			int specializedIndex) throws BadElementException, MalformedURLException, IOException {
 		String texto;
 		PdfPCell cell;
 
 		if (characterPlayer != null) {
-			texto = hab.getName() + " (" + characterPlayer.getSkillSpecializations(hab).get(specializedIndex) + ")";
+			texto = skill.getName() + " (" + characterPlayer.getSkillSpecializations(skill).get(specializedIndex) + ")";
 		} else {
 			texto = "___________________________________________";
 		}
@@ -560,7 +560,7 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			texto = "  " + characterPlayer.getSpecializedRanks(hab) + "";
+			texto = "  " + characterPlayer.getSpecializedRanksValue(skill) + "";
 		} else {
 			texto = "   __";
 		}
@@ -571,7 +571,7 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			texto = characterPlayer.getTotalValue(hab.getCategory()) + "";
+			texto = characterPlayer.getTotalValue(skill.getCategory()) + "";
 		} else {
 			texto = "__";
 		}
@@ -582,7 +582,7 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			texto = characterPlayer.getItemBonus(hab) + "";
+			texto = characterPlayer.getItemBonus(skill) + "";
 		} else {
 			texto = EMPTY_VALUE;
 		}
@@ -596,20 +596,20 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			texto = characterPlayer.getProfession().getSkillBonus(hab.getName())
-					+ characterPlayer.getHistorial().getBonus(hab) + characterPlayer.getPerkBonus(hab) + "";
+			texto = characterPlayer.getProfession().getSkillBonus(skill.getName())
+					+ characterPlayer.getHistorial().getBonus(skill) + characterPlayer.getPerkBonus(skill) + "";
 		} else {
 			texto = "__";
 		}
 
 		String letra = "";
-		if (characterPlayer.getHistorial().getBonus(hab) > 0) {
+		if (characterPlayer.getHistorial().getBonus(skill) > 0) {
 			letra += "H";
 		}
 
-		if (characterPlayer.getPerkBonus(hab) != 0) {
+		if (characterPlayer.getPerkBonus(skill) != 0) {
 			letra += "T";
-			if (characterPlayer.getConditionalPerkBonus(hab) != 0) {
+			if (characterPlayer.getConditionalPerkBonus(skill) != 0) {
 				letra += "*";
 			}
 		}
@@ -630,12 +630,12 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			if (characterPlayer.getItemBonus(hab) > 0 || characterPlayer.getConditionalPerkBonus(hab) > 0) {
-				texto = characterPlayer.getSpecializedTotalValue(hab) - characterPlayer.getItemBonus(hab)
-						- characterPlayer.getConditionalPerkBonus(hab) + "/"
-						+ characterPlayer.getSpecializedTotalValue(hab) + "";
+			if (characterPlayer.getItemBonus(skill) > 0 || characterPlayer.getConditionalPerkBonus(skill) > 0) {
+				texto = characterPlayer.getSpecializedTotalValue(skill) - characterPlayer.getItemBonus(skill)
+						- characterPlayer.getConditionalPerkBonus(skill) + "/"
+						+ characterPlayer.getSpecializedTotalValue(skill) + "";
 			} else {
-				texto = characterPlayer.getSpecializedTotalValue(hab) + "";
+				texto = characterPlayer.getSpecializedTotalValue(skill) + "";
 			}
 		} else {
 			texto = EMPTY_VALUE;
