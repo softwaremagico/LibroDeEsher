@@ -429,11 +429,11 @@ public class TxtSheet {
 				+ characterPlayer.getDefensiveBonus() + ")\t"
 				+ characterPlayer.getTotalValue(habCC)
 				+ getAttackCode(characterPlayer, habCC);
-		if (characterPlayer.getTotalValue(habProy) > 0) {
+		if (habProy!=null && characterPlayer.getTotalValue(habProy) > 0) {
 			texto += "/" + characterPlayer.getTotalValue(habProy)
 					+ getAttackCode(characterPlayer, habProy);
 		}
-		if (characterPlayer.getTotalValue(habAtaq) > 0) {
+		if (habAtaq!=null && characterPlayer.getTotalValue(habAtaq) > 0) {
 			texto += "/" + characterPlayer.getTotalValue(habAtaq)
 					+ getAttackCode(characterPlayer, habAtaq) + " \n";
 		}

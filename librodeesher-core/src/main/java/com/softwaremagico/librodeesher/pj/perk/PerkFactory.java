@@ -202,7 +202,7 @@ public class PerkFactory {
 		} else if (bonusName.toUpperCase().contains(Spanish.ARMOUR_TAG)) {
 			Integer bonusNumber = Integer.parseInt(bonusString);
 			perk.setArmour(bonusNumber);
-		} else if (bonusName.toUpperCase().contains(Spanish.MOVEMENT)) {
+		} else if (bonusName.toLowerCase().contains(Spanish.MOVEMENT)) {
 			Integer bonusNumber = Integer.parseInt(bonusString);
 			perk.setMovementBonus(bonusNumber);
 		} else {

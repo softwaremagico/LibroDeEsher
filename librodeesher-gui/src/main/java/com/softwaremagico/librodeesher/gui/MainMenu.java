@@ -40,7 +40,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class MainMenu {
 	private JMenuItem newMenuItem, closeMenuItem, loadMenuItem, saveMenuItem,
-			exportToTextMenuItem, exportToPdfStandardMenuItem,
+			exportToTextMenuItem, exportAbbreviatedToTextMenuItem, exportToPdfStandardMenuItem,
 			exportToPdfCombinedMenuItem, exitMenuItem;
 	private JMenuItem aboutMenuItem, cultureMenuItem, professionMenuItem,
 			charactMenuItem, trainingMenuItem, skillsMenuItem, perksMenuItem,
@@ -111,6 +111,13 @@ public class MainMenu {
 		exportToTextMenuItem.getAccessibleContext().setAccessibleDescription(
 				"Exporta a un fichero de texto plano.");
 		exportMenu.add(exportToTextMenuItem);
+		
+		exportAbbreviatedToTextMenuItem = new JMenuItem("Texto (Resumen)", KeyEvent.VK_T);
+		exportAbbreviatedToTextMenuItem.setIcon((Icon) getIcon("text.png"));
+		exportAbbreviatedToTextMenuItem.getAccessibleContext().setAccessibleDescription(
+				"Exporta un resumen a un fichero de texto plano.");
+		exportMenu.add(exportAbbreviatedToTextMenuItem);
+
 
 		exportToPdfStandardMenuItem = new JMenuItem("PDF (Estándar)",
 				KeyEvent.VK_P);
@@ -360,9 +367,17 @@ public class MainMenu {
 	public void addStandardSheetPdfActionListener(ActionListener al) {
 		exportToPdfStandardMenuItem.addActionListener(al);
 	}
-	
+
 	public void addCombinedSheetPdfActionListener(ActionListener al) {
 		exportToPdfCombinedMenuItem.addActionListener(al);
+	}
+
+	public void addStandardTxtActionListener(ActionListener al) {
+		exportToTextMenuItem.addActionListener(al);
+	}
+
+	public void addAbbreviatedTxtActionListener(ActionListener al) {
+		exportAbbreviatedToTextMenuItem.addActionListener(al);
 	}
 
 	public void addSaveActionListener(ActionListener al) {
