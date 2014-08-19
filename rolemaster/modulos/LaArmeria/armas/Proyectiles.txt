@@ -1,4 +1,4 @@
 #Generalizaciones: Arcos, Ballestas
 Cerbatana	cer
-Ballesta de Mano * bm
+Ballesta de Mano *	bm
 Bastón Honda	bho

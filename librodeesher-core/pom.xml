@@ -13,7 +13,8 @@
 	
 	
 	<properties>
-		<database.script.autogeneration.folder>${main.basedir}/../database/</database.script.autogeneration.folder>
+		<main.basedir>${basedir}/..</main.basedir>
+		<database.script.autogeneration.folder>${main.basedir}/database/</database.script.autogeneration.folder>
 	</properties>
 
 	<build>

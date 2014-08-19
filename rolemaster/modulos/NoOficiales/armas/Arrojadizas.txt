@@ -1,2 +1,2 @@
 #Generalizaciones: 
-Roca * ro
+Roca *	ro
