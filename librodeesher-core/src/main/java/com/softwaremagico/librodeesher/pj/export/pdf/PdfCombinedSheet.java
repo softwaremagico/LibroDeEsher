@@ -849,7 +849,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 				int added = 0;
 				for (int j = 0; j < category.getSkills().size(); j++) {
 					Skill skill = category.getSkills().get(j);
-					if (getCharacterPlayer().isSkillUseful(skill)) {
+					if (getCharacterPlayer().isSkillInteresting(skill)) {
 						skillsToShow++;
 						added++;
 					}

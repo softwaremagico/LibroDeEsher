@@ -24,75 +24,47 @@ public class TxtSheet {
 	}
 
 	/**
-	 * Genera un texto con el nombre, raza, profesion y otros detalles del
-	 * characterPlayer.
+	 * Genera un texto con el nombre, raza, profesion y otros detalles del characterPlayer.
 	 */
 	public static String basicCharacterInfo(CharacterPlayer characterPlayer) {
-		return characterPlayer.getName() + "\tNº "
-				+ characterPlayer.getCurrentLevelNumber() + "\n"
-				+ characterPlayer.getRace().getName() + "\n"
-				+ characterPlayer.getProfession().getName() + "\n";
+		return characterPlayer.getName() + "\tNº " + characterPlayer.getCurrentLevelNumber() + "\n"
+				+ characterPlayer.getRace().getName() + "\n" + characterPlayer.getProfession().getName() + "\n";
 	}
 
 	private static String getCharacteristicsInfo(CharacterPlayer characterPlayer) {
-		List<Characteristic> characteristics = Characteristics
-				.getCharacteristics();
+		List<Characteristic> characteristics = Characteristics.getCharacteristics();
 		String text = "Caract\tTemp\tPot\tTot\tRaza\tEsp\tTotal\n";
 		text += "---------------------------------------------------------------------------------\n";
 		for (int i = 0; i < characteristics.size(); i++) {
-			text = text
-					+ characteristics.get(i).getAbbreviature()
-							.getAbbreviature()
-					+ "\t"
-					+ characterPlayer
-							.getCharacteristicTemporalValue(characteristics
-									.get(i).getAbbreviature())
-					+ "\t"
-					+ characterPlayer.getCharacteristicPotencialValue().get(
-							characteristics.get(i).getAbbreviature())
-					+ "\t"
-					+ characterPlayer
-							.getCharacteristicTemporalBonus(characteristics
-									.get(i).getAbbreviature())
-					+ "\t"
-					+ characterPlayer
-							.getCharacteristicRaceBonus(characteristics.get(i)
-									.getAbbreviature())
-					+ "\t"
-					+ characterPlayer
-							.getCharacteristicSpecialBonus(characteristics.get(
-									i).getAbbreviature())
-					+ "\t"
-					+ characterPlayer
-							.getCharacteristicTotalBonus(characteristics.get(i)
-									.getAbbreviature()) + "\n";
+			text = text + characteristics.get(i).getAbbreviature().getAbbreviature() + "\t"
+					+ characterPlayer.getCharacteristicTemporalValue(characteristics.get(i).getAbbreviature()) + "\t"
+					+ characterPlayer.getCharacteristicPotencialValue().get(characteristics.get(i).getAbbreviature())
+					+ "\t" + characterPlayer.getCharacteristicTemporalBonus(characteristics.get(i).getAbbreviature())
+					+ "\t" + characterPlayer.getCharacteristicRaceBonus(characteristics.get(i).getAbbreviature())
+					+ "\t" + characterPlayer.getCharacteristicSpecialBonus(characteristics.get(i).getAbbreviature())
+					+ "\t" + characterPlayer.getCharacteristicTotalBonus(characteristics.get(i).getAbbreviature())
+					+ "\n";
 		}
 		return text;
 	}
 
 	public static String exportSkillsToText(CharacterPlayer characterPlayer) {
-		String text = "Nombre: " + "\tCoste\tRang\tBon\tCar\tOtros\tTotal\n";
+		int sizeMaxIncrease = 3;
+		int maxNameSize = getMaxNameLength(characterPlayer);
+		String text = getNameSpecificLength("Nombre: ", maxNameSize) + "\tCoste\tRang\tBon\tCar\tOtros\tTotal\n";
 		text += "------------------------------------------------------------------"
 				+ "------------------------------------------------------------------"
 				+ "-------------------------------------------------------------\n";
-		int sizeMaxIncrease = 10;
-		int maxNameSize = getMaxNameLength();
 		for (int i = 0; i < CategoryFactory.getCategories().size(); i++) {
 			Category category = CategoryFactory.getCategories().get(i);
 			if (characterPlayer.isCategoryUseful(category)) {
-				text = text
-						+ getNameSpecificLength(category, maxNameSize
-								+ sizeMaxIncrease)
-						+ "\t"
-						+ characterPlayer.getProfession().getCategoryCost(
-								category.getName()) + "\t"
-						+ characterPlayer.getTotalRanks(category) + "\t"
-						+ characterPlayer.getRanksValue(category) + "\t"
-						+ characterPlayer.getCharacteristicsBonus(category)
-						+ "\t" + characterPlayer.getBonus(category);
+				text = text + getNameSpecificLength(category, maxNameSize + sizeMaxIncrease) + "\t"
+						+ characterPlayer.getCategoryCost(category, 0).getCostTag() + "\t"
+						+ characterPlayer.getTotalRanks(category) + "\t" + characterPlayer.getRanksValue(category)
+						+ "\t" + characterPlayer.getCharacteristicsBonus(category) + "\t"
+						+ characterPlayer.getBonus(category);
 				String letra = "";
-				if (characterPlayer.getHistorial().isHistorialPointSelected(
-						category)) {
+				if (characterPlayer.getHistorial().isHistorialPointSelected(category)) {
 					letra += "H";
 				}
 				if (characterPlayer.getPerkBonus(category) != 0) {
@@ -108,24 +80,17 @@ public class TxtSheet {
 				for (int j = 0; j < category.getSkills().size(); j++) {
 					Skill skill = category.getSkills().get(j);
 					if (characterPlayer.isSkillInteresting(skill)) {
-						text = text
-								+ " * "
-								+ getNameSpecificLength(characterPlayer, skill,
-										maxNameSize + sizeMaxIncrease - 5);
-						text = text + "\t" + "\t"
-								+ characterPlayer.getTotalRanks(skill) + "\t"
-								+ characterPlayer.getRanksValue(skill) + "\t"
-								+ characterPlayer.getTotalValue(category)
+						text = text + " * "
+								+ getNameSpecificLength(characterPlayer, skill, maxNameSize + sizeMaxIncrease - 5);
+						text = text + "\t" + "\t" + characterPlayer.getTotalRanks(skill) + "\t"
+								+ characterPlayer.getRanksValue(skill) + "\t" + characterPlayer.getTotalValue(category)
 								+ "\t" + characterPlayer.getBonus(skill);
 						letra = "";
-						if (characterPlayer.getHistorial()
-								.isHistorialPointSelected(skill)) {
+						if (characterPlayer.getHistorial().isHistorialPointSelected(skill)) {
 							letra += "H";
 						}
-						int bonusTalentos = characterPlayer
-								.getConditionalPerkBonus(skill);
-						int conditionalPerkBonus = characterPlayer
-								.getConditionalPerkBonus(skill);
+						int bonusTalentos = characterPlayer.getConditionalPerkBonus(skill);
+						int conditionalPerkBonus = characterPlayer.getConditionalPerkBonus(skill);
 						if (bonusTalentos != 0) {
 							letra += "T";
 							if (conditionalPerkBonus > 0) {
@@ -138,47 +103,30 @@ public class TxtSheet {
 						if (!letra.equals("")) {
 							text += "(" + letra + ")";
 						}
-						if (characterPlayer.getItemBonus(skill) > 0
-								|| conditionalPerkBonus > 0) {
+						if (characterPlayer.getItemBonus(skill) > 0 || conditionalPerkBonus > 0) {
 							text += "\t"
-									+ (characterPlayer.getTotalValue(skill)
-											- characterPlayer
-													.getItemBonus(skill) - conditionalPerkBonus)
-									+ "/"
-									+ characterPlayer.getTotalValue(skill) + "";
+									+ (characterPlayer.getTotalValue(skill) - characterPlayer.getItemBonus(skill) - conditionalPerkBonus)
+									+ "/" + characterPlayer.getTotalValue(skill) + "";
 						} else {
 							text += "\t" + characterPlayer.getTotalValue(skill);
 						}
 						text += "\n";
 						// Mostramos las habilidades especializadas.
-						for (int m = 0; m < characterPlayer
-								.getSkillSpecializations(skill).size(); m++) {
+						for (int m = 0; m < characterPlayer.getSkillSpecializations(skill).size(); m++) {
 							text = text
 									+ " * "
-									+ formatSpecializedName(characterPlayer
-											.getSkillSpecializations(skill)
-											.get(m), maxNameSize
-											+ sizeMaxIncrease);
-							text = text
-									+ "\t"
-									+ "\t"
-									+ characterPlayer
-											.getSpecializedRanks(skill)
-									+ "\t"
-									+ characterPlayer
-											.getSpecializedRanksValue(skill)
-									+ "\t"
-									+ characterPlayer.getTotalValue(skill
-											.getCategory()) + "\t"
+									+ formatSpecializedName(characterPlayer.getSkillSpecializations(skill).get(m),
+											maxNameSize + sizeMaxIncrease);
+							text = text + "\t" + "\t" + characterPlayer.getSpecializedRanks(skill) + "\t"
+									+ characterPlayer.getSpecializedRanksValue(skill) + "\t"
+									+ characterPlayer.getTotalValue(skill.getCategory()) + "\t"
 									+ characterPlayer.getItemBonus(skill);
 							letra = "";
 							if (characterPlayer.isHistoryPointSelected(skill)) {
 								letra += "H";
 							}
-							bonusTalentos = characterPlayer
-									.getConditionalPerkBonus(skill);
-							conditionalPerkBonus = characterPlayer
-									.getConditionalPerkBonus(skill);
+							bonusTalentos = characterPlayer.getConditionalPerkBonus(skill);
+							conditionalPerkBonus = characterPlayer.getConditionalPerkBonus(skill);
 							if (bonusTalentos != 0) {
 								letra += "T";
 								if (conditionalPerkBonus > 0) {
@@ -192,20 +140,13 @@ public class TxtSheet {
 								text += "(" + letra + ")";
 							}
 
-							if (characterPlayer.getItemBonus(skill) > 0
-									|| conditionalPerkBonus > 0) {
+							if (characterPlayer.getItemBonus(skill) > 0 || conditionalPerkBonus > 0) {
 								text += "\t"
-										+ (characterPlayer
-												.getSpecializedTotalValue(skill)
-												- characterPlayer
-														.getItemBonus(skill) - conditionalPerkBonus)
-										+ "/"
-										+ characterPlayer.getTotalValue(skill)
-										+ "";
+										+ (characterPlayer.getSpecializedTotalValue(skill)
+												- characterPlayer.getItemBonus(skill) - conditionalPerkBonus) + "/"
+										+ characterPlayer.getTotalValue(skill) + "";
 							} else {
-								text += "\t"
-										+ characterPlayer
-												.getSpecializedTotalValue(skill);
+								text += "\t" + characterPlayer.getSpecializedTotalValue(skill);
 							}
 							text += "\n";
 						}
@@ -246,33 +187,15 @@ public class TxtSheet {
 	public static String exportResistances(CharacterPlayer characterPlayer) {
 		String texto = "Modificación a las TR\n";
 		texto += "--------------------------------------------------\n";
-		texto += "Canalización \t"
-				+ (characterPlayer
-						.getResistanceBonus(ResistanceType.CANALIZATION))
-				+ "\n";
-		texto += "Esencia \t"
-				+ (characterPlayer.getResistanceBonus(ResistanceType.ESSENCE))
-				+ "\n";
-		texto += "Mentalismo \t"
-				+ (characterPlayer.getResistanceBonus(ResistanceType.MENTALISM))
-				+ "\n";
-		texto += "Psiónico \t"
-				+ characterPlayer.getResistanceBonus(ResistanceType.PSIONIC)
-				+ "\n";
-		texto += "Veneno \t"
-				+ (characterPlayer.getResistanceBonus(ResistanceType.POISON))
-				+ "\n";
-		texto += "Enfermedad \t"
-				+ (characterPlayer.getResistanceBonus(ResistanceType.DISEASE))
-				+ "\n";
-		texto += "Miedo \t"
-				+ (characterPlayer.getResistanceBonus(ResistanceType.FEAR))
-				+ "\n";
-		texto += "Frío \t"
-				+ characterPlayer.getResistanceBonus(ResistanceType.COLD)
-				+ "\n";
-		texto += "Calor \t"
-				+ characterPlayer.getResistanceBonus(ResistanceType.HOT) + "\n";
+		texto += "Canalización \t" + (characterPlayer.getResistanceBonus(ResistanceType.CANALIZATION)) + "\n";
+		texto += "Esencia \t" + (characterPlayer.getResistanceBonus(ResistanceType.ESSENCE)) + "\n";
+		texto += "Mentalismo \t" + (characterPlayer.getResistanceBonus(ResistanceType.MENTALISM)) + "\n";
+		texto += "Psiónico \t" + characterPlayer.getResistanceBonus(ResistanceType.PSIONIC) + "\n";
+		texto += "Veneno \t" + (characterPlayer.getResistanceBonus(ResistanceType.POISON)) + "\n";
+		texto += "Enfermedad \t" + (characterPlayer.getResistanceBonus(ResistanceType.DISEASE)) + "\n";
+		texto += "Miedo \t" + (characterPlayer.getResistanceBonus(ResistanceType.FEAR)) + "\n";
+		texto += "Frío \t" + characterPlayer.getResistanceBonus(ResistanceType.COLD) + "\n";
+		texto += "Calor \t" + characterPlayer.getResistanceBonus(ResistanceType.HOT) + "\n";
 		return texto;
 	}
 
@@ -291,8 +214,7 @@ public class TxtSheet {
 		text += "--------------------------------------------------\n";
 		for (int i = 0; i < characterPlayer.getPerks().size(); i++) {
 			Perk perk = characterPlayer.getPerks().get(i);
-			text += perk.getName() + ":\t " + perk.getLongDescription()
-					+ ".\n\n";
+			text += perk.getName() + ":\t " + perk.getLongDescription() + ".\n\n";
 		}
 		return text;
 	}
@@ -308,12 +230,9 @@ public class TxtSheet {
 				file += ".txt";
 			}
 		}
-		String text = basicCharacterInfo(characterPlayer) + "\n\n"
-				+ getCharacteristicsInfo(characterPlayer) + "\n\n"
-				+ exportResistances(characterPlayer) + "\n\n"
-				+ exportSkillsToText(characterPlayer) + "\n\n"
-				+ exportPerks(characterPlayer) + "\n\n"
-				+ exportSpecials(characterPlayer) + "\n\n"
+		String text = basicCharacterInfo(characterPlayer) + "\n\n" + getCharacteristicsInfo(characterPlayer) + "\n\n"
+				+ exportResistances(characterPlayer) + "\n\n" + exportSkillsToText(characterPlayer) + "\n\n"
+				+ exportPerks(characterPlayer) + "\n\n" + exportSpecials(characterPlayer) + "\n\n"
 				+ exportItems(characterPlayer);
 		Folder.saveTextInFile(text, file);
 		return true;
@@ -323,14 +242,11 @@ public class TxtSheet {
 		return characterPlayer.getRace().getSize().getAbbreviature();
 	}
 
-	private static Skill getBestCloseCombatAttack(
-			CharacterPlayer characterPlayer) {
-		return getBestSkillValue(characterPlayer,
-				CategoryFactory.getCloseCombatWeapons());
+	private static Skill getBestCloseCombatAttack(CharacterPlayer characterPlayer) {
+		return getBestSkillValue(characterPlayer, CategoryFactory.getCloseCombatWeapons());
 	}
 
-	private static String getAttackCode(CharacterPlayer characterPlayer,
-			Skill skill) {
+	private static String getAttackCode(CharacterPlayer characterPlayer, Skill skill) {
 		if (WeaponFactory.getWeapon(skill.getName()) != null) {
 			return WeaponFactory.getWeapon(skill.getName()).getAbbreviature();
 		}
@@ -348,20 +264,17 @@ public class TxtSheet {
 	}
 
 	private static Skill getBestLongRangeAttack(CharacterPlayer characterPlayer) {
-		return getBestSkillValue(characterPlayer,
-				CategoryFactory.getLongRangeWeapons());
+		return getBestSkillValue(characterPlayer, CategoryFactory.getLongRangeWeapons());
 	}
 
-	private static Skill getBestSkillValue(CharacterPlayer characterPlayer,
-			List<Category> categories) {
+	private static Skill getBestSkillValue(CharacterPlayer characterPlayer, List<Category> categories) {
 		Skill bestAttack = null;
 		for (Category category : categories) {
 			for (Skill skill : category.getSkills()) {
 				if (bestAttack == null) {
 					bestAttack = skill;
 				} else {
-					if (characterPlayer.getTotalValue(skill) > characterPlayer
-							.getTotalValue(bestAttack)) {
+					if (characterPlayer.getTotalValue(skill) > characterPlayer.getTotalValue(bestAttack)) {
 						bestAttack = skill;
 					}
 				}
@@ -371,13 +284,11 @@ public class TxtSheet {
 	}
 
 	private static Skill getBestOthersAttack(CharacterPlayer characterPlayer) {
-		return getBestSkillValue(characterPlayer,
-				CategoryFactory.getOthersAttack());
+		return getBestSkillValue(characterPlayer, CategoryFactory.getOthersAttack());
 	}
 
 	private static String getMovementCode(CharacterPlayer characterPlayer) {
-		int rapidez = characterPlayer
-				.getCharacteristicTotalBonus(CharacteristicsAbbreviature.SPEED);
+		int rapidez = characterPlayer.getCharacteristicTotalBonus(CharacteristicsAbbreviature.SPEED);
 		if (rapidez <= -14) {
 			return "IM";
 		}
@@ -408,34 +319,25 @@ public class TxtSheet {
 	/**
 	 * Similar to Monsters and Treasures book.
 	 */
-	private static String generateCharacterAsMonster(
-			CharacterPlayer characterPlayer) {
+	private static String generateCharacterAsMonster(CharacterPlayer characterPlayer) {
 		Skill habCC = getBestCloseCombatAttack(characterPlayer);
 		Skill habProy = getBestLongRangeAttack(characterPlayer);
 		Skill habAtaq = getBestOthersAttack(characterPlayer);
-		String vel = getMovementCode(characterPlayer);
+		String vel = getMovementCode(characterPlayer) + "   ";
 		int PV = characterPlayer.getTotalDevelopmentPoints();
-		String texto = "Raza\tNivel\tMov.\tMM\tVM/VA\tTam\tPV\tTA(BD)\tAtaques\n";
-		texto += characterPlayer.getRace().getName()
-				+ "\t"
-				+ characterPlayer.getCurrentLevelNumber()
-				+ "\t"
-				+ characterPlayer.getMovementCapacity()
-				+ "\t"
-				+ characterPlayer
-						.getCharacteristicTotalBonus(CharacteristicsAbbreviature.AGILITY)
-				* 3 + "\t" + vel + "\t" + getSizeCode(characterPlayer) + "\t"
-				+ PV + "\t " + characterPlayer.getArmourClass() + " ("
-				+ characterPlayer.getDefensiveBonus() + ")\t"
-				+ characterPlayer.getTotalValue(habCC)
+		String texto = getNameSpecificLength("Raza", Math.max(characterPlayer.getRace().getName().length(), 5))
+				+ "\tNivel\tMov.\tMM\tVM/VA\tTam\tPV\tTA(BD)\tAtaques\n";
+		texto += characterPlayer.getRace().getName() + "\t" + characterPlayer.getCurrentLevelNumber() + "\t"
+				+ characterPlayer.getMovementCapacity() + "\t"
+				+ characterPlayer.getCharacteristicTotalBonus(CharacteristicsAbbreviature.AGILITY) * 3 + "\t" + vel
+				+ "\t" + getSizeCode(characterPlayer) + "\t" + PV + "\t " + characterPlayer.getArmourClass() + " ("
+				+ characterPlayer.getDefensiveBonus() + ")\t" + characterPlayer.getTotalValue(habCC)
 				+ getAttackCode(characterPlayer, habCC);
-		if (habProy!=null && characterPlayer.getTotalValue(habProy) > 0) {
-			texto += "/" + characterPlayer.getTotalValue(habProy)
-					+ getAttackCode(characterPlayer, habProy);
+		if (habProy != null && characterPlayer.getTotalValue(habProy) > 0) {
+			texto += "/" + characterPlayer.getTotalValue(habProy) + getAttackCode(characterPlayer, habProy);
 		}
-		if (habAtaq!=null && characterPlayer.getTotalValue(habAtaq) > 0) {
-			texto += "/" + characterPlayer.getTotalValue(habAtaq)
-					+ getAttackCode(characterPlayer, habAtaq) + " \n";
+		if (habAtaq != null && characterPlayer.getTotalValue(habAtaq) > 0) {
+			texto += "/" + characterPlayer.getTotalValue(habAtaq) + getAttackCode(characterPlayer, habAtaq) + " \n";
 		}
 		return texto;
 	}
@@ -444,8 +346,7 @@ public class TxtSheet {
 		String text = "";
 		for (int i = 0; i < CategoryFactory.getCategories().size(); i++) {
 			Category category = CategoryFactory.getCategories().get(i);
-			text += category.getAbbreviature() + " "
-					+ characterPlayer.getTotalValue(category);
+			text += category.getAbbreviature() + " " + characterPlayer.getTotalValue(category);
 			int added = 0;
 			for (Skill skill : category.getSkills()) {
 				if (characterPlayer.getTotalRanks(skill) > 0) {
@@ -455,8 +356,7 @@ public class TxtSheet {
 					if (added > 0) {
 						text += ", ";
 					}
-					text += skill.getName() + " "
-							+ characterPlayer.getTotalValue(skill);
+					text += skill.getName() + " " + characterPlayer.getTotalValue(skill);
 					added++;
 				}
 			}
@@ -481,15 +381,13 @@ public class TxtSheet {
 				file += ".txt";
 			}
 		}
-		String text = characterPlayer.getName() + "\n"
-				+ generateCharacterAsMonster(characterPlayer) + "\n"
+		String text = characterPlayer.getName() + "\n" + generateCharacterAsMonster(characterPlayer) + "\n"
 				+ "HABILIDADES: \n" + generatedShortedSkills(characterPlayer);
 		Folder.saveTextInFile(text, file);
 		return true;
 	}
 
-	public static String getNameSpecificLength(CharacterPlayer characterPlayer,
-			Skill skill, int length) {
+	public static String getNameSpecificLength(CharacterPlayer characterPlayer, Skill skill, int length) {
 		String newName = formatName(characterPlayer, skill);
 
 		String sufix = "";
@@ -553,24 +451,27 @@ public class TxtSheet {
 		return skill.getName();
 	}
 
-	public static String getNameSpecificLength(Category category, int longitud) {
+	public static String getNameSpecificLength(Category category, int length) {
 		String nuevoNombre = formatName(category);
+		return getNameSpecificLength(nuevoNombre, length);
+	}
 
-		if (longitud > nuevoNombre.length()) {
-			for (int i = nuevoNombre.length(); i < longitud; i++) {
-				nuevoNombre += " ";
+	public static String getNameSpecificLength(String text, int length) {
+		if (length > text.length()) {
+			for (int i = text.length(); i < length; i++) {
+				text += " ";
 			}
 		} else {
-			return category.getName().substring(0, longitud - 1);
+			return text.substring(0, length - 1);
 		}
-		return nuevoNombre;
+		return text;
 	}
 
 	public static String formatName(Category category) {
 		return category.getName();
 	}
 
-	public static int getMaxNameLength() {
+	public static int getMaxNameLength(CharacterPlayer characterPlayer) {
 		int maxLength = 0;
 		for (Category category : CategoryFactory.getCategories()) {
 			int categoryNameLength = category.getName().length();
@@ -578,9 +479,11 @@ public class TxtSheet {
 				maxLength = categoryNameLength;
 			}
 			for (Skill skill : category.getSkills()) {
-				int skillNameLength = skill.getName().length();
-				if (maxLength < skillNameLength) {
-					maxLength = skillNameLength;
+				if (characterPlayer.isSkillInteresting(skill)) {
+					int skillNameLength = skill.getName().length();
+					if (maxLength < skillNameLength) {
+						maxLength = skillNameLength;
+					}
 				}
 			}
 		}
@@ -588,9 +491,7 @@ public class TxtSheet {
 	}
 
 	private static String getFileName(CharacterPlayer characterPlayer) {
-		return characterPlayer.getName() + "_N"
-				+ characterPlayer.getCurrentLevelNumber() + "_"
-				+ characterPlayer.getRace().getName() + "_"
-				+ characterPlayer.getProfession().getName() + ".txt";
+		return characterPlayer.getName() + "_N" + characterPlayer.getCurrentLevelNumber() + "_"
+				+ characterPlayer.getRace().getName() + "_" + characterPlayer.getProfession().getName() + ".txt";
 	}
 }
