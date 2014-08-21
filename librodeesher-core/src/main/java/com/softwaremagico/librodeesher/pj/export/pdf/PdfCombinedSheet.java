@@ -104,7 +104,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell = new PdfPCell(createHeader());
 		cell.setColspan(2);
 		table.addCell(cell);
-		
+
 		tableColumn = new PdfPTable(1);
 
 		for (int i = 0; i < CategoryFactory.getAvailableCategories().size(); i++) {
@@ -659,9 +659,9 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setPaddingLeft(5f);
 		categoryTable.addCell(cell);
 
-		p = new Paragraph("Prof: " + (category.getBonus()
-				+ getCharacterPlayer().getProfession().getCategoryBonus(category.getName())), FontFactory.getFont(font,
-				fontSize));
+		p = new Paragraph("Prof: "
+				+ (category.getBonus() + getCharacterPlayer().getProfession().getCategoryBonus(category.getName())),
+				FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setMinimumHeight(15);
 		cell.setBorderWidth(0);
@@ -725,7 +725,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		Font f = FontFactory.getFont(FontFactory.TIMES_BOLDITALIC, fontSize + 9);
 		f.setColor(BaseColor.WHITE);
 
-		Paragraph p = new Paragraph("Hoja Combinada de Habilidades (" + page + " de " + pages + ")", f);
+		Paragraph p = new Paragraph("Hoja Combinada de Habilidades (" + (page + 1) + " de " + pages + ")", f);
 		// Paragraph p = new Paragraph("Hoja Combinada de Habilidades (" + page
 		// + ")", f);
 		cell = new PdfPCell(p);
