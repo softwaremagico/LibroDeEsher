@@ -39,7 +39,7 @@ public class SkillProbability {
 				&& suggestedSkillsRanks != null
 				&& suggestedSkillsRanks.get(skill.getName()) != null
 				&& suggestedSkillsRanks.get(skill.getName()) == 0) {
-			return MAX_VALUE;
+			return -MAX_VALUE;
 		}
 
 		Integer cost = characterPlayer.getNewRankCost(skill);
@@ -181,27 +181,27 @@ public class SkillProbability {
 		if (skill.getName().toLowerCase().contains(Spanish.HORSES_TAG)
 				&& characterPlayer.getRace().getName().toLowerCase()
 						.contains(Spanish.ORCS_TAG)) {
-			return MAX_VALUE;
+			return -MAX_VALUE;
 		}
 		if (skill.getName().toLowerCase().contains(Spanish.WOLF_TAG)
 				&& !characterPlayer.getRace().getName().toLowerCase()
 						.contains(Spanish.ORCS_TAG)) {
-			return MAX_VALUE;
+			return -MAX_VALUE;
 		}
 		if (skill.getName().toLowerCase().contains(Spanish.BEARS_TAG)
 				&& !characterPlayer.getRace().getName().toLowerCase()
 						.contains(Spanish.DWARF_TAG)) {
-			return MAX_VALUE;
+			return -MAX_VALUE;
 		}
 		if (skill.getName().toLowerCase().contains(Spanish.CAMEL_TAG)
 				&& !characterPlayer.getCulture().getName().toLowerCase()
 						.contains(Spanish.DESERT)) {
-			return MAX_VALUE;
+			return -MAX_VALUE;
 		}
 		if (skill.getName().toLowerCase().contains(Spanish.ELEMENTAL_MOUNT)
 				&& !characterPlayer.getProfession().getName().toLowerCase()
 						.contains(Spanish.ELEMENTALIST_PROFESSION)) {
-			return MAX_VALUE;
+			return -MAX_VALUE;
 		}
 		return 0;
 	}
@@ -276,8 +276,7 @@ public class SkillProbability {
 		}
 
 		/*
-		 * Cuando se tiene muchos rangos, es tonteria subir mÃ¡s de un rango en
-		 * una habilidad por nivel
+		 * Only one rank per level for very high skills.
 		 */
 		if (characterPlayer.getRealRanks(skill) > 10
 				&& characterPlayer.getCurrentLevelRanks(skill) > 0) {
