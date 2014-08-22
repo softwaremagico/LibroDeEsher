@@ -82,7 +82,7 @@
 								<delete failonerror="false">
 									<fileset dir="${database.script.autogeneration.folder}"
 										includes="**/*.sql">
-										<size value="0" when="equal" />
+										<size value="1800" when="less" />
 									</fileset>
 								</delete>
 							</target>
