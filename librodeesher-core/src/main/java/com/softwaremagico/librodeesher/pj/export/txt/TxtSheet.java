@@ -32,18 +32,23 @@ public class TxtSheet {
 	}
 
 	private static String getCharacteristicsInfo(CharacterPlayer characterPlayer) {
+		String formatStr = "%8s %8s %8s %8s %8s%n";
 		List<Characteristic> characteristics = Characteristics.getCharacteristics();
-		String text = "Caract\tTemp\tPot\tTot\tRaza\tEsp\tTotal\n";
+		// String text = "Caract\tTemp\tPot\tTot\tRaza\tEsp\tTotal\n";
+		String text = String.format(formatStr, "Caract", "Temp", "Pot", "Tot", "Raza", "Esp", "Total");
 		text += "---------------------------------------------------------------------------------\n";
 		for (int i = 0; i < characteristics.size(); i++) {
-			text = text + characteristics.get(i).getAbbreviature().getAbbreviature() + "\t"
-					+ characterPlayer.getCharacteristicTemporalValue(characteristics.get(i).getAbbreviature()) + "\t"
-					+ characterPlayer.getCharacteristicPotencialValue().get(characteristics.get(i).getAbbreviature())
-					+ "\t" + characterPlayer.getCharacteristicTemporalBonus(characteristics.get(i).getAbbreviature())
-					+ "\t" + characterPlayer.getCharacteristicRaceBonus(characteristics.get(i).getAbbreviature())
-					+ "\t" + characterPlayer.getCharacteristicSpecialBonus(characteristics.get(i).getAbbreviature())
-					+ "\t" + characterPlayer.getCharacteristicTotalBonus(characteristics.get(i).getAbbreviature())
-					+ "\n";
+			text = text
+					+ String.format(
+							formatStr,
+							characteristics.get(i).getAbbreviature().getAbbreviature(),
+							characterPlayer.getCharacteristicTemporalValue(characteristics.get(i).getAbbreviature()),
+							characterPlayer.getCharacteristicPotencialValue().get(
+									characteristics.get(i).getAbbreviature()),
+							characterPlayer.getCharacteristicTemporalBonus(characteristics.get(i).getAbbreviature()),
+							characterPlayer.getCharacteristicRaceBonus(characteristics.get(i).getAbbreviature()),
+							characterPlayer.getCharacteristicSpecialBonus(characteristics.get(i).getAbbreviature()),
+							characterPlayer.getCharacteristicTotalBonus(characteristics.get(i).getAbbreviature()));
 		}
 		return text;
 	}
@@ -51,7 +56,9 @@ public class TxtSheet {
 	public static String exportSkillsToText(CharacterPlayer characterPlayer) {
 		int sizeMaxIncrease = 3;
 		int maxNameSize = getMaxNameLength(characterPlayer);
-		String text = getNameSpecificLength("Nombre: ", maxNameSize) + "\tCoste\tRang\tBon\tCar\tOtros\tTotal\n";
+		String formatStr = "%" + (maxNameSize + sizeMaxIncrease) + "s %8s %8s %8s %8s%n";
+		// String text = getNameSpecificLength("Nombre: ", maxNameSize) + "\tCoste\tRang\tBon\tCar\tOtros\tTotal\n";
+		String text = String.format(formatStr, "Nombre", "Coste", "Rang", "Bon", "Car", "Otros", "Total");
 		text += "------------------------------------------------------------------"
 				+ "------------------------------------------------------------------"
 				+ "-------------------------------------------------------------\n";
