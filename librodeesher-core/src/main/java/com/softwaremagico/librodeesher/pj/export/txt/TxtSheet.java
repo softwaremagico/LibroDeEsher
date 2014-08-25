@@ -203,15 +203,17 @@ public class TxtSheet {
 	public static String exportResistances(CharacterPlayer characterPlayer) {
 		String texto = "Modificación a las TR\n";
 		texto += "--------------------------------------------------\n";
-		texto += "Canalización \t" + (characterPlayer.getResistanceBonus(ResistanceType.CANALIZATION)) + "\n";
-		texto += "Esencia \t" + (characterPlayer.getResistanceBonus(ResistanceType.ESSENCE)) + "\n";
-		texto += "Mentalismo \t" + (characterPlayer.getResistanceBonus(ResistanceType.MENTALISM)) + "\n";
-		texto += "Psiónico \t" + characterPlayer.getResistanceBonus(ResistanceType.PSIONIC) + "\n";
-		texto += "Veneno \t" + (characterPlayer.getResistanceBonus(ResistanceType.POISON)) + "\n";
-		texto += "Enfermedad \t" + (characterPlayer.getResistanceBonus(ResistanceType.DISEASE)) + "\n";
-		texto += "Miedo \t" + (characterPlayer.getResistanceBonus(ResistanceType.FEAR)) + "\n";
-		texto += "Frío \t" + characterPlayer.getResistanceBonus(ResistanceType.COLD) + "\n";
-		texto += "Calor \t" + characterPlayer.getResistanceBonus(ResistanceType.HOT) + "\n";
+		String formatStr = "%1$-15s %2$-8s%n";
+		texto += String.format(formatStr, "Canalización",
+				characterPlayer.getResistanceBonus(ResistanceType.CANALIZATION));
+		texto += String.format(formatStr, "Esencia", characterPlayer.getResistanceBonus(ResistanceType.ESSENCE));
+		texto += String.format(formatStr, "Mentalismo", characterPlayer.getResistanceBonus(ResistanceType.MENTALISM));
+		texto += String.format(formatStr, "Psiónico", characterPlayer.getResistanceBonus(ResistanceType.PSIONIC));
+		texto += String.format(formatStr, "Veneno", characterPlayer.getResistanceBonus(ResistanceType.POISON));
+		texto += String.format(formatStr, "Enfermedad", characterPlayer.getResistanceBonus(ResistanceType.DISEASE));
+		texto += String.format(formatStr, "Miedo", characterPlayer.getResistanceBonus(ResistanceType.FEAR));
+		texto += String.format(formatStr, "Frío", characterPlayer.getResistanceBonus(ResistanceType.COLD));
+		texto += String.format(formatStr, "Calor", characterPlayer.getResistanceBonus(ResistanceType.HOT));
 		return texto;
 	}
 
