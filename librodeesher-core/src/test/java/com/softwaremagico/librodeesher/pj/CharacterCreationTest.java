@@ -24,7 +24,7 @@ public class CharacterCreationTest {
 	@Test(groups = { "characterCreation" })
 	public void createCharacter() throws MagicDefinitionException, InvalidProfessionException {
 		characterPlayer = new RandomCharacterPlayer(null, null, null, null, 1).getCharacterPlayer();
-
+		Assert.assertTrue(characterPlayer.getRemainingDevelopmentPoints() >= 0);
 	}
 
 	@Test(groups = { "characterStorage" }, dependsOnMethods = { "createCharacter" })
@@ -32,27 +32,26 @@ public class CharacterCreationTest {
 		characterPlayerDao.makePersistent(characterPlayer);
 		Assert.assertNotNull(characterPlayer.getId());
 		Assert.assertNotNull(characterPlayer.getTotalValue(SkillFactory.getAvailableSkill("Trepar")));
-		Assert.assertTrue(characterPlayer.getRemainingDevelopmentPoints() >= 0);
 	}
 
-	@Test(groups = { "characterPdf" }, dependsOnMethods = { "storeCharacter" })
+	@Test(groups = { "characterPdf" }, dependsOnMethods = { "createCharacter" })
 	public void standardPdf() throws Exception {
 		new PdfStandardSheet(characterPlayer, PDF_PATH_STANDARD, false);
 	}
 
-	@Test(groups = { "characterPdf" }, dependsOnMethods = { "storeCharacter" })
+	@Test(groups = { "characterPdf" }, dependsOnMethods = { "createCharacter" })
 	public void combinedPdf() throws Exception {
 		new PdfCombinedSheet(characterPlayer, PDF_PATH_COMBINED);
 	}
 	
-	@Test(groups = { "characterTxt" }, dependsOnMethods = { "storeCharacter" })
+	@Test(groups = { "characterTxt" }, dependsOnMethods = { "createCharacter" })
 	public void exportStandardTxt() throws Exception {
 		new TxtSheet(characterPlayer).exportSheet(TXT_PATH);
 	}
 	
-	@Test(groups = { "characterTxt" }, dependsOnMethods = { "storeCharacter" })
+	@Test(groups = { "characterTxt" }, dependsOnMethods = { "createCharacter" })
 	public void exportAbbreviatedTxt() throws Exception {
-		new TxtSheet(characterPlayer).exportCharacterAbbreviature(TXT_ABBREVIATED_PATH);
+		TxtSheet.exportCharacterAbbreviature(characterPlayer, TXT_ABBREVIATED_PATH);
 	}
 
 }
