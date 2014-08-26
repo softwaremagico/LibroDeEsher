@@ -528,7 +528,7 @@ public class RandomCharacterPlayer {
 						specializationLevel, finalLevel).rankProbability();
 				categoryProbabilityStored.put(category, categoryProbability);
 			}
-			System.out.println(category.getName() + ": " + categoryProbabilityStored.get(category) + "%");
+			System.out.println(category.getName() + ": " + (categoryProbabilityStored.get(category) + tries * 3) + "%");
 			if (Math.random() * 100 + 1 < categoryProbabilityStored.get(category) + tries * 3) {
 				characterPlayer.getCurrentLevel().setCategoryRanks(category.getName(),
 						characterPlayer.getCurrentLevel().getCategoryRanks(category.getName()) + tries);
@@ -561,19 +561,16 @@ public class RandomCharacterPlayer {
 								specializationLevel, finalLevel).getRankProbability();
 						skillProbabilityStored.put(skill, probability);
 					}
-					System.out.println("\t" + skill.getName() + ": " + skillProbabilityStored.get(skill) + "%");
+					System.out.println("\t" + skill.getName() + ": " + (skillProbabilityStored.get(skill) + tries * 3)
+							+ "%");
 					Log.debug(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName() + "' ("
 							+ skillProbabilityStored.get(skill) + "%), roll: " + roll);
 					if (roll < skillProbabilityStored.get(skill) + tries * 3) {
 						characterPlayer.getCurrentLevel().setSkillsRanks(skill,
-								characterPlayer.getCurrentLevel().getSkillsRanks(skill.getName()) + tries);
+								characterPlayer.getCurrentLevel().getSkillsRanks(skill.getName()) + 1);
 						Log.info(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName() + "' ("
 								+ skillProbabilityStored.get(skill) + "%), roll: " + roll + " Added! ("
 								+ characterPlayer.getRemainingDevelopmentPoints() + ")");
-						if (characterPlayer.getRemainingDevelopmentPoints() < 0) {
-							Log.info(RandomCharacterPlayer.class.getName(), "Skill Ranks:" + characterPlayer.getCurrentLevel().getSkillsRanks(skill.getName()));
-							Log.info(RandomCharacterPlayer.class.getName(), "Skill Ranks Cost:" + characterPlayer.getNewRankCost(skill, 1, characterPlayer.getCurrentLevel().getSkillsRanks(skill.getName())));
-						}
 						for (Skill skillToRemove : category.getSkills()) {
 							skillProbabilityStored.remove(skillToRemove);
 						}
@@ -584,22 +581,27 @@ public class RandomCharacterPlayer {
 							j--;
 						}
 
-						// Add specializations.
-						if (!characterPlayer.isRestricted(skill) && !characterPlayer.isGeneralized(skill)) {
-							for (int k = 0; k < skill.getSpecialities().size(); k++) {
-								// Only specialization value of 3 can generate
-								// specialized skills.
-								if (Math.random() * 100 < specializationLevel - 2) {
-									characterPlayer.addSkillSpecialization(skill, skill.getSpecialities().get(k));
+						// Add specializations if rank has been set
+						// Only specialization value of 3 can generate this options.
+						if (specializationLevel > 2) {
+							if (!characterPlayer.isRestricted(skill) && !characterPlayer.isGeneralized(skill)) {
+								for (int k = 0; k < skill.getSpecialities().size(); k++) {
+									// Only specialization value of 3 can generate
+									// specialized skills with 3% of probability.
+									if (Math.random() * 100 < (specializationLevel - 2) * 3) {
+										characterPlayer.addSkillSpecialization(skill, skill.getSpecialities().get(k));
+										break;
+									}
 								}
 							}
-						}
-						// Or generalization
-						if (!characterPlayer.isRestricted(skill) && !characterPlayer.isSkillSpecialized(skill)) {
-							// Only generalized value of -3 can generate
-							// generalized skills.
-							if (Math.random() * 100 < -specializationLevel + 2) {
-								characterPlayer.addGeneralized(skill);
+						} else if (specializationLevel < -2) {
+							// Or generalization
+							if (!characterPlayer.isRestricted(skill) && !characterPlayer.isSkillSpecialized(skill)) {
+								// Only generalized value of -3 can generate
+								// generalized skills with 5% of probability.
+								if (Math.random() * 100 < (-specializationLevel - 2) * 5) {
+									characterPlayer.addGeneralized(skill);
+								}
 							}
 						}
 					}
