@@ -47,8 +47,7 @@ public class WeaponFactory {
 		}
 	}
 
-	private static HashMap<WeaponType, List<Weapon>> availableWeapons()
-			throws Exception {
+	private static HashMap<WeaponType, List<Weapon>> availableWeapons() throws Exception {
 
 		// Init variables.
 		HashMap<WeaponType, List<Weapon>> obtainedWeaponsByType = new HashMap<>();
@@ -58,33 +57,26 @@ public class WeaponFactory {
 		}
 
 		// Find all files with weapons.
-		List<String> weaponFiles = RolemasterFolderStructure
-				.getFilesAvailableCompletePath(WEAPON_FOLDER);
+		List<String> weaponFiles = RolemasterFolderStructure.getFilesAvailableCompletePath(WEAPON_FOLDER);
 
 		// Read each file.
 		for (String weaponFile : weaponFiles) {
-			List<String> weaponsInFile = Folder.readFileLines(weaponFile
-					+ ".txt", false);
+			List<String> weaponsInFile = Folder.readFileLines(weaponFile + ".txt", false);
 
 			File file = new File(weaponFile + ".txt");
 			String weaponTypeName = file.getName();
 
-			WeaponType weaponFileType = WeaponType.getWeaponType(MyFile
-					.fileWithouExtension(weaponTypeName));
+			WeaponType weaponFileType = WeaponType.getWeaponType(MyFile.fileWithouExtension(weaponTypeName));
 			for (String line : weaponsInFile) {
 				if (!line.startsWith("#")) {
 					try {
 						String[] weaponName = line.split("\t");
-						Weapon weapon = new Weapon(weaponName[0],
-								weaponFileType, weaponName[1]);
-						if (!obtainedWeaponsByType.get(weaponFileType)
-								.contains(weapon)) {
-							obtainedWeaponsByType.get(weaponFileType).add(
-									weapon);
+						Weapon weapon = new Weapon(weaponName[0], weaponFileType, weaponName[1]);
+						if (!obtainedWeaponsByType.get(weaponFileType).contains(weapon)) {
+							obtainedWeaponsByType.get(weaponFileType).add(weapon);
 						}
 					} catch (ArrayIndexOutOfBoundsException aiob) {
-						Log.severe(WeaponFactory.class.getName(),
-								"Error en el arma: " + line);
+						Log.severe(WeaponFactory.class.getName(), "Error en el arma: " + line);
 						Log.errorMessage(WeaponFactory.class.getName(), aiob);
 					}
 				}
@@ -126,14 +118,16 @@ public class WeaponFactory {
 	}
 
 	public static Weapon getWeapon(String name) {
+		String nameInLower = name.toLowerCase();
 		for (WeaponType type : WeaponType.values()) {
 			List<Weapon> weapons = getWeaponsByType(type);
 			for (Weapon weapon : weapons) {
-				if (weapon.getName().equals(name)) {
+				if (weapon.getName().toLowerCase().equals(nameInLower)) {
 					return weapon;
 				}
 			}
 		}
+		Log.warning(WeaponFactory.class.getName(), "Weapong '" + name + "' abbreviature not found!");
 		return null;
 	}
 
