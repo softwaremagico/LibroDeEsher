@@ -494,4 +494,9 @@ public class Profession {
 	public HashMap<String, TrainingType> getTrainingTypes() {
 		return trainingTypes;
 	}
+
+	@Override
+	public String toString() {
+		return getName();
+	}
 }

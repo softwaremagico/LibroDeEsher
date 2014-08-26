@@ -343,21 +343,26 @@ public class TxtSheet {
 		Skill habAtaq = getBestOthersAttack(characterPlayer);
 		String vel = getMovementCode(characterPlayer) + "   ";
 		int PV = characterPlayer.getTotalDevelopmentPoints();
-		String texto = getNameSpecificLength("Raza", Math.max(characterPlayer.getRace().getName().length(), 5))
-				+ "\tNivel\tMov.\tMM\tVM/VA\tTam\tPV\tTA(BD)\tAtaques\n";
-		texto += characterPlayer.getRace().getName() + "\t" + characterPlayer.getCurrentLevelNumber() + "\t"
-				+ characterPlayer.getMovementCapacity() + "\t"
-				+ characterPlayer.getCharacteristicTotalBonus(CharacteristicsAbbreviature.AGILITY) * 3 + "\t" + vel
-				+ "\t" + getSizeCode(characterPlayer) + "\t" + PV + "\t " + characterPlayer.getArmourClass() + " ("
-				+ characterPlayer.getDefensiveBonus() + ")\t" + characterPlayer.getTotalValue(habCC)
-				+ getAttackCode(characterPlayer, habCC);
+		System.out.println("###################################################");
+		System.out.println(habCC + " -> " + getAttackCode(characterPlayer, habCC));
+		String attackString = characterPlayer.getTotalValue(habCC) + getAttackCode(characterPlayer, habCC);
 		if (habProy != null && characterPlayer.getTotalValue(habProy) > 0) {
-			texto += "/" + characterPlayer.getTotalValue(habProy) + getAttackCode(characterPlayer, habProy);
+			attackString += "/" + characterPlayer.getTotalValue(habProy) + getAttackCode(characterPlayer, habProy);
 		}
 		if (habAtaq != null && characterPlayer.getTotalValue(habAtaq) > 0) {
-			texto += "/" + characterPlayer.getTotalValue(habAtaq) + getAttackCode(characterPlayer, habAtaq) + " \n";
+			attackString += "/" + characterPlayer.getTotalValue(habAtaq) + getAttackCode(characterPlayer, habAtaq);
 		}
-		return texto;
+		int maxNameSize = Math.max(characterPlayer.getRace().getName().length() + 2, 5);
+
+		String formatStr = "%1$-" + maxNameSize + "s %2$-8s %3$-8s %4$-8s %5$-8s %6$-8s %7$-8s %8$-8s %9$-12s%n";
+		String text = String.format(formatStr, "Raza", "Nivel", "Movim.", "MM", "VM/VA", "Tam", "PV", "TA(BD)",
+				"Ataques");
+		text += String.format(formatStr, characterPlayer.getRace().getName(), characterPlayer.getCurrentLevelNumber(),
+				characterPlayer.getMovementCapacity(),
+				(characterPlayer.getCharacteristicTotalBonus(CharacteristicsAbbreviature.AGILITY) * 3) + "", vel,
+				getSizeCode(characterPlayer), PV,
+				characterPlayer.getArmourClass() + "(" + characterPlayer.getDefensiveBonus() + ")", attackString);
+		return text;
 	}
 
 	private static String generatedShortedSkills(CharacterPlayer characterPlayer) {
@@ -399,7 +404,7 @@ public class TxtSheet {
 				file += ".txt";
 			}
 		}
-		String text = characterPlayer.getName() + " (" + characterPlayer.getProfession() + ")\n"
+		String text = characterPlayer.getName() + " (" + characterPlayer.getProfession().getName() + ")\n"
 				+ generateCharacterAsMonster(characterPlayer) + "\n" + "HABILIDADES: \n"
 				+ generatedShortedSkills(characterPlayer);
 		Folder.saveTextInFile(text, file);
