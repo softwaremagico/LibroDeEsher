@@ -41,6 +41,7 @@
 		<itext.version>5.5.1</itext.version>
 		<exec-maven-plugin.version>1.2.1</exec-maven-plugin.version>
 		<maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
+		<gson.version>2.2.4</gson.version>
 	</properties>
 
 	<modules>
