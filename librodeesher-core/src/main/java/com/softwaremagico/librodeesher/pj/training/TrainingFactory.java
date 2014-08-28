@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.log.Log;
+import com.softwaremagico.log.EsherLog;
 
 public class TrainingFactory {
 	public final static String TRAINING_FOLDER = "adiestramientos";
@@ -39,7 +39,7 @@ public class TrainingFactory {
 		try {
 			return RolemasterFolderStructure.getFilesAvailable(TRAINING_FOLDER);
 		} catch (Exception e) {
-			Log.errorMessage(TrainingFactory.class.getName(), e);
+			EsherLog.errorMessage(TrainingFactory.class.getName(), e);
 		}
 		return null;
 	}

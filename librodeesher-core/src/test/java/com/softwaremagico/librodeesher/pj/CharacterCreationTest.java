@@ -3,6 +3,7 @@ package com.softwaremagico.librodeesher.pj;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.softwaremagico.librodeesher.pj.export.json.CharacterToJson;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfCombinedSheet;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfStandardSheet;
 import com.softwaremagico.librodeesher.pj.export.txt.TxtSheet;
@@ -52,6 +53,11 @@ public class CharacterCreationTest {
 	@Test(groups = { "characterTxt" }, dependsOnMethods = { "createCharacter" })
 	public void exportAbbreviatedTxt() throws Exception {
 		TxtSheet.exportCharacterAbbreviature(characterPlayer, TXT_ABBREVIATED_PATH);
+	}
+	
+	@Test(groups = { "characterJson" }, dependsOnMethods = { "createCharacter" })
+	public void exportJson() throws Exception {
+		CharacterToJson.toJson(characterPlayer);
 	}
 
 }

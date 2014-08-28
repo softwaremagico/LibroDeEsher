@@ -19,7 +19,7 @@ import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.InvalidSkillException;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
-import com.softwaremagico.log.Log;
+import com.softwaremagico.log.EsherLog;
 
 public class PerkFactory {
 	private static HashMap<String, Perk> availablePerks = new HashMap<>();
@@ -29,7 +29,7 @@ public class PerkFactory {
 		try {
 			getPerksFromFiles();
 		} catch (Exception ex) {
-			Log.errorMessage(PerkFactory.class.getName(), ex);
+			EsherLog.errorMessage(PerkFactory.class.getName(), ex);
 			ex.printStackTrace();
 		}
 	}

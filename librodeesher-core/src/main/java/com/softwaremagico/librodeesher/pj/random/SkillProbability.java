@@ -8,7 +8,7 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.categories.CategoryType;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
-import com.softwaremagico.log.Log;
+import com.softwaremagico.log.EsherLog;
 
 public class SkillProbability {
 	private final static int MAX_VALUE = 1000;
@@ -66,61 +66,61 @@ public class SkillProbability {
 		if (characterPlayer.getCurrentLevelRanks(skill) <= 3) {
 			if (characterPlayer.getRemainingDevelopmentPoints() >= cost) {
 
-				Log.debug(SkillProbability.class.getName(),
+				EsherLog.debug(SkillProbability.class.getName(),
 						"Probability of skill '" + skill.getName() + "'");
 				int preferredCategory = increasedCategory() / 3;
-				Log.debug(SkillProbability.class.getName(),
+				EsherLog.debug(SkillProbability.class.getName(),
 						"\t Increased Category: " + preferredCategory);
 				probability += preferredCategory;
 				int preferredSkill = preferredSkill();
-				Log.debug(SkillProbability.class.getName(),
+				EsherLog.debug(SkillProbability.class.getName(),
 						"\t Preferred Skill: " + preferredSkill);
 				probability += preferredSkill;
 				int bestSkills = bestSkills();
-				Log.debug(SkillProbability.class.getName(), "\t Best Skills: "
+				EsherLog.debug(SkillProbability.class.getName(), "\t Best Skills: "
 						+ bestSkills);
 				probability += bestSkills;
 				int skillExpensiveness = skillExpensiveness();
-				Log.debug(SkillProbability.class.getName(),
+				EsherLog.debug(SkillProbability.class.getName(),
 						"\t Skill expensiveness: " + skillExpensiveness);
 				probability += skillExpensiveness;
 				int applyCharacterSpecialization = applyCharacterSpecialization();
-				Log.debug(SkillProbability.class.getName(),
+				EsherLog.debug(SkillProbability.class.getName(),
 						"\t Specialization: " + applyCharacterSpecialization);
 				probability += applyCharacterSpecialization;
 				int stillNotUsedSkill = stillNotUsedSkill();
-				Log.debug(SkillProbability.class.getName(),
+				EsherLog.debug(SkillProbability.class.getName(),
 						"\t Still not used: " + stillNotUsedSkill);
 				probability += stillNotUsedSkill;
 				int wizardPreferredSkills = wizardPreferredSkills();
-				Log.debug(SkillProbability.class.getName(), "\t Wizard skill: "
+				EsherLog.debug(SkillProbability.class.getName(), "\t Wizard skill: "
 						+ wizardPreferredSkills);
 				probability += wizardPreferredSkills;
 				int warriorsPreferredSkills = warriorsPreferredSkills();
-				Log.debug(SkillProbability.class.getName(),
+				EsherLog.debug(SkillProbability.class.getName(),
 						"\t Warrior skill: " + warriorsPreferredSkills);
 				probability += warriorsPreferredSkills;
 				int smartRandomness = smartRandomness();
-				Log.debug(SkillProbability.class.getName(),
+				EsherLog.debug(SkillProbability.class.getName(),
 						"\t Smart randomness: " + smartRandomness);
 				probability += smartRandomness;
 				int ridicolousSkill = ridicolousSkill();
-				Log.debug(SkillProbability.class.getName(),
+				EsherLog.debug(SkillProbability.class.getName(),
 						"\t Ridicolous randomness: " + ridicolousSkill);
 				probability += ridicolousSkill;
 				int culturalSkill = culturalSkill();
-				Log.debug(SkillProbability.class.getName(),
+				EsherLog.debug(SkillProbability.class.getName(),
 						"\t Cultural Skill: " + culturalSkill);
 				probability += culturalSkill;
 				int maxRanks = maxRanks();
-				Log.debug(SkillProbability.class.getName(), "\t Max ranks: "
+				EsherLog.debug(SkillProbability.class.getName(), "\t Max ranks: "
 						+ maxRanks);
 				probability += maxRanks;
 				// Max and min value
 				if (probability > 90 && probability < 150) {
 					probability = 90;
 				}
-				Log.debug(SkillProbability.class.getName(), "\t Total: "
+				EsherLog.debug(SkillProbability.class.getName(), "\t Total: "
 						+ probability);
 				return probability;
 			}

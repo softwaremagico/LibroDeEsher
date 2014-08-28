@@ -32,11 +32,11 @@ import java.io.Writer;
 
 import org.apache.log4j.Logger;
 
-public class Log {
+public class EsherLog {
 
-	private static final Logger logger = Logger.getLogger("com.softwaremagico.esher");
+	private static final Logger logger = Logger.getLogger(EsherLog.class);
 
-	private Log() {
+	private EsherLog() {
 
 	}
 

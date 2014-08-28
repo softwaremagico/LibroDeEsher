@@ -10,7 +10,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryType;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
-import com.softwaremagico.log.Log;
+import com.softwaremagico.log.EsherLog;
 
 public class CategoryProbability {
 	private CharacterPlayer characterPlayer;
@@ -63,33 +63,33 @@ public class CategoryProbability {
 			if (characterPlayer.getRemainingDevelopmentPoints() >= characterPlayer
 					.getNewRankCost(category)
 					&& category.getCategoryType().equals(CategoryType.STANDARD)) {
-				Log.debug(CategoryProbability.class.getName(),
+				EsherLog.debug(CategoryProbability.class.getName(),
 						"Probability of category '" + category.getName() + "'");
 				int getCharacteristicsBonus = characterPlayer
 						.getCharacteristicsBonus(category);
-				Log.debug(CategoryProbability.class.getName(),
+				EsherLog.debug(CategoryProbability.class.getName(),
 						"\t Characteristic bonus: " + getCharacteristicsBonus);
 				probability += getCharacteristicsBonus;
 				int preferredCategory = preferredCategory();
-				Log.debug(CategoryProbability.class.getName(),
+				EsherLog.debug(CategoryProbability.class.getName(),
 						"\t Preferred category: " + preferredCategory);
 				probability += preferredCategory;
 				int categoryCostProbability = categoryCostProbability();
-				Log.debug(CategoryProbability.class.getName(),
+				EsherLog.debug(CategoryProbability.class.getName(),
 						"\t Category cost: " + categoryCostProbability);
 				probability += categoryCostProbability;
 				int bonusCommonSkills = bonusCommonSkills();
-				Log.debug(CategoryProbability.class.getName(),
+				EsherLog.debug(CategoryProbability.class.getName(),
 						"\t Common skills: " + bonusCommonSkills);
 				probability += bonusCommonSkills;
 				int smartBonus = smartBonus();
-				Log.debug(CategoryProbability.class.getName(),
+				EsherLog.debug(CategoryProbability.class.getName(),
 						"\t Smart bonus: " + smartBonus);
 				probability += smartBonus;
 				if (probability > 90) {
 					probability = 90;
 				}
-				Log.debug(CategoryProbability.class.getName(), "\t Total: "
+				EsherLog.debug(CategoryProbability.class.getName(), "\t Total: "
 						+ probability);
 				return probability;
 			}

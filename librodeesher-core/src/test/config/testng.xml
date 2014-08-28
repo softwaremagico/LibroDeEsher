@@ -7,6 +7,7 @@
 				<include name="characterStorage" />
 				<include name="characterPdf" />
 				<include name="characterTxt" />
+				<exclude name="characterJson" />
 			</run>
 		</groups>
 		<classes>

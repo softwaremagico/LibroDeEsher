@@ -26,7 +26,7 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.categories.CategoryType;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
-import com.softwaremagico.log.Log;
+import com.softwaremagico.log.EsherLog;
 
 public class PdfCombinedSheet extends PdfStandardSheet {
 	private int lines = 0;
@@ -64,7 +64,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
 			createPdf(document, writer);
 		} catch (FileNotFoundException fnfe) {
-			Log.errorMessage(PdfStandardSheet.class.getName(), fnfe);
+			EsherLog.errorMessage(PdfStandardSheet.class.getName(), fnfe);
 			throw fnfe;
 		}
 	}
@@ -825,7 +825,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 			createBackgroundImage(document, RolemasterFolderStructure.getSheetFolder() + File.separator
 					+ "RMHPComb.png");
 		} catch (DocumentException ex) {
-			Log.errorMessage(PdfCombinedSheet.class.getName(), ex);
+			EsherLog.errorMessage(PdfCombinedSheet.class.getName(), ex);
 		}
 
 		cell = new PdfPCell(createHeader());

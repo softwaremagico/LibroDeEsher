@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.log.Log;
+import com.softwaremagico.log.EsherLog;
 
 public class RaceFactory {
 	public static final String RACE_FOLDER = "razas";
@@ -39,7 +39,7 @@ public class RaceFactory {
 		try {
 			return RolemasterFolderStructure.getFilesAvailable(RACE_FOLDER);
 		} catch (Exception e) {
-			Log.errorMessage(RaceFactory.class.getName(), e);
+			EsherLog.errorMessage(RaceFactory.class.getName(), e);
 		}
 		return null;
 	}

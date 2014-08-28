@@ -43,7 +43,7 @@ import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
-import com.softwaremagico.log.Log;
+import com.softwaremagico.log.EsherLog;
 
 public class Race {
 	private String name;
@@ -75,7 +75,7 @@ public class Race {
 		try {
 			readRaceFile(name);
 		} catch (Exception e) {
-			Log.errorMessage(Race.class.getName(), e);
+			EsherLog.errorMessage(Race.class.getName(), e);
 			e.printStackTrace();
 		}
 	}

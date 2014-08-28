@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.log.Log;
+import com.softwaremagico.log.EsherLog;
 
 public class ProfessionFactory {
 	public static final String PROFESSION_FOLDER = "profesiones";
@@ -39,7 +39,7 @@ public class ProfessionFactory {
 		try {
 			return RolemasterFolderStructure.getFilesAvailable(PROFESSION_FOLDER);
 		} catch (Exception e) {
-			Log.errorMessage(ProfessionFactory.class.getName(), e);
+			EsherLog.errorMessage(ProfessionFactory.class.getName(), e);
 		}
 		return null;
 	}

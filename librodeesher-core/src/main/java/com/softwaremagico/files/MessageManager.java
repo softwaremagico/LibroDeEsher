@@ -30,14 +30,14 @@ import java.io.Writer;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import com.softwaremagico.log.Log;
+import com.softwaremagico.log.EsherLog;
 
 public class MessageManager {
 
     private static final int LINE = 50;
 
     public static void basicErrorMessage(String className, String text, String title) {
-        Log.severe(className, text);
+        EsherLog.severe(className, text);
         showGraphicMessage(text, title, JOptionPane.ERROR_MESSAGE);
     }
 
@@ -49,12 +49,12 @@ public class MessageManager {
     
     public static void infoMessage(String className, String text, String title){
         showGraphicMessage(text, title, JOptionPane.INFORMATION_MESSAGE);
-        Log.info(className, "("+title + ") " + text);
+        EsherLog.info(className, "("+title + ") " + text);
     }
 
     public static void customMessage(String className, String text, String title, int option) {
         showGraphicMessage(text, title, option);
-        Log.info(className, "("+title + ") " + text);
+        EsherLog.info(className, "("+title + ") " + text);
     }
 
     public static void showGraphicMessage(String text, String title, int option) {

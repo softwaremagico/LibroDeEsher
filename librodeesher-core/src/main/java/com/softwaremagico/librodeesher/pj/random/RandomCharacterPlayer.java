@@ -26,7 +26,7 @@ import com.softwaremagico.librodeesher.pj.skills.SkillComparatorByRanks;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 import com.softwaremagico.librodeesher.pj.weapons.WeaponType;
-import com.softwaremagico.log.Log;
+import com.softwaremagico.log.EsherLog;
 
 /**
  * Specialization level: if 0, categories and skills are obtained randomly. If specialized are obtained by ranks number
@@ -52,9 +52,9 @@ public class RandomCharacterPlayer {
 
 	public RandomCharacterPlayer(SexType sex, String race, String culture, String profession, int finalLevel)
 			throws MagicDefinitionException, InvalidProfessionException {
-		Log.info(this.getClass().getName(), "--------------------");
-		Log.info(this.getClass().getName(), "New Random Character");
-		Log.info(this.getClass().getName(), "--------------------");
+		EsherLog.info(this.getClass().getName(), "--------------------");
+		EsherLog.info(this.getClass().getName(), "New Random Character");
+		EsherLog.info(this.getClass().getName(), "--------------------");
 		this.sex = sex;
 		suggestedSkillsRanks = new HashMap<>();
 		suggestedCategoriesRanks = new HashMap<>();
@@ -137,7 +137,7 @@ public class RandomCharacterPlayer {
 	private void setCharacterInfo() {
 		characterPlayer.setSex(getSex());
 		characterPlayer.setName(characterPlayer.getRace().getRandonName(characterPlayer.getSex()));
-		Log.info(this.getClass().getName(), "Name: " + characterPlayer.getName());
+		EsherLog.info(this.getClass().getName(), "Name: " + characterPlayer.getName());
 	}
 
 	private void setRace() {
@@ -145,7 +145,7 @@ public class RandomCharacterPlayer {
 			List<String> races = RaceFactory.getAvailableRaces();
 			race = races.get((int) (Math.random() * races.size()));
 		}
-		Log.info(this.getClass().getName(), "Race: " + race);
+		EsherLog.info(this.getClass().getName(), "Race: " + race);
 		characterPlayer.setRace(race);
 	}
 
@@ -154,7 +154,7 @@ public class RandomCharacterPlayer {
 			List<String> professions = characterPlayer.getRace().getAvailableProfessions();
 			profession = professions.get((int) (Math.random() * professions.size()));
 		}
-		Log.info(this.getClass().getName(), "Profession: " + profession);
+		EsherLog.info(this.getClass().getName(), "Profession: " + profession);
 		characterPlayer.setProfession(profession);
 		if (!characterPlayer.getProfessionDecisions().isWeaponCostDecided()) {
 			setWeaponCosts(characterPlayer);
@@ -167,7 +167,7 @@ public class RandomCharacterPlayer {
 			List<String> cultures = characterPlayer.getRace().getAvailableCultures();
 			culture = cultures.get((int) (Math.random() * cultures.size()));
 		}
-		Log.info(RandomCharacterPlayer.class.getName(), "Culture: " + culture);
+		EsherLog.info(RandomCharacterPlayer.class.getName(), "Culture: " + culture);
 		characterPlayer.setCulture(culture);
 		setRandomCultureHobbyRanks(characterPlayer, specializationLevel);
 		setRandomCultureWeaponRanks(characterPlayer, specializationLevel);
@@ -259,7 +259,7 @@ public class RandomCharacterPlayer {
 				chosenRealm = characterPlayer.getProfession().getMagicRealmsAvailable().get(i);
 			}
 		}
-		Log.info(this.getClass().getName(), "Realm: " + chosenRealm);
+		EsherLog.info(this.getClass().getName(), "Realm: " + chosenRealm);
 		characterPlayer.setRealmOfMagic(chosenRealm);
 	}
 
@@ -486,7 +486,7 @@ public class RandomCharacterPlayer {
 	 */
 	private void setLevels() {
 		while (characterPlayer.getLevelUps().size() < finalLevel) {
-			Log.info(this.getClass().getName(), " -----------  Level UP!  --------------");
+			EsherLog.info(this.getClass().getName(), " -----------  Level UP!  --------------");
 			characterPlayer.increaseLevel();
 			setDevelopmentPoints();
 		}
@@ -550,7 +550,7 @@ public class RandomCharacterPlayer {
 						break;
 					}
 					Skill skill = shuffledCategorySkills.get(j);
-					Log.debug(RandomCharacterPlayer.class.getName(), characterPlayer.getNewRankCost(skill) + ">"
+					EsherLog.debug(RandomCharacterPlayer.class.getName(), characterPlayer.getNewRankCost(skill) + ">"
 							+ developmentPoints);
 					if (characterPlayer.getNewRankCost(skill) > developmentPoints) {
 						break;
@@ -563,12 +563,12 @@ public class RandomCharacterPlayer {
 					}
 					System.out.println("\t" + skill.getName() + ": " + (skillProbabilityStored.get(skill) + tries * 3)
 							+ "%");
-					Log.debug(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName() + "' ("
+					EsherLog.debug(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName() + "' ("
 							+ skillProbabilityStored.get(skill) + "%), roll: " + roll);
 					if (roll < skillProbabilityStored.get(skill) + tries * 3) {
 						characterPlayer.getCurrentLevel().setSkillsRanks(skill,
 								characterPlayer.getCurrentLevel().getSkillsRanks(skill.getName()) + 1);
-						Log.info(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName() + "' ("
+						EsherLog.info(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName() + "' ("
 								+ skillProbabilityStored.get(skill) + "%), roll: " + roll + " Added! ("
 								+ characterPlayer.getRemainingDevelopmentPoints() + ")");
 						for (Skill skillToRemove : category.getSkills()) {

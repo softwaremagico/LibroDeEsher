@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.log.Log;
+import com.softwaremagico.log.EsherLog;
 
 public class CultureFactory {
 	public final static String CULTURE_FOLDER = "culturas";
@@ -39,7 +39,7 @@ public class CultureFactory {
 		try {
 			return RolemasterFolderStructure.getFilesAvailable(CULTURE_FOLDER);
 		} catch (Exception e) {
-			Log.errorMessage(CultureFactory.class.getName(), e);
+			EsherLog.errorMessage(CultureFactory.class.getName(), e);
 			e.printStackTrace();
 		}
 		return null;

@@ -38,7 +38,7 @@ import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 import com.softwaremagico.librodeesher.pj.weapons.WeaponFactory;
 import com.softwaremagico.librodeesher.pj.weapons.WeaponType;
-import com.softwaremagico.log.Log;
+import com.softwaremagico.log.EsherLog;
 
 public class CategoryFactory {
 	private static Map<String, Category> availableCategories = new HashMap<>();
@@ -49,7 +49,7 @@ public class CategoryFactory {
 		try {
 			getCategoriesFromFiles();
 		} catch (Exception e) {
-			Log.errorMessage(CategoryFactory.class.getName(), e);
+			EsherLog.errorMessage(CategoryFactory.class.getName(), e);
 			e.printStackTrace();
 		}
 	}
@@ -85,7 +85,7 @@ public class CategoryFactory {
 				categoryOfWeapon
 						.setSkills(convertWeaponsToSkills(weaponsOfType));
 			} catch (NullPointerException npe) {
-				Log.errorMessage(CategoryFactory.class.getName(), npe);
+				EsherLog.errorMessage(CategoryFactory.class.getName(), npe);
 			}
 		}
 

@@ -36,7 +36,7 @@ import com.softwaremagico.librodeesher.pj.race.Race;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
-import com.softwaremagico.log.Log;
+import com.softwaremagico.log.EsherLog;
 
 public class PdfStandardSheet {
 	private final static String EMPTY_VALUE = "_____";
@@ -73,7 +73,7 @@ public class PdfStandardSheet {
 			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
 			createPdf(document, writer);
 		} catch (FileNotFoundException fnfe) {
-			Log.errorMessage(PdfStandardSheet.class.getName(), fnfe);
+			EsherLog.errorMessage(PdfStandardSheet.class.getName(), fnfe);
 			throw fnfe;
 		}
 	}

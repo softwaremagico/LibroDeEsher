@@ -28,14 +28,29 @@ public class Weapon {
 	private String name;
 	private WeaponType type;
 	private String abbreviature;
+	private boolean rare = false;
 
 	Weapon(String name, WeaponType type, String abbreviature) {
-		this.name = name;
+		setName(name);
 		this.type = type;
 	}
 
 	public String getName() {
 		return name;
+	}
+
+	/**
+	 * If name contains '*', is rare weapon.
+	 * 
+	 * @param name
+	 */
+	private void setName(String name) {
+		if (name.contains("*")) {
+			this.name = name.replace("*", "").trim();
+			rare = true;
+		} else {
+			this.name = name.trim();
+		}
 	}
 
 	public WeaponType getType() {
@@ -48,7 +63,7 @@ public class Weapon {
 	 * @return
 	 */
 	public boolean isRare() {
-		return name.contains("*");
+		return rare;
 	}
 
 	@Override

@@ -32,7 +32,7 @@ import java.util.List;
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.MyFile;
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.log.Log;
+import com.softwaremagico.log.EsherLog;
 
 public class WeaponFactory {
 	public final static String WEAPON_FOLDER = "armas";
@@ -42,7 +42,7 @@ public class WeaponFactory {
 		try {
 			weaponsByType = availableWeapons();
 		} catch (Exception e) {
-			Log.errorMessage(WeaponFactory.class.getName(), e);
+			EsherLog.errorMessage(WeaponFactory.class.getName(), e);
 			e.printStackTrace();
 		}
 	}
@@ -76,8 +76,8 @@ public class WeaponFactory {
 							obtainedWeaponsByType.get(weaponFileType).add(weapon);
 						}
 					} catch (ArrayIndexOutOfBoundsException aiob) {
-						Log.severe(WeaponFactory.class.getName(), "Error en el arma: " + line);
-						Log.errorMessage(WeaponFactory.class.getName(), aiob);
+						EsherLog.severe(WeaponFactory.class.getName(), "Error en el arma: " + line);
+						EsherLog.errorMessage(WeaponFactory.class.getName(), aiob);
 					}
 				}
 			}
@@ -127,7 +127,7 @@ public class WeaponFactory {
 				}
 			}
 		}
-		Log.warning(WeaponFactory.class.getName(), "Weapong '" + name + "' abbreviature not found!");
+		EsherLog.warning(WeaponFactory.class.getName(), "Weapong '" + name + "' abbreviature not found!");
 		return null;
 	}
 

@@ -11,7 +11,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 
-import com.softwaremagico.log.Log;
+import com.softwaremagico.log.EsherLog;
 
 @SuppressWarnings("rawtypes")
 public class JpaSchemaExporter {
@@ -33,7 +33,7 @@ public class JpaSchemaExporter {
 				}
 			}
 		} catch (Exception e) {
-			Log.errorMessage(JpaSchemaExporter.class.getName(), e);
+			EsherLog.errorMessage(JpaSchemaExporter.class.getName(), e);
 		}
 	}
 

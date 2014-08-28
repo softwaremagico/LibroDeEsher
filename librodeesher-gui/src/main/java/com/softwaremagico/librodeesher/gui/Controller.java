@@ -192,7 +192,7 @@ public class Controller {
 			String path = selectTxt.exploreWindows("Hoja en Txt",
 					JFileChooser.FILES_ONLY, getCharacterNameFormatted()
 							+ ".txt");
-			new TxtSheet(selectedCharacter).exportCharacterAbbreviature(path);
+			TxtSheet.exportCharacterAbbreviature(selectedCharacter, path);
 			MessageManager.infoMessage(Controller.class.getName(),
 					"Ficha creada correctamente.", "TXT");
 		}
