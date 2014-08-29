@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.softwaremagico.librodeesher.pj.export.json.CharacterToJson;
+import com.softwaremagico.librodeesher.pj.export.json.CharacterJsonManager;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfCombinedSheet;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfStandardSheet;
 import com.softwaremagico.librodeesher.pj.export.txt.TxtSheet;
@@ -60,10 +60,17 @@ public class CharacterCreationTest {
 
 	@Test(groups = { "characterJson" }, dependsOnMethods = { "createCharacter" })
 	public void exportJson() throws Exception {
-		String jsonText = CharacterToJson.toJson(characterPlayer);
+		String jsonText = CharacterJsonManager.toJson(characterPlayer);
+		// store int a file.
 		PrintWriter out = new PrintWriter(JSON_PATH);
 		out.println(jsonText);
 		out.close();
+		// get json to object.
+		CharacterPlayer importedCharacter = CharacterJsonManager.fromJson(jsonText);
+		// Compared generated sheet to be sure that has the same information.
+		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
+		String importedSheet = TxtSheet.getCharacterStandardSheetAsText(importedCharacter);
+		Assert.assertEquals(importedSheet, orginalSheet);
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.softwaremagico.librodeesher.pj.magic;
 
+import com.google.gson.annotations.SerializedName;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 
 /*
@@ -27,16 +28,24 @@ import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbrevia
  */
 
 public enum RealmOfMagic {
+
+	// JSON enums that override toString() method must specify the serializedName.
+	@SerializedName("Canalizacion")
 	CANALIZATION("Canalización", CharacteristicsAbbreviature.INTUITION),
 
+	@SerializedName("Esencia")
 	ESSENCE("Esencia", CharacteristicsAbbreviature.EMPATHY),
 
+	@SerializedName("Mentalismo")
 	MENTALISM("Mentalismo", CharacteristicsAbbreviature.PRESENCE),
 
+	@SerializedName("Psionico")
 	PSIONIC("Psiónico", CharacteristicsAbbreviature.SELFDISCIPLINE),
 
+	@SerializedName("Arcano")
 	ARCHANUM("Arcano", CharacteristicsAbbreviature.NULL),
 
+	@SerializedName("Racial")
 	RACE("Racial", CharacteristicsAbbreviature.NULL);
 
 	private String name;

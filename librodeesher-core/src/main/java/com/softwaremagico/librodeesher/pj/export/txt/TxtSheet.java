@@ -248,12 +248,16 @@ public class TxtSheet {
 				file += ".txt";
 			}
 		}
-		String text = basicCharacterInfo(characterPlayer) + "\n\n" + getCharacteristicsInfo(characterPlayer) + "\n\n"
+		String text = getCharacterStandardSheetAsText(characterPlayer);
+		Folder.saveTextInFile(text, file);
+		return true;
+	}
+
+	public static String getCharacterStandardSheetAsText(CharacterPlayer characterPlayer) {
+		return basicCharacterInfo(characterPlayer) + "\n\n" + getCharacteristicsInfo(characterPlayer) + "\n\n"
 				+ exportResistances(characterPlayer) + "\n\n" + exportSkillsToText(characterPlayer) + "\n\n"
 				+ exportPerks(characterPlayer) + "\n\n" + exportSpecials(characterPlayer) + "\n\n"
 				+ exportItems(characterPlayer);
-		Folder.saveTextInFile(text, file);
-		return true;
 	}
 
 	private static String getSizeCode(CharacterPlayer characterPlayer) {
