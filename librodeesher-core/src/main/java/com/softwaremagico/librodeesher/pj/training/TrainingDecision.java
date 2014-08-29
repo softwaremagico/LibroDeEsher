@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.google.gson.annotations.Expose;
 import com.softwaremagico.librodeesher.basics.Roll;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
@@ -29,6 +30,7 @@ import com.softwaremagico.persistence.StorableObject;
 @Table(name = "T_TRAINING_DECISION")
 public class TrainingDecision extends StorableObject {
 
+	@Expose
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@CollectionTable(name = "T_TRAINING_DECISION_CATEGORY_SELECTED")
 	// For avoiding error org.hibernate.loader.MultipleBagFetchException: cannot
@@ -37,6 +39,8 @@ public class TrainingDecision extends StorableObject {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	// TrainingCategoryIndex -> TrainingCategoriesSelected
 	private Map<Integer, TrainingCategoriesSelected> categoriesSelected;
+	
+	@Expose
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(name = "T_TRAINING_DECISION_SKILLS_SELECTED")
@@ -44,10 +48,14 @@ public class TrainingDecision extends StorableObject {
 	// Defines all ranks in a skill for a training. If no skills selected
 	// options is a list with one skill.
 	private Map<Integer, TrainingSkillsSelected> skillsSelected;
+	
+	@Expose
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(name = "T_TRAINING_CHARACTERISTICS_UPDATES")
 	private List<CharacteristicRoll> characteristicsUpdates;
+	
+	@Expose
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(name = "T_TRAINING_OBJECTS")

@@ -3,6 +3,7 @@ package com.softwaremagico.librodeesher.basics;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.softwaremagico.persistence.StorableObject;
 
 /*
@@ -32,7 +33,9 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_ROLL")
 public class Roll extends StorableObject {
+	@Expose
 	private Integer firstDice;
+	@Expose
 	private Integer secondDice;
 
 	public Roll() {

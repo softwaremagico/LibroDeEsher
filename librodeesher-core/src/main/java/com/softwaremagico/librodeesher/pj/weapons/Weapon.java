@@ -33,6 +33,7 @@ public class Weapon {
 	Weapon(String name, WeaponType type, String abbreviature) {
 		setName(name);
 		this.type = type;
+		this.abbreviature = abbreviature;
 	}
 
 	public String getName() {

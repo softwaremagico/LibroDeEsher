@@ -15,5 +15,5 @@ Horca	hor
 Partisan *	prt
 Pica	pi
 Ranscur *	ra
-Poleaxe	plx
+Alabarda	alb
 Tridente	tri

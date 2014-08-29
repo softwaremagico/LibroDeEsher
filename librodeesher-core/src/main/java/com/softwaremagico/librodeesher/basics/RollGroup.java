@@ -13,20 +13,22 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_ROLL_GROUP")
 public class RollGroup extends StorableObject {
-
 	private static final Integer STORED_ROLLS_NUMBER = 10;
 
+	@Expose
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@CollectionTable(name = "T_ROLL_LIST")
 	@OrderColumn(name = "roll_index")
 	private List<Roll> rolls;
 
+	@Expose
 	@Enumerated(EnumType.STRING) 
 	private CharacteristicsAbbreviature characteristicAbbreviature;
 

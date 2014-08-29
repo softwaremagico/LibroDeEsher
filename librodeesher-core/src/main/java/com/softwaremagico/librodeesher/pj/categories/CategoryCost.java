@@ -35,12 +35,14 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.google.gson.annotations.Expose;
 import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_CATEGORY_COST")
 public class CategoryCost extends StorableObject {
 
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_RANK_COSTS")
 	@LazyCollection(LazyCollectionOption.FALSE)

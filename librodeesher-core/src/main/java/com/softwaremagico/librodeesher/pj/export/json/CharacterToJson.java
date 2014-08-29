@@ -6,10 +6,9 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class CharacterToJson {
 
-	public static void toJson(CharacterPlayer characterPlayer){
-		final GsonBuilder builder = new GsonBuilder();
-		final Gson gson = builder.create();
+	public static String toJson(CharacterPlayer characterPlayer) {
+		final Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
 		final String jsonText = gson.toJson(characterPlayer);
-		System.out.println(jsonText);
+		return jsonText;
 	}
 }

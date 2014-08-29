@@ -35,6 +35,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.google.gson.annotations.Expose;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.persistence.StorableObject;
@@ -42,18 +43,25 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_CULTUREDECISIONS")
 public class CultureDecisions extends StorableObject {
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_CULTURE_WEAPON_RANKS")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<String, Integer> weaponRanks;
+	
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_CULTURE_HOBBY_RANKS")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<String, Integer> hobbyRanks;
+	
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_CULTURE_SPELL_RANKS")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<String, Integer> spellRanks;
+	
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_CULTURE_LANGUAGE_RANKS")
 	@LazyCollection(LazyCollectionOption.FALSE)

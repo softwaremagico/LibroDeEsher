@@ -39,6 +39,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.google.gson.annotations.Expose;
 import com.softwaremagico.librodeesher.basics.Roll;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
@@ -51,14 +52,19 @@ import com.softwaremagico.persistence.StorableObject;
 public class Historial extends StorableObject {
 	private static final Integer SKILL_BONUS = 10;
 	private static final Integer CATEGORY_BONUS = 5;
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_HISTORIAL_CATEGORIES")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> categories;
+	
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_HISTORIAL_SKILLS")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> skills;
+	
+	@Expose
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@CollectionTable(name = "T_HISTORIAL_CHARACTERISTICS_UPDATES")
 	@OrderColumn(name = "roll_index")

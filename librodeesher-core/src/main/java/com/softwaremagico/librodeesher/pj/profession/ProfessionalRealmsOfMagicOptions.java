@@ -37,6 +37,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.google.gson.annotations.Expose;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.persistence.StorableObject;
 
@@ -45,6 +46,7 @@ import com.softwaremagico.persistence.StorableObject;
 public class ProfessionalRealmsOfMagicOptions extends StorableObject {
 	// Standard spellers will have only one element, hybrids will have two or
 	// more elements.
+	@Expose
 	@ElementCollection
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(name = "T_PROFESSION_REALMS_OF_MAGIC_AVAILABLE")

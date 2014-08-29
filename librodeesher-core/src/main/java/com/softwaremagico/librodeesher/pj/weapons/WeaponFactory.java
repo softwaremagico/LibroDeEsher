@@ -48,7 +48,6 @@ public class WeaponFactory {
 	}
 
 	private static HashMap<WeaponType, List<Weapon>> availableWeapons() throws Exception {
-
 		// Init variables.
 		HashMap<WeaponType, List<Weapon>> obtainedWeaponsByType = new HashMap<>();
 		for (WeaponType typeW : WeaponType.values()) {

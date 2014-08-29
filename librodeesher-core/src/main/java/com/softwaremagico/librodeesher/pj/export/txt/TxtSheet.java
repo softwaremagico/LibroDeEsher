@@ -343,8 +343,6 @@ public class TxtSheet {
 		Skill habAtaq = getBestOthersAttack(characterPlayer);
 		String vel = getMovementCode(characterPlayer) + "   ";
 		int PV = characterPlayer.getTotalDevelopmentPoints();
-		System.out.println("###################################################");
-		System.out.println(habCC + " -> " + getAttackCode(characterPlayer, habCC));
 		String attackString = characterPlayer.getTotalValue(habCC) + getAttackCode(characterPlayer, habCC);
 		if (habProy != null && characterPlayer.getTotalValue(habProy) > 0) {
 			attackString += "/" + characterPlayer.getTotalValue(habProy) + getAttackCode(characterPlayer, habProy);

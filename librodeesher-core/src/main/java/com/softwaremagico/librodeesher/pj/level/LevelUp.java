@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.google.gson.annotations.Expose;
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.persistence.StorableObject;
@@ -45,28 +46,38 @@ import com.softwaremagico.persistence.StorableObject;
 @Table(name = "T_LEVELUP")
 public class LevelUp extends StorableObject {
 
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_LEVELUP_CATEGORIES_RANKS")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<String, Integer> categoriesRanks;
+
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_LEVELUP_SKILLS_RANKS")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<String, Integer> skillsRanks;
+
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_LEVELUP_GENERALIZED_SKILLS")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> generalizedSkills;
+
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_LEVEL_UP_SPELLS_UPDATED")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> spellsUpdated; // More than 5 list is more expensive in
 										// Development Points.
+
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_LEVEL_UP_TRAININGS_ADQUIRED")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> trainings;
 
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_LEVEL_UP_SKILL_SPECIALIZATIONS")
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -79,9 +90,9 @@ public class LevelUp extends StorableObject {
 		trainings = new ArrayList<>();
 		generalizedSkills = new ArrayList<>();
 	}
-	
+
 	@Override
-	public void resetIds(){
+	public void resetIds() {
 		resetIds(this);
 	}
 
@@ -136,8 +147,8 @@ public class LevelUp extends StorableObject {
 	}
 
 	/**
-	 * If a player learn more than 5 spell list in one level, the cost is
-	 * doubled. If he learns more than 10 spells, the cost is the quadruple.
+	 * If a player learn more than 5 spell list in one level, the cost is doubled. If he learns more than 10 spells, the
+	 * cost is the quadruple.
 	 * 
 	 * @param skill
 	 * @return
@@ -165,8 +176,8 @@ public class LevelUp extends StorableObject {
 	public void addTraining(String trainingName) {
 		trainings.add(trainingName);
 	}
-	
-	public void removeTraining(String trainingName){
+
+	public void removeTraining(String trainingName) {
 		trainings.remove(trainingName);
 	}
 
@@ -227,8 +238,8 @@ public class LevelUp extends StorableObject {
 	public List<String> getSkillSpecializations() {
 		return skillSpecializations;
 	}
-	
-	public void addSkillSpecialization(String specialization){
+
+	public void addSkillSpecialization(String specialization) {
 		skillSpecializations.add(specialization);
 	}
 

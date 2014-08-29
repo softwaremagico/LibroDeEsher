@@ -28,6 +28,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.softwaremagico.librodeesher.basics.Dice;
 import com.softwaremagico.persistence.StorableObject;
 
@@ -35,6 +36,7 @@ import com.softwaremagico.persistence.StorableObject;
 @Table(name = "T_APPEARANCE")
 public class Appearance extends StorableObject {
 
+	@Expose
 	@Column
 	private int dicesResult;
 

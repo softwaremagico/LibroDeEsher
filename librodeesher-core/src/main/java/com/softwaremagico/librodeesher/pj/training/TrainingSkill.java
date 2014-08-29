@@ -10,16 +10,19 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.google.gson.annotations.Expose;
 import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_TRAINING_SKILL")
 public class TrainingSkill extends StorableObject {
 
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_TRAINING_SKILLS_OPTIONS")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> skillOptions; // List to choose from.
+	@Expose
 	private Integer ranks;
 
 	public TrainingSkill(List<String> skillOptions, Integer ranks) {

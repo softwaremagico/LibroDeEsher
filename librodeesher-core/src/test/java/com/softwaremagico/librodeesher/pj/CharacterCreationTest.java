@@ -1,5 +1,7 @@
 package com.softwaremagico.librodeesher.pj;
 
+import java.io.PrintWriter;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -19,6 +21,7 @@ public class CharacterCreationTest {
 	private final static String PDF_PATH_COMBINED = System.getProperty("java.io.tmpdir") + "/testCmb.pdf";
 	private final static String TXT_PATH = System.getProperty("java.io.tmpdir") + "/testStandard.txt";
 	private final static String TXT_ABBREVIATED_PATH = System.getProperty("java.io.tmpdir") + "/testAbbreviated.txt";
+	private final static String JSON_PATH = System.getProperty("java.io.tmpdir") + "/testJson.txt";
 	private CharacterPlayerDao characterPlayerDao = CharacterPlayerDao.getInstance();
 	private CharacterPlayer characterPlayer;
 
@@ -44,20 +47,23 @@ public class CharacterCreationTest {
 	public void combinedPdf() throws Exception {
 		new PdfCombinedSheet(characterPlayer, PDF_PATH_COMBINED);
 	}
-	
+
 	@Test(groups = { "characterTxt" }, dependsOnMethods = { "createCharacter" })
 	public void exportStandardTxt() throws Exception {
 		new TxtSheet(characterPlayer).exportSheet(TXT_PATH);
 	}
-	
+
 	@Test(groups = { "characterTxt" }, dependsOnMethods = { "createCharacter" })
 	public void exportAbbreviatedTxt() throws Exception {
 		TxtSheet.exportCharacterAbbreviature(characterPlayer, TXT_ABBREVIATED_PATH);
 	}
-	
+
 	@Test(groups = { "characterJson" }, dependsOnMethods = { "createCharacter" })
 	public void exportJson() throws Exception {
-		CharacterToJson.toJson(characterPlayer);
+		String jsonText = CharacterToJson.toJson(characterPlayer);
+		PrintWriter out = new PrintWriter(JSON_PATH);
+		out.println(jsonText);
+		out.close();
 	}
 
 }

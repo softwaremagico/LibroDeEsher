@@ -8,17 +8,22 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.softwaremagico.librodeesher.basics.Roll;
 import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_CHARACTERISTIC_ROLL_GROUP")
 public class CharacteristicRoll extends StorableObject {
+	@Expose
 	@Enumerated(EnumType.STRING)
 	private CharacteristicsAbbreviature characteristicAbbreviature;
+	@Expose
 	private Integer characteristicPotentialValue;
+	@Expose
 	private Integer characteristicTemporalValue;
 
+	@Expose
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Roll roll;
 

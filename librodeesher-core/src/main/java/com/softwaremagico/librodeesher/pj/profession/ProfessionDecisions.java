@@ -41,6 +41,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.google.gson.annotations.Expose;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -50,18 +51,25 @@ import com.softwaremagico.persistence.StorableObject;
 @Table(name = "T_PROFESSION_DECISIONS")
 public class ProfessionDecisions extends StorableObject {
 	// Category -> cost
+	@Expose
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@CollectionTable(name = "T_PROFESSION_WEAPON_COST_CHOSEN")
 	@JoinColumn(name = "categoryCostId")
 	private Map<String, CategoryCost> weaponsCost;
+	
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_PROFESSION_COMMON_SKILLS_CHOSEN")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> commonSkillsChosen;
+	
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_PROFESSION_RESTRICTED_SKILLS_CHOSEN")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> restrictedSkillsChosen;
+	
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_PROFESSION_PROFESSIONAL_SKILLS_CHOSEN")
 	@LazyCollection(LazyCollectionOption.FALSE)

@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.google.gson.annotations.Expose;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.persistence.StorableObject;
@@ -17,14 +18,19 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_PERKS_DECISION")
 public class PerkDecision extends StorableObject {
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_PERKS_DECISION_CATEGORY_BONUS_CHOSEN")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> categoriesBonusChosen;
+	
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_PERKS_DECISION_SKILLS_BONUS_CHOSEN")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> skillsBonusChosen;
+	
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_PERKS_DECISION_COMMON_SKILLS_CHOSEN")
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -33,9 +39,9 @@ public class PerkDecision extends StorableObject {
 	public PerkDecision() {
 
 	}
-	
+
 	@Override
-	public void resetIds(){
+	public void resetIds() {
 		resetIds(this);
 	}
 

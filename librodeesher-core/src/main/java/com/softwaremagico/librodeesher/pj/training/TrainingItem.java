@@ -3,22 +3,26 @@ package com.softwaremagico.librodeesher.pj.training;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
 import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_TRAINING_OBJECT")
 public class TrainingItem extends StorableObject implements MagicObject {
+	@Expose
 	private String name;
+	@Expose
 	private int bonus;
+	@Expose
 	private int probability;
-	
-	protected TrainingItem(){
-		
+
+	protected TrainingItem() {
+
 	}
-	
+
 	@Override
-	public void resetIds(){
+	public void resetIds() {
 		resetIds(this);
 	}
 

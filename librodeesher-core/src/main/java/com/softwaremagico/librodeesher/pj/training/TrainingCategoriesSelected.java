@@ -11,12 +11,14 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.google.gson.annotations.Expose;
 import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_TRAINING_CATEGORIES_SELECTED")
 class TrainingCategoriesSelected extends StorableObject {
 
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_TRAINING_CATEGORIES")
 	@LazyCollection(LazyCollectionOption.FALSE)
