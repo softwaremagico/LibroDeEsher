@@ -39,7 +39,7 @@ import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.race.InvalidRaceException;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
-import com.softwaremagico.log.Log;
+import com.softwaremagico.log.EsherLog;
 
 public class CharacterRacePanel extends BasePanel {
 	private static final long serialVersionUID = 178890486518380989L;
@@ -154,7 +154,7 @@ public class CharacterRacePanel extends BasePanel {
 					ShowMessage.showErrorMessage(e.getMessage(), "Error");
 				}
 			} catch (NullPointerException npe) {
-				Log.errorMessage(CharacterRacePanel.class.getName(), npe);
+				EsherLog.errorMessage(CharacterRacePanel.class.getName(), npe);
 			}
 			if (character != null) {
 				if (character.getCulture() != null) {

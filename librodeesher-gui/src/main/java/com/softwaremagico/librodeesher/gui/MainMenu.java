@@ -41,7 +41,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 public class MainMenu {
 	private JMenuItem newMenuItem, closeMenuItem, loadMenuItem, saveMenuItem,
 			exportToTextMenuItem, exportAbbreviatedToTextMenuItem, exportToPdfStandardMenuItem,
-			exportToPdfCombinedMenuItem, exitMenuItem;
+			exportToPdfCombinedMenuItem, exportCharacterMenuItem, exportLevelMenuItem, importCharacterMenuItem, importLevelMenu, exitMenuItem;
 	private JMenuItem aboutMenuItem, cultureMenuItem, professionMenuItem,
 			charactMenuItem, trainingMenuItem, skillsMenuItem, perksMenuItem,
 			historyMenuItem, levelUpMenuItem;
@@ -49,7 +49,7 @@ public class MainMenu {
 	private JMenuItem randomName, randomCharacter;
 	private JMenuItem optionsMenu;
 	private JFrame parentWindow;
-	private JMenu characterListMenu, exportMenu;
+	private JMenu characterListMenu, exportMenu, importMenu;
 	private CharacterPlayer character;
 
 	public JMenuBar createMenu(JFrame parentWindow) {
@@ -99,12 +99,24 @@ public class MainMenu {
 				"Guardar un personaje creado anteriormente.");
 		fileMenu.add(saveMenuItem);
 
-		exportMenu = new JMenu("Exportar a...");
+		exportMenu = new JMenu("Exportar...");
 		exportMenu.setMnemonic(KeyEvent.VK_E);
 		exportMenu.setIcon((Icon) getIcon("export.png"));
 		exportMenu.getAccessibleContext().setAccessibleDescription(
 				"Exportar a otros formatos.");
 		fileMenu.add(exportMenu);
+				
+		exportCharacterMenuItem = new JMenuItem("Personaje", KeyEvent.VK_P);
+		exportCharacterMenuItem.setIcon((Icon) getIcon("character-export.png"));
+		exportCharacterMenuItem.getAccessibleContext().setAccessibleDescription(
+				"Exporta para importar en otro ordenador.");
+		exportMenu.add(exportCharacterMenuItem);
+		
+		exportLevelMenuItem = new JMenuItem("Subida de Nivel", KeyEvent.VK_P);
+		exportLevelMenuItem.setIcon((Icon) getIcon("level-export.png"));
+		exportLevelMenuItem.getAccessibleContext().setAccessibleDescription(
+				"Exporta para importar en otro ordenador.");
+		exportMenu.add(exportLevelMenuItem);
 
 		exportToTextMenuItem = new JMenuItem("Texto", KeyEvent.VK_T);
 		exportToTextMenuItem.setIcon((Icon) getIcon("text.png"));
@@ -134,6 +146,25 @@ public class MainMenu {
 				.setAccessibleDescription(
 						"Exporta a un fichero PDF (Hoja Combinada).");
 		exportMenu.add(exportToPdfCombinedMenuItem);
+		
+		importMenu = new JMenu("Importar...");
+		importMenu.setMnemonic(KeyEvent.VK_I);
+		importMenu.setIcon((Icon) getIcon("import.png"));
+		importMenu.getAccessibleContext().setAccessibleDescription(
+				"Importar de otros formatos.");
+		fileMenu.add(importMenu);
+		
+		importCharacterMenuItem = new JMenuItem("Personaje");
+		importCharacterMenuItem.setIcon((Icon) getIcon("character-import.png"));
+		importCharacterMenuItem.getAccessibleContext().setAccessibleDescription(
+				"Importar de otro ordenador.");
+		importMenu.add(importCharacterMenuItem);
+		
+		importLevelMenu = new JMenuItem("Nivel");
+		importLevelMenu.setIcon((Icon) getIcon("level-import.png"));
+		importLevelMenu.getAccessibleContext().setAccessibleDescription(
+				"Importar de otro ordenador.");
+		importMenu.add(importLevelMenu);
 
 		exitMenuItem = new JMenuItem("Salir", KeyEvent.VK_R);
 		exitMenuItem.setIcon((Icon) getIcon("exit.png"));

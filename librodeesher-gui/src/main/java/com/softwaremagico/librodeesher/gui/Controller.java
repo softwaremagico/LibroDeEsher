@@ -58,7 +58,7 @@ import com.softwaremagico.librodeesher.pj.export.txt.TxtSheet;
 import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
 import com.softwaremagico.librodeesher.pj.profession.InvalidProfessionException;
 import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
-import com.softwaremagico.log.Log;
+import com.softwaremagico.log.EsherLog;
 import com.softwaremagico.persistence.dao.hibernate.CharacterPlayerDao;
 
 public class Controller {
@@ -160,7 +160,7 @@ public class Controller {
 				MessageManager.infoMessage(Controller.class.getName(),
 						"Personaje guardado con éxito!", "Salvar.");
 			} catch (Exception exception) {
-				Log.errorMessage(Controller.class.getName(), exception);
+				EsherLog.errorMessage(Controller.class.getName(), exception);
 				MessageManager
 						.basicErrorMessage(
 								Controller.class.getName(),
