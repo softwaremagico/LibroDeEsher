@@ -26,7 +26,11 @@ package com.softwaremagico.librodeesher.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +43,7 @@ import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicsWindow;
 import com.softwaremagico.librodeesher.gui.culture.CultureWindow;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForPdf;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForPdfWithOptions;
+import com.softwaremagico.librodeesher.gui.files.ExploreWindowForRlm;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForTxt;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowsWithOptionsListener;
 import com.softwaremagico.librodeesher.gui.files.PdfFilter;
@@ -52,6 +57,7 @@ import com.softwaremagico.librodeesher.gui.random.RandomWindow;
 import com.softwaremagico.librodeesher.gui.skills.SkillWindow;
 import com.softwaremagico.librodeesher.gui.training.TrainingWindow;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.export.json.CharacterJsonManager;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfCombinedSheet;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfStandardSheet;
 import com.softwaremagico.librodeesher.pj.export.txt.TxtSheet;
@@ -88,42 +94,39 @@ public class Controller {
 		updateCharacterListToMenu();
 	}
 
+	private void addCharacterPlayer(CharacterPlayer characterPlayer) {
+		if (!characters.contains(characterPlayer)) {
+			characters.add(characterPlayer);
+			selectedCharacter = characterPlayer;
+			mainGui.setCharacter(selectedCharacter);
+			mainGui.updateFrame();
+			updateCharacterListToMenu();
+		}
+	}
+
 	private void addMainMenuActionListeners() {
-		mainGui.getMainMenu().addNewCharacterListener(
-				new NewCharacterListener());
-		mainGui.getMainMenu().addCloseCharacterListener(
-				new CloseCharacterListener());
+		mainGui.getMainMenu().addNewCharacterListener(new NewCharacterListener());
+		mainGui.getMainMenu().addCloseCharacterListener(new CloseCharacterListener());
 		mainGui.getMainMenu().addAboutMenuItemListener(new AboutBoxListener());
-		mainGui.getMainMenu().addCharacteristicsWindowMenuItemListener(
-				new CharacteristicWindowsListener());
+		mainGui.getMainMenu().addCharacteristicsWindowMenuItemListener(new CharacteristicWindowsListener());
 		mainGui.getMainMenu().addRandomNameListener(new RandomNameListener());
-		mainGui.getMainMenu().addRandomCharacterListener(
-				new RandomCharacterListener());
+		mainGui.getMainMenu().addRandomCharacterListener(new RandomCharacterListener());
 		mainGui.getMainMenu().addCultureListener(new CultureWindowsListener());
-		mainGui.getMainMenu().addSkillsAndCategoriesListener(
-				new SkillsAndCategoriesWindowsListener());
-		mainGui.getMainMenu().addOptionsWindowListener(
-				new OptionsWindowsListener());
-		mainGui.getMainMenu().addHistoryWindowListener(
-				new HistoryWindowsListener());
-		mainGui.getMainMenu()
-				.addPerksWindowListener(new PerksWindowsListener());
-		mainGui.getMainMenu().addProfessionWindowListener(
-				new ProfessionWindowsListener());
-		mainGui.getMainMenu().addTrainingWindowListener(
-				new TrainingWindowsListener());
-		mainGui.getMainMenu().addLevelUpActionListener(
-				new IncreaseLevelActionListener());
-		mainGui.getMainMenu().addStandardSheetPdfActionListener(
-				new ExportToStandardPdf());
-		mainGui.getMainMenu().addCombinedSheetPdfActionListener(
-				new ExportToCombinedPdf());
-		mainGui.getMainMenu().addStandardTxtActionListener(
-				new ExportToStandardTxt());
-		mainGui.getMainMenu().addAbbreviatedTxtActionListener(
-				new ExportAbbreviatedToTxt());
+		mainGui.getMainMenu().addSkillsAndCategoriesListener(new SkillsAndCategoriesWindowsListener());
+		mainGui.getMainMenu().addOptionsWindowListener(new OptionsWindowsListener());
+		mainGui.getMainMenu().addHistoryWindowListener(new HistoryWindowsListener());
+		mainGui.getMainMenu().addPerksWindowListener(new PerksWindowsListener());
+		mainGui.getMainMenu().addProfessionWindowListener(new ProfessionWindowsListener());
+		mainGui.getMainMenu().addTrainingWindowListener(new TrainingWindowsListener());
+		mainGui.getMainMenu().addLevelUpActionListener(new IncreaseLevelActionListener());
+		mainGui.getMainMenu().addStandardSheetPdfActionListener(new ExportToStandardPdf());
+		mainGui.getMainMenu().addCombinedSheetPdfActionListener(new ExportToCombinedPdf());
+		mainGui.getMainMenu().addStandardTxtActionListener(new ExportToStandardTxt());
+		mainGui.getMainMenu().addAbbreviatedTxtActionListener(new ExportAbbreviatedToTxt());
 		mainGui.getMainMenu().addSaveActionListener(new SaveCharacterPlayer());
 		mainGui.getMainMenu().addLoadActionListener(new LoadCharacterPlayer());
+		mainGui.getMainMenu().addExportCharacterListener(new ExportCharacter());
+		mainGui.getMainMenu().addImportCharacterListener(new ImportCharacter());
 	}
 
 	class LoadCharacterPlayer implements ActionListener {
@@ -138,13 +141,7 @@ public class Controller {
 
 				@Override
 				public void addCharacter(CharacterPlayer characterPlayer) {
-					if (!characters.contains(characterPlayer)) {
-						characters.add(characterPlayer);
-					}
-					selectedCharacter = characterPlayer;
-					mainGui.setCharacter(selectedCharacter);
-					mainGui.updateFrame();
-					updateCharacterListToMenu();
+					addCharacterPlayer(characterPlayer);
 				}
 			});
 			loadWindow.setVisible(true);
@@ -155,10 +152,9 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
-				CharacterPlayerDao.getInstance().makePersistent(
-						selectedCharacter);
-				MessageManager.infoMessage(Controller.class.getName(),
-						"Personaje guardado con éxito!", "Salvar.");
+				CharacterPlayerDao.getInstance().makePersistent(selectedCharacter);
+				MessageManager.infoMessage(Controller.class.getName(), "Personaje guardado con éxito!",
+						"Salvar.");
 			} catch (Exception exception) {
 				EsherLog.errorMessage(Controller.class.getName(), exception);
 				MessageManager
@@ -170,78 +166,118 @@ public class Controller {
 		}
 	}
 
+	class ExportCharacter implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ExploreWindowForRlm selectJson = new ExploreWindowForRlm("Personaje.rlm");
+			String path = selectJson.exploreWindows("Exportar Personaje", JFileChooser.FILES_ONLY,
+					getCharacterNameFormatted() + ".rlm");
+			String jsonText = CharacterJsonManager.toJson(selectedCharacter);
+			// store int a file.
+			PrintWriter out;
+			try {
+				out = new PrintWriter(path);
+				out.println(jsonText);
+				out.close();
+				MessageManager.infoMessage(Controller.class.getName(), "Ficha exportada correctamente.",
+						"RLM");
+				return;
+			} catch (FileNotFoundException e1) {
+			}
+			MessageManager
+					.basicErrorMessage(Controller.class.getName(), "Error al exportar la ficha!", "RLM");
+		}
+	}
+
+	class ImportCharacter implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ExploreWindowForRlm selectTxt = new ExploreWindowForRlm("Personaje.rlm");
+			String path = selectTxt.exploreWindows("Exportar Personaje", JFileChooser.FILES_ONLY,
+					"Personaje.rlm");
+
+			BufferedReader br = null;
+			String jsonText = "";
+			try {
+				String sCurrentLine;
+				br = new BufferedReader(new FileReader(path));
+				while ((sCurrentLine = br.readLine()) != null) {
+					jsonText += sCurrentLine;
+				}
+				CharacterPlayer characterPlayer = CharacterJsonManager.fromJson(jsonText);
+				MessageManager.infoMessage(Controller.class.getName(), "Ficha importada correctamente.",
+						"RLM");
+				addCharacterPlayer(characterPlayer);
+			} catch (Exception exc) {
+				EsherLog.errorMessage(Controller.class.getName(), exc);
+			} finally {
+				try {
+					if (br != null)
+						br.close();
+				} catch (IOException ex) {
+					// Continue
+				}
+			}
+
+		}
+	}
+
 	class ExportToStandardTxt implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ExploreWindowForTxt selectTxt = new ExploreWindowForTxt(
-					"Ficha.txt");
-			String path = selectTxt.exploreWindows("Hoja en Txt",
-					JFileChooser.FILES_ONLY, getCharacterNameFormatted()
-							+ ".txt");
+			ExploreWindowForTxt selectTxt = new ExploreWindowForTxt("Ficha.txt");
+			String path = selectTxt.exploreWindows("Hoja en Txt", JFileChooser.FILES_ONLY,
+					getCharacterNameFormatted() + ".txt");
 			new TxtSheet(selectedCharacter).exportSheet(path);
-			MessageManager.infoMessage(Controller.class.getName(),
-					"Ficha creada correctamente.", "TXT");
+			MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.", "TXT");
 		}
 	}
-	
+
 	class ExportAbbreviatedToTxt implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ExploreWindowForTxt selectTxt = new ExploreWindowForTxt(
-					"Ficha.pdf");
-			String path = selectTxt.exploreWindows("Hoja en Txt",
-					JFileChooser.FILES_ONLY, getCharacterNameFormatted()
-							+ ".txt");
+			ExploreWindowForTxt selectTxt = new ExploreWindowForTxt("Ficha.pdf");
+			String path = selectTxt.exploreWindows("Hoja en Txt", JFileChooser.FILES_ONLY,
+					getCharacterNameFormatted() + ".txt");
 			TxtSheet.exportCharacterAbbreviature(selectedCharacter, path);
-			MessageManager.infoMessage(Controller.class.getName(),
-					"Ficha creada correctamente.", "TXT");
+			MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.", "TXT");
 		}
 	}
 
 	class ExportToStandardPdf implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ExploreWindowForPdfWithOptions selectPdf = new ExploreWindowForPdfWithOptions(
-					"Hoja en PDF", JFileChooser.FILES_ONLY,
-					getCharacterNameFormatted() + ".pdf", new PdfFilter(),
-					null, "");
+			ExploreWindowForPdfWithOptions selectPdf = new ExploreWindowForPdfWithOptions("Hoja en PDF",
+					JFileChooser.FILES_ONLY, getCharacterNameFormatted() + ".pdf", new PdfFilter(), null, "");
 			selectPdf.setVisible(true);
-			selectPdf
-					.addAcceptListener(new ExploreWindowsWithOptionsListener() {
-						@Override
-						public void accept(String path, boolean sortSkills) {
-							try {
-								new PdfStandardSheet(selectedCharacter, path,
-										sortSkills);
-								MessageManager.infoMessage(
-										Controller.class.getName(),
-										"Ficha creada correctamente.", "PDF");
-							} catch (DocumentException | IOException ex) {
-								MessageManager.basicErrorMessage(
-										Controller.class.getName(),
-										"Error al crear el PDF.", "PDF");
-								ex.printStackTrace();
-							}
-						}
-					});
+			selectPdf.addAcceptListener(new ExploreWindowsWithOptionsListener() {
+				@Override
+				public void accept(String path, boolean sortSkills) {
+					try {
+						new PdfStandardSheet(selectedCharacter, path, sortSkills);
+						MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.",
+								"PDF");
+					} catch (DocumentException | IOException ex) {
+						MessageManager.basicErrorMessage(Controller.class.getName(),
+								"Error al crear el PDF.", "PDF");
+						ex.printStackTrace();
+					}
+				}
+			});
 		}
 	}
 
 	class ExportToCombinedPdf implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ExploreWindowForPdf selectPdf = new ExploreWindowForPdf(
-					"RMFComb.pdf");
-			String path = selectPdf.exploreWindows("Hoja en PDF",
-					JFileChooser.FILES_ONLY, getCharacterNameFormatted()
-							+ ".pdf");
+			ExploreWindowForPdf selectPdf = new ExploreWindowForPdf("RMFComb.pdf");
+			String path = selectPdf.exploreWindows("Hoja en PDF", JFileChooser.FILES_ONLY,
+					getCharacterNameFormatted() + ".pdf");
 			try {
 				new PdfCombinedSheet(selectedCharacter, path);
-				MessageManager.infoMessage(Controller.class.getName(),
-						"Ficha creada correctamente.", "PDF");
+				MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.", "PDF");
 			} catch (DocumentException | IOException ex) {
-				MessageManager.basicErrorMessage(Controller.class.getName(),
-						"Error al crear el PDF.", "PDF");
+				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al crear el PDF.", "PDF");
 				ex.printStackTrace();
 			}
 		}
@@ -277,8 +313,7 @@ public class Controller {
 	class RandomNameListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			selectedCharacter.setName(selectedCharacter.getRace()
-					.getRandonName(selectedCharacter.getSex()));
+			selectedCharacter.setName(selectedCharacter.getRace().getRandonName(selectedCharacter.getSex()));
 			mainGui.updateFrame();
 			updateCharacterListToMenu();
 		}
@@ -292,28 +327,24 @@ public class Controller {
 			} catch (NullPointerException npe) {
 			}
 			randomWindow = new RandomWindow(selectedCharacter);
-			randomWindow
-					.addRandomCharacterUpdatedListeners(new RandomCharacterUpdatedListener() {
-						@Override
-						public void updatedCharacter(CharacterPlayer character) {
-							characters.remove(selectedCharacter);
-							try {
-								selectedCharacter = new RandomCharacterPlayer(
-										character, randomWindow.getFinalLevel())
-										.getCharacterPlayer();
-							} catch (MagicDefinitionException
-									| InvalidProfessionException e) {
-								ShowMessage.showErrorMessage(e.getMessage(),
-										"Error");
-							}
-							characters.add(selectedCharacter);
-							// update GUI
-							mainGui.setCharacter(selectedCharacter);
-							mainGui.updateFrame();
-							updateCharacterListToMenu();
-							randomWindow.dispose();
-						}
-					});
+			randomWindow.addRandomCharacterUpdatedListeners(new RandomCharacterUpdatedListener() {
+				@Override
+				public void updatedCharacter(CharacterPlayer character) {
+					characters.remove(selectedCharacter);
+					try {
+						selectedCharacter = new RandomCharacterPlayer(character, randomWindow.getFinalLevel())
+								.getCharacterPlayer();
+					} catch (MagicDefinitionException | InvalidProfessionException e) {
+						ShowMessage.showErrorMessage(e.getMessage(), "Error");
+					}
+					characters.add(selectedCharacter);
+					// update GUI
+					mainGui.setCharacter(selectedCharacter);
+					mainGui.updateFrame();
+					updateCharacterListToMenu();
+					randomWindow.dispose();
+				}
+			});
 			randomWindow.setVisible(true);
 		}
 	}
@@ -375,10 +406,8 @@ public class Controller {
 		JMenu characterListMenu = mainGui.getMainMenu().getCharacterListMenu();
 		characterListMenu.removeAll();
 		for (CharacterPlayer character : characters) {
-			CharacterMenuItem characterMenu = new CharacterMenuItem(character,
-					selectedCharacter);
-			characterMenu.addActionListener(new SelectedCharacterListener(
-					characterMenu));
+			CharacterMenuItem characterMenu = new CharacterMenuItem(character, selectedCharacter);
+			characterMenu.addActionListener(new SelectedCharacterListener(characterMenu));
 			characterListMenu.add(characterMenu);
 		}
 	}

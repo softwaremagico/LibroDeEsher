@@ -7,14 +7,21 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 public class CharacterJsonManager {
 
 	public static String toJson(CharacterPlayer characterPlayer) {
-		final Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-		final String jsonText = gson.toJson(characterPlayer);
-		return jsonText;
+		if (characterPlayer != null) {
+			final Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation()
+					.create();
+			final String jsonText = gson.toJson(characterPlayer);
+			return jsonText;
+		}
+		return null;
 	}
 
 	public static CharacterPlayer fromJson(String jsonText) {
-		final Gson gson = new GsonBuilder().create();
-		CharacterPlayer characterPlayer = gson.fromJson(jsonText, CharacterPlayer.class);
-		return characterPlayer;
+		if (jsonText != null && jsonText.length() > 0) {
+			final Gson gson = new GsonBuilder().create();
+			CharacterPlayer characterPlayer = gson.fromJson(jsonText, CharacterPlayer.class);
+			return characterPlayer;
+		}
+		return null;
 	}
 }
