@@ -98,18 +98,18 @@ Visión en la Oscuridad
 Tanis, Ousall, Phevas, Rysi, Seicen, Sernis, Tasadi
 Sate, Maki-kip, Idan-ne, Amrin, Gainil, Makikip, Idan-ne
 Fesback, Estrik, Drag, Dagledu, Bluganu, Datagon, Dagledu
-Dablic, Manila, Inker, Raktar, Inko, Glasdur,  Gaeru, Ludalu, Gaben
-Vrasta, Theris, Goriar,  Debar, Aranzon, Jothr, Barbulkan, Hollus
-Wibadal, Karno, Bhyf, Torio, San, Whyl, Sbuly, Learco, Kyrion,  Ydath
+Dablic, Manila, Inker, Raktar, Inko, Glasdur, Gaeru, Ludalu, Gaben
+Vrasta, Theris, Goriar, Debar, Aranzon, Jothr, Barbulkan, Hollus
+Wibadal, Karno, Bhyf, Torio, San, Whyl, Sbuly, Learco, Kyrion, Ydath
 
 #NOMBRES FEMENINOS
 ####################################
 Eiwenna, Isadara, Baildra,  Inistra, Ayakistra, Neliam, Arsha
-Elina, Karale, Fada, Sulia, Lea,  Lenca, Ankira, Karev, Kerav
+Elina, Karale, Fada, Sulia, Lea, Lenca, Ankira, Karev, Kerav
 Granda, Baldwine, Brynnda
 
 #APELLIDOS
 ####################################
-Bolado, Bort, Berna, Bastida, Capella, Cota, Fëfalas, Alcarin, Tasartir, Felagund
+Bolado, Bort, Berna, Bastida, Capella, Cota, Fëfalas, Alcarin, Tasartir, Felagund, Espúreo
 
 #### FIN RAZA ####

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
+import com.google.gson.annotations.Expose;
 import com.softwaremagico.utils.IdGenerator;
 
 @Entity
@@ -23,10 +24,13 @@ public abstract class StorableObject {
 	@Column(name = "ID", unique = true, nullable = false)
 	private Long id;
 
+	@Expose
 	@Column(nullable = false)
 	private Timestamp creationTime = null;
+	@Expose
 	private Timestamp updateTime = null;
 
+	@Expose
 	// A unique Id created with the object used to compare persisted objects and
 	// in memory objects.
 	@Column(unique = true, nullable = false, updatable = false)
@@ -61,12 +65,12 @@ public abstract class StorableObject {
 	public void resetIds(Map<?, ?> map) {
 		for (Object key : map.keySet()) {
 			if (key instanceof StorableObject) {
-				resetIds((StorableObject)key);
+				resetIds((StorableObject) key);
 			}
 		}
 		for (Object value : map.values()) {
 			if (value instanceof StorableObject) {
-				resetIds((StorableObject)value);
+				resetIds((StorableObject) value);
 			}
 		}
 	}
@@ -75,8 +79,7 @@ public abstract class StorableObject {
 		if (creationTime != null) {
 			return creationTime;
 		} else {
-			creationTime = new java.sql.Timestamp(
-					new java.util.Date().getTime());
+			creationTime = new java.sql.Timestamp(new java.util.Date().getTime());
 			return creationTime;
 		}
 	}
@@ -106,8 +109,7 @@ public abstract class StorableObject {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((comparationId == null) ? 0 : comparationId.hashCode());
+		result = prime * result + ((comparationId == null) ? 0 : comparationId.hashCode());
 		return result;
 	}
 
@@ -128,4 +130,7 @@ public abstract class StorableObject {
 		return true;
 	}
 
+	public String getComparationId() {
+		return comparationId;
+	}
 }

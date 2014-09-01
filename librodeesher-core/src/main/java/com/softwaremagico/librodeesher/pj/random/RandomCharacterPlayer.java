@@ -29,9 +29,8 @@ import com.softwaremagico.librodeesher.pj.weapons.WeaponType;
 import com.softwaremagico.log.EsherLog;
 
 /**
- * Specialization level: if 0, categories and skills are obtained randomly. If
- * specialized are obtained by ranks number if not at inverse. If value is 3
- * then character can specialize skills, if -3 can generalize skills.
+ * Specialization level: if 0, categories and skills are obtained randomly. If specialized are obtained by ranks number
+ * if not at inverse. If value is 3 then character can specialize skills, if -3 can generalize skills.
  */
 public class RandomCharacterPlayer {
 	public final static int MAX_TRIES = 5;
@@ -51,6 +50,17 @@ public class RandomCharacterPlayer {
 
 	// Store probability to increase speed.
 
+	/**
+	 * Creates an enterily new character.
+	 * 
+	 * @param sex
+	 * @param race
+	 * @param culture
+	 * @param profession
+	 * @param finalLevel
+	 * @throws MagicDefinitionException
+	 * @throws InvalidProfessionException
+	 */
 	public RandomCharacterPlayer(SexType sex, String race, String culture, String profession, int finalLevel)
 			throws MagicDefinitionException, InvalidProfessionException {
 		EsherLog.info(this.getClass().getName(), "--------------------");
@@ -68,8 +78,16 @@ public class RandomCharacterPlayer {
 		createRandomValues();
 	}
 
-	public RandomCharacterPlayer(CharacterPlayer characterPlayer, int finalLevel)
-			throws MagicDefinitionException, InvalidProfessionException {
+	/**
+	 * Uses input character and increases it to the defined level.
+	 * 
+	 * @param characterPlayer
+	 * @param finalLevel
+	 * @throws MagicDefinitionException
+	 * @throws InvalidProfessionException
+	 */
+	public RandomCharacterPlayer(CharacterPlayer characterPlayer, int finalLevel) throws MagicDefinitionException,
+			InvalidProfessionException {
 		this.sex = characterPlayer.getSex();
 		suggestedSkillsRanks = new HashMap<>();
 		suggestedCategoriesRanks = new HashMap<>();
@@ -80,6 +98,27 @@ public class RandomCharacterPlayer {
 		this.profession = characterPlayer.getProfession().getName();
 
 		createRandomValues();
+	}
+
+	/**
+	 * Only spends current available development points.
+	 * 
+	 * @param characterPlayer
+	 * @throws MagicDefinitionException
+	 * @throws InvalidProfessionException
+	 */
+	public RandomCharacterPlayer(CharacterPlayer characterPlayer) throws MagicDefinitionException,
+			InvalidProfessionException {
+		this.sex = characterPlayer.getSex();
+		suggestedSkillsRanks = new HashMap<>();
+		suggestedCategoriesRanks = new HashMap<>();
+		this.finalLevel = characterPlayer.getCurrentLevelNumber();
+		this.characterPlayer = characterPlayer;
+		this.race = characterPlayer.getRace().getName();
+		this.culture = characterPlayer.getCulture().getName();
+		this.profession = characterPlayer.getProfession().getName();
+
+		setDevelopmentPoints();
 	}
 
 	public CharacterPlayer getCharacterPlayer() {
@@ -191,32 +230,30 @@ public class RandomCharacterPlayer {
 	}
 
 	/**
-	 * Set random characteristics. Characteristics preferred that generates
-	 * development points have a little of advantage.
+	 * Set random characteristics. Characteristics preferred that generates development points have a little of
+	 * advantage.
 	 */
 	public static void setCharacteristics(CharacterPlayer characterPlayer, int specializationLevel) {
 		int loop = 0;
-		while (characterPlayer.getCharacteristicsTemporalPointsSpent() < getTotalCharacteristicsPoints()) {
+		while (characterPlayer.getCharacteristicsTemporalPointsSpent() < getTotalCharacteristicsPoints() && loop < 20) {
 			for (int i = 0; i < characterPlayer.getProfession().getCharacteristicPreferences().size(); i++) {
-				Characteristic characteristic = Characteristics
-						.getCharacteristicFromAbbreviature(characterPlayer.getProfession()
-								.getCharacteristicPreferences().get(i));
+				Characteristic characteristic = Characteristics.getCharacteristicFromAbbreviature(characterPlayer
+						.getProfession().getCharacteristicPreferences().get(i));
 				// Max probability 90%. Preferred characteristics with points.
 				int availablePoints = getTotalCharacteristicsPoints()
 						- characterPlayer.getCharacteristicsTemporalPointsSpent();
-				if ((Math.random() * 100 + 1) < Math.min((Math.max(
-						(characterPlayer.getCharacteristicInitialTemporalValue(characteristic
-								.getAbbreviature()) - Characteristics.INITIAL_CHARACTERISTIC_VALUE)
-								* Math.max(1, specializationLevel * 5), 5 + loop)), 90)
+				if ((Math.random() * 100 + 1) < Math
+						.min((Math.max(
+								(characterPlayer.getCharacteristicInitialTemporalValue(characteristic.getAbbreviature()) - Characteristics.INITIAL_CHARACTERISTIC_VALUE)
+										* Math.max(1, specializationLevel * 5), 5 + loop)), 90)
 						// Temporal values has a max limit.
-						&& characterPlayer.getCharacteristicInitialTemporalValue(characteristic
-								.getAbbreviature()) < (Math.min(90 + specializationLevel * 5, 101))
+						&& characterPlayer.getCharacteristicInitialTemporalValue(characteristic.getAbbreviature()) < (Math
+								.min(90 + specializationLevel * 5, 101))
 						// Cost affordable.
 						&& Characteristic.getTemporalCost(characterPlayer
 								.getCharacteristicInitialTemporalValue(characteristic.getAbbreviature()) + 1)
 								- Characteristic.getTemporalCost(characterPlayer
-										.getCharacteristicInitialTemporalValue(characteristic
-												.getAbbreviature())) <= availablePoints) {
+										.getCharacteristicInitialTemporalValue(characteristic.getAbbreviature())) <= availablePoints) {
 					// Increase more than one point depending on the value of
 					// the characteristic.
 					int valueToAdd = 1;
@@ -229,11 +266,9 @@ public class RandomCharacterPlayer {
 					} else {
 						valueToAdd = 1;
 					}
-					characterPlayer.setCharacteristicTemporalValues(
-							characteristic.getAbbreviature(),
-							characterPlayer.getCharacteristicsInitialTemporalValues().get(
-									characteristic.getAbbreviature())
-									+ valueToAdd);
+					characterPlayer.setCharacteristicTemporalValues(characteristic.getAbbreviature(), characterPlayer
+							.getCharacteristicsInitialTemporalValues().get(characteristic.getAbbreviature())
+							+ valueToAdd);
 					// Add new point to same characteristic.
 					if (specializationLevel > 0) {
 						i--;
@@ -357,13 +392,10 @@ public class RandomCharacterPlayer {
 					|| characterPlayer.getSkillsWithRanks(skill.getCategory()).size() > -specializationLevel + 1) {
 				return 5 * loop;
 			}
-			return characterPlayer.getRealRanks(skill)
-					* (2 + specializationLevel + loop)
-					+ characterPlayer.getTotalRanks(skill.getCategory())
-					* 5
-					+ Math.min(characterPlayer.getCategoryCost(skill.getCategory(), 0).getRankCost().get(0),
-							15) - characterPlayer.getSkillsWithRanks(skill.getCategory()).size() * 5 + 5
-					+ loop;
+			return characterPlayer.getRealRanks(skill) * (2 + specializationLevel + loop)
+					+ characterPlayer.getTotalRanks(skill.getCategory()) * 5
+					+ Math.min(characterPlayer.getCategoryCost(skill.getCategory(), 0).getRankCost().get(0), 15)
+					- characterPlayer.getSkillsWithRanks(skill.getCategory()).size() * 5 + 5 + loop;
 		}
 		return 0;
 	}
@@ -391,17 +423,15 @@ public class RandomCharacterPlayer {
 					if (characterPlayer.getCultureDecisions().getHobbyRanks(skill.getName()) < characterPlayer
 							.getMaxRanksPerCulture(skill.getCategory())) {
 						if (skill != null
-								&& Math.random()
-										* 100
+								&& Math.random() * 100
 										// Penalization for too many weapons
-										+ (skill.getCategory().getCategoryGroup()
-												.equals(CategoryGroup.WEAPON) ? weaponsRanks * 5 : 0) < getProbablilityOfSetHobby(
-											characterPlayer, skill, loop, specializationLevel)) {
+										+ (skill.getCategory().getCategoryGroup().equals(CategoryGroup.WEAPON) ? weaponsRanks * 5
+												: 0) < getProbablilityOfSetHobby(characterPlayer, skill, loop,
+											specializationLevel)) {
 							characterPlayer.getCultureDecisions().setHobbyRanks(skill.getName(),
 									characterPlayer.getCultureDecisions().getHobbyRanks(skill.getName()) + 1);
 							// New weapon rank added. Increase counter.
-							weaponsRanks += skill.getCategory().getCategoryGroup()
-									.equals(CategoryGroup.WEAPON) ? 1 : 0;
+							weaponsRanks += skill.getCategory().getCategoryGroup().equals(CategoryGroup.WEAPON) ? 1 : 0;
 						}
 					}
 				}
@@ -411,8 +441,7 @@ public class RandomCharacterPlayer {
 		}
 	}
 
-	private static int getLanguageProbability(CharacterPlayer characterPlayer, String language,
-			int specializationLevel) {
+	private static int getLanguageProbability(CharacterPlayer characterPlayer, String language, int specializationLevel) {
 		if ((characterPlayer.getCultureDecisions().getLanguageRanks(language) + 1 > characterPlayer
 				.getLanguageMaxInitialRanks(language))
 				|| (characterPlayer.getCultureDecisions().getLanguageRanks(language) > 10)) {
@@ -421,23 +450,16 @@ public class RandomCharacterPlayer {
 		return characterPlayer.getCultureDecisions().getLanguageRanks(language) * specializationLevel + 15;
 	}
 
-	private static void setRandomCultureAndRaceLanguages(CharacterPlayer characterPlayer,
-			int specializationLevel) {
-		while (characterPlayer.getRace().getLanguagePoints()
-				+ characterPlayer.getCulture().getLanguageRanksToChoose()
+	private static void setRandomCultureAndRaceLanguages(CharacterPlayer characterPlayer, int specializationLevel) {
+		while (characterPlayer.getRace().getLanguagePoints() + characterPlayer.getCulture().getLanguageRanksToChoose()
 				- characterPlayer.getCultureDecisions().getTotalLanguageRanks() > 0) {
 			String randomLanguage;
 			// Use culture or race language
 			if (Math.random() < 0.5) {
-				randomLanguage = characterPlayer
-						.getCulture()
-						.getLanguagesMaxRanks()
-						.get((int) (Math.random() * characterPlayer.getCulture().getLanguagesMaxRanks()
-								.size()));
+				randomLanguage = characterPlayer.getCulture().getLanguagesMaxRanks()
+						.get((int) (Math.random() * characterPlayer.getCulture().getLanguagesMaxRanks().size()));
 			} else {
-				randomLanguage = characterPlayer
-						.getRace()
-						.getAvailableLanguages()
+				randomLanguage = characterPlayer.getRace().getAvailableLanguages()
 						.get((int) (Math.random() * characterPlayer.getRace().getAvailableLanguages().size()));
 			}
 			// Enough points
@@ -457,8 +479,8 @@ public class RandomCharacterPlayer {
 		}
 	}
 
-	private static void setRandomCultureSpells(CharacterPlayer characterPlayer)
-			throws MagicDefinitionException, InvalidProfessionException {
+	private static void setRandomCultureSpells(CharacterPlayer characterPlayer) throws MagicDefinitionException,
+			InvalidProfessionException {
 		while (characterPlayer.getCultureDecisions().getTotalSpellRanks() < characterPlayer.getCulture()
 				.getSpellRanks()) {
 			List<String> spellLists = MagicFactory.getListOfProfession(characterPlayer.getRealmOfMagic()
@@ -488,15 +510,11 @@ public class RandomCharacterPlayer {
 			if (weaponsOfCategory.size() > 0) {
 				while (characterPlayer.getCultureDecisions().getTotalWeaponRanks(category) < characterPlayer
 						.getCulture().getCultureRanks(category)) {
-					Skill weaponSkill = weaponsOfCategory
-							.get((int) (Math.random() * weaponsOfCategory.size()));
+					Skill weaponSkill = weaponsOfCategory.get((int) (Math.random() * weaponsOfCategory.size()));
 					if (Math.random() * 100 + 1 < Math.max(characterPlayer.getRealRanks(weaponSkill)
 							* specializationLevel * 25, 10 - specializationLevel)) {
-						characterPlayer.getCultureDecisions()
-								.setWeaponRanks(
-										weaponSkill.getName(),
-										characterPlayer.getCultureDecisions().getWeaponRanks(
-												weaponSkill.getName()) + 1);
+						characterPlayer.getCultureDecisions().setWeaponRanks(weaponSkill.getName(),
+								characterPlayer.getCultureDecisions().getWeaponRanks(weaponSkill.getName()) + 1);
 					}
 				}
 			}
@@ -520,7 +538,7 @@ public class RandomCharacterPlayer {
 		Map<Category, Integer> categoryProbabilityStored = new HashMap<>();
 
 		while (characterPlayer.getRemainingDevelopmentPoints() > 0 && tries <= MAX_TRIES) {
-			getRandomTrainings(characterPlayer, specializationLevel, suggestedTrainings, finalLevel);
+			getRandomTrainings(characterPlayer, getSpecializationLevel(), suggestedTrainings, finalLevel);
 			setRandomRanks(characterPlayer, specializationLevel, suggestedSkillsRanks, tries, finalLevel,
 					categoryProbabilityStored, skillProbabilityStored);
 			tries++;
@@ -546,8 +564,8 @@ public class RandomCharacterPlayer {
 
 			// Check if already stored probability. If not, calculate it.
 			if (categoryProbabilityStored.get(category) == null) {
-				int categoryProbability = new CategoryProbability(characterPlayer, category,
-						suggestedSkillsRanks, specializationLevel, finalLevel).rankProbability();
+				int categoryProbability = new CategoryProbability(characterPlayer, category, suggestedSkillsRanks,
+						specializationLevel, finalLevel).rankProbability();
 				categoryProbabilityStored.put(category, categoryProbability);
 			}
 			Integer probability = categoryProbabilityStored.get(category);
@@ -572,8 +590,8 @@ public class RandomCharacterPlayer {
 						break;
 					}
 					Skill skill = shuffledCategorySkills.get(j);
-					EsherLog.debug(RandomCharacterPlayer.class.getName(),
-							characterPlayer.getNewRankCost(skill) + ">" + developmentPoints);
+					EsherLog.debug(RandomCharacterPlayer.class.getName(), characterPlayer.getNewRankCost(skill) + ">"
+							+ developmentPoints);
 					if (characterPlayer.getNewRankCost(skill) > developmentPoints) {
 						break;
 					}
@@ -589,9 +607,9 @@ public class RandomCharacterPlayer {
 					if (probability > 0 && roll < skillProbabilityStored.get(skill) + tries * 3) {
 						characterPlayer.getCurrentLevel().setSkillsRanks(skill,
 								characterPlayer.getCurrentLevel().getSkillsRanks(skill.getName()) + 1);
-						EsherLog.info(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName()
-								+ "' (" + skillProbabilityStored.get(skill) + "%), roll: " + roll
-								+ " Added! (" + characterPlayer.getRemainingDevelopmentPoints() + ")");
+						EsherLog.info(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName() + "' ("
+								+ skillProbabilityStored.get(skill) + "%), roll: " + roll + " Added! ("
+								+ characterPlayer.getRemainingDevelopmentPoints() + ")");
 						for (Skill skillToRemove : category.getSkills()) {
 							skillProbabilityStored.remove(skillToRemove);
 						}
@@ -613,16 +631,14 @@ public class RandomCharacterPlayer {
 									// specialized skills with 3% of
 									// probability.
 									if (Math.random() * 100 < (specializationLevel - 2) * 3) {
-										characterPlayer.addSkillSpecialization(skill, skill.getSpecialities()
-												.get(k));
+										characterPlayer.addSkillSpecialization(skill, skill.getSpecialities().get(k));
 										break;
 									}
 								}
 							}
 						} else if (specializationLevel < -2) {
 							// Or generalization
-							if (!characterPlayer.isRestricted(skill)
-									&& !characterPlayer.isSkillSpecialized(skill)) {
+							if (!characterPlayer.isRestricted(skill) && !characterPlayer.isSkillSpecialized(skill)) {
 								// Only generalized value of -3 can generate
 								// generalized skills with 5% of probability.
 								if (Math.random() * 100 < (-specializationLevel - 2) * 5) {
@@ -689,16 +705,15 @@ public class RandomCharacterPlayer {
 		List<String> trainings = TrainingProbability.shuffleTrainings(characterPlayer, suggestedTrainings);
 		for (int i = 0; i < trainings.size(); i++) {
 			String training = trainings.get(i);
-			int probability = TrainingProbability.trainingRandomness(characterPlayer, training,
-					specializationLevel, suggestedTrainings, finalLevel);
+			int probability = TrainingProbability.trainingRandomness(characterPlayer, training, specializationLevel,
+					suggestedTrainings, finalLevel);
 			if (Math.random() * 100 < probability) {
 				setRandomTraining(characterPlayer, training, specializationLevel);
 			}
 		}
 	}
 
-	public static void setRandomTraining(CharacterPlayer characterPlayer, String trainingName,
-			int specializationLevel) {
+	public static void setRandomTraining(CharacterPlayer characterPlayer, String trainingName, int specializationLevel) {
 		characterPlayer.addTraining(trainingName);
 		// Set random skill ranks
 		TrainingProbability.setRandomCategoryRanks(characterPlayer, trainingName, specializationLevel);
