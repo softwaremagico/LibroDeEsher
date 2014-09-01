@@ -175,7 +175,7 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForRlm selectJson = new ExploreWindowForRlm("Personaje.rlm");
 			String path = selectJson.exploreWindows("Exportar Nivel", JFileChooser.FILES_ONLY,
-					getCharacterNameFormatted() + "_N_" + selectedCharacter.getCurrentLevelNumber() + ".rlm");
+					getCharacterNameFormatted() + ".rlm");
 			String jsonText = LevelJsonManager.toJson(selectedCharacter);
 			// store in a file.
 			PrintWriter out;
@@ -196,7 +196,8 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForRlm selectTxt = new ExploreWindowForRlm("Personaje.rlm");
 			String path = selectTxt.exploreWindows("Importar Nivel", JFileChooser.FILES_ONLY,
-					getCharacterNameFormatted() + "_N_" + (selectedCharacter.getCurrentLevelNumber() + 1) + ".rlm");
+					getCharacterNameFormatted().substring(0, getCharacterNameFormatted().length() - 2)
+							+ (selectedCharacter.getCurrentLevelNumber() + 1) + ".rlm");
 
 			BufferedReader br = null;
 			String jsonText = "";
@@ -208,6 +209,7 @@ public class Controller {
 				}
 				try {
 					LevelJsonManager.fromJson(selectedCharacter, jsonText);
+					MessageManager.infoMessage(Controller.class.getName(), "Nivel importado correctamente.", "RLM");
 				} catch (InvalidCharacterException ice) {
 					MessageManager
 							.basicErrorMessage(
@@ -221,7 +223,6 @@ public class Controller {
 									"Nivel inválido para importar. Probablemente sea un fichero que contenga un nivel antiguo o erróneo.",
 									"RLM");
 				}
-				MessageManager.infoMessage(Controller.class.getName(), "Nivel importado correctamente.", "RLM");
 			} catch (Exception exc) {
 				EsherLog.errorMessage(Controller.class.getName(), exc);
 				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al importar el nivel!", "RLM");
