@@ -11,7 +11,7 @@ Ninguno
 Arma (+10 no mágica)	30
 Armadura (+10 no mágica)	30
 Otro equipo (+5 no mágico)	30
-Sumando de hechizos (+1) o Objeto con Hechizo Diario I (hechizo de nivel 1)	30
+Sumando de hechizos (+1) u Objeto con Hechizo Diario I (hechizo de nivel 1)	30
 Elige un arma o armadura (+5 no mágica)	100
 
 #HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
