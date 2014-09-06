@@ -4,10 +4,10 @@
 		<groups>
 			<run>				
 				<include name="characterCreation" />
-				<include name="characterStorage" />
-				<include name="characterPdf" />
-				<include name="characterTxt" />
-				<include name="characterJson" />
+				<exclude name="characterStorage" />
+				<exclude name="characterPdf" />
+				<exclude name="characterTxt" />
+				<exclude name="characterJson" />
 			</run>
 		</groups>
 		<classes>

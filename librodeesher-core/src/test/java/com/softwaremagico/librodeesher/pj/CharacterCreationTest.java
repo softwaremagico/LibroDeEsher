@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.softwaremagico.librodeesher.pj.export.json.CharacterJsonManager;
+import com.softwaremagico.librodeesher.pj.export.json.LevelJsonManager;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfCombinedSheet;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfStandardSheet;
 import com.softwaremagico.librodeesher.pj.export.txt.TxtSheet;
@@ -21,7 +22,8 @@ public class CharacterCreationTest {
 	private final static String PDF_PATH_COMBINED = System.getProperty("java.io.tmpdir") + "/testCmb.pdf";
 	private final static String TXT_PATH = System.getProperty("java.io.tmpdir") + "/testStandard.txt";
 	private final static String TXT_ABBREVIATED_PATH = System.getProperty("java.io.tmpdir") + "/testAbbreviated.txt";
-	private final static String JSON_PATH = System.getProperty("java.io.tmpdir") + "/testJson.txt";
+	private final static String JSON_CHARACTER_PATH = System.getProperty("java.io.tmpdir") + "/testCharacterJson.txt";
+	private final static String JSON_LEVEL_PATH = System.getProperty("java.io.tmpdir") + "/testLevelJson.txt";
 	private CharacterPlayerDao characterPlayerDao = CharacterPlayerDao.getInstance();
 	private CharacterPlayer characterPlayer;
 
@@ -59,10 +61,10 @@ public class CharacterCreationTest {
 	}
 
 	@Test(groups = { "characterJson" }, dependsOnMethods = { "createCharacter" })
-	public void exportJson() throws Exception {
+	public void exportCharacterJson() throws Exception {
 		String jsonText = CharacterJsonManager.toJson(characterPlayer);
-		// store int a file.
-		PrintWriter out = new PrintWriter(JSON_PATH);
+		// store in a file.
+		PrintWriter out = new PrintWriter(JSON_CHARACTER_PATH);
 		out.println(jsonText);
 		out.close();
 		// get json to object.
@@ -70,6 +72,30 @@ public class CharacterCreationTest {
 		// Compared generated sheet to be sure that has the same information.
 		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
 		String importedSheet = TxtSheet.getCharacterStandardSheetAsText(importedCharacter);
+		Assert.assertEquals(importedSheet, orginalSheet);
+	}
+
+	@Test(groups = { "characterJson" }, dependsOnMethods = { "exportCharacterJson" })
+	public void exportLevelJson() throws Exception {
+		String jsonText = CharacterJsonManager.toJson(characterPlayer);
+		CharacterPlayer duplicatedCharacter = CharacterJsonManager.fromJson(jsonText);
+
+		// Increase level of one character.
+		characterPlayer.increaseLevel();
+		new RandomCharacterPlayer(characterPlayer);
+		
+		// Export last level
+		String levelJsonText = LevelJsonManager.toJson(characterPlayer);
+
+		// store in a file.
+		PrintWriter out = new PrintWriter(JSON_LEVEL_PATH);
+		out.println(levelJsonText);
+		out.close();
+		// get json to object.
+		LevelJsonManager.fromJson(duplicatedCharacter, levelJsonText);
+		// Compared generated sheet to be sure that has the same information.
+		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
+		String importedSheet = TxtSheet.getCharacterStandardSheetAsText(duplicatedCharacter);
 		Assert.assertEquals(importedSheet, orginalSheet);
 	}
 
