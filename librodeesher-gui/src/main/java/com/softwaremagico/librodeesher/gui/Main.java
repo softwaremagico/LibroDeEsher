@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui;
+
 /*
  * #%L
  * Libro de Esher
@@ -23,8 +24,15 @@ package com.softwaremagico.librodeesher.gui;
  * #L%
  */
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.SplashScreen;
+
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import com.softwaremagico.persistence.HibernateInitializator;
 
 public class Main {
 
@@ -41,6 +49,7 @@ public class Main {
 	public static void main(String[] args) {
 		String soName = System.getProperty("os.name");
 		try {
+			modifySplashString();
 			if (soName.contains("windows") || soName.contains("Windows")) {
 				try {
 					UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -68,7 +77,33 @@ public class Main {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
+
 		new Controller();
+	}
+
+	private static void modifySplashString() {
+		final SplashScreen splash = SplashScreen.getSplashScreen();
+		if (splash != null) {
+			Graphics2D g = splash.createGraphics();
+			if (g != null) {		
+				renderSplashFrame(g, "Database");
+				splash.update();
+				// Force database creation
+				HibernateInitializator.getSessionFactory();
+				renderSplashFrame(g, "GUI");
+				splash.update();
+				
+				//End it
+				splash.close();
+			}
+		}
+	}
+
+	private static void renderSplashFrame(Graphics2D g, String module) {
+		g.setComposite(AlphaComposite.Clear);
+		g.fillRect(120, 140, 200, 40);
+		g.setPaintMode();
+		g.setColor(Color.BLACK);
+		g.drawString("Loading " + module + "...", 120, 150);
 	}
 }

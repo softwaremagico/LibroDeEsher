@@ -20,6 +20,7 @@
 		<windows.origin>../windows-basic-files</windows.origin>
 		<winexe>LibroDeEsher.exe</winexe>
 		<mainClass>com.softwaremagico.librodeesher.gui.Main</mainClass>
+		<splashImage>images/splash.png</splashImage>
 	</properties>
 
 	<build>
@@ -43,7 +44,11 @@
 					</execution>
 				</executions>
 				<configuration>
+					<executable>java</executable>
 					<mainClass>${mainClass}</mainClass>
+					<arguments>
+						<argument>-splash:${splashImage}</argument>
+					</arguments>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -58,7 +63,7 @@
 						</manifest>
 						<manifestEntries>
 							<Implementation-Version>${project.parent.version}</Implementation-Version>
-							<!--  <SplashScreen-Image>images/splash.gif</SplashScreen-Image> -->
+							<SplashScreen-Image>${splashImage}</SplashScreen-Image>
 						</manifestEntries>
 					</archive>
 				</configuration>
@@ -273,7 +278,8 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
