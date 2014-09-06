@@ -31,11 +31,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
+import javax.swing.SwingUtilities;
 
 import com.itextpdf.text.DocumentException;
 import com.softwaremagico.files.MessageManager;
@@ -329,20 +331,43 @@ public class Controller {
 			randomWindow = new RandomWindow(selectedCharacter);
 			randomWindow.addRandomCharacterUpdatedListeners(new RandomCharacterUpdatedListener() {
 				@Override
-				public void updatedCharacter(CharacterPlayer character) {
-					characters.remove(selectedCharacter);
-					try {
-						selectedCharacter = new RandomCharacterPlayer(character, randomWindow.getFinalLevel())
-								.getCharacterPlayer();
-					} catch (MagicDefinitionException | InvalidProfessionException e) {
-						ShowMessage.showErrorMessage(e.getMessage(), "Error");
-					}
-					characters.add(selectedCharacter);
-					// update GUI
-					mainGui.setCharacter(selectedCharacter);
-					mainGui.updateFrame();
-					updateCharacterListToMenu();
-					randomWindow.dispose();
+				public void updatedCharacter(final CharacterPlayer character) {
+					// Create splashWindow.
+					final RandomSplashScreen splashScreen = new RandomSplashScreen();
+					splashScreen.setVisible(true);
+
+					final Runnable closerRunner = new Runnable() {
+						public void run() {
+							// Create random character.
+							characters.remove(selectedCharacter);
+							try {
+								selectedCharacter = new RandomCharacterPlayer(character, randomWindow
+										.getFinalLevel()).getCharacterPlayer();
+							} catch (MagicDefinitionException | InvalidProfessionException e) {
+								ShowMessage.showErrorMessage(e.getMessage(), "Error");
+							}
+							characters.add(selectedCharacter);
+							// update GUI
+							mainGui.setCharacter(selectedCharacter);
+							mainGui.updateFrame();
+							updateCharacterListToMenu();
+							//splashScreen.dispose();
+							randomWindow.dispose();
+						}
+					};
+
+					Runnable waitRunner = new Runnable() {
+						public void run() {
+							try {
+								SwingUtilities.invokeAndWait(closerRunner);
+							} catch (InvocationTargetException | InterruptedException e) {
+								EsherLog.errorMessage(Controller.class.getName(), e);
+							}
+						}
+					};
+
+					Thread splashThread = new Thread(waitRunner, "SplashThread");
+					splashThread.start();
 				}
 			});
 			randomWindow.setVisible(true);

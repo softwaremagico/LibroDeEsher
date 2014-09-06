@@ -58,6 +58,7 @@
 						</manifest>
 						<manifestEntries>
 							<Implementation-Version>${project.parent.version}</Implementation-Version>
+							<!--  <SplashScreen-Image>images/splash.gif</SplashScreen-Image> -->
 						</manifestEntries>
 					</archive>
 				</configuration>
