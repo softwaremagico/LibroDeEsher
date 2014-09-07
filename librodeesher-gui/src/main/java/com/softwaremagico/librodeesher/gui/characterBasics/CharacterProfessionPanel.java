@@ -45,7 +45,7 @@ public class CharacterProfessionPanel extends BasePanel {
 	private JComboBox<String> professionComboBox;
 	private CharacterPlayer character;
 	private CharacterLevelPanel levelPanel;
-	private boolean updatingProfession = false;
+	private boolean updatingProfession = false, enableProfessionComboBox = true;
 	private CharacterPanel parent;
 	private BaseTextField trainingTextField;
 
@@ -116,31 +116,35 @@ public class CharacterProfessionPanel extends BasePanel {
 	}
 
 	public void update() {
+		enableProfessionComboBox = false;
 		if (character != null && character.getRace() != null) {
 			updateProfessionComboBox(character.getRace().getAvailableProfessions());
 		}
 		professionComboBox.setEnabled(!character.areCharacteristicsConfirmed());
 		updateTraining();
+		enableProfessionComboBox = true;
 	}
 
 	private void updateProfessionComboBox(List<String> professions) {
-		updatingProfession = true;
-		if (professionComboBox != null) {
-			professionComboBox.removeAllItems();
-			Collections.sort(professions);
-			for (String profession : professions) {
-				professionComboBox.addItem(profession);
-			}
-			if (character != null) {
-				if (character.getProfession() != null) {
-					professionComboBox.setSelectedItem(character.getProfession().getName());
-					if (getSelectedProfession() != character.getProfession().getName()) {
-						updateProfession();
+		if (enableProfessionComboBox) {
+			updatingProfession = true;
+			if (professionComboBox != null) {
+				professionComboBox.removeAllItems();
+				Collections.sort(professions);
+				for (String profession : professions) {
+					professionComboBox.addItem(profession);
+				}
+				if (character != null) {
+					if (character.getProfession() != null) {
+						professionComboBox.setSelectedItem(character.getProfession().getName());
+						if (getSelectedProfession() != character.getProfession().getName()) {
+							updateProfession();
+						}
 					}
 				}
 			}
+			updatingProfession = false;
 		}
-		updatingProfession = false;
 	}
 
 	public void setLevelPanel(CharacterLevelPanel levelPanel) {
@@ -176,7 +180,9 @@ public class CharacterProfessionPanel extends BasePanel {
 	public void setCharacter(CharacterPlayer character) {
 		this.character = character;
 		if (character.getRace() != null) {
+			updatingProfession = false;
 			updateProfessionComboBox(character.getRace().getAvailableProfessions());
+			updatingProfession = true;
 			character.setProfession(getSelectedProfession());
 		}
 	}

@@ -71,7 +71,7 @@ public class MainWindow extends BaseFrame {
 		characteristicsPanel.setCharacter(character, true);
 		resistancePanel.setCharacter(character);
 		mainMenu.setCharacter(character);
-		skillPanel.update(character);
+		//skillPanel.update(character);
 	}
 
 	private void setElements() {
@@ -103,7 +103,6 @@ public class MainWindow extends BaseFrame {
 		characteristicScrollPanel.setMinimumSize(new Dimension(80, 0));
 		characteristicScrollPanel.setBounds(margin, margin, characteristicScrollPanel.getWidth(),
 				characteristicScrollPanel.getHeight());
-		// gridBagConstraints.anchor = GridBagConstraints.LINE_START;
 		gridBagConstraints.fill = GridBagConstraints.VERTICAL;
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.gridwidth = 1;
@@ -112,7 +111,6 @@ public class MainWindow extends BaseFrame {
 		gridBagConstraints.gridy = 1;
 		gridBagConstraints.weightx = 0;
 		gridBagConstraints.weighty = 0.5;
-		// gridBagConstraints.insets = new Insets(1, 1, 1, 1);
 		getContentPane().add(characteristicScrollPanel, gridBagConstraints);
 
 		resistancePanel = new ResistancePanel();
@@ -123,7 +121,6 @@ public class MainWindow extends BaseFrame {
 		resistanceScrollPanel.setMinimumSize(new Dimension(80, 0));
 		resistanceScrollPanel.setBounds(margin, margin, resistanceScrollPanel.getWidth(),
 				resistanceScrollPanel.getHeight());
-		// gridBagConstraints.anchor = GridBagConstraints.LINE_START;
 		gridBagConstraints.fill = GridBagConstraints.VERTICAL;
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.gridwidth = 1;
@@ -132,22 +129,7 @@ public class MainWindow extends BaseFrame {
 		gridBagConstraints.gridy = 2;
 		gridBagConstraints.weightx = 0;
 		gridBagConstraints.weighty = 0.5;
-		// gridBagConstraints.insets = new Insets(1, 1, 1, 1);
 		getContentPane().add(resistanceScrollPanel, gridBagConstraints);
-
-		// JPanel emptyPanel = new JPanel(); // emptyPanel.setBorder(border);
-		// emptyPanel.setBounds(margin, margin, emptyPanel.getWidth(),
-		// emptyPanel.getHeight());
-		// gridBagConstraints.fill = GridBagConstraints.VERTICAL;
-		// gridBagConstraints.gridheight = GridBagConstraints.REMAINDER;
-		// gridBagConstraints.gridwidth = 1;
-		// gridBagConstraints.ipadx = 5;
-		// gridBagConstraints.gridx = 0;
-		// gridBagConstraints.gridy = 3;
-		// gridBagConstraints.weightx = 0;
-		// gridBagConstraints.weighty = 0;
-		// gridBagConstraints.insets = new Insets(1, 5, 1, 5);
-		// getContentPane().add(emptyPanel, gridBagConstraints);
 
 		skillPanel = new ResumeSkillPanel();
 		skillPanel.setBorder(getBorder());
@@ -209,6 +191,10 @@ public class MainWindow extends BaseFrame {
 				updateFrame();
 			}
 		});
+	}
+	
+	public void updateCharacterInfo() {
+		characterPanel.update();
 	}
 
 	public void updateSkills() {

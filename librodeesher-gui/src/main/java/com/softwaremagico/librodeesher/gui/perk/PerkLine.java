@@ -46,6 +46,7 @@ import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class PerkLine extends BaseLine {
+	private static final long serialVersionUID = 4767533985935793545L;
 	private final static Integer DEFAULT_COLUMN_WIDTH = 50;
 	private BasePanel parent;
 	private ListLabel perkLabel, perkCost, perkCategory, perkDescription;

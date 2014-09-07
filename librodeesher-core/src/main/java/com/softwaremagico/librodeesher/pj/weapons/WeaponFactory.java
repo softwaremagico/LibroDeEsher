@@ -126,7 +126,7 @@ public class WeaponFactory {
 				}
 			}
 		}
-		EsherLog.warning(WeaponFactory.class.getName(), "Weapong '" + name + "' abbreviature not found!");
+		EsherLog.warning(WeaponFactory.class.getName(), "Weapon '" + name + "' abbreviature not found!");
 		return null;
 	}
 

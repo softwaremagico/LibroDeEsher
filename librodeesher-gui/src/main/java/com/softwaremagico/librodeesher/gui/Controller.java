@@ -31,13 +31,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
-import javax.swing.SwingUtilities;
 
 import com.itextpdf.text.DocumentException;
 import com.softwaremagico.files.MessageManager;
@@ -89,12 +87,15 @@ public class Controller {
 	private RandomWindow randomWindow;
 	private LoadCharacterPlayerWindow loadWindow;
 
+	private boolean actionsEnables = true;
+
 	public Controller() {
 		characters = new ArrayList<>();
 		selectedCharacter = new CharacterPlayer();
 		characters.add(selectedCharacter);
 		mainGui = new MainWindow();
 		mainGui.setCharacter(selectedCharacter);
+		mainGui.updateSkills();
 		mainGui.setVisible(true);
 		addMainMenuActionListeners();
 		updateCharacterListToMenu();
@@ -394,7 +395,7 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			selectedCharacter.setName(selectedCharacter.getRace().getRandonName(selectedCharacter.getSex()));
-			mainGui.updateFrame();
+			mainGui.updateCharacterInfo();
 			updateCharacterListToMenu();
 		}
 	}
@@ -435,7 +436,6 @@ public class Controller {
 							mainGui.setCharacter(selectedCharacter);
 							mainGui.updateFrame();
 							updateCharacterListToMenu();
-							// splashScreen.dispose();
 							randomWindow.dispose();
 							if (splashScreen != null) {
 								splashScreen.dispose();
@@ -509,11 +509,13 @@ public class Controller {
 	public void updateCharacterListToMenu() {
 		JMenu characterListMenu = mainGui.getMainMenu().getCharacterListMenu();
 		characterListMenu.removeAll();
+		actionsEnables = false;
 		for (CharacterPlayer character : characters) {
 			CharacterMenuItem characterMenu = new CharacterMenuItem(character, selectedCharacter);
 			characterMenu.addActionListener(new SelectedCharacterListener(characterMenu));
 			characterListMenu.add(characterMenu);
 		}
+		actionsEnables = true;
 	}
 
 	class SelectedCharacterListener implements ActionListener {
@@ -525,10 +527,12 @@ public class Controller {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			selectedCharacter = menu.getCharacter();
-			mainGui.setCharacter(selectedCharacter);
-			mainGui.updateFrame();
-			updateCharacterListToMenu();
+			if (actionsEnables) {
+				selectedCharacter = menu.getCharacter();
+				mainGui.setCharacter(selectedCharacter);
+				mainGui.updateFrame();
+				updateCharacterListToMenu();
+			}
 		}
 	}
 

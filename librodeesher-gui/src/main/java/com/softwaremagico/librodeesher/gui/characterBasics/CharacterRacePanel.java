@@ -50,6 +50,7 @@ public class CharacterRacePanel extends BasePanel {
 	private CharacterProfessionPanel professionPanel;
 	private CharacterPlayer character;
 	private CharacterPanel parent;
+	private boolean enableRaceComboBox = true, enableCultureComboBox = true;
 
 	protected CharacterRacePanel(CharacterPanel parent) {
 		this.parent = parent;
@@ -176,12 +177,16 @@ public class CharacterRacePanel extends BasePanel {
 		// character.setRace(getSelectedRace());
 		// character.setCulture(getSelectedCulture());
 		if (character.getRace() != null) {
+			enableRaceComboBox = false;
 			raceComboBox.setSelectedItem(character.getRace().getName());
+			enableRaceComboBox = true;
 		} else {
 			character.setRace(getSelectedRace());
 		}
 		if (character.getCulture() != null) {
+			enableCultureComboBox = false;
 			cultureComboBox.setSelectedItem(character.getCulture().getName());
+			enableCultureComboBox = true;
 		} else {
 			character.setCulture(getSelectedCulture());
 		}
@@ -205,7 +210,9 @@ public class CharacterRacePanel extends BasePanel {
 			cultureComboBox.setSelectedItem(character.getCulture().getName());
 		}
 		cultureComboBox.setEnabled(!character.areCharacteristicsConfirmed());
+		enableRaceComboBox = false;
 		raceComboBox.setEnabled(!character.areCharacteristicsConfirmed());
+		enableRaceComboBox = true;
 	}
 
 	private void updateSkillList() {
@@ -216,12 +223,14 @@ public class CharacterRacePanel extends BasePanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (character != null) {
-				character.setRace(getSelectedRace());
+			if (enableRaceComboBox) {
+				if (character != null) {
+					character.setRace(getSelectedRace());
+				}
+				updateCultureComboBox();
+				updateProfessionPanel();
+				updateSkillList();
 			}
-			updateCultureComboBox();
-			updateProfessionPanel();
-			updateSkillList();
 		}
 	}
 
@@ -229,7 +238,7 @@ public class CharacterRacePanel extends BasePanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (character != null && cultureComboBox.getSelectedItem() != null) {
+			if (enableCultureComboBox && character != null && cultureComboBox.getSelectedItem() != null) {
 				updateCulture();
 			}
 		}
