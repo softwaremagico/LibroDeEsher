@@ -55,6 +55,7 @@ import com.softwaremagico.librodeesher.gui.persistence.LoadCharacterListener;
 import com.softwaremagico.librodeesher.gui.persistence.LoadCharacterPlayerWindow;
 import com.softwaremagico.librodeesher.gui.profession.ProfessionWindow;
 import com.softwaremagico.librodeesher.gui.random.RandomCharacterUpdatedListener;
+import com.softwaremagico.librodeesher.gui.random.RandomSplashScreen;
 import com.softwaremagico.librodeesher.gui.random.RandomWindow;
 import com.softwaremagico.librodeesher.gui.skills.SkillWindow;
 import com.softwaremagico.librodeesher.gui.training.TrainingWindow;
