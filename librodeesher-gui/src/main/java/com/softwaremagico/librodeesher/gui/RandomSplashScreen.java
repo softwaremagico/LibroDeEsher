@@ -24,55 +24,34 @@ package com.softwaremagico.librodeesher.gui;
  * #L%
  */
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.FlowLayout;
+import java.awt.Image;
 
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.style.BaseWindow;
 
 public class RandomSplashScreen extends BaseWindow {
 	private static final long serialVersionUID = -2043246958721137042L;
-	private BaseLabel perksPointsLabel;
-
-	static void renderSplashFrame(Graphics2D g, int frame) {
-		final String[] comps = { "foo", "bar", "baz" };
-		g.setComposite(AlphaComposite.Clear);
-		g.fillRect(120, 140, 200, 40);
-		g.setPaintMode();
-		g.setColor(Color.BLACK);
-		g.drawString("Loading " + comps[(frame / 5) % 3] + "...", 120, 150);
-	}
+	private BaseLabel textLabel;
 
 	private void setElements() {
-		setLayout(new GridBagLayout());
-		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		FlowLayout layout = new FlowLayout(FlowLayout.LEFT, 5, 5);
+		setLayout(layout);
+		ImageIcon image = new ImageIcon(RandomSplashScreen.class.getResource("/images/random_character.png"));
+		image = new ImageIcon(image.getImage().getScaledInstance(58, 50, Image.SCALE_SMOOTH));
+		JLabel imagelabel = new JLabel(image);
+		add(imagelabel);
 
-		gridBagConstraints.fill = GridBagConstraints.BOTH;
-		gridBagConstraints.ipadx = 5;
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.weightx = 1;
-		gridBagConstraints.weighty = 0;
-		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		JPanel perksPointPanel = new JPanel();
-		perksPointPanel.setLayout(new BoxLayout(perksPointPanel, BoxLayout.X_AXIS));
-		perksPointsLabel = new BaseLabel("    Puntos de Talentos: ");
-		perksPointPanel.add(perksPointsLabel);
-		getContentPane().add(perksPointPanel, gridBagConstraints);
+		textLabel = new BaseLabel("Creando personaje aleatorio.");
+		add(textLabel);
 	}
 
 	public RandomSplashScreen() {
 		setElements();
-		defineWindow(300, 150);
+		defineWindow(350, 60);
 		setAlwaysOnTop(true);
 	}
 }
