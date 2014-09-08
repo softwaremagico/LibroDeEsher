@@ -47,6 +47,7 @@ public class RandomCharacterPlayer {
 	private Map<String, Integer> suggestedSkillsRanks;
 	private Map<String, Integer> suggestedCategoriesRanks;
 	private List<String> suggestedTrainings;
+	private List<RandomFeedbackListener> feedbackListeners;
 
 	// Store probability to increase speed.
 
@@ -74,8 +75,7 @@ public class RandomCharacterPlayer {
 		this.race = race;
 		this.culture = culture;
 		this.profession = profession;
-
-		createRandomValues();
+		feedbackListeners = new ArrayList<>();
 	}
 
 	/**
@@ -96,8 +96,7 @@ public class RandomCharacterPlayer {
 		this.race = characterPlayer.getRace().getName();
 		this.culture = characterPlayer.getCulture().getName();
 		this.profession = characterPlayer.getProfession().getName();
-
-		createRandomValues();
+		feedbackListeners = new ArrayList<>();
 	}
 
 	/**
@@ -117,8 +116,21 @@ public class RandomCharacterPlayer {
 		this.race = characterPlayer.getRace().getName();
 		this.culture = characterPlayer.getCulture().getName();
 		this.profession = characterPlayer.getProfession().getName();
+		feedbackListeners = new ArrayList<>();
+	}
 
-		setDevelopmentPoints();
+	public void addFeedbackListener(RandomFeedbackListener listener) {
+		feedbackListeners.add(listener);
+	}
+
+	public void removeFeedbackListener(RandomFeedbackListener listener) {
+		feedbackListeners.remove(listener);
+	}
+
+	private void sendFeedBack(String message) {
+		for (RandomFeedbackListener listener : feedbackListeners) {
+			listener.feedBackMessage(message);
+		}
 	}
 
 	public CharacterPlayer getCharacterPlayer() {
@@ -141,26 +153,25 @@ public class RandomCharacterPlayer {
 		}
 	}
 
-	private void createRandomValues() throws MagicDefinitionException, InvalidProfessionException {
-		System.out.println("Creating Race.");
+	public void createRandomValues() throws MagicDefinitionException, InvalidProfessionException {
+		sendFeedBack("Creando la raza.");
 		setRace();
-		System.out.println("Selecting Profession.");
+		sendFeedBack("Seleccionando la profesión.");
 		setProfession();
-		System.out.println("Creating Character Info.");
+		sendFeedBack("Añadiendo la información del personaje.");
 		setCharacterInfo();
-		System.out.println("Creating Magic Realm.");
+		sendFeedBack("Eligiendo el reino de magia.");
 		setMagicRealm();
-		System.out.println("Selecting Characteristics.");
+		sendFeedBack("Seleccionando las características.");
 		setCharacteristics(characterPlayer, getSpecializationLevel());
-		System.out.println("Selecting Culture.");
+		sendFeedBack("Seleccionando la cultura.");
 		setCulture(characterPlayer, culture, getSpecializationLevel());
-		System.out.println("Spending Development Points.");
 		setDevelopmentPoints();
-		System.out.println("Spending History Points.");
+		sendFeedBack("Gastando los puntos de historial.");
 		setHistoryPoints(characterPlayer, getSpecializationLevel());
 		// setPerksPoints();
 		setLevels();
-		System.out.println("Random calculation finished!");
+		sendFeedBack("Personaje aleatorio completado!");
 	}
 
 	private SexType getSex() {
@@ -526,18 +537,18 @@ public class RandomCharacterPlayer {
 	 */
 	private void setLevels() {
 		while (characterPlayer.getLevelUps().size() < finalLevel) {
-			EsherLog.info(this.getClass().getName(), " -----------  Level UP!  --------------");
 			characterPlayer.increaseLevel();
 			setDevelopmentPoints();
 		}
 	}
 
-	private void setDevelopmentPoints() {
+	public void setDevelopmentPoints() {
 		// Store probability to increase speed.
 		Map<Skill, Integer> skillProbabilityStored = new HashMap<>();
 		Map<Category, Integer> categoryProbabilityStored = new HashMap<>();
 
 		while (characterPlayer.getRemainingDevelopmentPoints() > 0 && tries <= MAX_TRIES) {
+			sendFeedBack("(Nº" + characterPlayer.getCurrentLevelNumber() + ") Gastando puntos de desarrollo.");
 			getRandomTrainings(characterPlayer, getSpecializationLevel(), suggestedTrainings, finalLevel);
 			setRandomRanks(characterPlayer, specializationLevel, suggestedSkillsRanks, tries, finalLevel,
 					categoryProbabilityStored, skillProbabilityStored);

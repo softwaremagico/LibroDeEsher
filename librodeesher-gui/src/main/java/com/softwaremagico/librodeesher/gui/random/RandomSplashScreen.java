@@ -54,4 +54,8 @@ public class RandomSplashScreen extends BaseWindow {
 		defineWindow(350, 60);
 		setAlwaysOnTop(true);
 	}
+
+	public void updateText(String message) {
+		textLabel.setText(message);
+	}
 }

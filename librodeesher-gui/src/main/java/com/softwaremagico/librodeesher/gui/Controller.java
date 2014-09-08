@@ -31,11 +31,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
+import javax.swing.SwingUtilities;
 
 import com.itextpdf.text.DocumentException;
 import com.softwaremagico.files.MessageManager;
@@ -68,6 +70,7 @@ import com.softwaremagico.librodeesher.pj.export.txt.TxtSheet;
 import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
 import com.softwaremagico.librodeesher.pj.profession.InvalidProfessionException;
 import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
+import com.softwaremagico.librodeesher.pj.random.RandomFeedbackListener;
 import com.softwaremagico.log.EsherLog;
 import com.softwaremagico.persistence.dao.hibernate.CharacterPlayerDao;
 
@@ -162,8 +165,7 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			try {
 				CharacterPlayerDao.getInstance().makePersistent(selectedCharacter);
-				MessageManager.infoMessage(Controller.class.getName(), "Personaje guardado con éxito!",
-						"Salvar.");
+				MessageManager.infoMessage(Controller.class.getName(), "Personaje guardado con éxito!", "Salvar.");
 			} catch (Exception exception) {
 				EsherLog.errorMessage(Controller.class.getName(), exception);
 				MessageManager
@@ -188,13 +190,11 @@ public class Controller {
 				out = new PrintWriter(path);
 				out.println(jsonText);
 				out.close();
-				MessageManager.infoMessage(Controller.class.getName(), "Nivel exportado correctamente.",
-						"RLM");
+				MessageManager.infoMessage(Controller.class.getName(), "Nivel exportado correctamente.", "RLM");
 				return;
 			} catch (FileNotFoundException e1) {
 			}
-			MessageManager
-					.basicErrorMessage(Controller.class.getName(), "Error al exportar el nivel!", "RLM");
+			MessageManager.basicErrorMessage(Controller.class.getName(), "Error al exportar el nivel!", "RLM");
 		}
 	}
 
@@ -216,8 +216,7 @@ public class Controller {
 				}
 				try {
 					LevelJsonManager.fromJson(selectedCharacter, jsonText);
-					MessageManager.infoMessage(Controller.class.getName(), "Nivel importado correctamente.",
-							"RLM");
+					MessageManager.infoMessage(Controller.class.getName(), "Nivel importado correctamente.", "RLM");
 				} catch (InvalidCharacterException ice) {
 					MessageManager
 							.basicErrorMessage(
@@ -233,8 +232,7 @@ public class Controller {
 				}
 			} catch (Exception exc) {
 				EsherLog.errorMessage(Controller.class.getName(), exc);
-				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al importar el nivel!",
-						"RLM");
+				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al importar el nivel!", "RLM");
 			} finally {
 				try {
 					if (br != null)
@@ -259,13 +257,11 @@ public class Controller {
 				out = new PrintWriter(path);
 				out.println(jsonText);
 				out.close();
-				MessageManager.infoMessage(Controller.class.getName(), "Personaje exportado correctamente.",
-						"RLM");
+				MessageManager.infoMessage(Controller.class.getName(), "Personaje exportado correctamente.", "RLM");
 				return;
 			} catch (FileNotFoundException e1) {
 			}
-			MessageManager.basicErrorMessage(Controller.class.getName(), "Error al exportar el personaje!",
-					"RLM");
+			MessageManager.basicErrorMessage(Controller.class.getName(), "Error al exportar el personaje!", "RLM");
 		}
 	}
 
@@ -273,8 +269,7 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForRlm selectTxt = new ExploreWindowForRlm("Personaje.rlm");
-			String path = selectTxt.exploreWindows("Importar Personaje", JFileChooser.FILES_ONLY,
-					"Personaje.rlm");
+			String path = selectTxt.exploreWindows("Importar Personaje", JFileChooser.FILES_ONLY, "Personaje.rlm");
 
 			BufferedReader br = null;
 			String jsonText = "";
@@ -285,13 +280,11 @@ public class Controller {
 					jsonText += sCurrentLine;
 				}
 				CharacterPlayer characterPlayer = CharacterJsonManager.fromJson(jsonText);
-				MessageManager.infoMessage(Controller.class.getName(), "Persoanje importado correctamente.",
-						"RLM");
+				MessageManager.infoMessage(Controller.class.getName(), "Persoanje importado correctamente.", "RLM");
 				addCharacterPlayer(characterPlayer);
 			} catch (Exception exc) {
 				EsherLog.errorMessage(Controller.class.getName(), exc);
-				MessageManager.basicErrorMessage(Controller.class.getName(),
-						"Error al importar el personaje!", "RLM");
+				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al importar el personaje!", "RLM");
 			} finally {
 				try {
 					if (br != null)
@@ -307,8 +300,8 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForTxt selectTxt = new ExploreWindowForTxt("Ficha.txt");
-			String path = selectTxt.exploreWindows("Hoja en Txt", JFileChooser.FILES_ONLY,
-					getCharacterNameFormatted() + ".txt");
+			String path = selectTxt.exploreWindows("Hoja en Txt", JFileChooser.FILES_ONLY, getCharacterNameFormatted()
+					+ ".txt");
 			new TxtSheet(selectedCharacter).exportSheet(path);
 			MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.", "TXT");
 		}
@@ -318,8 +311,8 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForTxt selectTxt = new ExploreWindowForTxt("Ficha.pdf");
-			String path = selectTxt.exploreWindows("Hoja en Txt", JFileChooser.FILES_ONLY,
-					getCharacterNameFormatted() + ".txt");
+			String path = selectTxt.exploreWindows("Hoja en Txt", JFileChooser.FILES_ONLY, getCharacterNameFormatted()
+					+ ".txt");
 			TxtSheet.exportCharacterAbbreviature(selectedCharacter, path);
 			MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.", "TXT");
 		}
@@ -336,11 +329,9 @@ public class Controller {
 				public void accept(String path, boolean sortSkills) {
 					try {
 						new PdfStandardSheet(selectedCharacter, path, sortSkills);
-						MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.",
-								"PDF");
+						MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.", "PDF");
 					} catch (DocumentException | IOException ex) {
-						MessageManager.basicErrorMessage(Controller.class.getName(),
-								"Error al crear el PDF.", "PDF");
+						MessageManager.basicErrorMessage(Controller.class.getName(), "Error al crear el PDF.", "PDF");
 						ex.printStackTrace();
 					}
 				}
@@ -352,8 +343,8 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForPdf selectPdf = new ExploreWindowForPdf("RMFComb.pdf");
-			String path = selectPdf.exploreWindows("Hoja en PDF", JFileChooser.FILES_ONLY,
-					getCharacterNameFormatted() + ".pdf");
+			String path = selectPdf.exploreWindows("Hoja en PDF", JFileChooser.FILES_ONLY, getCharacterNameFormatted()
+					+ ".pdf");
 			try {
 				new PdfCombinedSheet(selectedCharacter, path);
 				MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.", "PDF");
@@ -426,8 +417,29 @@ public class Controller {
 							// Create random character.
 							characters.remove(selectedCharacter);
 							try {
-								selectedCharacter = new RandomCharacterPlayer(character, randomWindow
-										.getFinalLevel()).getCharacterPlayer();
+								RandomCharacterPlayer randomCharacter = new RandomCharacterPlayer(character,
+										randomWindow.getFinalLevel());
+								randomCharacter.addFeedbackListener(new RandomFeedbackListener() {
+
+									@Override
+									public void feedBackMessage(final String message) {
+										Runnable updateSplashScreen = new Runnable() {
+											public void run() {
+												if (splashScreen != null) {
+													splashScreen.updateText(message);
+												}
+											}
+										};
+
+										try {
+											SwingUtilities.invokeAndWait(updateSplashScreen);
+										} catch (InvocationTargetException | InterruptedException e) {
+											EsherLog.errorMessage(Controller.class.getName(), e);
+										}
+									}
+								});
+								randomCharacter.createRandomValues();
+								selectedCharacter = randomCharacter.getCharacterPlayer();
 							} catch (MagicDefinitionException | InvalidProfessionException e) {
 								ShowMessage.showErrorMessage(e.getMessage(), "Error");
 							}
@@ -611,8 +623,7 @@ public class Controller {
 	}
 
 	private String getCharacterNameFormatted() {
-		return selectedCharacter.getName().replace(" ", "_") + "_N"
-				+ selectedCharacter.getCurrentLevelNumber();
+		return selectedCharacter.getName().replace(" ", "_") + "_N" + selectedCharacter.getCurrentLevelNumber();
 	}
 
 }

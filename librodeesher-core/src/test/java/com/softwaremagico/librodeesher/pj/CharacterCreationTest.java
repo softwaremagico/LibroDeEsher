@@ -13,6 +13,7 @@ import com.softwaremagico.librodeesher.pj.export.txt.TxtSheet;
 import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
 import com.softwaremagico.librodeesher.pj.profession.InvalidProfessionException;
 import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
+import com.softwaremagico.librodeesher.pj.random.RandomFeedbackListener;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.persistence.dao.hibernate.CharacterPlayerDao;
 
@@ -29,7 +30,15 @@ public class CharacterCreationTest {
 
 	@Test(groups = { "characterCreation" })
 	public void createCharacter() throws MagicDefinitionException, InvalidProfessionException {
-		characterPlayer = new RandomCharacterPlayer(null, null, null, null, 1).getCharacterPlayer();
+		RandomCharacterPlayer randomCharacter = new RandomCharacterPlayer(null, null, null, null, 1);
+		randomCharacter.addFeedbackListener(new RandomFeedbackListener() {
+			@Override
+			public void feedBackMessage(String message) {
+				System.out.println(message);
+			}
+		});
+		randomCharacter.createRandomValues();
+		characterPlayer = randomCharacter.getCharacterPlayer();
 		Assert.assertTrue(characterPlayer.getRemainingDevelopmentPoints() >= 0);
 	}
 
@@ -82,8 +91,9 @@ public class CharacterCreationTest {
 
 		// Increase level of one character.
 		characterPlayer.increaseLevel();
-		new RandomCharacterPlayer(characterPlayer);
-		
+		RandomCharacterPlayer randomCharacter = new RandomCharacterPlayer(characterPlayer);
+		randomCharacter.setDevelopmentPoints();
+
 		// Export last level
 		String levelJsonText = LevelJsonManager.toJson(characterPlayer);
 
