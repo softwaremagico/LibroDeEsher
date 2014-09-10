@@ -75,6 +75,7 @@ public class RandomWindow extends BaseFrame {
 	private BaseTextField suggestedTraining;
 	private List<String> suggestedTrainingList;
 	private List<RandomCharacterUpdatedListener> randomCharacterUpdatedListeners;
+	private BaseSpinner levelSpinner;
 
 	public RandomWindow(CharacterPlayer characterPlayer) {
 		this.characterPlayer = characterPlayer;
@@ -147,7 +148,7 @@ public class RandomWindow extends BaseFrame {
 		constraints.gridwidth = 3;
 		panel.add(levelLabel, constraints);
 
-		BaseSpinner levelSpinner = createLevelSpinner();
+		levelSpinner = createLevelSpinner();
 		constraints.gridwidth = 1;
 		constraints.gridx = 3;
 		panel.add(levelSpinner, constraints);
@@ -193,10 +194,8 @@ public class RandomWindow extends BaseFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Set name if not set.
-				if (characterPlayer.getName() == null
-						|| characterPlayer.getName().length() == 0) {
-					characterPlayer.setName(characterPlayer.getRace()
-							.getRandonName(characterPlayer.getSex()));
+				if (characterPlayer.getName() == null || characterPlayer.getName().length() == 0) {
+					characterPlayer.setName(characterPlayer.getRace().getRandonName(characterPlayer.getSex()));
 				}
 				// Launch listeners.
 				for (RandomCharacterUpdatedListener listener : randomCharacterUpdatedListeners) {
@@ -272,8 +271,7 @@ public class RandomWindow extends BaseFrame {
 		constraints.weightx = 1;
 		panel.add(skillComboBox, constraints);
 		if (categorySpinner.getValue() != null) {
-			skillComboBox.setSkills((Category) categoryComboBox
-					.getSelectedItem());
+			skillComboBox.setSkills((Category) categoryComboBox.getSelectedItem());
 		}
 
 		constraints.gridx = 4;
@@ -290,8 +288,7 @@ public class RandomWindow extends BaseFrame {
 		final int SPECIALIZED = 3;
 		final int INIT = 0;
 
-		JSlider generalizationSpecializationSlider = new JSlider(
-				JSlider.HORIZONTAL, GENERALIZED, SPECIALIZED, INIT);
+		JSlider generalizationSpecializationSlider = new JSlider(JSlider.HORIZONTAL, GENERALIZED, SPECIALIZED, INIT);
 		// generalizationSpecializationSlider.addChangeListener(this);
 
 		// Turn on labels at major tick marks.
@@ -312,16 +309,13 @@ public class RandomWindow extends BaseFrame {
 	private CategoryComboBox createCategoryComboBox() {
 		CategoryComboBox categoryComboBox = new CategoryComboBox();
 		categoryComboBox.setNormalStyle();
-		categoryComboBox
-				.addCategoryChangedListener(new CategoryChangedListener() {
-					@Override
-					public void categoryChanged(Category category) {
-						categorySpinner
-								.setValue(getSuggestedCategoriesRanks(category
-										.getName()));
-						skillComboBox.setSkills(category);
-					}
-				});
+		categoryComboBox.addCategoryChangedListener(new CategoryChangedListener() {
+			@Override
+			public void categoryChanged(Category category) {
+				categorySpinner.setValue(getSuggestedCategoriesRanks(category.getName()));
+				skillComboBox.setSkills(category);
+			}
+		});
 		return categoryComboBox;
 	}
 
@@ -332,8 +326,7 @@ public class RandomWindow extends BaseFrame {
 			@Override
 			public void skillChanged(Skill skill) {
 				if (skill != null) {
-					skillSpinner.setValue(getSuggestedSkillRanks(skill
-							.getName()));
+					skillSpinner.setValue(getSuggestedSkillRanks(skill.getName()));
 					skillSpinner.setEnabled(true);
 				} else {
 					skillSpinner.setValue(0);
@@ -376,9 +369,7 @@ public class RandomWindow extends BaseFrame {
 			public void actionPerformed(ActionEvent e) {
 				String training = (String) trainingComboBox.getSelectedItem();
 				suggestedTrainingList.add(training);
-				trainingComboBox.setElements(
-						characterPlayer.getAvailableTrainings(),
-						suggestedTrainingList);
+				trainingComboBox.setElements(characterPlayer.getAvailableTrainings(), suggestedTrainingList);
 				setSuggestedTrainingsToTextField();
 			}
 		});
@@ -398,9 +389,7 @@ public class RandomWindow extends BaseFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				suggestedTrainingList = new ArrayList<>();
-				trainingComboBox.setElements(
-						characterPlayer.getAvailableTrainings(),
-						suggestedTrainingList);
+				trainingComboBox.setElements(characterPlayer.getAvailableTrainings(), suggestedTrainingList);
 				setSuggestedTrainingsToTextField();
 			}
 		});
@@ -415,8 +404,8 @@ public class RandomWindow extends BaseFrame {
 	}
 
 	private TrainingComboBox createTrainingComboBox() {
-		TrainingComboBox trainingComboBox = new TrainingComboBox(
-				characterPlayer.getAvailableTrainings(), suggestedTrainingList);
+		TrainingComboBox trainingComboBox = new TrainingComboBox(characterPlayer.getAvailableTrainings(),
+				suggestedTrainingList);
 		trainingComboBox.setNormalStyle();
 		return trainingComboBox;
 	}
@@ -434,9 +423,8 @@ public class RandomWindow extends BaseFrame {
 
 	private JPanel createBasicPanel() {
 		JPanel panel = new JPanel();
-		panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory
-				.createEtchedBorder(), new EmptyBorder(MARGIN, MARGIN,
-				MARGIN / 2, MARGIN)));
+		panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEtchedBorder(), new EmptyBorder(MARGIN,
+				MARGIN, MARGIN / 2, MARGIN)));
 		return panel;
 	}
 
@@ -457,16 +445,14 @@ public class RandomWindow extends BaseFrame {
 	}
 
 	private Integer getSuggestedCategoriesRanks(String categoryName) {
-		if (suggestedCategoriesRanks.get(categoryName) == null
-				|| suggestedCategoriesRanks.get(categoryName) < 0) {
+		if (suggestedCategoriesRanks.get(categoryName) == null || suggestedCategoriesRanks.get(categoryName) < 0) {
 			return 0;
 		}
 		return suggestedCategoriesRanks.get(categoryName);
 	}
 
 	private Integer getSuggestedSkillRanks(String skillName) {
-		if (suggestedSkillsRanks.get(skillName) == null
-				|| suggestedSkillsRanks.get(skillName) < 0) {
+		if (suggestedSkillsRanks.get(skillName) == null || suggestedSkillsRanks.get(skillName) < 0) {
 			return 0;
 		}
 		return suggestedSkillsRanks.get(skillName);
@@ -475,38 +461,32 @@ public class RandomWindow extends BaseFrame {
 	private BaseSpinner createCategorySpinner() {
 		SpinnerModel spinnerModel = new SpinnerNumberModel(0, 0, 50, 1);
 		BaseSpinner categorySpinner = new BaseSpinner(spinnerModel);
-		categorySpinner
-				.addSpinnerValueChangedListener(new SpinnerValueChangedListener() {
-					@Override
-					public void valueChanged(int value) {
-						setSuggestedCategoryRanks(((Category) categoryComboBox
-								.getSelectedItem()).getName(), value);
-					}
-				});
+		categorySpinner.addSpinnerValueChangedListener(new SpinnerValueChangedListener() {
+			@Override
+			public void valueChanged(int value) {
+				setSuggestedCategoryRanks(((Category) categoryComboBox.getSelectedItem()).getName(), value);
+			}
+		});
 		return categorySpinner;
 	}
 
 	private BaseSpinner createSkillSpinner() {
 		SpinnerModel spinnerModel = new SpinnerNumberModel(0, 0, 50, 1);
 		BaseSpinner skillSpinner = new BaseSpinner(spinnerModel);
-		skillSpinner
-				.addSpinnerValueChangedListener(new SpinnerValueChangedListener() {
-					@Override
-					public void valueChanged(int value) {
-						setSuggestedSkillRanks(((Skill) skillComboBox
-								.getSelectedItem()).getName(), value);
-					}
-				});
+		skillSpinner.addSpinnerValueChangedListener(new SpinnerValueChangedListener() {
+			@Override
+			public void valueChanged(int value) {
+				setSuggestedSkillRanks(((Skill) skillComboBox.getSelectedItem()).getName(), value);
+			}
+		});
 		return skillSpinner;
 	}
 
-	public void addRandomCharacterUpdatedListeners(
-			RandomCharacterUpdatedListener listener) {
+	public void addRandomCharacterUpdatedListeners(RandomCharacterUpdatedListener listener) {
 		randomCharacterUpdatedListeners.add(listener);
 	}
 
-	public void removeRandomCharacterUpdatedListeners(
-			RandomCharacterUpdatedListener listener) {
+	public void removeRandomCharacterUpdatedListeners(RandomCharacterUpdatedListener listener) {
 		randomCharacterUpdatedListeners.remove(listener);
 	}
 
@@ -517,6 +497,6 @@ public class RandomWindow extends BaseFrame {
 	}
 
 	public int getFinalLevel() {
-		return 1;
+		return (Integer) levelSpinner.getValue();
 	}
 }
