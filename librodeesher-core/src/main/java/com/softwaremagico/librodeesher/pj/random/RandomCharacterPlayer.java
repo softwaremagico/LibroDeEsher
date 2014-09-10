@@ -575,12 +575,10 @@ public class RandomCharacterPlayer {
 
 			// Check if already stored probability. If not, calculate it.
 			if (categoryProbabilityStored.get(category) == null) {
-				int categoryProbability = new CategoryProbability(characterPlayer, category, suggestedSkillsRanks,
-						specializationLevel, finalLevel).rankProbability();
-				categoryProbabilityStored.put(category, categoryProbability);
+				categoryProbabilityStored.put(category, new CategoryProbability(characterPlayer, category, suggestedSkillsRanks,
+						specializationLevel, finalLevel).rankProbability());
 			}
-			Integer probability = categoryProbabilityStored.get(category);
-			if (probability > 0 && Math.random() * 100 + 1 < probability + tries * 3) {
+			if (categoryProbabilityStored.get(category) > 0 && Math.random() * 100 + 1 < categoryProbabilityStored.get(category) + tries * 3) {
 				characterPlayer.getCurrentLevel().setCategoryRanks(category.getName(),
 						characterPlayer.getCurrentLevel().getCategoryRanks(category.getName()) + tries);
 				developmentPoints = characterPlayer.getRemainingDevelopmentPoints();
@@ -608,18 +606,17 @@ public class RandomCharacterPlayer {
 					}
 					int roll = (int) (Math.random() * 100 + 1);
 					if (skillProbabilityStored.get(skill) == null) {
-						probability = new SkillProbability(characterPlayer, skill, suggestedSkillsRanks,
-								specializationLevel, finalLevel).getRankProbability();
-						skillProbabilityStored.put(skill, probability);
+						skillProbabilityStored.put(skill, new SkillProbability(characterPlayer, skill,
+								suggestedSkillsRanks, specializationLevel, finalLevel).getRankProbability());
 					}
 					EsherLog.debug(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName() + "' ("
 							+ skillProbabilityStored.get(skill) + "%), roll: " + roll);
 
-					if (probability > 0 && roll < skillProbabilityStored.get(skill) + tries * 3) {
+					if (skillProbabilityStored.get(skill) > 0 && roll < skillProbabilityStored.get(skill) + tries * 3) {
 						characterPlayer.getCurrentLevel().setSkillsRanks(skill,
 								characterPlayer.getCurrentLevel().getSkillsRanks(skill.getName()) + 1);
 						EsherLog.info(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName() + "' ("
-								+ skillProbabilityStored.get(skill) + "%), roll: " + roll + " Added! ("
+								+ skillProbabilityStored.get(skill) + tries * 3 + "%), roll: " + roll + " Added! ("
 								+ characterPlayer.getRemainingDevelopmentPoints() + ")");
 						for (Skill skillToRemove : category.getSkills()) {
 							skillProbabilityStored.remove(skillToRemove);
