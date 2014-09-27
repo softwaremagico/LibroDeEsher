@@ -173,7 +173,6 @@ public class SkillFactory {
 	public static void updateDisabledSkills() {
 		for (Skill skill : availableSkills.values()) {
 			if (disabledSkills.contains(skill.getName())) {
-				System.out.println("---------->" + skill.getName());
 				skill.setEnabled(false);
 			}
 		}
