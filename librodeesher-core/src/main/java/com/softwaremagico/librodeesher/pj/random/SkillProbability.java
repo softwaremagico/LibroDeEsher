@@ -34,7 +34,7 @@ public class SkillProbability {
 		int probability = 0;
 
 		// Avoid disabled strings.
-		if (characterPlayer.isDisabled(skill)) {
+		if (characterPlayer.isSkillDisabled(skill)) {
 			return -MAX_VALUE;
 		}
 
