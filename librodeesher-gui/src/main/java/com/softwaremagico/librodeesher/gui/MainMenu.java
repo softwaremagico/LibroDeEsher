@@ -420,7 +420,10 @@ public class MainMenu {
 		boolean enable = character.areCharacteristicsConfirmed();
 		charactMenuItem.setEnabled(!enable);
 		cultureMenuItem.setEnabled(enable);
-		professionMenuItem.setEnabled(enable);
+		professionMenuItem.setEnabled(enable
+				&& (!character.getProfession().getProfessionalSkillsToChoose().isEmpty()
+						|| !character.getProfession().getCommonSkillsToChoose().isEmpty() || !character
+						.getProfession().getRestrictedSkillsToChoose().isEmpty()));
 		trainingMenuItem.setEnabled(enable);
 		perksMenuItem.setEnabled(enable);
 		skillsMenuItem.setEnabled(enable);
