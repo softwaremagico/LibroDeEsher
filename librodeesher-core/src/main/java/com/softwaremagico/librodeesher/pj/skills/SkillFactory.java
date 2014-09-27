@@ -27,7 +27,9 @@ package com.softwaremagico.librodeesher.pj.skills;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.categories.Category;
@@ -36,6 +38,7 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 public class SkillFactory {
 	private static HashMap<String, Skill> availableSkills = new HashMap<>();
 	private static List<String> availableSkillsByName = new ArrayList<>();
+	private static Set<String> disabledSkills = new HashSet<>();
 
 	public static Skill getSkill(String skillNameAndType) {
 		Skill skill = availableSkills.get(skillNameAndType);
@@ -104,8 +107,10 @@ public class SkillFactory {
 	private static Skill createSkill(String skillNameAndType) {
 		SkillType skillType = SkillType.getSkillType(skillNameAndType);
 		Skill skill = createSkill(removeTypeFromName(skillNameAndType), skillType);
-		// "*" is used to avoid skills to be used in random characters. 
+		// "*" is used to avoid skills to be used in random characters.
 		skill.setRare(!skillNameAndType.contains("*"));
+		// Add all disabled skills to list.
+		disabledSkills.addAll(skill.getEnableSkills());
 		return skill;
 	}
 
@@ -163,5 +168,14 @@ public class SkillFactory {
 		}
 		Collections.sort(skills, new SkillComparator());
 		return skills;
+	}
+
+	public static void updateDisabledSkills() {
+		for (Skill skill : availableSkills.values()) {
+			if (disabledSkills.contains(skill.getName())) {
+				System.out.println("---------->" + skill.getName());
+				skill.setEnabled(false);
+			}
+		}
 	}
 }

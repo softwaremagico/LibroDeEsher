@@ -36,14 +36,19 @@ import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 public class Skill {
 	private String name;
 	private List<String> specialities; // A skill can have some specializations.
+	private List<String> enableSkills; // A skill can enable others skills.
 	private SkillType skilltype;
 	private Category category;
 	private SkillGroup skillGroup;
 	private boolean rare = true;
+	private boolean enabled = true;
 
 	public Skill(String name, SkillType type) {
 		this.skilltype = type;
 		specialities = new ArrayList<>();
+		enableSkills = new ArrayList<>();
+		// Enables some other skills
+		name = getSkillsEnabled(name);
 		String specialityPattern = Pattern.quote("[");
 		String[] nameColumns = name.split(specialityPattern);
 		this.name = nameColumns[0].trim();
@@ -53,10 +58,35 @@ public class Skill {
 	public Skill(String name, SkillType type, SkillGroup group) {
 		this.skilltype = type;
 		specialities = new ArrayList<>();
+		enableSkills = new ArrayList<>();
+		// Enables some other skills
+		name = getSkillsEnabled(name);
 		String specialityPattern = Pattern.quote("[");
 		String[] nameColumns = name.split(specialityPattern);
 		this.name = nameColumns[0].trim();
 		this.skillGroup = group;
+	}
+
+	/**
+	 * Converts any { skill1 | skill2 } string in skills to be enabled when
+	 * selecting one rank.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	private String getSkillsEnabled(String name) {
+		String enabledSkills = null;
+		if (name.contains("{") && name.contains("}")) {
+			enabledSkills = name.substring(name.indexOf('{') + 1, name.indexOf('}'));
+			// Remove enabled skills from name.
+			name = name.replaceAll(Pattern.quote("{" + enabledSkills + "}"), "").trim();
+
+			String[] enabledArray = enabledSkills.split("\\|");
+			for (String skillEnabled : enabledArray) {
+				enableSkills.add(skillEnabled.trim());
+			}
+		}
+		return name;
 	}
 
 	public String getName() {
@@ -84,22 +114,15 @@ public class Skill {
 			return getCategory().getSkillRankValues(ranksNumber);
 		case PPD:
 			Integer total = 0;
-			for (RealmOfMagic realm : character.getRealmOfMagic()
-					.getRealmsOfMagic()) {
-				ProgressionCostType progressionValue = ProgressionCostType
-						.getProgressionCostType(realm);
-				total += getCategory().getSkillRankValues(
-						ranksNumber,
-						character.getRace().getProgressionRankValues(
-								progressionValue));
+			for (RealmOfMagic realm : character.getRealmOfMagic().getRealmsOfMagic()) {
+				ProgressionCostType progressionValue = ProgressionCostType.getProgressionCostType(realm);
+				total += getCategory().getSkillRankValues(ranksNumber,
+						character.getRace().getProgressionRankValues(progressionValue));
 			}
-			return total
-					/ character.getRealmOfMagic().getRealmsOfMagic().size();
+			return total / character.getRealmOfMagic().getRealmsOfMagic().size();
 		case PD:
-			return getCategory().getSkillRankValues(
-					ranksNumber,
-					character.getRace().getProgressionRankValues(
-							ProgressionCostType.PHYSICAL_DEVELOPMENT));
+			return getCategory().getSkillRankValues(ranksNumber,
+					character.getRace().getProgressionRankValues(ProgressionCostType.PHYSICAL_DEVELOPMENT));
 		default:
 			return 0;
 		}
@@ -144,9 +167,21 @@ public class Skill {
 	protected void setSkillGroup(SkillGroup group) {
 		this.skillGroup = group;
 	}
-	
+
 	public String getName(int length) {
 		return getName().substring(0, Math.min(length - 1, getName().length()));
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public List<String> getEnableSkills() {
+		return enableSkills;
 	}
 
 }

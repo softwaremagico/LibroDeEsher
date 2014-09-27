@@ -213,8 +213,15 @@ public class CategoryFactory {
 
 		// Create culture specific skills
 		addCultureSkills();
+		
+		// Disabled not allowed skills.
+		disableSkills();
 
 		Collections.sort(availableCategoriesByName);
+	}
+	
+	private static void disableSkills(){
+		SkillFactory.updateDisabledSkills();
 	}
 
 	public static Category getCategory(String categoryName, String abbrev,
