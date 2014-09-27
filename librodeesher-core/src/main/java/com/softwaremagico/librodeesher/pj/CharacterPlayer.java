@@ -207,7 +207,7 @@ public class CharacterPlayer extends StorableObject {
 	@ElementCollection
 	@CollectionTable(name = "T_CHARACTERPLAYER_SKILLS_ENABLED")
 	// Skill -- enables --> Skill.
-	private Map<Skill, Skill> enabledSkill;
+	private Map<String, String> enabledSkill;
 
 	public CharacterPlayer() {
 		appearance = new Appearance();
@@ -715,12 +715,12 @@ public class CharacterPlayer extends StorableObject {
 			getCurrentLevel().setSkillsRanks(skill, ranks);
 		}
 		// Enable a disabled skill
-		if (ranks > 0 && enabledSkill.get(skill) == null) {
+		if (ranks > 0 && skill.getEnableSkills().size() > 0 && enabledSkill.get(skill) == null) {
 			throw new SkillForEnablingMustBeSelected();
 		} else if (ranks == 0) {
 			// Remove enabled skill.
 			if (enabledSkill.get(skill) != null) {
-				getCurrentLevel().setSkillsRanks(enabledSkill.get(skill), 0);
+				getCurrentLevel().setSkillsRanks(SkillFactory.getSkill(enabledSkill.get(skill)), 0);
 				enabledSkill.remove(skill);
 			}
 		}
@@ -1920,11 +1920,13 @@ public class CharacterPlayer extends StorableObject {
 		return !skill.isEnabled() && !getEnabledSkills().contains(skill);
 	}
 
-	private Set<Skill> getEnabledSkills() {
-		return new HashSet<Skill>(enabledSkill.values());
+	private Set<String> getEnabledSkills() {
+		return new HashSet<String>(enabledSkill.values());
 	}
 
 	public void enableSkill(Skill skill, Skill disabledSkill) {
-		enabledSkill.put(skill, disabledSkill);
+		if (skill != null && disabledSkill != null) {
+			enabledSkill.put(skill.getName(), disabledSkill.getName());
+		}
 	}
 }

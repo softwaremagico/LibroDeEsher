@@ -30,6 +30,7 @@ import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
 import com.softwaremagico.librodeesher.gui.elements.GenericSkillLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.skills.SkillForEnablingMustBeSelected;
 
 public class SkillLine extends GenericSkillLine {
 	private static final long serialVersionUID = -4551393729801208171L;
@@ -48,7 +49,12 @@ public class SkillLine extends GenericSkillLine {
 	protected void updateCharacterPlayerWithCurrentLevelRanks() {
 		Integer ranks = getRanksSelected();
 		setRanksSelected(ranks); // order the ranks.
-		character.setCurrentLevelRanks(skill, ranks);
+		try {
+			character.setCurrentLevelRanks(skill, ranks);
+		} catch (SkillForEnablingMustBeSelected e) {
+			//Select skill for enabling.
+			
+		}
 	}
 
 	public void updateCategory() {

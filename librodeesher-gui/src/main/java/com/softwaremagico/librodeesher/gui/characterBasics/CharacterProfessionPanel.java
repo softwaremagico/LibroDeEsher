@@ -45,7 +45,8 @@ public class CharacterProfessionPanel extends BasePanel {
 	private JComboBox<String> professionComboBox;
 	private CharacterPlayer character;
 	private CharacterLevelPanel levelPanel;
-	private boolean updatingProfession = false, enableProfessionComboBox = true;
+	private boolean updatingProfession = false;
+	private boolean enableProfessionComboBox = true;
 	private CharacterPanel parent;
 	private BaseTextField trainingTextField;
 
@@ -180,9 +181,7 @@ public class CharacterProfessionPanel extends BasePanel {
 	public void setCharacter(CharacterPlayer character) {
 		this.character = character;
 		if (character.getRace() != null) {
-			updatingProfession = false;
 			updateProfessionComboBox(character.getRace().getAvailableProfessions());
-			updatingProfession = true;
 			character.setProfession(getSelectedProfession());
 		}
 	}

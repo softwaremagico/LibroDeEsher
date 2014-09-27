@@ -86,6 +86,13 @@
         selectedPerks_ID bigint not null
     );
 
+    create table T_CHARACTERPLAYER_SKILLS_ENABLED (
+        CharacterPlayer_ID bigint not null,
+        enabledSkill varchar(255),
+        enabledSkill_KEY varchar(255),
+        primary key (CharacterPlayer_ID, enabledSkill_KEY)
+    );
+
     create table T_CHARACTERPLAYER_TEMPORAL_CHARACTERISTICS_ROLLS (
         T_CHARACTERPLAYER_ID bigint not null,
         characteristicsTemporalUpdatesRolls_ID bigint not null,
@@ -629,6 +636,11 @@
     alter table T_CHARACTERPLAYER_SELECTED_PERKS 
         add constraint FK_1i4nykoq34g1roy464q5mi2qe 
         foreign key (T_CHARACTERPLAYER_ID) 
+        references T_CHARACTERPLAYER (ID);
+
+    alter table T_CHARACTERPLAYER_SKILLS_ENABLED 
+        add constraint FK_9ntkfbhey7gcb35m9l02pw7pe 
+        foreign key (CharacterPlayer_ID) 
         references T_CHARACTERPLAYER (ID);
 
     alter table T_CHARACTERPLAYER_TEMPORAL_CHARACTERISTICS_ROLLS 
