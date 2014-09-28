@@ -43,6 +43,7 @@ import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class SelectOption<T> extends BasePanel {
+	private static final long serialVersionUID = 4299961102900809569L;
 	CharacterPlayer character;
 	private OptionsPanel optionsPanel;
 	private BaseFrame parent;

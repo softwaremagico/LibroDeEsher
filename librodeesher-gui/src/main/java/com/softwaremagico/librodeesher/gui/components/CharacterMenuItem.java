@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui;
+package com.softwaremagico.librodeesher.gui.components;
 /*
  * #%L
  * Libro de Esher
@@ -28,7 +28,7 @@ import java.awt.Font;
 import javax.swing.Icon;
 import javax.swing.JMenuItem;
 
-import com.softwaremagico.files.RolemasterFolderStructure;
+import com.softwaremagico.librodeesher.gui.MainMenu;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.SexType;
 
@@ -36,7 +36,7 @@ public class CharacterMenuItem extends JMenuItem {
 	private static final long serialVersionUID = 6981333043794608235L;
 	private CharacterPlayer characterInMenu;
 
-	CharacterMenuItem(CharacterPlayer characterInMenu, CharacterPlayer currentSelectedPlayer) {
+	public CharacterMenuItem(CharacterPlayer characterInMenu, CharacterPlayer currentSelectedPlayer) {
 		super(characterInMenu.getName());
 		this.characterInMenu = characterInMenu;
 

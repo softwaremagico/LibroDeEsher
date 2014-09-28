@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui;
+package com.softwaremagico.librodeesher.gui.components;
 /*
  * #%L
  * Libro de Esher
@@ -23,12 +23,23 @@ package com.softwaremagico.librodeesher.gui;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.gui.elements.SkillTitleLine;
+import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
-public class ResumeSkillTitle extends SkillTitleLine {
-	private static final long serialVersionUID = -7713583862792690761L;
+public class ResumeSkillPanel extends BaseScrollPanel {
+	private static final long serialVersionUID = -1578788430431043354L;
+	private ResumeSkillTitle title;
+	private SkillListPanel skillPanel;
 
-	public ResumeSkillTitle() {
-		enableColumns(true, true, true, true, true, true, true, true);
+	public ResumeSkillPanel() {
+		title = new ResumeSkillTitle();
+		addTitle(title);
+		skillPanel = new SkillListPanel();
+		setBody(skillPanel);
 	}
+
+	public void update(CharacterPlayer character) {
+		skillPanel.update(character);
+	}
+
 }

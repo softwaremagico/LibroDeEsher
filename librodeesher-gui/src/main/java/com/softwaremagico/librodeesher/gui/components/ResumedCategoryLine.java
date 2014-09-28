@@ -1,4 +1,5 @@
-package com.softwaremagico.librodeesher.gui;
+package com.softwaremagico.librodeesher.gui.components;
+
 /*
  * #%L
  * Libro de Esher
@@ -23,23 +24,26 @@ package com.softwaremagico.librodeesher.gui;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
+import java.awt.Color;
+
+import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
+import com.softwaremagico.librodeesher.gui.elements.GenericCategoryLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.categories.Category;
 
-public class ResumeSkillPanel extends BaseScrollPanel {
-	private static final long serialVersionUID = -1578788430431043354L;
-	private ResumeSkillTitle title;
-	private SkillListPanel skillPanel;
+public class ResumedCategoryLine extends GenericCategoryLine {
+	private static final long serialVersionUID = 7701060122798000781L;
 
-	public ResumeSkillPanel() {
-		title = new ResumeSkillTitle();
-		addTitle(title);
-		skillPanel = new SkillListPanel();
-		setBody(skillPanel);
+	public ResumedCategoryLine(CharacterPlayer character, Category category, Color background,
+			BaseSkillPanel parentWindow) {
+		super(character, category, background, parentWindow);
+		enableColumns(true, true, true, true, true, true, true, true);
+		setRanksSelected(character.getCurrentLevelRanks(category));
 	}
 
-	public void update(CharacterPlayer character) {
-		skillPanel.update(character);
+	@Override
+	protected void updateCharacterPlayerWithCurrentLevelRanks() {
+		setRanksSelected(character.getCurrentLevelRanks(category));
 	}
 
 }

@@ -42,6 +42,7 @@ import javax.swing.SwingUtilities;
 import com.itextpdf.text.DocumentException;
 import com.softwaremagico.files.MessageManager;
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicsWindow;
+import com.softwaremagico.librodeesher.gui.components.CharacterMenuItem;
 import com.softwaremagico.librodeesher.gui.culture.CultureWindow;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForPdf;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForPdfWithOptions;

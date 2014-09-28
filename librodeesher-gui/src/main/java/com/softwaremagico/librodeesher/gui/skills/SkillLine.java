@@ -40,8 +40,8 @@ public class SkillLine extends GenericSkillLine {
 		enableColumns(true, true, true, true, true, true, true, true);
 		setRanksSelected(character.getCurrentLevelRanks(skill));
 	}
-	
-	protected void updateRanks(){
+
+	protected void updateRanks() {
 		setRanksSelected(character.getCurrentLevelRanks(skill));
 	}
 
@@ -52,8 +52,9 @@ public class SkillLine extends GenericSkillLine {
 		try {
 			character.setCurrentLevelRanks(skill, ranks);
 		} catch (SkillForEnablingMustBeSelected e) {
-			//Select skill for enabling.
-			
+			// Select skill for enabling.
+			SelectSkillWindow selectSkillWindow = new SelectSkillWindow(character, skill.getEnableSkills());
+			selectSkillWindow.setVisible(true);
 		}
 	}
 

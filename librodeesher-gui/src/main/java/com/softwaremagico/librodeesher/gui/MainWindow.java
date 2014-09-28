@@ -39,6 +39,7 @@ import javax.swing.ScrollPaneConstants;
 
 import com.softwaremagico.librodeesher.gui.characterBasics.CharacterPanel;
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicSummaryPanel;
+import com.softwaremagico.librodeesher.gui.components.ResumeSkillPanel;
 import com.softwaremagico.librodeesher.gui.resistance.ResistancePanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
