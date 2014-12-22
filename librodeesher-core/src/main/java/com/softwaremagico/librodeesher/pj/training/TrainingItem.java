@@ -9,9 +9,11 @@ import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_TRAINING_OBJECT")
-public class TrainingItem extends StorableObject implements MagicObject {
+public class TrainingItem extends StorableObject {
 	@Expose
 	private String name;
+	@Expose
+	private String description;
 	@Expose
 	private int bonus;
 	@Expose
@@ -27,17 +29,21 @@ public class TrainingItem extends StorableObject implements MagicObject {
 	}
 
 	public TrainingItem(String name, int bonus, int probability) {
-		this.name = name;
+		if (name.contains("(")) {
+			this.name = name.substring(0, name.indexOf("("));
+			this.description = name.substring(name.indexOf("("), name.indexOf(")"));
+		} else {
+			this.name = name;
+			this.description = "";
+		}
 		this.probability = probability;
 		this.bonus = bonus;
 	}
 
-	@Override
 	public String getName() {
 		return name;
 	}
 
-	@Override
 	public int getBonus() {
 		return bonus;
 	}

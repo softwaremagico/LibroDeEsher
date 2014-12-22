@@ -9,11 +9,11 @@ Femenino
 #ESPECIAL	//Nombre, probabilidad, bonus
 ####################################
 Caballo de guerra (entrenamiento especial)	10
-Arma de proyectiles (+10 no mágica)	10
-20 Virotes (+10 no mágicos)	80
-Arma cuerpo a cuerpo (+5 no mágica)	40
-Escudo (+5 no mágico)	30
-Caballo (+5 a montar)	50
+Arma de proyectiles (no mágica)	10	10
+20 Virotes (no mágicos)	80	10
+Arma cuerpo a cuerpo (no mágica)	40	5
+Escudo (no mágico)	30	5
+Caballo (a montar)	50	5
 Amuleto con símbolo de amazona	100
 
 #HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.

@@ -9,9 +9,9 @@ Ninguno
 #ESPECIAL	//Nombre, probabilidad, bonus
 ####################################
 Avance reciente dentro de la orden	40
-Rosario para rezar (+10 a meditación)	70	10
-Pergamino de oraciones (+10 a una habilidad)	10
-Arma no mágica (+5)	30	5
+Rosario para rezar (a meditación)	70	10
+Pergamino de oraciones (a una habilidad)	10
+Arma (no mágica)	30	5
 Hierbas (D10 curativas comunes)	20
 Reputación como guerrero sagrado	100
 

@@ -11,10 +11,10 @@ Ninguno
 joyas robadas (10d10 mp)	50
 gemas robadas (10d10 mp)	50
 pieza de arte robada (10d10 mp)	50
-ganzúas (+10 no mágicas)	30
-herramientas para desactivar trampas (+10 no mágicas)	30
+ganzúas (no mágicas)	30	10
+herramientas para desactivar trampas (no mágicas)	30	10
 contactos de fiar	20
-ganzúas y herramientas para desactivar trampas (+5 no mágicas)	100
+ganzúas y herramientas para desactivar trampas (no mágicas)	100	5
 
 #HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
 ####################################

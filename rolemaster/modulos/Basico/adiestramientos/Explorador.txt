@@ -11,7 +11,7 @@ Ninguno
 Un mapa detallado de una región	40
 1d10 Esbozos de varias regiones	40
 Una buena bestia de monta	30
-Arma de Proyectil (+5 no mágica)	20
+Arma de Proyectil (no mágica)	20	5
 Bestia de Monta (a discreción del DJ)	100
 
 #HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.

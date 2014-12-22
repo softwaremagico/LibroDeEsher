@@ -8,16 +8,16 @@ Ninguno
 
 #ESPECIAL	//Nombre, probabilidad, bonus
 ####################################
-Caballo de guerra (+10)	30
-Caballo de guerra (+5)	30
+Caballo de guerra	30	10
+Caballo de guerra	30	5
 Caballo de guerra	30
-Arma (+10 no mágica)	40
-Armadura (+10 no mágica)	40
-Escudo (+10 no mágico)	50
-Arma (+5 no mágica)	30
-Armadura (+10 no mágica)	30
-Escudo (+10 no mágico)	40
-Caballo (+5)	100
+Arma (no mágica)	40	10
+Armadura (no mágica)	40	10
+Escudo (no mágico)	50	10
+Arma (no mágica)	30	5
+Armadura (no mágica)	30	10
+Escudo (no mágico)	40	10
+Caballo 	100	5
 
 #HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
 ####################################

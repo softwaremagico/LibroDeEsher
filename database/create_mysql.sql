@@ -210,6 +210,20 @@
         trainings varchar(255)
     );
 
+    create table T_MAGIC_OBJECT (
+        ID bigint not null,
+        comparationId varchar(255) not null,
+        creationTime datetime not null,
+        updateTime datetime,
+        name varchar(255),
+        primary key (ID)
+    );
+
+    create table T_MAGIC_OBJECT_T_MAGIC_OBJECT_BONUS (
+        MagicObject_ID bigint not null,
+        bonus_ID bigint not null
+    );
+
     create table T_PERKS (
         ID bigint not null,
         comparationId varchar(255) not null,
@@ -363,6 +377,7 @@
         creationTime datetime not null,
         updateTime datetime,
         bonus integer not null,
+        description varchar(255),
         name varchar(255),
         probability integer not null,
         primary key (ID)
@@ -371,6 +386,35 @@
     create table T_TRAINING_OBJECTS (
         T_TRAINING_DECISION_ID bigint not null,
         equipment_ID bigint not null
+    );
+
+    create table T_TRAINING_OBJECT_CATEGORY_BONUS (
+        ID bigint not null,
+        comparationId varchar(255) not null,
+        creationTime datetime not null,
+        updateTime datetime,
+        bonus integer not null,
+        category varchar(255),
+        primary key (ID)
+    );
+
+    create table T_TRAINING_OBJECT_OTHER_BONUS (
+        ID bigint not null,
+        comparationId varchar(255) not null,
+        creationTime datetime not null,
+        updateTime datetime,
+        bonus integer not null,
+        primary key (ID)
+    );
+
+    create table T_TRAINING_OBJECT_SKILL_BONUS (
+        ID bigint not null,
+        comparationId varchar(255) not null,
+        creationTime datetime not null,
+        updateTime datetime,
+        bonus integer not null,
+        skill varchar(255),
+        primary key (ID)
     );
 
     create table T_TRAINING_SKILL (
@@ -475,6 +519,15 @@
     alter table T_LEVELUP 
         add constraint UK_s260ukdop7lmbms1wy8vru5mp  unique (comparationId);
 
+    alter table T_MAGIC_OBJECT 
+        add constraint UK_35phtj8okwti1qwsijrvr9t9q  unique (ID);
+
+    alter table T_MAGIC_OBJECT 
+        add constraint UK_sj0a2io0jkgf480bygxoklivy  unique (comparationId);
+
+    alter table T_MAGIC_OBJECT_T_MAGIC_OBJECT_BONUS 
+        add constraint UK_h8abfb792vwsl7s8bk57h6nfk  unique (bonus_ID);
+
     alter table T_PERKS 
         add constraint UK_poul3t4t5tpjoxm9csig34aml  unique (ID);
 
@@ -546,6 +599,24 @@
 
     alter table T_TRAINING_OBJECTS 
         add constraint UK_7ixq2spabhxg6hap4um27sj1y  unique (equipment_ID);
+
+    alter table T_TRAINING_OBJECT_CATEGORY_BONUS 
+        add constraint UK_tml10bsyt5qta0fs09k83w4y8  unique (ID);
+
+    alter table T_TRAINING_OBJECT_CATEGORY_BONUS 
+        add constraint UK_a27cb0rxghewqk26eth5s7ss3  unique (comparationId);
+
+    alter table T_TRAINING_OBJECT_OTHER_BONUS 
+        add constraint UK_3407f1h84yqyasss7kfu8ot3n  unique (ID);
+
+    alter table T_TRAINING_OBJECT_OTHER_BONUS 
+        add constraint UK_sx192fgemyaacux0du1wqivvo  unique (comparationId);
+
+    alter table T_TRAINING_OBJECT_SKILL_BONUS 
+        add constraint UK_dglomri4qitv0w5oi1jogwc9n  unique (ID);
+
+    alter table T_TRAINING_OBJECT_SKILL_BONUS 
+        add constraint UK_1n3ffx8tc9bbq798g3gog1atr  unique (comparationId);
 
     alter table T_TRAINING_SKILL 
         add constraint UK_efgh32mr4nx5s2o51m02qmb4c  unique (ID);
@@ -732,6 +803,11 @@
         add constraint FK_qulxx88l837mgli4re9byjayc 
         foreign key (LevelUp_ID) 
         references T_LEVELUP (ID);
+
+    alter table T_MAGIC_OBJECT_T_MAGIC_OBJECT_BONUS 
+        add constraint FK_5c8t1swff7ecqt0w0pmr88wbt 
+        foreign key (MagicObject_ID) 
+        references T_MAGIC_OBJECT (ID);
 
     alter table T_PERKS_DECISION_CATEGORY_BONUS_CHOSEN 
         add constraint FK_f1fjh72xeap6mctkfyviei7qy 

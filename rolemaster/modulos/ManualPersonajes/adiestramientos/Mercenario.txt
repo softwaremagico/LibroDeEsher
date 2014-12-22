@@ -8,9 +8,9 @@ Ninguno
 
 #ESPECIAL	//Nombre, probabilidad, bonus
 ####################################
-Arma (no mágica) +10	50
-Armadura (no mágica) +10	50
-Escudo (no mágico) +10	50
+Arma (no mágica)	50	10
+Armadura (no mágica)	50	10
+Escudo (no mágico)	50	10
 Medalla por comportamiento en batalla	50
 Favor de un militar	50
 Favor de un militar	50

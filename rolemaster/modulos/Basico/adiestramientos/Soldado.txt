@@ -8,18 +8,18 @@ Ninguno
 
 #ESPECIAL	//Nombre, probabilidad, bonus
 ####################################
-Arma cuerpo a cuerpo (+10 no mágica)	30
-Arma de proyectil (+10 no mágica)	30
-Escudo (+10 no mágico)	40
-Yelmo (+10 no mágico)	50
-Armadura (+10 no mágica)	10
+Arma cuerpo a cuerpo (no mágica)	30	10
+Arma de proyectil (no mágica)	30	10
+Escudo (no mágico)	40	10
+Yelmo (no mágico)	50	10
+Armadura (no mágica)	10	10
 Amigos con rango de oficial	20
 Promoción	20
 Promoción	20
 Promoción	20
 Promoción	20
 Promoción	20
-Arma de cuerpo a cuerpo (+5 no mágica)	100
+Arma de cuerpo a cuerpo (no mágica)	100	5
 
 #HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
 ####################################
