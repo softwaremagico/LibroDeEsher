@@ -68,7 +68,7 @@
     );
 
     create table T_CHARACTERPLAYER_MAGIC_ITEMS (
-        CharacterPlayer_ID bigint not null,
+        T_CHARACTERPLAYER_ID bigint not null,
         magicItems_ID bigint not null
     );
 
@@ -701,8 +701,8 @@
         references T_MAGIC_OBJECT (ID);
 
     alter table T_CHARACTERPLAYER_MAGIC_ITEMS 
-        add constraint FK_iu3ly4p8adjlqv1u13xhmcscb 
-        foreign key (CharacterPlayer_ID) 
+        add constraint FK_syhh9dkh9kfkx517xqjdwjw9o 
+        foreign key (T_CHARACTERPLAYER_ID) 
         references T_CHARACTERPLAYER (ID);
 
     alter table T_CHARACTERPLAYER_PERKS_DECISIONS 

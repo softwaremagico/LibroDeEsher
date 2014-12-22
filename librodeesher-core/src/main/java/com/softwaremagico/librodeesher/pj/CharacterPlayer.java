@@ -214,7 +214,7 @@ public class CharacterPlayer extends StorableObject {
 	private Map<String, String> enabledSkill;
 
 	@Expose
-	@ElementCollection
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@CollectionTable(name = "T_CHARACTERPLAYER_MAGIC_ITEMS")
 	private List<MagicObject> magicItems;
 
