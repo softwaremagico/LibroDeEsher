@@ -67,6 +67,11 @@
         primary key (T_CHARACTERPLAYER_ID, level_index)
     );
 
+    create table T_CHARACTERPLAYER_MAGIC_ITEMS (
+        CharacterPlayer_ID bigint not null,
+        magicItems_ID bigint not null
+    );
+
     create table T_CHARACTERPLAYER_PERKS_DECISIONS (
         CharacterPlayer_ID bigint not null,
         perkDecisions_ID bigint not null,
@@ -215,12 +220,13 @@
         comparationId varchar(255) not null,
         creationTime datetime not null,
         updateTime datetime,
+        description varchar(255),
         name varchar(255),
         primary key (ID)
     );
 
     create table T_MAGIC_OBJECT_T_MAGIC_OBJECT_BONUS (
-        MagicObject_ID bigint not null,
+        T_MAGIC_OBJECT_ID bigint not null,
         bonus_ID bigint not null
     );
 
@@ -380,6 +386,8 @@
         description varchar(255),
         name varchar(255),
         probability integer not null,
+        skill varchar(255),
+        type integer,
         primary key (ID)
     );
 
@@ -485,6 +493,9 @@
 
     alter table T_CHARACTERPLAYER_LEVEL_UP 
         add constraint UK_l8mhtklrekoduk3xl5a85ll55  unique (levelUps_ID);
+
+    alter table T_CHARACTERPLAYER_MAGIC_ITEMS 
+        add constraint UK_kgwp84wlntv117f3rbbw2b1a0  unique (magicItems_ID);
 
     alter table T_CHARACTERPLAYER_PERKS_DECISIONS 
         add constraint UK_2rei81rlw78vo1pss3lmg7lsq  unique (perkDecisions_ID);
@@ -684,6 +695,16 @@
         foreign key (T_CHARACTERPLAYER_ID) 
         references T_CHARACTERPLAYER (ID);
 
+    alter table T_CHARACTERPLAYER_MAGIC_ITEMS 
+        add constraint FK_kgwp84wlntv117f3rbbw2b1a0 
+        foreign key (magicItems_ID) 
+        references T_MAGIC_OBJECT (ID);
+
+    alter table T_CHARACTERPLAYER_MAGIC_ITEMS 
+        add constraint FK_iu3ly4p8adjlqv1u13xhmcscb 
+        foreign key (CharacterPlayer_ID) 
+        references T_CHARACTERPLAYER (ID);
+
     alter table T_CHARACTERPLAYER_PERKS_DECISIONS 
         add constraint FK_2rei81rlw78vo1pss3lmg7lsq 
         foreign key (perkDecisions_ID) 
@@ -805,8 +826,8 @@
         references T_LEVELUP (ID);
 
     alter table T_MAGIC_OBJECT_T_MAGIC_OBJECT_BONUS 
-        add constraint FK_5c8t1swff7ecqt0w0pmr88wbt 
-        foreign key (MagicObject_ID) 
+        add constraint FK_1fhy2i4j6k3tpe4qa2ml1o973 
+        foreign key (T_MAGIC_OBJECT_ID) 
         references T_MAGIC_OBJECT (ID);
 
     alter table T_PERKS_DECISION_CATEGORY_BONUS_CHOSEN 

@@ -75,9 +75,11 @@ public class Culture {
 	}
 
 	public Integer getCultureRanks(Category category) {
-		for (String categoryName : categories.keySet()) {
-			if (categoryName.equals(category.getName())) {
-				return categories.get(categoryName).getRanks();
+		if (category != null) {
+			for (String categoryName : categories.keySet()) {
+				if (categoryName.equals(category.getName())) {
+					return categories.get(categoryName).getRanks();
+				}
 			}
 		}
 		return 0;
@@ -85,11 +87,13 @@ public class Culture {
 
 	public Integer getCultureRanks(Skill skill) {
 		Integer total = 0;
-		// Culture ranks
-		for (CultureCategory cultureCategory : categories.values()) {
-			for (CultureSkill cultureSkill : cultureCategory.getSkills()) {
-				if (cultureSkill.getName().equals(skill.getName())) {
-					total += cultureSkill.getRanks();
+		if (skill != null) {
+			// Culture ranks
+			for (CultureCategory cultureCategory : categories.values()) {
+				for (CultureSkill cultureSkill : cultureCategory.getSkills()) {
+					if (cultureSkill.getName().equals(skill.getName())) {
+						total += cultureSkill.getRanks();
+					}
 				}
 			}
 		}
@@ -189,8 +193,9 @@ public class Culture {
 			try {
 				hobbyRanks = Integer.parseInt(hobbyLine);
 			} catch (NumberFormatException nfe) {
-				throw new InvalidCultureException("Error al obtener los rangos de la aficiones culturales.\n Línea: "
-						+ hobbyLine + "\nEn cultura: " + getName() + ". Razón: " + nfe.getMessage());
+				throw new InvalidCultureException(
+						"Error al obtener los rangos de la aficiones culturales.\n Línea: " + hobbyLine
+								+ "\nEn cultura: " + getName() + ". Razón: " + nfe.getMessage());
 			}
 			index++;
 		}
@@ -222,7 +227,8 @@ public class Culture {
 						|| hobby.toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
 					hobbySkills.add(hobby);
 					// Is a culture skill: add it;
-				} else if (hobby.contains(Spanish.FAUNA_KNOWNLEDGE_TAG) || hobby.contains(Spanish.FLORA_KNOWNLEDGE_TAG)
+				} else if (hobby.contains(Spanish.FAUNA_KNOWNLEDGE_TAG)
+						|| hobby.contains(Spanish.FLORA_KNOWNLEDGE_TAG)
 						|| hobby.contains(Spanish.CULTURAL_KNOWNLEDGE_TAG)
 						|| hobby.contains(Spanish.REGIONAL_KNOWNLEDGE_TAG)) {
 					Category cat = CategoryFactory.getCategory(Spanish.GENERAL_KNOWLEDGE_TAG);
@@ -235,8 +241,8 @@ public class Culture {
 					// CultureSkill skill = new CultureSkill(hobby);
 					hobbySkills.add(hobby);
 				} else { // Not recognized.
-					throw new InvalidCultureException("Afición no encontrada en cultura \"" + getName() + "\": "
-							+ hobby);
+					throw new InvalidCultureException("Afición no encontrada en cultura \"" + getName()
+							+ "\": " + hobby);
 				}
 			}
 			index++;

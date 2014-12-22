@@ -106,26 +106,31 @@ public class Skill {
 	}
 
 	public Integer getRankValue(CharacterPlayer character, Integer ranksNumber) {
-		switch (getCategory().getCategoryType()) {
-		case STANDARD:
-		case COMBINED:
-		case LIMITED:
-		case SPECIAL:
-			return getCategory().getSkillRankValues(ranksNumber);
-		case PPD:
-			Integer total = 0;
-			for (RealmOfMagic realm : character.getRealmOfMagic().getRealmsOfMagic()) {
-				ProgressionCostType progressionValue = ProgressionCostType.getProgressionCostType(realm);
-				total += getCategory().getSkillRankValues(ranksNumber,
-						character.getRace().getProgressionRankValues(progressionValue));
+		if (getCategory() != null) {
+			switch (getCategory().getCategoryType()) {
+			case STANDARD:
+			case COMBINED:
+			case LIMITED:
+			case SPECIAL:
+				return getCategory().getSkillRankValues(ranksNumber);
+			case PPD:
+				Integer total = 0;
+				for (RealmOfMagic realm : character.getRealmOfMagic().getRealmsOfMagic()) {
+					ProgressionCostType progressionValue = ProgressionCostType.getProgressionCostType(realm);
+					total += getCategory().getSkillRankValues(ranksNumber,
+							character.getRace().getProgressionRankValues(progressionValue));
+				}
+				return total / character.getRealmOfMagic().getRealmsOfMagic().size();
+			case PD:
+				return getCategory().getSkillRankValues(
+						ranksNumber,
+						character.getRace()
+								.getProgressionRankValues(ProgressionCostType.PHYSICAL_DEVELOPMENT));
+			default:
+				return 0;
 			}
-			return total / character.getRealmOfMagic().getRealmsOfMagic().size();
-		case PD:
-			return getCategory().getSkillRankValues(ranksNumber,
-					character.getRace().getProgressionRankValues(ProgressionCostType.PHYSICAL_DEVELOPMENT));
-		default:
-			return 0;
 		}
+		return 0;
 	}
 
 	public SkillGroup getSkillGroup() {

@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
-import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
 import com.softwaremagico.persistence.StorableObject;
 
 @Entity
@@ -17,6 +16,10 @@ public class TrainingItem extends StorableObject {
 	@Expose
 	private int bonus;
 	@Expose
+	private TrainingItemType type;
+	@Expose
+	private String skill;
+	@Expose
 	private int probability;
 
 	protected TrainingItem() {
@@ -28,7 +31,7 @@ public class TrainingItem extends StorableObject {
 		resetIds(this);
 	}
 
-	public TrainingItem(String name, int bonus, int probability) {
+	public TrainingItem(String name, int bonus, String skill, int probability) {
 		if (name.contains("(")) {
 			this.name = name.substring(0, name.indexOf("("));
 			this.description = name.substring(name.indexOf("("), name.indexOf(")"));
@@ -38,6 +41,7 @@ public class TrainingItem extends StorableObject {
 		}
 		this.probability = probability;
 		this.bonus = bonus;
+		this.skill = skill;
 	}
 
 	public String getName() {
@@ -50,6 +54,10 @@ public class TrainingItem extends StorableObject {
 
 	public int getProbability() {
 		return probability;
+	}
+
+	public String getSkill() {
+		return skill;
 	}
 
 }

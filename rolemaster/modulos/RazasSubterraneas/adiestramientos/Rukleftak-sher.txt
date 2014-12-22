@@ -8,14 +8,14 @@ Orco Gris
 
 #ESPECIAL	//Nombre, probabilidad, bonus
 ####################################
-Arma cuerpo a cuerpo (no mágica)	50	20
-Armadura (no mágica)	50	10
+Arma cuerpo a cuerpo (no mágica)	50	20	Arma
+Armadura (no mágica)	50	10	Armadura
 Multiplicador PPs (x2)	40
-Escudo (no mágico)	40	10
-Arma (no mágica)	30	10
+Escudo (no mágico)	40	10	Armadura
+Arma (no mágica)	30	10	Arma
 Objeto diario II	20
 Sumando de hechizos (+1)	20
-Arma (no magica)	100	5
+Arma (no magica)	100	5	Arma
 
 #HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
 ####################################

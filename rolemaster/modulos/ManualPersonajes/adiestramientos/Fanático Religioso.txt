@@ -8,7 +8,7 @@ Ninguno
 
 #ESPECIAL	//Nombre, probabilidad, bonus
 ####################################
-Arma (no mágica)	30	10
+Arma (no mágica)	30	10	Arma
 Objeto Diario I	30
 Símbolo de orden religiosa	100
 

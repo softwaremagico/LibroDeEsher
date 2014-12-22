@@ -13,8 +13,8 @@ Ninguno
 1d10 hierbas de Alivio de Quemaduras/Congelaciones	30
 1d10 hierbas de Reparación de Hemorragias	30
 1d10 hierbas Generales	30
-Equipo médico superior (+15 no mágico)	30
-Equipo médico (no mágico)	100	5
+Equipo médico superior (no mágico)	30	15	Medicina
+Equipo médico (no mágico)	100	5	Medicina
 
 #HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
 ####################################

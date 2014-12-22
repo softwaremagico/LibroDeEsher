@@ -9,10 +9,10 @@ Orco Gris
 #ESPECIAL	//Nombre, probabilidad, bonus
 ####################################
 Multiplicador PPs (x2)	50
-Arma cuerpo a cuerpo (no mágica)	40	10
+Arma cuerpo a cuerpo (no mágica)	40	10	Arma Cuerpo a Cuerpo
 1-2 Ulogat-Toram	40
 Objeto diario III	30
-Libro (al conocimiento de los no-muertos)	30	10
+Libro	30	10	Conocimiento de los No-Muertos
 Zombi sin manos	40
 Sumando de hechizos (+1)	100
 

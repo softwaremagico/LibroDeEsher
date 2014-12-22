@@ -8,12 +8,12 @@ Ninguno
 
 #ESPECIAL	//Nombre, probabilidad, bonus
 ####################################
-Material para disfrazarse (no mágico)	50	15
-Artilugios de entretenimiento (no mágicos)	50	10
+Material para disfrazarse (no mágico)	50	15	Disfrazarse
+Artilugios de entretenimiento (no mágicos)	50	10	Malabarismos
 Amistad con un tabernero	40
 Amistad con un tabernero	40
 Amistad con un artista famoso	20
-Material de maquillaje (no mágico)	100	5
+Material de maquillaje (no mágico)	100	5	Disfrazarse
 
 #HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
 ####################################

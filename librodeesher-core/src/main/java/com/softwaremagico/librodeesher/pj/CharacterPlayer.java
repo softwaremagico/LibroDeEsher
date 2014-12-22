@@ -63,6 +63,10 @@ import com.softwaremagico.librodeesher.pj.culture.Culture;
 import com.softwaremagico.librodeesher.pj.culture.CultureDecisions;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.culture.InvalidCultureException;
+import com.softwaremagico.librodeesher.pj.equipment.CategoryBonus;
+import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
+import com.softwaremagico.librodeesher.pj.equipment.ObjectBonus;
+import com.softwaremagico.librodeesher.pj.equipment.SkillBonus;
 import com.softwaremagico.librodeesher.pj.historial.Historial;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
 import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
@@ -209,6 +213,11 @@ public class CharacterPlayer extends StorableObject {
 	// Skill -- enables --> Skill.
 	private Map<String, String> enabledSkill;
 
+	@Expose
+	@ElementCollection
+	@CollectionTable(name = "T_CHARACTERPLAYER_MAGIC_ITEMS")
+	private List<MagicObject> magicItems;
+
 	public CharacterPlayer() {
 		appearance = new Appearance();
 		levelUps = new ArrayList<>();
@@ -225,6 +234,7 @@ public class CharacterPlayer extends StorableObject {
 		professionDecisions = new ProfessionDecisions();
 		selectedPerks = new ArrayList<>();
 		magicSpellListsObtained = false;
+		magicItems = new ArrayList<>();
 		setDefaultConfig();
 		// Starts in level 1.
 		increaseLevel();
@@ -773,8 +783,10 @@ public class CharacterPlayer extends StorableObject {
 		total += getCultureDecisions().getHobbyRanks(skill.getName());
 		total += getPerksRanks(skill);
 		total += getPreviousLevelsRanks(skill);
-		if (skill.getCategory().getName().toLowerCase().equals(Spanish.COMUNICATION_CATEGORY)) {
-			total += getLanguageRanks(skill.getName());
+		if (skill.getCategory() != null) {
+			if (skill.getCategory().getName().toLowerCase().equals(Spanish.COMUNICATION_CATEGORY)) {
+				total += getLanguageRanks(skill.getName());
+			}
 		}
 		total += getTrainingRanks(skill);
 
@@ -1789,19 +1801,36 @@ public class CharacterPlayer extends StorableObject {
 	 * 
 	 * @return
 	 */
-	public List<TrainingItem> getMagicItems() {
-		// TODO
-		return new ArrayList<>();
+	public List<MagicObject> getMagicItems() {
+		return magicItems;
 	}
 
 	public int getItemBonus(Category category) {
-		// TODO
-		return 0;
+		int total = 0;
+		for (MagicObject magicObject : getMagicItems()) {
+			for (ObjectBonus objectBonus : magicObject.getBonus()) {
+				if (objectBonus instanceof CategoryBonus) {
+					if (objectBonus.getBonusName().equals(category.getName())) {
+						total += objectBonus.getBonus();
+					}
+				}
+			}
+		}
+		return total;
 	}
 
 	public int getItemBonus(Skill skill) {
-		// TODO
-		return 0;
+		int total = 0;
+		for (MagicObject magicObject : getMagicItems()) {
+			for (ObjectBonus objectBonus : magicObject.getBonus()) {
+				if (objectBonus instanceof SkillBonus) {
+					if (objectBonus.getBonusName().equals(skill.getName())) {
+						total += objectBonus.getBonus();
+					}
+				}
+			}
+		}
+		return total;
 	}
 
 	/**

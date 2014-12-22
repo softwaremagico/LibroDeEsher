@@ -13,8 +13,8 @@ Contactos útiles en los barrios bajos	20
 Promoción	50
 Promoción	40
 Promoción	30
-Arma (no mágica)	10	10
-Arma (no mágica)	100	5
+Arma (no mágica)	10	10	Arma
+Arma (no mágica)	100	5	Arma
 
 #HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
 ####################################

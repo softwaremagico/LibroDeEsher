@@ -73,7 +73,8 @@ public class Training {
 	}
 
 	/**
-	 * Returns the index of a TrainingCategory. Used to store into database only the index and not the POJO.
+	 * Returns the index of a TrainingCategory. Used to store into database only
+	 * the index and not the POJO.
 	 */
 	public Integer getTrainingCategoryIndex(TrainingCategory trainingCategory) {
 		return categoriesWithRanks.indexOf(trainingCategory);
@@ -139,6 +140,7 @@ public class Training {
 			index++;
 		}
 		int bonus;
+		String skill = "";
 		int probability = 0;
 		objects = new ArrayList<>();
 		while (!lines.get(index).equals("")) {
@@ -150,14 +152,18 @@ public class Training {
 					probability = Integer.parseInt(specialColumns[1]);
 					if (specialColumns.length > 2) {
 						bonus = Integer.parseInt(specialColumns[2]);
+						if (specialColumns.length > 3) {
+							skill = specialColumns[3];
+						}
 					} else {
 						bonus = 0;
+						skill = "";
 					}
 				} catch (NumberFormatException nfe) {
 					throw new InvalidTrainingException("Formato de porcentaje de especial \"" + special
 							+ "\" erróneo en adiestramiento " + name);
 				}
-				objects.add(new TrainingItem(special, bonus, probability));
+				objects.add(new TrainingItem(special, bonus, skill, probability));
 			} catch (ArrayIndexOutOfBoundsException aiofb) {
 				throw new InvalidTrainingException("Problema con la linea: \"" + trainingLine
 						+ "\" del adiestramiento " + name);
@@ -185,7 +191,8 @@ public class Training {
 					if (lines.get(index).contains("{")) {
 						// List of categories to choose one.
 						String[] lineColumns = lines.get(index).trim().split("}");
-						String[] categoriesList = lineColumns[0].replace("{", "").replace(";", ",").split(",");
+						String[] categoriesList = lineColumns[0].replace("{", "").replace(";", ",")
+								.split(",");
 						String[] categoryRanks = lineColumns[1].split("\t");
 
 						List<String> categoriesOptions = new ArrayList<>();
@@ -193,33 +200,34 @@ public class Training {
 							categoriesOptions.add(category.trim());
 						}
 
-						trainingCategory = new TrainingCategory(categoriesOptions, Integer.parseInt(categoryRanks[1]),
-								Integer.parseInt(categoryRanks[2]), Integer.parseInt(categoryRanks[3]),
-								Integer.parseInt(categoryRanks[4]));
+						trainingCategory = new TrainingCategory(categoriesOptions,
+								Integer.parseInt(categoryRanks[1]), Integer.parseInt(categoryRanks[2]),
+								Integer.parseInt(categoryRanks[3]), Integer.parseInt(categoryRanks[4]));
 						categoriesWithRanks.add(trainingCategory);
 					} else {
 						String[] categoryRanks = lines.get(index).split("\t");
 						if (CategoryFactory.existCategory(categoryRanks[0])) {
 							List<String> categoriesList = new ArrayList<>();
 							categoriesList.add(categoryRanks[0].trim());
-							trainingCategory = new TrainingCategory(categoriesList, Integer.parseInt(categoryRanks[1]),
-									Integer.parseInt(categoryRanks[2]), Integer.parseInt(categoryRanks[3]),
-									Integer.parseInt(categoryRanks[4]));
+							trainingCategory = new TrainingCategory(categoriesList,
+									Integer.parseInt(categoryRanks[1]), Integer.parseInt(categoryRanks[2]),
+									Integer.parseInt(categoryRanks[3]), Integer.parseInt(categoryRanks[4]));
 							categoriesWithRanks.add(trainingCategory);
 
 						} else {
-							throw new InvalidTrainingException("Categoría no encontrada en \"" + name + "\": "
-									+ categoryRanks[0]);
+							throw new InvalidTrainingException("Categoría no encontrada en \"" + name
+									+ "\": " + categoryRanks[0]);
 						}
 					}
 				} catch (NumberFormatException nfe) {
-					throw new InvalidTrainingException("Numero de rangos mal formado en: \"" + lines.get(index)
-							+ "\" del adiestramiento: " + name);
+					throw new InvalidTrainingException("Numero de rangos mal formado en: \""
+							+ lines.get(index) + "\" del adiestramiento: " + name);
 				}
 			} else { // It is a skill. Must come from a defined category and not
 						// a list to choose.
 				if (trainingCategory == null) {
-					throw new InvalidTrainingException("Habilidad sin categoria asociada: " + lines.get(index));
+					throw new InvalidTrainingException("Habilidad sin categoria asociada: "
+							+ lines.get(index));
 				}
 				try {
 					if (lines.get(index).contains("{")) {
@@ -232,11 +240,12 @@ public class Training {
 					} else {
 						// Skill with ranges.
 						String[] trainingSkills = lines.get(index).replace("*", "").trim().split("\t");
-						addTrainingSkill(trainingCategory, trainingSkills[0], Integer.parseInt(trainingSkills[1]));
+						addTrainingSkill(trainingCategory, trainingSkills[0],
+								Integer.parseInt(trainingSkills[1]));
 					}
 				} catch (NumberFormatException nfe) {
-					throw new InvalidTrainingException("Numero de rangos mal formado en: \"" + lines.get(index)
-							+ "\" del adiestramiento: " + name);
+					throw new InvalidTrainingException("Numero de rangos mal formado en: \""
+							+ lines.get(index) + "\" del adiestramiento: " + name);
 				}
 			}
 			index++;
@@ -270,7 +279,8 @@ public class Training {
 					trainingLine = trainingLine.replace("}", "").replace("{", "");
 					String[] chars = trainingLine.replace(";", ",").split(",");
 					for (String abbrev : chars) {
-						listToChoose.add(CharacteristicsAbbreviature.getCharacteristicsAbbreviature(abbrev.trim()));
+						listToChoose.add(CharacteristicsAbbreviature.getCharacteristicsAbbreviature(abbrev
+								.trim()));
 					}
 					updateCharacteristics.add(listToChoose);
 				} else {
@@ -282,7 +292,8 @@ public class Training {
 						String[] chars = trainingLine.replace(";", ",").split(",");
 						for (String abbrev : chars) {
 							List<CharacteristicsAbbreviature> listToChoose = new ArrayList<>();
-							listToChoose.add(CharacteristicsAbbreviature.getCharacteristicsAbbreviature(abbrev.trim()));
+							listToChoose.add(CharacteristicsAbbreviature
+									.getCharacteristicsAbbreviature(abbrev.trim()));
 							updateCharacteristics.add(listToChoose);
 						}
 					}
@@ -333,11 +344,10 @@ public class Training {
 						} else if (Characteristics.isCharacteristicValid(requirementName)) {
 							// It it is a characteristic, a minimal temporal
 							// value is required.
-							characteristicRequirements.put(
-									CharacteristicsAbbreviature.getCharacteristicsAbbreviature(requirementName), value);
-							characteristicRequirementsCostModification.put(
-									CharacteristicsAbbreviature.getCharacteristicsAbbreviature(requirementName),
-									costModification);
+							characteristicRequirements.put(CharacteristicsAbbreviature
+									.getCharacteristicsAbbreviature(requirementName), value);
+							characteristicRequirementsCostModification.put(CharacteristicsAbbreviature
+									.getCharacteristicsAbbreviature(requirementName), costModification);
 						} else {
 							throw new InvalidTrainingException("Requisito desconocido: \"" + lines.get(index)
 									+ "\" del adiestramiento: " + name);

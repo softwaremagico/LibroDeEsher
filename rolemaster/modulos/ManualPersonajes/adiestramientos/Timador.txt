@@ -10,9 +10,9 @@ Ninguno
 ####################################
 Contacto en los Bajos Fondos	30
 Favor de un personaje de los Bajos fondos	20
-Identidad Falsificada (Embaucar)	20	30
+Identidad Falsificada	20	30	Embaucar
 Inversión (2D10 mo/año)	10
-Identidad Falsificada (Embaucar)	100	15
+Identidad Falsificada	100	15	Embaucar
 
 #HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
 ####################################
