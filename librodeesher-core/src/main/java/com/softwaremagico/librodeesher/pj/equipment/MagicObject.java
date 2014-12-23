@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -56,5 +55,71 @@ public class MagicObject extends StorableObject {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public int getSkillBonus(String skillName){
+		for (ObjectBonus objectBonus : new ArrayList<>(bonus)) {
+			if (objectBonus instanceof SkillBonus) {
+				if (objectBonus.getBonusName().equals(skillName)) {
+					return objectBonus.getBonus();
+				}
+			}
+		}
+		return 0;
+	}
+
+	public void setSkillBonus(String skillName, int bonusValue) {
+		for (ObjectBonus objectBonus : new ArrayList<>(bonus)) {
+			if (objectBonus instanceof SkillBonus) {
+				if (objectBonus.getBonusName().equals(skillName)) {
+					if (bonusValue != 0) {
+						objectBonus.setBonus(bonusValue);
+					} else {
+						bonus.remove(objectBonus);
+					}
+					return;
+				}
+			}
+		}
+		if (bonusValue != 0) {
+			// Not existing bonus, create a new one.
+			SkillBonus skillBonus = new SkillBonus();
+			skillBonus.setBonusName(skillName);
+			skillBonus.setBonus(bonusValue);
+			bonus.add(skillBonus);
+		}
+	}
+	
+	public int getCategoryBonus(String categoryName){
+		for (ObjectBonus objectBonus : new ArrayList<>(bonus)) {
+			if (objectBonus instanceof CategoryBonus) {
+				if (objectBonus.getBonusName().equals(categoryName)) {
+					objectBonus.getBonus();
+				}
+			}
+		}
+		return 0;
+	}
+	
+	public void setCategoryBonus(String categoryName, int bonusValue) {
+		for (ObjectBonus objectBonus : new ArrayList<>(bonus)) {
+			if (objectBonus instanceof CategoryBonus) {
+				if (objectBonus.getBonusName().equals(categoryName)) {
+					if (bonusValue != 0) {
+						objectBonus.setBonus(bonusValue);
+					} else {
+						bonus.remove(objectBonus);
+					}
+					return;
+				}
+			}
+		}
+		if (bonusValue != 0) {
+			// Not existing bonus, create a new one.
+			CategoryBonus skillBonus = new CategoryBonus();
+			skillBonus.setBonusName(categoryName);
+			skillBonus.setBonus(bonusValue);
+			bonus.add(skillBonus);
+		}
 	}
 }

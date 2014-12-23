@@ -5,7 +5,6 @@ import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
 
-
 @Entity
 @Table(name = "T_TRAINING_OBJECT_CATEGORY_BONUS")
 public class CategoryBonus extends ObjectBonus {
@@ -20,5 +19,10 @@ public class CategoryBonus extends ObjectBonus {
 	@Override
 	public String getBonusName() {
 		return category;
+	}
+
+	@Override
+	public void setBonusName(String value) {
+		this.category = value;
 	}
 }

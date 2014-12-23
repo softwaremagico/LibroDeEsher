@@ -595,7 +595,8 @@ public class RandomCharacterPlayer {
 			}
 			Category category = characterPlayer.getCategory(sortedCategoriesByCost.get(i));
 
-			if (characterPlayer.getNewRankCost(category) > developmentPoints) {
+			if (characterPlayer.getNewRankCost(category) > developmentPoints
+					|| characterPlayer.getNewRankCost(category) > MAX_RANDOM_COST) {
 				continue;
 			}
 
@@ -620,82 +621,84 @@ public class RandomCharacterPlayer {
 			// Order by specialization.
 			sortSkillsBySpecialization(characterPlayer, shuffledCategorySkills, specializationLevel);
 
-			if (characterPlayer.getNewRankCost(category) < MAX_RANDOM_COST) {
-				for (int j = 0; j < shuffledCategorySkills.size(); j++) {
-					if (developmentPoints < 1) {
-						break;
-					}
-					Skill skill = shuffledCategorySkills.get(j);
-					EsherLog.debug(RandomCharacterPlayer.class.getName(),
-							characterPlayer.getNewRankCost(skill) + ">" + developmentPoints);
-					if (characterPlayer.getNewRankCost(skill) > developmentPoints) {
-						break;
-					}
-					int roll = (int) (Math.random() * 100 + 1);
-					if (skillProbabilityStored.get(skill) == null) {
-						skillProbabilityStored.put(skill, new SkillProbability(characterPlayer, skill,
-								suggestedSkillsRanks, specializationLevel, finalLevel).getRankProbability());
-					}
-					EsherLog.debug(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName() + "' ("
-							+ (skillProbabilityStored.get(skill) + tries * 3) + "%), roll: " + roll);
+			for (int j = 0; j < shuffledCategorySkills.size(); j++) {
+				if (developmentPoints < 1) {
+					break;
+				}
+				Skill skill = shuffledCategorySkills.get(j);
+				EsherLog.debug(RandomCharacterPlayer.class.getName(), characterPlayer.getNewRankCost(skill)
+						+ ">" + developmentPoints);
+				if (characterPlayer.getNewRankCost(skill) > developmentPoints) {
+					break;
+				}
+				int roll = (int) (Math.random() * 100 + 1);
+				if (skillProbabilityStored.get(skill) == null) {
+					skillProbabilityStored.put(skill, new SkillProbability(characterPlayer, skill,
+							suggestedSkillsRanks, specializationLevel, finalLevel).getRankProbability());
+				}
+				EsherLog.debug(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName() + "' ("
+						+ (skillProbabilityStored.get(skill) + tries * 3) + "%), roll: " + roll);
 
-					if (skillProbabilityStored.get(skill) > 0
-							&& roll < skillProbabilityStored.get(skill) + tries * 3) {
-						try {
-							characterPlayer.setCurrentLevelRanks(skill, characterPlayer.getCurrentLevel()
-									.getSkillsRanks(skill.getName()) + 1);
-						} catch (SkillForEnablingMustBeSelected e) {
-							characterPlayer.enableSkill(skill, selectOneSkillForDisabling(skill));
-						}
-						EsherLog.info(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName()
-								+ "' (" + skillProbabilityStored.get(skill) + tries * 3 + "%), roll: " + roll
-								+ " Added!");
-						for (Skill skillToRemove : category.getSkills()) {
-							skillProbabilityStored.remove(skillToRemove);
-						}
-						developmentPoints = characterPlayer.getRemainingDevelopmentPoints();
-						EsherLog.debug(RandomCharacterPlayer.class.getName(), "Remaining DP: "
-								+ developmentPoints);
+				if (skillProbabilityStored.get(skill) > 0
+						&& roll < skillProbabilityStored.get(skill) + tries * 3) {
+					try {
+						characterPlayer.setCurrentLevelRanks(skill, characterPlayer.getCurrentLevel()
+								.getSkillsRanks(skill.getName()) + 1);
+					} catch (SkillForEnablingMustBeSelected e) {
+						// Skills than depends in other skills.
+						characterPlayer.enableSkill(skill, selectOneSkillForEnabling(skill));
+					}
+					EsherLog.info(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName() + "' ("
+							+ skillProbabilityStored.get(skill) + tries * 3 + "%), roll: " + roll + " Added!");
+					// All skill probability of this category changes, remove
+					// it.
+					for (Skill skillToRemove : category.getSkills()) {
+						skillProbabilityStored.remove(skillToRemove);
+					}
+					developmentPoints = characterPlayer.getRemainingDevelopmentPoints();
+					EsherLog.debug(RandomCharacterPlayer.class.getName(), "Remaining DP: "
+							+ developmentPoints);
 
-						// A skill can be updated more than one rank.
-						if (specializationLevel > 0) {
-							j--;
-						}
+					// A skill can be updated more than one rank.
+					if (specializationLevel > 0) {
+						j--;
+					}
 
-						// Add specializations if rank has been set and second
-						// rank is available
-						// Only specialization value of 3 can generate this
-						// options.
-						if (specializationLevel > 2) {
-							if (!characterPlayer.isRestricted(skill) && !characterPlayer.isGeneralized(skill)) {
-								for (int k = 0; k < skill.getSpecialities().size(); k++) {
-									// Only specialization value of 3 can
-									// generate
-									// specialized skills with 3% of
-									// probability.
-									if (Math.random() * 100 < (specializationLevel - 2) * 3) {
+					// Add specializations if rank has been set and second rank
+					// is available
+					// Only specialization value of 3 can generate this options.
+					if (specializationLevel > 2) {
+						if (!characterPlayer.isRestricted(skill) && !characterPlayer.isGeneralized(skill)) {
+							for (int k = 0; k < skill.getSpecialities().size(); k++) {
+								// Only specialization value of 3 can
+								// generate
+								// specialized skills with 3% of
+								// probability.
+								if (Math.random() * 100 < (specializationLevel - 2) * 3) {
+									if (characterPlayer.getNewRankCost(skill) < developmentPoints) {
 										characterPlayer.addSkillSpecialization(skill, skill.getSpecialities()
 												.get(k));
 										EsherLog.info(RandomCharacterPlayer.class.getName(), "Skill '"
 												+ skill.getName() + "' specialized to '"
 												+ skill.getSpecialities().get(k) + "'");
 										developmentPoints = characterPlayer.getRemainingDevelopmentPoints();
+
 										break;
 									}
 								}
 							}
-						} else if (specializationLevel < -2) {
-							// Or generalization
-							if (!characterPlayer.isRestricted(skill)
-									&& !characterPlayer.isSkillSpecialized(skill)) {
-								// Only generalized value of -3 can generate
-								// generalized skills with 5% of
-								// probability.
-								if (Math.random() * 100 < (-specializationLevel - 2) * 5) {
-									EsherLog.info(RandomCharacterPlayer.class.getName(),
-											"Skill '" + skill.getName() + "' generalized!");
-									characterPlayer.addGeneralized(skill);
-								}
+						}
+					} else if (specializationLevel < -2) {
+						// Or generalization
+						if (!characterPlayer.isRestricted(skill)
+								&& !characterPlayer.isSkillSpecialized(skill)) {
+							// Only generalized value of -3 can generate
+							// generalized skills with 5% of
+							// probability.
+							if (Math.random() * 100 < (-specializationLevel - 2) * 5) {
+								EsherLog.info(RandomCharacterPlayer.class.getName(),
+										"Skill '" + skill.getName() + "' generalized!");
+								characterPlayer.addGeneralized(skill);
 							}
 						}
 					}
@@ -704,7 +707,7 @@ public class RandomCharacterPlayer {
 		}
 	}
 
-	private static Skill selectOneSkillForDisabling(Skill skill) {
+	private static Skill selectOneSkillForEnabling(Skill skill) {
 		EsherLog.info(RandomCharacterPlayer.class.getName(), "Selecting skill for enabling due to use of '"
 				+ skill.getName() + "'");
 		List<String> options = skill.getEnableSkills();

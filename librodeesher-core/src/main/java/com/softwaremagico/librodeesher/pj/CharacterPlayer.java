@@ -63,10 +63,7 @@ import com.softwaremagico.librodeesher.pj.culture.Culture;
 import com.softwaremagico.librodeesher.pj.culture.CultureDecisions;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.culture.InvalidCultureException;
-import com.softwaremagico.librodeesher.pj.equipment.CategoryBonus;
 import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
-import com.softwaremagico.librodeesher.pj.equipment.ObjectBonus;
-import com.softwaremagico.librodeesher.pj.equipment.SkillBonus;
 import com.softwaremagico.librodeesher.pj.historial.Historial;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
 import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
@@ -96,7 +93,6 @@ import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingCategory;
 import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
-import com.softwaremagico.librodeesher.pj.training.TrainingItem;
 import com.softwaremagico.librodeesher.pj.training.TrainingSkill;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 import com.softwaremagico.persistence.StorableObject;
@@ -1808,13 +1804,7 @@ public class CharacterPlayer extends StorableObject {
 	public int getItemBonus(Category category) {
 		int total = 0;
 		for (MagicObject magicObject : getMagicItems()) {
-			for (ObjectBonus objectBonus : magicObject.getBonus()) {
-				if (objectBonus instanceof CategoryBonus) {
-					if (objectBonus.getBonusName().equals(category.getName())) {
-						total += objectBonus.getBonus();
-					}
-				}
-			}
+			total += magicObject.getCategoryBonus(category.getName());
 		}
 		return total;
 	}
@@ -1822,13 +1812,7 @@ public class CharacterPlayer extends StorableObject {
 	public int getItemBonus(Skill skill) {
 		int total = 0;
 		for (MagicObject magicObject : getMagicItems()) {
-			for (ObjectBonus objectBonus : magicObject.getBonus()) {
-				if (objectBonus instanceof SkillBonus) {
-					if (objectBonus.getBonusName().equals(skill.getName())) {
-						total += objectBonus.getBonus();
-					}
-				}
-			}
+			total += magicObject.getSkillBonus(skill.getName());
 		}
 		return total;
 	}

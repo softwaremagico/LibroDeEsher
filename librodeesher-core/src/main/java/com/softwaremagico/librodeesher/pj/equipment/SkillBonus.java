@@ -16,16 +16,13 @@ public class SkillBonus extends ObjectBonus {
 
 	}
 
-	public String getSkill() {
-		return skill;
-	}
-
-	public void setSkill(String skill) {
-		this.skill = skill;
-	}
-
 	@Override
 	public String getBonusName() {
 		return skill;
+	}
+
+	@Override
+	public void setBonusName(String value) {
+		this.skill = value;
 	}
 }

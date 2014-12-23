@@ -51,6 +51,7 @@ import com.softwaremagico.librodeesher.gui.files.ExploreWindowForTxt;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowsWithOptionsListener;
 import com.softwaremagico.librodeesher.gui.files.PdfFilter;
 import com.softwaremagico.librodeesher.gui.history.HistoryWindow;
+import com.softwaremagico.librodeesher.gui.magicitem.InsertMagicItemWindow;
 import com.softwaremagico.librodeesher.gui.perk.PerkWindow;
 import com.softwaremagico.librodeesher.gui.persistence.LoadCharacterListener;
 import com.softwaremagico.librodeesher.gui.persistence.LoadCharacterPlayerWindow;
@@ -90,6 +91,7 @@ public class Controller {
 	private TrainingWindow trainingWindow;
 	private RandomWindow randomWindow;
 	private LoadCharacterPlayerWindow loadWindow;
+	private InsertMagicItemWindow insertMagicItemWindow;
 
 	private boolean actionsEnables = true;
 
@@ -140,6 +142,19 @@ public class Controller {
 		mainGui.getMainMenu().addImportCharacterListener(new ImportCharacter());
 		mainGui.getMainMenu().addExportLevelListener(new ExportLevel());
 		mainGui.getMainMenu().addImportLevelListener(new ImportLevel());
+		mainGui.getMainMenu().addInsertMagicItemListener(new InsertMagicObject());
+	}
+
+	class InsertMagicObject implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			try {
+				insertMagicItemWindow.dispose();
+			} catch (NullPointerException npe) {
+			}
+			insertMagicItemWindow = new InsertMagicItemWindow(selectedCharacter);
+			insertMagicItemWindow.setVisible(true);
+		}
 	}
 
 	class LoadCharacterPlayer implements ActionListener {
@@ -166,7 +181,8 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			try {
 				CharacterPlayerDao.getInstance().makePersistent(selectedCharacter);
-				MessageManager.infoMessage(Controller.class.getName(), "Personaje guardado con éxito!", "Salvar.");
+				MessageManager.infoMessage(Controller.class.getName(), "Personaje guardado con éxito!",
+						"Salvar.");
 			} catch (Exception exception) {
 				EsherLog.errorMessage(Controller.class.getName(), exception);
 				MessageManager
@@ -191,11 +207,13 @@ public class Controller {
 				out = new PrintWriter(path);
 				out.println(jsonText);
 				out.close();
-				MessageManager.infoMessage(Controller.class.getName(), "Nivel exportado correctamente.", "RLM");
+				MessageManager.infoMessage(Controller.class.getName(), "Nivel exportado correctamente.",
+						"RLM");
 				return;
 			} catch (FileNotFoundException e1) {
 			}
-			MessageManager.basicErrorMessage(Controller.class.getName(), "Error al exportar el nivel!", "RLM");
+			MessageManager
+					.basicErrorMessage(Controller.class.getName(), "Error al exportar el nivel!", "RLM");
 		}
 	}
 
@@ -217,7 +235,8 @@ public class Controller {
 				}
 				try {
 					LevelJsonManager.fromJson(selectedCharacter, jsonText);
-					MessageManager.infoMessage(Controller.class.getName(), "Nivel importado correctamente.", "RLM");
+					MessageManager.infoMessage(Controller.class.getName(), "Nivel importado correctamente.",
+							"RLM");
 				} catch (InvalidCharacterException ice) {
 					MessageManager
 							.basicErrorMessage(
@@ -233,7 +252,8 @@ public class Controller {
 				}
 			} catch (Exception exc) {
 				EsherLog.errorMessage(Controller.class.getName(), exc);
-				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al importar el nivel!", "RLM");
+				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al importar el nivel!",
+						"RLM");
 			} finally {
 				try {
 					if (br != null)
@@ -258,11 +278,13 @@ public class Controller {
 				out = new PrintWriter(path);
 				out.println(jsonText);
 				out.close();
-				MessageManager.infoMessage(Controller.class.getName(), "Personaje exportado correctamente.", "RLM");
+				MessageManager.infoMessage(Controller.class.getName(), "Personaje exportado correctamente.",
+						"RLM");
 				return;
 			} catch (FileNotFoundException e1) {
 			}
-			MessageManager.basicErrorMessage(Controller.class.getName(), "Error al exportar el personaje!", "RLM");
+			MessageManager.basicErrorMessage(Controller.class.getName(), "Error al exportar el personaje!",
+					"RLM");
 		}
 	}
 
@@ -270,7 +292,8 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForRlm selectTxt = new ExploreWindowForRlm("Personaje.rlm");
-			String path = selectTxt.exploreWindows("Importar Personaje", JFileChooser.FILES_ONLY, "Personaje.rlm");
+			String path = selectTxt.exploreWindows("Importar Personaje", JFileChooser.FILES_ONLY,
+					"Personaje.rlm");
 
 			BufferedReader br = null;
 			String jsonText = "";
@@ -281,11 +304,13 @@ public class Controller {
 					jsonText += sCurrentLine;
 				}
 				CharacterPlayer characterPlayer = CharacterJsonManager.fromJson(jsonText);
-				MessageManager.infoMessage(Controller.class.getName(), "Persoanje importado correctamente.", "RLM");
+				MessageManager.infoMessage(Controller.class.getName(), "Persoanje importado correctamente.",
+						"RLM");
 				addCharacterPlayer(characterPlayer);
 			} catch (Exception exc) {
 				EsherLog.errorMessage(Controller.class.getName(), exc);
-				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al importar el personaje!", "RLM");
+				MessageManager.basicErrorMessage(Controller.class.getName(),
+						"Error al importar el personaje!", "RLM");
 			} finally {
 				try {
 					if (br != null)
@@ -301,8 +326,8 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForTxt selectTxt = new ExploreWindowForTxt("Ficha.txt");
-			String path = selectTxt.exploreWindows("Hoja en Txt", JFileChooser.FILES_ONLY, getCharacterNameFormatted()
-					+ ".txt");
+			String path = selectTxt.exploreWindows("Hoja en Txt", JFileChooser.FILES_ONLY,
+					getCharacterNameFormatted() + ".txt");
 			new TxtSheet(selectedCharacter).exportSheet(path);
 			MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.", "TXT");
 		}
@@ -312,8 +337,8 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForTxt selectTxt = new ExploreWindowForTxt("Ficha.pdf");
-			String path = selectTxt.exploreWindows("Hoja en Txt", JFileChooser.FILES_ONLY, getCharacterNameFormatted()
-					+ ".txt");
+			String path = selectTxt.exploreWindows("Hoja en Txt", JFileChooser.FILES_ONLY,
+					getCharacterNameFormatted() + ".txt");
 			TxtSheet.exportCharacterAbbreviature(selectedCharacter, path);
 			MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.", "TXT");
 		}
@@ -330,9 +355,11 @@ public class Controller {
 				public void accept(String path, boolean sortSkills) {
 					try {
 						new PdfStandardSheet(selectedCharacter, path, sortSkills);
-						MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.", "PDF");
+						MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.",
+								"PDF");
 					} catch (DocumentException | IOException ex) {
-						MessageManager.basicErrorMessage(Controller.class.getName(), "Error al crear el PDF.", "PDF");
+						MessageManager.basicErrorMessage(Controller.class.getName(),
+								"Error al crear el PDF.", "PDF");
 						ex.printStackTrace();
 					}
 				}
@@ -344,8 +371,8 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForPdf selectPdf = new ExploreWindowForPdf("RMFComb.pdf");
-			String path = selectPdf.exploreWindows("Hoja en PDF", JFileChooser.FILES_ONLY, getCharacterNameFormatted()
-					+ ".pdf");
+			String path = selectPdf.exploreWindows("Hoja en PDF", JFileChooser.FILES_ONLY,
+					getCharacterNameFormatted() + ".pdf");
 			try {
 				new PdfCombinedSheet(selectedCharacter, path);
 				MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.", "PDF");
@@ -624,7 +651,8 @@ public class Controller {
 	}
 
 	private String getCharacterNameFormatted() {
-		return selectedCharacter.getName().replace(" ", "_") + "_N" + selectedCharacter.getCurrentLevelNumber();
+		return selectedCharacter.getName().replace(" ", "_") + "_N"
+				+ selectedCharacter.getCurrentLevelNumber();
 	}
 
 }

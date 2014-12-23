@@ -31,6 +31,11 @@ public class BaseTextField extends JTextField {
 	public BaseTextField() {
 		setHorizontalAlignment(JTextField.CENTER);
 	}
+	
+	public BaseTextField(int columns) {
+		super(columns);
+		setHorizontalAlignment(JTextField.CENTER);
+	}
 
 	public BaseTextField(String value) {
 		super(value);

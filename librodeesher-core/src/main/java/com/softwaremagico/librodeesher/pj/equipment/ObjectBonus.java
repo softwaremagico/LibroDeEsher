@@ -29,4 +29,6 @@ public abstract class ObjectBonus extends StorableObject {
 	
 	public abstract String getBonusName();
 
+	public abstract void setBonusName(String value);
+
 }

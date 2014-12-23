@@ -45,7 +45,7 @@ public class MainMenu {
 			exitMenuItem;
 	private JMenuItem aboutMenuItem, cultureMenuItem, professionMenuItem, charactMenuItem, trainingMenuItem,
 			skillsMenuItem, perksMenuItem, historyMenuItem, levelUpMenuItem;
-	private JMenuItem insertCharacter, insertMagicObject, insertEquipment;
+	private JMenuItem insertMagicObject, insertEquipment;
 	private JMenuItem randomName, randomCharacter;
 	private JMenuItem optionsMenu;
 	private JFrame parentWindow;
@@ -220,12 +220,12 @@ public class MainMenu {
 		createMenu.setMnemonic(KeyEvent.VK_I);
 		createMenu.getAccessibleContext().setAccessibleDescription("Insertar un personaje.");
 
-		insertCharacter = new JMenuItem("Insertar Personaje", KeyEvent.VK_P);
-		insertCharacter.setIcon((Icon) getIcon("insert_character.png"));
-		insertCharacter.getAccessibleContext().setAccessibleDescription("Insertar un personaje.");
-		createMenu.add(insertCharacter);
-
-		createMenu.addSeparator();
+//		insertCharacter = new JMenuItem("Insertar Personaje", KeyEvent.VK_P);
+//		insertCharacter.setIcon((Icon) getIcon("insert_character.png"));
+//		insertCharacter.getAccessibleContext().setAccessibleDescription("Insertar un personaje.");
+//		createMenu.add(insertCharacter);
+//
+//		createMenu.addSeparator();
 
 		insertMagicObject = new JMenuItem("Insertar Objeto Mágico", KeyEvent.VK_M);
 		insertMagicObject.setIcon((Icon) getIcon("potion.png"));
@@ -402,6 +402,10 @@ public class MainMenu {
 
 	public void addImportLevelListener(ActionListener al) {
 		importLevelMenuItem.addActionListener(al);
+	}
+	
+	public void addInsertMagicItemListener(ActionListener al){
+		insertMagicObject.addActionListener(al);
 	}
 
 	class CloseListener implements ActionListener {
