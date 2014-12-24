@@ -222,8 +222,8 @@ public class Culture {
 				} else if (SkillFactory.existSkill(hobby)) {
 					hobbySkills.add(hobby);
 					// It is a special tag for a group of skills. Add it.
-				} else if (hobby.toLowerCase().equals(Spanish.CULTURE_WEAPON)
-						|| hobby.toLowerCase().equals(Spanish.CULTURE_ARMOUR)
+				} else if (hobby.toLowerCase().equals(Spanish.WEAPON)
+						|| hobby.toLowerCase().equals(Spanish.ARMOUR)
 						|| hobby.toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
 					hobbySkills.add(hobby);
 					// Is a culture skill: add it;

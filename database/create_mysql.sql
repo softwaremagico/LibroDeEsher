@@ -455,19 +455,6 @@
         primary key (TrainingSkillsSelected_ID, skills_KEY)
     );
 
-    create table T_TRAINING_SKILL_LIST (
-        ID bigint not null,
-        comparationId varchar(255) not null,
-        creationTime datetime not null,
-        updateTime datetime,
-        primary key (ID)
-    );
-
-    create table T_TRAINING_SKILL_LIST_OF_SKILLS (
-        TrainingSkillList_ID bigint not null,
-        trainingSkills_ID bigint not null
-    );
-
     alter table T_APPEARANCE 
         add constraint UK_hlcvnifaglalnf0dpfbcak1u8  unique (ID);
 
@@ -641,15 +628,6 @@
 
     alter table T_TRAINING_SKILLS_SELECTED 
         add constraint UK_s4duauy8ccp5mc0938bw027dl  unique (comparationId);
-
-    alter table T_TRAINING_SKILL_LIST 
-        add constraint UK_kmmv73vgorqjik0phftinv7ry  unique (ID);
-
-    alter table T_TRAINING_SKILL_LIST 
-        add constraint UK_b540l9pmnuvfrgj7une98ksax  unique (comparationId);
-
-    alter table T_TRAINING_SKILL_LIST_OF_SKILLS 
-        add constraint UK_116wv314ey74v4oy4plvy9ied  unique (trainingSkills_ID);
 
     alter table T_CHARACTERISTIC_ROLL_GROUP 
         add constraint FK_jb6k15e74i40yqa7r969c1qwx 
@@ -950,16 +928,6 @@
         add constraint FK_6byn9lj59rtyyr7wb695wfid2 
         foreign key (TrainingSkillsSelected_ID) 
         references T_TRAINING_SKILLS_SELECTED (ID);
-
-    alter table T_TRAINING_SKILL_LIST_OF_SKILLS 
-        add constraint FK_116wv314ey74v4oy4plvy9ied 
-        foreign key (trainingSkills_ID) 
-        references T_TRAINING_SKILL (ID);
-
-    alter table T_TRAINING_SKILL_LIST_OF_SKILLS 
-        add constraint FK_b7snr3gc1km45ah7e8ga8qecn 
-        foreign key (TrainingSkillList_ID) 
-        references T_TRAINING_SKILL_LIST (ID);
 
     create table hibernate_sequences (
          sequence_name varchar(255),

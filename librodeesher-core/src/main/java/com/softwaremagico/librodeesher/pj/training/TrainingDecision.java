@@ -113,7 +113,7 @@ public class TrainingDecision extends StorableObject {
 	}
 
 	public int getSkillRank(Integer trainingCategory, Skill skill) {
-		if (skillsSelected.get(trainingCategory) == null) {
+		if (skill== null || skillsSelected.get(trainingCategory) == null) {
 			return 0;
 		}
 		for (TrainingSkill trainingSkill : skillsSelected.get(trainingCategory)

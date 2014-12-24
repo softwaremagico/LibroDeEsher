@@ -41,8 +41,10 @@ public class Spanish {
 	public static final String FIREARMS_SKILL2 = "Fuego de Supresión";
 	public static final String FIREARMS_SKILL1 = "Percepción del Entorno: Munición";
 	public static final String CHI_SUFIX = "poderes chi:";
-	public static final String CULTURE_WEAPON = "arma";
-	public static final String CULTURE_ARMOUR = "armadura";
+	public static final String WEAPON = "arma";
+	public static final String PROJECTILE_WEAPON = "arma proyectiles";
+	public static final String CLOSE_COMBAT_WEAPON = "arma cuerpo a cuerpo";
+	public static final String ARMOUR = "armadura";
 	public static final String CULTURE_SPELLS = "lista de hechizos";
 	public static final String WEAPON_CATEGORY_PREFIX = "armas·";
 	public static final String SPELL_CATEGORY_PREFIX = "listas ";

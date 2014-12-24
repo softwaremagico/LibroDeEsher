@@ -194,7 +194,7 @@ public class ProfessionRandomness {
 			}
 			// Armors with ranks for fighters must be increased if value is low.
 			if (skill.getCategory().getName()
-					.startsWith(Spanish.CULTURE_ARMOUR)) {
+					.startsWith(Spanish.ARMOUR)) {
 				if (characterPlayer.getRealRanks(skill) > 0) {
 					if (skill.getCategory().getName().toLowerCase()
 							.equals(Spanish.LIGHT_ARMOUR_TAG)

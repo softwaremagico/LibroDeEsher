@@ -86,6 +86,7 @@ import com.softwaremagico.librodeesher.pj.race.Race;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.skills.SkillComparatorByValue;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.skills.SkillForEnablingMustBeSelected;
 import com.softwaremagico.librodeesher.pj.skills.SkillGroup;
@@ -1169,8 +1170,8 @@ public class CharacterPlayer extends StorableObject {
 	 */
 	public boolean isSkillInteresting(Skill skill) {
 		// Skill tags are not interesting
-		if (skill.getName().toLowerCase().equals(Spanish.CULTURE_WEAPON)
-				|| skill.getName().toLowerCase().equals(Spanish.CULTURE_ARMOUR)
+		if (skill.getName().toLowerCase().equals(Spanish.WEAPON)
+				|| skill.getName().toLowerCase().equals(Spanish.ARMOUR)
 				|| skill.getName().toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
 			return false;
 		}
@@ -1891,11 +1892,11 @@ public class CharacterPlayer extends StorableObject {
 	public List<String> getRealHobbySkills() {
 		List<String> realSkills = new ArrayList<>();
 		for (String skill : getCulture().getHobbySkills()) {
-			if (skill.toLowerCase().equals(Spanish.CULTURE_WEAPON)) {
+			if (skill.toLowerCase().equals(Spanish.WEAPON)) {
 				for (Weapon weapon : getCulture().getCultureWeapons()) {
 					realSkills.add(weapon.getName());
 				}
-			} else if (skill.toLowerCase().equals(Spanish.CULTURE_ARMOUR)) {
+			} else if (skill.toLowerCase().equals(Spanish.ARMOUR)) {
 				for (String armour : getCulture().getCultureArmours()) {
 					realSkills.add(armour);
 				}
@@ -1963,4 +1964,18 @@ public class CharacterPlayer extends StorableObject {
 			enabledSkill.put(skill.getName(), disabledSkill.getName());
 		}
 	}
+
+	public List<Skill> getSkillsOrderByValue(List<Skill> skills) {
+		Collections.sort(skills, new SkillComparatorByValue(this));
+		return skills;
+	}
+
+	public List<Skill> getSkillsFromCategoriesOrderByValue(List<Category> categories) {
+		List<Skill> skills = new ArrayList<>();
+		for (Category category : categories) {
+			skills.addAll(category.getSkills());
+		}
+		return getSkillsOrderByValue(skills);
+	}
+
 }

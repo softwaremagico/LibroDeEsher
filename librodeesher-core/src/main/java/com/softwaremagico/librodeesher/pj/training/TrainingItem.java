@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
+import com.softwaremagico.librodeesher.basics.Spanish;
+import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
+import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.persistence.StorableObject;
 
 @Entity
@@ -42,6 +45,27 @@ public class TrainingItem extends StorableObject {
 		this.probability = probability;
 		this.bonus = bonus;
 		this.skill = skill;
+		setType(skill);
+	}
+
+	private void setType(String tag) {
+		if (tag.toLowerCase().equals(Spanish.WEAPON) || tag.toLowerCase().equals(Spanish.ANY_WEAPON)) {
+			type = TrainingItemType.WEAPON;
+		} else if (tag.toLowerCase().equals(Spanish.CLOSE_COMBAT_WEAPON)) {
+			type = TrainingItemType.WEAPON_CLOSE_COMBAT;
+		} else if (tag.toLowerCase().equals(Spanish.PROJECTILE_WEAPON)) {
+			type = TrainingItemType.WEAPON_RANGED;
+		} else if (tag.toLowerCase().equals(Spanish.ARMOUR)) {
+			type = TrainingItemType.ARMOUR;
+		} else if (tag.toLowerCase().equals(Spanish.ANY_SKILL)) {
+			type = TrainingItemType.ANY;
+		} else if (SkillFactory.existSkill(tag)) {
+			type = TrainingItemType.SKILL;
+		} else if (CategoryFactory.existCategory(tag)) {
+			type = TrainingItemType.CATEGORY;
+		} else {
+			type = TrainingItemType.UNKNOWN;
+		}
 	}
 
 	public String getName() {
@@ -58,6 +82,10 @@ public class TrainingItem extends StorableObject {
 
 	public String getSkill() {
 		return skill;
+	}
+
+	public TrainingItemType getType() {
+		return type;
 	}
 
 }

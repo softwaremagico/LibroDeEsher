@@ -54,7 +54,7 @@ public class RandomCharacterPlayer {
 	// Store probability to increase speed.
 
 	/**
-	 * Creates an enterily new character.
+	 * Creates an entirely new character.
 	 * 
 	 * @param sex
 	 * @param race
@@ -78,6 +78,7 @@ public class RandomCharacterPlayer {
 		this.culture = culture;
 		this.profession = profession;
 		feedbackListeners = new ArrayList<>();
+		suggestedTrainings = new ArrayList<>();
 	}
 
 	/**
@@ -806,6 +807,14 @@ public class RandomCharacterPlayer {
 				Collections.reverse(skills);
 			}
 		}
+	}
+
+	public List<String> getSuggestedTrainings() {
+		return suggestedTrainings;
+	}
+
+	public void setSuggestedTrainings(List<String> suggestedTrainings) {
+		this.suggestedTrainings = suggestedTrainings;
 	}
 
 }

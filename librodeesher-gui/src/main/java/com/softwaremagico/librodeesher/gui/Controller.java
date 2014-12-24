@@ -447,6 +447,17 @@ public class Controller {
 							try {
 								RandomCharacterPlayer randomCharacter = new RandomCharacterPlayer(character,
 										randomWindow.getFinalLevel());
+								randomCharacter.setSuggestedTrainings(randomWindow.getSuggestedTrainingList());
+								for (String categoryName : randomWindow.getSuggestedCategoriesRanks()
+										.keySet()) {
+									randomCharacter.setSuggestedCategoryRanks(categoryName, randomWindow
+											.getSuggestedCategoriesRanks().get(categoryName));
+								}
+								for (String skillName : randomWindow.getSuggestedSkillsRanks().keySet()) {
+									randomCharacter.setSuggestedCategoryRanks(skillName, randomWindow
+											.getSuggestedSkillsRanks().get(skillName));
+								}
+
 								randomCharacter.addFeedbackListener(new RandomFeedbackListener() {
 
 									@Override

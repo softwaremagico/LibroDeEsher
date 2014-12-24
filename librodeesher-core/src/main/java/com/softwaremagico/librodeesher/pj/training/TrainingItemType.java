@@ -6,10 +6,16 @@ public enum TrainingItemType {
 	WEAPON_CLOSE_COMBAT,
 
 	WEAPON_RANGED,
+	
+	ARMOUR,
 
 	SKILL,
 
-	CATEGORY;
+	CATEGORY, 
+	
+	ANY,
+	
+	UNKNOWN;
 
 	private String details;
 

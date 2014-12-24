@@ -74,7 +74,7 @@ public class CultureCategory {
 	public CultureSkill addSkillFromLine(String skillLine) throws InvalidCultureException {
 		skillLine = skillLine.replace("*", "").trim();
 		String[] skillColumns = skillLine.split("\t");
-		if (skillColumns[0].toLowerCase().equals(Spanish.CULTURE_WEAPON)
+		if (skillColumns[0].toLowerCase().equals(Spanish.WEAPON)
 				|| skillColumns[0].toLowerCase().equals(Spanish.CULTURE_SPELLS)
 				|| skillColumns[0].toLowerCase().equals(Spanish.CULTURE_LANGUAGE_TAG)) {
 			try {

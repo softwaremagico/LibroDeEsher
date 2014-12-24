@@ -189,7 +189,7 @@ public class RandomWindow extends BaseFrame {
 		buttonPanel.add(new JPanel());
 		buttonPanel.add(new JPanel());
 
-		JButton acceptButton = new BaseButton("Aceptar");
+		final JButton acceptButton = new BaseButton("Aceptar");
 		acceptButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -201,6 +201,7 @@ public class RandomWindow extends BaseFrame {
 				for (RandomCharacterUpdatedListener listener : randomCharacterUpdatedListeners) {
 					listener.updatedCharacter(characterPlayer);
 				}
+				acceptButton.setEnabled(false);
 			}
 		});
 		buttonPanel.add(acceptButton);
@@ -498,5 +499,17 @@ public class RandomWindow extends BaseFrame {
 
 	public int getFinalLevel() {
 		return (Integer) levelSpinner.getValue();
+	}
+
+	public List<String> getSuggestedTrainingList() {
+		return suggestedTrainingList;
+	}
+
+	public Map<String, Integer> getSuggestedSkillsRanks() {
+		return suggestedSkillsRanks;
+	}
+
+	public Map<String, Integer> getSuggestedCategoriesRanks() {
+		return suggestedCategoriesRanks;
 	}
 }
