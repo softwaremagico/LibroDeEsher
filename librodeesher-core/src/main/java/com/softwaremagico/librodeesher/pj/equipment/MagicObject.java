@@ -2,6 +2,7 @@ package com.softwaremagico.librodeesher.pj.equipment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +11,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
+import com.softwaremagico.librodeesher.pj.random.TrainingProbability;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
+import com.softwaremagico.librodeesher.pj.training.TrainingItem;
+import com.softwaremagico.log.EsherLog;
 import com.softwaremagico.persistence.StorableObject;
 
 @Entity
@@ -159,5 +168,75 @@ public class MagicObject extends StorableObject {
 	@Override
 	public String toString() {
 		return getName();
+	}
+	
+	public static List<MagicObject> convertTrainingEquipmentToMagicObject(CharacterPlayer characterPlayer,
+			String trainingName) {
+		List<MagicObject> magicObjects = new ArrayList<>();
+		List<TrainingItem> equipment = characterPlayer.getTrainingDecision(trainingName).getEquipment();
+		for (TrainingItem item : equipment) {
+			List<Category> categories;
+			List<Skill> skills;
+
+			switch (item.getType()) {
+			case WEAPON:
+				categories = CategoryFactory.getWeaponsCategories();
+				skills = characterPlayer.getSkillsFromCategoriesOrderByValue(categories);
+				magicObjects.add(createMagicObjectFor(skills.get(0), item));
+				break;
+			case WEAPON_CLOSE_COMBAT:
+				categories = CategoryFactory.getCloseCombatWeapons();
+				skills = characterPlayer.getSkillsFromCategoriesOrderByValue(categories);
+				magicObjects.add(createMagicObjectFor(skills.get(0), item));
+				break;
+			case WEAPON_RANGED:
+				categories = CategoryFactory.getLongRangeWeapons();
+				skills = characterPlayer.getSkillsFromCategoriesOrderByValue(categories);
+				magicObjects.add(createMagicObjectFor(skills.get(0), item));
+				break;
+			case ARMOUR:
+				MagicObject magicArmour = new MagicObject();
+				magicArmour.setOthersBonus(OtherBonusType.DEFENSIVE_BONUS, item.getBonus());
+				magicObjects.add(magicArmour);
+				break;
+			case SKILL:
+				MagicObject magicObjectOfSkill = new MagicObject();
+				Skill skill = SkillFactory.getAvailableSkill(item.getSkill());
+				if (skill != null) {
+					magicObjectOfSkill.setSkillBonus(skill.getName(), item.getBonus());
+					magicObjects.add(magicObjectOfSkill);
+				} else {
+					EsherLog.warning(TrainingProbability.class.getName(), "Skill '" + item.getSkill()
+							+ "' not found when creating a magic object of training '" + trainingName + "'.");
+				}
+				break;
+			case ANY:
+				skills = characterPlayer.getSkillsOrderByValue(SkillFactory.getSkills());
+				magicObjects.add(createMagicObjectFor(skills.get(new Random().nextInt(skills.size() / 10)),
+						item));
+				break;
+			case CATEGORY:
+				MagicObject magicObjectOfCategory = new MagicObject();
+				Category category = CategoryFactory.getCategory(item.getSkill());
+				if (category != null) {
+					magicObjectOfCategory.setCategoryBonus(category.getName(), item.getBonus());
+					magicObjects.add(magicObjectOfCategory);
+				} else {
+					EsherLog.warning(TrainingProbability.class.getName(), "Category '" + item.getSkill()
+							+ "' not found when creating a magic object of training '" + trainingName + "'.");
+				}
+				break;
+			default:
+				// Nothing.
+				break;
+			}
+		}
+		return magicObjects;
+	}
+	
+	private static MagicObject createMagicObjectFor(Skill skill, TrainingItem trainingItem) {
+		MagicObject magicObject = new MagicObject();
+		magicObject.setSkillBonus(skill.getName(), trainingItem.getBonus());
+		return magicObject;
 	}
 }

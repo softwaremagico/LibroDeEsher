@@ -39,7 +39,7 @@ public class TrainingDecision extends StorableObject {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	// TrainingCategoryIndex -> TrainingCategoriesSelected
 	private Map<Integer, TrainingCategoriesSelected> categoriesSelected;
-	
+
 	@Expose
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -48,13 +48,13 @@ public class TrainingDecision extends StorableObject {
 	// Defines all ranks in a skill for a training. If no skills selected
 	// options is a list with one skill.
 	private Map<Integer, TrainingSkillsSelected> skillsSelected;
-	
+
 	@Expose
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(name = "T_TRAINING_CHARACTERISTICS_UPDATES")
 	private List<CharacteristicRoll> characteristicsUpdates;
-	
+
 	@Expose
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -77,10 +77,8 @@ public class TrainingDecision extends StorableObject {
 		resetIds(categoriesSelected);
 	}
 
-	public void addSelectedCategory(Integer trainingCategory,
-			String categoryName) {
-		TrainingCategoriesSelected categories = categoriesSelected
-				.get(trainingCategory);
+	public void addSelectedCategory(Integer trainingCategory, String categoryName) {
+		TrainingCategoriesSelected categories = categoriesSelected.get(trainingCategory);
 		if (categories == null) {
 			categories = new TrainingCategoriesSelected();
 		}
@@ -89,16 +87,14 @@ public class TrainingDecision extends StorableObject {
 	}
 
 	public List<String> getSelectedCategory(Integer trainingCategory) {
-		TrainingCategoriesSelected categories = categoriesSelected
-				.get(trainingCategory);
+		TrainingCategoriesSelected categories = categoriesSelected.get(trainingCategory);
 		if (categories == null) {
 			categories = new TrainingCategoriesSelected();
 		}
 		return categories.getAll();
 	}
 
-	public void setSkillRank(Integer trainingCategory, TrainingSkill skill,
-			int ranks) {
+	public void setSkillRank(Integer trainingCategory, TrainingSkill skill, int ranks) {
 		if (skillsSelected.get(trainingCategory) == null) {
 			skillsSelected.put(trainingCategory, new TrainingSkillsSelected());
 		}
@@ -106,19 +102,19 @@ public class TrainingDecision extends StorableObject {
 	}
 
 	public int getSkillRank(Integer trainingCategory, TrainingSkill skill) {
-		if (skillsSelected.get(trainingCategory) == null || skillsSelected.get(trainingCategory).getSkills().get(skill)==null) {
+		if (skillsSelected.get(trainingCategory) == null
+				|| skillsSelected.get(trainingCategory).getSkills().get(skill) == null) {
 			return 0;
 		}
 		return skillsSelected.get(trainingCategory).getSkills().get(skill);
 	}
 
 	public int getSkillRank(Integer trainingCategory, Skill skill) {
-		if (skill== null || skillsSelected.get(trainingCategory) == null) {
+		if (skill == null || skillsSelected.get(trainingCategory) == null) {
 			return 0;
 		}
-		for (TrainingSkill trainingSkill : skillsSelected.get(trainingCategory)
-				.getSkills().keySet()) {
-			if (trainingSkill.getName().equals(skill.getName())) {
+		for (TrainingSkill trainingSkill : skillsSelected.get(trainingCategory).getSkills().keySet()) {
+			if (trainingSkill.getName() != null && trainingSkill.getName().equals(skill.getName())) {
 				return getSkillRank(trainingCategory, trainingSkill);
 			}
 		}
@@ -133,8 +129,7 @@ public class TrainingDecision extends StorableObject {
 		return categoriesSelected;
 	}
 
-	protected void setCategoriesSelected(
-			Map<Integer, TrainingCategoriesSelected> categoriesSelected) {
+	protected void setCategoriesSelected(Map<Integer, TrainingCategoriesSelected> categoriesSelected) {
 		this.categoriesSelected = categoriesSelected;
 	}
 
@@ -142,14 +137,11 @@ public class TrainingDecision extends StorableObject {
 		return skillsSelected;
 	}
 
-	public Map<TrainingSkill, Integer> getSkillRanks(
-			TrainingCategory trainingCategory) {
+	public Map<TrainingSkill, Integer> getSkillRanks(TrainingCategory trainingCategory) {
 		Map<TrainingSkill, Integer> result = new HashMap<>();
-		TrainingCategoriesSelected categorySelected = categoriesSelected
-				.get(trainingCategory);
+		TrainingCategoriesSelected categorySelected = categoriesSelected.get(trainingCategory);
 		if (categorySelected != null) {
-			TrainingSkillsSelected trainingSkills = skillsSelected
-					.get(categorySelected);
+			TrainingSkillsSelected trainingSkills = skillsSelected.get(categorySelected);
 			if (trainingSkills != null) {
 				result = trainingSkills.getSkills();
 			}
@@ -157,10 +149,8 @@ public class TrainingDecision extends StorableObject {
 		return result;
 	}
 
-	public Map<TrainingSkill, Integer> getSkillRanks(
-			TrainingCategoriesSelected categorySelected) {
-		TrainingSkillsSelected trainingSkills = skillsSelected
-				.get(categorySelected);
+	public Map<TrainingSkill, Integer> getSkillRanks(TrainingCategoriesSelected categorySelected) {
+		TrainingSkillsSelected trainingSkills = skillsSelected.get(categorySelected);
 		Map<TrainingSkill, Integer> result = new HashMap<>();
 		if (trainingSkills != null) {
 			result = trainingSkills.getSkills();
@@ -168,8 +158,7 @@ public class TrainingDecision extends StorableObject {
 		return result;
 	}
 
-	protected void setSkillsSelected(
-			Map<Integer, TrainingSkillsSelected> skillsSelected) {
+	protected void setSkillsSelected(Map<Integer, TrainingSkillsSelected> skillsSelected) {
 		this.skillsSelected = skillsSelected;
 	}
 
@@ -177,22 +166,18 @@ public class TrainingDecision extends StorableObject {
 		skillsSelected.remove(trainingCategory);
 	}
 
-	public CharacteristicRoll addCharactersiticUpdate(
-			CharacteristicsAbbreviature abbreviature,
-			Integer currentTemporalValue, Integer currentPotentialValue,
-			Roll roll) {
-		CharacteristicRoll characteristicRoll = new CharacteristicRoll(
-				abbreviature, currentTemporalValue, currentPotentialValue, roll);
+	public CharacteristicRoll addCharactersiticUpdate(CharacteristicsAbbreviature abbreviature,
+			Integer currentTemporalValue, Integer currentPotentialValue, Roll roll) {
+		CharacteristicRoll characteristicRoll = new CharacteristicRoll(abbreviature, currentTemporalValue,
+				currentPotentialValue, roll);
 		characteristicsUpdates.add(characteristicRoll);
 		return characteristicRoll;
 	}
 
-	public List<CharacteristicRoll> getCharacteristicsUpdates(
-			CharacteristicsAbbreviature abbreviature) {
+	public List<CharacteristicRoll> getCharacteristicsUpdates(CharacteristicsAbbreviature abbreviature) {
 		List<CharacteristicRoll> returnList = new ArrayList<>();
 		for (CharacteristicRoll characteristicRollGroup : characteristicsUpdates) {
-			if (characteristicRollGroup.getCharacteristicAbbreviature().equals(
-					abbreviature)) {
+			if (characteristicRollGroup.getCharacteristicAbbreviature().equals(abbreviature)) {
 				returnList.add(characteristicRollGroup);
 			}
 		}
@@ -204,8 +189,7 @@ public class TrainingDecision extends StorableObject {
 		return characteristicsUpdates;
 	}
 
-	protected void setCharacteristicsUpdates(
-			List<CharacteristicRoll> characteristicsUpdates) {
+	protected void setCharacteristicsUpdates(List<CharacteristicRoll> characteristicsUpdates) {
 		this.characteristicsUpdates = characteristicsUpdates;
 	}
 

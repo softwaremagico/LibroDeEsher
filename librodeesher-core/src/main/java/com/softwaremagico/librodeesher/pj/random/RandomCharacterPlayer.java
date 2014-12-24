@@ -15,6 +15,7 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
+import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
 import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
 import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
@@ -581,13 +582,20 @@ public class RandomCharacterPlayer {
 		}
 		EsherLog.debug(RandomCharacterPlayer.class.getName(),
 				"Final remaining DP: " + characterPlayer.getRemainingDevelopmentPoints());
+		// EsherLog.debug(RandomCharacterPlayer.class.getName(),
+		// characterPlayer.getTotalDevelopmentPoints() + " - " +
+		// characterPlayer.getSpentDevelopmentPointsInCategoryRanks(characterPlayer.getCurrentLevelNumber()-1)
+		// + "/" +
+		// characterPlayer.getSpentDevelopmentPointsInSkillsRanks(characterPlayer.getCurrentLevelNumber()-1)
+		// + "/"+
+		// characterPlayer.getSpentDevelopmentPointsInTrainings(characterPlayer.getCurrentLevelNumber()-1));
 	}
 
 	public static void setRandomRanks(CharacterPlayer characterPlayer, int specializationLevel,
 			Map<String, Integer> suggestedSkillsRanks, Integer tries, int finalLevel,
 			Map<Category, Integer> categoryProbabilityStored, Map<Skill, Integer> skillProbabilityStored) {
-		int developmentPoints = characterPlayer.getRemainingDevelopmentPoints();
 		List<Category> sortedCategoriesByCost = CategoryFactory.getCategories();
+		int developmentPoints = characterPlayer.getRemainingDevelopmentPoints();
 		// shuffle it!
 		Collections.sort(sortedCategoriesByCost, new CategoryComparatorByCost(characterPlayer));
 		for (int i = 0; i < sortedCategoriesByCost.size(); i++) {
@@ -609,7 +617,7 @@ public class RandomCharacterPlayer {
 			if (categoryProbabilityStored.get(category) > 0
 					&& Math.random() * 100 + 1 < categoryProbabilityStored.get(category) + tries * 3) {
 				characterPlayer.setCurrentLevelRanks(category, new Integer(characterPlayer.getCurrentLevel()
-						.getCategoryRanks(category.getName()) + tries));
+						.getCategoryRanks(category.getName()) + 1));
 				developmentPoints = characterPlayer.getRemainingDevelopmentPoints();
 				// Probability change. Remove stored one.
 				categoryProbabilityStored.remove(category);
@@ -789,6 +797,10 @@ public class RandomCharacterPlayer {
 
 		// Set random Objects.
 		TrainingProbability.setRandomObjects(characterPlayer, trainingName);
+		List<MagicObject> trainingObjects = MagicObject.convertTrainingEquipmentToMagicObject(
+				characterPlayer, trainingName);
+		characterPlayer.getMagicItems().addAll(trainingObjects);
+
 	}
 
 	/**
