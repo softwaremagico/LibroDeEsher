@@ -76,6 +76,7 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 		return category.hasRanks();
 	}
 
+	@Override
 	protected void setElements() {
 		this.removeAll();
 		Integer previousRanks = character.getPreviousRanks(category);

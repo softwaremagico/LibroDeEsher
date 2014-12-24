@@ -57,6 +57,7 @@ public class EditMagicItemPanel extends BasePanel {
 	private BaseTextField descriptionField, nameField;
 	private MagicObject magicObject;
 	private List<MagicObjectNameUpdated> nameListeners;
+	private ResumeMagicObjectPanel magicObjectResume;
 
 	public interface MagicObjectNameUpdated {
 		void updatedName(MagicObject magicObject);
@@ -216,6 +217,17 @@ public class EditMagicItemPanel extends BasePanel {
 		constraints.gridwidth = 1;
 		constraints.weightx = 0;
 		add(skillSpinner, constraints);
+
+		magicObjectResume = new ResumeMagicObjectPanel();
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.anchor =  GridBagConstraints.LINE_START;
+		constraints.gridx = 0;
+		constraints.gridy = 7;
+		constraints.gridwidth = 5;
+		constraints.gridheight = 3;
+		constraints.weightx = 1;
+		constraints.weighty = 1;
+		add(magicObjectResume, constraints);
 	}
 
 	private CategoryComboBox createCategoryComboBox() {
@@ -260,8 +272,11 @@ public class EditMagicItemPanel extends BasePanel {
 			@Override
 			public void valueChanged(int value) {
 				if (magicObject != null) {
-					magicObject.setCategoryBonus(((Category) categoryComboBox.getSelectedItem()).getName(),
-							value);
+					if (categoryComboBox.getSelectedItem() != null) {
+						magicObject.setCategoryBonus(
+								((Category) categoryComboBox.getSelectedItem()).getName(), value);
+					}
+					magicObjectResume.update(magicObject);
 				}
 			}
 		});
@@ -275,7 +290,10 @@ public class EditMagicItemPanel extends BasePanel {
 			@Override
 			public void valueChanged(int value) {
 				if (magicObject != null) {
-					magicObject.setSkillBonus(((Skill) skillComboBox.getSelectedItem()).getName(), value);
+					if (skillComboBox.getSelectedItem() != null) {
+						magicObject.setSkillBonus(((Skill) skillComboBox.getSelectedItem()).getName(), value);
+					}
+					magicObjectResume.update(magicObject);
 				}
 			}
 		});
@@ -308,6 +326,7 @@ public class EditMagicItemPanel extends BasePanel {
 			skillSpinner.setValue(0);
 			categorySpinner.setValue(0);
 		}
+		magicObjectResume.update(magicObject);
 		update();
 	}
 

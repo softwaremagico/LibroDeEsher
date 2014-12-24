@@ -47,7 +47,7 @@ public class InsertMagicItemWindow extends BaseFrame {
 
 	public InsertMagicItemWindow(CharacterPlayer character) {
 		this.character = character;
-		defineWindow(400, 300);
+		defineWindow(400, 400);
 		setResizable(false);
 		setElements();
 	}

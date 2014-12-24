@@ -61,13 +61,9 @@ public class SkillListPanel extends BaseSkillPanel {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void updateSkillsOfCategory(Category category) {
-		// TODO Auto-generated method stub
-		
+	public void updateSkillsOfCategory(Category category) {		
 	}
 }

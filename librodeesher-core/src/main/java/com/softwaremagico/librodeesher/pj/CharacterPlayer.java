@@ -814,8 +814,10 @@ public class CharacterPlayer extends StorableObject {
 				} else {
 					// Selected category from list
 					TrainingDecision trainingDecision = getTrainingDecisions().get(trainingName);
-					if (trainingDecision.getSelectedCategory(
-							training.getTrainingCategoryIndex(trainingCategory)).contains(category.getName())) {
+					if (trainingDecision != null
+							&& trainingDecision.getSelectedCategory(
+									training.getTrainingCategoryIndex(trainingCategory)).contains(
+									category.getName())) {
 						total += trainingCategory.getCategoryRanks();
 					}
 				}
