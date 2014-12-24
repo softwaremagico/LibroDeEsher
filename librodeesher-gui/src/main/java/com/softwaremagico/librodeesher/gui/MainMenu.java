@@ -45,7 +45,7 @@ public class MainMenu {
 			exitMenuItem;
 	private JMenuItem aboutMenuItem, cultureMenuItem, professionMenuItem, charactMenuItem, trainingMenuItem,
 			skillsMenuItem, perksMenuItem, historyMenuItem, levelUpMenuItem;
-	private JMenuItem insertMagicObject, insertEquipment;
+	private JMenuItem insertMagicObject;
 	private JMenuItem randomName, randomCharacter;
 	private JMenuItem optionsMenu;
 	private JFrame parentWindow;
@@ -232,10 +232,10 @@ public class MainMenu {
 		insertMagicObject.getAccessibleContext().setAccessibleDescription("Insertar un objeto mágico.");
 		createMenu.add(insertMagicObject);
 
-		insertEquipment = new JMenuItem("Insertar Equipo", KeyEvent.VK_E);
-		insertEquipment.setIcon((Icon) getIcon("horse.png"));
-		insertEquipment.getAccessibleContext().setAccessibleDescription("Insertar equipo.");
-		createMenu.add(insertEquipment);
+//		insertEquipment = new JMenuItem("Insertar Equipo", KeyEvent.VK_E);
+//		insertEquipment.setIcon((Icon) getIcon("horse.png"));
+//		insertEquipment.getAccessibleContext().setAccessibleDescription("Insertar equipo.");
+//		createMenu.add(insertEquipment);
 
 		return createMenu;
 	}

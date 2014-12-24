@@ -26,9 +26,14 @@ public abstract class ObjectBonus extends StorableObject {
 	public void resetIds() {
 		setId(null);
 	}
-	
+
 	public abstract String getBonusName();
 
 	public abstract void setBonusName(String value);
+
+	@Override
+	public String toString() {
+		return getBonusName() + " (" + getBonus() + ")";
+	}
 
 }

@@ -1,9 +1,38 @@
 package com.softwaremagico.librodeesher.gui.magicitem;
 
+/*
+ * #%L
+ * Libro de Esher (GUI)
+ * %%
+ * Copyright (C) 2007 - 2014 Softwaremagico
+ * %%
+ * This software is designed by Jorge Hortelano Otero. Jorge Hortelano Otero
+ * <softwaremagico@gmail.com> Valencia (Spain).
+ *  
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *  
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *  
+ * You should have received a copy of the GNU General Public License along with
+ * this program; If not, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * #L%
+ */
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
@@ -25,10 +54,17 @@ public class EditMagicItemPanel extends BasePanel {
 	private CategoryComboBox categoryComboBox;
 	private SkillComboBox skillComboBox;
 	private BaseSpinner categorySpinner, skillSpinner;
+	private BaseTextField descriptionField, nameField;
 	private MagicObject magicObject;
+	private List<MagicObjectNameUpdated> nameListeners;
+
+	public interface MagicObjectNameUpdated {
+		void updatedName(MagicObject magicObject);
+	}
 
 	protected EditMagicItemPanel(MagicObject magicObject) {
 		this.magicObject = magicObject;
+		nameListeners = new ArrayList<>();
 		setElements();
 		update();
 	}
@@ -44,7 +80,7 @@ public class EditMagicItemPanel extends BasePanel {
 		constraints.gridy = 0;
 		constraints.weightx = 0;
 		constraints.weighty = 0;
-		
+
 		JLabel nameLabel = new JLabel("Nombre:");
 		nameLabel.setFont(Fonts.getInstance().getBoldFont());
 		constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -52,14 +88,41 @@ public class EditMagicItemPanel extends BasePanel {
 		constraints.gridy = 0;
 		constraints.gridwidth = 3;
 		add(nameLabel, constraints);
-		
-		BaseTextField nameField = new BaseTextField();
+
+		nameField = new BaseTextField();
+		nameField.setHorizontalAlignment(JTextField.LEFT);
+		nameField.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				if (magicObject != null) {
+					magicObject.setName(nameField.getText());
+					updateNameListeners();
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				if (magicObject != null) {
+					magicObject.setName(nameField.getText());
+					updateNameListeners();
+				}
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if (magicObject != null) {
+					magicObject.setName(nameField.getText());
+					updateNameListeners();
+				}
+			}
+		});
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		constraints.gridwidth = GridBagConstraints.REMAINDER;
 		add(nameField, constraints);
-		
+
 		JLabel descriptonLabel = new JLabel("Descripción:");
 		descriptonLabel.setFont(Fonts.getInstance().getBoldFont());
 		constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -67,8 +130,32 @@ public class EditMagicItemPanel extends BasePanel {
 		constraints.gridy = 2;
 		constraints.gridwidth = 3;
 		add(descriptonLabel, constraints);
-		
-		BaseTextField descriptionField = new BaseTextField();
+
+		descriptionField = new BaseTextField();
+		descriptionField.setHorizontalAlignment(JTextField.LEFT);
+		descriptionField.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				if (magicObject != null) {
+					magicObject.setDescription(descriptionField.getText());
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				if (magicObject != null) {
+					magicObject.setDescription(descriptionField.getText());
+				}
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if (magicObject != null) {
+					magicObject.setDescription(descriptionField.getText());
+				}
+			}
+		});
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.gridx = 0;
 		constraints.gridy = 3;
@@ -197,10 +284,10 @@ public class EditMagicItemPanel extends BasePanel {
 
 	@Override
 	public void update() {
-		skillComboBox.setEnabled(magicObject!=null);
-		categoryComboBox.setEnabled(magicObject!=null);
-		categorySpinner.setEnabled(magicObject!=null);
-		skillSpinner.setEnabled(magicObject!=null);
+		skillComboBox.setEnabled(magicObject != null);
+		categoryComboBox.setEnabled(magicObject != null);
+		categorySpinner.setEnabled(magicObject != null);
+		skillSpinner.setEnabled(magicObject != null);
 	}
 
 	public MagicObject getMagicObject() {
@@ -209,8 +296,29 @@ public class EditMagicItemPanel extends BasePanel {
 
 	public void setMagicObject(MagicObject magicObject) {
 		this.magicObject = magicObject;
+		if (magicObject != null) {
+			nameField.setText(magicObject.getName());
+			descriptionField.setText(magicObject.getDescription());
+			skillSpinner.setValue(magicObject.getSkillBonus(skillComboBox.getSelectedItem().toString()));
+			categorySpinner.setValue(magicObject.getCategoryBonus(categoryComboBox.getSelectedItem()
+					.toString()));
+		} else {
+			nameField.setText("");
+			descriptionField.setText("");
+			skillSpinner.setValue(0);
+			categorySpinner.setValue(0);
+		}
+		update();
 	}
-	
-	
+
+	public void addNameUpdateListener(MagicObjectNameUpdated listener) {
+		nameListeners.add(listener);
+	}
+
+	private void updateNameListeners() {
+		for (MagicObjectNameUpdated listener : nameListeners) {
+			listener.updatedName(magicObject);
+		}
+	}
 
 }

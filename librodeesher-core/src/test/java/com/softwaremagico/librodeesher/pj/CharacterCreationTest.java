@@ -123,7 +123,7 @@ public class CharacterCreationTest {
 		MagicObject magicSword = new MagicObject();
 		SkillBonus objectBonus = new SkillBonus();
 		objectBonus.setBonus(20);
-		objectBonus.setSkill(broadSword.getName());
+		objectBonus.setBonusName(broadSword.getName());
 		magicSword.getBonus().add(objectBonus);
 
 		characterPlayer.getMagicItems().add(magicSword);

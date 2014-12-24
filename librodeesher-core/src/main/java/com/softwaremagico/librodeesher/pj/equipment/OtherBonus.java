@@ -12,5 +12,9 @@ public class OtherBonus extends ObjectBonus {
 	public String getBonusName() {
 		return "";
 	}
+
+	@Override
+	public void setBonusName(String value) {
+	}
 	
 }

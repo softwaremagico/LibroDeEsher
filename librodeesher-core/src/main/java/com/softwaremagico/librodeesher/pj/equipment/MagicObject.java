@@ -94,7 +94,7 @@ public class MagicObject extends StorableObject {
 		for (ObjectBonus objectBonus : new ArrayList<>(bonus)) {
 			if (objectBonus instanceof CategoryBonus) {
 				if (objectBonus.getBonusName().equals(categoryName)) {
-					objectBonus.getBonus();
+					return objectBonus.getBonus();
 				}
 			}
 		}
@@ -116,10 +116,14 @@ public class MagicObject extends StorableObject {
 		}
 		if (bonusValue != 0) {
 			// Not existing bonus, create a new one.
-			CategoryBonus skillBonus = new CategoryBonus();
-			skillBonus.setBonusName(categoryName);
-			skillBonus.setBonus(bonusValue);
-			bonus.add(skillBonus);
+			CategoryBonus categoryBonus = new CategoryBonus();
+			categoryBonus.setBonusName(categoryName);
+			categoryBonus.setBonus(bonusValue);
+			bonus.add(categoryBonus);
 		}
+	}
+	
+	public String toString(){
+		return getName();
 	}
 }

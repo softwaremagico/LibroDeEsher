@@ -145,8 +145,10 @@ public class GenericSkillLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 13;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			otherBonus = new ListLabel((character.getProfession().getSkillBonus(skill.getName()) + character.getHistorial().getBonus(skill)
-					+ character.getPerkBonus(skill))+"", columnWidth, columnHeight);
+			otherBonus = new ListLabel(
+					(character.getProfession().getSkillBonus(skill.getName())
+							+ character.getHistorial().getBonus(skill) + character.getPerkBonus(skill) + character.getConditionalPerkBonus(skill))
+							+ "", columnWidth, columnHeight);
 			add(otherBonus, gridBagConstraints);
 		}
 

@@ -162,7 +162,10 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 13;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			otherBonus = new BoldListLabel(character.getBonus(category).toString(), columnWidth, columnHeight);
+			otherBonus = new BoldListLabel(
+					(category.getBonus() + character.getProfession().getCategoryBonus(category.getName())
+							+ character.getHistorial().getBonus(category) + character.getPerkBonus(category) + character.getConditionalPerkBonus(category))
+							+ "", columnWidth, columnHeight);
 			add(new ListBackgroundPanel(otherBonus, background), gridBagConstraints);
 		}
 
@@ -170,7 +173,8 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 15;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			bonusMagicObject = new BoldListLabel("0", columnWidth, columnHeight);
+			bonusMagicObject = new BoldListLabel(character.getItemBonus(category) + "", columnWidth,
+					columnHeight);
 			add(new ListBackgroundPanel(bonusMagicObject, background), gridBagConstraints);
 		}
 
