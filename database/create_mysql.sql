@@ -412,6 +412,7 @@
         creationTime datetime not null,
         updateTime datetime,
         bonus integer not null,
+        type integer,
         primary key (ID)
     );
 

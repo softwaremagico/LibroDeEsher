@@ -123,5 +123,6 @@ public class Spanish {
 	public static final String WEAPONS_CLAW = "Ataque Racial: Extremidades";
 	public static final String WEAPONS_BITE = "Ataque Racial: Boca";
 	public static final String WEAPONS_OTHERS = "Ataque Racial: Otros";
+	public static final String DEFENSIVE_BONUS = "Bonificación Defensiva";
 	
 }

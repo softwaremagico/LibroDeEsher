@@ -43,20 +43,23 @@ import com.softwaremagico.librodeesher.gui.elements.CategoryComboBox;
 import com.softwaremagico.librodeesher.gui.elements.SkillChangedListener;
 import com.softwaremagico.librodeesher.gui.elements.SkillComboBox;
 import com.softwaremagico.librodeesher.gui.elements.SpinnerValueChangedListener;
+import com.softwaremagico.librodeesher.gui.magicitem.OtherBonusComboBox.OthersChangedListener;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.gui.style.Fonts;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
+import com.softwaremagico.librodeesher.pj.equipment.OtherBonusType;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class EditMagicItemPanel extends BasePanel {
 	private static final long serialVersionUID = 689205483854072507L;
 	private CategoryComboBox categoryComboBox;
 	private SkillComboBox skillComboBox;
-	private BaseSpinner categorySpinner, skillSpinner;
+	private BaseSpinner categorySpinner, skillSpinner, othersSpinner;
 	private BaseTextField descriptionField, nameField;
 	private MagicObject magicObject;
 	private List<MagicObjectNameUpdated> nameListeners;
+	private OtherBonusComboBox othersComboBox;
 	private ResumeMagicObjectPanel magicObjectResume;
 
 	public interface MagicObjectNameUpdated {
@@ -211,18 +214,41 @@ public class EditMagicItemPanel extends BasePanel {
 		if (categorySpinner.getValue() != null) {
 			skillComboBox.setSkills((Category) categoryComboBox.getSelectedItem());
 		}
-
+		
 		constraints.gridx = 4;
 		constraints.gridy = 6;
 		constraints.gridwidth = 1;
 		constraints.weightx = 0;
 		add(skillSpinner, constraints);
+		
+		JLabel othersLabel = new JLabel("Otros:");
+		constraints.fill = GridBagConstraints.NONE;
+		constraints.gridx = 0;
+		constraints.gridy = 7;
+		constraints.gridwidth = 1;
+		add(othersLabel, constraints);
+
+		othersComboBox = createOtherBonusComboBox();
+		othersSpinner = createOtherSpinner();
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 1;
+		constraints.gridy = 7;
+		constraints.gridwidth = 3;
+		constraints.weightx = 1;
+		add(othersComboBox, constraints);
+		
+
+		constraints.gridx = 4;
+		constraints.gridy = 7;
+		constraints.gridwidth = 1;
+		constraints.weightx = 0;
+		add(othersSpinner, constraints);
 
 		magicObjectResume = new ResumeMagicObjectPanel();
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.anchor =  GridBagConstraints.LINE_START;
 		constraints.gridx = 0;
-		constraints.gridy = 7;
+		constraints.gridy = 8;
 		constraints.gridwidth = 5;
 		constraints.gridheight = 3;
 		constraints.weightx = 1;
@@ -264,6 +290,27 @@ public class EditMagicItemPanel extends BasePanel {
 		});
 		return skillComboBox;
 	}
+	
+	private OtherBonusComboBox createOtherBonusComboBox(){
+		OtherBonusComboBox comboBox = new OtherBonusComboBox();
+		comboBox.setNormalStyle();
+		comboBox.addOthersChangedListener(new OthersChangedListener() {
+			
+			@Override
+			public void otherChanged(OtherBonusType type) {
+				if (magicObject != null) {
+					if (type != null) {
+						othersSpinner.setValue(magicObject.getOthersBonus(type));
+						othersSpinner.setEnabled(true);
+					} else {
+						othersSpinner.setValue(0);
+						othersSpinner.setEnabled(false);
+					}
+				}
+			}
+		});
+		return comboBox;
+	}
 
 	private BaseSpinner createCategorySpinner() {
 		SpinnerModel spinnerModel = new SpinnerNumberModel(0, -999, +999, 5);
@@ -299,6 +346,23 @@ public class EditMagicItemPanel extends BasePanel {
 		});
 		return skillSpinner;
 	}
+	
+	private BaseSpinner createOtherSpinner() {
+		SpinnerModel spinnerModel = new SpinnerNumberModel(0, -999, +999, 5);
+		BaseSpinner otherSpinner = new BaseSpinner(spinnerModel);
+		otherSpinner.addSpinnerValueChangedListener(new SpinnerValueChangedListener() {
+			@Override
+			public void valueChanged(int value) {
+				if (magicObject != null) {
+					if (othersComboBox.getSelectedItem() != null) {
+						magicObject.setOthersBonus((OtherBonusType) (othersComboBox.getSelectedItem()), value);
+					}
+					magicObjectResume.update(magicObject);
+				}
+			}
+		});
+		return otherSpinner;
+	}
 
 	@Override
 	public void update() {
@@ -306,6 +370,8 @@ public class EditMagicItemPanel extends BasePanel {
 		categoryComboBox.setEnabled(magicObject != null);
 		categorySpinner.setEnabled(magicObject != null);
 		skillSpinner.setEnabled(magicObject != null);
+		othersComboBox.setEnabled(magicObject != null);
+		othersSpinner.setEnabled(magicObject != null);
 	}
 
 	public MagicObject getMagicObject() {

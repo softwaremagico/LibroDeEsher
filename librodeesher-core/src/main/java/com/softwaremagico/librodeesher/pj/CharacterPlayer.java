@@ -64,6 +64,7 @@ import com.softwaremagico.librodeesher.pj.culture.CultureDecisions;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.culture.InvalidCultureException;
 import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
+import com.softwaremagico.librodeesher.pj.equipment.OtherBonusType;
 import com.softwaremagico.librodeesher.pj.historial.Historial;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
 import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
@@ -477,7 +478,8 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getDefensiveBonus() {
-		return getCharacteristicTotalBonus(CharacteristicsAbbreviature.SPEED) * 3;
+		return (getCharacteristicTotalBonus(CharacteristicsAbbreviature.SPEED) * 3)
+				+ getItemBonus(OtherBonusType.DEFENSIVE_BONUS);
 	}
 
 	public Integer getResistanceBonus(ResistanceType type) {
@@ -1804,19 +1806,36 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public int getItemBonus(Category category) {
-		int total = 0;
+		int max = 0;
 		for (MagicObject magicObject : getMagicItems()) {
-			total += magicObject.getCategoryBonus(category.getName());
+			int value = magicObject.getCategoryBonus(category.getName());
+			if (value > max) {
+				max = value;
+			}
 		}
-		return total;
+		return max;
 	}
 
 	public int getItemBonus(Skill skill) {
-		int total = 0;
+		int max = 0;
 		for (MagicObject magicObject : getMagicItems()) {
-			total += magicObject.getSkillBonus(skill.getName());
+			int value = magicObject.getSkillBonus(skill.getName());
+			if (value > max) {
+				max = value;
+			}
 		}
-		return total;
+		return max;
+	}
+
+	public int getItemBonus(OtherBonusType type) {
+		int max = 0;
+		for (MagicObject magicObject : getMagicItems()) {
+			int value = magicObject.getOthersBonus(type);
+			if (value > max) {
+				max = value;
+			}
+		}
+		return max;
 	}
 
 	/**
