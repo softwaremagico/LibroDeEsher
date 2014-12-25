@@ -48,7 +48,7 @@ import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.gui.style.Fonts;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
-import com.softwaremagico.librodeesher.pj.equipment.OtherBonusType;
+import com.softwaremagico.librodeesher.pj.equipment.BonusType;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class EditMagicItemPanel extends BasePanel {
@@ -297,10 +297,10 @@ public class EditMagicItemPanel extends BasePanel {
 		comboBox.addOthersChangedListener(new OthersChangedListener() {
 			
 			@Override
-			public void otherChanged(OtherBonusType type) {
+			public void otherChanged(BonusType type) {
 				if (magicObject != null) {
 					if (type != null) {
-						othersSpinner.setValue(magicObject.getOthersBonus(type));
+						othersSpinner.setValue(magicObject.getObjectBonus(type));
 						othersSpinner.setEnabled(true);
 					} else {
 						othersSpinner.setValue(0);
@@ -355,7 +355,7 @@ public class EditMagicItemPanel extends BasePanel {
 			public void valueChanged(int value) {
 				if (magicObject != null) {
 					if (othersComboBox.getSelectedItem() != null) {
-						magicObject.setOthersBonus((OtherBonusType) (othersComboBox.getSelectedItem()), value);
+						magicObject.setObjectBonus("", (BonusType) (othersComboBox.getSelectedItem()), value);
 					}
 					magicObjectResume.update(magicObject);
 				}

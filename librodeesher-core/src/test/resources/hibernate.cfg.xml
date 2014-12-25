@@ -57,9 +57,6 @@
 	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingSkillsSelected"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingItem"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.equipment.MagicObject"></mapping>
-	<mapping class="com.softwaremagico.librodeesher.pj.equipment.CategoryBonus"></mapping>
-	<mapping class="com.softwaremagico.librodeesher.pj.equipment.SkillBonus"></mapping>
-	<mapping class="com.softwaremagico.librodeesher.pj.equipment.OtherBonus"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.equipment.ObjectBonus"></mapping>
     </session-factory>
 </hibernate-configuration>

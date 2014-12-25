@@ -5,9 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
@@ -16,6 +19,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import com.google.gson.annotations.Expose;
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
 import com.softwaremagico.persistence.StorableObject;
 
 /*
@@ -82,6 +86,11 @@ public class LevelUp extends StorableObject {
 	@CollectionTable(name = "T_LEVEL_UP_SKILL_SPECIALIZATIONS")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> skillSpecializations;
+	
+	@Expose
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@CollectionTable(name = "T_CHARACTERPLAYER_TRAINING_DECISIONS")
+	private Map<String, TrainingDecision> trainingDecisions;
 
 	public LevelUp() {
 		categoriesRanks = new HashMap<>();
@@ -89,11 +98,13 @@ public class LevelUp extends StorableObject {
 		spellsUpdated = new ArrayList<>();
 		trainings = new ArrayList<>();
 		generalizedSkills = new ArrayList<>();
+		trainingDecisions = new HashMap<>();
 	}
 
 	@Override
 	public void resetIds() {
 		resetIds(this);
+		resetIds(trainingDecisions);
 	}
 
 	public Integer getCategoryRanks(String categoryName) {
@@ -179,6 +190,7 @@ public class LevelUp extends StorableObject {
 
 	public void removeTraining(String trainingName) {
 		trainings.remove(trainingName);
+		trainingDecisions.remove(trainingName);
 	}
 
 	public Map<String, Integer> getCategoriesRanks() {
@@ -255,5 +267,9 @@ public class LevelUp extends StorableObject {
 			}
 		}
 		return total;
+	}
+
+	public Map<String, TrainingDecision> getTrainingDecisions() {
+		return trainingDecisions;
 	}
 }

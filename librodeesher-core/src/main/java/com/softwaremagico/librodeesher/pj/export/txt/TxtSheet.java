@@ -29,9 +29,19 @@ public class TxtSheet {
 	 * characterPlayer.
 	 */
 	public static String basicCharacterInfo(CharacterPlayer characterPlayer) {
-		return characterPlayer.getName() + "\tNº " + characterPlayer.getCurrentLevelNumber() + "\n"
-				+ characterPlayer.getRace().getName() + "\n" + characterPlayer.getProfession().getName()
-				+ "\n";
+		String text = characterPlayer.getName() + "\tNº " + characterPlayer.getCurrentLevelNumber() + "\n"
+				+ characterPlayer.getRace().getName() + "\n" + characterPlayer.getProfession().getName();
+		String trainings = "";
+		if (characterPlayer.getTrainings().size() > 0) {
+			for (String training : characterPlayer.getTrainings()) {
+				if (trainings.length() > 0) {
+					trainings += ", ";
+				}
+				trainings += training;
+			}
+			text += " (" + trainings + ")";
+		}
+		return text + "\n";
 	}
 
 	private static String getCharacteristicsInfo(CharacterPlayer characterPlayer) {

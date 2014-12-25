@@ -1,12 +1,12 @@
 package com.softwaremagico.librodeesher.pj;
 
+import java.io.File;
 import java.io.PrintWriter;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
-import com.softwaremagico.librodeesher.pj.equipment.SkillBonus;
 import com.softwaremagico.librodeesher.pj.export.json.CharacterJsonManager;
 import com.softwaremagico.librodeesher.pj.export.json.LevelJsonManager;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfCombinedSheet;
@@ -111,6 +111,16 @@ public class CharacterCreationTest {
 		// Compared generated sheet to be sure that has the same information.
 		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
 		String importedSheet = TxtSheet.getCharacterStandardSheetAsText(duplicatedCharacter);
+		
+		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "originalSheet.txt");
+		out1.println(orginalSheet);
+		out1.close();
+		
+		PrintWriter out2 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "importedSheet.txt");
+		out2.println(importedSheet);
+		out2.close();
+		
+		
 		Assert.assertEquals(importedSheet, orginalSheet);
 	}
 
@@ -121,10 +131,8 @@ public class CharacterCreationTest {
 		int previousAttackBonus = characterPlayer.getTotalValue(broadSword);
 
 		MagicObject magicSword = new MagicObject();
-		SkillBonus objectBonus = new SkillBonus();
-		objectBonus.setBonus(20);
-		objectBonus.setBonusName(broadSword.getName());
-		magicSword.getBonus().add(objectBonus);
+		magicSword.setSkillBonus(broadSword.getName(), 20);
+		Assert.assertEquals(magicSword.getBonus().size(), 1);
 
 		characterPlayer.getMagicItems().add(magicSword);
 

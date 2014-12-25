@@ -64,7 +64,7 @@ import com.softwaremagico.librodeesher.pj.culture.CultureDecisions;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.culture.InvalidCultureException;
 import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
-import com.softwaremagico.librodeesher.pj.equipment.OtherBonusType;
+import com.softwaremagico.librodeesher.pj.equipment.BonusType;
 import com.softwaremagico.librodeesher.pj.historial.Historial;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
 import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
@@ -154,11 +154,6 @@ public class CharacterPlayer extends StorableObject {
 	private ProfessionDecisions professionDecisions;
 
 	@Expose
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	@CollectionTable(name = "T_CHARACTERPLAYER_TRAINING_DECISIONS")
-	private Map<String, TrainingDecision> trainingDecisions;
-
-	@Expose
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "professionalRealmId")
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
@@ -222,7 +217,6 @@ public class CharacterPlayer extends StorableObject {
 		characteristicsInitialTemporalValues = new HashMap<>();
 		characteristicsTemporalUpdatesRolls = new HashMap<>();
 		characteristicsPotentialValues = new HashMap<>();
-		trainingDecisions = new HashMap<>();
 		perkDecisions = new HashMap<>();
 		enabledSkill = new HashMap<>();
 		setTemporalValuesOfCharacteristics();
@@ -249,7 +243,6 @@ public class CharacterPlayer extends StorableObject {
 		resetIds(characteristicsTemporalUpdatesRolls);
 		resetIds(cultureDecisions);
 		resetIds(professionDecisions);
-		resetIds(trainingDecisions);
 		resetIds(realmOfMagic);
 		resetIds(historial);
 	}
@@ -479,7 +472,7 @@ public class CharacterPlayer extends StorableObject {
 
 	public Integer getDefensiveBonus() {
 		return (getCharacteristicTotalBonus(CharacteristicsAbbreviature.SPEED) * 3)
-				+ getItemBonus(OtherBonusType.DEFENSIVE_BONUS);
+				+ getItemBonus(BonusType.DEFENSIVE_BONUS);
 	}
 
 	public Integer getResistanceBonus(ResistanceType type) {
@@ -1489,7 +1482,9 @@ public class CharacterPlayer extends StorableObject {
 
 	public void addTraining(String trainingName) {
 		if (levelUps.size() > 0) {
-			getCurrentLevel().addTraining(trainingName);
+			if (!getTrainings().contains(trainingName)) {
+				getCurrentLevel().addTraining(trainingName);
+			}
 		}
 	}
 
@@ -1502,7 +1497,7 @@ public class CharacterPlayer extends StorableObject {
 	 */
 	public boolean needToChooseOneCategory(Training training, TrainingCategory trainingCategory) {
 		if (trainingCategory.needToChooseOneCategory()) {
-			TrainingDecision trainingDecision = trainingDecisions.get(training.getName());
+			TrainingDecision trainingDecision = getTrainingDecision(training.getName());
 			if (trainingDecision == null
 					|| trainingDecision.getSelectedCategory(
 							training.getTrainingCategoryIndex(trainingCategory)).isEmpty()) {
@@ -1601,18 +1596,28 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public TrainingDecision getTrainingDecision(String trainingName) {
-		if (trainingDecisions.get(trainingName) == null) {
-			trainingDecisions.put(trainingName, new TrainingDecision());
+		for (int i = 0; i < getLevelUps().size(); i++) {
+			TrainingDecision trainingDecision = getTrainingDecisions(i).get(trainingName);
+			if (trainingDecision != null) {
+				return trainingDecision;
+			}
 		}
-		return trainingDecisions.get(trainingName);
+		// Create trainingDecision for this level.
+		TrainingDecision trainingDecision = new TrainingDecision();
+		getCurrentLevel().getTrainingDecisions().put(trainingName, trainingDecision);
+		return trainingDecision;
+	}
+
+	public Map<String, TrainingDecision> getTrainingDecisions(int level) {
+		return getLevelUps().get(level).getTrainingDecisions();
 	}
 
 	public Map<String, TrainingDecision> getTrainingDecisions() {
+		Map<String, TrainingDecision> trainingDecisions = new HashMap<>();
+		for (int i = 0; i < getLevelUps().size(); i++) {
+			trainingDecisions.putAll(getTrainingDecisions(i));
+		}
 		return trainingDecisions;
-	}
-
-	protected void setTrainingDecisions(Map<String, TrainingDecision> trainingDecisions) {
-		this.trainingDecisions = trainingDecisions;
 	}
 
 	public Historial getHistorial() {
@@ -1749,7 +1754,6 @@ public class CharacterPlayer extends StorableObject {
 
 	public void removeTraining(Training training) {
 		if (training != null) {
-			trainingDecisions.remove(training.getName());
 			getCurrentLevel().removeTraining(training.getName());
 		}
 	}
@@ -1827,10 +1831,10 @@ public class CharacterPlayer extends StorableObject {
 		return max;
 	}
 
-	public int getItemBonus(OtherBonusType type) {
+	public int getItemBonus(BonusType type) {
 		int max = 0;
 		for (MagicObject magicObject : getMagicItems()) {
-			int value = magicObject.getOthersBonus(type);
+			int value = magicObject.getObjectBonus(type);
 			if (value > max) {
 				max = value;
 			}

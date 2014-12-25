@@ -106,10 +106,10 @@
     );
 
     create table T_CHARACTERPLAYER_TRAINING_DECISIONS (
-        T_CHARACTERPLAYER_ID bigint not null,
+        T_LEVELUP_ID bigint not null,
         trainingDecisions_ID bigint not null,
         trainingDecisions_KEY varchar(255),
-        primary key (T_CHARACTERPLAYER_ID, trainingDecisions_KEY)
+        primary key (T_LEVELUP_ID, trainingDecisions_KEY)
     );
 
     create table T_CULTUREDECISIONS (
@@ -222,6 +222,17 @@
         updateTime datetime,
         description varchar(255),
         name varchar(255),
+        primary key (ID)
+    );
+
+    create table T_MAGIC_OBJECT_BONUS (
+        ID bigint not null,
+        comparationId varchar(255) not null,
+        creationTime datetime not null,
+        updateTime datetime,
+        bonus integer not null,
+        bonusName varchar(255),
+        type varchar(255),
         primary key (ID)
     );
 
@@ -396,36 +407,6 @@
         equipment_ID bigint not null
     );
 
-    create table T_TRAINING_OBJECT_CATEGORY_BONUS (
-        ID bigint not null,
-        comparationId varchar(255) not null,
-        creationTime datetime not null,
-        updateTime datetime,
-        bonus integer not null,
-        category varchar(255),
-        primary key (ID)
-    );
-
-    create table T_TRAINING_OBJECT_OTHER_BONUS (
-        ID bigint not null,
-        comparationId varchar(255) not null,
-        creationTime datetime not null,
-        updateTime datetime,
-        bonus integer not null,
-        type varchar(255),
-        primary key (ID)
-    );
-
-    create table T_TRAINING_OBJECT_SKILL_BONUS (
-        ID bigint not null,
-        comparationId varchar(255) not null,
-        creationTime datetime not null,
-        updateTime datetime,
-        bonus integer not null,
-        skill varchar(255),
-        primary key (ID)
-    );
-
     create table T_TRAINING_SKILLS_RANKS_PER_SKILL (
         TrainingSkillsSelected_ID bigint not null,
         skillsRanks integer,
@@ -510,6 +491,12 @@
     alter table T_MAGIC_OBJECT 
         add constraint UK_sj0a2io0jkgf480bygxoklivy  unique (comparationId);
 
+    alter table T_MAGIC_OBJECT_BONUS 
+        add constraint UK_mhw45ibhr60ep1mxs4mwh5vsb  unique (ID);
+
+    alter table T_MAGIC_OBJECT_BONUS 
+        add constraint UK_asx9ocfy2qd86t7q2meimfjrc  unique (comparationId);
+
     alter table T_MAGIC_OBJECT_T_MAGIC_OBJECT_BONUS 
         add constraint UK_h8abfb792vwsl7s8bk57h6nfk  unique (bonus_ID);
 
@@ -584,24 +571,6 @@
 
     alter table T_TRAINING_OBJECTS 
         add constraint UK_7ixq2spabhxg6hap4um27sj1y  unique (equipment_ID);
-
-    alter table T_TRAINING_OBJECT_CATEGORY_BONUS 
-        add constraint UK_tml10bsyt5qta0fs09k83w4y8  unique (ID);
-
-    alter table T_TRAINING_OBJECT_CATEGORY_BONUS 
-        add constraint UK_a27cb0rxghewqk26eth5s7ss3  unique (comparationId);
-
-    alter table T_TRAINING_OBJECT_OTHER_BONUS 
-        add constraint UK_3407f1h84yqyasss7kfu8ot3n  unique (ID);
-
-    alter table T_TRAINING_OBJECT_OTHER_BONUS 
-        add constraint UK_sx192fgemyaacux0du1wqivvo  unique (comparationId);
-
-    alter table T_TRAINING_OBJECT_SKILL_BONUS 
-        add constraint UK_dglomri4qitv0w5oi1jogwc9n  unique (ID);
-
-    alter table T_TRAINING_OBJECT_SKILL_BONUS 
-        add constraint UK_1n3ffx8tc9bbq798g3gog1atr  unique (comparationId);
 
     alter table T_TRAINING_SKILLS_SELECTED 
         add constraint UK_8t3mjh043dknq4icvg66qjl9l  unique (ID);
@@ -710,9 +679,9 @@
         references T_TRAINING_DECISION (ID);
 
     alter table T_CHARACTERPLAYER_TRAINING_DECISIONS 
-        add constraint FK_qxmqef1t6i3ikmucb2of78mdj 
-        foreign key (T_CHARACTERPLAYER_ID) 
-        references T_CHARACTERPLAYER (ID);
+        add constraint FK_sqmsft3ojy5sbebgx6bi313xf 
+        foreign key (T_LEVELUP_ID) 
+        references T_LEVELUP (ID);
 
     alter table T_CULTURE_HOBBY_RANKS 
         add constraint FK_3qei47al2s0hxq2w1uo0ml0ai 
@@ -783,6 +752,11 @@
         add constraint FK_qulxx88l837mgli4re9byjayc 
         foreign key (LevelUp_ID) 
         references T_LEVELUP (ID);
+
+    alter table T_MAGIC_OBJECT_T_MAGIC_OBJECT_BONUS 
+        add constraint FK_h8abfb792vwsl7s8bk57h6nfk 
+        foreign key (bonus_ID) 
+        references T_MAGIC_OBJECT_BONUS (ID);
 
     alter table T_MAGIC_OBJECT_T_MAGIC_OBJECT_BONUS 
         add constraint FK_1fhy2i4j6k3tpe4qa2ml1o973 

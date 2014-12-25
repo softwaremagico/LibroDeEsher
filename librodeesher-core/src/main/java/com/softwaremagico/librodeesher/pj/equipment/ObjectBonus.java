@@ -1,8 +1,8 @@
 package com.softwaremagico.librodeesher.pj.equipment;
 
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
@@ -10,10 +10,29 @@ import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_MAGIC_OBJECT_BONUS")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class ObjectBonus extends StorableObject {
+public class ObjectBonus extends StorableObject {
+
 	@Expose
-	public int bonus;
+	private int bonus;
+
+	@Expose
+	private String bonusName;
+
+	@Expose
+	@Enumerated(EnumType.STRING)
+	private BonusType type;
+
+	//Is created using MagicObject methods.
+	ObjectBonus() {
+
+	}
+
+	public String getBonusName() {
+		if (type != null && type != BonusType.SKILL && type != BonusType.CATEGORY) {
+			return type.getTranslation();
+		}
+		return bonusName;
+	}
 
 	public int getBonus() {
 		return bonus;
@@ -27,13 +46,21 @@ public abstract class ObjectBonus extends StorableObject {
 		setId(null);
 	}
 
-	public abstract String getBonusName();
-
-	public abstract void setBonusName(String value);
+	public void setBonusName(String value) {
+		this.bonusName = value;
+	}
 
 	@Override
 	public String toString() {
 		return getBonusName() + " (" + getBonus() + ")";
+	}
+
+	public BonusType getType() {
+		return type;
+	}
+
+	public void setType(BonusType type) {
+		this.type = type;
 	}
 
 }

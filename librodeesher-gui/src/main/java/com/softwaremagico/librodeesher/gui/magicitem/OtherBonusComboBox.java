@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.magicitem;
+
 /*
  * #%L
  * Libro de Esher (GUI)
@@ -27,32 +28,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseComboBox;
-import com.softwaremagico.librodeesher.pj.equipment.OtherBonusType;
+import com.softwaremagico.librodeesher.pj.equipment.BonusType;
 
-public class OtherBonusComboBox extends BaseComboBox<OtherBonusType> {
+public class OtherBonusComboBox extends BaseComboBox<BonusType> {
 	private static final long serialVersionUID = 169019436489940061L;
 	private List<OthersChangedListener> othersListeners;
 
 	public interface OthersChangedListener {
-		public void otherChanged(OtherBonusType type);
+		public void otherChanged(BonusType type);
 	}
 
 	public OtherBonusComboBox() {
 		othersListeners = new ArrayList<>();
 		fillUp();
 	}
-	
-	private void fillUp(){
+
+	private void fillUp() {
 		removeAllItems();
-		for(OtherBonusType type: OtherBonusType.values()){
-			addItem(type);
+		for (BonusType type : BonusType.values()) {
+			// All except skills and categories.
+			if (!type.equals(BonusType.SKILL) && !type.equals(BonusType.CATEGORY))
+				addItem(type);
 		}
 	}
 
 	@Override
 	public void doAction() {
 		for (OthersChangedListener listener : othersListeners) {
-			listener.otherChanged((OtherBonusType) this.getSelectedItem());
+			listener.otherChanged((BonusType) this.getSelectedItem());
 		}
 	}
 
