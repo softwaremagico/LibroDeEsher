@@ -101,7 +101,7 @@ public class TrainingDecision extends StorableObject {
 		skillsSelected.get(trainingCategory).put(skill, ranks);
 	}
 
-	public int getSkillRank(Integer trainingCategory, TrainingSkill skill) {
+	public int getSkillRank(Integer trainingCategory, String skill) {
 		if (skillsSelected.get(trainingCategory) == null
 				|| skillsSelected.get(trainingCategory).getSkills().get(skill) == null) {
 			return 0;
@@ -113,8 +113,8 @@ public class TrainingDecision extends StorableObject {
 		if (skill == null || skillsSelected.get(trainingCategory) == null) {
 			return 0;
 		}
-		for (TrainingSkill trainingSkill : skillsSelected.get(trainingCategory).getSkills().keySet()) {
-			if (trainingSkill.getName() != null && trainingSkill.getName().equals(skill.getName())) {
+		for (String trainingSkill : skillsSelected.get(trainingCategory).getSkills().keySet()) {
+			if (trainingSkill != null && trainingSkill.equals(skill.getName())) {
 				return getSkillRank(trainingCategory, trainingSkill);
 			}
 		}
@@ -137,8 +137,8 @@ public class TrainingDecision extends StorableObject {
 		return skillsSelected;
 	}
 
-	public Map<TrainingSkill, Integer> getSkillRanks(TrainingCategory trainingCategory) {
-		Map<TrainingSkill, Integer> result = new HashMap<>();
+	public Map<String, Integer> getSkillRanks(TrainingCategory trainingCategory) {
+		Map<String, Integer> result = new HashMap<>();
 		TrainingCategoriesSelected categorySelected = categoriesSelected.get(trainingCategory);
 		if (categorySelected != null) {
 			TrainingSkillsSelected trainingSkills = skillsSelected.get(categorySelected);
@@ -149,9 +149,9 @@ public class TrainingDecision extends StorableObject {
 		return result;
 	}
 
-	public Map<TrainingSkill, Integer> getSkillRanks(TrainingCategoriesSelected categorySelected) {
+	public Map<String, Integer> getSkillRanks(TrainingCategoriesSelected categorySelected) {
 		TrainingSkillsSelected trainingSkills = skillsSelected.get(categorySelected);
-		Map<TrainingSkill, Integer> result = new HashMap<>();
+		Map<String, Integer> result = new HashMap<>();
 		if (trainingSkills != null) {
 			result = trainingSkills.getSkills();
 		}

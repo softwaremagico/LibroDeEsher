@@ -1,6 +1,8 @@
 package com.softwaremagico.librodeesher.pj.training;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
@@ -19,6 +21,7 @@ public class TrainingItem extends StorableObject {
 	@Expose
 	private int bonus;
 	@Expose
+	@Enumerated(EnumType.STRING) 
 	private TrainingItemType type;
 	@Expose
 	private String skill;

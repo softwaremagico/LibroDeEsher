@@ -25,10 +25,10 @@ import com.softwaremagico.persistence.StorableObject;
 @Table(name = "T_MAGIC_OBJECT")
 public class MagicObject extends StorableObject {
 	@Expose
-	private String name;
+	private String name = "";
 
 	@Expose
-	private String description;
+	private String description = "";
 
 	@Expose
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

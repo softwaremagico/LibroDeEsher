@@ -20,34 +20,36 @@ class TrainingSkillsSelected extends StorableObject {
 	
 	@Expose
 	@ElementCollection
-	@CollectionTable(name = "T_TRAINING_SKILLS_SELECTED_LIST_OF_SKILLS")
+	@CollectionTable(name = "T_TRAINING_SKILLS_RANKS_PER_SKILL")
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private Map<TrainingSkill, Integer> skills;
+	private Map<String, Integer> skillsRanks;
+	
+//	@Expose
+//	@ElementCollection
+//	@CollectionTable(name = "T_TRAINING_SKILLS_SELECTED_LIST_OF_SKILLS")
+//	@LazyCollection(LazyCollectionOption.FALSE)
+//	private List<TrainingSkill> trainingSkills;
 
 	public TrainingSkillsSelected() {
-		skills = new HashMap<>();
+		skillsRanks = new HashMap<>();
 	}
 	
 	@Override
 	public void resetIds(){
 		resetIds(this);
-		resetIds(skills);
+		resetIds(skillsRanks);
 	}
 
 	public void put(TrainingSkill skill, int ranks) {
 		if (ranks == 0) {
-			skills.remove(skill);
+			skillsRanks.remove(skill);
 		} else {
-			skills.put(skill, ranks);
+			skillsRanks.put(skill.getName(), ranks);
 		}
 	}
 
-	protected Map<TrainingSkill, Integer> getSkills() {
-		return skills;
-	}
-
-	protected void setSkills(Map<TrainingSkill, Integer> skills) {
-		this.skills = skills;
+	protected Map<String, Integer> getSkills() {
+		return skillsRanks;
 	}
 
 }

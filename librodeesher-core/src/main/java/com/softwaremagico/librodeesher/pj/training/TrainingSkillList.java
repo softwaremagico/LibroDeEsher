@@ -3,20 +3,12 @@ package com.softwaremagico.librodeesher.pj.training;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.softwaremagico.persistence.StorableObject;
-
-public class TrainingSkillList extends StorableObject {
+public class TrainingSkillList {
 
 	private List<TrainingSkill> trainingSkills;
 
 	public TrainingSkillList() {
 		trainingSkills = new ArrayList<>();
-	}
-
-	@Override
-	public void resetIds() {
-		resetIds(this);
-		resetIds(trainingSkills);
 	}
 
 	public List<TrainingSkill> getTrainingSkills() {

@@ -387,7 +387,7 @@
         name varchar(255),
         probability integer not null,
         skill varchar(255),
-        type integer,
+        type varchar(255),
         primary key (ID)
     );
 
@@ -412,7 +412,7 @@
         creationTime datetime not null,
         updateTime datetime,
         bonus integer not null,
-        type integer,
+        type varchar(255),
         primary key (ID)
     );
 
@@ -426,18 +426,11 @@
         primary key (ID)
     );
 
-    create table T_TRAINING_SKILL (
-        ID bigint not null,
-        comparationId varchar(255) not null,
-        creationTime datetime not null,
-        updateTime datetime,
-        ranks integer,
-        primary key (ID)
-    );
-
-    create table T_TRAINING_SKILLS_OPTIONS (
-        TrainingSkill_ID bigint not null,
-        skillOptions varchar(255)
+    create table T_TRAINING_SKILLS_RANKS_PER_SKILL (
+        TrainingSkillsSelected_ID bigint not null,
+        skillsRanks integer,
+        skillsRanks_KEY varchar(255),
+        primary key (TrainingSkillsSelected_ID, skillsRanks_KEY)
     );
 
     create table T_TRAINING_SKILLS_SELECTED (
@@ -446,13 +439,6 @@
         creationTime datetime not null,
         updateTime datetime,
         primary key (ID)
-    );
-
-    create table T_TRAINING_SKILLS_SELECTED_LIST_OF_SKILLS (
-        TrainingSkillsSelected_ID bigint not null,
-        skills integer,
-        skills_KEY bigint not null,
-        primary key (TrainingSkillsSelected_ID, skills_KEY)
     );
 
     alter table T_APPEARANCE 
@@ -616,12 +602,6 @@
 
     alter table T_TRAINING_OBJECT_SKILL_BONUS 
         add constraint UK_1n3ffx8tc9bbq798g3gog1atr  unique (comparationId);
-
-    alter table T_TRAINING_SKILL 
-        add constraint UK_efgh32mr4nx5s2o51m02qmb4c  unique (ID);
-
-    alter table T_TRAINING_SKILL 
-        add constraint UK_ddblmd1gd1127mdjkupsm7n8c  unique (comparationId);
 
     alter table T_TRAINING_SKILLS_SELECTED 
         add constraint UK_8t3mjh043dknq4icvg66qjl9l  unique (ID);
@@ -914,18 +894,8 @@
         foreign key (T_TRAINING_DECISION_ID) 
         references T_TRAINING_DECISION (ID);
 
-    alter table T_TRAINING_SKILLS_OPTIONS 
-        add constraint FK_778uv1d7fs8a0hbjh50c6cm8y 
-        foreign key (TrainingSkill_ID) 
-        references T_TRAINING_SKILL (ID);
-
-    alter table T_TRAINING_SKILLS_SELECTED_LIST_OF_SKILLS 
-        add constraint FK_2jyut54is6tewoer42u49rbr8 
-        foreign key (skills_KEY) 
-        references T_TRAINING_SKILL (ID);
-
-    alter table T_TRAINING_SKILLS_SELECTED_LIST_OF_SKILLS 
-        add constraint FK_6byn9lj59rtyyr7wb695wfid2 
+    alter table T_TRAINING_SKILLS_RANKS_PER_SKILL 
+        add constraint FK_7n68qdxkt6wke54dr4qm74384 
         foreign key (TrainingSkillsSelected_ID) 
         references T_TRAINING_SKILLS_SELECTED (ID);
 

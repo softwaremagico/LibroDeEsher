@@ -197,7 +197,7 @@ public class TxtSheet {
 			for (int i = 0; i < characterPlayer.getMagicItems().size(); i++) {
 				MagicObject magicItem = characterPlayer.getMagicItems().get(i);
 				String magicItemString = magicItem.getName();
-				if (magicItem.getDescription().length() > 0) {
+				if (magicItem.getDescription() != null && magicItem.getDescription().length() > 0) {
 					magicItemString += " (" + magicItem.getDescription() + ")";
 				}
 				if (!magicItem.getBonus().isEmpty()) {

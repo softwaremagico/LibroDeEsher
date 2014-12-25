@@ -178,7 +178,7 @@ public class TrainingProbability {
 						training.getTrainingCategoryIndex(trainingCategory),
 						trainingSkill,
 						characterPlayer.getTrainingDecision(trainingName).getSkillRank(
-								training.getTrainingCategoryIndex(trainingCategory), trainingSkill) + 1);
+								training.getTrainingCategoryIndex(trainingCategory), trainingSkill.getName()) + 1);
 				ranksAdded++;
 				//All ranks added, stop.
 				if (ranksAdded >= trainingCategory.getSkillRanks()) {
