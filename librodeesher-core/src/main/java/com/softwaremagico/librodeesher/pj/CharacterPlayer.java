@@ -253,8 +253,8 @@ public class CharacterPlayer extends StorableObject {
 		resetIds(realmOfMagic);
 		resetIds(historial);
 	}
-	
-	public void clearCache(){		
+
+	public void clearCache() {
 		characterPlayerHelper.resetAll();
 	}
 
@@ -1986,6 +1986,11 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public List<MagicObject> getMagicItems() {
+		List<MagicObject> magicItems = new ArrayList<>();
+		for(TrainingDecision trainingDecision : getTrainingDecisions().values()){
+			magicItems.addAll(trainingDecision.getMagicItems());
+		}
+		magicItems.addAll(this.magicItems);
 		return Collections.unmodifiableList(magicItems);
 	}
 
@@ -1997,7 +2002,22 @@ public class CharacterPlayer extends StorableObject {
 				characterPlayerHelper.resetSkillObjectBonus(objectBonus.getBonusName());
 			}
 		}
+		EsherLog.info(MagicObject.class.getName(), "Added magic item '" + magicObject.getName() + "'.");
 		magicItems.add(magicObject);
+	}
+
+	public void addMagicItem(MagicObject magicObject, String trainingName) {
+		for (ObjectBonus objectBonus : magicObject.getBonus()) {
+			if (objectBonus.getType().equals(BonusType.CATEGORY)) {
+				characterPlayerHelper.resetCategoryObjectBonus(objectBonus.getBonusName());
+			} else if (objectBonus.getType().equals(BonusType.SKILL)) {
+				characterPlayerHelper.resetSkillObjectBonus(objectBonus.getBonusName());
+			}
+		}
+		TrainingDecision trainingDecision = getTrainingDecision(trainingName);
+		EsherLog.info(MagicObject.class.getName(), "Added magic item '" + magicObject.getName() + "' of '"
+				+ trainingName + "'.");
+		trainingDecision.getMagicItems().add(magicObject);
 	}
 
 	public int getItemBonus(Category category) {

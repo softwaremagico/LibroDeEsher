@@ -388,6 +388,11 @@
         primary key (T_TRAINING_DECISION_ID, skillsSelected_KEY)
     );
 
+    create table T_TRAINING_MAGIC_ITEMS (
+        T_TRAINING_DECISION_ID bigint not null,
+        magicItems_ID bigint not null
+    );
+
     create table T_TRAINING_OBJECT (
         ID bigint not null,
         comparationId varchar(255) not null,
@@ -562,6 +567,9 @@
 
     alter table T_TRAINING_DECISION_SKILLS_SELECTED 
         add constraint UK_5nc8p7y8l2d6jwmdevwemmrtx  unique (skillsSelected_ID);
+
+    alter table T_TRAINING_MAGIC_ITEMS 
+        add constraint UK_onpxi6hsdqh3um18at3hno1tv  unique (magicItems_ID);
 
     alter table T_TRAINING_OBJECT 
         add constraint UK_6qjbapnqh4clnepqgn6llqq36  unique (ID);
@@ -855,6 +863,16 @@
 
     alter table T_TRAINING_DECISION_SKILLS_SELECTED 
         add constraint FK_q2qlhc9q74eva8nvqkhnlqdlb 
+        foreign key (T_TRAINING_DECISION_ID) 
+        references T_TRAINING_DECISION (ID);
+
+    alter table T_TRAINING_MAGIC_ITEMS 
+        add constraint FK_onpxi6hsdqh3um18at3hno1tv 
+        foreign key (magicItems_ID) 
+        references T_MAGIC_OBJECT (ID);
+
+    alter table T_TRAINING_MAGIC_ITEMS 
+        add constraint FK_rywsdjfh4185qhuxy0212pkra 
         foreign key (T_TRAINING_DECISION_ID) 
         references T_TRAINING_DECISION (ID);
 

@@ -144,6 +144,7 @@ public class CharacterCreationTest {
 		int previousAttackBonus = characterPlayer.getTotalValue(broadSword);
 
 		MagicObject magicSword = new MagicObject();
+		magicSword.setName(broadSword.getName());
 		magicSword.setSkillBonus(broadSword.getName(), 20);
 		Assert.assertEquals(magicSword.getBonus().size(), 1);
 

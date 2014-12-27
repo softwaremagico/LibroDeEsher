@@ -27,6 +27,7 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillComparatorByRanks;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.skills.SkillForEnablingMustBeSelected;
+import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 import com.softwaremagico.librodeesher.pj.weapons.WeaponType;
 import com.softwaremagico.log.EsherLog;
@@ -801,10 +802,10 @@ public class RandomCharacterPlayer {
 
 		// Set random Objects.
 		TrainingProbability.setRandomObjects(characterPlayer, trainingName);
-		List<MagicObject> trainingObjects = MagicObject.convertTrainingEquipmentToMagicObject(
+		List<MagicObject> trainingObjects = TrainingDecision.convertTrainingEquipmentToMagicObject(
 				characterPlayer, trainingName);
 		for (MagicObject trainingObject : trainingObjects) {
-			characterPlayer.addMagicItem(trainingObject);
+			characterPlayer.addMagicItem(trainingObject, trainingName);
 		}
 	}
 
