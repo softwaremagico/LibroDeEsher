@@ -134,7 +134,7 @@ public class MagicObject extends StorableObject {
 	public static List<MagicObject> convertTrainingEquipmentToMagicObject(CharacterPlayer characterPlayer,
 			String trainingName) {
 		List<MagicObject> magicObjects = new ArrayList<>();
-		List<TrainingItem> equipment = characterPlayer.getTrainingDecision(trainingName).getEquipment();
+		List<TrainingItem> equipment = characterPlayer.getTrainingEquipment(trainingName);
 		for (TrainingItem item : equipment) {
 			List<Category> categories;
 			List<Skill> skills;
@@ -197,6 +197,8 @@ public class MagicObject extends StorableObject {
 	
 	private static MagicObject createMagicObjectFor(Skill skill, TrainingItem trainingItem) {
 		MagicObject magicObject = new MagicObject();
+		magicObject.setName(trainingItem.getName());
+		magicObject.setDescription(trainingItem.getDescription());
 		magicObject.setSkillBonus(skill.getName(), trainingItem.getBonus());
 		return magicObject;
 	}

@@ -152,8 +152,7 @@ public class TrainingProbability {
 				categoryName = availableCategories.get(index % availableCategories.size());
 				int probability = Math.abs(specialization * 30) + 15;
 				if (Math.random() * 100 < probability) {
-					characterPlayer.getTrainingDecision(trainingName).addSelectedCategory(
-							training.getTrainingCategoryIndex(trainingCategory), categoryName);
+					characterPlayer.addTrainingSelectedCategory(training, trainingCategory, categoryName);
 					break;
 				}
 				index++;
@@ -174,11 +173,7 @@ public class TrainingProbability {
 			int ranksAdded = 0;
 			while (true) {
 				TrainingSkill trainingSkill = skillsToUpdate.get(ranksAdded % skillsToUpdate.size());
-				characterPlayer.getTrainingDecision(trainingName).setSkillRank(
-						training.getTrainingCategoryIndex(trainingCategory),
-						trainingSkill,
-						characterPlayer.getTrainingDecision(trainingName).getSkillRank(
-								training.getTrainingCategoryIndex(trainingCategory), trainingSkill.getName()) + 1);
+				characterPlayer.addTrainingSkillRanks(training, trainingCategory, trainingSkill, characterPlayer.getTrainingSkillRanks(training, trainingCategory, trainingSkill)+1);		
 				ranksAdded++;
 				//All ranks added, stop.
 				if (ranksAdded >= trainingCategory.getSkillRanks()) {
@@ -186,40 +181,11 @@ public class TrainingProbability {
 				}
 			}
 		}
-
-		// for (int i = 0; i < training.getCategoriesWithRanks().size(); i++) {
-		// TrainingCategory trainingCategory =
-		// training.getCategoriesWithRanks().get(i);
-		// while (characterPlayer.getTrainingDecision(trainingName)
-		// .DevolverTotalRangosHabilidadesGastadosGrupoAdiestramiento(trainingCategory.nombre)
-		// < characterPlayer
-		// .getSkillsRanks(trainingName, trainingCategory)
-		// && ret == 0) {
-		// if (characterPlayer.getSkillsWithRanks(trainingName,
-		// trainingCategory) < trainingCategory
-		// .getMinSkills()) {
-		// if (!trainingCategory.AñadirRangoNuevaHabilidad()) {
-		// ret = trainingCategory.AñadirUnRangoAleatorio();
-		// }
-		// } else {
-		// if
-		// (DevolverNumeroHabilidadesConRangosDeGrupo(trainingCategory.nombre) <
-		// trainingCategory
-		// .getMaxSkills()) {
-		// ret = trainingCategory.AñadirUnRangoAleatorio();
-		// } else {
-		// if (!trainingCategory.AñadirUnRangoHabilidadExistente()) {
-		// ret = trainingCategory.AñadirUnRangoAleatorio();
-		// }
-		// }
-		// }
-		// }
-		// }
 	}
 
 	public static void setRandomCharacteristicsUpgrades(CharacterPlayer characterPlayer, String trainingName) {
 		// Only do it for remaining characteristic updates (if any).
-		for (int i = characterPlayer.getTrainingDecision(trainingName).getCharacteristicsUpdates().size(); i < TrainingFactory
+		for (int i = characterPlayer.getTrainingCharacteristicsUpdates(trainingName).size(); i < TrainingFactory
 				.getTraining(trainingName).getUpdateCharacteristics().size(); i++) {
 			List<CharacteristicsAbbreviature> availableUpdates = TrainingFactory.getTraining(trainingName)
 					.getUpdateCharacteristics().get(i);
@@ -261,8 +227,7 @@ public class TrainingProbability {
 		Training training = TrainingFactory.getTraining(trainingName);
 		for (int i = 0; i < training.getObjects().size(); i++) {
 			if ((Math.random() * 100) < training.getObjects().get(i).getProbability() / (accepted)) {
-				characterPlayer.getTrainingDecision(trainingName).getEquipment()
-						.add(training.getObjects().get(i));
+				characterPlayer.addTrainingEquipment(training, i);
 				accepted++;
 			}
 		}

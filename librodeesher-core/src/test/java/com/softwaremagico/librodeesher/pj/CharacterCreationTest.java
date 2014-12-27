@@ -12,6 +12,7 @@ import com.softwaremagico.librodeesher.pj.export.json.LevelJsonManager;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfCombinedSheet;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfStandardSheet;
 import com.softwaremagico.librodeesher.pj.export.txt.TxtSheet;
+import com.softwaremagico.librodeesher.pj.level.LevelUp;
 import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
 import com.softwaremagico.librodeesher.pj.profession.InvalidProfessionException;
 import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
@@ -27,8 +28,6 @@ public class CharacterCreationTest {
 	private final static String TXT_PATH = System.getProperty("java.io.tmpdir") + "/testStandard.txt";
 	private final static String TXT_ABBREVIATED_PATH = System.getProperty("java.io.tmpdir")
 			+ "/testAbbreviated.txt";
-	private final static String JSON_CHARACTER_PATH = System.getProperty("java.io.tmpdir")
-			+ "/testCharacterJson.txt";
 	private final static String JSON_LEVEL_PATH = System.getProperty("java.io.tmpdir") + "/testLevelJson.txt";
 	private CharacterPlayerDao characterPlayerDao = CharacterPlayerDao.getInstance();
 	private CharacterPlayer characterPlayer;
@@ -77,15 +76,27 @@ public class CharacterCreationTest {
 	@Test(groups = { "characterJson" }, dependsOnMethods = { "createCharacter" })
 	public void exportCharacterJson() throws Exception {
 		String jsonText = CharacterJsonManager.toJson(characterPlayer);
-		// store in a file.
-		PrintWriter out = new PrintWriter(JSON_CHARACTER_PATH);
-		out.println(jsonText);
-		out.close();
 		// get json to object.
 		CharacterPlayer importedCharacter = CharacterJsonManager.fromJson(jsonText);
+		PrintWriter out3 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
+				+ "characterAsJson.txt");
+		out3.println(jsonText);
+		out3.close();
+		
 		// Compared generated sheet to be sure that has the same information.
 		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
 		String importedSheet = TxtSheet.getCharacterStandardSheetAsText(importedCharacter);
+
+		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
+				+ "originalCharacterSheet.txt");
+		out1.println(orginalSheet);
+		out1.close();
+
+		PrintWriter out2 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
+				+ "importedCharacterSheet.txt");
+		out2.println(importedSheet);
+		out2.close();
+
 		Assert.assertEquals(importedSheet, orginalSheet);
 	}
 
@@ -107,20 +118,22 @@ public class CharacterCreationTest {
 		out.println(levelJsonText);
 		out.close();
 		// get json to object.
-		LevelJsonManager.fromJson(duplicatedCharacter, levelJsonText);
+		LevelUp newLevel = LevelJsonManager.fromJson(duplicatedCharacter, levelJsonText);
+		duplicatedCharacter.importLevel(newLevel);
 		// Compared generated sheet to be sure that has the same information.
 		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
 		String importedSheet = TxtSheet.getCharacterStandardSheetAsText(duplicatedCharacter);
-		
-		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "originalSheet.txt");
+
+		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
+				+ "originalSheet.txt");
 		out1.println(orginalSheet);
 		out1.close();
-		
-		PrintWriter out2 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "importedSheet.txt");
+
+		PrintWriter out2 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
+				+ "importedLevelSheet.txt");
 		out2.println(importedSheet);
 		out2.close();
-		
-		
+
 		Assert.assertEquals(importedSheet, orginalSheet);
 	}
 
@@ -134,7 +147,7 @@ public class CharacterCreationTest {
 		magicSword.setSkillBonus(broadSword.getName(), 20);
 		Assert.assertEquals(magicSword.getBonus().size(), 1);
 
-		characterPlayer.getMagicItems().add(magicSword);
+		characterPlayer.addMagicItem(magicSword);
 
 		Assert.assertEquals(characterPlayer.getTotalValue(broadSword), new Integer(previousAttackBonus + 20));
 

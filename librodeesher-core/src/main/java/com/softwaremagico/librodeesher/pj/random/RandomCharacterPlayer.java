@@ -52,8 +52,6 @@ public class RandomCharacterPlayer {
 	private List<String> suggestedTrainings;
 	private List<RandomFeedbackListener> feedbackListeners;
 
-	// Store probability to increase speed.
-
 	/**
 	 * Creates an entirely new character.
 	 * 
@@ -426,7 +424,7 @@ public class RandomCharacterPlayer {
 	private static void setRandomCultureHobbyRanks(CharacterPlayer characterPlayer, int specializationLevel) {
 		int loop = 0;
 		while (characterPlayer.getCulture().getHobbyRanks()
-				- characterPlayer.getCultureDecisions().getTotalHobbyRanks() > 0) {
+				- characterPlayer.getCultureTotalHobbyRanks() > 0) {
 			loop++;
 			List<String> hobbyNames = characterPlayer.getRealHobbySkills();
 			List<Skill> hobbies = new ArrayList<>();
@@ -443,7 +441,7 @@ public class RandomCharacterPlayer {
 				// Cost greater than 40 can not be a hobby
 				if (characterPlayer.getCultureStimatedCategoryCost(skill.getCategory()) <= MAX_HOBBY_COST) {
 					// Only if a new rank can be added to the hobby.
-					if (characterPlayer.getCultureDecisions().getHobbyRanks(skill.getName()) < characterPlayer
+					if (characterPlayer.getCultureHobbyRanks(skill.getName()) < characterPlayer
 							.getMaxRanksPerCulture(skill.getCategory())) {
 						if (skill != null
 								&& Math.random()
@@ -452,8 +450,8 @@ public class RandomCharacterPlayer {
 										+ (skill.getCategory().getCategoryGroup()
 												.equals(CategoryGroup.WEAPON) ? weaponsRanks * 5 : 0) < getProbablilityOfSetHobby(
 											characterPlayer, skill, loop, specializationLevel)) {
-							characterPlayer.getCultureDecisions().setHobbyRanks(skill.getName(),
-									characterPlayer.getCultureDecisions().getHobbyRanks(skill.getName()) + 1);
+							characterPlayer.setCultureHobbyRanks(skill.getName(),
+									characterPlayer.getCultureHobbyRanks(skill.getName()) + 1);
 							// New weapon rank added. Increase counter.
 							weaponsRanks += skill.getCategory().getCategoryGroup()
 									.equals(CategoryGroup.WEAPON) ? 1 : 0;
@@ -468,19 +466,19 @@ public class RandomCharacterPlayer {
 
 	private static int getLanguageProbability(CharacterPlayer characterPlayer, String language,
 			int specializationLevel) {
-		if ((characterPlayer.getCultureDecisions().getLanguageRanks(language) + 1 > characterPlayer
+		if ((characterPlayer.getCultureLanguageRanks(language) + 1 > characterPlayer
 				.getLanguageMaxInitialRanks(language))
-				|| (characterPlayer.getCultureDecisions().getLanguageRanks(language) > 10)) {
+				|| (characterPlayer.getCultureLanguageRanks(language) > 10)) {
 			return 0;
 		}
-		return characterPlayer.getCultureDecisions().getLanguageRanks(language) * specializationLevel + 15;
+		return characterPlayer.getCultureLanguageRanks(language) * specializationLevel + 15;
 	}
 
 	private static void setRandomCultureAndRaceLanguages(CharacterPlayer characterPlayer,
 			int specializationLevel) {
 		while (characterPlayer.getRace().getLanguagePoints()
 				+ characterPlayer.getCulture().getLanguageRanksToChoose()
-				- characterPlayer.getCultureDecisions().getTotalLanguageRanks() > 0) {
+				- characterPlayer.getCultureTotalLanguageRanks() > 0) {
 			String randomLanguage;
 			// Use culture or race language
 			if (Math.random() < 0.5) {
@@ -496,16 +494,16 @@ public class RandomCharacterPlayer {
 						.get((int) (Math.random() * characterPlayer.getRace().getAvailableLanguages().size()));
 			}
 			// Enough points
-			if (characterPlayer.getCultureDecisions().getTotalLanguageRanks() < characterPlayer.getRace()
+			if (characterPlayer.getCultureTotalLanguageRanks() < characterPlayer.getRace()
 					.getLanguagePoints() + characterPlayer.getCulture().getLanguageRanksToChoose()) {
 				// Max limit of language.
 				if (characterPlayer.getLanguageInitialRanks(randomLanguage)
-						+ characterPlayer.getCultureDecisions().getLanguageRanks(randomLanguage) < characterPlayer
+						+ characterPlayer.getCultureLanguageRanks(randomLanguage) < characterPlayer
 							.getLanguageMaxInitialRanks(randomLanguage)) {
 					if (Math.random() * 100 + 1 < getLanguageProbability(characterPlayer, randomLanguage,
 							specializationLevel)) {
-						characterPlayer.getCultureDecisions().setLanguageRank(randomLanguage,
-								characterPlayer.getCultureDecisions().getLanguageRanks(randomLanguage) + 1);
+						characterPlayer.setCultureLanguageRanks(randomLanguage,
+								characterPlayer.getCultureLanguageRanks(randomLanguage) + 1);
 					}
 				}
 			}
@@ -514,13 +512,13 @@ public class RandomCharacterPlayer {
 
 	private static void setRandomCultureSpells(CharacterPlayer characterPlayer)
 			throws MagicDefinitionException, InvalidProfessionException {
-		while (characterPlayer.getCultureDecisions().getTotalSpellRanks() < characterPlayer.getCulture()
+		while (characterPlayer.getCultureTotalSpellRanks() < characterPlayer.getCulture()
 				.getSpellRanks()) {
 			List<String> spellLists = MagicFactory.getListOfProfession(characterPlayer.getRealmOfMagic()
 					.getRealmsOfMagic(), Spanish.OPEN_LIST_TAG);
 			String choseSpell = spellLists.get((int) (Math.random() * spellLists.size()));
-			characterPlayer.getCultureDecisions().setSpellRanks(choseSpell,
-					characterPlayer.getCultureDecisions().getSpellRanks(choseSpell) + 1);
+			characterPlayer.setCultureSpellRanks(choseSpell,
+					characterPlayer.getCultureSpellRanks(choseSpell) + 1);
 		}
 	}
 
@@ -541,16 +539,16 @@ public class RandomCharacterPlayer {
 				}
 			}
 			if (weaponsOfCategory.size() > 0) {
-				while (characterPlayer.getCultureDecisions().getTotalWeaponRanks(category) < characterPlayer
+				while (characterPlayer.getCultureTotalWeaponsRanks(category) < characterPlayer
 						.getCulture().getCultureRanks(category)) {
 					Skill weaponSkill = weaponsOfCategory
 							.get((int) (Math.random() * weaponsOfCategory.size()));
 					if (Math.random() * 100 + 1 < Math.max(characterPlayer.getRealRanks(weaponSkill)
 							* specializationLevel * 25, 10 - specializationLevel)) {
-						characterPlayer.getCultureDecisions()
-								.setWeaponRanks(
+						characterPlayer
+								.setCultureWeaponsRanks(
 										weaponSkill.getName(),
-										characterPlayer.getCultureDecisions().getWeaponRanks(
+										characterPlayer.getCultureWeaponsRanks(
 												weaponSkill.getName()) + 1);
 					}
 				}
@@ -799,8 +797,9 @@ public class RandomCharacterPlayer {
 		TrainingProbability.setRandomObjects(characterPlayer, trainingName);
 		List<MagicObject> trainingObjects = MagicObject.convertTrainingEquipmentToMagicObject(
 				characterPlayer, trainingName);
-		characterPlayer.getMagicItems().addAll(trainingObjects);
-
+		for(MagicObject trainingObject : trainingObjects){
+			characterPlayer.addMagicItem(trainingObject);
+		}
 	}
 
 	/**

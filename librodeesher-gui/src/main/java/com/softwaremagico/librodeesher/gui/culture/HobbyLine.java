@@ -49,7 +49,7 @@ public class HobbyLine extends CultureLine {
 		this.parentPanel = hobbyPanel;
 		setElements(background);
 		setBackground(background);
-		rankSpinner.setValue(character.getCultureDecisions().getHobbyRanks(hobby));
+		rankSpinner.setValue(character.getCultureHobbyRanks(hobby));
 	}
 
 	protected void addRankSpinnerEvent() {
@@ -71,12 +71,11 @@ public class HobbyLine extends CultureLine {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character
-					characterPlayer.getCultureDecisions()
-							.setHobbyRanks(skillName, (Integer) rankSpinner.getValue());
+					characterPlayer.setCultureHobbyRanks(skillName, (Integer) rankSpinner.getValue());
 				}
 				parentPanel.setRankTitle("Rangos ("
-						+ (characterPlayer.getCulture().getHobbyRanks() - characterPlayer.getCultureDecisions()
-								.getTotalHobbyRanks()) + ")");
+						+ (characterPlayer.getCulture().getHobbyRanks() - characterPlayer
+								.getCultureTotalHobbyRanks()) + ")");
 			}
 		});
 	}

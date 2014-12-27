@@ -80,7 +80,7 @@ public class TrainingCategoryLine extends BaseLine {
 
 		ListBackgroundPanel categoryPanel = getCategoryOrGroup();
 		add(categoryPanel);
-		
+
 		ListLabel ranks = new BoldListLabel(trainingCategory.getCategoryRanks().toString(),
 				SwingConstants.CENTER);
 		add(new ListBackgroundPanel(ranks, background));
@@ -108,8 +108,7 @@ public class TrainingCategoryLine extends BaseLine {
 		public void doAction() {
 			// Remove skills of old category.
 			parentPanel.removeSkillLinesOfCategory(trainingCategory);
-			character.getTrainingDecision(parentPanel.getTraining().getName()).removeSkillsSelected(
-					trainingCategory);
+			character.removeTrainingSkill(parentPanel.getTraining().getName(), trainingCategory);
 			// add new skills in the correct place.
 			parentPanel.addSkillLinesOfCategory(trainingCategory, chooseCategoryComboBox.getSelectedIndex());
 		}

@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.culture;
+
 /*
  * #%L
  * Libro de Esher
@@ -44,7 +45,7 @@ public class SpellLine extends CultureLine {
 		this.skillName = spell;
 		setElements(background);
 		setBackground(background);
-		rankSpinner.setValue(character.getCultureDecisions().getSpellRanks(spell));
+		rankSpinner.setValue(character.getCultureSpellRanks(spell));
 	}
 
 	protected void addRankSpinnerEvent() {
@@ -68,11 +69,10 @@ public class SpellLine extends CultureLine {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character
-					characterPlayer.getCultureDecisions()
-							.setSpellRanks(skillName, (Integer) rankSpinner.getValue());
+					characterPlayer.setCultureSpellRanks(skillName, (Integer) rankSpinner.getValue());
 					parentPanel.setRankTitle("Rangos ("
-							+ (characterPlayer.getCulture().getSpellRanks() - characterPlayer.getCultureDecisions()
-									.getTotalSpellRanks()) + ")");
+							+ (characterPlayer.getCulture().getSpellRanks() - characterPlayer
+									.getCultureTotalSpellRanks()) + ")");
 				}
 			}
 		});

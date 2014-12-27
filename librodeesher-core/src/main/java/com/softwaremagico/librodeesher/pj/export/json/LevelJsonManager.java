@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.export.json.exceptions.InvalidCharacterException;
 import com.softwaremagico.librodeesher.pj.export.json.exceptions.InvalidLevelException;
+import com.softwaremagico.librodeesher.pj.level.LevelUp;
 
 public class LevelJsonManager {
 
@@ -18,7 +19,7 @@ public class LevelJsonManager {
 		return null;
 	}
 
-	public static void fromJson(CharacterPlayer characterPlayer, String jsonText) throws InvalidLevelException,
+	public static LevelUp fromJson(CharacterPlayer characterPlayer, String jsonText) throws InvalidLevelException,
 			InvalidCharacterException {
 		if (characterPlayer != null && jsonText != null && jsonText.length() > 0) {
 			final Gson gson = new GsonBuilder().create();
@@ -39,7 +40,8 @@ public class LevelJsonManager {
 						+ characterPlayer.getCurrentLevelNumber() + "'.");
 			}
 
-			characterPlayer.getLevelUps().add(levelExporter.getLevel());
+			return levelExporter.getLevel();
 		}
+		return null;
 	}
 }

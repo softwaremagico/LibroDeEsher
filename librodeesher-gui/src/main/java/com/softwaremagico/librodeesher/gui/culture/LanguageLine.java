@@ -52,7 +52,7 @@ public class LanguageLine extends CultureLine {
 		setBackground(background);
 		initalValue = characterPlayer.getLanguageInitialRanks(language);
 		SpinnerModel sm = new SpinnerNumberModel((int) initalValue
-				+ characterPlayer.getCultureDecisions().getLanguageRanks(
+				+ characterPlayer.getCultureLanguageRanks(
 						language), (int) initalValue,
 				(int) characterPlayer.getLanguageMaxInitialRanks(language), 1);
 		rankSpinner.setModel(sm);
@@ -74,13 +74,13 @@ public class LanguageLine extends CultureLine {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				// Update character
-				characterPlayer.getCultureDecisions().setLanguageRank(
+				characterPlayer.setCultureLanguageRanks(
 						language,
 						(Integer) rankSpinner.getValue()
 								- characterPlayer
 										.getLanguageInitialRanks(language));
 				// Max language points limit.
-				if (characterPlayer.getCultureDecisions().getTotalLanguageRanks() > characterPlayer
+				if (characterPlayer.getCultureTotalLanguageRanks() > characterPlayer
 						.getRace().getLanguagePoints()
 						+ characterPlayer.getCulture().getLanguageRanksToChoose()) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
@@ -100,7 +100,7 @@ public class LanguageLine extends CultureLine {
 				+ (characterPlayer.getRace().getLanguagePoints()
 						+ characterPlayer.getCulture()
 								.getLanguageRanksToChoose() - characterPlayer
-						.getCultureDecisions().getTotalLanguageRanks()) + ")");
+						.getCultureTotalLanguageRanks()) + ")");
 	}
 
 	@Override

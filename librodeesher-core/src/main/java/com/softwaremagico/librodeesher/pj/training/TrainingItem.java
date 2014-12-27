@@ -91,4 +91,8 @@ public class TrainingItem extends StorableObject {
 		return type;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
 }

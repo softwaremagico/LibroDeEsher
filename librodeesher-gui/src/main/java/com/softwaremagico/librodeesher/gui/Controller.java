@@ -69,6 +69,7 @@ import com.softwaremagico.librodeesher.pj.export.json.exceptions.InvalidLevelExc
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfCombinedSheet;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfStandardSheet;
 import com.softwaremagico.librodeesher.pj.export.txt.TxtSheet;
+import com.softwaremagico.librodeesher.pj.level.LevelUp;
 import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
 import com.softwaremagico.librodeesher.pj.profession.InvalidProfessionException;
 import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
@@ -234,7 +235,8 @@ public class Controller {
 					jsonText += sCurrentLine;
 				}
 				try {
-					LevelJsonManager.fromJson(selectedCharacter, jsonText);
+					LevelUp level = LevelJsonManager.fromJson(selectedCharacter, jsonText);
+					selectedCharacter.importLevel(level);
 					MessageManager.infoMessage(Controller.class.getName(), "Nivel importado correctamente.",
 							"RLM");
 				} catch (InvalidCharacterException ice) {

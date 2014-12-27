@@ -60,7 +60,7 @@ public class WeaponSkillLine extends BaseLine {
 		this.weaponSkill = weaponSkill;
 		setElements(background);
 		setBackground(background);
-		rankSpinner.setValue(character.getCultureDecisions().getWeaponRanks(weaponSkill.getName()));
+		rankSpinner.setValue(character.getCultureWeaponsRanks(weaponSkill.getName()));
 	}
 
 	protected void setDefaultSize() {
@@ -112,7 +112,7 @@ public class WeaponSkillLine extends BaseLine {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character
-					character.getCultureDecisions().setWeaponRanks(weaponSkill.getName(),
+					character.setCultureWeaponsRanks(weaponSkill.getName(),
 							(Integer) rankSpinner.getValue());
 				}
 			}
