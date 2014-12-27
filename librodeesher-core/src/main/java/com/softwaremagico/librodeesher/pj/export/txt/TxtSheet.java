@@ -52,7 +52,7 @@ public class TxtSheet {
 		text += "---------------------------------------------------------------------------------\n";
 		for (int i = 0; i < characteristics.size(); i++) {
 			text = text
-					+ String.format(formatStr, characteristics.get(i).getAbbreviature().getAbbreviature(),
+					+ String.format(formatStr, characteristics.get(i).getAbbreviature().getTag(),
 							characterPlayer.getCharacteristicTemporalValue(characteristics.get(i)
 									.getAbbreviature()), characterPlayer.getCharacteristicPotencialValue()
 									.get(characteristics.get(i).getAbbreviature()),

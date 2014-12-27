@@ -250,11 +250,7 @@ public class RandomCharacterPlayer {
 	 */
 	public static void setCharacteristics(CharacterPlayer characterPlayer, int specializationLevel) {
 		int loop = 0;
-		// Init profession characteristics to 90.
-		for (Characteristic characteristic : characterPlayer.getCharacteristics()) {
-			characterPlayer.getCharacteristicInitialTemporalValue(characteristic.getAbbreviature());
-		}
-		//Use preferred characteristics for probability
+		// Use preferred characteristics for probability
 		List<CharacteristicsAbbreviature> preferences = characterPlayer.getProfession()
 				.getCharacteristicPreferences();
 		Collections.reverse(preferences);

@@ -44,16 +44,16 @@ public enum CharacteristicsAbbreviature {
 	@SerializedName("Mr")
 	MAGIC_REALM("*", "*");
 
-	private String abbreviature;
+	private String tag;
 	private String name;
 
 	CharacteristicsAbbreviature(String abbreviature, String name) {
-		this.abbreviature = abbreviature;
+		this.tag = abbreviature;
 		this.name = name;
 	}
 
-	public String getAbbreviature() {
-		return abbreviature;
+	public String getTag() {
+		return tag;
 	}
 
 	public String getName() {
@@ -62,12 +62,12 @@ public enum CharacteristicsAbbreviature {
 
 	@Override
 	public String toString() {
-		return getAbbreviature();
+		return getTag();
 	}
 
 	public static CharacteristicsAbbreviature getCharacteristicsAbbreviature(String abbreviature) {
 		for (CharacteristicsAbbreviature characteristic : CharacteristicsAbbreviature.values()) {
-			if (characteristic.getAbbreviature().trim().equals(abbreviature)) {
+			if (characteristic.getTag().trim().equals(abbreviature)) {
 				return characteristic;
 			}
 		}

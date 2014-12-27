@@ -100,13 +100,13 @@ public class Profession {
 		return restrictedSkillsToChoose;
 	}
 
-	public boolean isCharacteristicProfessional(CharacteristicsAbbreviature characteristic) {
+	public boolean isCharacteristicProfessional(CharacteristicsAbbreviature characteristicAbbreviature) {
 		if (characteristicPreferences.size() > 0
-				&& characteristic.getAbbreviature().equals(characteristicPreferences.get(0))) {
+				&& characteristicAbbreviature.equals(characteristicPreferences.get(0))) {
 			return true;
 		}
 		if (characteristicPreferences.size() > 1
-				&& characteristic.getAbbreviature().equals(characteristicPreferences.get(1))) {
+				&& characteristicAbbreviature.equals(characteristicPreferences.get(1))) {
 			return true;
 		}
 		return false;

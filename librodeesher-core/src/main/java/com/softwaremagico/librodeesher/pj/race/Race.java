@@ -125,7 +125,7 @@ public class Race {
 				String[] characteristicValue = characteristicLine.split("\t");
 				if (characteristicValue[0]
 						.equals(CharacteristicsAbbreviature.APPEARENCE
-								.getAbbreviature())) {
+								.getTag())) {
 					apperanceBonus = Integer.parseInt(characteristicValue[1]);
 				} else {
 					characteristicBonus
