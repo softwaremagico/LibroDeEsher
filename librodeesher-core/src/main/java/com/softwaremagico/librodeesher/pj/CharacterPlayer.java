@@ -759,9 +759,6 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getCurrentLevelRanks(Category category) {
-		if (characterPlayerHelper.getCategoryRanks(category.getName()) != null) {
-			return characterPlayerHelper.getCategoryRanks(category.getName());
-		}
 		if (levelUps.size() > 0) {
 			Integer ranks = getCurrentLevel().getCategoryRanks(category.getName());
 			return ranks;

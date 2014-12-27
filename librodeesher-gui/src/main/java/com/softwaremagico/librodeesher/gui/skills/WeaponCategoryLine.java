@@ -53,6 +53,7 @@ public class WeaponCategoryLine extends GenericCategoryLine {
 		if (costPanel) {
 			costComboBox.setSelectedItem(cost);
 		}
+		costComboBox.setEnabled(character.getCurrentLevelNumber() == 1);
 		updatePlayerWeaponCost();
 		enableRanks(0); // Weapon cost does not change. Current ranks calculus
 						// is not necessary.
@@ -91,8 +92,8 @@ public class WeaponCategoryLine extends GenericCategoryLine {
 	protected void setSelectedIndex(Integer value) {
 		costComboBox.setSelectedIndex(value);
 	}
-	
-	protected void setSelected(CategoryCost categoryCost){
+
+	protected void setSelected(CategoryCost categoryCost) {
 		costComboBox.setSelectedItem(categoryCost);
 	}
 

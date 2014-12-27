@@ -15,6 +15,7 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
 import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
 import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
@@ -248,6 +249,14 @@ public class RandomCharacterPlayer {
 	 */
 	public static void setCharacteristics(CharacterPlayer characterPlayer, int specializationLevel) {
 		int loop = 0;
+		// Init profession characteristics to 90.
+		for (Characteristic characteristic : characterPlayer.getCharacteristics()) {
+			characterPlayer.getCharacteristicInitialTemporalValue(characteristic.getAbbreviature());
+		}
+		//Use preferred characteristics for probability
+		List<CharacteristicsAbbreviature> preferences = characterPlayer.getProfession()
+				.getCharacteristicPreferences();
+		Collections.reverse(preferences);
 		while (characterPlayer.getCharacteristicsTemporalPointsSpent() < getTotalCharacteristicsPoints()
 				&& loop < 20) {
 			for (int i = 0; i < characterPlayer.getProfession().getCharacteristicPreferences().size(); i++) {
@@ -257,13 +266,11 @@ public class RandomCharacterPlayer {
 				// Max probability 90%. Preferred characteristics with points.
 				int availablePoints = getTotalCharacteristicsPoints()
 						- characterPlayer.getCharacteristicsTemporalPointsSpent();
-				if ((Math.random() * 100 + 1) < Math.min((Math.max(
-						(characterPlayer.getCharacteristicInitialTemporalValue(characteristic
-								.getAbbreviature()) - Characteristics.INITIAL_CHARACTERISTIC_VALUE)
-								* Math.max(1, specializationLevel * 5), 5 + loop)), 90)
+				if (((Math.random() * 100 + 1) < (preferences.indexOf(characteristic.getAbbreviature()) * 4 + loop))
 						// Temporal values has a max limit.
 						&& characterPlayer.getCharacteristicInitialTemporalValue(characteristic
-								.getAbbreviature()) < (Math.min(90 + specializationLevel * 5, 101))
+								.getAbbreviature()) < (Math.min(
+								Math.max(90, 90 + (specializationLevel - 1) * 6), 101))
 						// Cost affordable.
 						&& Characteristic.getTemporalCost(characterPlayer
 								.getCharacteristicInitialTemporalValue(characteristic.getAbbreviature()) + 1)
@@ -275,10 +282,14 @@ public class RandomCharacterPlayer {
 					int valueToAdd = 1;
 					int charCurrentTempValue = characterPlayer.getCharacteristicsInitialTemporalValues().get(
 							characteristic.getAbbreviature());
-					if (charCurrentTempValue < 70) {
-						valueToAdd = Math.min(10 + specializationLevel * 4, availablePoints);
-					} else if (charCurrentTempValue < 85) {
-						valueToAdd = Math.min(5 + specializationLevel, availablePoints);
+					if (charCurrentTempValue < 50) {
+						valueToAdd = Math.min(20 + (specializationLevel + 3) * 5, availablePoints);
+					} else if (charCurrentTempValue < 70) {
+						valueToAdd = Math.min(7 + (specializationLevel + 3) * 4, availablePoints);
+					} else if (charCurrentTempValue < 83) {
+						valueToAdd = Math.min(2 + (specializationLevel + 3), availablePoints);
+					} else if (charCurrentTempValue < 90 - specializationLevel) {
+						valueToAdd = Math.min(1, specializationLevel);
 					} else {
 						valueToAdd = 1;
 					}
@@ -423,8 +434,7 @@ public class RandomCharacterPlayer {
 
 	private static void setRandomCultureHobbyRanks(CharacterPlayer characterPlayer, int specializationLevel) {
 		int loop = 0;
-		while (characterPlayer.getCulture().getHobbyRanks()
-				- characterPlayer.getCultureTotalHobbyRanks() > 0) {
+		while (characterPlayer.getCulture().getHobbyRanks() - characterPlayer.getCultureTotalHobbyRanks() > 0) {
 			loop++;
 			List<String> hobbyNames = characterPlayer.getRealHobbySkills();
 			List<Skill> hobbies = new ArrayList<>();
@@ -512,8 +522,7 @@ public class RandomCharacterPlayer {
 
 	private static void setRandomCultureSpells(CharacterPlayer characterPlayer)
 			throws MagicDefinitionException, InvalidProfessionException {
-		while (characterPlayer.getCultureTotalSpellRanks() < characterPlayer.getCulture()
-				.getSpellRanks()) {
+		while (characterPlayer.getCultureTotalSpellRanks() < characterPlayer.getCulture().getSpellRanks()) {
 			List<String> spellLists = MagicFactory.getListOfProfession(characterPlayer.getRealmOfMagic()
 					.getRealmsOfMagic(), Spanish.OPEN_LIST_TAG);
 			String choseSpell = spellLists.get((int) (Math.random() * spellLists.size()));
@@ -539,17 +548,14 @@ public class RandomCharacterPlayer {
 				}
 			}
 			if (weaponsOfCategory.size() > 0) {
-				while (characterPlayer.getCultureTotalWeaponsRanks(category) < characterPlayer
-						.getCulture().getCultureRanks(category)) {
+				while (characterPlayer.getCultureTotalWeaponsRanks(category) < characterPlayer.getCulture()
+						.getCultureRanks(category)) {
 					Skill weaponSkill = weaponsOfCategory
 							.get((int) (Math.random() * weaponsOfCategory.size()));
 					if (Math.random() * 100 + 1 < Math.max(characterPlayer.getRealRanks(weaponSkill)
 							* specializationLevel * 25, 10 - specializationLevel)) {
-						characterPlayer
-								.setCultureWeaponsRanks(
-										weaponSkill.getName(),
-										characterPlayer.getCultureWeaponsRanks(
-												weaponSkill.getName()) + 1);
+						characterPlayer.setCultureWeaponsRanks(weaponSkill.getName(),
+								characterPlayer.getCultureWeaponsRanks(weaponSkill.getName()) + 1);
 					}
 				}
 			}
@@ -797,7 +803,7 @@ public class RandomCharacterPlayer {
 		TrainingProbability.setRandomObjects(characterPlayer, trainingName);
 		List<MagicObject> trainingObjects = MagicObject.convertTrainingEquipmentToMagicObject(
 				characterPlayer, trainingName);
-		for(MagicObject trainingObject : trainingObjects){
+		for (MagicObject trainingObject : trainingObjects) {
 			characterPlayer.addMagicItem(trainingObject);
 		}
 	}
