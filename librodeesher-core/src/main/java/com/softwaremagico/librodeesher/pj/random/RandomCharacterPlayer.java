@@ -13,6 +13,7 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryComparatorByCost;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
+import com.softwaremagico.librodeesher.pj.categories.CategoryType;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
@@ -573,7 +574,7 @@ public class RandomCharacterPlayer {
 		// Store probability to increase speed.
 		Map<Skill, Integer> skillProbabilityStored = new HashMap<>();
 		Map<Category, Integer> categoryProbabilityStored = new HashMap<>();
-
+		tries = 0;
 		while (characterPlayer.getRemainingDevelopmentPoints() > 0 && tries <= MAX_TRIES) {
 			sendFeedBack("(Nº" + characterPlayer.getCurrentLevelNumber() + ") Gastando puntos de desarrollo.");
 			getRandomTrainings(characterPlayer, getSpecializationLevel(), suggestedTrainings, finalLevel);
@@ -583,13 +584,6 @@ public class RandomCharacterPlayer {
 		}
 		EsherLog.debug(RandomCharacterPlayer.class.getName(),
 				"Final remaining DP: " + characterPlayer.getRemainingDevelopmentPoints());
-		// EsherLog.debug(RandomCharacterPlayer.class.getName(),
-		// characterPlayer.getTotalDevelopmentPoints() + " - " +
-		// characterPlayer.getSpentDevelopmentPointsInCategoryRanks(characterPlayer.getCurrentLevelNumber()-1)
-		// + "/" +
-		// characterPlayer.getSpentDevelopmentPointsInSkillsRanks(characterPlayer.getCurrentLevelNumber()-1)
-		// + "/"+
-		// characterPlayer.getSpentDevelopmentPointsInTrainings(characterPlayer.getCurrentLevelNumber()-1));
 	}
 
 	public static void setRandomRanks(CharacterPlayer characterPlayer, int specializationLevel,
@@ -648,7 +642,7 @@ public class RandomCharacterPlayer {
 				}
 				EsherLog.debug(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName() + "' ("
 						+ (skillProbabilityStored.get(skill) + tries * 3) + "%), roll: " + roll);
-
+				
 				if (skillProbabilityStored.get(skill) > 0
 						&& roll < skillProbabilityStored.get(skill) + tries * 3) {
 					try {

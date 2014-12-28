@@ -39,9 +39,7 @@ public class SkillProbability {
 		}
 
 		// Avoid strange skills.
-		if (skill.isRare() && !characterPlayer.isCommon(skill) && suggestedSkillsRanks != null
-				&& suggestedSkillsRanks.get(skill.getName()) != null
-				&& suggestedSkillsRanks.get(skill.getName()) == 0) {
+		if (skill.isRare() && !characterPlayer.isCommon(skill) ) {
 			return -MAX_VALUE;
 		}
 
@@ -272,14 +270,6 @@ public class SkillProbability {
 			return -MAX_VALUE;
 		}
 
-		// Sometimes too much weapons are learned.
-		if ((skill.getCategory().getCategoryGroup().equals(CategoryGroup.WEAPON))
-				&& characterPlayer.getSkillsWithRanks(skill.getCategory()).size() > (3 - characterPlayer
-						.getNewRankCost(skill.getCategory(), 0, 1))
-				|| characterPlayer.getWeaponsLearnedInCurrentLevel() > 5 - specializationLevel) {
-			bonus -= 50;
-		}
-
 		// Not so many skills of the same category.
 		if (!characterPlayer.getSkillsWithNewRanks(skill.getCategory()).contains(skill)) {
 			bonus -= characterPlayer.getSkillsWithNewRanks(skill.getCategory()).size()
@@ -378,6 +368,8 @@ public class SkillProbability {
 						return 50;
 					}
 				}
+			} else if (skill.getCategory().getCategoryGroup().equals(CategoryGroup.WEAPON)) {
+				return 10;
 			}
 		}
 		return 0;

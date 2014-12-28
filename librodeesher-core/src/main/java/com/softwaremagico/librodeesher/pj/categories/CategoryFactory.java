@@ -94,7 +94,9 @@ public class CategoryFactory {
 	public static List<Skill> convertWeaponsToSkills(List<Weapon> weapons) {
 		List<Skill> skills = new ArrayList<>();
 		for (Weapon weapon : weapons) {
-			skills.add(SkillFactory.getSkill(weapon.getName()));
+			Skill skill = SkillFactory.getSkill(weapon.getName());
+			skill.setRare(weapon.isRare());
+			skills.add(skill);
 		}
 		return skills;
 	}
