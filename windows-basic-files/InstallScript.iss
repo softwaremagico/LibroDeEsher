@@ -22,7 +22,6 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\SoftwareMagico\{#MyAppName}
 DefaultGroupName=SoftwareMagico\{#MyAppName}
 LicenseFile=gnu.txt
-OutputDir=C:\
 OutputBaseFilename={#MyAppName}-{#MyAppVersion}
 SetupIconFile=icon.ico
 Compression=lzma
