@@ -642,7 +642,7 @@ public class RandomCharacterPlayer {
 				}
 				EsherLog.debug(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName() + "' ("
 						+ (skillProbabilityStored.get(skill) + tries * 3) + "%), roll: " + roll);
-				
+
 				if (skillProbabilityStored.get(skill) > 0
 						&& roll < skillProbabilityStored.get(skill) + tries * 3) {
 					try {
@@ -807,7 +807,7 @@ public class RandomCharacterPlayer {
 	 */
 	private static void sortSkillsBySpecialization(CharacterPlayer characterPlayer, List<Skill> skills,
 			int specializationLevel) {
-		if (specializationLevel == 0) {
+		if (specializationLevel == -1) {
 			Collections.shuffle(skills);
 		} else {
 			Collections.sort(skills, new SkillComparatorByRanks(characterPlayer));
