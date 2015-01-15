@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.files;
+
 /*
  * #%L
  * Libro de Esher (GUI)
@@ -43,12 +44,13 @@ import com.softwaremagico.librodeesher.gui.style.Fonts;
 public class ExploreWindowForPdfWithOptions extends BaseFrame {
 	private static final long serialVersionUID = 3629660172289981315L;
 	private static final Integer MARGIN = 10;
-	private List<ExploreWindowsWithOptionsListener> listeners;
+	private List<ExploreWindowsWithOptionsListenerAccept> listenersAccept;
+	private List<ExploreWindowsWithOptionsListenerCancel> listenersCancel;
 
 	public ExploreWindowForPdfWithOptions(String title, int mode, String file,
-			javax.swing.filechooser.FileFilter filter, JComponent accesory,
-			String defaultFileName) {
-		listeners = new ArrayList<>();
+			javax.swing.filechooser.FileFilter filter, JComponent accesory, String defaultFileName) {
+		listenersAccept = new ArrayList<>();
+		listenersCancel = new ArrayList<>();
 		defineWindow(550, 500);
 		setLayout(new BorderLayout());
 
@@ -59,22 +61,25 @@ public class ExploreWindowForPdfWithOptions extends BaseFrame {
 		titleLabel.setFont(Fonts.getInstance().getBoldFont());
 		optionsPanel.add(titleLabel);
 
-		final JCheckBox sortSkills = new JCheckBox(
-				"Habilidades ordenadas alfabéticamente.");
+		final JCheckBox sortSkills = new JCheckBox("Habilidades ordenadas alfabéticamente.");
 
 		optionsPanel.setLayout(new GridLayout(0, 1));
 		optionsPanel.add(sortSkills);
 		add(optionsPanel, BorderLayout.NORTH);
 
-		final JFileChooser chooser = ExploreWindow.createFileChooser(title,
-				mode, file, filter, accesory, defaultFileName);
+		final JFileChooser chooser = ExploreWindow.createFileChooser(title, mode, file, filter, accesory,
+				defaultFileName);
 		chooser.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				for (ExploreWindowsWithOptionsListener listener : listeners) {
-					listener.accept(
-							chooser.getSelectedFile().getAbsolutePath(),
-							sortSkills.isSelected());
+			public void actionPerformed(ActionEvent actionEvent) {
+				if (actionEvent.getActionCommand().equals(JFileChooser.APPROVE_SELECTION)) {
+					for (ExploreWindowsWithOptionsListenerAccept listener : listenersAccept) {
+						listener.accept(chooser.getSelectedFile().getAbsolutePath(), sortSkills.isSelected());
+					}
+				} else {
+					for (ExploreWindowsWithOptionsListenerCancel listener : listenersCancel) {
+						listener.cancel();
+					}
 				}
 			}
 		});
@@ -86,12 +91,20 @@ public class ExploreWindowForPdfWithOptions extends BaseFrame {
 	public void updateFrame() {
 	}
 
-	public void addAcceptListener(ExploreWindowsWithOptionsListener listener) {
-		listeners.add(listener);
+	public void addAcceptListener(ExploreWindowsWithOptionsListenerAccept listener) {
+		listenersAccept.add(listener);
 	}
 
-	public void removeAcceptListener(ExploreWindowsWithOptionsListener listener) {
-		listeners.remove(listener);
+	public void removeAcceptListener(ExploreWindowsWithOptionsListenerAccept listener) {
+		listenersAccept.remove(listener);
+	}
+
+	public void addCancelListener(ExploreWindowsWithOptionsListenerCancel listener) {
+		listenersCancel.add(listener);
+	}
+
+	public void removeCancelListener(ExploreWindowsWithOptionsListenerCancel listener) {
+		listenersCancel.remove(listener);
 	}
 
 }

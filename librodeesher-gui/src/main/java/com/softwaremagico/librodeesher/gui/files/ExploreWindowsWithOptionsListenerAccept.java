@@ -23,7 +23,7 @@ package com.softwaremagico.librodeesher.gui.files;
  * #L%
  */
 
-public interface ExploreWindowsWithOptionsListener {
+public interface ExploreWindowsWithOptionsListenerAccept {
 
 	void accept(String path, boolean checkBoxSelected);
 }
