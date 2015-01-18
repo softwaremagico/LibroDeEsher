@@ -99,6 +99,7 @@ public class LevelUp extends StorableObject {
 		trainings = new ArrayList<>();
 		generalizedSkills = new ArrayList<>();
 		trainingDecisions = new HashMap<>();
+		skillSpecializations = new ArrayList<>();
 	}
 
 	@Override

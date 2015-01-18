@@ -215,6 +215,11 @@ public class CharacterPlayer extends StorableObject {
 	private List<MagicObject> magicItems;
 
 	private transient CharacterPlayerHelper characterPlayerHelper;
+	
+	@Expose
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "insertedDataId")
+	private InsertedData insertedData = null;
 
 	public CharacterPlayer() {
 		characterPlayerHelper = new CharacterPlayerHelper();

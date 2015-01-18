@@ -48,6 +48,7 @@
         appearance_ID bigint,
         cultureDecisionsId bigint,
         historialId bigint,
+        insertedDataId bigint,
         professionDecisionsId bigint,
         professionalRealmId bigint,
         primary key (ID)
@@ -171,6 +172,59 @@
     create table T_HISTORIAL_SKILLS (
         Historial_ID bigint not null,
         skills varchar(255)
+    );
+
+    create table T_INSERTED_CATEGORIES_RANKS (
+        InsertedData_ID bigint not null,
+        categoriesRanks integer,
+        categoriesRanks_KEY varchar(255),
+        primary key (InsertedData_ID, categoriesRanks_KEY)
+    );
+
+    create table T_INSERTED_DATA (
+        ID bigint not null,
+        comparationId varchar(255) not null,
+        creationTime datetime not null,
+        updateTime datetime,
+        createdAtLevel integer not null,
+        instertedLevels integer not null,
+        primary key (ID)
+    );
+
+    create table T_INSERTED_GENERALIZED_SKILLS (
+        InsertedData_ID bigint not null,
+        generalizedSkills varchar(255)
+    );
+
+    create table T_INSERTED_POTENTIAL_VALUES (
+        InsertedData_ID bigint not null,
+        characteristicsPotentialValues integer,
+        characteristicsPotentialValues_KEY integer,
+        primary key (InsertedData_ID, characteristicsPotentialValues_KEY)
+    );
+
+    create table T_INSERTED_SKILLS_RANKS (
+        InsertedData_ID bigint not null,
+        skillsRanks integer,
+        skillsRanks_KEY varchar(255),
+        primary key (InsertedData_ID, skillsRanks_KEY)
+    );
+
+    create table T_INSERTED_SKILL_SPECIALIZATIONS (
+        InsertedData_ID bigint not null,
+        skillSpecializations varchar(255)
+    );
+
+    create table T_INSERTED_TEMPORAL_VALUES (
+        InsertedData_ID bigint not null,
+        characteristicsTemporalValues integer,
+        characteristicsTemporalValues_KEY integer,
+        primary key (InsertedData_ID, characteristicsTemporalValues_KEY)
+    );
+
+    create table T_INSERTED_TRAININGS_ADQUIRED (
+        InsertedData_ID bigint not null,
+        trainings varchar(255)
     );
 
     create table T_LEVELUP (
@@ -484,6 +538,12 @@
     alter table T_HISTORIAL_CHARACTERISTICS_UPDATES 
         add constraint UK_ryqf6ahmvfyfo3da42imitxen  unique (characteristicsUpdates_ID);
 
+    alter table T_INSERTED_DATA 
+        add constraint UK_h99y61rxnrq69c3nx0n2ko4m3  unique (ID);
+
+    alter table T_INSERTED_DATA 
+        add constraint UK_p65fw3bsg7kkp8t68dncqwxni  unique (comparationId);
+
     alter table T_LEVELUP 
         add constraint UK_e9y7b2htj85ls5jccr8dscoiv  unique (ID);
 
@@ -605,6 +665,11 @@
         add constraint FK_fosyvcj2m4uxy71k8c0yal7f4 
         foreign key (historialId) 
         references T_HISTORIAL (ID);
+
+    alter table T_CHARACTERPLAYER 
+        add constraint FK_sf6x1b6j7k1j0k5u6l2rmdrje 
+        foreign key (insertedDataId) 
+        references T_INSERTED_DATA (ID);
 
     alter table T_CHARACTERPLAYER 
         add constraint FK_h988k07hk2n60qnuqd21dakou 
@@ -730,6 +795,41 @@
         add constraint FK_3jaxecovlcm50nr1sxbl3hvkr 
         foreign key (Historial_ID) 
         references T_HISTORIAL (ID);
+
+    alter table T_INSERTED_CATEGORIES_RANKS 
+        add constraint FK_oty3rpochepuhxys6dr4k0586 
+        foreign key (InsertedData_ID) 
+        references T_INSERTED_DATA (ID);
+
+    alter table T_INSERTED_GENERALIZED_SKILLS 
+        add constraint FK_de947s4ll2sfaca0af9o4i1dv 
+        foreign key (InsertedData_ID) 
+        references T_INSERTED_DATA (ID);
+
+    alter table T_INSERTED_POTENTIAL_VALUES 
+        add constraint FK_q028dnc1p1awjuln1vod526sb 
+        foreign key (InsertedData_ID) 
+        references T_INSERTED_DATA (ID);
+
+    alter table T_INSERTED_SKILLS_RANKS 
+        add constraint FK_9u758eu0qi88tds6vgd0j1wqk 
+        foreign key (InsertedData_ID) 
+        references T_INSERTED_DATA (ID);
+
+    alter table T_INSERTED_SKILL_SPECIALIZATIONS 
+        add constraint FK_l4uxmn4qko3tniee523n7wywa 
+        foreign key (InsertedData_ID) 
+        references T_INSERTED_DATA (ID);
+
+    alter table T_INSERTED_TEMPORAL_VALUES 
+        add constraint FK_ghrqijnv3wbp2gdf4x8lpqn0y 
+        foreign key (InsertedData_ID) 
+        references T_INSERTED_DATA (ID);
+
+    alter table T_INSERTED_TRAININGS_ADQUIRED 
+        add constraint FK_jdgf6d09vevygqghkkosaex2h 
+        foreign key (InsertedData_ID) 
+        references T_INSERTED_DATA (ID);
 
     alter table T_LEVELUP_CATEGORIES_RANKS 
         add constraint FK_qfiu7ugdjl7amg1s25i9j3byj 

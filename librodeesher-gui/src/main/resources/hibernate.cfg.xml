@@ -81,5 +81,6 @@
 	<mapping class="com.softwaremagico.librodeesher.pj.training.TrainingItem"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.equipment.MagicObject"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.equipment.ObjectBonus"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.InsertedData"></mapping>
     </session-factory>
 </hibernate-configuration>
