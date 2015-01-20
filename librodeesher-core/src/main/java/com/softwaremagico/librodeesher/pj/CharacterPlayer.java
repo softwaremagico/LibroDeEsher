@@ -215,11 +215,11 @@ public class CharacterPlayer extends StorableObject {
 	private List<MagicObject> magicItems;
 
 	private transient CharacterPlayerHelper characterPlayerHelper;
-	
+
 	@Expose
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "insertedDataId")
-	private InsertedData insertedData = null;
+	private InsertedData insertedData;
 
 	public CharacterPlayer() {
 		characterPlayerHelper = new CharacterPlayerHelper();
@@ -238,6 +238,7 @@ public class CharacterPlayer extends StorableObject {
 		selectedPerks = new ArrayList<>();
 		magicSpellListsObtained = false;
 		magicItems = new ArrayList<>();
+		insertedData = new InsertedData();
 		setDefaultConfig();
 		// Starts in level 1.
 		increaseLevel();
@@ -265,14 +266,12 @@ public class CharacterPlayer extends StorableObject {
 
 	public Integer getAppearance() {
 		return appearance.getTotal(getCharacteristicPotentialValue(CharacteristicsAbbreviature
-				.getCharacteristicsAbbreviature("Pr")))
-				+ getRace().getApperanceBonus()
-				+ getPerkApperanceBonus();
+				.getCharacteristicsAbbreviature("Pr"))) + getRace().getApperanceBonus() + getPerkApperanceBonus();
 	}
 
 	/**
-	 * Default config is stored in a file and changed with the options windows.
-	 * When a new character is created, it uses this default config options.
+	 * Default config is stored in a file and changed with the options windows. When a new character is created, it uses
+	 * this default config options.
 	 */
 	private void setDefaultConfig() {
 		darkSpellsAsBasicListsAllowed = Config.getDarkSpellsAsBasic();
@@ -315,8 +314,8 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public boolean isHybridWizard() {
-		return (getNewRankCost(getCategory(Spanish.BASIC_LIST_TAG), 0, 0) == 3 && getRealmOfMagic()
-				.getRealmsOfMagic().size() == 2);
+		return (getNewRankCost(getCategory(Spanish.BASIC_LIST_TAG), 0, 0) == 3 && getRealmOfMagic().getRealmsOfMagic()
+				.size() == 2);
 	}
 
 	/**
@@ -416,9 +415,8 @@ public class CharacterPlayer extends StorableObject {
 		Integer temporalValue = characteristicsInitialTemporalValues.get(abbreviature);
 		for (TrainingDecision training : getTrainingDecisions().values()) {
 			for (CharacteristicRoll roll : training.getCharacteristicsUpdates(abbreviature)) {
-				temporalValue += Characteristic.getCharacteristicUpgrade(
-						roll.getCharacteristicTemporalValue(), roll.getCharacteristicPotentialValue(),
-						roll.getRoll());
+				temporalValue += Characteristic.getCharacteristicUpgrade(roll.getCharacteristicTemporalValue(),
+						roll.getCharacteristicPotentialValue(), roll.getRoll());
 			}
 		}
 		for (CharacteristicRoll roll : historial.getCharacteristicsUpdates(abbreviature)) {
@@ -433,8 +431,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * Temporal value of the characteristic when starting the creation of the
-	 * character.
+	 * Temporal value of the characteristic when starting the creation of the character.
 	 * 
 	 * @param abbreviature
 	 * @return
@@ -475,7 +472,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getCurrentLevelNumber() {
-		return levelUps.size();
+		return levelUps.size() + insertedData.getInstertedLevels();
 	}
 
 	public Culture getCulture() {
@@ -642,8 +639,7 @@ public class CharacterPlayer extends StorableObject {
 
 	private Integer getSpentDevelopmentPoints(int level) {
 		if (level < levelUps.size()) {
-			return getSpentDevelopmentPointsInCategoryRanks(level)
-					+ getSpentDevelopmentPointsInSkillsRanks(level)
+			return getSpentDevelopmentPointsInCategoryRanks(level) + getSpentDevelopmentPointsInSkillsRanks(level)
 					+ getSpentDevelopmentPointsInTrainings(level);
 		}
 		return 0;
@@ -687,8 +683,8 @@ public class CharacterPlayer extends StorableObject {
 	private void setCharacteristicsTemporalUpdatesRolls() {
 		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
 			if (characteristicsTemporalUpdatesRolls.get(characteristic.getAbbreviature()) == null) {
-				characteristicsTemporalUpdatesRolls.put(characteristic.getAbbreviature(), new RollGroup(
-						characteristic.getAbbreviature()));
+				characteristicsTemporalUpdatesRolls.put(characteristic.getAbbreviature(),
+						new RollGroup(characteristic.getAbbreviature()));
 			}
 		}
 	}
@@ -717,8 +713,8 @@ public class CharacterPlayer extends StorableObject {
 
 	private void setPotentialValues() {
 		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
-			Integer potential = Characteristics.getPotencial(characteristicsInitialTemporalValues
-					.get(characteristic.getAbbreviature()));
+			Integer potential = Characteristics.getPotencial(characteristicsInitialTemporalValues.get(characteristic
+					.getAbbreviature()));
 			characteristicsPotentialValues.put(characteristic.getAbbreviature(), potential);
 		}
 	}
@@ -751,8 +747,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getLanguageInitialRanks(String language) {
-		return Math.max(getCulture().getLanguageMaxRanks(language),
-				getRace().getLanguageInitialRanks(language));
+		return Math.max(getCulture().getLanguageMaxRanks(language), getRace().getLanguageInitialRanks(language));
 	}
 
 	public Integer getLanguageMaxInitialRanks(String language) {
@@ -866,8 +861,7 @@ public class CharacterPlayer extends StorableObject {
 			Training training = TrainingFactory.getTraining(trainingName);
 			for (TrainingCategory trainingCategory : training.getCategoriesWithRanks()) {
 				TrainingDecision trainingDecision = getTrainingDecision(training.getName());
-				total += trainingDecision.getSkillRank(training.getTrainingCategoryIndex(trainingCategory),
-						skill);
+				total += trainingDecision.getSkillRank(training.getTrainingCategoryIndex(trainingCategory), skill);
 			}
 		}
 		return total;
@@ -886,9 +880,9 @@ public class CharacterPlayer extends StorableObject {
 					// Selected category from list
 					TrainingDecision trainingDecision = getTrainingDecisions().get(trainingName);
 					if (trainingDecision != null
-							&& trainingDecision.getSelectedCategory(
-									training.getTrainingCategoryIndex(trainingCategory)).contains(
-									category.getName())) {
+							&& trainingDecision
+									.getSelectedCategory(training.getTrainingCategoryIndex(trainingCategory)).contains(
+											category.getName())) {
 						total += trainingCategory.getCategoryRanks();
 					}
 				}
@@ -986,8 +980,7 @@ public class CharacterPlayer extends StorableObject {
 			return characterPlayerHelper.getCategoryTotalBonus(category.getName());
 		}
 		Integer genericBonus = category.getBonus() + getProfession().getCategoryBonus(category.getName())
-				+ getHistorial().getBonus(category) + getPerkBonus(category)
-				+ getConditionalPerkBonus(category);
+				+ getHistorial().getBonus(category) + getPerkBonus(category) + getConditionalPerkBonus(category);
 		Integer itemBonus = getItemBonus(category);
 		characterPlayerHelper.setCategoryGeneralBonus(category.getName(), genericBonus);
 		characterPlayerHelper.setCategoryObjectBonus(category.getName(), itemBonus);
@@ -999,8 +992,8 @@ public class CharacterPlayer extends StorableObject {
 		if (characterPlayerHelper.getSkillTotalBonus(skill.getName()) != null) {
 			return characterPlayerHelper.getSkillTotalBonus(skill.getName());
 		}
-		Integer genericBonus = getProfession().getSkillBonus(skill.getName())
-				+ getHistorial().getBonus(skill) + getPerkBonus(skill) + getConditionalPerkBonus(skill);
+		Integer genericBonus = getProfession().getSkillBonus(skill.getName()) + getHistorial().getBonus(skill)
+				+ getPerkBonus(skill) + getConditionalPerkBonus(skill);
 		Integer itemBonus = getItemBonus(skill);
 		characterPlayerHelper.setSkillGeneralBonus(skill.getName(), genericBonus);
 		characterPlayerHelper.setSkillObjectBonus(skill.getName(), itemBonus);
@@ -1116,8 +1109,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * In culture, weapon costs are not defined. Therefore, we will use the best
-	 * value.
+	 * In culture, weapon costs are not defined. Therefore, we will use the best value.
 	 * 
 	 * @param category
 	 * @return
@@ -1135,8 +1127,7 @@ public class CharacterPlayer extends StorableObject {
 	 * 
 	 * @param category
 	 * @param currentListRanks
-	 *            current ranks spent in this skill. In magic, higher levels are
-	 *            more expensive.
+	 *            current ranks spent in this skill. In magic, higher levels are more expensive.
 	 * @return
 	 */
 	public CategoryCost getCategoryCost(Category category, Integer currentListRanks) {
@@ -1164,12 +1155,10 @@ public class CharacterPlayer extends StorableObject {
 	 * @param category
 	 *            category to be updated.
 	 * @param currentRanks
-	 *            Current ranks in category or skill. Must include old levels
-	 *            ranks and previous ranks included in this new level. Only used
-	 *            for spell cost (higher level spells are more expensive).
+	 *            Current ranks in category or skill. Must include old levels ranks and previous ranks included in this
+	 *            new level. Only used for spell cost (higher level spells are more expensive).
 	 * @param rankAdded
-	 *            If it is the first, second or third rank added at this level
-	 *            [0, 1, 2].
+	 *            If it is the first, second or third rank added at this level [0, 1, 2].
 	 * @return
 	 */
 	public Integer getNewRankCost(Category category, Integer currentRanks, Integer rankAdded) {
@@ -1198,12 +1187,10 @@ public class CharacterPlayer extends StorableObject {
 	 * @param skill
 	 *            skill to be updated.
 	 * @param currentRanks
-	 *            Current ranks in category or skill. Must include old levels
-	 *            ranks and previous ranks included in this new level. Only used
-	 *            for spell cost.
+	 *            Current ranks in category or skill. Must include old levels ranks and previous ranks included in this
+	 *            new level. Only used for spell cost.
 	 * @param rankAdded
-	 *            If it is the first, second or third rank added at this level
-	 *            [0, 1, 2].
+	 *            If it is the first, second or third rank added at this level [0, 1, 2].
 	 * @return
 	 */
 	public Integer getNewRankCost(Skill skill, Integer currentRanks, Integer rankAdded) {
@@ -1229,8 +1216,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * A category is not used if it has not skills or the cost is more than the
-	 * selected in the configuration.
+	 * A category is not used if it has not skills or the cost is more than the selected in the configuration.
 	 * 
 	 * @param category
 	 * @return
@@ -1244,8 +1230,7 @@ public class CharacterPlayer extends StorableObject {
 			return true;
 		}
 		// Hide forbidden categories.
-		if (!isOtherRealmtrainingSpellsAllowed()
-				&& category.getName().equals(Spanish.OTHER_REALM_TRAINING_LISTS)) {
+		if (!isOtherRealmtrainingSpellsAllowed() && category.getName().equals(Spanish.OTHER_REALM_TRAINING_LISTS)) {
 			return false;
 		}
 		// Expensive categories are useless.
@@ -1303,8 +1288,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * Some categories depend on the profession of the character (as spell
-	 * lists).
+	 * Some categories depend on the profession of the character (as spell lists).
 	 * 
 	 * @param category
 	 * @return
@@ -1366,8 +1350,7 @@ public class CharacterPlayer extends StorableObject {
 			}
 		}
 		// Last cost for any extra categories.
-		return getProfession().getWeaponCategoryCost()
-				.get(getProfession().getWeaponCategoryCost().size() - 1);
+		return getProfession().getWeaponCategoryCost().get(getProfession().getWeaponCategoryCost().size() - 1);
 	}
 
 	public void setHistoryPoints(Skill skill, boolean value) {
@@ -1395,8 +1378,7 @@ public class CharacterPlayer extends StorableObject {
 	public CharacteristicRoll setCharacteristicHistorialUpdate(CharacteristicsAbbreviature abbreviature) {
 		Roll roll = getStoredCharacteristicRoll(abbreviature);
 		CharacteristicRoll characteristicRoll = historial.addCharactersiticUpdate(abbreviature,
-				getCharacteristicTemporalValue(abbreviature), getCharacteristicPotentialValue(abbreviature),
-				roll);
+				getCharacteristicTemporalValue(abbreviature), getCharacteristicPotentialValue(abbreviature), roll);
 		characterPlayerHelper.resetAllCategoryCharacteristicsBonus();
 		characterPlayerHelper.resetDelvelopmentPoints();
 		return characteristicRoll;
@@ -1412,9 +1394,8 @@ public class CharacterPlayer extends StorableObject {
 	public CharacteristicRoll addNewCharacteristicTrainingUpdate(CharacteristicsAbbreviature abbreviature,
 			String trainingName) {
 		Roll roll = getStoredCharacteristicRoll(abbreviature);
-		CharacteristicRoll characteristicRoll = getTrainingDecision(trainingName).addCharactersiticUpdate(
-				abbreviature, getCharacteristicTemporalValue(abbreviature),
-				getCharacteristicPotentialValue(abbreviature), roll);
+		CharacteristicRoll characteristicRoll = getTrainingDecision(trainingName).addCharactersiticUpdate(abbreviature,
+				getCharacteristicTemporalValue(abbreviature), getCharacteristicPotentialValue(abbreviature), roll);
 		characterPlayerHelper.resetAllCategoryCharacteristicsBonus();
 		characterPlayerHelper.resetDelvelopmentPoints();
 		return characteristicRoll;
@@ -1504,8 +1485,7 @@ public class CharacterPlayer extends StorableObject {
 
 	public boolean isCommon(Skill skill) {
 		return skill.getSkillType().equals(SkillType.COMMON) || isCommonByPerk(skill)
-				|| getProfession().isCommon(skill) || professionDecisions.isCommon(skill)
-				|| getRace().isCommon(skill);
+				|| getProfession().isCommon(skill) || professionDecisions.isCommon(skill) || getRace().isCommon(skill);
 	}
 
 	private boolean isCommonByPerk(Skill skill) {
@@ -1550,8 +1530,7 @@ public class CharacterPlayer extends StorableObject {
 		for (String trainingName : TrainingFactory.getAvailableTrainings()) {
 			// Correct race of training.
 			if (TrainingFactory.getTraining(trainingName).getLimitedRaces().size() > 0) {
-				if (!TrainingFactory.getTraining(trainingName).getLimitedRaces()
-						.contains(getRace().getName())) {
+				if (!TrainingFactory.getTraining(trainingName).getLimitedRaces().contains(getRace().getName())) {
 					continue;
 				}
 			}
@@ -1587,8 +1566,7 @@ public class CharacterPlayer extends StorableObject {
 		return costModification;
 	}
 
-	private Integer getTrainingCharacteristicCostReduction(List<Characteristic> characteristics,
-			Training training) {
+	private Integer getTrainingCharacteristicCostReduction(List<Characteristic> characteristics, Training training) {
 		Integer costModification = 0;
 		for (Characteristic characteristic : characteristics) {
 			try {
@@ -1607,8 +1585,7 @@ public class CharacterPlayer extends StorableObject {
 	public Integer getTrainingCost(String trainingName) {
 		Integer baseCost = getProfession().getTrainingCost(trainingName);
 		Training training = TrainingFactory.getTraining(trainingName);
-		baseCost += getTrainingSkillCostReduction(
-				SkillFactory.getSkills(training.getSkillRequirementsList()), training);
+		baseCost += getTrainingSkillCostReduction(SkillFactory.getSkills(training.getSkillRequirementsList()), training);
 		baseCost += getTrainingCharacteristicCostReduction(Characteristics.getCharacteristics(), training);
 		return baseCost;
 	}
@@ -1623,8 +1600,8 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * The user must to choose one category from a training if the training has
-	 * this option and it has not been chosen before.
+	 * The user must to choose one category from a training if the training has this option and it has not been chosen
+	 * before.
 	 * 
 	 * @param trainingName
 	 * @return
@@ -1633,8 +1610,8 @@ public class CharacterPlayer extends StorableObject {
 		if (trainingCategory.needToChooseOneCategory()) {
 			TrainingDecision trainingDecision = getTrainingDecision(training.getName());
 			if (trainingDecision == null
-					|| trainingDecision.getSelectedCategory(
-							training.getTrainingCategoryIndex(trainingCategory)).isEmpty()) {
+					|| trainingDecision.getSelectedCategory(training.getTrainingCategoryIndex(trainingCategory))
+							.isEmpty()) {
 				return true;
 			} else {
 				return false;
@@ -1743,8 +1720,7 @@ public class CharacterPlayer extends StorableObject {
 		return trainingDecision;
 	}
 
-	public void addTrainingSelectedCategory(Training training, TrainingCategory trainingCategory,
-			String categoryName) {
+	public void addTrainingSelectedCategory(Training training, TrainingCategory trainingCategory, String categoryName) {
 		getTrainingDecision(training.getName()).addSelectedCategory(
 				training.getTrainingCategoryIndex(trainingCategory), categoryName);
 		characterPlayerHelper.resetCategoryRanks(categoryName);
@@ -1752,8 +1728,8 @@ public class CharacterPlayer extends StorableObject {
 
 	public void addTrainingSkillRanks(Training training, TrainingCategory trainingCategory,
 			TrainingSkill trainingSkill, int ranks) {
-		getTrainingDecision(training.getName()).setSkillRank(
-				training.getTrainingCategoryIndex(trainingCategory), trainingSkill, ranks);
+		getTrainingDecision(training.getName()).setSkillRank(training.getTrainingCategoryIndex(trainingCategory),
+				trainingSkill, ranks);
 		characterPlayerHelper.resetSkillRanks(trainingSkill.getName());
 	}
 
@@ -1771,15 +1747,13 @@ public class CharacterPlayer extends StorableObject {
 		return true;
 	}
 
-	public int getTrainingSkillRanks(Training training, TrainingCategory trainingCategory,
-			TrainingSkill trainingSkill) {
+	public int getTrainingSkillRanks(Training training, TrainingCategory trainingCategory, TrainingSkill trainingSkill) {
 		return getTrainingDecision(training.getName()).getSkillRank(
 				training.getTrainingCategoryIndex(trainingCategory), trainingSkill.getName());
 	}
 
 	public void addTrainingEquipment(Training training, int trainingObjectIndex) {
-		getTrainingDecision(training.getName()).getEquipment().add(
-				training.getObjects().get(trainingObjectIndex));
+		getTrainingDecision(training.getName()).getEquipment().add(training.getObjects().get(trainingObjectIndex));
 	}
 
 	public List<TrainingItem> getTrainingEquipment(String trainingName) {
@@ -1992,7 +1966,7 @@ public class CharacterPlayer extends StorableObject {
 	 */
 	public List<MagicObject> getMagicItems() {
 		List<MagicObject> magicItems = new ArrayList<>();
-		for(TrainingDecision trainingDecision : getTrainingDecisions().values()){
+		for (TrainingDecision trainingDecision : getTrainingDecisions().values()) {
 			magicItems.addAll(trainingDecision.getMagicItems());
 		}
 		magicItems.addAll(this.magicItems);
@@ -2103,8 +2077,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * Convert special tags as 'weapon' or 'armor' to real skills names
-	 * depending on the culture possibilities.
+	 * Convert special tags as 'weapon' or 'armor' to real skills names depending on the culture possibilities.
 	 * 
 	 * @return
 	 */

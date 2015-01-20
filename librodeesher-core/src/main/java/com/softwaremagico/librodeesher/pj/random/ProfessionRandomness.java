@@ -32,7 +32,7 @@ public class ProfessionRandomness {
 					.toLowerCase()
 					.equals(MagicListType.BASIC.getCategoryName().toLowerCase())) {
 				if (characterPlayer.getRealRanks(skill) < characterPlayer
-						.getCurrentLevelNumber() + specializationLevel + 1) {
+						.getLevelUps().size() + specializationLevel + 1) {
 					if (characterPlayer.getSkillsWithNewRanks(
 							skill.getCategory()).size() < specializationLevel) {
 						if (characterPlayer.isSemiWizard()) {

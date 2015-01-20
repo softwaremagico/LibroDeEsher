@@ -126,7 +126,7 @@ public class SkillProbability {
 	 */
 	private int stillNotUsedSkill() {
 		int bonus = 0;
-		bonus += Math.max(characterPlayer.getCurrentLevelNumber() - characterPlayer.getNewRankCost(skill)
+		bonus += Math.max(characterPlayer.getLevelUps().size() - characterPlayer.getNewRankCost(skill)
 				- characterPlayer.getRealRanks(skill) * 2, 0);
 		return bonus;
 	}

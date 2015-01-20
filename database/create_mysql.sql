@@ -176,9 +176,9 @@
 
     create table T_INSERTED_CATEGORIES_RANKS (
         InsertedData_ID bigint not null,
-        categoriesRanks integer,
-        categoriesRanks_KEY varchar(255),
-        primary key (InsertedData_ID, categoriesRanks_KEY)
+        categoriesRanksModification integer,
+        categoriesRanksModification_KEY varchar(255),
+        primary key (InsertedData_ID, categoriesRanksModification_KEY)
     );
 
     create table T_INSERTED_DATA (
@@ -186,45 +186,45 @@
         comparationId varchar(255) not null,
         creationTime datetime not null,
         updateTime datetime,
-        createdAtLevel integer not null,
-        instertedLevels integer not null,
+        createdAtLevel integer,
+        instertedLevels integer,
         primary key (ID)
     );
 
     create table T_INSERTED_GENERALIZED_SKILLS (
         InsertedData_ID bigint not null,
-        generalizedSkills varchar(255)
+        generalizedSkillsAdded varchar(255)
     );
 
     create table T_INSERTED_POTENTIAL_VALUES (
         InsertedData_ID bigint not null,
-        characteristicsPotentialValues integer,
-        characteristicsPotentialValues_KEY integer,
-        primary key (InsertedData_ID, characteristicsPotentialValues_KEY)
+        characteristicsPotentialValuesModification integer,
+        characteristicsPotentialValuesModification_KEY integer,
+        primary key (InsertedData_ID, characteristicsPotentialValuesModification_KEY)
     );
 
     create table T_INSERTED_SKILLS_RANKS (
         InsertedData_ID bigint not null,
-        skillsRanks integer,
-        skillsRanks_KEY varchar(255),
-        primary key (InsertedData_ID, skillsRanks_KEY)
+        skillsRanksModification integer,
+        skillsRanksModification_KEY varchar(255),
+        primary key (InsertedData_ID, skillsRanksModification_KEY)
     );
 
     create table T_INSERTED_SKILL_SPECIALIZATIONS (
         InsertedData_ID bigint not null,
-        skillSpecializations varchar(255)
+        skillSpecializationsAdded varchar(255)
     );
 
     create table T_INSERTED_TEMPORAL_VALUES (
         InsertedData_ID bigint not null,
-        characteristicsTemporalValues integer,
-        characteristicsTemporalValues_KEY integer,
-        primary key (InsertedData_ID, characteristicsTemporalValues_KEY)
+        characteristicsTemporalValuesModification integer,
+        characteristicsTemporalValuesModification_KEY integer,
+        primary key (InsertedData_ID, characteristicsTemporalValuesModification_KEY)
     );
 
     create table T_INSERTED_TRAININGS_ADQUIRED (
         InsertedData_ID bigint not null,
-        trainings varchar(255)
+        trainingsAdded varchar(255)
     );
 
     create table T_LEVELUP (

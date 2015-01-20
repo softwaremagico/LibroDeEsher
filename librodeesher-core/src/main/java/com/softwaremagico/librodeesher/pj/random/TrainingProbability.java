@@ -97,7 +97,7 @@ public class TrainingProbability {
 				// At least one training per level
 				if (characterPlayer.getCurrentLevel().getTrainings().isEmpty()) {
 					return 100;
-				} else if (suggestedTrainings.size() > finalLevel - characterPlayer.getCurrentLevelNumber()) {
+				} else if (suggestedTrainings.size() > finalLevel - characterPlayer.getLevelUps().size()) {
 					return 100;
 				}
 			}

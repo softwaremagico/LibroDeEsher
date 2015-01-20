@@ -23,128 +23,121 @@ import com.softwaremagico.persistence.StorableObject;
 public class InsertedData extends StorableObject {
 
 	@Expose
-	private int createdAtLevel;
+	private Integer createdAtLevel;
 
-	private int instertedLevels;
+	@Expose
+	private Integer instertedLevels;
 
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_INSERTED_TEMPORAL_VALUES")
-	private Map<CharacteristicsAbbreviature, Integer> characteristicsTemporalValues;
+	private Map<CharacteristicsAbbreviature, Integer> characteristicsTemporalValuesModification;
 
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_INSERTED_POTENTIAL_VALUES")
-	private Map<CharacteristicsAbbreviature, Integer> characteristicsPotentialValues;
+	private Map<CharacteristicsAbbreviature, Integer> characteristicsPotentialValuesModification;
 
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_INSERTED_CATEGORIES_RANKS")
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private Map<String, Integer> categoriesRanks;
+	private Map<String, Integer> categoriesRanksModification;
 
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_INSERTED_SKILLS_RANKS")
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private Map<String, Integer> skillsRanks;
+	private Map<String, Integer> skillsRanksModification;
 
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_INSERTED_GENERALIZED_SKILLS")
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<String> generalizedSkills;
+	private List<String> generalizedSkillsAdded;
 
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_INSERTED_TRAININGS_ADQUIRED")
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<String> trainings;
+	private List<String> trainingsAdded;
 
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_INSERTED_SKILL_SPECIALIZATIONS")
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<String> skillSpecializations;
+	private List<String> skillSpecializationsAdded;
 
 	public InsertedData() {
-		this.createdAtLevel = 1;
-		characteristicsTemporalValues = new HashMap<>();
-		characteristicsPotentialValues = new HashMap<>();
-		categoriesRanks = new HashMap<>();
-		skillsRanks = new HashMap<>();
-		trainings = new ArrayList<>();
-		generalizedSkills = new ArrayList<>();
-		skillSpecializations = new ArrayList<>();
+		characteristicsTemporalValuesModification = new HashMap<>();
+		characteristicsPotentialValuesModification = new HashMap<>();
+		categoriesRanksModification = new HashMap<>();
+		skillsRanksModification = new HashMap<>();
+		trainingsAdded = new ArrayList<>();
+		generalizedSkillsAdded = new ArrayList<>();
+		skillSpecializationsAdded = new ArrayList<>();
 	}
 
-	public InsertedData(int createdAtLevel) {
-		this.createdAtLevel = createdAtLevel;
+	public boolean isEnabled() {
+		return createdAtLevel != null;
 	}
 
 	@Override
 	public void resetIds() {
-
+		setId(null);
 	}
 
 	public int getInstertedLevels() {
-		return instertedLevels;
+		if (instertedLevels != null) {
+			return instertedLevels;
+		}
+		return 0;
 	}
 
 	public void setInstertedLevels(int instertedLevels) {
 		this.instertedLevels = instertedLevels;
 	}
 
-	public int getCreatedAtLevel() {
+	public Integer getCreatedAtLevel() {
 		return createdAtLevel;
 	}
 
 	public List<String> getSkillSpecializations(Skill skill) {
 		List<String> specialities = new ArrayList<>();
 		for (String speciality : skill.getSpecialities()) {
-			if (skillSpecializations.contains(speciality)) {
+			if (skillSpecializationsAdded.contains(speciality)) {
 				specialities.add(speciality);
 			}
 		}
 		return specialities;
 	}
 
-	public Integer getRanksSpentInSpecializations(Skill skill) {
-		int total = 0;
-		for (String speciality : skill.getSpecialities()) {
-			if (skillSpecializations.contains(speciality)) {
-				total++;
-			}
-		}
-		return total;
-	}
-
-	public Integer getSkillsRanks(String skillName) {
-		Integer ranks = skillsRanks.get(skillName);
+	public Integer getSkillsRanksModification(String skillName) {
+		Integer ranks = skillsRanksModification.get(skillName);
 		if (ranks == null) {
 			return 0;
 		}
 		return ranks;
 	}
 
-	public void setSkillsRanks(Skill skill, Integer ranks) {
+	public void setSkillsRanksModification(Skill skill, Integer ranks) {
 		if (ranks == 0) {
-			skillsRanks.remove(skill.getName());
+			skillsRanksModification.remove(skill.getName());
 		} else {
-			skillsRanks.put(skill.getName(), ranks);
+			skillsRanksModification.put(skill.getName(), ranks);
 		}
 	}
 
-	public void setCategoryRanks(String categoryName, Integer ranks) {
+	public void setCategoryRanksModification(String categoryName, Integer ranks) {
 		if (ranks <= 0) {
-			categoriesRanks.remove(categoryName);
+			categoriesRanksModification.remove(categoryName);
 		} else {
-			categoriesRanks.put(categoryName, ranks);
+			categoriesRanksModification.put(categoryName, ranks);
 		}
 	}
 
-	public Integer getCategoryRanks(String categoryName) {
-		Integer ranks = categoriesRanks.get(categoryName);
+	public Integer getCategoryRanksModification(String categoryName) {
+		Integer ranks = categoriesRanksModification.get(categoryName);
 		if (ranks == null) {
 			return 0;
 		}
@@ -152,15 +145,15 @@ public class InsertedData extends StorableObject {
 	}
 
 	public List<String> getGeneralizedSkills() {
-		return generalizedSkills;
+		return generalizedSkillsAdded;
 	}
 
 	public List<String> getTrainings() {
-		return trainings;
+		return trainingsAdded;
 	}
 
 	public void addTraining(String trainingName) {
-		trainings.add(trainingName);
+		trainingsAdded.add(trainingName);
 	}
 
 }

@@ -13,7 +13,6 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryComparatorByCost;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
-import com.softwaremagico.librodeesher.pj.categories.CategoryType;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
@@ -116,7 +115,7 @@ public class RandomCharacterPlayer {
 		this.sex = characterPlayer.getSex();
 		suggestedSkillsRanks = new HashMap<>();
 		suggestedCategoriesRanks = new HashMap<>();
-		this.finalLevel = characterPlayer.getCurrentLevelNumber();
+		this.finalLevel = characterPlayer.getLevelUps().size();
 		this.characterPlayer = characterPlayer;
 		this.race = characterPlayer.getRace().getName();
 		this.culture = characterPlayer.getCulture().getName();
@@ -576,7 +575,7 @@ public class RandomCharacterPlayer {
 		Map<Category, Integer> categoryProbabilityStored = new HashMap<>();
 		tries = 0;
 		while (characterPlayer.getRemainingDevelopmentPoints() > 0 && tries <= MAX_TRIES) {
-			sendFeedBack("(Nº" + characterPlayer.getCurrentLevelNumber() + ") Gastando puntos de desarrollo.");
+			sendFeedBack("(Nº" + characterPlayer.getLevelUps().size() + ") Gastando puntos de desarrollo.");
 			getRandomTrainings(characterPlayer, getSpecializationLevel(), suggestedTrainings, finalLevel);
 			setRandomRanks(characterPlayer, specializationLevel, suggestedSkillsRanks, tries, finalLevel,
 					categoryProbabilityStored, skillProbabilityStored);
