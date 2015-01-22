@@ -666,8 +666,8 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	private Integer getSpentDevelopmentPoints(int level) {
-		// If the user has inserted data, set development points to cero.
-		if (level == insertedData.getCreatedAtLevel()) {
+		// If the user has inserted data, set development points to zero.
+		if (level == insertedData.getCreatedAtLevel() - 1) {
 			return getTotalDevelopmentPoints();
 		}
 		if (level < levelUps.size()) {

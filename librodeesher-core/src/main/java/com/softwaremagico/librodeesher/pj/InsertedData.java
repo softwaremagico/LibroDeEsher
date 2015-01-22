@@ -17,10 +17,13 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.google.gson.annotations.Expose;
+import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
 import com.softwaremagico.persistence.StorableObject;
 
@@ -32,7 +35,7 @@ public class InsertedData extends StorableObject {
 	private Integer createdAtLevel = 0;
 
 	@Expose
-	private Integer instertedLevels;
+	private Integer instertedLevels = 0;
 
 	@Expose
 	@ElementCollection
@@ -88,16 +91,19 @@ public class InsertedData extends StorableObject {
 		generalizedSkillsAdded = new ArrayList<>();
 		skillSpecializationsAdded = new ArrayList<>();
 		trainingDecisions = new HashMap<>();
-		initializeCharacteristics();
+		initializeAsZeroSkillsAndCategories();
 	}
 
-	/**
-	 * We set as null values to facilitate the edition of the JSON file. 
-	 */
-	private void initializeCharacteristics() {
+	private void initializeAsZeroSkillsAndCategories() {
 		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
 			characteristicsTemporalValuesModification.put(characteristic.getAbbreviature(), null);
 			characteristicsPotentialValuesModification.put(characteristic.getAbbreviature(), null);
+		}
+		for (Category category : CategoryFactory.getCategories()) {
+			categoriesRanksModification.put(category.getName(), 0);
+		}
+		for (String skill : SkillFactory.getAvailableSkills()) {
+			skillsRanksModification.put(skill, 0);
 		}
 	}
 

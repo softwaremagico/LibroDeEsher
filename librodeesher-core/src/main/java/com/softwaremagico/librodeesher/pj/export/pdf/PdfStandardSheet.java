@@ -1410,7 +1410,6 @@ public class PdfStandardSheet {
 	}
 
 	private PdfPTable createCharacteristicsTable(String font, int fontSize) {
-		List<Characteristic> characteristics = Characteristics.getCharacteristics();
 		float[] widths = { 0.30f, 0.10f, 0.10f, 0.10f, 0.10f, 0.10f, 0.20f };
 		PdfPTable tablaCaracteristicas = new PdfPTable(widths);
 		Paragraph p;
@@ -1424,7 +1423,8 @@ public class PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		tablaCaracteristicas.addCell(cell);
 
-		for (int i = 0; i < characteristics.size(); i++) {
+		int i=0;
+		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
 			p = new Paragraph("", FontFactory.getFont(font, fontSize));
 			cell = new PdfPCell(p);
 			cell.setBorderWidth(0);
@@ -1433,7 +1433,7 @@ public class PdfStandardSheet {
 			tablaCaracteristicas.addCell(cell);
 
 			if (characterPlayer != null) {
-				p = new Paragraph(characterPlayer.getCharacteristicTemporalValue(characteristics.get(i)
+				p = new Paragraph(characterPlayer.getCharacteristicTemporalValue(characteristic
 						.getAbbreviature()) + "", FontFactory.getFont(font, fontSize));
 			} else {
 				p = new Paragraph("  " + EMPTY_VALUE, FontFactory.getFont(font, fontSize));
@@ -1444,8 +1444,8 @@ public class PdfStandardSheet {
 			tablaCaracteristicas.addCell(cell);
 
 			if (characterPlayer != null) {
-				p = new Paragraph(characterPlayer.getCharacteristicPotencialValue().get(
-						characteristics.get(i).getAbbreviature())
+				p = new Paragraph(characterPlayer.getCharacteristicPotentialValue(
+						characteristic.getAbbreviature())
 						+ "", FontFactory.getFont(font, fontSize));
 			} else {
 				p = new Paragraph("  " + EMPTY_VALUE, FontFactory.getFont(font, fontSize));
@@ -1456,7 +1456,7 @@ public class PdfStandardSheet {
 			tablaCaracteristicas.addCell(cell);
 
 			if (characterPlayer != null) {
-				p = new Paragraph(characterPlayer.getCharacteristicTemporalBonus(characteristics.get(i)
+				p = new Paragraph(characterPlayer.getCharacteristicTemporalBonus(characteristic
 						.getAbbreviature()) + "", FontFactory.getFont(font, fontSize));
 			} else {
 				p = new Paragraph("  " + EMPTY_VALUE, FontFactory.getFont(font, fontSize));
@@ -1467,7 +1467,7 @@ public class PdfStandardSheet {
 			tablaCaracteristicas.addCell(cell);
 
 			if (characterPlayer != null) {
-				p = new Paragraph(characterPlayer.getCharacteristicRaceBonus(characteristics.get(i).getAbbreviature())
+				p = new Paragraph(characterPlayer.getCharacteristicRaceBonus(characteristic.getAbbreviature())
 						+ "", FontFactory.getFont(font, fontSize));
 			} else {
 				p = new Paragraph("  " + EMPTY_VALUE, FontFactory.getFont(font, fontSize));
@@ -1479,7 +1479,7 @@ public class PdfStandardSheet {
 
 			if (characterPlayer != null) {
 				p = new Paragraph("    "
-						+ characterPlayer.getCharacteristicSpecialBonus(characteristics.get(i).getAbbreviature()),
+						+ characterPlayer.getCharacteristicSpecialBonus(characteristic.getAbbreviature()),
 						FontFactory.getFont(font, fontSize));
 			} else {
 				p = new Paragraph("    " + EMPTY_VALUE, FontFactory.getFont(font, fontSize));
@@ -1490,7 +1490,7 @@ public class PdfStandardSheet {
 			tablaCaracteristicas.addCell(cell);
 
 			if (characterPlayer != null) {
-				p = new Paragraph(characterPlayer.getCharacteristicTotalBonus(characteristics.get(i).getAbbreviature())
+				p = new Paragraph(characterPlayer.getCharacteristicTotalBonus(characteristic.getAbbreviature())
 						+ "", FontFactory.getFont(font, fontSize));
 			} else {
 				p = new Paragraph("", FontFactory.getFont(font, fontSize));
@@ -1510,7 +1510,7 @@ public class PdfStandardSheet {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				tablaCaracteristicas.addCell(cell);
 			}
-
+			i++;
 		}
 		return tablaCaracteristicas;
 	}

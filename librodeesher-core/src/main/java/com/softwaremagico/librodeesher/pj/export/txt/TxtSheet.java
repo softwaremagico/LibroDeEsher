@@ -46,22 +46,20 @@ public class TxtSheet {
 
 	private static String getCharacteristicsInfo(CharacterPlayer characterPlayer) {
 		String formatStr = "%1$-8s %2$-8s %3$-8s %4$-8s %5$-8s%n";
-		List<Characteristic> characteristics = Characteristics.getCharacteristics();
 		// String text = "Caract\tTemp\tPot\tTot\tRaza\tEsp\tTotal\n";
 		String text = String.format(formatStr, "Caract", "Temp", "Pot", "Tot", "Raza", "Esp", "Total");
 		text += "---------------------------------------------------------------------------------\n";
-		for (int i = 0; i < characteristics.size(); i++) {
+		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
 			text = text
-					+ String.format(formatStr, characteristics.get(i).getAbbreviature().getTag(),
-							characterPlayer.getCharacteristicTemporalValue(characteristics.get(i)
-									.getAbbreviature()), characterPlayer.getCharacteristicPotencialValue()
-									.get(characteristics.get(i).getAbbreviature()),
-							characterPlayer.getCharacteristicTemporalBonus(characteristics.get(i)
+					+ String.format(formatStr, characteristic.getAbbreviature().getTag(),
+							characterPlayer.getCharacteristicTemporalValue(characteristic
+									.getAbbreviature()), characterPlayer.getCharacteristicPotentialValue(characteristic.getAbbreviature()),
+							characterPlayer.getCharacteristicTemporalBonus(characteristic
 									.getAbbreviature()), characterPlayer
-									.getCharacteristicRaceBonus(characteristics.get(i).getAbbreviature()),
-							characterPlayer.getCharacteristicSpecialBonus(characteristics.get(i)
+									.getCharacteristicRaceBonus(characteristic.getAbbreviature()),
+							characterPlayer.getCharacteristicSpecialBonus(characteristic
 									.getAbbreviature()), characterPlayer
-									.getCharacteristicTotalBonus(characteristics.get(i).getAbbreviature()));
+									.getCharacteristicTotalBonus(characteristic.getAbbreviature()));
 		}
 		return text;
 	}
