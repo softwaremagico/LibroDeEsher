@@ -17,6 +17,8 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.google.gson.annotations.Expose;
+import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
+import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
@@ -71,7 +73,7 @@ public class InsertedData extends StorableObject {
 	@CollectionTable(name = "T_INSERTED_SKILL_SPECIALIZATIONS")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> skillSpecializationsAdded;
-	
+
 	@Expose
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@CollectionTable(name = "T_INSERTED_TRAINING_DECISIONS")
@@ -86,6 +88,17 @@ public class InsertedData extends StorableObject {
 		generalizedSkillsAdded = new ArrayList<>();
 		skillSpecializationsAdded = new ArrayList<>();
 		trainingDecisions = new HashMap<>();
+		initializeCharacteristics();
+	}
+
+	/**
+	 * We set as null values to facilitate the edition of the JSON file. 
+	 */
+	private void initializeCharacteristics() {
+		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
+			characteristicsTemporalValuesModification.put(characteristic.getAbbreviature(), null);
+			characteristicsPotentialValuesModification.put(characteristic.getAbbreviature(), null);
+		}
 	}
 
 	public boolean isEnabled() {
@@ -166,12 +179,12 @@ public class InsertedData extends StorableObject {
 	public void addTraining(String trainingName) {
 		trainingsAdded.add(trainingName);
 	}
-	
+
 	public void removeTraining(String trainingName) {
 		trainingsAdded.remove(trainingName);
 		trainingDecisions.remove(trainingName);
 	}
-	
+
 	public Map<String, TrainingDecision> getTrainingDecisions() {
 		return trainingDecisions;
 	}

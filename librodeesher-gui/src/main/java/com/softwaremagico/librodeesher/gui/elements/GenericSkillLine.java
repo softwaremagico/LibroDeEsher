@@ -77,7 +77,7 @@ public class GenericSkillLine extends BaseSkillLine {
 		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.3;
-		skillNameLabel = new ListLabel(skill.getName(), SwingConstants.LEFT, 200, columnHeight);
+		skillNameLabel = new ListLabel(character.getSkillNameWithSufix(skill), SwingConstants.LEFT, 200, columnHeight);
 		add(new ListBackgroundPanel(skillNameLabel, background), gridBagConstraints);
 
 		if (costPanel) {

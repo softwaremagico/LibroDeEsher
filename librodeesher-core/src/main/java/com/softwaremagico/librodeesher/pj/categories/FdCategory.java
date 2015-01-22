@@ -44,7 +44,7 @@ public class FdCategory extends Category {
 
 	@Override
 	public boolean hasRanks() {
-		return true;
+		return false;
 	}
 
 	@Override

@@ -419,7 +419,7 @@ public class CharacterPlayer extends StorableObject {
 	private Integer getTemporalModifications(CharacteristicsAbbreviature abbreviature) {
 		Integer temporalValue = 0;
 		if (insertedData.getCharacteristicsTemporalValuesModification(abbreviature) != null) {
-			temporalValue = insertedData.getCharacteristicsTemporalValuesModification(abbreviature);			
+			temporalValue = insertedData.getCharacteristicsTemporalValuesModification(abbreviature);
 		} else {
 			temporalValue = characteristicsInitialTemporalValues.get(abbreviature);
 		}
@@ -2266,6 +2266,22 @@ public class CharacterPlayer extends StorableObject {
 			skills.addAll(category.getSkills());
 		}
 		return getSkillsOrderByValue(skills);
+	}
+
+	public String getSkillNameWithSufix(Skill skill) {
+		String skillName = skill.getName();
+
+		if (isProfessional(skill)) {
+			skillName += " " + SkillType.PROFESSIONAL.getTag();
+		} else if (isCommon(skill)) {
+			skillName += " " + SkillType.COMMON.getTag();
+		}
+
+		if (isRestricted(skill)) {
+			skillName += " " + SkillType.RESTRICTED.getTag();
+		}
+
+		return skillName;
 	}
 
 }

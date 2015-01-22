@@ -28,6 +28,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
@@ -72,6 +74,24 @@ public class CharacterBasicsPanel extends BasePanel {
 		c.gridy = 0;
 		c.weightx = 1;
 		add(nameTextField, c);
+		nameTextField.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				character.setName(nameTextField.getText());
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				character.setName(nameTextField.getText());
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				character.setName(nameTextField.getText());
+			}
+
+		});
 
 		BaseLabel sexLabel = new BaseLabel("Sexo:");
 		c.anchor = GridBagConstraints.LINE_START;
@@ -128,8 +148,8 @@ public class CharacterBasicsPanel extends BasePanel {
 			femaleRadioButton.setText("Femenino");
 		}
 	}
-	
-	public void update(){
+
+	public void update() {
 		nameTextField.setText(character.getName());
 	}
 
@@ -138,7 +158,7 @@ public class CharacterBasicsPanel extends BasePanel {
 		nameTextField.setText(character.getName());
 		if (character.getSex() == SexType.MALE) {
 			maleRadioButton.setSelected(true);
-		}else{
+		} else {
 			femaleRadioButton.setSelected(true);
 		}
 	}

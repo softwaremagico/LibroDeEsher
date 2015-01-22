@@ -109,7 +109,13 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 5;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			prevRanksLabel = new BoldListLabel(previousRanks.toString(), columnWidth, columnHeight);
+			String text;
+			if (category.hasRanks()) {
+				text = previousRanks.toString();
+			}else{
+				text = "na";
+			}
+			prevRanksLabel = new BoldListLabel(text, columnWidth, columnHeight);
 			add(new ListBackgroundPanel(prevRanksLabel, background), gridBagConstraints);
 		}
 
