@@ -422,7 +422,7 @@ public class MainMenu {
 
 	public void update() {
 		boolean enable = character.areCharacteristicsConfirmed();
-		charactMenuItem.setEnabled(!enable);
+		//charactMenuItem.setEnabled(!enable);
 		cultureMenuItem.setEnabled(enable);
 		professionMenuItem.setEnabled(enable
 				&& (!character.getProfession().getProfessionalSkillsToChoose().isEmpty()

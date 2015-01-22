@@ -142,6 +142,8 @@ public class CharacteristicsWindow extends BaseFrame {
 				- character.getCharacteristicsTemporalPointsSpent());
 		acceptButton.setEnabled(!character.areCharacteristicsConfirmed());
 		randomButton.setEnabled(acceptButton.isEnabled());
+		characteristicsPointsTextField.setVisible(!character.isCharacteristicsConfirmed());
+		spentPointsLabel.setVisible(!character.isCharacteristicsConfirmed());
 		setPotential();
 	}
 

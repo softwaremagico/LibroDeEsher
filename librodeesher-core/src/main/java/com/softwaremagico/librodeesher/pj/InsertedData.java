@@ -5,9 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
@@ -16,6 +19,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import com.google.gson.annotations.Expose;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
 import com.softwaremagico.persistence.StorableObject;
 
 @Entity
@@ -23,7 +27,7 @@ import com.softwaremagico.persistence.StorableObject;
 public class InsertedData extends StorableObject {
 
 	@Expose
-	private Integer createdAtLevel;
+	private Integer createdAtLevel = 0;
 
 	@Expose
 	private Integer instertedLevels;
@@ -67,6 +71,11 @@ public class InsertedData extends StorableObject {
 	@CollectionTable(name = "T_INSERTED_SKILL_SPECIALIZATIONS")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> skillSpecializationsAdded;
+	
+	@Expose
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@CollectionTable(name = "T_INSERTED_TRAINING_DECISIONS")
+	private Map<String, TrainingDecision> trainingDecisions;
 
 	public InsertedData() {
 		characteristicsTemporalValuesModification = new HashMap<>();
@@ -76,15 +85,17 @@ public class InsertedData extends StorableObject {
 		trainingsAdded = new ArrayList<>();
 		generalizedSkillsAdded = new ArrayList<>();
 		skillSpecializationsAdded = new ArrayList<>();
+		trainingDecisions = new HashMap<>();
 	}
 
 	public boolean isEnabled() {
-		return createdAtLevel != null;
+		return createdAtLevel != null && createdAtLevel > 0;
 	}
 
 	@Override
 	public void resetIds() {
-		setId(null);
+		resetIds(this);
+		resetIds(trainingDecisions);
 	}
 
 	public int getInstertedLevels() {
@@ -154,6 +165,23 @@ public class InsertedData extends StorableObject {
 
 	public void addTraining(String trainingName) {
 		trainingsAdded.add(trainingName);
+	}
+	
+	public void removeTraining(String trainingName) {
+		trainingsAdded.remove(trainingName);
+		trainingDecisions.remove(trainingName);
+	}
+	
+	public Map<String, TrainingDecision> getTrainingDecisions() {
+		return trainingDecisions;
+	}
+
+	public Integer getCharacteristicsTemporalValuesModification(CharacteristicsAbbreviature abbreviature) {
+		return characteristicsTemporalValuesModification.get(abbreviature);
+	}
+
+	public Integer getCharacteristicsPotentialValuesModification(CharacteristicsAbbreviature abbreviature) {
+		return characteristicsPotentialValuesModification.get(abbreviature);
 	}
 
 }

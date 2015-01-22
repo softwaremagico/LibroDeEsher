@@ -17,7 +17,10 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.google.gson.annotations.Expose;
+import com.softwaremagico.librodeesher.basics.Roll;
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
 import com.softwaremagico.persistence.StorableObject;
@@ -86,11 +89,17 @@ public class LevelUp extends StorableObject {
 	@CollectionTable(name = "T_LEVEL_UP_SKILL_SPECIALIZATIONS")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> skillSpecializations;
-	
+
 	@Expose
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	@CollectionTable(name = "T_CHARACTERPLAYER_TRAINING_DECISIONS")
+	@CollectionTable(name = "T_LEVEL_UP_TRAINING_DECISIONS")
 	private Map<String, TrainingDecision> trainingDecisions;
+
+	@Expose
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@CollectionTable(name = "T_LEVEL_UP_CHARACTERISTICS_UPDATES")
+	private List<CharacteristicRoll> characteristicsUpdates;
 
 	public LevelUp() {
 		categoriesRanks = new HashMap<>();
@@ -100,6 +109,7 @@ public class LevelUp extends StorableObject {
 		generalizedSkills = new ArrayList<>();
 		trainingDecisions = new HashMap<>();
 		skillSpecializations = new ArrayList<>();
+		characteristicsUpdates = new ArrayList<>();
 	}
 
 	@Override
@@ -159,8 +169,8 @@ public class LevelUp extends StorableObject {
 	}
 
 	/**
-	 * If a player learn more than 5 spell list in one level, the cost is doubled. If he learns more than 10 spells, the
-	 * cost is the quadruple.
+	 * If a player learn more than 5 spell list in one level, the cost is
+	 * doubled. If he learns more than 10 spells, the cost is the quadruple.
 	 * 
 	 * @param skill
 	 * @return
@@ -272,5 +282,22 @@ public class LevelUp extends StorableObject {
 
 	public Map<String, TrainingDecision> getTrainingDecisions() {
 		return trainingDecisions;
+	}
+
+	public CharacteristicRoll getCharacteristicsUpdates(CharacteristicsAbbreviature abbreviature) {
+		for (CharacteristicRoll characteristicRollGroup : characteristicsUpdates) {
+			if (characteristicRollGroup.getCharacteristicAbbreviature().equals(abbreviature)) {
+				return characteristicRollGroup;
+			}
+		}
+		return null;
+	}
+
+	public CharacteristicRoll addCharactersiticUpdate(CharacteristicsAbbreviature abbreviature,
+			Integer currentTemporalValue, Integer currentPotentialValue, Roll roll) {
+		CharacteristicRoll characteristicRoll = new CharacteristicRoll(abbreviature, currentTemporalValue,
+				currentPotentialValue, roll);
+		characteristicsUpdates.add(characteristicRoll);
+		return characteristicRoll;
 	}
 }
