@@ -109,6 +109,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 
 		for (int i = 0; i < CategoryFactory.getAvailableCategories().size(); i++) {
 			category = CategoryFactory.getCategory(CategoryFactory.getAvailableCategories().get(i));
+			category =  getCharacterPlayer().getCategory(category);
 			if (getCharacterPlayer().isCategoryUseful(category)) {
 				categoryCell(writer, document, category, font);
 				skillsList(document, writer, category, font, i == CategoryFactory.getAvailableCategories().size() - 1);

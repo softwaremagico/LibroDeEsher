@@ -77,6 +77,7 @@ public class TxtSheet {
 				+ "-------------------------------------------------------------\n";
 		for (int i = 0; i < CategoryFactory.getCategories().size(); i++) {
 			Category category = CategoryFactory.getCategories().get(i);
+			category =  characterPlayer.getCategory(category);
 			if (characterPlayer.isCategoryUseful(category)) {
 				String bonus = "";
 				if (characterPlayer.getHistorial().isHistorialPointSelected(category)) {

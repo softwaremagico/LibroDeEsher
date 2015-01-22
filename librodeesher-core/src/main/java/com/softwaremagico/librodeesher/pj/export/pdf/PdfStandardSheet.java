@@ -784,6 +784,7 @@ public class PdfStandardSheet {
 			if (!sortedSkills) {
 				for (int i = 0; i < CategoryFactory.getAvailableCategories().size(); i++) {
 					Category category = CategoryFactory.getCategory(CategoryFactory.getAvailableCategories().get(i));
+					category =  characterPlayer.getCategory(category);
 					skillLines = newSkill(table, document, writer, font, fontsize, widths, category.getSkills(),
 							skillLines);
 				}
