@@ -16,8 +16,9 @@ public interface IGenericDao<T> {
 	 * 
 	 * @param planningEvent
 	 * @return
+	 * @throws Exception 
 	 */
-	T makePersistent(T entity);
+	T makePersistent(T entity) throws Exception;
 
 	/**
 	 * Delete the persistence of the object (but not the object).

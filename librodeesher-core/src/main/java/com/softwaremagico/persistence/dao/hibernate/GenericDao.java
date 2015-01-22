@@ -39,7 +39,7 @@ public abstract class GenericDao<T> extends StorableObjectDao<T> implements IGen
 	}
 
 	@Override
-	public T makePersistent(T entity) {
+	public T makePersistent(T entity) throws Exception {
 		setCreationInfo(entity);
 		setUpdateInfo(entity);
 		Session session = getSessionFactory().getCurrentSession();
@@ -51,7 +51,7 @@ public abstract class GenericDao<T> extends StorableObjectDao<T> implements IGen
 			return entity;
 		} catch (RuntimeException e) {
 			session.getTransaction().rollback();
-			throw e;
+			throw new Exception(e.getMessage());
 		}
 	}
 

@@ -47,7 +47,7 @@ public class CharacterCreationTest {
 	}
 
 	@Test(groups = { "characterStorage" }, dependsOnMethods = { "createCharacter" })
-	public void storeCharacter() {
+	public void storeCharacter() throws Exception {
 		characterPlayerDao.makePersistent(characterPlayer);
 		Assert.assertNotNull(characterPlayer.getId());
 		Assert.assertNotNull(characterPlayer.getTotalValue(SkillFactory.getAvailableSkill("Trepar")));
@@ -138,7 +138,7 @@ public class CharacterCreationTest {
 	}
 
 	@Test(groups = { "characterCreation" }, dependsOnMethods = { "createCharacter" })
-	private void magicObjectTest() {
+	private void magicObjectTest() throws Exception {
 		Skill broadSword = SkillFactory.getSkill("Espada");
 		Assert.assertNotNull(broadSword);
 		int previousAttackBonus = characterPlayer.getTotalValue(broadSword);

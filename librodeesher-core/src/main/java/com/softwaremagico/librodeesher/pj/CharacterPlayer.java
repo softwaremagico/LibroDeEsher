@@ -217,7 +217,7 @@ public class CharacterPlayer extends StorableObject {
 	private transient CharacterPlayerHelper characterPlayerHelper;
 
 	@Expose
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "insertedDataId")
 	private InsertedData insertedData;
 
@@ -1880,7 +1880,7 @@ public class CharacterPlayer extends StorableObject {
 		}
 	}
 
-	protected Map<String, PerkDecision> getPerkDecisions() {
+	public Map<String, PerkDecision> getPerkDecisions() {
 		return perkDecisions;
 	}
 
@@ -2282,6 +2282,14 @@ public class CharacterPlayer extends StorableObject {
 		}
 
 		return skillName;
+	}
+
+	public List<SelectedPerk> getSelectedPerks() {
+		return selectedPerks;
+	}
+
+	public Map<String, String> getEnabledSkill() {
+		return enabledSkill;
 	}
 
 }
