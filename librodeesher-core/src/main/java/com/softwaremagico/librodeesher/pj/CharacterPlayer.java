@@ -417,7 +417,12 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	private Integer getTemporalModifications(CharacteristicsAbbreviature abbreviature) {
-		Integer temporalValue = characteristicsInitialTemporalValues.get(abbreviature);
+		Integer temporalValue = 0;
+		if (insertedData.getCharacteristicsTemporalValuesModification(abbreviature) != null) {
+			temporalValue = insertedData.getCharacteristicsTemporalValuesModification(abbreviature);			
+		} else {
+			temporalValue = characteristicsInitialTemporalValues.get(abbreviature);
+		}
 		// Only rolls after insertion of data.
 		for (int i = insertedData.getCreatedAtLevel(); i < getLevelUps().size(); i++) {
 			LevelUp levelUp = getLevelUps().get(i);

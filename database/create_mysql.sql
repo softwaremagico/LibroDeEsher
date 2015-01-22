@@ -106,13 +106,6 @@
         primary key (T_CHARACTERPLAYER_ID, characteristicsTemporalUpdatesRolls_KEY)
     );
 
-    create table T_CHARACTERPLAYER_TRAINING_DECISIONS (
-        T_LEVELUP_ID bigint not null,
-        trainingDecisions_ID bigint not null,
-        trainingDecisions_KEY varchar(255),
-        primary key (T_LEVELUP_ID, trainingDecisions_KEY)
-    );
-
     create table T_CULTUREDECISIONS (
         ID bigint not null,
         comparationId varchar(255) not null,
@@ -227,6 +220,13 @@
         trainingsAdded varchar(255)
     );
 
+    create table T_INSERTED_TRAINING_DECISIONS (
+        T_INSERTED_DATA_ID bigint not null,
+        trainingDecisions_ID bigint not null,
+        trainingDecisions_KEY varchar(255),
+        primary key (T_INSERTED_DATA_ID, trainingDecisions_KEY)
+    );
+
     create table T_LEVELUP (
         ID bigint not null,
         comparationId varchar(255) not null,
@@ -254,6 +254,11 @@
         primary key (LevelUp_ID, skillsRanks_KEY)
     );
 
+    create table T_LEVEL_UP_CHARACTERISTICS_UPDATES (
+        T_LEVELUP_ID bigint not null,
+        characteristicsUpdates_ID bigint not null
+    );
+
     create table T_LEVEL_UP_SKILL_SPECIALIZATIONS (
         LevelUp_ID bigint not null,
         skillSpecializations varchar(255)
@@ -267,6 +272,13 @@
     create table T_LEVEL_UP_TRAININGS_ADQUIRED (
         LevelUp_ID bigint not null,
         trainings varchar(255)
+    );
+
+    create table T_LEVEL_UP_TRAINING_DECISIONS (
+        T_LEVELUP_ID bigint not null,
+        trainingDecisions_ID bigint not null,
+        trainingDecisions_KEY varchar(255),
+        primary key (T_LEVELUP_ID, trainingDecisions_KEY)
     );
 
     create table T_MAGIC_OBJECT (
@@ -520,9 +532,6 @@
     alter table T_CHARACTERPLAYER_TEMPORAL_CHARACTERISTICS_ROLLS 
         add constraint UK_rsdhy70yoehafjvur7w9b2o66  unique (characteristicsTemporalUpdatesRolls_ID);
 
-    alter table T_CHARACTERPLAYER_TRAINING_DECISIONS 
-        add constraint UK_qjo2k3kqlj5990u97nk2bbf5c  unique (trainingDecisions_ID);
-
     alter table T_CULTUREDECISIONS 
         add constraint UK_blq96e017u1trnpdefgr091nl  unique (ID);
 
@@ -544,11 +553,20 @@
     alter table T_INSERTED_DATA 
         add constraint UK_p65fw3bsg7kkp8t68dncqwxni  unique (comparationId);
 
+    alter table T_INSERTED_TRAINING_DECISIONS 
+        add constraint UK_ahxpf8sitwcloo3ha8nft78k3  unique (trainingDecisions_ID);
+
     alter table T_LEVELUP 
         add constraint UK_e9y7b2htj85ls5jccr8dscoiv  unique (ID);
 
     alter table T_LEVELUP 
         add constraint UK_s260ukdop7lmbms1wy8vru5mp  unique (comparationId);
+
+    alter table T_LEVEL_UP_CHARACTERISTICS_UPDATES 
+        add constraint UK_mayw23itpoug630tuos9ycyjx  unique (characteristicsUpdates_ID);
+
+    alter table T_LEVEL_UP_TRAINING_DECISIONS 
+        add constraint UK_e55t66sktxlv50j5s7jk3j7x1  unique (trainingDecisions_ID);
 
     alter table T_MAGIC_OBJECT 
         add constraint UK_35phtj8okwti1qwsijrvr9t9q  unique (ID);
@@ -746,16 +764,6 @@
         foreign key (T_CHARACTERPLAYER_ID) 
         references T_CHARACTERPLAYER (ID);
 
-    alter table T_CHARACTERPLAYER_TRAINING_DECISIONS 
-        add constraint FK_qjo2k3kqlj5990u97nk2bbf5c 
-        foreign key (trainingDecisions_ID) 
-        references T_TRAINING_DECISION (ID);
-
-    alter table T_CHARACTERPLAYER_TRAINING_DECISIONS 
-        add constraint FK_sqmsft3ojy5sbebgx6bi313xf 
-        foreign key (T_LEVELUP_ID) 
-        references T_LEVELUP (ID);
-
     alter table T_CULTURE_HOBBY_RANKS 
         add constraint FK_3qei47al2s0hxq2w1uo0ml0ai 
         foreign key (CultureDecisions_ID) 
@@ -831,6 +839,16 @@
         foreign key (InsertedData_ID) 
         references T_INSERTED_DATA (ID);
 
+    alter table T_INSERTED_TRAINING_DECISIONS 
+        add constraint FK_ahxpf8sitwcloo3ha8nft78k3 
+        foreign key (trainingDecisions_ID) 
+        references T_TRAINING_DECISION (ID);
+
+    alter table T_INSERTED_TRAINING_DECISIONS 
+        add constraint FK_op0s59o6argyn0qqylbm4m0rk 
+        foreign key (T_INSERTED_DATA_ID) 
+        references T_INSERTED_DATA (ID);
+
     alter table T_LEVELUP_CATEGORIES_RANKS 
         add constraint FK_qfiu7ugdjl7amg1s25i9j3byj 
         foreign key (LevelUp_ID) 
@@ -846,6 +864,16 @@
         foreign key (LevelUp_ID) 
         references T_LEVELUP (ID);
 
+    alter table T_LEVEL_UP_CHARACTERISTICS_UPDATES 
+        add constraint FK_mayw23itpoug630tuos9ycyjx 
+        foreign key (characteristicsUpdates_ID) 
+        references T_CHARACTERISTIC_ROLL_GROUP (ID);
+
+    alter table T_LEVEL_UP_CHARACTERISTICS_UPDATES 
+        add constraint FK_rvudfsdm7kvogeki9oi10twqm 
+        foreign key (T_LEVELUP_ID) 
+        references T_LEVELUP (ID);
+
     alter table T_LEVEL_UP_SKILL_SPECIALIZATIONS 
         add constraint FK_67y497yssq86931g5r7rqpjyp 
         foreign key (LevelUp_ID) 
@@ -859,6 +887,16 @@
     alter table T_LEVEL_UP_TRAININGS_ADQUIRED 
         add constraint FK_qulxx88l837mgli4re9byjayc 
         foreign key (LevelUp_ID) 
+        references T_LEVELUP (ID);
+
+    alter table T_LEVEL_UP_TRAINING_DECISIONS 
+        add constraint FK_e55t66sktxlv50j5s7jk3j7x1 
+        foreign key (trainingDecisions_ID) 
+        references T_TRAINING_DECISION (ID);
+
+    alter table T_LEVEL_UP_TRAINING_DECISIONS 
+        add constraint FK_lkuxpl4qspogc1n057w8gq208 
+        foreign key (T_LEVELUP_ID) 
         references T_LEVELUP (ID);
 
     alter table T_MAGIC_OBJECT_T_MAGIC_OBJECT_BONUS 
