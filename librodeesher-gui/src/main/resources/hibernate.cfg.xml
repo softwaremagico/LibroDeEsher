@@ -32,7 +32,7 @@
         <property name="hibernate.show_sql">false</property>
         <property name="hibernate.use_sql_comments">true</property>
 	<property name="hibernate.current_session_context_class">thread</property>
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">validate</property>
 	
 	<!-- SQLITE -->
         <property name="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</property> 

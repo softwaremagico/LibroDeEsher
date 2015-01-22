@@ -40,11 +40,13 @@ public class InsertedData extends StorableObject {
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_INSERTED_TEMPORAL_VALUES")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<CharacteristicsAbbreviature, Integer> characteristicsTemporalValuesModification;
 
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_INSERTED_POTENTIAL_VALUES")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<CharacteristicsAbbreviature, Integer> characteristicsPotentialValuesModification;
 
 	@Expose
@@ -78,7 +80,7 @@ public class InsertedData extends StorableObject {
 	private List<String> skillSpecializationsAdded;
 
 	@Expose
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@CollectionTable(name = "T_INSERTED_TRAINING_DECISIONS")
 	private Map<String, TrainingDecision> trainingDecisions;
 
