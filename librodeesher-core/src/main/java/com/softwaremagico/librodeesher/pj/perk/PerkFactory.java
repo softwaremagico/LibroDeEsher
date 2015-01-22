@@ -56,9 +56,10 @@ public class PerkFactory {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
-		while (index < lines.size() && !lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
+		
+		while (index < lines.size()) {
 			String line = lines.get(index);
-			if (line.length() > 2) { // No end of lines.
+			if (line.length() > 2 && !lines.get(index).equals("") && !lines.get(index).startsWith("#")) { // No end of lines.
 				try {
 					String[] descomposed_line = line.split("\t");
 					String perkName = descomposed_line[0];

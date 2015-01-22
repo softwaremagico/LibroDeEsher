@@ -123,7 +123,7 @@ public class InsertMagicItemWindow extends BaseFrame {
 	private void addNewMagicItem() {
 		MagicObject magicObject = new MagicObject();
 		magicObject.setName("Nuevo Objeto");
-		character.getMagicItems().add(magicObject);
+		character.addMagicItem(magicObject);
 		itemAdministrator.addMagicObject(magicObject);
 		itemEditor.setMagicObject(magicObject);
 	}

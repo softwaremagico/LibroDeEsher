@@ -303,7 +303,7 @@ public class Controller {
 					jsonText += sCurrentLine;
 				}
 				CharacterPlayer characterPlayer = CharacterJsonManager.fromJson(jsonText);
-				MessageManager.infoMessage(Controller.class.getName(), "Persoanje importado correctamente.", "RLM");
+				MessageManager.infoMessage(Controller.class.getName(), "Personaje importado correctamente.", "RLM");
 				addCharacterPlayer(characterPlayer);
 			} catch (Exception exc) {
 				EsherLog.errorMessage(Controller.class.getName(), exc);
