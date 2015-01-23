@@ -8,10 +8,13 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.google.gson.annotations.Expose;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
@@ -23,27 +26,29 @@ public class RollGroup extends StorableObject {
 	private static final Integer STORED_ROLLS_NUMBER = 10;
 
 	@Expose
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@CollectionTable(name = "T_ROLL_LIST")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OrderColumn(name = "roll_index")
+	@BatchSize(size = 10)
 	private List<Roll> rolls;
 
 	@Expose
-	@Enumerated(EnumType.STRING) 
+	@Enumerated(EnumType.STRING)
 	private CharacteristicsAbbreviature characteristicAbbreviature;
 
-	protected RollGroup(){
+	protected RollGroup() {
 		rolls = new ArrayList<Roll>();
 	}
-	
+
 	public RollGroup(CharacteristicsAbbreviature characteristicAbbreviature) {
 		rolls = new ArrayList<Roll>();
 		this.characteristicAbbreviature = characteristicAbbreviature;
 		fillUpRolls();
 	}
-	
+
 	@Override
-	public void resetIds(){
+	public void resetIds() {
 		resetIds(this);
 		resetIds(rolls);
 	}

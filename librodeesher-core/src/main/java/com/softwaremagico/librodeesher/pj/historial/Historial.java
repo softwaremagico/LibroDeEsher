@@ -31,7 +31,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
@@ -54,18 +53,19 @@ public class Historial extends StorableObject {
 	private static final Integer CATEGORY_BONUS = 5;
 	@Expose
 	@ElementCollection
-	@CollectionTable(name = "T_HISTORIAL_CATEGORIES")
 	@LazyCollection(LazyCollectionOption.FALSE)
+	@CollectionTable(name = "T_HISTORIAL_CATEGORIES")
 	private List<String> categories;
 	
 	@Expose
 	@ElementCollection
-	@CollectionTable(name = "T_HISTORIAL_SKILLS")
 	@LazyCollection(LazyCollectionOption.FALSE)
+	@CollectionTable(name = "T_HISTORIAL_SKILLS")
 	private List<String> skills;
 	
 	@Expose
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(name = "T_HISTORIAL_CHARACTERISTICS_UPDATES")
 	@OrderColumn(name = "roll_index")
 	private List<CharacteristicRoll> characteristicsUpdates;

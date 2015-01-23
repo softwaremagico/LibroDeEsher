@@ -5,9 +5,11 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.google.gson.annotations.Expose;
 import com.softwaremagico.persistence.StorableObject;
@@ -22,7 +24,8 @@ public class MagicObject extends StorableObject {
 	private String description = "";
 
 	@Expose
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<ObjectBonus> bonus = new ArrayList<>();
 
 	public String getName() {

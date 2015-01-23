@@ -126,7 +126,7 @@ public class CharacterPlayer extends StorableObject {
 	private Map<CharacteristicsAbbreviature, Integer> characteristicsPotentialValues;
 
 	@Expose
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@CollectionTable(name = "T_CHARACTERPLAYER_TEMPORAL_CHARACTERISTICS_ROLLS")
 	private Map<CharacteristicsAbbreviature, RollGroup> characteristicsTemporalUpdatesRolls;
 	@Expose
@@ -143,7 +143,7 @@ public class CharacterPlayer extends StorableObject {
 	private transient Culture culture;
 
 	@Expose
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "cultureDecisionsId")
 	private CultureDecisions cultureDecisions;
 
@@ -153,12 +153,12 @@ public class CharacterPlayer extends StorableObject {
 	private transient Profession profession;
 
 	@Expose
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "professionDecisionsId")
 	private ProfessionDecisions professionDecisions;
 
 	@Expose
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "professionalRealmId")
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
 
@@ -170,12 +170,12 @@ public class CharacterPlayer extends StorableObject {
 	private boolean magicSpellListsObtained;
 
 	@Expose
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "historialId")
 	private Historial historial;
 
 	@Expose
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@CollectionTable(name = "T_CHARACTERPLAYER_SELECTED_PERKS")
 	private List<SelectedPerk> selectedPerks;
 
@@ -185,7 +185,7 @@ public class CharacterPlayer extends StorableObject {
 	private Map<String, PerkDecision> perkDecisions;
 
 	@Expose
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Appearance appearance;
 
 	@Expose

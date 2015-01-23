@@ -30,6 +30,12 @@ public class NihalDragonianaTest {
 		characterPlayerDao.makePersistent(characterPlayer);
 		Assert.assertNotNull(characterPlayer.getId());
 	}
+	
+	@Test(dependsOnMethods = "saveinDatabase")
+	public void loadFromDatabase()  {
+		characterPlayer = characterPlayerDao.read(characterPlayer.getId());
+		Assert.assertNotNull(characterPlayer);
+	}
 
 	private StringBuilder readLargerTextFile(String resourceName) throws IOException {
 		File file = new File(getClass().getClassLoader().getResource(resourceName).getFile());
