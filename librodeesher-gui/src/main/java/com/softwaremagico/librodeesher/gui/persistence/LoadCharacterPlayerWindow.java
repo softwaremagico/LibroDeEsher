@@ -40,6 +40,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
+import com.softwaremagico.files.MessageManager;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
@@ -50,12 +51,16 @@ import com.softwaremagico.utils.DateManager;
 public class LoadCharacterPlayerWindow extends BaseFrame {
 	private static final long serialVersionUID = -6558093656528513724L;
 	private List<LoadCharacterListener> loadCharacterListeners;
+	private List<RemoveCharacterListener> removeCharacterListeners;
 	private JTable charactersTable;
 	private List<CharacterPlayer> availableCharacterPlayers;
+	private JPanel characterTable;
+	private JPanel rootPanel;
 
 	public LoadCharacterPlayerWindow() {
 		super();
 		loadCharacterListeners = new ArrayList<>();
+		removeCharacterListeners = new ArrayList<>();
 		defineWindow(700, 400);
 		setResizable(false);
 		availableCharacterPlayers = CharacterPlayerDao.getInstance().getAll();
@@ -63,9 +68,12 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 	}
 
 	private void setElements() {
-		JPanel panel = new JPanel();
-		panel.setBorder(new EmptyBorder(MARGIN, MARGIN, MARGIN, MARGIN));
-		panel.setLayout(new GridBagLayout());
+		if (rootPanel != null) {
+			remove(rootPanel);
+		}
+		rootPanel = new JPanel();
+		rootPanel.setBorder(new EmptyBorder(MARGIN, MARGIN, MARGIN, MARGIN));
+		rootPanel.setLayout(new GridBagLayout());
 
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.anchor = GridBagConstraints.CENTER;
@@ -75,8 +83,8 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 		constraints.gridy = 0;
 		constraints.weightx = 1;
 		constraints.weighty = 1;
-
-		panel.add(createTablePanel(), constraints);
+		characterTable = createTablePanel();
+		rootPanel.add(characterTable, constraints);
 
 		constraints.anchor = GridBagConstraints.LAST_LINE_END;
 		constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -85,14 +93,16 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 		constraints.gridy = 1;
 		constraints.weightx = 1;
 		constraints.weighty = 0;
-		panel.add(createButtonPanel(), constraints);
-		add(panel);
+		rootPanel.add(createButtonPanel(), constraints);
+		add(rootPanel);
+		this.repaint();
+		this.revalidate();
 	}
 
 	private JPanel createTablePanel() {
 		JPanel panel = new JPanel(new GridLayout(1, 1));
-		String[] columnNames = { "Nombre", "Nivel", "Raza", "Profesión",
-				"Adiestramientos", "Creado", "Modificado" };
+		String[] columnNames = { "Nombre", "Nivel", "Raza", "Profesión", "Adiestramientos", "Creado",
+				"Modificado" };
 
 		List<String[]> playersData = new ArrayList<>();
 		for (CharacterPlayer characterPlayer : availableCharacterPlayers) {
@@ -112,10 +122,8 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 			}
 
 			playerData[4] = trainingsText;
-			playerData[5] = DateManager.convertDateToString(characterPlayer
-					.getCreationTime());
-			playerData[6] = DateManager.convertDateToString(characterPlayer
-					.getCreationTime());
+			playerData[5] = DateManager.convertDateToString(characterPlayer.getCreationTime());
+			playerData[6] = DateManager.convertDateToString(characterPlayer.getCreationTime());
 			playersData.add(playerData);
 		}
 
@@ -127,8 +135,7 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 		}
 
 		charactersTable = new JTable(playerArray, columnNames);
-		charactersTable.setPreferredScrollableViewportSize(new Dimension(450,
-				300));
+		charactersTable.setPreferredScrollableViewportSize(new Dimension(450, 300));
 		charactersTable.setFillsViewportHeight(true);
 		charactersTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -153,11 +160,10 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Launch listeners.
-				for (LoadCharacterListener listener : loadCharacterListeners) {
-					if (charactersTable.getSelectedRow() >= 0) {
-						CharacterPlayer selected = availableCharacterPlayers
-								.get(charactersTable.getSelectedRow());
-						selected.clearCache();
+				if (charactersTable.getSelectedRow() >= 0) {
+					CharacterPlayer selected = availableCharacterPlayers.get(charactersTable.getSelectedRow());
+					selected.clearCache();
+					for (LoadCharacterListener listener : loadCharacterListeners) {
 						listener.addCharacter(selected);
 						thisWindow.dispose();
 					}
@@ -165,6 +171,24 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 			}
 		});
 		buttonPanel.add(acceptButton);
+
+		JButton removeButton = new BaseButton("Borrar");
+		removeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CharacterPlayer selected = availableCharacterPlayers.get(charactersTable.getSelectedRow());
+				if (selected != null) {
+					CharacterPlayerDao.getInstance().makeTransient(selected);
+					MessageManager.infoMessage(this.getClass().getName(),
+							"El personaje ha sido borrado con éxito.", "Borrar");
+					for (RemoveCharacterListener listener : removeCharacterListeners) {
+						listener.removeCharacter(selected);
+					}
+					setElements();
+				}
+			}
+		});
+		buttonPanel.add(removeButton);
 
 		CloseButton closeButton = new CloseButton(this);
 		buttonPanel.add(closeButton);
@@ -177,12 +201,20 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 
 	}
 
-	public void AddLoadCharacterListener(LoadCharacterListener listener) {
+	public void addLoadCharacterListener(LoadCharacterListener listener) {
 		loadCharacterListeners.add(listener);
 	}
 
 	public void removeLoadCharacterListener(LoadCharacterListener listener) {
 		loadCharacterListeners.remove(listener);
+	}
+
+	public void addRemoveCharacterListener(RemoveCharacterListener listener) {
+		removeCharacterListeners.add(listener);
+	}
+
+	public void removeRemoveCharacterListener(RemoveCharacterListener listener) {
+		removeCharacterListeners.remove(listener);
 	}
 
 }
