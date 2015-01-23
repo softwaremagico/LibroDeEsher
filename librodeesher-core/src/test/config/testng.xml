@@ -8,10 +8,12 @@
 				<include name="characterPdf" />
 				<include name="characterTxt" />
 				<include name="characterJson" />
+				<include name="NihalDragoniana" />
 			</run>
 		</groups>
 		<classes>
 			<class name="com.softwaremagico.librodeesher.pj.CharacterCreationTest" />
+			<class name="com.softwaremagico.librodeesher.pj.NihalDragonianaTest" />
 		</classes>
 	</test>
 </suite>
