@@ -25,9 +25,9 @@ package com.softwaremagico.librodeesher.gui.files;
 
 import java.io.File;
 
-public class ExploreWindowForRlm extends ExploreWindow  {
+public class ExploreWindowForRlmLvl extends ExploreWindow  {
 
-	public ExploreWindowForRlm(String defaultFileName) {
+	public ExploreWindowForRlmLvl(String defaultFileName) {
 		super(defaultFileName);
 	}
 
@@ -40,12 +40,12 @@ public class ExploreWindowForRlm extends ExploreWindow  {
 		@Override
 		public boolean accept(File file) {
 			String filename = file.getName();
-			return file.isDirectory() || filename.endsWith(".rlm");
+			return file.isDirectory() || filename.endsWith(".rlmlvl");
 		}
 
 		@Override
 		public String getDescription() {
-			return "Fichero de El Libro de Esher";
+			return "Nivel de personaje de El Libro de Esher";
 		}
 	}
 }

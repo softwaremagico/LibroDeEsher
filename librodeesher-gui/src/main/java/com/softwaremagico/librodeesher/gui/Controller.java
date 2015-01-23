@@ -51,6 +51,7 @@ import com.softwaremagico.librodeesher.gui.culture.CultureWindow;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForPdf;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForPdfWithOptions;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForRlm;
+import com.softwaremagico.librodeesher.gui.files.ExploreWindowForRlmLvl;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForTxt;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowsWithOptionsListenerAccept;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowsWithOptionsListenerCancel;
@@ -210,9 +211,9 @@ public class Controller {
 	class ExportLevel implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ExploreWindowForRlm selectJson = new ExploreWindowForRlm("Personaje.rlm");
+			ExploreWindowForRlmLvl selectJson = new ExploreWindowForRlmLvl("PersonajeLevel.rlmlvl");
 			String path = selectJson.exploreWindows("Exportar Nivel", JFileChooser.FILES_ONLY,
-					getCharacterNameFormatted() + ".rlm");
+					getCharacterNameFormatted() + ".rlmlvl");
 			if (path != null && path.length() > 0) {
 				String jsonText = LevelJsonManager.toJson(selectedCharacter);
 				// store in a file.
@@ -223,11 +224,11 @@ public class Controller {
 					out.append(jsonText);
 					out.flush();
 					out.close();
-					MessageManager.infoMessage(Controller.class.getName(), "Nivel exportado correctamente.", "RLM");
+					MessageManager.infoMessage(Controller.class.getName(), "Nivel exportado correctamente.", "RLMLVL");
 					return;
 				} catch (IOException e1) {
 				}
-				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al exportar el nivel!", "RLM");
+				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al exportar el nivel!", "RLMLVL");
 			}
 		}
 	}
@@ -235,10 +236,10 @@ public class Controller {
 	class ImportLevel implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ExploreWindowForRlm selectTxt = new ExploreWindowForRlm("Personaje.rlm");
+			ExploreWindowForRlmLvl selectTxt = new ExploreWindowForRlmLvl("Personaje.rlmlvl");
 			String path = selectTxt.exploreWindows("Importar Nivel", JFileChooser.FILES_ONLY,
 					getCharacterNameFormatted().substring(0, getCharacterNameFormatted().length() - 2)
-							+ (selectedCharacter.getCurrentLevelNumber() + 1) + ".rlm");
+							+ (selectedCharacter.getCurrentLevelNumber() + 1) + ".rlmlvl");
 
 			BufferedReader bufferReader = null;
 			String jsonText = "";
@@ -256,23 +257,23 @@ public class Controller {
 				try {
 					LevelUp level = LevelJsonManager.fromJson(selectedCharacter, jsonText);
 					selectedCharacter.importLevel(level);
-					MessageManager.infoMessage(Controller.class.getName(), "Nivel importado correctamente.", "RLM");
+					MessageManager.infoMessage(Controller.class.getName(), "Nivel importado correctamente.", "RLMLVL");
 				} catch (InvalidCharacterException ice) {
 					MessageManager
 							.basicErrorMessage(
 									Controller.class.getName(),
 									"Nivel invalido para importar. El nivel está definido para un personaje distinto al actualmente seleccionado.'",
-									"RLM");
+									"RLMLVL");
 				} catch (InvalidLevelException ile) {
 					MessageManager
 							.basicErrorMessage(
 									Controller.class.getName(),
 									"Nivel inválido para importar. Probablemente sea un fichero que contenga un nivel antiguo o erróneo.",
-									"RLM");
+									"RLMLVL");
 				}
 			} catch (Exception exc) {
 				EsherLog.errorMessage(Controller.class.getName(), exc);
-				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al importar el nivel!", "RLM");
+				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al importar el nivel!", "RLMLVL");
 			} finally {
 				try {
 					if (bufferReader != null)

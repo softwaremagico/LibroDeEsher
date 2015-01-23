@@ -157,6 +157,7 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 					if (charactersTable.getSelectedRow() >= 0) {
 						CharacterPlayer selected = availableCharacterPlayers
 								.get(charactersTable.getSelectedRow());
+						selected.clearCache();
 						listener.addCharacter(selected);
 						thisWindow.dispose();
 					}
