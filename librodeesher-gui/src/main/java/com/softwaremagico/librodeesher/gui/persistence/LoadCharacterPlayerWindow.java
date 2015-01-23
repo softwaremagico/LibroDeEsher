@@ -184,6 +184,7 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 					for (RemoveCharacterListener listener : removeCharacterListeners) {
 						listener.removeCharacter(selected);
 					}
+					availableCharacterPlayers.remove(selected);
 					setElements();
 				}
 			}
