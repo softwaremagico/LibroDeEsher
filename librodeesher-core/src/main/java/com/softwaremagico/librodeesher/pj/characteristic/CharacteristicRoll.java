@@ -26,6 +26,10 @@ public class CharacteristicRoll extends StorableObject {
 	@Expose
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Roll roll;
+	
+	protected CharacteristicRoll(){
+		
+	}
 
 	public CharacteristicRoll(
 			CharacteristicsAbbreviature characteristicAbbreviature,
