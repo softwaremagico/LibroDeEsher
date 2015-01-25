@@ -1,5 +1,9 @@
 package com.softwaremagico.persistence;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
@@ -132,5 +136,24 @@ public abstract class StorableObject {
 
 	public String getComparationId() {
 		return comparationId;
+	}
+	
+	public Object deepCopy(Object input) {
+	    Object output = null;
+	    try {
+	        // Writes the object
+	        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+	        ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
+	        objectOutputStream.writeObject(input);
+
+	        // Reads the object
+	        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+	        ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+	        output = objectInputStream.readObject();
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return output;
 	}
 }

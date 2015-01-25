@@ -2,8 +2,10 @@ package com.softwaremagico.librodeesher.pj;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 
@@ -15,6 +17,7 @@ public class NihalDragonianaTest {
 	private final static String CHARACTER_FILE = "Nihal_Dragoniana_N7.rlm";
 	private final static String CHARACTER_NAME = "Nihal_Dragoniana";
 	private CharacterPlayer characterPlayer;
+	private CharacterPlayer characterPlayer2;
 	private CharacterPlayerDao characterPlayerDao = CharacterPlayerDao.getInstance();
 
 	public void importFromJson() throws IOException {
@@ -30,11 +33,28 @@ public class NihalDragonianaTest {
 		characterPlayerDao.makePersistent(characterPlayer);
 		Assert.assertNotNull(characterPlayer.getId());
 	}
-	
+
 	@Test(dependsOnMethods = "saveinDatabase")
-	public void loadFromDatabase()  {
-		characterPlayer = characterPlayerDao.read(characterPlayer.getId());
-		Assert.assertNotNull(characterPlayer);
+	public void loadFromDatabase() {
+		characterPlayer2 = characterPlayerDao.read(characterPlayer.getId());
+		Assert.assertNotNull(characterPlayer2);
+	}
+
+	@Test(dependsOnMethods = "loadFromDatabase")
+	public void saveAgainAsNew() throws Exception {
+		characterPlayer2.resetIds();
+		characterPlayerDao.makePersistent(characterPlayer2);
+		Assert.assertEquals(2, characterPlayerDao.getRowCount());
+	}
+
+	@Test(dependsOnMethods = "loadFromDatabase")
+	@After
+	public void removeAll() throws Exception {
+		List<CharacterPlayer> characterPlayers = characterPlayerDao.getAll();
+		for (CharacterPlayer character : characterPlayers) {
+			characterPlayerDao.makeTransient(character);
+		}
+		Assert.assertEquals(0, characterPlayerDao.getRowCount());
 	}
 
 	private StringBuilder readLargerTextFile(String resourceName) throws IOException {

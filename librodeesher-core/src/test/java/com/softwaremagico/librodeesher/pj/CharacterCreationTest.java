@@ -2,7 +2,9 @@ package com.softwaremagico.librodeesher.pj;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.List;
 
+import org.junit.After;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -82,7 +84,7 @@ public class CharacterCreationTest {
 				+ "characterAsJson.txt");
 		out3.println(jsonText);
 		out3.close();
-		
+
 		// Compared generated sheet to be sure that has the same information.
 		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
 		String importedSheet = TxtSheet.getCharacterStandardSheetAsText(importedCharacter);
@@ -153,6 +155,16 @@ public class CharacterCreationTest {
 		Assert.assertEquals(characterPlayer.getTotalValue(broadSword), new Integer(previousAttackBonus + 20));
 
 		characterPlayerDao.makePersistent(characterPlayer);
+	}
+
+	@Test
+	@After
+	public void removeAll() throws Exception {
+		List<CharacterPlayer> characterPlayers = characterPlayerDao.getAll();
+		for (CharacterPlayer character : characterPlayers) {
+			characterPlayerDao.makeTransient(character);
+		}
+		Assert.assertEquals(0, characterPlayerDao.getRowCount());
 	}
 
 }

@@ -44,6 +44,7 @@ public class CharacteristicRoll extends StorableObject {
 	@Override
 	public void resetIds() {
 		resetIds(this);
+		resetIds(roll);
 	}
 
 	public Integer getCharacteristicPotentialValue() {

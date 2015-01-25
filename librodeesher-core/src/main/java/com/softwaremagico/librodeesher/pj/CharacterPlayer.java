@@ -258,6 +258,8 @@ public class CharacterPlayer extends StorableObject {
 		resetIds(professionDecisions);
 		resetIds(realmOfMagic);
 		resetIds(historial);
+		resetIds(magicItems);
+		resetIds(insertedData);
 	}
 
 	public void clearCache() {
@@ -1709,10 +1711,10 @@ public class CharacterPlayer extends StorableObject {
 		return characteristicsTemporalUpdatesRolls;
 	}
 
-	public void setCharacteristicsTemporalUpdatesRolls(
-			Map<CharacteristicsAbbreviature, RollGroup> characteristicsTemporalUpdatesRolls) {
-		this.characteristicsTemporalUpdatesRolls = characteristicsTemporalUpdatesRolls;
-	}
+//	public void setCharacteristicsTemporalUpdatesRolls(
+//			Map<CharacteristicsAbbreviature, RollGroup> characteristicsTemporalUpdatesRolls) {
+//		this.characteristicsTemporalUpdatesRolls = characteristicsTemporalUpdatesRolls;
+//	}
 
 	public boolean isCharacteristicsConfirmed() {
 		return characteristicsConfirmed;

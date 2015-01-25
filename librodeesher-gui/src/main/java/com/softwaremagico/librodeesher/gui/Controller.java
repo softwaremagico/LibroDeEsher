@@ -184,8 +184,15 @@ public class Controller {
 
 				@Override
 				public void removeCharacter(CharacterPlayer characterPlayer) {
-					if (characterPlayer.getId().equals(selectedCharacter.getId())) {
-						selectedCharacter.resetIds();
+					if (characterPlayer != null) {
+						if (ShowMessage.showQuestionMessage(null,
+								"El personaje seleccionado será elminado. ¿Quieres continuar con la acción?",
+								"Borrado")) {
+							if (characterPlayer.getId().equals(selectedCharacter.getId())) {
+								selectedCharacter.resetIds();
+
+							}
+						}
 					}
 				}
 			});
@@ -460,16 +467,19 @@ public class Controller {
 	class CloseCharacterListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			characters.remove(selectedCharacter);
-			if (characters.size() == 0) {
-				selectedCharacter = new CharacterPlayer();
-				characters.add(selectedCharacter);
-			} else {
-				selectedCharacter = characters.get(0);
+			if (ShowMessage.showQuestionMessage(null,
+					"Cualquier cambio no guardado se perderá. ¿Quieres continuar con la acción?", "Cerrar")) {
+				characters.remove(selectedCharacter);
+				if (characters.size() == 0) {
+					selectedCharacter = new CharacterPlayer();
+					characters.add(selectedCharacter);
+				} else {
+					selectedCharacter = characters.get(0);
+				}
+				mainGui.setCharacter(selectedCharacter);
+				mainGui.updateFrame();
+				updateCharacterListToMenu();
 			}
-			mainGui.setCharacter(selectedCharacter);
-			mainGui.updateFrame();
-			updateCharacterListToMenu();
 		}
 	}
 
