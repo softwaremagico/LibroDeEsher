@@ -2,6 +2,7 @@ package com.softwaremagico.librodeesher.pj;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,6 +11,7 @@ import org.junit.Assert;
 import org.testng.annotations.Test;
 
 import com.softwaremagico.librodeesher.pj.export.json.CharacterJsonManager;
+import com.softwaremagico.librodeesher.pj.export.txt.TxtSheet;
 import com.softwaremagico.persistence.dao.hibernate.CharacterPlayerDao;
 
 @Test(groups = "NihalDragoniana")
@@ -32,6 +34,26 @@ public class NihalDragonianaTest {
 	public void saveinDatabase() throws Exception {
 		characterPlayerDao.makePersistent(characterPlayer);
 		Assert.assertNotNull(characterPlayer.getId());
+	}
+
+	@Test(dependsOnMethods = "importFromJson")
+	public void copyCharacter() throws Exception {
+		CharacterPlayer characterPlayer2 = (CharacterPlayer) characterPlayer.copyData();
+
+		// Compared generated sheet to be sure that has the same information.
+		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
+		String copiedSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer2);
+
+		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "NihalSheet.txt");
+		out1.println(orginalSheet);
+		out1.close();
+
+		PrintWriter out2 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
+				+ "copiedNihalSheet.txt");
+		out2.println(copiedSheet);
+		out2.close();
+
+		Assert.assertEquals(copiedSheet, orginalSheet);
 	}
 
 	@Test(dependsOnMethods = "saveinDatabase")

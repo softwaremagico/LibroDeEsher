@@ -43,6 +43,8 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_CULTUREDECISIONS")
 public class CultureDecisions extends StorableObject {
+	private static final long serialVersionUID = 2367407444500030039L;
+
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_CULTURE_WEAPON_RANKS")

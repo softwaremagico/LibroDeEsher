@@ -52,6 +52,7 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_LEVELUP")
 public class LevelUp extends StorableObject {
+	private static final long serialVersionUID = 6944210958211732195L;
 
 	@Expose
 	@ElementCollection

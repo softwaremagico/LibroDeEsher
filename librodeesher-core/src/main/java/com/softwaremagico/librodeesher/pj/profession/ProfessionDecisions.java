@@ -50,6 +50,8 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_PROFESSION_DECISIONS")
 public class ProfessionDecisions extends StorableObject {
+	private static final long serialVersionUID = 6892045698708964119L;
+
 	// Category -> cost
 	@Expose
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

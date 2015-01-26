@@ -39,6 +39,7 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_TRAINING_DECISION")
 public class TrainingDecision extends StorableObject {
+	private static final long serialVersionUID = 3914227163981778627L;
 
 	@Expose
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

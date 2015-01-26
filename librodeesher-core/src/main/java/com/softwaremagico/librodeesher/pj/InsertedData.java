@@ -30,6 +30,7 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_INSERTED_DATA")
 public class InsertedData extends StorableObject {
+	private static final long serialVersionUID = 3588013527405572485L;
 
 	@Expose
 	private Integer createdAtLevel = 0;

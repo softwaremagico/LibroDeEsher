@@ -35,7 +35,7 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_APPEARANCE")
 public class Appearance extends StorableObject {
-
+	private static final long serialVersionUID = -8733676715407912625L;
 	@Expose
 	@Column
 	private int dicesResult;

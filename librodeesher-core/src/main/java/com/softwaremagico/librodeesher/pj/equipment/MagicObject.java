@@ -17,6 +17,8 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_MAGIC_OBJECT")
 public class MagicObject extends StorableObject {
+	private static final long serialVersionUID = -311068996858853985L;
+
 	@Expose
 	private String name = "";
 

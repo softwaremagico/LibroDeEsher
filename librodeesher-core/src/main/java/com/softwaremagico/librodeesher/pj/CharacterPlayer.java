@@ -105,6 +105,7 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_CHARACTERPLAYER")
 public class CharacterPlayer extends StorableObject {
+	private static final long serialVersionUID = -3029332867945656263L;
 	// Store into the database the software version of creation.
 	@Expose
 	private String version = Version.getVersion();

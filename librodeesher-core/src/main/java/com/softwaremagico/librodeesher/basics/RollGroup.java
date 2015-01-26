@@ -23,6 +23,8 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_ROLL_GROUP")
 public class RollGroup extends StorableObject {
+	private static final long serialVersionUID = 2665940065448390512L;
+
 	private static final Integer STORED_ROLLS_NUMBER = 10;
 
 	@Expose

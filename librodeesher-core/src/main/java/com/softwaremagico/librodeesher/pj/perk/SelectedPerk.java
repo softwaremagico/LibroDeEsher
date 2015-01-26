@@ -9,6 +9,7 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_PERKS")
 public class SelectedPerk extends StorableObject {
+	private static final long serialVersionUID = -3963266207696003617L;
 	@Expose
 	private String name;
 	@Expose

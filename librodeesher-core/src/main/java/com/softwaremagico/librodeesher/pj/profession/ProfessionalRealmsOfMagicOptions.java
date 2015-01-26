@@ -44,6 +44,7 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_PROFESSIONS_REALMS_MAGIC")
 public class ProfessionalRealmsOfMagicOptions extends StorableObject {
+	private static final long serialVersionUID = -2751051390083017594L;
 	// Standard spellers will have only one element, hybrids will have two or
 	// more elements.
 	@Expose

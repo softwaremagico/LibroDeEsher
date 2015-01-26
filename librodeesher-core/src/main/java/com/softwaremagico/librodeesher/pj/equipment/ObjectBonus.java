@@ -11,6 +11,7 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_MAGIC_OBJECT_BONUS")
 public class ObjectBonus extends StorableObject {
+	private static final long serialVersionUID = 6799822840993688414L;
 
 	@Expose
 	private int bonus;

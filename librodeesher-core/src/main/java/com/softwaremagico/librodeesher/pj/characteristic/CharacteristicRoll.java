@@ -15,6 +15,7 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_CHARACTERISTIC_ROLL_GROUP")
 public class CharacteristicRoll extends StorableObject {
+	private static final long serialVersionUID = 5426437093866622745L;
 	@Expose
 	@Enumerated(EnumType.STRING)
 	private CharacteristicsAbbreviature characteristicAbbreviature;

@@ -18,6 +18,8 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_PERKS_DECISION")
 public class PerkDecision extends StorableObject {
+	private static final long serialVersionUID = 8122359267738308670L;
+
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_PERKS_DECISION_CATEGORY_BONUS_CHOSEN")

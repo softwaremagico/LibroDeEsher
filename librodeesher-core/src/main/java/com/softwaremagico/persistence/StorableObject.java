@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,8 @@ import com.softwaremagico.utils.IdGenerator;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class StorableObject {
+public abstract class StorableObject implements Serializable {
+	private static final long serialVersionUID = -5956964736173347186L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
@@ -137,23 +139,23 @@ public abstract class StorableObject {
 	public String getComparationId() {
 		return comparationId;
 	}
-	
-	public Object deepCopy(Object input) {
-	    Object output = null;
-	    try {
-	        // Writes the object
-	        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-	        ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
-	        objectOutputStream.writeObject(input);
 
-	        // Reads the object
-	        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
-	        ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
-	        output = objectInputStream.readObject();
+	public Object copyData() {
+		Object output = null;
+		try {
+			// Writes the object
+			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
+			objectOutputStream.writeObject(this);
 
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return output;
+			// Reads the object
+			ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+			ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+			output = objectInputStream.readObject();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return output;
 	}
 }

@@ -17,7 +17,7 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_TRAINING_CATEGORIES_SELECTED")
 class TrainingCategoriesSelected extends StorableObject {
-
+	private static final long serialVersionUID = 8361001621353057429L;
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_TRAINING_CATEGORIES")

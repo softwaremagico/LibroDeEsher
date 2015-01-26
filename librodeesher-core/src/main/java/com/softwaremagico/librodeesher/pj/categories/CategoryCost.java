@@ -41,7 +41,7 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_CATEGORY_COST")
 public class CategoryCost extends StorableObject {
-
+	private static final long serialVersionUID = -146580302207852563L;
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_RANK_COSTS")

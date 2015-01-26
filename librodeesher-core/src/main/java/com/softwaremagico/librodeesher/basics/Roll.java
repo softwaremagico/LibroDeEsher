@@ -33,6 +33,7 @@ import com.softwaremagico.persistence.StorableObject;
 @Entity
 @Table(name = "T_ROLL")
 public class Roll extends StorableObject {
+	private static final long serialVersionUID = -5714030317166772279L;
 	@Expose
 	private Integer firstDice;
 	@Expose

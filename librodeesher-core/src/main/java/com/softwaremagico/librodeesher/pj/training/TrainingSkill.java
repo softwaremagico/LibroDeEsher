@@ -5,7 +5,7 @@ import java.util.List;
 import com.softwaremagico.persistence.StorableObject;
 
 public class TrainingSkill extends StorableObject {
-
+	private static final long serialVersionUID = 7435059152856956630L;
 	private List<String> skillOptions; // List to choose from.
 	private Integer ranks;
 
