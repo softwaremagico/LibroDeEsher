@@ -731,6 +731,8 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			selectedCharacter.increaseLevel();
 			mainGui.updateFrame();
+			MessageManager.infoMessage(this.getClass().getName(), "Ahora el personaje está en nivel "
+					+ selectedCharacter.getCurrentLevelNumber(), "Subir de nivel");
 		}
 	}
 
