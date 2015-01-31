@@ -39,6 +39,7 @@ import com.softwaremagico.librodeesher.gui.elements.ListLabel;
 import com.softwaremagico.librodeesher.gui.style.BaseLine;
 
 public class OptionLine extends BaseLine {
+	private static final long serialVersionUID = -6769669550426726858L;
 	private OptionsListPanel parent;
 	private String option;
 	private BaseCheckBox optionCheckBox;

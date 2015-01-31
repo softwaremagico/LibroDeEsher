@@ -18,6 +18,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import com.google.gson.annotations.Expose;
 import com.softwaremagico.librodeesher.basics.Roll;
+import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
@@ -159,6 +160,10 @@ public class LevelUp extends StorableObject {
 	public List<String> getSkillsWithRanks() {
 		List<String> list = new ArrayList<>(skillsRanks.keySet());
 		return list;
+	}
+	
+	public void setCategoryRanks(Category category, Integer ranks) {
+		setCategoryRanks(category.getName(), ranks);
 	}
 
 	public void setCategoryRanks(String categoryName, Integer ranks) {

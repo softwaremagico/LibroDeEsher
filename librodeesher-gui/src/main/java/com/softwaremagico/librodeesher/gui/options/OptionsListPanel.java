@@ -31,6 +31,7 @@ import java.util.List;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 
 public class OptionsListPanel extends BasePanel {
+	private static final long serialVersionUID = -4518185385799868381L;
 	private OptionsPanel parent;
 	private List<OptionLine> optionLines;
 	private Integer numberOfOptions;

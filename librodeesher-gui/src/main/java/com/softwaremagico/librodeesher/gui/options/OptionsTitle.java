@@ -33,6 +33,7 @@ import com.softwaremagico.librodeesher.gui.elements.TitleLabel;
 import com.softwaremagico.librodeesher.gui.style.BaseTitleLine;
 
 public class OptionsTitle  extends BaseTitleLine {
+	private static final long serialVersionUID = -5046443003006886227L;
 
 	protected OptionsTitle() {
 		setElements();

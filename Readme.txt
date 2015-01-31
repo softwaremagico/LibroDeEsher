@@ -29,6 +29,11 @@ Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadore
 
 Versión
 ------------
+2.0.1	Nuevo:
+		- Se han corregido numerosos errores gráficos.
+		- Se puede guardar correctamente el personaje. 
+		- Se puede borrar el personaje. 
+
 2.0.0	Nuevo:
 		- Se ha cambiado completamente la interfaz gráfica.
 		- Se pueden guardar los personajes cómodamente.

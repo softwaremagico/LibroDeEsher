@@ -1,6 +1,4 @@
-Lanzar para 32 bits en Windows.
 Elegir habilidades en poderes chi.
 Elegir habilidades comunes de profesiones.
 Bonus por raza
-Si se añaden las armas de fuego cuando ya ha pasado nivel 1, se resetean los costes de las categorias de armas. Hay que volverlos a poner!
 Habilidades especializadas y generalizadas

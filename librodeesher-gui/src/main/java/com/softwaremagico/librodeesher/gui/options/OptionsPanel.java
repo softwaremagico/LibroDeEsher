@@ -29,11 +29,11 @@ import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
 
 public class OptionsPanel extends BaseScrollPanel {
 	private static final long serialVersionUID = -5606065330811602828L;
-	private SelectOption parent;
+	private SelectOption<?> parent;
 	private OptionsTitle title;
 	private OptionsListPanel optionsListPanel;
 
-	protected OptionsPanel(SelectOption parent, List<String> options, Integer numberOfOptions) {
+	protected OptionsPanel(SelectOption<?> parent, List<String> options, Integer numberOfOptions) {
 		this.parent = parent;
 		title = new OptionsTitle();
 		addTitle(title);
