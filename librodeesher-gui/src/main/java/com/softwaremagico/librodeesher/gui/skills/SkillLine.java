@@ -57,6 +57,14 @@ public class SkillLine extends GenericSkillLine {
 		setRanksSelected(ranks); // order the ranks.
 		try {
 			character.setCurrentLevelRanks(skill, ranks);
+			// If ranks set to zero, removed enabled skills
+			if (ranks == 0) {
+				for (String skillSelected : skill.getEnableSkills()) {
+					for (SkillEnabledListener listener : listeners) {
+						listener.skillEnabledEvent(skill, skillSelected, false);
+					}
+				}
+			}
 		} catch (SkillForEnablingMustBeSelected e) {
 			// Select skill for enabling.
 			selectSkillWindow = new SelectSkillWindow(character, skill);

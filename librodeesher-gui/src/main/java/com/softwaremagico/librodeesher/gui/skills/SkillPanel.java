@@ -130,8 +130,9 @@ public class SkillPanel extends BaseSkillPanel {
 					if (!selected) {
 						// Remove any rank if selectedS
 						try {
-							if (characterPlayer.getEnabledSkill().get(skill.getName())
-									.equals(skillSelectedName)) {
+							if (characterPlayer.getEnabledSkill().get(skill.getName()) != null
+									&& characterPlayer.getEnabledSkill().get(skill.getName())
+											.equals(skillSelectedName)) {
 								characterPlayer.getEnabledSkill().remove(skill.getName());
 							}
 							characterPlayer.setCurrentLevelRanks(skillSelected, 0);
