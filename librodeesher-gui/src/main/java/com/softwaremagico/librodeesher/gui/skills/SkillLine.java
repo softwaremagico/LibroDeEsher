@@ -25,20 +25,26 @@ package com.softwaremagico.librodeesher.gui.skills;
  */
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
 import com.softwaremagico.librodeesher.gui.elements.GenericSkillLine;
+import com.softwaremagico.librodeesher.gui.skills.SelectSkillWindow.SkillEnabledListener;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillForEnablingMustBeSelected;
 
 public class SkillLine extends GenericSkillLine {
 	private static final long serialVersionUID = -4551393729801208171L;
+	private SelectSkillWindow selectSkillWindow;
+	private List<SkillEnabledListener> listeners;
 
 	public SkillLine(CharacterPlayer character, Skill skill, Color background, BaseSkillPanel parentWindow) {
 		super(character, skill, background, parentWindow);
 		enableColumns(true, true, true, true, true, true, true, true);
 		setRanksSelected(character.getCurrentLevelRanks(skill));
+		listeners = new ArrayList<>();
 	}
 
 	protected void updateRanks() {
@@ -53,8 +59,17 @@ public class SkillLine extends GenericSkillLine {
 			character.setCurrentLevelRanks(skill, ranks);
 		} catch (SkillForEnablingMustBeSelected e) {
 			// Select skill for enabling.
-			SelectSkillWindow selectSkillWindow = new SelectSkillWindow(character, skill);
+			selectSkillWindow = new SelectSkillWindow(character, skill);
 			selectSkillWindow.setVisible(true);
+			selectSkillWindow.addSkillEnabledListener(new SkillEnabledListener() {
+
+				@Override
+				public void skillEnabledEvent(Skill skill, String skillSelected, boolean selected) {
+					for (SkillEnabledListener listener : listeners) {
+						listener.skillEnabledEvent(skill, skillSelected, selected);
+					}
+				}
+			});
 		}
 	}
 
@@ -65,6 +80,10 @@ public class SkillLine extends GenericSkillLine {
 		if (totalPanel) {
 			totalLabel.setText(character.getTotalValue(skill).toString());
 		}
+	}
+
+	public void addSkillEnabledListener(SkillEnabledListener listener) {
+		listeners.add(listener);
 	}
 
 }

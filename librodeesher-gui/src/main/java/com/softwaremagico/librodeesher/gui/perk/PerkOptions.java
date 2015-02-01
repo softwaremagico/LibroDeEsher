@@ -77,7 +77,7 @@ public class PerkOptions<T> extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		selectedOption = new SelectOption<T>(character, (BaseFrame) this, chooseOptions);
+		selectedOption = new SelectOption<T>((BaseFrame) this, chooseOptions);
 		getContentPane().add(selectedOption, gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));

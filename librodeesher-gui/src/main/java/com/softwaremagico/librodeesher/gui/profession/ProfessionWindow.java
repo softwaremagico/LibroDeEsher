@@ -92,7 +92,7 @@ public class ProfessionWindow extends BaseFrame {
 			gridBagConstraints.gridx = i;
 			gridBagConstraints.gridy = 0;
 			i++;
-			SelectOption<Skill> options = new SelectOption<Skill>(character, this, character.getProfession()
+			SelectOption<Skill> options = new SelectOption<Skill>(this, character.getProfession()
 					.getCommonSkillsToChoose().get(c));
 			commonOptions.add(options);
 			if (c == character.getProfession().getCommonSkillsToChoose().size() - 1) {
@@ -109,7 +109,7 @@ public class ProfessionWindow extends BaseFrame {
 			gridBagConstraints.gridx = i;
 			gridBagConstraints.gridy = 1;
 			i++;
-			SelectOption<Skill> options = new SelectOption<Skill>(character, this, character.getProfession()
+			SelectOption<Skill> options = new SelectOption<Skill>(this, character.getProfession()
 					.getProfessionalSkillsToChoose().get(c));
 			professionalOptions.add(options);
 			if (c == character.getProfession().getProfessionalSkillsToChoose().size() - 1) {
@@ -129,7 +129,7 @@ public class ProfessionWindow extends BaseFrame {
 			gridBagConstraints.gridx = i;
 			gridBagConstraints.gridy = 2;
 			i++;
-			SelectOption<Skill> options = new SelectOption<Skill>(character, this, character.getProfession()
+			SelectOption<Skill> options = new SelectOption<Skill>(this, character.getProfession()
 					.getRestrictedSkillsToChoose().get(c));
 			restrictedOptions.add(options);
 			if (c == character.getProfession().getRestrictedSkillsToChoose().size() - 1) {

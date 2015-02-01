@@ -45,7 +45,7 @@ public abstract class ChooseGroup<T> {
 		return chooseType;
 	}
 
-	protected List<T> getOptionsGroup() {
+	public List<T> getOptionsGroup() {
 		return optionsGroup;
 	}
 

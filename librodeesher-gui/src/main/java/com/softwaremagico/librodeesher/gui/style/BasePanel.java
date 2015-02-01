@@ -57,6 +57,14 @@ public abstract class BasePanel extends JPanel {
 		}
 	}
 
+	protected static int getBackgroundColorIndex(Color color) {
+		if (color.equals(Color.WHITE)) {
+			return 0;
+		} else {
+			return 1;
+		}
+	}
+
 	public abstract void update();
 
 }

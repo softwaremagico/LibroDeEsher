@@ -29,6 +29,8 @@ Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadore
 
 Versión
 ------------
+2.0.2	Nuevo:
+		- Poderes Chi se pueden seleccionar solo si se tiene el estilo marcial adecuado.
 2.0.1	Nuevo:
 		- Se han corregido numerosos errores gráficos.
 		- Se puede guardar correctamente el personaje. 

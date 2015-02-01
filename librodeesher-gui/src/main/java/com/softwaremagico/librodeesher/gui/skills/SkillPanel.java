@@ -24,18 +24,24 @@ package com.softwaremagico.librodeesher.gui.skills;
  * #L%
  */
 
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
+import com.softwaremagico.librodeesher.gui.skills.SelectSkillWindow.SkillEnabledListener;
+import com.softwaremagico.librodeesher.gui.style.BaseLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
+import com.softwaremagico.librodeesher.pj.skills.SkillForEnablingMustBeSelected;
+import com.softwaremagico.log.EsherLog;
 
 public class SkillPanel extends BaseSkillPanel {
 	private static final long serialVersionUID = 544393371168606333L;
@@ -86,11 +92,13 @@ public class SkillPanel extends BaseSkillPanel {
 
 				List<SkillLine> skillLines = new ArrayList<>();
 				for (Skill skill : category.getSkills()) {
-					if (character.isSkillUseful(skill)) {
-						SkillLine skillLine = new SkillLine(character, skill, getLineBackgroundColor(i), this);
-						add(skillLine);
-						skillLines.add(skillLine);
-						i++;
+					if (character.isSkillUseful(skill) && !character.isSkillDisabled(skill)) {
+						SkillLine skillLine = createSkillLine(i, skill);
+						if (skillLine != null) {
+							add(skillLine);
+							skillLines.add(skillLine);
+							i++;
+						}
 					}
 				}
 				skillLinesPerCategory.put(category, skillLines);
@@ -98,10 +106,106 @@ public class SkillPanel extends BaseSkillPanel {
 		}
 	}
 
+	private List<SkillLine> getSkillLinesPerCategory(Category category) {
+		if (skillLinesPerCategory.get(category) == null) {
+			skillLinesPerCategory.put(category, new ArrayList<SkillLine>());
+		}
+		return skillLinesPerCategory.get(category);
+	}
+
+	private SkillLine createSkillLine(CategoryLine categoryLine, Skill skill, int backgroundIndex) {
+		return createSkillLine(backgroundIndex, skill);
+	}
+
+	private SkillLine createSkillLine(int backgroundIndex, Skill skill) {
+		if (characterPlayer.isSkillUseful(skill) && !characterPlayer.isSkillDisabled(skill)) {
+			SkillLine skillLine = new SkillLine(characterPlayer, skill,
+					getLineBackgroundColor(backgroundIndex), this);
+			add(skillLine);
+			skillLine.addSkillEnabledListener(new SkillEnabledListener() {
+
+				@Override
+				public void skillEnabledEvent(Skill skill, String skillSelectedName, boolean selected) {
+					Skill skillSelected = SkillFactory.getSkill(skillSelectedName);
+					if (!selected) {
+						// Remove any rank if selectedS
+						try {
+							if (characterPlayer.getEnabledSkill().get(skill.getName())
+									.equals(skillSelectedName)) {
+								characterPlayer.getEnabledSkill().remove(skill.getName());
+							}
+							characterPlayer.setCurrentLevelRanks(skillSelected, 0);
+						} catch (SkillForEnablingMustBeSelected e) {
+							// Nothing
+							EsherLog.errorMessage(this.getClass().getName(), e);
+						}
+					} else {
+						characterPlayer.getEnabledSkill().put(skill.getName(), skillSelectedName);
+					}
+					updateCategorySkills(skillSelected.getCategory());
+					update();
+				}
+			});
+			return skillLine;
+		}
+		return null;
+	}
+
+	private void updateCategorySkills(Category category) {
+		// Remove all skills of this category
+		List<SkillLine> skills = skillLinesPerCategory.get(category);
+		for (SkillLine skillLine : skills) {
+			remove(skillLine);
+		}
+		skillLinesPerCategory.put(category, new ArrayList<SkillLine>());
+
+		// Add skills after category
+		for (CategoryLine categoryLine : categoryLines) {
+			if (categoryLine.getCategory().equals(category)) {
+				int categoryLineIndex = getIndex(categoryLine);
+				categoryLineIndex++;
+				int backgroundIndex = getBackgroundColorIndex(categoryLine.getBackground());
+				backgroundIndex++;
+				for (Skill skill : category.getSkills()) {
+					if (characterPlayer.isSkillUseful(skill) && !characterPlayer.isSkillDisabled(skill)) {
+						SkillLine skillLine = createSkillLine(categoryLine, skill, backgroundIndex);
+						if (skillLine != null) {
+							getSkillLinesPerCategory(category).add(skillLine);
+							add(skillLine, categoryLineIndex);
+							categoryLineIndex++;
+							backgroundIndex++;
+						}
+					}
+				}
+			}
+		}
+		updateLinesBackground();
+	}
+
+	private void updateLinesBackground() {
+		int i = 0;
+		for (Component component : this.getComponents()) {
+			if (component instanceof BaseLine) {
+				((BaseLine) component).updateBackground(getLineBackgroundColor(i));
+			}
+			i++;
+		}
+	}
+
+	private int getIndex(Component component) {
+		for (int i = 0; i < getComponentCount(); i++) {
+			if (getComponent(i) == component)
+				return i;
+		}
+		return -1;
+	}
+
+	@Override
 	public void update() {
 		parentWindow.update();
 	}
 
+	@Override
 	public void updateSkillsOfCategory(Category category) {
 		List<SkillLine> skillLines = skillLinesPerCategory.get(category);
 		if (skillLines != null) {
@@ -142,7 +246,8 @@ public class SkillPanel extends BaseSkillPanel {
 
 	public void updateWeaponCost() {
 		for (WeaponCategoryLine weaponLine : weaponsLines) {
-			weaponLine.setSelected(characterPlayer.getProfessionDecisions().getWeaponCost(weaponLine.getCategory()));
+			weaponLine.setSelected(characterPlayer.getProfessionDecisions().getWeaponCost(
+					weaponLine.getCategory()));
 		}
 	}
 }

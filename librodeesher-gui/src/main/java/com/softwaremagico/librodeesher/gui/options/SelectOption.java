@@ -40,11 +40,9 @@ import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
-import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class SelectOption<T> extends BasePanel {
 	private static final long serialVersionUID = 4299961102900809569L;
-	private CharacterPlayer character;
 	private OptionsPanel optionsPanel;
 	private BaseFrame parent;
 	private ChooseGroup<T> options;
@@ -52,9 +50,8 @@ public class SelectOption<T> extends BasePanel {
 	private List<String> selectedOptions;
 	private JLabel optionsLabel;
 
-	public SelectOption(CharacterPlayer character, BaseFrame parent, ChooseGroup<T> options) {
+	public SelectOption(BaseFrame parent, ChooseGroup<T> options) {
 		this.parent = parent;
-		this.character = character;
 		this.options = options;
 		optionsCount = new PointsCounterTextField();
 		selectedOptions = new ArrayList<>();
@@ -121,5 +118,9 @@ public class SelectOption<T> extends BasePanel {
 
 	public List<String> getSelectedOptions() {
 		return selectedOptions;
+	}
+
+	public ChooseGroup<T> getOptions() {
+		return options;
 	}
 }

@@ -28,6 +28,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 
@@ -45,11 +47,16 @@ public class SelectSkillWindow extends BaseFrame {
 	private CharacterPlayer character;
 	private Skill skill;
 	private SelectOption<String> optionsToChoose;
-	Integer widthCells, heighCells;
+	private List<SkillEnabledListener> listeners;
+
+	interface SkillEnabledListener {
+		void skillEnabledEvent(Skill skill, String skillSelected, boolean selected);
+	}
 
 	public SelectSkillWindow(CharacterPlayer character, Skill skill) {
 		this.character = character;
 		this.skill = skill;
+		listeners = new ArrayList<>();
 		defineSize();
 		// setResizable(false);
 		setElements();
@@ -73,8 +80,9 @@ public class SelectSkillWindow extends BaseFrame {
 		// Add skill options.
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 0;
-		ChooseGroup<String> skillsToChoose = new ChooseSkillName(1, skill.getEnableSkills(), ChooseType.ENABLED);
-		SelectOption<String> options = new SelectOption<String>(character, this, skillsToChoose);
+		ChooseGroup<String> skillsToChoose = new ChooseSkillName(1, skill.getEnableSkills(),
+				ChooseType.ENABLED);
+		SelectOption<String> options = new SelectOption<String>(this, skillsToChoose);
 		optionsToChoose = options;
 		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
 		options.setPointCounterLabel("   Activa: ");
@@ -102,6 +110,16 @@ public class SelectSkillWindow extends BaseFrame {
 		for (String skillSelected : optionsToChoose.getSelectedOptions()) {
 			character.enableSkillOption(skill.getName(), skillSelected);
 		}
+		for (String skillsOptions : optionsToChoose.getOptions().getOptionsGroup()) {
+			for (SkillEnabledListener listener : listeners) {
+				listener.skillEnabledEvent(skill, skillsOptions, optionsToChoose.getSelectedOptions()
+						.contains(skillsOptions));
+			}
+		}
+	}
+
+	public void addSkillEnabledListener(SkillEnabledListener listener) {
+		listeners.add(listener);
 	}
 
 }

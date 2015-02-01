@@ -47,6 +47,7 @@ public class CompleteSkillPanel extends BaseScrollPanel {
 		}
 	}
 	
+	@Override
 	public void update() {
 		parentWindow.updateFrame();
 	}

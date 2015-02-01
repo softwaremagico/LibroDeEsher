@@ -26,6 +26,7 @@ package com.softwaremagico.librodeesher.gui.style;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -85,6 +86,13 @@ public abstract class BaseLine extends BasePanel {
 		container.add(spinner);
 		container.setBackground(bgColor);
 		return container;
+	}
+
+	public void updateBackground(Color background) {
+		this.setBackground(background);
+		for (Component component : getComponents()) {
+			component.setBackground(background);
+		}
 	}
 
 }

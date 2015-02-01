@@ -823,13 +823,13 @@ public class CharacterPlayer extends StorableObject {
 			characterPlayerHelper.resetSkillRanks(skill.getName());
 		}
 		// Enable a disabled skill
-		if (ranks > 0 && skill.getEnableSkills().size() > 0 && enabledSkill.get(skill) == null) {
+		if (ranks > 0 && !skill.getEnableSkills().isEmpty() && enabledSkill.get(skill.getName()) == null) {
 			throw new SkillForEnablingMustBeSelected();
 		} else if (ranks == 0) {
 			// Remove enabled skill.
-			if (enabledSkill.get(skill) != null) {
-				getCurrentLevel().setSkillsRanks(SkillFactory.getSkill(enabledSkill.get(skill)), 0);
-				enabledSkill.remove(skill);
+			if (enabledSkill.get(skill.getName()) != null) {
+				getCurrentLevel().setSkillsRanks(SkillFactory.getSkill(enabledSkill.get(skill.getName())), 0);
+				enabledSkill.remove(skill.getName());
 			}
 		}
 	}
@@ -2267,7 +2267,7 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public boolean isSkillDisabled(Skill skill) {
-		return !skill.isEnabled() && !getEnabledSkills().contains(skill);
+		return !skill.isEnabled() && !getEnabledSkills().contains(skill.getName());
 	}
 
 	private Set<String> getEnabledSkills() {
