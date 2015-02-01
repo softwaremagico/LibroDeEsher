@@ -2274,9 +2274,27 @@ public class CharacterPlayer extends StorableObject {
 		return new HashSet<String>(enabledSkill.values());
 	}
 
-	public void enableSkill(Skill skill, Skill disabledSkill) {
+	public void enableSkillOption(Skill skill, Skill disabledSkill) {
 		if (skill != null && disabledSkill != null) {
-			enabledSkill.put(skill.getName(), disabledSkill.getName());
+			enableSkillOption(skill.getName(), disabledSkill.getName());
+		}
+	}
+
+	public void enableSkillOption(String skill, String disabledSkill) {
+		if (skill != null && disabledSkill != null) {
+			enabledSkill.put(skill, disabledSkill);
+		}
+	}
+
+	public void disableSkillOption(Skill skill) {
+		if (skill != null) {
+			disableSkillOption(skill.getName());
+		}
+	}
+
+	public void disableSkillOption(String skill) {
+		if (skill != null) {
+			enabledSkill.remove(skill);
 		}
 	}
 

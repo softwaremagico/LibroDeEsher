@@ -53,7 +53,7 @@ public class SkillLine extends GenericSkillLine {
 			character.setCurrentLevelRanks(skill, ranks);
 		} catch (SkillForEnablingMustBeSelected e) {
 			// Select skill for enabling.
-			SelectSkillWindow selectSkillWindow = new SelectSkillWindow(character, skill.getEnableSkills());
+			SelectSkillWindow selectSkillWindow = new SelectSkillWindow(character, skill);
 			selectSkillWindow.setVisible(true);
 		}
 	}

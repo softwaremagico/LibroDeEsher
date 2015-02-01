@@ -649,7 +649,7 @@ public class RandomCharacterPlayer {
 								.getSkillsRanks(skill.getName()) + 1);
 					} catch (SkillForEnablingMustBeSelected e) {
 						// Skills than depends in other skills.
-						characterPlayer.enableSkill(skill, selectOneSkillForEnabling(skill));
+						characterPlayer.enableSkillOption(skill, selectOneSkillForEnabling(skill));
 					}
 					EsherLog.info(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName() + "' ("
 							+ skillProbabilityStored.get(skill) + tries * 3 + "%), roll: " + roll + " Added!");
