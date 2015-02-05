@@ -1,6 +1,10 @@
 package com.softwaremagico.persistence;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,8 +54,7 @@ public class JpaSchemaExporter {
 			URL resource = getResource(packageName, cld);
 			directory = new File(resource.getFile());
 		} catch (NullPointerException ex) {
-			throw new ClassNotFoundException(packageName + " (" + directory
-					+ ") does not appear to be a valid package");
+			throw new ClassNotFoundException(packageName + " (" + directory + ") does not appear to be a valid package");
 		}
 		return collectClasses(packageName, directory);
 	}
@@ -110,8 +113,8 @@ public class JpaSchemaExporter {
 		export.execute(true, false, false, onlyCreation);
 	}
 
-	public void updateDatabaseScript(HibernateDialect dialect, String outputDirectory, String host,
-			String port, String username, String password) {
+	public void updateDatabaseScript(HibernateDialect dialect, String outputDirectory, String host, String port,
+			String username, String password) {
 		cfg.setProperty("hibernate.hbm2ddl.auto", "update");
 		cfg.setProperty("hibernate.dialect", dialect.getDialectClass());
 		cfg.setProperty("hibernate.show_sql", "true");
@@ -122,23 +125,17 @@ public class JpaSchemaExporter {
 
 		SchemaUpdate update = new SchemaUpdate(cfg);
 		update.setDelimiter(";");
-		update.setOutputFile(outputDirectory + "updates/update_" + dialect.name().toLowerCase() + "_"
-				+ getDate() + ".sql");
+		update.setOutputFile(outputDirectory + "updates/update_" + dialect.name().toLowerCase() + "_" + getDate()
+				+ ".sql");
 		update.setFormat(true);
-		try {
-			update.execute(true, true);
-		} catch (Exception e) {
-			EsherLog.warning(JpaSchemaExporter.class.getName(),
-					"Impossible to obtain differences with database!");
-		}
+		update.execute(true, true);
 	}
 
 	/**
 	 * For executing.
 	 * 
 	 * @param args
-	 *            args[0] -> directory, args[1] -> user, args[2] -> password,
-	 *            args[3] -> host, args[4] -> port
+	 *            args[0] -> directory, args[1] -> user, args[2] -> password, args[3] -> host, args[4] -> port
 	 */
 	public static void main(String[] args) {
 		JpaSchemaExporter gen = new JpaSchemaExporter(PACKETS_TO_SCAN);
@@ -177,12 +174,31 @@ public class JpaSchemaExporter {
 		}
 		gen.createDatabaseScript(HibernateDialect.MYSQL, directory, true);
 		gen.updateDatabaseScript(HibernateDialect.MYSQL, directory, host, port, user, password);
+
+		addTextToFile(createHibernateSequenceTable(), directory + File.separator + "create_"
+				+ HibernateDialect.MYSQL.name().toLowerCase() + ".sql");
 	}
 
 	private static String getDate() {
-		Date ahora = new Date();
-		SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy_HHmmss");
-		return formateador.format(ahora);
+		Date now = new Date();
+		SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy_HHmmss");
+		return formater.format(now);
 	}
 
+	private static String createHibernateSequenceTable() {
+		String table = "\n\tCREATE TABLE `hibernate_sequence` (\n";
+		table += "\t\t`next_val` bigint(20) DEFAULT NULL\n";
+		table += "\t);\n\n";
+		table += "\tLOCK TABLES `hibernate_sequence` WRITE;\n";
+		table += "\tINSERT INTO `hibernate_sequence` VALUES (1);\n";
+		table += "\tUNLOCK TABLES;\n";
+		return table;
+	}
+
+	private static void addTextToFile(String text, String file) {
+		try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)))) {
+			out.println(text);
+		} catch (IOException e) {
+		}
+	}
 }
