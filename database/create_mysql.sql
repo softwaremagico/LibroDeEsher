@@ -1033,3 +1033,12 @@
          sequence_name varchar(255),
          sequence_next_hi_value integer 
     );
+
+	CREATE TABLE `hibernate_sequence` (
+		`next_val` bigint(20) DEFAULT NULL
+	);
+
+	LOCK TABLES `hibernate_sequence` WRITE;
+	INSERT INTO `hibernate_sequence` VALUES (1);
+	UNLOCK TABLES;
+
