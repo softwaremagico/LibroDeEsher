@@ -93,7 +93,7 @@ public class InsertMagicItemWindow extends BaseFrame {
 
 		gridBagConstraints.gridy = 1;
 		gridBagConstraints.weighty = 1;
-		itemEditor = new EditMagicItemPanel(null);
+		itemEditor = new EditMagicItemPanel(character, null);
 		itemEditor.setMagicObject(itemAdministrator.getSelectedMagicObject());
 		itemEditor.addNameUpdateListener(new MagicObjectNameUpdated() {
 			@Override

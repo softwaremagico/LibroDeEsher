@@ -46,6 +46,7 @@ import com.softwaremagico.librodeesher.gui.elements.SpinnerValueChangedListener;
 import com.softwaremagico.librodeesher.gui.magicitem.OtherBonusComboBox.OthersChangedListener;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.gui.style.Fonts;
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
 import com.softwaremagico.librodeesher.pj.equipment.BonusType;
@@ -53,6 +54,7 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class EditMagicItemPanel extends BasePanel {
 	private static final long serialVersionUID = 689205483854072507L;
+	private CharacterPlayer character;
 	private CategoryComboBox categoryComboBox;
 	private SkillComboBox skillComboBox;
 	private BaseSpinner categorySpinner, skillSpinner, othersSpinner;
@@ -66,7 +68,8 @@ public class EditMagicItemPanel extends BasePanel {
 		void updatedName(MagicObject magicObject);
 	}
 
-	protected EditMagicItemPanel(MagicObject magicObject) {
+	protected EditMagicItemPanel(CharacterPlayer character, MagicObject magicObject) {
+		this.character = character;
 		this.magicObject = magicObject;
 		nameListeners = new ArrayList<>();
 		setElements();
@@ -214,13 +217,13 @@ public class EditMagicItemPanel extends BasePanel {
 		if (categorySpinner.getValue() != null) {
 			skillComboBox.setSkills((Category) categoryComboBox.getSelectedItem());
 		}
-		
+
 		constraints.gridx = 4;
 		constraints.gridy = 6;
 		constraints.gridwidth = 1;
 		constraints.weightx = 0;
 		add(skillSpinner, constraints);
-		
+
 		JLabel othersLabel = new JLabel("Otros:");
 		constraints.fill = GridBagConstraints.NONE;
 		constraints.gridx = 0;
@@ -236,7 +239,6 @@ public class EditMagicItemPanel extends BasePanel {
 		constraints.gridwidth = 3;
 		constraints.weightx = 1;
 		add(othersComboBox, constraints);
-		
 
 		constraints.gridx = 4;
 		constraints.gridy = 7;
@@ -246,7 +248,7 @@ public class EditMagicItemPanel extends BasePanel {
 
 		magicObjectResume = new ResumeMagicObjectPanel();
 		constraints.fill = GridBagConstraints.HORIZONTAL;
-		constraints.anchor =  GridBagConstraints.LINE_START;
+		constraints.anchor = GridBagConstraints.LINE_START;
 		constraints.gridx = 0;
 		constraints.gridy = 8;
 		constraints.gridwidth = 5;
@@ -290,12 +292,12 @@ public class EditMagicItemPanel extends BasePanel {
 		});
 		return skillComboBox;
 	}
-	
-	private OtherBonusComboBox createOtherBonusComboBox(){
+
+	private OtherBonusComboBox createOtherBonusComboBox() {
 		OtherBonusComboBox comboBox = new OtherBonusComboBox();
 		comboBox.setNormalStyle();
 		comboBox.addOthersChangedListener(new OthersChangedListener() {
-			
+
 			@Override
 			public void otherChanged(BonusType type) {
 				if (magicObject != null) {
@@ -322,6 +324,7 @@ public class EditMagicItemPanel extends BasePanel {
 					if (categoryComboBox.getSelectedItem() != null) {
 						magicObject.setCategoryBonus(
 								((Category) categoryComboBox.getSelectedItem()).getName(), value);
+						character.updateMagicItemHelper(magicObject);
 					}
 					magicObjectResume.update(magicObject);
 				}
@@ -339,6 +342,7 @@ public class EditMagicItemPanel extends BasePanel {
 				if (magicObject != null) {
 					if (skillComboBox.getSelectedItem() != null) {
 						magicObject.setSkillBonus(((Skill) skillComboBox.getSelectedItem()).getName(), value);
+						character.updateMagicItemHelper(magicObject);
 					}
 					magicObjectResume.update(magicObject);
 				}
@@ -346,7 +350,7 @@ public class EditMagicItemPanel extends BasePanel {
 		});
 		return skillSpinner;
 	}
-	
+
 	private BaseSpinner createOtherSpinner() {
 		SpinnerModel spinnerModel = new SpinnerNumberModel(0, -999, +999, 5);
 		BaseSpinner otherSpinner = new BaseSpinner(spinnerModel);
@@ -355,7 +359,9 @@ public class EditMagicItemPanel extends BasePanel {
 			public void valueChanged(int value) {
 				if (magicObject != null) {
 					if (othersComboBox.getSelectedItem() != null) {
-						magicObject.setObjectBonus("", (BonusType) (othersComboBox.getSelectedItem()), value);
+						magicObject.setObjectBonus(((BonusType) (othersComboBox.getSelectedItem())).toString(),
+								(BonusType) (othersComboBox.getSelectedItem()), value);
+						character.updateMagicItemHelper(magicObject);
 					}
 					magicObjectResume.update(magicObject);
 				}

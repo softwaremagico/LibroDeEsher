@@ -2082,7 +2082,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * A list of all magic equipment obtained from trainings, history,...
+	 * A list of all magic equipment obtained from training, history,...
 	 * 
 	 * @return
 	 */
@@ -2097,6 +2097,14 @@ public class CharacterPlayer extends StorableObject {
 
 	public void addMagicItem(MagicObject magicObject) {
 		if (magicObject != null) {
+			updateMagicItemHelper(magicObject);
+			EsherLog.info(MagicObject.class.getName(), "Added magic item '" + magicObject.getName() + "'.");
+			magicItems.add(magicObject);
+		}
+	}
+	
+	public void updateMagicItemHelper(MagicObject magicObject){
+		if (magicObject != null) {
 			for (ObjectBonus objectBonus : magicObject.getBonus()) {
 				if (objectBonus.getType().equals(BonusType.CATEGORY)) {
 					characterPlayerHelper.resetCategoryObjectBonus(objectBonus.getBonusName());
@@ -2104,8 +2112,6 @@ public class CharacterPlayer extends StorableObject {
 					characterPlayerHelper.resetSkillObjectBonus(objectBonus.getBonusName());
 				}
 			}
-			EsherLog.info(MagicObject.class.getName(), "Added magic item '" + magicObject.getName() + "'.");
-			magicItems.add(magicObject);
 		}
 	}
 
