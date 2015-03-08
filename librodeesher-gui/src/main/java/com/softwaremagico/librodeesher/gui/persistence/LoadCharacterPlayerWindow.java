@@ -41,6 +41,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
 import com.softwaremagico.files.MessageManager;
+import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
@@ -62,7 +63,6 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 		loadCharacterListeners = new ArrayList<>();
 		removeCharacterListeners = new ArrayList<>();
 		defineWindow(700, 400);
-		setResizable(false);
 		availableCharacterPlayers = CharacterPlayerDao.getInstance().getAll();
 		setElements();
 	}
@@ -178,14 +178,15 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 			public void actionPerformed(ActionEvent e) {
 				CharacterPlayer selected = availableCharacterPlayers.get(charactersTable.getSelectedRow());
 				if (selected != null) {
-					CharacterPlayerDao.getInstance().makeTransient(selected);
-					MessageManager.infoMessage(this.getClass().getName(),
-							"El personaje ha sido borrado con éxito.", "Borrar");
-					for (RemoveCharacterListener listener : removeCharacterListeners) {
-						listener.removeCharacter(selected);
+					if (ShowMessage.showQuestionMessage(null,
+							"El personaje seleccionado será elminado. ¿Quieres continuar con la acción?",
+							"Borrado")) {
+						for (RemoveCharacterListener listener : removeCharacterListeners) {
+							listener.removeCharacter(selected);
+						}
+						availableCharacterPlayers.remove(selected);
+						setElements();
 					}
-					availableCharacterPlayers.remove(selected);
-					setElements();
 				}
 			}
 		});

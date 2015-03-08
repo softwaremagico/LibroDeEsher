@@ -25,8 +25,6 @@ package com.softwaremagico.librodeesher.gui.elements;
 
 import java.util.List;
 
-import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
-
 public class TrainingComboBox extends BaseComboBox<String> {
 	private static final long serialVersionUID = 6685372259909729296L;
 

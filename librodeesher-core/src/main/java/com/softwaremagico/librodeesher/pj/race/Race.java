@@ -517,8 +517,8 @@ public class Race {
 
 	public boolean isRestricted(Skill skill) {
 		try {
-			return restrictedSkills.contains(skill.getName())
-					|| restrictedCategories.contains(skill.getCategory().getName());
+			return restrictedSkills.contains(skill)
+					|| restrictedCategories.contains(skill.getCategory());
 		} catch (NullPointerException npe) {
 			return false;
 		}
@@ -526,8 +526,8 @@ public class Race {
 
 	public boolean isCommon(Skill skill) {
 		try {
-			return commonSkills.contains(skill.getName())
-					|| commonCategories.contains(skill.getCategory().getName());
+			return commonSkills.contains(skill)
+					|| commonCategories.contains(skill.getCategory());
 		} catch (NullPointerException npe) {
 			return false;
 		}

@@ -34,6 +34,7 @@ import com.softwaremagico.librodeesher.gui.elements.TitleLabel;
 import com.softwaremagico.librodeesher.gui.style.BaseTitleLine;
 
 public class PerksListTitle extends BaseTitleLine {
+	private static final long serialVersionUID = 2695329252810378038L;
 	private final static Integer DEFAULT_COLUMN_WIDTH = 50;
 
 	public PerksListTitle() {

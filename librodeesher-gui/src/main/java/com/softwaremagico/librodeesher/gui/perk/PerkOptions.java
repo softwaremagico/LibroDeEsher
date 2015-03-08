@@ -43,6 +43,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.perk.Perk;
 
 public class PerkOptions<T> extends BaseFrame {
+	private static final long serialVersionUID = 5275328306603274360L;
 	private CharacterPlayer character;
 	private Perk perk;
 	private SelectOption<T> selectedOption;
@@ -105,6 +106,8 @@ public class PerkOptions<T> extends BaseFrame {
 		case COMMON:
 			character.setPerkCommonDecision(perk, selectedOption.getSelectedOptions());
 			break;
+		default:
+			break;
 		}
 
 	}
@@ -125,6 +128,7 @@ public class PerkOptions<T> extends BaseFrame {
 	}
 
 	class IntelligentCloseButton extends CloseButton {
+		private static final long serialVersionUID = 7427505640112272261L;
 
 		public IntelligentCloseButton(JFrame window) {
 			super(window);

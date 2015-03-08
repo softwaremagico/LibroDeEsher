@@ -185,14 +185,12 @@ public class Controller {
 				@Override
 				public void removeCharacter(CharacterPlayer characterPlayer) {
 					if (characterPlayer != null) {
-						if (ShowMessage.showQuestionMessage(null,
-								"El personaje seleccionado será elminado. ¿Quieres continuar con la acción?",
-								"Borrado")) {
-							if (characterPlayer.getId().equals(selectedCharacter.getId())) {
-								selectedCharacter.resetIds();
-
-							}
+						if (characterPlayer.getId().equals(selectedCharacter.getId())) {
+							selectedCharacter.resetIds();
 						}
+						CharacterPlayerDao.getInstance().makeTransient(characterPlayer);
+						MessageManager.infoMessage(this.getClass().getName(),
+								"El personaje ha sido borrado con éxito.", "Borrar");
 					}
 				}
 			});

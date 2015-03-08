@@ -38,7 +38,7 @@ public class ListBackgroundPanel extends JPanel {
 		add(label);
 	}
 
-	public ListBackgroundPanel(BaseComboBox comboBox, Color bgColor) {
+	public ListBackgroundPanel(BaseComboBox<?> comboBox, Color bgColor) {
 		setLayout(new BorderLayout());
 		setBackground(bgColor);
 		comboBox.setBackgroundColor(bgColor);
