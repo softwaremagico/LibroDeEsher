@@ -40,7 +40,6 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
-import com.softwaremagico.files.MessageManager;
 import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseButton;

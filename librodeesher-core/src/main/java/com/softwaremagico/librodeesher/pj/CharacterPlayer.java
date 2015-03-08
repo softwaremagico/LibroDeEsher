@@ -2096,15 +2096,24 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public void addMagicItem(MagicObject magicObject) {
-		for (ObjectBonus objectBonus : magicObject.getBonus()) {
-			if (objectBonus.getType().equals(BonusType.CATEGORY)) {
-				characterPlayerHelper.resetCategoryObjectBonus(objectBonus.getBonusName());
-			} else if (objectBonus.getType().equals(BonusType.SKILL)) {
-				characterPlayerHelper.resetSkillObjectBonus(objectBonus.getBonusName());
+		if (magicObject != null) {
+			for (ObjectBonus objectBonus : magicObject.getBonus()) {
+				if (objectBonus.getType().equals(BonusType.CATEGORY)) {
+					characterPlayerHelper.resetCategoryObjectBonus(objectBonus.getBonusName());
+				} else if (objectBonus.getType().equals(BonusType.SKILL)) {
+					characterPlayerHelper.resetSkillObjectBonus(objectBonus.getBonusName());
+				}
 			}
+			EsherLog.info(MagicObject.class.getName(), "Added magic item '" + magicObject.getName() + "'.");
+			magicItems.add(magicObject);
 		}
-		EsherLog.info(MagicObject.class.getName(), "Added magic item '" + magicObject.getName() + "'.");
-		magicItems.add(magicObject);
+	}
+
+	public void removeMagicItem(MagicObject magicObject) {
+		if (magicObject != null) {
+			EsherLog.info(MagicObject.class.getName(), "Removing magic item '" + magicObject.getName() + "'.");
+			magicItems.remove(magicObject);
+		}
 	}
 
 	public void addMagicItem(MagicObject magicObject, String trainingName) {

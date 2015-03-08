@@ -136,7 +136,7 @@ public class InsertMagicItemWindow extends BaseFrame {
 	private void deleteMagicItem() {
 		MagicObject objectToDelete = itemAdministrator.getSelectedMagicObject();
 		itemAdministrator.removeMagicObject(objectToDelete);
-		character.getMagicItems().remove(objectToDelete);
+		character.removeMagicItem(objectToDelete);		
 		itemEditor.setMagicObject(itemAdministrator.getSelectedMagicObject());
 	}
 
