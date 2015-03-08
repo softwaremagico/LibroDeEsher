@@ -35,7 +35,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
@@ -54,7 +54,7 @@ public class ProfessionDecisions extends StorableObject {
 
 	// Category -> cost
 	@Expose
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@CollectionTable(name = "T_PROFESSION_WEAPON_COST_CHOSEN")
 	@JoinColumn(name = "categoryCostId")
 	private Map<String, CategoryCost> weaponsCost;

@@ -20,6 +20,7 @@ public class CharacterJsonManager {
 		if (jsonText != null && jsonText.length() > 0) {
 			final Gson gson = new GsonBuilder().create();
 			CharacterPlayer characterPlayer = gson.fromJson(jsonText, CharacterPlayer.class);
+			characterPlayer.clearCache();
 			return characterPlayer;
 		}
 		return null;

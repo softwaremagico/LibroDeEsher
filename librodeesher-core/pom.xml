@@ -61,7 +61,7 @@
 					<mainClass>com.softwaremagico.persistence.JpaSchemaExporter</mainClass>
 					<arguments>
 						<argument>${database.script.autogeneration.folder}</argument>
-						<argument>abcduser</argument>
+						<argument>esher</argument>
 						<argument>asd123</argument>
 						<argument>localhost</argument>
 						<argument>3306</argument>
@@ -119,6 +119,12 @@
 			<groupId>org.xerial</groupId>
 			<artifactId>sqlite-jdbc</artifactId>
 			<version>${sqlite.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${h2.version}</version>
+			<scope>test</scope>
 		</dependency>
 		<!-- Hibernate -->
 		<dependency>

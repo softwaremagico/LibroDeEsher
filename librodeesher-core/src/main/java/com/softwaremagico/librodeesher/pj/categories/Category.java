@@ -104,7 +104,7 @@ public abstract class Category {
 	}
 
 	public List<Skill> getSkills() {
-		return skills;
+		return Collections.unmodifiableList(new ArrayList<>(skills));
 	}
 
 	public List<Skill> getNonRareSkills() {
@@ -117,6 +117,7 @@ public abstract class Category {
 				filteredSkills.add(skill);
 			}
 		}
+		Collections.sort(filteredSkills, new SkillComparator());
 		normalSkills = filteredSkills;
 		return filteredSkills;
 	}

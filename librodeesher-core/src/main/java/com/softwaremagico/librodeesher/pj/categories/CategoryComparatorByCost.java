@@ -43,7 +43,7 @@ public class CategoryComparatorByCost implements Comparator<Category> {
 		if (costCat1 > costCat2)
 			return 1;
 		// Equal cost, select one randomly.
-		return Math.random() > 0.5 ? 1 : -1;
+		return 0;
 	}
 
 	private int getValue(Category category) {

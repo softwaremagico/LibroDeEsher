@@ -607,9 +607,6 @@
     alter table T_PROFESSION_DECISIONS 
         add constraint UK_16qm0bkl5f4pi9qw4bf8x9hra  unique (comparationId);
 
-    alter table T_PROFESSION_WEAPON_COST_CHOSEN 
-        add constraint UK_hyu9pvkqjkxlo6ldjah1i6mkk  unique (weaponsCost_ID);
-
     alter table T_ROLL 
         add constraint UK_9r4ehgb8fn2dn3d3sd8xvd4fd  unique (ID);
 

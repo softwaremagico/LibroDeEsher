@@ -10,10 +10,15 @@
 	<property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.hbm2ddl.auto">create-drop</property>
 	
+	<!-- H2 -->
+        <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property> 
+	<property name="connection.driver_class">org.h2.Driver</property> 
+	<property name="hibernate.connection.url">jdbc:h2:mem:test;DB_CLOSE_DELAY=-1</property>	
+	
 	<!-- SQLITE -->
-        <property name="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</property> 
+        <!-- <property name="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</property> 
 	<property name="connection.driver_class">org.sqlite.JDBC</property> 
-	<property name="hibernate.connection.url">jdbc:sqlite:test-esher.db</property>
+	<property name="hibernate.connection.url">jdbc:sqlite:test-esher.db</property> -->
 	
 	<!-- MYSQL -->
 	<!-- <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>

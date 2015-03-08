@@ -1,16 +1,22 @@
 package com.softwaremagico.librodeesher.pj;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
 import java.util.List;
 
 import org.junit.After;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.itextpdf.text.DocumentException;
 import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
 import com.softwaremagico.librodeesher.pj.export.json.CharacterJsonManager;
 import com.softwaremagico.librodeesher.pj.export.json.LevelJsonManager;
+import com.softwaremagico.librodeesher.pj.export.json.exceptions.InvalidCharacterException;
+import com.softwaremagico.librodeesher.pj.export.json.exceptions.InvalidLevelException;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfCombinedSheet;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfStandardSheet;
 import com.softwaremagico.librodeesher.pj.export.txt.TxtSheet;
@@ -22,6 +28,7 @@ import com.softwaremagico.librodeesher.pj.random.RandomFeedbackListener;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.persistence.dao.hibernate.CharacterPlayerDao;
+import com.softwaremagico.persistence.dao.hibernate.DatabaseException;
 
 @Test
 public class CharacterCreationTest {
@@ -49,34 +56,34 @@ public class CharacterCreationTest {
 	}
 
 	@Test(groups = { "characterStorage" }, dependsOnMethods = { "createCharacter" })
-	public void storeCharacter() throws Exception {
+	public void storeCharacter() throws DatabaseException {
 		characterPlayerDao.makePersistent(characterPlayer);
 		Assert.assertNotNull(characterPlayer.getId());
 		Assert.assertNotNull(characterPlayer.getTotalValue(SkillFactory.getAvailableSkill("Trepar")));
 	}
 
 	@Test(groups = { "characterPdf" }, dependsOnMethods = { "createCharacter" })
-	public void standardPdf() throws Exception {
+	public void standardPdf() throws MalformedURLException, DocumentException, IOException {
 		new PdfStandardSheet(characterPlayer, PDF_PATH_STANDARD, false);
 	}
 
 	@Test(groups = { "characterPdf" }, dependsOnMethods = { "createCharacter" })
-	public void combinedPdf() throws Exception {
+	public void combinedPdf() throws MalformedURLException, DocumentException, IOException {
 		new PdfCombinedSheet(characterPlayer, PDF_PATH_COMBINED);
 	}
 
 	@Test(groups = { "characterTxt" }, dependsOnMethods = { "createCharacter" })
-	public void exportStandardTxt() throws Exception {
+	public void exportStandardTxt() {
 		new TxtSheet(characterPlayer).exportSheet(TXT_PATH);
 	}
 
 	@Test(groups = { "characterTxt" }, dependsOnMethods = { "createCharacter" })
-	public void exportAbbreviatedTxt() throws Exception {
+	public void exportAbbreviatedTxt() {
 		TxtSheet.exportCharacterAbbreviature(characterPlayer, TXT_ABBREVIATED_PATH);
 	}
 
 	@Test(groups = { "characterJson" }, dependsOnMethods = { "createCharacter" })
-	public void exportCharacterJson() throws Exception {
+	public void exportCharacterJson() throws FileNotFoundException {
 		String jsonText = CharacterJsonManager.toJson(characterPlayer);
 		// get json to object.
 		CharacterPlayer importedCharacter = CharacterJsonManager.fromJson(jsonText);
@@ -103,12 +110,15 @@ public class CharacterCreationTest {
 	}
 
 	@Test(groups = { "characterJson" }, dependsOnMethods = { "exportCharacterJson" })
-	public void exportLevelJson() throws Exception {
+	public void exportLevelJson() throws MagicDefinitionException, InvalidProfessionException,
+			FileNotFoundException, InvalidLevelException, InvalidCharacterException {
 		String jsonText = CharacterJsonManager.toJson(characterPlayer);
 		CharacterPlayer duplicatedCharacter = CharacterJsonManager.fromJson(jsonText);
 
 		// Increase level of one character.
+		int prevCharacterLevel = characterPlayer.getCurrentLevelNumber();
 		characterPlayer.increaseLevel();
+		Assert.assertEquals((int) characterPlayer.getCurrentLevelNumber(), prevCharacterLevel + 1);
 		RandomCharacterPlayer randomCharacter = new RandomCharacterPlayer(characterPlayer);
 		randomCharacter.setDevelopmentPoints();
 
@@ -119,9 +129,14 @@ public class CharacterCreationTest {
 		PrintWriter out = new PrintWriter(JSON_LEVEL_PATH);
 		out.println(levelJsonText);
 		out.close();
-		// get json to object.
+
+		// get json to object. Add to duplicatedCharacter.
 		LevelUp newLevel = LevelJsonManager.fromJson(duplicatedCharacter, levelJsonText);
+		Assert.assertNotNull(newLevel);
+		int prevLevel = duplicatedCharacter.getCurrentLevelNumber();
 		duplicatedCharacter.importLevel(newLevel);
+		Assert.assertEquals((int) duplicatedCharacter.getCurrentLevelNumber(), prevLevel + 1);
+
 		// Compared generated sheet to be sure that has the same information.
 		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
 		String importedSheet = TxtSheet.getCharacterStandardSheetAsText(duplicatedCharacter);
@@ -136,11 +151,12 @@ public class CharacterCreationTest {
 		out2.println(importedSheet);
 		out2.close();
 
-		Assert.assertEquals(importedSheet, orginalSheet);
+		// Use an equals to avoid to show all TXT in console if wrong.
+		Assert.assertTrue(importedSheet.equals(orginalSheet));
 	}
 
 	@Test(groups = { "characterCreation" }, dependsOnMethods = { "createCharacter" })
-	private void magicObjectTest() throws Exception {
+	private void magicObjectTest() throws DatabaseException {
 		Skill broadSword = SkillFactory.getSkill("Espada");
 		Assert.assertNotNull(broadSword);
 		int previousAttackBonus = characterPlayer.getTotalValue(broadSword);
@@ -159,7 +175,7 @@ public class CharacterCreationTest {
 
 	@Test
 	@After
-	public void removeAll() throws Exception {
+	public void removeAll() {
 		List<CharacterPlayer> characterPlayers = characterPlayerDao.getAll();
 		for (CharacterPlayer character : characterPlayers) {
 			characterPlayerDao.makeTransient(character);

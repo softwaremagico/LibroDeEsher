@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.MapKeyClass;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
@@ -18,33 +19,29 @@ import com.softwaremagico.persistence.StorableObject;
 @Table(name = "T_TRAINING_SKILLS_SELECTED")
 class TrainingSkillsSelected extends StorableObject {
 	private static final long serialVersionUID = -4043581569918215711L;
+
 	@Expose
-	@ElementCollection
+	@ElementCollection(targetClass = Integer.class)
+	@MapKeyClass(String.class)
 	@CollectionTable(name = "T_TRAINING_SKILLS_RANKS_PER_SKILL")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<String, Integer> skillsRanks;
-	
-//	@Expose
-//	@ElementCollection
-//	@CollectionTable(name = "T_TRAINING_SKILLS_SELECTED_LIST_OF_SKILLS")
-//	@LazyCollection(LazyCollectionOption.FALSE)
-//	private List<TrainingSkill> trainingSkills;
 
 	public TrainingSkillsSelected() {
 		skillsRanks = new HashMap<>();
 	}
-	
+
 	@Override
-	public void resetIds(){
+	public void resetIds() {
 		resetIds(this);
 		resetIds(skillsRanks);
 	}
 
 	public void put(TrainingSkill skill, int ranks) {
 		if (ranks == 0) {
-			skillsRanks.remove(skill);
+			skillsRanks.remove(skill.getName());
 		} else {
-			skillsRanks.put(skill.getName(), ranks);
+			skillsRanks.put(skill.getName(), new Integer(ranks));
 		}
 	}
 

@@ -40,6 +40,8 @@ public class LevelJsonManager {
 						+ characterPlayer.getCurrentLevelNumber() + "'.");
 			}
 
+			//Sort spells.
+			
 			return levelExporter.getLevel();
 		}
 		return null;

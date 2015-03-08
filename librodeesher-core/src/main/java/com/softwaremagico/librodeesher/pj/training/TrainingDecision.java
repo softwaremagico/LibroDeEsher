@@ -9,7 +9,6 @@ import java.util.Random;
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -73,8 +72,9 @@ public class TrainingDecision extends StorableObject {
 	private List<TrainingItem> equipment;
 
 	@Expose
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@CollectionTable(name = "T_TRAINING_MAGIC_ITEMS")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<MagicObject> magicItems; // Equipment converted to magic
 											// objects.
 

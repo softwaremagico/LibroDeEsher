@@ -127,7 +127,7 @@ public class CharacterPlayer extends StorableObject {
 	private Map<CharacteristicsAbbreviature, Integer> characteristicsPotentialValues;
 
 	@Expose
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@CollectionTable(name = "T_CHARACTERPLAYER_TEMPORAL_CHARACTERISTICS_ROLLS")
 	private Map<CharacteristicsAbbreviature, RollGroup> characteristicsTemporalUpdatesRolls;
 	@Expose
@@ -144,7 +144,7 @@ public class CharacterPlayer extends StorableObject {
 	private transient Culture culture;
 
 	@Expose
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "cultureDecisionsId")
 	private CultureDecisions cultureDecisions;
 
@@ -154,12 +154,12 @@ public class CharacterPlayer extends StorableObject {
 	private transient Profession profession;
 
 	@Expose
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "professionDecisionsId")
 	private ProfessionDecisions professionDecisions;
 
 	@Expose
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "professionalRealmId")
 	private ProfessionalRealmsOfMagicOptions realmOfMagic;
 
@@ -171,12 +171,12 @@ public class CharacterPlayer extends StorableObject {
 	private boolean magicSpellListsObtained;
 
 	@Expose
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "historialId")
 	private Historial historial;
 
 	@Expose
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@CollectionTable(name = "T_CHARACTERPLAYER_SELECTED_PERKS")
 	private List<SelectedPerk> selectedPerks;
 
@@ -186,7 +186,7 @@ public class CharacterPlayer extends StorableObject {
 	private Map<String, PerkDecision> perkDecisions;
 
 	@Expose
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Appearance appearance;
 
 	@Expose
@@ -211,7 +211,7 @@ public class CharacterPlayer extends StorableObject {
 	private Map<String, String> enabledSkill;
 
 	@Expose
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	@CollectionTable(name = "T_CHARACTERPLAYER_MAGIC_ITEMS")
 	private List<MagicObject> magicItems;
 
@@ -261,6 +261,7 @@ public class CharacterPlayer extends StorableObject {
 		resetIds(historial);
 		resetIds(magicItems);
 		resetIds(insertedData);
+		resetIds(enabledSkill);
 	}
 
 	public void clearCache() {
@@ -727,7 +728,6 @@ public class CharacterPlayer extends StorableObject {
 
 	private Roll getStoredCharacteristicRoll(CharacteristicsAbbreviature abbreviature) {
 		Roll roll = characteristicsTemporalUpdatesRolls.get(abbreviature).getFirst();
-		setCharacteristicsTemporalUpdatesRolls();
 		return roll;
 	}
 
@@ -1465,7 +1465,7 @@ public class CharacterPlayer extends StorableObject {
 
 	public void importLevel(LevelUp level) {
 		if (level != null) {
-			getLevelUps().add(level);
+			levelUps.add(level);
 			characterPlayerHelper.resetAll();
 		}
 	}
@@ -1759,13 +1759,6 @@ public class CharacterPlayer extends StorableObject {
 		return characteristicsTemporalUpdatesRolls;
 	}
 
-	// public void setCharacteristicsTemporalUpdatesRolls(
-	// Map<CharacteristicsAbbreviature, RollGroup>
-	// characteristicsTemporalUpdatesRolls) {
-	// this.characteristicsTemporalUpdatesRolls =
-	// characteristicsTemporalUpdatesRolls;
-	// }
-
 	public boolean isCharacteristicsConfirmed() {
 		return characteristicsConfirmed;
 	}
@@ -1914,7 +1907,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public List<LevelUp> getLevelUps() {
-		return levelUps;
+		return Collections.unmodifiableList(new ArrayList<>(levelUps));
 	}
 
 	protected void setLevelUps(List<LevelUp> levelUps) {

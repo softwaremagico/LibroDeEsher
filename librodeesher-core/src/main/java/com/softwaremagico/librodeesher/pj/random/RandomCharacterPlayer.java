@@ -619,7 +619,7 @@ public class RandomCharacterPlayer {
 					skillProbabilityStored.remove(skill);
 				}
 			}
-			List<Skill> shuffledCategorySkills = category.getSkills();
+			List<Skill> shuffledCategorySkills = new ArrayList<>(category.getSkills());
 
 			// Order by specialization.
 			sortSkillsBySpecialization(characterPlayer, shuffledCategorySkills, specializationLevel);
@@ -750,7 +750,7 @@ public class RandomCharacterPlayer {
 				}
 				if (!category.getName().equals(Spanish.COMUNICATION_CATEGORY)
 						&& !category.getName().startsWith(Spanish.REGIONAL_KNOWNLEDGE_TAG)) {
-					List<Skill> shuffledSkillList = category.getSkills();
+					List<Skill> shuffledSkillList = new ArrayList<>(category.getSkills());
 					sortSkillsBySpecialization(characterPlayer, shuffledSkillList, specializationLevel);
 					for (int j = 0; j < shuffledSkillList.size(); j++) {
 						Skill skill = shuffledSkillList.get(j);

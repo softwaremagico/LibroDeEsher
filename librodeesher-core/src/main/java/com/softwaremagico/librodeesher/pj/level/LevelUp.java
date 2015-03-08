@@ -9,7 +9,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -93,7 +92,8 @@ public class LevelUp extends StorableObject {
 	private List<String> skillSpecializations;
 
 	@Expose
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(name = "T_LEVEL_UP_TRAINING_DECISIONS")
 	private Map<String, TrainingDecision> trainingDecisions;
 
