@@ -6,13 +6,13 @@ import java.util.Map;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.MapKeyClass;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.google.gson.annotations.Expose;
+import com.softwaremagico.log.EsherLog;
 import com.softwaremagico.persistence.StorableObject;
 
 @Entity
@@ -21,8 +21,7 @@ class TrainingSkillsSelected extends StorableObject {
 	private static final long serialVersionUID = -4043581569918215711L;
 
 	@Expose
-	@ElementCollection(targetClass = Integer.class)
-	@MapKeyClass(String.class)
+	@ElementCollection
 	@CollectionTable(name = "T_TRAINING_SKILLS_RANKS_PER_SKILL")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<String, Integer> skillsRanks;
@@ -38,10 +37,15 @@ class TrainingSkillsSelected extends StorableObject {
 	}
 
 	public void put(TrainingSkill skill, int ranks) {
-		if (ranks == 0) {
-			skillsRanks.remove(skill.getName());
+		if (skill == null || skill.getName() == null) {
+			System.out.println("Skill '" + skill + "' null or without name.");
+			EsherLog.severe(this.getClass().getName(), "Skill '" + skill + "' null or without name.");
 		} else {
-			skillsRanks.put(skill.getName(), new Integer(ranks));
+			if (ranks == 0) {
+				skillsRanks.remove(skill.getName());
+			} else {
+				skillsRanks.put(skill.getName(), new Integer(ranks));
+			}
 		}
 	}
 

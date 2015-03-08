@@ -41,7 +41,6 @@ public class LevelJsonManager {
 			}
 
 			//Sort spells.
-			
 			return levelExporter.getLevel();
 		}
 		return null;

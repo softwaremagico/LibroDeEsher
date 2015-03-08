@@ -163,19 +163,20 @@ public class TrainingProbability {
 			Collections.shuffle(skillsOfCategory);
 			List<TrainingSkill> skillsToUpdate;
 			if (specialization >= 0) {
-				//Min skills to add max ranks in one skill.
+				// Min skills to add max ranks in one skill.
 				skillsToUpdate = skillsOfCategory.subList(0, trainingCategory.getMinSkills());
 			} else {
-				//Max skills to share ranks.
+				// Max skills to share ranks.
 				skillsToUpdate = skillsOfCategory.subList(0, trainingCategory.getMaxSkills());
 			}
 			// Add rank to each skill.
 			int ranksAdded = 0;
 			while (true) {
 				TrainingSkill trainingSkill = skillsToUpdate.get(ranksAdded % skillsToUpdate.size());
-				characterPlayer.addTrainingSkillRanks(training, trainingCategory, trainingSkill, characterPlayer.getTrainingSkillRanks(training, trainingCategory, trainingSkill)+1);		
+				characterPlayer.addTrainingSkillRanks(training, trainingCategory, trainingSkill,
+						characterPlayer.getTrainingSkillRanks(training, trainingCategory, trainingSkill) + 1);
 				ranksAdded++;
-				//All ranks added, stop.
+				// All ranks added, stop.
 				if (ranksAdded >= trainingCategory.getSkillRanks()) {
 					break;
 				}
