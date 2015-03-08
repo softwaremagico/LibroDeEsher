@@ -9,9 +9,11 @@ import com.softwaremagico.librodeesher.basics.ChooseType;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.ChooseCategoryGroup;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
+import com.softwaremagico.librodeesher.pj.perk.exceptions.InvalidPerkDefinition;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
+import com.softwaremagico.log.EsherLog;
 
 public class Perk {
 
@@ -103,7 +105,7 @@ public class Perk {
 		}
 		return bonus;
 	}
-	
+
 	public Integer getConditionalBonus(Skill skill) {
 		Integer bonus = getConditionalSkillBonus().get(skill.getName());
 		if (bonus == null) {
@@ -119,14 +121,14 @@ public class Perk {
 		}
 		return bonus;
 	}
-	
+
 	public Integer getConditionalBonus(Category category) {
 		Integer bonus = getConditionalCategoryBonus().get(category.getName());
 		if (bonus == null) {
 			return 0;
 		}
 		return bonus;
-	} 
+	}
 
 	public Integer getRanks(Category category) {
 		Integer ranks = categoryRanks.get(category.getName());
@@ -184,9 +186,16 @@ public class Perk {
 		}
 	}
 
-	public void setCategoryToSelectCommonSkills(Category category, Integer commonSkills) {
-		commonSkillsToChoose
-				.add(new ChooseSkillGroup(commonSkills, SkillFactory.getSkills(category), ChooseType.COMMON));
+	public void setCategoryToSelectCommonSkills(Category category, Integer commonSkills)
+			throws InvalidPerkDefinition {
+		try {
+			commonSkillsToChoose.add(new ChooseSkillGroup(commonSkills, SkillFactory.getSkills(category),
+					ChooseType.COMMON));
+		} catch (Exception e) {
+			EsherLog.errorMessage(this.getClass().getName(), e);
+			throw new InvalidPerkDefinition("Invalid common skill definition in Category '" + category
+					+ "' for Perk '" + name + "',");
+		}
 	}
 
 	public void setCategoryToSelectRestrictedSkills(String categoryName, Integer restrictedSkills) {

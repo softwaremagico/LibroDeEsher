@@ -34,6 +34,7 @@ import java.util.Set;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
+import com.softwaremagico.log.EsherLog;
 
 public class SkillFactory {
 	private static HashMap<String, Skill> availableSkills = new HashMap<>();
@@ -162,8 +163,14 @@ public class SkillFactory {
 	public static List<Skill> getSkills(Category category) {
 		List<Skill> skills = new ArrayList<>();
 		for (Skill skill : availableSkills.values()) {
-			if (skill.getCategory().equals(category)) {
-				skills.add(skill);
+			try {
+				if (skill != null && skill.getCategory().equals(category)) {
+					skills.add(skill);
+				}
+			} catch (Exception e) {
+				System.out.println("Skill '" + skill + "' + category '" + skill.getCategory() + "'");
+				EsherLog.errorMessage(SkillFactory.class.getName(), e);
+
 			}
 		}
 		Collections.sort(skills, new SkillComparator());
