@@ -133,8 +133,6 @@ public class TrainingDecision extends StorableObject {
 		}
 		for (String trainingSkill : skillsSelected.get(trainingCategory).getSkillsRanks().keySet()) {
 			if (trainingSkill != null && trainingSkill.equals(skill.getName())) {
-				System.out.println(trainingSkill + " equals " + skill.getName());
-				System.out.println(getSkillRank(trainingCategory, trainingSkill));
 				return getSkillRank(trainingCategory, trainingSkill);
 			}
 		}
