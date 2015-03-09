@@ -67,16 +67,16 @@ public class TrainingSkillLine extends BaseLine {
 
 	private void addItemsToComboBox() {
 		chooseSkillsComboBox.removeAllItems();
-		for (String categoryName : trainingSkill.getSkillOptions()) {
-			chooseSkillsComboBox.addItem(categoryName);
+		for (String skillName : trainingSkill.getSkillOptions()) {
+			chooseSkillsComboBox.addItem(skillName);
 		}
 	}
 
 	private ListBackgroundPanel getSkillOrGroup() {
 		if (!trainingSkill.needToChooseOneSkill()) {
-			ListLabel categoryLabel = new ListLabel(trainingSkill.getName(), SwingConstants.LEFT, 150,
-					columnHeight);
-			return new ListBackgroundPanel(categoryLabel, background);
+			ListLabel skillLabel = new ListLabel(trainingSkill.getSkillOptions().get(0), SwingConstants.LEFT,
+					150, columnHeight);
+			return new ListBackgroundPanel(skillLabel, background);
 		} else {
 			chooseSkillsComboBox = new SkillComboBox<>();
 			addItemsToComboBox();
@@ -133,12 +133,20 @@ public class TrainingSkillLine extends BaseLine {
 	}
 
 	public void setSkillRanks() {
-		character.addTrainingSkillRanks(parentPanel.getTraining(), trainingCategory, trainingSkill,
+		character.addTrainingSkillRanks(parentPanel.getTraining(), trainingCategory, getSelectedSkill(),
 				(Integer) rankSpinner.getValue());
 	}
 
 	public int getSelectedRanks() {
 		return (Integer) rankSpinner.getValue();
+	}
+
+	public String getSelectedSkill() {
+		if (!trainingSkill.needToChooseOneSkill()) {
+			return trainingSkill.getSkillOptions().get(0);
+		} else {
+			return (String) chooseSkillsComboBox.getSelectedItem();
+		}
 	}
 
 	protected class SkillComboBox<E> extends BaseComboBox<E> {
