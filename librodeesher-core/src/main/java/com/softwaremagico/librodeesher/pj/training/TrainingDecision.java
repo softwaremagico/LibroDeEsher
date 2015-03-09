@@ -112,7 +112,7 @@ public class TrainingDecision extends StorableObject {
 		return categories.getAll();
 	}
 
-	public void setSkillRank(Integer trainingCategory, TrainingSkill skill, int ranks) {
+	public void setSkillRank(Integer trainingCategory, String skill, int ranks) {
 		if (skillsSelected.get(trainingCategory) == null) {
 			skillsSelected.put(trainingCategory, new TrainingSkillsSelected());
 		}
@@ -121,17 +121,17 @@ public class TrainingDecision extends StorableObject {
 
 	public int getSkillRank(Integer trainingCategory, String skill) {
 		if (skillsSelected.get(trainingCategory) == null
-				|| skillsSelected.get(trainingCategory).getSkills().get(skill) == null) {
+				|| skillsSelected.get(trainingCategory).getSkillsRanks().get(skill) == null) {
 			return 0;
 		}
-		return skillsSelected.get(trainingCategory).getSkills().get(skill);
+		return skillsSelected.get(trainingCategory).getSkillsRanks().get(skill);
 	}
 
 	public int getSkillRank(Integer trainingCategory, Skill skill) {
 		if (skill == null || skillsSelected.get(trainingCategory) == null) {
 			return 0;
 		}
-		for (String trainingSkill : skillsSelected.get(trainingCategory).getSkills().keySet()) {
+		for (String trainingSkill : skillsSelected.get(trainingCategory).getSkillsRanks().keySet()) {
 			if (trainingSkill != null && trainingSkill.equals(skill.getName())) {
 				return getSkillRank(trainingCategory, trainingSkill);
 			}
@@ -161,7 +161,7 @@ public class TrainingDecision extends StorableObject {
 		if (categorySelected != null) {
 			TrainingSkillsSelected trainingSkills = skillsSelected.get(categorySelected);
 			if (trainingSkills != null) {
-				result = trainingSkills.getSkills();
+				result = trainingSkills.getSkillsRanks();
 			}
 		}
 		return result;
@@ -171,7 +171,7 @@ public class TrainingDecision extends StorableObject {
 		TrainingSkillsSelected trainingSkills = skillsSelected.get(categorySelected);
 		Map<String, Integer> result = new HashMap<>();
 		if (trainingSkills != null) {
-			result = trainingSkills.getSkills();
+			result = trainingSkills.getSkillsRanks();
 		}
 		return result;
 	}

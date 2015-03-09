@@ -97,7 +97,6 @@ import com.softwaremagico.librodeesher.pj.training.TrainingCategory;
 import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 import com.softwaremagico.librodeesher.pj.training.TrainingItem;
-import com.softwaremagico.librodeesher.pj.training.TrainingSkill;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 import com.softwaremagico.log.EsherLog;
 import com.softwaremagico.persistence.StorableObject;
@@ -1816,10 +1815,10 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public void addTrainingSkillRanks(Training training, TrainingCategory trainingCategory,
-			TrainingSkill trainingSkill, int ranks) {
+			String selectedSkill, int ranks) {
 		getTrainingDecision(training.getName()).setSkillRank(
-				training.getTrainingCategoryIndex(trainingCategory), trainingSkill, ranks);
-		characterPlayerHelper.resetSkillRanks(trainingSkill.getName());
+				training.getTrainingCategoryIndex(trainingCategory), selectedSkill, ranks);
+		characterPlayerHelper.resetSkillRanks(selectedSkill);
 	}
 
 	public void removeTrainingSkill(String trainingName, TrainingCategory trainingCategory) {
@@ -1837,9 +1836,9 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public int getTrainingSkillRanks(Training training, TrainingCategory trainingCategory,
-			TrainingSkill trainingSkill) {
+			String trainingSkill) {
 		return getTrainingDecision(training.getName()).getSkillRank(
-				training.getTrainingCategoryIndex(trainingCategory), trainingSkill.getName());
+				training.getTrainingCategoryIndex(trainingCategory), trainingSkill);
 	}
 
 	public void addTrainingEquipment(Training training, int trainingObjectIndex) {

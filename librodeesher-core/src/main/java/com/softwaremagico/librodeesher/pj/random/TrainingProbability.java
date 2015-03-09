@@ -173,8 +173,11 @@ public class TrainingProbability {
 			int ranksAdded = 0;
 			while (true) {
 				TrainingSkill trainingSkill = skillsToUpdate.get(ranksAdded % skillsToUpdate.size());
-				characterPlayer.addTrainingSkillRanks(training, trainingCategory, trainingSkill,
-						characterPlayer.getTrainingSkillRanks(training, trainingCategory, trainingSkill) + 1);
+				List<String> skillOptions = trainingSkill.getSkillOptions();
+				Collections.shuffle(skillOptions);
+				String skillSelected = skillOptions.get(0);
+				characterPlayer.addTrainingSkillRanks(training, trainingCategory, skillSelected,
+						characterPlayer.getTrainingSkillRanks(training, trainingCategory, skillSelected) + 1);
 				ranksAdded++;
 				// All ranks added, stop.
 				if (ranksAdded >= trainingCategory.getSkillRanks()) {

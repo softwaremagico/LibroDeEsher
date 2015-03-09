@@ -36,20 +36,19 @@ class TrainingSkillsSelected extends StorableObject {
 		resetIds(skillsRanks);
 	}
 
-	public void put(TrainingSkill skill, int ranks) {
-		if (skill == null || skill.getName() == null) {
-			System.out.println("Skill '" + skill + "' null or without name.");
-			EsherLog.severe(this.getClass().getName(), "Skill '" + skill + "' null or without name.");
+	public void put(String skill, int ranks) {
+		if (skill == null) {
+			EsherLog.severe(this.getClass().getName(), "Skill null or without name.");
 		} else {
 			if (ranks == 0) {
-				skillsRanks.remove(skill.getName());
+				skillsRanks.remove(skill);
 			} else {
-				skillsRanks.put(skill.getName(), new Integer(ranks));
+				skillsRanks.put(skill, new Integer(ranks));
 			}
 		}
 	}
 
-	protected Map<String, Integer> getSkills() {
+	protected Map<String, Integer> getSkillsRanks() {
 		return skillsRanks;
 	}
 
