@@ -35,8 +35,7 @@ public class CharacterCreationTest {
 	private final static String PDF_PATH_STANDARD = System.getProperty("java.io.tmpdir") + "/testStnd.pdf";
 	private final static String PDF_PATH_COMBINED = System.getProperty("java.io.tmpdir") + "/testCmb.pdf";
 	private final static String TXT_PATH = System.getProperty("java.io.tmpdir") + "/testStandard.txt";
-	private final static String TXT_ABBREVIATED_PATH = System.getProperty("java.io.tmpdir")
-			+ "/testAbbreviated.txt";
+	private final static String TXT_ABBREVIATED_PATH = System.getProperty("java.io.tmpdir") + "/testAbbreviated.txt";
 	private final static String JSON_LEVEL_PATH = System.getProperty("java.io.tmpdir") + "/testLevelJson.txt";
 	private CharacterPlayerDao characterPlayerDao = CharacterPlayerDao.getInstance();
 	private CharacterPlayer characterPlayer;
@@ -44,7 +43,7 @@ public class CharacterCreationTest {
 	@Test(groups = { "characterCreation" })
 	public void createCharacter() throws MagicDefinitionException, InvalidProfessionException {
 		RandomCharacterPlayer randomCharacter = new RandomCharacterPlayer(null, null, null, null, 1);
-		//randomCharacter.setSuggestedTrainings(new ArrayList<String>(Arrays.asList("Soldado", "Guardia")));
+		// randomCharacter.setSuggestedTrainings(new ArrayList<String>(Arrays.asList("Soldado", "Guardia")));
 		randomCharacter.addFeedbackListener(new RandomFeedbackListener() {
 			@Override
 			public void feedBackMessage(String message) {
@@ -111,8 +110,8 @@ public class CharacterCreationTest {
 	}
 
 	@Test(groups = { "characterJson" }, dependsOnMethods = { "exportCharacterJson" })
-	public void exportLevelJson() throws MagicDefinitionException, InvalidProfessionException,
-			FileNotFoundException, InvalidLevelException, InvalidCharacterException {
+	public void exportLevelJson() throws MagicDefinitionException, InvalidProfessionException, FileNotFoundException,
+			InvalidLevelException, InvalidCharacterException {
 		String jsonText = CharacterJsonManager.toJson(characterPlayer);
 		CharacterPlayer duplicatedCharacter = CharacterJsonManager.fromJson(jsonText);
 
@@ -142,8 +141,7 @@ public class CharacterCreationTest {
 		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
 		String importedSheet = TxtSheet.getCharacterStandardSheetAsText(duplicatedCharacter);
 
-		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
-				+ "originalSheet.txt");
+		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "originalSheet.txt");
 		out1.println(orginalSheet);
 		out1.close();
 

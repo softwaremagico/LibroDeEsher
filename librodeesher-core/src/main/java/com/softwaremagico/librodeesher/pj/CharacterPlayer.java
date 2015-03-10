@@ -1906,11 +1906,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public List<LevelUp> getLevelUps() {
-		return Collections.unmodifiableList(new ArrayList<>(levelUps));
-	}
-
-	protected void setLevelUps(List<LevelUp> levelUps) {
-		this.levelUps = levelUps;
+		return Collections.unmodifiableList(levelUps);
 	}
 
 	public ProfessionalRealmsOfMagicOptions getRealmOfMagic() {
