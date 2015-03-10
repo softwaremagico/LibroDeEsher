@@ -50,7 +50,7 @@ public class SkillTitleLine extends BaseTitleLine {
 	protected boolean totalPanel = false;
 
 	public SkillTitleLine() {
-		setBackground(background);
+		setBackground(title_background);
 	}
 
 	public void enableColumns(boolean costPanel, boolean oldRanksPanel, boolean chooseRanksPanel,
@@ -221,7 +221,7 @@ public class SkillTitleLine extends BaseTitleLine {
 		gridBagConstraints.gridx = column * 2;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
-		panel.setBackground(background);
+		panel.setBackground(title_background);
 		add(panel, gridBagConstraints);
 	}
 	

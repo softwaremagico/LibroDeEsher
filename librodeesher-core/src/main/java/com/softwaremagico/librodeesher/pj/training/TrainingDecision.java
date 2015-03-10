@@ -31,9 +31,8 @@ import com.softwaremagico.log.EsherLog;
 import com.softwaremagico.persistence.StorableObject;
 
 /**
- * Categories that are already defined are not stored in this class, can be
- * obtained from training class. Skills that are already defined are stored in
- * this class as a list with one element.
+ * Categories that are already defined are not stored in this class, can be obtained from training class. Skills that
+ * are already defined are stored in this class as a list with one element.
  */
 @Entity
 @Table(name = "T_TRAINING_DECISION")
@@ -155,32 +154,11 @@ public class TrainingDecision extends StorableObject {
 		return skillsSelected;
 	}
 
-	public Map<String, Integer> getSkillRanks(TrainingCategory trainingCategory) {
-		Map<String, Integer> result = new HashMap<>();
-		TrainingCategoriesSelected categorySelected = categoriesSelected.get(trainingCategory);
-		if (categorySelected != null) {
-			TrainingSkillsSelected trainingSkills = skillsSelected.get(categorySelected);
-			if (trainingSkills != null) {
-				result = trainingSkills.getSkillsRanks();
-			}
-		}
-		return result;
-	}
-
-	public Map<String, Integer> getSkillRanks(TrainingCategoriesSelected categorySelected) {
-		TrainingSkillsSelected trainingSkills = skillsSelected.get(categorySelected);
-		Map<String, Integer> result = new HashMap<>();
-		if (trainingSkills != null) {
-			result = trainingSkills.getSkillsRanks();
-		}
-		return result;
-	}
-
 	protected void setSkillsSelected(Map<Integer, TrainingSkillsSelected> skillsSelected) {
 		this.skillsSelected = skillsSelected;
 	}
 
-	public void removeSkillsSelected(TrainingCategory trainingCategory) {
+	public void removeSkillsSelected(Integer trainingCategory) {
 		skillsSelected.remove(trainingCategory);
 	}
 
@@ -265,8 +243,7 @@ public class TrainingDecision extends StorableObject {
 				break;
 			case ANY:
 				skills = characterPlayer.getSkillsOrderByValue(SkillFactory.getSkills());
-				magicObjects.add(createMagicObjectFor(skills.get(new Random().nextInt(skills.size() / 10)),
-						item));
+				magicObjects.add(createMagicObjectFor(skills.get(new Random().nextInt(skills.size() / 10)), item));
 				break;
 			case CATEGORY:
 				MagicObject magicObjectOfCategory = new MagicObject();

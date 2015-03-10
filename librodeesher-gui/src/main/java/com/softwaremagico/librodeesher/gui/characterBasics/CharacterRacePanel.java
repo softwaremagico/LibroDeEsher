@@ -160,7 +160,7 @@ public class CharacterRacePanel extends BasePanel {
 			if (character != null) {
 				if (character.getCulture() != null) {
 					cultureComboBox.setSelectedItem(character.getCulture().getName());
-					if (getSelectedCulture() != character.getCulture().getName()) {
+					if (!getSelectedCulture().equals(character.getCulture().getName())) {
 						updateCulture();
 					}
 				}

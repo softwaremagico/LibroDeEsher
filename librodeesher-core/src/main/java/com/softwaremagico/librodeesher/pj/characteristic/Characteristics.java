@@ -209,7 +209,7 @@ public class Characteristics {
 				}
 			}
 		} else if (potentialValue - currentTemporalValue <= 20) {
-			if (twoDices.getFirstDice() != twoDices.getSecondDice()) {
+			if (!twoDices.getFirstDice().equals(twoDices.getSecondDice())) {
 				increase = Math.max(twoDices.getFirstDice(), twoDices.getSecondDice());
 			} else {
 				if (twoDices.getFirstDice() < 6) {
@@ -219,7 +219,7 @@ public class Characteristics {
 				}
 			}
 		} else {
-			if (twoDices.getFirstDice() != twoDices.getSecondDice()) {
+			if (!twoDices.getFirstDice().equals(twoDices.getSecondDice())) {
 				increase = twoDices.getFirstDice() + twoDices.getSecondDice();
 			} else {
 				if (twoDices.getFirstDice() < 6) {

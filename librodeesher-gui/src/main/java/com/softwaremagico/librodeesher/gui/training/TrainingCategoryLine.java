@@ -108,7 +108,7 @@ public class TrainingCategoryLine extends BaseLine {
 		public void doAction() {
 			// Remove skills of old category.
 			parentPanel.removeSkillLinesOfCategory(trainingCategory);
-			character.removeTrainingSkill(parentPanel.getTraining().getName(), trainingCategory);
+			character.removeTrainingSkill(parentPanel.getTraining(), trainingCategory);
 			// add new skills in the correct place.
 			parentPanel.addSkillLinesOfCategory(trainingCategory, chooseCategoryComboBox.getSelectedIndex());
 		}

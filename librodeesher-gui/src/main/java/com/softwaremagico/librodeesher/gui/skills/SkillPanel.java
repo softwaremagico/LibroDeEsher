@@ -77,14 +77,13 @@ public class SkillPanel extends BaseSkillPanel {
 					if (cost == null) {
 						cost = character.getFirstWeaponCostNotSelected();
 					}
-					WeaponCategoryLine wl = new WeaponCategoryLine(character, category,
-							getLineBackgroundColor(i), this, cost, weapon);
+					WeaponCategoryLine wl = new WeaponCategoryLine(character, category, getLineBackgroundColor(i),
+							this, cost, weapon);
 					add(wl);
 					weaponsLines.add(wl);
 					weapon++;
 				} else {
-					CategoryLine categoryLine = new CategoryLine(character, category,
-							getLineBackgroundColor(i), this);
+					CategoryLine categoryLine = new CategoryLine(character, category, getLineBackgroundColor(i), this);
 					categoryLines.add(categoryLine);
 					add(categoryLine);
 				}
@@ -119,8 +118,7 @@ public class SkillPanel extends BaseSkillPanel {
 
 	private SkillLine createSkillLine(int backgroundIndex, Skill skill) {
 		if (characterPlayer.isSkillUseful(skill) && !characterPlayer.isSkillDisabled(skill)) {
-			SkillLine skillLine = new SkillLine(characterPlayer, skill,
-					getLineBackgroundColor(backgroundIndex), this);
+			SkillLine skillLine = new SkillLine(characterPlayer, skill, getLineBackgroundColor(backgroundIndex), this);
 			add(skillLine);
 			skillLine.addSkillEnabledListener(new SkillEnabledListener() {
 
@@ -131,8 +129,7 @@ public class SkillPanel extends BaseSkillPanel {
 						// Remove any rank if selectedS
 						try {
 							if (characterPlayer.getEnabledSkill().get(skill.getName()) != null
-									&& characterPlayer.getEnabledSkill().get(skill.getName())
-											.equals(skillSelectedName)) {
+									&& characterPlayer.getEnabledSkill().get(skill.getName()).equals(skillSelectedName)) {
 								characterPlayer.getEnabledSkill().remove(skill.getName());
 							}
 							characterPlayer.setCurrentLevelRanks(skillSelected, 0);
@@ -216,12 +213,11 @@ public class SkillPanel extends BaseSkillPanel {
 		}
 	}
 
-	protected void updateWeaponsCost(Integer newUsedItemIndex, Integer oldUsedItemIndex,
-			Integer skipedWeaponLine) {
+	protected void updateWeaponsCost(Integer newUsedItemIndex, Integer oldUsedItemIndex, Integer skipedWeaponLine) {
 
 		for (int i = 0; i < weaponsLines.size(); i++) {
 			if (i != skipedWeaponLine) {
-				if (weaponsLines.get(i).getSelectedIndex() == newUsedItemIndex) {
+				if (weaponsLines.get(i).getSelectedIndex().equals(newUsedItemIndex)) {
 					weaponsLines.get(i).setSelectedIndex(oldUsedItemIndex);
 				}
 			}
@@ -247,8 +243,7 @@ public class SkillPanel extends BaseSkillPanel {
 
 	public void updateWeaponCost() {
 		for (WeaponCategoryLine weaponLine : weaponsLines) {
-			weaponLine.setSelected(characterPlayer.getProfessionDecisions().getWeaponCost(
-					weaponLine.getCategory()));
+			weaponLine.setSelected(characterPlayer.getProfessionDecisions().getWeaponCost(weaponLine.getCategory()));
 		}
 	}
 }

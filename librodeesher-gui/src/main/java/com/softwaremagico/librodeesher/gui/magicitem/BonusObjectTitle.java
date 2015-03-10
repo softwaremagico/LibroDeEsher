@@ -36,7 +36,7 @@ public class BonusObjectTitle extends BaseTitleLine {
 	private static final long serialVersionUID = -6194140531984171426L;
 
 	public BonusObjectTitle() {
-		setBackground(background);
+		setBackground(title_background);
 		setElements();
 	}
 

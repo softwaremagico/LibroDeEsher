@@ -60,7 +60,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 public class OptionsWindow extends BaseFrame {
 	private static final long serialVersionUID = -8015912539177057288L;
 	private CharacterPlayer character;
-	private JCheckBox fireArmsMenuItem, darkSpellsMenuItem, chiPowers, trainingOtherRealms, disabledCheckBox, pdfSortCategories;
+	private JCheckBox fireArmsMenuItem, darkSpellsMenuItem, chiPowers, trainingOtherRealms, disabledCheckBox;
 	private boolean updatingState = false;
 	private BaseSpinner categoryMax;
 	private JComboBox<String> modulesComboBox;
@@ -247,12 +247,9 @@ public class OptionsWindow extends BaseFrame {
 					character.setChiPowersAllowed(chiPowers.isSelected());
 					Config.setChiPowersAllowed(chiPowers.isSelected());
 				} else if (e.getActionCommand().equals(Spanish.OTHER_TRAINING_SPELLS)) {
-					character.setOtherRealmtrainingSpellsAllowed(trainingOtherRealms.isSelected());
+					character.setOtherRealmTrainingSpellsAllowed(trainingOtherRealms.isSelected());
 					Config.setOtherRealmTrainingSpells(trainingOtherRealms.isSelected());
-				} else if (e.getActionCommand().equals(Spanish.PDF_SORT_SKILLS)) {
-					character.setOtherRealmtrainingSpellsAllowed(pdfSortCategories.isSelected());
-					Config.setPdfSortSkills(pdfSortCategories.isSelected());
-				}
+				} 
 			}
 		}
 	}

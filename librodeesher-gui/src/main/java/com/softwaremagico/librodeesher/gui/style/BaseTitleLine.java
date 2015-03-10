@@ -28,9 +28,9 @@ import java.awt.Color;
 
 public abstract class BaseTitleLine extends BaseLine {
 	private static final long serialVersionUID = 7901507705885692683L;
-	protected Color background = Color.BLACK;
-	protected Color foreground = Color.WHITE;
-	protected Color fontColor = Color.LIGHT_GRAY;
+	protected Color title_background = Color.BLACK;
+	protected Color title_foreground = Color.WHITE;
+	protected Color title_fontColor = Color.LIGHT_GRAY;
 	protected static String font = "Dialog Bold";
 
 	/**
@@ -40,10 +40,11 @@ public abstract class BaseTitleLine extends BaseLine {
 		setDefaultDesign();
 	}
 
+	@Override
 	protected void setDefaultDesign() {
 		// setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		setBackground(background);
-		setForeground(foreground);
+		setBackground(title_background);
+		setForeground(title_foreground);
 	}
 
 	@Override

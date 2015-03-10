@@ -38,8 +38,8 @@ public class CategoryTitleLine extends BaseTitleLine {
 			rankLabel;
 
 	public CategoryTitleLine() {
-		setElements(background);
-		setBackground(background);
+		setElements(title_background);
+		setBackground(title_background);
 	}
 
 	protected void setElements(Color background) {
@@ -48,23 +48,23 @@ public class CategoryTitleLine extends BaseTitleLine {
 
 		categoryLabel = new BaseLabel("Opt");
 		add(createLabelInsidePanel(categoryLabel, SwingConstants.LEFT,
-				background, fontColor));
+				background, title_fontColor));
 
 		ranksLabel = new BaseLabel("rk");
 		add(createLabelInsidePanel(ranksLabel, SwingConstants.CENTER,
-				background, fontColor));
+				background, title_fontColor));
 
 		minHabLabel = new BaseLabel("mH");
 		add(createLabelInsidePanel(minHabLabel, SwingConstants.CENTER,
-				background, fontColor));
+				background, title_fontColor));
 
 		maxHabLabel = new BaseLabel("MH)");
 		add(createLabelInsidePanel(maxHabLabel, SwingConstants.CENTER,
-				background, fontColor));
+				background, title_fontColor));
 
 		rankLabel = new BaseLabel("Rk");
 		add(createLabelInsidePanel(rankLabel, SwingConstants.CENTER,
-				background, fontColor));
+				background, title_fontColor));
 
 	}
 

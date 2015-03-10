@@ -306,7 +306,7 @@ public class SkillProbability {
 	private int wizardPreferredSkills() {
 		// Some spells are preferred.
 		if (characterPlayer.isWizard()) {
-			if (characterPlayer.getRealmOfMagic().getRealmsOfMagic().equals(RealmOfMagic.ESSENCE)) {
+			if (characterPlayer.getRealmOfMagic().getRealmsOfMagic().contains(RealmOfMagic.ESSENCE)) {
 				if (skill.getName().toLowerCase().equals(Spanish.SHIELD_SPELLS_TAG)) {
 					return Math.max(
 							50
@@ -324,7 +324,7 @@ public class SkillProbability {
 									* (5 - specializationLevel), 0);
 				}
 			}
-			if (characterPlayer.getRealmOfMagic().getRealmsOfMagic().equals(RealmOfMagic.MENTALISM)) {
+			if (characterPlayer.getRealmOfMagic().getRealmsOfMagic().contains(RealmOfMagic.MENTALISM)) {
 				if (skill.getName().toLowerCase().equals(Spanish.DODGE_SPELLS_TAG)) {
 					return Math.max(
 							50

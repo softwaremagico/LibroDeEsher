@@ -1414,7 +1414,7 @@ public class CharacterPlayer extends StorableObject {
 		return otherRealmtrainingSpellsAllowed;
 	}
 
-	public void setOtherRealmtrainingSpellsAllowed(boolean otherRealmtrainingSpells) {
+	public void setOtherRealmTrainingSpellsAllowed(boolean otherRealmtrainingSpells) {
 		this.otherRealmtrainingSpellsAllowed = otherRealmtrainingSpells;
 	}
 
@@ -1821,8 +1821,8 @@ public class CharacterPlayer extends StorableObject {
 		characterPlayerHelper.resetSkillRanks(selectedSkill);
 	}
 
-	public void removeTrainingSkill(String trainingName, TrainingCategory trainingCategory) {
-		getTrainingDecision(trainingName).removeSkillsSelected(trainingCategory);
+	public void removeTrainingSkill(Training training, TrainingCategory trainingCategory) {
+		getTrainingDecision(training.getName()).removeSkillsSelected(training.getTrainingCategoryIndex(trainingCategory));
 		characterPlayerHelper.resetAllSkillRanks();
 	}
 
@@ -2025,30 +2025,6 @@ public class CharacterPlayer extends StorableObject {
 		if (training != null) {
 			getCurrentLevel().removeTraining(training.getName());
 		}
-	}
-
-	public int getSkillsWithRanks(String trainingName, TrainingCategory trainingCategory) {
-		TrainingDecision trainingDecision = getTrainingDecision(trainingName);
-		Map<String, Integer> skillRanks = trainingDecision.getSkillRanks(trainingCategory);
-		int result = 0;
-		for (String skill : skillRanks.keySet()) {
-			if (skillRanks.get(skill) != null && skillRanks.get(skill) > 0) {
-				result++;
-			}
-		}
-		return result;
-	}
-
-	public int getSkillsRanks(String trainingName, TrainingCategory trainingCategory) {
-		TrainingDecision trainingDecision = getTrainingDecision(trainingName);
-		Map<String, Integer> skillRanks = trainingDecision.getSkillRanks(trainingCategory);
-		int result = 0;
-		for (String skill : skillRanks.keySet()) {
-			if (skillRanks.get(skill) != null && skillRanks.get(skill) > 0) {
-				result += skillRanks.get(skill);
-			}
-		}
-		return result;
 	}
 
 	public Map<CharacteristicsAbbreviature, Integer> getCharacteristicInitialTemporalValue() {

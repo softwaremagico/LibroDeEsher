@@ -121,7 +121,7 @@ public class CharacterProfessionPanel extends BasePanel {
 		if (character != null && character.getRace() != null) {
 			updateProfessionComboBox(character.getRace().getAvailableProfessions());
 		}
-		professionComboBox.setEnabled(!character.areCharacteristicsConfirmed());
+		professionComboBox.setEnabled(character != null && !character.areCharacteristicsConfirmed());
 		updateTraining();
 		enableProfessionComboBox = true;
 	}
@@ -138,7 +138,7 @@ public class CharacterProfessionPanel extends BasePanel {
 				if (character != null) {
 					if (character.getProfession() != null) {
 						professionComboBox.setSelectedItem(character.getProfession().getName());
-						if (getSelectedProfession() != character.getProfession().getName()) {
+						if (!getSelectedProfession().equals(character.getProfession().getName())) {
 							updateProfession();
 						}
 					}

@@ -36,8 +36,8 @@ public class CultureTitleLine extends BaseTitleLine {
 	private BaseLabel rankLabel;
 
 	public CultureTitleLine(String titleLabelText, String rankLabelText) {
-		setElements(background, titleLabelText, rankLabelText);
-		setBackground(background);
+		setElements(title_background, titleLabelText, rankLabelText);
+		setBackground(title_background);
 	}
 
 	protected void setElements(Color background, String labelText, String rankLabelText) {
@@ -45,10 +45,10 @@ public class CultureTitleLine extends BaseTitleLine {
 		setLayout(new GridLayout(1, 2));
 
 		BaseLabel weaponCategoryLabel = new BaseLabel(labelText);
-		add(createLabelInsidePanel(weaponCategoryLabel, SwingConstants.CENTER, background, fontColor));
+		add(createLabelInsidePanel(weaponCategoryLabel, SwingConstants.CENTER, background, title_fontColor));
 
 		rankLabel = new BaseLabel(rankLabelText);
-		add(createLabelInsidePanel(rankLabel, SwingConstants.CENTER, background, fontColor));
+		add(createLabelInsidePanel(rankLabel, SwingConstants.CENTER, background, title_fontColor));
 
 	}
 	
