@@ -61,7 +61,7 @@ public class Triad {
 
 	public static List<Element> getSameTriadElements(Element element) {
 		List<Element> list = new ArrayList<>();
-		if (first_triad.contains(element)) {
+		if (first_triad.keySet().contains(element)) {
 			list.addAll(first_triad.keySet());
 		} else {
 			list.addAll(second_triad.keySet());
@@ -72,7 +72,7 @@ public class Triad {
 
 	public static List<Element> getOtherTriadElements(Element element) {
 		List<Element> list = new ArrayList<>();
-		if (first_triad.contains(element)) {
+		if (first_triad.keySet().contains(element)) {
 			list.addAll(second_triad.keySet());
 		} else {
 			list.addAll(first_triad.keySet());
@@ -82,7 +82,7 @@ public class Triad {
 
 	public static List<String> getSameTriadTrainings(Element element, String characterTraining) {
 		List<String> list = new ArrayList<>();
-		if (first_triad.contains(element)) {
+		if (first_triad.keySet().contains(element)) {
 			for (Element triadElement : first_triad.keySet()) {
 				list.addAll(first_triad.get(triadElement));
 			}
@@ -97,7 +97,7 @@ public class Triad {
 
 	public static List<String> getOtherTriadTrainings(Element element, String characterTraining) {
 		List<String> list = new ArrayList<>();
-		if (first_triad.contains(element)) {
+		if (first_triad.keySet().contains(element)) {
 			for (Element triadElement : second_triad.keySet()) {
 				list.addAll(second_triad.get(triadElement));
 			}

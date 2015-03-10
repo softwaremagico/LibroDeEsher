@@ -303,7 +303,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		PdfPCell cell;
 		BaseColor background;
 
-		if (showed % 2 == 1) {
+		if (showed % 2 != 0) {
 			background = BaseColor.WHITE;
 		} else {
 			background = BaseColor.LIGHT_GRAY;
@@ -435,7 +435,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 
 		float[] widths = { 0.31f, 0.06f, 0.15f, 0.08f, 0.10f, 0.10f, 0.10f, 0.10f };
 
-		if (showed % 2 == 1) {
+		if (showed % 2 != 0) {
 			background = BaseColor.WHITE;
 		} else {
 			background = BaseColor.LIGHT_GRAY;

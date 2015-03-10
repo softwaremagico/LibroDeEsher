@@ -24,6 +24,7 @@ package com.softwaremagico.librodeesher.pj.magic;
  * #L%
  */
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,7 +36,8 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.profession.InvalidProfessionException;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 
-public class MagicSpellLists {
+public class MagicSpellLists implements Serializable {
+	private static final long serialVersionUID = 1353935959992023640L;
 	private Map<MagicListType, Category> magicCategories; // Spells
 
 	public MagicSpellLists() {
@@ -53,7 +55,8 @@ public class MagicSpellLists {
 		magicCategories.put(magicType, category);
 	}
 
-	public void orderSpellListsByCategory(CharacterPlayer character) throws MagicDefinitionException, InvalidProfessionException {
+	public void orderSpellListsByCategory(CharacterPlayer character) throws MagicDefinitionException,
+			InvalidProfessionException {
 		// For each profession, the own profession list are basic lists.
 		List<String> basicSpells = new ArrayList<>();
 		basicSpells.addAll(MagicFactory.getListOfProfession(character.getRealmOfMagic().getRealmsOfMagic(), character

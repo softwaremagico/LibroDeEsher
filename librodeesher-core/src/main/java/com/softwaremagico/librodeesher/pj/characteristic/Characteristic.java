@@ -11,7 +11,7 @@ public class Characteristic {
 
 	public static Integer getCharacteristicUpgrade(Integer temporalValue,
 			Integer potentialValue, Roll roll) {
-		if (roll.getFirstDice() == roll.getSecondDice()) {
+		if (roll.getFirstDice().equals(roll.getSecondDice())) {
 			if (roll.getFirstDice() < 6) {
 				return -roll.getFirstDice();
 			} else {

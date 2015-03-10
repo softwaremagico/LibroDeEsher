@@ -177,186 +177,188 @@ public class PdfStandardSheet {
 				category = CategoryFactory.getCategory(CategoryFactory.getAvailableCategories().get(i));
 			}
 
-			if (characterPlayer.isCategoryUseful(category) || i >= CategoryFactory.getAvailableCategories().size()) {
+			if (characterPlayer != null) {
+				if (characterPlayer.isCategoryUseful(category) || i >= CategoryFactory.getAvailableCategories().size()) {
 
-				// Generamos una fila de Category.
-				if (i < CategoryFactory.getAvailableCategories().size()) {
-					text = category.getName();
-				} else {
-					text = "_______________________";
-				}
-				Paragraph p = new Paragraph(text, FontFactory.getFont(font, fontSize));
-				cell = new PdfPCell(p);
-				cell.setMinimumHeight(11 + (i - omitidas) % 2);
-				cell.setBorderWidth(0);
-				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-				cell.setPaddingLeft(5f);
-				table.addCell(cell);
+					// Generamos una fila de Category.
+					if (i < CategoryFactory.getAvailableCategories().size()) {
+						text = category.getName();
+					} else {
+						text = "_______________________";
+					}
+					Paragraph p = new Paragraph(text, FontFactory.getFont(font, fontSize));
+					cell = new PdfPCell(p);
+					cell.setMinimumHeight(11 + (i - omitidas) % 2);
+					cell.setBorderWidth(0);
+					cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+					cell.setPaddingLeft(5f);
+					table.addCell(cell);
 
-				if (i < CategoryFactory.getAvailableCategories().size()) {
-					text = category.getCharacterisitcsTags();
-				} else {
-					text = "_______";
-				}
-				p = new Paragraph(text, FontFactory.getFont(font, fontSize));
-				cell = new PdfPCell(p);
-				cell.setBorderWidth(0);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
+					if (i < CategoryFactory.getAvailableCategories().size()) {
+						text = category.getCharacterisitcsTags();
+					} else {
+						text = "_______";
+					}
+					p = new Paragraph(text, FontFactory.getFont(font, fontSize));
+					cell = new PdfPCell(p);
+					cell.setBorderWidth(0);
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
 
-				if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
-					text = characterPlayer.getCategoryCost(category, 0).getCostTag();
-				} else {
-					text = "_________";
-				}
-				p = new Paragraph(text, FontFactory.getFont(font, fontSize));
-				cell = new PdfPCell(p);
-				cell.setBorderWidth(0);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
+					if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
+						text = characterPlayer.getCategoryCost(category, 0).getCostTag();
+					} else {
+						text = "_________";
+					}
+					p = new Paragraph(text, FontFactory.getFont(font, fontSize));
+					cell = new PdfPCell(p);
+					cell.setBorderWidth(0);
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
 
-				if (i < CategoryFactory.getAvailableCategories().size()) {
-					if (category.getCategoryType().equals(CategoryType.STANDARD)) {
-						if (characterPlayer != null) {
-							text = characterPlayer.getPreviousRanks(category) + "";
+					if (i < CategoryFactory.getAvailableCategories().size()) {
+						if (category.getCategoryType().equals(CategoryType.STANDARD)) {
+							if (characterPlayer != null) {
+								text = characterPlayer.getPreviousRanks(category) + "";
+							} else {
+								text = EMPTY_VALUE;
+							}
 						} else {
-							text = EMPTY_VALUE;
+							text = "na";
 						}
 					} else {
-						text = "na";
+						text = EMPTY_VALUE;
 					}
-				} else {
-					text = EMPTY_VALUE;
-				}
-				p = new Paragraph(text, FontFactory.getFont(font, fontSize));
-				cell = new PdfPCell(p);
-				cell.setBorderWidth(0);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
+					p = new Paragraph(text, FontFactory.getFont(font, fontSize));
+					cell = new PdfPCell(p);
+					cell.setBorderWidth(0);
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
 
-				if (i < CategoryFactory.getAvailableCategories().size()) {
-					if (category.getCategoryType().equals(CategoryType.STANDARD)) {
-						Image image;
-						if (characterPlayer == null) {
-							image = Image.getInstance(RolemasterFolderStructure.getSheetFolder() + File.separator
-									+ "cuadros" + File.separator + "cuadros0.png");
-							image.scalePercent(28);
-						} else {
-							image = getNewRanksImage(characterPlayer.getCurrentLevelRanks(category));
+					if (i < CategoryFactory.getAvailableCategories().size()) {
+						if (category.getCategoryType().equals(CategoryType.STANDARD)) {
+							Image image;
+							if (characterPlayer == null) {
+								image = Image.getInstance(RolemasterFolderStructure.getSheetFolder() + File.separator
+										+ "cuadros" + File.separator + "cuadros0.png");
+								image.scalePercent(28);
+							} else {
+								image = getNewRanksImage(characterPlayer.getCurrentLevelRanks(category));
+							}
+							cell = new PdfPCell(image);
 						}
+
+						if (category.getCategoryType().equals(CategoryType.COMBINED)) {
+							text = "*";
+							p = new Paragraph(text, FontFactory.getFont(font, fontSize));
+							cell = new PdfPCell(p);
+						}
+						if (category.getCategoryType().equals(CategoryType.LIMITED)
+								|| category.getCategoryType().equals(CategoryType.SPECIAL)
+								|| category.getCategoryType().equals(CategoryType.PPD)
+								|| category.getCategoryType().equals(CategoryType.PD)) {
+							text = "+";
+							p = new Paragraph(text, FontFactory.getFont(font, fontSize));
+							cell = new PdfPCell(p);
+						}
+					} else {
+						Image image;
+						image = Image.getInstance(RolemasterFolderStructure.getSheetFolder() + File.separator
+								+ "cuadros" + File.separator + "cuadros0.png");
+						image.scalePercent(28);
 						cell = new PdfPCell(image);
 					}
+					cell.setBorderWidth(0);
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
 
-					if (category.getCategoryType().equals(CategoryType.COMBINED)) {
-						text = "*";
-						p = new Paragraph(text, FontFactory.getFont(font, fontSize));
-						cell = new PdfPCell(p);
+					if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
+						text = characterPlayer.getRanksValue(category) + "";
+					} else {
+						text = EMPTY_VALUE;
 					}
-					if (category.getCategoryType().equals(CategoryType.LIMITED)
-							|| category.getCategoryType().equals(CategoryType.SPECIAL)
-							|| category.getCategoryType().equals(CategoryType.PPD)
-							|| category.getCategoryType().equals(CategoryType.PD)) {
-						text = "+";
-						p = new Paragraph(text, FontFactory.getFont(font, fontSize));
-						cell = new PdfPCell(p);
+					p = new Paragraph(text, FontFactory.getFont(font, fontSize));
+					cell = new PdfPCell(p);
+					cell.setBorderWidth(0);
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
+
+					if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
+						text = characterPlayer.getCharacteristicsBonus(category) + "";
+					} else {
+						text = EMPTY_VALUE;
 					}
-				} else {
-					Image image;
-					image = Image.getInstance(RolemasterFolderStructure.getSheetFolder() + File.separator + "cuadros"
-							+ File.separator + "cuadros0.png");
-					image.scalePercent(28);
-					cell = new PdfPCell(image);
-				}
-				cell.setBorderWidth(0);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
+					p = new Paragraph(text, FontFactory.getFont(font, fontSize));
+					cell = new PdfPCell(p);
+					cell.setBorderWidth(0);
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
 
-				if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
-					text = characterPlayer.getRanksValue(category) + "";
-				} else {
-					text = EMPTY_VALUE;
-				}
-				p = new Paragraph(text, FontFactory.getFont(font, fontSize));
-				cell = new PdfPCell(p);
-				cell.setBorderWidth(0);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
-
-				if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
-					text = characterPlayer.getCharacteristicsBonus(category) + "";
-				} else {
-					text = EMPTY_VALUE;
-				}
-				p = new Paragraph(text, FontFactory.getFont(font, fontSize));
-				cell = new PdfPCell(p);
-				cell.setBorderWidth(0);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
-
-				if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
-					text = category.getBonus() + characterPlayer.getProfession().getCategoryBonus(category.getName())
-							+ "";
-				} else {
-					text = EMPTY_VALUE;
-				}
-				p = new Paragraph(text, FontFactory.getFont(font, fontSize));
-				cell = new PdfPCell(p);
-				cell.setBorderWidth(0);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
-
-				if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
-					text = (characterPlayer.getHistorial().getBonus(category) + characterPlayer.getPerkBonus(category))
-							+ "";
-					String letra = "";
-
-					if (characterPlayer.getHistorial().getBonus(category) > 0) {
-						letra += "H";
+					if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
+						text = category.getBonus()
+								+ characterPlayer.getProfession().getCategoryBonus(category.getName()) + "";
+					} else {
+						text = EMPTY_VALUE;
 					}
+					p = new Paragraph(text, FontFactory.getFont(font, fontSize));
+					cell = new PdfPCell(p);
+					cell.setBorderWidth(0);
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
 
-					if (characterPlayer.getPerkBonus(category) != 0) {
-						letra += "T";
-						if (characterPlayer.getConditionalPerkBonus(category) != 0) {
-							letra += "*";
+					if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
+						text = (characterPlayer.getHistorial().getBonus(category) + characterPlayer
+								.getPerkBonus(category)) + "";
+						String letra = "";
+
+						if (characterPlayer.getHistorial().getBonus(category) > 0) {
+							letra += "H";
 						}
+
+						if (characterPlayer.getPerkBonus(category) != 0) {
+							letra += "T";
+							if (characterPlayer.getConditionalPerkBonus(category) != 0) {
+								letra += "*";
+							}
+						}
+
+						if (!letra.equals("")) {
+							text += "(" + letra + ")";
+						}
+					} else {
+						text = EMPTY_VALUE;
 					}
+					p = new Paragraph(text, FontFactory.getFont(font, fontSize));
+					cell = new PdfPCell(p);
+					cell.setBorderWidth(0);
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
 
-					if (!letra.equals("")) {
-						text += "(" + letra + ")";
+					// Magic Items
+					if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
+						text = characterPlayer.getItemBonus(category) + "";
+					} else {
+						text = EMPTY_VALUE;
 					}
-				} else {
-					text = EMPTY_VALUE;
-				}
-				p = new Paragraph(text, FontFactory.getFont(font, fontSize));
-				cell = new PdfPCell(p);
-				cell.setBorderWidth(0);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
+					p = new Paragraph(text, FontFactory.getFont(font, fontSize));
+					cell = new PdfPCell(p);
+					cell.setBorderWidth(0);
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
 
-				// Magic Items
-				if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
-					text = characterPlayer.getItemBonus(category) + "";
+					if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
+						text = characterPlayer.getTotalValue(category) + "";
+					} else {
+						text = EMPTY_VALUE;
+					}
+					p = new Paragraph(text, FontFactory.getFont(font, fontSize));
+					cell = new PdfPCell(p);
+					cell.setBorderWidth(0);
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
 				} else {
-					text = EMPTY_VALUE;
+					omitidas++;
 				}
-				p = new Paragraph(text, FontFactory.getFont(font, fontSize));
-				cell = new PdfPCell(p);
-				cell.setBorderWidth(0);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
-
-				if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
-					text = characterPlayer.getTotalValue(category) + "";
-				} else {
-					text = EMPTY_VALUE;
-				}
-				p = new Paragraph(text, FontFactory.getFont(font, fontSize));
-				cell = new PdfPCell(p);
-				cell.setBorderWidth(0);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				table.addCell(cell);
-			} else {
-				omitidas++;
 			}
 		}
 
@@ -409,7 +411,7 @@ public class PdfStandardSheet {
 
 		if (characterPlayer != null) {
 			text = skill.getName() + " " + skill.getSkillType().getTag();
-			text.trim();
+			text = text.trim();
 		} else {
 			text = "___________________________________________";
 		}
@@ -784,7 +786,7 @@ public class PdfStandardSheet {
 			if (!sortedSkills) {
 				for (int i = 0; i < CategoryFactory.getAvailableCategories().size(); i++) {
 					Category category = CategoryFactory.getCategory(CategoryFactory.getAvailableCategories().get(i));
-					category =  characterPlayer.getCategory(category);
+					category = characterPlayer.getCategory(category);
 					skillLines = newSkill(table, document, writer, font, fontsize, widths, category.getSkills(),
 							skillLines);
 				}
@@ -1424,7 +1426,7 @@ public class PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		tablaCaracteristicas.addCell(cell);
 
-		int i=0;
+		int i = 0;
 		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
 			p = new Paragraph("", FontFactory.getFont(font, fontSize));
 			cell = new PdfPCell(p);
@@ -1434,8 +1436,9 @@ public class PdfStandardSheet {
 			tablaCaracteristicas.addCell(cell);
 
 			if (characterPlayer != null) {
-				p = new Paragraph(characterPlayer.getCharacteristicTemporalValue(characteristic
-						.getAbbreviature()) + "", FontFactory.getFont(font, fontSize));
+				p = new Paragraph(
+						characterPlayer.getCharacteristicTemporalValue(characteristic.getAbbreviature()) + "",
+						FontFactory.getFont(font, fontSize));
 			} else {
 				p = new Paragraph("  " + EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 			}
@@ -1445,8 +1448,7 @@ public class PdfStandardSheet {
 			tablaCaracteristicas.addCell(cell);
 
 			if (characterPlayer != null) {
-				p = new Paragraph(characterPlayer.getCharacteristicPotentialValue(
-						characteristic.getAbbreviature())
+				p = new Paragraph(characterPlayer.getCharacteristicPotentialValue(characteristic.getAbbreviature())
 						+ "", FontFactory.getFont(font, fontSize));
 			} else {
 				p = new Paragraph("  " + EMPTY_VALUE, FontFactory.getFont(font, fontSize));
@@ -1457,8 +1459,9 @@ public class PdfStandardSheet {
 			tablaCaracteristicas.addCell(cell);
 
 			if (characterPlayer != null) {
-				p = new Paragraph(characterPlayer.getCharacteristicTemporalBonus(characteristic
-						.getAbbreviature()) + "", FontFactory.getFont(font, fontSize));
+				p = new Paragraph(
+						characterPlayer.getCharacteristicTemporalBonus(characteristic.getAbbreviature()) + "",
+						FontFactory.getFont(font, fontSize));
 			} else {
 				p = new Paragraph("  " + EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 			}
@@ -1468,8 +1471,8 @@ public class PdfStandardSheet {
 			tablaCaracteristicas.addCell(cell);
 
 			if (characterPlayer != null) {
-				p = new Paragraph(characterPlayer.getCharacteristicRaceBonus(characteristic.getAbbreviature())
-						+ "", FontFactory.getFont(font, fontSize));
+				p = new Paragraph(characterPlayer.getCharacteristicRaceBonus(characteristic.getAbbreviature()) + "",
+						FontFactory.getFont(font, fontSize));
 			} else {
 				p = new Paragraph("  " + EMPTY_VALUE, FontFactory.getFont(font, fontSize));
 			}
@@ -1491,8 +1494,8 @@ public class PdfStandardSheet {
 			tablaCaracteristicas.addCell(cell);
 
 			if (characterPlayer != null) {
-				p = new Paragraph(characterPlayer.getCharacteristicTotalBonus(characteristic.getAbbreviature())
-						+ "", FontFactory.getFont(font, fontSize));
+				p = new Paragraph(characterPlayer.getCharacteristicTotalBonus(characteristic.getAbbreviature()) + "",
+						FontFactory.getFont(font, fontSize));
 			} else {
 				p = new Paragraph("", FontFactory.getFont(font, fontSize));
 			}

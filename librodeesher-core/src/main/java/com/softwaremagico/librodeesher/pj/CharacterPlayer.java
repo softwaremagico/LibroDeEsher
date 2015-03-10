@@ -1074,7 +1074,7 @@ public class CharacterPlayer extends StorableObject {
 		Integer total = 0;
 		for (SelectedPerk perk : selectedPerks) {
 			total += PerkFactory.getPerk(perk).getBonus(skill);
-			PerkDecision decision = perkDecisions.get(perk);
+			PerkDecision decision = perkDecisions.get(perk.getName());
 			if (decision != null) {
 				if (decision.isBonusChosen(skill)) {
 					total += PerkFactory.getPerk(perk).getChosenBonus();
@@ -1100,7 +1100,7 @@ public class CharacterPlayer extends StorableObject {
 		Integer total = 0;
 		for (SelectedPerk perk : selectedPerks) {
 			total += PerkFactory.getPerk(perk).getBonus(category);
-			PerkDecision decision = perkDecisions.get(perk);
+			PerkDecision decision = perkDecisions.get(perk.getName());
 			if (decision != null) {
 				if (decision.isBonusChosen(category)) {
 					total += PerkFactory.getPerk(perk).getChosenBonus();
@@ -1490,7 +1490,7 @@ public class CharacterPlayer extends StorableObject {
 	public void removePerk(Perk perk) {
 		SelectedPerk perkToRemove = null;
 		for (SelectedPerk selectedPerk : selectedPerks) {
-			if (selectedPerk.getName().equals(perk.getName()) && selectedPerk.getCost() == perk.getCost()) {
+			if (selectedPerk.getName().equals(perk.getName()) && selectedPerk.getCost().equals(perk.getCost())) {
 				perkToRemove = selectedPerk;
 				break;
 			}
@@ -1504,7 +1504,7 @@ public class CharacterPlayer extends StorableObject {
 
 	public boolean isPerkChoosed(Perk perk) {
 		for (SelectedPerk selectedPerk : selectedPerks) {
-			if (selectedPerk.getName().equals(perk.getName()) && selectedPerk.getCost() == perk.getCost()) {
+			if (selectedPerk.getName().equals(perk.getName()) && selectedPerk.getCost().equals(perk.getCost())) {
 				return true;
 			}
 		}
@@ -1525,7 +1525,7 @@ public class CharacterPlayer extends StorableObject {
 
 	public void setPerkBonusDecision(Perk perk, List<String> chosenOptions) {
 		if (chosenOptions != null && chosenOptions.size() > 0) {
-			PerkDecision perkDecision = perkDecisions.get(perk);
+			PerkDecision perkDecision = perkDecisions.get(perk.getName());
 			if (perkDecision == null) {
 				perkDecision = new PerkDecision();
 			}
@@ -1543,7 +1543,7 @@ public class CharacterPlayer extends StorableObject {
 
 	public void setPerkCommonDecision(Perk perk, List<String> commonSkillsChosen) {
 		if (commonSkillsChosen != null && commonSkillsChosen.size() > 0) {
-			PerkDecision perkDecision = perkDecisions.get(perk);
+			PerkDecision perkDecision = perkDecisions.get(perk.getName());
 			if (perkDecision == null) {
 				perkDecision = new PerkDecision();
 			}
@@ -1573,7 +1573,7 @@ public class CharacterPlayer extends StorableObject {
 			if (PerkFactory.getPerk(perk).isCommon(skill)) {
 				return true;
 			}
-			PerkDecision decision = perkDecisions.get(perk);
+			PerkDecision decision = perkDecisions.get(perk.getName());
 			if (decision != null) {
 				if (decision.isCommon(skill)) {
 					return true;

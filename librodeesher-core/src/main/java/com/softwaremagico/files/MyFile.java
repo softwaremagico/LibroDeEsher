@@ -58,9 +58,8 @@ public class MyFile {
 	 */
 	public static List<String> inLines(String filename, boolean verbose) throws IOException {
 		/*
-		 * String OS = System.getProperty("os.name"); if
-		 * (OS.contains("Windows Vista")) { return readTextFileInLines(filename,
-		 * "ISO8859_1", verbose); } else if (OS.contains("Windows")) { return
+		 * String OS = System.getProperty("os.name"); if (OS.contains("Windows Vista")) { return
+		 * readTextFileInLines(filename, "ISO8859_1", verbose); } else if (OS.contains("Windows")) { return
 		 * readTextFileInLines(filename, "Cp1252", verbose); }
 		 */
 		return readTextFileInLines(filename, "UTF8", verbose);
@@ -85,10 +84,9 @@ public class MyFile {
 		// String OS = System.getProperty("os.name");
 		return readTextFile(filename, "ISO8859_1", verbose);
 		/*
-		 * if (OS.contains("Windows Vista") || (OS.contains("Windows 7"))) {
-		 * return ReadTextFile("ISO8859_1", verbose); } else if
-		 * (OS.contains("Windows")) { return ReadTextFile("Cp1252", verbose); }
-		 * return ReadTextFile("UTF8", verbose);
+		 * if (OS.contains("Windows Vista") || (OS.contains("Windows 7"))) { return ReadTextFile("ISO8859_1", verbose);
+		 * } else if (OS.contains("Windows")) { return ReadTextFile("Cp1252", verbose); } return ReadTextFile("UTF8",
+		 * verbose);
 		 */
 	}
 
@@ -107,8 +105,8 @@ public class MyFile {
 			}
 		} catch (FileNotFoundException ex) {
 			if (verbose) {
-				MessageManager.customMessage(MyFile.class.getName(), "Impossible to read the file: "
-						+ filename, "Error", JOptionPane.ERROR_MESSAGE);
+				MessageManager.customMessage(MyFile.class.getName(), "Impossible to read the file: " + filename,
+						"Error", JOptionPane.ERROR_MESSAGE);
 			}
 		} catch (IOException ex) {
 		} finally {
@@ -132,17 +130,14 @@ public class MyFile {
 		try {
 			try (FileInputStream inputData = new FileInputStream(file)) {
 				byte bt[] = new byte[(int) file.length()];
-				int numBytes = inputData.read(bt); /*
-													 * If not this line, the
-													 * file is no readed
-													 * propetly.
-													 */
+				// If not this line, the file is not read propertly.
+				inputData.read(bt);
 				text = new String(bt);
 			}
 		} catch (IOException ex) {
 			if (verbose) {
-				MessageManager.basicErrorMessage(MyFile.class.getName(),
-						"Error opening the file:" + filename, "File Error");
+				MessageManager.basicErrorMessage(MyFile.class.getName(), "Error opening the file:" + filename,
+						"File Error");
 			}
 		}
 		return text;
@@ -192,10 +187,9 @@ public class MyFile {
 
 	public static String convertStreamToString(InputStream is) throws IOException {
 		/*
-		 * To convert the InputStream to String we use the Reader.read(char[]
-		 * buffer) method. We iterate until the Reader return -1 which means
-		 * there's no more data to read. We use the StringWriter class to
-		 * produce the string.
+		 * To convert the InputStream to String we use the Reader.read(char[] buffer) method. We iterate until the
+		 * Reader return -1 which means there's no more data to read. We use the StringWriter class to produce the
+		 * string.
 		 */
 		if (is != null) {
 			Writer writer = new StringWriter();
