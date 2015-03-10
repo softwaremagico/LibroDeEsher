@@ -1,6 +1,7 @@
 package com.softwaremagico.librodeesher.pj;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -142,7 +143,7 @@ public class InsertedData extends StorableObject {
 				specialities.add(speciality);
 			}
 		}
-		return specialities;
+		return Collections.unmodifiableList(specialities);
 	}
 
 	public Integer getSkillsRanksModification(String skillName) {
@@ -178,11 +179,11 @@ public class InsertedData extends StorableObject {
 	}
 
 	public List<String> getGeneralizedSkills() {
-		return generalizedSkillsAdded;
+		return Collections.unmodifiableList(generalizedSkillsAdded);
 	}
 
 	public List<String> getTrainings() {
-		return trainingsAdded;
+		return Collections.unmodifiableList(trainingsAdded);
 	}
 
 	public void addTraining(String trainingName) {
@@ -195,7 +196,7 @@ public class InsertedData extends StorableObject {
 	}
 
 	public Map<String, TrainingDecision> getTrainingDecisions() {
-		return trainingDecisions;
+		return Collections.unmodifiableMap(trainingDecisions);
 	}
 
 	public Integer getCharacteristicsTemporalValuesModification(CharacteristicsAbbreviature abbreviature) {
