@@ -45,7 +45,7 @@ public class TxtSheet {
 	}
 
 	private static String getCharacteristicsInfo(CharacterPlayer characterPlayer) {
-		String formatStr = "%1$-8s %2$-8s %3$-8s %4$-8s %5$-8s%n";
+		String formatStr = "%1$-8s %2$-8s %3$-8s %4$-8s %5$-8s %6$-8s %7$-8s%n";
 		// String text = "Caract\tTemp\tPot\tTot\tRaza\tEsp\tTotal\n";
 		String text = String.format(formatStr, "Caract", "Temp", "Pot", "Tot", "Raza", "Esp", "Total");
 		text += "---------------------------------------------------------------------------------\n";

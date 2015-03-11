@@ -1,6 +1,7 @@
 package com.softwaremagico.librodeesher.pj.categories;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.basics.ChooseGroup;
@@ -32,7 +33,7 @@ public class ChooseCategoryGroup extends ChooseGroup<Category> {
 		for (Category category : optionsGroup) {
 			nameList.add(category.getName());
 		}
-		return nameList;
+		return Collections.unmodifiableList(nameList);
 	}
 
 }

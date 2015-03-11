@@ -1530,12 +1530,12 @@ public class CharacterPlayer extends StorableObject {
 				perkDecision = new PerkDecision();
 			}
 			// Is the list a category list?
-			if (perk.isCategorySelected(chosenOptions.get(0))) {
-				perkDecision.setCategoriesBonusChoosen(chosenOptions);
+			if (perk.isCategorySelectable(chosenOptions.get(0))) {
+				perkDecision.setCategoriesBonusChosen(chosenOptions);
 			}
 			// Is the list a skill list?
-			if (perk.isSkillSelected(chosenOptions.get(0))) {
-				perkDecision.setSkillsBonusChoosen(chosenOptions);
+			if (perk.isSkillSelectable(chosenOptions.get(0))) {
+				perkDecision.setSkillsBonusChosen(chosenOptions);
 			}
 			perkDecisions.put(perk.getName(), perkDecision);
 		}

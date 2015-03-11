@@ -45,12 +45,12 @@ public class TrainingCategoryLine extends BaseLine {
 	private ListLabel ranksLabel;
 	private CategoryComboBox<String> chooseCategoryComboBox = null;
 
-	protected TrainingCategoryLine(CharacterPlayer character, TrainingCategory category,
-			TrainingCategoryPanel parent, Color background) {
+	protected TrainingCategoryLine(CharacterPlayer character, TrainingCategory category, TrainingCategoryPanel parent,
+			Color background) {
 		this.character = character;
 		this.trainingCategory = category;
 		this.parentPanel = parent;
-		this.background = background;
+		setDefaultBackground(background);
 		setElements();
 	}
 
@@ -65,36 +65,33 @@ public class TrainingCategoryLine extends BaseLine {
 		if (!trainingCategory.needToChooseOneCategory()) {
 			ListLabel categoryLabel = new BoldListLabel(trainingCategory.getCategoryOptions().get(0),
 					SwingConstants.LEFT, 100, columnHeight);
-			return new ListBackgroundPanel(categoryLabel, background);
+			return new ListBackgroundPanel(categoryLabel, getDefaultBackground());
 		} else {
 			chooseCategoryComboBox = new CategoryComboBox<>();
 			addItemsToComboBox();
-			return new ListBackgroundPanel(chooseCategoryComboBox, background);
+			return new ListBackgroundPanel(chooseCategoryComboBox, getDefaultBackground());
 		}
 	}
 
 	protected void setElements() {
 		this.removeAll();
 		setLayout(new GridLayout(1, 0));
-		setBackground(background);
+		setBackground(getDefaultBackground());
 
 		ListBackgroundPanel categoryPanel = getCategoryOrGroup();
 		add(categoryPanel);
 
-		ListLabel ranks = new BoldListLabel(trainingCategory.getCategoryRanks().toString(),
-				SwingConstants.CENTER);
-		add(new ListBackgroundPanel(ranks, background));
+		ListLabel ranks = new BoldListLabel(trainingCategory.getCategoryRanks().toString(), SwingConstants.CENTER);
+		add(new ListBackgroundPanel(ranks, getDefaultBackground()));
 
-		ListLabel minHab = new BoldListLabel(trainingCategory.getMinSkills().toString(),
-				SwingConstants.CENTER);
-		add(new ListBackgroundPanel(minHab, background));
+		ListLabel minHab = new BoldListLabel(trainingCategory.getMinSkills().toString(), SwingConstants.CENTER);
+		add(new ListBackgroundPanel(minHab, getDefaultBackground()));
 
-		ListLabel maxHab = new BoldListLabel(trainingCategory.getMaxSkills().toString(),
-				SwingConstants.CENTER);
-		add(new ListBackgroundPanel(maxHab, background));
+		ListLabel maxHab = new BoldListLabel(trainingCategory.getMaxSkills().toString(), SwingConstants.CENTER);
+		add(new ListBackgroundPanel(maxHab, getDefaultBackground()));
 
 		ranksLabel = new BoldListLabel(trainingCategory.getSkillRanks().toString(), SwingConstants.CENTER);
-		add(new ListBackgroundPanel(ranksLabel, background));
+		add(new ListBackgroundPanel(ranksLabel, getDefaultBackground()));
 	}
 
 	private void setRanksNumber() {

@@ -61,7 +61,7 @@ public class TrainingSkillLine extends BaseLine {
 		this.trainingSkill = skill;
 		this.parentPanel = parent;
 		this.trainingCategory = category;
-		this.background = background;
+		setDefaultBackground(background);
 		setElements();
 	}
 
@@ -76,27 +76,27 @@ public class TrainingSkillLine extends BaseLine {
 		if (!trainingSkill.needToChooseOneSkill()) {
 			ListLabel skillLabel = new ListLabel(trainingSkill.getSkillOptions().get(0), SwingConstants.LEFT,
 					150, columnHeight);
-			return new ListBackgroundPanel(skillLabel, background);
+			return new ListBackgroundPanel(skillLabel, getDefaultBackground());
 		} else {
 			chooseSkillsComboBox = new SkillComboBox<>();
 			addItemsToComboBox();
-			return new ListBackgroundPanel(chooseSkillsComboBox, background);
+			return new ListBackgroundPanel(chooseSkillsComboBox, getDefaultBackground());
 		}
 	}
 
 	protected void setElements() {
 		this.removeAll();
 		setLayout(new GridLayout(1, 0));
-		setBackground(background);
+		setBackground(getDefaultBackground());
 
 		ListBackgroundPanel categoryPanel = getSkillOrGroup();
 		add(categoryPanel);
 
 		ListLabel minHab = new ListLabel("", SwingConstants.CENTER);
-		add(new ListBackgroundPanel(minHab, background));
+		add(new ListBackgroundPanel(minHab, getDefaultBackground()));
 
 		ListLabel maxHab = new ListLabel("", SwingConstants.CENTER);
-		add(new ListBackgroundPanel(maxHab, background));
+		add(new ListBackgroundPanel(maxHab, getDefaultBackground()));
 
 		JPanel spinnerPanel = new JPanel();
 		SpinnerModel sm = new SpinnerNumberModel((int) trainingSkill.getRanks(),
@@ -104,8 +104,8 @@ public class TrainingSkillLine extends BaseLine {
 						- trainingCategory.getMinSkills() + 1, 1);
 		rankSpinner = new BaseSpinner(sm);
 		spinnerPanel.add(rankSpinner);
-		spinnerPanel.setBackground(background);
-		add(spinnerPanel, background);
+		spinnerPanel.setBackground(getDefaultBackground());
+		add(spinnerPanel, getDefaultBackground());
 		addRankSpinnerEvent();
 	}
 

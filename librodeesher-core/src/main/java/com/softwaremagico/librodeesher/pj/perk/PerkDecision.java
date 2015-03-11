@@ -25,13 +25,13 @@ public class PerkDecision extends StorableObject {
 	@CollectionTable(name = "T_PERKS_DECISION_CATEGORY_BONUS_CHOSEN")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> categoriesBonusChosen;
-	
+
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_PERKS_DECISION_SKILLS_BONUS_CHOSEN")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<String> skillsBonusChosen;
-	
+
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_PERKS_DECISION_COMMON_SKILLS_CHOSEN")
@@ -45,14 +45,6 @@ public class PerkDecision extends StorableObject {
 	@Override
 	public void resetIds() {
 		resetIds(this);
-	}
-
-	public void setCategoriesBonusChoosen(List<String> chose) {
-		categoriesBonusChosen = chose;
-	}
-
-	public void setSkillsBonusChoosen(List<String> chose) {
-		skillsBonusChosen = chose;
 	}
 
 	public boolean isBonusChosen(Skill skill) {
@@ -79,7 +71,7 @@ public class PerkDecision extends StorableObject {
 		return categoriesBonusChosen;
 	}
 
-	protected void setCategoriesBonusChosen(List<String> categoriesBonusChosen) {
+	public void setCategoriesBonusChosen(List<String> categoriesBonusChosen) {
 		this.categoriesBonusChosen = categoriesBonusChosen;
 	}
 
@@ -87,7 +79,7 @@ public class PerkDecision extends StorableObject {
 		return skillsBonusChosen;
 	}
 
-	protected void setSkillsBonusChosen(List<String> skillsBonusChosen) {
+	public void setSkillsBonusChosen(List<String> skillsBonusChosen) {
 		this.skillsBonusChosen = skillsBonusChosen;
 	}
 }

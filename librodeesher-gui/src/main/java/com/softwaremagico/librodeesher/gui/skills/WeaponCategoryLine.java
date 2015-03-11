@@ -43,11 +43,11 @@ public class WeaponCategoryLine extends GenericCategoryLine {
 	private Integer weaponLineNumber;
 	private boolean updatingWeaponCost = true;
 
-	public WeaponCategoryLine(CharacterPlayer character, Category category, Color background,
-			SkillPanel parentWindow, CategoryCost cost, Integer weaponIndex) {
+	public WeaponCategoryLine(CharacterPlayer character, Category category, Color background, SkillPanel parentWindow,
+			CategoryCost cost, Integer weaponIndex) {
 		super(character, category, background, parentWindow);
 		enableColumns(true, true, true, true, true, true, true, true);
-		this.background = background;
+		setDefaultBackground(background);
 		this.weaponLineNumber = weaponIndex;
 		previousSelectedIndex = weaponIndex;
 		if (costPanel) {
@@ -74,7 +74,7 @@ public class WeaponCategoryLine extends GenericCategoryLine {
 	protected JPanel createCostPanel() {
 		JPanel costPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 1, 1));
 		costComboBox = new WeaponComboBox<>();
-		costComboBox.setBackground(background);
+		costComboBox.setBackground(getDefaultBackground());
 
 		DefaultListCellRenderer dlcr = new DefaultListCellRenderer();
 		dlcr.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
@@ -99,8 +99,7 @@ public class WeaponCategoryLine extends GenericCategoryLine {
 
 	private void updatePlayerWeaponCost() {
 		if (costPanel) {
-			character.getProfessionDecisions().setWeaponCost(category,
-					(CategoryCost) costComboBox.getSelectedItem());
+			character.getProfessionDecisions().setWeaponCost(category, (CategoryCost) costComboBox.getSelectedItem());
 		}
 	}
 

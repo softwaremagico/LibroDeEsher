@@ -410,8 +410,7 @@ public class PdfStandardSheet {
 		PdfPCell cell;
 
 		if (characterPlayer != null) {
-			text = skill.getName() + " " + skill.getSkillType().getTag();
-			text = text.trim();
+			text = (skill.getName() + " " + skill.getSkillType().getTag()).trim();
 		} else {
 			text = "___________________________________________";
 		}
@@ -434,7 +433,11 @@ public class PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
-		cell = new PdfPCell(getNewRanksImage(characterPlayer.getCurrentLevelRanks(skill)));
+		if (characterPlayer != null) {
+			cell = new PdfPCell(getNewRanksImage(characterPlayer.getCurrentLevelRanks(skill)));
+		} else {
+			cell = new PdfPCell(getNewRanksImage(0));
+		}
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
@@ -482,11 +485,11 @@ public class PdfStandardSheet {
 			text = "__";
 		}
 		String letter = "";
-		if (characterPlayer.getHistorial().getBonus(skill) > 0) {
+		if (characterPlayer != null && characterPlayer.getHistorial().getBonus(skill) > 0) {
 			letter += "H";
 		}
 
-		if (characterPlayer.getPerkBonus(skill) != 0) {
+		if (characterPlayer != null && characterPlayer.getPerkBonus(skill) != 0) {
 			letter += "T";
 			if (characterPlayer.getConditionalPerkBonus(skill) != 0) {
 				letter += "*";
@@ -605,11 +608,11 @@ public class PdfStandardSheet {
 		}
 
 		String letra = "";
-		if (characterPlayer.getHistorial().getBonus(skill) > 0) {
+		if (characterPlayer != null && characterPlayer.getHistorial().getBonus(skill) > 0) {
 			letra += "H";
 		}
 
-		if (characterPlayer.getPerkBonus(skill) != 0) {
+		if (characterPlayer != null && characterPlayer.getPerkBonus(skill) != 0) {
 			letra += "T";
 			if (characterPlayer.getConditionalPerkBonus(skill) != 0) {
 				letra += "*";

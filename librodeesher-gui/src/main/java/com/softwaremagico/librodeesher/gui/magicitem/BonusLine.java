@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.magicitem;
+
 /*
  * #%L
  * Libro de Esher (GUI)
@@ -41,7 +42,7 @@ public class BonusLine extends BaseLine {
 
 	public BonusLine(ObjectBonus bonus, Color background) {
 		this.bonus = bonus;
-		this.background = background;
+		setDefaultBackground(background);
 		setElements();
 		setBackground(background);
 	}
@@ -70,7 +71,7 @@ public class BonusLine extends BaseLine {
 		} else {
 			bonusNameLabel = new BoldListLabel("", SwingConstants.LEFT, 200, columnHeight);
 		}
-		add(new ListBackgroundPanel(bonusNameLabel, background), gridBagConstraints);
+		add(new ListBackgroundPanel(bonusNameLabel, getDefaultBackground()), gridBagConstraints);
 
 		gridBagConstraints.gridx = 2;
 		gridBagConstraints.gridwidth = 1;
@@ -80,7 +81,7 @@ public class BonusLine extends BaseLine {
 		} else {
 			bonusValue = new BoldListLabel("", 50, columnHeight);
 		}
-		add(new ListBackgroundPanel(bonusValue, background), gridBagConstraints);
+		add(new ListBackgroundPanel(bonusValue, getDefaultBackground()), gridBagConstraints);
 	}
 
 }

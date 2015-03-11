@@ -39,17 +39,15 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 
 public abstract class GenericCategoryLine extends BaseSkillLine {
 	private static final long serialVersionUID = 2914665641808878141L;
-	protected BoldListLabel categoryNameLabel, bonusRankLabel, totalLabel, prevRanksLabel, bonusCharLabel,
-			otherBonus, bonusMagicObject;
+	protected BoldListLabel categoryNameLabel, bonusRankLabel, totalLabel, prevRanksLabel, bonusCharLabel, otherBonus,
+			bonusMagicObject;
 
 	public GenericCategoryLine(CharacterPlayer character, Category category, Color background,
 			BaseSkillPanel parentWindow) {
 		this.character = character;
 		this.category = category;
 		this.parentWindow = parentWindow;
-		this.background = background;
-
-		setBackground(background);
+		setDefaultBackground(background);
 		setRanksSelected(character.getCurrentLevelRanks(category));
 	}
 
@@ -94,14 +92,14 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.3;
 		categoryNameLabel = new BoldListLabel(category.getName(), SwingConstants.LEFT, 200, columnHeight);
-		add(new ListBackgroundPanel(categoryNameLabel, background), gridBagConstraints);
+		add(new ListBackgroundPanel(categoryNameLabel, getDefaultBackground()), gridBagConstraints);
 
 		if (costPanel) {
 			gridBagConstraints.gridx = 3;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			JPanel costPanel = createCostPanel();
-			costPanel.setBackground(background);
+			costPanel.setBackground(getDefaultBackground());
 			add(costPanel, gridBagConstraints);
 		}
 
@@ -112,29 +110,29 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			String text;
 			if (category.hasRanks()) {
 				text = previousRanks.toString();
-			}else{
+			} else {
 				text = "na";
 			}
 			prevRanksLabel = new BoldListLabel(text, columnWidth, columnHeight);
-			add(new ListBackgroundPanel(prevRanksLabel, background), gridBagConstraints);
+			add(new ListBackgroundPanel(prevRanksLabel, getDefaultBackground()), gridBagConstraints);
 		}
 
 		if (chooseRanksPanel) {
 			JPanel checkBoxPane = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-			checkBoxPane.setBackground(background);
+			checkBoxPane.setBackground(getDefaultBackground());
 			if (category.hasRanks()) {
 				firstRank = new JCheckBox("");
-				firstRank.setBackground(background);
+				firstRank.setBackground(getDefaultBackground());
 				firstRank.addItemListener(new CheckBoxListener());
 				checkBoxPane.add(firstRank);
 
 				secondRank = new JCheckBox("");
-				secondRank.setBackground(background);
+				secondRank.setBackground(getDefaultBackground());
 				secondRank.addItemListener(new CheckBoxListener());
 				checkBoxPane.add(secondRank);
 
 				thirdRank = new JCheckBox("");
-				thirdRank.setBackground(background);
+				thirdRank.setBackground(getDefaultBackground());
 				thirdRank.addItemListener(new CheckBoxListener());
 				checkBoxPane.add(thirdRank);
 			}
@@ -151,18 +149,17 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 9;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			bonusRankLabel = new BoldListLabel(character.getRanksValue(category).toString(), columnWidth,
-					columnHeight);
-			add(new ListBackgroundPanel(bonusRankLabel, background), gridBagConstraints);
+			bonusRankLabel = new BoldListLabel(character.getRanksValue(category).toString(), columnWidth, columnHeight);
+			add(new ListBackgroundPanel(bonusRankLabel, getDefaultBackground()), gridBagConstraints);
 		}
 
 		if (bonusCategoryPanel) {
 			gridBagConstraints.gridx = 11;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			bonusCharLabel = new BoldListLabel(character.getCharacteristicsBonus(category).toString(),
-					columnWidth, columnHeight);
-			add(new ListBackgroundPanel(bonusCharLabel, background), gridBagConstraints);
+			bonusCharLabel = new BoldListLabel(character.getCharacteristicsBonus(category).toString(), columnWidth,
+					columnHeight);
+			add(new ListBackgroundPanel(bonusCharLabel, getDefaultBackground()), gridBagConstraints);
 		}
 
 		if (otherBonusPanel) {
@@ -173,25 +170,23 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 					(category.getBonus() + character.getProfession().getCategoryBonus(category.getName())
 							+ character.getHistorial().getBonus(category) + character.getPerkBonus(category) + character.getConditionalPerkBonus(category))
 							+ "", columnWidth, columnHeight);
-			add(new ListBackgroundPanel(otherBonus, background), gridBagConstraints);
+			add(new ListBackgroundPanel(otherBonus, getDefaultBackground()), gridBagConstraints);
 		}
 
 		if (objectBonusPanel) {
 			gridBagConstraints.gridx = 15;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			bonusMagicObject = new BoldListLabel(character.getItemBonus(category) + "", columnWidth,
-					columnHeight);
-			add(new ListBackgroundPanel(bonusMagicObject, background), gridBagConstraints);
+			bonusMagicObject = new BoldListLabel(character.getItemBonus(category) + "", columnWidth, columnHeight);
+			add(new ListBackgroundPanel(bonusMagicObject, getDefaultBackground()), gridBagConstraints);
 		}
 
 		if (totalPanel) {
 			gridBagConstraints.gridx = 17;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			totalLabel = new BoldListLabel(character.getTotalValue(category).toString(), columnWidth,
-					columnHeight);
-			add(new ListBackgroundPanel(totalLabel, background), gridBagConstraints);
+			totalLabel = new BoldListLabel(character.getTotalValue(category).toString(), columnWidth, columnHeight);
+			add(new ListBackgroundPanel(totalLabel, getDefaultBackground()), gridBagConstraints);
 		}
 
 		enableRanks(previousRanks);
@@ -218,7 +213,7 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 		gridBagConstraints.gridx = column * 2;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.1;
-		panel.setBackground(background);
+		panel.setBackground(getDefaultBackground());
 		add(panel, gridBagConstraints);
 	}
 

@@ -36,9 +36,9 @@ import com.softwaremagico.librodeesher.gui.elements.TitleLabel;
 
 public abstract class BaseLine extends BasePanel {
 	private static final long serialVersionUID = 7901507705885692683L;
-	protected Color background = Color.WHITE;
-	protected Color foregorund = Color.BLACK;
-	protected Color fontColor = Color.DARK_GRAY;
+	private Color defaultBackground = Color.WHITE;
+	private Color defaultForegorund = Color.BLACK;
+	private Color defaultFontColor = Color.DARK_GRAY;
 	protected Integer labelDefaultWidth = 40;
 	protected Integer nameTextDefaultWidth = 80;
 	protected static final Integer columnHeight = 20;
@@ -52,8 +52,8 @@ public abstract class BaseLine extends BasePanel {
 
 	protected void setDefaultDesign() {
 		// setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		setBackground(background);
-		setForeground(foregorund);
+		setBackground(getDefaultBackground());
+		setForeground(getDefaultForegorund());
 	}
 
 	/**
@@ -93,6 +93,30 @@ public abstract class BaseLine extends BasePanel {
 		for (Component component : getComponents()) {
 			component.setBackground(background);
 		}
+	}
+
+	public Color getDefaultBackground() {
+		return defaultBackground;
+	}
+
+	public Color getDefaultForegorund() {
+		return defaultForegorund;
+	}
+
+	public Color getDefaultFontColor() {
+		return defaultFontColor;
+	}
+
+	public void setDefaultBackground(Color defaultBackground) {
+		this.defaultBackground = defaultBackground;
+	}
+
+	public void setDefaultForegorund(Color defaultForegorund) {
+		this.defaultForegorund = defaultForegorund;
+	}
+
+	public void setDefaultFontColor(Color defaultFontColor) {
+		this.defaultFontColor = defaultFontColor;
 	}
 
 }

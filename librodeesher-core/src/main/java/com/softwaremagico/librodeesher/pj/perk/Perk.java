@@ -186,15 +186,14 @@ public class Perk {
 		}
 	}
 
-	public void setCategoryToSelectCommonSkills(Category category, Integer commonSkills)
-			throws InvalidPerkDefinition {
+	public void setCategoryToSelectCommonSkills(Category category, Integer commonSkills) throws InvalidPerkDefinition {
 		try {
 			commonSkillsToChoose.add(new ChooseSkillGroup(commonSkills, SkillFactory.getSkills(category),
 					ChooseType.COMMON));
 		} catch (Exception e) {
 			EsherLog.errorMessage(this.getClass().getName(), e);
-			throw new InvalidPerkDefinition("Invalid common skill definition in Category '" + category
-					+ "' for Perk '" + name + "',");
+			throw new InvalidPerkDefinition("Invalid common skill definition in Category '" + category + "' for Perk '"
+					+ name + "',");
 		}
 	}
 
@@ -279,9 +278,8 @@ public class Perk {
 	}
 
 	/**
-	 * If a perk is restricted to a race or a profession the character must have
-	 * selected this race or profession. If not, the perk is no allowed to be
-	 * used.
+	 * If a perk is restricted to a race or a profession the character must have selected this race or profession. If
+	 * not, the perk is no allowed to be used.
 	 * 
 	 * @param raceName
 	 * @param professionName
@@ -388,21 +386,22 @@ public class Perk {
 		return (categoriesToChoose.size() > 0 || skillsToChoose.size() > 0);
 	}
 
-	// public List<String> getOptionsToChoose() {
-	// if (categoriesToChoose.size() > 0) {
-	// return categoriesToChoose;
-	// } else if (skillsToChoose.size() > 0) {
-	// return skillsToChoose;
-	// }
-	// return null;
-	// }
-
-	public boolean isCategorySelected(String optionName) {
-		return categoriesToChoose.contains(optionName);
+	public boolean isCategorySelectable(String optionName) {
+		for (ChooseCategoryGroup categoryToChose : categoriesToChoose) {
+			if (categoryToChose.getOptionsAsString().contains(optionName)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
-	public boolean isSkillSelected(String optionName) {
-		return skillsToChoose.contains(optionName);
+	public boolean isSkillSelectable(String optionName) {
+		for (ChooseSkillGroup skillToChose : skillsToChoose) {
+			if (skillToChose.getOptionsAsString().contains(optionName)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public String getSelectionableDescription() {

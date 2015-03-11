@@ -41,15 +41,23 @@ public abstract class BaseTitleLine extends BaseLine {
 	}
 
 	@Override
-	protected void setDefaultDesign() {
-		// setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		setBackground(title_background);
-		setForeground(title_foreground);
+	public void update() {
+
 	}
 
 	@Override
-	public void update() {
+	public Color getDefaultBackground() {
+		return title_background;
+	}
 
+	@Override
+	public Color getDefaultForegorund() {
+		return title_foreground;
+	}
+
+	@Override
+	public Color getDefaultFontColor() {
+		return title_fontColor;
 	}
 
 }
