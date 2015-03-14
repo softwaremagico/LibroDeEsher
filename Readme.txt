@@ -31,6 +31,8 @@ Versión
 ------------
 2.0.2	Nuevo:
 		- Poderes Chi se pueden seleccionar solo si se tiene el estilo marcial adecuado.
+		- PDF errores solucionados.
+		- Importar personaje elige correctamente los costes de armas.
 2.0.1	Nuevo:
 		- Se han corregido numerosos errores gráficos.
 		- Se puede guardar correctamente el personaje. 
