@@ -39,6 +39,7 @@ import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
+import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.categories.InvalidCategoryException;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
@@ -131,15 +132,17 @@ public class Profession {
 	private void readProfessionFile(String professionName) throws Exception {
 		int lineIndex = 0;
 
-		String professionFile = RolemasterFolderStructure.getDirectoryModule(ProfessionFactory.PROFESSION_FOLDER
-				+ File.separator + professionName + ".txt");
+		String professionFile = RolemasterFolderStructure
+				.getDirectoryModule(ProfessionFactory.PROFESSION_FOLDER + File.separator + professionName
+						+ ".txt");
 		if (professionFile.length() > 0) {
 			List<String> lines = Folder.readFileLines(professionFile, false);
 			lineIndex = setBasicCharacteristics(lines, lineIndex);
 			lineIndex = setMagicRealmsAvailable(lines, lineIndex);
 			lineIndex = setProfessionBonus(lines, lineIndex);
 			lineIndex = setCategoryCost(lines, lineIndex);
-			lineIndex = setSpecialSkills(lines, lineIndex, commonSkills, commonSkillsToChoose, ChooseType.COMMON);
+			lineIndex = setSpecialSkills(lines, lineIndex, commonSkills, commonSkillsToChoose,
+					ChooseType.COMMON);
 			lineIndex = setSpecialSkills(lines, lineIndex, professionalSkills, professionalSkillsToChoose,
 					ChooseType.PROFESSIONAL);
 			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkills, restrictedSkillsToChoose,
@@ -168,10 +171,11 @@ public class Profession {
 
 			for (String abbrev : characteristicsTags) {
 				if (Characteristics.isCharacteristicValid(abbrev)) {
-					characteristicPreferences.add(CharacteristicsAbbreviature.getCharacteristicsAbbreviature(abbrev));
+					characteristicPreferences.add(CharacteristicsAbbreviature
+							.getCharacteristicsAbbreviature(abbrev));
 				} else {
-					throw new InvalidProfessionException("Caracteristica " + abbrev + " mostrada en el archivo " + name
-							+ ".txt no existente.");
+					throw new InvalidProfessionException("Caracteristica " + abbrev
+							+ " mostrada en el archivo " + name + ".txt no existente.");
 				}
 			}
 		}
@@ -240,7 +244,9 @@ public class Profession {
 			String[] categoryColumns = categoryLine.split("\t");
 			String categoryName = categoryColumns[0];
 			if (categoryName.startsWith("Armas·")) {
-				weaponCategoryCost.add(new CategoryCost(categoryColumns[1]));
+				CategoryCost weaponsCost = new CategoryCost(categoryColumns[1]);
+				weaponCategoryCost.add(weaponsCost);
+				weaponsCost.setCategoryCostId(CategoryGroup.WEAPON.toString() + weaponCategoryCost.size());
 			} else {
 				try {
 					Category cat = CategoryFactory.getCategory(categoryName);
@@ -259,8 +265,10 @@ public class Profession {
 	private void createExtraWeaponsCosts() {
 		extraWeaponCategoryCost = new ArrayList<>();
 		for (int i = 0; i < HOW_MANY_EXTRA_COSTS; i++) {
-			extraWeaponCategoryCost.add(new CategoryCost(weaponCategoryCost.get(weaponCategoryCost.size() - 1)
-					.getRankCost()));
+			CategoryCost weaponsCost = new CategoryCost(weaponCategoryCost.get(weaponCategoryCost.size() - 1)
+					.getRankCost());
+			extraWeaponCategoryCost.add(weaponsCost);
+			weaponsCost.setCategoryCostId(CategoryGroup.WEAPON.toString() + (weaponCategoryCost.size() + extraWeaponCategoryCost.size()));
 		}
 	}
 
@@ -325,18 +333,18 @@ public class Profession {
 					String[] categoryColumns = skillColumns[i].split("#");
 					Category cat = CategoryFactory.getCategory(categoryColumns[0]);
 					if (cat != null) {
-						ChooseSkillGroup chooseSkills = new ChooseSkillGroup(Integer.parseInt(categoryColumns[1]),
-								cat.getSkills(), chooseType);
+						ChooseSkillGroup chooseSkills = new ChooseSkillGroup(
+								Integer.parseInt(categoryColumns[1]), cat.getSkills(), chooseType);
 						groupSkillsToChoose.add(chooseSkills);
 					} else {
-						throw new InvalidProfessionException("Error leyendo una categoría en habilidad común: "
-								+ lines.get(index));
+						throw new InvalidProfessionException(
+								"Error leyendo una categoría en habilidad común: " + lines.get(index));
 					}
 					// One skill of a set
 				} else if (skillColumns[i].startsWith("{")) {
 					String skillGroup = skillColumns[i].replace("{", "").replace("}", "");
-					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1, skillGroup.replace(";", ",").split(", "),
-							chooseType);
+					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1, skillGroup.replace(";", ",")
+							.split(", "), chooseType);
 					groupSkillsToChoose.add(chooseSkills);
 				} else {
 					// One skill.
@@ -367,8 +375,8 @@ public class Profession {
 				String listLevel = spellList[1].replace(")", "");
 				String listCost = spellsColumn[1];
 
-				magicCosts.setMagicCost(MagicListType.getMagicType(listName), MagicLevelRange.getLevelRange(listLevel),
-						listCost);
+				magicCosts.setMagicCost(MagicListType.getMagicType(listName),
+						MagicLevelRange.getLevelRange(listLevel), listCost);
 			} catch (Exception e) {
 				throw new InvalidProfessionException("Coste de magia mal formado: " + lines.get(index));
 			}
@@ -398,11 +406,13 @@ public class Profession {
 				}
 
 				try {
-					Integer cost = Integer.parseInt(trainingColumns[1].replace("+", "").replace("-", "").trim());
+					Integer cost = Integer.parseInt(trainingColumns[1].replace("+", "").replace("-", "")
+							.trim());
 					trainingCosts.put(trainingColumns[0], cost);
 					trainingTypes.put(trainingColumns[0], type);
 				} catch (Exception e) {
-					throw new InvalidProfessionException("Coste de Adiestramiento mal formado: " + lines.get(index));
+					throw new InvalidProfessionException("Coste de Adiestramiento mal formado: "
+							+ lines.get(index));
 				}
 				index++;
 			}

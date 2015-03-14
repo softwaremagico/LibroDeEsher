@@ -48,6 +48,11 @@ public class CategoryCost extends StorableObject {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Integer> rankCost;
 
+	// When importing from JSON, comparatorId is not the same as the profession
+	// file.
+	@Expose
+	private String categoryCostId = null;
+
 	protected CategoryCost() {
 		rankCost = new ArrayList<>();
 	}
@@ -124,5 +129,47 @@ public class CategoryCost extends StorableObject {
 
 	protected void setRankCost(List<Integer> rankCost) {
 		this.rankCost = rankCost;
+	}
+
+	public String getCategoryCostId() {
+		return categoryCostId;
+	}
+
+	public void setCategoryCostId(String categoryCostId) {
+		this.categoryCostId = categoryCostId;
+	}
+
+	/**
+	 * ComparatorId is not valid as equals when importing weapons from Json.
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		if (categoryCostId == null) {
+			return super.hashCode();
+		}
+		int result = prime * ((categoryCostId == null) ? 0 : categoryCostId.hashCode());
+		return result;
+	}
+
+	/**
+	 * ComparatorId is not valid as equals when importing weapons from Json.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (categoryCostId == null) {
+			return super.equals(obj);
+		}
+		if (this == obj)
+			return true;
+		if (getClass() != obj.getClass())
+			return false;
+		CategoryCost other = (CategoryCost) obj;
+		if (categoryCostId == null) {
+			if (other.categoryCostId != null)
+				return false;
+		} else if (!categoryCostId.equals(other.categoryCostId))
+			return false;
+		return true;
 	}
 }

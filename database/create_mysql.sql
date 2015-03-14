@@ -13,6 +13,7 @@
         comparationId varchar(255) not null,
         creationTime datetime not null,
         updateTime datetime,
+        categoryCostId varchar(255),
         primary key (ID)
     );
 
