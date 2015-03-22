@@ -735,8 +735,11 @@ public class Controller {
 	}
 
 	private String getCharacterNameFormatted() {
-		return selectedCharacter.getName().replace(" ", "_") + "_N"
-				+ selectedCharacter.getCurrentLevelNumber();
+		return selectedCharacter.getName().replace(" ", "_")
+				+ "_N"
+				+ selectedCharacter.getCurrentLevelNumber()
+				+ (selectedCharacter.getRace() != null ? selectedCharacter.getRace().getName() : "")
+				+ (selectedCharacter.getProfession() != null ? selectedCharacter.getProfession().getName()
+						: "");
 	}
-
 }
