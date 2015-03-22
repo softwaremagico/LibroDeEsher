@@ -260,7 +260,7 @@ public class TxtSheet {
 		text += "--------------------------------------------------\n";
 		for (int i = 0; i < characterPlayer.getPerks().size(); i++) {
 			Perk perk = characterPlayer.getPerks().get(i);
-			text += perk.getName() + ":\t " + perk.getLongDescription() + ".\n\n";
+			text += perk.getName() + ":\t " + perk.getLongDescription() + "\n\n";
 		}
 		return text;
 	}
