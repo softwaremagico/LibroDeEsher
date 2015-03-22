@@ -42,7 +42,7 @@ import com.softwaremagico.log.EsherLog;
 
 public class CategoryFactory {
 	private static Map<String, Category> availableCategories = new HashMap<>();
-	private static List<Category> weaponsCategory = new ArrayList<>();
+	private static List<Category> weaponsCategoriesFromFiles = new ArrayList<>();
 	private static List<String> availableCategoriesByName = new ArrayList<>();
 
 	static {
@@ -80,7 +80,7 @@ public class CategoryFactory {
 					.getWeaponsByType(weaponType);
 			Category categoryOfWeapon = availableCategories.get(weaponType
 					.getWeaponCategoryName());
-			weaponsCategory.add(categoryOfWeapon);
+			weaponsCategoriesFromFiles.add(categoryOfWeapon);
 			try {
 				categoryOfWeapon
 						.setSkills(convertWeaponsToSkills(weaponsOfType));
@@ -242,59 +242,63 @@ public class CategoryFactory {
 	}
 
 	public static List<Category> getWeaponsCategories() {
-		List<Category> weaponsCategories = new ArrayList<>();
+		List<Category> createdWeaponsCategories = new ArrayList<>();
 
 		for (Category category : availableCategories.values()) {
 			if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
-				weaponsCategories.add(category);
+				createdWeaponsCategories.add(category);
 			}
 		}
 
-		Collections.sort(weaponsCategories, new CategoryComparatorByName());
-		return weaponsCategories;
+		Collections.sort(createdWeaponsCategories, new CategoryComparatorByName());
+		return createdWeaponsCategories;
 	}
 
 	public static List<Category> getCloseCombatWeapons() {
-		List<Category> weaponsCategories = new ArrayList<>();
-		for (Category category : weaponsCategory) {
+		List<Category> closeCombatWeaponsCategories = new ArrayList<>();
+		for (Category category : weaponsCategoriesFromFiles) {
 			if (category.getName().equals(Spanish.WEAPONS_EDGE)
 					|| category.getName().equals(Spanish.WEAPONS_POLE)
 					|| category.getName().equals(Spanish.WEAPONS_HAMMERS)
 					|| category.getName().equals(Spanish.WEAPONS_TWOHANDS)) {
-				weaponsCategories.add(category);
+				closeCombatWeaponsCategories.add(category);
 			}
 		}
-		return weaponsCategories;
+		return closeCombatWeaponsCategories;
 	}
 	
 	public static List<Category> getLongRangeWeapons() {
-		List<Category> weaponsCategories = new ArrayList<>();
-		for (Category category : weaponsCategory) {
+		List<Category> longRangeWeaponsCategories = new ArrayList<>();
+		for (Category category : weaponsCategoriesFromFiles) {
 			if (category.getName().equals(Spanish.WEAPONS_PROJECTILE)
 					|| category.getName().equals(Spanish.WEAPONS_THROWABLE)
 					|| category.getName().equals(Spanish.WEAPONS_FIREARMS_ONEHAND)
 					|| category.getName().equals(Spanish.WEAPONS_FIREARMS_TWOHANDS)) {
-				weaponsCategories.add(category);
+				longRangeWeaponsCategories.add(category);
 			}
 		}
-		return weaponsCategories;
+		return longRangeWeaponsCategories;
 	}
 	
 	public static List<Category> getOthersAttack(){
-		List<Category> weaponsCategories = new ArrayList<>();
-		for (Category category : weaponsCategory) {
+		List<Category> othersWeaponsCategories = new ArrayList<>();
+		for (Category category : weaponsCategoriesFromFiles) {
 			if (category.getName().equals(Spanish.WEAPONS_MARTIALS_HITS)
 					|| category.getName().equals(Spanish.WEAPONS_MARTIALS_KICKS)
 					|| category.getName().equals(Spanish.WEAPONS_MARTIALS_MANIOBRES)
 					|| category.getName().equals(Spanish.WEAPONS_SPECIALS)){
-				weaponsCategories.add(category);
+				othersWeaponsCategories.add(category);
 			}
 		}
-		return weaponsCategories;
+		return othersWeaponsCategories;
 	}
 
+	/**
+	 * Weapons Categories that has weapons defined in a TXT file. 
+	 * @return
+	 */
 	public static List<Category> getWeaponsCategoriesFromFiles() {
-		return weaponsCategory;
+		return weaponsCategoriesFromFiles;
 	}
 
 }
