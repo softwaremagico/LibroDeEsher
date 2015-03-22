@@ -109,7 +109,6 @@ public class PerkOptions<T> extends BaseFrame {
 		default:
 			break;
 		}
-
 	}
 
 	private void checkSelection() {

@@ -277,7 +277,7 @@ public class Profession {
 	 * 
 	 */
 	public void extendCategoryCost(boolean fireArmsEnabled) {
-		Integer totalCategories = CategoryFactory.getWeaponsCategory().size();
+		Integer totalCategories = CategoryFactory.getWeaponsCategories().size();
 		int extraCostAdded = 0;
 		// Extend if it is necessary.
 		for (int i = weaponCategoryCost.size(); i < totalCategories; i++) {

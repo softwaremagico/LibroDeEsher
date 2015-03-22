@@ -13,6 +13,7 @@ public abstract class ChooseGroup<T> {
 	public ChooseGroup(ChooseType chooseType) {
 		this.numberOfOptionsToChoose = 0;
 		this.optionsGroup = new ArrayList<>();
+		this.chooseType = chooseType;
 	}
 
 	public ChooseGroup(int chooseNumber, List<T> optionsGroup, ChooseType chooseType) {
@@ -36,6 +37,10 @@ public abstract class ChooseGroup<T> {
 	}
 
 	public Integer getNumberOfOptionsToChoose() {
+		// Choose all except a negative number.
+		if (numberOfOptionsToChoose < 0) {
+			return optionsGroup.size() + numberOfOptionsToChoose;
+		}
 		return numberOfOptionsToChoose;
 	}
 
@@ -55,9 +60,5 @@ public abstract class ChooseGroup<T> {
 
 	protected void setNumberOfOptionsToChoose(int numberOfOptionsToChoose) {
 		this.numberOfOptionsToChoose = numberOfOptionsToChoose;
-	}
-
-	protected void setChooseType(ChooseType chooseType) {
-		this.chooseType = chooseType;
 	}
 }

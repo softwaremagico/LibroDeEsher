@@ -106,7 +106,10 @@ public class PerkFactory {
 				.replace("*", "").replace("r", "").trim();
 
 		// Obtain the list to choose.
-		if (set[0].toLowerCase().contains(Spanish.ANY_CATEGORY)) {
+		if (set[0].toLowerCase().contains(Spanish.ANY_WEAPON_CATEGORY)) {
+			perk.addCategoriesToChoose(new ChooseCategoryGroup(options, CategoryFactory
+					.getWeaponsCategories(), getOption(bonusString)));
+		} else if (set[0].toLowerCase().contains(Spanish.ANY_CATEGORY)) {
 			perk.addCategoriesToChoose(new ChooseCategoryGroup(options, CategoryFactory.getCategories(),
 					getOption(bonusString)));
 		} else if (set[0].toLowerCase().contains(Spanish.ANY_WEAPON)) {

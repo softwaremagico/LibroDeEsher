@@ -326,22 +326,6 @@ public class Perk {
 		this.chosenBonus = choseBonus;
 	}
 
-	// /**
-	// *
-	// * @return
-	// */
-	// public Integer getNumberOfChooseOptions() {
-	// if (numberOfChooseOptions >= 0) {
-	// return numberOfChooseOptions;
-	// } else {
-	// return getOptionsToChoose().size() + numberOfChooseOptions;
-	// }
-	// }
-	//
-	// public void setChooseOptions(Integer chooseOptions) {
-	// this.numberOfChooseOptions = chooseOptions;
-	// }
-
 	public Integer getCost() {
 		return cost;
 	}

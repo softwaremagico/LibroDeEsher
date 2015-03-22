@@ -57,6 +57,7 @@ public class Spanish {
 	public static final String RESISTANCE_TAG = "TR ";
 	public static final String ANY_SKILL = "cualquier habilidad";
 	public static final String ANY_CATEGORY = "cualquier categoría";
+	public static final String ANY_WEAPON_CATEGORY = "cualquier categoría de armas";
 	public static final String ANY_WEAPON = "cualquier arma";
 	public static final String OUTDOORS_ENVIRONMENT_TAG = "Exteriores·Entorno";
 	public static final String GENERAL_KNOWLEDGE_TAG = "Conocimiento·General";
