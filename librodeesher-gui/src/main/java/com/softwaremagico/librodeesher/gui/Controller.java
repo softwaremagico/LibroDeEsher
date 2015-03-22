@@ -231,7 +231,15 @@ public class Controller {
 			ExploreWindowForRlmLvl selectJson = new ExploreWindowForRlmLvl("PersonajeLevel.rlmlvl");
 			String path = selectJson.exploreWindows("Exportar Nivel", JFileChooser.FILES_ONLY,
 					getCharacterNameFormatted() + ".rlmlvl");
-			if (path != null && path.length() > 0) {
+			File file = new File(path);
+			boolean create = true;
+			if (file.exists() && !file.isDirectory()) {
+				if (!MessageManager.questionMessage(
+						"Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
+					create = false;
+				}
+			}
+			if (create && path != null && path.length() > 0) {
 				String jsonText = LevelJsonManager.toJson(selectedCharacter);
 				// store in a file.
 				try {
@@ -313,7 +321,15 @@ public class Controller {
 			ExploreWindowForRlm selectJson = new ExploreWindowForRlm("Personaje.rlm");
 			String path = selectJson.exploreWindows("Exportar Personaje", JFileChooser.FILES_ONLY,
 					getCharacterNameFormatted() + ".rlm");
-			if (path != null && path.length() > 0) {
+			File file = new File(path);
+			boolean create = true;
+			if (file.exists() && !file.isDirectory()) {
+				if (!MessageManager.questionMessage(
+						"Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
+					create = false;
+				}
+			}
+			if (create && path != null && path.length() > 0) {
 				String jsonText = CharacterJsonManager.toJson(selectedCharacter);
 				// store in a file.
 				File fileDir = new File(path);
@@ -379,7 +395,15 @@ public class Controller {
 			ExploreWindowForTxt selectTxt = new ExploreWindowForTxt("Ficha.txt");
 			String path = selectTxt.exploreWindows("Hoja en Txt", JFileChooser.FILES_ONLY,
 					getCharacterNameFormatted() + ".txt");
-			if (path != null && path.length() > 0) {
+			File file = new File(path);
+			boolean create = true;
+			if (file.exists() && !file.isDirectory()) {
+				if (!MessageManager.questionMessage(
+						"Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
+					create = false;
+				}
+			}
+			if (create && path != null && path.length() > 0) {
 				new TxtSheet(selectedCharacter).exportSheet(path);
 				MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.", "TXT");
 			}
@@ -392,7 +416,15 @@ public class Controller {
 			ExploreWindowForTxt selectTxt = new ExploreWindowForTxt("Ficha.pdf");
 			String path = selectTxt.exploreWindows("Hoja en Txt", JFileChooser.FILES_ONLY,
 					getCharacterNameFormatted() + ".txt");
-			if (path != null && path.length() > 0) {
+			File file = new File(path);
+			boolean create = true;
+			if (file.exists() && !file.isDirectory()) {
+				if (!MessageManager.questionMessage(
+						"Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
+					create = false;
+				}
+			}
+			if (create && path != null && path.length() > 0) {
 				TxtSheet.exportCharacterAbbreviature(selectedCharacter, path);
 				MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.", "TXT");
 			}
@@ -409,8 +441,16 @@ public class Controller {
 			selectPdf.addAcceptListener(new ExploreWindowsWithOptionsListenerAccept() {
 				@Override
 				public void accept(String path, boolean sortSkills) {
+					File file = new File(path);
+					boolean create = true;
+					if (file.exists() && !file.isDirectory()) {
+						if (!MessageManager.questionMessage(
+								"Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
+							create = false;
+						}
+					}
 					try {
-						if (path != null && path.length() > 0) {
+						if (create && path != null && path.length() > 0) {
 							new PdfStandardSheet(selectedCharacter, path, sortSkills);
 							MessageManager.infoMessage(Controller.class.getName(),
 									"Ficha creada correctamente.", "PDF");
@@ -439,7 +479,15 @@ public class Controller {
 			String path = selectPdf.exploreWindows("Hoja en PDF", JFileChooser.FILES_ONLY,
 					getCharacterNameFormatted() + ".pdf");
 			try {
-				if (path != null && path.length() > 0) {
+				File file = new File(path);
+				boolean create = true;
+				if (file.exists() && !file.isDirectory()) {
+					if (!MessageManager.questionMessage(
+							"Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
+						create = false;
+					}
+				}
+				if (create && path != null && path.length() > 0) {
 					new PdfCombinedSheet(selectedCharacter, path);
 					MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.",
 							"PDF");
@@ -738,8 +786,8 @@ public class Controller {
 		return selectedCharacter.getName().replace(" ", "_")
 				+ "_N"
 				+ selectedCharacter.getCurrentLevelNumber()
-				+ (selectedCharacter.getRace() != null ? selectedCharacter.getRace().getName() : "")
-				+ (selectedCharacter.getProfession() != null ? selectedCharacter.getProfession().getName()
+				+ (selectedCharacter.getRace() != null ? "_"+selectedCharacter.getRace().getName() : "")
+				+ (selectedCharacter.getProfession() != null ? "_"+selectedCharacter.getProfession().getName()
 						: "");
 	}
 }
