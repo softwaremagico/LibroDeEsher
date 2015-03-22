@@ -1200,9 +1200,6 @@ public class PdfStandardSheet {
 		String linea = "______________________________";
 		if (characterPlayer != null) {
 			text = characterPlayer.getCulture().getName();
-			if (characterPlayer.getCulture().getName().length() < linea.length()) {
-				text += " " + linea.substring(characterPlayer.getCulture().getName().length());
-			}
 		} else {
 			text = linea;
 		}
