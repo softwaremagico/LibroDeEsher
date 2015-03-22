@@ -291,7 +291,7 @@ public class Profession {
 			totalCategories -= 2;
 		}
 		// Delete excessive categories costs.
-		for (int i = CategoryFactory.getWeaponsCategory().size() - 1; i >= totalCategories; i--) {
+		for (int i = CategoryFactory.getWeaponsCategoriesFromFiles().size() - 1; i >= totalCategories; i--) {
 			weaponCategoryCost.remove(i);
 		}
 	}

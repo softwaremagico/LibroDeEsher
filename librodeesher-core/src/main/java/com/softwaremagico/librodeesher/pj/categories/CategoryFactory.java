@@ -293,7 +293,7 @@ public class CategoryFactory {
 		return weaponsCategories;
 	}
 
-	public static List<Category> getWeaponsCategory() {
+	public static List<Category> getWeaponsCategoriesFromFiles() {
 		return weaponsCategory;
 	}
 
