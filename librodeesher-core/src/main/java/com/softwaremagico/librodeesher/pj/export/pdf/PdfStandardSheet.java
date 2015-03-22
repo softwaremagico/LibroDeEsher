@@ -20,6 +20,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.softwaremagico.files.Path;
 import com.softwaremagico.files.RolemasterFolderStructure;
+import com.softwaremagico.files.Version;
 import com.softwaremagico.librodeesher.basics.Experience;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -1646,7 +1647,7 @@ public class PdfStandardSheet {
 		PdfPCell cell;
 
 		p = new Paragraph("Generado con El Libro de Esher, herramienta para Rolemaster V"
-				+ characterPlayer.getVersion() + "", FontFactory.getFont(font, fontSize));
+				+ Version.getVersion() + "", FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
