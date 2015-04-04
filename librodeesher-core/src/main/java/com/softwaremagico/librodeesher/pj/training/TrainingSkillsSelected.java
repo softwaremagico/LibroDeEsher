@@ -30,6 +30,12 @@ class TrainingSkillsSelected extends StorableObject {
 		skillsRanks = new HashMap<>();
 	}
 
+	@Override
+	public void resetIds() {
+		resetIds(this);
+		resetIds(skillsRanks);
+	}
+
 	public void put(String skill, int ranks) {
 		if (skill == null) {
 			EsherLog.severe(this.getClass().getName(), "Skill null or without name.");

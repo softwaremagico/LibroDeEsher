@@ -65,6 +65,11 @@ public class CategoryCost extends StorableObject {
 		this.rankCost = covertStringToCost(rankCost);
 	}
 
+	@Override
+	public void resetIds() {
+		resetIds(this);
+	}
+
 	public static List<Integer> covertStringToCost(String costString) throws InvalidCategoryException {
 		List<Integer> cost = new ArrayList<>();
 		String[] costColumn = costString.split("/");

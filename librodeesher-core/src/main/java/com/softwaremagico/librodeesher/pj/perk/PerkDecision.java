@@ -42,6 +42,11 @@ public class PerkDecision extends StorableObject {
 
 	}
 
+	@Override
+	public void resetIds() {
+		resetIds(this);
+	}
+
 	public boolean isBonusChosen(Skill skill) {
 		return skillsBonusChosen.contains(skill.getName());
 	}

@@ -185,14 +185,12 @@ public class Controller {
 				@Override
 				public void removeCharacter(CharacterPlayer characterPlayer) {
 					if (characterPlayer != null) {
-						if (!characterPlayer.getId().equals(selectedCharacter.getId())) {
-							CharacterPlayerDao.getInstance().makeTransient(characterPlayer);
-							MessageManager.infoMessage(this.getClass().getName(),
-									"El personaje ha sido borrado con éxito.", "Borrar");
-						} else {
-							MessageManager.basicErrorMessage(this.getClass().getName(),
-									"No se puede eliminar el personaje actualmente seleccionado.", "Borrar");
+						if (characterPlayer.getId().equals(selectedCharacter.getId())) {
+							selectedCharacter.resetIds();
 						}
+						CharacterPlayerDao.getInstance().makeTransient(characterPlayer);
+						MessageManager.infoMessage(this.getClass().getName(),
+								"El personaje ha sido borrado con éxito.", "Borrar");
 					}
 				}
 			});
@@ -788,8 +786,8 @@ public class Controller {
 		return selectedCharacter.getName().replace(" ", "_")
 				+ "_N"
 				+ selectedCharacter.getCurrentLevelNumber()
-				+ (selectedCharacter.getRace() != null ? "_" + selectedCharacter.getRace().getName() : "")
-				+ (selectedCharacter.getProfession() != null ? "_"
-						+ selectedCharacter.getProfession().getName() : "");
+				+ (selectedCharacter.getRace() != null ? "_"+selectedCharacter.getRace().getName() : "")
+				+ (selectedCharacter.getProfession() != null ? "_"+selectedCharacter.getProfession().getName()
+						: "");
 	}
 }

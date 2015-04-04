@@ -114,6 +114,12 @@ public class LevelUp extends StorableObject {
 		characteristicsUpdates = new ArrayList<>();
 	}
 
+	@Override
+	public void resetIds() {
+		resetIds(this);
+		resetIds(trainingDecisions);
+	}
+
 	public Integer getCategoryRanks(String categoryName) {
 		Integer ranks = categoriesRanks.get(categoryName);
 		if (ranks == null) {

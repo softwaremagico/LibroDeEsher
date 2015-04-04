@@ -75,6 +75,11 @@ public class CultureDecisions extends StorableObject {
 		hobbyRanks = new HashMap<>();
 		spellRanks = new HashMap<>();
 	}
+	
+	@Override
+	public void resetIds(){
+		resetIds(this);
+	}
 
 	/**
 	 * Includes the ranks in the communication category of the culture plus the

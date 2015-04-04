@@ -49,6 +49,12 @@ public class RollGroup extends StorableObject {
 		fillUpRolls();
 	}
 
+	@Override
+	public void resetIds() {
+		resetIds(this);
+		resetIds(rolls);
+	}
+
 	private void fillUpRolls() {
 		while (rolls.size() < STORED_ROLLS_NUMBER) {
 			rolls.add(new Roll());

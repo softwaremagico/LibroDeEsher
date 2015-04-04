@@ -6,6 +6,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -52,6 +54,31 @@ public abstract class StorableObject implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public abstract void resetIds();
+
+	public void resetIds(StorableObject object) {
+		setId(null);
+	}
+
+	public void resetIds(List<? extends StorableObject> list) {
+		for (StorableObject object : list) {
+			resetIds(object);
+		}
+	}
+
+	public void resetIds(Map<?, ?> map) {
+		for (Object key : map.keySet()) {
+			if (key instanceof StorableObject) {
+				resetIds((StorableObject) key);
+			}
+		}
+		for (Object value : map.values()) {
+			if (value instanceof StorableObject) {
+				resetIds((StorableObject) value);
+			}
+		}
 	}
 
 	public Timestamp getCreationTime() {
@@ -122,8 +149,7 @@ public abstract class StorableObject implements Serializable {
 			objectOutputStream.writeObject(this);
 
 			// Reads the object
-			ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
-					byteArrayOutputStream.toByteArray());
+			ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
 			ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
 			output = objectInputStream.readObject();
 
