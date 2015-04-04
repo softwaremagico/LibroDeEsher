@@ -584,8 +584,12 @@ public class RandomCharacterPlayer {
 				categoryProbabilityStored.put(category, new CategoryProbability(characterPlayer, category,
 						suggestedSkillsRanks, specializationLevel, finalLevel).rankProbability());
 			}
+			int roll = (int) (Math.random() * 100 + 1);
 			if (categoryProbabilityStored.get(category) > 0
-					&& Math.random() * 100 + 1 < categoryProbabilityStored.get(category) + tries * 3) {
+					&& roll < categoryProbabilityStored.get(category) + tries * 3) {
+				EsherLog.info(RandomCharacterPlayer.class.getName(), "Category '" + category.getName()
+						+ "' (" + (categoryProbabilityStored.get(category) + tries * 3) + "%), roll: " + roll
+						+ " Added!");
 				characterPlayer.setCurrentLevelRanks(category, new Integer(characterPlayer.getCurrentLevel()
 						.getCategoryRanks(category.getName()) + 1));
 				developmentPoints = characterPlayer.getRemainingDevelopmentPoints();
@@ -610,7 +614,7 @@ public class RandomCharacterPlayer {
 				if (characterPlayer.getNewRankCost(skill) > developmentPoints) {
 					break;
 				}
-				int roll = (int) (Math.random() * 100 + 1);
+				roll = (int) (Math.random() * 100 + 1);
 				if (skillProbabilityStored.get(skill) == null) {
 					skillProbabilityStored.put(skill, new SkillProbability(characterPlayer, skill,
 							suggestedSkillsRanks, specializationLevel, finalLevel).getRankProbability());
@@ -627,7 +631,7 @@ public class RandomCharacterPlayer {
 						characterPlayer.enableSkillOption(skill, selectOneSkillForEnabling(skill));
 					}
 					EsherLog.info(RandomCharacterPlayer.class.getName(), "Skill '" + skill.getName() + "' ("
-							+ skillProbabilityStored.get(skill) + tries * 3 + "%), roll: " + roll + " Added!");
+							+ (skillProbabilityStored.get(skill) + tries * 3) + "%), roll: " + roll + " Added!");
 					// All skill probability of this category changes, remove
 					// it.
 					for (Skill skillToRemove : category.getSkills()) {
