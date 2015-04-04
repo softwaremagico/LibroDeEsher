@@ -209,6 +209,9 @@ public class Controller {
 				if (characterPersisted != null) {
 					MessageManager.infoMessage(Controller.class.getName(), "Personaje guardado con éxito!",
 							"Salvar");
+					characters.remove(selectedCharacter);
+					characters.add(characterPersisted);
+					selectedCharacter = characterPersisted;
 				} else {
 					MessageManager
 							.basicErrorMessage(
@@ -788,8 +791,8 @@ public class Controller {
 		return selectedCharacter.getName().replace(" ", "_")
 				+ "_N"
 				+ selectedCharacter.getCurrentLevelNumber()
-				+ (selectedCharacter.getRace() != null ? "_"+selectedCharacter.getRace().getName() : "")
-				+ (selectedCharacter.getProfession() != null ? "_"+selectedCharacter.getProfession().getName()
-						: "");
+				+ (selectedCharacter.getRace() != null ? "_" + selectedCharacter.getRace().getName() : "")
+				+ (selectedCharacter.getProfession() != null ? "_"
+						+ selectedCharacter.getProfession().getName() : "");
 	}
 }
