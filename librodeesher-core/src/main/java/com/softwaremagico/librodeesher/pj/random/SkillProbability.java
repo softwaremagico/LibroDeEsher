@@ -39,7 +39,7 @@ public class SkillProbability {
 		}
 
 		// Avoid strange skills.
-		if (skill.isRare() && !characterPlayer.isCommon(skill) ) {
+		if (skill.isRare() && !characterPlayer.isCommon(skill)) {
 			return -MAX_VALUE;
 		}
 
@@ -108,7 +108,18 @@ public class SkillProbability {
 				int maxRanks = maxRanks();
 				EsherLog.debug(SkillProbability.class.getName(), "\t Max ranks: " + maxRanks);
 				probability += maxRanks;
-				// Max and min value
+				// Limitation of value.
+				if (probability > 150) {
+					EsherLog.warning(SkillProbability.class.getName(), "Increased Category: "
+							+ preferredCategory + "\t Preferred Skill: " + preferredSkill
+							+ "\t Best Skills: " + bestSkills + "\t Skill expensiveness: "
+							+ skillExpensiveness + "\t Specialization: " + applyCharacterSpecialization
+							+ "\t Still not used: " + stillNotUsedSkill + "\t Wizard skill: "
+							+ wizardPreferredSkills + "\t Warrior skill: " + warriorsPreferredSkills
+							+ "\t Smart randomness: " + smartRandomness + "\t Ridicolous randomness: "
+							+ ridicolousSkill + "\t Cultural Skill: " + culturalSkill + "\t Max ranks: "
+							+ maxRanks + "\t Total: " + probability);
+				}
 				if (probability > 90 && probability < 150) {
 					probability = 90;
 				}
