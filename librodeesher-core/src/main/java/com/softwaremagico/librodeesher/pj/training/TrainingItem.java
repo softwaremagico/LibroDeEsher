@@ -22,7 +22,7 @@ public class TrainingItem extends StorableObject {
 	@Expose
 	private int bonus;
 	@Expose
-	@Enumerated(EnumType.STRING) 
+	@Enumerated(EnumType.STRING)
 	private TrainingItemType type;
 	@Expose
 	private String skill;
@@ -35,8 +35,8 @@ public class TrainingItem extends StorableObject {
 
 	public TrainingItem(String name, int bonus, String skill, int probability) {
 		if (name.contains("(")) {
-			this.name = name.substring(0, name.indexOf("("));
-			this.description = name.substring(name.indexOf("("), name.indexOf(")"));
+			this.name = name.substring(0, name.indexOf("(")).trim();
+			this.description = name.substring(name.indexOf("(") + 1, name.indexOf(")")).trim();
 		} else {
 			this.name = name;
 			this.description = "";

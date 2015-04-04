@@ -114,6 +114,9 @@ public class CharacterCreationTest {
 			InvalidLevelException, InvalidCharacterException {
 		String jsonText = CharacterJsonManager.toJson(characterPlayer);
 		CharacterPlayer duplicatedCharacter = CharacterJsonManager.fromJson(jsonText);
+		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
+		String importedSheet = TxtSheet.getCharacterStandardSheetAsText(duplicatedCharacter);
+		Assert.assertTrue(importedSheet.equals(orginalSheet));
 
 		// Increase level of one character.
 		int prevCharacterLevel = characterPlayer.getCurrentLevelNumber();
@@ -138,8 +141,8 @@ public class CharacterCreationTest {
 		Assert.assertEquals((int) duplicatedCharacter.getCurrentLevelNumber(), prevLevel + 1);
 
 		// Compared generated sheet to be sure that has the same information.
-		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
-		String importedSheet = TxtSheet.getCharacterStandardSheetAsText(duplicatedCharacter);
+		orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
+		importedSheet = TxtSheet.getCharacterStandardSheetAsText(duplicatedCharacter);
 
 		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "originalSheet.txt");
 		out1.println(orginalSheet);
