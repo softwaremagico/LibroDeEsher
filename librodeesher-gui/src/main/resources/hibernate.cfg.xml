@@ -34,10 +34,15 @@
 	<property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 	
+	<!-- H2 -->
+        <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property> 
+	<property name="connection.driver_class">org.h2.Driver</property> 
+	<property name="hibernate.connection.url">jdbc:h2:~/.librodeesher/database/esher;DB_CLOSE_DELAY=-1</property>
+	
 	<!-- SQLITE -->
-        <property name="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</property> 
+        <!-- <property name="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</property> 
 	<property name="connection.driver_class">org.sqlite.JDBC</property> 
-	<property name="hibernate.connection.url">jdbc:sqlite:esher.db</property>
+	<property name="hibernate.connection.url">jdbc:sqlite:esher.db</property> -->
 	
 	<!-- MYSQL -->
 	<!-- <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
