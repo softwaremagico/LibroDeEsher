@@ -115,12 +115,6 @@ public class InsertedData extends StorableObject {
 		return createdAtLevel != null && createdAtLevel > 0;
 	}
 
-	@Override
-	public void resetIds() {
-		resetIds(this);
-		resetIds(trainingDecisions);
-	}
-
 	public int getInstertedLevels() {
 		if (instertedLevels != null) {
 			return instertedLevels;

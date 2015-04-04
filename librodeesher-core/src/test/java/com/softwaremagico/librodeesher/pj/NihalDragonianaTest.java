@@ -54,12 +54,12 @@ public class NihalDragonianaTest {
 
 	@Test(dependsOnMethods = "loadFromDatabase")
 	public void saveAgainAsNew() throws Exception {
-		//characterPlayer2.resetIds();
+		int prevCharacter = characterPlayerDao.getRowCount();
 		characterPlayerDao.makePersistent(characterPlayer2);
-		Assert.assertEquals(2, characterPlayerDao.getRowCount());
+		Assert.assertEquals(prevCharacter, characterPlayerDao.getRowCount());
 	}
 
-	@Test(dependsOnMethods = "loadFromDatabase")
+	@Test(dependsOnMethods = {"saveAgainAsNew"})
 	@After
 	public void removeAll() throws Exception {
 		List<CharacterPlayer> characterPlayers = characterPlayerDao.getAll();

@@ -244,25 +244,6 @@ public class CharacterPlayer extends StorableObject {
 		increaseLevel();
 	}
 
-	@Override
-	public void resetIds() {
-		resetIds(this);
-		resetIds(levelUps);
-		resetIds(appearance);
-		resetIds(perkDecisions);
-		resetIds(selectedPerks);
-		resetIds(characteristicsInitialTemporalValues);
-		resetIds(characteristicsPotentialValues);
-		resetIds(characteristicsTemporalUpdatesRolls);
-		resetIds(cultureDecisions);
-		resetIds(professionDecisions);
-		resetIds(realmOfMagic);
-		resetIds(historial);
-		resetIds(magicItems);
-		resetIds(insertedData);
-		resetIds(enabledSkill);
-	}
-
 	public void clearCache() {
 		characterPlayerHelper.resetAll();
 	}
@@ -2017,7 +1998,7 @@ public class CharacterPlayer extends StorableObject {
 		}
 		levelUps.add(levelUp);
 		// Reset id to force to be saved the character as a new record.
-		resetIds();
+		// resetIds();
 		characterPlayerHelper.resetAll();
 	}
 

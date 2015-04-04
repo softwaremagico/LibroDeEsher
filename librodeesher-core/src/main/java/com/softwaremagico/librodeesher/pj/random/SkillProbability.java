@@ -110,9 +110,9 @@ public class SkillProbability {
 				probability += maxRanks;
 				// Limitation of value.
 				if (probability > 150) {
-					EsherLog.warning(SkillProbability.class.getName(), "Increased Category: "
-							+ preferredCategory + "\t Preferred Skill: " + preferredSkill
-							+ "\t Best Skills: " + bestSkills + "\t Skill expensiveness: "
+					EsherLog.warning(SkillProbability.class.getName(), skill.getName()
+							+ ": Increased Category: " + preferredCategory + "\t Preferred Skill: "
+							+ preferredSkill + "\t Best Skills: " + bestSkills + "\t Skill expensiveness: "
 							+ skillExpensiveness + "\t Specialization: " + applyCharacterSpecialization
 							+ "\t Still not used: " + stillNotUsedSkill + "\t Wizard skill: "
 							+ wizardPreferredSkills + "\t Warrior skill: " + warriorsPreferredSkills

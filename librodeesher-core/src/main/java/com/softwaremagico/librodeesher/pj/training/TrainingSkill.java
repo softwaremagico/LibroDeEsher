@@ -14,11 +14,6 @@ public class TrainingSkill extends StorableObject {
 		this.ranks = ranks;
 	}
 
-	@Override
-	public void resetIds() {
-		resetIds(this);
-	}
-
 	public List<String> getSkillOptions() {
 		return skillOptions;
 	}

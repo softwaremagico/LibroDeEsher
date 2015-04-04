@@ -33,11 +33,6 @@ public class TrainingItem extends StorableObject {
 
 	}
 
-	@Override
-	public void resetIds() {
-		resetIds(this);
-	}
-
 	public TrainingItem(String name, int bonus, String skill, int probability) {
 		if (name.contains("(")) {
 			this.name = name.substring(0, name.indexOf("("));

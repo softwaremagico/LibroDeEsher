@@ -85,15 +85,6 @@ public class TrainingDecision extends StorableObject {
 		magicItems = new ArrayList<>();
 	}
 
-	@Override
-	public void resetIds() {
-		resetIds(this);
-		resetIds(equipment);
-		resetIds(characteristicsUpdates);
-		resetIds(skillsSelected);
-		resetIds(categoriesSelected);
-	}
-
 	public void addSelectedCategory(Integer trainingCategory, String categoryName) {
 		TrainingCategoriesSelected categories = categoriesSelected.get(trainingCategory);
 		if (categories == null) {

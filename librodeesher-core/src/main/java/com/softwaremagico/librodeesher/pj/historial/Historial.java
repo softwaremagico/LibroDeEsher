@@ -76,12 +76,6 @@ public class Historial extends StorableObject {
 		skills = new ArrayList<>();
 		characteristicsUpdates = new ArrayList<>();
 	}
-	
-	@Override
-	public void resetIds(){
-		resetIds(this);
-		resetIds(characteristicsUpdates);
-	}
 
 	public void setPoint(Skill skill, boolean value) {
 		if (value) {

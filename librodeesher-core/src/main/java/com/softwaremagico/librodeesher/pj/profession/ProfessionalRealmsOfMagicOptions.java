@@ -57,11 +57,6 @@ public class ProfessionalRealmsOfMagicOptions extends StorableObject {
 		magicRealmsAvailable = new ArrayList<>();
 	}
 
-	@Override
-	public void resetIds() {
-		resetIds(this);
-	}
-
 	public void add(String realms, String professionName) throws InvalidProfessionException {
 		String[] hybridRealms = realms.split(Pattern.quote("/"));
 		for (String realm : hybridRealms) {

@@ -46,14 +46,6 @@ public class MagicObject extends StorableObject {
 		this.bonus = bonus;
 	}
 
-	@Override
-	public void resetIds() {
-		setId(null);
-		for (ObjectBonus bonus : getBonus()) {
-			bonus.resetIds();
-		}
-	}
-
 	public String getDescription() {
 		return description;
 	}
