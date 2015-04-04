@@ -2017,7 +2017,7 @@ public class CharacterPlayer extends StorableObject {
 		}
 		levelUps.add(levelUp);
 		// Reset id to force to be saved the character as a new record.
-		resetIds();
+		// resetIds();
 		characterPlayerHelper.resetAll();
 	}
 
