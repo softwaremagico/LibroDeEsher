@@ -647,9 +647,13 @@ public class CharacterPlayer extends StorableObject {
 		List<String> skillsWithRanks = levelUps.get(level).getSkillsWithRanks();
 		for (String skillName : skillsWithRanks) {
 			Skill skill = SkillFactory.getAvailableSkill(skillName);
-			Integer ranksUpdatedInLevel = levelUps.get(level).getSkillsRanks(skillName);
-			for (int i = 0; i < ranksUpdatedInLevel; i++) {
-				total += getNewRankCost(skill, getPreviousRanks(skill) + i, i);
+			if (skill != null) {
+				Integer ranksUpdatedInLevel = levelUps.get(level).getSkillsRanks(skillName);
+				for (int i = 0; i < ranksUpdatedInLevel; i++) {
+					total += getNewRankCost(skill, getPreviousRanks(skill) + i, i);
+				}
+			} else {
+				EsherLog.severe(this.getClass().getName(), "Habilidad no encontrada: " + skillName);
 			}
 		}
 		return total;
@@ -1490,7 +1494,8 @@ public class CharacterPlayer extends StorableObject {
 	public void removePerk(Perk perk) {
 		SelectedPerk perkToRemove = null;
 		for (SelectedPerk selectedPerk : selectedPerks) {
-			if (selectedPerk.getName().equals(perk.getName()) && selectedPerk.getCost().equals(perk.getCost())) {
+			if (selectedPerk.getName().equals(perk.getName())
+					&& selectedPerk.getCost().equals(perk.getCost())) {
 				perkToRemove = selectedPerk;
 				break;
 			}
@@ -1504,7 +1509,8 @@ public class CharacterPlayer extends StorableObject {
 
 	public boolean isPerkChoosed(Perk perk) {
 		for (SelectedPerk selectedPerk : selectedPerks) {
-			if (selectedPerk.getName().equals(perk.getName()) && selectedPerk.getCost().equals(perk.getCost())) {
+			if (selectedPerk.getName().equals(perk.getName())
+					&& selectedPerk.getCost().equals(perk.getCost())) {
 				return true;
 			}
 		}
@@ -1822,7 +1828,8 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public void removeTrainingSkill(Training training, TrainingCategory trainingCategory) {
-		getTrainingDecision(training.getName()).removeSkillsSelected(training.getTrainingCategoryIndex(trainingCategory));
+		getTrainingDecision(training.getName()).removeSkillsSelected(
+				training.getTrainingCategoryIndex(trainingCategory));
 		characterPlayerHelper.resetAllSkillRanks();
 	}
 
@@ -2007,13 +2014,14 @@ public class CharacterPlayer extends StorableObject {
 	public void increaseLevel() {
 		LevelUp levelUp = new LevelUp();
 		// Calculate characteristics modifications.
-		if (getLevelUps().size() > 0) {
-			for (Characteristic characteristic : Characteristics.getCharacteristics()) {
-				Roll roll = getStoredCharacteristicRoll(characteristic.getAbbreviature());
-				levelUp.addCharactersiticUpdate(characteristic.getAbbreviature(),
-						getCharacteristicTemporalValue(characteristic.getAbbreviature()),
-						getCharacteristicPotentialValue(characteristic.getAbbreviature()), roll);
-			}
+		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
+			Roll roll = getStoredCharacteristicRoll(characteristic.getAbbreviature());
+			Roll characteristicRoll = new Roll();
+			characteristicRoll.setFirstDice(roll.getFirstDice());
+			characteristicRoll.setSecondDice(roll.getSecondDice());
+			levelUp.addCharactersiticUpdate(characteristic.getAbbreviature(),
+					getCharacteristicTemporalValue(characteristic.getAbbreviature()),
+					getCharacteristicPotentialValue(characteristic.getAbbreviature()), characteristicRoll);
 		}
 		levelUps.add(levelUp);
 		// Reset id to force to be saved the character as a new record.
@@ -2066,8 +2074,8 @@ public class CharacterPlayer extends StorableObject {
 			magicItems.add(magicObject);
 		}
 	}
-	
-	public void updateMagicItemHelper(MagicObject magicObject){
+
+	public void updateMagicItemHelper(MagicObject magicObject) {
 		if (magicObject != null) {
 			for (ObjectBonus objectBonus : magicObject.getBonus()) {
 				if (objectBonus.getType().equals(BonusType.CATEGORY)) {
@@ -2312,6 +2320,10 @@ public class CharacterPlayer extends StorableObject {
 
 	public Map<String, String> getEnabledSkill() {
 		return enabledSkill;
+	}
+
+	public CultureDecisions getCultureDecisions() {
+		return cultureDecisions;
 	}
 
 }

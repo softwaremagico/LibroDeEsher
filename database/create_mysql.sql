@@ -620,9 +620,6 @@
     alter table T_ROLL_GROUP 
         add constraint UK_1tsw2ugbypulgt0xywmak2llm  unique (comparationId);
 
-    alter table T_ROLL_LIST 
-        add constraint UK_aoc04hgu3c7snaanjdg9tdlq6  unique (rolls_ID);
-
     alter table T_TRAINING_CATEGORIES_SELECTED 
         add constraint UK_cjlsw6faxbj52bjt31aow627g  unique (ID);
 

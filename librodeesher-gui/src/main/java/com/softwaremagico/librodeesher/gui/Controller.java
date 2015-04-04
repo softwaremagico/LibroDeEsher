@@ -178,6 +178,8 @@ public class Controller {
 				@Override
 				public void addCharacter(CharacterPlayer characterPlayer) {
 					addCharacterPlayer(characterPlayer);
+					MessageManager.infoMessage(Controller.class.getName(), "Personaje cargado con éxito!",
+							"Cargar");
 				}
 			});
 			loadWindow.addRemoveCharacterListener(new RemoveCharacterListener() {
@@ -209,9 +211,9 @@ public class Controller {
 				if (characterPersisted != null) {
 					MessageManager.infoMessage(Controller.class.getName(), "Personaje guardado con éxito!",
 							"Salvar");
-					characters.remove(selectedCharacter);
-					characters.add(characterPersisted);
-					selectedCharacter = characterPersisted;
+//					characters.remove(selectedCharacter);
+//					characters.add(characterPersisted);
+//					selectedCharacter = characterPersisted;
 				} else {
 					MessageManager
 							.basicErrorMessage(

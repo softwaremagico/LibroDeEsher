@@ -118,6 +118,7 @@ public class LevelUp extends StorableObject {
 	public void resetIds() {
 		resetIds(this);
 		resetIds(trainingDecisions);
+		resetIds(characteristicsUpdates);
 	}
 
 	public Integer getCategoryRanks(String categoryName) {

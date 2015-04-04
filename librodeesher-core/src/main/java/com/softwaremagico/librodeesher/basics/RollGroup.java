@@ -8,7 +8,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
@@ -28,7 +28,10 @@ public class RollGroup extends StorableObject {
 	private static final Integer STORED_ROLLS_NUMBER = 10;
 
 	@Expose
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	// Must be @OneToMany and orphan removal, but causes a DuplicatedEntry
+	// exception.
+	// http://stackoverflow.com/questions/4022509/constraint-violation-in-hibernate-unidirectional-onetomany-mapping-with-jointabl
+	@ManyToMany(cascade = CascadeType.ALL)
 	@CollectionTable(name = "T_ROLL_LIST")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OrderColumn(name = "roll_index")
@@ -57,7 +60,7 @@ public class RollGroup extends StorableObject {
 
 	private void fillUpRolls() {
 		while (rolls.size() < STORED_ROLLS_NUMBER) {
-			rolls.add(new Roll());
+			add(new Roll());
 		}
 	}
 
