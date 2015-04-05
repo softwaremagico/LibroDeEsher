@@ -28,6 +28,7 @@ import com.softwaremagico.librodeesher.pj.random.RandomFeedbackListener;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.persistence.dao.hibernate.CharacterPlayerDao;
+import com.softwaremagico.persistence.dao.hibernate.CharacterPlayerInfoDao;
 import com.softwaremagico.persistence.dao.hibernate.DatabaseException;
 
 @Test
@@ -35,15 +36,18 @@ public class CharacterCreationTest {
 	private final static String PDF_PATH_STANDARD = System.getProperty("java.io.tmpdir") + "/testStnd.pdf";
 	private final static String PDF_PATH_COMBINED = System.getProperty("java.io.tmpdir") + "/testCmb.pdf";
 	private final static String TXT_PATH = System.getProperty("java.io.tmpdir") + "/testStandard.txt";
-	private final static String TXT_ABBREVIATED_PATH = System.getProperty("java.io.tmpdir") + "/testAbbreviated.txt";
+	private final static String TXT_ABBREVIATED_PATH = System.getProperty("java.io.tmpdir")
+			+ "/testAbbreviated.txt";
 	private final static String JSON_LEVEL_PATH = System.getProperty("java.io.tmpdir") + "/testLevelJson.txt";
 	private CharacterPlayerDao characterPlayerDao = CharacterPlayerDao.getInstance();
+	private CharacterPlayerInfoDao characterPlayerInfoDao = CharacterPlayerInfoDao.getInstance();
 	private CharacterPlayer characterPlayer;
 
 	@Test(groups = { "characterCreation" })
 	public void createCharacter() throws MagicDefinitionException, InvalidProfessionException {
 		RandomCharacterPlayer randomCharacter = new RandomCharacterPlayer(null, null, null, null, 1);
-		// randomCharacter.setSuggestedTrainings(new ArrayList<String>(Arrays.asList("Soldado", "Guardia")));
+		// randomCharacter.setSuggestedTrainings(new
+		// ArrayList<String>(Arrays.asList("Soldado", "Guardia")));
 		randomCharacter.addFeedbackListener(new RandomFeedbackListener() {
 			@Override
 			public void feedBackMessage(String message) {
@@ -60,6 +64,13 @@ public class CharacterCreationTest {
 		characterPlayerDao.makePersistent(characterPlayer);
 		Assert.assertNotNull(characterPlayer.getId());
 		Assert.assertNotNull(characterPlayer.getTotalValue(SkillFactory.getAvailableSkill("Trepar")));
+	}
+
+	@Test(groups = { "characterStorage" }, dependsOnMethods = { "storeCharacter" })
+	public void characterInfo() throws DatabaseException {
+		Assert.assertEquals(characterPlayerInfoDao.getRowCount(), 1);
+		Assert.assertEquals(CharacterPlayerInfo.getCharacterPlayerInfo(characterPlayer),
+				characterPlayerInfoDao.getAll().get(0));
 	}
 
 	@Test(groups = { "characterPdf" }, dependsOnMethods = { "createCharacter" })
@@ -110,8 +121,8 @@ public class CharacterCreationTest {
 	}
 
 	@Test(groups = { "characterJson" }, dependsOnMethods = { "exportCharacterJson" })
-	public void exportLevelJson() throws MagicDefinitionException, InvalidProfessionException, FileNotFoundException,
-			InvalidLevelException, InvalidCharacterException {
+	public void exportLevelJson() throws MagicDefinitionException, InvalidProfessionException,
+			FileNotFoundException, InvalidLevelException, InvalidCharacterException {
 		String jsonText = CharacterJsonManager.toJson(characterPlayer);
 		CharacterPlayer duplicatedCharacter = CharacterJsonManager.fromJson(jsonText);
 		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
@@ -144,7 +155,8 @@ public class CharacterCreationTest {
 		orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
 		importedSheet = TxtSheet.getCharacterStandardSheetAsText(duplicatedCharacter);
 
-		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "originalSheet.txt");
+		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
+				+ "originalSheet.txt");
 		out1.println(orginalSheet);
 		out1.close();
 
@@ -182,7 +194,8 @@ public class CharacterCreationTest {
 		for (CharacterPlayer character : characterPlayers) {
 			characterPlayerDao.makeTransient(character);
 		}
-		Assert.assertEquals(0, characterPlayerDao.getRowCount());
+		Assert.assertEquals(characterPlayerDao.getRowCount(), 0);
+		Assert.assertEquals(characterPlayerInfoDao.getRowCount(), 0);
 	}
 
 }

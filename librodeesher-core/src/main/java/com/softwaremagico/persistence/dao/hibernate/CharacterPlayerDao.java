@@ -7,12 +7,24 @@ import org.hibernate.Hibernate;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.persistence.dao.ICharacterPlayerDao;
 
-public class CharacterPlayerDao extends GenericDao<CharacterPlayer> implements
-		ICharacterPlayerDao {
+public class CharacterPlayerDao extends GenericDao<CharacterPlayer> implements ICharacterPlayerDao {
 	private static CharacterPlayerDao instance = null;
 
 	public CharacterPlayerDao() {
 		super(CharacterPlayer.class);
+	}
+
+	@Override
+	public CharacterPlayer makePersistent(CharacterPlayer entity) throws DatabaseException {
+		CharacterPlayer player = super.makePersistent(entity);
+		removeOrphanRolls();
+		return player;
+	}
+
+	@Override
+	public void makeTransient(CharacterPlayer entity) {
+		super.makeTransient(entity);
+		removeOrphanRolls();
 	}
 
 	public static CharacterPlayerDao getInstance() {
@@ -44,6 +56,13 @@ public class CharacterPlayerDao extends GenericDao<CharacterPlayer> implements
 			Hibernate.initialize(player.getProfessionDecisions());
 			Hibernate.initialize(player.getCultureDecisions());
 		}
+	}
+
+	/**
+	 * As RollGroup cannot be a @OneToMany but @ManyToMany due to hibernate
+	 * issue, we need to disable orphan removal and implement by this method.
+	 */
+	private void removeOrphanRolls() {
 
 	}
 }

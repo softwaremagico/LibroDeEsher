@@ -44,7 +44,7 @@
         otherRealmtrainingSpellsAllowed bit not null,
         professionName varchar(255),
         raceName varchar(255),
-        sex integer,
+        sex varchar(255),
         version varchar(255),
         appearance_ID bigint,
         cultureDecisionsId bigint,

@@ -36,6 +36,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -111,6 +113,7 @@ public class CharacterPlayer extends StorableObject {
 	@Expose
 	private String name;
 	@Expose
+	@Enumerated(EnumType.STRING)
 	private SexType sex;
 	@Expose
 	private String historyText;

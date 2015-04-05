@@ -40,4 +40,13 @@ public enum SexType {
 	public String toString() {
 		return getTag();
 	}
+
+	public static SexType fromString(String sex) {
+		for (SexType sexType : SexType.values()) {
+			if (sexType.name().equals(sex)) {
+				return sexType;
+			}
+		}
+		return null;
+	}
 }
