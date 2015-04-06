@@ -39,6 +39,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.AbstractTableModel;
 
 import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
@@ -102,43 +103,12 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 
 	private JPanel createTablePanel() {
 		JPanel panel = new JPanel(new GridLayout(1, 1));
-		String[] columnNames = { "Nombre", "Nivel", "Raza", "Profesión", "Creado", "Modificado" };
+		MyTableModel tableModel = new MyTableModel();
 
-		List<String[]> playersData = new ArrayList<>();
-		for (CharacterPlayerInfo characterPlayer : availableCharacterPlayers) {
-			String[] playerData = new String[columnNames.length];
-			playerData[0] = characterPlayer.getName();
-			playerData[1] = characterPlayer.getLevel() + "";
-			playerData[2] = characterPlayer.getRaceName();
-			playerData[3] = characterPlayer.getProfessionName();
-			playerData[4] = DateManager.convertDateToString(characterPlayer.getCreationTime());
-			playerData[5] = DateManager.convertDateToString(characterPlayer.getUpdateTime());
-			playersData.add(playerData);
-		}
-
-		String[][] playerArray = new String[playersData.size()][columnNames.length];
-		int i = 0;
-		for (String[] playerData : playersData) {
-			playerArray[i] = playerData;
-			i++;
-		}
-
-		charactersTable = new JTable(playerArray, columnNames);
+		charactersTable = new JTable(tableModel);
 		charactersTable.setPreferredScrollableViewportSize(new Dimension(450, 300));
 		charactersTable.setFillsViewportHeight(true);
 		charactersTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-//		DefaultTableModel tableModel = new DefaultTableModel() {
-//			private static final long serialVersionUID = -3705035596470874155L;
-//
-//			@Override
-//			public boolean isCellEditable(int row, int column) {
-//				// all cells false
-//				return false;
-//			}
-//		};
-//
-//		charactersTable.setModel(tableModel);
 
 		// Create the scroll pane and add the table to it.
 		JScrollPane scrollPane = new JScrollPane(charactersTable);
@@ -184,7 +154,8 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 					if (ShowMessage.showQuestionMessage(null,
 							"El personaje seleccionado será elminado. ¿Quieres continuar con la acción?",
 							"Borrado")) {
-						CharacterPlayer characterPlayer = CharacterPlayerDao.getInstance().read(selected.getId());
+						CharacterPlayer characterPlayer = CharacterPlayerDao.getInstance().read(
+								selected.getId());
 						for (RemoveCharacterListener listener : removeCharacterListeners) {
 							listener.removeCharacter(characterPlayer);
 						}
@@ -221,6 +192,87 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 
 	public void removeRemoveCharacterListener(RemoveCharacterListener listener) {
 		removeCharacterListeners.remove(listener);
+	}
+
+	class MyTableModel extends AbstractTableModel {
+		private static final long serialVersionUID = -8023198297880106319L;
+
+		private String[] columnNames = { "Nombre", "Nivel", "Raza", "Profesión", "Creado", "Modificado" };
+
+		private Object[][] data = null;
+
+		MyTableModel() {
+			createData();
+		}
+
+		private void createData() {
+			List<String[]> playersData = new ArrayList<>();
+			for (CharacterPlayerInfo characterPlayer : availableCharacterPlayers) {
+				String[] playerData = new String[columnNames.length];
+				playerData[0] = characterPlayer.getName();
+				playerData[1] = characterPlayer.getLevel() + "";
+				playerData[2] = characterPlayer.getRaceName();
+				playerData[3] = characterPlayer.getProfessionName();
+				playerData[4] = DateManager.convertDateToString(characterPlayer.getCreationTime());
+				playerData[5] = DateManager.convertDateToString(characterPlayer.getUpdateTime());
+				playersData.add(playerData);
+			}
+
+			data = new String[playersData.size()][columnNames.length];
+			int i = 0;
+			for (String[] playerData : playersData) {
+				data[i] = playerData;
+				i++;
+			}
+		}
+
+		@Override
+		public int getColumnCount() {
+			return columnNames.length;
+		}
+
+		@Override
+		public int getRowCount() {
+			return data.length;
+		}
+
+		@Override
+		public String getColumnName(int col) {
+			return columnNames[col];
+		}
+
+		@Override
+		public Object getValueAt(int row, int col) {
+			return data[row][col];
+		}
+
+		/*
+		 * JTable uses this method to determine the default renderer/ editor for
+		 * each cell. If we didn't implement this method, then the last column
+		 * would contain text ("true"/"false"), rather than a check box.
+		 */
+		@Override
+		public Class<?> getColumnClass(int c) {
+			return getValueAt(0, c).getClass();
+		}
+
+		/*
+		 * Don't need to implement this method unless your table's editable.
+		 */
+		@Override
+		public boolean isCellEditable(int row, int col) {
+			return false;
+		}
+
+		/*
+		 * Don't need to implement this method unless your table's data can
+		 * change.
+		 */
+		@Override
+		public void setValueAt(Object value, int row, int col) {
+			data[row][col] = value;
+			fireTableCellUpdated(row, col);
+		}
 	}
 
 }
