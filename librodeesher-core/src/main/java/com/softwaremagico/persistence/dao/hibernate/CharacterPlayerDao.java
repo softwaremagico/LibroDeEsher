@@ -3,8 +3,13 @@ package com.softwaremagico.persistence.dao.hibernate;
 import java.util.List;
 
 import org.hibernate.Hibernate;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 
+import com.softwaremagico.librodeesher.basics.Roll;
+import com.softwaremagico.librodeesher.basics.RollGroup;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 import com.softwaremagico.persistence.dao.ICharacterPlayerDao;
 
 public class CharacterPlayerDao extends GenericDao<CharacterPlayer> implements ICharacterPlayerDao {
@@ -63,6 +68,13 @@ public class CharacterPlayerDao extends GenericDao<CharacterPlayer> implements I
 	 * issue, we need to disable orphan removal and implement by this method.
 	 */
 	private void removeOrphanRolls() {
+		Session session = getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		String sql = "DELETE FROM T_ROLL WHERE ID NOT IN (SELECT r.rolls_ID FROM T_ROLL_LIST r) AND ID NOT IN (SELECT crg.roll_ID FROM T_CHARACTERISTIC_ROLL_GROUP crg)";
 
+		SQLQuery query = session.createSQLQuery(sql).addEntity(Roll.class)
+				.addEntity(CharacteristicRoll.class).addEntity(RollGroup.class);
+		query.executeUpdate();
+		session.getTransaction().commit();
 	}
 }
