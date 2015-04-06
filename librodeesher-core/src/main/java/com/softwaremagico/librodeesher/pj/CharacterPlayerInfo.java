@@ -1,5 +1,7 @@
 package com.softwaremagico.librodeesher.pj;
 
+import java.sql.Timestamp;
+
 public class CharacterPlayerInfo {
 
 	private Long id;
@@ -10,6 +12,8 @@ public class CharacterPlayerInfo {
 	private String raceName;
 	private String cultureName;
 	private String professionName;
+	private Timestamp creationTime = null;
+	private Timestamp updateTime = null;
 
 	public static CharacterPlayerInfo getCharacterPlayerInfo(CharacterPlayer characterPlayer) {
 		CharacterPlayerInfo characterPlayerInfo = new CharacterPlayerInfo();
@@ -21,6 +25,8 @@ public class CharacterPlayerInfo {
 		characterPlayerInfo.setRaceName(characterPlayer.getRaceName());
 		characterPlayerInfo.setCultureName(characterPlayer.getCultureName());
 		characterPlayerInfo.setProfessionName(characterPlayer.getProfessionName());
+		characterPlayerInfo.setCreationTime(characterPlayer.getCreationTime());
+		characterPlayerInfo.setUpdateTime(characterPlayer.getUpdateTime());
 
 		return characterPlayerInfo;
 	}
@@ -151,6 +157,22 @@ public class CharacterPlayerInfo {
 
 	public void setInsertedLevel(int insertedLevel) {
 		this.insertedLevel = insertedLevel;
+	}
+
+	public Timestamp getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Timestamp creationTime) {
+		this.creationTime = creationTime;
+	}
+
+	public Timestamp getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Timestamp updateTime) {
+		this.updateTime = updateTime;
 	}
 
 }

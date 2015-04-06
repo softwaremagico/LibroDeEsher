@@ -1,6 +1,7 @@
 package com.softwaremagico.persistence.dao.hibernate;
 
 import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +70,7 @@ public class CharacterPlayerInfoDao implements ICharacterPlayerInfoDao {
 		Session session = getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		SQLQuery query = session
-				.createSQLQuery("SELECT cp.ID, cp.name, cp.raceName, cp.professionName, cp.cultureName, cp.sex, characterLevel.levelNumber, insertedCharacter.insertLevel "
+				.createSQLQuery("SELECT cp.ID, cp.creationTime, cp.updateTime, cp.name, cp.raceName, cp.professionName, cp.cultureName, cp.sex, characterLevel.levelNumber, insertedCharacter.insertLevel "
 						+ "from T_CHARACTERPLAYER cp "
 						+ "INNER JOIN "
 						+ "(SELECT insertedLevels as insertLevel, ID insID FROM T_INSERTED_DATA ins) as insertedCharacter on cp.insertedDataId=insID "
@@ -85,13 +86,15 @@ public class CharacterPlayerInfoDao implements ICharacterPlayerInfoDao {
 		for (Object[] row : rows) {
 			CharacterPlayerInfo characterPlayer = new CharacterPlayerInfo();
 			characterPlayer.setId(((BigInteger) row[0]).longValue());
-			characterPlayer.setName((String) row[1]);
-			characterPlayer.setRaceName((String) row[2]);
-			characterPlayer.setProfessionName((String) row[3]);
-			characterPlayer.setCultureName((String) row[4]);
-			characterPlayer.setSex(SexType.fromString((String) row[5]));
-			characterPlayer.setCreatedLevel(((BigInteger) row[6]).intValue());
-			characterPlayer.setInsertedLevel((Integer) row[7]);
+			characterPlayer.setCreationTime((Timestamp) row[1]);
+			characterPlayer.setUpdateTime((Timestamp) row[2]);
+			characterPlayer.setName((String) row[3]);
+			characterPlayer.setRaceName((String) row[4]);
+			characterPlayer.setProfessionName((String) row[5]);
+			characterPlayer.setCultureName((String) row[6]);
+			characterPlayer.setSex(SexType.fromString((String) row[7]));
+			characterPlayer.setCreatedLevel(((BigInteger) row[8]).intValue());
+			characterPlayer.setInsertedLevel((Integer) row[9]);
 			characterPlayers.add(characterPlayer);
 		}
 

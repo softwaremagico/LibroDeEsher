@@ -45,7 +45,9 @@ import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.CharacterPlayerInfo;
 import com.softwaremagico.persistence.dao.hibernate.CharacterPlayerDao;
+import com.softwaremagico.persistence.dao.hibernate.CharacterPlayerInfoDao;
 import com.softwaremagico.utils.DateManager;
 
 public class LoadCharacterPlayerWindow extends BaseFrame {
@@ -53,7 +55,7 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 	private List<LoadCharacterListener> loadCharacterListeners;
 	private List<RemoveCharacterListener> removeCharacterListeners;
 	private JTable charactersTable;
-	private List<CharacterPlayer> availableCharacterPlayers;
+	private List<CharacterPlayerInfo> availableCharacterPlayers;
 	private JPanel characterTable;
 	private JPanel rootPanel;
 
@@ -62,7 +64,7 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 		loadCharacterListeners = new ArrayList<>();
 		removeCharacterListeners = new ArrayList<>();
 		defineWindow(700, 400);
-		availableCharacterPlayers = CharacterPlayerDao.getInstance().getAll();
+		availableCharacterPlayers = CharacterPlayerInfoDao.getInstance().getAll();
 		setElements();
 	}
 
@@ -100,29 +102,17 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 
 	private JPanel createTablePanel() {
 		JPanel panel = new JPanel(new GridLayout(1, 1));
-		String[] columnNames = { "Nombre", "Nivel", "Raza", "Profesión", "Adiestramientos", "Creado",
-				"Modificado" };
+		String[] columnNames = { "Nombre", "Nivel", "Raza", "Profesión", "Creado", "Modificado" };
 
 		List<String[]> playersData = new ArrayList<>();
-		for (CharacterPlayer characterPlayer : availableCharacterPlayers) {
+		for (CharacterPlayerInfo characterPlayer : availableCharacterPlayers) {
 			String[] playerData = new String[columnNames.length];
 			playerData[0] = characterPlayer.getName();
-			playerData[1] = characterPlayer.getCurrentLevelNumber().toString();
-			playerData[2] = characterPlayer.getRace().getName();
-			playerData[3] = characterPlayer.getProfession().getName();
-
-			String trainingsText = "";
-			List<String> trainings = characterPlayer.getSelectedTrainings();
-			for (int i = 0; i < trainings.size(); i++) {
-				trainingsText += trainings.get(i);
-				if (i < trainings.size() - 1) {
-					trainingsText += ", ";
-				}
-			}
-
-			playerData[4] = trainingsText;
-			playerData[5] = DateManager.convertDateToString(characterPlayer.getCreationTime());
-			playerData[6] = DateManager.convertDateToString(characterPlayer.getCreationTime());
+			playerData[1] = characterPlayer.getLevel() + "";
+			playerData[2] = characterPlayer.getRaceName();
+			playerData[3] = characterPlayer.getProfessionName();
+			playerData[4] = DateManager.convertDateToString(characterPlayer.getCreationTime());
+			playerData[5] = DateManager.convertDateToString(characterPlayer.getUpdateTime());
 			playersData.add(playerData);
 		}
 
@@ -137,6 +127,18 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 		charactersTable.setPreferredScrollableViewportSize(new Dimension(450, 300));
 		charactersTable.setFillsViewportHeight(true);
 		charactersTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+//		DefaultTableModel tableModel = new DefaultTableModel() {
+//			private static final long serialVersionUID = -3705035596470874155L;
+//
+//			@Override
+//			public boolean isCellEditable(int row, int column) {
+//				// all cells false
+//				return false;
+//			}
+//		};
+//
+//		charactersTable.setModel(tableModel);
 
 		// Create the scroll pane and add the table to it.
 		JScrollPane scrollPane = new JScrollPane(charactersTable);
@@ -160,10 +162,12 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 			public void actionPerformed(ActionEvent e) {
 				// Launch listeners.
 				if (charactersTable.getSelectedRow() >= 0) {
-					CharacterPlayer selected = availableCharacterPlayers.get(charactersTable.getSelectedRow());
-					selected.clearCache();
+					CharacterPlayerInfo selected = availableCharacterPlayers.get(charactersTable
+							.getSelectedRow());
+					CharacterPlayer characterPlayer = CharacterPlayerDao.getInstance().read(selected.getId());
+					characterPlayer.clearCache();
 					for (LoadCharacterListener listener : loadCharacterListeners) {
-						listener.addCharacter(selected);
+						listener.addCharacter(characterPlayer);
 						thisWindow.dispose();
 					}
 				}
@@ -175,13 +179,14 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 		removeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				CharacterPlayer selected = availableCharacterPlayers.get(charactersTable.getSelectedRow());
+				CharacterPlayerInfo selected = availableCharacterPlayers.get(charactersTable.getSelectedRow());
 				if (selected != null) {
 					if (ShowMessage.showQuestionMessage(null,
 							"El personaje seleccionado será elminado. ¿Quieres continuar con la acción?",
 							"Borrado")) {
+						CharacterPlayer characterPlayer = CharacterPlayerDao.getInstance().read(selected.getId());
 						for (RemoveCharacterListener listener : removeCharacterListeners) {
-							listener.removeCharacter(selected);
+							listener.removeCharacter(characterPlayer);
 						}
 						availableCharacterPlayers.remove(selected);
 						setElements();
