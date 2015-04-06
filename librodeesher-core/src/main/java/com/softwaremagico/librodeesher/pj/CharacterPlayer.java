@@ -506,7 +506,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getCurrentLevelNumber() {
-		return levelUps.size() + insertedData.getInstertedLevels();
+		return levelUps.size() + insertedData.getInsertedLevels();
 	}
 
 	public Culture getCulture() {
@@ -2327,6 +2327,13 @@ public class CharacterPlayer extends StorableObject {
 
 	public CultureDecisions getCultureDecisions() {
 		return cultureDecisions;
+	}
+
+	public int getInsertedLevel() {
+		if (insertedData == null) {
+			return 0;
+		}
+		return insertedData.getInsertedLevels();
 	}
 
 }

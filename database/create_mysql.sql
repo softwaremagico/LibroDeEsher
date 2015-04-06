@@ -181,7 +181,7 @@
         creationTime datetime not null,
         updateTime datetime,
         createdAtLevel integer,
-        instertedLevels integer,
+        insertedLevels integer,
         primary key (ID)
     );
 

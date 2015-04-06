@@ -4,7 +4,8 @@ public class CharacterPlayerInfo {
 
 	private Long id;
 	private String name;
-	private int level;
+	private int createdLevel;
+	private int insertedLevel;
 	private SexType sex;
 	private String raceName;
 	private String cultureName;
@@ -14,7 +15,8 @@ public class CharacterPlayerInfo {
 		CharacterPlayerInfo characterPlayerInfo = new CharacterPlayerInfo();
 		characterPlayerInfo.setId(characterPlayer.getId());
 		characterPlayerInfo.setName(characterPlayer.getName());
-		characterPlayerInfo.setLevel(characterPlayer.getCurrentLevelNumber());
+		characterPlayerInfo.setCreatedLevel(characterPlayer.getCurrentLevelNumber());
+		characterPlayerInfo.setInsertedLevel(characterPlayer.getInsertedLevel());
 		characterPlayerInfo.setSex(characterPlayer.getSex());
 		characterPlayerInfo.setRaceName(characterPlayer.getRaceName());
 		characterPlayerInfo.setCultureName(characterPlayer.getCultureName());
@@ -36,12 +38,16 @@ public class CharacterPlayerInfo {
 		this.name = name;
 	}
 
-	public int getLevel() {
-		return level;
+	public int getCreatedLevel() {
+		return createdLevel;
+	}
+	
+	public int getLevel(){
+		return createdLevel + insertedLevel;
 	}
 
-	public void setLevel(int level) {
-		this.level = level;
+	public void setCreatedLevel(int level) {
+		this.createdLevel = level;
 	}
 
 	public SexType getSex() {
@@ -90,7 +96,7 @@ public class CharacterPlayerInfo {
 		int result = 1;
 		result = prime * result + ((cultureName == null) ? 0 : cultureName.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + level;
+		result = prime * result + createdLevel;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((professionName == null) ? 0 : professionName.hashCode());
 		result = prime * result + ((raceName == null) ? 0 : raceName.hashCode());
@@ -117,7 +123,7 @@ public class CharacterPlayerInfo {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (level != other.level)
+		if (createdLevel != other.createdLevel)
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -137,6 +143,14 @@ public class CharacterPlayerInfo {
 		if (sex != other.sex)
 			return false;
 		return true;
+	}
+
+	public int getInsertedLevel() {
+		return insertedLevel;
+	}
+
+	public void setInsertedLevel(int insertedLevel) {
+		this.insertedLevel = insertedLevel;
 	}
 
 }

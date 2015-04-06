@@ -69,8 +69,17 @@ public class CharacterCreationTest {
 	@Test(groups = { "characterStorage" }, dependsOnMethods = { "storeCharacter" })
 	public void characterInfo() throws DatabaseException {
 		Assert.assertEquals(characterPlayerInfoDao.getRowCount(), 1);
-		Assert.assertEquals(CharacterPlayerInfo.getCharacterPlayerInfo(characterPlayer),
-				characterPlayerInfoDao.getAll().get(0));
+		CharacterPlayerInfo original = CharacterPlayerInfo.getCharacterPlayerInfo(characterPlayer);
+		CharacterPlayerInfo obtained = characterPlayerInfoDao.getAll().get(0);
+		Assert.assertEquals(original.getId(), obtained.getId());
+		Assert.assertEquals(original.getName(), obtained.getName());
+		Assert.assertEquals(original.getCreatedLevel(), obtained.getCreatedLevel());
+		Assert.assertEquals(original.getInsertedLevel(), obtained.getInsertedLevel());
+		Assert.assertEquals(original.getSex(), obtained.getSex());
+		Assert.assertEquals(original.getRaceName(), obtained.getRaceName());
+		Assert.assertEquals(original.getCultureName(), obtained.getCultureName());
+		Assert.assertEquals(original.getProfessionName(), obtained.getProfessionName());
+		Assert.assertEquals(original, obtained);
 	}
 
 	@Test(groups = { "characterPdf" }, dependsOnMethods = { "createCharacter" })
@@ -93,7 +102,7 @@ public class CharacterCreationTest {
 		TxtSheet.exportCharacterAbbreviature(characterPlayer, TXT_ABBREVIATED_PATH);
 	}
 
-	@Test(groups = { "characterJson" }, dependsOnMethods = { "createCharacter" })
+	@Test(groups = { "characterJson" }, dependsOnMethods = { "createCharacter", "characterInfo" })
 	public void exportCharacterJson() throws FileNotFoundException {
 		String jsonText = CharacterJsonManager.toJson(characterPlayer);
 		// get json to object.

@@ -69,11 +69,13 @@ public class CharacterPlayerInfoDao implements ICharacterPlayerInfoDao {
 		Session session = getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		SQLQuery query = session
-				.createSQLQuery("SELECT cp.ID, cp.name, cp.raceName, cp.professionName, cp.cultureName, cp.sex, characterLevel.levelNumber "
-						+ "from T_CHARACTERPLAYER cp INNER JOIN "
-						+ "(SELECT COUNT(*) as levelNumber, T_CHARACTERPLAYER_ID from T_CHARACTERPLAYER_LEVEL_UP cl "
-						+ "GROUP BY cl.T_CHARACTERPLAYER_ID) "
-						+ "as characterLevel on characterLevel.T_CHARACTERPLAYER_ID = cp.ID;");
+				.createSQLQuery("SELECT cp.ID, cp.name, cp.raceName, cp.professionName, cp.cultureName, cp.sex, characterLevel.levelNumber, insertedCharacter.insertLevel "
+						+ "from T_CHARACTERPLAYER cp "
+						+ "INNER JOIN "
+						+ "(SELECT insertedLevels as insertLevel, ID insID FROM T_INSERTED_DATA ins) as insertedCharacter on cp.insertedDataId=insID "
+						+ "INNER JOIN "
+						+ "(SELECT COUNT(*) as levelNumber, T_CHARACTERPLAYER_ID as characterID from T_CHARACTERPLAYER_LEVEL_UP cl "
+						+ "GROUP BY cl.T_CHARACTERPLAYER_ID) as characterLevel " + "on characterID = cp.ID;");
 
 		List<Object[]> rows = query.list();
 
@@ -88,7 +90,8 @@ public class CharacterPlayerInfoDao implements ICharacterPlayerInfoDao {
 			characterPlayer.setProfessionName((String) row[3]);
 			characterPlayer.setCultureName((String) row[4]);
 			characterPlayer.setSex(SexType.fromString((String) row[5]));
-			characterPlayer.setLevel(((BigInteger) row[6]).intValue());
+			characterPlayer.setCreatedLevel(((BigInteger) row[6]).intValue());
+			characterPlayer.setInsertedLevel((Integer) row[7]);
 			characterPlayers.add(characterPlayer);
 		}
 

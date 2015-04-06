@@ -37,7 +37,7 @@ public class InsertedData extends StorableObject {
 	private Integer createdAtLevel = 0;
 
 	@Expose
-	private Integer instertedLevels = 0;
+	private Integer insertedLevels = 0;
 
 	@Expose
 	@ElementCollection
@@ -121,15 +121,15 @@ public class InsertedData extends StorableObject {
 		resetIds(trainingDecisions);
 	}
 
-	public int getInstertedLevels() {
-		if (instertedLevels != null) {
-			return instertedLevels;
+	public int getInsertedLevels() {
+		if (insertedLevels != null) {
+			return insertedLevels;
 		}
 		return 0;
 	}
 
-	public void setInstertedLevels(int instertedLevels) {
-		this.instertedLevels = instertedLevels;
+	public void setInsertedLevels(int instertedLevels) {
+		this.insertedLevels = instertedLevels;
 	}
 
 	public Integer getCreatedAtLevel() {
