@@ -653,7 +653,7 @@ public class CharacterPlayer extends StorableObject {
 			if (skill != null) {
 				Integer ranksUpdatedInLevel = levelUps.get(level).getSkillsRanks(skillName);
 				for (int i = 0; i < ranksUpdatedInLevel; i++) {
-					total += getNewRankCost(skill, getPreviousRanks(skill) + i, i);
+					total += getRankCost(skill, getPreviousRanks(skill) + i, i);
 				}
 			} else {
 				EsherLog.severe(this.getClass().getName(), "Habilidad no encontrada: " + skillName);
@@ -1253,16 +1253,16 @@ public class CharacterPlayer extends StorableObject {
 	 *            [0, 1, 2].
 	 * @return
 	 */
-	public Integer getNewRankCost(Skill skill, Integer currentRanks, Integer rankAdded) {
+	public Integer getRankCost(Skill skill, Integer currentRanks, Integer rankAdded) {
 		// Spell cost is increased if lots of spells are acquired in one level
 		// and also if spells of high level are purchased.
 		if (skill.getCategory().getCategoryGroup().equals(CategoryGroup.SPELL)) {
 			return getNewRankCost(skill.getCategory(), currentRanks, rankAdded)
-					* getCurrentLevel().getSpellRankMultiplier(skill);
+			// Calculate the multiplier if we add a new rank to a spell list.
+					* getCurrentLevel().getSpellRankMultiplier(skill, rankAdded);
 		} else {
 			return getNewRankCost(skill.getCategory(), currentRanks, rankAdded);
 		}
-
 	}
 
 	/**
@@ -1272,7 +1272,7 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public Integer getNewRankCost(Skill skill) {
-		return getNewRankCost(skill, getRealRanks(skill), getCurrentLevelRanks(skill));
+		return getRankCost(skill, getRealRanks(skill), getCurrentLevelRanks(skill));
 	}
 
 	/**

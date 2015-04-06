@@ -322,7 +322,7 @@ public class SkillProbability {
 					return Math.max(
 							50
 									- characterPlayer.getCurrentLevelRanks(skill)
-									* characterPlayer.getNewRankCost(skill,
+									* characterPlayer.getRankCost(skill,
 											characterPlayer.getCurrentLevelRanks(skill), 1)
 									* (8 - specializationLevel), 0);
 				}
@@ -330,7 +330,7 @@ public class SkillProbability {
 					return Math.max(
 							20
 									- characterPlayer.getCurrentLevelRanks(skill)
-									* characterPlayer.getNewRankCost(skill,
+									* characterPlayer.getRankCost(skill,
 											characterPlayer.getCurrentLevelRanks(skill), 1)
 									* (5 - specializationLevel), 0);
 				}
@@ -340,7 +340,7 @@ public class SkillProbability {
 					return Math.max(
 							50
 									- characterPlayer.getCurrentLevelRanks(skill)
-									* characterPlayer.getNewRankCost(skill,
+									* characterPlayer.getRankCost(skill,
 											characterPlayer.getCurrentLevelRanks(skill), 1)
 									* (8 - specializationLevel), 0);
 				}
@@ -348,7 +348,7 @@ public class SkillProbability {
 					return Math.max(
 							30
 									- characterPlayer.getCurrentLevelRanks(skill)
-									* characterPlayer.getNewRankCost(skill,
+									* characterPlayer.getRankCost(skill,
 											characterPlayer.getCurrentLevelRanks(skill), 1)
 									* (5 - specializationLevel), 0);
 				}
@@ -356,7 +356,7 @@ public class SkillProbability {
 					return Math.max(
 							20
 									- characterPlayer.getCurrentLevelRanks(skill)
-									* characterPlayer.getNewRankCost(skill,
+									* characterPlayer.getRankCost(skill,
 											characterPlayer.getCurrentLevelRanks(skill), 1)
 									* (5 - specializationLevel), 0);
 				}

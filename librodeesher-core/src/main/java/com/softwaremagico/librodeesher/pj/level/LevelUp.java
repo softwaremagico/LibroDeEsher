@@ -162,7 +162,7 @@ public class LevelUp extends StorableObject {
 		List<String> list = new ArrayList<>(skillsRanks.keySet());
 		return list;
 	}
-	
+
 	public void setCategoryRanks(Category category, Integer ranks) {
 		setCategoryRanks(category.getName(), ranks);
 	}
@@ -183,15 +183,28 @@ public class LevelUp extends StorableObject {
 	 * @return
 	 */
 	public Integer getSpellRankMultiplier(Skill skill) {
+		return getSpellRankMultiplier(skill, 0);
+	}
+
+	/**
+	 * If a player learn more than 5 spell list in one level, the cost is
+	 * doubled. If he learns more than 10 spells, the cost is the quadruple.
+	 * 
+	 * @param skill
+	 * @param newRanks
+	 *            new ranks to add in calculus.
+	 * @return
+	 */
+	public Integer getSpellRankMultiplier(Skill skill, int newRanks) {
 		int spellLists = 0;
 		for (int i = 0; i < spellsUpdated.size(); i++) {
 			if (spellsUpdated.get(i).equals(skill.getName())) {
 				spellLists = i + 1;
 			}
 		}
-		if (spellLists <= 5) {
+		if (spellLists <= 5 - newRanks) {
 			return 1;
-		} else if (spellLists <= 10) {
+		} else if (spellLists <= 10 - newRanks) {
 			return 2;
 		} else {
 			return 4;
