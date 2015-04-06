@@ -53,6 +53,11 @@ public class CategoryCost extends StorableObject {
 	@Expose
 	private String categoryCostId = null;
 
+	public CategoryCost(CategoryCost categoryCost) {
+		rankCost = new ArrayList<>(categoryCost.getRankCost());
+		categoryCostId = categoryCost.getCategoryCostId();
+	}
+
 	protected CategoryCost() {
 		rankCost = new ArrayList<>();
 	}

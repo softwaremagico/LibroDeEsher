@@ -59,8 +59,10 @@ public class Profession {
 	private List<CharacteristicsAbbreviature> characteristicPreferences;
 	private List<ProfessionalRealmsOfMagicOptions> magicRealmsAvailable;
 	private List<CategoryCost> weaponCategoryCost;
-	private List<CategoryCost> extraWeaponCategoryCost; // For firearms or any
-														// new weapon category
+	private List<CategoryCost> extraWeaponCategoryCost; // For
+														// firearms
+														// or any
+	// new weapon category
 	private HashMap<String, CategoryCost> categoryCost;
 	private List<ChooseSkillGroup> commonSkillsToChoose;
 	private List<ChooseSkillGroup> professionalSkillsToChoose;
@@ -268,7 +270,8 @@ public class Profession {
 			CategoryCost weaponsCost = new CategoryCost(weaponCategoryCost.get(weaponCategoryCost.size() - 1)
 					.getRankCost());
 			extraWeaponCategoryCost.add(weaponsCost);
-			weaponsCost.setCategoryCostId(CategoryGroup.WEAPON.toString() + (weaponCategoryCost.size() + extraWeaponCategoryCost.size()));
+			weaponsCost.setCategoryCostId(CategoryGroup.WEAPON.toString()
+					+ (weaponCategoryCost.size() + extraWeaponCategoryCost.size()));
 		}
 	}
 
@@ -299,7 +302,7 @@ public class Profession {
 	public CategoryCost getCategoryCost(String categoryName) {
 		try {
 			CategoryCost cost = categoryCost.get(categoryName);
-			return cost;
+			return new CategoryCost(cost);
 		} catch (NullPointerException npe) {
 			return null;
 		}
@@ -425,11 +428,23 @@ public class Profession {
 	}
 
 	public List<ProfessionalRealmsOfMagicOptions> getMagicRealmsAvailable() {
-		return magicRealmsAvailable;
+		// Create new CategoryCost to avoid two characters to have the same
+		// cost. Will cause problems on database.
+		ArrayList<ProfessionalRealmsOfMagicOptions> realms = new ArrayList<>();
+		for (ProfessionalRealmsOfMagicOptions realm : magicRealmsAvailable) {
+			realms.add(new ProfessionalRealmsOfMagicOptions(realm));
+		}
+		return realms;
 	}
 
 	public List<CategoryCost> getWeaponCategoryCost() {
-		return weaponCategoryCost;
+		// Create new CategoryCost to avoid two characters to have the same
+		// cost. Will cause problems on database.
+		ArrayList<CategoryCost> weaponCosts = new ArrayList<>();
+		for (CategoryCost cost : weaponCategoryCost) {
+			weaponCosts.add(new CategoryCost(cost));
+		}
+		return weaponCosts;
 	}
 
 	public class CategoryCostComparator implements Comparator<CategoryCost> {

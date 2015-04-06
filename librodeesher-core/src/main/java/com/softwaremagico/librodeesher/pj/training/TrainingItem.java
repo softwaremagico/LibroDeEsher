@@ -22,7 +22,7 @@ public class TrainingItem extends StorableObject {
 	@Expose
 	private int bonus;
 	@Expose
-	@Enumerated(EnumType.STRING) 
+	@Enumerated(EnumType.STRING)
 	private TrainingItemType type;
 	@Expose
 	private String skill;
@@ -36,6 +36,15 @@ public class TrainingItem extends StorableObject {
 	@Override
 	public void resetIds() {
 		resetIds(this);
+	}
+
+	public TrainingItem(TrainingItem trainingItem) {
+		name = trainingItem.getName();
+		description = trainingItem.getDescription();
+		bonus = trainingItem.getBonus();
+		type = trainingItem.getType();
+		skill = trainingItem.getSkill();
+		probability = trainingItem.getProbability();
 	}
 
 	public TrainingItem(String name, int bonus, String skill, int probability) {

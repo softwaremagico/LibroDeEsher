@@ -57,6 +57,10 @@ public class ProfessionalRealmsOfMagicOptions extends StorableObject {
 		magicRealmsAvailable = new ArrayList<>();
 	}
 
+	public ProfessionalRealmsOfMagicOptions(ProfessionalRealmsOfMagicOptions realmOptions) {
+		magicRealmsAvailable = new ArrayList<>(realmOptions.getRealmsOfMagic());
+	}
+
 	@Override
 	public void resetIds() {
 		resetIds(this);

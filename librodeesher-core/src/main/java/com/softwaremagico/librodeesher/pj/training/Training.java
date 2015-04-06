@@ -425,7 +425,13 @@ public class Training {
 	}
 
 	public List<TrainingItem> getObjects() {
-		return objects;
+		// Create new TrainingObjects to avoid two characters to have the same
+		// object.
+		List<TrainingItem> trainingObjects = new ArrayList<>();
+		for (TrainingItem object : objects) {
+			trainingObjects.add(new TrainingItem(object));
+		}
+		return trainingObjects;
 	}
 
 	public Integer getTrainingTime() {
