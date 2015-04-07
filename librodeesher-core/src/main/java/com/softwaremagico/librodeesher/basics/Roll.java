@@ -43,12 +43,17 @@ public class Roll extends StorableObject {
 		initialize(10);
 	}
 
+	public Roll(Roll roll) {
+		setFirstDice(roll.getFirstDice());
+		setSecondDice(roll.getSecondDice());
+	}
+
 	public Roll(Integer faces) {
 		initialize(faces);
 	}
-	
+
 	@Override
-	public void resetIds(){
+	public void resetIds() {
 		resetIds(this);
 	}
 

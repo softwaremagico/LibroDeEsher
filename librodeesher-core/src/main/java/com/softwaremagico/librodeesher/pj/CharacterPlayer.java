@@ -2019,12 +2019,9 @@ public class CharacterPlayer extends StorableObject {
 		// Calculate characteristics modifications.
 		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
 			Roll roll = getStoredCharacteristicRoll(characteristic.getAbbreviature());
-			Roll characteristicRoll = new Roll();
-			characteristicRoll.setFirstDice(roll.getFirstDice());
-			characteristicRoll.setSecondDice(roll.getSecondDice());
 			levelUp.addCharactersiticUpdate(characteristic.getAbbreviature(),
 					getCharacteristicTemporalValue(characteristic.getAbbreviature()),
-					getCharacteristicPotentialValue(characteristic.getAbbreviature()), characteristicRoll);
+					getCharacteristicPotentialValue(characteristic.getAbbreviature()), roll);
 		}
 		levelUps.add(levelUp);
 		// Reset id to force to be saved the character as a new record.
