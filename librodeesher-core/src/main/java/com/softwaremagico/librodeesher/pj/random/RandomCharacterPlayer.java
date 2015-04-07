@@ -637,7 +637,7 @@ public class RandomCharacterPlayer {
 						+ ">" + developmentPoints);
 				//Cost of next rank is possible.
 				if (characterPlayer.getRankCost(skill, characterPlayer.getRealRanks(skill),
-						characterPlayer.getCurrentLevelRanks(skill) + 1) > developmentPoints) {
+						characterPlayer.getCurrentLevelRanks(skill)) > developmentPoints) {
 					break;
 				}
 				roll = (int) (Math.random() * 100 + 1);
