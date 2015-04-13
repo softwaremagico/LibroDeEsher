@@ -1259,7 +1259,7 @@ public class CharacterPlayer extends StorableObject {
 		if (skill.getCategory().getCategoryGroup().equals(CategoryGroup.SPELL)) {
 			return getNewRankCost(skill.getCategory(), currentRanks, rankAdded)
 			// Calculate the multiplier if we add a new rank to a spell list.
-					* getCurrentLevel().getSpellRankMultiplier(skill, rankAdded);
+					* getCurrentLevel().getSpellRankMultiplier(skill);
 		} else {
 			return getNewRankCost(skill.getCategory(), currentRanks, rankAdded);
 		}

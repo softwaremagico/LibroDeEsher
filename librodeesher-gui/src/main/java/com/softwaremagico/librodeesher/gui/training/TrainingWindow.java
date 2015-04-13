@@ -356,13 +356,15 @@ public class TrainingWindow extends BaseFrame {
 				ShowMessage.showErrorMessage("No puede seleccionarse dos veces la misma categoría.",
 						"Categoría repetida");
 			} else {
-				if (ShowMessage.showQuestionMessage(window, "Esta acción confirmará el adistramiento \""
-						+ lastSelectedTraining.getName()
-						+ "\".\n Esta acción es permante. ¿Está seguro de continuar?", "Adiestramiento")) {
-					setSkillRanks();
-					setTrainingObjects();
-					obtainCharacteristicsUpdates();
-					clearData();
+				if (lastSelectedTraining != null) {
+					if (ShowMessage.showQuestionMessage(window, "Esta acción confirmará el adistramiento \""
+							+ lastSelectedTraining.getName()
+							+ "\".\n Esta acción es permante. ¿Está seguro de continuar?", "Adiestramiento")) {
+						setSkillRanks();
+						setTrainingObjects();
+						obtainCharacteristicsUpdates();
+						clearData();
+					}
 				}
 			}
 		}

@@ -635,9 +635,9 @@ public class RandomCharacterPlayer {
 				Skill skill = shuffledCategorySkills.get(j);
 				EsherLog.debug(RandomCharacterPlayer.class.getName(), characterPlayer.getNewRankCost(skill)
 						+ ">" + developmentPoints);
-				//Cost of next rank is possible.
+				// Cost of next rank is possible.
 				if (characterPlayer.getRankCost(skill, characterPlayer.getRealRanks(skill),
-						characterPlayer.getCurrentLevelRanks(skill) + 1) > developmentPoints) {
+						characterPlayer.getCurrentLevelRanks(skill)) > developmentPoints) {
 					break;
 				}
 				roll = (int) (Math.random() * 100 + 1);
