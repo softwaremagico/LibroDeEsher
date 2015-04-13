@@ -1598,7 +1598,7 @@ public class CharacterPlayer extends StorableObject {
 				}
 			}
 			// Enough developmentPoints
-			if (getTrainingCost(trainingName) > getRemainingDevelopmentPoints()) {
+			if (areCharacteristicsConfirmed() && getTrainingCost(trainingName) > getRemainingDevelopmentPoints()) {
 				continue;
 			}
 			// Not already selected Training

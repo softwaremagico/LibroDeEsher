@@ -383,6 +383,7 @@ public class RandomWindow extends BaseFrame {
 		constraints.gridx = 0;
 		constraints.gridy = 2;
 		constraints.gridwidth = 3;
+		suggestedTraining.setEditable(false);
 		panel.add(suggestedTraining, constraints);
 
 		BaseButton eraseButton = new BaseButton("Borrar");
