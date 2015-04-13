@@ -83,7 +83,7 @@ public class RollGroup extends StorableObject {
 	public Roll getFirst() {
 		Roll roll = rolls.remove(0);
 		fillUpRolls();
-		return roll;
+		return new Roll(roll);
 	}
 
 	@Override
