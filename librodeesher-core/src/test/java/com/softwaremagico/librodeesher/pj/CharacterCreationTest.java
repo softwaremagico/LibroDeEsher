@@ -38,7 +38,7 @@ public class CharacterCreationTest {
 	private final static String TXT_PATH = System.getProperty("java.io.tmpdir") + "/testStandard.txt";
 	private final static String TXT_ABBREVIATED_PATH = System.getProperty("java.io.tmpdir")
 			+ "/testAbbreviated.txt";
-	private final static String JSON_LEVEL_PATH = System.getProperty("java.io.tmpdir") + "/testLevelJson.txt";
+	private final static String JSON_LEVEL_PATH = System.getProperty("java.io.tmpdir") + "/testLevelJson.json";
 	private CharacterPlayerDao characterPlayerDao = CharacterPlayerDao.getInstance();
 	private CharacterPlayerInfoDao characterPlayerInfoDao = CharacterPlayerInfoDao.getInstance();
 	private CharacterPlayer characterPlayer;
@@ -108,7 +108,7 @@ public class CharacterCreationTest {
 		// get json to object.
 		CharacterPlayer importedCharacter = CharacterJsonManager.fromJson(jsonText);
 		PrintWriter out3 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
-				+ "characterAsJson.txt");
+				+ "character_l1.json");
 		out3.println(jsonText);
 		out3.close();
 
@@ -143,6 +143,12 @@ public class CharacterCreationTest {
 		characterPlayer.increaseLevel();
 		Assert.assertEquals((int) characterPlayer.getCurrentLevelNumber(), prevCharacterLevel + 1);
 		RandomCharacterPlayer randomCharacter = new RandomCharacterPlayer(characterPlayer);
+		randomCharacter.addFeedbackListener(new RandomFeedbackListener() {
+			@Override
+			public void feedBackMessage(String message) {
+				System.out.println(message);
+			}
+		});
 		randomCharacter.setDevelopmentPoints();
 
 		// Export last level
