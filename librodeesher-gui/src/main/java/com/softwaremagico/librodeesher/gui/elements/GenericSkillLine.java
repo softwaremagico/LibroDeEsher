@@ -53,6 +53,7 @@ public class GenericSkillLine extends BaseSkillLine {
 		this.background = background;
 
 		setBackground(background);
+		setDefaultBackground(background);
 		setRanksSelected(character.getCurrentLevelRanks(skill));
 	}
 

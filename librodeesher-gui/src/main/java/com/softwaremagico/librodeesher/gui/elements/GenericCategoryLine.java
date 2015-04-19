@@ -48,6 +48,7 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 		this.category = category;
 		this.parentWindow = parentWindow;
 		setDefaultBackground(background);
+		setBackground(background);
 		setRanksSelected(character.getCurrentLevelRanks(category));
 	}
 
