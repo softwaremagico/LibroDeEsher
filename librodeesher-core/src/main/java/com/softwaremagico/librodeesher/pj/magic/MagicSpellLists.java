@@ -95,13 +95,19 @@ public class MagicSpellLists implements Serializable {
 		// Other professions.
 		// Only no elementalist has elementalist list as other professions.
 		List<String> otherProfession = new ArrayList<>();
-		otherProfession = MagicFactory.getListOfOtherProfessions(basicSpells, character.getRealmOfMagic()
+		List<String> notSelectableSpells = new ArrayList<>();
+		notSelectableSpells.addAll(basicSpells);
+		// List as other triads are not in other profession spell lists. 
+		notSelectableSpells.addAll(elementalistList);
+		notSelectableSpells.addAll(otherTriadSpells);
+		notSelectableSpells.addAll(triadSpells);
+		otherProfession = MagicFactory.getListOfOtherProfessions(notSelectableSpells, character.getRealmOfMagic()
 				.getRealmsOfMagic(), character.getProfession().getName(), MagicFactory
 				.getElementalistTraining(character.getSelectedTrainings()));
 
 		// Other Realms professions.
 		List<String> otherRealmsProfession = new ArrayList<>();
-		otherRealmsProfession = MagicFactory.getListOfOtherProfessionsOtherRealm(basicSpells, character
+		otherRealmsProfession = MagicFactory.getListOfOtherProfessionsOtherRealm(notSelectableSpells, character
 				.getRealmOfMagic().getRealmsOfMagic(), character.getProfession().getName(), MagicFactory
 				.getElementalistTraining(character.getSelectedTrainings()));
 

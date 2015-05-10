@@ -89,7 +89,6 @@ public class MagicFactory {
 					List<String> otherProfessionList = spellsByGroup.get(realm).get(profession.toLowerCase());
 					// Avoid to add basic list shared with other professions or
 					// dark list if are considered as basic.
-					System.out.println(otherProfessionList);
 					for (String spellList : otherProfessionList) {
 						if (ownProfessionLists == null || !ownProfessionLists.contains(spellList)) {
 							lists.add(spellList);
