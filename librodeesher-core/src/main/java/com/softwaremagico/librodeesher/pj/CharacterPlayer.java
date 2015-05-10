@@ -585,31 +585,49 @@ public class CharacterPlayer extends StorableObject {
 		switch (type) {
 		case CANALIZATION:
 			return getCharacteristicTotalBonus(CharacteristicsAbbreviature.INTUITION) * 3
-					+ getRace().getResistancesBonus(type);
+					+ getRace().getResistancesBonus(type) + getPerkResistanceBonus(type);
 		case ESSENCE:
 			return getCharacteristicTotalBonus(CharacteristicsAbbreviature.EMPATHY) * 3
-					+ getRace().getResistancesBonus(type);
+					+ getRace().getResistancesBonus(type) + getPerkResistanceBonus(type);
 		case MENTALISM:
 			return getCharacteristicTotalBonus(CharacteristicsAbbreviature.PRESENCE) * 3
-					+ getRace().getResistancesBonus(type);
+					+ getRace().getResistancesBonus(type) + getPerkResistanceBonus(type);
 		case PSIONIC:
-			return 0 + getRace().getResistancesBonus(type);
+			return 0 + getRace().getResistancesBonus(type) + getPerkResistanceBonus(type);
 		case POISON:
 			return getCharacteristicTotalBonus(CharacteristicsAbbreviature.CONSTITUTION) * 3
-					+ getRace().getResistancesBonus(type);
+					+ getRace().getResistancesBonus(type) + getPerkResistanceBonus(type);
 		case DISEASE:
 			return getCharacteristicTotalBonus(CharacteristicsAbbreviature.CONSTITUTION) * 3
-					+ getRace().getResistancesBonus(type);
+					+ getRace().getResistancesBonus(type) + getPerkResistanceBonus(type);
 		case COLD:
-			return 0 + getRace().getResistancesBonus(type);
+			return 0 + getRace().getResistancesBonus(type) + getPerkResistanceBonus(type);
 		case HOT:
-			return 0 + getRace().getResistancesBonus(type);
+			return 0 + getRace().getResistancesBonus(type) + getPerkResistanceBonus(type);
 		case FEAR:
 			return getCharacteristicTotalBonus(CharacteristicsAbbreviature.SELFDISCIPLINE) * 3
-					+ getRace().getResistancesBonus(type);
+					+ getRace().getResistancesBonus(type) + getPerkResistanceBonus(type);
 		default:
 			return 0;
 		}
+	}
+
+	private Integer getPerkResistanceBonus(ResistanceType type) {
+		Integer total = 0;
+		for (SelectedPerk perk : selectedPerks) {
+			for (String perkResistances : PerkFactory.getPerk(perk).getResistanceBonus().keySet()) {
+				if (type.getTag().equals(PerkFactory.getPerk(perk).getResistanceBonus())) {
+					total += PerkFactory.getPerk(perk).getResistanceBonus().get(perkResistances);
+				} else if (perkResistances.equals(Spanish.REALM_TAG)) {
+					for (RealmOfMagic realm : getRealmOfMagic().getRealmsOfMagic()) {
+						if (realm.getName().equals(type.getTag())) {
+							total += PerkFactory.getPerk(perk).getResistanceBonus().get(perkResistances);
+						}
+					}
+				}
+			}
+		}
+		return total;
 	}
 
 	public SexType getSex() {

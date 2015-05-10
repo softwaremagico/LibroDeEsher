@@ -518,7 +518,7 @@ public class Perk {
 		this.conditionalSkillBonus = conditionalSkillBonus;
 	}
 
-	protected Map<String, Integer> getResistanceBonus() {
+	public Map<String, Integer> getResistanceBonus() {
 		return resistanceBonus;
 	}
 
