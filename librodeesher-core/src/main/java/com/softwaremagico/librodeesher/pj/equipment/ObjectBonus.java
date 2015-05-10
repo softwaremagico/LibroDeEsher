@@ -43,8 +43,14 @@ public class ObjectBonus extends StorableObject {
 		this.bonus = bonus;
 	}
 
+	@Override
 	public void resetIds() {
-		setId(null);
+		resetIds(this);
+	}
+	
+	@Override
+	public void resetComparationIds() {
+		resetComparationIds(this);
 	}
 
 	public void setBonusName(String value) {

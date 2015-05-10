@@ -48,6 +48,11 @@ public class Appearance extends StorableObject {
 	public void resetIds(){
 		resetIds(this);
 	}
+	
+	@Override
+	public void resetComparationIds(){
+		resetComparationIds(this);
+	}
 
 	public int getTotal(int presencePotentialValue) {
 		return presencePotentialValue - 25 + dicesResult;

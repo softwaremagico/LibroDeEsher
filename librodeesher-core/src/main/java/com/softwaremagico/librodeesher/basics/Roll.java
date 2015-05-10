@@ -57,6 +57,11 @@ public class Roll extends StorableObject {
 		resetIds(this);
 	}
 
+	@Override
+	public void resetComparationIds() {
+		resetComparationIds(this);
+	}
+
 	private void initialize(Integer diceFaces) {
 		firstDice = Dice.getRoll(diceFaces);
 		secondDice = Dice.getRoll(diceFaces);

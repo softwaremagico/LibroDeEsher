@@ -1,5 +1,6 @@
 package com.softwaremagico.librodeesher.pj.perk;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
@@ -39,12 +40,19 @@ public class PerkDecision extends StorableObject {
 	private List<String> commonSkillsChosen;
 
 	public PerkDecision() {
-
+		categoriesBonusChosen = new ArrayList<>();
+		skillsBonusChosen = new ArrayList<>();
+		commonSkillsChosen = new ArrayList<>();
 	}
 
 	@Override
 	public void resetIds() {
 		resetIds(this);
+	}
+	
+	@Override
+	public void resetComparationIds() {
+		resetComparationIds(this);
 	}
 
 	public boolean isBonusChosen(Skill skill) {

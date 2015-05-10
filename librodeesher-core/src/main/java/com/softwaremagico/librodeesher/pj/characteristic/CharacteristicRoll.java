@@ -47,6 +47,12 @@ public class CharacteristicRoll extends StorableObject {
 		resetIds(this);
 		resetIds(roll);
 	}
+	
+	@Override
+	public void resetComparationIds() {
+		resetComparationIds(this);
+		resetComparationIds(roll);
+	}
 
 	public Integer getCharacteristicPotentialValue() {
 		return characteristicPotentialValue;

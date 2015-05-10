@@ -53,6 +53,14 @@ public class MagicObject extends StorableObject {
 			bonus.resetIds();
 		}
 	}
+	
+	@Override
+	public void resetComparationIds() {
+		setId(null);
+		for (ObjectBonus bonus : getBonus()) {
+			bonus.resetComparationIds();
+		}
+	}
 
 	public String getDescription() {
 		return description;

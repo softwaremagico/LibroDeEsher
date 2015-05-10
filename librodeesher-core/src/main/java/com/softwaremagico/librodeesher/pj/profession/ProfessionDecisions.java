@@ -90,6 +90,12 @@ public class ProfessionDecisions extends StorableObject {
 		resetIds(weaponsCost);
 	}
 
+	@Override
+	public void resetComparationIds() {
+		resetComparationIds(this);
+		resetComparationIds(weaponsCost);
+	}
+
 	public void setWeaponCost(Category category, CategoryCost cost) {
 		weaponsCost.put(category.getName(), cost);
 	}

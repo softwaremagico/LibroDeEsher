@@ -82,6 +82,12 @@ public class Historial extends StorableObject {
 		resetIds(this);
 		resetIds(characteristicsUpdates);
 	}
+	
+	@Override
+	public void resetComparationIds(){
+		resetComparationIds(this);
+		resetComparationIds(characteristicsUpdates);
+	}
 
 	public void setPoint(Skill skill, boolean value) {
 		if (value) {

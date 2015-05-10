@@ -45,6 +45,10 @@ public abstract class StorableObject implements Serializable {
 	public StorableObject() {
 		creationTime = new java.sql.Timestamp(new java.util.Date().getTime());
 		updateTime = new java.sql.Timestamp(new java.util.Date().getTime());
+		setComparationId();
+	}
+
+	public void setComparationId() {
 		comparationId = IdGenerator.createId();
 	}
 
@@ -57,14 +61,26 @@ public abstract class StorableObject implements Serializable {
 	}
 
 	public abstract void resetIds();
+	
+	public abstract void resetComparationIds();
 
 	public void resetIds(StorableObject object) {
 		setId(null);
 	}
 
+	public void resetComparationIds(StorableObject object) {
+		setComparationId();
+	}
+
 	public void resetIds(List<? extends StorableObject> list) {
 		for (StorableObject object : list) {
 			resetIds(object);
+		}
+	}
+
+	public void resetComparationIds(List<? extends StorableObject> list) {
+		for (StorableObject object : list) {
+			resetComparationIds(object);
 		}
 	}
 
@@ -77,6 +93,19 @@ public abstract class StorableObject implements Serializable {
 		for (Object value : map.values()) {
 			if (value instanceof StorableObject) {
 				resetIds((StorableObject) value);
+			}
+		}
+	}
+
+	public void resetComparationIds(Map<?, ?> map) {
+		for (Object key : map.keySet()) {
+			if (key instanceof StorableObject) {
+				resetComparationIds((StorableObject) key);
+			}
+		}
+		for (Object value : map.values()) {
+			if (value instanceof StorableObject) {
+				resetComparationIds((StorableObject) value);
 			}
 		}
 	}
@@ -149,7 +178,8 @@ public abstract class StorableObject implements Serializable {
 			objectOutputStream.writeObject(this);
 
 			// Reads the object
-			ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+			ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
+					byteArrayOutputStream.toByteArray());
 			ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
 			output = objectInputStream.readObject();
 

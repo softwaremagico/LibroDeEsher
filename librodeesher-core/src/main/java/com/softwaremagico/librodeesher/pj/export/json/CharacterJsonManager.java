@@ -21,6 +21,8 @@ public class CharacterJsonManager {
 			final Gson gson = new GsonBuilder().create();
 			CharacterPlayer characterPlayer = gson.fromJson(jsonText, CharacterPlayer.class);
 			characterPlayer.clearCache();
+			characterPlayer.resetIds();
+			//characterPlayer.resetComparationIds();
 			return characterPlayer;
 		}
 		return null;

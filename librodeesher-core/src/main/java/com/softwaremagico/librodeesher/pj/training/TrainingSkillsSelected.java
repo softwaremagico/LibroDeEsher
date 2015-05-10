@@ -35,6 +35,12 @@ class TrainingSkillsSelected extends StorableObject {
 		resetIds(this);
 		resetIds(skillsRanks);
 	}
+	
+	@Override
+	public void resetComparationIds() {
+		resetComparationIds(this);
+		resetComparationIds(skillsRanks);
+	}
 
 	public void put(String skill, int ranks) {
 		if (skill == null) {

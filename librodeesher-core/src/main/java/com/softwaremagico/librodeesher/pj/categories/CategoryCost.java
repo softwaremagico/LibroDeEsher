@@ -74,6 +74,11 @@ public class CategoryCost extends StorableObject {
 	public void resetIds() {
 		resetIds(this);
 	}
+	
+	@Override
+	public void resetComparationIds() {
+		resetComparationIds(this);
+	}
 
 	public static List<Integer> covertStringToCost(String costString) throws InvalidCategoryException {
 		List<Integer> cost = new ArrayList<>();

@@ -32,6 +32,11 @@ class TrainingCategoriesSelected extends StorableObject {
 	public void resetIds(){
 		resetIds(this);
 	}
+	
+	@Override
+	public void resetComparationIds(){
+		resetComparationIds(this);
+	}
 
 	public void add(String categoryName) {
 		categories.add(categoryName);

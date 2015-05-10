@@ -183,7 +183,7 @@ public class CharacterPlayer extends StorableObject {
 	private List<SelectedPerk> selectedPerks;
 
 	@Expose
-	@ElementCollection
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@CollectionTable(name = "T_CHARACTERPLAYER_PERKS_DECISIONS")
 	private Map<String, PerkDecision> perkDecisions;
 
@@ -264,6 +264,25 @@ public class CharacterPlayer extends StorableObject {
 		resetIds(magicItems);
 		resetIds(insertedData);
 		resetIds(enabledSkill);
+	}
+	
+	@Override
+	public void resetComparationIds() {
+		resetComparationIds(this);
+		resetComparationIds(levelUps);
+		resetComparationIds(appearance);
+		resetComparationIds(perkDecisions);
+		resetComparationIds(selectedPerks);
+		resetComparationIds(characteristicsInitialTemporalValues);
+		resetComparationIds(characteristicsPotentialValues);
+		resetComparationIds(characteristicsTemporalUpdatesRolls);
+		resetComparationIds(cultureDecisions);
+		resetComparationIds(professionDecisions);
+		resetComparationIds(realmOfMagic);
+		resetComparationIds(historial);
+		resetComparationIds(magicItems);
+		resetComparationIds(insertedData);
+		resetComparationIds(enabledSkill);
 	}
 
 	public void clearCache() {

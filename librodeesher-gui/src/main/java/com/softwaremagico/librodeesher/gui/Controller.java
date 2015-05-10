@@ -211,9 +211,6 @@ public class Controller {
 				if (characterPersisted != null) {
 					MessageManager.infoMessage(Controller.class.getName(), "Personaje guardado con éxito!",
 							"Salvar");
-//					characters.remove(selectedCharacter);
-//					characters.add(characterPersisted);
-//					selectedCharacter = characterPersisted;
 				} else {
 					MessageManager
 							.basicErrorMessage(

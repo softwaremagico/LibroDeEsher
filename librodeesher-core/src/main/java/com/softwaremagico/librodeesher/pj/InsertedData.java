@@ -120,6 +120,12 @@ public class InsertedData extends StorableObject {
 		resetIds(this);
 		resetIds(trainingDecisions);
 	}
+	
+	@Override
+	public void resetComparationIds() {
+		resetComparationIds(this);
+		resetComparationIds(trainingDecisions);
+	}
 
 	public int getInsertedLevels() {
 		if (insertedLevels != null) {

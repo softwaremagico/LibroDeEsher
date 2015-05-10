@@ -50,35 +50,40 @@ public class CultureDecisions extends StorableObject {
 	@CollectionTable(name = "T_CULTURE_WEAPON_RANKS")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<String, Integer> weaponRanks;
-	
+
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_CULTURE_HOBBY_RANKS")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<String, Integer> hobbyRanks;
-	
+
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_CULTURE_SPELL_RANKS")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<String, Integer> spellRanks;
-	
+
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_CULTURE_LANGUAGE_RANKS")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<String, Integer> languageRanks;
-	
+
 	public CultureDecisions() {
 		languageRanks = new HashMap<>();
 		weaponRanks = new HashMap<>();
 		hobbyRanks = new HashMap<>();
 		spellRanks = new HashMap<>();
 	}
-	
+
 	@Override
-	public void resetIds(){
+	public void resetIds() {
 		resetIds(this);
+	}
+
+	@Override
+	public void resetComparationIds() {
+		resetComparationIds(this);
 	}
 
 	/**

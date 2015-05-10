@@ -37,6 +37,11 @@ public class TrainingItem extends StorableObject {
 	public void resetIds() {
 		resetIds(this);
 	}
+	
+	@Override
+	public void resetComparationIds() {
+		resetComparationIds(this);
+	}
 
 	public TrainingItem(TrainingItem trainingItem) {
 		name = trainingItem.getName();

@@ -120,6 +120,13 @@ public class LevelUp extends StorableObject {
 		resetIds(trainingDecisions);
 		resetIds(characteristicsUpdates);
 	}
+	
+	@Override
+	public void resetComparationIds() {
+		resetComparationIds(this);
+		resetComparationIds(trainingDecisions);
+		resetComparationIds(characteristicsUpdates);
+	}
 
 	public Integer getCategoryRanks(String categoryName) {
 		Integer ranks = categoriesRanks.get(categoryName);

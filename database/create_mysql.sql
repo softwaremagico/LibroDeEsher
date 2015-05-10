@@ -75,10 +75,10 @@
     );
 
     create table T_CHARACTERPLAYER_PERKS_DECISIONS (
-        CharacterPlayer_ID bigint not null,
+        T_CHARACTERPLAYER_ID bigint not null,
         perkDecisions_ID bigint not null,
         perkDecisions_KEY varchar(255),
-        primary key (CharacterPlayer_ID, perkDecisions_KEY)
+        primary key (T_CHARACTERPLAYER_ID, perkDecisions_KEY)
     );
 
     create table T_CHARACTERPLAYER_POTENTIAL_VALUES (
@@ -728,8 +728,8 @@
         references T_PERKS_DECISION (ID);
 
     alter table T_CHARACTERPLAYER_PERKS_DECISIONS 
-        add constraint FK_1h6iqvuieg95r8ftqy5rnu14s 
-        foreign key (CharacterPlayer_ID) 
+        add constraint FK_kxce5xahoaxhwil8fwguaqcjh 
+        foreign key (T_CHARACTERPLAYER_ID) 
         references T_CHARACTERPLAYER (ID);
 
     alter table T_CHARACTERPLAYER_POTENTIAL_VALUES 

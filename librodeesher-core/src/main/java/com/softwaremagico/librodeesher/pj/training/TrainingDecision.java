@@ -93,6 +93,15 @@ public class TrainingDecision extends StorableObject {
 		resetIds(skillsSelected);
 		resetIds(categoriesSelected);
 	}
+	
+	@Override
+	public void resetComparationIds(){
+		resetComparationIds(this);
+		resetComparationIds(equipment);
+		resetComparationIds(characteristicsUpdates);
+		resetComparationIds(skillsSelected);
+		resetComparationIds(categoriesSelected);
+	}
 
 	public void addSelectedCategory(Integer trainingCategory, String categoryName) {
 		TrainingCategoriesSelected categories = categoriesSelected.get(trainingCategory);

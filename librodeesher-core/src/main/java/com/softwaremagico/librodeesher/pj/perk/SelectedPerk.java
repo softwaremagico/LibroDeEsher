@@ -28,6 +28,11 @@ public class SelectedPerk extends StorableObject {
 	public void resetIds() {
 		resetIds(this);
 	}
+	
+	@Override
+	public void resetComparationIds() {
+		resetComparationIds(this);
+	}
 
 	public String getName() {
 		return name;
