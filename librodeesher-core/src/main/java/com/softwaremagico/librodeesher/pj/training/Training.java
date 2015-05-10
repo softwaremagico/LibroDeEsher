@@ -63,8 +63,12 @@ public class Training {
 	private List<ChooseSkillGroup> professionalSkills;
 	private List<ChooseSkillGroup> restrictedSkills;
 
-	Training(String name) {
+	public Training(String name) {
 		this.name = name;
+		lifeSkills = new ArrayList<>();
+		commonSkills = new ArrayList<>();
+		professionalSkills = new ArrayList<>();
+		restrictedSkills = new ArrayList<>();
 		try {
 			readTrainingFile(name);
 		} catch (Exception ex) {
@@ -365,7 +369,6 @@ public class Training {
 
 	private int setSpecialSkills(List<String> lines, int index, List<ChooseSkillGroup> skillCategory,
 			ChooseType chooseType) {
-		skillCategory = new ArrayList<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -380,6 +383,12 @@ public class Training {
 				if (!skillColumns[i].contains("{")) {
 					Skill skill = SkillFactory.getSkill(skillColumns[i]);
 					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1, skill, chooseType);
+					skillCategory.add(chooseSkills);
+				} else {
+					String[] skills = skillColumns[i].replace("{", "").replace("}", "").split(";");
+					List<String> skillList = new ArrayList<String>(Arrays.asList(skills));
+					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1,
+							SkillFactory.getSkills(skillList), chooseType);
 					skillCategory.add(chooseSkills);
 				}
 			}
@@ -436,5 +445,30 @@ public class Training {
 
 	public Integer getTrainingTime() {
 		return trainingTime;
+	}
+
+	public List<ChooseSkillGroup> getCommonSkills() {
+		if (commonSkills == null) {
+			return new ArrayList<>();
+		}
+		return commonSkills;
+	}
+
+	public List<ChooseSkillGroup> getProfessionalSkills() {
+		List<ChooseSkillGroup> skills = new ArrayList<>();
+		if (professionalSkills != null) {
+			skills.addAll(professionalSkills);
+		}
+		if (lifeSkills != null) {
+			skills.addAll(lifeSkills);
+		}
+		return skills;
+	}
+
+	public List<ChooseSkillGroup> getRestrictedSkills() {
+		if (restrictedSkills == null) {
+			return new ArrayList<>();
+		}
+		return restrictedSkills;
 	}
 }

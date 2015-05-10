@@ -50,6 +50,15 @@ public class SkillFactory {
 		return skill;
 	}
 
+	public static List<Skill> getSkills(List<String> skillsNames) {
+		List<Skill> skills = new ArrayList<>();
+		for (String skillName : skillsNames) {
+			Skill skill = getSkill(skillName);
+			skills.add(skill);
+		}
+		return skills;
+	}
+
 	public static Skill getSkill(String skillNameAndType, List<String> specialities) {
 		Skill skill = availableSkills.get(skillNameAndType);
 		if (skill == null) {
@@ -136,17 +145,6 @@ public class SkillFactory {
 	public static List<Skill> getSkills() {
 		List<Skill> skills = new ArrayList<>(availableSkills.values());
 		Collections.sort(skills, new SkillComparator());
-		return skills;
-	}
-
-	public static List<Skill> getSkills(List<String> skillsNames) {
-		List<Skill> allSkills = getSkills();
-		List<Skill> skills = new ArrayList<>();
-		for (Skill skill : allSkills) {
-			if (skillsNames.contains(skill.getName())) {
-				skills.add(skill);
-			}
-		}
 		return skills;
 	}
 

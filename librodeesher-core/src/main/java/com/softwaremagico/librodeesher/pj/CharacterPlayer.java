@@ -88,6 +88,7 @@ import com.softwaremagico.librodeesher.pj.race.InvalidRaceException;
 import com.softwaremagico.librodeesher.pj.race.Race;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
+import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillComparatorByValue;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
@@ -1590,19 +1591,58 @@ public class CharacterPlayer extends StorableObject {
 
 	public boolean isProfessional(Skill skill) {
 		return skill.getSkillType().equals(SkillType.PROFESSIONAL) || getProfession().isProfessional(skill)
-				|| professionDecisions.isProfessional(skill);
+				|| professionDecisions.isProfessional(skill) || isProfessionalByTraining(skill);
+	}
+
+	public boolean isProfessionalByTraining(Skill skill) {
+		for (String trainingName : getTrainings()) {
+			Training training = TrainingFactory.getTraining(trainingName);
+			for (ChooseSkillGroup skills : training.getProfessionalSkills()) {
+				if (skills.getOptionsAsString().size() == 1
+						&& skills.getOptionsAsString().get(0).equals(skill.getName())) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public boolean isRestricted(Skill skill) {
 		return skill.getSkillType().equals(SkillType.RESTRICTED) || isRestrictedByPerk(skill)
 				|| getProfession().isRestricted(skill) || professionDecisions.isRestricted(skill)
-				|| getRace().isRestricted(skill);
+				|| getRace().isRestricted(skill) || isRestrictedByTraining(skill);
+	}
+
+	public boolean isRestrictedByTraining(Skill skill) {
+		for (String trainingName : getTrainings()) {
+			Training training = TrainingFactory.getTraining(trainingName);
+			for (ChooseSkillGroup skills : training.getRestrictedSkills()) {
+				if (skills.getOptionsAsString().size() == 1
+						&& skills.getOptionsAsString().get(0).equals(skill.getName())) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public boolean isCommon(Skill skill) {
 		return skill.getSkillType().equals(SkillType.COMMON) || isCommonByPerk(skill)
 				|| getProfession().isCommon(skill) || professionDecisions.isCommon(skill)
-				|| getRace().isCommon(skill);
+				|| getRace().isCommon(skill) || isCommonByTraining(skill);
+	}
+
+	public boolean isCommonByTraining(Skill skill) {
+		for (String trainingName : getTrainings()) {
+			Training training = TrainingFactory.getTraining(trainingName);
+			for (ChooseSkillGroup skills : training.getCommonSkills()) {
+				if (skills.getOptionsAsString().size() == 1
+						&& skills.getOptionsAsString().get(0).equals(skill.getName())) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	private boolean isCommonByPerk(Skill skill) {

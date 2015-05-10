@@ -217,8 +217,8 @@ public class Profession {
 			String bonusLine = lines.get(index);
 			String[] categoryOrSkillColumns = bonusLine.split("\t");
 			String categoryOrSkillName = categoryOrSkillColumns[0];
-			Integer bonus = Integer.parseInt(categoryOrSkillColumns[1]);
 			try {
+				Integer bonus = Integer.parseInt(categoryOrSkillColumns[1]);
 				if (CategoryFactory.getCategory(categoryOrSkillName) != null) {
 					categoriesBonus.put(categoryOrSkillName, bonus);
 				} else if (SkillFactory.getAvailableSkill(categoryOrSkillName) != null) {
