@@ -1699,6 +1699,8 @@ public class CharacterPlayer extends StorableObject {
 			if (!getTrainings().contains(trainingName)) {
 				getCurrentLevel().addTraining(trainingName);
 				characterPlayerHelper.resetAll();
+				//Force to recalculate spell lists. 
+				magicSpellListsObtained = false;
 			}
 		}
 	}
@@ -1796,6 +1798,7 @@ public class CharacterPlayer extends StorableObject {
 				magicSpellLists.orderSpellListsByCategory(this);
 				magicSpellListsObtained = true;
 			} catch (MagicDefinitionException | InvalidProfessionException e) {
+				EsherLog.errorMessage(this.getClass().getName(), e);
 				magicSpellLists = new MagicSpellLists();
 			}
 		}

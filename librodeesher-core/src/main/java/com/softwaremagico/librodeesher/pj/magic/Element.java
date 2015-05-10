@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.magic;
+
 /*
  * #%L
  * Libro de Esher
@@ -31,13 +32,18 @@ public enum Element {
 	Element(String tag) {
 		this.tag = tag;
 	}
-	
-	public static Element getElement(String tag){
-		for(Element element : Element.values()){
-			if(tag.toLowerCase().contains(element.tag)){
+
+	public static Element getElement(String tag) {
+		for (Element element : Element.values()) {
+			if (tag.toLowerCase().contains(element.tag)) {
 				return element;
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public String toString() {
+		return tag;
 	}
 }
