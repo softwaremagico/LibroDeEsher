@@ -265,7 +265,7 @@ public class CharacterPlayer extends StorableObject {
 		resetIds(insertedData);
 		resetIds(enabledSkill);
 	}
-	
+
 	@Override
 	public void resetComparationIds() {
 		resetComparationIds(this);
@@ -1699,7 +1699,7 @@ public class CharacterPlayer extends StorableObject {
 			if (!getTrainings().contains(trainingName)) {
 				getCurrentLevel().addTraining(trainingName);
 				characterPlayerHelper.resetAll();
-				//Force to recalculate spell lists. 
+				// Force to recalculate spell lists.
 				magicSpellListsObtained = false;
 			}
 		}

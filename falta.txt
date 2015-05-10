@@ -1,1 +1,2 @@
 Habilidades especializadas y generalizadas
+Si importas dos veces un personaje y lo salvas, da error en comparationId clave unica.

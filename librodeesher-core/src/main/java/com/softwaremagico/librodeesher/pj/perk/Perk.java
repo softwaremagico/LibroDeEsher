@@ -75,7 +75,7 @@ public class Perk {
 	}
 
 	public void setCategoryBonus(String categoryName, Integer bonus) {
-		if (bonus == null || bonus <= 0) {
+		if (bonus == null || bonus == 0) {
 			categoryBonus.remove(categoryName);
 		} else {
 			categoryBonus.put(categoryName, bonus);
@@ -83,7 +83,7 @@ public class Perk {
 	}
 
 	public void setCategoriesConditionalBonus(String categoryName, Integer bonus) {
-		if (bonus == null || bonus <= 0) {
+		if (bonus == null || bonus == 0) {
 			conditionalCategoryBonus.remove(categoryName);
 		} else {
 			conditionalCategoryBonus.put(categoryName, bonus);
@@ -91,7 +91,7 @@ public class Perk {
 	}
 
 	public void setSkillBonus(String skillName, Integer bonus) {
-		if (bonus == null || bonus <= 0) {
+		if (bonus == null || bonus == 0) {
 			skillBonus.remove(skillName);
 		} else {
 			skillBonus.put(skillName, bonus);
@@ -147,7 +147,7 @@ public class Perk {
 	}
 
 	public void setSkillConditionalBonus(String skillName, Integer bonus) {
-		if (bonus == null || bonus <= 0) {
+		if (bonus == null || bonus == 0) {
 			conditionalSkillBonus.remove(skillName);
 		} else {
 			conditionalSkillBonus.put(skillName, bonus);
@@ -155,7 +155,7 @@ public class Perk {
 	}
 
 	public void setSkillRanks(String skillName, Integer ranks) {
-		if (ranks == null || ranks <= 0) {
+		if (ranks == null || ranks == 0) {
 			skillRanks.remove(skillName);
 		} else {
 			skillRanks.put(skillName, ranks);
@@ -163,7 +163,7 @@ public class Perk {
 	}
 
 	public void setCategoryRanks(String categoryName, Integer ranks) {
-		if (ranks == null || ranks <= 0) {
+		if (ranks == null || ranks == 0) {
 			categoryRanks.remove(categoryName);
 		} else {
 			categoryRanks.put(categoryName, ranks);
@@ -171,7 +171,7 @@ public class Perk {
 	}
 
 	public void setResistanceBonus(String resistance, Integer bonus) {
-		if (bonus == null || bonus <= 0) {
+		if (bonus == null || bonus == 0) {
 			resistanceBonus.remove(resistance);
 		} else {
 			resistanceBonus.put(resistance, bonus);
@@ -179,7 +179,7 @@ public class Perk {
 	}
 
 	public void setCharacteristicBonus(CharacteristicsAbbreviature characteristic, Integer bonus) {
-		if (bonus == null || bonus <= 0) {
+		if (bonus == null || bonus == 0) {
 			characteristicBonus.remove(characteristic);
 		} else {
 			characteristicBonus.put(characteristic, bonus);
@@ -198,7 +198,7 @@ public class Perk {
 	}
 
 	public void setCategoryToSelectRestrictedSkills(String categoryName, Integer restrictedSkills) {
-		if (restrictedSkills == null || restrictedSkills <= 0) {
+		if (restrictedSkills == null || restrictedSkills == 0) {
 			categoryWithRestricted.remove(categoryName);
 		} else {
 			categoryWithRestricted.put(categoryName, restrictedSkills);
