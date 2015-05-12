@@ -484,7 +484,8 @@ public class PdfStandardSheet {
 
 		if (characterPlayer != null) {
 			text = characterPlayer.getProfession().getSkillBonus(skill.getName())
-					+ characterPlayer.getHistorial().getBonus(skill) + characterPlayer.getPerkBonus(skill)
+					+ characterPlayer.getHistorial().getBonus(skill) + characterPlayer.getPerkBonus(skill) + 
+					characterPlayer.getConditionalPerkBonus(skill) 
 					+ "";
 		} else {
 			text = "__";
@@ -494,7 +495,9 @@ public class PdfStandardSheet {
 			letter += "H";
 		}
 
-		if (characterPlayer != null && characterPlayer.getPerkBonus(skill) != 0) {
+		if (characterPlayer != null
+				&& (characterPlayer.getPerkBonus(skill) != 0 || characterPlayer
+						.getConditionalPerkBonus(skill) != 0)) {
 			letter += "T";
 			if (characterPlayer.getConditionalPerkBonus(skill) != 0) {
 				letter += "*";

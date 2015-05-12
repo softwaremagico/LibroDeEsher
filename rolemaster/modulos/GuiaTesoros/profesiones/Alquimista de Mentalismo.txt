@@ -16,10 +16,10 @@ Desarrollo Físico	5
 Listas Básicas de Hechizos	5
 Listas Abiertas de Hechizos	5
 Listas Cerradas de Hechizos	5
-Listas Básicas de otras Profesiones	5
-Listas Abiertas de otros Reinos	5
-Listas Cerradas de otros Reinos	5
-Listas Básicas de otros Reinos	5
+Listas Básicas de Otras Profesiones	5
+Listas Abiertas de Otros Reinos	5
+Listas Cerradas de Otros Reinos	5
+Listas Básicas de Otros Reinos	5
 Listas Abiertas Arcanas	5
 Oficios	15
 Percepción de Poder	5

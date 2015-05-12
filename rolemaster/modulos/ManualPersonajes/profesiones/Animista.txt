@@ -15,10 +15,10 @@ Exteriores·Entorno	20
 Listas Básicas de Hechizos	5
 Listas Abiertas de Hechizos	5
 Listas Cerradas de Hechizos	5
-Listas Básicas de otras Profesiones	5
-Listas Abiertas de otros Reinos	5
-Listas Cerradas de otros Reinos	5
-Listas Básicas de otros Reinos	5
+Listas Básicas de Otras Profesiones	5
+Listas Abiertas de Otros Reinos	5
+Listas Cerradas de Otros Reinos	5
+Listas Básicas de Otros Reinos	5
 Listas Abiertas Arcanas	5
 Manipulación del Poder	5
 Percepción·Búsqueda	5
