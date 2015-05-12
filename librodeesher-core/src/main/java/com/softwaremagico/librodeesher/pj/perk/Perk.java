@@ -486,8 +486,11 @@ public class Perk {
 		this.conditionalCategoryBonus = conditionalCategoryBonus;
 	}
 
-	protected Map<String, Integer> getCategoryRanks() {
-		return categoryRanks;
+	public Integer getCategoryRanksBonus(String categoryName) {
+		if (categoryRanks.get(categoryName) == null) {
+			return 0;
+		}
+		return categoryRanks.get(categoryName);
 	}
 
 	protected void setCategoryRanks(HashMap<String, Integer> categoryRanks) {
@@ -502,8 +505,11 @@ public class Perk {
 		this.skillBonus = skillBonus;
 	}
 
-	protected Map<String, Integer> getSkillRanks() {
-		return skillRanks;
+	public Integer getSkillRanksBonus(String skillName) {
+		if (skillRanks.get(skillName) == null) {
+			return 0;
+		}
+		return skillRanks.get(skillName);
 	}
 
 	protected void setSkillRanks(HashMap<String, Integer> skillRanks) {
