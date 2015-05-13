@@ -25,9 +25,9 @@ public class Perk {
 	private PerkCategory category;
 	private Map<String, Integer> categoryBonus;
 	private Map<String, Integer> conditionalCategoryBonus;
-	private Map<String, Integer> categoryRanks;
+	private Map<String, Integer> categoryRanksBonus;
 	private Map<String, Integer> skillBonus;
-	private Map<String, Integer> skillRanks;
+	private Map<String, Integer> skillRanksBonus;
 	private Map<String, Integer> conditionalSkillBonus;
 	private Map<String, Integer> resistanceBonus;
 	private Map<CharacteristicsAbbreviature, Integer> characteristicBonus;
@@ -59,8 +59,8 @@ public class Perk {
 		characteristicBonus = new HashMap<>();
 		conditionalCategoryBonus = new HashMap<>();
 		conditionalSkillBonus = new HashMap<>();
-		skillRanks = new HashMap<>();
-		categoryRanks = new HashMap<>();
+		skillRanksBonus = new HashMap<>();
+		categoryRanksBonus = new HashMap<>();
 		commonSkills = new ArrayList<>();
 		restrictedSkills = new ArrayList<>();
 		commonCategories = new ArrayList<>();
@@ -130,22 +130,6 @@ public class Perk {
 		return bonus;
 	}
 
-	public Integer getRanks(Category category) {
-		Integer ranks = categoryRanks.get(category.getName());
-		if (ranks == null) {
-			return 0;
-		}
-		return ranks;
-	}
-
-	public Integer getRanks(Skill skill) {
-		Integer ranks = skillRanks.get(skill.getName());
-		if (ranks == null) {
-			return 0;
-		}
-		return ranks;
-	}
-
 	public void setSkillConditionalBonus(String skillName, Integer bonus) {
 		if (bonus == null || bonus == 0) {
 			conditionalSkillBonus.remove(skillName);
@@ -156,17 +140,17 @@ public class Perk {
 
 	public void setSkillRanks(String skillName, Integer ranks) {
 		if (ranks == null || ranks == 0) {
-			skillRanks.remove(skillName);
+			skillRanksBonus.remove(skillName);
 		} else {
-			skillRanks.put(skillName, ranks);
+			skillRanksBonus.put(skillName, ranks);
 		}
 	}
 
 	public void setCategoryRanks(String categoryName, Integer ranks) {
 		if (ranks == null || ranks == 0) {
-			categoryRanks.remove(categoryName);
+			categoryRanksBonus.remove(categoryName);
 		} else {
-			categoryRanks.put(categoryName, ranks);
+			categoryRanksBonus.put(categoryName, ranks);
 		}
 	}
 
@@ -487,14 +471,10 @@ public class Perk {
 	}
 
 	public Integer getCategoryRanksBonus(String categoryName) {
-		if (categoryRanks.get(categoryName) == null) {
+		if (categoryRanksBonus.get(categoryName) == null) {
 			return 0;
 		}
-		return categoryRanks.get(categoryName);
-	}
-
-	protected void setCategoryRanks(HashMap<String, Integer> categoryRanks) {
-		this.categoryRanks = categoryRanks;
+		return categoryRanksBonus.get(categoryName);
 	}
 
 	protected Map<String, Integer> getSkillBonus() {
@@ -506,14 +486,10 @@ public class Perk {
 	}
 
 	public Integer getSkillRanksBonus(String skillName) {
-		if (skillRanks.get(skillName) == null) {
+		if (skillRanksBonus.get(skillName) == null) {
 			return 0;
 		}
-		return skillRanks.get(skillName);
-	}
-
-	protected void setSkillRanks(HashMap<String, Integer> skillRanks) {
-		this.skillRanks = skillRanks;
+		return skillRanksBonus.get(skillName);
 	}
 
 	public Map<String, Integer> getConditionalSkillBonus() {
@@ -621,7 +597,7 @@ public class Perk {
 	}
 
 	protected void setCategoryRanks(Map<String, Integer> categoryRanks) {
-		this.categoryRanks = categoryRanks;
+		this.categoryRanksBonus = categoryRanks;
 	}
 
 	protected void setSkillBonus(Map<String, Integer> skillBonus) {
@@ -629,7 +605,7 @@ public class Perk {
 	}
 
 	protected void setSkillRanks(Map<String, Integer> skillRanks) {
-		this.skillRanks = skillRanks;
+		this.skillRanksBonus = skillRanks;
 	}
 
 	protected void setConditionalSkillBonus(Map<String, Integer> conditionalSkillBonus) {

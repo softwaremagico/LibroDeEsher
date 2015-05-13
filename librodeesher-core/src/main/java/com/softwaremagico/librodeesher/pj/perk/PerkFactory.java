@@ -167,22 +167,7 @@ public class PerkFactory {
 			ranksBonus = true;
 		}
 		String bonusString = bonus[1].replace(")", "").trim();
-		if (CategoryFactory.existCategory(bonusName)) {
-			if (bonusString.toLowerCase().contains(Spanish.COMMON_TAG)) {
-				perk.setCategoryToSelectCommonSkills(CategoryFactory.getCategory(bonusName), 1);
-			} else if (bonusString.toLowerCase().contains(Spanish.RESTRICTED_TAG)) {
-				perk.setCategoryAsRestricted(bonusName, true);
-			} else {
-				Integer bonusNumber = Integer.parseInt(bonusString.replace("*", "").replace("r", ""));
-				if (conditionalBonus) {
-					perk.setCategoriesConditionalBonus(bonusName, bonusNumber);
-				} else if (ranksBonus) {
-					perk.setCategoryRanks(bonusName, bonusNumber);
-				} else {
-					perk.setCategoryBonus(bonusName, bonusNumber);
-				}
-			}
-		} else if (SkillFactory.existSkill(bonusName)) {
+		if (SkillFactory.existSkill(bonusName)) {
 			if (bonusString.toLowerCase().contains(Spanish.COMMON_TAG)) {
 				perk.setSkillAsCommon(bonusName, true);
 			} else if (bonusString.toLowerCase().contains(Spanish.RESTRICTED_TAG)) {
@@ -195,6 +180,21 @@ public class PerkFactory {
 					perk.setSkillRanks(bonusName, bonusNumber);
 				} else {
 					perk.setSkillBonus(bonusName, bonusNumber);
+				}
+			}		
+		} else if (CategoryFactory.existCategory(bonusName)) {
+			if (bonusString.toLowerCase().contains(Spanish.COMMON_TAG)) {
+				perk.setCategoryToSelectCommonSkills(CategoryFactory.getCategory(bonusName), 1);
+			} else if (bonusString.toLowerCase().contains(Spanish.RESTRICTED_TAG)) {
+				perk.setCategoryAsRestricted(bonusName, true);
+			} else {
+				Integer bonusNumber = Integer.parseInt(bonusString.replace("*", "").replace("r", ""));
+				if (conditionalBonus) {
+					perk.setCategoriesConditionalBonus(bonusName, bonusNumber);
+				} else if (ranksBonus) {
+					perk.setCategoryRanks(bonusName, bonusNumber);
+				} else {
+					perk.setCategoryBonus(bonusName, bonusNumber);
 				}
 			}
 		} else if (bonusName.contains(Spanish.RESISTANCE_TAG)) {

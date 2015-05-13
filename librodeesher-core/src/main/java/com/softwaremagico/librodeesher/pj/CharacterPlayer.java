@@ -888,17 +888,8 @@ public class CharacterPlayer extends StorableObject {
 		Integer total = 0;
 		total += getCulture().getCultureRanks(category);
 		total += getPreviousLevelsRanks(category);
-		total += getPerksRanks(category);
 		total += getTrainingRanks(category);
 		total += getInsertedRanks(category);
-		return total;
-	}
-
-	private Integer getPerksRanks(Category category) {
-		Integer total = 0;
-		for (SelectedPerk perk : selectedPerks) {
-			total += PerkFactory.getPerk(perk).getRanks(category);
-		}
 		return total;
 	}
 
@@ -915,7 +906,6 @@ public class CharacterPlayer extends StorableObject {
 		total += getCulture().getCultureRanks(skill);
 		total += getCultureWeaponsRanks(skill.getName());
 		total += getCultureHobbyRanks(skill.getName());
-		total += getPerksRanks(skill);
 		total += getPreviousLevelsRanks(skill);
 		total += getInsertedRanks(skill);
 		if (skill.getCategory() != null) {
@@ -960,14 +950,6 @@ public class CharacterPlayer extends StorableObject {
 					}
 				}
 			}
-		}
-		return total;
-	}
-
-	private Integer getPerksRanks(Skill skill) {
-		Integer total = 0;
-		for (SelectedPerk perk : selectedPerks) {
-			total += PerkFactory.getPerk(perk).getRanks(skill);
 		}
 		return total;
 	}
