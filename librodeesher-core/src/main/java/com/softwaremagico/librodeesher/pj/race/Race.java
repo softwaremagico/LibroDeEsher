@@ -297,8 +297,18 @@ public class Race {
 				String language = Spanish.SPOKEN_TAG + " " + languageInformation[0];
 				initialRaceLanguages.put(language, Integer.parseInt(languageRank[0]));
 
+				// Add language to category.
+				if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
+					CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
+				}
+
 				language = Spanish.WRITTEN_TAG + " " + languageInformation[0];
 				initialRaceLanguages.put(language, Integer.parseInt(languageRank[1]));
+				
+				// Add language to category.
+				if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
+					CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
+				}
 
 				language = Spanish.SPOKEN_TAG + " " + languageInformation[0];
 				maxRaceLanguages.put(language, Integer.parseInt(maxCultureLanguage[0]));
@@ -517,8 +527,7 @@ public class Race {
 
 	public boolean isRestricted(Skill skill) {
 		try {
-			return restrictedSkills.contains(skill)
-					|| restrictedCategories.contains(skill.getCategory());
+			return restrictedSkills.contains(skill) || restrictedCategories.contains(skill.getCategory());
 		} catch (NullPointerException npe) {
 			return false;
 		}
@@ -526,8 +535,7 @@ public class Race {
 
 	public boolean isCommon(Skill skill) {
 		try {
-			return commonSkills.contains(skill)
-					|| commonCategories.contains(skill.getCategory());
+			return commonSkills.contains(skill) || commonCategories.contains(skill.getCategory());
 		} catch (NullPointerException npe) {
 			return false;
 		}
