@@ -2,12 +2,15 @@ package com.softwaremagico.librodeesher.pj.training;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -65,6 +68,24 @@ public class TrainingDecision extends StorableObject {
 	private List<CharacteristicRoll> characteristicsUpdates;
 
 	@Expose
+	@ElementCollection
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@CollectionTable(name = "T_TRAINING_DECISION_COMMON_SKILLS")
+	private Set<String> commonSkillsChosen;
+
+	@Expose
+	@ElementCollection
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@CollectionTable(name = "T_TRAINING_DECISION_PROFESSIONAL_SKILLS")
+	private Set<String> professionalSkillsChosen;
+
+	@Expose
+	@ElementCollection
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@CollectionTable(name = "T_TRAINING_DECISION_RESTRICTED_SKILLS")
+	private Set<String> restrictedSkillsChosen;
+
+	@Expose
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(name = "T_TRAINING_OBJECTS")
@@ -83,6 +104,9 @@ public class TrainingDecision extends StorableObject {
 		characteristicsUpdates = new ArrayList<>();
 		equipment = new ArrayList<>();
 		magicItems = new ArrayList<>();
+		commonSkillsChosen = new HashSet<>();
+		professionalSkillsChosen = new HashSet<>();
+		restrictedSkillsChosen = new HashSet<>();
 	}
 
 	@Override
@@ -93,9 +117,9 @@ public class TrainingDecision extends StorableObject {
 		resetIds(skillsSelected);
 		resetIds(categoriesSelected);
 	}
-	
+
 	@Override
-	public void resetComparationIds(){
+	public void resetComparationIds() {
 		resetComparationIds(this);
 		resetComparationIds(equipment);
 		resetComparationIds(characteristicsUpdates);
@@ -280,4 +304,29 @@ public class TrainingDecision extends StorableObject {
 		magicObject.setSkillBonus(skill.getName(), trainingItem.getBonus());
 		return magicObject;
 	}
+
+	public Set<String> getCommonSkillsChosen() {
+		return commonSkillsChosen;
+	}
+
+	public void setCommonSkillsChosen(Set<String> commonSkillsChosen) {
+		this.commonSkillsChosen = commonSkillsChosen;
+	}
+
+	public Set<String> getProfessionalSkillsChosen() {
+		return professionalSkillsChosen;
+	}
+
+	public void setProfessionalSkillsChosen(Set<String> professionalSkillsChosen) {
+		this.professionalSkillsChosen = professionalSkillsChosen;
+	}
+
+	public Set<String> getRestrictedSkillsChosen() {
+		return restrictedSkillsChosen;
+	}
+
+	public void setRestrictedSkillsChosen(Set<String> restrictedSkillsChosen) {
+		this.restrictedSkillsChosen = restrictedSkillsChosen;
+	}
+
 }

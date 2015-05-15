@@ -448,6 +448,21 @@
         primary key (T_TRAINING_DECISION_ID, categoriesSelected_KEY)
     );
 
+    create table T_TRAINING_DECISION_COMMON_SKILLS (
+        TrainingDecision_ID bigint not null,
+        commonSkillsChosen varchar(255)
+    );
+
+    create table T_TRAINING_DECISION_PROFESSIONAL_SKILLS (
+        TrainingDecision_ID bigint not null,
+        professionalSkillsChosen varchar(255)
+    );
+
+    create table T_TRAINING_DECISION_RESTRICTED_SKILLS (
+        TrainingDecision_ID bigint not null,
+        restrictedSkillsChosen varchar(255)
+    );
+
     create table T_TRAINING_DECISION_SKILLS_SELECTED (
         T_TRAINING_DECISION_ID bigint not null,
         skillsSelected_ID bigint not null,
@@ -990,6 +1005,21 @@
     alter table T_TRAINING_DECISION_CATEGORY_SELECTED 
         add constraint FK_jfqy4psrv51jc13552x13ru6f 
         foreign key (T_TRAINING_DECISION_ID) 
+        references T_TRAINING_DECISION (ID);
+
+    alter table T_TRAINING_DECISION_COMMON_SKILLS 
+        add constraint FK_gfh74mxgos7okm8dxxjnv2c20 
+        foreign key (TrainingDecision_ID) 
+        references T_TRAINING_DECISION (ID);
+
+    alter table T_TRAINING_DECISION_PROFESSIONAL_SKILLS 
+        add constraint FK_s8xsqc4hrxk9qj2xsp4mceixm 
+        foreign key (TrainingDecision_ID) 
+        references T_TRAINING_DECISION (ID);
+
+    alter table T_TRAINING_DECISION_RESTRICTED_SKILLS 
+        add constraint FK_9weotku43oc2i92kkse6u7j2c 
+        foreign key (TrainingDecision_ID) 
         references T_TRAINING_DECISION (ID);
 
     alter table T_TRAINING_DECISION_SKILLS_SELECTED 

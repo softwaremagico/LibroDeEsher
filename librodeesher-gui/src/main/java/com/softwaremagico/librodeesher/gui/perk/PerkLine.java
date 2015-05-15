@@ -99,15 +99,14 @@ public class PerkLine extends BaseLine {
 		gridBagConstraints.gridx = 2;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
-		perkCost = new ListLabel(perk.getCost().toString(), SwingConstants.CENTER, DEFAULT_COLUMN_WIDTH,
-				columnHeight);
+		perkCost = new ListLabel(perk.getCost().toString(), SwingConstants.CENTER, DEFAULT_COLUMN_WIDTH, columnHeight);
 		add(new ListBackgroundPanel(perkCost, background), gridBagConstraints);
 
 		gridBagConstraints.gridx = 3;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
-		perkCategory = new ListLabel(perk.getCategory().toString(), SwingConstants.CENTER,
-				DEFAULT_COLUMN_WIDTH * 2, columnHeight);
+		perkCategory = new ListLabel(perk.getCategory().toString(), SwingConstants.CENTER, DEFAULT_COLUMN_WIDTH * 2,
+				columnHeight);
 		add(new ListBackgroundPanel(perkCategory, background), gridBagConstraints);
 
 		gridBagConstraints.gridx = 4;
@@ -149,26 +148,25 @@ public class PerkLine extends BaseLine {
 	}
 
 	private void createSelectOptionsWindow() {
-		if (perk.getCategoriesToChoose().size() > 0) {
+		if (!perk.getCategoriesToChoose().isEmpty()) {
 			for (ChooseCategoryGroup options : perk.getCategoriesToChoose()) {
-				PerkOptions<Category> optionsWindow = new PerkOptions<Category>(character, perk, options,
-						this);
+				PerkOptionsWindow<Category> optionsWindow = new PerkOptionsWindow<Category>(character, perk, options, this);
 				optionsWindow.setPointCounterLabel("Categorias con (" + getBonusTag() + "): ");
 				optionsWindow.setVisible(true);
 			}
 		}
 
-		if (perk.getSkillsToChoose().size() > 0) {
+		if (!perk.getSkillsToChoose().isEmpty()) {
 			for (ChooseSkillGroup options : perk.getSkillsToChoose()) {
-				PerkOptions<Skill> optionsWindow = new PerkOptions<Skill>(character, perk, options, this);
+				PerkOptionsWindow<Skill> optionsWindow = new PerkOptionsWindow<Skill>(character, perk, options, this);
 				optionsWindow.setPointCounterLabel("Habilidades con (" + getBonusTag() + "): ");
 				optionsWindow.setVisible(true);
 			}
 		}
 
-		if (perk.getCommonSkillsToChoose().size() > 0) {
+		if (!perk.getCommonSkillsToChoose().isEmpty()) {
 			for (ChooseSkillGroup options : perk.getCommonSkillsToChoose()) {
-				PerkOptions<Skill> optionsWindow = new PerkOptions<Skill>(character, perk, options, this);
+				PerkOptionsWindow<Skill> optionsWindow = new PerkOptionsWindow<Skill>(character, perk, options, this);
 				optionsWindow.setPointCounterLabel("Habilidades comunes: ");
 				optionsWindow.setVisible(true);
 			}

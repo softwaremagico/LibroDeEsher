@@ -1546,8 +1546,36 @@ public class CharacterPlayer extends StorableObject {
 			PerkDecision perkDecision = perkDecisions.get(perk.getName());
 			if (perkDecision == null) {
 				perkDecision = new PerkDecision();
+				perkDecisions.put(perk.getName(), perkDecision);
 			}
 			perkDecision.setCommonSkillsChosen(commonSkillsChosen);
+		}
+	}
+
+	public void setTrainingCommonDecision(Training training, Set<String> commonSkillsChosen) {
+		if (commonSkillsChosen != null && commonSkillsChosen.size() > 0) {
+			TrainingDecision trainingDecision = getTrainingDecision(training.getName());
+			if (trainingDecision != null) {
+				trainingDecision.setCommonSkillsChosen(commonSkillsChosen);
+			}
+		}
+	}
+
+	public void setTrainingProfessionalDecision(Training training, Set<String> professionalSkillsChosen) {
+		if (professionalSkillsChosen != null && professionalSkillsChosen.size() > 0) {
+			TrainingDecision trainingDecision = getTrainingDecision(training.getName());
+			if (trainingDecision != null) {
+				trainingDecision.setProfessionalSkillsChosen(professionalSkillsChosen);
+			}
+		}
+	}
+
+	public void setTrainingRestrictedDecision(Training training, Set<String> restrictedSkillsChosen) {
+		if (restrictedSkillsChosen != null && restrictedSkillsChosen.size() > 0) {
+			TrainingDecision trainingDecision = getTrainingDecision(training.getName());
+			if (trainingDecision != null) {
+				trainingDecision.setProfessionalSkillsChosen(restrictedSkillsChosen);
+			}
 		}
 	}
 
@@ -1564,6 +1592,10 @@ public class CharacterPlayer extends StorableObject {
 						&& skills.getOptionsAsString().get(0).equals(skill.getName())) {
 					return true;
 				}
+			}
+			TrainingDecision trainingDecision = getTrainingDecision(trainingName);
+			if (trainingDecision.getProfessionalSkillsChosen().contains(skill.getName())) {
+				return true;
 			}
 		}
 		return false;
@@ -1584,6 +1616,10 @@ public class CharacterPlayer extends StorableObject {
 					return true;
 				}
 			}
+			TrainingDecision trainingDecision = getTrainingDecision(trainingName);
+			if (trainingDecision.getRestrictedSkillsChosen().contains(skill.getName())) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -1602,6 +1638,10 @@ public class CharacterPlayer extends StorableObject {
 						&& skills.getOptionsAsString().get(0).equals(skill.getName())) {
 					return true;
 				}
+			}
+			TrainingDecision trainingDecision = getTrainingDecision(trainingName);
+			if (trainingDecision.getCommonSkillsChosen().contains(skill.getName())) {
+				return true;
 			}
 		}
 		return false;

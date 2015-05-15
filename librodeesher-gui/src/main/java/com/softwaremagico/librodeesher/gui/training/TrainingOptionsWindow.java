@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.perk;
+package com.softwaremagico.librodeesher.gui.training;
 
 /*
  * #%L
@@ -30,6 +30,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -40,19 +42,20 @@ import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.options.SelectOption;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
-import com.softwaremagico.librodeesher.pj.perk.Perk;
+import com.softwaremagico.librodeesher.pj.training.Training;
 
-public class PerkOptions<T> extends BaseFrame {
+public class TrainingOptionsWindow<T> extends BaseFrame {
 	private static final long serialVersionUID = 5275328306603274360L;
 	private CharacterPlayer character;
-	private Perk perk;
+	private Training training;
 	private SelectOption<T> selectedOption;
-	private PerkLine parent;
+	private TrainingWindow parent;
 	private ChooseGroup<T> chooseOptions;
 
-	public PerkOptions(CharacterPlayer character, Perk perk, ChooseGroup<T> chooseOptions, PerkLine parent) {
+	public TrainingOptionsWindow(CharacterPlayer character, Training training, ChooseGroup<T> chooseOptions,
+			TrainingWindow parent) {
 		this.character = character;
-		this.perk = perk;
+		this.training = training;
 		this.parent = parent;
 		this.chooseOptions = chooseOptions;
 		defineWindow(500, 400);
@@ -99,13 +102,17 @@ public class PerkOptions<T> extends BaseFrame {
 
 	@Override
 	public void updateFrame() {
+		Set<String> selectedOptions = new HashSet<>(selectedOption.getSelectedOptions());
 		switch (chooseOptions.getChooseType()) {
-		case BONUS:
-			character.setPerkBonusDecision(perk, selectedOption.getSelectedOptions());
-			break;
 		case COMMON:
-			character.setPerkCommonDecision(perk, selectedOption.getSelectedOptions());
+			character.setTrainingCommonDecision(training, selectedOptions);
 			break;
+		case PROFESSIONAL:
+		case LIFE:
+			character.setTrainingProfessionalDecision(training, selectedOptions);
+			break;
+		case RESTRICTED:
+			character.setTrainingRestrictedDecision(training, selectedOptions);
 		default:
 			break;
 		}
@@ -114,13 +121,14 @@ public class PerkOptions<T> extends BaseFrame {
 	private void checkSelection() {
 		if (selectedOption.getSelectedOptions().size() != chooseOptions.getNumberOfOptionsToChoose()) {
 			ShowMessage.showErrorMessage(
-					"Debes seleccionar todas las opciones disponibles. El talento será eliminado.",
-					"Talentos");
-			parent.removePerk();
+					"No has seleccionado todas las opciones disponibles. El adiestramiento será eliminado.",
+					"Adiestramientos");
+			parent.removeTraining();
 		}
 	}
 
 	class WindowsClose extends WindowAdapter {
+		@Override
 		public void windowClosing(WindowEvent e) {
 			checkSelection();
 		}
@@ -133,6 +141,7 @@ public class PerkOptions<T> extends BaseFrame {
 			super(window);
 		}
 
+		@Override
 		protected void closeAction() {
 			checkSelection();
 			window.dispose();
