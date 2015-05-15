@@ -1,4 +1,3 @@
 Habilidades especializadas y generalizadas
 Si importas dos veces un personaje y lo salvas, da error en comparationId clave unica.
-Trainings con elegir mÃ¡s de una habilidad comun o profesional no funciona (Elementalista de aire).
-Idiomas de razas no se añaden (Ilourianos)
+
