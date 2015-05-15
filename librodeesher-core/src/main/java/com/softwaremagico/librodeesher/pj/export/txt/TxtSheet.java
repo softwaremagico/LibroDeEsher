@@ -11,7 +11,6 @@ import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
-import com.softwaremagico.librodeesher.pj.equipment.ObjectBonus;
 import com.softwaremagico.librodeesher.pj.perk.Perk;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -51,15 +50,15 @@ public class TxtSheet {
 		text += "---------------------------------------------------------------------------------\n";
 		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
 			text = text
-					+ String.format(formatStr, characteristic.getAbbreviature().getTag(),
-							characterPlayer.getCharacteristicTemporalValue(characteristic
-									.getAbbreviature()), characterPlayer.getCharacteristicPotentialValue(characteristic.getAbbreviature()),
-							characterPlayer.getCharacteristicTemporalBonus(characteristic
-									.getAbbreviature()), characterPlayer
-									.getCharacteristicRaceBonus(characteristic.getAbbreviature()),
-							characterPlayer.getCharacteristicSpecialBonus(characteristic
-									.getAbbreviature()), characterPlayer
-									.getCharacteristicTotalBonus(characteristic.getAbbreviature()));
+					+ String.format(
+							formatStr,
+							characteristic.getAbbreviature().getTag(),
+							characterPlayer.getCharacteristicTemporalValue(characteristic.getAbbreviature()),
+							characterPlayer.getCharacteristicPotentialValue(characteristic.getAbbreviature()),
+							characterPlayer.getCharacteristicTemporalBonus(characteristic.getAbbreviature()),
+							characterPlayer.getCharacteristicRaceBonus(characteristic.getAbbreviature()),
+							characterPlayer.getCharacteristicSpecialBonus(characteristic.getAbbreviature()),
+							characterPlayer.getCharacteristicTotalBonus(characteristic.getAbbreviature()));
 		}
 		return text;
 	}
@@ -77,7 +76,7 @@ public class TxtSheet {
 				+ "-------------------------------------------------------------\n";
 		for (int i = 0; i < CategoryFactory.getCategories().size(); i++) {
 			Category category = CategoryFactory.getCategories().get(i);
-			category =  characterPlayer.getCategory(category);
+			category = characterPlayer.getCategory(category);
 			if (characterPlayer.isCategoryUseful(category)) {
 				String bonus = "";
 				if (characterPlayer.getHistorial().isHistorialPointSelected(category)) {
@@ -212,8 +211,12 @@ public class TxtSheet {
 				if (!magicItem.getBonus().isEmpty()) {
 					magicItemString += ": ";
 				}
-				for (ObjectBonus objectBonus : magicItem.getBonus()) {
-					magicItemString += objectBonus.getBonus() + " a " + objectBonus.getBonusName();
+				for (int j = 0; j < magicItem.getBonus().size(); j++) {
+					magicItemString += magicItem.getBonus().get(j).getBonus() + " a "
+							+ magicItem.getBonus().get(j).getBonusName();
+					if (j < magicItem.getBonus().size() - 1) {
+						magicItemString += ", ";
+					}
 				}
 
 				text += magicItemString + "\n\n";
