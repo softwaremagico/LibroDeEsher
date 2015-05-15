@@ -34,7 +34,7 @@ Desarrollo de Puntos de Poder(DesPP)	*	DPP	Desarrollo de Puntos de Poder
 Desarrollo Físico(DesFis)	Co/Ad/Co	DF	Desarrollo Físico
 Exteriores·Animales(ExtAni)	Em/Ag/Em	Estándar	Conducir, Domar, Maestría de Animales (R), Manejo de los Animales, Montar, Montar: Lobos, Montar: Caballos, Montar: Osos, Montar: Camellos, Montar: Elefantes*, Montar: Montura Elemental*, Curación de Animales (R), Pastoreo
 Exteriores·Entorno(ExtEnt)	Ad/In/Me	Estándar	Cazar, Espeleología, Forrajear, Orientación Celeste, Predicción del Clima, Supervivencia, Supervivencia (Montañas), Supervivencia (Bosques), Supervivencia (Desiertos), Supervivencia (Llanuras), Supervivencia (Subterráneos), Supervivencia (Ártico)
-Hechizos Dirigidos(HecDir)	Ag/Ad/Ag	Estándar	Hechizos Dirigidos de Fuego, Hechizos Dirigidos de Agua, Hechizos Dirigidos de Hielo, Hechizos Dirigidos de Luz
+Hechizos Dirigidos(HecDir)	Ag/Ad/Ag	Estándar	Relámpago
 Listas Básicas de Hechizos(ListBas)	*	Limitada	Hechizos
 Listas Abiertas de Hechizos(ListAb)	*	Limitada	Hechizos
 Listas Cerradas de Hechizos(ListCerr)	*	Limitada	Hechizos

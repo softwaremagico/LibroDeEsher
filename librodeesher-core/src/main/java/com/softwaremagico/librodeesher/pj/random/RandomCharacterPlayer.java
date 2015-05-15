@@ -520,8 +520,8 @@ public class RandomCharacterPlayer {
 	private static void setRandomCultureSpells(CharacterPlayer characterPlayer)
 			throws MagicDefinitionException, InvalidProfessionException {
 		while (characterPlayer.getCultureTotalSpellRanks() < characterPlayer.getCulture().getSpellRanks()) {
-			List<String> spellLists = MagicFactory.getListOfProfession(characterPlayer.getRealmOfMagic()
-					.getRealmsOfMagic(), Spanish.OPEN_LIST_TAG);
+			List<String> spellLists = new ArrayList<>(MagicFactory.getListOfProfession(characterPlayer.getRealmOfMagic()
+					.getRealmsOfMagic(), Spanish.OPEN_LIST_TAG));
 			String choseSpell = spellLists.get((int) (Math.random() * spellLists.size()));
 			characterPlayer.setCultureSpellRanks(choseSpell,
 					characterPlayer.getCultureSpellRanks(choseSpell) + 1);

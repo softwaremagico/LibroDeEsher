@@ -24,7 +24,7 @@ package com.softwaremagico.librodeesher.gui.culture;
  * #L%
  */
 
-import java.util.List;
+import java.util.Set;
 
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.gui.ShowMessage;
@@ -47,7 +47,7 @@ public class SpellPanel extends CulturePanel {
 		int i = 0;
 
 		if (character.getCulture().getSpellRanks() != 0) {
-			List<String> spellLists;
+			Set<String> spellLists;
 			try {
 				spellLists = MagicFactory.getListOfProfession(character.getRealmOfMagic()
 						.getRealmsOfMagic(), Spanish.OPEN_LIST_TAG);
