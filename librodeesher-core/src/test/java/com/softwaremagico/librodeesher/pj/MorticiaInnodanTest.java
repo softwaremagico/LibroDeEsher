@@ -35,7 +35,7 @@ public class MorticiaInnodanTest {
 		StringBuilder text = new StringBuilder();
 		try (Scanner scanner = new Scanner(file)) {
 			while (scanner.hasNextLine()) {
-				text.append(scanner.nextLine());
+				text.append(scanner.nextLine()).append("\n");
 			}
 		}
 		return text;

@@ -9,7 +9,7 @@
 				<include name="characterTxt" />
 				<include name="characterJson" />
 				<include name="NihalDragoniana" />
-				<exclude name="MorticiaInnodanTest" />
+				<include name="MorticiaInnodanTest" />
 			</run>
 		</groups>
 		<classes>
