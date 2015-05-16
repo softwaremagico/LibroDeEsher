@@ -111,6 +111,7 @@ public class MagicSpellLists implements Serializable {
 		Set<String> otherProfession = new HashSet<>();
 		otherProfession = MagicFactory.getListOfOtherProfessions(notSelectableSpells, character
 				.getRealmOfMagic().getRealmsOfMagic(), character.getProfession().getName());
+		otherProfession.removeAll(notSelectableSpells);
 		notSelectableSpells.addAll(otherProfession);
 
 		// Other Realms professions.
@@ -118,6 +119,7 @@ public class MagicSpellLists implements Serializable {
 		otherRealmsProfession = MagicFactory.getListOfOtherProfessionsOtherRealm(notSelectableSpells,
 				character.getRealmOfMagic().getRealmsOfMagic(), character.getProfession().getName(),
 				MagicFactory.getElementalistTraining(character.getSelectedTrainings()));
+		otherRealmsProfession.removeAll(notSelectableSpells);
 		notSelectableSpells.addAll(otherRealmsProfession);
 
 		// Open list other realm.

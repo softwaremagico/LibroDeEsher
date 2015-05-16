@@ -51,7 +51,7 @@ Alteración de los Gases	Místico
 Alteración de los Líquidos	Místico
 Alteración de los Sólidos	Místico
 Cambio Místico	Místico
-Esconderse	Místico
+Esconderse (Místico)	Místico
 Sendas de la Confusión	Místico
 Dominación de la Mente	Mentalismo Maligno
 Enfermedades Mentales	Mentalismo Maligno

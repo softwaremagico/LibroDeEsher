@@ -29,15 +29,22 @@ import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.log.EsherLog;
+import com.softwaremagico.utils.ListWithoutCase;
 
 public class ProfessionFactory {
 	public static final String PROFESSION_FOLDER = "profesiones";
 	private static HashMap<String, Profession> professionStored = new HashMap<>();
 	private static List<String> availableProfessions = availableProfessions();
 
+	public ProfessionFactory() {
+
+	}
+
 	private static List<String> availableProfessions() {
 		try {
-			return RolemasterFolderStructure.getFilesAvailable(PROFESSION_FOLDER);
+			List<String> listIgnoringCase = new ListWithoutCase();
+			listIgnoringCase.addAll(RolemasterFolderStructure.getFilesAvailable(PROFESSION_FOLDER));
+			return listIgnoringCase;
 		} catch (Exception e) {
 			EsherLog.errorMessage(ProfessionFactory.class.getName(), e);
 		}

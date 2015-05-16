@@ -82,7 +82,7 @@ public class MagicFactory {
 		for (RealmOfMagic realm : realmsOfMagic) {
 			for (String profession : spellsByGroup.get(realm).keySet()) {
 				if (!profession.equals(Spanish.OPEN_LIST_TAG) && !profession.equals(Spanish.CLOSED_LIST_TAG)
-						&& !profession.equals(currentProfession)) {
+						&& !profession.equals(currentProfession)) {					
 					// It is a profession, not a training (except elementalist).
 					if (((ProfessionFactory.getAvailableProfessions().contains(profession)
 							|| profession.equals(getDarkSpellTag(realm)) || isElementalistTraining(profession)))) {
@@ -109,18 +109,21 @@ public class MagicFactory {
 			for (RealmOfMagic otherRealm : RealmOfMagic.values()) {
 				if (!realmsOfMagic.contains(otherRealm)) {
 					for (String profession : spellsByGroup.get(otherRealm).keySet()) {
-						if (!profession.equals(Spanish.OPEN_LIST_TAG.toLowerCase())
-								&& !profession.equals(Spanish.CLOSED_LIST_TAG.toLowerCase())
-								// It is a profession, not a training
-								&& (ProfessionFactory.getAvailableProfessions().contains(profession)
-										|| (includeElementalist != null && isElementalistTraining(includeElementalist)) || profession
-											.equals(getDarkSpellTag(otherRealm)))) {
-							Set<String> otherProfessionList = spellsByGroup.get(otherRealm).get(
-									profession.toLowerCase());
-							// Avoid to add list shared with other professions.
-							for (String spellList : otherProfessionList) {
-								if (ownProfessionLists == null || !ownProfessionLists.contains(spellList)) {
-									lists.add(spellList);
+						if (!profession.equals(Spanish.OPEN_LIST_TAG)
+								&& !profession.equals(Spanish.CLOSED_LIST_TAG)
+								&& !profession.equals(currentProfession)) {
+							// It is a profession, not a training (except
+							// elementalist).
+							if (((ProfessionFactory.getAvailableProfessions().contains(profession)
+									|| profession.equals(getDarkSpellTag(otherRealm)) || isElementalistTraining(profession)))) {
+								Set<String> otherProfessionList = spellsByGroup.get(otherRealm).get(
+										profession.toLowerCase());
+								// Avoid to add list shared with other
+								// professions.
+								for (String spellList : otherProfessionList) {
+									if (ownProfessionLists == null || !ownProfessionLists.contains(spellList)) {
+										lists.add(spellList);
+									}
 								}
 							}
 						}
@@ -191,8 +194,8 @@ public class MagicFactory {
 		}
 	}
 
-	public static Set<String> getDarkLists(List<RealmOfMagic> realmsOfMagic)
-			throws MagicDefinitionException, InvalidProfessionException {
+	public static Set<String> getDarkLists(List<RealmOfMagic> realmsOfMagic) throws MagicDefinitionException,
+			InvalidProfessionException {
 		Set<String> result = new HashSet<>();
 		for (RealmOfMagic realm : realmsOfMagic) {
 			List<RealmOfMagic> newRealms = new ArrayList<>();
@@ -205,8 +208,8 @@ public class MagicFactory {
 		return result;
 	}
 
-	public static Set<String> getOpenLists(List<RealmOfMagic> realmsOfMagic)
-			throws MagicDefinitionException, InvalidProfessionException {
+	public static Set<String> getOpenLists(List<RealmOfMagic> realmsOfMagic) throws MagicDefinitionException,
+			InvalidProfessionException {
 		return getListOfProfession(realmsOfMagic, Spanish.OPEN_LIST_TAG);
 	}
 

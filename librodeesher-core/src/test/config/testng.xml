@@ -9,11 +9,13 @@
 				<include name="characterTxt" />
 				<include name="characterJson" />
 				<include name="NihalDragoniana" />
+				<exclude name="MorticiaInnodanTest" />
 			</run>
 		</groups>
 		<classes>
 			<class name="com.softwaremagico.librodeesher.pj.CharacterCreationTest" />
 			<class name="com.softwaremagico.librodeesher.pj.NihalDragonianaTest" />
+			<class name="com.softwaremagico.librodeesher.pj.MorticiaInnodanTest" />
 		</classes>
 	</test>
 </suite>
