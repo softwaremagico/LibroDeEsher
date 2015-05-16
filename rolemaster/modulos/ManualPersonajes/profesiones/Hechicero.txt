@@ -102,26 +102,26 @@ Lista Cerrada (6-10)	6/6/6
 Lista Cerrada (11-15)	8/8
 Lista Cerrada (16-20)	10/10
 Lista Cerrada (21+)	25
-Listas Básicas de otras Profesiones (1-5)	10/10
-Listas Básicas de otras Profesiones (6-10)	12
-Listas Básicas de otras Profesiones (11-15)	25
-Listas Básicas de otras Profesiones (16-20)	40
-Listas Básicas de otras Profesiones (21+)	60
-Listas Abiertas de otros Reinos (1-5)	12
-Listas Abiertas de otros Reinos (6-10)	25
-Listas Abiertas de otros Reinos (11-15)	40
-Listas Abiertas de otros Reinos (16-20)	60
-Listas Abiertas de otros Reinos (21+)	80
-Listas Cerradas de otros Reinos (1-5)	25
-Listas Cerradas de otros Reinos (6-10)	40
-Listas Cerradas de otros Reinos (11-15)	60
-Listas Cerradas de otros Reinos (16-20)	80
-Listas Cerradas de otros Reinos (21+)	100
-Listas Básicas de otros Reinos (1-5)	60
-Listas Básicas de otros Reinos (6-10)	80
-Listas Básicas de otros Reinos (11-15)	100
-Listas Básicas de otros Reinos (16-20)	120
-Listas Básicas de otros Reinos (21+)	140
+Listas Básicas de Otras Profesiones (1-5)	10/10
+Listas Básicas de Otras Profesiones (6-10)	12
+Listas Básicas de Otras Profesiones (11-15)	25
+Listas Básicas de Otras Profesiones (16-20)	40
+Listas Básicas de Otras Profesiones (21+)	60
+Listas Abiertas de Otros Reinos (1-5)	12
+Listas Abiertas de Otros Reinos (6-10)	25
+Listas Abiertas de Otros Reinos (11-15)	40
+Listas Abiertas de Otros Reinos (16-20)	60
+Listas Abiertas de Otros Reinos (21+)	80
+Listas Cerradas de Otros Reinos (1-5)	25
+Listas Cerradas de Otros Reinos (6-10)	40
+Listas Cerradas de Otros Reinos (11-15)	60
+Listas Cerradas de Otros Reinos (16-20)	80
+Listas Cerradas de Otros Reinos (21+)	100
+Listas Básicas de Otros Reinos (1-5)	60
+Listas Básicas de Otros Reinos (6-10)	80
+Listas Básicas de Otros Reinos (11-15)	100
+Listas Básicas de Otros Reinos (16-20)	120
+Listas Básicas de Otros Reinos (21+)	140
 Listas Abiertas Arcanas (1-5)	5/5
 Listas Abiertas Arcanas (6-10)	6/6
 Listas Abiertas Arcanas (11-15)	58/8
