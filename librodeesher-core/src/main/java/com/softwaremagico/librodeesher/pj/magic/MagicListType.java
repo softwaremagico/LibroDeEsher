@@ -34,7 +34,7 @@ public enum MagicListType {
 			"listas abiertas arcanas", "Listas Abiertas Arcanas"), TRIAD("listas básicas de la tríada",
 			"Listas Básicas de la Tríada"), COMPLEMENTARY_TRIAD("listas básicas elementales complementarias",
 			"Listas Básicas Elementales Complementarias"), TRAINING("listas propias de adiestramiento",
-			"Listas Hechizos de Adiestramiento"), OTHER_TRAINING("listas de otros adiestramientos",
+			"Listas Hechizos de Adiestramiento"), OTHER_REALM_TRAINING("listas de otros adiestramientos",
 			"Listas Hechizos de Adiestramientos de Otros Reinos");
 
 	private String tag;

@@ -35,6 +35,7 @@ import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.profession.InvalidProfessionException;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
+import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 
 public class MagicFactory {
 
@@ -82,7 +83,7 @@ public class MagicFactory {
 		for (RealmOfMagic realm : realmsOfMagic) {
 			for (String profession : spellsByGroup.get(realm).keySet()) {
 				if (!profession.equals(Spanish.OPEN_LIST_TAG) && !profession.equals(Spanish.CLOSED_LIST_TAG)
-						&& !profession.equals(currentProfession)) {					
+						&& !profession.equals(currentProfession)) {
 					// It is a profession, not a training (except elementalist).
 					if (((ProfessionFactory.getAvailableProfessions().contains(profession)
 							|| profession.equals(getDarkSpellTag(realm)) || isElementalistTraining(profession)))) {
@@ -92,6 +93,46 @@ public class MagicFactory {
 						// or dark list if are considered as basic.
 						for (String spellList : otherProfessionList) {
 							if (ownProfessionLists == null || !ownProfessionLists.contains(spellList)) {
+								lists.add(spellList);
+							}
+						}
+					}
+				}
+			}
+		}
+		return lists;
+	}
+
+	public static Set<String> getListOfTraining(List<RealmOfMagic> realmsOfMagic, String training) {
+		Set<String> lists = new HashSet<String>();
+		for (RealmOfMagic realm : realmsOfMagic) {
+			for (String profession : spellsByGroup.get(realm).keySet()) {
+				if (!profession.equals(Spanish.OPEN_LIST_TAG) && !profession.equals(Spanish.CLOSED_LIST_TAG)) {
+					// It is a training.
+					if (TrainingFactory.getAvailableTrainings().contains(profession)) {
+						Set<String> trainingLists = spellsByGroup.get(realm).get(profession.toLowerCase());
+						for (String spellList : trainingLists) {
+							lists.add(spellList);
+						}
+					}
+				}
+			}
+		}
+		return lists;
+	}
+
+	public static Set<String> getListOfTrainingOtherRealms(List<RealmOfMagic> realmsOfMagic, String training) {
+		Set<String> lists = new HashSet<String>();
+		for (RealmOfMagic realm : RealmOfMagic.values()) {
+			if (!realmsOfMagic.contains(realm)) {
+				for (String profession : spellsByGroup.get(realm).keySet()) {
+					if (!profession.equals(Spanish.OPEN_LIST_TAG)
+							&& !profession.equals(Spanish.CLOSED_LIST_TAG)) {
+						// It is a training.
+						if (TrainingFactory.getAvailableTrainings().contains(profession)) {
+							Set<String> trainingLists = spellsByGroup.get(realm)
+									.get(profession.toLowerCase());
+							for (String spellList : trainingLists) {
 								lists.add(spellList);
 							}
 						}
