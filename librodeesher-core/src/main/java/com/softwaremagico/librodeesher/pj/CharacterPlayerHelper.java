@@ -28,6 +28,9 @@ public class CharacterPlayerHelper {
 
 	private Integer developmentPoints;
 
+	// Player has been changed and must be updated.
+	private boolean isDirty;
+
 	public CharacterPlayerHelper() {
 		resetAll();
 	}
@@ -45,65 +48,78 @@ public class CharacterPlayerHelper {
 		skillTotalBonus = new HashMap<>();
 		skillTotal = new HashMap<>();
 		developmentPoints = null;
+		setDirty(true);
 	}
 
 	public void resetAllSkillGeneralBonus() {
 		skillGeneralBonus = new HashMap<>();
 		resetAllSkillTotal();
+		setDirty(true);
 	}
 
 	public void resetAllSkillTotal() {
 		skillTotal = new HashMap<>();
+		setDirty(true);
 	}
 
 	public void resetAllSkillRanks() {
 		skillRanks = new HashMap<>();
 		resetAllSkillTotal();
+		setDirty(true);
 	}
 
 	public void resetAllCategoryGeneralBonus() {
 		categoryGeneralBonus = new HashMap<>();
 		resetAllCategoryTotalBonus();
+		setDirty(true);
 	}
 
 	public void resetAllCategoryCharacteristicsBonus() {
 		categoryCharacteristicsBonus = new HashMap<>();
 		resetAllCategoryTotal();
+		setDirty(true);
 	}
 
 	public void resetAllCategoryTotalBonus() {
 		categoryTotalBonus = new HashMap<>();
 		resetAllCategoryTotal();
+		setDirty(true);
 	}
 
 	public void resetAllCategoryTotal() {
 		categoryTotal = new HashMap<>();
+		setDirty(true);
 	}
 
 	public void resetCategoryRanks(String categoryName) {
 		categoryRanks.remove(categoryName);
 		resetCategoryTotal(categoryName);
 		developmentPoints = null;
+		setDirty(true);
 	}
 
 	public void resetCategoryCharacteristicsBonus(String categoryName) {
 		categoryCharacteristicsBonus.remove(categoryName);
 		resetCategoryTotal(categoryName);
+		setDirty(true);
 	}
 
 	public void resetCategoryGeneralBonus(String categoryName) {
 		categoryGeneralBonus.remove(categoryName);
 		resetCategoryTotalBonus(categoryName);
+		setDirty(true);
 	}
 
 	public void resetCategoryObjectBonus(String categoryName) {
 		categoryObjectBonus.remove(categoryName);
 		resetCategoryTotalBonus(categoryName);
+		setDirty(true);
 	}
 
 	public void resetCategoryTotalBonus(String categoryName) {
 		categoryTotalBonus.remove(categoryName);
 		resetCategoryTotal(categoryName);
+		setDirty(true);
 	}
 
 	public void resetCategoryTotal(String categoryName) {
@@ -115,31 +131,37 @@ public class CharacterPlayerHelper {
 		} catch (NullPointerException npe) {
 			EsherLog.severe(this.getClass().getName(), "Category '" + categoryName + "' not found!");
 		}
+		setDirty(true);
 	}
 
 	public void resetSkillRanks(String skillName) {
 		skillRanks.remove(skillName);
 		resetSkillTotalBonus(skillName);
 		resetDelvelopmentPoints();
+		setDirty(true);
 	}
 
 	public void resetSkillGeneralBonus(String skillName) {
 		skillGeneralBonus.remove(skillName);
 		resetSkillTotalBonus(skillName);
+		setDirty(true);
 	}
 
 	public void resetSkillObjectBonus(String skillName) {
 		skillObjectsBonus.remove(skillName);
 		resetSkillTotalBonus(skillName);
+		setDirty(true);
 	}
 
 	public void resetSkillTotalBonus(String skillName) {
 		skillTotalBonus.remove(skillName);
 		resetSkillTotal(skillName);
+		setDirty(true);
 	}
 
 	public void resetSkillTotal(String skillName) {
 		skillTotal.remove(skillName);
+		setDirty(true);
 	}
 
 	public Integer getCategoryRanks(String categoryName) {
@@ -153,6 +175,7 @@ public class CharacterPlayerHelper {
 		categoryRanks.put(categoryName, ranks);
 		resetCategoryTotal(categoryName);
 		resetDelvelopmentPoints();
+		setDirty(true);
 	}
 
 	public Integer getCategoryCharacteristicsBonus(String categoryName) {
@@ -165,6 +188,7 @@ public class CharacterPlayerHelper {
 	public void setCategoryCharacteristicsBonus(String categoryName, Integer value) {
 		categoryCharacteristicsBonus.put(categoryName, value);
 		resetCategoryTotal(categoryName);
+		setDirty(true);
 	}
 
 	public Integer getCategoryGeneralBonus(String categoryName) {
@@ -177,6 +201,7 @@ public class CharacterPlayerHelper {
 	public void setCategoryGeneralBonus(String categoryName, Integer value) {
 		categoryGeneralBonus.put(categoryName, value);
 		resetCategoryTotalBonus(categoryName);
+		setDirty(true);
 	}
 
 	public Integer getCategoryObjectBonus(String categoryName) {
@@ -189,11 +214,13 @@ public class CharacterPlayerHelper {
 	public void setCategoryObjectBonus(String categoryName, Integer value) {
 		categoryObjectBonus.put(categoryName, value);
 		resetCategoryTotalBonus(categoryName);
+		setDirty(true);
 	}
 
 	public void setCategoryTotalBonus(String categoryName, Integer value) {
 		categoryTotalBonus.put(categoryName, value);
 		resetCategoryTotal(categoryName);
+		setDirty(true);
 	}
 
 	public Integer getCategoryTotalBonus(String categoryName) {
@@ -212,6 +239,7 @@ public class CharacterPlayerHelper {
 
 	public void setCategoryTotal(String categoryName, Integer value) {
 		categoryTotal.put(categoryName, value);
+		setDirty(true);
 	}
 
 	public Integer getSkillRanks(String skillName) {
@@ -225,6 +253,7 @@ public class CharacterPlayerHelper {
 		skillRanks.put(skillName, ranks);
 		resetSkillTotalBonus(skillName);
 		resetDelvelopmentPoints();
+		setDirty(true);
 	}
 
 	public Integer getSkillGeneralBonus(String skillName) {
@@ -237,6 +266,7 @@ public class CharacterPlayerHelper {
 	public void setSkillGeneralBonus(String skillName, Integer value) {
 		skillGeneralBonus.put(skillName, value);
 		resetSkillTotalBonus(skillName);
+		setDirty(true);
 	}
 
 	public Integer getSkillObjectBonus(String skillName) {
@@ -249,11 +279,13 @@ public class CharacterPlayerHelper {
 	public void setSkillObjectBonus(String skillName, Integer value) {
 		skillObjectsBonus.put(skillName, value);
 		resetSkillTotalBonus(skillName);
+		setDirty(true);
 	}
 
 	public void setSkillTotalBonus(String skillName, Integer value) {
 		skillTotalBonus.put(skillName, value);
 		resetSkillTotal(skillName);
+		setDirty(true);
 	}
 
 	public Integer getSkillTotalBonus(String skillName) {
@@ -272,6 +304,7 @@ public class CharacterPlayerHelper {
 
 	public void setSkillTotal(String skillName, Integer value) {
 		skillTotal.put(skillName, value);
+		setDirty(true);
 	}
 
 	public Integer getDevelopmentPoints() {
@@ -283,9 +316,19 @@ public class CharacterPlayerHelper {
 
 	public void setDevelopmentPoints(Integer developmentPoints) {
 		this.developmentPoints = developmentPoints;
+		setDirty(true);
 	}
 
 	public void resetDelvelopmentPoints() {
 		developmentPoints = null;
 	}
+
+	public boolean isDirty() {
+		return isDirty;
+	}
+
+	public void setDirty(boolean isDirty) {
+		this.isDirty = isDirty;
+	}
+
 }

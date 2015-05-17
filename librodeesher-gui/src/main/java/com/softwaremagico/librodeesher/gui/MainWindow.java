@@ -53,7 +53,7 @@ public class MainWindow extends BaseFrame {
 	private JScrollPane resistanceScrollPanel;
 	private MainMenu mainMenu;
 	private ResumeSkillPanel skillPanel;
-	private CharacterPlayer character;
+	private CharacterPlayer characterPlayer;
 
 	/**
 	 * Create the frame.
@@ -67,12 +67,12 @@ public class MainWindow extends BaseFrame {
 	}
 
 	public void setCharacter(CharacterPlayer character) {
-		this.character = character;
+		this.characterPlayer = character;
 		characterPanel.setCharacter(character);
 		characteristicsPanel.setCharacter(character, true);
 		resistancePanel.setCharacter(character);
 		mainMenu.setCharacter(character);
-		//skillPanel.update(character);
+		// skillPanel.update(character);
 	}
 
 	private void setElements() {
@@ -188,18 +188,22 @@ public class MainWindow extends BaseFrame {
 
 	private void addListeners() {
 		addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowActivated(WindowEvent e) {
-				updateFrame();
+				if (characterPlayer.isDirty()) {
+					updateFrame();
+					characterPlayer.setDirty(false);
+				}
 			}
 		});
 	}
-	
+
 	public void updateCharacterInfo() {
 		characterPanel.update();
 	}
 
 	public void updateSkills() {
-		skillPanel.update(character);
+		skillPanel.update(characterPlayer);
 		skillPanel.revalidate();
 	}
 

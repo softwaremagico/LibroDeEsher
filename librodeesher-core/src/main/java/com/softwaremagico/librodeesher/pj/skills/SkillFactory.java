@@ -166,9 +166,7 @@ public class SkillFactory {
 					skills.add(skill);
 				}
 			} catch (Exception e) {
-				System.out.println("Skill '" + skill + "' + category '" + skill.getCategory() + "'");
 				EsherLog.errorMessage(SkillFactory.class.getName(), e);
-
 			}
 		}
 		Collections.sort(skills, new SkillComparator());
