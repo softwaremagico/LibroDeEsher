@@ -29,6 +29,8 @@ Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadore
 
 Versión
 ------------
+2.1.0	Nuevo: 
+		- Adiestramientos con hechizos pueden ser utilizados correctamente.
 2.0.3	Cambiado:
 		- Pequeñas mejoras para hacer más estable el programa. 
 2.0.2	Nuevo:
