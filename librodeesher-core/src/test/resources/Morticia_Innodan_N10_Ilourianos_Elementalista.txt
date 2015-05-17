@@ -138,6 +138,7 @@ Listas Cerradas de Hechizos                            4/4/4    0        0      
   *  Senda de la Invisibilidad                                  4        4        45       0        49      
   *  Sendas de la Rapidez                                       12       12       45       0        57      
 Listas Cerradas de Otros Reinos                        20       0        0        10       5        15      
+Listas Hechizos de Adiestramiento                      4/4/4    0        0        10       0        10      
 Maniobras de Combate                                   18       0        0        31       0        31      
 Manipulación del Poder                                 3/9      0        0        22       5        27      
   *  Maestría de los Hechizos: Control del Aire                 19       77       27       0        104     

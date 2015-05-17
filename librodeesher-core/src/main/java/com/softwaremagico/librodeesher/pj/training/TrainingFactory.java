@@ -29,6 +29,7 @@ import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.log.EsherLog;
+import com.softwaremagico.utils.ListWithoutCase;
 
 public class TrainingFactory {
 	public final static String TRAINING_FOLDER = "adiestramientos";
@@ -37,7 +38,9 @@ public class TrainingFactory {
 
 	private static List<String> availableTrainings() {
 		try {
-			return RolemasterFolderStructure.getFilesAvailable(TRAINING_FOLDER);
+			List<String> listIgnoringCase = new ListWithoutCase();
+			listIgnoringCase.addAll(RolemasterFolderStructure.getFilesAvailable(TRAINING_FOLDER));
+			return listIgnoringCase;
 		} catch (Exception e) {
 			EsherLog.errorMessage(TrainingFactory.class.getName(), e);
 		}

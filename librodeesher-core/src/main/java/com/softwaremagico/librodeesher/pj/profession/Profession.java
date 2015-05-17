@@ -377,10 +377,11 @@ public class Profession {
 				String listName = spellList[0].trim();
 				String listLevel = spellList[1].replace(")", "");
 				String listCost = spellsColumn[1];
-
+			
 				magicCosts.setMagicCost(MagicListType.getMagicType(listName),
 						MagicLevelRange.getLevelRange(listLevel), listCost);
 			} catch (Exception e) {
+				e.printStackTrace();
 				throw new InvalidProfessionException("Coste de magia mal formado: " + lines.get(index));
 			}
 			index++;

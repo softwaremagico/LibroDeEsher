@@ -29,6 +29,7 @@ import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.log.EsherLog;
+import com.softwaremagico.utils.ListWithoutCase;
 
 public class RaceFactory {
 	public static final String RACE_FOLDER = "razas";
@@ -37,7 +38,9 @@ public class RaceFactory {
 
 	private static List<String> availableRaces() {
 		try {
-			return RolemasterFolderStructure.getFilesAvailable(RACE_FOLDER);
+			List<String> listIgnoringCase = new ListWithoutCase();
+			listIgnoringCase.addAll(RolemasterFolderStructure.getFilesAvailable(RACE_FOLDER));
+			return listIgnoringCase;
 		} catch (Exception e) {
 			EsherLog.errorMessage(RaceFactory.class.getName(), e);
 		}

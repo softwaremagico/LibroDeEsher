@@ -128,6 +128,16 @@ Listas Abiertas Arcanas (6-10)	60
 Listas Abiertas Arcanas (11-15)	90
 Listas Abiertas Arcanas (16-20)	120
 Listas Abiertas Arcanas (21+)	150
+Listas Hechizos de Adiestramiento (1-5)	8/8/8
+Listas Hechizos de Adiestramiento (6-10)	8/8/8
+Listas Hechizos de Adiestramiento (11-15)	8/8/8
+Listas Hechizos de Adiestramiento (16-20)	8/8/8
+Listas Hechizos de Adiestramiento (21+)	8/8/8
+Listas Hechizos de Adiestramientos de Otros Reinos (1-5)	16/16
+Listas Hechizos de Adiestramientos de Otros Reinos (6-10)	16/16
+Listas Hechizos de Adiestramientos de Otros Reinos (11-15)	16/16
+Listas Hechizos de Adiestramientos de Otros Reinos (16-20)	16/16
+Listas Hechizos de Adiestramientos de Otros Reinos (21+)	16/16
 
 #ADIESTRAMIENTO	//+ Preferida 	- Prohibida
 ####################################

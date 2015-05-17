@@ -2,6 +2,7 @@ package com.softwaremagico.librodeesher.pj;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 import org.junit.Assert;
@@ -26,6 +27,16 @@ public class MorticiaInnodanTest {
 
 		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
 		String txtResult = readLargerTextFile(TXT_FILE).toString();
+		
+		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
+				+ "originalMorticia.txt");
+		out1.println(txtResult);
+		out1.close();
+		
+		PrintWriter out2 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
+				+ "importedMorticia.txt");
+		out2.println(orginalSheet);
+		out2.close();
 
 		Assert.assertEquals(orginalSheet, txtResult);
 	}

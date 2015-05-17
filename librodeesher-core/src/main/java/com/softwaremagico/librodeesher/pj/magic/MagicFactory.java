@@ -88,7 +88,7 @@ public class MagicFactory {
 					if (((ProfessionFactory.getAvailableProfessions().contains(profession)
 							|| profession.equals(getDarkSpellTag(realm)) || isElementalistTraining(profession)))) {
 						Set<String> otherProfessionList = spellsByGroup.get(realm).get(
-								profession.toLowerCase());
+								profession);
 						// Avoid to add basic list shared with other professions
 						// or dark list if are considered as basic.
 						for (String spellList : otherProfessionList) {
@@ -103,14 +103,14 @@ public class MagicFactory {
 		return lists;
 	}
 
-	public static Set<String> getListOfTraining(List<RealmOfMagic> realmsOfMagic, String training) {
+	public static Set<String> getListOfTraining(List<RealmOfMagic> realmsOfMagic, String trainingName) {
 		Set<String> lists = new HashSet<String>();
 		for (RealmOfMagic realm : realmsOfMagic) {
 			for (String profession : spellsByGroup.get(realm).keySet()) {
 				if (!profession.equals(Spanish.OPEN_LIST_TAG) && !profession.equals(Spanish.CLOSED_LIST_TAG)) {
 					// It is a training.
-					if (TrainingFactory.getAvailableTrainings().contains(profession)) {
-						Set<String> trainingLists = spellsByGroup.get(realm).get(profession.toLowerCase());
+					if (TrainingFactory.getAvailableTrainings().contains(profession) && !isElementalistTraining(profession)) {
+						Set<String> trainingLists = spellsByGroup.get(realm).get(profession);
 						for (String spellList : trainingLists) {
 							lists.add(spellList);
 						}
@@ -121,7 +121,7 @@ public class MagicFactory {
 		return lists;
 	}
 
-	public static Set<String> getListOfTrainingOtherRealms(List<RealmOfMagic> realmsOfMagic, String training) {
+	public static Set<String> getListOfTrainingOtherRealms(List<RealmOfMagic> realmsOfMagic, String trainingName) {
 		Set<String> lists = new HashSet<String>();
 		for (RealmOfMagic realm : RealmOfMagic.values()) {
 			if (!realmsOfMagic.contains(realm)) {
@@ -129,9 +129,9 @@ public class MagicFactory {
 					if (!profession.equals(Spanish.OPEN_LIST_TAG)
 							&& !profession.equals(Spanish.CLOSED_LIST_TAG)) {
 						// It is a training.
-						if (TrainingFactory.getAvailableTrainings().contains(profession)) {
+						if (TrainingFactory.getAvailableTrainings().contains(profession) && !isElementalistTraining(profession)) {
 							Set<String> trainingLists = spellsByGroup.get(realm)
-									.get(profession.toLowerCase());
+									.get(profession);
 							for (String spellList : trainingLists) {
 								lists.add(spellList);
 							}
@@ -158,7 +158,7 @@ public class MagicFactory {
 							if (((ProfessionFactory.getAvailableProfessions().contains(profession)
 									|| profession.equals(getDarkSpellTag(otherRealm)) || isElementalistTraining(profession)))) {
 								Set<String> otherProfessionList = spellsByGroup.get(otherRealm).get(
-										profession.toLowerCase());
+										profession);
 								// Avoid to add list shared with other
 								// professions.
 								for (String spellList : otherProfessionList) {
