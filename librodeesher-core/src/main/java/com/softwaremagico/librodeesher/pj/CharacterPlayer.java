@@ -2118,6 +2118,7 @@ public class CharacterPlayer extends StorableObject {
 		// Calculate characteristics modifications.
 		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
 			Roll roll = getStoredCharacteristicRoll(characteristic.getAbbreviature());
+			roll.resetComparationIds();
 			levelUp.addCharactersiticUpdate(characteristic.getAbbreviature(),
 					getCharacteristicTemporalValue(characteristic.getAbbreviature()),
 					getCharacteristicPotentialValue(characteristic.getAbbreviature()), roll);

@@ -208,7 +208,8 @@ public class PdfStandardSheet {
 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 					table.addCell(cell);
 
-					if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
+					if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()
+							&& characterPlayer.getCategoryCost(category, 0) != null) {
 						text = characterPlayer.getCategoryCost(category, 0).getCostTag();
 					} else {
 						text = "_________";
@@ -484,9 +485,8 @@ public class PdfStandardSheet {
 
 		if (characterPlayer != null) {
 			text = characterPlayer.getProfession().getSkillBonus(skill.getName())
-					+ characterPlayer.getHistorial().getBonus(skill) + characterPlayer.getPerkBonus(skill) + 
-					characterPlayer.getConditionalPerkBonus(skill) 
-					+ "";
+					+ characterPlayer.getHistorial().getBonus(skill) + characterPlayer.getPerkBonus(skill)
+					+ characterPlayer.getConditionalPerkBonus(skill) + "";
 		} else {
 			text = "__";
 		}
