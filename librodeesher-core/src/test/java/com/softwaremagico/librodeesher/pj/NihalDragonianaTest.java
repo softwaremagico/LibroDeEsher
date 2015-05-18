@@ -20,6 +20,8 @@ public class NihalDragonianaTest {
 	private CharacterPlayer characterPlayer;
 	private CharacterPlayer characterPlayer2;
 	private CharacterPlayerDao characterPlayerDao = CharacterPlayerDao.getInstance();
+	
+	private final static String CODIFICATION = "UTF-8";
 
 	public void importFromJson() throws IOException {
 		StringBuilder text = readLargerTextFile(CHARACTER_FILE);
@@ -72,7 +74,7 @@ public class NihalDragonianaTest {
 	private StringBuilder readLargerTextFile(String resourceName) throws IOException {
 		File file = new File(getClass().getClassLoader().getResource(resourceName).getFile());
 		StringBuilder text = new StringBuilder();
-		try (Scanner scanner = new Scanner(file)) {
+		try (Scanner scanner = new Scanner(file, CODIFICATION)) {
 			while (scanner.hasNextLine()) {
 				text.append(scanner.nextLine());
 			}

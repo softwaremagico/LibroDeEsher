@@ -16,6 +16,8 @@ public class MorticiaInnodanTest {
 	private final static String CHARACTER_FILE = "Morticia_Innodan_N10_Ilourianos_Elementalista.rlm";
 	private final static String TXT_FILE = "Morticia_Innodan_N10_Ilourianos_Elementalista.txt";
 	private final static String CHARACTER_NAME = "Morticia Innodan";
+	
+	private final static String CODIFICATION = "UTF-8";
 
 	@Test
 	public void importFromJson() throws IOException {
@@ -29,12 +31,12 @@ public class MorticiaInnodanTest {
 		String txtResult = readLargerTextFile(TXT_FILE).toString();
 		
 		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
-				+ "originalMorticia.txt");
+				+ "originalMorticia.txt", CODIFICATION);
 		out1.println(txtResult);
 		out1.close();
 		
 		PrintWriter out2 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
-				+ "importedMorticia.txt");
+				+ "importedMorticia.txt", CODIFICATION);
 		out2.println(orginalSheet);
 		out2.close();
 
@@ -44,7 +46,7 @@ public class MorticiaInnodanTest {
 	private StringBuilder readLargerTextFile(String resourceName) throws IOException {
 		File file = new File(getClass().getClassLoader().getResource(resourceName).getFile());
 		StringBuilder text = new StringBuilder();
-		try (Scanner scanner = new Scanner(file)) {
+		try (Scanner scanner = new Scanner(file, CODIFICATION)) {
 			while (scanner.hasNextLine()) {
 				text.append(scanner.nextLine()).append("\n");
 			}
