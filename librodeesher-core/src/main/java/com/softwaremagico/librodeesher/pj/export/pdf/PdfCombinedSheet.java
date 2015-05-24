@@ -296,6 +296,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 					remainingLines--;
 				}
 				newColumnRequired(document, writer, font);
+				lines++;
 			}
 		}
 	}
