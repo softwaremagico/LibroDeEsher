@@ -13,7 +13,6 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -31,7 +30,7 @@ import com.softwaremagico.log.EsherLog;
 public class PdfCombinedSheet extends PdfStandardSheet {
 	private final static int MAX_LINES = 71;
 	private final static int BORDER = 0;
-	
+
 	private int lines = 0;
 	private int showed = 0;
 	private int column = 0;
@@ -120,8 +119,8 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 			}
 		}
 
-		if (column == 0) {
-			// Add column if necesary.
+		if (column % 2 == 1) {
+			// Add column if necessary.
 			cell = new PdfPCell();
 			cell.setBorderWidth(1);
 			cell.setColspan(1);
@@ -241,23 +240,6 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 			}
 		}
 
-		// Last lines
-		if (lines > MAX_LINES - 5) {
-			for (int i = lines; i <= MAX_LINES; i++) {
-				tableHab = emptySkillList(cat, font);
-				cell = new PdfPCell(tableHab);
-				cell.setBorderWidth(0);
-				tableColumn.addCell(cell);
-				lines++;
-				added++;
-				remainingLines--;
-			}
-			newColumnRequired(document, writer, font);
-			if (last) {
-				lastFilled = true;
-			}
-		}
-
 		// At least one skill per category
 		if (added == 0) {
 			tableHab = emptySkillList(cat, font);
@@ -284,6 +266,23 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 			}
 		}
 
+		// Last lines
+		if (lines > MAX_LINES - 5) {
+			for (int i = lines; i <= MAX_LINES; i++) {
+				tableHab = emptySkillList(cat, font);
+				cell = new PdfPCell(tableHab);
+				cell.setBorderWidth(0);
+				tableColumn.addCell(cell);
+				lines++;
+				added++;
+				remainingLines--;
+			}
+			newColumnRequired(document, writer, font);
+			if (last) {
+				lastFilled = true;
+			}
+		}
+
 		// Last category
 		if (lines < MAX_LINES && last && !lastFilled) {
 			for (int j = column; j < 2; j++) {
@@ -307,11 +306,11 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		PdfPCell cell;
 		BaseColor background;
 
-//		if (showed % 2 != 0) {
-//			background = BaseColor.WHITE;
-//		} else {
-//			background = BaseColor.LIGHT_GRAY;
-//		}
+		// if (showed % 2 != 0) {
+		// background = BaseColor.WHITE;
+		// } else {
+		// background = BaseColor.LIGHT_GRAY;
+		// }
 		background = BaseColor.WHITE;
 		showed++;
 
@@ -324,11 +323,11 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell = new PdfPCell(p);
 		cell.setMinimumHeight(10);
 		cell.setBorderWidth(BORDER);
-//		if (column == 0) {
-//			cell.setBorderWidthLeft(1);
-//		} else {
-//			cell.setBorderWidthLeft(0);
-//		}
+		// if (column == 0) {
+		// cell.setBorderWidthLeft(1);
+		// } else {
+		// cell.setBorderWidthLeft(0);
+		// }
 		cell.setBorderWidthRight(0);
 		cell.setBorderWidthTop(0);
 		cell.setBorderWidthBottom(0);
@@ -337,7 +336,8 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setPaddingLeft(5f);
 		tableHab.addCell(cell);
 
-		p = new Paragraph(getCharacterPlayer().getPreviousRanks(skill) + "", FontFactory.getFont(font, fontSize - 1));
+		p = new Paragraph(getCharacterPlayer().getPreviousRanks(skill) + "", FontFactory.getFont(font,
+				fontSize - 1));
 		cell = new PdfPCell(p);
 		cell.setMinimumHeight(10);
 		cell.setBorderWidth(BORDER);
@@ -353,16 +353,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		tableHab.addCell(cell);
 
-		p = new Paragraph(getCharacterPlayer().getRanksValue(skill) + "", FontFactory.getFont(font, fontSize - 1));
-		cell = new PdfPCell(p);
-		cell.setMinimumHeight(10);
-		cell.setBorderWidth(BORDER);
-		cell.setBackgroundColor(background);
-		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		cell.setPaddingLeft(5f);
-		tableHab.addCell(cell);
-
-		p = new Paragraph(getCharacterPlayer().getTotalValue(skill.getCategory()) + "", FontFactory.getFont(font,
+		p = new Paragraph(getCharacterPlayer().getRanksValue(skill) + "", FontFactory.getFont(font,
 				fontSize - 1));
 		cell = new PdfPCell(p);
 		cell.setMinimumHeight(10);
@@ -372,7 +363,18 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setPaddingLeft(5f);
 		tableHab.addCell(cell);
 
-		p = new Paragraph(getCharacterPlayer().getItemBonus(skill) + "", FontFactory.getFont(font, fontSize - 1));
+		p = new Paragraph(getCharacterPlayer().getTotalValue(skill.getCategory()) + "", FontFactory.getFont(
+				font, fontSize - 1));
+		cell = new PdfPCell(p);
+		cell.setMinimumHeight(10);
+		cell.setBorderWidth(BORDER);
+		cell.setBackgroundColor(background);
+		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		cell.setPaddingLeft(5f);
+		tableHab.addCell(cell);
+
+		p = new Paragraph(getCharacterPlayer().getItemBonus(skill) + "", FontFactory.getFont(font,
+				fontSize - 1));
 		cell = new PdfPCell(p);
 		cell.setMinimumHeight(10);
 		cell.setBorderWidth(BORDER);
@@ -382,8 +384,9 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		tableHab.addCell(cell);
 
 		String text = getCharacterPlayer().getProfession().getSkillBonus(skill.getName())
-				+ getCharacterPlayer().getHistorial().getBonus(skill) + getCharacterPlayer().getPerkBonus(skill) +  
-				getCharacterPlayer().getConditionalPerkBonus(skill) + "";
+				+ getCharacterPlayer().getHistorial().getBonus(skill)
+				+ getCharacterPlayer().getPerkBonus(skill)
+				+ getCharacterPlayer().getConditionalPerkBonus(skill) + "";
 
 		String letter = "";
 		if (getCharacterPlayer().getHistorial().getBonus(skill) > 0) {
@@ -407,7 +410,8 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		tableHab.addCell(cell);
 
-		if (getCharacterPlayer().getItemBonus(skill) > 0 || getCharacterPlayer().getConditionalPerkBonus(skill) > 0) {
+		if (getCharacterPlayer().getItemBonus(skill) > 0
+				|| getCharacterPlayer().getConditionalPerkBonus(skill) > 0) {
 			text = getCharacterPlayer().getTotalValue(skill) - getCharacterPlayer().getItemBonus(skill)
 					- getCharacterPlayer().getConditionalPerkBonus(skill) + "/"
 					+ getCharacterPlayer().getTotalValue(skill) + "";
@@ -418,11 +422,11 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		p = new Paragraph(text + "", FontFactory.getFont(font, fontSize - 1));
 		cell = new PdfPCell(p);
 		cell.setMinimumHeight(10);
-//		if (column == 1) {
-//			cell.setBorderWidthRight(1);
-//		} else {
-//			cell.setBorderWidthRight(0);
-//		}
+		// if (column == 1) {
+		// cell.setBorderWidthRight(1);
+		// } else {
+		// cell.setBorderWidthRight(0);
+		// }
 		cell.setBorderWidth(BORDER);
 		cell.setBorderWidthLeft(0);
 		cell.setBorderWidthTop(0);
@@ -443,11 +447,11 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 
 		float[] widths = { 0.31f, 0.06f, 0.15f, 0.08f, 0.10f, 0.10f, 0.10f, 0.10f };
 
-//		if (showed % 2 != 0) {
-//			background = BaseColor.WHITE;
-//		} else {
-//			background = BaseColor.LIGHT_GRAY;
-//		}
+		// if (showed % 2 != 0) {
+		// background = BaseColor.WHITE;
+		// } else {
+		// background = BaseColor.LIGHT_GRAY;
+		// }
 		background = BaseColor.WHITE;
 		showed++;
 
@@ -457,11 +461,11 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		p = new Paragraph("________________________", FontFactory.getFont(font, fontSize - 1));
 		cell = new PdfPCell(p);
 		cell.setMinimumHeight(10);
-//		if (column == 0) {
-//			cell.setBorderWidthLeft(1);
-//		} else {
-//			cell.setBorderWidthLeft(0);
-//		}
+		// if (column == 0) {
+		// cell.setBorderWidthLeft(1);
+		// } else {
+		// cell.setBorderWidthLeft(0);
+		// }
 		cell.setBorderWidth(BORDER);
 		cell.setBorderWidthRight(0);
 		cell.setBorderWidthTop(0);
@@ -531,11 +535,11 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		p = new Paragraph("___", FontFactory.getFont(font, fontSize - 1));
 		cell = new PdfPCell(p);
 		cell.setMinimumHeight(10);
-//		if (column == 1) {
-//			cell.setBorderWidthRight(1);
-//		} else {
-//			cell.setBorderWidthRight(0);
-//		}
+		// if (column == 1) {
+		// cell.setBorderWidthRight(1);
+		// } else {
+		// cell.setBorderWidthRight(0);
+		// }
 		cell.setBorderWidth(BORDER);
 		cell.setBorderWidthLeft(0);
 		cell.setBorderWidthTop(0);
@@ -553,7 +557,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 			throws MalformedURLException, BadElementException, IOException, DocumentException {
 		Paragraph p;
 		PdfPCell cell;
-		float[] widths = { 0.23f, 0.23f, 0.14f, 0.11f, 0.13f, 0.16f };
+		float[] widths = { 0.23f, 0.18f, 0.19f, 0.11f, 0.13f, 0.16f };
 		PdfPTable categoryTable = new PdfPTable(widths);
 		categoryTable.flushContent();
 
