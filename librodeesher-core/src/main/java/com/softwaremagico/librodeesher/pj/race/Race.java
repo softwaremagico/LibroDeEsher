@@ -40,6 +40,8 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
+import com.softwaremagico.librodeesher.pj.perk.Perk;
+import com.softwaremagico.librodeesher.pj.perk.PerkFactory;
 import com.softwaremagico.librodeesher.pj.perk.PerkPointsCalculator;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceDefinition;
@@ -607,5 +609,19 @@ public class Race {
 
 	public String getRaceLanguage() {
 		return raceLanguage;
+	}
+
+	public List<Perk> getRacePerks() {
+		List<Perk> racePerks = new ArrayList<>();
+		for (String special : getSpecials()) {
+			String[] columns = special.split(":");
+			if (columns.length > 1) {
+				Perk perk = PerkFactory.getPerk(columns[0]);
+				if (perk != null) {
+					racePerks.add(perk);
+				}
+			}
+		}
+		return racePerks;
 	}
 }

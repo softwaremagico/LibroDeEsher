@@ -78,6 +78,7 @@ public class PerkFactory {
 				} catch (NumberFormatException npe) {
 					throw new InvalidPerkException("Error en el coste del talento:\"" + line + "\"");
 				} catch (ArrayIndexOutOfBoundsException aiob) {
+					aiob.printStackTrace();
 					throw new InvalidPerkException("Error en el talento:\"" + line + "\"");
 				}
 			}

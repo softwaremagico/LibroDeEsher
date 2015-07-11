@@ -86,14 +86,13 @@ Aérea, Silvana, Subterránea, Litoral
 
 #ESPECIALES		75
 ####################################
-Garras y Mordisco hasta un máximo de Mediano
-Sangre Ácida (1-2 PV)
-12	TA	Escamas de Dragón
-+30	BD	Escamas de Dragón
-Aliento de Dragón (30m/1xmin/20xdia)
-Posee la lista de Mejora de Hechizos, Mejora Corporal y Leyes de Fuego (o de su elemento) hasta su nivel.
-Dormilón (pag 85 Manual de Personajes)
-Codicioso (pag 91 Manual de Personajes)
+Arma Natural: Garras y Mordisco hasta un máximo de Mediano
+Reserva de Veneno: Sangre Ácida: (1-2 PV)
+Piel Gruesa (Mayor): 12	TA, +30BD	Escamas de Dragón
+Arma Natural: Aliento de Dragón (30m/1xmin/20xdia)
+Poder (Menor):Posee la lista de Mejora de Hechizos, Mejora Corporal y Leyes de Fuego (o de su elemento) hasta su nivel.
+Dormilón: (pag 85 Manual de Personajes)
+Codicioso: (pag 91 Manual de Personajes)
 
 #TALENTOS
 ####################################

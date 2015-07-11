@@ -1,5 +1,6 @@
 # Nombre	Coste	Permitido	Grado	Categoria1 (bonus), Categoria2 (bonus), {listado a seleccionar una}...	Descripcion	
 #########	#########	#########	#########	#########	#########	
+Arma Natural	15	Todos	Mayor	Ninguna	Tienes garras, púas, zarpas, pinzas... que puedes usar para atacar desarrollando la habilidad pertinente en Ataques Especiales. Esta habilidad será común para ti. 
 Juego de Muñecas	15	Todos	Mayor	Artes Marciales·Barridos (20), Artes Marciales·Golpes (20), Armas·Arrojadizas (20)	Consulta la página 58 del libro de personajes para más información.	
 Poder (Mínimo)	5	Todos	Mínimo	Ninguno	Tienes tres rangos adicionales de hechizos.	
 Arquero Nato 	8	Todos	Menor	Armas·Proyectiles (5)	Aumentas el alcance de todos los arcos un 25%. Consulta la página 52 del libro de personajes para más información.	
@@ -8,6 +9,7 @@ Adiestramiento en Artes Marciales (Mayor)	15	Todos	Mayor	Artes Marciales·Barrid
 Adiestramiento en Artes Marciales (Máximo)	30	Todos	Máximo	Artes Marciales·Barridos (20), Artes Marciales·Golpes (20), Artes Marciales·Maniobras de Combate (20), Autocontrol (20), Defensas Especiales (20), Defensas Especiales (Común)	Una habilidad de defensas especiales es común. Consulta la página 52 del libro de personajes para más información.	
 Adiestramiento Mortal	15	Todos	Mayor	Conocimiento de los Venenos (25), Usa/Curar Venenos (25), Ataque Silencioso (25), Acechar (25), Esconderse (25), Emboscar (25)	Consulta la página 52 del libro de personajes para más información.	
 Piel Gruesa (Mayor)	15	Todos	Mayor	Apariencia (-20), TA (4)	Otorga un TA 4. Consulta la página 60 del libro de personajes para más información.	
+Piel Gruesa (Máximo)	25	Todos	Mayor	Apariencia (-40), TA (11)	Otorga un TA 11. Consulta la página 60 del libro de personajes para más información.	
 Resistencia al Dolor (Mínimo)	5	Todos	Mínimo	Ninguno	Resta en 1 los puntos de vida sufridos por ataque (hasta un mínimo de 1). Consulta la página 61 del libro de personajes para más información.	
 Resistencia al Dolor (Menor)	10	Todos	Menor	Ninguno	Resta en 2 los puntos de vida sufridos por ataque (hasta un mínimo de 1). Consulta la página 61 del libro de personajes para más información.	
 Resistencia al Dolor (Mayor)	15	Todos	Mayor	Ninguno	Resta en 3 los puntos de vida sufridos por ataque (hasta un mínimo de 1). Consulta la página 61 del libro de personajes para más información.	
@@ -115,4 +117,14 @@ Edad	-10	Todos	Menor	Ninguna	Como mínimo has alcanzado una mediana edad para tu
 Aspecto Único (Mínimo)	-5	Todos	Mínimo	Ninguna	Posees una apariencia única. Algo que es significativamente distinguible en ti. Esto causa que la gente te reconozca mucho más fácilmente. Lo que te hace único es relativamente fácil de ocultar. Consulta la página 81 del libro de personajes para más información.	
 Aspecto Único (Menor)	-10	Todos	Menor	Ninguna	Posees una apariencia única. Algo que es significativamente distinguible en ti. Esto causa que la gente te reconozca mucho más fácilmente. Necesitas un disfraz para ocultarlo. Cuando no estás disfrazado, debes restar d10 a Apariencia. Consulta la página 81 del libro de personajes para más información.	
 Aspecto Único (Máximo)	-15	Todos	Máximo	Ninguna	Posees una apariencia única. Algo que es significativamente distinguible en ti. Esto causa que la gente te reconozca mucho más fácilmente. No se puede ocultar y resta 2d10 a Apariencia. Consulta la página 81 del libro de personajes para más información.	
-Sutil	8	Todos	Menor	Acechar (25), Esconderse (25)	Consulta la página 61 del libro de personajes para más información.	
+Sutil	8	Todos	Menor	Acechar (25), Esconderse (25)	Consulta la página 61 del libro de personajes para más información.
+Ataque Natural a Distancia (Mayor)	15	Todos	Mayor	Ninguna	Puedes realizar un ataque a distancia equivalente a un rayo de descarga. Debes desarrollar esta habilidad.
+Glotón	-3	Todos	Mínimo	Ninguna	Te gusta comer y beber. Si es necesario que no comas, debes hacer una tirada de fuerza de voluntad con una bonificación de tu autodisciplina x3. También sufres de sobrepeso.
+Visión Nocturna	7	Todos	Menor	Ninguna	Te permite ver en presencia de luz ténue. Consulta la página 62 del Manual de Personajes para más detalles.
+Regeneración (Menor)	8	Todos	Menor	Ninguna	Tu cuerpo recupera un punto de daño por minuto. Consulta la página 60 del Manual de Personajes para más detalles.
+Regeneración (Mayor)	15	Todos	Mayor	Ninguna	Tu cuerpo recupera dos puntos de daño por asalto. Consulta la página 60 del Manual de Personajes para más detalles.
+Regeneración (Máximo)	25	Todos	Máximo	Ninguna	Tu cuerpo recupera tres puntos de daño por asalto. Consulta la página 60 del Manual de Personajes para más detalles.
+Descoordinación	-7	Todos	Menor	Ninguna	Sufres un crítico A de Desequilibrio siempre que falles una maniobra. Pagina 85 del Manual de Personajes.
+Sin Concentración	-10	Todos	Menor	Ninguna	-25 a todas las habilidades que duren más de medio minuto. Pagina 97 del Manual de Personajes.
+Ciego al Color	-5	Todos	Mínimo	Ninguna	Ves en blanco y negro. Pagina 84 del Manual de Personajes.
+Ruidoso	-15	Todos	Mayor	Subterfugio·Sigilo (-10), Acechar(-15), Esconderse (-15)	No eres especialmente silencioso. Consulta la página 88 del Manual de Personajes para más detalles.

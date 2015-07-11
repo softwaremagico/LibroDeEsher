@@ -12,25 +12,35 @@ import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceException;
 @Test(groups = "perkPoints")
 public class PerkPointsPerRaceTest {
 
+//	@Test
+//	public void laanPerks() throws InvalidRaceDefinition, InvalidRaceException {
+//		Assert.assertEquals(35, new PerkPointsCalculator(RaceFactory.getRace("Laan")).getPerkPoints());
+//	}
+//
+//	@Test
+//	public void centauroCaballoPerks() throws InvalidRaceDefinition, InvalidRaceException {
+//		Assert.assertEquals(45,
+//				new PerkPointsCalculator(RaceFactory.getRace("Centauro Caballo")).getPerkPoints());
+//	}
+//
+//	@Test
+//	public void centauroLeonPerks() throws InvalidRaceDefinition, InvalidRaceException {
+//		Assert.assertEquals(45,
+//				new PerkPointsCalculator(RaceFactory.getRace("Centauro León")).getPerkPoints());
+//	}
+//
+//	@Test
+//	public void dyariPerks() throws InvalidRaceDefinition, InvalidRaceException {
+//		Assert.assertEquals(30, new PerkPointsCalculator(RaceFactory.getRace("Dyari")).getPerkPoints());
+//	}
+//	
+//	@Test
+//	public void dragonetPerks() throws InvalidRaceDefinition, InvalidRaceException {
+//		Assert.assertEquals(5, new PerkPointsCalculator(RaceFactory.getRace("Dragonet")).getPerkPoints());
+//	}
+	
 	@Test
-	public void laanPerks() throws InvalidRaceDefinition, InvalidRaceException {
-		Assert.assertEquals(35, new PerkPointsCalculator(RaceFactory.getRace("Laan")).getPerkPoints());
-	}
-
-	@Test
-	public void centauroCaballoPerks() throws InvalidRaceDefinition, InvalidRaceException {
-		Assert.assertEquals(45,
-				new PerkPointsCalculator(RaceFactory.getRace("Centauro Caballo")).getPerkPoints());
-	}
-
-	@Test
-	public void centauroLeonPerks() throws InvalidRaceDefinition, InvalidRaceException {
-		Assert.assertEquals(45,
-				new PerkPointsCalculator(RaceFactory.getRace("Centauro León")).getPerkPoints());
-	}
-
-	@Test
-	public void dyariPerks() throws InvalidRaceDefinition, InvalidRaceException {
-		Assert.assertEquals(30, new PerkPointsCalculator(RaceFactory.getRace("Dyari")).getPerkPoints());
+	public void trollPerks() throws InvalidRaceDefinition, InvalidRaceException {
+		Assert.assertEquals(10, new PerkPointsCalculator(RaceFactory.getRace("Troll de Guerra")).getPerkPoints());
 	}
 }

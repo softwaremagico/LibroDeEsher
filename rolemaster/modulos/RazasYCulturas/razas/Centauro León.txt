@@ -27,10 +27,10 @@ Miedo	0
 #PROGRESIÓN
 ####################################
 Desarrollo Físico	0/9/6/5/4
-PP Arcano	0/5/4/6/2
-PP Canalización	0/5/4/6/2
-PP Esencia	0/5/4/6/2
-PP Mentalismo	0/5/4/6/2
+PP Arcano	0/5/4/3/2
+PP Canalización	0/5/4/3/2
+PP Esencia	0/5/4/3/2
+PP Mentalismo	0/6/5/4/3
 PP Psiónico	0/6/5/4/3
 
 #PROFESIONES RESTRINGIDAS

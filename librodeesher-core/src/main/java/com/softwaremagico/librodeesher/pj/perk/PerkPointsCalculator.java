@@ -7,6 +7,7 @@ import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.race.Race;
 import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceDefinition;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
+import com.softwaremagico.log.EsherLog;
 
 public class PerkPointsCalculator {
 	private Race race;
@@ -50,31 +51,84 @@ public class PerkPointsCalculator {
 
 	private int getRacePoints() throws InvalidRaceDefinition {
 		int racePoints = 0;
-		racePoints += getPhysicalDevelopmentRacePoints();
+		int physicalPoints = getPhysicalDevelopmentRacePoints();
+		EsherLog.debug(this.getClass().getName(), "Physical points: " + physicalPoints);
+		racePoints += physicalPoints;
 		for (RealmOfMagic realm : RealmOfMagic.values()) {
-			racePoints += getPowerPointsRacePoints(realm);
+			int powerPoints = getPowerPointsRacePoints(realm);
+			EsherLog.debug(this.getClass().getName(), "Realm '" + realm + "' points: " + powerPoints);
+			racePoints += powerPoints;
 		}
-		racePoints += getLifeExpectationRacePoints();
+		int lifeExpectationPoints = getLifeExpectationRacePoints();
+		EsherLog.debug(this.getClass().getName(), "Life expectation points: " + lifeExpectationPoints);
+		racePoints += lifeExpectationPoints;
 		for (ResistanceType resistance : ResistanceType.values()) {
-			racePoints += getResisteceRacePoints(resistance);
+			int resistancePoints = getResisteceRacePoints(resistance);
+			EsherLog.debug(this.getClass().getName(), "Resistance '" + resistance + "' points: "
+					+ resistancePoints);
+			racePoints += resistancePoints;
 		}
-		racePoints += getSoulDepartTimeRacePoints();
-		racePoints += getStartingLanguagesRacePoints();
+		int soulDeparturePoints = getSoulDepartTimeRacePoints();
+		EsherLog.debug(this.getClass().getName(), "Soul departure points: " + soulDeparturePoints);
+		racePoints += soulDeparturePoints;
+
+		int languagePoints = getStartingLanguagesRacePoints();
+		EsherLog.debug(this.getClass().getName(), "Language points: " + languagePoints);
+		racePoints += languagePoints;
+
 		for (CharacteristicsAbbreviature characteristic : CharacteristicsAbbreviature.values()) {
-			racePoints += getCharactersiticBonusRacePoints(characteristic);
+			int characteristicPoints = getCharactersiticBonusRacePoints(characteristic);
+			EsherLog.debug(this.getClass().getName(), "Characteristic '" + characteristic + "' points: "
+					+ characteristicPoints);
+			racePoints += characteristicPoints;
 		}
-		racePoints += getSleepingTimeRacePoints();
-		racePoints += getEnduranceRacePoints();
-		racePoints += getSizeRacePoints();
-		racePoints += getRecoveryRacePoints();
-		racePoints += getRaceTypeRacePoints();
-		racePoints += getCommonSkillsRacePoints();
-		racePoints += getRestrictedSkillsRacePoints();
+
+		int sleepingTimePoints = getSleepingTimeRacePoints();
+		EsherLog.debug(this.getClass().getName(), "Sleeping time points: " + sleepingTimePoints);
+		racePoints += sleepingTimePoints;
+
+		int endurancePoints = getEnduranceRacePoints();
+		EsherLog.debug(this.getClass().getName(), "Endurance points: " + endurancePoints);
+		racePoints += endurancePoints;
+
+		int sizePoints = getSizeRacePoints();
+		EsherLog.debug(this.getClass().getName(), "Size points: " + sizePoints);
+		racePoints += sizePoints;
+
+		int recoveryPoints = getRecoveryRacePoints();
+		EsherLog.debug(this.getClass().getName(), "Recovery points: " + recoveryPoints);
+		racePoints += recoveryPoints;
+
+		int raceTypePoints = getRaceTypeRacePoints();
+		EsherLog.debug(this.getClass().getName(), "Race type points: " + raceTypePoints);
+		racePoints += raceTypePoints;
+
+		int commonSkillsPoints = getCommonSkillsRacePoints();
+		EsherLog.debug(this.getClass().getName(), "Common skills points: " + commonSkillsPoints);
+		racePoints += commonSkillsPoints;
+
+		int restrictedSkillsPoints = getRestrictedSkillsRacePoints();
+		EsherLog.debug(this.getClass().getName(), "Restricted skills points: " + restrictedSkillsPoints);
+		racePoints += restrictedSkillsPoints;
+
+		int specialPoints = getSpecialRacePoints();
+		EsherLog.debug(this.getClass().getName(), "Special points: " + specialPoints);
+		racePoints += specialPoints;
+
+		EsherLog.debug(this.getClass().getName(), "Total race points: " + racePoints);
 		return racePoints;
 	}
 
+	private int getSpecialRacePoints() {
+		int specialPoints = 0;
+		for (Perk perk : race.getRacePerks()) {
+			specialPoints += perk.getCost();
+		}
+		return specialPoints;
+	}
+
 	private int getRestrictedSkillsRacePoints() {
-		int restrictedSkills = race.getTotalCommonSkills();
+		int restrictedSkills = race.getTotalRestrictedSkills();
 		if (restrictedSkills == 0) {
 			return 0;
 		} else if (restrictedSkills <= 5) {
@@ -114,6 +168,8 @@ public class PerkPointsCalculator {
 
 	private int getSizeRacePoints() {
 		switch (race.getSize()) {
+		case XXS:
+			return 15;
 		case XS:
 			return 10;
 		case S:
@@ -121,15 +177,17 @@ public class PerkPointsCalculator {
 		case M:
 			return 0;
 		case L:
-			return 5;
-		case XL:
 			return 10;
+		case XL:
+			return 15;
+		case XXL:
+			return 25;
 		}
 		return 0;
 	}
 
 	private int getRecoveryRacePoints() throws InvalidRaceDefinition {
-		if (race.getRestorationTime() <= 3) {
+		if (race.getRestorationTime() >= 3) {
 			return -45;
 		} else if ((float) race.getRestorationTime() == 2) {
 			return -25;
@@ -309,7 +367,7 @@ public class PerkPointsCalculator {
 
 	private int getResisteceRacePoints(ResistanceType resistance) throws InvalidRaceDefinition {
 		Integer bonus = race.getResistancesBonus(resistance);
-		if (bonus < 10) {
+		if (bonus < -10) {
 			return ((bonus - 10) * 2) - 10;
 		} else {
 			switch (bonus) {
@@ -344,7 +402,7 @@ public class PerkPointsCalculator {
 			case 100:
 				return 95;
 			case 150:
-				return 125;
+				return 150;
 			default:
 				throw new InvalidRaceDefinition("Unknown Resistence value '" + bonus + "' for race '"
 						+ race.getName() + "'!");
@@ -367,6 +425,8 @@ public class PerkPointsCalculator {
 			return -20;
 		case "0/4/3/2/1":
 			return -10;
+		case "0/5/3/2/1":
+			return -1;
 		case "0/5/3/2/2":
 			return 0;
 		case "0/5/4/3/2":
@@ -413,6 +473,8 @@ public class PerkPointsCalculator {
 			return 20;
 		case "0/9/6/5/4":
 			return 25;
+		case "0/11/9/7/5":
+			return 50;
 		default:
 			throw new InvalidRaceDefinition("Unknown physical development cost '" + cost
 					+ "' value for race '" + race.getName() + "'!");
