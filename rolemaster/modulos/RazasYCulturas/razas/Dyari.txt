@@ -12,6 +12,10 @@ Rp	4
 Fu	0
 Ap	10
 
+# ESPERANZA DE VIDA
+####################################
+Inmortales
+
 #MODIFICACIÓN A LA TR
 ####################################
 Canalización	-20
@@ -89,8 +93,8 @@ Silvana, Litoral
 
 #ESPECIALES
 ####################################
-+20	Oído
-	Visión casi total en la oscuridad.
+Visión Nocturna: Te permite ver en presencia de luz ténue. 
++20	Oído [20]
 +20	Vista
 +20	Detectar Emboscadas
 

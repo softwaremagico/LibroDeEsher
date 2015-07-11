@@ -12,6 +12,10 @@ Rp	15
 Fu	-15
 Ap	20
 
+# ESPERANZA DE VIDA
+####################################
+Inmortales
+
 #MODIFICACIÓN A LA TR
 ####################################
 Canalización	-5

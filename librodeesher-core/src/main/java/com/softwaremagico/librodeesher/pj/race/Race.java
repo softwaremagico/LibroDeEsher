@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import com.softwaremagico.files.Folder;
@@ -72,11 +73,13 @@ public class Race {
 	private List<Category> restrictedCategories;
 	private List<String> availableCultures;
 	private List<String> specials;
+	private Map<String, Integer> specialsRacePoints;
 	private Integer perksPoints;
 	private List<String> maleNames;
 	private List<String> femaleNames;
 	private List<String> familyNames;
 	private String raceLanguage = null;
+	private Integer expectedLifeYears = null;
 
 	public Race(String name) {
 		this.name = name;
@@ -85,6 +88,7 @@ public class Race {
 		commonCategories = new ArrayList<>();
 		restrictedSkills = new ArrayList<>();
 		restrictedCategories = new ArrayList<>();
+		specialsRacePoints = new HashMap<>();
 		try {
 			readRaceFile(name);
 		} catch (Exception e) {
@@ -110,6 +114,7 @@ public class Race {
 			List<String> lines = Folder.readFileLines(raceFile, false);
 
 			lineIndex = setCharacteristicsBonus(lines, lineIndex);
+			lineIndex = setLifeExpectation(lines, lineIndex);
 			lineIndex = setResistanceBonus(lines, lineIndex);
 			lineIndex = setProgressionRankValues(lines, lineIndex);
 			lineIndex = setRestrictedProfessions(lines, lineIndex);
@@ -146,6 +151,25 @@ public class Race {
 			throw new InvalidRaceException("Error al leer las características de la raza " + name
 					+ ". Los bonus pueden no ser correctos.");
 		}
+		return index;
+	}
+
+	private int setLifeExpectation(List<String> lines, int index) throws InvalidRaceException {
+		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
+			index++;
+		}
+
+		try {
+			if (lines.get(index).equals(Spanish.INNMORTALS)) {
+				expectedLifeYears = 10000;
+			} else {
+				expectedLifeYears = Integer.parseInt(lines.get(index));
+			}
+			index++;
+		} catch (NumberFormatException nfe) {
+			throw new InvalidRaceException("Numero de esperanza de vida irreconocible en '" + name + "'.");
+		}
+
 		return index;
 	}
 
@@ -405,8 +429,24 @@ public class Race {
 			String specialLine = lines.get(index);
 			if (!specialLine.toLowerCase().equals("ninguno") && !specialLine.toLowerCase().equals("ninguna")
 					&& !specialLine.toLowerCase().equals("nothing")) {
+				int racePoints = 0;
+				try {
+					if (specialLine.contains("[")) {
+						racePoints = Integer.parseInt(specialLine.substring(specialLine.indexOf('[') + 1,
+								specialLine.indexOf(']')));
+					}
+				} catch (Exception e) {
+					EsherLog.errorMessage(this.getClass().getName(), e);
+				}
+				// Remove cost.
+				if (specialLine.contains("[")) {
+					specialLine = specialLine.substring(0, specialLine.indexOf("["));
+				}
 				if (!specials.contains(specialLine)) {
 					specials.add(specialLine);
+				}
+				if (racePoints != 0) {
+					specialsRacePoints.put(specialLine, racePoints);
 				}
 			}
 			index++;
@@ -623,5 +663,13 @@ public class Race {
 			}
 		}
 		return racePerks;
+	}
+
+	public Map<String, Integer> getSpecialsRacePoints() {
+		return specialsRacePoints;
+	}
+
+	public Integer getExpectedLifeYears() {
+		return expectedLifeYears;
 	}
 }

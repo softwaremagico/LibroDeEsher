@@ -124,6 +124,11 @@ public class PerkPointsCalculator {
 		for (Perk perk : race.getRacePerks()) {
 			specialPoints += perk.getCost();
 		}
+		for (String value : race.getSpecialsRacePoints().keySet()) {
+			if (race.getSpecialsRacePoints().get(value) != null) {
+				specialPoints += race.getSpecialsRacePoints().get(value);
+			}
+		}
 		return specialPoints;
 	}
 
@@ -411,8 +416,25 @@ public class PerkPointsCalculator {
 	}
 
 	private int getLifeExpectationRacePoints() {
-		// Not implemented yet!
-		return 0;
+		if (race.getExpectedLifeYears() <= 80) {
+			return -5;
+		} else if (race.getExpectedLifeYears() <= 100) {
+			return 0;
+		} else if (race.getExpectedLifeYears() <= 300) {
+			return 3;
+		} else if (race.getExpectedLifeYears() <= 500) {
+			return 5;
+		} else if (race.getExpectedLifeYears() <= 800) {
+			return 7;
+		} else if (race.getExpectedLifeYears() <= 1200) {
+			return 9;
+		} else if (race.getExpectedLifeYears() <= 1700) {
+			return 11;
+		} else if (race.getExpectedLifeYears() <= 2300) {
+			return 13;
+		} else {
+			return 15;
+		}
 	}
 
 	private int getPowerPointsRacePoints(RealmOfMagic realm) throws InvalidRaceDefinition {

@@ -12,6 +12,10 @@ Rp	6
 Fu	-4
 Ap	0
 
+# ESPERANZA DE VIDA
+####################################
+150
+
 #MODIFICACIÓN A LA TR	70
 ####################################
 Canalización	0

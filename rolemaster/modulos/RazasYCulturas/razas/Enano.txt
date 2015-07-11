@@ -12,6 +12,10 @@ Rp	-2
 Fu	2
 Ap	-20
 
+# ESPERANZA DE VIDA
+####################################
+400
+
 #MODIFICACIÓN A LA TR
 ####################################
 Canalización	0
