@@ -40,7 +40,10 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
+import com.softwaremagico.librodeesher.pj.perk.PerkPointsCalculator;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
+import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceDefinition;
+import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceException;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
@@ -113,7 +116,7 @@ public class Race {
 			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkills, restrictedCategories);
 			lineIndex = setCultures(lines, lineIndex);
 			lineIndex = setOtherSpecials(lines, lineIndex);
-			lineIndex = setTalents(lines, lineIndex);
+			lineIndex = setPerks(lines, lineIndex);
 			lineIndex = setNames(lines, lineIndex);
 		}
 	}
@@ -304,7 +307,7 @@ public class Race {
 
 				language = Spanish.WRITTEN_TAG + " " + languageInformation[0];
 				initialRaceLanguages.put(language, Integer.parseInt(languageRank[1]));
-				
+
 				// Add language to category.
 				if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
 					CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
@@ -401,14 +404,14 @@ public class Race {
 		return index;
 	}
 
-	private int setTalents(List<String> lines, int index) throws InvalidRaceException {
+	private int setPerks(List<String> lines, int index) throws InvalidRaceException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
 		while (!lines.get(index).equals("")) {
-			String talentLine = lines.get(index);
+			//String perkLine = lines.get(index);
 			try {
-				perksPoints = Integer.parseInt(talentLine);
+				// perksPoints = Integer.parseInt(talentLine);
 			} catch (NumberFormatException nfe) {
 				throw new InvalidRaceException("Numero de puntos de talento irreconocible.");
 			}
@@ -517,7 +520,10 @@ public class Race {
 		return historialPoints;
 	}
 
-	public Integer getPerksPoints() {
+	public Integer getPerksPoints() throws InvalidRaceDefinition {
+		if (perksPoints == null) {
+			perksPoints = new PerkPointsCalculator(this).getPerkPoints();
+		}
 		return perksPoints;
 	}
 
@@ -568,4 +574,19 @@ public class Race {
 		return 0;
 	}
 
+	public int getTotalCommonSkills() {
+		int skillsOfCategories = 0;
+		for (Category category : commonCategories) {
+			skillsOfCategories += category.getSkills().size();
+		}
+		return commonSkills.size() + skillsOfCategories;
+	}
+
+	public int getTotalRestrictedSkills() {
+		int skillsOfCategories = 0;
+		for (Category category : restrictedCategories) {
+			skillsOfCategories += category.getSkills().size();
+		}
+		return restrictedSkills.size() + skillsOfCategories;
+	}
 }

@@ -84,9 +84,10 @@ import com.softwaremagico.librodeesher.pj.profession.Profession;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionDecisions;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionalRealmsOfMagicOptions;
-import com.softwaremagico.librodeesher.pj.race.InvalidRaceException;
 import com.softwaremagico.librodeesher.pj.race.Race;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
+import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceDefinition;
+import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceException;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -1544,7 +1545,7 @@ public class CharacterPlayer extends StorableObject {
 		return total;
 	}
 
-	public Integer getRemainingPerksPoints() {
+	public Integer getRemainingPerksPoints() throws InvalidRaceDefinition {
 		return getRace().getPerksPoints() - getSpentPerksPoints();
 	}
 

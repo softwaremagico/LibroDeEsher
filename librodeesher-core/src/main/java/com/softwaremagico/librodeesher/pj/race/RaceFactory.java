@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
+import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceException;
 import com.softwaremagico.log.EsherLog;
 import com.softwaremagico.utils.ListWithoutCase;
 

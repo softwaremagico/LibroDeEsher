@@ -15,6 +15,7 @@ import com.softwaremagico.librodeesher.pj.categories.InvalidCategoryException;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.perk.exceptions.InvalidPerkDefinition;
+import com.softwaremagico.librodeesher.pj.perk.exceptions.InvalidPerkException;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;

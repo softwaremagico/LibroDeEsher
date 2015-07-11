@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.perk;
+
 /*
  * #%L
  * Libro de Esher GUI
@@ -32,11 +33,13 @@ import java.awt.Insets;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import com.softwaremagico.files.MessageManager;
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceDefinition;
 
 public class PerkWindow extends BaseFrame {
 	private static final long serialVersionUID = 4804191786722149503L;
@@ -85,7 +88,7 @@ public class PerkWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		perksPanel = new PerksListCompletePanel(character, (BaseFrame)this);
+		perksPanel = new PerksListCompletePanel(character, (BaseFrame) this);
 		getContentPane().add(perksPanel, gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
@@ -103,9 +106,15 @@ public class PerkWindow extends BaseFrame {
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		getContentPane().add(buttonPanel, gridBagConstraints);
 	}
-	
+
 	private void setPerksPointsText() {
-		perksPoints.setPoints(character.getRemainingPerksPoints());
+		try {
+			perksPoints.setPoints(character.getRemainingPerksPoints());
+		} catch (InvalidRaceDefinition ex) {
+			MessageManager.basicErrorMessage(this.getClass().getName(), ex.getMessage(),
+					"Raza incorrectamente definida.");
+			MessageManager.errorMessage(this.getClass().getName(), ex);
+		}
 	}
 
 	@Override

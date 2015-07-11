@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.pj.race;
+package com.softwaremagico.librodeesher.pj.race.exceptions;
 
 public class InvalidRaceException extends Exception {
 	private static final long serialVersionUID = -8641195265985327213L;

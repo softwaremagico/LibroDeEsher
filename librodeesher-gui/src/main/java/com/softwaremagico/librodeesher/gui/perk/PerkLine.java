@@ -33,6 +33,7 @@ import java.awt.event.ItemListener;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import com.softwaremagico.files.MessageManager;
 import com.softwaremagico.librodeesher.gui.elements.BaseCheckBox;
 import com.softwaremagico.librodeesher.gui.elements.ListBackgroundPanel;
 import com.softwaremagico.librodeesher.gui.elements.ListLabel;
@@ -42,6 +43,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.ChooseCategoryGroup;
 import com.softwaremagico.librodeesher.pj.perk.Perk;
+import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceDefinition;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
@@ -99,14 +101,15 @@ public class PerkLine extends BaseLine {
 		gridBagConstraints.gridx = 2;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
-		perkCost = new ListLabel(perk.getCost().toString(), SwingConstants.CENTER, DEFAULT_COLUMN_WIDTH, columnHeight);
+		perkCost = new ListLabel(perk.getCost().toString(), SwingConstants.CENTER, DEFAULT_COLUMN_WIDTH,
+				columnHeight);
 		add(new ListBackgroundPanel(perkCost, background), gridBagConstraints);
 
 		gridBagConstraints.gridx = 3;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
-		perkCategory = new ListLabel(perk.getCategory().toString(), SwingConstants.CENTER, DEFAULT_COLUMN_WIDTH * 2,
-				columnHeight);
+		perkCategory = new ListLabel(perk.getCategory().toString(), SwingConstants.CENTER,
+				DEFAULT_COLUMN_WIDTH * 2, columnHeight);
 		add(new ListBackgroundPanel(perkCategory, background), gridBagConstraints);
 
 		gridBagConstraints.gridx = 4;
@@ -120,22 +123,28 @@ public class PerkLine extends BaseLine {
 	class CheckBoxListener implements ItemListener {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
-			if (!updating) {
-				if (perkCheckBox.isSelected()) {
-					if (perk.getCost() <= character.getRemainingPerksPoints()) {
-						character.addPerk(perk);
-						createSelectOptionsWindow();
+			try {
+				if (!updating) {
+					if (perkCheckBox.isSelected()) {
+						if (perk.getCost() <= character.getRemainingPerksPoints()) {
+							character.addPerk(perk);
+							createSelectOptionsWindow();
+						} else {
+							perkCheckBox.setSelected(false);
+						}
 					} else {
-						perkCheckBox.setSelected(false);
+						if (character.getRemainingPerksPoints() + perk.getCost() < 0) {
+							perkCheckBox.setSelected(true);
+						} else {
+							character.removePerk(perk);
+						}
 					}
-				} else {
-					if (character.getRemainingPerksPoints() + perk.getCost() < 0) {
-						perkCheckBox.setSelected(true);
-					} else {
-						character.removePerk(perk);
-					}
+					update();
 				}
-				update();
+			} catch (InvalidRaceDefinition ex) {
+				MessageManager.basicErrorMessage(this.getClass().getName(), ex.getMessage(),
+						"Raza incorrectamente definida.");
+				MessageManager.errorMessage(this.getClass().getName(), ex);
 			}
 		}
 	}
@@ -150,7 +159,8 @@ public class PerkLine extends BaseLine {
 	private void createSelectOptionsWindow() {
 		if (!perk.getCategoriesToChoose().isEmpty()) {
 			for (ChooseCategoryGroup options : perk.getCategoriesToChoose()) {
-				PerkOptionsWindow<Category> optionsWindow = new PerkOptionsWindow<Category>(character, perk, options, this);
+				PerkOptionsWindow<Category> optionsWindow = new PerkOptionsWindow<Category>(character, perk,
+						options, this);
 				optionsWindow.setPointCounterLabel("Categorias con (" + getBonusTag() + "): ");
 				optionsWindow.setVisible(true);
 			}
@@ -158,7 +168,8 @@ public class PerkLine extends BaseLine {
 
 		if (!perk.getSkillsToChoose().isEmpty()) {
 			for (ChooseSkillGroup options : perk.getSkillsToChoose()) {
-				PerkOptionsWindow<Skill> optionsWindow = new PerkOptionsWindow<Skill>(character, perk, options, this);
+				PerkOptionsWindow<Skill> optionsWindow = new PerkOptionsWindow<Skill>(character, perk,
+						options, this);
 				optionsWindow.setPointCounterLabel("Habilidades con (" + getBonusTag() + "): ");
 				optionsWindow.setVisible(true);
 			}
@@ -166,7 +177,8 @@ public class PerkLine extends BaseLine {
 
 		if (!perk.getCommonSkillsToChoose().isEmpty()) {
 			for (ChooseSkillGroup options : perk.getCommonSkillsToChoose()) {
-				PerkOptionsWindow<Skill> optionsWindow = new PerkOptionsWindow<Skill>(character, perk, options, this);
+				PerkOptionsWindow<Skill> optionsWindow = new PerkOptionsWindow<Skill>(character, perk,
+						options, this);
 				optionsWindow.setPointCounterLabel("Habilidades comunes: ");
 				optionsWindow.setVisible(true);
 			}
