@@ -74,6 +74,7 @@ public class Race {
 	private List<String> maleNames;
 	private List<String> femaleNames;
 	private List<String> familyNames;
+	private String raceLanguage = null;
 
 	public Race(String name) {
 		this.name = name;
@@ -199,11 +200,13 @@ public class Race {
 
 	public static String getProgressionRankValuesAsString(List<Float> rankValues) {
 		String tag = "";
-		for (Float value : rankValues) {
-			if (tag.length() > 0) {
-				tag += "/";
+		if (rankValues != null) {
+			for (Float value : rankValues) {
+				if (tag.length() > 0) {
+					tag += "/";
+				}
+				tag += ((Integer) (Math.round(value))).toString();
 			}
-			tag += ((Integer) (Math.round(value))).toString();
 		}
 		return tag;
 	}
@@ -296,6 +299,11 @@ public class Race {
 				String[] languageInformation = languageLine.split("\t");
 				String[] languageRank = languageInformation[1].split("/");
 				String[] maxCultureLanguage = languageInformation[2].split("/");
+
+				// First language is main language.
+				if (raceLanguage == null) {
+					raceLanguage = languageInformation[0];
+				}
 
 				String language = Spanish.SPOKEN_TAG + " " + languageInformation[0];
 				initialRaceLanguages.put(language, Integer.parseInt(languageRank[0]));
@@ -409,7 +417,7 @@ public class Race {
 			index++;
 		}
 		while (!lines.get(index).equals("")) {
-			//String perkLine = lines.get(index);
+			// String perkLine = lines.get(index);
 			try {
 				// perksPoints = Integer.parseInt(talentLine);
 			} catch (NumberFormatException nfe) {
@@ -493,6 +501,9 @@ public class Race {
 	}
 
 	public Integer getCharacteristicBonus(CharacteristicsAbbreviature abbreviature) {
+		if (characteristicBonus.get(abbreviature) == null) {
+			return 0;
+		}
 		return characteristicBonus.get(abbreviature);
 	}
 
@@ -588,5 +599,13 @@ public class Race {
 			skillsOfCategories += category.getSkills().size();
 		}
 		return restrictedSkills.size() + skillsOfCategories;
+	}
+
+	public HashMap<String, Integer> getInitialRaceLanguages() {
+		return initialRaceLanguages;
+	}
+
+	public String getRaceLanguage() {
+		return raceLanguage;
 	}
 }

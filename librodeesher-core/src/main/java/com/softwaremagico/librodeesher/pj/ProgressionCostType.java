@@ -59,8 +59,11 @@ public enum ProgressionCostType {
 			return MENTALISM_POWER_DEVELOPMENT;
 		case PSIONIC:
 			return PSIONIC_POWER_DEVELOPMENT;
-		default:
+		case ARCHANUM:
+			return ARCANUM_POWER_DEVELOPMENT;
+		case RACE:
 			return null;
 		}
+		return null;
 	}
 }

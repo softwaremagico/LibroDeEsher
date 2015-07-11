@@ -1,5 +1,6 @@
 package com.softwaremagico.librodeesher.pj.perk;
 
+import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.ProgressionCostType;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
@@ -64,6 +65,7 @@ public class PerkPointsCalculator {
 		}
 		racePoints += getSleepingTimeRacePoints();
 		racePoints += getEnduranceRacePoints();
+		racePoints += getSizeRacePoints();
 		racePoints += getRecoveryRacePoints();
 		racePoints += getRaceTypeRacePoints();
 		racePoints += getCommonSkillsRacePoints();
@@ -105,8 +107,25 @@ public class PerkPointsCalculator {
 		case 5:
 			return -10;
 		default:
-			throw new InvalidRaceDefinition("Unknown race type!");
+			throw new InvalidRaceDefinition("Unknown race type '" + race.getRaceType() + "' for race '"
+					+ race.getName() + "'!");
 		}
+	}
+
+	private int getSizeRacePoints() {
+		switch (race.getSize()) {
+		case XS:
+			return 10;
+		case S:
+			return 5;
+		case M:
+			return 0;
+		case L:
+			return 5;
+		case XL:
+			return 10;
+		}
+		return 0;
 	}
 
 	private int getRecoveryRacePoints() throws InvalidRaceDefinition {
@@ -125,7 +144,8 @@ public class PerkPointsCalculator {
 		} else if ((float) race.getRestorationTime() == 0.5) {
 			return 10;
 		} else {
-			throw new InvalidRaceDefinition("Unknown Recovery bonus!");
+			throw new InvalidRaceDefinition("Unknown Recovery bonus '" + race.getRestorationTime()
+					+ "' for race '" + race.getName() + "'!");
 		}
 	}
 
@@ -141,57 +161,107 @@ public class PerkPointsCalculator {
 
 	private int getCharactersiticBonusRacePoints(CharacteristicsAbbreviature characteristic)
 			throws InvalidRaceDefinition {
-		switch (race.getCharacteristicBonus(characteristic)) {
-		case -10:
-			return -45;
-		case -9:
-			return -35;
-		case -8:
-			return -30;
-		case -7:
-			return -25;
-		case -6:
-			return -20;
-		case -5:
-			return -13;
-		case -4:
-			return -10;
-		case -3:
-			return -7;
-		case -2:
-			return -5;
-		case -1:
-			return -3;
-		case 0:
-			return 0;
-		case 1:
-			return 3;
-		case 2:
-			return 5;
-		case 3:
-			return 7;
-		case 4:
-			return 10;
-		case 5:
-			return 25;
-		case 6:
-			return 45;
-		case 7:
-			return 55;
-		case 8:
-			return 65;
-		case 9:
-			return 73;
-		case 10:
-			return 80;
-		default:
-			throw new InvalidRaceDefinition("Unknown Characteristic bonus!");
+		if (!characteristic.equals(CharacteristicsAbbreviature.APPEARENCE)) {
+			switch (race.getCharacteristicBonus(characteristic)) {
+			case -10:
+				return -45;
+			case -9:
+				return -35;
+			case -8:
+				return -30;
+			case -7:
+				return -25;
+			case -6:
+				return -20;
+			case -5:
+				return -13;
+			case -4:
+				return -10;
+			case -3:
+				return -7;
+			case -2:
+				return -5;
+			case -1:
+				return -3;
+			case 0:
+				return 0;
+			case 1:
+				return 3;
+			case 2:
+				return 5;
+			case 3:
+				return 7;
+			case 4:
+				return 10;
+			case 5:
+				return 25;
+			case 6:
+				return 45;
+			case 7:
+				return 55;
+			case 8:
+				return 65;
+			case 9:
+				return 73;
+			case 10:
+				return 80;
+			default:
+				throw new InvalidRaceDefinition("Unknown Characteristic bonus '" + characteristic
+						+ "' for race '" + race.getName() + "'!");
+			}
 		}
+		return 0;
 	}
 
 	private int getStartingLanguagesRacePoints() {
-		// TODO Auto-generated method stub
-		return 0;
+		int languageCost = 0;
+		int languages = 0;
+		for (String language : race.getInitialRaceLanguages().keySet()) {
+			// Differenciante between spoken and written.
+			int ranks = race.getInitialRaceLanguages().get(language);
+			if (language.startsWith(Spanish.SPOKEN_TAG)) {
+				languages++;
+				// Main language is different.
+				if (language.contains(race.getRaceLanguage())) {
+					languageCost += ranks - 8;
+				} else {
+					languageCost += ranks - 5;
+				}
+			} else if (language.startsWith(Spanish.WRITTEN_TAG)) {
+				// Main language is different.
+				if (language.contains(race.getRaceLanguage())) {
+					languageCost += ranks - 4;
+				} else {
+					languageCost += ranks;
+				}
+			}
+		}
+
+		// Number of languages has penalization.
+		switch (languages) {
+		case 1:
+			languageCost += -5;
+			break;
+		case 2:
+			languageCost += 0;
+			break;
+		case 3:
+			languageCost += -5;
+			break;
+		case 4:
+			languageCost += 7;
+			break;
+		case 5:
+			languageCost += 10;
+			break;
+		default:
+			languageCost += (languages - 5) * 5 + 10;
+		}
+
+		// Language incrementation:
+		languageCost += race.getLanguagePoints();
+
+		return languageCost;
 	}
 
 	private int getSoulDepartTimeRacePoints() {
@@ -273,8 +343,11 @@ public class PerkPointsCalculator {
 				return 70;
 			case 100:
 				return 95;
+			case 150:
+				return 125;
 			default:
-				throw new InvalidRaceDefinition("Unknown Resistence value!");
+				throw new InvalidRaceDefinition("Unknown Resistence value '" + bonus + "' for race '"
+						+ race.getName() + "'!");
 			}
 		}
 	}
@@ -296,6 +369,8 @@ public class PerkPointsCalculator {
 			return -10;
 		case "0/5/3/2/2":
 			return 0;
+		case "0/5/4/3/2":
+			return 3;
 		case "0/6/4/3/2":
 			return 5;
 		case "0/6/5/4/3":
@@ -305,7 +380,13 @@ public class PerkPointsCalculator {
 		case "0/7/6/5/4":
 			return 15;
 		default:
-			throw new InvalidRaceDefinition("Unknown Power Points value!");
+			if (!realm.equals(RealmOfMagic.RACE)) {
+				throw new InvalidRaceDefinition("Unknown cost '" + cost
+						+ "' for power point progression of realm '" + realm + "' for race '"
+						+ race.getName() + "'.");
+			} else {
+				return 0;
+			}
 		}
 	}
 
@@ -328,8 +409,13 @@ public class PerkPointsCalculator {
 			return 13;
 		case "0/7/5/3/1":
 			return 15;
+		case "0/8/6/4/2":
+			return 20;
+		case "0/9/6/5/4":
+			return 25;
 		default:
-			throw new InvalidRaceDefinition("Unknown Development Points value!");
+			throw new InvalidRaceDefinition("Unknown physical development cost '" + cost
+					+ "' value for race '" + race.getName() + "'!");
 		}
 	}
 }

@@ -2,7 +2,7 @@ package com.softwaremagico.librodeesher.pj.race;
 
 public enum RaceSize {
 
-	XXS("muy pequeño", "MP"),
+	XS("muy pequeño", "MP"),
 
 	S("pequeño", "P"),
 

@@ -1,0 +1,36 @@
+package com.softwaremagico.librodeesher.pj;
+
+import junit.framework.Assert;
+
+import org.testng.annotations.Test;
+
+import com.softwaremagico.librodeesher.pj.perk.PerkPointsCalculator;
+import com.softwaremagico.librodeesher.pj.race.RaceFactory;
+import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceDefinition;
+import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceException;
+
+@Test(groups = "perkPoints")
+public class PerkPointsPerRaceTest {
+
+	@Test
+	public void laanPerks() throws InvalidRaceDefinition, InvalidRaceException {
+		Assert.assertEquals(35, new PerkPointsCalculator(RaceFactory.getRace("Laan")).getPerkPoints());
+	}
+
+	@Test
+	public void centauroCaballoPerks() throws InvalidRaceDefinition, InvalidRaceException {
+		Assert.assertEquals(45,
+				new PerkPointsCalculator(RaceFactory.getRace("Centauro Caballo")).getPerkPoints());
+	}
+
+	@Test
+	public void centauroLeonPerks() throws InvalidRaceDefinition, InvalidRaceException {
+		Assert.assertEquals(45,
+				new PerkPointsCalculator(RaceFactory.getRace("Centauro León")).getPerkPoints());
+	}
+
+	@Test
+	public void dyariPerks() throws InvalidRaceDefinition, InvalidRaceException {
+		Assert.assertEquals(30, new PerkPointsCalculator(RaceFactory.getRace("Dyari")).getPerkPoints());
+	}
+}
