@@ -90,10 +90,6 @@ Desierto
 +20	Combate Montado
 +20	Exteriores·Animales
 
-#TALENTOS
-####################################
-45
-
 #NOMBRES MASCULINOS
 ####################################
 Aban, Abbas, Abbud, Badi, Badr, Bahij, Dabir, Dani, Darwish, Fadi, Fahmi, Falah, Gamal, Ghaith

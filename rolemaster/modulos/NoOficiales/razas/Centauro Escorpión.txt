@@ -90,13 +90,9 @@ Desierto, Subterránea
 
 #ESPECIALES
 ####################################
-Aguijón que inyecta un veneno respiratorio nivel 6C
-Pinzas de escorpión adicionales (Tamaño Medio)
-Armadura de Quitina (TA 12)
-
-#TALENTOS
-####################################
-30
+Reserva de Veneno: Aguijón que inyecta un veneno respiratorio nivel 6C
+Arma Natural: Pinzas de escorpión adicionales (Tamaño Medio)
+Piel Gruesa (Máximo): Armadura de Quitina (TA 12)
 
 #NOMBRES MASCULINOS
 ####################################

@@ -89,10 +89,6 @@ Ninguna
 ####################################
 +30 a la BD contra ataques de frío. 
 
-#TALENTOS
-####################################
-45
-
 #NOMBRES MASCULINOS
 ####################################
 Aguabanahizan, Minguan, Ione, Fedinto, Auguo, Bristol, Aaron, Gorni, Nelgar, Mathon

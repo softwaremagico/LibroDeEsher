@@ -85,10 +85,6 @@ Rural, Llanuras, {Urbana}, Pueblo de los Bosques
 ####################################
 Lista básica Telepatía Nº10 sin gasto de puntos de poder
 
-#TALENTOS
-####################################
-45
-
 #NOMBRES MASCULINOS
 ####################################
 Abbathorn, Abbot, Acayib, Acear, Adrag, Amaryllis, Aodhagan, Aonghus, Apanesc, Barebranch

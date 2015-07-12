@@ -88,11 +88,7 @@ Subterránea, Minera, Rural, Urbana
 
 #ESPECIALES
 ####################################
-Visión en la oscuridad
-
-#TALENTOS
-####################################
-45
+Visión Nocturna: Visión en la oscuridad
 
 #NOMBRES MASCULINOS
 ####################################

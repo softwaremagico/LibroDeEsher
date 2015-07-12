@@ -93,10 +93,6 @@ Sin Concentración:	-25 a todas las habilidades que duren más de medio minuto. 
 Ciego al Color:	Ves en blanco y negro. Pagina 84 del Manual de Personajes.
 Ataque Natural a Distancia (Mayor): Rocas. Utiliza la Categoría de Arrojadizas. Alcance 15m. Pagina 68 del Manual de Personajes.
 
-#TALENTOS
-####################################
-10
-
 #NOMBRES MASCULINOS
 ####################################
 Estulmodiac, Glimflick, Grimkost, Gunob, Grond

@@ -89,10 +89,6 @@ Litoral, Subterránea
 ####################################
 Anfibio
 
-#TALENTOS
-####################################
-55
-
 #NOMBRES MASCULINOS
 ####################################
 Babs, Babouche, Bavary, Bellow, Benj, Boggs, Buto

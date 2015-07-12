@@ -87,10 +87,6 @@ Silvana
 ####################################
 Ninguna
 
-#TALENTOS
-####################################
-25
-
 #NOMBRES MASCULINOS
 ####################################
 Yupik, Alidore, Anval, Arden,  Bando, Basy, Bene, Bened, Bruce, Brue, Bruk, Brun

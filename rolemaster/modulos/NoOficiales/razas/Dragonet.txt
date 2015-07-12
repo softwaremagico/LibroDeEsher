@@ -98,10 +98,6 @@ Poder (Menor):Posee la lista de Mejora de Hechizos, Mejora Corporal y Leyes de F
 Dormilón: (pag 85 Manual de Personajes)
 Codicioso: (pag 91 Manual de Personajes)
 
-#TALENTOS
-####################################
-5
-
 #NOMBRES MASCULINOS
 ####################################
 Chincheta, Briam, Eridor, Fundor, Ingothold, Miremel, Roslarb, Orlaf

@@ -88,12 +88,8 @@ Minera, Urbana
 
 #ESPECIALES
 ####################################
-Visión en la oscuridad
+Visión Nocturna: Visión en la oscuridad
 +21 puntos de cansancio.
-
-#TALENTOS
-####################################
-35
 
 #NOMBRES MASCULINOS
 ####################################

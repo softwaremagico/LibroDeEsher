@@ -86,10 +86,6 @@ Aérea
 ####################################
 +12 a los puntos de cansancio.
 
-#TALENTOS
-####################################
-40
-
 #NOMBRES MASCULINOS
 ####################################
 Aarush, Aashish, Aahan, Buddhadev, Balamani, Bhaskar, Chandresh, Chittaranjan, Chirag

@@ -85,10 +85,6 @@ Aérea, Minera
 ####################################
 Leyes de la Tierra hasta su nivel con 8PPs.
 
-#TALENTOS
-####################################
-5
-
 #NOMBRES MASCULINOS
 ####################################
 Sereen. Cloniag, Csirvut, Solmenn, Nube, Yber, Ydeon, Ynaf, Ymur

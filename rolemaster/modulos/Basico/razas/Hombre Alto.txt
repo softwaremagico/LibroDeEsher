@@ -94,10 +94,6 @@ Acuática, Aérea, Ártica, Llanuras, Tierras Altas, Desierto, Litoral, Minera, 
 ####################################
 Ninguno
 
-#TALENTOS
-####################################
-50
-
 #NOMBRES MASCULINOS
 ####################################
 Lidor, Virtus, Goloch, Baulk, Maug, Pelagus, Jerod, Oberoth, Grurt, Dagon, Dihuval

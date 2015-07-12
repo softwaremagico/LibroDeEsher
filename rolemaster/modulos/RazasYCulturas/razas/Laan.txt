@@ -90,10 +90,6 @@ Rural, {Urbana}
 ####################################
 Ninguna
 
-#TALENTOS
-####################################
-35
-
 #NOMBRES MASCULINOS
 ####################################
 Kaleb, Meredith, Shevrar, Gornar, Sanek, Sarek, Ghaan, Dunat, Forra, Raxa, Toph, Jennar

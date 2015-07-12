@@ -92,10 +92,6 @@ Todas
 	Visión casi total en la oscuridad.
 +20	Contra frío (BD y TR)
 
-#TALENTOS
-####################################
-30
-
 #NOMBRES MASCULINOS
 ####################################
 Findaráto, Fëanáro, Galdor, Amras, Manwë, Enawat

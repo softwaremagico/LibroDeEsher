@@ -124,7 +124,6 @@ public class Race {
 			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkills, restrictedCategories);
 			lineIndex = setCultures(lines, lineIndex);
 			lineIndex = setOtherSpecials(lines, lineIndex);
-			lineIndex = setPerks(lines, lineIndex);
 			lineIndex = setNames(lines, lineIndex);
 		}
 	}
@@ -448,22 +447,6 @@ public class Race {
 				if (racePoints != 0) {
 					specialsRacePoints.put(specialLine, racePoints);
 				}
-			}
-			index++;
-		}
-		return index;
-	}
-
-	private int setPerks(List<String> lines, int index) throws InvalidRaceException {
-		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
-			index++;
-		}
-		while (!lines.get(index).equals("")) {
-			// String perkLine = lines.get(index);
-			try {
-				// perksPoints = Integer.parseInt(talentLine);
-			} catch (NumberFormatException nfe) {
-				throw new InvalidRaceException("Numero de puntos de talento irreconocible.");
 			}
 			index++;
 		}

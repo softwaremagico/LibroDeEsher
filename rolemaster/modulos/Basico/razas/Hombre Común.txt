@@ -88,10 +88,6 @@ Acuática, Aérea, Ártica, Llanuras, Tierras Altas, Desierto, Litoral, Minera, 
 ####################################
 Ninguno
 
-#TALENTOS
-####################################
-45
-
 #NOMBRES MASCULINOS
 ####################################
 Alonso, Rodrigo, Florentino, Fred, Simon, Mauricio, Guillermo, Quintino, Federico, Edgardo, Beremundo

@@ -91,10 +91,6 @@ Llanuras
 ####################################
 Ninguno
 
-#TALENTOS
-####################################
-50
-
 #NOMBRES MASCULINOS
 ####################################
 Ladalu, Valeedu, Eblu, Airdsgainne, Aethelmaere, Adinett, Alerepem, Allanon

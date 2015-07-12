@@ -87,10 +87,6 @@ Silvana
 ####################################
 Vulnerable al hierro
 
-#TALENTOS
-####################################
-50
-
 #NOMBRES MASCULINOS
 ####################################
 Nanouc, Naldos, Nandel, Najak, Nandro, Naddi, Nadin, Nabor

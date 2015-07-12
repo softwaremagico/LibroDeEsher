@@ -91,10 +91,6 @@ Tierras Altas, Llanuras, Rural, Silvana
 ####################################
 Ninguno
 
-#TALENTOS
-####################################
-50
-
 #NOMBRES MASCULINOS
 ####################################
 Chirón, Neso, Nicos, Eurito, Bianor, Eurímonos, Agrios, Petraios

@@ -86,10 +86,6 @@ Acuática, Aérea, Ártica, Llanuras, Tierras Altas, Desierto, Litoral, Minera, 
 ####################################
 Ninguno
 
-#TALENTOS
-####################################
-50
-
 #NOMBRES MASCULINOS
 ####################################
 Learco, Abano, Abilio, Ablonnio, Abrunaeno, Acario, Accio, Accón, Acuo, Bodo

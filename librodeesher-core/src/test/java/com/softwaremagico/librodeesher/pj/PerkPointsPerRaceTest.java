@@ -54,5 +54,10 @@ public class PerkPointsPerRaceTest {
 	public void ilourianosPerks() throws InvalidRaceDefinition, InvalidRaceException {
 		Assert.assertEquals(50, new PerkPointsCalculator(RaceFactory.getRace("Ilourianos")).getPerkPoints());
 	}
+	
+	@Test
+	public void jhordiPerks() throws InvalidRaceDefinition, InvalidRaceException {
+		Assert.assertEquals(55, new PerkPointsCalculator(RaceFactory.getRace("Jhordi")).getPerkPoints());
+	}
 
 }

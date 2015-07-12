@@ -88,10 +88,6 @@ Silvana
 ####################################
 Ninguno
 
-#TALENTOS
-####################################
-45
-
 #NOMBRES MASCULINOS
 ####################################
 Sileno, Fauno, Folo, Dolión, Glael, Ael, Aelon, Deinoforo, Avaler, Dhohor, Tumnus

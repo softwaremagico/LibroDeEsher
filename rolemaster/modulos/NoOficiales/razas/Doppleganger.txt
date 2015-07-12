@@ -85,10 +85,6 @@ Todas
 ####################################
 Lista básica Cambio Místico hasta su nivel sin gasto de puntos de poder.
 
-#TALENTOS
-####################################
-15
-
 #NOMBRES MASCULINOS
 ####################################
 Abano, Abilio, Abrunaeno, Aliómigos, Alionio, Alissiegino, Alucilio, Aulgigos

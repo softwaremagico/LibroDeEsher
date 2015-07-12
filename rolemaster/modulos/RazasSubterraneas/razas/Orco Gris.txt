@@ -88,13 +88,9 @@ Todas
 
 #ESPECIALES
 ####################################
-Visión en la oscuridad (incluso completa)
+Visión Nocturna: Visión en la oscuridad (incluso completa)
 Solo necesitan dormir una vez cada 3 días
-8	TA	Armadura Natural
-
-#TALENTOS
-####################################
-50
+Piel Gruesa (Mayor): 8	TA	Armadura Natural
 
 #NOMBRES MASCULINOS
 ####################################

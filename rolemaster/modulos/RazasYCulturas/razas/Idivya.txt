@@ -87,10 +87,6 @@ Llanuras
 ####################################
 Ven en oscuridad casi absoluta
 
-#TALENTOS
-####################################
-50
-
 #NOMBRES MASCULINOS
 ####################################
 Levant, Ilker, Tarik, Berkant, Orhan, Erkan, Ozan, Zafer, Esin, Emre, Karevan

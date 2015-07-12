@@ -87,10 +87,6 @@ Subterránea
 ####################################
 Nube de esporas. Veneno Nº5 Nervioso en un área de 3m de rádio. Una vez al día. [10]
 
-#TALENTOS
-####################################
-15
-
 #NOMBRES MASCULINOS
 ####################################
 Agaricus, Asgae, Adrattas, Aifan, Aigasso, Avoc, Cenies, Ciattas, Cynnan, Deaniel

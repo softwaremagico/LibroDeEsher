@@ -88,10 +88,6 @@ Litoral
 Anfibios
 Ataque de cola: tabla de embestida hasta tamaño medio
 
-#TALENTOS
-####################################
-40
-
 #NOMBRES MASCULINOS
 ####################################
 Acthelion, Bjorg, Bogsolm, Bsocras, Leuqasias, Litnuk, Lorli, Nemoc, Neniak

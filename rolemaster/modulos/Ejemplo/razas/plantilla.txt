@@ -48,8 +48,10 @@ PP Psiónico
 #TIPO DE RAZA
 ####################################
 
+
 #TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
 ####################################
+
 
 #RECUPERACIÓN
 ####################################
@@ -66,11 +68,14 @@ PP Psiónico
 #IDIOMAS	Inicial	Max.Cultura
 ####################################
 
+
 #HABILIDADES COMUNES //Cateogia#numero es "numero" de habilidades de dicha categoria; 
 ####################################
 
+
 #HABILIDADES RESTRINGIDAS 
 ####################################
+
 
 #CULTURAS
 ####################################
@@ -79,16 +84,17 @@ PP Psiónico
 #ESPECIALES
 ####################################
 
-#TALENTOS
-####################################
 
 #NOMBRES MASCULINOS
 ####################################
 
+
 #NOMBRES FEMENINOS
 ####################################
 
+
 #APELLIDOS
 ####################################
+
 
 #### FIN RAZA ####

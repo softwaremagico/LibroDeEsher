@@ -93,10 +93,6 @@ Todas
 ####################################
 Visión en la Oscuridad
 
-#TALENTOS
-####################################
-45
-
 #NOMBRES MASCULINOS
 ####################################
 Tanis, Ousall, Phevas, Rysi, Seicen, Sernis, Tasadi

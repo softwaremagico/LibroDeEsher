@@ -89,10 +89,6 @@ Litoral, Subterránea
 ####################################
 Anfibio
 
-#TALENTOS
-####################################
-45
-
 #NOMBRES MASCULINOS
 ####################################
 Vortigern, Veus, Vrozel, Voulcko, Vlop, Vinja, Vigos, Velten, Assher, Izass
