@@ -444,7 +444,7 @@ public class PdfStandardSheet {
 		} else {
 			cell = new PdfPCell(getNewRanksImage(0));
 		}
-		cell.setBorderWidth(1);
+		cell.setBorderWidth(BORDER);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
@@ -1145,7 +1145,7 @@ public class PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		tabla.addCell(cell);
 
-		p = new Paragraph("", FontFactory.getFont(font, fontSize));
+		p = new Paragraph("/" + characterPlayer.getRace().getExpectedLifeYears(), FontFactory.getFont(font, fontSize-1));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setMinimumHeight(11);

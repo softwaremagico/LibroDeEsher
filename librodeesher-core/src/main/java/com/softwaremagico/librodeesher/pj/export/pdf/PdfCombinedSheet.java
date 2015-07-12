@@ -30,6 +30,7 @@ import com.softwaremagico.log.EsherLog;
 public class PdfCombinedSheet extends PdfStandardSheet {
 	private final static int MAX_LINES = 71;
 	private final static int BORDER = 0;
+	private static final BaseColor VERY_LIGHT_GRAY = new BaseColor(215, 215, 215);
 
 	private int lines = 0;
 	private int showed = 0;
@@ -561,8 +562,9 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		float[] widths = { 0.23f, 0.18f, 0.19f, 0.11f, 0.13f, 0.16f };
 		PdfPTable categoryTable = new PdfPTable(widths);
 		categoryTable.flushContent();
+		BaseColor background = VERY_LIGHT_GRAY;
 
-		p = new Paragraph(category.getName(35).toUpperCase(), FontFactory.getFont(font, fontSize - 1));
+		p = new Paragraph(category.getName(33).toUpperCase(), FontFactory.getFont(font, fontSize - 1, Font.BOLD));
 		cell = new PdfPCell(p);
 		cell.setMinimumHeight(15);
 		cell.setBorderWidth(BORDER);
@@ -570,6 +572,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 		cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell.setPaddingLeft(5f);
+		cell.setBackgroundColor(background);
 		categoryTable.addCell(cell);
 
 		p = new Paragraph(category.getCharacterisitcsTags(), FontFactory.getFont(font, fontSize));
@@ -579,6 +582,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell.setPaddingLeft(5f);
+		cell.setBackgroundColor(background);
 		categoryTable.addCell(cell);
 
 		p = new Paragraph(getCharacterPlayer().getCategoryCost(category, 0).getCostTag(),
@@ -589,6 +593,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell.setPaddingLeft(5f);
+		cell.setBackgroundColor(background);
 		categoryTable.addCell(cell);
 
 		p = new Paragraph("Rang: " + getCharacterPlayer().getPreviousRanks(category) + "",
@@ -599,6 +604,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell.setPaddingLeft(5f);
+		cell.setBackgroundColor(background);
 		categoryTable.addCell(cell);
 
 		if (category.getCategoryType().equals(CategoryType.STANDARD)) {
@@ -624,6 +630,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell.setBorderWidth(0);
+		cell.setBackgroundColor(background);
 		categoryTable.addCell(cell);
 
 		// Second line
@@ -634,6 +641,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		cell.setPaddingLeft(5f);
+		cell.setBackgroundColor(background);
 		categoryTable.addCell(cell);
 
 		p = new Paragraph("Caract: " + getCharacterPlayer().getCharacteristicsBonus(category),
@@ -643,6 +651,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		cell.setPaddingLeft(5f);
+		cell.setBackgroundColor(background);
 		categoryTable.addCell(cell);
 
 		String text = (getCharacterPlayer().getHistorial().getBonus(category) + getCharacterPlayer()
@@ -670,6 +679,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		cell.setPaddingLeft(5f);
+		cell.setBackgroundColor(background);
 		categoryTable.addCell(cell);
 
 		p = new Paragraph("Prof: "
@@ -680,6 +690,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		cell.setPaddingLeft(5f);
+		cell.setBackgroundColor(background);
 		categoryTable.addCell(cell);
 
 		p = new Paragraph("Obj: " + getCharacterPlayer().getItemBonus(category), FontFactory.getFont(font,
@@ -689,6 +700,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		cell.setPaddingLeft(5f);
+		cell.setBackgroundColor(background);
 		categoryTable.addCell(cell);
 
 		p = new Paragraph("Total: " + getCharacterPlayer().getTotalValue(category), FontFactory.getFont(font,
@@ -698,15 +710,18 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setBorderWidth(0);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		cell.setPaddingLeft(5f);
+		cell.setBackgroundColor(background);
 		categoryTable.addCell(cell);
 
 		lines += 3;
 
 		cell = new PdfPCell(categoryTable);
 		cell.setBorderWidth(1);
+		cell.setBorderWidthTop(2);
 		cell.setColspan(1);
 		cell.setMinimumHeight(30);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		cell.setBackgroundColor(background);
 		tableColumn.addCell(cell);
 
 		newColumnRequired(document, writer, font);
