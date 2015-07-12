@@ -117,6 +117,6 @@ Darlantan, Kenta, Aysa, Regia, Lectral, Silvara
 #APELLIDOS
 ####################################
 Bramafuego, Sueñoeterno, Nurgon, Tianlong, Fuego Sepulcral
-Fuego Mortal, Fulgor, Resplandor Celestial, Nova
+Fuego Mortal, Fulgor, Resplandor Celestial, Nova, Radamantis
 
 #### FIN RAZA ####	309

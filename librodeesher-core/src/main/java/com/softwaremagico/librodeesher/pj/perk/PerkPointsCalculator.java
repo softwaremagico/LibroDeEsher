@@ -200,12 +200,14 @@ public class PerkPointsCalculator {
 			return -10;
 		} else if ((float) race.getRestorationTime() == 1) {
 			return 0;
-		} else if ((float) race.getRestorationTime() == 0.9) {
+		} else if ((float) race.getRestorationTime() == 0.9f) {
 			return 3;
-		} else if ((float) race.getRestorationTime() == 0.75) {
+		} else if ((float) race.getRestorationTime() == 0.75f) {
 			return 5;
-		} else if ((float) race.getRestorationTime() == 0.5) {
+		} else if ((float) race.getRestorationTime() == 0.5f) {
 			return 10;
+		} else if ((float) race.getRestorationTime() == 0.2f) {
+			return 25;
 		} else {
 			throw new InvalidRaceDefinition("Unknown Recovery bonus '" + race.getRestorationTime()
 					+ "' for race '" + race.getName() + "'!");
@@ -475,6 +477,8 @@ public class PerkPointsCalculator {
 	private int getPhysicalDevelopmentRacePoints() throws InvalidRaceDefinition {
 		String cost = race.getProgressionRankValuesAsString(ProgressionCostType.PHYSICAL_DEVELOPMENT);
 		switch (cost) {
+		case "0/5/2/2/1":
+			return -30;
 		case "0/6/2/2/1":
 			return -17;
 		case "0/6/3/1/1":

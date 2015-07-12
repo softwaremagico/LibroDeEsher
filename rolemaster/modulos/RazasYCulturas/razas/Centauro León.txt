@@ -1,4 +1,4 @@
-#MODIFICACIÓN A LAS CARACTERÍSTICAS
+#MODIFICACIÓN A LAS CARACTERÍSTICAS	
 ####################################
 Ag	0
 Co	4
@@ -12,11 +12,11 @@ Rp	0
 Fu	6
 Ap	-5
 
-# ESPERANZA DE VIDA
+# ESPERANZA DE VIDA	0
 ####################################
 100
 
-#MODIFICACIÓN A LA TR
+#MODIFICACIÓN A LA TR	-8
 ####################################
 Canalización	-5
 Esencia	-5
@@ -28,7 +28,7 @@ Frío	0
 Calor	0
 Miedo	0
 
-#PROGRESIÓN
+#PROGRESIÓN	54
 ####################################
 Desarrollo Físico	0/9/6/5/4
 PP Arcano	0/5/4/3/2
@@ -37,15 +37,15 @@ PP Esencia	0/5/4/3/2
 PP Mentalismo	0/6/5/4/3
 PP Psiónico	0/6/5/4/3
 
-#PROFESIONES RESTRINGIDAS
+#PROFESIONES RESTRINGIDAS	-4
 ####################################
 Combate Montado, Montar
 
-#PARTIDA DEL ALMA
+#PARTIDA DEL ALMA	-2
 ####################################
 10
 
-#TIPO DE RAZA
+#TIPO DE RAZA	5
 ####################################
 2
 
@@ -53,11 +53,11 @@ Combate Montado, Montar
 ####################################
 Medio
 
-#RECUPERACIÓN
+#RECUPERACIÓN	0
 ####################################
 1
 
-#IDIOMAS
+#IDIOMAS	
 ####################################
 3
 
@@ -65,18 +65,18 @@ Medio
 ####################################
 5
 
-#IDIOMAS	Inicial	Max.Cultura
+#IDIOMAS	Inicial	Max.Cultura	-3
 ####################################
 Centauro	8/6	10/10
 Habla Común	0/0	8/8
 Habla de las Llanuras	0/0	6/6
 Habla Alta	0/0	6/6
 
-#HABILIDADES COMUNES
+#HABILIDADES COMUNES	5
 ####################################
 Acechar, Esconderse, Cazar, Forrajear, Rastrear
 
-#HABILIDADES RESTRINGIDAS
+#HABILIDADES RESTRINGIDAS	-15
 ####################################
 Juegos Atléticos (Gimnasia), Acrobacias, Caer, Contorsionismo
 Malabarismos, Trepar, Volar/Planear, Volteretas, Caminar con Zancos

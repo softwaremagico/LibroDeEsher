@@ -12,11 +12,11 @@ Rp	6
 Fu	-4
 Ap	0
 
-# ESPERANZA DE VIDA
+# ESPERANZA DE VIDA	3
 ####################################
 150
 
-#MODIFICACIÓN A LA TR	70
+#MODIFICACIÓN A LA TR	0
 ####################################
 Canalización	0
 Esencia	0
@@ -88,18 +88,23 @@ Ninguno
 
 #TALENTOS
 ####################################
-30
+50
 
 #NOMBRES MASCULINOS
 ####################################
-Learco
+Learco, Abano, Abilio, Ablonnio, Abrunaeno, Acario, Accio, Accón, Acuo, Bodo
+Caelio, Cancilo, Cillio, Dadón, Daegeno, Dorulio, Eleso, Erudino, Magilón, Nemayecano
+Obbellegino, Pento, Segetio, Talanio, Tusco, Virono
 
 #NOMBRES FEMENINOS
 ####################################
-Morticia
+Morticia, Acca, Acida, Acuana, Aelatia, Amia, Calediga, Kankâ, Cicana, Deva
+Dobra, Irmana, Lugua, Miocula, Nicua, Noiva, Origena, Reburinia, Segaida, Talania
+Turaennia
 
 #APELLIDOS
 ####################################
-Ignodan
+Ignodan, Camáricos, Doidérigo, Elesicainos, Moroicano, Pentovieco, Ubalacino
+Ucesio, Vadinien, Verónigo, Viroma, Voconia
 
 #### FIN RAZA ####

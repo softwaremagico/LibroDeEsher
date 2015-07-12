@@ -1,4 +1,4 @@
-#MODIFICACIÓN A LAS CARACTERÍSTICAS
+#MODIFICACIÓN A LAS CARACTERÍSTICAS	-40
 ####################################
 Ag	2
 Co	-4
@@ -12,11 +12,11 @@ Rp	0
 Fu	-4
 Ap	20
 
-# ESPERANZA DE VIDA
+# ESPERANZA DE VIDA	-5
 ####################################
 1
 
-#MODIFICACIÓN A LA TR
+#MODIFICACIÓN A LA TR	395
 ####################################
 Canalización	100
 Esencia	50
@@ -28,9 +28,9 @@ Frío	0
 Calor	0
 Miedo	0
 
-#PROGRESIÓN
+#PROGRESIÓN	-100
 ####################################
-Desarrollo Físico	0/5/4/3/2
+Desarrollo Físico	0/5/2/2/1
 PP Arcano	0/3/2/1/1
 PP Canalización	0/3/2/1/1
 PP Esencia	0/3/2/1/1
@@ -41,11 +41,11 @@ PP Psiónico	0/3/2/1/1
 ####################################
 Mago, Clérigo, Paladín, Mentalista, Vidente, Sanador,Bardo, Indagador, Montaraz, Lord del Caos, Monje, Monje Zen, Monje Taoísta, Alquimista de Canalización, Alquimista de Esencia, Elementalista
 
-#PARTIDA DEL ALMA
+#PARTIDA DEL ALMA	-25
 ####################################
 1
 
-#TIPO DE RAZA
+#TIPO DE RAZA	10
 ####################################
 1
 
@@ -53,7 +53,7 @@ Mago, Clérigo, Paladín, Mentalista, Vidente, Sanador,Bardo, Indagador, Montara
 ####################################
 Medio
 
-#RECUPERACIÓN
+#RECUPERACIÓN	25
 ####################################
 0.2
 
@@ -65,31 +65,31 @@ Medio
 ####################################
 6
 
-#IDIOMAS	Inicial	Max.Cultura
+#IDIOMAS	Inicial	Max.Cultura	-18
 ####################################
 Fúnguido	6/0	8/6
 Habla de los Bosques	0/0	4/0
 Habla Común	0/0	4/0
 
-#HABILIDADES COMUNES
+#HABILIDADES COMUNES	6
 ####################################
-Esconderse, Acechar, Ataque Silencioso, Emboscar, Nadar
+Esconderse, Acechar, Ataque Silencioso, Emboscar, Nadar, Supervivencia (Montañas)
 
-#HABILIDADES RESTRINGIDAS
+#HABILIDADES RESTRINGIDAS	-2
 ####################################
 Frenesí
 
 #CULTURAS
 ####################################
-Subterránea, Supervivencia (Montañas)
+Subterránea
 
 #ESPECIALES
 ####################################
-Nube de esporas. Veneno Nº5 Nervioso en un área de 3m de rádio. Una vez al día.
+Nube de esporas. Veneno Nº5 Nervioso en un área de 3m de rádio. Una vez al día. [10]
 
 #TALENTOS
 ####################################
-45
+15
 
 #NOMBRES MASCULINOS
 ####################################
