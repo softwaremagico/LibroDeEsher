@@ -1,7 +1,6 @@
 Talento +3r a lista de hechizos no funciona correctamente. No elige nada.
 Veo los hechizos de houri y soy monje!
 Poderes Chi son siempre visibles independientemente de que estén escogidos o no por una maniobra de artes marciales que los desbloquea.
-No suben características temporales al subir de nivel!!
 
 Habilidades especializadas y generalizadas
 Si importas dos veces un personaje y lo salvas, da error en comparationId clave unica.
