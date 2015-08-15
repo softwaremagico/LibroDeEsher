@@ -106,11 +106,12 @@ public class MagicFactory {
 	public static Set<String> getListOfTraining(List<RealmOfMagic> realmsOfMagic, String trainingName) {
 		Set<String> lists = new HashSet<String>();
 		for (RealmOfMagic realm : realmsOfMagic) {
-			for (String profession : spellsByGroup.get(realm).keySet()) {
-				if (!profession.equals(Spanish.OPEN_LIST_TAG) && !profession.equals(Spanish.CLOSED_LIST_TAG)) {
+			for (String training : spellsByGroup.get(realm).keySet()) {
+				//Character must have the training
+				if (!training.equals(trainingName) && !training.equals(Spanish.OPEN_LIST_TAG) && !training.equals(Spanish.CLOSED_LIST_TAG)) {
 					// It is a training.
-					if (TrainingFactory.getAvailableTrainings().contains(profession) && !isElementalistTraining(profession)) {
-						Set<String> trainingLists = spellsByGroup.get(realm).get(profession);
+					if (TrainingFactory.getAvailableTrainings().contains(training) && !isElementalistTraining(training)) {
+						Set<String> trainingLists = spellsByGroup.get(realm).get(training);
 						for (String spellList : trainingLists) {
 							lists.add(spellList);
 						}
@@ -125,13 +126,14 @@ public class MagicFactory {
 		Set<String> lists = new HashSet<String>();
 		for (RealmOfMagic realm : RealmOfMagic.values()) {
 			if (!realmsOfMagic.contains(realm)) {
-				for (String profession : spellsByGroup.get(realm).keySet()) {
-					if (!profession.equals(Spanish.OPEN_LIST_TAG)
-							&& !profession.equals(Spanish.CLOSED_LIST_TAG)) {
+				for (String training : spellsByGroup.get(realm).keySet()) {
+					//Character must have the training
+					if (!training.equals(trainingName) && !training.equals(Spanish.OPEN_LIST_TAG)
+							&& !training.equals(Spanish.CLOSED_LIST_TAG)) {
 						// It is a training.
-						if (TrainingFactory.getAvailableTrainings().contains(profession) && !isElementalistTraining(profession)) {
+						if (TrainingFactory.getAvailableTrainings().contains(training) && !isElementalistTraining(training)) {
 							Set<String> trainingLists = spellsByGroup.get(realm)
-									.get(profession);
+									.get(training);
 							for (String spellList : trainingLists) {
 								lists.add(spellList);
 							}
