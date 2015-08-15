@@ -452,29 +452,31 @@ public class CharacterPlayer extends StorableObject {
 			temporalValue = characteristicsInitialTemporalValues.get(abbreviature);
 		}
 		// Only rolls after insertion of data.
-		for (LevelUp levelUp : getLevelUps()) {
-			CharacteristicRoll roll = levelUp.getCharacteristicsUpdates(abbreviature);
-			if (roll != null) {
-				temporalValue += Characteristic.getCharacteristicUpgrade(
-						roll.getCharacteristicTemporalValue(), roll.getCharacteristicPotentialValue(),
-						roll.getRoll());
+		if (areCharacteristicsConfirmed()) {
+			for (LevelUp levelUp : getLevelUps()) {
+				CharacteristicRoll roll = levelUp.getCharacteristicsUpdates(abbreviature);
+				if (roll != null) {
+					temporalValue += Characteristic.getCharacteristicUpgrade(
+							roll.getCharacteristicTemporalValue(), roll.getCharacteristicPotentialValue(),
+							roll.getRoll());
+				}
 			}
-		}
-		// Only use training modifications after insertedData.
-		for (TrainingDecision training : getTrainingDecisionsFromLevel(insertedData.getCreatedAtLevel())
-				.values()) {
-			for (CharacteristicRoll roll : training.getCharacteristicsUpdates(abbreviature)) {
-				temporalValue += Characteristic.getCharacteristicUpgrade(
-						roll.getCharacteristicTemporalValue(), roll.getCharacteristicPotentialValue(),
-						roll.getRoll());
+			// Only use training modifications after insertedData.
+			for (TrainingDecision training : getTrainingDecisionsFromLevel(insertedData.getCreatedAtLevel())
+					.values()) {
+				for (CharacteristicRoll roll : training.getCharacteristicsUpdates(abbreviature)) {
+					temporalValue += Characteristic.getCharacteristicUpgrade(
+							roll.getCharacteristicTemporalValue(), roll.getCharacteristicPotentialValue(),
+							roll.getRoll());
+				}
 			}
-		}
-		// History rolls only if not inserted data.
-		if (!insertedData.isEnabled()) {
-			for (CharacteristicRoll roll : historial.getCharacteristicsUpdates(abbreviature)) {
-				temporalValue += Characteristic.getCharacteristicUpgrade(
-						roll.getCharacteristicTemporalValue(), roll.getCharacteristicPotentialValue(),
-						roll.getRoll());
+			// History rolls only if not inserted data.
+			if (!insertedData.isEnabled()) {
+				for (CharacteristicRoll roll : historial.getCharacteristicsUpdates(abbreviature)) {
+					temporalValue += Characteristic.getCharacteristicUpgrade(
+							roll.getCharacteristicTemporalValue(), roll.getCharacteristicPotentialValue(),
+							roll.getRoll());
+				}
 			}
 		}
 		return temporalValue;
@@ -800,7 +802,8 @@ public class CharacterPlayer extends StorableObject {
 			// Update potentical characteristics of level 1, that still has
 			// value of zero.
 			for (LevelUp levelUp : getLevelUps()) {
-				levelUp.updateCharacteristicPotentialValue(characteristic.getAbbreviature(), potential);
+				levelUp.updateCharacteristicRoll(characteristic.getAbbreviature(),
+						characteristicsInitialTemporalValues.get(characteristic.getAbbreviature()), potential);
 			}
 		}
 	}

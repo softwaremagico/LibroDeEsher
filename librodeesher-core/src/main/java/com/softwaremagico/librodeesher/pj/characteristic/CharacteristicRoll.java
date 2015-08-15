@@ -77,5 +77,9 @@ public class CharacteristicRoll extends StorableObject {
 	public void setCharacteristicPotentialValue(Integer characteristicPotentialValue) {
 		this.characteristicPotentialValue = characteristicPotentialValue;
 	}
+	
+	public void setCharacteristicTemporalValue(Integer characteristicTemporalValue) {
+		this.characteristicTemporalValue = characteristicTemporalValue;
+	}
 
 }

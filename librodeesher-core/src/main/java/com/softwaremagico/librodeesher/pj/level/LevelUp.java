@@ -319,8 +319,9 @@ public class LevelUp extends StorableObject {
 		return characteristicRoll;
 	}
 
-	public void updateCharacteristicPotentialValue(CharacteristicsAbbreviature abbreviature,
+	public void updateCharacteristicRoll(CharacteristicsAbbreviature abbreviature, int tempotalValue,
 			int potentialValue) {
+		getCharacteristicsUpdates(abbreviature).setCharacteristicTemporalValue(tempotalValue);
 		getCharacteristicsUpdates(abbreviature).setCharacteristicPotentialValue(potentialValue);
 	}
 }
