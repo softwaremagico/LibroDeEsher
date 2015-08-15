@@ -423,15 +423,15 @@ public class MainMenu {
 	public void update() {
 		boolean enable = character.areCharacteristicsConfirmed();
 		//charactMenuItem.setEnabled(!enable);
-		cultureMenuItem.setEnabled(enable);
-		professionMenuItem.setEnabled(enable
+		cultureMenuItem.setEnabled(enable && character.getLevelUps().size() == 1);
+		professionMenuItem.setEnabled(enable && character.getLevelUps().size() == 1
 				&& (!character.getProfession().getProfessionalSkillsToChoose().isEmpty()
 						|| !character.getProfession().getCommonSkillsToChoose().isEmpty() || !character
 						.getProfession().getRestrictedSkillsToChoose().isEmpty()));
 		trainingMenuItem.setEnabled(enable);
-		perksMenuItem.setEnabled(enable);
+		perksMenuItem.setEnabled(enable && character.getLevelUps().size() == 1);
 		skillsMenuItem.setEnabled(enable);
-		historyMenuItem.setEnabled(enable);
+		historyMenuItem.setEnabled(enable && character.getLevelUps().size() == 1);
 		isCharacterWellFormed();
 	}
 
