@@ -92,6 +92,10 @@ public class OptionLine extends BaseLine {
 		return false;
 	}
 
+	public void setSelected(boolean selected) {
+		optionCheckBox.setSelected(selected);
+	}
+
 	public String getOption() {
 		return option;
 	}

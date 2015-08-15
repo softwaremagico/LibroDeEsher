@@ -78,8 +78,8 @@ public class CharacteristicRoll extends StorableObject {
 		this.characteristicPotentialValue = characteristicPotentialValue;
 	}
 	
-	public void setCharacteristicTemporalValue(Integer characteristicTemporalValue) {
-		this.characteristicTemporalValue = characteristicTemporalValue;
+	public void setCharacteristicTemporalValue(Integer characteristicPotentialValue) {
+		this.characteristicTemporalValue = characteristicPotentialValue;
 	}
 
 }

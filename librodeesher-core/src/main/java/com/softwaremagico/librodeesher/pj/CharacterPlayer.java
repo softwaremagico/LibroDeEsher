@@ -1726,6 +1726,18 @@ public class CharacterPlayer extends StorableObject {
 		professionDecisions.setProfessionalSkillsChosen(professionalSkillsChose);
 	}
 
+	public List<String> getCommonSkillsChoseFromProfession() {
+		return professionDecisions.getCommonSkillsChosen();
+	}
+
+	public List<String> getRestrictedSkillsChoseFromProfession() {
+		return professionDecisions.getRestrictedSkillsChosen();
+	}
+
+	public List<String> getProfessionalSkillsChoseFromProfession() {
+		return professionDecisions.getProfessionalSkillsChosen();
+	}
+
 	public List<String> getAvailableTrainings() {
 		List<String> availableTrainings = new ArrayList<>();
 		List<String> selectedTrainings = getSelectedTrainings();

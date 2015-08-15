@@ -33,11 +33,11 @@ public class OptionsPanel extends BaseScrollPanel {
 	private OptionsTitle title;
 	private OptionsListPanel optionsListPanel;
 
-	protected OptionsPanel(SelectOption<?> parent, List<String> options, Integer numberOfOptions) {
+	protected OptionsPanel(SelectOption<?> parent, List<String> options, Integer numberOfOptions, List<String> selectedOptions) {
 		this.parent = parent;
 		title = new OptionsTitle();
 		addTitle(title);
-		optionsListPanel = new OptionsListPanel(options, numberOfOptions, this);
+		optionsListPanel = new OptionsListPanel(options, numberOfOptions, this, selectedOptions);
 		setBody(optionsListPanel);
 	}
 	

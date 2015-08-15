@@ -92,16 +92,16 @@ public class ProfessionWindow extends BaseFrame {
 			gridBagConstraints.gridx = i;
 			gridBagConstraints.gridy = 0;
 			i++;
-			SelectOption<Skill> options = new SelectOption<Skill>(this, character.getProfession()
-					.getCommonSkillsToChoose().get(c));
-			commonOptions.add(options);
+			SelectOption<Skill> optionsLayout = new SelectOption<Skill>(this, character.getProfession()
+					.getCommonSkillsToChoose().get(c), character.getCommonSkillsChoseFromProfession());
+			commonOptions.add(optionsLayout);
 			if (c == character.getProfession().getCommonSkillsToChoose().size() - 1) {
 				gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
 			} else {
 				gridBagConstraints.gridwidth = 1;
 			}
-			options.setPointCounterLabel("   Comunes: ");
-			getContentPane().add(options, gridBagConstraints);
+			optionsLayout.setPointCounterLabel("   Comunes: ");
+			getContentPane().add(optionsLayout, gridBagConstraints);
 		}
 		// Add professional options.
 		i = 0;
@@ -109,9 +109,9 @@ public class ProfessionWindow extends BaseFrame {
 			gridBagConstraints.gridx = i;
 			gridBagConstraints.gridy = 1;
 			i++;
-			SelectOption<Skill> options = new SelectOption<Skill>(this, character.getProfession()
-					.getProfessionalSkillsToChoose().get(c));
-			professionalOptions.add(options);
+			SelectOption<Skill> optionsLayout = new SelectOption<Skill>(this, character.getProfession()
+					.getProfessionalSkillsToChoose().get(c), character.getProfessionalSkillsChoseFromProfession());
+			professionalOptions.add(optionsLayout);
 			if (c == character.getProfession().getProfessionalSkillsToChoose().size() - 1) {
 				gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
 			} else {
@@ -120,8 +120,8 @@ public class ProfessionWindow extends BaseFrame {
 			if (commonOptions.size() > 0) {
 				gridBagConstraints.insets = new Insets(20, 2, 2, 2);
 			}
-			options.setPointCounterLabel("   Profesionales: ");
-			getContentPane().add(options, gridBagConstraints);
+			optionsLayout.setPointCounterLabel("   Profesionales: ");
+			getContentPane().add(optionsLayout, gridBagConstraints);
 		}
 		// Add restricted options.
 		i = 0;
@@ -129,9 +129,9 @@ public class ProfessionWindow extends BaseFrame {
 			gridBagConstraints.gridx = i;
 			gridBagConstraints.gridy = 2;
 			i++;
-			SelectOption<Skill> options = new SelectOption<Skill>(this, character.getProfession()
-					.getRestrictedSkillsToChoose().get(c));
-			restrictedOptions.add(options);
+			SelectOption<Skill> optionsLayout = new SelectOption<Skill>(this, character.getProfession()
+					.getRestrictedSkillsToChoose().get(c), character.getRestrictedSkillsChoseFromProfession());
+			restrictedOptions.add(optionsLayout);
 			if (c == character.getProfession().getRestrictedSkillsToChoose().size() - 1) {
 				gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
 			} else {
@@ -140,8 +140,8 @@ public class ProfessionWindow extends BaseFrame {
 			if (commonOptions.size() > 0 || professionalOptions.size() > 0) {
 				gridBagConstraints.insets = new Insets(20, 2, 2, 2);
 			}
-			options.setPointCounterLabel("   Restringidas: ");
-			getContentPane().add(options, gridBagConstraints);
+			optionsLayout.setPointCounterLabel("   Restringidas: ");
+			getContentPane().add(optionsLayout, gridBagConstraints);
 		}
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));

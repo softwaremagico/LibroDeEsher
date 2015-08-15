@@ -35,11 +35,14 @@ public class OptionsListPanel extends BasePanel {
 	private OptionsPanel parent;
 	private List<OptionLine> optionLines;
 	private Integer numberOfOptions;
+	private List<String> selectedOptions;
 
-	public OptionsListPanel(List<String> options, Integer numberOfOptions, OptionsPanel parent) {
+	public OptionsListPanel(List<String> options, Integer numberOfOptions, OptionsPanel parent,
+			List<String> selectedOptions) {
 		this.parent = parent;
 		optionLines = new ArrayList<>();
 		this.numberOfOptions = numberOfOptions;
+		this.selectedOptions = selectedOptions;
 		setElements(options);
 	}
 
@@ -50,6 +53,7 @@ public class OptionsListPanel extends BasePanel {
 		for (String option : options) {
 			OptionLine optionLine = new OptionLine(option, this, getLineBackgroundColor(i));
 			add(optionLine);
+			optionLine.setSelected(selectedOptions.contains(option));
 			optionLines.add(optionLine);
 			i++;
 		}
@@ -65,7 +69,7 @@ public class OptionsListPanel extends BasePanel {
 		return selectedOptions;
 	}
 
-	protected Integer getRemainingOptions(){
+	protected Integer getRemainingOptions() {
 		return numberOfOptions - getSelectedOptions().size();
 	}
 

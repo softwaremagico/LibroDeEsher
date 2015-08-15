@@ -58,6 +58,14 @@ public class SelectOption<T> extends BasePanel {
 		setElements();
 	}
 
+	public SelectOption(BaseFrame parent, ChooseGroup<T> options, List<String> selectedOptions) {
+		this.parent = parent;
+		this.options = options;
+		optionsCount = new PointsCounterTextField();
+		this.selectedOptions = selectedOptions;
+		setElements();
+	}
+
 	public void setPointCounterLabel(String text) {
 		optionsLabel.setText(text);
 	}
@@ -97,7 +105,7 @@ public class SelectOption<T> extends BasePanel {
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		optionsPanel = new OptionsPanel(this, options.getOptionsAsString(),
-				options.getNumberOfOptionsToChoose());
+				options.getNumberOfOptionsToChoose(), selectedOptions);
 		add(optionsPanel, gridBagConstraints);
 	}
 
@@ -111,9 +119,13 @@ public class SelectOption<T> extends BasePanel {
 
 	@Override
 	public void update() {
-		selectedOptions = optionsPanel.getSelectedOptions();
-		setOptionsText(selectedOptions);
-		parent.updateFrame();
+		try {
+			selectedOptions = optionsPanel.getSelectedOptions();
+			setOptionsText(selectedOptions);
+			parent.updateFrame();
+		} catch (NullPointerException npe) {
+
+		}
 	}
 
 	public List<String> getSelectedOptions() {
