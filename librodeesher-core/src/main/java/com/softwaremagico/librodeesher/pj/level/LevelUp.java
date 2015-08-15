@@ -120,7 +120,7 @@ public class LevelUp extends StorableObject {
 		resetIds(trainingDecisions);
 		resetIds(characteristicsUpdates);
 	}
-	
+
 	@Override
 	public void resetComparationIds() {
 		resetComparationIds(this);
@@ -183,8 +183,8 @@ public class LevelUp extends StorableObject {
 	}
 
 	/**
-	 * If a player learn more than 5 spell list in one level, the cost is doubled. If he learns more than 10 spells, the
-	 * cost is the quadruple.
+	 * If a player learn more than 5 spell list in one level, the cost is
+	 * doubled. If he learns more than 10 spells, the cost is the quadruple.
 	 * 
 	 * @param skill
 	 * @param newRanks
@@ -317,5 +317,10 @@ public class LevelUp extends StorableObject {
 				currentPotentialValue, roll);
 		characteristicsUpdates.add(characteristicRoll);
 		return characteristicRoll;
+	}
+
+	public void updateCharacteristicPotentialValue(CharacteristicsAbbreviature abbreviature,
+			int potentialValue) {
+		getCharacteristicsUpdates(abbreviature).setCharacteristicPotentialValue(potentialValue);
 	}
 }

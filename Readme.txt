@@ -29,6 +29,10 @@ Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadore
 
 Versión
 ------------
+2.1.1	Nuevo:
+		- Talentos se calculan automáticamente para cada raza.
+	Cambiado:
+		- Ficha combinada optimizada para impresión. 
 2.1.0	Nuevo: 
 		- Adiestramientos con hechizos pueden ser utilizados correctamente.
 2.0.3	Cambiado:

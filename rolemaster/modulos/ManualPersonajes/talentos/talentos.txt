@@ -2,7 +2,7 @@
 #########	#########	#########	#########	#########	#########	
 Arma Natural	15	Todos	Mayor	Ninguna	Tienes garras, púas, zarpas, pinzas... que puedes usar para atacar desarrollando la habilidad pertinente en Ataques Especiales. Esta habilidad será común para ti. 
 Juego de Muñecas	15	Todos	Mayor	Artes Marciales·Barridos (20), Artes Marciales·Golpes (20), Armas·Arrojadizas (20)	Consulta la página 58 del libro de personajes para más información.	
-Poder (Mínimo)	5	Todos	Mínimo	Ninguno	Tienes tres rangos adicionales de hechizos.	
+Poder (Mínimo)	5	Todos	Mínimo	Listas Básicas de Hechizos (3r)	Tienes tres rangos adicionales de hechizos.	
 Arquero Nato 	8	Todos	Menor	Armas·Proyectiles (5)	Aumentas el alcance de todos los arcos un 25%. Consulta la página 52 del libro de personajes para más información.	
 Adiestramiento en Artes Marciales (Menor)	10	Todos	Menor	Artes Marciales·Barridos (10), Artes Marciales·Golpes (10), Artes Marciales·Maniobras de Combate (10), Autocontrol (10), Defensas Especiales (10)	Consulta la página 52 del libro de personajes para más información.	
 Adiestramiento en Artes Marciales (Mayor)	15	Todos	Mayor	Artes Marciales·Barridos (15), Artes Marciales·Golpes (15), Artes Marciales·Maniobras de Combate (15), Autocontrol (15), Defensas Especiales (15)	Consulta la página 52 del libro de personajes para más información.	

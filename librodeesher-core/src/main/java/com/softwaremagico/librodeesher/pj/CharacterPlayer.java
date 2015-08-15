@@ -451,6 +451,15 @@ public class CharacterPlayer extends StorableObject {
 		} else {
 			temporalValue = characteristicsInitialTemporalValues.get(abbreviature);
 		}
+		// Only rolls after insertion of data.
+		for (LevelUp levelUp : getLevelUps()) {
+			CharacteristicRoll roll = levelUp.getCharacteristicsUpdates(abbreviature);
+			if (roll != null) {
+				temporalValue += Characteristic.getCharacteristicUpgrade(
+						roll.getCharacteristicTemporalValue(), roll.getCharacteristicPotentialValue(),
+						roll.getRoll());
+			}
+		}
 		// Only use training modifications after insertedData.
 		for (TrainingDecision training : getTrainingDecisionsFromLevel(insertedData.getCreatedAtLevel())
 				.values()) {
@@ -788,6 +797,11 @@ public class CharacterPlayer extends StorableObject {
 			Integer potential = Characteristics.getPotencial(characteristicsInitialTemporalValues
 					.get(characteristic.getAbbreviature()));
 			characteristicsPotentialValues.put(characteristic.getAbbreviature(), potential);
+			// Update potentical characteristics of level 1, that still has
+			// value of zero.
+			for (LevelUp levelUp : getLevelUps()) {
+				levelUp.updateCharacteristicPotentialValue(characteristic.getAbbreviature(), potential);
+			}
 		}
 	}
 

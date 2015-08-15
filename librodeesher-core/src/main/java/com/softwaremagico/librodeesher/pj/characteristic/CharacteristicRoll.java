@@ -27,15 +27,13 @@ public class CharacteristicRoll extends StorableObject {
 	@Expose
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Roll roll;
-	
-	protected CharacteristicRoll(){
-		
+
+	protected CharacteristicRoll() {
+
 	}
 
-	public CharacteristicRoll(
-			CharacteristicsAbbreviature characteristicAbbreviature,
-			Integer characteristicTemporalValue,
-			Integer characteristicPotentialValue, Roll roll) {
+	public CharacteristicRoll(CharacteristicsAbbreviature characteristicAbbreviature,
+			Integer characteristicTemporalValue, Integer characteristicPotentialValue, Roll roll) {
 		this.characteristicAbbreviature = characteristicAbbreviature;
 		this.characteristicTemporalValue = characteristicTemporalValue;
 		this.characteristicPotentialValue = characteristicPotentialValue;
@@ -47,7 +45,7 @@ public class CharacteristicRoll extends StorableObject {
 		resetIds(this);
 		resetIds(roll);
 	}
-	
+
 	@Override
 	public void resetComparationIds() {
 		resetComparationIds(this);
@@ -68,6 +66,16 @@ public class CharacteristicRoll extends StorableObject {
 
 	public Roll getRoll() {
 		return roll;
+	}
+
+	@Override
+	public String toString() {
+		return characteristicAbbreviature + "[" + characteristicTemporalValue + " ->"
+				+ characteristicPotentialValue + "]: " + roll;
+	}
+
+	public void setCharacteristicPotentialValue(Integer characteristicPotentialValue) {
+		this.characteristicPotentialValue = characteristicPotentialValue;
 	}
 
 }
