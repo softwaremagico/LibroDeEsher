@@ -2384,6 +2384,13 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public boolean isSkillDisabled(Skill skill) {
+		// Chi powers can ben forbidden as an option.
+		if (skill.getName().toLowerCase().startsWith(Spanish.CHI_SUFIX)) {
+			if (!chiPowersAllowed) {
+				return false;
+			}
+		}
+		// Some skills enable other skills that are disabled by default.
 		return !skill.isEnabled() && !getEnabledSkills().contains(skill.getName());
 	}
 
