@@ -113,12 +113,12 @@ public class MagicSpellLists implements Serializable {
 					.getRealmsOfMagic(), training));
 		}
 		notSelectableSpells.addAll(trainingSpells);
-		
+
 		// Other realm Training
 		Set<String> otherRealmTrainingSpells = new HashSet<>();
 		for (String training : character.getTrainings()) {
-			otherRealmTrainingSpells.addAll(MagicFactory.getListOfTrainingOtherRealms(character.getRealmOfMagic()
-					.getRealmsOfMagic(), training));
+			otherRealmTrainingSpells.addAll(MagicFactory.getListOfTrainingOtherRealms(character
+					.getRealmOfMagic().getRealmsOfMagic(), training));
 		}
 		notSelectableSpells.addAll(otherRealmTrainingSpells);
 
@@ -193,7 +193,8 @@ public class MagicSpellLists implements Serializable {
 				new ArrayList<>(otherRealmsClosed));
 		magicCategories.get(MagicListType.ARCHANUM).setSkillsFromName(new ArrayList<>(archanumOpenLists));
 		magicCategories.get(MagicListType.TRAINING).setSkillsFromName(new ArrayList<>(trainingSpells));
-		magicCategories.get(MagicListType.OTHER_REALM_TRAINING).setSkillsFromName(new ArrayList<>(otherRealmTrainingSpells));
+		magicCategories.get(MagicListType.OTHER_REALM_TRAINING).setSkillsFromName(
+				new ArrayList<>(otherRealmTrainingSpells));
 	}
 
 	public Category getMagicCategory(String categoryName) {

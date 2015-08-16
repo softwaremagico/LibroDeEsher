@@ -108,7 +108,7 @@ public class MagicFactory {
 		for (RealmOfMagic realm : realmsOfMagic) {
 			for (String training : spellsByGroup.get(realm).keySet()) {
 				//Character must have the training
-				if (!training.equals(trainingName) && !training.equals(Spanish.OPEN_LIST_TAG) && !training.equals(Spanish.CLOSED_LIST_TAG)) {
+				if (training.equals(trainingName.toLowerCase()) && !training.equals(Spanish.OPEN_LIST_TAG) && !training.equals(Spanish.CLOSED_LIST_TAG)) {
 					// It is a training.
 					if (TrainingFactory.getAvailableTrainings().contains(training) && !isElementalistTraining(training)) {
 						Set<String> trainingLists = spellsByGroup.get(realm).get(training);
@@ -128,7 +128,7 @@ public class MagicFactory {
 			if (!realmsOfMagic.contains(realm)) {
 				for (String training : spellsByGroup.get(realm).keySet()) {
 					//Character must have the training
-					if (!training.equals(trainingName) && !training.equals(Spanish.OPEN_LIST_TAG)
+					if (training.equals(trainingName.toLowerCase()) && !training.equals(Spanish.OPEN_LIST_TAG)
 							&& !training.equals(Spanish.CLOSED_LIST_TAG)) {
 						// It is a training.
 						if (TrainingFactory.getAvailableTrainings().contains(training) && !isElementalistTraining(training)) {
