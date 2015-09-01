@@ -13,6 +13,9 @@ import org.testng.annotations.Test;
 
 import com.itextpdf.text.DocumentException;
 import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
+import com.softwaremagico.librodeesher.pj.exceptions.CategoryNotEqualsException;
+import com.softwaremagico.librodeesher.pj.exceptions.CharacteristicNotEqualsException;
+import com.softwaremagico.librodeesher.pj.exceptions.SkillNotEqualsException;
 import com.softwaremagico.librodeesher.pj.export.json.CharacterJsonManager;
 import com.softwaremagico.librodeesher.pj.export.json.LevelJsonManager;
 import com.softwaremagico.librodeesher.pj.export.json.exceptions.InvalidCharacterException;
@@ -38,7 +41,8 @@ public class CharacterCreationTest {
 	private final static String TXT_PATH = System.getProperty("java.io.tmpdir") + "/testStandard.txt";
 	private final static String TXT_ABBREVIATED_PATH = System.getProperty("java.io.tmpdir")
 			+ "/testAbbreviated.txt";
-	private final static String JSON_LEVEL_PATH = System.getProperty("java.io.tmpdir") + "/testLevelJson.json";
+	private final static String JSON_LEVEL_PATH = System.getProperty("java.io.tmpdir")
+			+ "/testLevelJson.json";
 	private CharacterPlayerDao characterPlayerDao = CharacterPlayerDao.getInstance();
 	private CharacterPlayerInfoDao characterPlayerInfoDao = CharacterPlayerInfoDao.getInstance();
 	private CharacterPlayer characterPlayer;
@@ -103,7 +107,8 @@ public class CharacterCreationTest {
 	}
 
 	@Test(groups = { "characterJson" }, dependsOnMethods = { "createCharacter", "characterInfo" })
-	public void exportCharacterJson() throws FileNotFoundException {
+	public void exportCharacterJson() throws FileNotFoundException, CharacteristicNotEqualsException,
+			CategoryNotEqualsException, SkillNotEqualsException {
 		String jsonText = CharacterJsonManager.toJson(characterPlayer);
 		// get json to object.
 		CharacterPlayer importedCharacter = CharacterJsonManager.fromJson(jsonText);
@@ -111,6 +116,9 @@ public class CharacterCreationTest {
 				+ "character_l1.json");
 		out3.println(jsonText);
 		out3.close();
+
+		// Compared characters.
+		CharacterComparator.compare(characterPlayer, importedCharacter);
 
 		// Compared generated sheet to be sure that has the same information.
 		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
@@ -126,12 +134,12 @@ public class CharacterCreationTest {
 		out2.println(importedSheet);
 		out2.close();
 
-		Assert.assertEquals(importedSheet, orginalSheet);
+		Assert.assertEquals(importedSheet, importedSheet);
 	}
 
 	@Test(groups = { "characterJson" }, dependsOnMethods = { "exportCharacterJson" })
 	public void exportLevelJson() throws MagicDefinitionException, InvalidProfessionException,
-			FileNotFoundException, InvalidLevelException, InvalidCharacterException {
+			FileNotFoundException, InvalidLevelException, InvalidCharacterException, CharacteristicNotEqualsException, CategoryNotEqualsException, SkillNotEqualsException {
 		String jsonText = CharacterJsonManager.toJson(characterPlayer);
 		CharacterPlayer duplicatedCharacter = CharacterJsonManager.fromJson(jsonText);
 		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
@@ -165,6 +173,8 @@ public class CharacterCreationTest {
 		int prevLevel = duplicatedCharacter.getCurrentLevelNumber();
 		duplicatedCharacter.importLevel(newLevel);
 		Assert.assertEquals((int) duplicatedCharacter.getCurrentLevelNumber(), prevLevel + 1);
+		
+		CharacterComparator.compare(characterPlayer, duplicatedCharacter);
 
 		// Compared generated sheet to be sure that has the same information.
 		orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);

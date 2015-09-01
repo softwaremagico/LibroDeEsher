@@ -483,7 +483,13 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getCharacteristicTemporalValue(CharacteristicsAbbreviature abbreviature) {
-		return getTemporalModifications(abbreviature);
+		Integer value = characterPlayerHelper.getCharacteristicTemporalValue(abbreviature);
+		if (value != null) {
+			return value;
+		}
+		value = getTemporalModifications(abbreviature);
+		characterPlayerHelper.setCharacteristicTemporalValue(abbreviature, value);
+		return value;
 	}
 
 	/**
@@ -494,6 +500,7 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public Integer getCharacteristicInitialTemporalValue(CharacteristicsAbbreviature abbreviature) {
+		characterPlayerHelper.resetCharacteristicTemporalValues();
 		Integer value = getTemporalModifications(abbreviature);
 		if (value != null) {
 			if (isMainProfessionalCharacteristic(abbreviature)) {
@@ -762,6 +769,7 @@ public class CharacterPlayer extends StorableObject {
 	public void setCharacteristicsAsConfirmed() {
 		setPotentialValues();
 		characteristicsConfirmed = true;
+		characterPlayerHelper.resetCharacteristicTemporalValues();
 	}
 
 	private void setCharacteristicsTemporalUpdatesRolls() {
@@ -1500,6 +1508,7 @@ public class CharacterPlayer extends StorableObject {
 				roll);
 		characterPlayerHelper.resetAllCategoryCharacteristicsBonus();
 		characterPlayerHelper.resetDelvelopmentPoints();
+		characterPlayerHelper.resetCharacteristicTemporalValues();
 		return characteristicRoll;
 	}
 
@@ -1518,6 +1527,7 @@ public class CharacterPlayer extends StorableObject {
 				getCharacteristicPotentialValue(abbreviature), roll);
 		characterPlayerHelper.resetAllCategoryCharacteristicsBonus();
 		characterPlayerHelper.resetDelvelopmentPoints();
+		characterPlayerHelper.resetCharacteristicTemporalValues();
 		return characteristicRoll;
 	}
 

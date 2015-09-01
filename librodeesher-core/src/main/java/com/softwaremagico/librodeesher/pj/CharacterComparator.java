@@ -1,0 +1,104 @@
+package com.softwaremagico.librodeesher.pj;
+
+import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
+import com.softwaremagico.librodeesher.pj.exceptions.CategoryNotEqualsException;
+import com.softwaremagico.librodeesher.pj.exceptions.CharacteristicNotEqualsException;
+import com.softwaremagico.librodeesher.pj.exceptions.SkillNotEqualsException;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
+
+public class CharacterComparator {
+
+	public static void compare(CharacterPlayer character1, CharacterPlayer character2)
+			throws CharacteristicNotEqualsException, CategoryNotEqualsException, SkillNotEqualsException {
+		compareCharacteristics(character1, character2);
+		compareCategories(character1, character2);
+		compareSkills(character1, character2);
+	}
+
+	private static void compareCharacteristics(CharacterPlayer character1, CharacterPlayer character2)
+			throws CharacteristicNotEqualsException {
+		for (CharacteristicsAbbreviature abbreviature : CharacteristicsAbbreviature.values()) {
+			if (!character1.getCharacteristicTemporalValue(abbreviature).equals(
+					character2.getCharacteristicTemporalValue(abbreviature))) {
+				throw new CharacteristicNotEqualsException("Characteristic '" + abbreviature
+						+ "' has different temporal value '"
+						+ character1.getCharacteristicTemporalValue(abbreviature) + "' compared to '"
+						+ character2.getCharacteristicTemporalValue(abbreviature) + "'.");
+			}
+
+			if (!character1.getCharacteristicPotentialValue(abbreviature).equals(
+					character2.getCharacteristicPotentialValue(abbreviature))) {
+				throw new CharacteristicNotEqualsException("Characteristic '" + abbreviature
+						+ "' has different potential value '"
+						+ character1.getCharacteristicPotentialValue(abbreviature) + "' compared to '"
+						+ character2.getCharacteristicPotentialValue(abbreviature) + "'.");
+			}
+
+			if (!character1.getCharacteristicTotalBonus(abbreviature).equals(
+					character2.getCharacteristicTotalBonus(abbreviature))) {
+				throw new CharacteristicNotEqualsException("Characteristic '" + abbreviature
+						+ "' has different bonus value '"
+						+ character1.getCharacteristicTotalBonus(abbreviature) + "' compared to '"
+						+ character2.getCharacteristicTotalBonus(abbreviature) + "'.");
+			}
+		}
+	}
+
+	private static void compareCategories(CharacterPlayer character1, CharacterPlayer character2)
+			throws CategoryNotEqualsException {
+		for (Category category : CategoryFactory.getCategories()) {
+			if (!character1.getTotalValue(category).equals(character2.getTotalValue(category))) {
+				throw new CategoryNotEqualsException("Category '" + category.getName()
+						+ "' comparation error.\n\tranks '" + character1.getPreviousRanks(category)
+						+ "', new ranks '" + character1.getCurrentLevelRanks(category)
+						+ "', characteristics '" + character1.getCharacteristicsBonus(category)
+						+ "', bonus '" + character1.getBonus(category) + "', total '"
+						+ character1.getTotalValue(category) + "'.\n\tranks '"
+						+ character2.getPreviousRanks(category) + "', new ranks '"
+						+ character2.getCurrentLevelRanks(category) + "', characteristics '"
+						+ character2.getCharacteristicsBonus(category) + "', bonus '"
+						+ character2.getBonus(category) + "', total '" + character2.getTotalValue(category)
+						+ "'.");
+			}
+		}
+	}
+
+	private static void compareSkills(CharacterPlayer character1, CharacterPlayer character2)
+			throws SkillNotEqualsException {
+		for (Category category : CategoryFactory.getCategories()) {
+			if (character1.getCategory(category).getSkills().size() != character2.getCategory(category)
+					.getSkills().size()) {
+				throw new SkillNotEqualsException("Skills number is different for category '"
+						+ category.getName() + "':\n\t" + character1.getCategory(category).getSkills()
+						+ "\n\t" + character2.getCategory(category).getSkills());
+			}
+			for (Skill skill : character1.getCategory(category).getSkills()) {
+				if (!character1.getTotalValue(skill).equals(character2.getTotalValue(skill))) {
+					throw new SkillNotEqualsException("Skill '" + skill.getName()
+							+ "' comparation error.\n\tranks '" + character1.getPreviousRanks(skill)
+							+ "', new ranks '" + character1.getCurrentLevelRanks(skill)
+							+ "', profession bonus '"
+							+ character1.getProfession().getSkillBonus(skill.getName())
+							+ "', historial bonus'" + character1.getHistorial().getBonus(skill)
+							+ "', perk bonus '" + character1.getPerkBonus(skill)
+							+ "', conditional perk bonus '" + character1.getConditionalPerkBonus(skill)
+							+ "', item bonus '" + character1.getItemBonus(skill) + "', bonus '"
+							+ character1.getBonus(skill) + "', total '" + character1.getTotalValue(skill)
+							+ "'.\n\tranks '" + character2.getPreviousRanks(skill) + "', new ranks '"
+							+ character2.getCurrentLevelRanks(skill) + "', profession bonus '"
+							+ character2.getProfession().getSkillBonus(skill.getName())
+							+ "', historial bonus'" + character2.getHistorial().getBonus(skill)
+							+ "', perk bonus '" + character2.getPerkBonus(skill)
+							+ "', conditional perk bonus '" + character2.getConditionalPerkBonus(skill)
+							+ "', item bonus '" + character2.getItemBonus(skill) + "', bonus '"
+							+ character2.getBonus(skill) + "', total '" + character2.getTotalValue(skill)
+							+ "'.");
+				}
+
+			}
+		}
+
+	}
+}

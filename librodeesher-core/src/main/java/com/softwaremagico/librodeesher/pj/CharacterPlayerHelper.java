@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
+import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.log.EsherLog;
 
@@ -23,6 +24,8 @@ public class CharacterPlayerHelper {
 	private Map<String, Integer> skillObjectsBonus;
 	private Map<String, Integer> skillTotalBonus;
 	private Map<String, Integer> skillTotal;
+
+	private Map<CharacteristicsAbbreviature, Integer> temporalValues;
 
 	private boolean enabled = true;
 
@@ -48,6 +51,7 @@ public class CharacterPlayerHelper {
 		skillTotalBonus = new HashMap<>();
 		skillTotal = new HashMap<>();
 		developmentPoints = null;
+		temporalValues = new HashMap<>();
 		setDirty(true);
 	}
 
@@ -329,6 +333,18 @@ public class CharacterPlayerHelper {
 
 	public void setDirty(boolean isDirty) {
 		this.isDirty = isDirty;
+	}
+
+	public Integer getCharacteristicTemporalValue(CharacteristicsAbbreviature abbreviature) {
+		return temporalValues.get(abbreviature);
+	}
+
+	public void setCharacteristicTemporalValue(CharacteristicsAbbreviature abbreviature, Integer value) {
+		temporalValues.put(abbreviature, value);
+	}
+
+	public void resetCharacteristicTemporalValues() {
+		temporalValues = new HashMap<>();
 	}
 
 }

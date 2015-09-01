@@ -11,6 +11,10 @@ public class Characteristic {
 
 	public static Integer getCharacteristicUpgrade(Integer temporalValue,
 			Integer potentialValue, Roll roll) {
+		//Compatibility with old inserted rolls.
+		if(temporalValue==0 || potentialValue==0){
+			return 0;
+		}
 		if (roll.getFirstDice().equals(roll.getSecondDice())) {
 			if (roll.getFirstDice() < 6) {
 				return -roll.getFirstDice();
