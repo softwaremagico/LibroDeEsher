@@ -138,7 +138,7 @@ Listas Cerradas de Hechizos                            4/4/4    0        0      
   *  Senda de la Invisibilidad                                  4        4        45       0        49      
   *  Sendas de la Rapidez                                       12       12       45       0        57      
 Listas Cerradas de Otros Reinos                        20       0        0        10       5        15      
-Listas Hechizos de Adiestramiento                      4/4/4    0        0        10       0        10      
+Listas Hechizos de Adiestramiento                      4/4/4    0        0        10       25(T)    35      
 Maniobras de Combate                                   18       0        0        31       0        31      
 Manipulación del Poder                                 3/9      0        0        22       5        27      
   *  Maestría de los Hechizos: Control del Aire                 19       77       27       0        104     
@@ -180,7 +180,7 @@ Sin Equilibrio:	 Caminar con Zancos (-20), Caminar por la Cuerda Floja (-20), Ac
 
 Maldición de las Armas:	 {Selección}. Consulta la página 94 del libro de personajes para más información.
 
-Capacidad Mágica:	 Listas Básicas Elementales Complementarias (25), Listas Cerradas de Hechizos (25), Listas Básicas de Otras Profesiones (25), Listas Abiertas de Hechizos (25), Listas Básicas de la Tríada (25), Listas Básicas de Hechizos (25), Sintonización (25*), Leer Runas (25*). Solo afecta a los hechizos y objetos de tu propio reino. Consulta la página 62 del libro de personajes para más información.
+Capacidad Mágica:	 Listas Básicas Elementales Complementarias (25), Listas Cerradas de Hechizos (25), Listas Básicas de Otras Profesiones (25), Listas Abiertas de Hechizos (25), Listas Hechizos de Adiestramiento (25), Listas Básicas de la Tríada (25), Listas Básicas de Hechizos (25), Sintonización (25*), Leer Runas (25*). Solo afecta a los hechizos y objetos de tu propio reino. Consulta la página 62 del libro de personajes para más información.
 
 Experimentado (Cat) (Máximo):	 {Selección}. Solamente Categorías con progresión Estándar o Combinada. Consulta la página 54 del libro de personajes para más información.
 

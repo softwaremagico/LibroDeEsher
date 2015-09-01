@@ -27,20 +27,20 @@ public class MorticiaInnodanTest {
 		Assert.assertNotNull(characterPlayer);
 		Assert.assertEquals(CHARACTER_NAME, characterPlayer.getName());
 
-		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
-		String txtResult = readLargerTextFile(TXT_FILE).toString();
-		
+
+		String originalTxtSheet = readLargerTextFile(TXT_FILE).toString();		
 		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
 				+ "originalMorticia.txt", CODIFICATION);
-		out1.println(txtResult);
+		out1.println(originalTxtSheet);
 		out1.close();
 		
+		String createdCharacterSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
 		PrintWriter out2 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
 				+ "importedMorticia.txt", CODIFICATION);
-		out2.println(orginalSheet);
+		out2.println(createdCharacterSheet);
 		out2.close();
 
-		Assert.assertEquals(orginalSheet, txtResult);
+		Assert.assertEquals(originalTxtSheet, createdCharacterSheet);
 	}
 
 	private StringBuilder readLargerTextFile(String resourceName) throws IOException {
