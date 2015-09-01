@@ -640,6 +640,7 @@ public class RandomCharacterPlayer {
 						characterPlayer.getCurrentLevelRanks(skill)) > developmentPoints) {
 					break;
 				}
+				
 				roll = (int) (Math.random() * 100 + 1);
 				if (skillProbabilityStored.get(skill) == null) {
 					skillProbabilityStored.put(skill, new SkillProbability(characterPlayer, skill,
@@ -649,7 +650,7 @@ public class RandomCharacterPlayer {
 						+ (skillProbabilityStored.get(skill) + tries * 3) + "%), roll: " + roll);
 
 				if (skillProbabilityStored.get(skill) > 0
-						&& roll < skillProbabilityStored.get(skill) + tries * 3) {
+						&& roll < skillProbabilityStored.get(skill) + tries * 3 || tries == MAX_TRIES) {
 					try {
 						characterPlayer.setCurrentLevelRanks(skill, characterPlayer.getCurrentLevel()
 								.getSkillsRanks(skill.getName()) + 1);

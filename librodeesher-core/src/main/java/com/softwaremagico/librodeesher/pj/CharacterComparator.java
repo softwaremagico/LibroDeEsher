@@ -20,28 +20,30 @@ public class CharacterComparator {
 	private static void compareCharacteristics(CharacterPlayer character1, CharacterPlayer character2)
 			throws CharacteristicNotEqualsException {
 		for (CharacteristicsAbbreviature abbreviature : CharacteristicsAbbreviature.values()) {
-			if (!character1.getCharacteristicTemporalValue(abbreviature).equals(
-					character2.getCharacteristicTemporalValue(abbreviature))) {
-				throw new CharacteristicNotEqualsException("Characteristic '" + abbreviature
-						+ "' has different temporal value '"
-						+ character1.getCharacteristicTemporalValue(abbreviature) + "' compared to '"
-						+ character2.getCharacteristicTemporalValue(abbreviature) + "'.");
-			}
+			if (character1.getCharacteristicTemporalValue(abbreviature) != null) {
+				if (!character1.getCharacteristicTemporalValue(abbreviature).equals(
+						character2.getCharacteristicTemporalValue(abbreviature))) {
+					throw new CharacteristicNotEqualsException("Characteristic '" + abbreviature
+							+ "' has different temporal value '"
+							+ character1.getCharacteristicTemporalValue(abbreviature) + "' compared to '"
+							+ character2.getCharacteristicTemporalValue(abbreviature) + "'.");
+				}
 
-			if (!character1.getCharacteristicPotentialValue(abbreviature).equals(
-					character2.getCharacteristicPotentialValue(abbreviature))) {
-				throw new CharacteristicNotEqualsException("Characteristic '" + abbreviature
-						+ "' has different potential value '"
-						+ character1.getCharacteristicPotentialValue(abbreviature) + "' compared to '"
-						+ character2.getCharacteristicPotentialValue(abbreviature) + "'.");
-			}
+				if (!character1.getCharacteristicPotentialValue(abbreviature).equals(
+						character2.getCharacteristicPotentialValue(abbreviature))) {
+					throw new CharacteristicNotEqualsException("Characteristic '" + abbreviature
+							+ "' has different potential value '"
+							+ character1.getCharacteristicPotentialValue(abbreviature) + "' compared to '"
+							+ character2.getCharacteristicPotentialValue(abbreviature) + "'.");
+				}
 
-			if (!character1.getCharacteristicTotalBonus(abbreviature).equals(
-					character2.getCharacteristicTotalBonus(abbreviature))) {
-				throw new CharacteristicNotEqualsException("Characteristic '" + abbreviature
-						+ "' has different bonus value '"
-						+ character1.getCharacteristicTotalBonus(abbreviature) + "' compared to '"
-						+ character2.getCharacteristicTotalBonus(abbreviature) + "'.");
+				if (!character1.getCharacteristicTotalBonus(abbreviature).equals(
+						character2.getCharacteristicTotalBonus(abbreviature))) {
+					throw new CharacteristicNotEqualsException("Characteristic '" + abbreviature
+							+ "' has different bonus value '"
+							+ character1.getCharacteristicTotalBonus(abbreviature) + "' compared to '"
+							+ character2.getCharacteristicTotalBonus(abbreviature) + "'.");
+				}
 			}
 		}
 	}
