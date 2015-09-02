@@ -198,6 +198,8 @@ public class PerkPointsCalculator {
 			return -25;
 		} else if ((float) race.getRestorationTime() == 1.5f) {
 			return -10;
+		} else if ((float) race.getRestorationTime() == 1.2f) {
+			return -8;
 		} else if ((float) race.getRestorationTime() == 1) {
 			return 0;
 		} else if ((float) race.getRestorationTime() == 0.9f) {
@@ -477,12 +479,16 @@ public class PerkPointsCalculator {
 	private int getPhysicalDevelopmentRacePoints() throws InvalidRaceDefinition {
 		String cost = race.getProgressionRankValuesAsString(ProgressionCostType.PHYSICAL_DEVELOPMENT);
 		switch (cost) {
+		case "0/2/1/1/1":
+			return -50;
 		case "0/5/2/2/1":
 			return -30;
 		case "0/6/2/2/1":
 			return -17;
 		case "0/6/3/1/1":
 			return -15;
+		case "0/5/4/3/2":
+			return -10;
 		case "0/6/3/2/1":
 			return -10;
 		case "0/6/4/2/1":
@@ -501,6 +507,8 @@ public class PerkPointsCalculator {
 			return 25;
 		case "0/11/9/7/5":
 			return 50;
+		case "0/15/13/11/9":
+			return 100;
 		default:
 			throw new InvalidRaceDefinition("Unknown physical development cost '" + cost
 					+ "' value for race '" + race.getName() + "'!");
