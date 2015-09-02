@@ -1,6 +1,7 @@
 {
   "version": "2.0.3",
   "name": "Morticia Innodan",
+  "professionName": "Elementalista",
   "sex": "FEMALE",
   "characteristicsInitialTemporalValues": {
     "Co": 90,
@@ -820,7 +821,6 @@
     "updateTime": "May 10, 2015 10:36:19 AM",
     "comparationId": "a41f983b-e3e0-4fde-9e47-92fdf11287a0"
   },
-  "professionName": "Elementalista",
   "professionDecisions": {
     "weaponsCost": {
       "Armas·2manos": {
