@@ -24,6 +24,7 @@ package com.softwaremagico.librodeesher.pj.profession;
  * #L%
  */
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,7 +35,8 @@ import com.softwaremagico.utils.ListWithoutCase;
 public class ProfessionFactory {
 	public static final String PROFESSION_FOLDER = "profesiones";
 	private static HashMap<String, Profession> professionStored = new HashMap<>();
-	private static List<String> availableProfessions = availableProfessions();
+	private final static List<String> availableProfessions = Collections
+			.unmodifiableList(availableProfessions());
 
 	public ProfessionFactory() {
 

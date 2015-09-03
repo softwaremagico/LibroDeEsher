@@ -503,7 +503,7 @@ public class Race {
 	}
 
 	public List<String> getAvailableProfessions() {
-		List<String> allProfessions = ProfessionFactory.getAvailableProfessions();
+		List<String> allProfessions = new ArrayList<>(ProfessionFactory.getAvailableProfessions());
 		allProfessions.removeAll(restrictedProfessions);
 		return allProfessions;
 	}
