@@ -1918,7 +1918,8 @@ public class CharacterPlayer extends StorableObject {
 		if (magicSpellLists == null) {
 			magicSpellLists = new MagicSpellLists();
 		}
-		if (characteristicsConfirmed && !magicSpellListsObtained) {
+		if (isCharacteristicsConfirmed() && !magicSpellListsObtained && getProfession() != null
+				&& getRealmOfMagic() != null) {
 			try {
 				magicSpellLists.orderSpellListsByCategory(this);
 				magicSpellListsObtained = true;
