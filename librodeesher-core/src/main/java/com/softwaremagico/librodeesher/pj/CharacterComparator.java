@@ -56,10 +56,11 @@ public class CharacterComparator {
 				throw new CategoryNotEqualsException("Category '" + category.getName()
 						+ "' comparation error.\n\tranks '" + character1.getPreviousRanks(category)
 						+ "', culture ranks '" + character1.getCulture().getCultureRanks(category)
-						+ "', culture weapons ranks '" + character1.getCultureWeaponsRanks(category.getName())
-						+ "', culture hobby ranks '" + character1.getCultureHobbyRanks(category.getName())
-						+ "', previous level ranks '" + character1.getPreviousLevelsRanks(category)
-						+ "', training ranks '" + character1.getTrainingRanks(category) + "', inserted ranks '"
+						+ "', culture weapons ranks '"
+						+ character1.getCultureWeaponsRanks(category.getName()) + "', culture hobby ranks '"
+						+ character1.getCultureHobbyRanks(category.getName()) + "', previous level ranks '"
+						+ character1.getPreviousLevelsRanks(category) + "', training ranks '"
+						+ character1.getTrainingRanks(category) + "', inserted ranks '"
 						+ character1.getInsertedRanks(category) + "', new ranks '"
 						+ character1.getCurrentLevelRanks(category) + "', characteristics '"
 						+ character1.getCharacteristicsBonus(category) + "', bonus '"
@@ -114,6 +115,8 @@ public class CharacterComparator {
 											: "")
 									+ ", specialization ranks '"
 									+ character1.getSkillSpecializations(skill)
+									+ ", category value '"
+									+ character1.getTotalValue(category)
 									+ "', profession bonus '"
 									+ character1.getProfession().getSkillBonus(skill.getName())
 									+ "', historial bonus'"
@@ -147,7 +150,8 @@ public class CharacterComparator {
 									+ (category.getName().toLowerCase().equals(Spanish.COMUNICATION_CATEGORY) ? "language ranks '"
 											+ character2.getLanguageRanks(skill.getName()) + "'"
 											: "") + ", specialization ranks '"
-									+ character2.getSkillSpecializations(skill) + "', profession bonus '"
+									+ character2.getSkillSpecializations(skill) + ", category value '"
+									+ character2.getTotalValue(category) + "', profession bonus '"
 									+ character2.getProfession().getSkillBonus(skill.getName())
 									+ "', historial bonus'" + character2.getHistorial().getBonus(skill)
 									+ "', perk bonus '" + character2.getPerkBonus(skill)

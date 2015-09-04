@@ -22,7 +22,7 @@ public class TrainingProbability {
 		List<String> allTrainings = TrainingFactory.getAvailableTrainings();
 		Collections.shuffle(allTrainings);
 
-		// Suggested trainings at the begin
+		// Suggested trainings at the beginning
 		if (suggestedTrainings != null) {
 			allTrainings.removeAll(suggestedTrainings);
 		}
@@ -31,9 +31,9 @@ public class TrainingProbability {
 		List<String> elementalistTrainings = new ArrayList<>();
 		if (characterPlayer.getProfession().isElementalist()) {
 			for (int i = 0; i < allTrainings.size(); i++) {
-				String ad = allTrainings.get(i);
-				if (isElementalistTraining(ad)) {
-					elementalistTrainings.add(ad);
+				String training = allTrainings.get(i);
+				if (isElementalistTraining(training)) {
+					elementalistTrainings.add(training);
 					allTrainings.remove(i);
 					i--;
 				}
@@ -49,6 +49,9 @@ public class TrainingProbability {
 				allTrainings.add(0, training);
 			}
 		}
+		// Remove already acquired trainings.
+		allTrainings.removeAll(characterPlayer.getTrainings());
+
 		return allTrainings;
 	}
 

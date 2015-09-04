@@ -217,10 +217,6 @@ public class CultureDecisions extends StorableObject {
 		return languageRanks;
 	}
 
-	public void setLanguageRanks(HashMap<String, Integer> languageRanks) {
-		this.languageRanks = languageRanks;
-	}
-
 	protected void setWeaponRanks(Map<String, Integer> weaponRanks) {
 		this.weaponRanks = weaponRanks;
 	}

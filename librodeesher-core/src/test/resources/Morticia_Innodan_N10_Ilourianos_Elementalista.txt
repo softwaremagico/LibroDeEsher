@@ -1,5 +1,5 @@
 Morticia Innodan	Nº 10
-Ilourianos
+Ilourianos (Silvana)
 Elementalista (Mago del Aire)
 
 
@@ -65,15 +65,10 @@ Ciencia/Analítica·Básica                               1/4      5        10  
 Ciencia/Analítica·Especializada                        6/14     0        0        27       0        27      
   *  Alquimia                                                   2        10       27       0        37      
 Comunicación                                           2/2/2    8        16       28       0        44      
-  *  Escribir Habla de los Bosques                              10       30       44       0        74      
   *  Escribir Ilouriano                                         4        12       44       0        56      
-  *  Escribir Élfico                                            8        24       44       0        68      
-  *  Escribir Élfico Alto                                       6        18       44       0        62      
   *  Hablar Habla Común                                         10       30       44       0        74      
-  *  Hablar Habla de los Bosques                                10       30       44       0        74      
   *  Hablar Ilouriano                                           8        24       44       0        68      
-  *  Hablar Élfico                                              10       30       44       0        74      
-  *  Hablar Élfico Alto                                         6        18       44       0        62      
+  *  Hablar Élfico                                              2        6        44       0        50      
   *  Idiomas Mágicos: Espiritus (r)                             6        9        44       0        53      
   *  Idiomas Mágicos: Hechizos Elementales (r)                  8        12       44       0        56      
 Conocimiento·General                                   1/3      8        16       27       0        43      
@@ -188,8 +183,6 @@ Mirada Intensa:	 Mendigar (10*), Comerciar (10*), Sobornar (10*), Embaucar (10*)
 
 
 
-Especiales:
---------------------------------------------------
 
 
 Objetos:

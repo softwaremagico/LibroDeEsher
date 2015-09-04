@@ -48,7 +48,6 @@ public class Culture {
 	private HashMap<String, CultureCategory> categories;
 	private Integer hobbyRanks;
 	private List<String> hobbySkills;
-	// private List<CultureLanguage> languages;
 	private HashMap<String, Integer> languagesMaxRanks;
 
 	public Culture(String name) {
@@ -261,8 +260,20 @@ public class Culture {
 			String[] languageRanks = languageColumn[1].split("/");
 			try {
 				String language = Spanish.SPOKEN_TAG + " " + languageColumn[0];
+
+				// Add language to category.
+				if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
+					CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
+				}
+
 				languagesMaxRanks.put(language, Integer.parseInt(languageRanks[0]));
 				language = Spanish.WRITTEN_TAG + " " + languageColumn[0];
+
+				// Add language to category.
+				if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
+					CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
+				}
+
 				languagesMaxRanks.put(language, Integer.parseInt(languageRanks[1]));
 			} catch (NumberFormatException nfe) {
 				throw new InvalidCultureException("Error al obtener los rangos escritos del idioma: " + name

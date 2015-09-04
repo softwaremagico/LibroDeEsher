@@ -24,12 +24,12 @@ public class TxtSheet {
 	}
 
 	/**
-	 * Genera un texto con el nombre, raza, profesion y otros detalles del
-	 * characterPlayer.
+	 * Create text with basic info.
 	 */
 	public static String basicCharacterInfo(CharacterPlayer characterPlayer) {
 		String text = characterPlayer.getName() + "\tNº " + characterPlayer.getCurrentLevelNumber() + "\n"
-				+ characterPlayer.getRace().getName() + "\n" + characterPlayer.getProfession().getName();
+				+ characterPlayer.getRace().getName() + " (" + characterPlayer.getCulture().getName() + ")"
+				+ "\n" + characterPlayer.getProfession().getName();
 		String trainings = "";
 		if (characterPlayer.getTrainings().size() > 0) {
 			for (String training : characterPlayer.getTrainings()) {
@@ -249,6 +249,9 @@ public class TxtSheet {
 	}
 
 	public static String exportSpecials(CharacterPlayer characterPlayer) {
+		if (characterPlayer.getRace().getSpecials().isEmpty()) {
+			return "";
+		}
 		String text = "Especiales:\n";
 		text += "--------------------------------------------------\n";
 		for (int i = 0; i < characterPlayer.getRace().getSpecials().size(); i++) {
@@ -259,6 +262,9 @@ public class TxtSheet {
 	}
 
 	public static String exportPerks(CharacterPlayer characterPlayer) {
+		if (characterPlayer.getPerks().isEmpty()) {
+			return "";
+		}
 		String text = "Talentos:\n";
 		text += "--------------------------------------------------\n";
 		for (int i = 0; i < characterPlayer.getPerks().size(); i++) {

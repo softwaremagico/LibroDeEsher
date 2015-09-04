@@ -845,8 +845,9 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getLanguageInitialRanks(String language) {
-		return Math.max(getCulture().getLanguageMaxRanks(language),
-				getRace().getLanguageInitialRanks(language));
+//		return Math.max(getCulture().getLanguageMaxRanks(language),
+//				getRace().getLanguageInitialRanks(language));
+		return getRace().getLanguageInitialRanks(language);
 	}
 
 	public Integer getLanguageMaxInitialRanks(String language) {
