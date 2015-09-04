@@ -24,6 +24,7 @@ package com.softwaremagico.librodeesher.pj.race;
  * #L%
  */
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,7 +36,7 @@ import com.softwaremagico.utils.ListWithoutCase;
 public class RaceFactory {
 	public static final String RACE_FOLDER = "razas";
 	private static HashMap<String, Race> racesStored = new HashMap<>();
-	private static List<String> availableRaces = availableRaces();
+	private final static List<String> availableRaces = Collections.unmodifiableList(availableRaces());
 
 	private static List<String> availableRaces() {
 		try {

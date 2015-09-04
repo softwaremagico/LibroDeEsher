@@ -46,6 +46,10 @@ public class CategoryFactory {
 	private static List<String> availableCategoriesByName = new ArrayList<>();
 
 	static {
+		readCategories();
+	}
+
+	private static void readCategories() {
 		try {
 			getCategoriesFromFiles();
 		} catch (Exception e) {
@@ -62,28 +66,21 @@ public class CategoryFactory {
 		Category cat = availableCategories.get(Spanish.GENERAL_KNOWLEDGE_TAG);
 		for (String culture : CultureFactory.availableCultures()) {
 			if (!culture.contains("(")) {
-				cat.addSkill(Spanish.FAUNA_KNOWNLEDGE_TAG + " (" + culture
-						+ ")");
-				cat.addSkill(Spanish.FLORA_KNOWNLEDGE_TAG + " (" + culture
-						+ ")");
-				cat.addSkill(Spanish.CULTURAL_KNOWNLEDGE_TAG + " (" + culture
-						+ ")");
-				cat.addSkill(Spanish.REGIONAL_KNOWNLEDGE_TAG + " (" + culture
-						+ ")");
+				cat.addSkill(Spanish.FAUNA_KNOWNLEDGE_TAG + " (" + culture + ")");
+				cat.addSkill(Spanish.FLORA_KNOWNLEDGE_TAG + " (" + culture + ")");
+				cat.addSkill(Spanish.CULTURAL_KNOWNLEDGE_TAG + " (" + culture + ")");
+				cat.addSkill(Spanish.REGIONAL_KNOWNLEDGE_TAG + " (" + culture + ")");
 			}
 		}
 	}
 
 	private static void addWeaponsAsSkills() {
 		for (WeaponType weaponType : WeaponType.values()) {
-			List<Weapon> weaponsOfType = WeaponFactory
-					.getWeaponsByType(weaponType);
-			Category categoryOfWeapon = availableCategories.get(weaponType
-					.getWeaponCategoryName());
+			List<Weapon> weaponsOfType = WeaponFactory.getWeaponsByType(weaponType);
+			Category categoryOfWeapon = availableCategories.get(weaponType.getWeaponCategoryName());
 			weaponsCategoriesFromFiles.add(categoryOfWeapon);
 			try {
-				categoryOfWeapon
-						.setSkills(convertWeaponsToSkills(weaponsOfType));
+				categoryOfWeapon.setSkills(convertWeaponsToSkills(weaponsOfType));
 			} catch (NullPointerException npe) {
 				EsherLog.errorMessage(CategoryFactory.class.getName(), npe);
 			}
@@ -101,30 +98,25 @@ public class CategoryFactory {
 		return skills;
 	}
 
-	public static Category createCategory(String categoryName,
-			String abbreviature, String characteristicsTag, String type,
-			String skills) {
+	public static Category createCategory(String categoryName, String abbreviature,
+			String characteristicsTag, String type, String skills) {
 		CategoryType catType = CategoryType.getCategoryType(type);
 		Category cat;
 		switch (catType) {
 		case STANDARD:
-			cat = new StandardCategory(categoryName, abbreviature,
-					characteristicsTag);
+			cat = new StandardCategory(categoryName, abbreviature, characteristicsTag);
 			break;
 		case COMBINED:
-			cat = new CombinedCategory(categoryName, abbreviature,
-					characteristicsTag);
+			cat = new CombinedCategory(categoryName, abbreviature, characteristicsTag);
 			break;
 		case PPD:
-			cat = new PpdCategory(categoryName, abbreviature,
-					characteristicsTag);
+			cat = new PpdCategory(categoryName, abbreviature, characteristicsTag);
 			break;
 		case PD:
 			cat = new FdCategory(categoryName, abbreviature, characteristicsTag);
 			break;
 		case LIMITED:
-			cat = new LimitedCategory(categoryName, abbreviature,
-					characteristicsTag);
+			cat = new LimitedCategory(categoryName, abbreviature, characteristicsTag);
 			break;
 		default:
 			return null;
@@ -140,8 +132,7 @@ public class CategoryFactory {
 	}
 
 	public static List<Category> getCategories() {
-		List<Category> categories = new ArrayList<>(
-				availableCategories.values());
+		List<Category> categories = new ArrayList<>(availableCategories.values());
 		Collections.sort(categories, new CategoryComparatorByName());
 		return categories;
 	}
@@ -153,8 +144,7 @@ public class CategoryFactory {
 		}
 		// Category name in different case;
 		for (Category availableCategory : availableCategories.values()) {
-			if (availableCategory.getName().toLowerCase()
-					.equals(categoryName.toLowerCase())) {
+			if (availableCategory.getName().toLowerCase().equals(categoryName.toLowerCase())) {
 				return availableCategory;
 			}
 		}
@@ -163,10 +153,8 @@ public class CategoryFactory {
 
 	public static Category getCategory(String categoryPrefix, String containText) {
 		for (Category availableCategory : availableCategories.values()) {
-			if (availableCategory.getName().toLowerCase()
-					.startsWith(categoryPrefix)
-					&& availableCategory.getName().toLowerCase()
-							.contains((containText))) {
+			if (availableCategory.getName().toLowerCase().startsWith(categoryPrefix)
+					&& availableCategory.getName().toLowerCase().contains((containText))) {
 				return availableCategory;
 			}
 		}
@@ -177,35 +165,29 @@ public class CategoryFactory {
 	 * Lee el fichero de categorías.
 	 */
 	public static void getCategoriesFromFiles() throws Exception {
-		List<String> categoriesFile = RolemasterFolderStructure
-				.getAvailableCategoriesFiles();
+		List<String> categoriesFile = RolemasterFolderStructure.getAvailableCategoriesFiles();
 		for (int j = 0; j < categoriesFile.size(); j++) {
-			List<String> lines = RolemasterFolderStructure
-					.getCategoryFile(categoriesFile.get(j));
+			List<String> lines = RolemasterFolderStructure.getCategoryFile(categoriesFile.get(j));
 
 			for (String oneLine : lines) {
 				if (!oneLine.startsWith("#")) {
 					String[] descomposed_line = oneLine.split("\t");
-					String[] categoryAbbrevName = descomposed_line[0]
-							.split("\\(");
+					String[] categoryAbbrevName = descomposed_line[0].split("\\(");
 					String categoryName = categoryAbbrevName[0];
 					try {
-						String abrevCat = categoryAbbrevName[1]
-								.replace(")", "");
+						String abrevCat = categoryAbbrevName[1].replace(")", "");
 						Category cat = availableCategories.get(categoryName);
 						if (cat == null) {
-							cat = createCategory(categoryName, abrevCat,
-									descomposed_line[1], descomposed_line[2],
-									descomposed_line[3]);
+							cat = createCategory(categoryName, abrevCat, descomposed_line[1],
+									descomposed_line[2], descomposed_line[3]);
 							availableCategories.put(categoryName, cat);
 							availableCategoriesByName.add(categoryName);
 						} else {
 							cat.addSkills(descomposed_line[3]);
 						}
 					} catch (ArrayIndexOutOfBoundsException aiofb) {
-						throw new InvalidCategoryException(
-								"Abreviatura de categoria mal definida en "
-										+ categoryName);
+						throw new InvalidCategoryException("Abreviatura de categoria mal definida en "
+								+ categoryName);
 					}
 				}
 			}
@@ -215,25 +197,23 @@ public class CategoryFactory {
 
 		// Create culture specific skills
 		addCultureSkills();
-		
+
 		// Disabled not allowed skills.
 		disableSkills();
 
 		Collections.sort(availableCategoriesByName);
 	}
-	
-	private static void disableSkills(){
+
+	private static void disableSkills() {
 		SkillFactory.updateDisabledSkills();
 	}
 
-	public static Category getCategory(String categoryName, String abbrev,
-			String characteristics, String type, String skills)
-			throws Exception {
+	public static Category getCategory(String categoryName, String abbrev, String characteristics,
+			String type, String skills) throws Exception {
 
 		Category cat = availableCategories.get(categoryName);
 		if (cat == null) {
-			cat = createCategory(categoryName, abbrev, characteristics, type,
-					skills);
+			cat = createCategory(categoryName, abbrev, characteristics, type, skills);
 			availableCategories.put(categoryName, cat);
 			availableCategoriesByName.add(categoryName);
 			Collections.sort(availableCategoriesByName);
@@ -266,7 +246,7 @@ public class CategoryFactory {
 		}
 		return closeCombatWeaponsCategories;
 	}
-	
+
 	public static List<Category> getLongRangeWeapons() {
 		List<Category> longRangeWeaponsCategories = new ArrayList<>();
 		for (Category category : weaponsCategoriesFromFiles) {
@@ -279,14 +259,14 @@ public class CategoryFactory {
 		}
 		return longRangeWeaponsCategories;
 	}
-	
-	public static List<Category> getOthersAttack(){
+
+	public static List<Category> getOthersAttack() {
 		List<Category> othersWeaponsCategories = new ArrayList<>();
 		for (Category category : weaponsCategoriesFromFiles) {
 			if (category.getName().equals(Spanish.WEAPONS_MARTIALS_HITS)
 					|| category.getName().equals(Spanish.WEAPONS_MARTIALS_KICKS)
 					|| category.getName().equals(Spanish.WEAPONS_MARTIALS_MANIOBRES)
-					|| category.getName().equals(Spanish.WEAPONS_SPECIALS)){
+					|| category.getName().equals(Spanish.WEAPONS_SPECIALS)) {
 				othersWeaponsCategories.add(category);
 			}
 		}
@@ -294,7 +274,8 @@ public class CategoryFactory {
 	}
 
 	/**
-	 * Weapons Categories that has weapons defined in a TXT file. 
+	 * Weapons Categories that has weapons defined in a TXT file.
+	 * 
 	 * @return
 	 */
 	public static List<Category> getWeaponsCategoriesFromFiles() {

@@ -520,8 +520,8 @@ public class RandomCharacterPlayer {
 	private static void setRandomCultureSpells(CharacterPlayer characterPlayer)
 			throws MagicDefinitionException, InvalidProfessionException {
 		while (characterPlayer.getCultureTotalSpellRanks() < characterPlayer.getCulture().getSpellRanks()) {
-			List<String> spellLists = new ArrayList<>(MagicFactory.getListOfProfession(characterPlayer.getRealmOfMagic()
-					.getRealmsOfMagic(), Spanish.OPEN_LIST_TAG));
+			List<String> spellLists = new ArrayList<>(MagicFactory.getListOfProfession(characterPlayer
+					.getRealmOfMagic().getRealmsOfMagic(), Spanish.OPEN_LIST_TAG));
 			String choseSpell = spellLists.get((int) (Math.random() * spellLists.size()));
 			characterPlayer.setCultureSpellRanks(choseSpell,
 					characterPlayer.getCultureSpellRanks(choseSpell) + 1);
@@ -640,7 +640,7 @@ public class RandomCharacterPlayer {
 						characterPlayer.getCurrentLevelRanks(skill)) > developmentPoints) {
 					break;
 				}
-				
+
 				roll = (int) (Math.random() * 100 + 1);
 				if (skillProbabilityStored.get(skill) == null) {
 					skillProbabilityStored.put(skill, new SkillProbability(characterPlayer, skill,
@@ -790,19 +790,20 @@ public class RandomCharacterPlayer {
 
 	public static void setRandomTraining(CharacterPlayer characterPlayer, String trainingName,
 			int specializationLevel) {
-		characterPlayer.addTraining(trainingName);
-		// Set random skill ranks
-		TrainingProbability.setRandomCategoryRanks(characterPlayer, trainingName, specializationLevel);
+		if (characterPlayer.addTraining(trainingName)) {
+			// Set random skill ranks
+			TrainingProbability.setRandomCategoryRanks(characterPlayer, trainingName, specializationLevel);
 
-		// Set characteristics upgrades.
-		TrainingProbability.setRandomCharacteristicsUpgrades(characterPlayer, trainingName);
+			// Set characteristics upgrades.
+			TrainingProbability.setRandomCharacteristicsUpgrades(characterPlayer, trainingName);
 
-		// Set random Objects.
-		TrainingProbability.setRandomObjects(characterPlayer, trainingName);
-		List<MagicObject> trainingObjects = TrainingDecision.convertTrainingEquipmentToMagicObject(
-				characterPlayer, trainingName);
-		for (MagicObject trainingObject : trainingObjects) {
-			characterPlayer.addMagicItem(trainingObject, trainingName);
+			// Set random Objects.
+			TrainingProbability.setRandomObjects(characterPlayer, trainingName);
+			List<MagicObject> trainingObjects = TrainingDecision.convertTrainingEquipmentToMagicObject(
+					characterPlayer, trainingName);
+			for (MagicObject trainingObject : trainingObjects) {
+				characterPlayer.addMagicItem(trainingObject, trainingName);
+			}
 		}
 	}
 

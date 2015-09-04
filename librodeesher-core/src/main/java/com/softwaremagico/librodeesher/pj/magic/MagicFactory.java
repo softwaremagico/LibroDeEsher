@@ -39,7 +39,7 @@ import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 
 public class MagicFactory {
 
-	private static HashMap<RealmOfMagic, HashMap<String, Set<String>>> spellsByGroup;
+	private final static HashMap<RealmOfMagic, HashMap<String, Set<String>>> spellsByGroup;
 
 	static {
 		spellsByGroup = new HashMap<>();
@@ -53,7 +53,7 @@ public class MagicFactory {
 			throws MagicDefinitionException, InvalidProfessionException {
 		Set<String> allRealmSpells = new HashSet<>();
 		if (profession == null) {
-			return allRealmSpells;
+			return new HashSet<>();
 		}
 
 		// Add all spells of all realms if it is a hybrid wizard.

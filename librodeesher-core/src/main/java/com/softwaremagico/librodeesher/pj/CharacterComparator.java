@@ -1,5 +1,6 @@
 package com.softwaremagico.librodeesher.pj;
 
+import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
@@ -54,11 +55,22 @@ public class CharacterComparator {
 			if (!character1.getTotalValue(category).equals(character2.getTotalValue(category))) {
 				throw new CategoryNotEqualsException("Category '" + category.getName()
 						+ "' comparation error.\n\tranks '" + character1.getPreviousRanks(category)
-						+ "', new ranks '" + character1.getCurrentLevelRanks(category)
-						+ "', characteristics '" + character1.getCharacteristicsBonus(category)
-						+ "', bonus '" + character1.getBonus(category) + "', total '"
-						+ character1.getTotalValue(category) + "'.\n\tranks '"
-						+ character2.getPreviousRanks(category) + "', new ranks '"
+						+ "', culture ranks '" + character1.getCulture().getCultureRanks(category)
+						+ "', culture weapons ranks '" + character1.getCultureWeaponsRanks(category.getName())
+						+ "', culture hobby ranks '" + character1.getCultureHobbyRanks(category.getName())
+						+ "', previous level ranks '" + character1.getPreviousLevelsRanks(category)
+						+ "', training ranks '" + character1.getTrainingRanks(category) + "', inserted ranks '"
+						+ character1.getInsertedRanks(category) + "', new ranks '"
+						+ character1.getCurrentLevelRanks(category) + "', characteristics '"
+						+ character1.getCharacteristicsBonus(category) + "', bonus '"
+						+ character1.getBonus(category) + "', total '" + character1.getTotalValue(category)
+						+ "'.\n\tranks '" + character2.getPreviousRanks(category) + "', culture ranks '"
+						+ character2.getCulture().getCultureRanks(category) + "', culture weapons ranks '"
+						+ character2.getCultureWeaponsRanks(category.getName()) + "', culture hobby ranks '"
+						+ character2.getCultureHobbyRanks(category.getName()) + "', previous level ranks '"
+						+ character2.getPreviousLevelsRanks(category) + "', training ranks '"
+						+ character2.getTrainingRanks(category) + "', inserted ranks '"
+						+ character2.getInsertedRanks(category) + "', new ranks '"
 						+ character2.getCurrentLevelRanks(category) + "', characteristics '"
 						+ character2.getCharacteristicsBonus(category) + "', bonus '"
 						+ character2.getBonus(category) + "', total '" + character2.getTotalValue(category)
@@ -78,25 +90,72 @@ public class CharacterComparator {
 			}
 			for (Skill skill : character1.getCategory(category).getSkills()) {
 				if (!character1.getTotalValue(skill).equals(character2.getTotalValue(skill))) {
-					throw new SkillNotEqualsException("Skill '" + skill.getName()
-							+ "' comparation error.\n\tranks '" + character1.getPreviousRanks(skill)
-							+ "', new ranks '" + character1.getCurrentLevelRanks(skill)
-							+ "', profession bonus '"
-							+ character1.getProfession().getSkillBonus(skill.getName())
-							+ "', historial bonus'" + character1.getHistorial().getBonus(skill)
-							+ "', perk bonus '" + character1.getPerkBonus(skill)
-							+ "', conditional perk bonus '" + character1.getConditionalPerkBonus(skill)
-							+ "', item bonus '" + character1.getItemBonus(skill) + "', bonus '"
-							+ character1.getBonus(skill) + "', total '" + character1.getTotalValue(skill)
-							+ "'.\n\tranks '" + character2.getPreviousRanks(skill) + "', new ranks '"
-							+ character2.getCurrentLevelRanks(skill) + "', profession bonus '"
-							+ character2.getProfession().getSkillBonus(skill.getName())
-							+ "', historial bonus'" + character2.getHistorial().getBonus(skill)
-							+ "', perk bonus '" + character2.getPerkBonus(skill)
-							+ "', conditional perk bonus '" + character2.getConditionalPerkBonus(skill)
-							+ "', item bonus '" + character2.getItemBonus(skill) + "', bonus '"
-							+ character2.getBonus(skill) + "', total '" + character2.getTotalValue(skill)
-							+ "'.");
+					throw new SkillNotEqualsException(
+							"Skill '"
+									+ skill.getName()
+									+ "', comparation error.\n\tranks '"
+									+ character1.getPreviousRanks(skill)
+									+ "', culture ranks '"
+									+ character1.getCulture().getCultureRanks(skill)
+									+ "', culture weapons ranks '"
+									+ character1.getCultureWeaponsRanks(skill.getName())
+									+ "', culture hobby ranks '"
+									+ character1.getCultureHobbyRanks(skill.getName())
+									+ "', previous level ranks '"
+									+ character1.getPreviousLevelsRanks(skill)
+									+ "', training ranks '"
+									+ character1.getTrainingRanks(skill)
+									+ "', inserted ranks '"
+									+ character1.getInsertedRanks(skill)
+									+ "', new ranks '"
+									+ character1.getCurrentLevelRanks(skill)
+									+ (category.getName().toLowerCase().equals(Spanish.COMUNICATION_CATEGORY) ? "language ranks '"
+											+ character1.getLanguageRanks(skill.getName()) + "'"
+											: "")
+									+ ", specialization ranks '"
+									+ character1.getSkillSpecializations(skill)
+									+ "', profession bonus '"
+									+ character1.getProfession().getSkillBonus(skill.getName())
+									+ "', historial bonus'"
+									+ character1.getHistorial().getBonus(skill)
+									+ "', perk bonus '"
+									+ character1.getPerkBonus(skill)
+									+ "', conditional perk bonus '"
+									+ character1.getConditionalPerkBonus(skill)
+									+ "', item bonus '"
+									+ character1.getItemBonus(skill)
+									+ "', bonus '"
+									+ character1.getBonus(skill)
+									+ "', total '"
+									+ character1.getTotalValue(skill)
+									+ "'.\n\tranks '"
+									+ character2.getPreviousRanks(skill)
+									+ "', culture ranks '"
+									+ character2.getCulture().getCultureRanks(skill)
+									+ "', culture weapons ranks '"
+									+ character2.getCultureWeaponsRanks(skill.getName())
+									+ "', culture hobby ranks '"
+									+ character2.getCultureHobbyRanks(skill.getName())
+									+ "', previous level ranks '"
+									+ character2.getPreviousLevelsRanks(skill)
+									+ "', training ranks '"
+									+ character2.getTrainingRanks(skill)
+									+ "', inserted ranks '"
+									+ character2.getInsertedRanks(skill)
+									+ "', new ranks '"
+									+ character2.getCurrentLevelRanks(skill)
+									+ (category.getName().toLowerCase().equals(Spanish.COMUNICATION_CATEGORY) ? "language ranks '"
+											+ character2.getLanguageRanks(skill.getName()) + "'"
+											: "") + ", specialization ranks '"
+									+ character2.getSkillSpecializations(skill) + "', profession bonus '"
+									+ character2.getProfession().getSkillBonus(skill.getName())
+									+ "', historial bonus'" + character2.getHistorial().getBonus(skill)
+									+ "', perk bonus '" + character2.getPerkBonus(skill)
+									+ "', conditional perk bonus '"
+									+ character2.getConditionalPerkBonus(skill) + "', item bonus '"
+									+ character2.getItemBonus(skill) + "', bonus '"
+									+ character2.getBonus(skill) + "', total '"
+									+ character2.getTotalValue(skill) + "'.");
 				}
 
 			}

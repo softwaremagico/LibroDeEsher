@@ -9,8 +9,9 @@ public class ListWithoutCase extends ArrayList<String> {
 	public boolean contains(Object o) {
 		String paramStr = (String) o;
 		for (String s : this) {
-			if (paramStr.equalsIgnoreCase(s))
+			if (paramStr.equalsIgnoreCase(s)){
 				return true;
+			}
 		}
 		return false;
 	}

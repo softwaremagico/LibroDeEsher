@@ -11,6 +11,8 @@ do
 	mkdir -p $folder >/dev/null;
 	mvn test > $folder/ouput.out;
 	mv /tmp/character_l1.json $folder;
+	mv /tmp/character_l2.json $folder;
+	mv /tmp/character_l2dup.json $folder;
 	mv /tmp/importedCharacterSheet.txt $folder;
 	mv /tmp/importedLevelSheet.txt $folder;
 	mv /tmp/originalCharacterSheet.txt $folder;
@@ -18,6 +20,9 @@ do
 	mv /tmp/testLevelJson.json $folder;
 	mv /tmp/testStandard.txt $folder;
 	mv /tmp/importedMorticia.txt $folder;
+	mv /tmp/importedCharacterSheetLvl2.txt $folder;
+	mv /tmp/originalCharacterSheetLvl2.txt $folder;
+	
 	ENDTIME=$(date +%s)
 	echo "Duration $(($ENDTIME - $STARTTIME)) seconds."
 done;

@@ -88,6 +88,6 @@ public class CultureFactory {
 			}
 		} catch (Exception e) {
 		}
-		throw new InvalidCultureException("Cultura no existente: " + cultureName);
+		throw new InvalidCultureException("Culture does not exist: " + cultureName);
 	}
 }

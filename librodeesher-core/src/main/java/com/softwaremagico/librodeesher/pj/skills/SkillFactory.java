@@ -162,7 +162,10 @@ public class SkillFactory {
 		List<Skill> skills = new ArrayList<>();
 		for (Skill skill : availableSkills.values()) {
 			try {
-				if (skill != null && skill.getCategory().equals(category)) {
+				if (skill.getCategory() == null) {
+					EsherLog.severe(SkillFactory.class.getName(), "Skill '" + skill.getName()
+							+ "' has no category defined.");
+				} else if (skill != null && skill.getCategory().equals(category)) {
 					skills.add(skill);
 				}
 			} catch (Exception e) {
@@ -179,5 +182,11 @@ public class SkillFactory {
 				skill.setEnabled(false);
 			}
 		}
+	}
+	
+	public void reset(){
+		availableSkills = new HashMap<>();
+		availableSkillsByName = new ArrayList<>();
+		disabledSkills = new HashSet<>();
 	}
 }

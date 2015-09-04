@@ -139,7 +139,8 @@ public class CharacterCreationTest {
 
 	@Test(groups = { "characterJson" }, dependsOnMethods = { "exportCharacterJson" })
 	public void exportLevelJson() throws MagicDefinitionException, InvalidProfessionException,
-			FileNotFoundException, InvalidLevelException, InvalidCharacterException, CharacteristicNotEqualsException, CategoryNotEqualsException, SkillNotEqualsException {
+			FileNotFoundException, InvalidLevelException, InvalidCharacterException,
+			CharacteristicNotEqualsException, CategoryNotEqualsException, SkillNotEqualsException {
 		String jsonText = CharacterJsonManager.toJson(characterPlayer);
 		CharacterPlayer duplicatedCharacter = CharacterJsonManager.fromJson(jsonText);
 		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
@@ -158,6 +159,13 @@ public class CharacterCreationTest {
 			}
 		});
 		randomCharacter.setDevelopmentPoints();
+		
+		//Export character 
+		String characterLevel2 = CharacterJsonManager.toJson(characterPlayer);
+		PrintWriter out3 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
+				+ "character_l2.json");
+		out3.println(characterLevel2);
+		out3.close();
 
 		// Export last level
 		String levelJsonText = LevelJsonManager.toJson(characterPlayer);
@@ -173,19 +181,39 @@ public class CharacterCreationTest {
 		int prevLevel = duplicatedCharacter.getCurrentLevelNumber();
 		duplicatedCharacter.importLevel(newLevel);
 		Assert.assertEquals((int) duplicatedCharacter.getCurrentLevelNumber(), prevLevel + 1);
+
+		// Compared generated sheet to be sure that has the same information.
+		String orginalSheet2 = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
+		String importedSheet2 = TxtSheet.getCharacterStandardSheetAsText(duplicatedCharacter);
+
+		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
+				+ "originalCharacterSheetLvl2.txt");
+		out1.println(orginalSheet2);
+		out1.close();
+
+		PrintWriter out2 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
+				+ "importedCharacterSheetLvl2.txt");
+		out2.println(importedSheet2);
+		out2.close();
 		
+		String characterLevel2duplicated = CharacterJsonManager.toJson(duplicatedCharacter);
+		PrintWriter out4 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
+				+ "character_l2dup.json");
+		out4.println(characterLevel2duplicated);
+		out4.close();
+
 		CharacterComparator.compare(characterPlayer, duplicatedCharacter);
 
 		// Compared generated sheet to be sure that has the same information.
 		orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
 		importedSheet = TxtSheet.getCharacterStandardSheetAsText(duplicatedCharacter);
 
-		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
+		out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
 				+ "originalSheet.txt");
 		out1.println(orginalSheet);
 		out1.close();
 
-		PrintWriter out2 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
+		out2 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
 				+ "importedLevelSheet.txt");
 		out2.println(importedSheet);
 		out2.close();

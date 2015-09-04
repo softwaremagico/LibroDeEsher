@@ -169,10 +169,10 @@ public class CharacterPlayer extends StorableObject {
 
 	@Transient
 	// List are obtained when loading the character.
-	private MagicSpellLists magicSpellLists;
+	private transient MagicSpellLists magicSpellLists;
 	@Transient
 	// Checks to only recreate the lists one time.
-	private boolean magicSpellListsObtained;
+	private transient boolean magicSpellListsObtained;
 
 	@Expose
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -241,6 +241,7 @@ public class CharacterPlayer extends StorableObject {
 		cultureDecisions = new CultureDecisions();
 		professionDecisions = new ProfessionDecisions();
 		selectedPerks = new ArrayList<>();
+		magicSpellLists = null;
 		magicSpellListsObtained = false;
 		magicItems = new ArrayList<>();
 		insertedData = new InsertedData();
@@ -902,7 +903,7 @@ public class CharacterPlayer extends StorableObject {
 		}
 	}
 
-	private Integer getPreviousLevelsRanks(Category category) {
+	protected Integer getPreviousLevelsRanks(Category category) {
 		Integer total = 0;
 		for (int i = 0; i < levelUps.size() - 1; i++) {
 			total += levelUps.get(i).getCategoryRanks(category.getName());
@@ -910,7 +911,7 @@ public class CharacterPlayer extends StorableObject {
 		return total;
 	}
 
-	private Integer getPreviousLevelsRanks(Skill skill) {
+	protected Integer getPreviousLevelsRanks(Skill skill) {
 		Integer total = 0;
 		for (int i = 0; i < levelUps.size() - 1; i++) {
 			total += levelUps.get(i).getSkillsRanks(skill.getName());
@@ -927,11 +928,11 @@ public class CharacterPlayer extends StorableObject {
 		return total;
 	}
 
-	private Integer getInsertedRanks(Category category) {
+	protected Integer getInsertedRanks(Category category) {
 		return insertedData.getCategoryRanksModification(category.getName());
 	}
 
-	private Integer getInsertedRanks(Skill skill) {
+	protected Integer getInsertedRanks(Skill skill) {
 		return insertedData.getSkillsRanksModification(skill.getName());
 	}
 
@@ -952,7 +953,7 @@ public class CharacterPlayer extends StorableObject {
 		return total;
 	}
 
-	private Integer getTrainingRanks(Skill skill) {
+	protected Integer getTrainingRanks(Skill skill) {
 		int total = 0;
 		for (String trainingName : getTrainings()) {
 			Training training = TrainingFactory.getTraining(trainingName);
@@ -965,7 +966,7 @@ public class CharacterPlayer extends StorableObject {
 		return total;
 	}
 
-	private Integer getTrainingRanks(Category category) {
+	protected Integer getTrainingRanks(Category category) {
 		int total = 0;
 		for (String trainingName : getTrainings()) {
 			Training training = TrainingFactory.getTraining(trainingName);
@@ -1819,15 +1820,17 @@ public class CharacterPlayer extends StorableObject {
 		return baseCost;
 	}
 
-	public void addTraining(String trainingName) {
+	public boolean addTraining(String trainingName) {
 		if (levelUps.size() > 0) {
 			if (!getTrainings().contains(trainingName)) {
 				getCurrentLevel().addTraining(trainingName);
 				characterPlayerHelper.resetAll();
 				// Force to recalculate spell lists.
 				magicSpellListsObtained = false;
+				return true;
 			}
 		}
+		return false;
 	}
 
 	/**
@@ -1914,7 +1917,7 @@ public class CharacterPlayer extends StorableObject {
 		characterPlayerHelper.resetAll();
 	}
 
-	protected MagicSpellLists getMagicSpellLists() {
+	private MagicSpellLists getMagicSpellLists() {
 		if (magicSpellLists == null) {
 			magicSpellLists = new MagicSpellLists();
 		}
@@ -1931,9 +1934,9 @@ public class CharacterPlayer extends StorableObject {
 		return magicSpellLists;
 	}
 
-	protected void setMagicSpellLists(MagicSpellLists magicSpellLists) {
-		this.magicSpellLists = magicSpellLists;
-	}
+	// protected void setMagicSpellLists(MagicSpellLists magicSpellLists) {
+	// this.magicSpellLists = magicSpellLists;
+	// }
 
 	private TrainingDecision getTrainingDecision(String trainingName) {
 		for (int i = 0; i < getLevelUps().size(); i++) {
@@ -2005,7 +2008,10 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Map<String, TrainingDecision> getTrainingDecisions(int level) {
-		return getLevelUps().get(level).getTrainingDecisions();
+		if (level >= 0 && level < getLevelUps().size()) {
+			return getLevelUps().get(level).getTrainingDecisions();
+		}
+		return new HashMap<String, TrainingDecision>();
 	}
 
 	public Map<String, TrainingDecision> getTrainingDecisions() {
