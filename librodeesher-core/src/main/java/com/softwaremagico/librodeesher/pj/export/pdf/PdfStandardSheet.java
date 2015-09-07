@@ -543,8 +543,7 @@ public class PdfStandardSheet {
 		PdfPCell cell;
 
 		if (characterPlayer != null) {
-			texto = skill.getName() + " ("
-					+ characterPlayer.getSkillSpecializations(skill).get(specializedIndex) + ")";
+			texto = "  " + characterPlayer.getSkillSpecializations(skill).get(specializedIndex);
 		} else {
 			texto = "___________________________________________";
 		}
@@ -556,15 +555,13 @@ public class PdfStandardSheet {
 		cell.setPaddingLeft(5f);
 		table.addCell(cell);
 
-		texto = "__";
-
-		p = new Paragraph(texto, FontFactory.getFont(font, fontSize));
+		p = new Paragraph("", FontFactory.getFont(font, fontSize));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(BORDER);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
-		cell = new PdfPCell(getNewRanksImage(0));
+		cell = new PdfPCell();
 		cell.setBorderWidth(BORDER);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
@@ -1145,7 +1142,8 @@ public class PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		tabla.addCell(cell);
 
-		p = new Paragraph("/" + characterPlayer.getRace().getExpectedLifeYears(), FontFactory.getFont(font, fontSize-1));
+		p = new Paragraph("/" + characterPlayer.getRace().getExpectedLifeYears(), FontFactory.getFont(font,
+				fontSize - 1));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(0);
 		cell.setMinimumHeight(11);
