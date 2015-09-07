@@ -141,32 +141,12 @@ public class TxtSheet {
 										characterPlayer.getRanksValue(skill),
 										characterPlayer.getTotalValue(category), bonus, total);
 
-						// Mostramos las habilidades especializadas.
+						// Add specialized skills.
 						for (int m = 0; m < characterPlayer.getSkillSpecializations(skill).size(); m++) {
-							bonus = "";
-							if (characterPlayer.isHistoryPointSelected(skill)) {
-								bonus += "H";
-							}
-							bonusTalentos = characterPlayer.getConditionalPerkBonus(skill);
-							conditionalPerkBonus = characterPlayer.getConditionalPerkBonus(skill);
-							if (bonusTalentos != 0) {
-								bonus += "T";
-								if (conditionalPerkBonus > 0) {
-									bonus += "*";
-								}
-							}
-							if (characterPlayer.getItemBonus(skill) != 0) {
-								bonus += "O";
-							}
-							if (!bonus.equals("")) {
-								bonus = "(" + bonus + ")";
-							}
-							bonus = characterPlayer.getBonus(skill) + bonus;
-
 							if (characterPlayer.getItemBonus(skill) > 0 || conditionalPerkBonus > 0) {
 								total = (characterPlayer.getSpecializedTotalValue(skill)
 										- characterPlayer.getItemBonus(skill) - conditionalPerkBonus)
-										+ "/" + characterPlayer.getTotalValue(skill) + "";
+										+ "/" + characterPlayer.getSpecializedTotalValue(skill) + "";
 							} else {
 								total = characterPlayer.getSpecializedTotalValue(skill).toString();
 							}
@@ -174,9 +154,8 @@ public class TxtSheet {
 									+ String.format(
 											stringFormatStr,
 											"  *  "
-													+ getNameSpecificLength(characterPlayer, skill,
-															maxNameSize + sizeMaxIncrease - 3),
-											characterPlayer.getSpecializedRanks(skill),
+													+ characterPlayer.getSkillSpecializations(skill).get(m),
+											"",
 											characterPlayer.getSpecializedRanksValue(skill),
 											characterPlayer.getTotalValue(category), bonus, total);
 						}
