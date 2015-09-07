@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.components;
+
 /*
  * #%L
  * Libro de Esher
@@ -26,6 +27,7 @@ package com.softwaremagico.librodeesher.gui.components;
 import java.awt.GridLayout;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
+import com.softwaremagico.librodeesher.gui.skills.SpecializedSkillLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
@@ -50,9 +52,17 @@ public class SkillListPanel extends BaseSkillPanel {
 				i++;
 				for (Skill skill : category.getSkills()) {
 					if (character.isSkillInteresting(skill)) {
-						ResumedSkillLine skillLine = new ResumedSkillLine(character, skill, getLineBackgroundColor(i), this);
+						ResumedSkillLine skillLine = new ResumedSkillLine(character, skill,
+								getLineBackgroundColor(i), this);
 						add(skillLine);
 						i++;
+						// Add specializations.
+						for (String specialization : character.getSkillSpecializations(skill)) {
+							SpecializedSkillLine specializatedSkillLine = new SpecializedSkillLine(character,
+									skill, specialization, getLineBackgroundColor(i), this);
+							add(specializatedSkillLine);
+							i++;
+						}
 					}
 				}
 			}
@@ -64,6 +74,6 @@ public class SkillListPanel extends BaseSkillPanel {
 	}
 
 	@Override
-	public void updateSkillsOfCategory(Category category) {		
+	public void updateSkillsOfCategory(Category category) {
 	}
 }
