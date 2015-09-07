@@ -2125,6 +2125,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public void setSkillSpecialization(Skill skill, List<String> specializations) {
+		removeSpecialized(skill);
 		for (String specialization : specializations) {
 			addSkillSpecialization(skill, specialization);
 		}
@@ -2157,7 +2158,9 @@ public class CharacterPlayer extends StorableObject {
 
 	public void removeSpecialized(Skill skill) {
 		for (LevelUp level : getLevelUps()) {
-			level.getSkillSpecializations().remove(skill.getName());
+			for (String specialization : skill.getSpecialities()) {
+				level.getSkillSpecializations().remove(specialization);
+			}
 		}
 		characterPlayerHelper.resetSkillRanks(skill.getName());
 	}
@@ -2481,7 +2484,7 @@ public class CharacterPlayer extends StorableObject {
 
 		if (isGeneralized(skill)) {
 			skillName += " " + SkillType.GENERALIZED.getTag();
-		} 
+		}
 		if (isProfessional(skill)) {
 			skillName += " " + SkillType.PROFESSIONAL.getTag();
 		} else if (isCommon(skill)) {

@@ -83,8 +83,6 @@ public class SelectSkillOptionsWindow extends BaseFrame {
 			@Override
 			public void windowClosed(WindowEvent arg0) {
 				// Update parent windows on closing.
-				character.setSkillSpecialization(selectedSkill,
-						selectSpecializationPanel.getSelectedOptions());
 				for (SkillChangedListener listener : skillChangedListeners) {
 					listener.skillChanged(selectedSkill);
 				}
@@ -165,6 +163,7 @@ public class SelectSkillOptionsWindow extends BaseFrame {
 						character.removeGeneralized(skill);
 						character.removeSpecialized(skill);
 						selectSpecializationPanel.setEnabled(false);
+						break;
 					}
 				}
 			}
