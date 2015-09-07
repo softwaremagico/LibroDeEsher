@@ -239,9 +239,9 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 				added++;
 
 				newColumnRequired(document, writer, font);
-				
-				for(String specialization:getCharacterPlayer().getSkillSpecializations(skill)){
-					tableHab =	skillSpecializationLine(skill, specialization, font);
+
+				for (String specialization : getCharacterPlayer().getSkillSpecializations(skill)) {
+					tableHab = skillSpecializationLine(skill, specialization, font);
 					cell = new PdfPCell(tableHab);
 					cell.setBorderWidth(0);
 					tableColumn.addCell(cell);
@@ -639,7 +639,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		tableHab.addCell(cell);
 
-		p = new Paragraph("__", FontFactory.getFont(font, fontSize - 1));
+		p = new Paragraph("___", FontFactory.getFont(font, fontSize - 1));
 		cell = new PdfPCell(p);
 		cell.setMinimumHeight(10);
 		cell.setBorderWidth(BORDER);
@@ -649,8 +649,12 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setPaddingLeft(5f);
 		tableHab.addCell(cell);
 
-		p = new Paragraph(getCharacterPlayer().getTotalValue(cat) + "", FontFactory.getFont(font,
-				fontSize - 1));
+		if (cat != null) {
+			p = new Paragraph(getCharacterPlayer().getTotalValue(cat) + "", FontFactory.getFont(font,
+					fontSize - 1));
+		} else {
+			p = new Paragraph("___", FontFactory.getFont(font, fontSize - 1));
+		}
 		cell = new PdfPCell(p);
 		cell.setMinimumHeight(10);
 		cell.setBorderWidth(BORDER);
