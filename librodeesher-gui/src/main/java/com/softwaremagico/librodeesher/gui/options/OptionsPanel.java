@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.options;
+
 /*
  * #%L
  * Libro de Esher GUI
@@ -23,30 +24,62 @@ package com.softwaremagico.librodeesher.gui.options;
  * #L%
  */
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
+import com.softwaremagico.librodeesher.gui.elements.UpdatePanelListener;
 
 public class OptionsPanel extends BaseScrollPanel {
 	private static final long serialVersionUID = -5606065330811602828L;
-	private SelectOption<?> parent;
 	private OptionsTitle title;
 	private OptionsListPanel optionsListPanel;
+	private Set<UpdatePanelListener> updatePanelListeners;
 
-	protected OptionsPanel(SelectOption<?> parent, List<String> options, Integer numberOfOptions, List<String> selectedOptions) {
-		this.parent = parent;
+	protected OptionsPanel() {
 		title = new OptionsTitle();
+		updatePanelListeners = new HashSet<>();
+		addTitle(title);
+	}
+
+	protected OptionsPanel(List<String> options, Integer numberOfOptions, List<String> selectedOptions) {
+		title = new OptionsTitle();
+		updatePanelListeners = new HashSet<>();
 		addTitle(title);
 		optionsListPanel = new OptionsListPanel(options, numberOfOptions, this, selectedOptions);
 		setBody(optionsListPanel);
 	}
-	
-	public List<String> getSelectedOptions(){
+
+	public void setOptions(List<String> options, Integer numberOfOptions, List<String> selectedOptions) {
+		optionsListPanel = new OptionsListPanel(options, numberOfOptions, this, selectedOptions);
+		setBody(optionsListPanel);
+	}
+
+	public void removeOptions() {
+		if (optionsListPanel != null) {
+			optionsListPanel.removeAll();
+		}
+	}
+
+	public List<String> getSelectedOptions() {
 		return optionsListPanel.getSelectedOptions();
 	}
 
+	@Override
 	public void update() {
-		parent.update();
+		for (UpdatePanelListener listener : updatePanelListeners) {
+			listener.updatePanel();
+		}
+	}
+
+	public void addUpdatePanelListener(UpdatePanelListener listener) {
+		updatePanelListeners.add(listener);
+	}
+
+	@Override
+	public void setEnabled(boolean enabled) {
+		optionsListPanel.setEnabled(enabled);
 	}
 
 }

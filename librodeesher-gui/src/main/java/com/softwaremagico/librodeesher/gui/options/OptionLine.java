@@ -115,4 +115,9 @@ public class OptionLine extends BaseLine {
 		}
 	}
 
+	@Override
+	public void setEnabled(boolean enabled) {
+		optionCheckBox.setEnabled(enabled);
+	}
+
 }

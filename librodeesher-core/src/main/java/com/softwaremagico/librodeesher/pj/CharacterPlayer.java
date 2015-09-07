@@ -845,8 +845,8 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getLanguageInitialRanks(String language) {
-//		return Math.max(getCulture().getLanguageMaxRanks(language),
-//				getRace().getLanguageInitialRanks(language));
+		// return Math.max(getCulture().getLanguageMaxRanks(language),
+		// getRace().getLanguageInitialRanks(language));
 		return getRace().getLanguageInitialRanks(language);
 	}
 
@@ -1004,8 +1004,8 @@ public class CharacterPlayer extends StorableObject {
 		if (characterPlayerHelper.getSkillRanks(skill.getName()) != null) {
 			return characterPlayerHelper.getSkillRanks(skill.getName());
 		}
-		Integer totalRanks = getPreviousRanks(skill) + getCurrentLevelRanks(skill)
-				- getSkillSpecializations(skill).size();
+		Integer totalRanks = Math.max(0, getPreviousRanks(skill) + getCurrentLevelRanks(skill)
+				- getSkillSpecializations(skill).size());
 		characterPlayerHelper.setSkillRanks(skill.getName(), totalRanks);
 		return totalRanks;
 	}
@@ -2117,13 +2117,22 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public void addSkillSpecialization(Skill skill, String specialization) {
-		if (!getSkillSpecializations(skill).contains(specialization) && !isGeneralized(skill)) {
+		if (!getSkillSpecializations(skill).contains(specialization)) {
+			removeGeneralized(skill);
 			getCurrentLevel().addSkillSpecialization(specialization);
 			characterPlayerHelper.resetSkillRanks(skill.getName());
 		}
 	}
 
+	public void setSkillSpecialization(Skill skill, List<String> specializations) {
+		for (String specialization : specializations) {
+			addSkillSpecialization(skill, specialization);
+		}
+	}
+
 	public void addGeneralized(Skill skill) {
+		removeSpecialized(skill);
+
 		if (!isGeneralized(skill)) {
 			getCurrentLevel().getGeneralizedSkills().add(skill.getName());
 			characterPlayerHelper.resetSkillRanks(skill.getName());
@@ -2137,6 +2146,20 @@ public class CharacterPlayer extends StorableObject {
 			}
 		}
 		return false;
+	}
+
+	public void removeGeneralized(Skill skill) {
+		for (LevelUp level : getLevelUps()) {
+			level.getGeneralizedSkills().remove(skill.getName());
+		}
+		characterPlayerHelper.resetSkillRanks(skill.getName());
+	}
+
+	public void removeSpecialized(Skill skill) {
+		for (LevelUp level : getLevelUps()) {
+			level.getSkillSpecializations().remove(skill.getName());
+		}
+		characterPlayerHelper.resetSkillRanks(skill.getName());
 	}
 
 	public Integer getRanksSpentInSkillSpecializations(Skill skill) {
@@ -2456,6 +2479,9 @@ public class CharacterPlayer extends StorableObject {
 	public String getSkillNameWithSufix(Skill skill) {
 		String skillName = skill.getName();
 
+		if (isGeneralized(skill)) {
+			skillName += " " + SkillType.GENERALIZED.getTag();
+		} 
 		if (isProfessional(skill)) {
 			skillName += " " + SkillType.PROFESSIONAL.getTag();
 		} else if (isCommon(skill)) {

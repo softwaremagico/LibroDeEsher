@@ -1,13 +1,12 @@
-package com.softwaremagico.librodeesher.pj.skills;
-
+package com.softwaremagico.librodeesher.gui.elements;
 /*
  * #%L
- * Libro de Esher
+ * Libro de Esher (GUI)
  * %%
- * Copyright (C) 2007 - 2012 Softwaremagico
+ * Copyright (C) 2007 - 2015 Softwaremagico
  * %%
  * This software is designed by Jorge Hortelano Otero. Jorge Hortelano Otero
- * <softwaremagico@gmail.com> C/Quart 89, 3. Valencia CP:46008 (Spain).
+ * <softwaremagico@gmail.com> Valencia (Spain).
  *  
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -24,27 +23,6 @@ package com.softwaremagico.librodeesher.pj.skills;
  * #L%
  */
 
-public enum SkillType {
-	RESTRICTED("(r)"), STANDAR(""), PROFESSIONAL("(p)"), COMMON("(c)"), GENERALIZED("(g)");
-
-	private String tag;
-
-	SkillType(String tag) {
-		this.tag = tag;
-	}
-
-	public String getTag() {
-		return tag;
-	}
-
-	public static SkillType getSkillType(String skillName) {
-		if (skillName.toLowerCase().contains(SkillType.RESTRICTED.getTag())) {
-			return RESTRICTED;
-		} else if (skillName.contains(SkillType.PROFESSIONAL.getTag())) {
-			return PROFESSIONAL;
-		} else if (skillName.contains(SkillType.COMMON.getTag())) {
-			return COMMON;
-		}
-		return STANDAR;
-	}
+public interface UpdatePanelListener {
+	void updatePanel();
 }

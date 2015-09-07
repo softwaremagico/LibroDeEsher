@@ -47,10 +47,6 @@ public class SkillLine extends GenericSkillLine {
 		listeners = new ArrayList<>();
 	}
 
-	protected void updateRanks() {
-		setRanksSelected(character.getCurrentLevelRanks(skill));
-	}
-
 	@Override
 	protected void updateCharacterPlayerWithCurrentLevelRanks() {
 		Integer ranks = getRanksSelected();
@@ -78,15 +74,6 @@ public class SkillLine extends GenericSkillLine {
 					}
 				}
 			});
-		}
-	}
-
-	public void updateCategory() {
-		if (bonusCategoryPanel) {
-			bonusCategory.setText(character.getTotalValue(skill.getCategory()).toString());
-		}
-		if (totalPanel) {
-			totalLabel.setText(character.getTotalValue(skill).toString());
 		}
 	}
 

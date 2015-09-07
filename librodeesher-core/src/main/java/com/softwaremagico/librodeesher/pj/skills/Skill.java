@@ -45,26 +45,40 @@ public class Skill {
 
 	public Skill(String name, SkillType type) {
 		this.skilltype = type;
-		specialities = new ArrayList<>();
 		enableSkills = new ArrayList<>();
 		// Enables some other skills
-		name = getSkillsEnabled(name);
-		String specialityPattern = Pattern.quote("[");
-		String[] nameColumns = name.split(specialityPattern);
-		this.name = nameColumns[0].trim();
+		setNameAndSpecialities(name);
 		skillGroup = SkillGroup.STANDARD;
 	}
 
 	public Skill(String name, SkillType type, SkillGroup group) {
 		this.skilltype = type;
-		specialities = new ArrayList<>();
 		enableSkills = new ArrayList<>();
 		// Enables some other skills
-		name = getSkillsEnabled(name);
-		String specialityPattern = Pattern.quote("[");
-		String[] nameColumns = name.split(specialityPattern);
-		this.name = nameColumns[0].trim();
+		setNameAndSpecialities(name);
 		this.skillGroup = group;
+	}
+
+	private void setNameAndSpecialities(String completeName) {
+		specialities = new ArrayList<>();
+		completeName = getSkillsEnabled(completeName);
+		String specialityPattern = Pattern.quote("[");
+		String[] nameColumns = completeName.split(specialityPattern);
+		this.name = nameColumns[0].trim();
+		if (nameColumns.length > 1) {
+			nameColumns[1] = nameColumns[1].replace("]", "");
+			String[] specialities = null;
+			if (nameColumns[1].contains(";")) {
+				specialities = nameColumns[1].split(";");
+			} else {
+				specialities = nameColumns[1].split(",");
+			}
+			if (specialities != null) {
+				for (String speciality : specialities) {
+					this.specialities.add(speciality.trim());
+				}
+			}
+		}
 	}
 
 	/**

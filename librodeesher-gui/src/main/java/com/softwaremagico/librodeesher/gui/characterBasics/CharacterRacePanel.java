@@ -28,6 +28,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -129,7 +130,7 @@ public class CharacterRacePanel extends BasePanel {
 
 	private void updateRaceComboBox() {
 		if (raceComboBox != null) {
-			List<String> races = RaceFactory.getAvailableRaces();
+			List<String> races = new ArrayList<>(RaceFactory.getAvailableRaces());
 			Collections.sort(races);
 			for (String race : races) {
 				raceComboBox.addItem(race);

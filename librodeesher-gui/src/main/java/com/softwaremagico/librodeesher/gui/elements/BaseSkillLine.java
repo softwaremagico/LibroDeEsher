@@ -49,6 +49,7 @@ public abstract class BaseSkillLine extends BaseLine {
 	protected boolean otherBonusPanel = false;
 	protected boolean objectBonusPanel = false;
 	protected boolean totalPanel = false;
+	private boolean emptyColumns = false;
 
 	public void enableColumns(boolean costPanel, boolean oldRanksPanel, boolean chooseRanksPanel,
 			boolean ranksValuePanel, boolean bonusCategoryPanel, boolean otherBonusPanel,
@@ -63,7 +64,14 @@ public abstract class BaseSkillLine extends BaseLine {
 		this.totalPanel = totalPanel;
 		setElements();
 	}
-	
+
+	/**
+	 * Combined with enableColumns fill with empty spaces the hidden columns
+	 */
+	public void setEmptyColumns(boolean emptyColumns) {
+		this.emptyColumns = emptyColumns;
+	}
+
 	protected abstract void setElements();
 
 	protected void enableRanks(Integer currentRanks) {
@@ -138,6 +146,10 @@ public abstract class BaseSkillLine extends BaseLine {
 				update();
 			}
 		}
+	}
+
+	public boolean isEmptyColumns() {
+		return emptyColumns;
 	}
 
 }

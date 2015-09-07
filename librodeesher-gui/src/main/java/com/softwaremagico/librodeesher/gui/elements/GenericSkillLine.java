@@ -29,6 +29,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
@@ -43,9 +45,11 @@ public class GenericSkillLine extends BaseSkillLine {
 			prevRanksLabel, bonusMagicObject;
 	protected Skill skill;
 	private Color background;
+	private Set<SkillChangedListener> listeners;
 
 	public GenericSkillLine(CharacterPlayer character, Skill skill, Color background,
 			BaseSkillPanel parentWindow) {
+		listeners = new HashSet<>();
 		this.character = character;
 		this.skill = skill;
 		this.category = skill.getCategory();
@@ -78,10 +82,10 @@ public class GenericSkillLine extends BaseSkillLine {
 		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.3;
-		skillNameLabel = new ListLabel(character.getSkillNameWithSufix(skill), SwingConstants.LEFT, 200, columnHeight);
+		skillNameLabel = new ListLabel(getSkillName(), SwingConstants.LEFT, 200, columnHeight);
 		add(new ListBackgroundPanel(skillNameLabel, background), gridBagConstraints);
 
-		if (costPanel) {
+		if (costPanel || !isEmptyColumns()) {
 			gridBagConstraints.gridx = 3;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
@@ -89,32 +93,38 @@ public class GenericSkillLine extends BaseSkillLine {
 			add(new ListBackgroundPanel(rankCostLabel, background), gridBagConstraints);
 		}
 
-		if (oldRanksPanel) {
+		if (oldRanksPanel || !isEmptyColumns()) {
 			gridBagConstraints.gridx = 5;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			prevRanksLabel = new ListLabel(previousRanks.toString(), SwingConstants.CENTER, columnWidth,
-					columnHeight);
+			if (oldRanksPanel) {
+				prevRanksLabel = new ListLabel(previousRanks.toString(), SwingConstants.CENTER, columnWidth,
+						columnHeight);
+			} else {
+				prevRanksLabel = new ListLabel("", SwingConstants.CENTER, columnWidth, columnHeight);
+			}
 			add(new ListBackgroundPanel(prevRanksLabel, background), gridBagConstraints);
 		}
 
-		if (chooseRanksPanel) {
+		if (chooseRanksPanel || !isEmptyColumns()) {
 			JPanel checkBoxPane = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 			checkBoxPane.setBackground(background);
-			firstRank = new JCheckBox("");
-			firstRank.setBackground(background);
-			firstRank.addItemListener(new CheckBoxListener());
-			checkBoxPane.add(firstRank);
+			if (chooseRanksPanel) {
+				firstRank = new JCheckBox("");
+				firstRank.setBackground(background);
+				firstRank.addItemListener(new CheckBoxListener());
+				checkBoxPane.add(firstRank);
 
-			secondRank = new JCheckBox("");
-			secondRank.setBackground(background);
-			secondRank.addItemListener(new CheckBoxListener());
-			checkBoxPane.add(secondRank);
+				secondRank = new JCheckBox("");
+				secondRank.setBackground(background);
+				secondRank.addItemListener(new CheckBoxListener());
+				checkBoxPane.add(secondRank);
 
-			thirdRank = new JCheckBox("");
-			thirdRank.setBackground(background);
-			thirdRank.addItemListener(new CheckBoxListener());
-			checkBoxPane.add(thirdRank);
+				thirdRank = new JCheckBox("");
+				thirdRank.setBackground(background);
+				thirdRank.addItemListener(new CheckBoxListener());
+				checkBoxPane.add(thirdRank);
+			}
 
 			gridBagConstraints.gridx = 7;
 			gridBagConstraints.gridwidth = 1;
@@ -124,71 +134,110 @@ public class GenericSkillLine extends BaseSkillLine {
 			add(checkBoxPane, gridBagConstraints);
 		}
 
-		if (ranksValuePanel) {
+		if (ranksValuePanel || !isEmptyColumns()) {
 			gridBagConstraints.gridx = 9;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			bonusRankLabel = new ListLabel(character.getRanksValue(skill).toString(), columnWidth,
-					columnHeight);
+			if (ranksValuePanel) {
+				bonusRankLabel = new ListLabel(getRanksValue(), columnWidth, columnHeight);
+			} else {
+				bonusRankLabel = new ListLabel("", columnWidth, columnHeight);
+			}
 			add(new ListBackgroundPanel(bonusRankLabel, background), gridBagConstraints);
 		}
 
-		if (bonusCategoryPanel) {
+		if (bonusCategoryPanel || !isEmptyColumns()) {
 			gridBagConstraints.gridx = 11;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			bonusCategory = new ListLabel(character.getTotalValue(skill.getCategory()).toString(),
-					columnWidth, columnHeight);
+			if (bonusCategoryPanel) {
+				bonusCategory = new ListLabel(character.getTotalValue(skill.getCategory()).toString(),
+						columnWidth, columnHeight);
+			} else {
+				bonusCategory = new ListLabel("", columnWidth, columnHeight);
+			}
 			add(new ListBackgroundPanel(bonusCategory, background), gridBagConstraints);
 		}
 
-		if (otherBonusPanel) {
+		if (otherBonusPanel || !isEmptyColumns()) {
 			gridBagConstraints.gridx = 13;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			otherBonus = new ListLabel(
-					(character.getProfession().getSkillBonus(skill.getName())
-							+ character.getHistorial().getBonus(skill) + character.getPerkBonus(skill) + character.getConditionalPerkBonus(skill))
-							+ "", columnWidth, columnHeight);
+			if (otherBonusPanel) {
+				otherBonus = new ListLabel(
+						(character.getProfession().getSkillBonus(skill.getName())
+								+ character.getHistorial().getBonus(skill) + character.getPerkBonus(skill) + character.getConditionalPerkBonus(skill))
+								+ "", columnWidth, columnHeight);
+			} else {
+				otherBonus = new ListLabel("", columnWidth, columnHeight);
+			}
 			add(otherBonus, gridBagConstraints);
 		}
 
-		if (objectBonusPanel) {
+		if (objectBonusPanel || !isEmptyColumns()) {
 			gridBagConstraints.gridx = 15;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			bonusMagicObject = new ListLabel(character.getItemBonus(skill) + "", columnWidth, columnHeight);
+			if (objectBonusPanel) {
+				bonusMagicObject = new ListLabel(character.getItemBonus(skill) + "", columnWidth,
+						columnHeight);
+			} else {
+				bonusMagicObject = new ListLabel("", columnWidth, columnHeight);
+			}
 			add(new ListBackgroundPanel(bonusMagicObject, background), gridBagConstraints);
 		}
 
-		if (totalPanel) {
+		if (totalPanel || !isEmptyColumns()) {
 			gridBagConstraints.gridx = 17;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			totalLabel = new ListLabel(character.getTotalValue(skill).toString(), columnWidth, columnHeight);
+			if (totalPanel) {
+				totalLabel = new ListLabel(getTotalValue(), columnWidth, columnHeight);
+			} else {
+				totalLabel = new ListLabel("", columnWidth, columnHeight);
+			}
 			add(new ListBackgroundPanel(totalLabel, background), gridBagConstraints);
 		}
 
 		enableRanks(previousRanks);
 	}
 
+	protected String getSkillName() {
+		return character.getSkillNameWithSufix(skill);
+	}
+
+	protected String getRanksValue() {
+		return character.getRanksValue(skill).toString();
+	}
+
+	protected String getTotalValue() {
+		return character.getTotalValue(skill).toString();
+	}
+
 	public void update() {
-		if (bonusCategoryPanel) {
-			bonusRankLabel.setText(character.getRanksValue(skill).toString());
-		}
-		if (totalPanel) {
-			totalLabel.setText(character.getTotalValue(skill).toString());
+		updateRanksValue();
+		for (SkillChangedListener listener : listeners) {
+			listener.skillChanged(skill);
 		}
 		parentWindow.update();
+	}
+	
+	public void updateRanksValue(){
+		if (ranksValuePanel) {
+			bonusRankLabel.setText(getRanksValue());
+		}
+		if (totalPanel) {
+			totalLabel.setText(getTotalValue());
+		}
 	}
 
 	public void updateRankValues() {
 		prevRanksLabel.setText(character.getPreviousRanks(skill).toString());
-		bonusRankLabel.setText(character.getRanksValue(skill).toString());
+		bonusRankLabel.setText(getRanksValue());
 		bonusCategory.setText(character.getTotalValue(skill.getCategory()).toString());
 		otherBonus.setText(character.getBonus(skill).toString());
 		bonusMagicObject.setText("0");
-		totalLabel.setText(character.getTotalValue(skill).toString());
+		totalLabel.setText(getTotalValue());
 	}
 
 	@Override
@@ -221,5 +270,22 @@ public class GenericSkillLine extends BaseSkillLine {
 
 	public Skill getSkill() {
 		return skill;
+	}
+
+	public void updateCategory() {
+		if (bonusCategoryPanel) {
+			bonusCategory.setText(character.getTotalValue(skill.getCategory()).toString());
+		}
+		if (totalPanel) {
+			totalLabel.setText(getTotalValue());
+		}
+	}
+
+	public void updateRanks() {
+		setRanksSelected(character.getCurrentLevelRanks(skill));
+	}
+
+	public void AddSkillChangedListener(SkillChangedListener listener) {
+		this.listeners.add(listener);
 	}
 }

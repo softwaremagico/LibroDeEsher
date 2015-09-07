@@ -37,13 +37,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JPanel;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.elements.RandomButton;
+import com.softwaremagico.librodeesher.gui.elements.SkillChangedListener;
+import com.softwaremagico.librodeesher.gui.skills.generic.SelectSkillOptionsWindow;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
@@ -56,7 +57,7 @@ public class SkillWindow extends BaseFrame {
 	private CompleteSkillPanel skillPanel;
 	private BaseLabel pointsLabel;
 	private PointsCounterTextField developmentPoints;
-	JCheckBoxMenuItem fireArmsMenuItem, darkSpellsMenuItem;
+	private SelectSkillOptionsWindow selectSkillOptionsWindow;
 
 	public SkillWindow(CharacterPlayer character) {
 		this.character = character;
@@ -72,6 +73,30 @@ public class SkillWindow extends BaseFrame {
 	}
 
 	private void setElements() {
+		SkillWindowMenu mainMenu = new SkillWindowMenu();
+		setJMenuBar(mainMenu.createMenu());
+		mainMenu.addOptionsMenuListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (selectSkillOptionsWindow != null) {
+					selectSkillOptionsWindow.dispose();
+				}
+				selectSkillOptionsWindow = new SelectSkillOptionsWindow(character);
+				selectSkillOptionsWindow.setVisible(true);
+				selectSkillOptionsWindow.addSkillChangedListener(new SkillChangedListener() {
+
+					@Override
+					public void skillChanged(Skill skill) {
+						//Add new skills.
+						createSkillPanel();
+						revalidate();
+						repaint();
+					}
+				});
+			}
+		});
+
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
@@ -84,12 +109,10 @@ public class SkillWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		skillPanel = new CompleteSkillPanel(character, this);
-		getContentPane().add(skillPanel, gridBagConstraints);
+		createSkillPanel();
 
 		JPanel developmentPointsPanel = new JPanel();
-		developmentPointsPanel.setLayout(new BoxLayout(developmentPointsPanel,
-				BoxLayout.X_AXIS));
+		developmentPointsPanel.setLayout(new BoxLayout(developmentPointsPanel, BoxLayout.X_AXIS));
 		pointsLabel = new BaseLabel("  Puntos de Desarrollo restantes: ");
 		developmentPointsPanel.add(pointsLabel);
 
@@ -125,10 +148,9 @@ public class SkillWindow extends BaseFrame {
 
 				while (character.getRemainingDevelopmentPoints() > 0
 						&& tries <= RandomCharacterPlayer.MAX_TRIES) {
-					RandomCharacterPlayer.setRandomRanks(character, 0,
-							new HashMap<String, Integer>(), tries,
-							character.getCurrentLevelNumber(),
-							categoryProbabilityStored, skillProbabilityStored);
+					RandomCharacterPlayer.setRandomRanks(character, 0, new HashMap<String, Integer>(), tries,
+							character.getCurrentLevelNumber(), categoryProbabilityStored,
+							skillProbabilityStored);
 					tries++;
 				}
 				updateFrame();
@@ -152,6 +174,24 @@ public class SkillWindow extends BaseFrame {
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		getContentPane().add(buttonPanel, gridBagConstraints);
 
+	}
+
+	private void createSkillPanel() {
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		gridBagConstraints.fill = GridBagConstraints.BOTH;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.gridheight = 2;
+		gridBagConstraints.gridwidth = 3;
+		gridBagConstraints.weightx = 1;
+		gridBagConstraints.weighty = 1;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+		if (skillPanel != null) {
+			getContentPane().remove(skillPanel);
+		}
+		skillPanel = new CompleteSkillPanel(character, this);
+		getContentPane().add(skillPanel, gridBagConstraints, 0);
 	}
 
 	private void updateSkillFrame() {

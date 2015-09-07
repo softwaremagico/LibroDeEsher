@@ -1,13 +1,12 @@
-package com.softwaremagico.librodeesher.pj.skills;
-
+package com.softwaremagico.librodeesher.gui.skills.generic;
 /*
  * #%L
- * Libro de Esher
+ * Libro de Esher (GUI)
  * %%
- * Copyright (C) 2007 - 2012 Softwaremagico
+ * Copyright (C) 2007 - 2015 Softwaremagico
  * %%
  * This software is designed by Jorge Hortelano Otero. Jorge Hortelano Otero
- * <softwaremagico@gmail.com> C/Quart 89, 3. Valencia CP:46008 (Spain).
+ * <softwaremagico@gmail.com> Valencia (Spain).
  *  
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -24,27 +23,20 @@ package com.softwaremagico.librodeesher.pj.skills;
  * #L%
  */
 
-public enum SkillType {
-	RESTRICTED("(r)"), STANDAR(""), PROFESSIONAL("(p)"), COMMON("(c)"), GENERALIZED("(g)");
+import java.util.List;
 
-	private String tag;
+import com.softwaremagico.librodeesher.gui.options.OptionsPanel;
 
-	SkillType(String tag) {
-		this.tag = tag;
+public class SelectSpecializationPanel extends OptionsPanel {
+	private static final long serialVersionUID = 2536449895943252932L;
+
+	protected SelectSpecializationPanel() {
+		super();
 	}
 
-	public String getTag() {
-		return tag;
+	@Override
+	public void setOptions(List<String> options, Integer numberOfOptions, List<String> selectedOptions) {
+		super.setOptions(options, numberOfOptions, selectedOptions);
 	}
 
-	public static SkillType getSkillType(String skillName) {
-		if (skillName.toLowerCase().contains(SkillType.RESTRICTED.getTag())) {
-			return RESTRICTED;
-		} else if (skillName.contains(SkillType.PROFESSIONAL.getTag())) {
-			return PROFESSIONAL;
-		} else if (skillName.contains(SkillType.COMMON.getTag())) {
-			return COMMON;
-		}
-		return STANDAR;
-	}
 }

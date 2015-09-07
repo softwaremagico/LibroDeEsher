@@ -165,7 +165,7 @@ public abstract class Category {
 
 	public Integer getSkillRankValues(Integer ranksNumber,
 			List<Float> definedSkillRankValues) {
-		if (ranksNumber == 0) {
+		if (ranksNumber <= 0) {
 			return definedSkillRankValues.get(0).intValue();
 		} else if (ranksNumber > 0 && ranksNumber <= 10) {
 			return definedSkillRankValues.get(1).intValue() * ranksNumber;

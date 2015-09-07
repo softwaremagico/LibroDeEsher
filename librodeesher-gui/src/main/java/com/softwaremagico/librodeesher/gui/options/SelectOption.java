@@ -38,6 +38,7 @@ import javax.swing.JPanel;
 import com.softwaremagico.librodeesher.basics.ChooseGroup;
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
+import com.softwaremagico.librodeesher.gui.elements.UpdatePanelListener;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 
@@ -104,8 +105,15 @@ public class SelectOption<T> extends BasePanel {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		optionsPanel = new OptionsPanel(this, options.getOptionsAsString(),
-				options.getNumberOfOptionsToChoose(), selectedOptions);
+		optionsPanel = new OptionsPanel(options.getOptionsAsString(), options.getNumberOfOptionsToChoose(),
+				selectedOptions);
+		optionsPanel.addUpdatePanelListener(new UpdatePanelListener() {
+
+			@Override
+			public void updatePanel() {
+				update();
+			}
+		});
 		add(optionsPanel, gridBagConstraints);
 	}
 

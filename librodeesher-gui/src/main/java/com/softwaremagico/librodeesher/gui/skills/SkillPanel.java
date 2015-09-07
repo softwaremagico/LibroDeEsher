@@ -31,6 +31,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
+import com.softwaremagico.librodeesher.gui.elements.GenericSkillLine;
+import com.softwaremagico.librodeesher.gui.elements.SkillChangedListener;
 import com.softwaremagico.librodeesher.gui.skills.SelectSkillWindow.SkillEnabledListener;
 import com.softwaremagico.librodeesher.gui.style.BaseLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -46,7 +48,8 @@ import com.softwaremagico.log.EsherLog;
 public class SkillPanel extends BaseSkillPanel {
 	private static final long serialVersionUID = 544393371168606333L;
 	private CompleteSkillPanel parentWindow;
-	private HashMap<Category, List<SkillLine>> skillLinesPerCategory;
+	private HashMap<Category, List<GenericSkillLine>> skillLinesPerCategory;
+	private HashMap<Skill, List<GenericSkillLine>> skillSpecializationLines;
 	private List<WeaponCategoryLine> weaponsLines;
 	private List<CategoryLine> categoryLines;
 	private CharacterPlayer characterPlayer;
@@ -55,6 +58,7 @@ public class SkillPanel extends BaseSkillPanel {
 		characterPlayer = character;
 		this.parentWindow = parentWindow;
 		skillLinesPerCategory = new HashMap<>();
+		skillSpecializationLines = new HashMap<>();
 		setElements(character);
 	}
 
@@ -77,26 +81,38 @@ public class SkillPanel extends BaseSkillPanel {
 					if (cost == null) {
 						cost = character.getFirstWeaponCostNotSelected();
 					}
-					WeaponCategoryLine wl = new WeaponCategoryLine(character, category, getLineBackgroundColor(i),
-							this, cost, weapon);
+					WeaponCategoryLine wl = new WeaponCategoryLine(character, category,
+							getLineBackgroundColor(i), this, cost, weapon);
 					add(wl);
 					weaponsLines.add(wl);
 					weapon++;
 				} else {
-					CategoryLine categoryLine = new CategoryLine(character, category, getLineBackgroundColor(i), this);
+					CategoryLine categoryLine = new CategoryLine(character, category,
+							getLineBackgroundColor(i), this);
 					categoryLines.add(categoryLine);
 					add(categoryLine);
 				}
 				i++;
 
-				List<SkillLine> skillLines = new ArrayList<>();
+				List<GenericSkillLine> skillLines = new ArrayList<>();
 				for (Skill skill : category.getSkills()) {
 					if (character.isSkillUseful(skill) && !character.isSkillDisabled(skill)) {
-						SkillLine skillLine = createSkillLine(i, skill);
+						GenericSkillLine skillLine = createSkillLine(i, skill);
+						skillSpecializationLines.put(skill, new ArrayList<GenericSkillLine>());
 						if (skillLine != null) {
 							add(skillLine);
 							skillLines.add(skillLine);
 							i++;
+							// Add specializations.
+							for (String specialization : characterPlayer.getSkillSpecializations(skill)) {
+								SpecializedSkillLine specializatedSkillLine = new SpecializedSkillLine(
+										characterPlayer, skill, specialization, getLineBackgroundColor(i),
+										this);
+								getSkillLinesPerCategory(category).add(specializatedSkillLine);
+								add(specializatedSkillLine);
+								skillSpecializationLines.get(skill).add(specializatedSkillLine);
+								i++;
+							}
 						}
 					}
 				}
@@ -105,9 +121,9 @@ public class SkillPanel extends BaseSkillPanel {
 		}
 	}
 
-	private List<SkillLine> getSkillLinesPerCategory(Category category) {
+	private List<GenericSkillLine> getSkillLinesPerCategory(Category category) {
 		if (skillLinesPerCategory.get(category) == null) {
-			skillLinesPerCategory.put(category, new ArrayList<SkillLine>());
+			skillLinesPerCategory.put(category, new ArrayList<GenericSkillLine>());
 		}
 		return skillLinesPerCategory.get(category);
 	}
@@ -118,7 +134,8 @@ public class SkillPanel extends BaseSkillPanel {
 
 	private SkillLine createSkillLine(int backgroundIndex, Skill skill) {
 		if (characterPlayer.isSkillUseful(skill) && !characterPlayer.isSkillDisabled(skill)) {
-			SkillLine skillLine = new SkillLine(characterPlayer, skill, getLineBackgroundColor(backgroundIndex), this);
+			SkillLine skillLine = new SkillLine(characterPlayer, skill,
+					getLineBackgroundColor(backgroundIndex), this);
 			add(skillLine);
 			skillLine.addSkillEnabledListener(new SkillEnabledListener() {
 
@@ -126,10 +143,11 @@ public class SkillPanel extends BaseSkillPanel {
 				public void skillEnabledEvent(Skill skill, String skillSelectedName, boolean selected) {
 					Skill skillSelected = SkillFactory.getSkill(skillSelectedName);
 					if (!selected) {
-						// Remove any rank if selectedS
+						// Remove any rank if selected
 						try {
 							if (characterPlayer.getEnabledSkill().get(skill.getName()) != null
-									&& characterPlayer.getEnabledSkill().get(skill.getName()).equals(skillSelectedName)) {
+									&& characterPlayer.getEnabledSkill().get(skill.getName())
+											.equals(skillSelectedName)) {
 								characterPlayer.getEnabledSkill().remove(skill.getName());
 							}
 							characterPlayer.setCurrentLevelRanks(skillSelected, 0);
@@ -144,6 +162,16 @@ public class SkillPanel extends BaseSkillPanel {
 					update();
 				}
 			});
+			skillLine.AddSkillChangedListener(new SkillChangedListener() {
+
+				@Override
+				public void skillChanged(Skill skill) {
+					// Skill updated. Update also specializations.
+					for (GenericSkillLine line : skillSpecializationLines.get(skill)) {
+						line.updateRanksValue();
+					}
+				}
+			});
 			return skillLine;
 		}
 		return null;
@@ -151,11 +179,11 @@ public class SkillPanel extends BaseSkillPanel {
 
 	private void updateCategorySkills(Category category) {
 		// Remove all skills of this category
-		List<SkillLine> skills = skillLinesPerCategory.get(category);
-		for (SkillLine skillLine : skills) {
+		List<GenericSkillLine> skills = skillLinesPerCategory.get(category);
+		for (GenericSkillLine skillLine : skills) {
 			remove(skillLine);
 		}
-		skillLinesPerCategory.put(category, new ArrayList<SkillLine>());
+		skillLinesPerCategory.put(category, new ArrayList<GenericSkillLine>());
 
 		// Add skills after category
 		for (CategoryLine categoryLine : categoryLines) {
@@ -168,10 +196,22 @@ public class SkillPanel extends BaseSkillPanel {
 					if (characterPlayer.isSkillUseful(skill) && !characterPlayer.isSkillDisabled(skill)) {
 						SkillLine skillLine = createSkillLine(categoryLine, skill, backgroundIndex);
 						if (skillLine != null) {
+							skillSpecializationLines.put(skill, new ArrayList<GenericSkillLine>());
 							getSkillLinesPerCategory(category).add(skillLine);
 							add(skillLine, categoryLineIndex);
 							categoryLineIndex++;
 							backgroundIndex++;
+							// Add specializations.
+							for (String specialization : characterPlayer.getSkillSpecializations(skill)) {
+								SpecializedSkillLine specializatedSkillLine = new SpecializedSkillLine(
+										characterPlayer, skill, specialization,
+										getLineBackgroundColor(backgroundIndex), this);
+								getSkillLinesPerCategory(category).add(specializatedSkillLine);
+								add(specializatedSkillLine, categoryLineIndex);
+								skillSpecializationLines.get(skill).add(specializatedSkillLine);
+								backgroundIndex++;
+								categoryLineIndex++;
+							}
 						}
 					}
 				}
@@ -205,15 +245,16 @@ public class SkillPanel extends BaseSkillPanel {
 
 	@Override
 	public void updateSkillsOfCategory(Category category) {
-		List<SkillLine> skillLines = skillLinesPerCategory.get(category);
+		List<GenericSkillLine> skillLines = skillLinesPerCategory.get(category);
 		if (skillLines != null) {
-			for (SkillLine skillLine : skillLines) {
+			for (GenericSkillLine skillLine : skillLines) {
 				skillLine.updateCategory();
 			}
 		}
 	}
 
-	protected void updateWeaponsCost(Integer newUsedItemIndex, Integer oldUsedItemIndex, Integer skipedWeaponLine) {
+	protected void updateWeaponsCost(Integer newUsedItemIndex, Integer oldUsedItemIndex,
+			Integer skipedWeaponLine) {
 
 		for (int i = 0; i < weaponsLines.size(); i++) {
 			if (i != skipedWeaponLine) {
@@ -234,7 +275,7 @@ public class SkillPanel extends BaseSkillPanel {
 			weaponLine.updateRankValues();
 		}
 		for (Category category : skillLinesPerCategory.keySet()) {
-			for (SkillLine skillLine : skillLinesPerCategory.get(category)) {
+			for (GenericSkillLine skillLine : skillLinesPerCategory.get(category)) {
 				skillLine.updateRanks();
 				skillLine.updateRankValues();
 			}
@@ -243,7 +284,8 @@ public class SkillPanel extends BaseSkillPanel {
 
 	public void updateWeaponCost() {
 		for (WeaponCategoryLine weaponLine : weaponsLines) {
-			weaponLine.setSelected(characterPlayer.getProfessionDecisions().getWeaponCost(weaponLine.getCategory()));
+			weaponLine.setSelected(characterPlayer.getProfessionDecisions().getWeaponCost(
+					weaponLine.getCategory()));
 		}
 	}
 }

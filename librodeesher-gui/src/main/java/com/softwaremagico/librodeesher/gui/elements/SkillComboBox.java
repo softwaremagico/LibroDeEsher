@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.elements;
+
 /*
  * #%L
  * Libro de Esher (GUI)
@@ -38,9 +39,11 @@ public class SkillComboBox extends BaseComboBox<Skill> {
 	}
 
 	public void setSkills(Category category) {
-		this.removeAllItems();
-		for (Skill skill : category.getSkills()) {
-			addItem(skill);
+		if (category != null) {
+			this.removeAllItems();
+			for (Skill skill : category.getSkills()) {
+				addItem(skill);
+			}
 		}
 	}
 

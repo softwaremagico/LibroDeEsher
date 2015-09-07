@@ -37,6 +37,11 @@ public class OptionsListPanel extends BasePanel {
 	private Integer numberOfOptions;
 	private List<String> selectedOptions;
 
+	public OptionsListPanel(OptionsPanel parent) {
+		this.parent = parent;
+		optionLines = new ArrayList<>();
+	}
+
 	public OptionsListPanel(List<String> options, Integer numberOfOptions, OptionsPanel parent,
 			List<String> selectedOptions) {
 		this.parent = parent;
@@ -75,5 +80,20 @@ public class OptionsListPanel extends BasePanel {
 
 	public void update() {
 		parent.update();
+	}
+
+	public void setNumberOfOptions(Integer numberOfOptions) {
+		this.numberOfOptions = numberOfOptions;
+	}
+
+	public void setSelectedOptions(List<String> selectedOptions) {
+		this.selectedOptions = selectedOptions;
+	}
+
+	@Override
+	public void setEnabled(boolean enabled) {
+		for (OptionLine line : optionLines) {
+			line.setEnabled(enabled);
+		}
 	}
 }

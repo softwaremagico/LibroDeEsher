@@ -29,6 +29,11 @@ Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadore
 
 Versión
 ------------
+2.2.0	Nuevo:
+		- Habilidades generalizadas y especializadas.
+	Corregido:
+		- Errores en los idiomas de cultura.
+		- Errores cuando se usa más de un personaje simultáneamente.
 2.1.1	Nuevo:
 		- Talentos se calculan automáticamente para cada raza.
 	Cambiado:

@@ -28,6 +28,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -119,7 +120,7 @@ public class CharacterProfessionPanel extends BasePanel {
 	public void update() {
 		enableProfessionComboBox = false;
 		if (character != null && character.getRace() != null) {
-			updateProfessionComboBox(character.getRace().getAvailableProfessions());
+			updateProfessionComboBox(new ArrayList<>(character.getRace().getAvailableProfessions()));
 		}
 		professionComboBox.setEnabled(character != null && !character.areCharacteristicsConfirmed());
 		updateTraining();

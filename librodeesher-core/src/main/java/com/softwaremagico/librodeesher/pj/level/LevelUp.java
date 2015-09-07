@@ -2,8 +2,10 @@ package com.softwaremagico.librodeesher.pj.level;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
@@ -70,7 +72,7 @@ public class LevelUp extends StorableObject {
 	@ElementCollection
 	@CollectionTable(name = "T_LEVELUP_GENERALIZED_SKILLS")
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<String> generalizedSkills;
+	private Set<String> generalizedSkills;
 
 	@Expose
 	@ElementCollection
@@ -89,7 +91,7 @@ public class LevelUp extends StorableObject {
 	@ElementCollection
 	@CollectionTable(name = "T_LEVEL_UP_SKILL_SPECIALIZATIONS")
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<String> skillSpecializations;
+	private Set<String> skillSpecializations;
 
 	@Expose
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -108,9 +110,9 @@ public class LevelUp extends StorableObject {
 		skillsRanks = new HashMap<>();
 		spellsUpdated = new ArrayList<>();
 		trainings = new ArrayList<>();
-		generalizedSkills = new ArrayList<>();
+		generalizedSkills = new HashSet<>();
 		trainingDecisions = new HashMap<>();
-		skillSpecializations = new ArrayList<>();
+		skillSpecializations = new HashSet<>();
 		characteristicsUpdates = new ArrayList<>();
 	}
 
@@ -250,11 +252,11 @@ public class LevelUp extends StorableObject {
 		this.trainings = trainings;
 	}
 
-	public List<String> getGeneralizedSkills() {
+	public Set<String> getGeneralizedSkills() {
 		return generalizedSkills;
 	}
 
-	public void setGeneralizedSkills(List<String> generalizedSkills) {
+	public void setGeneralizedSkills(HashSet<String> generalizedSkills) {
 		this.generalizedSkills = generalizedSkills;
 	}
 
@@ -276,7 +278,7 @@ public class LevelUp extends StorableObject {
 		return specialities;
 	}
 
-	public List<String> getSkillSpecializations() {
+	public Set<String> getSkillSpecializations() {
 		return skillSpecializations;
 	}
 
@@ -284,7 +286,7 @@ public class LevelUp extends StorableObject {
 		skillSpecializations.add(specialization);
 	}
 
-	public void setSkillSpecializations(List<String> skillSpecializations) {
+	public void setSkillSpecializations(HashSet<String> skillSpecializations) {
 		this.skillSpecializations = skillSpecializations;
 	}
 
