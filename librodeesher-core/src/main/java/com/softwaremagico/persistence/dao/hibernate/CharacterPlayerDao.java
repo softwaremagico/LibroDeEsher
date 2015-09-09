@@ -21,6 +21,15 @@ public class CharacterPlayerDao extends GenericDao<CharacterPlayer> implements I
 
 	@Override
 	public CharacterPlayer makePersistent(CharacterPlayer entity) throws DatabaseException {
+		// Imported from TXT causes to have more than one character with same
+		// comparationId but different id. Remove any previous imported
+		// character if exists.
+		if (entity.getComparationId() != null && entity.getId() == null) {
+			CharacterPlayer previousCharacter = getByComparationId(entity.getComparationId());
+			if (previousCharacter != null) {
+				makeTransient(previousCharacter);
+			}
+		}
 		CharacterPlayer player = super.makePersistent(entity);
 		removeOrphanRolls();
 		return player;
@@ -46,20 +55,23 @@ public class CharacterPlayerDao extends GenericDao<CharacterPlayer> implements I
 	@Override
 	protected void initializeSets(List<CharacterPlayer> elements) {
 		for (CharacterPlayer player : elements) {
-			// Initializes the sets for lazy-loading (within the same session)
-			Hibernate.initialize(player.getCharacteristicInitialTemporalValue());
-			Hibernate.initialize(player.getCharacteristicPotencialValue());
-			Hibernate.initialize(player.getCharacteristicsTemporalUpdatesRolls());
-			Hibernate.initialize(player.getSelectedPerks());
-			Hibernate.initialize(player.getPerkDecisions());
-			Hibernate.initialize(player.getLevelUps());
-			Hibernate.initialize(player.getEnabledSkill());
-			Hibernate.initialize(player.getMagicItems());
-			Hibernate.initialize(player.getTrainingDecisions());
-			Hibernate.initialize(player.getHistorial());
-			Hibernate.initialize(player.getRealmOfMagic());
-			Hibernate.initialize(player.getProfessionDecisions());
-			Hibernate.initialize(player.getCultureDecisions());
+			if (player != null) {
+				// Initializes the sets for lazy-loading (within the same
+				// session)
+				Hibernate.initialize(player.getCharacteristicInitialTemporalValue());
+				Hibernate.initialize(player.getCharacteristicPotencialValue());
+				Hibernate.initialize(player.getCharacteristicsTemporalUpdatesRolls());
+				Hibernate.initialize(player.getSelectedPerks());
+				Hibernate.initialize(player.getPerkDecisions());
+				Hibernate.initialize(player.getLevelUps());
+				Hibernate.initialize(player.getEnabledSkill());
+				Hibernate.initialize(player.getMagicItems());
+				Hibernate.initialize(player.getTrainingDecisions());
+				Hibernate.initialize(player.getHistorial());
+				Hibernate.initialize(player.getRealmOfMagic());
+				Hibernate.initialize(player.getProfessionDecisions());
+				Hibernate.initialize(player.getCultureDecisions());
+			}
 		}
 	}
 

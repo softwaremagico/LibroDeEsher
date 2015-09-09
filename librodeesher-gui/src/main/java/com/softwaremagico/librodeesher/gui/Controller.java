@@ -206,6 +206,17 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
+				// Imported character can have the same id of an existing
+				// character in database. Not allowed, must override.
+				if (selectedCharacter.getId() == null
+						&& CharacterPlayerDao.getInstance().exists(selectedCharacter.getComparationId())) {
+					if (!MessageManager
+							.questionMessage(
+									"Se va a sobreescrbir un personaje que ya ha sido guardado anteriormente en la base de datos. ¿Estas seguro de continuar?",
+									"Salvar")) {
+						return;
+					}
+				}
 				CharacterPlayer characterPersisted = CharacterPlayerDao.getInstance().makePersistent(
 						selectedCharacter);
 				if (characterPersisted != null) {

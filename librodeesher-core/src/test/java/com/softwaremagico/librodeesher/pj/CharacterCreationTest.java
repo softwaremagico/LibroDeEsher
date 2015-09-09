@@ -1,8 +1,11 @@
 package com.softwaremagico.librodeesher.pj;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.util.List;
@@ -65,7 +68,9 @@ public class CharacterCreationTest {
 
 	@Test(groups = { "characterStorage" }, dependsOnMethods = { "createCharacter" })
 	public void storeCharacter() throws DatabaseException {
+		int charactersStored = characterPlayerDao.getRowCount();
 		characterPlayerDao.makePersistent(characterPlayer);
+		Assert.assertEquals(characterPlayerDao.getRowCount(), charactersStored + 1);
 		Assert.assertNotNull(characterPlayer.getId());
 		Assert.assertNotNull(characterPlayer.getTotalValue(SkillFactory.getAvailableSkill("Trepar")));
 	}
@@ -137,7 +142,29 @@ public class CharacterCreationTest {
 		Assert.assertEquals(importedSheet, importedSheet);
 	}
 
-	@Test(groups = { "characterJson" }, dependsOnMethods = { "exportCharacterJson" })
+	@Test(groups = { "characterJson" }, dependsOnMethods = { "exportCharacterJson", "storeCharacter" })
+	public void importCharacterFromJson() throws DatabaseException, IOException {
+		BufferedReader bufferReader = null;
+		String jsonText = "";
+		// Read file.
+		bufferReader = new BufferedReader(new InputStreamReader(new FileInputStream(
+				System.getProperty("java.io.tmpdir") + File.separator + "character_l1.json"), "UTF8"));
+		String str;
+
+		while ((str = bufferReader.readLine()) != null) {
+			jsonText += str;
+		}
+		bufferReader.close();
+
+		CharacterPlayer importedCharacter = CharacterJsonManager.fromJson(jsonText);
+		int charactersStored = characterPlayerDao.getRowCount();
+		// Only one character allowed. Must be overridden.
+		characterPlayerDao.makePersistent(importedCharacter);
+		//No new characters on database.
+		Assert.assertEquals(characterPlayerDao.getRowCount(), charactersStored);
+	}
+
+	@Test(groups = { "characterJson" }, dependsOnMethods = { "importCharacterFromJson" })
 	public void exportLevelJson() throws MagicDefinitionException, InvalidProfessionException,
 			FileNotFoundException, InvalidLevelException, InvalidCharacterException,
 			CharacteristicNotEqualsException, CategoryNotEqualsException, SkillNotEqualsException {
@@ -159,8 +186,8 @@ public class CharacterCreationTest {
 			}
 		});
 		randomCharacter.setDevelopmentPoints();
-		
-		//Export character 
+
+		// Export character
 		String characterLevel2 = CharacterJsonManager.toJson(characterPlayer);
 		PrintWriter out3 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
 				+ "character_l2.json");
@@ -195,7 +222,7 @@ public class CharacterCreationTest {
 				+ "importedCharacterSheetLvl2.txt");
 		out2.println(importedSheet2);
 		out2.close();
-		
+
 		String characterLevel2duplicated = CharacterJsonManager.toJson(duplicatedCharacter);
 		PrintWriter out4 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
 				+ "character_l2dup.json");
@@ -208,8 +235,7 @@ public class CharacterCreationTest {
 		orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
 		importedSheet = TxtSheet.getCharacterStandardSheetAsText(duplicatedCharacter);
 
-		out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
-				+ "originalSheet.txt");
+		out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "originalSheet.txt");
 		out1.println(orginalSheet);
 		out1.close();
 
@@ -222,7 +248,7 @@ public class CharacterCreationTest {
 		Assert.assertTrue(importedSheet.equals(orginalSheet));
 	}
 
-	@Test(groups = { "characterCreation" }, dependsOnMethods = { "createCharacter" })
+	@Test(groups = { "characterCreation" }, dependsOnMethods = { "createCharacter", "storeCharacter" })
 	private void magicObjectTest() throws DatabaseException {
 		Skill broadSword = SkillFactory.getSkill("Espada");
 		Assert.assertNotNull(broadSword);

@@ -16,7 +16,7 @@ public interface IGenericDao<T> {
 	 * 
 	 * @param planningEvent
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	T makePersistent(T entity) throws Exception;
 
@@ -49,4 +49,20 @@ public interface IGenericDao<T> {
 	 * @return
 	 */
 	void removeAll();
+
+	/**
+	 * Gets the entity with this comparationId.
+	 * 
+	 * @param comparationId
+	 * @return
+	 */
+	T getByComparationId(String comparationId);
+
+	/**
+	 * Checks if already exists and entity with this comparationId.
+	 * 
+	 * @param comparationId
+	 * @return
+	 */
+	boolean exists(String comparationId);
 }

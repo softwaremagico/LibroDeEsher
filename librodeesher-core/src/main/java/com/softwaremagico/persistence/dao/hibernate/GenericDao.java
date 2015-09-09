@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.DistinctRootEntityResultTransformer;
 
 import com.softwaremagico.persistence.HibernateInitializator;
@@ -86,6 +87,43 @@ public abstract class GenericDao<T> extends StorableObjectDao<T> implements IGen
 	}
 
 	@Override
+	public T getByComparationId(String comparationId) {
+		Session session = getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		try {
+			Criteria criteria = session.createCriteria(getType()).add(
+					Restrictions.eq("comparationId", comparationId));
+			@SuppressWarnings("unchecked")
+			T object = (T) criteria.uniqueResult();
+			if (object != null) {
+				initializeSet(object);
+			}
+			session.getTransaction().commit();
+			return object;
+		} catch (RuntimeException e) {
+			session.getTransaction().rollback();
+			throw e;
+		}
+	}
+
+	@Override
+	public boolean exists(String comparationId) {
+		Session session = getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		try {
+			Criteria criteria = session.createCriteria(getType()).add(
+					Restrictions.eq("comparationId", comparationId));
+			criteria.setProjection(Projections.rowCount());
+			int rows = ((Long) criteria.uniqueResult()).intValue();
+			session.getTransaction().commit();
+			return rows > 0;
+		} catch (RuntimeException e) {
+			session.getTransaction().rollback();
+			throw e;
+		}
+	}
+
+	@Override
 	public int getRowCount() {
 		Session session = getSessionFactory().getCurrentSession();
 		session.beginTransaction();
@@ -106,7 +144,8 @@ public abstract class GenericDao<T> extends StorableObjectDao<T> implements IGen
 		Session session = getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		try {
-			// session.createCriteria(getType()).list() is not working returns repeated elements due to
+			// session.createCriteria(getType()).list() is not working returns
+			// repeated elements due to
 			// http://stackoverflow.com/questions/8758363/why-session-createcriteriaclasstype-list-return-more-object-than-in-list
 			// if we have a list with eager fetch.
 			Criteria criteria = session.createCriteria(getType());
@@ -137,8 +176,8 @@ public abstract class GenericDao<T> extends StorableObjectDao<T> implements IGen
 
 	/**
 	 * When using lazy loading, the sets must have a proxy to avoid a
-	 * "LazyInitializationException: failed to lazily initialize a collection of..." error. This procedure must be
-	 * called before closing the session.
+	 * "LazyInitializationException: failed to lazily initialize a collection of..."
+	 * error. This procedure must be called before closing the session.
 	 * 
 	 * @param planningEvent
 	 */
@@ -150,8 +189,8 @@ public abstract class GenericDao<T> extends StorableObjectDao<T> implements IGen
 
 	/**
 	 * When using lazy loading, the sets must have a proxy to avoid a
-	 * "LazyInitializationException: failed to lazily initialize a collection of..." error. This procedure must be
-	 * called before closing the session.
+	 * "LazyInitializationException: failed to lazily initialize a collection of..."
+	 * error. This procedure must be called before closing the session.
 	 * 
 	 * @param elements
 	 */
