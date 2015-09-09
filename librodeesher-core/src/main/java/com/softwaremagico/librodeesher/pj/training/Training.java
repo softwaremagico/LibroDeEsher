@@ -52,8 +52,8 @@ public class Training {
 	private List<String> limitedRaces;
 	private List<TrainingItem> objects;
 	private List<TrainingCategory> categoriesWithRanks;
-	private List<List<CharacteristicsAbbreviature>> updateCharacteristics; // Choose
-																			// one
+	//Choose one.
+	private List<List<CharacteristicsAbbreviature>> updateCharacteristics; 
 	private HashMap<CharacteristicsAbbreviature, Integer> characteristicRequirements;
 	private HashMap<CharacteristicsAbbreviature, Integer> characteristicRequirementsCostModification;
 	private HashMap<String, Integer> skillRequirements;

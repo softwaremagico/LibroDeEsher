@@ -165,7 +165,7 @@ public class PerkFactory {
 		if (bonus[1].contains("*")) {
 			conditionalBonus = true;
 		}
-		if (bonus[1].contains("r")) {
+		if (bonus[1].contains("r)")) {
 			ranksBonus = true;
 		}
 		String bonusString = bonus[1].replace(")", "").trim();

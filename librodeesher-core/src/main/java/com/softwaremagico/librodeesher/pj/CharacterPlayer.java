@@ -951,6 +951,10 @@ public class CharacterPlayer extends StorableObject {
 		}
 		total += getTrainingRanks(skill);
 
+		for (SelectedPerk perk : getSelectedPerks()) {
+			total += PerkFactory.getPerk(perk.getName()).getSkillRanksBonus(skill.getName());
+		}
+
 		return total;
 	}
 
@@ -1118,7 +1122,7 @@ public class CharacterPlayer extends StorableObject {
 	 */
 	public Integer getPerkBonus(Skill skill) {
 		Integer total = 0;
-		for (SelectedPerk perk : selectedPerks) {
+		for (SelectedPerk perk : getSelectedPerks()) {
 			total += PerkFactory.getPerk(perk).getBonus(skill);
 			PerkDecision decision = perkDecisions.get(perk.getName());
 			if (decision != null) {
@@ -1126,8 +1130,6 @@ public class CharacterPlayer extends StorableObject {
 					total += PerkFactory.getPerk(perk).getChosenBonus();
 				}
 			}
-			// Get rank bonus.
-			total += PerkFactory.getPerk(perk).getSkillRanksBonus(skill.getName()) * getRealRanks(skill);
 		}
 		return total;
 	}
@@ -1139,7 +1141,6 @@ public class CharacterPlayer extends StorableObject {
 			if (bonus != null) {
 				total += bonus;
 			}
-
 		}
 		return total;
 	}
