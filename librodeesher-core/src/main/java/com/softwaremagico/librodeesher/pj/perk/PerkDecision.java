@@ -1,7 +1,7 @@
 package com.softwaremagico.librodeesher.pj.perk;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
@@ -25,31 +25,45 @@ public class PerkDecision extends StorableObject {
 	@ElementCollection
 	@CollectionTable(name = "T_PERKS_DECISION_CATEGORY_BONUS_CHOSEN")
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<String> categoriesBonusChosen;
+	private Set<String> categoriesBonusChosen;
+
+	@Expose
+	@ElementCollection
+	@CollectionTable(name = "T_PERKS_DECISION_CATEGORY_RANKS_CHOSEN")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private Set<String> categoriesRanksChosen;
 
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_PERKS_DECISION_SKILLS_BONUS_CHOSEN")
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<String> skillsBonusChosen;
+	private Set<String> skillsBonusChosen;
+
+	@Expose
+	@ElementCollection
+	@CollectionTable(name = "T_PERKS_DECISION_SKILLS_RANKS_CHOSEN")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private Set<String> skillsRanksChosen;
 
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_PERKS_DECISION_COMMON_SKILLS_CHOSEN")
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<String> commonSkillsChosen;
+	private Set<String> commonSkillsChosen;
 
 	public PerkDecision() {
-		categoriesBonusChosen = new ArrayList<>();
-		skillsBonusChosen = new ArrayList<>();
-		commonSkillsChosen = new ArrayList<>();
+		categoriesBonusChosen = new HashSet<>();
+		skillsBonusChosen = new HashSet<>();
+		commonSkillsChosen = new HashSet<>();
+		skillsRanksChosen = new HashSet<>();
+		categoriesRanksChosen = new HashSet<>();
 	}
 
 	@Override
 	public void resetIds() {
 		resetIds(this);
 	}
-	
+
 	@Override
 	public void resetComparationIds() {
 		resetComparationIds(this);
@@ -67,27 +81,44 @@ public class PerkDecision extends StorableObject {
 		return commonSkillsChosen.contains(skill.getName());
 	}
 
-	public List<String> getCommonSkillsChosen() {
+	public Set<String> getCommonSkillsChosen() {
 		return commonSkillsChosen;
 	}
 
-	public void setCommonSkillsChosen(List<String> commonSkillsChosen) {
+	public void setCommonSkillsChosen(Set<String> commonSkillsChosen) {
 		this.commonSkillsChosen = commonSkillsChosen;
 	}
 
-	protected List<String> getCategoriesBonusChosen() {
+	protected Set<String> getCategoriesBonusChosen() {
 		return categoriesBonusChosen;
 	}
 
-	public void setCategoriesBonusChosen(List<String> categoriesBonusChosen) {
+	public void setCategoriesBonusChosen(Set<String> categoriesBonusChosen) {
 		this.categoriesBonusChosen = categoriesBonusChosen;
 	}
 
-	protected List<String> getSkillsBonusChosen() {
+	protected Set<String> getSkillsBonusChosen() {
 		return skillsBonusChosen;
 	}
 
-	public void setSkillsBonusChosen(List<String> skillsBonusChosen) {
+	public void setSkillsBonusChosen(Set<String> skillsBonusChosen) {
 		this.skillsBonusChosen = skillsBonusChosen;
 	}
+
+	public Set<String> getCategoriesRanksChosen() {
+		return categoriesRanksChosen;
+	}
+
+	public void setCategoriesRanksChosen(Set<String> categoriesRanksChosen) {
+		this.categoriesRanksChosen = categoriesRanksChosen;
+	}
+
+	public Set<String> getSkillsRanksChosen() {
+		return skillsRanksChosen;
+	}
+
+	public void setSkillsRanksChosen(Set<String> skillsRanksChosen) {
+		this.skillsRanksChosen = skillsRanksChosen;
+	}
+	
 }

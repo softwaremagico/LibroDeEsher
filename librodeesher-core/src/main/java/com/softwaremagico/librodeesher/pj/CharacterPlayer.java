@@ -56,6 +56,7 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
+import com.softwaremagico.librodeesher.pj.categories.CategoryType;
 import com.softwaremagico.librodeesher.pj.characteristic.Appearance;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
@@ -926,6 +927,9 @@ public class CharacterPlayer extends StorableObject {
 		total += getPreviousLevelsRanks(category);
 		total += getTrainingRanks(category);
 		total += getInsertedRanks(category);
+		for (PerkDecision perkDecision : getPerkDecisions().values()) {
+			total += perkDecision.getCategoriesRanksChosen().contains(category.getName()) ? 1 : 0;
+		}
 		return total;
 	}
 
@@ -950,9 +954,9 @@ public class CharacterPlayer extends StorableObject {
 			}
 		}
 		total += getTrainingRanks(skill);
-
-		for (SelectedPerk perk : getSelectedPerks()) {
-			total += PerkFactory.getPerk(perk.getName()).getSkillRanksBonus(skill.getName());
+		
+		for (PerkDecision perkDecision : getPerkDecisions().values()) {
+			total += perkDecision.getSkillsRanksChosen().contains(skill.getName()) ? 1 : 0;
 		}
 
 		return total;
@@ -1100,7 +1104,7 @@ public class CharacterPlayer extends StorableObject {
 
 	public Integer getPerkApperanceBonus() {
 		Integer total = 0;
-		for (SelectedPerk perk : selectedPerks) {
+		for (SelectedPerk perk : getSelectedPerks()) {
 			total += PerkFactory.getPerk(perk).getAppareanceBonus();
 		}
 		return total;
@@ -1108,7 +1112,7 @@ public class CharacterPlayer extends StorableObject {
 
 	public Integer getPerkCharacteristicBonus(CharacteristicsAbbreviature characteristic) {
 		Integer total = 0;
-		for (SelectedPerk perk : selectedPerks) {
+		for (SelectedPerk perk : getSelectedPerks()) {
 			total += PerkFactory.getPerk(perk).getCharacteristicBonus(characteristic);
 		}
 		return total;
@@ -1130,6 +1134,8 @@ public class CharacterPlayer extends StorableObject {
 					total += PerkFactory.getPerk(perk).getChosenBonus();
 				}
 			}
+			// Get rank bonus. Some perks add an extra bonus for each rank
+			total += PerkFactory.getPerk(perk).getSkillRanksBonus(skill.getName()) * getRealRanks(skill);
 		}
 		return total;
 	}
@@ -1579,25 +1585,42 @@ public class CharacterPlayer extends StorableObject {
 		return getRace().getPerksPoints() - getSpentPerksPoints();
 	}
 
-	public void setPerkBonusDecision(Perk perk, List<String> chosenOptions) {
+	public void setPerkBonusDecision(Perk perk, Set<String> chosenOptions) {
 		if (chosenOptions != null && chosenOptions.size() > 0) {
 			PerkDecision perkDecision = perkDecisions.get(perk.getName());
 			if (perkDecision == null) {
 				perkDecision = new PerkDecision();
 			}
 			// Is the list a category list?
-			if (perk.isCategorySelectable(chosenOptions.get(0))) {
+			if (perk.isCategorySelectable(chosenOptions.iterator().next())) {
 				perkDecision.setCategoriesBonusChosen(chosenOptions);
 			}
 			// Is the list a skill list?
-			if (perk.isSkillSelectable(chosenOptions.get(0))) {
+			if (perk.isSkillSelectable(chosenOptions.iterator().next())) {
 				perkDecision.setSkillsBonusChosen(chosenOptions);
 			}
 			perkDecisions.put(perk.getName(), perkDecision);
 		}
 	}
 
-	public void setPerkCommonDecision(Perk perk, List<String> commonSkillsChosen) {
+	public void setPerkRankDecision(Perk perk, Set<String> chosenOptions) {
+		if (chosenOptions != null && chosenOptions.size() > 0) {
+			PerkDecision perkDecision = perkDecisions.get(perk.getName());
+			if (perkDecision == null) {
+				perkDecision = new PerkDecision();
+			}
+			// Is the list a category list?
+			Category category = CategoryFactory.getCategory((chosenOptions.iterator().next()));
+			if (category != null && category.getCategoryType().equals(CategoryType.STANDARD)) {
+				perkDecision.setCategoriesRanksChosen(chosenOptions);
+			} else {
+				perkDecision.setSkillsRanksChosen(chosenOptions);
+			}
+			perkDecisions.put(perk.getName(), perkDecision);
+		}
+	}
+
+	public void setPerkCommonDecision(Perk perk, Set<String> commonSkillsChosen) {
 		if (commonSkillsChosen != null && commonSkillsChosen.size() > 0) {
 			PerkDecision perkDecision = perkDecisions.get(perk.getName());
 			if (perkDecision == null) {

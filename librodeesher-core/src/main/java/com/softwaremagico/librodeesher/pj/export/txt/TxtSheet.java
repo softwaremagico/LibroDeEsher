@@ -107,9 +107,9 @@ public class TxtSheet {
 						if (characterPlayer.getHistorial().isHistorialPointSelected(skill)) {
 							bonus += "H";
 						}
-						int bonusTalentos = characterPlayer.getConditionalPerkBonus(skill);
+						int perkBonus = characterPlayer.getPerkBonus(skill);
 						int conditionalPerkBonus = characterPlayer.getConditionalPerkBonus(skill);
-						if (bonusTalentos != 0) {
+						if (perkBonus != 0 || conditionalPerkBonus != 0) {
 							bonus += "T";
 							if (conditionalPerkBonus > 0) {
 								bonus += "*";
@@ -151,11 +151,8 @@ public class TxtSheet {
 								total = characterPlayer.getSpecializedTotalValue(skill).toString();
 							}
 							text = text
-									+ String.format(
-											stringFormatStr,
-											"  *  "
-													+ characterPlayer.getSkillSpecializations(skill).get(m),
-											"",
+									+ String.format(stringFormatStr, "  *  "
+											+ characterPlayer.getSkillSpecializations(skill).get(m), "",
 											characterPlayer.getSpecializedRanksValue(skill),
 											characterPlayer.getTotalValue(category), bonus, total);
 						}

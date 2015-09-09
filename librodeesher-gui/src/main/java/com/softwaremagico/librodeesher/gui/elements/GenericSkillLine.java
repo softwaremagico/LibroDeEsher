@@ -41,7 +41,7 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class GenericSkillLine extends BaseSkillLine {
 	private static final long serialVersionUID = -3194401962061016906L;
-	protected ListLabel skillNameLabel, bonusRankLabel, totalLabel, bonusCategory, otherBonus,
+	protected ListLabel skillNameLabel, bonusRankLabel, totalLabel, bonusCategory, otherBonusLabel,
 			prevRanksLabel, bonusMagicObject;
 	protected Skill skill;
 	private Color background;
@@ -164,14 +164,14 @@ public class GenericSkillLine extends BaseSkillLine {
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			if (otherBonusPanel) {
-				otherBonus = new ListLabel(
+				otherBonusLabel = new ListLabel(
 						(character.getProfession().getSkillBonus(skill.getName())
 								+ character.getHistorial().getBonus(skill) + character.getPerkBonus(skill) + character.getConditionalPerkBonus(skill))
 								+ "", columnWidth, columnHeight);
 			} else {
-				otherBonus = new ListLabel("", columnWidth, columnHeight);
+				otherBonusLabel = new ListLabel("", columnWidth, columnHeight);
 			}
-			add(otherBonus, gridBagConstraints);
+			add(otherBonusLabel, gridBagConstraints);
 		}
 
 		if (objectBonusPanel || !isEmptyColumns()) {
@@ -229,13 +229,17 @@ public class GenericSkillLine extends BaseSkillLine {
 		if (totalPanel) {
 			totalLabel.setText(getTotalValue());
 		}
+		//Some perks has bonus for each rank
+		if(otherBonusPanel){
+			otherBonusLabel.setText(character.getBonus(skill).toString());
+		}
 	}
 
 	public void updateRankValues() {
 		prevRanksLabel.setText(character.getPreviousRanks(skill).toString());
 		bonusRankLabel.setText(getRanksValue());
 		bonusCategory.setText(character.getTotalValue(skill.getCategory()).toString());
-		otherBonus.setText(character.getBonus(skill).toString());
+		otherBonusLabel.setText(character.getBonus(skill).toString());
 		bonusMagicObject.setText("0");
 		totalLabel.setText(getTotalValue());
 	}

@@ -88,7 +88,10 @@ public class PerkFactory {
 		return index;
 	}
 
-	private static ChooseType getOption(String bonusString) {
+	private static ChooseType getOption(String bonusString, boolean ranksBonus) {
+		if (ranksBonus) {
+			return ChooseType.RANK;
+		}
 		if (bonusString.toLowerCase().contains(Spanish.COMMON_TAG)) {
 			return ChooseType.COMMON;
 		}
@@ -103,20 +106,25 @@ public class PerkFactory {
 		Integer options = Integer.parseInt(set[1].substring(set[1].indexOf("[") + 1, set[1].indexOf("]"))
 				.trim());
 
+		boolean ranksBonus = false;
+		if (set[1].contains("r)")) {
+			ranksBonus = true;
+		}
+
 		// Obtain the bonus
 		String bonusString = set[1].substring(set[1].indexOf("\\(") + 1, set[1].indexOf(")"))
-				.replace("*", "").replace("r", "").trim();
+				.replace("*", "").replace("r", "").replace("/", "").trim();
 
 		// Obtain the list to choose.
 		if (set[0].toLowerCase().contains(Spanish.ANY_WEAPON_CATEGORY)) {
 			perk.addCategoriesToChoose(new ChooseCategoryGroup(options, CategoryFactory
-					.getWeaponsCategories(), getOption(bonusString)));
+					.getWeaponsCategories(), getOption(bonusString, ranksBonus)));
 		} else if (set[0].toLowerCase().contains(Spanish.ANY_CATEGORY)) {
 			perk.addCategoriesToChoose(new ChooseCategoryGroup(options, CategoryFactory.getCategories(),
-					getOption(bonusString)));
+					getOption(bonusString, ranksBonus)));
 		} else if (set[0].toLowerCase().contains(Spanish.ANY_WEAPON)) {
-			perk.addSkillsToChoose(new ChooseSkillGroup(options, SkillFactory.getWeaponSkills(),
-					getOption(bonusString)));
+			perk.addSkillsToChoose(new ChooseSkillGroup(options, SkillFactory.getWeaponSkills(), getOption(
+					bonusString, ranksBonus)));
 		} else if (set[0].toLowerCase().contains(Spanish.ANY_SKILL)) {
 			perk.addSkillsToChoose(new ChooseSkillGroup(options, SkillFactory.getSkills(), ChooseType.BONUS));
 		} else { // Obtain the list
@@ -137,15 +145,15 @@ public class PerkFactory {
 			}
 			if (categoriesToChoose.size() > 0) {
 				perk.addCategoriesToChoose(new ChooseCategoryGroup(options, categoriesToChoose
-						.toArray(new String[categoriesToChoose.size()]), getOption(bonusString)));
+						.toArray(new String[categoriesToChoose.size()]), getOption(bonusString, ranksBonus)));
 			}
 			if (skillsToChoose.size() > 0) {
 				perk.addSkillsToChoose(new ChooseSkillGroup(options, skillsToChoose
-						.toArray(new String[skillsToChoose.size()]), getOption(bonusString)));
+						.toArray(new String[skillsToChoose.size()]), getOption(bonusString, ranksBonus)));
 			}
 		}
 
-		if (getOption(bonusString).equals(ChooseType.BONUS)) {
+		if (getOption(bonusString, ranksBonus).equals(ChooseType.BONUS)) {
 			perk.setChosenBonus(Integer.parseInt(bonusString));
 		}
 	}
@@ -154,6 +162,7 @@ public class PerkFactory {
 			InvalidPerkDefinition {
 		boolean conditionalBonus = false;
 		boolean ranksBonus = false;
+		boolean extraRanks = false;
 		String[] bonus = optionsLine.split("\\(");
 		// For each bonus.
 		String bonusName = bonus[0].trim();
@@ -166,7 +175,11 @@ public class PerkFactory {
 			conditionalBonus = true;
 		}
 		if (bonus[1].contains("r)")) {
-			ranksBonus = true;
+			if (bonus[1].contains("/")) {
+				ranksBonus = true;
+			} else {
+				extraRanks = true;
+			}
 		}
 		String bonusString = bonus[1].replace(")", "").trim();
 		if (SkillFactory.existSkill(bonusName)) {
@@ -175,26 +188,36 @@ public class PerkFactory {
 			} else if (bonusString.toLowerCase().contains(Spanish.RESTRICTED_TAG)) {
 				perk.setSkillAsRestricted(bonusName, true);
 			} else {
-				Integer bonusNumber = Integer.parseInt(bonusString.replace("*", "").replace("r", ""));
+				Integer bonusNumber = Integer.parseInt(bonusString.replace("*", "").replace("r", "")
+						.replace("/", ""));
 				if (conditionalBonus) {
 					perk.setSkillConditionalBonus(bonusName, bonusNumber);
 				} else if (ranksBonus) {
-					perk.setSkillRanks(bonusName, bonusNumber);
+					if (extraRanks) {
+						//No ranks directly to a skill.
+					} else {
+						perk.setSkillRanksBonus(bonusName, bonusNumber);
+					}
 				} else {
 					perk.setSkillBonus(bonusName, bonusNumber);
 				}
-			}		
+			}
 		} else if (CategoryFactory.existCategory(bonusName)) {
 			if (bonusString.toLowerCase().contains(Spanish.COMMON_TAG)) {
 				perk.setCategoryToSelectCommonSkills(CategoryFactory.getCategory(bonusName), 1);
 			} else if (bonusString.toLowerCase().contains(Spanish.RESTRICTED_TAG)) {
 				perk.setCategoryAsRestricted(bonusName, true);
 			} else {
-				Integer bonusNumber = Integer.parseInt(bonusString.replace("*", "").replace("r", ""));
+				Integer bonusNumber = Integer.parseInt(bonusString.replace("*", "").replace("r", "")
+						.replace("/", ""));
 				if (conditionalBonus) {
 					perk.setCategoriesConditionalBonus(bonusName, bonusNumber);
 				} else if (ranksBonus) {
-					perk.setCategoryRanks(bonusName, bonusNumber);
+					if (extraRanks) {
+						perk.setCategorySkillsRanksBonus(bonusName, bonusNumber);
+					} else {
+						perk.setCategoryRanksBonus(bonusName, bonusNumber);
+					}
 				} else {
 					perk.setCategoryBonus(bonusName, bonusNumber);
 				}

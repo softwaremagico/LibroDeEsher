@@ -30,6 +30,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.HashSet;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -50,7 +51,8 @@ public class PerkOptionsWindow<T> extends BaseFrame {
 	private PerkLine parent;
 	private ChooseGroup<T> chooseOptions;
 
-	public PerkOptionsWindow(CharacterPlayer character, Perk perk, ChooseGroup<T> chooseOptions, PerkLine parent) {
+	public PerkOptionsWindow(CharacterPlayer character, Perk perk, ChooseGroup<T> chooseOptions,
+			PerkLine parent) {
 		this.character = character;
 		this.perk = perk;
 		this.parent = parent;
@@ -101,10 +103,13 @@ public class PerkOptionsWindow<T> extends BaseFrame {
 	public void updateFrame() {
 		switch (chooseOptions.getChooseType()) {
 		case BONUS:
-			character.setPerkBonusDecision(perk, selectedOption.getSelectedOptions());
+			character.setPerkBonusDecision(perk, new HashSet<String>(selectedOption.getSelectedOptions()));
 			break;
 		case COMMON:
-			character.setPerkCommonDecision(perk, selectedOption.getSelectedOptions());
+			character.setPerkCommonDecision(perk, new HashSet<String>(selectedOption.getSelectedOptions()));
+			break;
+		case RANK:
+			character.setPerkRankDecision(perk, new HashSet<String>(selectedOption.getSelectedOptions()));
 			break;
 		default:
 			break;

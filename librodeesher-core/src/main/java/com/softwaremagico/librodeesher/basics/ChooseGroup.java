@@ -58,7 +58,7 @@ public abstract class ChooseGroup<T> {
 		this.optionsGroup = optionsGroup;
 	}
 
-	protected void setNumberOfOptionsToChoose(int numberOfOptionsToChoose) {
+	public void setNumberOfOptionsToChoose(int numberOfOptionsToChoose) {
 		this.numberOfOptionsToChoose = numberOfOptionsToChoose;
 	}
 }

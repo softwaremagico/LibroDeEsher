@@ -331,6 +331,11 @@
         categoriesBonusChosen varchar(255)
     );
 
+    create table T_PERKS_DECISION_CATEGORY_RANKS_CHOSEN (
+        PerkDecision_ID bigint not null,
+        categoriesRanksChosen varchar(255)
+    );
+
     create table T_PERKS_DECISION_COMMON_SKILLS_CHOSEN (
         PerkDecision_ID bigint not null,
         commonSkillsChosen varchar(255)
@@ -339,6 +344,11 @@
     create table T_PERKS_DECISION_SKILLS_BONUS_CHOSEN (
         PerkDecision_ID bigint not null,
         skillsBonusChosen varchar(255)
+    );
+
+    create table T_PERKS_DECISION_SKILLS_RANKS_CHOSEN (
+        PerkDecision_ID bigint not null,
+        skillsRanksChosen varchar(255)
     );
 
     create table T_PROFESSIONS_REALMS_MAGIC (
@@ -927,6 +937,11 @@
         foreign key (PerkDecision_ID) 
         references T_PERKS_DECISION (ID);
 
+    alter table T_PERKS_DECISION_CATEGORY_RANKS_CHOSEN 
+        add constraint FK_ed56v5ec3aiq9mmnv9k1djkfe 
+        foreign key (PerkDecision_ID) 
+        references T_PERKS_DECISION (ID);
+
     alter table T_PERKS_DECISION_COMMON_SKILLS_CHOSEN 
         add constraint FK_4oocuq82gxdbki49xmfpteikt 
         foreign key (PerkDecision_ID) 
@@ -934,6 +949,11 @@
 
     alter table T_PERKS_DECISION_SKILLS_BONUS_CHOSEN 
         add constraint FK_ns1rxxvksdcpff7ckgpmymjel 
+        foreign key (PerkDecision_ID) 
+        references T_PERKS_DECISION (ID);
+
+    alter table T_PERKS_DECISION_SKILLS_RANKS_CHOSEN 
+        add constraint FK_ei6fol3jyx2hvnr17x8ptrwns 
         foreign key (PerkDecision_ID) 
         references T_PERKS_DECISION (ID);
 

@@ -157,7 +157,8 @@ public class PerkLine extends BaseLine {
 	}
 
 	private void createSelectOptionsWindow() {
-		if (!perk.getCategoriesToChoose().isEmpty()) {
+		// More than one category, select one of them.
+		if (perk.getCategoriesToChoose().size() > 1) {
 			for (ChooseCategoryGroup options : perk.getCategoriesToChoose()) {
 				PerkOptionsWindow<Category> optionsWindow = new PerkOptionsWindow<Category>(character, perk,
 						options, this);
@@ -165,7 +166,20 @@ public class PerkLine extends BaseLine {
 				optionsWindow.setVisible(true);
 			}
 		}
+		// One category, select skills.
+		if (perk.getCategoriesToChoose().size() == 1) {
+			ChooseCategoryGroup options = perk.getCategoriesToChoose().get(0);
+			ChooseSkillGroup skillOptions = new ChooseSkillGroup(perk.getCategorySkillsRanksBonus(character
+					.getCategory(options.getOptionsGroup().get(0)).getName()), character.getCategory(
+					options.getOptionsGroup().get(0)).getSkills(), options.getChooseType());
+			skillOptions.setNumberOfOptionsToChoose(options.getNumberOfOptionsToChoose());
+			PerkOptionsWindow<Skill> optionsWindow = new PerkOptionsWindow<Skill>(character, perk,
+					skillOptions, this);
+			optionsWindow.setPointCounterLabel("Habilidades: ");
+			optionsWindow.setVisible(true);
+		}
 
+		// Select one skill from list.
 		if (!perk.getSkillsToChoose().isEmpty()) {
 			for (ChooseSkillGroup options : perk.getSkillsToChoose()) {
 				PerkOptionsWindow<Skill> optionsWindow = new PerkOptionsWindow<Skill>(character, perk,

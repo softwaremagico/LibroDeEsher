@@ -2,7 +2,8 @@
 #########	#########	#########	#########	#########	#########	
 Arma Natural	15	Todos	Mayor	Ninguna	Tienes garras, púas, zarpas, pinzas... que puedes usar para atacar desarrollando la habilidad pertinente en Ataques Especiales. Esta habilidad será común para ti. 
 Juego de Muñecas	15	Todos	Mayor	Artes Marciales·Barridos (20), Artes Marciales·Golpes (20), Armas·Arrojadizas (20)	Consulta la página 58 del libro de personajes para más información.	
-Poder (Mínimo)	5	Todos	Mínimo	Listas Básicas de Hechizos (3r)	Tienes tres rangos adicionales de hechizos.	
+Poder (Mínimo)	5	Todos	Mínimo	{Listas Básicas de Hechizos} (3r)[3]	Tienes tres rangos adicionales de hechizos.	
+Aura	20	Todos	Máximo	Desarrollo de Puntos de Poder (+4/r)	Te da +4 a cada rango de la habilidad de Desarrollo de Puntos de Poder. Consulta la página 62 del libro de personajes para más información.	
 Arquero Nato 	8	Todos	Menor	Armas·Proyectiles (5)	Aumentas el alcance de todos los arcos un 25%. Consulta la página 52 del libro de personajes para más información.	
 Adiestramiento en Artes Marciales (Menor)	10	Todos	Menor	Artes Marciales·Barridos (10), Artes Marciales·Golpes (10), Artes Marciales·Maniobras de Combate (10), Autocontrol (10), Defensas Especiales (10)	Consulta la página 52 del libro de personajes para más información.	
 Adiestramiento en Artes Marciales (Mayor)	15	Todos	Mayor	Artes Marciales·Barridos (15), Artes Marciales·Golpes (15), Artes Marciales·Maniobras de Combate (15), Autocontrol (15), Defensas Especiales (15)	Consulta la página 52 del libro de personajes para más información.	
@@ -86,7 +87,6 @@ Zoquete	-20	Todos	Máximo	Artes Marciales·Barridos (-20), Artes Marciales·Golp
 Sin Equilibrio	-20	Todos	Máximo	Acechar (-20), Caminar con Zancos (-20), Caminar por la Cuerda Floja (-20)	Consulta la página 89 del libro de personajes para más información.	
 Capacidad Mágica	30	Todos	Máximo	TR Reino (50), Listas Básicas de Hechizos (25), Listas Abiertas de Hechizos (25), Listas Cerradas de Hechizos (25), Listas Básicas de Otras Profesiones (25), Listas Básicas de la Tríada (25), Listas Hechizos de Adiestramiento (25), Listas Básicas Elementales Complementarias (25), Sintonización (25*), Leer Runas (25*)	Solo afecta a los hechizos y objetos de tu propio reino. Consulta la página 62 del libro de personajes para más información.	
 Elocuencia	15	Todos	Mayor	Listas Básicas de Hechizos (15), Listas Abiertas de Hechizos (15), Listas Cerradas de Hechizos (15), Listas Básicas de Otras Profesiones (15), Listas Básicas de la Tríada (15), Listas Básicas Elementales Complementarias (15), Listas Hechizos de Adiestramiento (15), Listas Abiertas de Otros Reinos (15), Listas Abiertas Arcanas (15), Listas Cerradas de Otros Reinos (15)	Solo afecta a los hechizos y objetos de tu propio reino. Consulta la página 62 del libro de personajes para más información.
-Aura	20	Todos	Máximo	Desarrollo de Puntos de Poder (4r)	Consulta la página 62 del libro de personajes para más información.	
 Maldición de las Armas	-15	Todos	Máximo	{cualquier Categoría de Armas} (-20)[-1]	Consulta la página 94 del libro de personajes para más información.	
 Experimentado (Hab) (Mínimo)	5	Todos	Mínimo	{Cualquier Habilidad} (10)[1]	Solamente Habilidades con progresión Estándar o Combinada. Consulta la página 54 del libro de personajes para más información.	
 Experimentado (Cat) (Mínimo)	5	Todos	Mínimo	{Cualquier Categoría} (5)[1]	Solamente Categorías con progresión Estándar o Combinada. Consulta la página 54 del libro de personajes para más información.	

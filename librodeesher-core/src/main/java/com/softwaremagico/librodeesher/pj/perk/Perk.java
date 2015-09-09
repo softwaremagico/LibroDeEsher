@@ -25,7 +25,12 @@ public class Perk {
 	private PerkCategory category;
 	private Map<String, Integer> categoryBonus;
 	private Map<String, Integer> conditionalCategoryBonus;
+	// Extra ranks to category.
+	private Map<String, Integer> categoryExtraRanks;
+	// Extra bonus to ranks to category.
 	private Map<String, Integer> categoryRanksBonus;
+	// Extra ranks to any skill of the category.
+	private Map<String, Integer> categorySkillsRanksBonus;
 	private Map<String, Integer> skillBonus;
 	private Map<String, Integer> skillRanksBonus;
 	private Map<String, Integer> conditionalSkillBonus;
@@ -61,6 +66,7 @@ public class Perk {
 		conditionalSkillBonus = new HashMap<>();
 		skillRanksBonus = new HashMap<>();
 		categoryRanksBonus = new HashMap<>();
+		categorySkillsRanksBonus = new HashMap<>();
 		commonSkills = new ArrayList<>();
 		restrictedSkills = new ArrayList<>();
 		commonCategories = new ArrayList<>();
@@ -138,7 +144,7 @@ public class Perk {
 		}
 	}
 
-	public void setSkillRanks(String skillName, Integer ranks) {
+	public void setSkillRanksBonus(String skillName, Integer ranks) {
 		if (ranks == null || ranks == 0) {
 			skillRanksBonus.remove(skillName);
 		} else {
@@ -146,11 +152,31 @@ public class Perk {
 		}
 	}
 
-	public void setCategoryRanks(String categoryName, Integer ranks) {
+	public void setExtraSkillRanks() {
+
+	}
+
+	public void setCategoryRanksBonus(String categoryName, Integer ranks) {
 		if (ranks == null || ranks == 0) {
 			categoryRanksBonus.remove(categoryName);
 		} else {
 			categoryRanksBonus.put(categoryName, ranks);
+		}
+	}
+
+	public void setCategoryExtraRanks(String categoryName, Integer ranks) {
+		if (ranks == null || ranks == 0) {
+			categoryExtraRanks.remove(categoryName);
+		} else {
+			categoryExtraRanks.put(categoryName, ranks);
+		}
+	}
+
+	public void setCategorySkillsRanksBonus(String categoryName, Integer ranks) {
+		if (ranks == null || ranks == 0) {
+			categorySkillsRanksBonus.remove(categoryName);
+		} else {
+			categorySkillsRanksBonus.put(categoryName, ranks);
 		}
 	}
 
@@ -472,11 +498,37 @@ public class Perk {
 		this.conditionalCategoryBonus = conditionalCategoryBonus;
 	}
 
+	/**
+	 * Gets extra ranks to a category.
+	 * 
+	 * @param categoryName
+	 * @return
+	 */
 	public Integer getCategoryRanksBonus(String categoryName) {
 		if (categoryRanksBonus.get(categoryName) == null) {
 			return 0;
 		}
 		return categoryRanksBonus.get(categoryName);
+	}
+
+	public Integer getCategoryExtraRanks(String categoryName) {
+		if (categoryExtraRanks.get(categoryName) == null) {
+			return 0;
+		}
+		return categoryExtraRanks.get(categoryName);
+	}
+
+	/**
+	 * Gets extra ranks to a selected skills of the category.
+	 * 
+	 * @param categoryName
+	 * @return
+	 */
+	public Integer getCategorySkillsRanksBonus(String categoryName) {
+		if (categorySkillsRanksBonus.get(categoryName) == null) {
+			return 0;
+		}
+		return categorySkillsRanksBonus.get(categoryName);
 	}
 
 	protected Map<String, Integer> getSkillBonus() {
