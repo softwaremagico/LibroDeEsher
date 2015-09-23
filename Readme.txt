@@ -16,7 +16,7 @@ Este programa esta desarrollado en java, por tanto necesita la maquina virtual j
 Ejecucion:
 ---------
 Para ejecutar el program escribir en consola:
-"java -jar dist\LibroDeEsher.jar"
+"java -jar LibroDeEsher.jar"
 
 O utilizar los ficheros ejecutables según el sistema operativo utilizado. 
 
