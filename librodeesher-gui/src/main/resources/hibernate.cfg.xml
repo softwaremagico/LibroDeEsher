@@ -39,6 +39,8 @@
 	<property name="connection.driver_class">org.h2.Driver</property> 
 	<property name="hibernate.connection.url">jdbc:h2:~/.librodeesher/database/esher;DB_CLOSE_DELAY=-1</property> 
 	
+	<property name="hibernate.enable_lazy_load_no_trans">true</property>
+	
 	<!-- SQLITE -->
         <!-- <property name="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</property> 
 	<property name="connection.driver_class">org.sqlite.JDBC</property> 
