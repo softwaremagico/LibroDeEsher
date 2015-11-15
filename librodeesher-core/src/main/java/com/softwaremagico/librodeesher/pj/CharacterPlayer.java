@@ -1334,7 +1334,7 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public boolean isCategoryUseful(Category category) {
-		// Weapons are allowed upsted cost is not set.
+		// Weapons are allowed despite cost is not set.
 		if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
 			if (!isFirearmsAllowed() && category.getName().contains(Spanish.FIREARMS_SUFIX)) {
 				return false;

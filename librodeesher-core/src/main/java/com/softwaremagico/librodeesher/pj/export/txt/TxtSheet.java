@@ -439,12 +439,11 @@ public class TxtSheet {
 			sufix += " (r)";
 			longSufix += 4;
 		} else {
-			if (characterPlayer.isCommon(skill)) {
-				sufix += " (c)";
-				longSufix += 4;
-			}
 			if (characterPlayer.isProfessional(skill)) {
 				sufix += " (p)";
+				longSufix += 4;
+			} else if (characterPlayer.isCommon(skill)) {
+				sufix += " (c)";
 				longSufix += 4;
 			}
 			if (characterPlayer.isGeneralized(skill)) {
