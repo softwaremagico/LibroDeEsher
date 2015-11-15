@@ -31,6 +31,8 @@ Versión
 ------------
 2.2.0	Nuevo:
 		- Habilidades generalizadas y especializadas.
+	Revisado:
+		- Hoja combinada de habilidades y categorias.
 	Corregido:
 		- Errores en los idiomas de cultura.
 		- Errores cuando se usa más de un personaje simultáneamente.
