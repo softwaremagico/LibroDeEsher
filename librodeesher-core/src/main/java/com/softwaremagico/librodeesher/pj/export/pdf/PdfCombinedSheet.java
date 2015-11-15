@@ -148,18 +148,11 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 							tableColumn.addCell(skillSpecializedLineCell);
 						}
 					}
-				}
-				
-				System.out.println("---------------------------------");
-				System.out.println("Category " + category);
-				System.out.println("emptyLinesToAdd " + emptyLinesToAdd);
-				
+				}		
 
 				// Empty skill lines to fill gaps:
 				int addEmptyLines = (emptyLinesToAdd / (column.size() - column.indexOf(category)))
 						+ MIN_EMPTY_SKILLS_PER_CATEGORY;
-				
-				System.out.println("addEmptyLines " + addEmptyLines);
 				
 				for (int i = 0; i < addEmptyLines; i++) {
 					PdfPCell emptySkillLines = skillLine("________________________", "__",
