@@ -54,7 +54,7 @@ Arte·Pasivo                                            2/5      1        2     
 Ataques Especiales                                     15       0        0        17       0        17      
 Atletismo·Gimnasia                                     3        1        2        34       0        36      
   *  Trepar                                                     2        6        36       0        42      
-  *  Volar/Planear (c) (p)                                      4        34       36       0        70      
+  *  Volar/Planear (p)                                          4        34       36       0        70      
 Atletismo·Potencia                                     6        1        2        13       0        15      
 Atletismo·Resistencia                                  3        1        2        13       0        15      
   *  Nadar                                                      3        9        15       0        24      
