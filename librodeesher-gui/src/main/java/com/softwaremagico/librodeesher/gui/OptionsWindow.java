@@ -67,7 +67,7 @@ public class OptionsWindow extends BaseFrame {
 
 	public OptionsWindow(CharacterPlayer character) {
 		this.character = character;
-		defineWindow(500, 350);
+		defineWindow(500, 330);
 		setElements();
 		setCurrentCharacterConfig();
 		setResizable(false);
@@ -119,25 +119,25 @@ public class OptionsWindow extends BaseFrame {
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		getContentPane().add(characterPanel, gridBagConstraints);
 		
-		JPanel pdfOptionsPanel = new JPanel();
-		pdfOptionsPanel.setLayout(new BoxLayout(pdfOptionsPanel, BoxLayout.Y_AXIS));
-		pdfOptionsPanel.setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Creación de Fichas"));
-		
+//		JPanel pdfOptionsPanel = new JPanel();
+//		pdfOptionsPanel.setLayout(new BoxLayout(pdfOptionsPanel, BoxLayout.Y_AXIS));
+//		pdfOptionsPanel.setBorder(BorderFactory.createTitledBorder(
+//				BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Creación de Fichas"));
+//		
 //		pdfSortCategories = new JCheckBox(Spanish.PDF_SORT_SKILLS);
 //		pdfSortCategories.addActionListener(checkboxListener);
 //		pdfOptionsPanel.add(pdfSortCategories);
-		
-		gridBagConstraints.fill = GridBagConstraints.BOTH;
-		gridBagConstraints.ipadx = xPadding;
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 1;
-		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.gridwidth = 3;
-		gridBagConstraints.weightx = 1;
-		gridBagConstraints.weighty = 1;
-		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		getContentPane().add(pdfOptionsPanel, gridBagConstraints);
+//		
+//		gridBagConstraints.fill = GridBagConstraints.BOTH;
+//		gridBagConstraints.ipadx = xPadding;
+//		gridBagConstraints.gridx = 0;
+//		gridBagConstraints.gridy = 1;
+//		gridBagConstraints.gridheight = 1;
+//		gridBagConstraints.gridwidth = 3;
+//		gridBagConstraints.weightx = 1;
+//		gridBagConstraints.weighty = 1;
+//		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+//		getContentPane().add(pdfOptionsPanel, gridBagConstraints);
 		
 
 		JPanel graphicOptionsPanel = new JPanel();
