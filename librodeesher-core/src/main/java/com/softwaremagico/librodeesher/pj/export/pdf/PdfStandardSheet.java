@@ -43,6 +43,7 @@ public class PdfStandardSheet {
 	private final static String EMPTY_VALUE = "_____";
 	private final static int BORDER = 0;
 	private final static int MOST_USED_SKILLS_LINES = 16;
+	private final static int MOST_USED_ATTACKS_LINES = 6;
 	private CharacterPlayer characterPlayer;
 	protected boolean twoFaced;
 	private boolean sortedSkills;
@@ -650,7 +651,7 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 
 		cell = new PdfPCell(getNewRanksImage(0));
-		cell.setBorderWidth(1);
+		cell.setBorderWidth(BORDER);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(cell);
 
@@ -1347,6 +1348,31 @@ public class PdfStandardSheet {
 
 		return tableFrame;
 	}
+	
+	private PdfPTable createMostUsedAttacksTable(String font, int fontSize) {
+		PdfPTable tableFrame = new PdfPTable(1);
+		Paragraph p;
+		PdfPCell cell;
+
+		// Header
+		p = new Paragraph("", FontFactory.getFont(font, fontSize));
+		cell = new PdfPCell(p);
+		cell.setBorderWidth(0);
+		cell.setMinimumHeight(25);
+		cell.setColspan(2);
+		tableFrame.addCell(cell);
+		
+		for (int i = 0; i < MOST_USED_ATTACKS_LINES; i++) {
+			p = new Paragraph("________________________   ______   _______   ______    _______________________________________     ", FontFactory.getFont(font, fontSize));
+			cell = new PdfPCell(p);
+			cell.setBorderWidth(0);
+			cell.setMinimumHeight((float) 9);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			tableFrame.addCell(cell);
+		}
+		
+		return tableFrame;
+	}
 
 	private PdfPTable createMostUsedSkillsTable(String font, int fontSize) {
 		float[] widths = { 0.49f, 0.51f };
@@ -1643,8 +1669,7 @@ public class PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		tablaDerecha.addCell(cell);
 
-		p = new Paragraph("", FontFactory.getFont(font, fontSize));
-		cell = new PdfPCell(p);
+		cell = new PdfPCell(createMostUsedAttacksTable(font,fontSize));
 		cell.setBorderWidth(0);
 		cell.setMinimumHeight(100);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
