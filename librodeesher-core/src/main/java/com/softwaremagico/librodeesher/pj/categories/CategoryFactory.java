@@ -45,6 +45,11 @@ public class CategoryFactory {
 	private static List<Category> weaponsCategoriesFromFiles = new ArrayList<>();
 	private static List<String> availableCategoriesByName = new ArrayList<>();
 
+	private static List<Category> createdWeaponsCategories;
+	private static List<Category> closeCombatWeaponsCategories;
+	private static List<Category> longRangeWeaponsCategories;
+	private static List<Category> othersWeaponsCategories;
+
 	static {
 		readCategories();
 	}
@@ -98,8 +103,8 @@ public class CategoryFactory {
 		return skills;
 	}
 
-	public static Category createCategory(String categoryName, String abbreviature,
-			String characteristicsTag, String type, String skills) {
+	public static Category createCategory(String categoryName, String abbreviature, String characteristicsTag,
+			String type, String skills) {
 		CategoryType catType = CategoryType.getCategoryType(type);
 		Category cat;
 		switch (catType) {
@@ -178,16 +183,15 @@ public class CategoryFactory {
 						String abrevCat = categoryAbbrevName[1].replace(")", "");
 						Category cat = availableCategories.get(categoryName);
 						if (cat == null) {
-							cat = createCategory(categoryName, abrevCat, descomposed_line[1],
-									descomposed_line[2], descomposed_line[3]);
+							cat = createCategory(categoryName, abrevCat, descomposed_line[1], descomposed_line[2],
+									descomposed_line[3]);
 							availableCategories.put(categoryName, cat);
 							availableCategoriesByName.add(categoryName);
 						} else {
 							cat.addSkills(descomposed_line[3]);
 						}
 					} catch (ArrayIndexOutOfBoundsException aiofb) {
-						throw new InvalidCategoryException("Abreviatura de categoria mal definida en "
-								+ categoryName);
+						throw new InvalidCategoryException("Abreviatura de categoria mal definida en " + categoryName);
 					}
 				}
 			}
@@ -208,8 +212,8 @@ public class CategoryFactory {
 		SkillFactory.updateDisabledSkills();
 	}
 
-	public static Category getCategory(String categoryName, String abbrev, String characteristics,
-			String type, String skills) throws Exception {
+	public static Category getCategory(String categoryName, String abbrev, String characteristics, String type,
+			String skills) throws Exception {
 
 		Category cat = availableCategories.get(categoryName);
 		if (cat == null) {
@@ -222,52 +226,58 @@ public class CategoryFactory {
 	}
 
 	public static List<Category> getWeaponsCategories() {
-		List<Category> createdWeaponsCategories = new ArrayList<>();
+		if (createdWeaponsCategories == null) {
+			createdWeaponsCategories = new ArrayList<>();
 
-		for (Category category : availableCategories.values()) {
-			if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
-				createdWeaponsCategories.add(category);
+			for (Category category : availableCategories.values()) {
+				if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
+					createdWeaponsCategories.add(category);
+				}
 			}
+			Collections.sort(createdWeaponsCategories, new CategoryComparatorByName());
 		}
-
-		Collections.sort(createdWeaponsCategories, new CategoryComparatorByName());
 		return createdWeaponsCategories;
 	}
 
 	public static List<Category> getCloseCombatWeapons() {
-		List<Category> closeCombatWeaponsCategories = new ArrayList<>();
-		for (Category category : weaponsCategoriesFromFiles) {
-			if (category.getName().equals(Spanish.WEAPONS_EDGE)
-					|| category.getName().equals(Spanish.WEAPONS_POLE)
-					|| category.getName().equals(Spanish.WEAPONS_HAMMERS)
-					|| category.getName().equals(Spanish.WEAPONS_TWOHANDS)) {
-				closeCombatWeaponsCategories.add(category);
+		if (closeCombatWeaponsCategories == null) {
+			closeCombatWeaponsCategories = new ArrayList<>();
+			for (Category category : weaponsCategoriesFromFiles) {
+				if (category.getName().equals(Spanish.WEAPONS_EDGE) || category.getName().equals(Spanish.WEAPONS_POLE)
+						|| category.getName().equals(Spanish.WEAPONS_HAMMERS)
+						|| category.getName().equals(Spanish.WEAPONS_TWOHANDS)) {
+					closeCombatWeaponsCategories.add(category);
+				}
 			}
 		}
 		return closeCombatWeaponsCategories;
 	}
 
 	public static List<Category> getLongRangeWeapons() {
-		List<Category> longRangeWeaponsCategories = new ArrayList<>();
-		for (Category category : weaponsCategoriesFromFiles) {
-			if (category.getName().equals(Spanish.WEAPONS_PROJECTILE)
-					|| category.getName().equals(Spanish.WEAPONS_THROWABLE)
-					|| category.getName().equals(Spanish.WEAPONS_FIREARMS_ONEHAND)
-					|| category.getName().equals(Spanish.WEAPONS_FIREARMS_TWOHANDS)) {
-				longRangeWeaponsCategories.add(category);
+		if (longRangeWeaponsCategories == null) {
+			longRangeWeaponsCategories = new ArrayList<>();
+			for (Category category : weaponsCategoriesFromFiles) {
+				if (category.getName().equals(Spanish.WEAPONS_PROJECTILE)
+						|| category.getName().equals(Spanish.WEAPONS_THROWABLE)
+						|| category.getName().equals(Spanish.WEAPONS_FIREARMS_ONEHAND)
+						|| category.getName().equals(Spanish.WEAPONS_FIREARMS_TWOHANDS)) {
+					longRangeWeaponsCategories.add(category);
+				}
 			}
 		}
 		return longRangeWeaponsCategories;
 	}
 
 	public static List<Category> getOthersAttack() {
-		List<Category> othersWeaponsCategories = new ArrayList<>();
-		for (Category category : weaponsCategoriesFromFiles) {
-			if (category.getName().equals(Spanish.WEAPONS_MARTIALS_HITS)
-					|| category.getName().equals(Spanish.WEAPONS_MARTIALS_KICKS)
-					|| category.getName().equals(Spanish.WEAPONS_MARTIALS_MANIOBRES)
-					|| category.getName().equals(Spanish.WEAPONS_SPECIALS)) {
-				othersWeaponsCategories.add(category);
+		if (othersWeaponsCategories == null) {
+			othersWeaponsCategories = new ArrayList<>();
+			for (Category category : weaponsCategoriesFromFiles) {
+				if (category.getName().equals(Spanish.WEAPONS_MARTIALS_HITS)
+						|| category.getName().equals(Spanish.WEAPONS_MARTIALS_KICKS)
+						|| category.getName().equals(Spanish.WEAPONS_MARTIALS_MANIOBRES)
+						|| category.getName().equals(Spanish.WEAPONS_SPECIALS)) {
+					othersWeaponsCategories.add(category);
+				}
 			}
 		}
 		return othersWeaponsCategories;

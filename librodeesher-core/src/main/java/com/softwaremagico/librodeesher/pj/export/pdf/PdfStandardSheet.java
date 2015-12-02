@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.itextpdf.text.BadElementException;
@@ -38,15 +37,14 @@ import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.race.Race;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
-import com.softwaremagico.librodeesher.pj.skills.SkillComparatorByName;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.log.EsherLog;
 
 public class PdfStandardSheet {
 	private final static String EMPTY_VALUE = "_____";
 	private final static int BORDER = 0;
-	private final static int MOST_USED_SKILLS_LINES = 16;
-	private final static int MOST_USED_ATTACKS_LINES = 6;
+	public final static int MOST_USED_SKILLS_LINES = 16;
+	public final static int MOST_USED_ATTACKS_LINES = 6;
 	private CharacterPlayer characterPlayer;
 	protected boolean twoFaced;
 	private boolean sortedSkills;
@@ -1407,7 +1405,7 @@ public class PdfStandardSheet {
 		int favouriteSkillsNumber = 0;
 		for (int i = 0; i < favouriteAttacks.size(); i++) {
 			cell = new PdfPCell(createMostUsedAttackLine(
-					" " + TxtSheet.getNameSpecificLength(favouriteAttacks.get(i).getName(), 23),
+					" " + TxtSheet.getNameSpecificLength(favouriteAttacks.get(i).getName(), 25),
 					characterPlayer.getTotalRanks(favouriteAttacks.get(i)) + "",
 					characterPlayer.getTotalValue(favouriteAttacks.get(i)) + "", "______",
 					"_______________________________________", font, fontSize));
@@ -1492,21 +1490,14 @@ public class PdfStandardSheet {
 		cell.setColspan(2);
 		tableFrame.addCell(cell);
 
-		List<Skill> favouriteSkills = new ArrayList<>();
-		for (String skillName : characterPlayer.getFavouriteSkills()) {
-			Skill skill = SkillFactory.getAvailableSkill(skillName);
-			if (skill != null) {
-				favouriteSkills.add(skill);
-			}
-		}
-		Collections.sort(favouriteSkills, new SkillComparatorByName());
-
-		cell = new PdfPCell(createMostUsedSkillsColumn(favouriteSkills, 0, font, fontSize));
+		List<Skill> skillsToAdd = new ArrayList<>();
+		skillsToAdd.addAll(characterPlayer.getFavouriteNoOffensiveSkills());
+		cell = new PdfPCell(createMostUsedSkillsColumn(skillsToAdd, font, fontSize));
 		cell.setBorderWidth(BORDER);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		tableFrame.addCell(cell);
 
-		cell = new PdfPCell(createMostUsedSkillsColumn(favouriteSkills, MOST_USED_SKILLS_LINES, font, fontSize));
+		cell = new PdfPCell(createMostUsedSkillsColumn(skillsToAdd, font, fontSize));
 		cell.setBorderWidth(BORDER);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		tableFrame.addCell(cell);
@@ -1514,26 +1505,25 @@ public class PdfStandardSheet {
 		return tableFrame;
 	}
 
-	private PdfPTable createMostUsedSkillsColumn(List<Skill> favouriteSkills, int fromSkill, String font,
-			int fontSize) {
+	private PdfPTable createMostUsedSkillsColumn(List<Skill> favouriteSkills, String font, int fontSize) {
 		PdfPTable tableFrame = new PdfPTable(1);
 
-		int skillsToShow = 0;
-		if (fromSkill < favouriteSkills.size()) {
-			skillsToShow = ((favouriteSkills.size() - fromSkill) < MOST_USED_SKILLS_LINES
-					? (favouriteSkills.size() - fromSkill) : MOST_USED_SKILLS_LINES);
-			for (int i = fromSkill; i < skillsToShow; i++) {
-				PdfPCell cell = new PdfPCell(createMostUsedSkillLine(
-						" " + TxtSheet.getNameSpecificLength(favouriteSkills.get(i).getName(), 28),
-						characterPlayer.getTotalRanks(favouriteSkills.get(i)) + "",
-						characterPlayer.getTotalValue(favouriteSkills.get(i)) + "", font, fontSize));
-				cell.setBorderWidth(BORDER);
-				cell.setMinimumHeight((float) 8);
-				tableFrame.addCell(cell);
-			}
+		int skillsShowed = 0;
+		List<Skill> skillsToAdd = new ArrayList<>(favouriteSkills);
+		for (int i = 0; i < (skillsToAdd.size() < MOST_USED_SKILLS_LINES ? skillsToAdd.size()
+				: MOST_USED_SKILLS_LINES); i++) {
+			PdfPCell cell = new PdfPCell(
+					createMostUsedSkillLine(" " + TxtSheet.getNameSpecificLength(skillsToAdd.get(i).getName(), 31),
+							characterPlayer.getTotalRanks(skillsToAdd.get(i)) + "",
+							characterPlayer.getTotalValue(skillsToAdd.get(i)) + "", font, fontSize));
+			cell.setBorderWidth(BORDER);
+			cell.setMinimumHeight((float) 8);
+			tableFrame.addCell(cell);
+			favouriteSkills.remove(skillsToAdd.get(i));
+			skillsShowed++;
 		}
 
-		for (int i = skillsToShow; i < MOST_USED_SKILLS_LINES; i++) {
+		for (int i = skillsShowed; i < MOST_USED_SKILLS_LINES; i++) {
 			PdfPCell cell = new PdfPCell(
 					createMostUsedSkillLine(" ____________________________", "_____", "_____", font, fontSize));
 			cell.setBorderWidth(BORDER);
@@ -1841,7 +1831,7 @@ public class PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		tablaDerecha.addCell(cell);
 
-		cell = new PdfPCell(createMostUsedAttacksTable(new ArrayList<Skill>(), font, fontSize));
+		cell = new PdfPCell(createMostUsedAttacksTable(characterPlayer.getFavouriteOffensiveSkills(), font, fontSize));
 		cell.setBorderWidth(BORDER);
 		cell.setMinimumHeight(100);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);

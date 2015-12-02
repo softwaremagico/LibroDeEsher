@@ -51,6 +51,11 @@ public class MessageManager {
         showGraphicMessage(text, title, JOptionPane.INFORMATION_MESSAGE);
         EsherLog.info(className, "("+title + ") " + text);
     }
+    
+    public static void warningMessage(String className, String text, String title){
+        showGraphicMessage(text, title, JOptionPane.WARNING_MESSAGE);
+        EsherLog.warning(className, "("+title + ") " + text);
+    }
 
     public static void customMessage(String className, String text, String title, int option) {
         showGraphicMessage(text, title, option);

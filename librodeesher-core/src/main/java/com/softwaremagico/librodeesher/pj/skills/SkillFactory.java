@@ -41,6 +41,8 @@ public class SkillFactory {
 	private static List<String> availableSkillsByName = new ArrayList<>();
 	private static Set<String> disabledSkills = new HashSet<>();
 
+	private static List<Skill> weaponSkills;
+
 	public static Skill getSkill(String skillNameAndType) {
 		Skill skill = availableSkills.get(skillNameAndType);
 		if (skill == null) {
@@ -138,8 +140,8 @@ public class SkillFactory {
 
 	private static String removeTypeFromName(String skillName) {
 		// String pattern = Pattern.quote("*");
-		return skillName.replace("*", "").replace("(R)", "").replace("(r)", "").replace("(C)", "")
-				.replace("(c)", "").replace("(P)", "").replace("(p)", "");
+		return skillName.replace("*", "").replace("(R)", "").replace("(r)", "").replace("(C)", "").replace("(c)", "")
+				.replace("(P)", "").replace("(p)", "");
 	}
 
 	public static List<Skill> getSkills() {
@@ -149,13 +151,15 @@ public class SkillFactory {
 	}
 
 	public static List<Skill> getWeaponSkills() {
-		List<Skill> skills = new ArrayList<>();
-		List<Category> weaponCategories = CategoryFactory.getWeaponsCategories();
-		for (Category weapon : weaponCategories) {
-			skills.addAll(getSkills(weapon));
+		if (weaponSkills == null) {
+			weaponSkills = new ArrayList<>();
+			List<Category> weaponCategories = CategoryFactory.getWeaponsCategories();
+			for (Category weapon : weaponCategories) {
+				weaponSkills.addAll(getSkills(weapon));
+			}
+			Collections.sort(weaponSkills, new SkillComparatorByName());
 		}
-		Collections.sort(skills, new SkillComparatorByName());
-		return skills;
+		return weaponSkills;
 	}
 
 	public static List<Skill> getSkills(Category category) {
@@ -163,8 +167,8 @@ public class SkillFactory {
 		for (Skill skill : availableSkills.values()) {
 			try {
 				if (skill.getCategory() == null) {
-					EsherLog.severe(SkillFactory.class.getName(), "Skill '" + skill.getName()
-							+ "' has no category defined.");
+					EsherLog.severe(SkillFactory.class.getName(),
+							"Skill '" + skill.getName() + "' has no category defined.");
 				} else if (skill != null && skill.getCategory().equals(category)) {
 					skills.add(skill);
 				}
@@ -183,8 +187,8 @@ public class SkillFactory {
 			}
 		}
 	}
-	
-	public void reset(){
+
+	public void reset() {
 		availableSkills = new HashMap<>();
 		availableSkillsByName = new ArrayList<>();
 		disabledSkills = new HashSet<>();

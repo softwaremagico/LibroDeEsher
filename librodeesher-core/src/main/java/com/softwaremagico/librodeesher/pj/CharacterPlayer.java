@@ -92,6 +92,7 @@ import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceException;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.skills.SkillComparatorByName;
 import com.softwaremagico.librodeesher.pj.skills.SkillComparatorByValue;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.skills.SkillForEnablingMustBeSelected;
@@ -2543,6 +2544,32 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Set<String> getFavouriteSkills() {
+		return favouriteSkills;
+	}
+
+	public List<Skill> getFavouriteNoOffensiveSkills() {
+		List<Skill> favouriteSkills = new ArrayList<>();
+		for (String skillName : getFavouriteSkills()) {
+			Skill skill = SkillFactory.getAvailableSkill(skillName);
+			if (skill != null && !(skill.getCategory().getCategoryGroup().equals(CategoryGroup.WEAPON)
+					|| CategoryFactory.getOthersAttack().contains(skill.getCategory()))) {
+				favouriteSkills.add(skill);
+			}
+		}
+		Collections.sort(favouriteSkills, new SkillComparatorByName());
+		return favouriteSkills;
+	}
+
+	public List<Skill> getFavouriteOffensiveSkills() {
+		List<Skill> favouriteSkills = new ArrayList<>();
+		for (String skillName : getFavouriteSkills()) {
+			Skill skill = SkillFactory.getAvailableSkill(skillName);
+			if (skill != null && (skill.getCategory().getCategoryGroup().equals(CategoryGroup.WEAPON)
+					|| CategoryFactory.getOthersAttack().contains(skill.getCategory()))) {
+				favouriteSkills.add(skill);
+			}
+		}
+		Collections.sort(favouriteSkills, new SkillComparatorByValue(this));
 		return favouriteSkills;
 	}
 

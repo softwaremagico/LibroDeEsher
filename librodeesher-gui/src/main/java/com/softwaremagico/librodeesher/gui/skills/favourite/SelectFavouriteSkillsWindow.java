@@ -35,11 +35,13 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import com.softwaremagico.files.MessageManager;
 import com.softwaremagico.librodeesher.gui.components.SelectSkillPanel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.SkillChangedListener;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.export.pdf.PdfStandardSheet;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class SelectFavouriteSkillsWindow extends BaseFrame {
@@ -90,10 +92,33 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				boolean attackMessageShown = false;
+				boolean skillMessageShown = false;
 				if (!setSkillAsFavouritePanel.isFavouriteCheckBoxSelected()) {
 					character.getFavouriteSkills().remove(selectSkillPanel.getSelectedSkill().getName());
+					attackMessageShown = false;
+					skillMessageShown = false;
 				} else {
 					character.getFavouriteSkills().add(selectSkillPanel.getSelectedSkill().getName());
+					// Check max favourite items!
+					if (!skillMessageShown && character.getFavouriteNoOffensiveSkills()
+							.size() > PdfStandardSheet.MOST_USED_SKILLS_LINES * 2) {
+						MessageManager.warningMessage(this.getClass().getName(),
+								"Has seleccionado un número muy alto de habilidades favoritas, solo los "
+										+ (PdfStandardSheet.MOST_USED_SKILLS_LINES * 2)
+										+ " primero se podrá visualizar en la ficha de personaje.",
+								"¡Demasiadas habilidades favoritas!");
+						skillMessageShown = true;
+					}
+					if (!attackMessageShown && character.getFavouriteOffensiveSkills()
+							.size() > PdfStandardSheet.MOST_USED_ATTACKS_LINES) {
+						MessageManager.warningMessage(this.getClass().getName(),
+								"Has seleccionado un número muy alto de ataques favoritos, solo los "
+										+ PdfStandardSheet.MOST_USED_ATTACKS_LINES
+										+ " primeros se podrán visualizar en la ficha de personaje.",
+								"¡Demasiadas habilidades favoritas!");
+						attackMessageShown = true;
+					}
 				}
 				updateFavouriteList();
 			}
