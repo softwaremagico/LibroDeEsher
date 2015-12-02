@@ -24,7 +24,7 @@
 # #L%
 ###
 
-rm *.png;
+#rm *.png;
 
 for i in *.svg
 do

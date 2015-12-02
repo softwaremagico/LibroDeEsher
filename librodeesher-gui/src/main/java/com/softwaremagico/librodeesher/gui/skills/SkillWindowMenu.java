@@ -34,7 +34,7 @@ import javax.swing.JMenuItem;
 import com.softwaremagico.librodeesher.gui.MainMenu;
 
 public class SkillWindowMenu {
-	private JMenuItem optionsMenu;
+	private JMenuItem optionsMenu, favouriteSkillsMenu;
 
 	public JMenuBar createMenu() {
 		JMenuBar mainMenu = new JMenuBar();
@@ -53,11 +53,20 @@ public class SkillWindowMenu {
 		optionsMenu.setIcon((Icon) MainMenu.getIcon("options.png"));
 		optionsMenu.getAccessibleContext().setAccessibleDescription("Opciones de Habilidades.");
 		configMenu.add(optionsMenu);
+		
+		favouriteSkillsMenu = new JMenuItem("Habilidades Favoritas", KeyEvent.VK_O);
+		favouriteSkillsMenu.setIcon((Icon) MainMenu.getIcon("favorite.png"));
+		favouriteSkillsMenu.getAccessibleContext().setAccessibleDescription("Habilidades favoritas que se mostrarán en la ficha principal de personaje.");
+		configMenu.add(favouriteSkillsMenu);
 
 		return configMenu;
 	}
 
 	public void addOptionsMenuListener(ActionListener al) {
 		optionsMenu.addActionListener(al);
+	}
+	
+	public void addFavouriteSkillsMenuListener(ActionListener al) {
+		favouriteSkillsMenu.addActionListener(al);
 	}
 }

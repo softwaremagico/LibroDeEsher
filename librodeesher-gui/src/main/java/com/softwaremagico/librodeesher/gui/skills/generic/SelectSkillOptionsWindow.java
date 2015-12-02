@@ -35,6 +35,7 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
+import com.softwaremagico.librodeesher.gui.components.SelectSkillPanel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.SkillChangedListener;
 import com.softwaremagico.librodeesher.gui.elements.UpdatePanelListener;
@@ -55,7 +56,7 @@ public class SelectSkillOptionsWindow extends BaseFrame {
 	public SelectSkillOptionsWindow(final CharacterPlayer character) {
 		this.character = character;
 		skillChangedListeners = new HashSet<>();
-		defineWindow(300, 350);
+		defineWindow(350, 350);
 		setResizable(false);
 		setElements();
 		addWindowListener(new WindowListener() {

@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.skills.generic;
+package com.softwaremagico.librodeesher.gui.components;
 
 /*
  * #%L
@@ -46,7 +46,7 @@ public class SelectSkillPanel extends BasePanel {
 	private SkillComboBox skillComboBox;
 	private Set<SkillChangedListener> skillListeners;
 
-	protected SelectSkillPanel() {
+	public SelectSkillPanel() {
 		skillListeners = new HashSet<>();
 		setElements();
 	}

@@ -44,6 +44,7 @@ import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.elements.RandomButton;
 import com.softwaremagico.librodeesher.gui.elements.SkillChangedListener;
+import com.softwaremagico.librodeesher.gui.skills.favourite.SelectFavouriteSkillsWindow;
 import com.softwaremagico.librodeesher.gui.skills.generic.SelectSkillOptionsWindow;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -58,6 +59,7 @@ public class SkillWindow extends BaseFrame {
 	private BaseLabel pointsLabel;
 	private PointsCounterTextField developmentPoints;
 	private SelectSkillOptionsWindow selectSkillOptionsWindow;
+	private SelectFavouriteSkillsWindow selectFavouriteSkillsWindow;
 
 	public SkillWindow(CharacterPlayer character) {
 		this.character = character;
@@ -88,12 +90,23 @@ public class SkillWindow extends BaseFrame {
 
 					@Override
 					public void skillChanged(Skill skill) {
-						//Add new skills.
+						// Add new skills.
 						createSkillPanel();
 						revalidate();
 						repaint();
 					}
 				});
+			}
+		});
+		mainMenu.addFavouriteSkillsMenuListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (selectFavouriteSkillsWindow != null) {
+					selectFavouriteSkillsWindow.dispose();
+				}
+				selectFavouriteSkillsWindow = new SelectFavouriteSkillsWindow(character);
+				selectFavouriteSkillsWindow.setVisible(true);
 			}
 		});
 
@@ -146,11 +159,9 @@ public class SkillWindow extends BaseFrame {
 				Map<Skill, Integer> skillProbabilityStored = new HashMap<>();
 				Map<Category, Integer> categoryProbabilityStored = new HashMap<>();
 
-				while (character.getRemainingDevelopmentPoints() > 0
-						&& tries <= RandomCharacterPlayer.MAX_TRIES) {
+				while (character.getRemainingDevelopmentPoints() > 0 && tries <= RandomCharacterPlayer.MAX_TRIES) {
 					RandomCharacterPlayer.setRandomRanks(character, 0, new HashMap<String, Integer>(), tries,
-							character.getCurrentLevelNumber(), categoryProbabilityStored,
-							skillProbabilityStored);
+							character.getCurrentLevelNumber(), categoryProbabilityStored, skillProbabilityStored);
 					tries++;
 				}
 				updateFrame();
