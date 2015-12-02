@@ -25,6 +25,7 @@ package com.softwaremagico.librodeesher.gui.skills.favourite;
  */
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -36,16 +37,16 @@ import com.softwaremagico.librodeesher.gui.style.BaseLine;
 
 public class FavouriteSkillLine extends BaseLine {
 	private static final long serialVersionUID = -6769669550426726858L;
-	private SkillsListPanel parent;
 	private String option;
 	private Color background;
 
-	protected FavouriteSkillLine(String option, SkillsListPanel parent, Color background) {
+	protected FavouriteSkillLine(String option, Color background) {
 		this.option = option;
-		this.parent = parent;
 		this.background = background;
 		setBackground(background);
 		setElements();
+		setMinimumSize(new Dimension(200, 25));
+		setPreferredSize(new Dimension(200, 25));
 	}
 
 	private void setElements() {
@@ -63,7 +64,7 @@ public class FavouriteSkillLine extends BaseLine {
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
 		gridBagConstraints.weightx = 1;
-		ListLabel optionLabel = new ListLabel(option, SwingConstants.LEFT);
+		ListLabel optionLabel = new ListLabel(option != null ? option : "", SwingConstants.LEFT);
 		add(new ListBackgroundPanel(optionLabel, background), gridBagConstraints);
 
 	}
@@ -74,7 +75,6 @@ public class FavouriteSkillLine extends BaseLine {
 
 	@Override
 	public void update() {
-		parent.update();
 	}
 
 }

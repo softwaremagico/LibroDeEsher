@@ -34,6 +34,7 @@ public class SkillsListPanel extends BasePanel {
 	private static final long serialVersionUID = -4518185385799868381L;
 	private SelectedSkillsPanel parent;
 	private List<FavouriteSkillLine> optionLines;
+	private static final int MIN_ROWS = 6;
 
 	public SkillsListPanel(SelectedSkillsPanel parent) {
 		this.parent = parent;
@@ -49,12 +50,17 @@ public class SkillsListPanel extends BasePanel {
 	public void setElements(List<String> options) {
 		this.removeAll();
 		setLayout(new GridLayout(0, 1));
-		int i = 0;
+		int linesAdded = 0;
 		for (String option : options) {
-			FavouriteSkillLine optionLine = new FavouriteSkillLine(option, this, getLineBackgroundColor(i));
+			FavouriteSkillLine optionLine = new FavouriteSkillLine(option, getLineBackgroundColor(linesAdded));
 			add(optionLine);
 			optionLines.add(optionLine);
-			i++;
+			linesAdded++;
+		}
+		// Add empty lines.
+		for (int i = linesAdded; i < MIN_ROWS; i++) {
+			FavouriteSkillLine line = new FavouriteSkillLine(null, getLineBackgroundColor(i));
+			add(line);
 		}
 	}
 

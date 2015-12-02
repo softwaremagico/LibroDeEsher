@@ -53,6 +53,7 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 		defineWindow(350, 350);
 		setResizable(false);
 		setElements();
+		updateFavouriteList();
 	}
 
 	private void setElements() {
@@ -75,11 +76,8 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 			@Override
 			public void skillChanged(Skill skill) {
 				if (skill != null) {
-					if (character.getFavouriteSkills().contains(skill.getName())) {
-						setSkillAsFavouritePanel.setFavouriteCheckBoxSelected(true);
-					} else {
-						setSkillAsFavouritePanel.setFavouriteCheckBoxSelected(false);
-					}
+					setSkillAsFavouritePanel
+							.setFavouriteCheckBoxSelected(character.getFavouriteSkills().contains(skill.getName()));
 				}
 			}
 		});
@@ -122,12 +120,12 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 		gridBagConstraints.weighty = 0;
 		getContentPane().add(buttonPanel, gridBagConstraints);
 
-		selectSkillPanel.addSkillChangedListener(new SkillChangedListener() {
-			@Override
-			public void skillChanged(Skill skill) {
-
-			}
-		});
+		// Update first selected skill.
+		Skill skill = selectSkillPanel.getSelectedSkill();
+		if (skill != null) {
+			setSkillAsFavouritePanel
+					.setFavouriteCheckBoxSelected(character.getFavouriteSkills().contains(skill.getName()));
+		}
 	}
 
 	private void updateFavouriteList() {

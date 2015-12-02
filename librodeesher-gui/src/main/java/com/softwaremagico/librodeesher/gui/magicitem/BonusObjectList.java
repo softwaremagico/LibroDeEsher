@@ -31,6 +31,7 @@ import com.softwaremagico.librodeesher.pj.equipment.ObjectBonus;
 
 public class BonusObjectList extends BasePanel {
 	private static final long serialVersionUID = 6877410491444149606L;
+	private static final int MIN_ROWS = 5;
 
 	@Override
 	public void update() {
@@ -49,7 +50,7 @@ public class BonusObjectList extends BasePanel {
 			}
 		}
 		// Add empty lines.
-		for (int i = linesAdded; i < 3; i++) {
+		for (int i = linesAdded; i < MIN_ROWS; i++) {
 			BonusLine line = new BonusLine(null, getLineBackgroundColor(i));
 			add(line);
 		}
