@@ -29,16 +29,18 @@ Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadore
 
 Versión
 ------------
+2.2.2	Añadido:
+		- Habilidades favoritas se muestran en primera hoja de la ficha en PDF.
 2.2.1	Revisado:
 		- Hoja combinada de habilidades y categorias.
 2.2.0	Nuevo:
 		- Habilidades generalizadas y especializadas.
-	Corregido:
+		Corregido:
 		- Errores en los idiomas de cultura.
 		- Errores cuando se usa más de un personaje simultáneamente.
 2.1.1	Nuevo:
 		- Talentos se calculan automáticamente para cada raza.
-	Cambiado:
+		Cambiado:
 		- Ficha combinada optimizada para impresión. 
 2.1.0	Nuevo: 
 		- Adiestramientos con hechizos pueden ser utilizados correctamente.
