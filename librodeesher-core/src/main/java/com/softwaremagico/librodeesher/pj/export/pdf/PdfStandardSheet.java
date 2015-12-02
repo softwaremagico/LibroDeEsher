@@ -1403,7 +1403,8 @@ public class PdfStandardSheet {
 		tableFrame.addCell(cell);
 
 		int favouriteSkillsNumber = 0;
-		for (int i = 0; i < favouriteAttacks.size(); i++) {
+		for (int i = 0; i < (favouriteAttacks.size() < MOST_USED_SKILLS_LINES ? favouriteAttacks.size()
+				: MOST_USED_SKILLS_LINES); i++) {
 			cell = new PdfPCell(createMostUsedAttackLine(
 					" " + TxtSheet.getNameSpecificLength(favouriteAttacks.get(i).getName(), 25),
 					characterPlayer.getTotalRanks(favouriteAttacks.get(i)) + "",
