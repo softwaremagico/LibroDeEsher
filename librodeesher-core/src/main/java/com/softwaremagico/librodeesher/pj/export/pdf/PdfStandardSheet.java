@@ -1404,11 +1404,13 @@ public class PdfStandardSheet {
 		cell.setColspan(2);
 		tableFrame.addCell(cell);
 
-		String stringFormat = "%1$-23s   %2$-6s   %3$-7s   %4$-6s   %5$-44s";
 		int favouriteSkillsNumber = 0;
 		for (int i = 0; i < favouriteAttacks.size(); i++) {
-			p = new Paragraph("", FontFactory.getFont(font, fontSize));
-			cell = new PdfPCell(p);
+			cell = new PdfPCell(createMostUsedAttackLine(
+					" " + TxtSheet.getNameSpecificLength(favouriteAttacks.get(i).getName(), 23),
+					characterPlayer.getTotalRanks(favouriteAttacks.get(i)) + "",
+					characterPlayer.getTotalValue(favouriteAttacks.get(i)) + "", "______",
+					"_______________________________________", font, fontSize));
 			cell.setBorderWidth(BORDER);
 			cell.setMinimumHeight((float) 8);
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -1417,14 +1419,61 @@ public class PdfStandardSheet {
 		}
 
 		for (int i = favouriteSkillsNumber; i < MOST_USED_ATTACKS_LINES; i++) {
-			p = new Paragraph(String.format(stringFormat, "_______________________", "______", "_______", "______",
-					"_______________________________________"), FontFactory.getFont(font, fontSize));
-			cell = new PdfPCell(p);
+			cell = new PdfPCell(createMostUsedAttackLine("_______________________", "______", "_______", "______",
+					"_______________________________________", font, fontSize));
 			cell.setBorderWidth(BORDER);
 			cell.setMinimumHeight((float) 9);
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			tableFrame.addCell(cell);
 		}
+
+		return tableFrame;
+	}
+
+	private PdfPTable createMostUsedAttackLine(String skillName, String skillRanks, String skillTotal,
+			String skillCriticalFailure, String skillRange, String font, int fontSize) {
+		float[] widths = { 3.1f, 1f, 1f, 1f, 5f };
+		PdfPTable tableFrame = new PdfPTable(widths);
+
+		// Name
+		Paragraph p = new Paragraph(skillName, FontFactory.getFont(font, fontSize));
+		PdfPCell cell = new PdfPCell(p);
+		cell.setBorderWidth(BORDER);
+		cell.setMinimumHeight((float) 9);
+		cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		tableFrame.addCell(cell);
+
+		// Ranks
+		p = new Paragraph(skillRanks, FontFactory.getFont(font, fontSize));
+		cell = new PdfPCell(p);
+		cell.setBorderWidth(BORDER);
+		cell.setMinimumHeight((float) 9);
+		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		tableFrame.addCell(cell);
+
+		// Total
+		p = new Paragraph(skillTotal, FontFactory.getFont(font, fontSize));
+		cell = new PdfPCell(p);
+		cell.setBorderWidth(BORDER);
+		cell.setMinimumHeight((float) 9);
+		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		tableFrame.addCell(cell);
+
+		// CriticalFailure
+		p = new Paragraph(skillCriticalFailure, FontFactory.getFont(font, fontSize));
+		cell = new PdfPCell(p);
+		cell.setBorderWidth(BORDER);
+		cell.setMinimumHeight((float) 9);
+		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		tableFrame.addCell(cell);
+
+		// Range
+		p = new Paragraph(skillRange, FontFactory.getFont(font, fontSize));
+		cell = new PdfPCell(p);
+		cell.setBorderWidth(BORDER);
+		cell.setMinimumHeight((float) 9);
+		cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		tableFrame.addCell(cell);
 
 		return tableFrame;
 	}
@@ -1468,37 +1517,61 @@ public class PdfStandardSheet {
 	private PdfPTable createMostUsedSkillsColumn(List<Skill> favouriteSkills, int fromSkill, String font,
 			int fontSize) {
 		PdfPTable tableFrame = new PdfPTable(1);
-		Paragraph p;
-		PdfPCell cell;
 
-		String stringFormat = "%29s    %-5s     %-5s   ";
 		int skillsToShow = 0;
 		if (fromSkill < favouriteSkills.size()) {
 			skillsToShow = ((favouriteSkills.size() - fromSkill) < MOST_USED_SKILLS_LINES
 					? (favouriteSkills.size() - fromSkill) : MOST_USED_SKILLS_LINES);
 			for (int i = fromSkill; i < skillsToShow; i++) {
-				p = new Paragraph(
-						String.format(stringFormat, favouriteSkills.get(i).getName(36),
-								characterPlayer.getTotalRanks(favouriteSkills.get(i)),
-								characterPlayer.getTotalValue(favouriteSkills.get(i))),
-						FontFactory.getFont(font, fontSize));
-				cell = new PdfPCell(p);
+				PdfPCell cell = new PdfPCell(createMostUsedSkillLine(
+						" " + TxtSheet.getNameSpecificLength(favouriteSkills.get(i).getName(), 28),
+						characterPlayer.getTotalRanks(favouriteSkills.get(i)) + "",
+						characterPlayer.getTotalValue(favouriteSkills.get(i)) + "", font, fontSize));
 				cell.setBorderWidth(BORDER);
 				cell.setMinimumHeight((float) 8);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				tableFrame.addCell(cell);
 			}
 		}
 
 		for (int i = skillsToShow; i < MOST_USED_SKILLS_LINES; i++) {
-			p = new Paragraph(String.format(stringFormat, "____________________________", "_____", "_____"),
-					FontFactory.getFont(font, fontSize));
-			cell = new PdfPCell(p);
+			PdfPCell cell = new PdfPCell(
+					createMostUsedSkillLine(" ____________________________", "_____", "_____", font, fontSize));
 			cell.setBorderWidth(BORDER);
 			cell.setMinimumHeight((float) 8);
-			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			tableFrame.addCell(cell);
 		}
+
+		return tableFrame;
+	}
+
+	private PdfPTable createMostUsedSkillLine(String skillName, String skillRanks, String skillTotal, String font,
+			int fontSize) {
+		float[] widths = { 4f, 1f, 1f };
+		PdfPTable tableFrame = new PdfPTable(widths);
+
+		// Name
+		Paragraph p = new Paragraph(skillName, FontFactory.getFont(font, fontSize));
+		PdfPCell cell = new PdfPCell(p);
+		cell.setBorderWidth(BORDER);
+		cell.setMinimumHeight((float) 8);
+		cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		tableFrame.addCell(cell);
+
+		// Ranks
+		p = new Paragraph(skillRanks, FontFactory.getFont(font, fontSize));
+		cell = new PdfPCell(p);
+		cell.setBorderWidth(BORDER);
+		cell.setMinimumHeight((float) 8);
+		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		tableFrame.addCell(cell);
+
+		// Total
+		p = new Paragraph(skillTotal, FontFactory.getFont(font, fontSize));
+		cell = new PdfPCell(p);
+		cell.setBorderWidth(BORDER);
+		cell.setMinimumHeight((float) 8);
+		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		tableFrame.addCell(cell);
 
 		return tableFrame;
 	}
