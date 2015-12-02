@@ -44,14 +44,14 @@ public class TxtSheet {
 	}
 
 	private static String getCharacteristicsInfo(CharacterPlayer characterPlayer) {
-		String formatStr = "%1$-8s %2$-8s %3$-8s %4$-8s %5$-8s %6$-8s %7$-8s%n";
+		String stringFormat = "%1$-8s %2$-8s %3$-8s %4$-8s %5$-8s %6$-8s %7$-8s%n";
 		// String text = "Caract\tTemp\tPot\tTot\tRaza\tEsp\tTotal\n";
-		String text = String.format(formatStr, "Caract", "Temp", "Pot", "Tot", "Raza", "Esp", "Total");
+		String text = String.format(stringFormat, "Caract", "Temp", "Pot", "Tot", "Raza", "Esp", "Total");
 		text += "---------------------------------------------------------------------------------\n";
 		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
 			text = text
 					+ String.format(
-							formatStr,
+							stringFormat,
 							characteristic.getAbbreviature().getTag(),
 							characterPlayer.getCharacteristicTemporalValue(characteristic.getAbbreviature()),
 							characterPlayer.getCharacteristicPotentialValue(characteristic.getAbbreviature()),
@@ -66,11 +66,11 @@ public class TxtSheet {
 	public static String exportSkillsToText(CharacterPlayer characterPlayer) {
 		int sizeMaxIncrease = 3;
 		int maxNameSize = getMaxNameLength(characterPlayer);
-		String categoryFormatStr = "%1$-" + (maxNameSize + sizeMaxIncrease)
+		String categoryFormat = "%1$-" + (maxNameSize + sizeMaxIncrease)
 				+ "s %2$-8s %3$-8s %4$-8s %5$-8s %6$-8s %7$-8s%n";
-		String stringFormatStr = "%1$-" + (maxNameSize + sizeMaxIncrease + 9)
+		String stringFormat = "%1$-" + (maxNameSize + sizeMaxIncrease + 9)
 				+ "s %2$-8s %3$-8s %4$-8s %5$-8s %6$-8s%n";
-		String text = String.format(categoryFormatStr, "Nombre", "Coste", "Rangos", "Bonus", "Car", "Otros",
+		String text = String.format(categoryFormat, "Nombre", "Coste", "Rangos", "Bonus", "Car", "Otros",
 				"Total");
 		text += "------------------------------------------------------------------"
 				+ "-------------------------------------------------------------\n";
@@ -94,7 +94,7 @@ public class TxtSheet {
 				bonus = characterPlayer.getBonus(category) + bonus;
 
 				text = text
-						+ String.format(categoryFormatStr, category.getName(), characterPlayer
+						+ String.format(categoryFormat, category.getName(), characterPlayer
 								.getCategoryCost(category, 0).getCostTag(), characterPlayer
 								.getTotalRanks(category), characterPlayer.getRanksValue(category),
 								characterPlayer.getCharacteristicsBonus(category), bonus, characterPlayer
@@ -133,7 +133,7 @@ public class TxtSheet {
 						}
 						text = text
 								+ String.format(
-										stringFormatStr,
+										stringFormat,
 										"  *  "
 												+ getNameSpecificLength(characterPlayer, skill, maxNameSize
 														+ sizeMaxIncrease - 3),
@@ -151,7 +151,7 @@ public class TxtSheet {
 								total = characterPlayer.getSpecializedTotalValue(skill).toString();
 							}
 							text = text
-									+ String.format(stringFormatStr, "  *  "
+									+ String.format(stringFormat, "  *  "
 											+ characterPlayer.getSkillSpecializations(skill).get(m), "",
 											characterPlayer.getSpecializedRanksValue(skill),
 											characterPlayer.getTotalValue(category), bonus, total);
@@ -203,25 +203,25 @@ public class TxtSheet {
 	}
 
 	public static String exportResistances(CharacterPlayer characterPlayer) {
-		String texto = "Modificación a las TR\n";
-		texto += "--------------------------------------------------\n";
-		String formatStr = "%1$-15s %2$-8s%n";
-		texto += String.format(formatStr, "Canalización",
+		String text = "Modificación a las TR\n";
+		text += "--------------------------------------------------\n";
+		String stringFormat = "%1$-15s %2$-8s%n";
+		text += String.format(stringFormat, "Canalización",
 				characterPlayer.getResistanceBonus(ResistanceType.CANALIZATION));
-		texto += String.format(formatStr, "Esencia",
+		text += String.format(stringFormat, "Esencia",
 				characterPlayer.getResistanceBonus(ResistanceType.ESSENCE));
-		texto += String.format(formatStr, "Mentalismo",
+		text += String.format(stringFormat, "Mentalismo",
 				characterPlayer.getResistanceBonus(ResistanceType.MENTALISM));
-		texto += String.format(formatStr, "Psiónico",
+		text += String.format(stringFormat, "Psiónico",
 				characterPlayer.getResistanceBonus(ResistanceType.PSIONIC));
-		texto += String
-				.format(formatStr, "Veneno", characterPlayer.getResistanceBonus(ResistanceType.POISON));
-		texto += String.format(formatStr, "Enfermedad",
+		text += String
+				.format(stringFormat, "Veneno", characterPlayer.getResistanceBonus(ResistanceType.POISON));
+		text += String.format(stringFormat, "Enfermedad",
 				characterPlayer.getResistanceBonus(ResistanceType.DISEASE));
-		texto += String.format(formatStr, "Miedo", characterPlayer.getResistanceBonus(ResistanceType.FEAR));
-		texto += String.format(formatStr, "Frío", characterPlayer.getResistanceBonus(ResistanceType.COLD));
-		texto += String.format(formatStr, "Calor", characterPlayer.getResistanceBonus(ResistanceType.HOT));
-		return texto;
+		text += String.format(stringFormat, "Miedo", characterPlayer.getResistanceBonus(ResistanceType.FEAR));
+		text += String.format(stringFormat, "Frío", characterPlayer.getResistanceBonus(ResistanceType.COLD));
+		text += String.format(stringFormat, "Calor", characterPlayer.getResistanceBonus(ResistanceType.HOT));
+		return text;
 	}
 
 	public static String exportSpecials(CharacterPlayer characterPlayer) {
@@ -371,11 +371,11 @@ public class TxtSheet {
 		}
 		int maxNameSize = Math.max(characterPlayer.getRace().getName().length() + 2, 5);
 
-		String formatStr = "%1$-" + maxNameSize
+		String stringFormat = "%1$-" + maxNameSize
 				+ "s %2$-8s %3$-8s %4$-8s %5$-8s %6$-8s %7$-8s %8$-8s %9$-12s%n";
-		String text = String.format(formatStr, "Raza", "Nivel", "Movim.", "MM", "VM/VA", "Tam", "PV",
+		String text = String.format(stringFormat, "Raza", "Nivel", "Movim.", "MM", "VM/VA", "Tam", "PV",
 				"TA(BD)", "Ataques");
-		text += String.format(formatStr, characterPlayer.getRace().getName(),
+		text += String.format(stringFormat, characterPlayer.getRace().getName(),
 				characterPlayer.getCurrentLevelNumber(), characterPlayer.getMovementCapacity(),
 				(characterPlayer.getCharacteristicTotalBonus(CharacteristicsAbbreviature.AGILITY) * 3) + "",
 				vel, getSizeCode(characterPlayer), PV, characterPlayer.getArmourClass() + "("

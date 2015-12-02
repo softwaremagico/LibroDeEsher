@@ -143,6 +143,16 @@
         primary key (CultureDecisions_ID, weaponRanks_KEY)
     );
 
+    create table T_FAVOURITE_ATTACK (
+        CharacterPlayer_ID bigint not null,
+        favouriteAttack varchar(255)
+    );
+
+    create table T_FAVOURITE_SKILLS (
+        CharacterPlayer_ID bigint not null,
+        favouriteSkills varchar(255)
+    );
+
     create table T_HISTORIAL (
         ID bigint not null,
         comparationId varchar(255) not null,
@@ -806,6 +816,16 @@
         add constraint FK_kcq1tf5emosdrc3jd4ok65whv 
         foreign key (CultureDecisions_ID) 
         references T_CULTUREDECISIONS (ID);
+
+    alter table T_FAVOURITE_ATTACK 
+        add constraint FK_9kf7w84fqkk3h4oja6k54083f 
+        foreign key (CharacterPlayer_ID) 
+        references T_CHARACTERPLAYER (ID);
+
+    alter table T_FAVOURITE_SKILLS 
+        add constraint FK_2j90hl7eqa5aq5u8dna1u18o4 
+        foreign key (CharacterPlayer_ID) 
+        references T_CHARACTERPLAYER (ID);
 
     alter table T_HISTORIAL_CATEGORIES 
         add constraint FK_bywynufv173nmi7oi67mifquw 

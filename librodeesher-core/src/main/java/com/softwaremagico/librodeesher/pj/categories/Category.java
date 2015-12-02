@@ -33,7 +33,7 @@ import java.util.regex.Pattern;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
-import com.softwaremagico.librodeesher.pj.skills.SkillComparator;
+import com.softwaremagico.librodeesher.pj.skills.SkillComparatorByName;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
 public abstract class Category {
@@ -117,7 +117,7 @@ public abstract class Category {
 				filteredSkills.add(skill);
 			}
 		}
-		Collections.sort(filteredSkills, new SkillComparator());
+		Collections.sort(filteredSkills, new SkillComparatorByName());
 		normalSkills = filteredSkills;
 		return filteredSkills;
 	}
@@ -131,7 +131,7 @@ public abstract class Category {
 		for (Skill skill : skills) {
 			skill.setCategory(this);
 		}
-		Collections.sort(skills, new SkillComparator());
+		Collections.sort(skills, new SkillComparatorByName());
 	}
 
 	public void addSkills(List<Skill> skills) {
@@ -139,7 +139,7 @@ public abstract class Category {
 		for (Skill skill : skills) {
 			skill.setCategory(this);
 		}
-		Collections.sort(skills, new SkillComparator());
+		Collections.sort(skills, new SkillComparatorByName());
 	}
 
 	public Skill addSkill(String skillName) {
@@ -148,7 +148,7 @@ public abstract class Category {
 			skill.setCategory(this);
 			if (!skills.contains(skill)) {
 				skills.add(skill);
-				Collections.sort(skills, new SkillComparator());
+				Collections.sort(skills, new SkillComparatorByName());
 			}
 			return skill;
 		}

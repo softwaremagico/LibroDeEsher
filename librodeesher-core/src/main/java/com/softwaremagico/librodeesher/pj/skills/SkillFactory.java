@@ -144,7 +144,7 @@ public class SkillFactory {
 
 	public static List<Skill> getSkills() {
 		List<Skill> skills = new ArrayList<>(availableSkills.values());
-		Collections.sort(skills, new SkillComparator());
+		Collections.sort(skills, new SkillComparatorByName());
 		return skills;
 	}
 
@@ -154,7 +154,7 @@ public class SkillFactory {
 		for (Category weapon : weaponCategories) {
 			skills.addAll(getSkills(weapon));
 		}
-		Collections.sort(skills, new SkillComparator());
+		Collections.sort(skills, new SkillComparatorByName());
 		return skills;
 	}
 
@@ -172,7 +172,7 @@ public class SkillFactory {
 				EsherLog.errorMessage(SkillFactory.class.getName(), e);
 			}
 		}
-		Collections.sort(skills, new SkillComparator());
+		Collections.sort(skills, new SkillComparatorByName());
 		return skills;
 	}
 
