@@ -2553,7 +2553,8 @@ public class CharacterPlayer extends StorableObject {
 		for (String skillName : getFavouriteSkills()) {
 			Skill skill = SkillFactory.getAvailableSkill(skillName);
 			if (skill != null && !(skill.getCategory().getCategoryGroup().equals(CategoryGroup.WEAPON)
-					|| CategoryFactory.getOthersAttack().contains(skill.getCategory()))) {
+					|| CategoryFactory.getOthersAttack().contains(skill.getCategory())
+					|| skill.getCategory().getName().equals(Spanish.AIMED_SPELLS_CATEGORY))) {
 				favouriteSkills.add(skill);
 			}
 		}
@@ -2572,7 +2573,8 @@ public class CharacterPlayer extends StorableObject {
 		for (String skillName : getFavouriteSkills()) {
 			Skill skill = SkillFactory.getAvailableSkill(skillName);
 			if (skill != null && (skill.getCategory().getCategoryGroup().equals(CategoryGroup.WEAPON)
-					|| CategoryFactory.getOthersAttack().contains(skill.getCategory()))) {
+					|| CategoryFactory.getOthersAttack().contains(skill.getCategory())
+					|| skill.getCategory().getName().equals(Spanish.AIMED_SPELLS_CATEGORY))) {
 				favouriteSkills.add(skill);
 			}
 		}
