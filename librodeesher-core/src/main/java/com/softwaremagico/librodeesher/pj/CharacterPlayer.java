@@ -69,6 +69,7 @@ import com.softwaremagico.librodeesher.pj.culture.InvalidCultureException;
 import com.softwaremagico.librodeesher.pj.equipment.BonusType;
 import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
 import com.softwaremagico.librodeesher.pj.equipment.ObjectBonus;
+import com.softwaremagico.librodeesher.pj.export.pdf.PdfStandardSheet;
 import com.softwaremagico.librodeesher.pj.historial.Historial;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
 import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
@@ -2556,6 +2557,10 @@ public class CharacterPlayer extends StorableObject {
 				favouriteSkills.add(skill);
 			}
 		}
+		Collections.sort(favouriteSkills, new SkillComparatorByValue(this));
+		// Remove too much skills.
+		favouriteSkills = favouriteSkills.subList(0, PdfStandardSheet.MOST_USED_SKILLS_LINES * 2);
+		// Order by name.
 		Collections.sort(favouriteSkills, new SkillComparatorByName());
 		return favouriteSkills;
 	}
@@ -2570,7 +2575,8 @@ public class CharacterPlayer extends StorableObject {
 			}
 		}
 		Collections.sort(favouriteSkills, new SkillComparatorByValue(this));
-		return favouriteSkills;
+		// Weaposn order by value always.
+		return favouriteSkills.subList(0, PdfStandardSheet.MOST_USED_ATTACKS_LINES);
 	}
 
 	public void setFavouriteSkills(Set<String> favouriteSkills) {
