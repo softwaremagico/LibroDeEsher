@@ -2559,7 +2559,9 @@ public class CharacterPlayer extends StorableObject {
 		}
 		Collections.sort(favouriteSkills, new SkillComparatorByValue(this));
 		// Remove too much skills.
-		favouriteSkills = favouriteSkills.subList(0, PdfStandardSheet.MOST_USED_SKILLS_LINES * 2);
+		favouriteSkills = favouriteSkills.subList(0,
+				(favouriteSkills.size() < PdfStandardSheet.MOST_USED_SKILLS_LINES * 2 ? favouriteSkills.size()
+						: PdfStandardSheet.MOST_USED_SKILLS_LINES * 2));
 		// Order by name.
 		Collections.sort(favouriteSkills, new SkillComparatorByName());
 		return favouriteSkills;
@@ -2576,7 +2578,8 @@ public class CharacterPlayer extends StorableObject {
 		}
 		Collections.sort(favouriteSkills, new SkillComparatorByValue(this));
 		// Weaposn order by value always.
-		return favouriteSkills.subList(0, PdfStandardSheet.MOST_USED_ATTACKS_LINES);
+		return favouriteSkills.subList(0, favouriteSkills.size() < PdfStandardSheet.MOST_USED_ATTACKS_LINES
+				? favouriteSkills.size() : PdfStandardSheet.MOST_USED_ATTACKS_LINES);
 	}
 
 	public void setFavouriteSkills(Set<String> favouriteSkills) {
