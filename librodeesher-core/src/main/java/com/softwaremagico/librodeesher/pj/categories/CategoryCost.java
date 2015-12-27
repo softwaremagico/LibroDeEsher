@@ -54,19 +54,23 @@ public class CategoryCost extends StorableObject {
 	private String categoryCostId = null;
 
 	public CategoryCost(CategoryCost categoryCost) {
+		super();
 		rankCost = new ArrayList<>(categoryCost.getRankCost());
 		categoryCostId = categoryCost.getCategoryCostId();
 	}
 
 	protected CategoryCost() {
+		super();
 		rankCost = new ArrayList<>();
 	}
 
 	public CategoryCost(List<Integer> rankCost) {
+		super();
 		this.rankCost = rankCost;
 	}
 
 	public CategoryCost(String rankCost) throws InvalidCategoryException {
+		super();
 		this.rankCost = covertStringToCost(rankCost);
 	}
 
@@ -74,7 +78,7 @@ public class CategoryCost extends StorableObject {
 	public void resetIds() {
 		resetIds(this);
 	}
-	
+
 	@Override
 	public void resetComparationIds() {
 		resetComparationIds(this);
@@ -141,10 +145,20 @@ public class CategoryCost extends StorableObject {
 		this.rankCost = rankCost;
 	}
 
+	/**
+	 * Special comparatorId for assigning values using different objects.
+	 * 
+	 * @return
+	 */
 	public String getCategoryCostId() {
 		return categoryCostId;
 	}
 
+	/**
+	 * Special comparatorId for assigning values using different objects.
+	 * 
+	 * @return
+	 */
 	public void setCategoryCostId(String categoryCostId) {
 		this.categoryCostId = categoryCostId;
 	}

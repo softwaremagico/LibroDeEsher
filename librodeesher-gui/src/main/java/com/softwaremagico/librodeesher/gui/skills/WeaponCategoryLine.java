@@ -52,6 +52,7 @@ public class WeaponCategoryLine extends GenericCategoryLine {
 		this.weaponLineNumber = weaponIndex;
 		previousSelectedIndex = weaponIndex;
 		if (costPanel) {
+			costComboBox.setEnabled(true);
 			costComboBox.setSelectedItem(cost);
 		}
 		costComboBox.setEnabled(character.getCurrentLevelNumber() == 1);
