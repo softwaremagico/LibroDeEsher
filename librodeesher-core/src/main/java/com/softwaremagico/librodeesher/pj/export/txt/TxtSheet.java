@@ -286,13 +286,13 @@ public class TxtSheet {
 			return WeaponFactory.getWeapon(skill.getName()).getAbbreviature();
 		}
 
-		if (skill.getName().equals(Spanish.WEAPONS_CLAW)) {
+		if (skill.getName().equals(Spanish.WEAPONS_RACE_CLAW)) {
 			return getSizeCode(characterPlayer) + "Ga";
 		}
-		if (skill.getName().equals(Spanish.WEAPONS_BITE)) {
+		if (skill.getName().equals(Spanish.WEAPONS_RACE_BITE)) {
 			return getSizeCode(characterPlayer) + "Mo";
 		}
-		if (skill.getName().equals(Spanish.WEAPONS_OTHERS)) {
+		if (skill.getName().equals(Spanish.WEAPONS_RACE_OTHERS)) {
 			return "??";
 		}
 		return skill.getCategory().getAbbreviature();

@@ -124,11 +124,12 @@ public class Spanish {
 	public static final String WEAPONS_MARTIALS_KICKS = "Artes Marciales·Barridos";
 	public static final String WEAPONS_MARTIALS_MANIOBRES = "Artes Marciales·Maniobras de Combate";
 	public static final String WEAPONS_SPECIALS = "Ataques Especiales";
-	public static final String WEAPONS_CLAW = "Ataque Racial: Extremidades";
-	public static final String WEAPONS_BITE = "Ataque Racial: Boca";
-	public static final String WEAPONS_OTHERS = "Ataque Racial: Otros";
+	public static final String WEAPONS_RACE = "Ataque Racial:";
+	public static final String WEAPONS_RACE_CLAW = WEAPONS_RACE + " Extremidades";
+	public static final String WEAPONS_RACE_BITE = WEAPONS_RACE + " Boca";
+	public static final String WEAPONS_RACE_OTHERS = WEAPONS_RACE + " Otros";
 	public static final String DEFENSIVE_BONUS = "Bonificación Defensiva";
 	public static final String REALM_TAG = "Reino";
 	public static final String INNMORTALS = "Inmortales";
-	
+
 }

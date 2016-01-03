@@ -4,6 +4,9 @@ import java.util.Comparator;
 
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
+/**
+ * Compare two skills by total value
+ */
 public class SkillComparatorByValue implements Comparator<Skill> {
 	private CharacterPlayer characterPlayer;
 	
