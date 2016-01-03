@@ -78,7 +78,7 @@ public class OptionsWindow extends BaseFrame {
 		fireArmsMenuItem.setSelected(character.isFirearmsAllowed());
 		darkSpellsMenuItem.setSelected(character.isDarkSpellsAsBasicListsAllowed());
 		chiPowers.setSelected(character.isChiPowersAllowed());
-		trainingOtherRealms.setSelected(character.isOtherRealmtrainingSpellsAllowed());
+		trainingOtherRealms.setSelected(character.isOtherRealmTrainingSpellsAllowed());
 		updatingState = false;
 	}
 

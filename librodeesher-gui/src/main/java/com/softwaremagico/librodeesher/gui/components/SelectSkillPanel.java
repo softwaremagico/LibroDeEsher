@@ -37,6 +37,7 @@ import com.softwaremagico.librodeesher.gui.elements.SkillChangedListener;
 import com.softwaremagico.librodeesher.gui.elements.SkillComboBox;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.gui.style.Fonts;
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
@@ -45,9 +46,11 @@ public class SelectSkillPanel extends BasePanel {
 	private CategoryComboBox categoryComboBox;
 	private SkillComboBox skillComboBox;
 	private Set<SkillChangedListener> skillListeners;
+	private CharacterPlayer player;
 
-	public SelectSkillPanel() {
+	public SelectSkillPanel(CharacterPlayer player) {
 		skillListeners = new HashSet<>();
+		this.player = player;
 		setElements();
 	}
 
@@ -123,7 +126,7 @@ public class SelectSkillPanel extends BasePanel {
 	}
 
 	private SkillComboBox createSkillComboBox() {
-		SkillComboBox skillComboBox = new SkillComboBox();
+		SkillComboBox skillComboBox = new SkillComboBox(player);
 		skillComboBox.setNormalStyle();
 		skillComboBox.addSkillChangedListener(new SkillChangedListener() {
 			@Override

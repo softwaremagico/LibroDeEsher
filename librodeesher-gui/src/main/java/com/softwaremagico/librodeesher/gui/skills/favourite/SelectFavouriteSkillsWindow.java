@@ -72,7 +72,7 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 		gridBagConstraints.weightx = 0;
 		gridBagConstraints.weighty = 0;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		final SelectSkillPanel selectSkillPanel = new SelectSkillPanel();
+		final SelectSkillPanel selectSkillPanel = new SelectSkillPanel(character);
 		selectSkillPanel.addSkillChangedListener(new SkillChangedListener() {
 
 			@Override

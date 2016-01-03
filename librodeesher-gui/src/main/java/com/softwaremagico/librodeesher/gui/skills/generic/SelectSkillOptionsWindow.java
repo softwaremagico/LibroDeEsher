@@ -109,7 +109,7 @@ public class SelectSkillOptionsWindow extends BaseFrame {
 		gridBagConstraints.weightx = 0;
 		gridBagConstraints.weighty = 0;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		SelectSkillPanel selectSkillPanel = new SelectSkillPanel();
+		SelectSkillPanel selectSkillPanel = new SelectSkillPanel(character);
 		getContentPane().add(selectSkillPanel, gridBagConstraints);
 
 		gridBagConstraints.gridy = 1;

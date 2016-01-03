@@ -321,7 +321,7 @@ public class RandomWindow extends BaseFrame {
 	}
 
 	private SkillComboBox createSkillComboBox() {
-		SkillComboBox skillComboBox = new SkillComboBox();
+		SkillComboBox skillComboBox = new SkillComboBox(characterPlayer);
 		skillComboBox.setNormalStyle();
 		skillComboBox.addSkillChangedListener(new SkillChangedListener() {
 			@Override

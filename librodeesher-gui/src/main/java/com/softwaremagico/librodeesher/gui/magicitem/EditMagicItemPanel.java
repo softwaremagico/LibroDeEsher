@@ -274,7 +274,7 @@ public class EditMagicItemPanel extends BasePanel {
 	}
 
 	private SkillComboBox createSkillComboBox() {
-		SkillComboBox skillComboBox = new SkillComboBox();
+		SkillComboBox skillComboBox = new SkillComboBox(character);
 		skillComboBox.setNormalStyle();
 		skillComboBox.addSkillChangedListener(new SkillChangedListener() {
 			@Override
@@ -359,7 +359,8 @@ public class EditMagicItemPanel extends BasePanel {
 			public void valueChanged(int value) {
 				if (magicObject != null) {
 					if (othersComboBox.getSelectedItem() != null) {
-						magicObject.setObjectBonus(((BonusType) (othersComboBox.getSelectedItem())).toString(),
+						magicObject.setObjectBonus(
+								((BonusType) (othersComboBox.getSelectedItem())).toString(),
 								(BonusType) (othersComboBox.getSelectedItem()), value);
 						character.updateMagicItemHelper(magicObject);
 					}

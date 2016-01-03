@@ -1347,7 +1347,7 @@ public class CharacterPlayer extends StorableObject {
 			return true;
 		}
 		// Hide forbidden categories.
-		if (!isOtherRealmtrainingSpellsAllowed() && category.getName().equals(Spanish.OTHER_REALM_TRAINING_LISTS)) {
+		if (!isOtherRealmTrainingSpellsAllowed() && category.getName().equals(Spanish.OTHER_REALM_TRAINING_LISTS)) {
 			return false;
 		}
 		// Expensive categories are useless.
@@ -1471,7 +1471,7 @@ public class CharacterPlayer extends StorableObject {
 		this.chiPowersAllowed = chiPowersAllowed;
 	}
 
-	public boolean isOtherRealmtrainingSpellsAllowed() {
+	public boolean isOtherRealmTrainingSpellsAllowed() {
 		return otherRealmtrainingSpellsAllowed;
 	}
 

@@ -27,21 +27,25 @@ package com.softwaremagico.librodeesher.gui.elements;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class SkillComboBox extends BaseComboBox<Skill> {
 	private static final long serialVersionUID = 7160132975462619054L;
 	private List<SkillChangedListener> skillListeners;
+	private CharacterPlayer character;
 
-	public SkillComboBox() {
+	public SkillComboBox(CharacterPlayer character) {
+		this.character = character;
 		skillListeners = new ArrayList<>();
 	}
 
 	public void setSkills(Category category) {
 		if (category != null) {
 			this.removeAllItems();
-			for (Skill skill : category.getSkills()) {
+			Category realCategory = (character != null ? character.getCategory(category) : category);
+			for (Skill skill : realCategory.getSkills()) {
 				addItem(skill);
 			}
 		}
