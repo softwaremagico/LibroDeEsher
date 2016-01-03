@@ -105,6 +105,11 @@ public class LevelUp extends StorableObject {
 	@CollectionTable(name = "T_LEVEL_UP_CHARACTERISTICS_UPDATES")
 	private List<CharacteristicRoll> characteristicsUpdates;
 
+	@Expose
+	@ElementCollection
+	@CollectionTable(name = "T_FAVOURITE_SKILLS")
+	private Set<String> favouriteSkills;
+
 	public LevelUp() {
 		categoriesRanks = new HashMap<>();
 		skillsRanks = new HashMap<>();
@@ -114,6 +119,7 @@ public class LevelUp extends StorableObject {
 		trainingDecisions = new HashMap<>();
 		skillSpecializations = new HashSet<>();
 		characteristicsUpdates = new ArrayList<>();
+		favouriteSkills = new HashSet<>();
 	}
 
 	@Override
@@ -325,5 +331,13 @@ public class LevelUp extends StorableObject {
 			int potentialValue) {
 		getCharacteristicsUpdates(abbreviature).setCharacteristicTemporalValue(tempotalValue);
 		getCharacteristicsUpdates(abbreviature).setCharacteristicPotentialValue(potentialValue);
+	}
+
+	public Set<String> getFavouriteSkills() {
+		return favouriteSkills;
+	}
+
+	public void setFavouriteSkills(Set<String> favouriteSkills) {
+		this.favouriteSkills = favouriteSkills;
 	}
 }

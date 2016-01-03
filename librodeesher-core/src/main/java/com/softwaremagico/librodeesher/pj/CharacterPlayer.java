@@ -229,16 +229,6 @@ public class CharacterPlayer extends StorableObject {
 	@JoinColumn(name = "insertedDataId")
 	private InsertedData insertedData;
 
-	@Expose
-	@ElementCollection
-	@CollectionTable(name = "T_FAVOURITE_SKILLS")
-	private Set<String> favouriteSkills;
-
-	@Expose
-	@ElementCollection
-	@CollectionTable(name = "T_FAVOURITE_ATTACK")
-	private Set<String> favouriteAttack;
-
 	public CharacterPlayer() {
 		characterPlayerHelper = new CharacterPlayerHelper();
 		appearance = new Appearance();
@@ -258,7 +248,6 @@ public class CharacterPlayer extends StorableObject {
 		magicSpellListsObtained = false;
 		magicItems = new ArrayList<>();
 		insertedData = new InsertedData();
-		favouriteSkills = new HashSet<>();
 		setDefaultConfig();
 		// Starts in level 1.
 		increaseLevel();
@@ -891,6 +880,9 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public LevelUp getCurrentLevel() {
+		if (levelUps == null || levelUps.isEmpty()) {
+			return null;
+		}
 		return levelUps.get(levelUps.size() - 1);
 	}
 
@@ -2235,6 +2227,12 @@ public class CharacterPlayer extends StorableObject {
 					getCharacteristicTemporalValue(characteristic.getAbbreviature()),
 					getCharacteristicPotentialValue(characteristic.getAbbreviature()), roll);
 		}
+
+		// Copy favorite skills from previous level to new one.
+		if (getCurrentLevel() != null) {
+			levelUp.setFavouriteSkills(new HashSet<>(getCurrentLevel().getFavouriteSkills()));
+		}
+
 		levelUps.add(levelUp);
 		// Reset id to force to be saved the character as a new record.
 		// resetIds();
@@ -2569,7 +2567,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Set<String> getFavouriteSkills() {
-		return favouriteSkills;
+		return getCurrentLevel().getFavouriteSkills();
 	}
 
 	public List<Skill> getFavouriteNoOffensiveSkills() {
@@ -2613,18 +2611,6 @@ public class CharacterPlayer extends StorableObject {
 		return favouriteSkills.subList(0,
 				favouriteSkills.size() < PdfStandardSheet.MOST_USED_ATTACKS_LINES ? favouriteSkills.size()
 						: PdfStandardSheet.MOST_USED_ATTACKS_LINES);
-	}
-
-	public void setFavouriteSkills(Set<String> favouriteSkills) {
-		this.favouriteSkills = favouriteSkills;
-	}
-
-	public Set<String> getFavouriteAttack() {
-		return favouriteAttack;
-	}
-
-	public void setFavouriteAttack(Set<String> favouriteAttack) {
-		this.favouriteAttack = favouriteAttack;
 	}
 
 }
