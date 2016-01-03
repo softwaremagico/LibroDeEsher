@@ -148,12 +148,12 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 							tableColumn.addCell(skillSpecializedLineCell);
 						}
 					}
-				}		
+				}
 
 				// Empty skill lines to fill gaps:
 				int addEmptyLines = (emptyLinesToAdd / (column.size() - column.indexOf(category)))
 						+ MIN_EMPTY_SKILLS_PER_CATEGORY;
-				
+
 				for (int i = 0; i < addEmptyLines; i++) {
 					PdfPCell emptySkillLines = skillLine("________________________", "__",
 							getNewRanksImage(0), "___", getCharacterPlayer().getTotalValue(category) + "",
@@ -244,8 +244,8 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		table.writeSelectedRows(0, -1, 30, document.getPageSize().getHeight() - 37, writer.getDirectContent());
 	}
 
-	private void obtainCategoriesPerColumn() {
-		columns = new ArrayList<>();
+	private List<List<Category>> obtainCategoriesPerColumn(int emptyLinesPerCategory) {
+		List<List<Category>> columns = new ArrayList<>();
 
 		List<Category> categoriesPerColumn = new ArrayList<>();
 		int currentColumnLines = 0;
@@ -267,8 +267,8 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 					}
 				}
 
-				// At least one empty line in each category.
-				linesByCategory += MIN_EMPTY_SKILLS_PER_CATEGORY * SKILL_SIZE;
+				// Add some empty lines each category.
+				linesByCategory += emptyLinesPerCategory * SKILL_SIZE;
 
 				// If category does not fits in current column, change column.
 				if (currentColumnLines + linesByCategory > MAX_LINES_PER_COLUMN) {
@@ -283,6 +283,13 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		}
 		// Add last column.
 		columns.add(categoriesPerColumn);
+
+		// If we have an empty column, move catetgories to this column.
+		if (columns.size() % 2 == 1) {
+			columns = obtainCategoriesPerColumn(emptyLinesPerCategory + 1);
+		}
+
+		return columns;
 	}
 
 	private int getMinNeededColumnLines(List<Category> column) {
@@ -534,7 +541,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		Font f = FontFactory.getFont(FontFactory.TIMES_BOLDITALIC, fontSize + 9);
 		f.setColor(BaseColor.WHITE);
 
-		obtainCategoriesPerColumn();
+		columns = obtainCategoriesPerColumn(MIN_EMPTY_SKILLS_PER_CATEGORY);
 
 		Paragraph p = new Paragraph("Hoja Combinada de Habilidades (" + (page + 1) + " de "
 				+ ((columns.size() + 1) / COLUMNS_PER_PAGE) + ")", f);
