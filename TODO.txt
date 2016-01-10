@@ -1,2 +1,2 @@
-Habilidades favoritas no se exportan con el nivel.
-Hoja combinada sale una columna vacía en la última página en el personaje de bellido.
+Coste en historial de los talentos
+Random character no tiene talentos.

@@ -204,6 +204,8 @@ public class CharacterPlayer extends StorableObject {
 	private boolean chiPowersAllowed = false;
 	@Expose
 	private boolean otherRealmtrainingSpellsAllowed = false;
+	@Expose
+	private boolean perksCostHistoryPoints = false;
 
 	@Expose
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -1513,7 +1515,15 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getRemainingHistorialPoints() {
-		return getRace().getHistorialPoints() - historial.getSpentHistoryPoints();
+		return getRace().getHistorialPoints() - historial.getSpentHistoryPoints()
+				- getPerksHistoryPointsCost();
+	}
+
+	private int getPerksHistoryPointsCost() {
+		if (!perksCostHistoryPoints) {
+			return 0;
+		}
+		return PerkFactory.getPerksHistoryCost(selectedPerks);
 	}
 
 	public CharacteristicRoll setCharacteristicHistorialUpdate(CharacteristicsAbbreviature abbreviature) {

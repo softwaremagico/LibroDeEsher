@@ -108,7 +108,7 @@ public class PerkLine extends BaseLine {
 		gridBagConstraints.gridx = 3;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
-		perkCategory = new ListLabel(perk.getCategory().toString(), SwingConstants.CENTER,
+		perkCategory = new ListLabel(perk.getGrade().toString(), SwingConstants.CENTER,
 				DEFAULT_COLUMN_WIDTH * 2, columnHeight);
 		add(new ListBackgroundPanel(perkCategory, background), gridBagConstraints);
 

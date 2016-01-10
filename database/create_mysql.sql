@@ -42,6 +42,7 @@
         historyText varchar(255),
         name varchar(255),
         otherRealmtrainingSpellsAllowed bit not null,
+        perksCostHistoryPoints bit not null,
         professionName varchar(255),
         raceName varchar(255),
         sex varchar(255),
@@ -320,6 +321,7 @@
         updateTime datetime,
         cost integer,
         name varchar(255),
+        weakness tinyblob,
         primary key (ID)
     );
 

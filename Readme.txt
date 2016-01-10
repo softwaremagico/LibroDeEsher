@@ -29,6 +29,10 @@ Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadore
 
 Versión
 ------------
+2.2.3	Corregido:
+		- Hechizos incluídos en habilidades favoritas.
+		- Ataques naturales, incluídos como ataques y no habilidades favoritas.
+		- Hoja combinada en PDF distribuye mejor las categorías en las distintas páginas.
 2.2.2	Añadido:
 		- Habilidades favoritas se muestran en primera hoja de la ficha en PDF.
 2.2.1	Revisado:

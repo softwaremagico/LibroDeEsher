@@ -14,12 +14,15 @@ public class SelectedPerk extends StorableObject {
 	private String name;
 	@Expose
 	private Integer cost;
+	@Expose
+	private SelectedPerk weakness;
 
 	protected SelectedPerk() {
-
+		super();
 	}
 
 	public SelectedPerk(Perk perk) {
+		super();
 		name = perk.getName();
 		cost = perk.getCost();
 	}
@@ -45,5 +48,13 @@ public class SelectedPerk extends StorableObject {
 	@Override
 	public String toString() {
 		return getName();
+	}
+
+	public SelectedPerk getWeakness() {
+		return weakness;
+	}
+
+	public void setWeakness(SelectedPerk weakness) {
+		this.weakness = weakness;
 	}
 }

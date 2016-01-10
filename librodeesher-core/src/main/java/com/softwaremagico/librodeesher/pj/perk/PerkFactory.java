@@ -68,7 +68,7 @@ public class PerkFactory {
 					Integer cost = Integer.parseInt(descomposed_line[1]);
 					List<String> races = getPerkAvailableToRaces(descomposed_line[2]);
 					List<String> professions = getPerkAvailableToProfessions(descomposed_line[2]);
-					PerkCategory classification = PerkCategory.getPerkCategory(descomposed_line[3]);
+					PerkGrade classification = PerkGrade.getPerkCategory(descomposed_line[3]);
 					String description = descomposed_line[5];
 					Perk perk = new Perk(perkName, cost, classification, description, races, professions);
 					String bonuses = descomposed_line[4];
@@ -194,7 +194,7 @@ public class PerkFactory {
 					perk.setSkillConditionalBonus(bonusName, bonusNumber);
 				} else if (ranksBonus) {
 					if (extraRanks) {
-						//No ranks directly to a skill.
+						// No ranks directly to a skill.
 					} else {
 						perk.setSkillRanksBonus(bonusName, bonusNumber);
 					}
@@ -295,7 +295,52 @@ public class PerkFactory {
 	 * @return
 	 */
 	public static Perk getPerk(SelectedPerk selectedPerk) {
+		if (selectedPerk == null) {
+			return null;
+		}
 		return getPerk(selectedPerk.getName());
 	}
 
+	public static int getPerksHistoryCost(List<SelectedPerk> selectedPerks) {
+		int cost = 0;
+		for (SelectedPerk selectedPerk : selectedPerks) {
+			cost += getPerkHistoryCost(PerkFactory.getPerk(selectedPerk),
+					PerkFactory.getPerk(selectedPerk.getWeakness()));
+		}
+		return cost;
+	}
+
+	/**
+	 * Obtains the cost for a perk depending on the grade and the weakness
+	 * chosen.
+	 * 
+	 * @param perk
+	 * @param weakness
+	 * @return
+	 */
+	private static int getPerkHistoryCost(Perk perk, Perk weakness) {
+		int cost = 0;
+		switch (perk.getGrade()) {
+		case MINIMUM:
+			cost = 2;
+			break;
+		case MINOR:
+			cost = 3;
+			break;
+		case MAJOR:
+			cost = 4;
+			break;
+		case MAXIMUM:
+			cost = 5;
+			break;
+		}
+		if (weakness != null) {
+			if (perk.getGrade().asNumber() - weakness.getGrade().asNumber() == 0) {
+				cost = cost - 2;
+			} else if (perk.getGrade().asNumber() - weakness.getGrade().asNumber() == 1) {
+				cost = cost - 1;
+			}
+		}
+		return cost;
+	}
 }

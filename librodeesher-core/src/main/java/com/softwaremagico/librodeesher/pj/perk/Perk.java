@@ -22,7 +22,7 @@ public class Perk {
 	private String description;
 	private List<String> avalibleToRaces;
 	private List<String> avalibleToProfessions;
-	private PerkCategory category;
+	private PerkGrade grade;
 	private Map<String, Integer> categoryBonus;
 	private Map<String, Integer> conditionalCategoryBonus;
 	// Extra ranks to category.
@@ -49,14 +49,14 @@ public class Perk {
 	private Integer chosenBonus;
 	private Integer movementBonus;
 
-	public Perk(String name, Integer cost, PerkCategory classification, String description,
+	public Perk(String name, Integer cost, PerkGrade classification, String description,
 			List<String> avalibleToRaces, List<String> avalibleToProfessions) {
 		this.name = name;
 		this.cost = cost;
 		this.description = description;
 		this.avalibleToRaces = avalibleToRaces;
 		this.avalibleToProfessions = avalibleToProfessions;
-		this.category = classification;
+		this.grade = classification;
 		categoryBonus = new HashMap<>();
 		skillBonus = new HashMap<>();
 		resistanceBonus = new HashMap<>();
@@ -342,8 +342,8 @@ public class Perk {
 		return cost;
 	}
 
-	public PerkCategory getCategory() {
-		return category;
+	public PerkGrade getGrade() {
+		return grade;
 	}
 
 	private String getBonusesDescription() {
@@ -626,8 +626,8 @@ public class Perk {
 		this.cost = cost;
 	}
 
-	protected void setCategory(PerkCategory category) {
-		this.category = category;
+	protected void setCategory(PerkGrade category) {
+		this.grade = category;
 	}
 
 	protected void setCategoriesToChoose(List<ChooseCategoryGroup> categoriesToChoose) {
