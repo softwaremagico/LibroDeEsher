@@ -313,6 +313,7 @@ public class CharacterPlayer extends StorableObject {
 		firearmsAllowed = Config.getFireArmsActivated();
 		chiPowersAllowed = Config.getChiPowersAllowed();
 		otherRealmtrainingSpellsAllowed = Config.getOtherRealmtrainingSpells();
+		perksCostHistoryPoints = Config.getPerksCostHistoryPoints();
 	}
 
 	/**
@@ -2621,6 +2622,14 @@ public class CharacterPlayer extends StorableObject {
 		return favouriteSkills.subList(0,
 				favouriteSkills.size() < PdfStandardSheet.MOST_USED_ATTACKS_LINES ? favouriteSkills.size()
 						: PdfStandardSheet.MOST_USED_ATTACKS_LINES);
+	}
+
+	public boolean isPerksCostHistoryPoints() {
+		return perksCostHistoryPoints;
+	}
+
+	public void setPerksCostHistoryPoints(boolean perksCostHistoryPoints) {
+		this.perksCostHistoryPoints = perksCostHistoryPoints;
 	}
 
 }

@@ -42,12 +42,13 @@ public class Config {
 	private static final String DARK_SPELLS_AS_BASIC_LIST = "darkSpellsAsBasicList";
 	private static final String CHI_POWERS = "chiPowers";
 	private static final String OTHER_REALM_TRAINING_SPELLS = "otherRealmTrainingSpells";
+	private static final String ENABLE_PERK_HISTORY_COST = "perksCostHistoryPoints";
 	private static final String DISABLED_MODULES = "disabledModules";
 	private static final String PDF_SORT_SKILLS = "sortSkills";
 	private static Properties configuration = new Properties();
-	private static Boolean maximized = false, fireArmsActivated = false,
-			darkSpellsAsBasic = false, chiPowersAllowed = false,
-			otherRealmsTrainingSpells = false, pdfSortSkills = false;
+	private static Boolean maximized = false, fireArmsActivated = false, darkSpellsAsBasic = false,
+			chiPowersAllowed = false, otherRealmsTrainingSpells = false, pdfSortSkills = false,
+			perksCostHistoryPoints = true;
 	private static Integer categoryMaxCost = 50;
 
 	static {
@@ -66,44 +67,35 @@ public class Config {
 	}
 
 	private static void setProperties() {
-		configuration.setProperty(MAXIMIZE_WINDOW_PROPERTY,
-				maximized.toString());
-		configuration
-				.setProperty(CATEGORY_MAX_COST, categoryMaxCost.toString());
-		configuration.setProperty(FIREARMS_ALLOWED, getFireArmsActivated()
-				.toString());
-		configuration.setProperty(DARK_SPELLS_AS_BASIC_LIST,
-				getDarkSpellsAsBasic().toString());
+		configuration.setProperty(MAXIMIZE_WINDOW_PROPERTY, maximized.toString());
+		configuration.setProperty(CATEGORY_MAX_COST, categoryMaxCost.toString());
+		configuration.setProperty(FIREARMS_ALLOWED, getFireArmsActivated().toString());
+		configuration.setProperty(DARK_SPELLS_AS_BASIC_LIST, getDarkSpellsAsBasic().toString());
 		configuration.setProperty(CHI_POWERS, getChiPowersAllowed().toString());
-		configuration.setProperty(OTHER_REALM_TRAINING_SPELLS,
-				getOtherRealmtrainingSpells().toString());
+		configuration.setProperty(OTHER_REALM_TRAINING_SPELLS, getOtherRealmtrainingSpells().toString());
 		configuration.setProperty(DISABLED_MODULES, getDisabledModules());
-		configuration.setProperty(PDF_SORT_SKILLS, getPdfSortSkills()
-				.toString());
+		configuration.setProperty(PDF_SORT_SKILLS, getPdfSortSkills().toString());
+		configuration.setProperty(PDF_SORT_SKILLS, getPdfSortSkills().toString());
+		configuration.setProperty(ENABLE_PERK_HISTORY_COST, getPerksCostHistoryPoints().toString());
 	}
 
 	private static void loadConfiguration() {
 		// load a properties file
 		try {
-			File configFile = new File(
-					RolemasterFolderStructure.getConfigurationFilePath());
+			File configFile = new File(RolemasterFolderStructure.getConfigurationFilePath());
 			if (configFile.exists()) {
-				configuration.load(new FileInputStream(
-						RolemasterFolderStructure.getConfigurationFilePath()));
-				maximized = Boolean.parseBoolean(configuration
-						.getProperty(MAXIMIZE_WINDOW_PROPERTY));
-				categoryMaxCost = Integer.parseInt(configuration
-						.getProperty(CATEGORY_MAX_COST));
-				fireArmsActivated = Boolean.parseBoolean(configuration
-						.getProperty(FIREARMS_ALLOWED));
-				darkSpellsAsBasic = Boolean.parseBoolean(configuration
-						.getProperty(DARK_SPELLS_AS_BASIC_LIST));
-				chiPowersAllowed = Boolean.parseBoolean(configuration
-						.getProperty(CHI_POWERS));
+				configuration.load(new FileInputStream(RolemasterFolderStructure.getConfigurationFilePath()));
+				maximized = Boolean.parseBoolean(configuration.getProperty(MAXIMIZE_WINDOW_PROPERTY));
+				categoryMaxCost = Integer.parseInt(configuration.getProperty(CATEGORY_MAX_COST));
+				fireArmsActivated = Boolean.parseBoolean(configuration.getProperty(FIREARMS_ALLOWED));
+				darkSpellsAsBasic = Boolean
+						.parseBoolean(configuration.getProperty(DARK_SPELLS_AS_BASIC_LIST));
+				chiPowersAllowed = Boolean.parseBoolean(configuration.getProperty(CHI_POWERS));
 				otherRealmsTrainingSpells = Boolean.parseBoolean(configuration
 						.getProperty(OTHER_REALM_TRAINING_SPELLS));
-				pdfSortSkills = Boolean.parseBoolean(configuration
-						.getProperty(PDF_SORT_SKILLS));
+				perksCostHistoryPoints = Boolean.parseBoolean(configuration
+						.getProperty(ENABLE_PERK_HISTORY_COST));
+				pdfSortSkills = Boolean.parseBoolean(configuration.getProperty(PDF_SORT_SKILLS));
 				loadDisabledModules(configuration.getProperty(DISABLED_MODULES));
 			}
 		} catch (Exception e) {
@@ -114,9 +106,8 @@ public class Config {
 	public static void storeConfiguration() {
 		setProperties();
 		try {
-			configuration.store(
-					new FileOutputStream(RolemasterFolderStructure
-							.getConfigurationFilePath()), null);
+			configuration.store(new FileOutputStream(RolemasterFolderStructure.getConfigurationFilePath()),
+					null);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -162,9 +153,16 @@ public class Config {
 		return otherRealmsTrainingSpells;
 	}
 
-	public static void setOtherRealmTrainingSpells(
-			Boolean otherRealmTrainingSpells) {
+	public static void setOtherRealmTrainingSpells(Boolean otherRealmTrainingSpells) {
 		Config.otherRealmsTrainingSpells = otherRealmTrainingSpells;
+		storeConfiguration();
+	}
+	public static Boolean getPerksCostHistoryPoints() {
+		return perksCostHistoryPoints;
+	}
+
+	public static void setPerksCostHistoryPoints(Boolean otherRealmTrainingSpells) {
+		perksCostHistoryPoints = otherRealmTrainingSpells;
 		storeConfiguration();
 	}
 
@@ -175,8 +173,7 @@ public class Config {
 
 	private static String getDisabledModules() {
 		String result = "";
-		for (String moduleDisabled : RolemasterFolderStructure
-				.getDisabledModules()) {
+		for (String moduleDisabled : RolemasterFolderStructure.getDisabledModules()) {
 			result += moduleDisabled + DEFAULT_SEPARATION_CHAR;
 		}
 		return result;
@@ -184,8 +181,7 @@ public class Config {
 
 	private static void loadDisabledModules(String line) {
 		String[] values = line.split(DEFAULT_SEPARATION_CHAR);
-		RolemasterFolderStructure.setDisabledModules(new ArrayList<String>(
-				Arrays.asList(values)));
+		RolemasterFolderStructure.setDisabledModules(new ArrayList<String>(Arrays.asList(values)));
 	}
 
 	public static Boolean getPdfSortSkills() {

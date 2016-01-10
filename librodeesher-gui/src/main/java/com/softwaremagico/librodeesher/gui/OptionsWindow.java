@@ -60,14 +60,15 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 public class OptionsWindow extends BaseFrame {
 	private static final long serialVersionUID = -8015912539177057288L;
 	private CharacterPlayer character;
-	private JCheckBox fireArmsMenuItem, darkSpellsMenuItem, chiPowers, trainingOtherRealms, disabledCheckBox;
+	private JCheckBox fireArmsMenuItem, darkSpellsMenuItem, chiPowers, trainingOtherRealms,
+			perkHistoryPoints, disabledCheckBox;
 	private boolean updatingState = false;
 	private BaseSpinner categoryMax;
 	private JComboBox<String> modulesComboBox;
 
 	public OptionsWindow(CharacterPlayer character) {
 		this.character = character;
-		defineWindow(500, 330);
+		defineWindow(500, 340);
 		setElements();
 		setCurrentCharacterConfig();
 		setResizable(false);
@@ -79,6 +80,7 @@ public class OptionsWindow extends BaseFrame {
 		darkSpellsMenuItem.setSelected(character.isDarkSpellsAsBasicListsAllowed());
 		chiPowers.setSelected(character.isChiPowersAllowed());
 		trainingOtherRealms.setSelected(character.isOtherRealmTrainingSpellsAllowed());
+		perkHistoryPoints.setSelected(character.isPerksCostHistoryPoints());
 		updatingState = false;
 	}
 
@@ -108,6 +110,10 @@ public class OptionsWindow extends BaseFrame {
 		trainingOtherRealms.addActionListener(checkboxListener);
 		characterPanel.add(trainingOtherRealms);
 
+		perkHistoryPoints = new JCheckBox(Spanish.ENABLE_PERK_HISTORY_COST);
+		perkHistoryPoints.addActionListener(checkboxListener);
+		characterPanel.add(perkHistoryPoints);
+
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
@@ -118,27 +124,6 @@ public class OptionsWindow extends BaseFrame {
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		getContentPane().add(characterPanel, gridBagConstraints);
-		
-//		JPanel pdfOptionsPanel = new JPanel();
-//		pdfOptionsPanel.setLayout(new BoxLayout(pdfOptionsPanel, BoxLayout.Y_AXIS));
-//		pdfOptionsPanel.setBorder(BorderFactory.createTitledBorder(
-//				BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Creación de Fichas"));
-//		
-//		pdfSortCategories = new JCheckBox(Spanish.PDF_SORT_SKILLS);
-//		pdfSortCategories.addActionListener(checkboxListener);
-//		pdfOptionsPanel.add(pdfSortCategories);
-//		
-//		gridBagConstraints.fill = GridBagConstraints.BOTH;
-//		gridBagConstraints.ipadx = xPadding;
-//		gridBagConstraints.gridx = 0;
-//		gridBagConstraints.gridy = 1;
-//		gridBagConstraints.gridheight = 1;
-//		gridBagConstraints.gridwidth = 3;
-//		gridBagConstraints.weightx = 1;
-//		gridBagConstraints.weighty = 1;
-//		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-//		getContentPane().add(pdfOptionsPanel, gridBagConstraints);
-		
 
 		JPanel graphicOptionsPanel = new JPanel();
 		graphicOptionsPanel.setLayout(new BoxLayout(graphicOptionsPanel, BoxLayout.Y_AXIS));
@@ -249,7 +234,10 @@ public class OptionsWindow extends BaseFrame {
 				} else if (e.getActionCommand().equals(Spanish.OTHER_TRAINING_SPELLS)) {
 					character.setOtherRealmTrainingSpellsAllowed(trainingOtherRealms.isSelected());
 					Config.setOtherRealmTrainingSpells(trainingOtherRealms.isSelected());
-				} 
+				} else if (e.getActionCommand().equals(Spanish.ENABLE_PERK_HISTORY_COST)){
+					character.setPerksCostHistoryPoints(perkHistoryPoints.isSelected());
+					Config.setPerksCostHistoryPoints(perkHistoryPoints.isSelected());
+				}
 			}
 		}
 	}
