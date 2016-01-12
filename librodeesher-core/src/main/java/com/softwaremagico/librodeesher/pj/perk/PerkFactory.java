@@ -375,7 +375,7 @@ public class PerkFactory {
 		return selectedPerk;
 	}
 
-	public static HashMap<PerkType, List<Perk>> getPerkClassification() {
+	private static HashMap<PerkType, List<Perk>> getPerkClassification() {
 		if (perkClassification == null) {
 			perkClassification = new HashMap<>();
 			for (Perk perk : perksList) {
@@ -392,7 +392,7 @@ public class PerkFactory {
 		return perkClassification;
 	}
 
-	public static HashMap<PerkType, List<Perk>> getWeaknessClassification() {
+	private static HashMap<PerkType, List<Perk>> getWeaknessClassification() {
 		if (weaknessClassification == null) {
 			weaknessClassification = new HashMap<>();
 			for (Perk perk : perksList) {
