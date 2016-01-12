@@ -23,6 +23,7 @@ public class Perk {
 	private List<String> avalibleToRaces;
 	private List<String> avalibleToProfessions;
 	private PerkGrade grade;
+	private PerkType perkType;
 	private Map<String, Integer> categoryBonus;
 	private Map<String, Integer> conditionalCategoryBonus;
 	// Extra ranks to category.
@@ -49,14 +50,15 @@ public class Perk {
 	private Integer chosenBonus;
 	private Integer movementBonus;
 
-	public Perk(String name, Integer cost, PerkGrade classification, String description,
-			List<String> avalibleToRaces, List<String> avalibleToProfessions) {
+	public Perk(String name, Integer cost, PerkGrade classification, PerkType perkType, String description, List<String> avalibleToRaces,
+			List<String> avalibleToProfessions) {
 		this.name = name;
 		this.cost = cost;
 		this.description = description;
 		this.avalibleToRaces = avalibleToRaces;
 		this.avalibleToProfessions = avalibleToProfessions;
 		this.grade = classification;
+		this.perkType = perkType;
 		categoryBonus = new HashMap<>();
 		skillBonus = new HashMap<>();
 		resistanceBonus = new HashMap<>();
@@ -196,15 +198,12 @@ public class Perk {
 		}
 	}
 
-	public void setCategoryToSelectCommonSkills(Category category, Integer commonSkills)
-			throws InvalidPerkDefinition {
+	public void setCategoryToSelectCommonSkills(Category category, Integer commonSkills) throws InvalidPerkDefinition {
 		try {
-			commonSkillsToChoose.add(new ChooseSkillGroup(commonSkills, SkillFactory.getSkills(category),
-					ChooseType.COMMON));
+			commonSkillsToChoose.add(new ChooseSkillGroup(commonSkills, SkillFactory.getSkills(category), ChooseType.COMMON));
 		} catch (Exception e) {
 			EsherLog.errorMessage(this.getClass().getName(), e);
-			throw new InvalidPerkDefinition("Invalid common skill definition in Category '" + category
-					+ "' for Perk '" + name + "',");
+			throw new InvalidPerkDefinition("Invalid common skill definition in Category '" + category + "' for Perk '" + name + "',");
 		}
 	}
 
@@ -689,5 +688,9 @@ public class Perk {
 	@Override
 	public String toString() {
 		return getName();
+	}
+
+	public PerkType getPerkType() {
+		return perkType;
 	}
 }

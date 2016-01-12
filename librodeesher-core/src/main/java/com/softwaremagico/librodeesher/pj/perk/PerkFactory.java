@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
@@ -26,6 +27,8 @@ import com.softwaremagico.log.EsherLog;
 public class PerkFactory {
 	private static HashMap<String, Perk> availablePerks = new HashMap<>();
 	private static List<Perk> perksList = new ArrayList<>();
+	private static HashMap<PerkType, List<Perk>> perkClassification;
+	private static HashMap<PerkType, List<Perk>> weaknessClassification;
 
 	static {
 		try {
@@ -53,8 +56,8 @@ public class PerkFactory {
 		}
 	}
 
-	private static int setPerks(List<String> lines, int index) throws InvalidPerkException,
-			InvalidCategoryException, InvalidSkillException, InvalidPerkDefinition {
+	private static int setPerks(List<String> lines, int index) throws InvalidPerkException, InvalidCategoryException, InvalidSkillException,
+			InvalidPerkDefinition {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -69,9 +72,10 @@ public class PerkFactory {
 					List<String> races = getPerkAvailableToRaces(descomposed_line[2]);
 					List<String> professions = getPerkAvailableToProfessions(descomposed_line[2]);
 					PerkGrade classification = PerkGrade.getPerkCategory(descomposed_line[3]);
-					String description = descomposed_line[5];
-					Perk perk = new Perk(perkName, cost, classification, description, races, professions);
-					String bonuses = descomposed_line[4];
+					PerkType type = PerkType.getPerkType(descomposed_line[4]);
+					String description = descomposed_line[6];
+					Perk perk = new Perk(perkName, cost, classification, type, description, races, professions);
+					String bonuses = descomposed_line[5];
 					addBonuses(perk, bonuses);
 					availablePerks.put(perk.getName(), perk);
 					perksList.add(perk);
@@ -98,13 +102,11 @@ public class PerkFactory {
 		return ChooseType.BONUS;
 	}
 
-	private static void addListToChooseBonus(Perk perk, String optionsLine) throws InvalidPerkException,
-			InvalidCategoryException, InvalidSkillException {
+	private static void addListToChooseBonus(Perk perk, String optionsLine) throws InvalidPerkException, InvalidCategoryException, InvalidSkillException {
 		String[] set = optionsLine.split("\\(");
 
 		// Obtain the number of options
-		Integer options = Integer.parseInt(set[1].substring(set[1].indexOf("[") + 1, set[1].indexOf("]"))
-				.trim());
+		Integer options = Integer.parseInt(set[1].substring(set[1].indexOf("[") + 1, set[1].indexOf("]")).trim());
 
 		boolean ranksBonus = false;
 		if (set[1].contains("r)")) {
@@ -112,19 +114,15 @@ public class PerkFactory {
 		}
 
 		// Obtain the bonus
-		String bonusString = set[1].substring(set[1].indexOf("\\(") + 1, set[1].indexOf(")"))
-				.replace("*", "").replace("r", "").replace("/", "").trim();
+		String bonusString = set[1].substring(set[1].indexOf("\\(") + 1, set[1].indexOf(")")).replace("*", "").replace("r", "").replace("/", "").trim();
 
 		// Obtain the list to choose.
 		if (set[0].toLowerCase().contains(Spanish.ANY_WEAPON_CATEGORY)) {
-			perk.addCategoriesToChoose(new ChooseCategoryGroup(options, CategoryFactory
-					.getWeaponsCategories(), getOption(bonusString, ranksBonus)));
+			perk.addCategoriesToChoose(new ChooseCategoryGroup(options, CategoryFactory.getWeaponsCategories(), getOption(bonusString, ranksBonus)));
 		} else if (set[0].toLowerCase().contains(Spanish.ANY_CATEGORY)) {
-			perk.addCategoriesToChoose(new ChooseCategoryGroup(options, CategoryFactory.getCategories(),
-					getOption(bonusString, ranksBonus)));
+			perk.addCategoriesToChoose(new ChooseCategoryGroup(options, CategoryFactory.getCategories(), getOption(bonusString, ranksBonus)));
 		} else if (set[0].toLowerCase().contains(Spanish.ANY_WEAPON)) {
-			perk.addSkillsToChoose(new ChooseSkillGroup(options, SkillFactory.getWeaponSkills(), getOption(
-					bonusString, ranksBonus)));
+			perk.addSkillsToChoose(new ChooseSkillGroup(options, SkillFactory.getWeaponSkills(), getOption(bonusString, ranksBonus)));
 		} else if (set[0].toLowerCase().contains(Spanish.ANY_SKILL)) {
 			perk.addSkillsToChoose(new ChooseSkillGroup(options, SkillFactory.getSkills(), ChooseType.BONUS));
 		} else { // Obtain the list
@@ -139,17 +137,16 @@ public class PerkFactory {
 				} else if (CategoryFactory.existCategory(option)) {
 					categoriesToChoose.add(option);
 				} else {
-					throw new InvalidPerkException("Categoría o habilidad desconocida: " + option
-							+ " en talento " + perk.getName());
+					throw new InvalidPerkException("Categoría o habilidad desconocida: " + option + " en talento " + perk.getName());
 				}
 			}
 			if (categoriesToChoose.size() > 0) {
-				perk.addCategoriesToChoose(new ChooseCategoryGroup(options, categoriesToChoose
-						.toArray(new String[categoriesToChoose.size()]), getOption(bonusString, ranksBonus)));
+				perk.addCategoriesToChoose(new ChooseCategoryGroup(options, categoriesToChoose.toArray(new String[categoriesToChoose.size()]), getOption(
+						bonusString, ranksBonus)));
 			}
 			if (skillsToChoose.size() > 0) {
-				perk.addSkillsToChoose(new ChooseSkillGroup(options, skillsToChoose
-						.toArray(new String[skillsToChoose.size()]), getOption(bonusString, ranksBonus)));
+				perk.addSkillsToChoose(new ChooseSkillGroup(options, skillsToChoose.toArray(new String[skillsToChoose.size()]), getOption(bonusString,
+						ranksBonus)));
 			}
 		}
 
@@ -158,8 +155,7 @@ public class PerkFactory {
 		}
 	}
 
-	private static void addDefinedBonus(Perk perk, String optionsLine) throws InvalidPerkException,
-			InvalidPerkDefinition {
+	private static void addDefinedBonus(Perk perk, String optionsLine) throws InvalidPerkException, InvalidPerkDefinition {
 		boolean conditionalBonus = false;
 		boolean ranksBonus = false;
 		boolean extraRanks = false;
@@ -188,8 +184,7 @@ public class PerkFactory {
 			} else if (bonusString.toLowerCase().contains(Spanish.RESTRICTED_TAG)) {
 				perk.setSkillAsRestricted(bonusName, true);
 			} else {
-				Integer bonusNumber = Integer.parseInt(bonusString.replace("*", "").replace("r", "")
-						.replace("/", ""));
+				Integer bonusNumber = Integer.parseInt(bonusString.replace("*", "").replace("r", "").replace("/", ""));
 				if (conditionalBonus) {
 					perk.setSkillConditionalBonus(bonusName, bonusNumber);
 				} else if (ranksBonus) {
@@ -208,8 +203,7 @@ public class PerkFactory {
 			} else if (bonusString.toLowerCase().contains(Spanish.RESTRICTED_TAG)) {
 				perk.setCategoryAsRestricted(bonusName, true);
 			} else {
-				Integer bonusNumber = Integer.parseInt(bonusString.replace("*", "").replace("r", "")
-						.replace("/", ""));
+				Integer bonusNumber = Integer.parseInt(bonusString.replace("*", "").replace("r", "").replace("/", ""));
 				if (conditionalBonus) {
 					perk.setCategoriesConditionalBonus(bonusName, bonusNumber);
 				} else if (ranksBonus) {
@@ -227,8 +221,7 @@ public class PerkFactory {
 			perk.setResistanceBonus(bonusName.replace(Spanish.RESISTANCE_TAG, "").trim(), bonusNumber);
 		} else if (Characteristics.isCharacteristicValid(bonusName)) {
 			Integer bonusNumber = Integer.parseInt(bonusString);
-			perk.setCharacteristicBonus(
-					CharacteristicsAbbreviature.getCharacteristicsAbbreviature(bonusName), bonusNumber);
+			perk.setCharacteristicBonus(CharacteristicsAbbreviature.getCharacteristicsAbbreviature(bonusName), bonusNumber);
 		} else if (bonusName.toLowerCase().contains(Spanish.APPEARANCE_TAG)) {
 			Integer bonusNumber = Integer.parseInt(bonusString);
 			perk.setAppareanceBonus(bonusNumber);
@@ -239,13 +232,12 @@ public class PerkFactory {
 			Integer bonusNumber = Integer.parseInt(bonusString);
 			perk.setMovementBonus(bonusNumber);
 		} else {
-			throw new InvalidPerkException("Bonus " + bonusName + " no reconocido en el talento:\""
-					+ perk.getName() + "\"");
+			throw new InvalidPerkException("Bonus " + bonusName + " no reconocido en el talento:\"" + perk.getName() + "\"");
 		}
 	}
 
-	private static void addBonuses(Perk perk, String bonusesDescription) throws InvalidPerkException,
-			InvalidCategoryException, InvalidSkillException, InvalidPerkDefinition {
+	private static void addBonuses(Perk perk, String bonusesDescription) throws InvalidPerkException, InvalidCategoryException, InvalidSkillException,
+			InvalidPerkDefinition {
 		String[] bonusesList = bonusesDescription.split(", ");
 		try {
 			for (String bonusSet : bonusesList) {
@@ -304,8 +296,7 @@ public class PerkFactory {
 	public static int getPerksHistoryCost(List<SelectedPerk> selectedPerks) {
 		int cost = 0;
 		for (SelectedPerk selectedPerk : selectedPerks) {
-			cost += getPerkHistoryCost(PerkFactory.getPerk(selectedPerk),
-					PerkFactory.getPerk(selectedPerk.getWeakness()));
+			cost += getPerkHistoryCost(PerkFactory.getPerk(selectedPerk), PerkFactory.getPerk(selectedPerk.getWeakness()));
 		}
 		return cost;
 	}
@@ -342,5 +333,80 @@ public class PerkFactory {
 			}
 		}
 		return cost;
+	}
+
+	/**
+	 * Return a random perk.
+	 * 
+	 * @param grade
+	 *            if not null, only perks of this grade can be selected.
+	 * @return
+	 */
+	public static Perk getRandomPerk(PerkGrade grade) {
+		// Select a random type
+		List<PerkType> availableTypes = new ArrayList<>(getPerkClassification().keySet());
+		PerkType selectedType = availableTypes.get(new Random().nextInt(availableTypes.size()));
+		// Select a random perk
+		Perk selectedPerk = getPerkClassification().get(selectedType).get(new Random().nextInt(getPerkClassification().get(selectedType).size()));
+		if (grade != null && !selectedPerk.getGrade().equals(grade)) {
+			// Not valid, try again!
+			return getRandomPerk(grade);
+		}
+		return selectedPerk;
+	}
+
+	/**
+	 * Return a random weakness.
+	 * 
+	 * @param grade
+	 *            if not null, only perks of this grade can be selected.
+	 * @return
+	 */
+	public static Perk getRandomWeakness(PerkGrade grade) {
+		// Select a random type
+		List<PerkType> availableTypes = new ArrayList<>(getWeaknessClassification().keySet());
+		PerkType selectedType = availableTypes.get(new Random().nextInt(availableTypes.size()));
+		// Select a random perk
+		Perk selectedPerk = getWeaknessClassification().get(selectedType).get(new Random().nextInt(getWeaknessClassification().get(selectedType).size()));
+		if (grade != null && !selectedPerk.getGrade().equals(grade)) {
+			// Not valid, try again!
+			return getRandomWeakness(grade);
+		}
+		return selectedPerk;
+	}
+
+	public static HashMap<PerkType, List<Perk>> getPerkClassification() {
+		if (perkClassification == null) {
+			perkClassification = new HashMap<>();
+			for (Perk perk : perksList) {
+				// Is bonus
+				if (perk.getCost() > 0) {
+					// skip no official perks.
+					if (!perk.getPerkType().equals(PerkType.OTHER) && perkClassification.get(perk.getPerkType()) == null) {
+						perkClassification.put(perk.getPerkType(), new ArrayList<Perk>());
+					}
+					perkClassification.get(perk.getPerkType()).add(perk);
+				}
+			}
+		}
+		return perkClassification;
+	}
+
+	public static HashMap<PerkType, List<Perk>> getWeaknessClassification() {
+		if (weaknessClassification == null) {
+			weaknessClassification = new HashMap<>();
+			for (Perk perk : perksList) {
+				// Is weakness
+				if (perk.getCost() < 0) {
+					// skip no official perks.
+					if (!perk.getPerkType().equals(PerkType.OTHER) && weaknessClassification.get(perk.getPerkType()) == null) {
+						weaknessClassification.put(perk.getPerkType(), new ArrayList<Perk>());
+					}
+					weaknessClassification.get(perk.getPerkType()).add(perk);
+				}
+			}
+
+		}
+		return weaknessClassification;
 	}
 }
