@@ -124,6 +124,9 @@ public class CharacterPlayer extends StorableObject {
 	private String historyText;
 
 	@Expose
+	private int characteristicsTemporalTotalPoints = Characteristics.TOTAL_CHARACTERISTICS_POINTS;
+
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_CHARACTERPLAYER_INITIAL_TEMPORAL_VALUES")
 	private Map<CharacteristicsAbbreviature, Integer> characteristicsInitialTemporalValues;
@@ -2585,6 +2588,14 @@ public class CharacterPlayer extends StorableObject {
 
 	public void setPerksCostHistoryPoints(boolean perksCostHistoryPoints) {
 		this.perksCostHistoryPoints = perksCostHistoryPoints;
+	}
+
+	public int getCharacteristicsTemporalTotalPoints() {
+		return characteristicsTemporalTotalPoints;
+	}
+
+	public void setCharacteristicsTemporalTotalPoints(int characteristicsTemporalPoints) {
+		this.characteristicsTemporalTotalPoints = characteristicsTemporalPoints;
 	}
 
 }

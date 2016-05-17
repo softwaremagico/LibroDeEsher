@@ -138,13 +138,13 @@ public class CharacteristicLine extends BaseLine {
 				// Range values
 				if ((Integer) temporalSpinner.getValue() < 1) {
 					temporalSpinner.setValue(1);
-				} else if ((Integer) temporalSpinner.getValue() > Characteristics.MAX_INITIAL_CHARACTERISTIC_VALUE) {
-					temporalSpinner.setValue(Characteristics.MAX_INITIAL_CHARACTERISTIC_VALUE);
+				} else if ((Integer) temporalSpinner.getValue() >= 90 + (character.getCharacteristicsTemporalTotalPoints() / 60)) {
+					temporalSpinner.setValue(89 + (character.getCharacteristicsTemporalTotalPoints() / 60));
 				} else if ((Integer) temporalSpinner.getValue() < 90
 						&& character.isMainProfessionalCharacteristic(characteristic.getAbbreviature())) {
 					temporalSpinner.setValue(90);
 					// Development points restrictions.
-				} else if (character.getCharacteristicsTemporalPointsSpent() > Characteristics.TOTAL_CHARACTERISTICS_POINTS) {
+				} else if (character.getCharacteristicsTemporalPointsSpent() > character.getCharacteristicsTemporalTotalPoints()) {
 					temporalSpinner.setValue((Integer) temporalSpinner.getValue() - 1);
 				}
 				update();

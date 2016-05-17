@@ -36,11 +36,12 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
+import com.softwaremagico.librodeesher.gui.elements.BaseTextField;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.elements.RandomButton;
-import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BaseButton;
+import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
@@ -48,14 +49,15 @@ import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 public class CharacteristicsWindow extends BaseFrame {
 	private static final long serialVersionUID = -2484205144800968016L;
 	private CompleteCharacteristicPanel characteristicPanel;
-	private BaseLabel spentPointsLabel;
+	private BaseLabel spentPointsLabel, totalPointsLabel;
 	private CharacterPlayer character;
 	private BaseButton acceptButton;
 	private RandomButton randomButton;
 	private PointsCounterTextField characteristicsPointsTextField;
+	private BaseTextField characteristicsTotalPointsTextField;
 
 	public CharacteristicsWindow() {
-		defineWindow(500, 400);
+		defineWindow(550, 400);
 		setResizable(false);
 		setElements();
 	}
@@ -79,7 +81,22 @@ public class CharacteristicsWindow extends BaseFrame {
 		JPanel characteristicPointsPanel = new JPanel();
 		characteristicPointsPanel.setLayout(new BoxLayout(characteristicPointsPanel, BoxLayout.X_AXIS));
 
-		spentPointsLabel = new BaseLabel("  Puntos restantes: ");
+		totalPointsLabel = new BaseLabel("Puntos: ");
+		characteristicPointsPanel.add(totalPointsLabel);
+
+		characteristicsTotalPointsTextField = new BaseTextField();
+		characteristicsTotalPointsTextField.setColumns(3);
+		characteristicsTotalPointsTextField.setMaximumSize(new Dimension(60, 25));
+		characteristicsTotalPointsTextField.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				updateTotalTemporalPoints();
+			}
+		});
+		characteristicPointsPanel.add(characteristicsTotalPointsTextField);
+
+		spentPointsLabel = new BaseLabel(" Restantes: ");
 		characteristicPointsPanel.add(spentPointsLabel);
 
 		characteristicsPointsTextField = new PointsCounterTextField();
@@ -105,6 +122,7 @@ public class CharacteristicsWindow extends BaseFrame {
 
 			@Override
 			public void RandomAction() {
+				updateTotalTemporalPoints();
 				RandomCharacterPlayer.setCharacteristics(character, 0);
 				setCharacter(character);
 			}
@@ -130,6 +148,17 @@ public class CharacteristicsWindow extends BaseFrame {
 		getContentPane().add(buttonPanel, gridBagConstraints);
 	}
 
+	private void updateTotalTemporalPoints() {
+		if (character != null) {
+			try {
+				character.setCharacteristicsTemporalTotalPoints(Integer.parseInt(characteristicsTotalPointsTextField.getText()));
+			} catch (Exception except) {
+				character.setCharacteristicsTemporalTotalPoints(Characteristics.TOTAL_CHARACTERISTICS_POINTS);
+			}
+			setRemainingPoints(character.getCharacteristicsTemporalTotalPoints() - character.getCharacteristicsTemporalPointsSpent());
+		}
+	}
+
 	private void setRemainingPoints(Integer value) {
 		characteristicsPointsTextField.setPoints(value);
 	}
@@ -138,19 +167,19 @@ public class CharacteristicsWindow extends BaseFrame {
 		this.character = character;
 		characteristicPanel.setCharacter(character, false);
 		characteristicPanel.setParentWindow(this);
-		setRemainingPoints(Characteristics.TOTAL_CHARACTERISTICS_POINTS
-				- character.getCharacteristicsTemporalPointsSpent());
+		characteristicsTotalPointsTextField.setText(character.getCharacteristicsTemporalTotalPoints() + "");
+		setRemainingPoints(character.getCharacteristicsTemporalTotalPoints() - character.getCharacteristicsTemporalPointsSpent());
 		acceptButton.setEnabled(!character.areCharacteristicsConfirmed());
 		randomButton.setEnabled(acceptButton.isEnabled());
 		characteristicsPointsTextField.setVisible(!character.isCharacteristicsConfirmed());
 		spentPointsLabel.setVisible(!character.isCharacteristicsConfirmed());
+		characteristicsTotalPointsTextField.setEditable(!character.isCharacteristicsConfirmed());
 		setPotential();
 	}
 
 	@Override
 	public void updateFrame() {
-		setRemainingPoints(Characteristics.TOTAL_CHARACTERISTICS_POINTS
-				- character.getCharacteristicsTemporalPointsSpent());
+		setRemainingPoints(character.getCharacteristicsTemporalTotalPoints() - character.getCharacteristicsTemporalPointsSpent());
 		acceptButton.setEnabled(!character.areCharacteristicsConfirmed());
 		randomButton.setEnabled(acceptButton.isEnabled());
 	}

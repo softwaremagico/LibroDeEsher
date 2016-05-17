@@ -35,6 +35,7 @@
         creationTime datetime not null,
         updateTime datetime,
         characteristicsConfirmed bit not null,
+        characteristicsTemporalTotalPoints integer not null,
         chiPowersAllowed bit not null,
         cultureName varchar(255),
         darkSpellsAsBasicListsAllowed bit not null,

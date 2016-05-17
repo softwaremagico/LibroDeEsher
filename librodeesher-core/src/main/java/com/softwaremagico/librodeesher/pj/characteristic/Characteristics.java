@@ -72,14 +72,8 @@ public class Characteristics {
 	}
 
 	public static Integer getTemporalBonus(Integer temporalValue) {
-		if (temporalValue >= 102) {
-			return 14;
-		}
-		if (temporalValue >= 101) {
-			return 12;
-		}
 		if (temporalValue >= 100) {
-			return 10;
+			return 10 + (temporalValue - 100) * 2;
 		}
 		if (temporalValue >= 98) {
 			return 9;
@@ -143,7 +137,7 @@ public class Characteristics {
 
 	public static Integer getPotencial(Integer temporalValue) {
 		if (temporalValue >= 100) {
-			return 99 + Dice.getRoll(1, 2);
+			return Math.max(99 + Dice.getRoll(1, 2), temporalValue);
 		}
 		if (temporalValue >= 99) {
 			return 98 + Dice.getRoll(1, 2);

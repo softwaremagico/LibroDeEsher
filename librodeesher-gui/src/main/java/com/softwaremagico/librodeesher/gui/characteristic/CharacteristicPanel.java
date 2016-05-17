@@ -59,29 +59,29 @@ public class CharacteristicPanel extends BasePanel {
 		}
 	}
 
-	protected CharacteristicLine createLine(CharacterPlayer character, Integer characteristicIndex,
-			Color background) {
+	protected CharacteristicLine createLine(CharacterPlayer character, Integer characteristicIndex, Color background) {
 		return new CharacteristicLine(character, character.getCharacteristics().get(characteristicIndex), background);
 	}
 
 	public void setCharacter(CharacterPlayer character, boolean summaryMode) {
 		setElements(character, summaryMode);
 	}
-	
-	public void setParentWindow(BaseFrame window){
-		for(CharacteristicLine line : lines){
+
+	public void setParentWindow(BaseFrame window) {
+		for (CharacteristicLine line : lines) {
 			line.setParentWindow(window);
 		}
 	}
-	
-	public void setPotential(){
-		for(CharacteristicLine line : lines){
+
+	public void setPotential() {
+		for (CharacteristicLine line : lines) {
 			line.setPotential();
 		}
 	}
-	
-	public void update(){
-		for(CharacteristicLine line : lines){
+
+	@Override
+	public void update() {
+		for (CharacteristicLine line : lines) {
 			line.update();
 		}
 	}
