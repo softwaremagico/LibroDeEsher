@@ -41,6 +41,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
 
+import com.softwaremagico.files.MessageManager;
 import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseButton;
@@ -132,13 +133,21 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 			public void actionPerformed(ActionEvent e) {
 				// Launch listeners.
 				if (charactersTable.getSelectedRow() >= 0) {
-					CharacterPlayerInfo selected = availableCharacterPlayers.get(charactersTable
-							.getSelectedRow());
-					CharacterPlayer characterPlayer = CharacterPlayerDao.getInstance().read(selected.getId());
-					characterPlayer.clearCache();
-					for (LoadCharacterListener listener : loadCharacterListeners) {
-						listener.addCharacter(characterPlayer);
-						thisWindow.dispose();
+					CharacterPlayerInfo selected = availableCharacterPlayers.get(charactersTable.getSelectedRow());
+					try {
+						CharacterPlayer characterPlayer = CharacterPlayerDao.getInstance().read(selected.getId());
+						characterPlayer.clearCache();
+						for (LoadCharacterListener listener : loadCharacterListeners) {
+							listener.addCharacter(characterPlayer);
+							thisWindow.dispose();
+						}
+					} catch (Exception exception) {
+						MessageManager
+								.basicErrorMessage(
+										this.getClass().getName(),
+										"La base de datos está corrupta. Por favor, elimina el fichero '<home>/.librodeesher/database/esher' para reiniciarla. "
+												+ "Si el fichero pertenece a una versión anterior del software, instala esa versión y exporta primero los personajes guardados a ficheros.",
+										"Base de datos corrupta.");
 					}
 				}
 			}
@@ -151,11 +160,8 @@ public class LoadCharacterPlayerWindow extends BaseFrame {
 			public void actionPerformed(ActionEvent e) {
 				CharacterPlayerInfo selected = availableCharacterPlayers.get(charactersTable.getSelectedRow());
 				if (selected != null) {
-					if (ShowMessage.showQuestionMessage(null,
-							"El personaje seleccionado será elminado. ¿Quieres continuar con la acción?",
-							"Borrado")) {
-						CharacterPlayer characterPlayer = CharacterPlayerDao.getInstance().read(
-								selected.getId());
+					if (ShowMessage.showQuestionMessage(null, "El personaje seleccionado será elminado. ¿Quieres continuar con la acción?", "Borrado")) {
+						CharacterPlayer characterPlayer = CharacterPlayerDao.getInstance().read(selected.getId());
 						for (RemoveCharacterListener listener : removeCharacterListeners) {
 							listener.removeCharacter(characterPlayer);
 						}

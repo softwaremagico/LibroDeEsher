@@ -528,172 +528,172 @@
     );
 
     alter table T_APPEARANCE 
-        add constraint UK_hlcvnifaglalnf0dpfbcak1u8  unique (ID);
+        add constraint UK_hlcvnifaglalnf0dpfbcak1u8 unique (ID);
 
     alter table T_APPEARANCE 
-        add constraint UK_fvvhnk8c7ii3jvbmo5b6fg5un  unique (comparationId);
+        add constraint UK_fvvhnk8c7ii3jvbmo5b6fg5un unique (comparationId);
 
     alter table T_CATEGORY_COST 
-        add constraint UK_fcmfkigake2hqq44gyge781xw  unique (ID);
+        add constraint UK_fcmfkigake2hqq44gyge781xw unique (ID);
 
     alter table T_CATEGORY_COST 
-        add constraint UK_8jn0hgs0qu2147j9ge5siu0qq  unique (comparationId);
+        add constraint UK_8jn0hgs0qu2147j9ge5siu0qq unique (comparationId);
 
     alter table T_CHARACTERISTIC_ROLL_GROUP 
-        add constraint UK_g823n2nv2eyimog2a4dpckhbd  unique (ID);
+        add constraint UK_g823n2nv2eyimog2a4dpckhbd unique (ID);
 
     alter table T_CHARACTERISTIC_ROLL_GROUP 
-        add constraint UK_76e7clc7lyv03qmf0d6lvgyi2  unique (comparationId);
+        add constraint UK_76e7clc7lyv03qmf0d6lvgyi2 unique (comparationId);
 
     alter table T_CHARACTERPLAYER 
-        add constraint UK_conobsyh7ebxy51m6q8ieunak  unique (ID);
+        add constraint UK_conobsyh7ebxy51m6q8ieunak unique (ID);
 
     alter table T_CHARACTERPLAYER 
-        add constraint UK_goif6qdq0k03683pf598f958  unique (comparationId);
+        add constraint UK_goif6qdq0k03683pf598f958 unique (comparationId);
 
     alter table T_CHARACTERPLAYER_LEVEL_UP 
-        add constraint UK_l8mhtklrekoduk3xl5a85ll55  unique (levelUps_ID);
+        add constraint UK_l8mhtklrekoduk3xl5a85ll55 unique (levelUps_ID);
 
     alter table T_CHARACTERPLAYER_MAGIC_ITEMS 
-        add constraint UK_kgwp84wlntv117f3rbbw2b1a0  unique (magicItems_ID);
+        add constraint UK_kgwp84wlntv117f3rbbw2b1a0 unique (magicItems_ID);
 
     alter table T_CHARACTERPLAYER_PERKS_DECISIONS 
-        add constraint UK_2rei81rlw78vo1pss3lmg7lsq  unique (perkDecisions_ID);
+        add constraint UK_2rei81rlw78vo1pss3lmg7lsq unique (perkDecisions_ID);
 
     alter table T_CHARACTERPLAYER_SELECTED_PERKS 
-        add constraint UK_c36v4kn7rg6y2oeqamj1vftp6  unique (selectedPerks_ID);
+        add constraint UK_c36v4kn7rg6y2oeqamj1vftp6 unique (selectedPerks_ID);
 
     alter table T_CHARACTERPLAYER_TEMPORAL_CHARACTERISTICS_ROLLS 
-        add constraint UK_rsdhy70yoehafjvur7w9b2o66  unique (characteristicsTemporalUpdatesRolls_ID);
+        add constraint UK_rsdhy70yoehafjvur7w9b2o66 unique (characteristicsTemporalUpdatesRolls_ID);
 
     alter table T_CULTUREDECISIONS 
-        add constraint UK_blq96e017u1trnpdefgr091nl  unique (ID);
+        add constraint UK_blq96e017u1trnpdefgr091nl unique (ID);
 
     alter table T_CULTUREDECISIONS 
-        add constraint UK_i4vxctno4axrv6clm66mmrngb  unique (comparationId);
+        add constraint UK_i4vxctno4axrv6clm66mmrngb unique (comparationId);
 
     alter table T_HISTORIAL 
-        add constraint UK_b78higqrsil53rexxwbd88dn3  unique (ID);
+        add constraint UK_b78higqrsil53rexxwbd88dn3 unique (ID);
 
     alter table T_HISTORIAL 
-        add constraint UK_mguv54adf0m90noy52x1lea5x  unique (comparationId);
+        add constraint UK_mguv54adf0m90noy52x1lea5x unique (comparationId);
 
     alter table T_HISTORIAL_CHARACTERISTICS_UPDATES 
-        add constraint UK_ryqf6ahmvfyfo3da42imitxen  unique (characteristicsUpdates_ID);
+        add constraint UK_ryqf6ahmvfyfo3da42imitxen unique (characteristicsUpdates_ID);
 
     alter table T_INSERTED_DATA 
-        add constraint UK_h99y61rxnrq69c3nx0n2ko4m3  unique (ID);
+        add constraint UK_h99y61rxnrq69c3nx0n2ko4m3 unique (ID);
 
     alter table T_INSERTED_DATA 
-        add constraint UK_p65fw3bsg7kkp8t68dncqwxni  unique (comparationId);
+        add constraint UK_p65fw3bsg7kkp8t68dncqwxni unique (comparationId);
 
     alter table T_INSERTED_TRAINING_DECISIONS 
-        add constraint UK_ahxpf8sitwcloo3ha8nft78k3  unique (trainingDecisions_ID);
+        add constraint UK_ahxpf8sitwcloo3ha8nft78k3 unique (trainingDecisions_ID);
 
     alter table T_LEVELUP 
-        add constraint UK_e9y7b2htj85ls5jccr8dscoiv  unique (ID);
+        add constraint UK_e9y7b2htj85ls5jccr8dscoiv unique (ID);
 
     alter table T_LEVELUP 
-        add constraint UK_s260ukdop7lmbms1wy8vru5mp  unique (comparationId);
+        add constraint UK_s260ukdop7lmbms1wy8vru5mp unique (comparationId);
 
     alter table T_LEVEL_UP_CHARACTERISTICS_UPDATES 
-        add constraint UK_mayw23itpoug630tuos9ycyjx  unique (characteristicsUpdates_ID);
+        add constraint UK_mayw23itpoug630tuos9ycyjx unique (characteristicsUpdates_ID);
 
     alter table T_LEVEL_UP_TRAINING_DECISIONS 
-        add constraint UK_e55t66sktxlv50j5s7jk3j7x1  unique (trainingDecisions_ID);
+        add constraint UK_e55t66sktxlv50j5s7jk3j7x1 unique (trainingDecisions_ID);
 
     alter table T_MAGIC_OBJECT 
-        add constraint UK_35phtj8okwti1qwsijrvr9t9q  unique (ID);
+        add constraint UK_35phtj8okwti1qwsijrvr9t9q unique (ID);
 
     alter table T_MAGIC_OBJECT 
-        add constraint UK_sj0a2io0jkgf480bygxoklivy  unique (comparationId);
+        add constraint UK_sj0a2io0jkgf480bygxoklivy unique (comparationId);
 
     alter table T_MAGIC_OBJECT_BONUS 
-        add constraint UK_mhw45ibhr60ep1mxs4mwh5vsb  unique (ID);
+        add constraint UK_mhw45ibhr60ep1mxs4mwh5vsb unique (ID);
 
     alter table T_MAGIC_OBJECT_BONUS 
-        add constraint UK_asx9ocfy2qd86t7q2meimfjrc  unique (comparationId);
+        add constraint UK_asx9ocfy2qd86t7q2meimfjrc unique (comparationId);
 
     alter table T_MAGIC_OBJECT_T_MAGIC_OBJECT_BONUS 
-        add constraint UK_h8abfb792vwsl7s8bk57h6nfk  unique (bonus_ID);
+        add constraint UK_h8abfb792vwsl7s8bk57h6nfk unique (bonus_ID);
 
     alter table T_PERKS 
-        add constraint UK_poul3t4t5tpjoxm9csig34aml  unique (ID);
+        add constraint UK_poul3t4t5tpjoxm9csig34aml unique (ID);
 
     alter table T_PERKS 
-        add constraint UK_a0gfx9ounae0o9sm9x40i5rdg  unique (comparationId);
+        add constraint UK_a0gfx9ounae0o9sm9x40i5rdg unique (comparationId);
 
     alter table T_PERKS_DECISION 
-        add constraint UK_lom2ng3ig68tkf86di7wwjk0s  unique (ID);
+        add constraint UK_lom2ng3ig68tkf86di7wwjk0s unique (ID);
 
     alter table T_PERKS_DECISION 
-        add constraint UK_s4uwcg9f92ddv6obvlt98shqo  unique (comparationId);
+        add constraint UK_s4uwcg9f92ddv6obvlt98shqo unique (comparationId);
 
     alter table T_PROFESSIONS_REALMS_MAGIC 
-        add constraint UK_b8a8hn5ijfh46oagm4d2um6qa  unique (ID);
+        add constraint UK_b8a8hn5ijfh46oagm4d2um6qa unique (ID);
 
     alter table T_PROFESSIONS_REALMS_MAGIC 
-        add constraint UK_8nvq9erlbw339m1kj0gisa025  unique (comparationId);
+        add constraint UK_8nvq9erlbw339m1kj0gisa025 unique (comparationId);
 
     alter table T_PROFESSION_DECISIONS 
-        add constraint UK_li3y57bhuj92ukf2ys827be5j  unique (ID);
+        add constraint UK_li3y57bhuj92ukf2ys827be5j unique (ID);
 
     alter table T_PROFESSION_DECISIONS 
-        add constraint UK_16qm0bkl5f4pi9qw4bf8x9hra  unique (comparationId);
+        add constraint UK_16qm0bkl5f4pi9qw4bf8x9hra unique (comparationId);
 
     alter table T_PROFESSION_WEAPON_COST_CHOSEN 
-        add constraint UK_hyu9pvkqjkxlo6ldjah1i6mkk  unique (weaponsCost_ID);
+        add constraint UK_hyu9pvkqjkxlo6ldjah1i6mkk unique (weaponsCost_ID);
 
     alter table T_ROLL 
-        add constraint UK_9r4ehgb8fn2dn3d3sd8xvd4fd  unique (ID);
+        add constraint UK_9r4ehgb8fn2dn3d3sd8xvd4fd unique (ID);
 
     alter table T_ROLL 
-        add constraint UK_ddfjd9r5evwwehksmtwe8cay1  unique (comparationId);
+        add constraint UK_ddfjd9r5evwwehksmtwe8cay1 unique (comparationId);
 
     alter table T_ROLL_GROUP 
-        add constraint UK_ec1a2pas67gu5pl4tfelsan0r  unique (ID);
+        add constraint UK_ec1a2pas67gu5pl4tfelsan0r unique (ID);
 
     alter table T_ROLL_GROUP 
-        add constraint UK_1tsw2ugbypulgt0xywmak2llm  unique (comparationId);
+        add constraint UK_1tsw2ugbypulgt0xywmak2llm unique (comparationId);
 
     alter table T_TRAINING_CATEGORIES_SELECTED 
-        add constraint UK_cjlsw6faxbj52bjt31aow627g  unique (ID);
+        add constraint UK_cjlsw6faxbj52bjt31aow627g unique (ID);
 
     alter table T_TRAINING_CATEGORIES_SELECTED 
-        add constraint UK_5erag6etowycwtuhypccyvl4o  unique (comparationId);
+        add constraint UK_5erag6etowycwtuhypccyvl4o unique (comparationId);
 
     alter table T_TRAINING_CHARACTERISTICS_UPDATES 
-        add constraint UK_fnar1y6mb6imcc4ik6n3h72y6  unique (characteristicsUpdates_ID);
+        add constraint UK_fnar1y6mb6imcc4ik6n3h72y6 unique (characteristicsUpdates_ID);
 
     alter table T_TRAINING_DECISION 
-        add constraint UK_ooc3nxaim40wa5pawjtvkaeug  unique (ID);
+        add constraint UK_ooc3nxaim40wa5pawjtvkaeug unique (ID);
 
     alter table T_TRAINING_DECISION 
-        add constraint UK_1fy563xslnew4m359jnvmyghf  unique (comparationId);
+        add constraint UK_1fy563xslnew4m359jnvmyghf unique (comparationId);
 
     alter table T_TRAINING_DECISION_CATEGORY_SELECTED 
-        add constraint UK_dcgwqauprl9jdgym1rwfd8i3v  unique (categoriesSelected_ID);
+        add constraint UK_dcgwqauprl9jdgym1rwfd8i3v unique (categoriesSelected_ID);
 
     alter table T_TRAINING_DECISION_SKILLS_SELECTED 
-        add constraint UK_5nc8p7y8l2d6jwmdevwemmrtx  unique (skillsSelected_ID);
+        add constraint UK_5nc8p7y8l2d6jwmdevwemmrtx unique (skillsSelected_ID);
 
     alter table T_TRAINING_MAGIC_ITEMS 
-        add constraint UK_onpxi6hsdqh3um18at3hno1tv  unique (magicItems_ID);
+        add constraint UK_onpxi6hsdqh3um18at3hno1tv unique (magicItems_ID);
 
     alter table T_TRAINING_OBJECT 
-        add constraint UK_6qjbapnqh4clnepqgn6llqq36  unique (ID);
+        add constraint UK_6qjbapnqh4clnepqgn6llqq36 unique (ID);
 
     alter table T_TRAINING_OBJECT 
-        add constraint UK_7dphteoforn6hgtxxd3ft66bq  unique (comparationId);
+        add constraint UK_7dphteoforn6hgtxxd3ft66bq unique (comparationId);
 
     alter table T_TRAINING_OBJECTS 
-        add constraint UK_7ixq2spabhxg6hap4um27sj1y  unique (equipment_ID);
+        add constraint UK_7ixq2spabhxg6hap4um27sj1y unique (equipment_ID);
 
     alter table T_TRAINING_SKILLS_SELECTED 
-        add constraint UK_8t3mjh043dknq4icvg66qjl9l  unique (ID);
+        add constraint UK_8t3mjh043dknq4icvg66qjl9l unique (ID);
 
     alter table T_TRAINING_SKILLS_SELECTED 
-        add constraint UK_s4duauy8ccp5mc0938bw027dl  unique (comparationId);
+        add constraint UK_s4duauy8ccp5mc0938bw027dl unique (comparationId);
 
     alter table T_CHARACTERISTIC_ROLL_GROUP 
         add constraint FK_jb6k15e74i40yqa7r969c1qwx 
