@@ -29,31 +29,42 @@ Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadore
 
 Versión
 ------------
+2.2.4	Añadido:
+		- El valor total de las características temporales puede ser definido por el usuario. 
+		
 2.2.3	Corregido:
 		- Hechizos incluídos en habilidades favoritas.
 		- Ataques naturales, incluídos como ataques y no habilidades favoritas.
 		- Hoja combinada en PDF distribuye mejor las categorías en las distintas páginas.
+		
 2.2.2	Añadido:
 		- Habilidades favoritas se muestran en primera hoja de la ficha en PDF.
+		
 2.2.1	Revisado:
 		- Hoja combinada de habilidades y categorias.
+		
 2.2.0	Nuevo:
 		- Habilidades generalizadas y especializadas.
 		Corregido:
 		- Errores en los idiomas de cultura.
 		- Errores cuando se usa más de un personaje simultáneamente.
+		
 2.1.1	Nuevo:
 		- Talentos se calculan automáticamente para cada raza.
 		Cambiado:
 		- Ficha combinada optimizada para impresión. 
+		
 2.1.0	Nuevo: 
 		- Adiestramientos con hechizos pueden ser utilizados correctamente.
+		
 2.0.3	Cambiado:
 		- Pequeñas mejoras para hacer más estable el programa. 
+		
 2.0.2	Nuevo:
 		- Poderes Chi se pueden seleccionar solo si se tiene el estilo marcial adecuado.
 		- PDF errores solucionados.
 		- Importar personaje elige correctamente los costes de armas.
+		
 2.0.1	Nuevo:
 		- Se han corregido numerosos errores gráficos.
 		- Se puede guardar correctamente el personaje. 

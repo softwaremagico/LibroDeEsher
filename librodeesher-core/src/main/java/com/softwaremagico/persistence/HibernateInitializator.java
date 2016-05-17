@@ -6,7 +6,6 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
-import com.softwaremagico.log.EsherLog;
 
 public class HibernateInitializator {
 
@@ -19,7 +18,6 @@ public class HibernateInitializator {
 
 			// Put database if file in home folder.
 			String databaseUrl = configuration.getProperty("hibernate.connection.url");
-			EsherLog.severe(HibernateInitializator.class.getName(), databaseUrl);
 			if (databaseUrl.contains("jdbc:sqlite")) {
 				String databaseName = databaseUrl.substring(databaseUrl.lastIndexOf(":") + 1,
 						databaseUrl.length());

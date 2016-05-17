@@ -124,7 +124,7 @@ public class CharacterPlayer extends StorableObject {
 	private String historyText;
 
 	@Expose
-	private int characteristicsTemporalTotalPoints = Characteristics.TOTAL_CHARACTERISTICS_POINTS;
+	private Integer characteristicsTemporalTotalPoints;
 
 	@Expose
 	@ElementCollection
@@ -2591,7 +2591,10 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public int getCharacteristicsTemporalTotalPoints() {
-		return characteristicsTemporalTotalPoints;
+		if (characteristicsTemporalTotalPoints != null) {
+			return characteristicsTemporalTotalPoints;
+		}
+		return Characteristics.TOTAL_CHARACTERISTICS_POINTS;
 	}
 
 	public void setCharacteristicsTemporalTotalPoints(int characteristicsTemporalPoints) {

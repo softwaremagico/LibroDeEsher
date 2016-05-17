@@ -28,6 +28,9 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.io.File;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -41,9 +44,10 @@ import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 
 public class AboutWindow extends BaseFrame {
 	private static final long serialVersionUID = -987975681639493971L;
+	private final static String README_FILE = "Readme.txt";
 
 	protected AboutWindow() {
-		defineWindow(600, 400);
+		defineWindow(700, 400);
 		setResizable(false);
 		setElements();
 	}
@@ -55,13 +59,26 @@ public class AboutWindow extends BaseFrame {
 		JTextArea textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setLineWrap(true);
-		textArea.setText(MyFile.readTextFile("../Readme.txt", false));
+		
+		String path = "./" + README_FILE;
+		
+		URL url = AboutWindow.class.getProtectionDomain().getCodeSource().getLocation();
+		String jarPath = url.toExternalForm();
+		jarPath = jarPath.substring(jarPath.indexOf("/"), jarPath.lastIndexOf("/"));
+		File file = new File(jarPath + File.separator + README_FILE);
+
+		if (file.exists()) {
+			path = jarPath + File.separator + README_FILE;
+		} else {
+			path = jarPath + File.separator + ".." + File.separator + README_FILE;
+		}
+
+		textArea.setText(MyFile.readTextFile(path, StandardCharsets.UTF_8, false));
 		textArea.setCaretPosition(0);
-		
-		JScrollPane textScrollPanel = new JScrollPane(textArea,
-				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+
+		JScrollPane textScrollPanel = new JScrollPane(textArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		
+
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
@@ -112,7 +129,7 @@ public class AboutWindow extends BaseFrame {
 
 	@Override
 	public void updateFrame() {
-		
+
 	}
 
 }

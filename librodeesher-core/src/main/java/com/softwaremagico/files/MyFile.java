@@ -36,6 +36,9 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,8 +61,9 @@ public class MyFile {
 	 */
 	public static List<String> inLines(String filename, boolean verbose) throws IOException {
 		/*
-		 * String OS = System.getProperty("os.name"); if (OS.contains("Windows Vista")) { return
-		 * readTextFileInLines(filename, "ISO8859_1", verbose); } else if (OS.contains("Windows")) { return
+		 * String OS = System.getProperty("os.name"); if
+		 * (OS.contains("Windows Vista")) { return readTextFileInLines(filename,
+		 * "ISO8859_1", verbose); } else if (OS.contains("Windows")) { return
 		 * readTextFileInLines(filename, "Cp1252", verbose); }
 		 */
 		return readTextFileInLines(filename, "UTF8", verbose);
@@ -82,11 +86,12 @@ public class MyFile {
 	 */
 	public static String inString(String filename, boolean verbose) throws IOException {
 		// String OS = System.getProperty("os.name");
-		return readTextFile(filename, "ISO8859_1", verbose);
+		return readTextFileFromLines(filename, "ISO8859_1", verbose);
 		/*
-		 * if (OS.contains("Windows Vista") || (OS.contains("Windows 7"))) { return ReadTextFile("ISO8859_1", verbose);
-		 * } else if (OS.contains("Windows")) { return ReadTextFile("Cp1252", verbose); } return ReadTextFile("UTF8",
-		 * verbose);
+		 * if (OS.contains("Windows Vista") || (OS.contains("Windows 7"))) {
+		 * return ReadTextFile("ISO8859_1", verbose); } else if
+		 * (OS.contains("Windows")) { return ReadTextFile("Cp1252", verbose); }
+		 * return ReadTextFile("UTF8", verbose);
 		 */
 	}
 
@@ -105,8 +110,7 @@ public class MyFile {
 			}
 		} catch (FileNotFoundException ex) {
 			if (verbose) {
-				MessageManager.customMessage(MyFile.class.getName(), "Impossible to read the file: " + filename,
-						"Error", JOptionPane.ERROR_MESSAGE);
+				MessageManager.customMessage(MyFile.class.getName(), "Impossible to read the file: " + filename, "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		} catch (IOException ex) {
 		} finally {
@@ -124,29 +128,22 @@ public class MyFile {
 	/**
 	 * Devuelve el fichero leido como un unico string.
 	 */
-	public static String readTextFile(String filename, boolean verbose) {
-		File file = new File(filename);
-		String text = "";
+	public static String readTextFile(String filename, Charset encoding, boolean verbose) {
 		try {
-			try (FileInputStream inputData = new FileInputStream(file)) {
-				byte bt[] = new byte[(int) file.length()];
-				// If not this line, the file is not read propertly.
-				inputData.read(bt);
-				text = new String(bt);
-			}
+			byte[] encoded = Files.readAllBytes(Paths.get(filename));
+			return new String(encoded, encoding);
 		} catch (IOException ex) {
 			if (verbose) {
-				MessageManager.basicErrorMessage(MyFile.class.getName(), "Error opening the file:" + filename,
-						"File Error");
+				MessageManager.basicErrorMessage(MyFile.class.getName(), "Error opening the file:" + filename, "File Error");
 			}
 		}
-		return text;
+		return "";
 	}
 
 	/**
 	 * Devuelve el fichero leido como un unico string.
 	 */
-	private static String readTextFile(String filename, String mode, boolean verbose) {
+	private static String readTextFileFromLines(String filename, String mode, boolean verbose) {
 		String text = "";
 		List<String> doc = readTextFileInLines(filename, mode, verbose);
 
@@ -187,9 +184,10 @@ public class MyFile {
 
 	public static String convertStreamToString(InputStream is) throws IOException {
 		/*
-		 * To convert the InputStream to String we use the Reader.read(char[] buffer) method. We iterate until the
-		 * Reader return -1 which means there's no more data to read. We use the StringWriter class to produce the
-		 * string.
+		 * To convert the InputStream to String we use the Reader.read(char[]
+		 * buffer) method. We iterate until the Reader return -1 which means
+		 * there's no more data to read. We use the StringWriter class to
+		 * produce the string.
 		 */
 		if (is != null) {
 			Writer writer = new StringWriter();
