@@ -66,6 +66,7 @@ public class GenericSkillLine extends BaseSkillLine {
 		return true;
 	}
 
+	@Override
 	protected void setElements() {
 		this.removeAll();
 		Integer previousRanks = character.getPreviousRanks(skill);
@@ -214,6 +215,7 @@ public class GenericSkillLine extends BaseSkillLine {
 		return character.getTotalValue(skill).toString();
 	}
 
+	@Override
 	public void update() {
 		updateRanksValue();
 		for (SkillChangedListener listener : listeners) {

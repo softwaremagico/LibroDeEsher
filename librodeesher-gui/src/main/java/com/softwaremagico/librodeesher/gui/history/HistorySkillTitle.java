@@ -33,7 +33,7 @@ public class HistorySkillTitle extends SkillTitleLine {
 	private TitleLabel historyLabel;
 
 	public HistorySkillTitle() {
-		enableColumns(false, false, false, false, false, false, false, true);
+		enableColumns(false, false, false, false, false, false, false, false);
 		addHistoryCheckBox();
 	}
 	

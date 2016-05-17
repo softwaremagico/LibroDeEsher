@@ -40,8 +40,7 @@ public class HistoryCategoryLine extends GenericCategoryLine {
 	private static final long serialVersionUID = -3523895407174764934L;
 	private BaseCheckBox historyCheckBox;
 
-	public HistoryCategoryLine(CharacterPlayer character, Category category, Color background,
-			BaseSkillPanel parentWindow) {
+	public HistoryCategoryLine(CharacterPlayer character, Category category, Color background, BaseSkillPanel parentWindow) {
 		super(character, category, background, parentWindow);
 		enableColumns(false, false, false, false, false, false, false, true);
 		addHistoryCheckBox();

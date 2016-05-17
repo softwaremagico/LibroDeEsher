@@ -44,6 +44,7 @@ public class BoldListLabel extends ListLabel {
 		super(text, width, height);
 	}
 
+	@Override
 	protected void setDefaultFont() {
 		setFont(getFont().deriveFont(Font.BOLD));
 	}
