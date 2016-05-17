@@ -143,7 +143,7 @@ Al ejecutar el programa, aparecerá inmediatamente la ventana principal del
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -956,68 +956,6 @@ status collapsed
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename Imagenes/ListadoAdiestramiento.png
-	width 40col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Listado-de-adiestramientos."
-
-\end_inset
-
-Listado de adiestramientos.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Para escoger un adiestramiento, no tiene más que seleccionar uno de la lista
- y dar al botón aceptar.
- Aparecerá una ventana con las particularidades del adiestramiento seleccionado.
-\end_layout
-
-\begin_layout Subsection
-Adiestramiento
-\end_layout
-
-\begin_layout Standard
-Una vez seleccionado el adiestramiento, se abre la ventana mostrada en la
- Figura 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Selección-de-Adiestramiento"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
 	filename Imagenes/Adiestramiento.png
 	width 60col%
 
@@ -1047,6 +985,12 @@ Selección de un adiestramiento.
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Para escoger un adiestramiento, no tiene más que seleccionar uno de la lista
+ y dar al botón aceptar.
+ Aparecerá una ventana con las particularidades del adiestramiento seleccionado.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1685,41 +1629,6 @@ Rolemaster es un reglamento que no está basado en un mundo específico.
  Por tanto se incluye una opción para que puedan ser insertadas durante
  la creación del personaje.
  
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename Imagenes/InsertarHabilidades.png
-	lyxscale 50
-	width 60col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Ejemplo de la inserción de nuevas categorías o habilidades.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
