@@ -57,7 +57,7 @@ public enum PerkGrade {
 		Collections.sort(availableElements, comparator);
 		Collections.reverse(availableElements);
 		try {
-			List<PerkGrade> lesserElements = availableElements.subList(availableElements.indexOf(this) + 1,
+			List<PerkGrade> lesserElements = availableElements.subList(availableElements.indexOf(this),
 					availableElements.size());
 			return lesserElements.subList(0, Math.min(lesserElements.size(), numberOfgrades));
 		} catch (Exception e) {
