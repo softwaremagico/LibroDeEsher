@@ -30,10 +30,12 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import com.softwaremagico.files.MessageManager;
+import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
@@ -47,12 +49,19 @@ public class PerkWindow extends BaseFrame {
 	private PerksListCompletePanel perksPanel;
 	private BaseLabel perksPointsLabel;
 	private PointsCounterTextField perksPoints;
+	private PointsCounterTextField historyPoints;
 
 	public PerkWindow(CharacterPlayer character) {
 		this.character = character;
 		defineWindow(750, 400);
 		perksPoints = new PointsCounterTextField();
 		setElements();
+	}
+
+	private void setHistorialPointText() {
+		if (historyPoints != null) {
+			historyPoints.setPoints(character.getRemainingHistorialPoints());
+		}
 	}
 
 	private void setElements() {
@@ -70,13 +79,27 @@ public class PerkWindow extends BaseFrame {
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		JPanel perksPointPanel = new JPanel();
 		perksPointPanel.setLayout(new BoxLayout(perksPointPanel, BoxLayout.X_AXIS));
-		perksPointsLabel = new BaseLabel("    Puntos de Talentos: ");
+		perksPointPanel.add(Box.createRigidArea(new Dimension(20,0)));
+		perksPointsLabel = new BaseLabel("Puntos de Talentos: ");
 		perksPointPanel.add(perksPointsLabel);
 		perksPoints.setColumns(3);
 		perksPoints.setEditable(false);
 		perksPoints.setMaximumSize(new Dimension(60, 25));
 		setPerksPointsText();
 		perksPointPanel.add(perksPoints);
+
+		if (Config.getPerksCostHistoryPoints()) {
+			perksPointPanel.add(Box.createRigidArea(new Dimension(10,0)));
+			BaseLabel historyPointsLabel = new BaseLabel("Puntos de Historial: ");
+			perksPointPanel.add(historyPointsLabel);
+			historyPoints = new PointsCounterTextField();
+			historyPoints.setColumns(3);
+			historyPoints.setEditable(false);
+			historyPoints.setMaximumSize(new Dimension(60, 25));
+			setHistorialPointText();
+			perksPointPanel.add(historyPoints);
+		}
+
 		getContentPane().add(perksPointPanel, gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -119,6 +142,7 @@ public class PerkWindow extends BaseFrame {
 
 	@Override
 	public void updateFrame() {
+		setHistorialPointText();
 		setPerksPointsText();
 	}
 }

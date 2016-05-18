@@ -29,11 +29,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.softwaremagico.files.MessageManager;
+import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.librodeesher.gui.elements.BaseCheckBox;
 import com.softwaremagico.librodeesher.gui.elements.ListBackgroundPanel;
 import com.softwaremagico.librodeesher.gui.elements.ListLabel;
@@ -43,6 +46,8 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.ChooseCategoryGroup;
 import com.softwaremagico.librodeesher.pj.perk.Perk;
+import com.softwaremagico.librodeesher.pj.perk.PerkFactory;
+import com.softwaremagico.librodeesher.pj.perk.PerkGrade;
 import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceDefinition;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -50,6 +55,7 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 public class PerkLine extends BaseLine {
 	private static final long serialVersionUID = 4767533985935793545L;
 	private final static Integer DEFAULT_COLUMN_WIDTH = 50;
+	private final static String NOTHING = "ninguno";
 	private BasePanel parent;
 	private ListLabel perkLabel, perkCost, perkCategory, perkDescription;
 	private Perk perk;
@@ -101,15 +107,14 @@ public class PerkLine extends BaseLine {
 		gridBagConstraints.gridx = 2;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
-		perkCost = new ListLabel(perk.getCost().toString(), SwingConstants.CENTER, DEFAULT_COLUMN_WIDTH,
-				columnHeight);
+		perkCost = new ListLabel(perk.getCost().toString(), SwingConstants.CENTER, DEFAULT_COLUMN_WIDTH, columnHeight);
 		add(new ListBackgroundPanel(perkCost, background), gridBagConstraints);
 
 		gridBagConstraints.gridx = 3;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
-		perkCategory = new ListLabel(perk.getGrade().toString(), SwingConstants.CENTER,
-				DEFAULT_COLUMN_WIDTH * 2, columnHeight);
+		perkCategory = new ListLabel(perk.getGrade().toString(), SwingConstants.CENTER, DEFAULT_COLUMN_WIDTH * 2,
+				columnHeight);
 		add(new ListBackgroundPanel(perkCategory, background), gridBagConstraints);
 
 		gridBagConstraints.gridx = 4;
@@ -127,8 +132,20 @@ public class PerkLine extends BaseLine {
 				if (!updating) {
 					if (perkCheckBox.isSelected()) {
 						if (perk.getCost() <= character.getRemainingPerksPoints()) {
-							character.addPerk(perk);
 							createSelectOptionsWindow();
+							Perk weakness = selectWeakness();
+							if (weakness != null) {
+								MessageManager.infoMessage(
+										this.getClass().getName(), "El defecto adquirido es: " + weakness.getName()
+												+ " [" + weakness.getGrade().getTag() + "]",
+										"Nuevo defecto adquirido!");
+							}
+							character.addPerk(perk, weakness);
+							// SelectOptionWindows unselect the checkbox by
+							// unknown reason. We force again to select it.
+							updating = true;
+							perkCheckBox.setSelected(true);
+							updating = false;
 						} else {
 							perkCheckBox.setSelected(false);
 						}
@@ -156,12 +173,45 @@ public class PerkLine extends BaseLine {
 		return perk.getChosenBonus().toString();
 	}
 
+	private Perk selectWeakness() {
+		if (Config.getPerksCostHistoryPoints() && perk.getCost() > 0) {
+			List<PerkGrade> lesserGrades = perk.getGrade().getLesserGrades(2);
+			List<String> tags = new ArrayList<String>();
+			if (lesserGrades.size() > 0) {
+				for (PerkGrade grade : lesserGrades) {
+					tags.add(grade.getTag());
+				}
+				// add none option.
+				tags.add(NOTHING);
+				int selected = MessageManager.questionMessage(
+						"¿Quieres escoger un defecto aleatorio para este adiestramiento?",
+						"Coste en puntos de historial.", tags.toArray());
+				if (tags.get(selected).equals(NOTHING)) {
+					return null;
+				}
+
+				PerkGrade weaknessGrade = PerkGrade.getPerkCategory(tags.get(selected));
+				Perk weakness = null;
+				if (weaknessGrade != null) {
+					weakness = PerkFactory.getRandomWeakness(weaknessGrade);
+					// Select a not selected already weakness.
+					while (character.getRandomWeakness().contains(weakness)) {
+						weakness = PerkFactory.getRandomWeakness(weaknessGrade);
+					}
+				}
+				return weakness;
+			}
+
+		}
+		return null;
+	}
+
 	private void createSelectOptionsWindow() {
 		// More than one category, select one of them.
 		if (perk.getCategoriesToChoose().size() > 1) {
 			for (ChooseCategoryGroup options : perk.getCategoriesToChoose()) {
-				PerkOptionsWindow<Category> optionsWindow = new PerkOptionsWindow<Category>(character, perk,
-						options, this);
+				PerkOptionsWindow<Category> optionsWindow = new PerkOptionsWindow<Category>(character, perk, options,
+						this);
 				optionsWindow.setPointCounterLabel("Categorias con (" + getBonusTag() + "): ");
 				optionsWindow.setVisible(true);
 			}
@@ -169,12 +219,11 @@ public class PerkLine extends BaseLine {
 		// One category, select skills.
 		if (perk.getCategoriesToChoose().size() == 1) {
 			ChooseCategoryGroup options = perk.getCategoriesToChoose().get(0);
-			ChooseSkillGroup skillOptions = new ChooseSkillGroup(perk.getCategorySkillsRanksBonus(character
-					.getCategory(options.getOptionsGroup().get(0)).getName()), character.getCategory(
-					options.getOptionsGroup().get(0)).getSkills(), options.getChooseType());
+			ChooseSkillGroup skillOptions = new ChooseSkillGroup(
+					perk.getCategorySkillsRanksBonus(character.getCategory(options.getOptionsGroup().get(0)).getName()),
+					character.getCategory(options.getOptionsGroup().get(0)).getSkills(), options.getChooseType());
 			skillOptions.setNumberOfOptionsToChoose(options.getNumberOfOptionsToChoose());
-			PerkOptionsWindow<Skill> optionsWindow = new PerkOptionsWindow<Skill>(character, perk,
-					skillOptions, this);
+			PerkOptionsWindow<Skill> optionsWindow = new PerkOptionsWindow<Skill>(character, perk, skillOptions, this);
 			optionsWindow.setPointCounterLabel("Habilidades: ");
 			optionsWindow.setVisible(true);
 		}
@@ -182,8 +231,7 @@ public class PerkLine extends BaseLine {
 		// Select one skill from list.
 		if (!perk.getSkillsToChoose().isEmpty()) {
 			for (ChooseSkillGroup options : perk.getSkillsToChoose()) {
-				PerkOptionsWindow<Skill> optionsWindow = new PerkOptionsWindow<Skill>(character, perk,
-						options, this);
+				PerkOptionsWindow<Skill> optionsWindow = new PerkOptionsWindow<Skill>(character, perk, options, this);
 				optionsWindow.setPointCounterLabel("Habilidades con (" + getBonusTag() + "): ");
 				optionsWindow.setVisible(true);
 			}
@@ -191,8 +239,7 @@ public class PerkLine extends BaseLine {
 
 		if (!perk.getCommonSkillsToChoose().isEmpty()) {
 			for (ChooseSkillGroup options : perk.getCommonSkillsToChoose()) {
-				PerkOptionsWindow<Skill> optionsWindow = new PerkOptionsWindow<Skill>(character, perk,
-						options, this);
+				PerkOptionsWindow<Skill> optionsWindow = new PerkOptionsWindow<Skill>(character, perk, options, this);
 				optionsWindow.setPointCounterLabel("Habilidades comunes: ");
 				optionsWindow.setVisible(true);
 			}

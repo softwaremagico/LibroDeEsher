@@ -18,7 +18,7 @@ public enum PerkType {
 	
 	public static PerkType getPerkType(String tag) {
 		for (PerkType perkType : PerkType.values()) {
-			if (perkType.tag.equals(tag.toLowerCase())) {
+			if (perkType.tag.toLowerCase().equals(tag.toLowerCase())) {
 				return perkType;
 			}
 		}

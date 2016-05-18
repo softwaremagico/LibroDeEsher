@@ -25,6 +25,8 @@ package com.softwaremagico.librodeesher.gui.perk;
  */
 
 import java.awt.GridLayout;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -35,6 +37,7 @@ public class PerksListPanel extends BasePanel {
 
 	private static final long serialVersionUID = -1612700951233838060L;
 	private PerksListCompletePanel parent;
+	private Map<Perk, Perk> perksWithWeakness = new HashMap<>();
 
 	public PerksListPanel(CharacterPlayer character, PerksListCompletePanel parent) {
 		this.parent = parent;
@@ -46,7 +49,7 @@ public class PerksListPanel extends BasePanel {
 		setLayout(new GridLayout(0, 1));
 		int i = 0;
 		for (Perk perk : PerkFactory.gerPerks()) {
-			//Only perks that can be used.
+			// Only perks that can be used.
 			if (perk.isPerkAllowed(character.getRace().getName(), character.getProfession().getName())) {
 				PerkLine perkLine = new PerkLine(character, perk, getLineBackgroundColor(i), this);
 				add(perkLine);
@@ -55,8 +58,17 @@ public class PerksListPanel extends BasePanel {
 		}
 	}
 
+	public void addWeakness(Perk perk, Perk weakness) {
+		perksWithWeakness.put(perk, weakness);
+	}
+
+	@Override
 	public void update() {
 		parent.update();
+	}
+
+	public Map<Perk, Perk> getPerksWithWeakness() {
+		return perksWithWeakness;
 	}
 
 }

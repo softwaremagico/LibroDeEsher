@@ -35,7 +35,7 @@ public class PerksListCompletePanel extends BaseScrollPanel {
 	private PerksListTitle title;
 	private PerksListPanel perksPanel;
 
-	PerksListCompletePanel(CharacterPlayer character, BaseFrame parent) {
+	public PerksListCompletePanel(CharacterPlayer character, BaseFrame parent) {
 		this.parent = parent;
 		this.character = character;
 		title = new PerksListTitle();
@@ -44,6 +44,7 @@ public class PerksListCompletePanel extends BaseScrollPanel {
 		setBody(perksPanel);
 	}
 
+	@Override
 	public void update() {
 		parent.updateFrame();
 	}
