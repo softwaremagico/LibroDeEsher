@@ -41,13 +41,14 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class GenericSkillLine extends BaseSkillLine {
 	private static final long serialVersionUID = -3194401962061016906L;
-	protected ListLabel skillNameLabel, bonusRankLabel, totalLabel, bonusCategory, otherBonusLabel,
-			prevRanksLabel, bonusMagicObject;
+	protected ListLabel skillNameLabel, bonusRankLabel, totalLabel, bonusCategory, otherBonusLabel, prevRanksLabel,
+			bonusMagicObject;
 	protected Skill skill;
 	private Color background;
 	private Set<SkillChangedListener> listeners;
+	private int nameLength;
 
-	public GenericSkillLine(CharacterPlayer character, Skill skill, Color background,
+	public GenericSkillLine(CharacterPlayer character, Skill skill, int nameLength, Color background,
 			BaseSkillPanel parentWindow) {
 		listeners = new HashSet<>();
 		this.character = character;
@@ -55,6 +56,7 @@ public class GenericSkillLine extends BaseSkillLine {
 		this.category = skill.getCategory();
 		this.parentWindow = parentWindow;
 		this.background = background;
+		this.nameLength = nameLength;
 
 		setBackground(background);
 		setDefaultBackground(background);
@@ -83,7 +85,7 @@ public class GenericSkillLine extends BaseSkillLine {
 		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.3;
-		skillNameLabel = new ListLabel(getSkillName(), SwingConstants.LEFT, 200, columnHeight);
+		skillNameLabel = new ListLabel(getSkillName(), SwingConstants.LEFT, nameLength, columnHeight);
 		add(new ListBackgroundPanel(skillNameLabel, background), gridBagConstraints);
 
 		if (costPanel || !isEmptyColumns()) {
@@ -152,8 +154,8 @@ public class GenericSkillLine extends BaseSkillLine {
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			if (bonusCategoryPanel) {
-				bonusCategory = new ListLabel(character.getTotalValue(skill.getCategory()).toString(),
-						columnWidth, columnHeight);
+				bonusCategory = new ListLabel(character.getTotalValue(skill.getCategory()).toString(), columnWidth,
+						columnHeight);
 			} else {
 				bonusCategory = new ListLabel("", columnWidth, columnHeight);
 			}
@@ -165,10 +167,9 @@ public class GenericSkillLine extends BaseSkillLine {
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			if (otherBonusPanel) {
-				otherBonusLabel = new ListLabel(
-						(character.getProfession().getSkillBonus(skill.getName())
-								+ character.getHistorial().getBonus(skill) + character.getPerkBonus(skill) + character.getConditionalPerkBonus(skill))
-								+ "", columnWidth, columnHeight);
+				otherBonusLabel = new ListLabel((character.getProfession().getSkillBonus(skill.getName())
+						+ character.getHistorial().getBonus(skill) + character.getPerkBonus(skill)
+						+ character.getConditionalPerkBonus(skill)) + "", columnWidth, columnHeight);
 			} else {
 				otherBonusLabel = new ListLabel("", columnWidth, columnHeight);
 			}
@@ -180,8 +181,7 @@ public class GenericSkillLine extends BaseSkillLine {
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			if (objectBonusPanel) {
-				bonusMagicObject = new ListLabel(character.getItemBonus(skill) + "", columnWidth,
-						columnHeight);
+				bonusMagicObject = new ListLabel(character.getItemBonus(skill) + "", columnWidth, columnHeight);
 			} else {
 				bonusMagicObject = new ListLabel("", columnWidth, columnHeight);
 			}
@@ -223,16 +223,16 @@ public class GenericSkillLine extends BaseSkillLine {
 		}
 		parentWindow.update();
 	}
-	
-	public void updateRanksValue(){
+
+	public void updateRanksValue() {
 		if (ranksValuePanel) {
 			bonusRankLabel.setText(getRanksValue());
 		}
 		if (totalPanel) {
 			totalLabel.setText(getTotalValue());
 		}
-		//Some perks has bonus for each rank
-		if(otherBonusPanel){
+		// Some perks has bonus for each rank
+		if (otherBonusPanel) {
 			otherBonusLabel.setText(character.getBonus(skill).toString());
 		}
 	}
@@ -251,7 +251,7 @@ public class GenericSkillLine extends BaseSkillLine {
 
 	}
 
-	protected void addColumn(JPanel panel, Integer column) {
+	protected void addColumn(JPanel panel, Integer column, float weightx) {
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 		gridBagConstraints.fill = GridBagConstraints.CENTER;
 		gridBagConstraints.ipadx = xPadding;
@@ -260,7 +260,7 @@ public class GenericSkillLine extends BaseSkillLine {
 		gridBagConstraints.weighty = 0;
 		gridBagConstraints.gridx = column * 2;
 		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 0.1;
+		gridBagConstraints.weightx = weightx;
 		panel.setBackground(background);
 		add(panel, gridBagConstraints);
 	}

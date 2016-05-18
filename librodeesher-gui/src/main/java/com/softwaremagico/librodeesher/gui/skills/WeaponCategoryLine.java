@@ -38,14 +38,15 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 
 public class WeaponCategoryLine extends GenericCategoryLine {
 	private static final long serialVersionUID = -4281133156537443212L;
+	private final static int NAME_LENGTH = 200;
 	private WeaponComboBox<CategoryCost> costComboBox;
 	private Integer previousSelectedIndex = 0;
 	private Integer weaponLineNumber;
 	private boolean updatingWeaponCost = true;
 
-	public WeaponCategoryLine(CharacterPlayer character, Category category, Color background,
-			SkillPanel parentWindow, CategoryCost cost, Integer weaponIndex) {
-		super(character, category, background, parentWindow);
+	public WeaponCategoryLine(CharacterPlayer character, Category category, Color background, SkillPanel parentWindow,
+			CategoryCost cost, Integer weaponIndex) {
+		super(character, category, NAME_LENGTH, background, parentWindow);
 		updatingWeaponCost = true;
 		enableColumns(true, true, true, true, true, true, true, true);
 		setDefaultBackground(background);
@@ -105,8 +106,7 @@ public class WeaponCategoryLine extends GenericCategoryLine {
 
 	private void updatePlayerWeaponCost() {
 		if (costPanel) {
-			character.getProfessionDecisions().setWeaponCost(category,
-					(CategoryCost) costComboBox.getSelectedItem());
+			character.getProfessionDecisions().setWeaponCost(category, (CategoryCost) costComboBox.getSelectedItem());
 		}
 	}
 

@@ -37,11 +37,12 @@ import com.softwaremagico.librodeesher.pj.skills.SkillForEnablingMustBeSelected;
 
 public class SkillLine extends GenericSkillLine {
 	private static final long serialVersionUID = -4551393729801208171L;
+	private final static int NAME_LENGTH = 200;
 	private SelectSkillWindow selectSkillWindow;
-	private List<SkillEnabledListener> listeners;
+	private List<SkillEnabledListener> listeners;	
 
 	public SkillLine(CharacterPlayer character, Skill skill, Color background, BaseSkillPanel parentWindow) {
-		super(character, skill, background, parentWindow);
+		super(character, skill, NAME_LENGTH, background, parentWindow);
 		enableColumns(true, true, true, true, true, true, true, true);
 		setRanksSelected(character.getCurrentLevelRanks(skill));
 		listeners = new ArrayList<>();

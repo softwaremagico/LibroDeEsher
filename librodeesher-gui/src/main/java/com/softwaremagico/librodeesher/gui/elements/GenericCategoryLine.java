@@ -41,12 +41,14 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 	private static final long serialVersionUID = 2914665641808878141L;
 	protected BoldListLabel categoryNameLabel, bonusRankLabel, totalLabel, prevRanksLabel, bonusCharLabel, otherBonus,
 			bonusMagicObject;
+	private int nameLength;
 
-	public GenericCategoryLine(CharacterPlayer character, Category category, Color background,
+	public GenericCategoryLine(CharacterPlayer character, Category category, int nameLength, Color background,
 			BaseSkillPanel parentWindow) {
 		this.character = character;
 		this.category = category;
 		this.parentWindow = parentWindow;
+		this.nameLength = nameLength;
 		setDefaultBackground(background);
 		setBackground(background);
 		setRanksSelected(character.getCurrentLevelRanks(category));
@@ -92,7 +94,7 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.3;
-		categoryNameLabel = new BoldListLabel(category.getName(), SwingConstants.LEFT, 200, columnHeight);
+		categoryNameLabel = new BoldListLabel(category.getName(), SwingConstants.LEFT, nameLength, columnHeight);
 		add(new ListBackgroundPanel(categoryNameLabel, getDefaultBackground()), gridBagConstraints);
 
 		if (costPanel) {
@@ -169,8 +171,9 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.weightx = 0.1;
 			otherBonus = new BoldListLabel(
 					(category.getBonus() + character.getProfession().getCategoryBonus(category.getName())
-							+ character.getHistorial().getBonus(category) + character.getPerkBonus(category) + character.getConditionalPerkBonus(category))
-							+ "", columnWidth, columnHeight);
+							+ character.getHistorial().getBonus(category) + character.getPerkBonus(category)
+							+ character.getConditionalPerkBonus(category)) + "",
+					columnWidth, columnHeight);
 			add(new ListBackgroundPanel(otherBonus, getDefaultBackground()), gridBagConstraints);
 		}
 
@@ -204,7 +207,7 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 		parentWindow.updateSkillsOfCategory(category);
 	}
 
-	protected void addColumn(JPanel panel, Integer column) {
+	protected void addColumn(JPanel panel, Integer column, float weightx) {
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 		gridBagConstraints.fill = GridBagConstraints.CENTER;
 		gridBagConstraints.ipadx = xPadding;
@@ -213,7 +216,7 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 		gridBagConstraints.weighty = 0;
 		gridBagConstraints.gridx = column * 2;
 		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 0.1;
+		gridBagConstraints.weightx = weightx;
 		panel.setBackground(getDefaultBackground());
 		add(panel, gridBagConstraints);
 	}

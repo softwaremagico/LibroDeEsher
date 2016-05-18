@@ -32,14 +32,14 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class ResumedSkillLine extends GenericSkillLine {
 	private static final long serialVersionUID = 4671606813162808731L;
+	private final static int NAME_LENGTH = 200;
 
-	public ResumedSkillLine(CharacterPlayer character, Skill skill, Color background,
-			BaseSkillPanel parentWindow) {
-		super(character, skill, background, parentWindow);
+	public ResumedSkillLine(CharacterPlayer character, Skill skill, Color background, BaseSkillPanel parentWindow) {
+		super(character, skill, NAME_LENGTH, background, parentWindow);
 		enableColumns(true, true, true, true, true, true, true, true);
 		setRanksSelected(character.getCurrentLevelRanks(skill));
 	}
-	
+
 	@Override
 	protected void updateCharacterPlayerWithCurrentLevelRanks() {
 		setRanksSelected(character.getCurrentLevelRanks(skill));

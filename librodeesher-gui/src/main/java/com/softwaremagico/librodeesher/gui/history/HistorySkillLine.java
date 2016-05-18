@@ -38,11 +38,13 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class HistorySkillLine extends GenericSkillLine {
 	private static final long serialVersionUID = 5951462195062999304L;
+	private final static int NAME_LENGTH = 200;
 	private BaseCheckBox historyCheckBox;
 
 	public HistorySkillLine(CharacterPlayer character, Skill skill, Color background,
 			BaseSkillPanel parentWindow) {
-		super(character, skill, background, parentWindow);
+		super(character, skill, NAME_LENGTH, background, parentWindow);
+		setEmptyColumns(true);
 		enableColumns(false, false, false, false, false, false, false, true);
 		addHistoryCheckBox();
 	}
@@ -53,7 +55,7 @@ public class HistorySkillLine extends GenericSkillLine {
 		historyCheckBox.setSelected(character.isHistoryPointSelected(skill));
 		panel.add(historyCheckBox);
 		historyCheckBox.addItemListener(new CheckBoxListener());
-		addColumn(panel, 0);
+		addColumn(panel, 0, 0.1f);
 	}
 
 	class CheckBoxListener implements ItemListener {

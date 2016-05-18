@@ -33,10 +33,11 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 
 public class ResumedCategoryLine extends GenericCategoryLine {
 	private static final long serialVersionUID = 7701060122798000781L;
+	private final static int NAME_LENGTH = 200;
 
 	public ResumedCategoryLine(CharacterPlayer character, Category category, Color background,
 			BaseSkillPanel parentWindow) {
-		super(character, category, background, parentWindow);
+		super(character, category, NAME_LENGTH, background, parentWindow);
 		enableColumns(true, true, true, true, true, true, true, true);
 		setRanksSelected(character.getCurrentLevelRanks(category));
 	}

@@ -34,10 +34,11 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 public class SpecializedSkillLine extends GenericSkillLine {
 	private static final long serialVersionUID = -8691152095881115131L;
 	private String specialization;
+	private final static int NAME_LENGTH = 200;
 
 	public SpecializedSkillLine(CharacterPlayer character, Skill skill, String specialization,
 			Color background, BaseSkillPanel parentWindow) {
-		super(character, skill, background, parentWindow);
+		super(character, skill, NAME_LENGTH, background, parentWindow);
 		this.specialization = specialization;
 		enableColumns(false, false, false, true, true, true, true, true);
 	}
