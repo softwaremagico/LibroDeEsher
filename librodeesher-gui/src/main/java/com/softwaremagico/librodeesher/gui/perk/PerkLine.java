@@ -193,7 +193,7 @@ public class PerkLine extends BaseLine {
 				PerkGrade weaknessGrade = PerkGrade.getPerkCategory(tags.get(selected));
 				Perk weakness = null;
 				if (weaknessGrade != null) {
-					weakness = PerkFactory.getRandomWeakness(weaknessGrade);
+					weakness = PerkFactory.getRandomWeakness(weaknessGrade, perk.getPerkType());
 					// Select a not selected already weakness.
 					while (character.getRandomWeakness().contains(weakness)) {
 						weakness = PerkFactory.getRandomWeakness(weaknessGrade);

@@ -391,6 +391,21 @@ public class PerkFactory {
 		return selectedPerk;
 	}
 
+	public static Perk getRandomWeakness(PerkGrade grade, PerkType type) {
+		// No weakness defined for this type, use a random one.
+		if (getWeaknessClassification().get(type).size() == 0) {
+			return getRandomWeakness(grade);
+		}
+		// Select a random perk
+		Perk selectedPerk = getWeaknessClassification().get(type)
+				.get(new Random().nextInt(getWeaknessClassification().get(type).size()));
+		if (grade != null && !selectedPerk.getGrade().equals(grade)) {
+			// Not valid, try again!
+			return getRandomWeakness(grade);
+		}
+		return selectedPerk;
+	}
+
 	private static HashMap<PerkType, List<Perk>> getPerkClassification() {
 		if (perkClassification == null) {
 			perkClassification = new HashMap<>();
