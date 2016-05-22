@@ -69,6 +69,11 @@ Grande
 ####################################
 Habla Troll	5/0	8/0
 
+#IDIOMAS HISTORIAL
+####################################
+Habla Troll	0/0	10/10
+Habla Común	0/0	4/4
+
 #HABILIDADES COMUNES	1
 ####################################
 Armas·2manos

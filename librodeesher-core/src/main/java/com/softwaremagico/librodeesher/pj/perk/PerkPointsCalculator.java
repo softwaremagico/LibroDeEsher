@@ -283,6 +283,7 @@ public class PerkPointsCalculator {
 	private int getStartingLanguagesRacePoints() {
 		int languageCost = 0;
 		int languages = 0;
+		
 		for (String language : race.getInitialRaceLanguages().keySet()) {
 			// Differenciante between spoken and written.
 			int ranks = race.getInitialRaceLanguages().get(language);
@@ -303,8 +304,8 @@ public class PerkPointsCalculator {
 				}
 			}
 		}
-
-		// Number of languages has penalization.
+		
+		// Number of languages has penalties.
 		switch (languages) {
 		case 1:
 			languageCost += -5;

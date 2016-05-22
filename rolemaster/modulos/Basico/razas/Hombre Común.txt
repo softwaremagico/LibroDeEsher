@@ -68,9 +68,15 @@ Normal
 
 #IDIOMAS	Inicial	Max.Cultura
 ####################################
-Habla Alta	0/0	6/6
 Habla Común	8/6	10/10
+Habla Alta	0/0	6/6
 Habla Pequeña	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Alta	0/0	8/8
+Habla Pequeña	0/0	8/8
+Habla de las Colinas	0/0	8/8
 
 #HABILIDADES COMUNES
 ####################################

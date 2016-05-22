@@ -67,8 +67,13 @@ Medio
 
 #IDIOMAS	Inicial	Max.Cultura
 ####################################
-Hirazi	8/4	10/10
-Idioma Regional	6/2	10/10
+Hirazi	8/4	10/8
+Idioma Regional	6/2	8/4
+
+#IDIOMAS HISTORIAL
+####################################
+Hirazi	0/0	10/10
+Idioma Regional	0/0	10/10
 
 #HABILIDADES COMUNES
 ####################################

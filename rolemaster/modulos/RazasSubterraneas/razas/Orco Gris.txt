@@ -73,6 +73,10 @@ Habla Común	5/2	8/8
 Habla de los Bosques	0/0	6/4
 Habla de las Colinas	0/0	6/4
 
+#IDIOMAS HISTORIAL
+####################################
+Habla de las Llanuras	0/0	8/6
+
 #HABILIDADES COMUNES //Cateogia#numero es "numero" de habilidades de dicha categoria; 
 ####################################
 Cayado, Espadón, Hacha de Batalla, Mangual, Pica de Guerra, Alfanje, Cimitarra, Daga, Espada

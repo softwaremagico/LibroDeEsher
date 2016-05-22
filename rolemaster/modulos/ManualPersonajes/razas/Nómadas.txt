@@ -72,6 +72,14 @@ Habla Común	4/4	10/10
 Habla del Sur	0/0	6/6
 Lengua Negra	0/0	6/6
 
+#IDIOMAS HISTORIAL
+####################################
+Habla del Sur	0/0	8/8
+Lengua Negra	0/0	8/8
+Habla del Norte	0/0	6/6
+Orco	0/0	6/6
+Élfico	0/0	6/6
+
 #HABILIDADES COMUNES
 ####################################
 Combate Montado, Conducir, Domar, Maestría de Animales, Manejo de los Animales

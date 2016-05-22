@@ -67,9 +67,11 @@ Normal
 
 #IDIOMAS	Inicial	Max.Cultura
 ####################################
-Élfico Alto	8/4	10/8
-Habla de los Bosques	8/4	10/8
-Enano	0/0	4/4
+Dyari	8/4	10/8
+Idioma Regional	8/4	10/8
+
+#IDIOMAS HISTORIAL
+####################################
 Aldari	0/0	4/4
 Charon	0/0	6/4
 Erlini	0/0	4/4

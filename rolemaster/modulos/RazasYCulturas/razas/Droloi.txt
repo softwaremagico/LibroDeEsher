@@ -68,6 +68,12 @@ Normal
 #IDIOMAS	Inicial	Max.Cultura
 ####################################
 Droloi	8/4	10/10
+Idioma Regional	0/0	10/10
+
+#IDIOMAS HISTORIAL
+####################################
+Charón	0/0	4/4
+Murlogi	0/0	4/4
 
 #HABILIDADES COMUNES
 ####################################

@@ -68,8 +68,17 @@ Medio
 #IDIOMAS	Inicial	Max.Cultura
 ####################################
 Lennai	8/4	10/10
+Idioma Regional	8/4	10/8
 Dríade	0/0	8/6
-Regional	8/4	10/8
+
+#IDIOMAS HISTORIAL
+####################################
+Aldari	0/0	4/4
+Dríade	0/0	10/8
+Elini	0/0	8/6
+Jinteni	0/0	4/4
+Orhan	0/0	4/4
+Wôrim	0/0	4/4
 
 #HABILIDADES COMUNES
 ####################################

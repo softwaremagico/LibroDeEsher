@@ -70,8 +70,12 @@ Normal
 Élfico Alto	10/10	10/10
 Élfico Gris	8/6	10/10
 Habla Común	8/6	10/10
-Habla del Norte	0/0	6/6
-Élfico	0/0	8/8
+
+#IDIOMAS HISTORIAL
+####################################
+Habla del Norte	0/0	8/8
+Élfico	0/0	6/6
+Habla de las Llanuras	0/0	6/6
 
 #HABILIDADES COMUNES
 ####################################

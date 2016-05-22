@@ -68,8 +68,12 @@ Medio
 #IDIOMAS	Inicial	Max.Cultura
 ####################################
 Centauro	8/6	10/10
-Habla Común	0/0	8/8
+Habla Común	0/0	6/6
 Habla de las Llanuras	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Común	0/0	8/8
 Habla Alta	0/0	6/6
 
 #HABILIDADES COMUNES

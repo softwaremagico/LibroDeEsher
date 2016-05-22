@@ -19,7 +19,7 @@ public class PerkPointsPerRaceTest {
 
 	@Test
 	public void centauroCaballoPerks() throws InvalidRaceDefinition, InvalidRaceException {
-		Assert.assertEquals(50,
+		Assert.assertEquals(55,
 				new PerkPointsCalculator(RaceFactory.getRace("Centauro Caballo")).getPerkPoints());
 	}
 
@@ -36,7 +36,7 @@ public class PerkPointsPerRaceTest {
 
 	@Test
 	public void dragonetPerks() throws InvalidRaceDefinition, InvalidRaceException {
-		Assert.assertEquals(5, new PerkPointsCalculator(RaceFactory.getRace("Dragonet")).getPerkPoints());
+		Assert.assertEquals(0, new PerkPointsCalculator(RaceFactory.getRace("Dragonet")).getPerkPoints());
 	}
 
 	@Test

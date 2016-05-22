@@ -67,12 +67,17 @@ Normal
 
 #IDIOMAS	Inicial	Max.Cultura
 ####################################
-Habla Común	5/5	10/10
 Enano	8/6	10/10	
+Habla Común	5/5	10/10
 Élfico	4/4	6/6
 Habla de las Colinas	0/0	2/2
 Habla de las Llanuras	0/0	6/6
 Habla de los Bosques	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
+Charón	0/0	4/4
+Murlogi	0/0	4/4
 
 #HABILIDADES COMUNES
 ####################################

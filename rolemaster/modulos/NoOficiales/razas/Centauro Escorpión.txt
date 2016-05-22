@@ -68,8 +68,11 @@ Medio
 #IDIOMAS	Inicial	Max.Cultura
 ####################################
 Centauro Escorpión	8/6	10/10
-Habla Común	0/0	6/6
 Habla del Desierto	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Común	0/0	6/6
 
 #HABILIDADES COMUNES
 ####################################

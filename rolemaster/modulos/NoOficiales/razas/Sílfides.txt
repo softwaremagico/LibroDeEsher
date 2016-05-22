@@ -68,6 +68,10 @@ Muy Pequeño
 #IDIOMAS	Inicial	Max.Cultura
 ####################################
 Habla de los Bosques	8/6	10/10
+Habla Común	0/0	6/4
+
+#IDIOMAS HISTORIAL
+####################################
 Habla Común	0/0	8/8
 Élfico	0/0	8/6
 

@@ -68,11 +68,21 @@ Normal
 #IDIOMAS	Inicial	Max.Cultura
 ####################################
 Gnómico	8/8	10/10
-Habla Común	6/6	10/10
+Habla Común	6/6	8/8
+Élfico Alto	0/0	6/6
+Habla Alta	0/0	8/8
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Común	0/0	10/10
 Enano	0/0	6/6	
 Élfico Gris	0/0	6/6
-Élfico Alto	0/0	6/6
-Lengua Alta	0/0	8/8
+Élfico Alto	0/0	8/8
+Lengua Alta	0/0	10/10
+
+#IDIOMAS HISTORIAL
+####################################
+
 
 #HABILIDADES COMUNES
 ####################################

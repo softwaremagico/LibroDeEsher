@@ -70,13 +70,20 @@ Normal
 ####################################
 Habla Alta	8/6	10/10
 Habla Común	8/6	10/10
-Habla de las Llanuras	0/0	6/6
+Élfico Gris	6/6	8/8
+Élfico Alto	2/2	8/8
 Habla de las Colinas	0/0	6/6
 Habla de los Mares	0/0	8/8
 Habla Pequeña	0/0	6/6
+Habla de las Llanuras	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
+Élfico Alto	0/0	8/8
 Habla de los Bosques	0/0	8/8
-Élfico Gris	6/6	8/8
-Élfico Alto	2/2	8/8
+Habla de las Colinas	0/0	8/8
+Habla de las Llanuras	0/0	8/8
+Habla del Norte	0/0	8/8
 
 #HABILIDADES COMUNES
 ####################################

@@ -68,9 +68,13 @@ Medio
 #IDIOMAS	Inicial	Max.Cultura
 ####################################
 Habla Común	8/6	10/10
-Habla de las Colinas	6/6	8/8
+Habla de las Colinas	6/6	6/6
 Habla del Norte	0/0	4/4
 Habla del Sur	0/0	4/4
+
+#IDIOMAS HISTORIAL
+####################################
+Habla de las Colinas	0/0	8/8
 Élfico Alto	0/0	4/4
 Habla Alta	0/0	6/4
 

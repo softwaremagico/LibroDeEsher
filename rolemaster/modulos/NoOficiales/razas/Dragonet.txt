@@ -69,8 +69,11 @@ Pequeño
 ####################################
 Habla Común	10/10	10/10
 Élfico Alto	8/8	10/10
-Habla de los Bosques	0/0	10/10
-Faérico	10/10	10/10
+
+#IDIOMAS HISTORIAL
+####################################
+Habla de los Bosques	0/0	6/4
+Faérico	0/0	8/6
 
 #HABILIDADES COMUNES	5
 ####################################
@@ -90,13 +93,13 @@ Aérea, Silvana, Subterránea, Litoral
 
 #ESPECIALES		75
 ####################################
-Arma Natural: Garras y Mordisco hasta un máximo de Mediano
-Reserva de Veneno: Sangre Ácida: (1-2 PV)
-Piel Gruesa (Mayor): 12	TA, +30BD	Escamas de Dragón
-Arma Natural: Aliento de Dragón (30m/1xmin/20xdia)
-Poder (Menor):Posee la lista de Mejora de Hechizos, Mejora Corporal y Leyes de Fuego (o de su elemento) hasta su nivel.
-Dormilón: (pag 85 Manual de Personajes)
-Codicioso: (pag 91 Manual de Personajes)
+Arma Natural: Garras y Mordisco hasta un máximo de Mediano	[15]
+Reserva de Veneno: Sangre Ácida: (1-2 PV)	[10]
+Piel Gruesa (Mayor): 12	TA, +30BD	Escamas de Dragón	[15]
+Arma Natural: Aliento de Dragón (30m/1xmin/20xdia) 	[15]
+Poder (Menor):Posee la lista de Mejora de Hechizos, Mejora Corporal y Leyes de Fuego (o de su elemento) hasta su nivel.	[10]
+Dormilón: (pag 85 Manual de Personajes)	[-15]
+Codicioso: (pag 91 Manual de Personajes)	[-10]
 
 #NOMBRES MASCULINOS
 ####################################

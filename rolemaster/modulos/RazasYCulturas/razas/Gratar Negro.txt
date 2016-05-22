@@ -70,6 +70,10 @@ Medio
 Habla de los Mares	8/6	10/10
 Habla del Norte	8/6	8/6
 Habla del Sur	8/6	8/6
+Habla Común	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
 Habla Común	0/0	8/8
 Lengua Negra	0/0	6/6
 

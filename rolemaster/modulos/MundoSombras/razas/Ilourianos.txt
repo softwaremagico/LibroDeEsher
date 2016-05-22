@@ -70,6 +70,10 @@ Medio
 Ilouriano	8/4	10/10
 Habla Común	5/0	8/8
 
+#IDIOMAS HISTORIAL
+####################################
+Habla Común	0/0	10/10
+
 #HABILIDADES COMUNES	0
 ####################################
 Ninguna

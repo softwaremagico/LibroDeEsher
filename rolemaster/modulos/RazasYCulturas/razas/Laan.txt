@@ -69,10 +69,16 @@ Medio
 ####################################
 Laan	8/4	10/8
 Emeriano	8/4	10/8
+Idioma Regional	0/0	10/8
+Idioma Racial	0/0	4/4
+
+#IDIOMAS HISTORIAL
+####################################
 Aldari	0/0	4/4
 Jinteni	0/0	4/4
 Punkari	0/0	4/4
 Worim	0/0	4/4
+Idioma Racial	0/0	8/4
 
 #HABILIDADES COMUNES
 ####################################

@@ -37,6 +37,14 @@ public class LanguagePanel extends CulturePanel {
 	@Override
 	protected void createElements() {
 		int i = 0;
+		//Addd race languages.
+		for (String language : character.getRace().getInitialRaceLanguages().keySet()) {
+			LanguageLine languageLine = new LanguageLine(character, language, this, getLineBackgroundColor(i));
+			add(languageLine);
+			hobbyLines.add(languageLine);
+			i++;
+		}
+		//Add culture languages.
 		for (String language : character.getCulture().getLanguagesMaxRanks()) {
 			LanguageLine languageLine = new LanguageLine(character, language, this, getLineBackgroundColor(i));
 			add(languageLine);

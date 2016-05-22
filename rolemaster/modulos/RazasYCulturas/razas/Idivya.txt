@@ -71,6 +71,12 @@ Habla Común	6/6	8/8
 Habla de las Llanuras	8/6	10/10
 Habla del Norte	0/0	6/6
 
+#IDIOMAS HISTORIAL
+####################################
+Habla Común	0/0	10/10
+Habla Alta	0/0	6/4
+Habla del Norte	0/0	8/8
+
 #HABILIDADES COMUNES //Cateogia#numero es "numero" de habilidades de dicha categoria; 
 ####################################
 Ninguna

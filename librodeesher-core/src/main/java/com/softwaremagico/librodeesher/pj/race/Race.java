@@ -55,9 +55,9 @@ import com.softwaremagico.log.EsherLog;
 public class Race {
 	private String name;
 	private int apperanceBonus;
-	private HashMap<CharacteristicsAbbreviature, Integer> characteristicBonus;
-	private HashMap<ResistanceType, Integer> resistancesBonus;
-	private HashMap<ProgressionCostType, List<Float>> progressionRankValues;
+	private Map<CharacteristicsAbbreviature, Integer> characteristicBonus;
+	private Map<ResistanceType, Integer> resistancesBonus;
+	private Map<ProgressionCostType, List<Float>> progressionRankValues;
 	private List<String> restrictedProfessions;
 	private Integer soulDepartTime;
 	private Integer raceType;
@@ -65,8 +65,9 @@ public class Race {
 	private Float restorationTime;
 	private Integer languagePoints;
 	private Integer historialPoints;
-	private HashMap<String, Integer> initialRaceLanguages;
-	private HashMap<String, Integer> maxRaceLanguages;
+	private Map<String, Integer> initialRaceLanguages;
+	private Map<String, Integer> maxRaceLanguages;
+	private Map<String, Integer> maxHistoryLanguages;
 	private List<Skill> commonSkills;
 	private List<Category> commonCategories;
 	private List<Skill> restrictedSkills;
@@ -82,10 +83,6 @@ public class Race {
 	private Integer expectedLifeYears = null;
 	private int naturalArmourType = 1;
 
-	public int getNaturalArmourType() {
-		return naturalArmourType;
-	}
-
 	public Race(String name) {
 		this.name = name;
 		apperanceBonus = 0;
@@ -94,6 +91,9 @@ public class Race {
 		restrictedSkills = new ArrayList<>();
 		restrictedCategories = new ArrayList<>();
 		specialsRacePoints = new HashMap<>();
+		initialRaceLanguages = new HashMap<>();
+		maxRaceLanguages = new HashMap<>();
+		maxHistoryLanguages = new HashMap<>();
 		try {
 			readRaceFile(name);
 		} catch (Exception e) {
@@ -126,6 +126,7 @@ public class Race {
 			lineIndex = setRestrictedProfessions(lines, lineIndex);
 			lineIndex = setOtherRaceInformation(lines, lineIndex);
 			lineIndex = setRaceLanguages(lines, lineIndex);
+			lineIndex = setHistoryLanguages(lines, lineIndex);
 			lineIndex = setSpecialSkills(lines, lineIndex, commonSkills,
 					commonCategories);
 			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkills,
@@ -351,10 +352,9 @@ public class Race {
 		return index;
 	}
 
-	private int setRaceLanguages(List<String> lines, int index)
-			throws InvalidRaceException {
-		initialRaceLanguages = new HashMap<>();
-		maxRaceLanguages = new HashMap<>();
+	private int setLanguages(List<String> lines, int index,
+			Map<String, Integer> initialLanguages,
+			Map<String, Integer> maxLanguages) throws InvalidRaceException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -373,7 +373,7 @@ public class Race {
 
 				String language = Spanish.SPOKEN_TAG + " "
 						+ languageInformation[0];
-				initialRaceLanguages.put(language,
+				initialLanguages.put(language,
 						Integer.parseInt(languageRank[0]));
 
 				// Add language to category.
@@ -384,7 +384,7 @@ public class Race {
 				}
 
 				language = Spanish.WRITTEN_TAG + " " + languageInformation[0];
-				initialRaceLanguages.put(language,
+				initialLanguages.put(language,
 						Integer.parseInt(languageRank[1]));
 
 				// Add language to category.
@@ -395,11 +395,11 @@ public class Race {
 				}
 
 				language = Spanish.SPOKEN_TAG + " " + languageInformation[0];
-				maxRaceLanguages.put(language,
+				maxLanguages.put(language,
 						Integer.parseInt(maxCultureLanguage[0]));
 
 				language = Spanish.WRITTEN_TAG + " " + languageInformation[0];
-				maxRaceLanguages.put(language,
+				maxLanguages.put(language,
 						Integer.parseInt(maxCultureLanguage[1]));
 
 			} catch (NumberFormatException nfe) {
@@ -414,6 +414,18 @@ public class Race {
 			index++;
 		}
 		return index;
+	}
+
+	private int setRaceLanguages(List<String> lines, int index)
+			throws InvalidRaceException {
+		return setLanguages(lines, index, initialRaceLanguages,
+				maxRaceLanguages);
+	}
+
+	private int setHistoryLanguages(List<String> lines, int index)
+			throws InvalidRaceException {
+		return setLanguages(lines, index, maxHistoryLanguages,
+				new HashMap<String, Integer>());
 	}
 
 	private int setSpecialSkills(List<String> lines, int index,
@@ -704,7 +716,7 @@ public class Race {
 		return restrictedSkills.size() + skillsOfCategories;
 	}
 
-	public HashMap<String, Integer> getInitialRaceLanguages() {
+	public Map<String, Integer> getInitialRaceLanguages() {
 		return initialRaceLanguages;
 	}
 
@@ -732,5 +744,13 @@ public class Race {
 
 	public Integer getExpectedLifeYears() {
 		return expectedLifeYears;
+	}
+
+	public Map<String, Integer> getMaxHistoryLanguages() {
+		return maxHistoryLanguages;
+	}
+
+	public int getNaturalArmourType() {
+		return naturalArmourType;
 	}
 }

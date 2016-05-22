@@ -68,7 +68,10 @@ Normal
 #IDIOMAS	Inicial	Max.Cultura
 ####################################
 Umli	8/4	10/8
-Habla del Norte	8/4	10/8
+Idioma Regional	8/4	10/8
+
+#IDIOMAS HISTORIAL
+####################################
 Ky'taari	0/0	6/4
 Jameri	0/0	6/6
 Lydiano	0/0	4/4

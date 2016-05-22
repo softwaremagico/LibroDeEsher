@@ -72,6 +72,13 @@ Habla Común	6/4	6/4
 Élfico de los Bosques	6/6	8/8
 Élfico Alto	0/0	6/6
 
+#IDIOMAS HISTORIAL
+####################################
+Habla Común	0/0	8/8
+Élfico Gris	0/0	6/6
+Élfico Alto	0/0	8/8
+Habla Alta	0/0	6/6
+
 #HABILIDADES COMUNES
 ####################################
 Bailar

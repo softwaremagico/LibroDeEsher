@@ -12,11 +12,11 @@ Rp	0
 Fu	6
 Ap	-5
 
-# ESPERANZA DE VIDA	0
+# ESPERANZA DE VIDA	
 ####################################
 100
 
-#MODIFICACIÓN A LA TR	-8
+#MODIFICACIÓN A LA TR	
 ####################################
 Canalización	-5
 Esencia	-5
@@ -28,7 +28,7 @@ Frío	0
 Calor	0
 Miedo	0
 
-#PROGRESIÓN	54
+#PROGRESIÓN	
 ####################################
 Desarrollo Físico	0/9/6/5/4
 PP Arcano	0/5/4/3/2
@@ -37,15 +37,15 @@ PP Esencia	0/5/4/3/2
 PP Mentalismo	0/6/5/4/3
 PP Psiónico	0/6/5/4/3
 
-#PROFESIONES RESTRINGIDAS	-4
+#PROFESIONES RESTRINGIDAS	
 ####################################
 Combate Montado, Montar
 
-#PARTIDA DEL ALMA	-2
+#PARTIDA DEL ALMA	
 ####################################
 10
 
-#TIPO DE RAZA	5
+#TIPO DE RAZA	
 ####################################
 2
 
@@ -53,7 +53,7 @@ Combate Montado, Montar
 ####################################
 Medio
 
-#RECUPERACIÓN	0
+#RECUPERACIÓN	
 ####################################
 1
 
@@ -65,18 +65,28 @@ Medio
 ####################################
 5
 
-#IDIOMAS	Inicial	Max.Cultura	-3
+#IDIOMAS	Inicial	Max.Cultura	
 ####################################
 Centauro	8/6	10/10
-Habla Común	0/0	8/8
+Habla Común	0/0	6/6
 Habla de las Llanuras	0/0	6/6
 Habla Alta	0/0	6/6
 
-#HABILIDADES COMUNES	5
+#IDIOMAS HISTORIAL
+####################################
+Habla Común	0/0	8/8
+Habla Alta	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Común	0/0	8/8
+Habla Alta	0/0	6/6
+
+#HABILIDADES COMUNES	
 ####################################
 Acechar, Esconderse, Cazar, Forrajear, Rastrear
 
-#HABILIDADES RESTRINGIDAS	-15
+#HABILIDADES RESTRINGIDAS	
 ####################################
 Atletismo·Gimnasia, Combate Montado, Montar: Lobos, Montar: Caballos, Montar: Osos
 
@@ -86,7 +96,7 @@ Llanuras
 
 #ESPECIALES
 ####################################
-Ninguno
+Ataque Natural: poseen garras retráctiles que pueden usar como armas en combate cuerpo a cuerpo hasta nivel medio.
 
 #NOMBRES MASCULINOS
 ####################################

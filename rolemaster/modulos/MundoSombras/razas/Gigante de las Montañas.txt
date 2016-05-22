@@ -67,7 +67,14 @@ Enorme
 
 #IDIOMAS	Inicial	Max.Cultura
 ####################################
-Habla Gigante	8/0	10/10
+Habla Gigante	8/0	10/6
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Gigante	0/0	10/10
+Habla Común	0/0	4/4
+Habla de las Colinas	0/0	4/4
+Habla de las Montañas	0/0	8/6
 
 #HABILIDADES COMUNES
 ####################################

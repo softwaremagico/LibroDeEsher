@@ -73,6 +73,9 @@ Habla Común	8/6	10/10
 Élfico Alto	6/5	10/10
 Habla Alta	0/0	10/10
 Élfico	0/0	10/10
+
+#IDIOMAS HISTORIAL
+####################################
 Habla del Norte	0/0	6/6
 Habla de las Llanuras	0/0	6/6
 Habla de los Bosques	0/0	6/6

@@ -71,6 +71,14 @@ Saurkur	8/4	10/8
 Islas Abarquan	8/4	10/8
 Habla Submarina	0/0	4/4
 
+#IDIOMAS HISTORIAL
+####################################
+Surkur	0/0	10/10
+Jinteni	0/0	4/4
+Sirénido	0/0	6/6
+Shuluri	0/0	4/5
+Submarino	0/0	8/6
+
 #HABILIDADES COMUNES
 ####################################
 Ninguna
