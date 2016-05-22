@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.culture;
+
 /*
  * #%L
  * Libro de Esher
@@ -23,6 +24,10 @@ package com.softwaremagico.librodeesher.gui.culture;
  * #L%
  */
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class LanguagePanel extends CulturePanel {
@@ -37,16 +42,24 @@ public class LanguagePanel extends CulturePanel {
 	@Override
 	protected void createElements() {
 		int i = 0;
-		//Addd race languages.
-		for (String language : character.getRace().getInitialRaceLanguages().keySet()) {
-			LanguageLine languageLine = new LanguageLine(character, language, this, getLineBackgroundColor(i));
-			add(languageLine);
-			hobbyLines.add(languageLine);
-			i++;
+		// Add race languages.
+		List<String> languages = new ArrayList<>();
+		for (String language : character.getRace().getInitialRaceLanguages()
+				.keySet()) {
+			if (!languages.contains(language)) {
+				languages.add(language);
+			}
 		}
-		//Add culture languages.
+		// Add culture languages.
 		for (String language : character.getCulture().getLanguagesMaxRanks()) {
-			LanguageLine languageLine = new LanguageLine(character, language, this, getLineBackgroundColor(i));
+			if (!languages.contains(language)) {
+				languages.add(language);
+			}
+		}
+		Collections.sort(languages);
+		for (String language : languages) {
+			LanguageLine languageLine = new LanguageLine(character, language,
+					this, getLineBackgroundColor(i));
 			add(languageLine);
 			hobbyLines.add(languageLine);
 			i++;

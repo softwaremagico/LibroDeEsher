@@ -31,10 +31,8 @@ public class CompleteLanguagePanel extends BaseScrollPanel {
 	private static final long serialVersionUID = -714349581832077977L;
 	private CultureTitleLine title;
 	private LanguagePanel languagePanel;
-	private CharacterPlayer character;
 
 	public CompleteLanguagePanel(CharacterPlayer character) {
-		this.character = character;
 		title = new CultureTitleLine("Idiomas", "Rangos (" + 0 + ")");
 		addTitle(title);
 		languagePanel = new LanguagePanel(character, title);
