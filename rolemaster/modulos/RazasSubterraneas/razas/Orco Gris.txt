@@ -90,7 +90,7 @@ Todas
 ####################################
 Visión Nocturna: Visión en la oscuridad (incluso completa)
 Solo necesitan dormir una vez cada 3 días
-Piel Gruesa (Mayor): 8	TA	Armadura Natural
+Tipo de Armadura 8
 
 #NOMBRES MASCULINOS
 ####################################

@@ -78,10 +78,7 @@ Acechar, Esconderse, Cazar, Forrajear, Rastrear
 
 #HABILIDADES RESTRINGIDAS
 ####################################
-Juegos Atléticos (Gimnasia), Acrobacias, Caer, Contorsionismo
-Malabarismos, Trepar, Volar/Planear, Volteretas, Caminar con Zancos
-Caminar por la Cuerda Floja, Esquiar, Hacer Surf, Patinar, Rappeling
-Salto con Pértiga, Combate Montado, Montar: Lobos, Montar: Caballos, Montar: Osos
+Atletismo·Gimnasia, Combate Montado, Montar: Lobos, Montar: Caballos, Montar: Osos
 
 #CULTURAS
 ####################################
