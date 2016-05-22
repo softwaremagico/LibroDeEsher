@@ -29,6 +29,10 @@ Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadore
 
 Versión
 ------------
+2.2.5	Añadido:
+		- Nuevas razas: Centauros Lagarto, Droloi
+		- TA por raza.
+		
 2.2.4	Añadido:
 		- El valor total de las características temporales puede ser definido por el usuario. 
 		

@@ -1,0 +1,104 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	-2
+Co	2
+Me	0
+Ra	0
+Ad	0
+Em	0
+In	0
+Pr	-4
+Rp	-2
+Fu	2
+Ap	-20
+
+# ESPERANZA DE VIDA
+####################################
+Inmortales
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	0
+Esencia	0
+Mentalismo	0
+Veneno	-10
+Enfermedad	-15
+Psiónico	0
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/7/4/2/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/6/5/4/3
+PP Mentalismo	0/7/6/5/4
+PP Psiónico	0/7/6/5/4
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+10
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA
+####################################
+Normal
+
+#RECUPERACIÓN
+####################################
+1.5
+
+#IDIOMAS
+####################################
+3
+
+#HISTORIAL
+####################################
+5
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Droloi	8/4	10/10
+
+#HABILIDADES COMUNES
+####################################
+Ataque Racial: Extremidades
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Subterránea
+
+#ESPECIALES
+####################################
+Visión Nocturna: Te permite ver en presencia de oscuridad total.
+Tipo de Armadura 3
+Las afiladas garras de sus manos le permiten realizar ataques medios de Garras.
+
+#NOMBRES MASCULINOS
+####################################
+Balcaldur, Andobales, Aiunesker, Gárgoris, Garokan, Katulatin
+Tarkunbiur, Ultidikán
+
+#NOMBRES FEMENINOS
+####################################
+Amaina, Iscerbeles, Isbataris, Mibira, Telosia, Lyra, Pléyada, Ummita
+
+#APELLIDOS
+####################################
+Aya, Araya, Mytshjel, Wedyq, Nogooitus, Loxvef, Resdel, Motelli, Tsoukalos, Eguiguren
+Aghariano, Ashtar, Butes, Dals, Fermi
+
+#### FIN RAZA ####
