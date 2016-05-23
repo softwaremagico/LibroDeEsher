@@ -65,7 +65,7 @@ public class CultureFactory {
 	 * @return
 	 * @throws Exception
 	 */
-	public static List<String> availableCulturesSubString(String substring) throws Exception {
+	public static List<String> availableCulturesSubString(String substring) {
 		List<String> cultures = new ArrayList<>();
 		List<String> allAvailableCultures = availableCultures();
 		for (int i = 0; i < allAvailableCultures.size(); i++) {
@@ -76,7 +76,8 @@ public class CultureFactory {
 		return cultures;
 	}
 
-	public static Culture getCulture(String cultureName) throws InvalidCultureException {
+	public static Culture getCulture(String cultureName)
+			throws InvalidCultureException {
 		try {
 			if (availableCultures().contains(cultureName)) {
 				Culture culture = culturesAvailable.get(cultureName);
@@ -88,6 +89,7 @@ public class CultureFactory {
 			}
 		} catch (Exception e) {
 		}
-		throw new InvalidCultureException("Culture does not exist: " + cultureName);
+		throw new InvalidCultureException("Culture does not exist: "
+				+ cultureName);
 	}
 }

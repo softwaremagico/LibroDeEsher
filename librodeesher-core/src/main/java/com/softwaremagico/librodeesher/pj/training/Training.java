@@ -25,14 +25,13 @@ package com.softwaremagico.librodeesher.pj.training;
  */
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import com.softwaremagico.files.Folder;
@@ -52,8 +51,8 @@ public class Training {
 	private List<String> limitedRaces;
 	private List<TrainingItem> objects;
 	private List<TrainingCategory> categoriesWithRanks;
-	//Choose one.
-	private List<List<CharacteristicsAbbreviature>> updateCharacteristics; 
+	// Choose one.
+	private List<List<CharacteristicsAbbreviature>> updateCharacteristics;
 	private HashMap<CharacteristicsAbbreviature, Integer> characteristicRequirements;
 	private HashMap<CharacteristicsAbbreviature, Integer> characteristicRequirementsCostModification;
 	private HashMap<String, Integer> skillRequirements;
@@ -63,17 +62,13 @@ public class Training {
 	private List<ChooseSkillGroup> professionalSkills;
 	private List<ChooseSkillGroup> restrictedSkills;
 
-	public Training(String name) {
+	public Training(String name) throws InvalidTrainingException {
 		this.name = name;
 		lifeSkills = new ArrayList<>();
 		commonSkills = new ArrayList<>();
 		professionalSkills = new ArrayList<>();
 		restrictedSkills = new ArrayList<>();
-		try {
-			readTrainingFile(name);
-		} catch (Exception ex) {
-			Logger.getLogger(Training.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		readTrainingFile(name);
 	}
 
 	/**
@@ -84,44 +79,64 @@ public class Training {
 		return categoriesWithRanks.indexOf(trainingCategory);
 	}
 
-	private void readTrainingFile(String trainingName) throws Exception {
+	private void readTrainingFile(String trainingName)
+			throws InvalidTrainingException {
 		int lineIndex = 0;
-		String trainingFile = RolemasterFolderStructure.getDirectoryModule(TrainingFactory.TRAINING_FOLDER
-				+ File.separator + trainingName + ".txt");
+		String trainingFile = RolemasterFolderStructure
+				.getDirectoryModule(TrainingFactory.TRAINING_FOLDER
+						+ File.separator + trainingName + ".txt");
 		if (trainingFile.length() > 0) {
-			List<String> lines = Folder.readFileLines(trainingFile, false);
+			List<String> lines;
+			try {
+				lines = Folder.readFileLines(trainingFile, false);
+			} catch (IOException e) {
+				throw new InvalidTrainingException("Invalid training file: "
+						+ TrainingFactory.TRAINING_FOLDER + File.separator
+						+ trainingName + ".txt");
+			}
 			lineIndex = setTrainingTime(lines, lineIndex);
 			lineIndex = setLimitedRaces(lines, lineIndex);
 			lineIndex = setTrainingSpecial(lines, lineIndex);
 			lineIndex = setTrainingSkills(lines, lineIndex);
 			lineIndex = setCharacteristicsUpgrade(lines, lineIndex);
 			lineIndex = setProfessionalRequirements(lines, lineIndex);
-			lineIndex = setSpecialSkills(lines, lineIndex, lifeSkills, ChooseType.LIFE);
-			lineIndex = setSpecialSkills(lines, lineIndex, commonSkills, ChooseType.COMMON);
-			lineIndex = setSpecialSkills(lines, lineIndex, professionalSkills, ChooseType.PROFESSIONAL);
-			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkills, ChooseType.RESTRICTED);
+			lineIndex = setSpecialSkills(lines, lineIndex, lifeSkills,
+					ChooseType.LIFE);
+			lineIndex = setSpecialSkills(lines, lineIndex, commonSkills,
+					ChooseType.COMMON);
+			lineIndex = setSpecialSkills(lines, lineIndex, professionalSkills,
+					ChooseType.PROFESSIONAL);
+			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkills,
+					ChooseType.RESTRICTED);
+		} else {
+			throw new InvalidTrainingException("Invalid training file: "
+					+ TrainingFactory.TRAINING_FOLDER + File.separator
+					+ trainingName + ".txt");
 		}
 	}
 
-	public int setTrainingTime(List<String> lines, int index) throws InvalidTrainingException {
+	public int setTrainingTime(List<String> lines, int index)
+			throws InvalidTrainingException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
 		try {
 			trainingTime = Integer.parseInt(lines.get(index));
 		} catch (Exception e) {
-			throw new InvalidTrainingException("Problema con la linea: \"" + lines.get(index)
-					+ "\" del adiestramiento " + name);
+			throw new InvalidTrainingException("Problema con la linea: \""
+					+ lines.get(index) + "\" del adiestramiento " + name);
 		}
 		return ++index;
 	}
 
-	public int setLimitedRaces(List<String> lines, int index) throws InvalidTrainingException {
+	public int setLimitedRaces(List<String> lines, int index)
+			throws InvalidTrainingException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
 		limitedRaces = new ArrayList<>();
-		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
+		while (!lines.get(index).equals("")
+				&& !lines.get(index).startsWith("#")) {
 			String trainingLine = lines.get(index);
 			try {
 				String[] limitedRacesColumn = trainingLine.split(", ");
@@ -131,15 +146,16 @@ public class Training {
 					}
 				}
 			} catch (ArrayIndexOutOfBoundsException aiofb) {
-				throw new InvalidTrainingException("Problema con la linea: \"" + trainingLine
-						+ "\" del adiestramiento " + name);
+				throw new InvalidTrainingException("Problema con la linea: \""
+						+ trainingLine + "\" del adiestramiento " + name);
 			}
 			index++;
 		}
 		return index;
 	}
 
-	public int setTrainingSpecial(List<String> lines, int index) throws InvalidTrainingException {
+	public int setTrainingSpecial(List<String> lines, int index)
+			throws InvalidTrainingException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -164,26 +180,29 @@ public class Training {
 						skill = "";
 					}
 				} catch (NumberFormatException nfe) {
-					throw new InvalidTrainingException("Formato de porcentaje de especial \"" + special
-							+ "\" erróneo en adiestramiento " + name);
+					throw new InvalidTrainingException(
+							"Formato de porcentaje de especial \"" + special
+									+ "\" erróneo en adiestramiento " + name);
 				}
 				objects.add(new TrainingItem(special, bonus, skill, probability));
 			} catch (ArrayIndexOutOfBoundsException aiofb) {
-				throw new InvalidTrainingException("Problema con la linea: \"" + trainingLine
-						+ "\" del adiestramiento " + name);
+				throw new InvalidTrainingException("Problema con la linea: \""
+						+ trainingLine + "\" del adiestramiento " + name);
 			}
 			index++;
 		}
 		return index;
 	}
 
-	public int setTrainingSkills(List<String> lines, int index) throws InvalidTrainingException {
+	public int setTrainingSkills(List<String> lines, int index)
+			throws InvalidTrainingException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
 		categoriesWithRanks = new ArrayList<>();
 		TrainingCategory trainingCategory = null;
-		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
+		while (!lines.get(index).equals("")
+				&& !lines.get(index).startsWith("#")) {
 			// It is a category
 			if (!lines.get(index).contains("*")) {
 				// complete previous category skills
@@ -194,9 +213,10 @@ public class Training {
 				try {
 					if (lines.get(index).contains("{")) {
 						// List of categories to choose one.
-						String[] lineColumns = lines.get(index).trim().split("}");
-						String[] categoriesList = lineColumns[0].replace("{", "").replace(";", ",")
-								.split(",");
+						String[] lineColumns = lines.get(index).trim()
+								.split("}");
+						String[] categoriesList = lineColumns[0]
+								.replace("{", "").replace(";", ",").split(",");
 						String[] categoryRanks = lineColumns[1].split("\t");
 
 						List<String> categoriesOptions = new ArrayList<>();
@@ -204,52 +224,68 @@ public class Training {
 							categoriesOptions.add(category.trim());
 						}
 
-						trainingCategory = new TrainingCategory(categoriesOptions,
-								Integer.parseInt(categoryRanks[1]), Integer.parseInt(categoryRanks[2]),
-								Integer.parseInt(categoryRanks[3]), Integer.parseInt(categoryRanks[4]));
+						trainingCategory = new TrainingCategory(
+								categoriesOptions,
+								Integer.parseInt(categoryRanks[1]),
+								Integer.parseInt(categoryRanks[2]),
+								Integer.parseInt(categoryRanks[3]),
+								Integer.parseInt(categoryRanks[4]));
 						categoriesWithRanks.add(trainingCategory);
 					} else {
 						String[] categoryRanks = lines.get(index).split("\t");
 						if (CategoryFactory.existCategory(categoryRanks[0])) {
 							List<String> categoriesList = new ArrayList<>();
 							categoriesList.add(categoryRanks[0].trim());
-							trainingCategory = new TrainingCategory(categoriesList,
-									Integer.parseInt(categoryRanks[1]), Integer.parseInt(categoryRanks[2]),
-									Integer.parseInt(categoryRanks[3]), Integer.parseInt(categoryRanks[4]));
+							trainingCategory = new TrainingCategory(
+									categoriesList,
+									Integer.parseInt(categoryRanks[1]),
+									Integer.parseInt(categoryRanks[2]),
+									Integer.parseInt(categoryRanks[3]),
+									Integer.parseInt(categoryRanks[4]));
 							categoriesWithRanks.add(trainingCategory);
 
 						} else {
-							throw new InvalidTrainingException("Categoría no encontrada en \"" + name
-									+ "\": " + categoryRanks[0]);
+							throw new InvalidTrainingException(
+									"Categoría no encontrada en \"" + name
+											+ "\": " + categoryRanks[0]);
 						}
 					}
 				} catch (NumberFormatException nfe) {
-					throw new InvalidTrainingException("Numero de rangos mal formado en: \""
-							+ lines.get(index) + "\" del adiestramiento: " + name);
+					throw new InvalidTrainingException(
+							"Numero de rangos mal formado en: \""
+									+ lines.get(index)
+									+ "\" del adiestramiento: " + name);
 				}
 			} else { // It is a skill. Must come from a defined category and not
 						// a list to choose.
 				if (trainingCategory == null) {
-					throw new InvalidTrainingException("Habilidad sin categoria asociada: "
-							+ lines.get(index));
+					throw new InvalidTrainingException(
+							"Habilidad sin categoria asociada: "
+									+ lines.get(index));
 				}
 				try {
 					if (lines.get(index).contains("{")) {
 						// List of skills to choose one.
-						String[] lineColumns = lines.get(index).replace("*", "").trim().split("}");
-						String[] skillList = lineColumns[0].replace("{", "").replace(";", ",").split(",");
-						TrainingSkill skill = new TrainingSkill(Arrays.asList(skillList),
+						String[] lineColumns = lines.get(index)
+								.replace("*", "").trim().split("}");
+						String[] skillList = lineColumns[0].replace("{", "")
+								.replace(";", ",").split(",");
+						TrainingSkill skill = new TrainingSkill(
+								Arrays.asList(skillList),
 								Integer.parseInt(lineColumns[1].trim()));
 						trainingCategory.addSkill(skill);
 					} else {
 						// Skill with ranges.
-						String[] trainingSkills = lines.get(index).replace("*", "").trim().split("\t");
+						String[] trainingSkills = lines.get(index)
+								.replace("*", "").trim().split("\t");
 						addTrainingSkill(trainingCategory, trainingSkills[0],
 								Integer.parseInt(trainingSkills[1]));
 					}
 				} catch (NumberFormatException nfe) {
-					throw new InvalidTrainingException("Numero de rangos mal formado en: \""
-							+ lines.get(index) + "\" del adiestramiento: " + name);
+					throw new InvalidTrainingException(
+							"Numero de rangos mal formado en: \""
+									+ lines.get(index)
+									+ "\" del adiestramiento: " + name);
 				}
 			}
 			index++;
@@ -261,7 +297,8 @@ public class Training {
 		return index;
 	}
 
-	private void addTrainingSkill(TrainingCategory trainingCategory, String skillName, Integer ranks) {
+	private void addTrainingSkill(TrainingCategory trainingCategory,
+			String skillName, Integer ranks) {
 		List<String> skillList = new ArrayList<>();
 		skillList.add(skillName); // List with only one
 									// element.
@@ -269,57 +306,66 @@ public class Training {
 		trainingCategory.addSkill(skill);
 	}
 
-	private int setCharacteristicsUpgrade(List<String> lines, int index) throws InvalidTrainingException {
+	private int setCharacteristicsUpgrade(List<String> lines, int index)
+			throws InvalidTrainingException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
 		updateCharacteristics = new ArrayList<>();
-		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
+		while (!lines.get(index).equals("")
+				&& !lines.get(index).startsWith("#")) {
 			String trainingLine = lines.get(index);
 			try {
 				if (trainingLine.contains("{")) {
 					// List to choose a characteristic.
 					List<CharacteristicsAbbreviature> listToChoose = new ArrayList<>();
-					trainingLine = trainingLine.replace("}", "").replace("{", "");
+					trainingLine = trainingLine.replace("}", "").replace("{",
+							"");
 					String[] chars = trainingLine.replace(";", ",").split(",");
 					for (String abbrev : chars) {
-						listToChoose.add(CharacteristicsAbbreviature.getCharacteristicsAbbreviature(abbrev
-								.trim()));
+						listToChoose.add(CharacteristicsAbbreviature
+								.getCharacteristicsAbbreviature(abbrev.trim()));
 					}
 					updateCharacteristics.add(listToChoose);
 				} else {
 					// Ignore nothing tag.
-					if (!trainingLine.toLowerCase().contains(Spanish.NOTHING_TAG)) {
+					if (!trainingLine.toLowerCase().contains(
+							Spanish.NOTHING_TAG)) {
 						// List of only one characteristic (Player is not
 						// allowed to
 						// choose).
-						String[] chars = trainingLine.replace(";", ",").split(",");
+						String[] chars = trainingLine.replace(";", ",").split(
+								",");
 						for (String abbrev : chars) {
 							List<CharacteristicsAbbreviature> listToChoose = new ArrayList<>();
 							listToChoose.add(CharacteristicsAbbreviature
-									.getCharacteristicsAbbreviature(abbrev.trim()));
+									.getCharacteristicsAbbreviature(abbrev
+											.trim()));
 							updateCharacteristics.add(listToChoose);
 						}
 					}
 				}
 			} catch (Exception e) {
-				throw new InvalidTrainingException("Problema con la linea: \"" + trainingLine
-						+ "\" del adiestramiento " + name);
+				throw new InvalidTrainingException("Problema con la linea: \""
+						+ trainingLine + "\" del adiestramiento " + name);
 			}
 			index++;
 		}
 		// Sort updates. First list with one elements.
-		Collections.sort(updateCharacteristics, new Comparator<List<CharacteristicsAbbreviature>>() {
-			public int compare(List<CharacteristicsAbbreviature> a1, List<CharacteristicsAbbreviature> a2) {
-				return a1.size() - a2.size(); // assumes you want
-												// biggest to
-												// smallest
-			}
-		});
+		Collections.sort(updateCharacteristics,
+				new Comparator<List<CharacteristicsAbbreviature>>() {
+					public int compare(List<CharacteristicsAbbreviature> a1,
+							List<CharacteristicsAbbreviature> a2) {
+						return a1.size() - a2.size(); // assumes you want
+														// biggest to
+														// smallest
+					}
+				});
 		return index;
 	}
 
-	private int setProfessionalRequirements(List<String> lines, int index) throws InvalidTrainingException {
+	private int setProfessionalRequirements(List<String> lines, int index)
+			throws InvalidTrainingException {
 		characteristicRequirements = new HashMap<>();
 		characteristicRequirementsCostModification = new HashMap<>();
 		skillRequirements = new HashMap<>();
@@ -329,7 +375,8 @@ public class Training {
 			index++;
 		}
 
-		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
+		while (!lines.get(index).equals("")
+				&& !lines.get(index).startsWith("#")) {
 			if (!lines.get(index).toLowerCase().contains("ningun")) {
 				String[] requirementsGroup = lines.get(index).split(", ");
 				for (int i = 0; i < requirementsGroup.length; i++) {
@@ -338,27 +385,38 @@ public class Training {
 					String[] requirements = requirementsGroup[i].split(pattern);
 					String requirementName = requirements[0];
 					try {
-						Integer value = Integer.parseInt(requirements[1].replace(")", ""));
-						Integer costModification = Integer.parseInt(requirements[2].replace(")", ""));
+						Integer value = Integer.parseInt(requirements[1]
+								.replace(")", ""));
+						Integer costModification = Integer
+								.parseInt(requirements[2].replace(")", ""));
 						// If it is a skill, the requirement is to have at least
 						// X ranks.
 						if (SkillFactory.existSkill(requirementName)) {
 							skillRequirements.put(requirementName, value);
-							skillRequirementsCostModification.put(requirementName, costModification);
-						} else if (Characteristics.isCharacteristicValid(requirementName)) {
+							skillRequirementsCostModification.put(
+									requirementName, costModification);
+						} else if (Characteristics
+								.isCharacteristicValid(requirementName)) {
 							// It it is a characteristic, a minimal temporal
 							// value is required.
-							characteristicRequirements.put(CharacteristicsAbbreviature
-									.getCharacteristicsAbbreviature(requirementName), value);
-							characteristicRequirementsCostModification.put(CharacteristicsAbbreviature
-									.getCharacteristicsAbbreviature(requirementName), costModification);
+							characteristicRequirements
+									.put(CharacteristicsAbbreviature
+											.getCharacteristicsAbbreviature(requirementName),
+											value);
+							characteristicRequirementsCostModification
+									.put(CharacteristicsAbbreviature
+											.getCharacteristicsAbbreviature(requirementName),
+											costModification);
 						} else {
-							throw new InvalidTrainingException("Requisito desconocido: \"" + lines.get(index)
-									+ "\" del adiestramiento: " + name);
+							throw new InvalidTrainingException(
+									"Requisito desconocido: \""
+											+ lines.get(index)
+											+ "\" del adiestramiento: " + name);
 						}
 					} catch (NumberFormatException nfe) {
-						throw new InvalidTrainingException("Requisito mal formado: \"" + lines.get(index)
-								+ "\" del adiestramiento: " + name);
+						throw new InvalidTrainingException(
+								"Requisito mal formado: \"" + lines.get(index)
+										+ "\" del adiestramiento: " + name);
 					}
 				}
 			}
@@ -367,26 +425,31 @@ public class Training {
 		return index;
 	}
 
-	private int setSpecialSkills(List<String> lines, int index, List<ChooseSkillGroup> skillCategory,
-			ChooseType chooseType) {
+	private int setSpecialSkills(List<String> lines, int index,
+			List<ChooseSkillGroup> skillCategory, ChooseType chooseType) {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
 
-		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
+		while (!lines.get(index).equals("")
+				&& !lines.get(index).startsWith("#")) {
 			String skillLine = lines.get(index);
-			if (skillLine.toLowerCase().contains("ningun") || skillLine.toLowerCase().contains("nothing")) {
+			if (skillLine.toLowerCase().contains("ningun")
+					|| skillLine.toLowerCase().contains("nothing")) {
 				break;
 			}
 			String[] skillColumns = skillLine.split(", ");
 			for (int i = 0; i < skillColumns.length; i++) {
 				if (!skillColumns[i].contains("{")) {
 					Skill skill = SkillFactory.getSkill(skillColumns[i]);
-					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1, skill, chooseType);
+					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1,
+							skill, chooseType);
 					skillCategory.add(chooseSkills);
 				} else {
-					String[] skills = skillColumns[i].replace("{", "").replace("}", "").split(";");
-					List<String> skillList = new ArrayList<String>(Arrays.asList(skills));
+					String[] skills = skillColumns[i].replace("{", "")
+							.replace("}", "").split(";");
+					List<String> skillList = new ArrayList<String>(
+							Arrays.asList(skills));
 					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1,
 							SkillFactory.getSkills(skillList), chooseType);
 					skillCategory.add(chooseSkills);

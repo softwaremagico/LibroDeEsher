@@ -25,6 +25,7 @@ package com.softwaremagico.librodeesher.pj.race;
  */
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -50,7 +51,6 @@ import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceException;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
-import com.softwaremagico.log.EsherLog;
 
 public class Race {
 	private String name;
@@ -83,7 +83,7 @@ public class Race {
 	private Integer expectedLifeYears = null;
 	private int naturalArmourType = 1;
 
-	public Race(String name) {
+	public Race(String name) throws InvalidRaceException {
 		this.name = name;
 		apperanceBonus = 0;
 		commonSkills = new ArrayList<>();
@@ -94,12 +94,7 @@ public class Race {
 		initialRaceLanguages = new HashMap<>();
 		maxRaceLanguages = new HashMap<>();
 		maxHistoryLanguages = new HashMap<>();
-		try {
-			readRaceFile(name);
-		} catch (Exception e) {
-			EsherLog.errorMessage(Race.class.getName(), e);
-			e.printStackTrace();
-		}
+		readRaceFile(name);
 	}
 
 	public String getName() {
@@ -110,14 +105,21 @@ public class Race {
 		return languagePoints;
 	}
 
-	private void readRaceFile(String raceName) throws Exception {
+	private void readRaceFile(String raceName) throws InvalidRaceException {
 		int lineIndex = 0;
 
 		String raceFile = RolemasterFolderStructure
 				.getDirectoryModule(RaceFactory.RACE_FOLDER + File.separator
 						+ raceName + ".txt");
 		if (raceFile.length() > 0) {
-			List<String> lines = Folder.readFileLines(raceFile, false);
+			List<String> lines;
+			try {
+				lines = Folder.readFileLines(raceFile, false);
+			} catch (IOException e) {
+				throw new InvalidRaceException("Invalid race file: "
+						+ RaceFactory.RACE_FOLDER + File.separator + raceName
+						+ ".txt");
+			}
 
 			lineIndex = setCharacteristicsBonus(lines, lineIndex);
 			lineIndex = setLifeExpectation(lines, lineIndex);
@@ -134,6 +136,10 @@ public class Race {
 			lineIndex = setCultures(lines, lineIndex);
 			lineIndex = setOtherSpecials(lines, lineIndex);
 			lineIndex = setNames(lines, lineIndex);
+		} else {
+			throw new InvalidRaceException("Invalid race file: "
+					+ RaceFactory.RACE_FOLDER + File.separator + raceName
+					+ ".txt");
 		}
 	}
 
@@ -459,7 +465,7 @@ public class Race {
 		return index;
 	}
 
-	private int setCultures(List<String> lines, int index) throws Exception {
+	private int setCultures(List<String> lines, int index) {
 		availableCultures = new ArrayList<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -491,7 +497,8 @@ public class Race {
 		return index;
 	}
 
-	private int setOtherSpecials(List<String> lines, int index) {
+	private int setOtherSpecials(List<String> lines, int index)
+			throws InvalidRaceException {
 		specials = new ArrayList<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -509,7 +516,7 @@ public class Race {
 								specialLine.indexOf(']')));
 					}
 				} catch (Exception e) {
-					EsherLog.errorMessage(this.getClass().getName(), e);
+					throw new InvalidRaceException(e.getMessage());
 				}
 				// Remove cost.
 				if (specialLine.contains("[")) {
@@ -529,7 +536,7 @@ public class Race {
 						naturalArmourType = Integer.parseInt(specialLine
 								.replaceAll("[^\\d.]", ""));
 					} catch (Exception e) {
-						EsherLog.severe(this.getClass().getName(),
+						throw new InvalidRaceException(
 								"Invalid natural armour:" + specialLine);
 					}
 				}
