@@ -11,6 +11,7 @@
 				<include name="NihalDragoniana" />
 				<include name="MorticiaInnodanTest" />
 				<include name="perkPoints" />
+				<include name="raceFile" />
 			</run>
 		</groups>
 		<classes>
@@ -18,6 +19,7 @@
 			<class name="com.softwaremagico.librodeesher.pj.NihalDragonianaTest" />
 			<class name="com.softwaremagico.librodeesher.pj.MorticiaInnodanTest" />
 			<class name="com.softwaremagico.librodeesher.pj.PerkPointsPerRaceTest" />
+			<class name="com.softwaremagico.librodeesher.pj.RaceFilesTest" />
 		</classes>
 	</test>
 </suite>
