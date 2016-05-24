@@ -1,6 +1,6 @@
 # ARMAS TÍPICAS
 ####################
-Daga, Espada Corta, Ballesta Pesada, Ballesta Ligera, Lanza, Armas de Asta, Hacha de Mano, Garrote, Martillo de Guerra, Maza, Hacha de Batalla, Pica de Guerra
+Daga, Espada Corta, Ballesta Pesada, Ballesta Ligera, Lanza, Arma de Asta, Hacha de Mano, Garrote, Martillo de Guerra, Maza, Hacha de Batalla, Pica de Guerra
 
 # ARMADURAS TÍPICAS
 ####################

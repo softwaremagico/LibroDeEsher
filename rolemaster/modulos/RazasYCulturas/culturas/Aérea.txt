@@ -1,6 +1,6 @@
 # ARMAS TÍPICAS
 ####################
-Garrote, Espada Ancha, Machete, Hacha de Mano, Espada Cortea, Hacha de Batalla, Hacha de Leñador, Honda, Arco Corto, Arco Compuesto, Jabalina
+Garrote, Espada Ancha, Machete, Hacha de Mano, Espada Corta, Hacha de Batalla, Hacha de Leñador, Honda, Arco Corto, Arco Compuesto, Jabalina
 
 # ARMADURAS TÍPICAS
 ####################
@@ -59,9 +59,10 @@ Listas Abiertas de Hechizos	0
 
 # AFICIONES
 ####################
-Acrobacias, Armadura·Ligera, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas
-Caminar por la Cuerda Floja, Camuflaje, Cantar, Carrera de Fondo
-Conocimiento de la Fauna, Desarrollo Físico, Escalar, Forrajear, Manejo de Cuerdas, Observación
+Acrobacias, Armadura·Ligera, Armas·Filo, Armas·2manos, Armas·Proyectiles
+Armas·Asta, Armas·Arrojadizas, Caminar por la Cuerda Floja, Camuflaje
+Cantar, Carrera de Fondo, Conocimiento de la Fauna, Desarrollo Físico
+Escalar, Forrajear, Manejo de Cuerdas, Observación
 Predicción del Clima, Rappeling, Supervivencia (Montañas), Trepar
 
 # IDIOMAS

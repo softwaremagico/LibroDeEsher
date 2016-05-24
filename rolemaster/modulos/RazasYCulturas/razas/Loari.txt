@@ -87,7 +87,7 @@ Shuluri	0/0	4/4
 #HABILIDADES COMUNES
 ####################################
 Conocimiento·Técnico, Ciencia/Analítica·Básica, Ciencia/Analítica·Especializada
-Manejar Maquinaria, Arquitetura, Ingeniería, Mecánica
+Maquinaria, Arquitectura, Ingeniería, Mecánica
 
 #HABILIDADES RESTRINGIDAS
 ####################################

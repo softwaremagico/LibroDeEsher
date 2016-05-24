@@ -1,6 +1,6 @@
 # ARMAS TÍPICAS
 ####################
-Daga, Cimitarra, Espada Corta, Maza, Cayado, Cutlass, Main Gauche, Sable, Latigo, Mangual, Venablo, Arpon, Red, Daga Arrojadiza
+Daga, Cimitarra, Espada Corta, Maza, Cayado, Cutlass, Main Gauche, Sable, Látigo, Mangual, Venablo, Arpón, Red, Daga Arrojadiza
 
 # ARMADURAS TÍPICAS
 ####################

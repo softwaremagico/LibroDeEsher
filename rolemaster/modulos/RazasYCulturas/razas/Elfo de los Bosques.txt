@@ -83,7 +83,7 @@ Habla Negra	0/0	6/6
 
 #HABILIDADES COMUNES
 ####################################
-Juegos de Manos, Música, Tocar Instrumento, Trabajar Madera
+Juegos de Manos, Música, Tocar Instrumento, Trabajar la Madera
 
 #HABILIDADES RESTRINGIDAS
 ####################################
