@@ -71,12 +71,16 @@ Normal
 Habla Común	8/6	10/10
 Élfico	8/10	10/10
 Élfico Alto	6/4	8/8
-
-#IDIOMAS HISTORIAL
-####################################
 Habla de las Llanuras	0/0	8/8
 Habla de los bosques	0/0/	8/8
 Habla alta	0/0/	8/8
+
+#IDIOMAS HISTORIAL
+####################################
+Habla del Sur	0/0	6/6
+Habla de los Mares	0/0/	6/6
+Habla Negra	0/0/	6/6
+Orco	0/0/	6/6
 
 #HABILIDADES COMUNES
 ####################################

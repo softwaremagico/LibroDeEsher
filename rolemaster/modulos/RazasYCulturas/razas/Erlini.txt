@@ -69,10 +69,17 @@ Normal
 ####################################
 Erlini	8/4	10/10
 Idioma Regional	8/4	10/8
+Linaeri	0/0	6/6
 
 #IDIOMAS HISTORIAL
 ####################################
-Linaeri	0/0	6/6
+Centauro	0/0	4/4
+Dyari	0/0	6/4
+Loari	0/0	4/4
+Linaeri	0/0	8/6
+Orhan	0/0	6/4
+Shuluri	0/0	4/4
+Wôrin	0/0	4/4
 
 #HABILIDADES COMUNES
 ####################################

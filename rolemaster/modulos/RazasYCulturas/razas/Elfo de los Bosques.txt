@@ -71,12 +71,15 @@ Normal
 Élfico Alto	4/4	10/10
 Élfico Gris	8/6	10/10
 Habla Común	8/6	10/10
-
-#IDIOMAS HISTORIAL
-####################################
 Habla de las Llanuras	0/0	8/8
 Habla de los bosques	0/0/	8/8
 Habla alta	0/0/	4/4
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Alta	0/0	8/8
+Habla del Sur	0/0	6/6
+Habla Negra	0/0	6/6
 
 #HABILIDADES COMUNES
 ####################################

@@ -69,12 +69,20 @@ Normal
 ####################################
 Loari	8/4	10/8
 Idioma regional	8/4	10/8
-
-#IDIOMAS HISTORIAL
-####################################
 Enano	0/0	4/4
 Dyari	0/0	6/4
 Linaeri	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
+Aldari	0/0	4/4
+Enano	0/0	6/6
+Dyari	0/0	8/6
+Erlini	0/0	4/4
+Jinteni	0/0	4/4
+Linaeri	0/0	8/6
+Orhan	0/0	6/4
+Shuluri	0/0	4/4
 
 #HABILIDADES COMUNES
 ####################################

@@ -69,6 +69,7 @@ Normal
 ####################################
 Shuluri	8/4	10/8
 Idioma Regional	8/4	10/8
+Sirénido	0/0	6/6
 
 #IDIOMAS HISTORIAL
 ####################################
@@ -103,14 +104,14 @@ Anfíbios
 
 #NOMBRES MASCULINOS
 ####################################
-Datak, Alak, Meh, Rahm, T’evgin, Sukar
+Datak, Alak, Meh, Rahm, T’evgin, Sukar, Lemmy, Kaito, Lixto, Lanhua, Alala, Izul, Eriru
 
 #NOMBRES FEMENINOS
 ####################################
-Ondine, Stahma, Irisa, Andina, Dirdre
+Ondine, Stahma, Irisa, Andina, Dirdre,Illiris, Phylla, Sonna, Desiryee, Lithia, Nissa 
 
 #APELLIDOS
 ####################################
-Tarr, Yewll, Nyira, Tak, Lamb
+Tarr, Yewll, Nyira, Tak, Lamb, Selkies
 
 #### FIN RAZA ####

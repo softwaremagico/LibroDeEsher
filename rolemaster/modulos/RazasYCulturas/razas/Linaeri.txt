@@ -69,11 +69,18 @@ Normal
 ####################################
 Lineari	8/4	10/8
 Idioma Regional	8/4	10/8
+Loari	0/0	4/4
+Dyari	0/0	4/4
 
 #IDIOMAS HISTORIAL
 ####################################
-Loari	0/0	4/4
-Dyari	0/0	4/4
+Centauro	0/0	6/4
+Dyari	0/0	8/6
+Loari	0/0/	8/6
+Ninfa	0/0	6/4
+Orhan	0/0	6/4
+Shuluri	0/0	4/4
+Wôeim	0/0	4/4
 
 #HABILIDADES COMUNES
 ####################################
