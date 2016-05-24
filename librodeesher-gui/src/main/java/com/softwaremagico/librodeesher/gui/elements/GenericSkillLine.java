@@ -167,9 +167,7 @@ public class GenericSkillLine extends BaseSkillLine {
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			if (otherBonusPanel) {
-				otherBonusLabel = new ListLabel((character.getProfession().getSkillBonus(skill.getName())
-						+ character.getHistorial().getBonus(skill) + character.getPerkBonus(skill)
-						+ character.getConditionalPerkBonus(skill)) + "", columnWidth, columnHeight);
+				otherBonusLabel = new ListLabel(character.getBonus(skill).toString(), columnWidth, columnHeight);
 			} else {
 				otherBonusLabel = new ListLabel("", columnWidth, columnHeight);
 			}

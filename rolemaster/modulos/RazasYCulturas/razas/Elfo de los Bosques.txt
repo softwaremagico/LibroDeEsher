@@ -80,7 +80,7 @@ Habla alta	0/0/	4/4
 
 #HABILIDADES COMUNES
 ####################################
-Juegos de Manos, Música, Tocar Instrumento, Trabajar Madera
+Juegos de Manos, Música, Tocar Instrumento, Trabajar la Madera
 
 #HABILIDADES RESTRINGIDAS
 ####################################

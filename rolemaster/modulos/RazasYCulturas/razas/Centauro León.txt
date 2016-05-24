@@ -77,11 +77,6 @@ Habla Alta	0/0	6/6
 Habla Común	0/0	8/8
 Habla Alta	0/0	6/6
 
-#IDIOMAS HISTORIAL
-####################################
-Habla Común	0/0	8/8
-Habla Alta	0/0	6/6
-
 #HABILIDADES COMUNES	
 ####################################
 Acechar, Esconderse, Cazar, Forrajear, Rastrear

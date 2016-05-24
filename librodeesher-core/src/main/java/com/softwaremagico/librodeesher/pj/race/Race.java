@@ -29,9 +29,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
@@ -42,6 +44,7 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
+import com.softwaremagico.librodeesher.pj.culture.InvalidCultureException;
 import com.softwaremagico.librodeesher.pj.perk.Perk;
 import com.softwaremagico.librodeesher.pj.perk.PerkFactory;
 import com.softwaremagico.librodeesher.pj.perk.PerkPointsCalculator;
@@ -82,6 +85,8 @@ public class Race {
 	private String raceLanguage = null;
 	private Integer expectedLifeYears = null;
 	private int naturalArmourType = 1;
+	private Map<String, Integer> bonusSkills;
+	private Set<Perk> racePerks;
 
 	public Race(String name) throws InvalidRaceException {
 		this.name = name;
@@ -94,6 +99,8 @@ public class Race {
 		initialRaceLanguages = new HashMap<>();
 		maxRaceLanguages = new HashMap<>();
 		maxHistoryLanguages = new HashMap<>();
+		bonusSkills = new HashMap<>();
+		racePerks = new HashSet<>();
 		readRaceFile(name);
 	}
 
@@ -435,7 +442,8 @@ public class Race {
 	}
 
 	private int setSpecialSkills(List<String> lines, int index,
-			List<Skill> skillsList, List<Category> categoriesList) {
+			List<Skill> skillsList, List<Category> categoriesList)
+			throws InvalidRaceException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -456,8 +464,16 @@ public class Race {
 							.getCategory(skillColumns[i]));
 				} else {
 					// Only one skill is special.
-					Skill skill = SkillFactory.getSkill(skillColumns[i]);
-					skillsList.add(skill);
+					Skill skill = SkillFactory
+							.getAvailableSkill(skillColumns[i]);
+					if (skill != null) {
+						skillsList.add(skill);
+					} else {
+						throw new InvalidRaceException(
+								"Error leyendo la habilidad común '"
+										+ skillColumns[i] + "' para la raza '" + getName()
+										+ "'.");
+					}
 				}
 			}
 			index++;
@@ -465,7 +481,8 @@ public class Race {
 		return index;
 	}
 
-	private int setCultures(List<String> lines, int index) {
+	private int setCultures(List<String> lines, int index)
+			throws InvalidRaceException {
 		availableCultures = new ArrayList<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -489,7 +506,17 @@ public class Race {
 							.availableCulturesSubString(cult));
 				} else {
 					// Standard culture.
-					availableCultures.add(cultureList[i]);
+					try {
+						if (CultureFactory.getCulture(cultureList[i]) != null) {
+							availableCultures.add(cultureList[i]);
+						}
+					} catch (InvalidCultureException e) {
+						// Not all cultures are implemented.
+						// throw new
+						// InvalidRaceException("Cultura no existente '"
+						// + cultureList[i] + "' para la raza '"
+						// + getName() + "'.");
+					}
 				}
 			}
 			index++;
@@ -507,16 +534,45 @@ public class Race {
 			String specialLine = lines.get(index);
 			if (!specialLine.toLowerCase().contains(Spanish.NOTHING_TAG)) {
 				int racePoints = 0;
+				// Try to check if it is a skill bonus.
+				if (specialLine.contains("\t")) {
+					String[] skillBonus = specialLine.split("\t");
+					// Is a skill bonus
+					if (skillBonus.length <= 2) {
+						// Bonus.
+						try {
+							Integer bonus = Integer.parseInt(skillBonus[0]);
+							// Check skill exists.
+							Skill skill = SkillFactory
+									.getAvailableSkill(skillBonus[1]);
+							if (skill != null) {
+								bonusSkills.put(skill.getName(), bonus);
+								index++;
+								continue;
+							}
+						} catch (NumberFormatException nfe) {
+							// Not a number, is not a skill bonus, continue
+							// checks.
+						}
+					}
+				}
+				// Add perks as race specials.
 				try {
 					if (specialLine.contains("[")) {
 						racePoints = Integer.parseInt(specialLine.substring(
 								specialLine.indexOf('[') + 1,
 								specialLine.indexOf(']')));
+						Perk perk = PerkFactory
+								.getPerk(specialLine.split("\t")[0]
+										.replaceFirst(":", ""));
+						if (perk != null) {
+							racePerks.add(perk);
+						}
 					}
 				} catch (Exception e) {
 					throw new InvalidRaceException(e.getMessage());
 				}
-				// Remove cost.
+				// Remove cost of training.
 				if (specialLine.contains("[")) {
 					specialLine = specialLine.substring(0,
 							specialLine.indexOf("["));
@@ -527,8 +583,8 @@ public class Race {
 				if (racePoints != 0) {
 					specialsRacePoints.put(specialLine, racePoints);
 				}
-				// Set natural Armour
-				if (specialLine.toLowerCase().contains(
+				// Set Natural Armour
+				if (specialLine.toLowerCase().startsWith(
 						Spanish.ARMOUR_TAG_COMPLETE.toLowerCase())) {
 					try {
 						naturalArmourType = Integer.parseInt(specialLine
@@ -788,5 +844,17 @@ public class Race {
 
 	public int getNaturalArmourType() {
 		return naturalArmourType;
+	}
+
+	public int getBonus(Skill skill) {
+		Integer bonus = bonusSkills.get(skill.getName());
+		if (bonus != null) {
+			return bonus;
+		}
+		return 0;
+	}
+
+	public Set<Perk> getPerks() {
+		return racePerks;
 	}
 }

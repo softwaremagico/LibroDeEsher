@@ -77,7 +77,7 @@ Dyari	0/0	4/4
 
 #HABILIDADES COMUNES
 ####################################
-Bailar, Cantar, Improvisación Poetica, Música, Narrar Historias
+Bailar, Cantar, Improvisación Poética, Música, Narrar Historias
 Oratoria, Tocar Instrumento
 
 #HABILIDADES RESTRINGIDAS

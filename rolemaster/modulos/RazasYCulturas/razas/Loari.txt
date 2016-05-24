@@ -79,7 +79,7 @@ Linaeri	0/0	6/6
 #HABILIDADES COMUNES
 ####################################
 Conocimiento·Técnico, Ciencia/Analítica·Básica, Ciencia/Analítica·Especializada
-Manejar Maquinaria, Arquitetura, Ingeniería, Mecánica
+Maquinaria, Arquitectura, Ingeniería, Mecánica
 
 #HABILIDADES RESTRINGIDAS
 ####################################

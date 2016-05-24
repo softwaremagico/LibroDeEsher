@@ -59,6 +59,6 @@ Subterfugio·Ataque(SubAta)	Ag/Ad/In	Estándar	Ataque Silencioso, Emboscar
 Subterfugio·Mecánica(SubMec)	In/Ag/Ra	Estándar	Abrir Cerraduras, Camuflaje, Desactivar Trampas, Disfrazarse, Construir Trampas, Preparar Trampas, Usa/Curar Venenos, Falsificación, Imitación, Ocultar Objetos
 Subterfugio·Sigilo(SubSig)	Ag/Ad/In	Estándar	Acechar, Esconderse, Juegos de Manos, Robar Bolsillos
 Técnica/comercio·General(TecGen)	Ra/Me/Ad	Estándar	Dibujar Mapas, Juego, Juegos de Estrategia, Maquinaria, Mendigar, Navegar, Orientación, Primeros Auxilios, Usar Hierbas
-Técnica/comercio·Profesional(TecPro)	Ra/Me/In	Combinada	Cuidados Médicos, Diagnosis, Ingeniería, Mecánica, Minería, Adormecerse, Arquitectura, Cirugía, Organización Militar, Propaganda, Zahorí
+Técnica/comercio·Profesional(TecPro)	Ra/Me/In	Combinada	Cuidados Médicos, Diagnosis, Ingeniería, Mecánica, Minería, Adormecerse, Arquitectura, Cirugía, Organización Militar, Propaganda, Zahorí, Investigación
 Técnica/comercio·Vocacional(TecVoc)	Me/In/Ra	Combinada	Administración, Manejo de Botes, Evaluar Arma, Evaluar Armadura, Evaluar Metal, Evaluar Piedra, Navegación, Táctica, Tasar, Artimañas, Cartografía, Ingeniería de Asedio, Partería, Preparar Hierbas, Preparar Venenos
 Urbana(Urb)	In/Pr/Ra	Estándar	Agenciar, Callejeo, Disimulo, Instinto Urbano
