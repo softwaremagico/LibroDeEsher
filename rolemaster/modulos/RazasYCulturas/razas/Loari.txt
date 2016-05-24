@@ -81,7 +81,6 @@ Linaeri	0/0	6/6
 Conocimiento·Técnico, Ciencia/Analítica·Básica, Ciencia/Analítica·Especializada
 Manejar Maquinaria, Arquitetura, Ingeniería, Mecánica
 
-
 #HABILIDADES RESTRINGIDAS
 ####################################
 Ninguna
@@ -99,16 +98,33 @@ Todas
 	Visión total a la luz de luna o de las estrellas
 +10	Contra Frío y Calor (BD y TR)
 
-
 #NOMBRES MASCULINOS
 ####################################
-Angus, Ardid, Ariel, Dagowill, Dahel, Doomie, Fachán, Groëg, Horned, Kelpie, Midhir, Puck, Pwill, Ronnan, Stowny
+Angus, Ardid, Ariel, Dagowill, Dahel, Doomie
+Fachán, Groëg, Horned, Kelpie, Midhir, Puck, Pwill
+Ronnan, Stowny, Aster, Auro'po, Berg'inyon, Bidderdoo
+Dantrag, Devhir, Freithar, Jarlaxle, Kherion, Turion
+Larshar, Zenthrar, Zeerith, Zaknafein, Uthegental, Tyrash
+Tarik, Hino, Hwesto, Súlimo, Draugarquen, Armathar, Adanëaro
+Morion, Lairenossë, Airanosse, Arwë, Mahtaraquisto
+Varnewë, Quettaredhelnen, Eldarestalo, Ondollo
+Akwatiro, Astaldo, Erundur, Othar, Ilfirin, Ainu, Alcarinquallo 
 
 #NOMBRES FEMENINOS
 ####################################
-Dagda, Caer, Anna, Badb, Macha, Beansith, Gwaena, Lyann, Nimrodela
+Dagda, Caer, Anna, Badb, Macha, Beansith, Gwaena, Triel
+Lyann, Nimrodela, Adhara, K'yorl, Lhyr, Quentbel, Vendes
+Talya, Shyra, Soana, Sulana, Aranossë, Nossekallo
+Morie, Satultanar, Manisse, Lónie, Nárie, Ára, Nimie, Thenidiel
+Fairiel, Yakaryalymóta, Eruannë, Kwamelne, Erulissë, Erundilmë
+Valadhiel, Veawen, Astaldë, Adamenwen, Yanátirie, Aglarwen, Amaurea
+Aranissë, Fánie, Lossie, Alassantë, Ambatúrie, Eámanë, Vineruva
+Anwië, Taryanís, Halyare, Melmie, Seleratanië, Belwe
 
 #APELLIDOS
 ####################################
+Dyrr, Baerne, Harpel, Baerne, Baerne, Oblondra, Q'Xorlarrin
+Barris Del'Armgol, Indilcastirivie, Beweglionië, Istararwennen
+Bellasvalainon, Aikanáro, Blanden'Kerst, Alanosawen, Yávelisse
 
 #### FIN RAZA ####

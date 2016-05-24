@@ -99,14 +99,37 @@ Silvana
 
 #NOMBRES MASCULINOS
 ####################################
-Angus, Ardid, Ariel, Dagowill, Dahel, Doomie, Fachán, Groëg
-Horned, Kelpie, Midhir, Puck, Pwill, Ronnan, Stowny
+Aran, Arno, Antalmarnen, Amanadan, Fortion, Hyarion, Morkotaryo
+Liello, Varnion, Sandóre, Euguveo, Finwë, Laivehildo, Almandur
+Failon, Kolinderu, Turar, Meldon, Faileruvaro, Erunámo
+Handassero, Nólar, Áreharano, Úras, Írindo, Karmeleytos, Nacil
+Herenvarno, Eruvalyaiya, Aran, Roccondil, Handon, Indocar, Bercalion
+Nárwë, Tulmo, Khersiwë, Bartar, Cemendur, Arothir, Artaher
+Eruannaro, Manwë, Erufailon, Bewegliono, Beraayaro, Suiauthon
+Endamor, Manveru, Eraisuithon, Túrelio, Pityon, Sailon
+Kalicalwë, Tirentar 
+
 
 #NOMBRES FEMENINOS
 ####################################
-Dagda, Caer, Anna, Badb, Macha, Beansith, Gwaena, Lyann, Nimrodela
+Poicawen, Menelwie, Helliva, Vendilken, Erumáre, Lótewen
+Nimiel, Calime, Rácine, Tultien, Antasérewen, Taramarë
+Felyawen, Rondiel, Hilyartehtië, Laivinë, Mótarie, Telpelimperie
+Ilarmariel, Erunámë, Nísserunssanië, Arien, Eruwen, Valya, Nyére
+Kirië, Yulma, Úriel, Orohalatirie, Ardhoniel, Eliel, Ondolaika
+Erunalvórima, Giliel, Nartitta, Coiranna, Almarë, Eruwaedhiel
+Beriadhwen, Nimthîriel, Eruiel, Alassë, Eulalia, Nacilë, Indilwen
+Sidhlairiel, Aurehen, Meldië, Saerwen, Hostawen, Metethiel, Rodwen
+Annawen, Eärwen, Nostë, Nik-Wime, Cuinaë, Nostariel, Pityë, Tarma
+Erundurwen, Cirindé, Rossewen, Lossë, Sermë, Aranel, Varnewen
+
 
 #APELLIDOS
 ####################################
+Dyrr, Baerne, Harpel, Baerne, Baerne, Oblondra, Q'Xorlarrin
+Barris Del'Armgol, Indilcastirivie, Beweglionië, Istararwennen
+Bellasvalainon, Aikanáro, Blanden'Kerst, Alanosawen, Yávelisse
+Thalidelothion, Calnerissen, Ecthelion, Sadronniel, Akla-Robalissë
+Tarellethiel, Ekwestaldo, Manalindalasso
 
 #### FIN RAZA ####
