@@ -7,10 +7,10 @@ Ra	0
 Ad	-5
 Em	2
 In	0
-Pr	6
-Rp	6
+Pr	4
+Rp	4
 Fu	0
-Ap	30
+Ap	20
 
 # ESPERANZA DE VIDA
 ####################################
@@ -24,13 +24,13 @@ Mentalismo	-5
 Veneno	10
 Enfermedad	100
 Psiónico	-5
-Frío	20
+Frío	15
 Calor	0
 Miedo	0
 
 #PROGRESIÓN
 ####################################
-Desarrollo Físico	0/7/3/2/1
+Desarrollo Físico	0/6/3/1/1
 PP Arcano	0/6/5/4/3
 PP Canalización	0/6/5/4/3
 PP Esencia	0/7/6/5/4
@@ -43,11 +43,11 @@ Ninguna
 
 #PARTIDA DEL ALMA
 ####################################
-1
+2
 
 #TIPO DE RAZA
 ####################################
-5
+4
 
 #TAMAÑO DE RAZA
 ####################################
@@ -55,31 +55,32 @@ Normal
 
 #RECUPERACIÓN
 ####################################
-1
+2
 
 #IDIOMAS
 ####################################
-5
+4
 
 #HISTORIAL
 ####################################
-2
+3
 
 #IDIOMAS	Inicial	Max.Cultura
 ####################################
-Élfico Alto	10/10	10/10
-Élfico Gris	8/6	10/10
+Élfico Gris	10/10	10/10
 Habla Común	8/6	10/10
+Élfico	8/10	10/10
+Élfico Alto	6/4	8/8
 
 #IDIOMAS HISTORIAL
 ####################################
-Habla del Norte	0/0	8/8
-Élfico	0/0	6/6
-Habla de las Llanuras	0/0	6/6
+Habla de las Llanuras	0/0	8/8
+Habla de los bosques	0/0/	8/8
+Habla alta	0/0/	8/8
 
 #HABILIDADES COMUNES
 ####################################
-Ninguna
+Investigación, Navegar, Oratoria
 
 #HABILIDADES RESTRINGIDAS
 ####################################
@@ -87,15 +88,14 @@ Ninguna
 
 #CULTURAS
 ####################################
-Todas
+Litoral
 
 #ESPECIALES
 ####################################
-+20	Sintonización
 +10	Oído
 	Visión total a 15 m parcial a 30 en la oscuridad con una fuente de luz mínima.
 	Visión total a la luz de luna o de las estrellas
-+20	Contra Frío (BD y TR)
++15	Contra Frío (BD y TR)
 
 #NOMBRES MASCULINOS
 ####################################

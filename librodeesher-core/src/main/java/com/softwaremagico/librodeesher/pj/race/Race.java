@@ -505,9 +505,7 @@ public class Race {
 		}
 		while (!lines.get(index).equals("")) {
 			String specialLine = lines.get(index);
-			if (!specialLine.toLowerCase().equals("ninguno")
-					&& !specialLine.toLowerCase().equals("ninguna")
-					&& !specialLine.toLowerCase().equals("nothing")) {
+			if (!specialLine.toLowerCase().contains(Spanish.NOTHING_TAG)) {
 				int racePoints = 0;
 				try {
 					if (specialLine.contains("[")) {
@@ -546,7 +544,8 @@ public class Race {
 		return index;
 	}
 
-	private int setNames(List<String> lines, int index) {
+	private int setNames(List<String> lines, int index)
+			throws InvalidRaceException {
 		maleNames = new ArrayList<>();
 		femaleNames = new ArrayList<>();
 		familyNames = new ArrayList<>();
@@ -555,34 +554,64 @@ public class Race {
 			index++;
 		}
 		// Male Names.
-		while (!lines.get(index).equals("")) {
-			String nameLine = lines.get(index);
-			String[] names = nameLine.split(", ");
-			maleNames.addAll(Arrays.asList(names));
-			index++;
+		try {
+			while (!lines.get(index).equals("")) {
+				String nameLine = lines.get(index);
+				String[] names = nameLine.split(", ");
+				maleNames.addAll(Arrays.asList(names));
+				index++;
+			}
+		} catch (IndexOutOfBoundsException iob) {
+			throw new InvalidRaceException("Invalid name definition in race '"
+					+ name + "'.");
 		}
-		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
-			index++;
+
+		try {
+			while (lines.get(index).equals("")
+					|| lines.get(index).startsWith("#")) {
+				index++;
+			}
+		} catch (IndexOutOfBoundsException iob) {
+			throw new InvalidRaceException("Invalid name definition in race '"
+					+ name + "'.");
 		}
 
 		// Female Names.
-		while (!lines.get(index).equals("")) {
-			String nameLine = lines.get(index);
-			String[] names = nameLine.split(", ");
-			femaleNames.addAll(Arrays.asList(names));
-			index++;
+		try {
+			while (!lines.get(index).equals("")) {
+				String nameLine = lines.get(index);
+				String[] names = nameLine.split(", ");
+				femaleNames.addAll(Arrays.asList(names));
+				index++;
+			}
+		} catch (IndexOutOfBoundsException iob) {
+			throw new InvalidRaceException("Invalid name definition in race '"
+					+ name + "'.");
 		}
 
-		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
-			index++;
+		try {
+			while (lines.get(index).equals("")
+					|| lines.get(index).startsWith("#")) {
+				index++;
+			}
+		} catch (IndexOutOfBoundsException iob) {
+			throw new InvalidRaceException("Invalid name definition in race '"
+					+ name + "'.");
 		}
+
 		// Surnames
-		while (!lines.get(index).equals("")) {
-			String surnameLine = lines.get(index);
-			String[] surnames = surnameLine.split(", ");
-			familyNames.addAll(Arrays.asList(surnames));
-			index++;
+		try {
+			while (!lines.get(index).equals("")) {
+				String surnameLine = lines.get(index);
+				String[] surnames = surnameLine.split(", ");
+				familyNames.addAll(Arrays.asList(surnames));
+				index++;
+			}
+		} catch (IndexOutOfBoundsException iob) {
+			throw new InvalidRaceException("Invalid name definition in race '"
+					+ name + "'.");
 		}
+
 		return index;
 	}
 

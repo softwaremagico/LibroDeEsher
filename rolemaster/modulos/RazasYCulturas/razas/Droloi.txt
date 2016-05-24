@@ -14,7 +14,7 @@ Ap	-20
 
 # ESPERANZA DE VIDA
 ####################################
-Inmortales
+100
 
 #MODIFICACIÓN A LA TR
 ####################################
@@ -24,7 +24,7 @@ Mentalismo	0
 Veneno	-10
 Enfermedad	-15
 Psiónico	0
-Frío	0
+Frío	20
 Calor	0
 Miedo	0
 
@@ -68,7 +68,7 @@ Normal
 #IDIOMAS	Inicial	Max.Cultura
 ####################################
 Droloi	8/4	10/10
-Idioma Regional	0/0	10/10
+Idioma Regional	8/4	10/10
 
 #IDIOMAS HISTORIAL
 ####################################
