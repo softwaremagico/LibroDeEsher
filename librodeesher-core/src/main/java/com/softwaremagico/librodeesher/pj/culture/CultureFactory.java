@@ -35,7 +35,7 @@ public class CultureFactory {
 	public final static String CULTURE_FOLDER = "culturas";
 	private static HashMap<String, Culture> culturesAvailable = new HashMap<>();
 
-	public static List<String> availableCultures() {
+	public static List<String> getAvailableCultures() {
 		try {
 			return RolemasterFolderStructure.getFilesAvailable(CULTURE_FOLDER);
 		} catch (Exception e) {
@@ -47,7 +47,7 @@ public class CultureFactory {
 
 	public static List<String> availableCultures(List<String> subset) {
 		List<String> intersectionSet = new ArrayList<>();
-		List<String> allCultures = availableCultures();
+		List<String> allCultures = getAvailableCultures();
 
 		for (String culture : subset) {
 			if (allCultures.contains(culture)) {
@@ -65,9 +65,9 @@ public class CultureFactory {
 	 * @return
 	 * @throws Exception
 	 */
-	public static List<String> availableCulturesSubString(String substring) {
+	public static List<String> getAvailableCulturesSubString(String substring) {
 		List<String> cultures = new ArrayList<>();
-		List<String> allAvailableCultures = availableCultures();
+		List<String> allAvailableCultures = getAvailableCultures();
 		for (int i = 0; i < allAvailableCultures.size(); i++) {
 			if (allAvailableCultures.get(i).contains(substring)) {
 				cultures.add(allAvailableCultures.get(i));
@@ -79,7 +79,7 @@ public class CultureFactory {
 	public static Culture getCulture(String cultureName)
 			throws InvalidCultureException {
 		try {
-			if (availableCultures().contains(cultureName)) {
+			if (getAvailableCultures().contains(cultureName)) {
 				Culture culture = culturesAvailable.get(cultureName);
 				if (culture == null) {
 					culture = new Culture(cultureName);

@@ -178,10 +178,6 @@ Ventana principal del programa.
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
@@ -1963,6 +1959,59 @@ Profesiones Restringidas
 Simplemente se debería de incluir un listado separado por comas de las profesion
 es que están restringidas para una raza.
  Estas profesiones no aparecerán a la hora de generar el personaje.
+ La sintaxis permite:
+\end_layout
+
+\begin_layout Enumerate
+Sí una profesión empieza con el símbolo 
+\begin_inset Quotes eld
+\end_inset
+
+-
+\begin_inset Quotes erd
+\end_inset
+
+, significa que esta profesión es una excepción.
+ Por ejemplo, 
+\begin_inset Quotes eld
+\end_inset
+
+-Ladrón
+\begin_inset Quotes erd
+\end_inset
+
+ significiará que la raza tiene como restringida todas las profesiones excepto
+ la de ladrón.
+ Es decir, la única profesión disponible será ladrón.
+ No se pueden mezclar excepciones con profesiones restringidas.
+ Si una de ellas es una excepción, todas ellas serán tratadas como excepciones.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Sí se incluye un reino de magia entre llaves, significará todas las profesiones
+ relativas a ese reino de magia.
+ Por ejemplo, 
+\begin_inset Quotes eld
+\end_inset
+
+{canalización}
+\begin_inset Quotes erd
+\end_inset
+
+ significará que tendrá como profesiones restringidas clérigo, montaraz,
+ sanador, etc.
+ Esta opción se puede combinar con las excepciones.
+ Por ejemplo, 
+\begin_inset Quotes eld
+\end_inset
+
+-{canalización}
+\begin_inset Quotes erd
+\end_inset
+
+ significará que únicamente tiene como profesiones disponibles todos los
+ hechiceros y semihechiceros de canalización.
  
 \end_layout
 
@@ -2051,6 +2100,17 @@ Un listado de idiomas que engloban todos los idiomas que permite la raza,
 \end_layout
 
 \begin_layout Subsection
+Listado de idiomas historial
+\end_layout
+
+\begin_layout Standard
+El listado de idiomas disponibles para gastar puntos de historial.
+ A este listado siempre se le añadirá el listado anterior de idiomas de
+ desarrollo en la adolescencia.
+ 
+\end_layout
+
+\begin_layout Subsection
 Habilidades comunes
 \end_layout
 
@@ -2093,7 +2153,87 @@ Todas
 \end_inset
 
 .
+ Acepta la siguiente sintaxis:
+\end_layout
+
+\begin_layout Enumerate
+Sí una cultura empieza con el símbolo 
+\begin_inset Quotes eld
+\end_inset
+
+-
+\begin_inset Quotes erd
+\end_inset
+
+, significa que esta cultura es una excepción.
+ Por ejemplo, 
+\begin_inset Quotes eld
+\end_inset
+
+-Silvana
+\begin_inset Quotes erd
+\end_inset
+
+ significiará que la raza tiene disponible todas las culturas del programa
+ a excepción de la 
+\begin_inset Quotes eld
+\end_inset
+
+Silvana
+\begin_inset Quotes erd
+\end_inset
+
+.
+ No es posible mezclar excepciones de culturas y definiciones de culturas.
+ Si una de ellas es una excepción, todas ellas serán tratadas como excepciones.
  
+\end_layout
+
+\begin_layout Enumerate
+Si una palabra va entre llaves, se incluirán todas las culturas que contengan
+ la palabra.
+ Por ejemplo, la cultura 
+\begin_inset Quotes eld
+\end_inset
+
+{urbana}
+\begin_inset Quotes erd
+\end_inset
+
+ incluíra las culturas 
+\begin_inset Quotes eld
+\end_inset
+
+Litoral Urbana (Clase alta)
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+Litoral Urbana (Clase Media)
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+Llanuras Urbana (Clase Alta)
+\begin_inset Quotes erd
+\end_inset
+
+, etc.
+ Se pueden mezclar con las excepciones de culturas y escribir 
+\begin_inset Quotes eld
+\end_inset
+
+-{urbana}
+\begin_inset Quotes erd
+\end_inset
+
+ que significaría cualquier cultura no urbana.
 \end_layout
 
 \begin_layout Subsection
@@ -2103,8 +2243,25 @@ Especiales
 \begin_layout Standard
 Todo listado de especiales será impreso en la cada trasera de la ficha de
  personajes.
- Además, todos aquellos especiales que tengan que ver con una habilidad
- se incluirán en el bonus por raza.
+ Además, todos aquellos especiales que tengan que coincidan con el nombre
+ de una habilidad se incluirán en el bonus por raza del personaje para el
+ cómputo del total de dicha habilidad.
+ También pueden ser incluídos ciertos talentos aquí que serán escogidos
+ obligatoriamente al crear el personaje.
+ Se puede incluír el coste entre corchetes para así ajustar los puntos totales
+ de talentos disponibles para el personaje.
+ Por ejemplo 
+\begin_inset Quotes eld
+\end_inset
+
+Glotón: Pagina 93 del Manual de Personajes [-3]
+\begin_inset Quotes erd
+\end_inset
+
+ hará que toda la raza siempre tenga el rasgo de glotón y añadirán tres
+ puntos para la elección de talentos disponibles para la creación de un
+ personaje.
+ 
 \end_layout
 
 \begin_layout Subsection

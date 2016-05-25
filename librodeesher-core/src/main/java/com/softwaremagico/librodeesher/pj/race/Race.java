@@ -45,6 +45,8 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.culture.InvalidCultureException;
+import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
+import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.perk.Perk;
 import com.softwaremagico.librodeesher.pj.perk.PerkFactory;
 import com.softwaremagico.librodeesher.pj.perk.PerkPointsCalculator;
@@ -251,13 +253,37 @@ public class Race {
 			index++;
 		}
 		try {
+			Set<String> definedProfessions = new HashSet<>();
+			boolean exception = false;
 			while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 				String restrictedProfessionsLine = lines.get(index);
 				String[] restrictedProfession = restrictedProfessionsLine.split(", ");
 				for (String profession : restrictedProfession) {
-					restrictedProfessions.add(profession.trim());
+					if (profession.startsWith("-")) {
+						exception = true;
+						profession = profession.substring(1).trim();
+					}
+					// All sorceres of a magic realm.
+					if (profession.contains("{")) {
+						String magicRealm = profession.replace("{", "").replace("}", "").trim();
+						try {
+							definedProfessions.addAll(MagicFactory.getSpellCasters(RealmOfMagic.getMagicRealm(magicRealm)));
+						} catch (Exception e) {
+							throw new InvalidRaceException("Profesión restringida '" + profession + "' inválida para raza '" + name + "'.");
+						}
+					} else {
+						definedProfessions.add(profession.trim());
+					}
 				}
 				index++;
+			}
+			if (!exception) {
+				restrictedProfessions.addAll(definedProfessions);
+			} else {
+				// Add all cultures except the defined one.
+				List<String> allProfessions = ProfessionFactory.getAvailableProfessions();
+				allProfessions.removeAll(definedProfessions);
+				restrictedProfessions.addAll(allProfessions);
 			}
 		} catch (Exception e) {
 			throw new InvalidRaceException("Problema al leer las profesiones restringidas de la raza " + name + ".");
@@ -419,7 +445,7 @@ public class Race {
 		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 			String cultureLine = lines.get(index);
 			if (cultureLine.toLowerCase().contains("todas") || cultureLine.toLowerCase().contains("all")) {
-				definedCultures.addAll(CultureFactory.availableCultures());
+				definedCultures.addAll(CultureFactory.getAvailableCultures());
 				index++;
 				break;
 			}
@@ -434,7 +460,7 @@ public class Race {
 				if (cultureName.contains("{")) {
 					// All "Urban" cultures.
 					String cult = cultureList[i].replace("{", "").replace("}", "");
-					definedCultures.addAll(CultureFactory.availableCulturesSubString(cult));
+					definedCultures.addAll(CultureFactory.getAvailableCulturesSubString(cult));
 				} else {
 					// Standard culture.
 					try {
@@ -456,7 +482,7 @@ public class Race {
 			availableCultures.addAll(definedCultures);
 		} else {
 			// Add all cultures except the defined one.
-			List<String> allCultures = CultureFactory.availableCultures();
+			List<String> allCultures = CultureFactory.getAvailableCultures();
 			allCultures.removeAll(definedCultures);
 			availableCultures.addAll(allCultures);
 		}

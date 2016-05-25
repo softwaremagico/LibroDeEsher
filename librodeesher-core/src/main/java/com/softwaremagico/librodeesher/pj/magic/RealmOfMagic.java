@@ -29,7 +29,8 @@ import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbrevia
 
 public enum RealmOfMagic {
 
-	// JSON enums that override toString() method must specify the serializedName.
+	// JSON enums that override toString() method must specify the
+	// serializedName.
 	@SerializedName("Canalizacion")
 	CANALIZATION("Canalización", CharacteristicsAbbreviature.INTUITION),
 
@@ -66,7 +67,7 @@ public enum RealmOfMagic {
 
 	public static RealmOfMagic getMagicRealm(String name) {
 		for (RealmOfMagic type : RealmOfMagic.values()) {
-			if (type.name.equals(name)) {
+			if (type.name.toLowerCase().equals(name.toLowerCase())) {
 				return type;
 			}
 		}
