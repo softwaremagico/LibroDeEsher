@@ -263,7 +263,7 @@ public class Race {
 						exception = true;
 						profession = profession.substring(1).trim();
 					}
-					// All sorceres of a magic realm.
+					// All sorcerers of a magic realm.
 					if (profession.contains("{")) {
 						String magicRealm = profession.replace("{", "").replace("}", "").trim();
 						try {
@@ -512,6 +512,14 @@ public class Race {
 								bonusSkills.put(skill.getName(), bonus);
 								index++;
 								continue;
+								// Is a category?
+							} else {
+								Category category = CategoryFactory.getCategory(skillBonus[1]);
+								if (category != null) {
+									for (Skill categorySkill : category.getSkills()) {
+										bonusSkills.put(categorySkill.getName(), bonus);
+									}
+								}
 							}
 						} catch (NumberFormatException nfe) {
 							// Not a number, is not a skill bonus, continue

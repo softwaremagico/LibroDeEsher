@@ -2001,6 +2001,7 @@ Sí se incluye un reino de magia entre llaves, significará todas las profesione
 
  significará que tendrá como profesiones restringidas clérigo, montaraz,
  sanador, etc.
+ incluyendo también cualquier hechicero híbrido de canalización.
  Esta opción se puede combinar con las excepciones.
  Por ejemplo, 
 \begin_inset Quotes eld
@@ -2243,12 +2244,26 @@ Especiales
 \begin_layout Standard
 Todo listado de especiales será impreso en la cada trasera de la ficha de
  personajes.
- Además, todos aquellos especiales que tengan que coincidan con el nombre
- de una habilidad se incluirán en el bonus por raza del personaje para el
- cómputo del total de dicha habilidad.
- También pueden ser incluídos ciertos talentos aquí que serán escogidos
- obligatoriamente al crear el personaje.
- Se puede incluír el coste entre corchetes para así ajustar los puntos totales
+ Además, para algunos casos se aplicarán modificadores al personaje:
+\end_layout
+
+\begin_layout Enumerate
+todos aquellos especiales que tengan que coincidan con el nombre de una
+ habilidad se incluirán en el bonus por raza del personaje para el cómputo
+ del total de dicha habilidad.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Si se incluye un nombre de una categoría, se dará el bonus a todas las habilidad
+es de dicha categoría.
+ 
+\end_layout
+
+\begin_layout Enumerate
+También pueden ser incluídos ciertos talentos aquí que serán escogidos obligator
+iamente al crear el personaje.
+ Se puede incluir el coste entre corchetes para así ajustar los puntos totales
  de talentos disponibles para el personaje.
  Por ejemplo 
 \begin_inset Quotes eld
