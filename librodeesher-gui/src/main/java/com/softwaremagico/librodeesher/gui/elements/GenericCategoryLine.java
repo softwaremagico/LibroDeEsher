@@ -39,12 +39,10 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 
 public abstract class GenericCategoryLine extends BaseSkillLine {
 	private static final long serialVersionUID = 2914665641808878141L;
-	protected BoldListLabel categoryNameLabel, bonusRankLabel, totalLabel, prevRanksLabel, bonusCharLabel, otherBonus,
-			bonusMagicObject;
+	protected BoldListLabel categoryNameLabel, bonusRankLabel, totalLabel, prevRanksLabel, bonusCharLabel, otherBonus, bonusMagicObject;
 	private int nameLength;
 
-	public GenericCategoryLine(CharacterPlayer character, Category category, int nameLength, Color background,
-			BaseSkillPanel parentWindow) {
+	public GenericCategoryLine(CharacterPlayer character, Category category, int nameLength, Color background, BaseSkillPanel parentWindow) {
 		this.character = character;
 		this.category = category;
 		this.parentWindow = parentWindow;
@@ -160,8 +158,7 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 11;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			bonusCharLabel = new BoldListLabel(character.getCharacteristicsBonus(category).toString(), columnWidth,
-					columnHeight);
+			bonusCharLabel = new BoldListLabel(character.getCharacteristicsBonus(category).toString(), columnWidth, columnHeight);
 			add(new ListBackgroundPanel(bonusCharLabel, getDefaultBackground()), gridBagConstraints);
 		}
 
@@ -169,11 +166,7 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 13;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			otherBonus = new BoldListLabel(
-					(category.getBonus() + character.getProfession().getCategoryBonus(category.getName())
-							+ character.getHistorial().getBonus(category) + character.getPerkBonus(category)
-							+ character.getConditionalPerkBonus(category)) + "",
-					columnWidth, columnHeight);
+			otherBonus = new BoldListLabel(character.getSimpleBonus(category) + "", columnWidth, columnHeight);
 			add(new ListBackgroundPanel(otherBonus, getDefaultBackground()), gridBagConstraints);
 		}
 
