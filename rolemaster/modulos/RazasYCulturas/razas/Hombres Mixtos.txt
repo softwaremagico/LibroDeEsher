@@ -94,7 +94,7 @@ Ninguna
 
 #CULTURAS
 ####################################
-Aérea, Ártica, Llanuras, Tierras Altas, Desierto, Litoral, Minera, Rural, Silvana
+-Subterránea, -{Bárbara}
 
 #ESPECIALES
 ####################################
