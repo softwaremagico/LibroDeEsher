@@ -95,19 +95,25 @@ Ninguna
 
 #NOMBRES MASCULINOS
 ####################################
-Bran, Eddard, Jon, Tyrion, Will, Robert, Jon, Bran, Jaime, Robb, Rickon, Joffrey
-Petyr, Bronn, Tywin, Renly, Syrio, Varys, Yoren, Edmure, Roose, Stannis, Mace
-Gared, Royce, Benjen, Samwell, Jeor, Aemon, Viserys, Aerys, Drogo, Jorah, Rhaegar
-Balon
-
+Seanceo, Thaecen, Ceoba, Zaceo, Tyrob, Johnwaru, Bethfrid
+Ordo, Laald, Vin, Saberdas, Grimsig, Stan'wyn, Len, Winelas
+Miste, Hildido, Wene, Warupaul, Kengardhal. Masfridhew
+Thae'bet. Ge-ba. Aldardbando. Royge. Thaecla. Roneadorah
+Redthasfrid. Cuth-red, Ceolgeor, Betceolsa, Ord'ty, Phia-tine
+Menwenleofuso, Beorthpabald, Thonedas, Suethelrol, Herepher
 
 #NOMBRES FEMENINOS
 ####################################
-Catelyn, Daenerys, Arya, Sansa, Cersei, Lysa, Margaery, Elia
+Ejaea, Frithsagorma, Bertseanbean, Chardra, Bar'ferith, Johanna-phie
+Isumliamlina, Grim-chaela, Swithracyn, Cylaceal, Rahviamiel, Come'ha
+Jenfastlia, Tol-keegel, Claeda, Berta, Dasa
 
 #APELLIDOS
 ####################################
-Stark, Tully, Targaryen, Nieve, Lannister, Baratheon, Arryn, Baelish, Forel, Hoster
-Bolton, Tyrell, Waymar, Tarly, Mormont, Rayder, Dothraki, Martell, Greyjoy
+Ronwineacarham, Sephcarsephorah, Ferd-sephste, Liam-layfast
+Naldlin'rah, Na'chaeljo, Dungarmitne, Layholswithmen, Riaarlesguth
+Tri'linthryth, Iferumjacknan, Frid-anjeff, Thorahbardelf, Thyniellegorma
+Edlifrid, Chetdiclifrithgrim, Frid'eddon, Wulfleofuadelsung, Leofbersamred
+Da'ronrah
 
 #### FIN RAZA ####

@@ -79,7 +79,7 @@ Lugrôki	0/0	6/4
 
 #HABILIDADES COMUNES
 ####################################
-Minería, Trabajr Metal
+Minería, Trabajar el Metal
 
 #HABILIDADES RESTRINGIDAS
 ####################################

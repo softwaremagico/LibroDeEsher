@@ -151,6 +151,9 @@ Barbadefuego, Desuellaenemigos, Barbapartida, Matagigantes, Ceñudo, Manomartill
 Viejo, Mataorcos, Barbarrebelde, Barba de Seda, Hachasangrienta, Barba Vieja, Cazador
 Herrero, Hierro, Brazo Hierro, Caza Ratas, Uñas de Rubí, Barba de Piedrra, Barba Rota
 Barba de Plata, El Terco, Joyero, Alfarero, Encorvado, Panza de Acero, Tres Dedos, Grito Ronco
-Barriga Eterna, Piel de Plata, Piel de Piedra, Barriga Rota, Barba Pesada
+Barriga Eterna, Piel de Plata, Piel de Piedra, Barriga Rota, Barba Pesada, Badarthicsan
+Thor'mus, Dinbudtharro, Daindrildinli, In-imdu, Roóin'gran, Danthaufarbul, Nurglifara
+Garkjal-du, Drillak-a, Fubulbadáin, I'rastad, Gim'thiclorn, Fubabchripdro, Magafalsara
+Burkhalina, Chripbermurgas, Granthôrfalsba, Bi'daingru, Rinthecmoo
 
 #### FIN RAZA ####

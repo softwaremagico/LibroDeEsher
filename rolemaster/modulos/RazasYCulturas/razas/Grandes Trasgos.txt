@@ -78,7 +78,7 @@ Orco	0/0	6/6
 
 #HABILIDADES COMUNES
 ####################################
-Minería, Trabajr Metal
+Minería, Trabajar el Metal
 
 #HABILIDADES RESTRINGIDAS
 ####################################
