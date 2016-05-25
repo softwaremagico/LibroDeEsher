@@ -1,0 +1,113 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	4
+Co	6
+Me	-2
+Ra	-6
+Ad	-4
+Em	2
+In	0
+Pr	-2
+Rp	2
+Fu	2
+Ap	-40
+
+# ESPERANZA DE VIDA
+####################################
+30
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	5
+Esencia	20
+Mentalismo	20
+Veneno	20
+Enfermedad	5
+Psiónico	25
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/7/4/2/1
+PP Arcano	0/2/1/1/1
+PP Canalización	0/6/5/4/3
+PP Esencia	0/2/1/1/1
+PP Mentalismo	0/2/1/1/1
+PP Psiónico	0/2/1/1/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Animista, Clérigo, Paladín, Montaraz, Sanador, Invocador, Alquimista de Canalización
+
+#PARTIDA DEL ALMA
+####################################
+18
+
+#TIPO DE RAZA
+####################################
+1
+
+#TAMAÑO DE RAZA
+####################################
+Normal
+
+#RECUPERACIÓN
+####################################
+0.6
+
+#IDIOMAS
+####################################
+1
+
+#HISTORIAL
+####################################
+6
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Habla Común	4/4	8/6
+Habla de las Colinas	8/4	10/8
+Habla del Norte	8/8	10/8
+Habla de los Bosques	8/4	10/8
+Gark	8/4	/10/8
+Idioma regional	8/4	10/8
+
+#IDIOMAS HISTORIAL
+####################################
+Común	0/0	10/8
+Orco	0/0	6/4
+Charón	0/0	4/4
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Ártica, Ártica Militarista
+Silvana Barbara, Áerea Barbara
+
+#ESPECIALES
+####################################
+Ninguna
+
+#NOMBRES MASCULINOS
+####################################
+Garras, Amedio, Arwen, Arshen, Bizkor, Cuty, Huma, Haize, Hache
+
+#NOMBRES FEMENINOS
+####################################
+Anusa, Akeita, Anuka, Baba, Dumas, IIdoia, Nuka
+
+
+#APELLIDOS
+####################################
+Dohko, Eneasis, Fuyu, Guri, Muky, Milupa, Nikawe, Naxuki
+
+#### FIN RAZA ####

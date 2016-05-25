@@ -21,3 +21,5 @@ esher-test.db*
 LibroDeEsher.log*
 */tests/*
 error.log
+*.deb
+*.*~
