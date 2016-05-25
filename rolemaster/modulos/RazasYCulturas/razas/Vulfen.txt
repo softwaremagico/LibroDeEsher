@@ -1,0 +1,115 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	0
+Co	2
+Me	0
+Ra	0
+Ad	-2
+Em	-4
+In	0
+Pr	-2
+Rp	2
+Fu	4
+Ap	-20
+
+# ESPERANZA DE VIDA
+####################################
+40
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	0
+Esencia	0
+Mentalismo	0
+Veneno	0
+Enfermedad	10
+Psiónico	0
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/7/5/3/1
+PP Arcano	0/7/6/5/4
+PP Canalización	0/6/5/4/3
+PP Esencia	0/7/6/5/4
+PP Mentalismo	0/7/6/5/4
+PP Psiónico	0/5/3/2/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+9
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA
+####################################
+Normal
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+2
+
+#HISTORIAL
+####################################
+4
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Habla Común	8/6	10/8
+Habla de las Llanuras	6/6	8/8
+Habla de los Bosques	6/6	8/8
+Habla del Norte	0/0	6/6
+Habla del Sur	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
+Habla del Norte	0/0	8/8
+Habla del Sur	0/0	8/8
+Habla Negra	0/0	4/4
+Orco	0/0	4/4
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Rural, Silvana
+
+#ESPECIALES
+####################################
+Ataque natural: pueden usar sus garras para realizar ataques cuerpo a cuerpo, ver ataque medio de tabla de Garras
+
+#NOMBRES MASCULINOS
+####################################
+Garras, Amedio, Arwen, Arshen, Bizkor, Cuty, Huma, Haize, Hache, Calisto, Codi
+Diker, Dominic, Dixie, Dirk, Dardo, Dasner, Eko, Eneldo, Fenderg, Iker
+
+#NOMBRES FEMENINOS
+####################################
+Anusa, Akeita, Anuka, Baba, Dumas, IIdoia, Nuka, Berta, Camy, Boliche, Cora
+Duna, Daisy, Edna, Fiona, Isolda, Ilu
+
+
+#APELLIDOS
+####################################
+Dohko, Eneasis, Fuyu, Guri, Muky, Milupa, Nikawe, Naxuki, Morris, Memphis, Luilara
+Omiry, Piwi, Rekke
+
+#### FIN RAZA ####
