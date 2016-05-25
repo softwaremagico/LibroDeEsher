@@ -1,0 +1,118 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	0
+Co	2
+Me	-4
+Ra	-2
+Ad	-4
+Em	-2
+In	-4
+Pr	-2
+Rp	0
+Fu	2
+Ap	-80
+
+# ESPERANZA DE VIDA
+####################################
+60
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	0
+Esencia	0
+Mentalismo	0
+Veneno	0
+Enfermedad	5
+Psiónico	-5
+Frío	30
+Calor	30
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/6/3/2/1
+PP Arcano	0/2/1/1/1
+PP Canalización	0/2/1/1/1
+PP Esencia	0/2/1/1/1
+PP Mentalismo	0/2/1/1/1
+PP Psiónico	0/2/1/1/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+1
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN
+####################################
+0.5
+
+#IDIOMAS
+####################################
+1
+
+#HISTORIAL
+####################################
+6
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Lugrôki	8/3	10/6
+Idioma Regional	8/3	10/6
+
+#IDIOMAS HISTORIAL
+####################################
+Idioma Racial	0/0	4/4
+
+#HABILIDADES COMUNES
+####################################
+Juegos Atléticos (Fuerza), Golpe Poderoso, Lanzamiento Poderoso
+Armas·dos manos
+Armas·de Asta
+Levantar Pesos
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Oratoria, Seducción, Comerciar
+
+#CULTURAS
+####################################
+Subterránea, Militarista
+
+#ESPECIALES
+####################################
+-20	Luz del día (BD y TR)
+-50	Pleno sol (BD y TR)
++30	Contra Frío y Calor(BD y TR)
+
+#NOMBRES MASCULINOS
+####################################
+Eragdush, Vuk, Valg, Gridush, Gaurk, Punk, Erirg, Igar, Prolg, Gridish, Hodush, Riol
+Ba, Pok, Prulg, Pagor, Girbag, Vrishnak, Blg, Paol, Pogdish, Rirk, Pink, Pugar, Vriol
+Grdash, Pagdish, Barg, alg, Horbag, Gadush, Prugdish, Grirg, Buk, Gort, Brk, Erirt
+Hort, Bourk, Plg, Banak, Erugor, Halg, Badush, Ping, Gorbag, oshnak, Rgdish, Part, Horg
+
+#NOMBRES FEMENINOS
+####################################
+Hairshooter, Hobbitcutter, Dragoncrawler, Footmangler, Facecrawler, Eyetorturer, Toothhammer
+Earthrower, Elfcutter, Deathslicer, Facejuggler, Dwarfpunsher, Balltorturer, Teethhammer
+Eyehater, Head, Gretchinkiller, Deamonsmasher, Motherdrinker, Hobbitkiller, Hairwalker, Lover
+Beastpoker, Motherhammer, Facecrawler, Ballcutter, Ballthrottler, Ghoulshooter, Gretchinlover
+
+#APELLIDOS
+####################################
+Manthrower, Manthrottler, Wraiththrower, Deathcutter, Manjuggler, Knifedrinker, Ballkiller
+Nailchewer, Goblincrawler, Enemylover, Fingerslicer, Teethhater, Deamondragger, Horsehater
+Teethhater, Nailpoker, Eareater, Hairstomper, Horsehammer, Deathripper, Moonthrottler
+
+#### FIN RAZA ####

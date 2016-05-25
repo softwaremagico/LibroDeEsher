@@ -1,0 +1,114 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	6
+Co	6
+Me	0
+Ra	0
+Ad	-4
+Em	-2
+In	0
+Pr	-6
+Rp	4
+Fu	-8
+Ap	-5
+
+# ESPERANZA DE VIDA
+####################################
+110
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	0
+Esencia	50
+Mentalismo	40
+Veneno	30
+Enfermedad	15
+Psiónico	0
+Frío	30
+Calor	30
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/6/5/4/3
+PP Arcano	0/5/4/3/2
+PP Canalización	0/6/5/4/3
+PP Esencia	0/2/1/1/1
+PP Mentalismo	0/2/1/1/1
+PP Psiónico	0/2/1/1/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+18
+
+#TIPO DE RAZA
+####################################
+1
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN
+####################################
+0.8
+
+#IDIOMAS
+####################################
+2
+
+#HISTORIAL
+####################################
+5
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Habla Pequeña	8/6	10/10
+Habla Común	8/6	10/10
+Habla Alta	0/0	8/8
+Élfico Gris	0/0	8/8
+
+#IDIOMAS HISTORIAL
+####################################
+Habla de las Colinas	0/0	4/4
+Orco	0/0	2/2
+Élfico	0/0	8/8
+
+#HABILIDADES COMUNES
+####################################
+Minería, Oficios, Horticultura
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Rural
+
+#ESPECIALES
+####################################
++30	Contra Frío y Calor(BD y TR)
+
+#NOMBRES MASCULINOS
+####################################
+Balon, Deagol, Smeagol, Denthor, Boromir, Faramir, Ecthelion, Bilbo, Frodo
+Drogo, Gordo Meriadoc, Maggot, Samsagaz, Ham, Ted, Bandobras
+
+
+
+#NOMBRES FEMENINOS
+####################################
+Anduin, Andúril, Anórien, Arwen, Bree, Brida, Damrod, Isildur, Dernhelm
+Eowyn, Lórien, Emyn, Prímula
+
+#APELLIDOS
+####################################
+Tuk, Dúnedain, Dúnhere, Dwimordene, Bolsón, Brandigamo Gamoviejo, Thain
+Bolger, Gamyi, Sacovilla, Arenas
+
+#### FIN RAZA ####

@@ -1,0 +1,117 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	6
+Co	2
+Me	0
+Ra	0
+Ad	-3
+Em	4
+In	2
+Pr	0
+Rp	6
+Fu	-2
+Ap	5
+
+# ESPERANZA DE VIDA
+####################################
+600
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	0
+Esencia	0
+Mentalismo	0
+Veneno	20
+Enfermedad	5
+Psiónico	0
+Frío	5
+Calor	5
+Miedo	0
+
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/6/5/2/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/6/6/4/3
+PP Mentalismo	0/7/6/5/4
+PP Psiónico	0/6/4/3/2
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+6
+
+#TIPO DE RAZA
+####################################
+3
+
+#TAMAÑO DE RAZA
+####################################
+Normal
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+3
+
+#HISTORIAL
+####################################
+3
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Vorloi	8/4	10/8
+Idioma Regional	8/4	10/8
+
+#IDIOMAS HISTORIAL
+####################################
+Centauro	0/0	4/4
+Erlini	0/0	4/4
+Ninfa	0/0	4/4
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Silvana
+
+#ESPECIALES
+####################################
+	Visión total a 15 m parcial a 30 en la oscuridad con una fuente de luz mínima.
+	Visión total a la luz de luna o de las estrellas hasta 150 m
++5	Contra Frío y Calor (BD y TR)
+
+#NOMBRES MASCULINOS
+####################################
+Tanis, Ousall, Phevas, Rysi, Seicen, Sernis, Tasadi
+Sate, Maki-kip, Idan-ne, Amrin, Gainil, Makikip, Idan-ne
+Fesback, Estrik, Drag, Dagledu, Bluganu, Datagon, Dagledu
+Dablic, Manila, Inker, Raktar, Inko, Glasdur, Gaeru, Ludalu, Gaben
+Vrasta, Theris, Goriar, Debar, Aranzon, Jothr, Barbulkan, Hollus
+Wibadal, Karno, Bhyf, Torio, San, Whyl, Sbuly, Learco, Kyrion, Ydath
+
+#NOMBRES FEMENINOS
+####################################
+Eiwenna, Isadara, Baildra,  Inistra, Ayakistra, Neliam, Arsha
+Elina, Karale, Fada, Sulia, Lea, Lenca, Ankira, Karev, Kerav
+Granda, Baldwine, Brynnda
+
+#APELLIDOS
+####################################
+Bolado, Bort, Berna, Bastida, Capella, Cota, Fëfalas, Alcarin, Tasartir, Felagund, Espúreo
+
+#### FIN RAZA ####

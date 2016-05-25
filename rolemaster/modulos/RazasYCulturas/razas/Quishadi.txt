@@ -1,0 +1,112 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	2
+Co	0
+Me	0
+Ra	2
+Ad	-2
+Em	2
+In	2
+Pr	2
+Rp	-2
+Fu	-4
+Ap	-20
+
+# ESPERANZA DE VIDA
+####################################
+Inmortales
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-5
+Esencia	-5
+Mentalismo	-5
+Veneno	10
+Enfermedad	100
+Psiónico	-5
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/6/5/2/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/7/6/5/4
+PP Mentalismo	0/6/5/4/3
+PP Psiónico	0/3/2/1/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+2
+
+#TIPO DE RAZA
+####################################
+4
+
+#TAMAÑO DE RAZA
+####################################
+Normal
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+2
+
+#HISTORIAL
+####################################
+3
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Urloc	8/6	10/10
+Habla Común	6/6	8/8
+Habla Negra	0/0	4/4
+Hablas de lo Mares	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Negra	0/0	8/6
+Habla común	0/0	10/10
+Habla Alta	0/0	4/4
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Tierras Altas, Llanuras Nómadas
+
+#ESPECIALES
+####################################
+	Uso innato de hechizo: poseen 10 PP al día para gastar en sortilegio de nivel 1 a 3 en las listas abiertas de Mentalismo y Esencia
+
+#NOMBRES MASCULINOS
+####################################
+Astosur, Sinoish, Isin, Ashon, Sinarisil, Siminy, Cerunar, Shani, Yshiisha, Shimish
+Sary, Ysunsil, Simises, Sinossham, Seraresh, Shimonmir, Isary, Shenansan, Su, Sham
+
+#NOMBRES FEMENINOS
+####################################
+Cheroshish, Sinarnir, Shanone, Ysashsan, Chenyr, Yshosur, Shanari, Esessen, Astenish
+Charushasha, Ish, Saryshmir, Seror, Ishynys, Charaisha, Chararider, Astososh, Chaneriy
+
+#APELLIDOS
+####################################
+Asteshasha, Osun, Simis, Sanunsean, Amyshorsha, Astaresha, Shorosu, Esyrdar, Shamoshi
+Esen, Sarunsan, Cheroses
+
+#### FIN RAZA ####
