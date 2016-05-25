@@ -92,7 +92,7 @@ Rural
 
 #ESPECIALES
 ####################################
-+30	Contra Frío y Calor(BD y TR)
++30	Contra Frío y Calor (BD y TR)
 
 #NOMBRES MASCULINOS
 ####################################

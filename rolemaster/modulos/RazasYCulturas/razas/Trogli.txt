@@ -93,20 +93,25 @@ Subterránea
 #ESPECIALES
 ####################################
 Contorsionismo
-+10	Contra Arma Arrojadiza
-+10	Abrir Cerradura, Reparaciones, Construción de Objecto
++10	Armas·Arrojadizas
++10	Abrir Cerraduras
++10	Reparaciones
++10	Construcción de Objecto
 +10	Equilibrio
-+20	Contorsión
-Visión total bajo la luz de la luna o de las estrellas
-Visión hasta 10 m en absoluta oscuridad
-Temen la luz pero no sufren penalización
++10	Caminar por la Cuerda Floja
++20	Contorsionismo
++10 a cualquier maniobra delicada en la que intervengan las manos o los pies. 
+Visión total bajo la luz de la luna o de las estrellas.
+Visión hasta 10 m en absoluta oscuridad.
+Temen la luz pero no sufren penalización.
 
 #NOMBRES MASCULINOS
 ####################################
 Eragdush, Vuk, Valg, Gridush, Gaurk, Punk, Erirg, Igar, Prolg, Gridish, Hodush, Riol
 Ba, Pok, Prulg, Pagor, Girbag, Vrishnak, Blg, Paol, Pogdish, Rirk, Pink, Pugar, Vriol
 Grdash, Pagdish, Barg, alg, Horbag, Gadush, Prugdish, Grirg, Buk, Gort, Brk, Erirt
-Hort, Bourk, Plg, Banak, Erugor, Halg, Badush, Ping, Gorbag, oshnak, Rgdish, Part, Horg
+Hort, Bourk, Plg, Banak, Erugor, Halg, Badush, Ping, Gorbag, oshnak, Rgdish, Part
+Horg
 
 #NOMBRES FEMENINOS
 ####################################

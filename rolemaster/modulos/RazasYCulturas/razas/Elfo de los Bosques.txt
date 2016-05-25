@@ -95,9 +95,9 @@ Aérea, Silvana
 
 #ESPECIALES
 ####################################
-+10	Percepción
++10	Percepción si interviene el oído.
 +10	Oído
-+10	ataque basicos de hechizo de la lista de Bardo
++10	Ataque Basicos de Hechizos de la lista de Bardo.
 +10	Acechar
 +10	Esconderse
 +10	Juegos de Manos

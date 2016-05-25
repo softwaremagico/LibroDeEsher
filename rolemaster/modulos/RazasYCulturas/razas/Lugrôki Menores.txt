@@ -90,7 +90,7 @@ Subterránea, Militarista
 #ESPECIALES
 ####################################
 -20	Luz del día (BD y TR)
--50	Pleno sol (BD y TR)
+-50	A pleno sol (BD y TR)
 +30	Contra Frío y Calor (BD y TR)
 
 #NOMBRES MASCULINOS

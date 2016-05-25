@@ -56,6 +56,7 @@ import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceException;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
+import com.softwaremagico.log.EsherLog;
 
 public class Race {
 	private String name;
@@ -513,13 +514,15 @@ public class Race {
 								index++;
 								continue;
 								// Is a category?
-							} else {
-								Category category = CategoryFactory.getCategory(skillBonus[1]);
-								if (category != null) {
-									for (Skill categorySkill : category.getSkills()) {
-										bonusSkills.put(categorySkill.getName(), bonus);
-									}
+							} else if (CategoryFactory.getCategory(skillBonus[1]) != null) {
+								for (Skill categorySkill : CategoryFactory.getCategory(skillBonus[1]).getSkills()) {
+									bonusSkills.put(categorySkill.getName(), bonus);
 								}
+								index++;
+								continue;
+							} else {
+								EsherLog.warning(this.getClass().getName(), "Unknown skill '" + skillBonus[1] + "' in race '" + getName()
+										+ "'.");
 							}
 						} catch (NumberFormatException nfe) {
 							// Not a number, is not a skill bonus, continue

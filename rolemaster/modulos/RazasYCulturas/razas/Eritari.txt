@@ -93,7 +93,7 @@ Litoral, Rural, Pueblo del Bosque
 ####################################
 	Visión total a 15 m parcial a 30 en la oscuridad con una fuente de luz mínima.
 	Visión total a la luz de luna o de las estrellas
-+5	Contra Calor(BD y TR)
++5	Contra Calor (BD y TR)
 
 #NOMBRES MASCULINOS
 ####################################

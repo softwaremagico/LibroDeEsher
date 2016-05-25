@@ -98,7 +98,7 @@ Subterránea, Militarista
 	En absoluta oscurida (no mágica) pueden ver hasta 3 m
 	Bajo luz muy tenue, ven perfectamente hasta 15 m y de forma razonable hasta 30 m
 	Pueden viajar durante 2 dias seguidos sin dormiry reciben un +20 a sus puntos de cansancio
-+30	Contra Frío y Calor(BD y TR)
++30	Contra Frío y Calor (BD y TR)
 
 #NOMBRES MASCULINOS
 ####################################
