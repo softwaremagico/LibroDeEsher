@@ -71,7 +71,7 @@ Habla Común	4/4	8/6
 Habla de las Colinas	8/4	10/8
 Habla del Norte	8/8	10/8
 Habla de los Bosques	8/4	10/8
-Gark	8/4	/10/8
+Gark	8/4	10/8
 Idioma regional	8/4	10/8
 
 #IDIOMAS HISTORIAL

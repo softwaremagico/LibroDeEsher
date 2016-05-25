@@ -76,10 +76,8 @@ Idioma Racial	0/0	4/4
 
 #HABILIDADES COMUNES
 ####################################
-Juegos Atléticos (Fuerza), Golpe Poderoso, Lanzamiento Poderoso
-Armas·dos manos
-Armas·de Asta
-Levantar Pesos
+Juegos Atléticos (Potencia), Golpe Poderoso, Lanzamiento Poderoso
+Armas·2manos, Armas·Asta, Levantar Pesos
 
 #HABILIDADES RESTRINGIDAS
 ####################################
@@ -93,7 +91,7 @@ Subterránea, Militarista
 ####################################
 -20	Luz del día (BD y TR)
 -50	Pleno sol (BD y TR)
-+30	Contra Frío y Calor(BD y TR)
++30	Contra Frío y Calor (BD y TR)
 
 #NOMBRES MASCULINOS
 ####################################

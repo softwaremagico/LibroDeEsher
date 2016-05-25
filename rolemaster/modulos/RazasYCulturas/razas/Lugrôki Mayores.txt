@@ -76,9 +76,7 @@ Idioma Racial	0/0	8/6
 
 #HABILIDADES COMUNES
 ####################################
-Armas·dos manos
-Armas·de Asta
-Levantar Pesos
+Armas·2manos, Armas·Asta, Levantar Pesos
 
 #HABILIDADES RESTRINGIDAS
 ####################################
@@ -91,7 +89,7 @@ Subterránea, Militarista
 #ESPECIALES
 ####################################
 -20	Bajo los rayos directos del sol (BD y TR)
-+30	Contra Frío y Calor(BD y TR)
++30	Contra Frío y Calor (BD y TR)
 
 #NOMBRES MASCULINOS
 ####################################

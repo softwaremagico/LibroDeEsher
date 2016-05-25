@@ -82,10 +82,8 @@ Habla Negra	0/0	8/8
 
 #HABILIDADES COMUNES
 ####################################
-Juegos Atléticos (Fuerza), Golpe Poderoso, Lanzamiento Poderoso
-Armas·dos manos
-Armas·de Asta
-Levantar Pesos
+Juegos Atléticos (Potencia), Golpe Poderoso, Lanzamiento Poderoso
+Armas·2manos, Armas·Asta, Levantar Pesos
 
 #HABILIDADES RESTRINGIDAS
 ####################################

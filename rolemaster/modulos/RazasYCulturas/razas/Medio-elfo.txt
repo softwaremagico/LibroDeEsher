@@ -28,7 +28,6 @@ Frío	5
 Calor	0
 Miedo	0
 
-
 #PROGRESIÓN
 ####################################
 Desarrollo Físico	0/7/5/3/1
@@ -94,7 +93,8 @@ Todas
 
 #ESPECIALES
 ####################################
-Visión en la Oscuridad
+	Visión total a 15 m parcial, a 30 en la oscuridad con una fuente de luz mínima.
+	Visión total a la luz de luna o de las estrellas hasta 150m. 
 
 #NOMBRES MASCULINOS
 ####################################

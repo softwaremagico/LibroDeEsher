@@ -83,8 +83,7 @@ Habla Común	0/0	8/8
 
 #HABILIDADES COMUNES
 ####################################
-Armas·dos manos
-Armas·de Asta
+Armas·2manos, Armas·Asta
 
 #HABILIDADES RESTRINGIDAS
 ####################################
@@ -107,6 +106,7 @@ Eragdush, Vuk, Valg, Gridush, Gaurk, Punk, Erirg, Igar, Prolg, Gridish, Hodush, 
 Ba, Pok, Prulg, Pagor, Girbag, Vrishnak, Blg, Paol, Pogdish, Rirk, Pink, Pugar, Vriol
 Grdash, Pagdish, Barg, alg, Horbag, Gadush, Prugdish, Grirg, Buk, Gort, Brk, Erirt
 Hort, Bourk, Plg, Banak, Erugor, Halg, Badush, Ping, Gorbag, oshnak, Rgdish, Part, Horg
+
 #NOMBRES FEMENINOS
 ####################################
 Hairshooter, Hobbitcutter, Dragoncrawler, Footmangler, Facecrawler, Eyetorturer, Toothhammer

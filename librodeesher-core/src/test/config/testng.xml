@@ -3,6 +3,7 @@
 	<test name="CharacterCrud" enabled="true" preserve-order="true">
 		<groups>
 			<run>				
+				<include name="readFiles" />
 				<include name="characterCreation" />
 				<include name="characterStorage" />
 				<include name="characterPdf" />
@@ -11,7 +12,6 @@
 				<include name="NihalDragoniana" />
 				<include name="MorticiaInnodanTest" />
 				<include name="perkPoints" />
-				<include name="readFiles" />
 			</run>
 		</groups>
 		<classes>

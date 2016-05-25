@@ -94,7 +94,7 @@ Tierras Altas, Bárbara, Militarista
 	En absoluta oscurida (no mágica) pueden ver hasta 1.5 m
 	Bajo luz muy tenue, ven perfectamente hasta 8 m y de forma razonable hasta 15 m
 	Pueden viajar durante 2 dias seguidos sin dormiry reciben un +10 a sus puntos de cansancio
-+15	Contra Frío y Calor(BD y TR)
++15	Contra Frío y Calor (BD y TR)
 
 #NOMBRES MASCULINOS
 ####################################
