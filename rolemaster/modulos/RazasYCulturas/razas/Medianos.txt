@@ -98,17 +98,17 @@ Rural
 ####################################
 Balon, Deagol, Smeagol, Denthor, Boromir, Faramir, Ecthelion, Bilbo, Frodo
 Drogo, Gordo Meriadoc, Maggot, Samsagaz, Ham, Ted, Bandobras
-
-
+Goldfortin, Gopo, Pinpip, Bandorow, Acarfred, Hobbilse
 
 #NOMBRES FEMENINOS
 ####################################
 Anduin, Andúril, Anórien, Arwen, Bree, Brida, Damrod, Isildur, Dernhelm
-Eowyn, Lórien, Emyn, Prímula
+Eowyn, Emyn, Prímula, Hilse, Maca, Dismé, Imaslia, Brashilda
 
 #APELLIDOS
 ####################################
 Tuk, Dúnedain, Dúnhere, Dwimordene, Bolsón, Brandigamo Gamoviejo, Thain
-Bolger, Gamyi, Sacovilla, Arenas
+Bolger, Gamyi, Sacovilla, Arenas, Green, Burrow, Vile, Fair, Hard, Boffin, Sack
+Butcher, Fieldweed, Burrburr
 
 #### FIN RAZA ####

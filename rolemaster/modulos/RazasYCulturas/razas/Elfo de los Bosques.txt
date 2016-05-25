@@ -107,7 +107,7 @@ Aérea, Silvana
 
 #NOMBRES MASCULINOS
 ####################################
-Findaráto, Fëanáro, Galdor, Amras, Manwë, Enawat
+Findaráto, Fëanáro, Galdor, Amras, Manwë, Enawat, Oropher, Thranduil, Celeborn, Lothlórien
 
 #NOMBRES FEMENINOS
 ####################################
@@ -115,6 +115,7 @@ Elbereth, Nessa, Tári, Nindë, Inwë, Lúthien, Eámanë, Celebriän, Astrea, N
 
 #APELLIDOS
 ####################################
-Isilrá, Tasardur, Tulcakelumë, Yávëtil, Súrion, Fëfalas, Alcarin, Tasartir, Felagund
+Isilrá, Tasardur, Tulcakelumë, Yávëtil, Súrion, Fëfalas, Alcarin, Tasartir, Felagund, Arahain, Auryaur
+Caidath, Cantor, Haroith, Laith-Koum, Lakoys, Nurmarif, Sehenlu, Selathoi, Sethayla, Talu, Yenayla
 
 #### FIN RAZA ####

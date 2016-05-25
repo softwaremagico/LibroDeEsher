@@ -103,14 +103,25 @@ Litoral
 
 #NOMBRES MASCULINOS
 ####################################
-Findaráto, Fëanáro, Galdor, Amras, Manwë, Enawat
+Findaráto, Fëanáro, Galdor, Amras, Manwë, Enawat, Falathrim, Finarfin, Fingolfin, Fëanor, Finwë
+Ilúvatar, Ingwë, Avari, Elessar, Ölwe, Oromë, Ossë, Thillos, Varil, Amgal, Viusres, Ranaz
+Thalquen, Caror, Alta, Adanmath, Quen, Vaarda, Ildor, Draneleth, Penthir, Xalos, Amar'a
+Fëim, Wethan, Rapa, Thordis, Anawingior
 
 #NOMBRES FEMENINOS
 ####################################
-Elbereth, Nessa, Tári, Nindë, Inwë, Lúthien, Eámanë, Celebriän, Astrea, Nammen, Nihal
+Elbereth, Nessa, Tári, Nindë, Inwë, Lúthien, Eámanë, Celebriän, Astrea, Nammen, Nihal,  Lúthien
+Arwen, Elentari, Lorane, Grielelen, Elenmae, Ammielda, Drelree
 
 #APELLIDOS
 ####################################
-Isilrá, Tasardur, Tulcakelumë, Yávëtil, Súrion, Fëfalas, Alcarin, Tasartir, Felagund
+Isilrá, Tasardur, Tulcakelumë, Yávëtil, Súrion, Fëfalas, Alcarin, Tasartir, Felagund, Singollo
+Elmoth, Tyanor, Reranme, Thathane, Asran, Cardallos, Liafinmal, Rionxagi, Hel'bara
+Ra-riel, Leon'glor, Lo-mar, Las-wë, Uiltaerin, Ienall, Ra'dal, Voedhelduthorn, Merilar-cir
+Vanfeu, De-shi, Tothalionvan, Quenerilriel, Pendisionuilasing, Find-rodrian, Eres-lirien
+Veroddora, Lalhelwethal, Sarulmaethal, Vaarrian-brí, Felathalion-rinha, Nyëphiavawen
+Galadhlarodin, Nar-nyëha, Feudolaranal, Rod'dhelphor, Deborndhelcir, Rildrareslorvan
+Raneldrinceleb, Borngaladhazdel, Morilas-celeb, Renrilhirae, Dal'azril
+
 
 #### FIN RAZA ####

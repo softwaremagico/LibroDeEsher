@@ -112,6 +112,10 @@ Granda, Baldwine, Brynnda
 
 #APELLIDOS
 ####################################
-Bolado, Bort, Berna, Bastida, Capella, Cota, Fëfalas, Alcarin, Tasartir, Felagund, Espúreo
+Bolado, Bort, Berna, Bastida, Capella, Cota, Fëfalas, Alcarin, Tasartir
+Felagund, Espúreo, Tiannazg-u, Gash-beve, Barlechhansharg, Hudranepruverxy
+Im'go, Malorde-gash, Hanbeelfeneu, Marlorresha, Vorg'caspar, Phas-neshu
+La-ordrorn, Onbelxasla, Dreshfenure, Laslarusfor, Norpharganorcaror
+Cu-canmas, Dromargberudimgash, Marganthildimil, Tadragsanelor, Xyrakrornrud
 
 #### FIN RAZA ####

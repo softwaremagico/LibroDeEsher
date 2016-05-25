@@ -98,16 +98,24 @@ La luz del sol les ciega.
 ####################################
 Gorbag, Grishnákh, Shagrat, Gar'mak, Yal, Eragdush, Vuk, Valg, Gridush
 Gaurk, Punk, Erirg, Igar, Prolg, Gridish, Hodush, Riol, Ba, Pok, Prulg, Pagor
+Nákh, Dushaggra, Skabshur, Gormor, Elgrom, Orzong, Bruk-hed, Ahgul
+Gorthrum, Lukmurz, Ukarok, Gaa, Zumju, Gimbblorg, Ormurz, Pruk'nag
+Dragkrim, Gorju, Dushrogg, Draggar
 
 #NOMBRES FEMENINOS
 ####################################
 Girbag , Vrishnak, Blg, Paol, Pogdish, Rirk, Pink, Pugar, Vriol, Grdash, Pagdish, Barg
 Alg, Horbag, Gadush, Prugdish, Grirg, Buk, Gort, Brk, Erirt, Mulush, Lubruk,
-Ghorza, Gorbash, Dusnikh
+Ghorza, Gorbash, Dusnikh, Nazgdra, Zugash, Cothal, Thakdra
+Roglu, Burzmog, Rendgro, Agu, Shagmor, Radzun, Snarlron, Nazgrom, Brao, Rok
+Gulram, Al-krim, Glakaz, Talnarg, Krisargnaz, Kasnarlgarm, 
 
 #APELLIDOS
 ####################################
 Uruk-Hai, Mog-Hul, Kag-Yul, Hort, Bourk, Plg, Banak, Erugor
 Halg, Badush, Ping, Gorbag, oshnak, Rgdish, Part, Horg
+Gashrad, Thurgdra, Grom, Hargkrim, Buz-o, Gordrak, Bugzog
+Krimbag, Argrend, Garm-dog, Bru, Zugdahk, Blorgblorg
+Bralag, Roggdush, Mauel, Lukbolg, Roggdrag, Naggor, Duzthak
 
 #### FIN RAZA ####

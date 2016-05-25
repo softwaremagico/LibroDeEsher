@@ -102,16 +102,25 @@ Acthelion, Bjorg, Bogsolm, Bsocras, Leuqasias, Litnuk, Lorli, Nemoc, Neniak
 Lekib, Lerok, Ravynewg, Onthourl, Opraih, Opselim, Oqute, Touto. Sehtsi
 Yepaleeh, Ygnis, Yknatec, Babpo, Biurdiki, Korribilo, Leuk, Sorg, Tikill
 Xynoyll, Xarop, Xclei, Rhoret, Yeow, Wyntryngham, Wyppatte, Viswanathan
+Lysssylh, Cithekths, Mizhsy, Micssith, Tshi, Ilshsthyss, Cyto, Lithhyss
+Tsylhic, Lilsthy, Yotl, Sithi, Tezmehekth
 
 #NOMBRES FEMENINOS
 ####################################
 Nisefe, Sethra, Cauecas, Eterindu, Sosian, Unibetin, Tali Zora'h Nar Rayya
 Agfeyn, Calanalaurae, Wudoreafa, Yezdigerd, Sitahwa, Zizzi
+Shicoatl, Tezsthi, Zatlsiyss, Yraasais, Ssalha, Shashis, Sitsa, Lisas, 
+Itsl'co, Ssisthly, Tslah'llith, Shytal-sit, Sathciethli, Maatltsthihshuitl
+Yiscytis, Scesth-hsths, Ith'quet, Sahsath, Iths'fang, Tisatlly, Itslhasthy
+Lismi, Lyss-slann, Ssa-shy, Thyssays, Yssths'y, Cestmicatl
 
 #APELLIDOS
 ####################################
 Lacerta, Gekkonidae, Eublepharidae, Iguanidae, Agamidae, Chamaeleonidae, Xantusiidae
 Lacertidae, Teiidae, Gymnophyhalmidae, Scincidae, Cordylidae, Dibamidae, Helodermidae
-Anguidae, Xenosauridae, Varanidae
+Anguidae, Xenosauridae, Varanidae, Hythekthslisthih, Ty'thalsha, Hi'sythshua, Haysth'thama
+Ty-xōchssaiss, Lysithsathals, Salststhihslisthil, Liasththylsyths, Yssasspalil, Sthihlilanhuatl
+Thekths-masais, Hlysylhssali, Thes'salys, Htsily-this, Sythysthhi'tli, Sthyaasythlta
+Hyi-sahiss, Thihi-shi, Catl-hssthyhuitl, Thasththiseshsthya
 
 #### FIN RAZA ####

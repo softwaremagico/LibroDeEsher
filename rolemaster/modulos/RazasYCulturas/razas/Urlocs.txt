@@ -99,15 +99,27 @@ Ninguna
 ####################################
 Astosur, Sinoish, Isin, Ashon, Sinarisil, Siminy, Cerunar, Shani, Yshiisha, Shimish
 Sary, Ysunsil, Simises, Sinossham, Seraresh, Shimonmir, Isary, Shenansan, Su, Sham
+Rethgoth, Cthezarg, Halgrorn, Haaglas, Phe-mor, Be, Becan, Shandover, Mo
+Uldrak, Reth, Haagsorth, Ver'anvi, Gaargrak, Ahdag, Pheaa, Biula, Soindruk, 
+Rethgor, Lo'vakruul, Rendhauneus
 
 #NOMBRES FEMENINOS
 ####################################
 Cheroshish, Sinarnir, Shanone, Ysashsan, Chenyr, Yshosur, Shanari, Esessen, Astenish
 Charushasha, Ish, Saryshmir, Seror, Ishynys, Charaisha, Chararider, Astososh, Chaneriy
+Us-sur, Kahudanmas, Koubas, Phanre'ba, Abusmon, Casnormarg, Br-han, Ashandla
+Gruk'ul, Sucgashfen, Bachfen, Kruulbecthe, Vorganmi, Ca'dro, Xabire, Kigo, Talor'los
+Gon-si
 
 #APELLIDOS
 ####################################
 Asteshasha, Osun, Simis, Sanunsean, Amyshorsha, Astaresha, Shorosu, Esyrdar, Shamoshi
-Esen, Sarunsan, Cheroses
+Esen, Sarunsan, Cheroses, Cu'mil, I'grornrak, Pevideussorth, Laovererran, Blishekrul
+Goraie-si, Beimgashnor, Foreszergron, Drargusoth, Hagudganorchaxbeel, Lorna'shu
+Marg'shashu, Gakagrukdrag, Overmalorlixlasbar, Rudolion, Nemshareon-be, Imogrornroth
+Vorghauzamali, Kathancerfor, Darkmortorgud, Zaradagsharggaap, Ranphasphemali
+Rakpos'las, Blomashu, Tulvamurla, Ver'ka, Farsadresh'ras, Thargimtactha, Rothtarvorgza
+Ardnybgothvall, Bus-reshhem, Nebudagrorn, Bafocthazorg, Ga'ciu, Bel'cuca
+Behud-so, Ulreonphean, Mongaridark, Segorxasan, Thandpidrunhan
 
 #### FIN RAZA ####

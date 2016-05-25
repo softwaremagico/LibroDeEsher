@@ -98,16 +98,28 @@ La luz del sol les ciega.
 ####################################
 Gorbag, Grishnákh, Shagrat, Gar'mak, Yal, Eragdush, Vuk, Valg, Gridush
 Gaurk, Punk, Erirg, Igar, Prolg, Gridish, Hodush, Riol, Ba, Pok, Prulg, Pagor
+Triggbag, Lugorju, Rongo, Shark, Gorgra, Ahduf, Drabag, Bolggar, Grim
+Tuthurg, Duzdahk, Bolg'bei, Bubra, Vazock, Hrishug, Brukkilbu, Danthak
+Muzorkzum, Umau, Uggarbuz
 
 #NOMBRES FEMENINOS
 ####################################
 Girbag , Vrishnak, Blg, Paol, Pogdish, Rirk, Pink, Pugar, Vriol, Grdash, Pagdish, Barg
 Alg, Horbag, Gadush, Prugdish, Grirg, Buk, Gort, Brk, Erirt, Mulush, Lubruk,
-Ghorza, Gorbash, Dusnikh
+Ghorza, Gorbash, Dusnikh, Lag-gul, Rumurkdu, Baagrokuskum, Nazzunbruk
+Gim'bur, Trigg'dakh, Cogolub, Gar'or, Gribolgda, Tebruurk, Mogbruthug
+Argdogurosh, Ongthurgzhul, Balorkdahk, Gorvanazg, Bolga, Lurzkamogkash
+Thosnazi, Krimdufgar, Gratnazgolg
 
 #APELLIDOS
 ####################################
 Uruk-Hai, Mog-Hul, Kag-Yul, Hort, Bourk, Plg, Banak, Erugor
-Halg, Badush, Ping, Gorbag, oshnak, Rgdish, Part, Horg
+Halg, Badush, Ping, Gorbag, oshnak, Rgdish, Part, Horg, Grunt-rendrum
+Krimbalgagimb, Tu'gash, Radronnazcro, Bruki'gor, Baldragarog
+Gratzuggrelordakh, Dorgsharkgrom, Zun-olgthrum, Zunburznaggrel
+Bugtuprukgor, Rosh-unaz, Dragzock'snarl, Graradgor, Gruntlúrtzzudra
+Gluktrigglugthurggrunt, Lagmau'nazg, Ahothurgbaag, Lurtzduzraddra
+Urkzunroshdorg
+
 
 #### FIN RAZA ####

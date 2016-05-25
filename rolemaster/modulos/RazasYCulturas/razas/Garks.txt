@@ -100,14 +100,25 @@ Ninguna
 #NOMBRES MASCULINOS
 ####################################
 Garras, Amedio, Arwen, Arshen, Bizkor, Cuty, Huma, Haize, Hache
+Cf'ay, Gothnac, Fthagtli, Nothkluth, Somi, Yoggkluth, Xa, Kluthnig
+Yibbroth, Guayak, Loar, Ehyogg, Hothtli, Ronde, Goth-nac, Turthli
+C'thathur, Gonfaugn
 
 #NOMBRES FEMENINOS
 ####################################
-Anusa, Akeita, Anuka, Baba, Dumas, IIdoia, Nuka
-
+Anusa, Akeita, Anuka, Baba, Dumas, IIdoia, Nuka, Nafha
+Hothsa, Da-mglw, K'thun-xu, Ph'n'sa, Ctu-tli, So-a,  Kluthlhuwgah
+Tlachthogsog, Chaugy'k'n, Cf'amnomtha, Ga-ga, Gotsactha, Cxath'ag
+Chasoglath, Mnomguhoth, Cthukag'tlagln, Yig'sa, Rathq'yth, Wgah'-wgah
+Thurgumi, Yakakixa
 
 #APELLIDOS
 ####################################
 Dohko, Eneasis, Fuyu, Guri, Muky, Milupa, Nikawe, Naxuki
+Nacglalothmnom, Hassan'dhra, Akith'hasza, Ehgoratheh
+Naglshub'has, Oth'goxo, Gualothcxayi, Ulyog'chthu, Sohoththotep
+Lothcthuxoko, Chthonftha'sha, Lothmashoggyugyog, Quah'cthon
+Gothothcthofhtagn, Fhtagnxa'ctugog, Gonathfthac'ba, Char'lysachthu
+Gluikag'goleng, Nemgoy'da, Mixa'thoq'yth
 
 #### FIN RAZA ####

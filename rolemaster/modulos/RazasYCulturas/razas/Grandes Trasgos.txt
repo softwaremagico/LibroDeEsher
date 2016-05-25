@@ -97,16 +97,25 @@ Bajo luz muy tenue, ven perfectamente hasta 15 m y de forma razonable hasta 30 m
 ####################################
 Gorbag, Grishnákh, Shagrat, Gar'mak, Yal, Eragdush, Vuk, Valg, Gridush
 Gaurk, Punk, Erirg, Igar, Prolg, Gridish, Hodush, Riol, Ba, Pok, Prulg, Pagor
+Maubru, Grogoth, Gulpruk, Ordrag, Duza, Jupruk, Odra, Zumdish, Orthug
+Noshdush, Gortul, Thugzhul, Shagluk, Bramog, Uzgro, Gu, Gromurkmurz
 
 #NOMBRES FEMENINOS
 ####################################
 Girbag , Vrishnak, Blg, Paol, Pogdish, Rirk, Pink, Pugar, Vriol, Grdash, Pagdish, Barg
 Alg, Horbag, Gadush, Prugdish, Grirg, Buk, Gort, Brk, Erirt, Mulush, Lubruk,
-Ghorza, Gorbash, Dusnikh
+Ghorza, Gorbash, Dusnikh, Naza
 
 #APELLIDOS
 ####################################
 Uruk-Hai, Mog-Hul, Kag-Yul, Hort, Bourk, Plg, Banak, Erugor
 Halg, Badush, Ping, Gorbag, oshnak, Rgdish, Part, Horg
+Uflug'garne, Gruntumoggar, Shnag-apruk, Radhrishbadgro
+Lurtznoshkalukbolg, Ubdanka, U'goru, Gulbaagzogshur
+Gardoglag, Gar-balrend, Dasnarlkagra, Nazgreldrakgor
+Gimbshag'ash, Or-grom, Lagmurzugrunt, Orkbruktugrim
+Duzgrelchakthugchak, Bugtubugdakh, Thurgzoggarlug
+Mashgarmmuzduz
+
 
 #### FIN RAZA ####
