@@ -1402,7 +1402,7 @@ public class CharacterPlayer extends StorableObject {
 			return false;
 		}
 		// No ranks and no high bonus, not interesting
-		if ((getTotalRanks(skill) > 0) || (getBonus(skill) > 0 && getTotalValue(skill) > 20)) {
+		if ((getTotalRanks(skill) > 0) || (getBonus(skill) > 0)) {
 			return true;
 		}
 		return false;
