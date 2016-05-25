@@ -91,7 +91,7 @@ Ninguna
 
 #CULTURAS
 ####################################
-Aérea, Ártica, De las Llanuras, De las Tierras  Altas, Del Desierto, Litoral, Minera, Rural, Subterránea
+-Silvana
 
 #ESPECIALES
 ####################################
