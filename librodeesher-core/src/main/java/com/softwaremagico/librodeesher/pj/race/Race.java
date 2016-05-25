@@ -89,6 +89,7 @@ public class Race {
 	private Integer expectedLifeYears = null;
 	private int naturalArmourType = 1;
 	private Map<String, Integer> bonusSkills;
+	private Map<String, Integer> bonusCategory;
 	private Set<Perk> racePerks;
 
 	public Race(String name) throws InvalidRaceException {
@@ -103,6 +104,7 @@ public class Race {
 		maxRaceLanguages = new HashMap<>();
 		maxHistoryLanguages = new HashMap<>();
 		bonusSkills = new HashMap<>();
+		bonusCategory = new HashMap<>();
 		racePerks = new HashSet<>();
 		readRaceFile(name);
 	}
@@ -515,9 +517,7 @@ public class Race {
 								continue;
 								// Is a category?
 							} else if (CategoryFactory.getCategory(skillBonus[1]) != null) {
-								for (Skill categorySkill : CategoryFactory.getCategory(skillBonus[1]).getSkills()) {
-									bonusSkills.put(categorySkill.getName(), bonus);
-								}
+								bonusCategory.put(skillBonus[1], bonus);
 								index++;
 								continue;
 							} else {
@@ -802,6 +802,14 @@ public class Race {
 
 	public int getBonus(Skill skill) {
 		Integer bonus = bonusSkills.get(skill.getName());
+		if (bonus != null) {
+			return bonus;
+		}
+		return 0;
+	}
+
+	public int getBonus(Category category) {
+		Integer bonus = bonusCategory.get(category.getName());
 		if (bonus != null) {
 			return bonus;
 		}
