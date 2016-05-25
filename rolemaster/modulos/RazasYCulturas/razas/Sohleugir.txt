@@ -1,0 +1,115 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	-4
+Co	4
+Me	0
+Ra	0
+Ad	0
+Em	2
+In	2
+Pr	0
+Rp	0
+Fu	8
+Ap	-20
+
+# ESPERANZA DE VIDA
+####################################
+95
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	0
+Esencia	0
+Mentalismo	0
+Veneno	10
+Enfermedad	50
+Psiónico	0
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/8/6/4/2
+PP Arcano	0/5/3/2/2
+PP Canalización	0/5/3/2/2
+PP Esencia	0/5/3/2/2
+PP Mentalismo	0/5/3/2/2
+PP Psiónico	0/7/6/5/4
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+9
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+3
+
+#HISTORIAL
+####################################
+5
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Habla de los Mares	8/8	10/10
+Habla Común	6/6	8/8
+Habla Alta	0/0	4/4
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Común	0/0	10/10
+Élfico Gris	0/0	4/4
+Habla Alta	0/0	6/6
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Litoral
+
+#ESPECIALES
+####################################
+Anfibios
+Ataque de cola: tabla de embestida hasta tamaño medio
+
+#NOMBRES MASCULINOS
+####################################
+Acthelion, Bjorg, Bogsolm, Bsocras, Leuqasias, Litnuk, Lorli, Nemoc, Neniak
+Lekib, Lerok, Ravynewg, Onthourl, Opraih, Opselim, Oqute, Touto. Sehtsi
+Yepaleeh, Ygnis, Yknatec, Babpo, Biurdiki, Korribilo, Leuk, Sorg, Tikill
+Xynoyll, Xarop, Xclei, Rhoret, Yeow, Wyntryngham, Wyppatte, Viswanathan
+
+#NOMBRES FEMENINOS
+####################################
+Nisefe, Sethra, Cauecas, Eterindu, Sosian, Unibetin, Tali Zora'h Nar Rayya
+Agfeyn, Calanalaurae, Wudoreafa, Yezdigerd, Sitahwa, Zizzi
+
+#APELLIDOS
+####################################
+Lacerta, Gekkonidae, Eublepharidae, Iguanidae, Agamidae, Chamaeleonidae, Xantusiidae
+Lacertidae, Teiidae, Gymnophyhalmidae, Scincidae, Cordylidae, Dibamidae, Helodermidae
+Anguidae, Xenosauridae, Varanidae
+
+#### FIN RAZA ####

@@ -10,40 +10,40 @@ In	-2
 Pr	-2
 Rp	0
 Fu	4
-Ap	-80
+Ap	-70
 
 # ESPERANZA DE VIDA
 ####################################
-100
+80
 
 #MODIFICACIÓN A LA TR
 ####################################
-Canalización	0
-Esencia	0
-Mentalismo	0
-Veneno	5
+Canalización	20
+Esencia	10
+Mentalismo	20
+Veneno	10
 Enfermedad	10
-Psiónico	0
-Frío	30
-Calor	30
+Psiónico	10
+Frío	0
+Calor	0
 Miedo	0
 
 #PROGRESIÓN
 ####################################
-Desarrollo Físico	0/7/3/2/1
-PP Arcano	0/2/1/1/1
-PP Canalización	0/2/1/1/1
-PP Esencia	0/2/1/1/1
-PP Mentalismo	0/2/1/1/1
-PP Psiónico	0/2/1/1/1
+Desarrollo Físico	0/7/4/2/1
+PP Arcano	0/3/2/1/1
+PP Canalización	0/6/5/4/3
+PP Esencia	0/3/2/1/1
+PP Mentalismo	0/3/2/1/1
+PP Psiónico	0/7/6/5/4
 
 #PROFESIONES RESTRINGIDAS
 ####################################
-Paladín, {Esencia}, {Mentalismo}
+Ninguna
 
 #PARTIDA DEL ALMA
 ####################################
-1
+12
 
 #TIPO DE RAZA
 ####################################
@@ -63,25 +63,24 @@ Medio
 
 #HISTORIAL
 ####################################
-4
+6
 
 #IDIOMAS	Inicial	Max.Cultura
 ####################################
-Habla Negra	8/2	10/10
-Orco	8/2	10/10
-Habla Común	4/0	8/8
-Habla de los Bosque	0/0	4/3
+Trogli	8/4	10/8
+Idioma Regional	8/4	10/8
+Wôrim	0/0	4/4
 
 #IDIOMAS HISTORIAL
 ####################################
-Habla de los Bosque	0/0	5/5
-Habla de las Llanuras	0/0	8/6
-Habla Negra	0/0	8/8
-Habla Común	0/0	8/8
+Enano	0/0	4/4
+Dyari	0/0	4/4
+Murlogi	0/0	6/4
+Wôrim	0/0	6/6
 
 #HABILIDADES COMUNES
 ####################################
-Armas·2manos, Armas·Asta
+Ninguna
 
 #HABILIDADES RESTRINGIDAS
 ####################################
@@ -89,14 +88,18 @@ Ninguna
 
 #CULTURAS
 ####################################
--Silvana
+Subterránea
 
 #ESPECIALES
 ####################################
-	En absoluta oscurida (no mágica) pueden ver hasta 3 m
-	Bajo luz muy tenue, ven perfectamente hasta 10 m y de forma razonable hasta 25 m
-	Pueden viajar durante 2 dias seguidos sin dormiry reciben un +30 a sus puntos de cansancio
-+30	Contra Frío y Calor(BD y TR)
+Contorsionismo
++10	Contra Arma Arrojadiza
++10	Abrir Cerradura, Reparaciones, Construción de Objecto
++10	Equilibrio
++20	Contorsión
+Visión total bajo la luz de la luna o de las estrellas
+Visión hasta 10 m en absoluta oscuridad
+Temen la luz pero no sufren penalización
 
 #NOMBRES MASCULINOS
 ####################################

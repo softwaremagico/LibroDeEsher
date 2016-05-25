@@ -1,0 +1,125 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	0
+Co	2
+Me	2
+Ra	2
+Ad	0
+Em	-2
+In	0
+Pr	2
+Rp	0
+Fu	2
+Ap	15
+
+# ESPERANZA DE VIDA
+####################################
+100
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	0
+Esencia	0
+Mentalismo	0
+Veneno	0
+Enfermedad	0
+Psiónico	0
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/7/3/2/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/6/5/4/3
+PP Mentalismo	0/7/6/5/4
+PP Psiónico	0/7/6/5/4
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+11
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA
+####################################
+Normal
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+2
+
+#HISTORIAL
+####################################
+6
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Hablas de los Mares	8/6	10/10
+Habla Común	6/6	6/6
+Élfico Gris	0/0	6/6
+Habla Alta	0/0	4/4
+Sirénido	8/4	10/8
+Habla Submarina	8/4	10/8
+Shuluri	0/0	4/4
+Idioma Regional	0/0	6/4
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Común	0/0	8/8
+Élfico Gris	0/0	8/8
+Habla Alta	0/0	6/6
+Saurkur	0/0	4/4
+Shuluri	0/0	8/6
+Idioma Regional	0/0	8/4
+
+#HABILIDADES COMUNES
+####################################
+Nadar
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Acuática
+
+#ESPECIALES
+####################################
+Todas las habilidades que se usan de forma exclusiva en la superficie cuentan como restringidas.
+Piernas Temporales: pueden convertir la cola en piernas hasta un total de 4 h +1h por nivel cada día, para ellos deberán de concentrarse 1 minuto sin interrupción.
+Mintras están transformado tendrán un TA3
+
+Penalizaciones en Tierra Firme: Deben volver a su elemento cada día. Aquel que no hay sido sumergido en agua salada (océano, río poderoso o lago grande)
+sufrirà una penalización -10 a todas la actividades por cada dia perdido.
+Si intenta hacerlo bajo una cascada o sumergiéndose en una bañera, sufrirà una penalización de -5.
+Si la penalización alcanza -80 entra en coma.
+Si la penalización alcanza -100 muore.
+
+#NOMBRES MASCULINOS
+####################################
+Aqueloo, Mopsos, Ascalón, Derceto, Ceto, Nereo, Forcis
+
+#NOMBRES FEMENINOS
+####################################
+Agláope, Telxiepia, Pisínoe, Parténope, Ligeia, Leucosia, Molpe, Radne, Teles, Lidia
+Loreley, Nerea, Talía, Glaucea, Dinamenea, Cimodaré, Anfitrite
+
+#APELLIDOS
+####################################
+Marina, Coral, Brisa, Azul, Aguamarina, Estrella, Perla, Acqua, Aymar, Adrià
+
+#### FIN RAZA ####
