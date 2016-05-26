@@ -106,6 +106,8 @@ public class CultureFactory {
 				return culture;
 			}
 		} catch (Exception e) {
+			EsherLog.errorMessage(CultureFactory.class.getName(), e);
+			e.printStackTrace();
 		}
 		throw new InvalidCultureException("Culture does not exist: "
 				+ cultureName);

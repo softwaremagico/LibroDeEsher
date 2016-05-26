@@ -62,7 +62,7 @@ Listas Abiertas de Hechizos	0
 Armas·Asta, Caer, Conocimiento de la Fauna (Acuática)
 Conocimiento de la Flora (Acuática), Contorsionismo
 Volteretas, Desarrollo Físico, Domar, Forrajear
-Hacer Surf, Maestría de los Animales, Manejo de los Animales
+Hacer Surf, Maestría de Animales, Manejo de los Animales
 Montar, Nadar, Supervivencia (Acuática)
 
 # IDIOMAS
