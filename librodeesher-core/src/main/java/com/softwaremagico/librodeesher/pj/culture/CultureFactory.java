@@ -75,6 +75,24 @@ public class CultureFactory {
 		}
 		return cultures;
 	}
+	
+	/**
+	 * All "Sylvan" cultures, etc.
+	 * 
+	 * @param prefix
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<String> getAvailableCulturesPrefix(String prefix) {
+		List<String> cultures = new ArrayList<>();
+		List<String> allAvailableCultures = getAvailableCultures();
+		for (int i = 0; i < allAvailableCultures.size(); i++) {
+			if (allAvailableCultures.get(i).startsWith(prefix)) {
+				cultures.add(allAvailableCultures.get(i));
+			}
+		}
+		return cultures;
+	}
 
 	public static Culture getCulture(String cultureName)
 			throws InvalidCultureException {

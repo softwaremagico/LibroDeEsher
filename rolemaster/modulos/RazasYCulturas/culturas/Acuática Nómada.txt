@@ -63,7 +63,7 @@ Acrobacias, Ballesta Ligera, Ballesta Pesada, Armas·Asta
 Armadura·Ligera, Caer, Conocimiento de la Fauna (Acuática)
 Conocimiento de la Flora (Acuática), Desarrollo Físico
 Domar, Forrajear, Hacer Surf, Liderazgo, Maestría de los Animales
-Manejo de Animales, Montar, Nadar
+Manejo de los Animales, Montar, Nadar
 
 # IDIOMAS
 ####################

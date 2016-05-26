@@ -1,6 +1,7 @@
 package com.softwaremagico.librodeesher.pj.perk;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -347,28 +348,36 @@ public class Perk {
 
 	private String getBonusesDescription() {
 		String bonuses = "";
-		for (String category : categoryBonus.keySet()) {
+		List<String> sortedCategories = new ArrayList<>(categoryBonus.keySet());
+		Collections.sort(sortedCategories);
+		for (String category : sortedCategories) {
 			if (bonuses.length() > 1) {
 				bonuses += ", ";
 			}
 			bonuses += category + " (" + categoryBonus.get(category) + ")";
 		}
 
-		for (String skill : skillBonus.keySet()) {
+		List<String> sortedSkills = new ArrayList<>(skillBonus.keySet());
+		Collections.sort(sortedSkills);
+		for (String skill : sortedSkills) {
 			if (bonuses.length() > 1) {
 				bonuses += ", ";
 			}
 			bonuses += skill + " (" + skillBonus.get(skill) + ")";
 		}
 
-		for (String category : conditionalCategoryBonus.keySet()) {
+		List<String> sortedConditionalCategories = new ArrayList<>(conditionalCategoryBonus.keySet());
+		Collections.sort(sortedConditionalCategories);
+		for (String category : sortedConditionalCategories) {
 			if (bonuses.length() > 1) {
 				bonuses += ", ";
 			}
 			bonuses += category + " (" + conditionalCategoryBonus.get(category) + "*)";
 		}
 
-		for (String skill : conditionalSkillBonus.keySet()) {
+		List<String> sortedConditionalSkills = new ArrayList<>(conditionalSkillBonus.keySet());
+		Collections.sort(sortedConditionalSkills);
+		for (String skill : sortedConditionalSkills) {
 			if (bonuses.length() > 1) {
 				bonuses += ", ";
 			}

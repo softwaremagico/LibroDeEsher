@@ -183,7 +183,7 @@ public class Race {
 			}
 			index++;
 		} catch (NumberFormatException nfe) {
-			throw new InvalidRaceException("Numero de esperanza de vida irreconocible en '" + name + "'.");
+			throw new InvalidRaceException("Life length number not valid for race '" + name + "'.");
 		}
 
 		return index;
@@ -205,7 +205,7 @@ public class Race {
 				index++;
 			}
 		} catch (Exception e) {
-			throw new InvalidRaceException("Problema al leer las resistencias de la raza " + name + ". Los bonus pueden no ser correctos.");
+			throw new InvalidRaceException("Race resistances are invalid in race " + name + ". Bonuses must be wrong.");
 		}
 		return index;
 	}
@@ -224,7 +224,7 @@ public class Race {
 				index++;
 			}
 		} catch (Exception e) {
-			throw new InvalidRaceException("Problema al leer los costes de progresiones de la raza " + name + ".");
+			throw new InvalidRaceException("Progression cost invalid in race '" + name + "'.");
 		}
 		return index;
 	}
@@ -272,7 +272,7 @@ public class Race {
 						try {
 							definedProfessions.addAll(MagicFactory.getSpellCasters(RealmOfMagic.getMagicRealm(magicRealm)));
 						} catch (Exception e) {
-							throw new InvalidRaceException("Profesión restringida '" + profession + "' inválida para raza '" + name + "'.");
+							throw new InvalidRaceException("Restricted profession '" + profession + "' invalid for race '" + name + "'.");
 						}
 					} else {
 						definedProfessions.add(profession.trim());
@@ -289,7 +289,7 @@ public class Race {
 				restrictedProfessions.addAll(allProfessions);
 			}
 		} catch (Exception e) {
-			throw new InvalidRaceException("Problema al leer las profesiones restringidas de la raza " + name + ".");
+			throw new InvalidRaceException("Restricted professions reading problem for race '" + name + "'.");
 		}
 		return index;
 	}
@@ -302,7 +302,7 @@ public class Race {
 			soulDepartTime = Integer.parseInt(lines.get(index));
 			index++;
 		} catch (NumberFormatException nfe) {
-			throw new InvalidRaceException("Numero de partida del alma irreconocible en '" + name + "'.");
+			throw new InvalidRaceException("Soul departure invalid for race '" + name + "'.");
 		}
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -311,7 +311,7 @@ public class Race {
 			raceType = Integer.parseInt(lines.get(index));
 			index++;
 		} catch (NumberFormatException nfe) {
-			throw new InvalidRaceException("Numero de tipo de raza irreconocible en '" + name + "'.");
+			throw new InvalidRaceException("Race type invalid in race '" + name + "'.");
 		}
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -325,7 +325,7 @@ public class Race {
 			restorationTime = Float.parseFloat(lines.get(index).replace(",", "."));
 			index++;
 		} catch (NumberFormatException nfe) {
-			throw new InvalidRaceException("Numero de tiempo de recuperación irreconocible en línea " + index + ".");
+			throw new InvalidRaceException("Healing rate invalid for race '" + getName() + "'.");
 		}
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -334,7 +334,7 @@ public class Race {
 			languagePoints = Integer.parseInt(lines.get(index));
 			index++;
 		} catch (NumberFormatException nfe) {
-			throw new InvalidRaceException("Numero de puntos de idiomas irreconocible en '" + name + "'.");
+			throw new InvalidRaceException("Langauge points invalid for race '" + name + "'.");
 		}
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -343,7 +343,7 @@ public class Race {
 			historialPoints = Integer.parseInt(lines.get(index));
 			index++;
 		} catch (NumberFormatException nfe) {
-			throw new InvalidRaceException("Numero de puntos de historial irreconocible en '" + name + "'.");
+			throw new InvalidRaceException("History points invalid in race '" + name + "'.");
 		}
 		return index;
 	}
@@ -388,9 +388,9 @@ public class Race {
 				maxLanguages.put(language, Integer.parseInt(maxCultureLanguage[1]));
 
 			} catch (NumberFormatException nfe) {
-				throw new InvalidRaceException("Valor de Idioma irreconocible en " + lines.get(index));
+				throw new InvalidRaceException("Language value invalid in '" + lines.get(index) + "'.");
 			} catch (Exception e) {
-				throw new InvalidRaceException("Error leyendo la linea de idiomas \"" + lines.get(index) + "\" en línea " + index + ".");
+				throw new InvalidRaceException("Language line invalid '" + lines.get(index) + "' in line '" + index + "'.");
 			}
 			index++;
 		}
@@ -405,8 +405,7 @@ public class Race {
 		return setLanguages(lines, index, maxHistoryLanguages, new HashMap<String, Integer>());
 	}
 
-	private int setSpecialSkills(List<String> lines, int index, List<Skill> skillsList, List<Category> categoriesList)
-			throws InvalidRaceException {
+	private int setSpecialSkills(List<String> lines, int index, List<Skill> skillsList, List<Category> categoriesList) throws InvalidRaceException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -428,8 +427,7 @@ public class Race {
 					if (skill != null) {
 						skillsList.add(skill);
 					} else {
-						throw new InvalidRaceException("Error leyendo la habilidad común '" + skillColumns[i] + "' para la raza '"
-								+ getName() + "'.");
+						throw new InvalidRaceException("Invalid common skill '" + skillColumns[i] + "' for race '" + getName() + "'.");
 					}
 				}
 			}
@@ -468,14 +466,12 @@ public class Race {
 					// Standard culture.
 					try {
 						if (CultureFactory.getCulture(cultureName) != null) {
-							definedCultures.add(cultureName);
+							definedCultures.addAll(CultureFactory.getAvailableCulturesPrefix(cultureName));
 						}
 					} catch (InvalidCultureException e) {
-						// Not all cultures are implemented.
-						// throw new
-						// InvalidRaceException("Cultura no existente '"
-						// + cultureList[i] + "' para la raza '"
-						// + getName() + "'.");
+						EsherLog.errorMessage(this.getClass().getName(), e);
+						e.printStackTrace();
+						throw new InvalidRaceException("Culture '" + cultureName + "' does not exists in race '" + getName() + "'.");
 					}
 				}
 			}
@@ -521,8 +517,7 @@ public class Race {
 								index++;
 								continue;
 							} else {
-								EsherLog.warning(this.getClass().getName(), "Unknown skill '" + skillBonus[1] + "' in race '" + getName()
-										+ "'.");
+								EsherLog.warning(this.getClass().getName(), "Unknown skill '" + skillBonus[1] + "' in race '" + getName() + "'.");
 							}
 						} catch (NumberFormatException nfe) {
 							// Not a number, is not a skill bonus, continue
