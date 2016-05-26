@@ -76,4 +76,8 @@ Habla de las Colinas	6/6
 Gigante	4/4
 Titán	4/4
 
+# ADIESTAMIENTOS
+####################
+Ninguno
+
 ### FIN CULTURA ###

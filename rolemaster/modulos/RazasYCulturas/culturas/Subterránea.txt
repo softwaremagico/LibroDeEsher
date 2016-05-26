@@ -71,4 +71,8 @@ Habla Común	8/8
 Habla Negra	8/8
 Orco	8/8
 
+# ADIESTAMIENTOS
+####################
+Ninguno
+
 ### FIN CULTURA ###

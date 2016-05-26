@@ -75,4 +75,8 @@ Habla del Norte	8/8
 Habla del Sur	8/8
 Habla de las Llanuras	8/8
 
+# ADIESTAMIENTOS
+####################
+Ninguno
+
 ### FIN CULTURA ###

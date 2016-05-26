@@ -76,4 +76,8 @@ Erlini	6/6
 Fauno	6/6
 Linaeri	6/6
 
+# ADIESTAMIENTOS
+####################
+Ninguno
+
 ### FIN CULTURA ###

@@ -73,4 +73,8 @@ Habla de las Colinas	10/10
 Enano	4/4
 Murlogi	6/4
 
+# ADIESTAMIENTOS
+####################
+Ninguno
+
 ### FIN CULTURA ###

@@ -73,4 +73,8 @@ Habla Pequeña	6/6
 Habla del Norte	8/8
 Habla del Sur	8/8
 
+# ADIESTAMIENTOS
+####################
+Ninguno
+
 ### FIN CULTURA ###
