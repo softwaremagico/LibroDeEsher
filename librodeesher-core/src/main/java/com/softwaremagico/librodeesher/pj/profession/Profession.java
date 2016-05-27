@@ -144,7 +144,7 @@ public class Profession {
 				throw new InvalidProfessionException(
 						"Invalid profession file: "
 								+ ProfessionFactory.PROFESSION_FOLDER
-								+ File.separator + professionName + ".txt");
+								+ File.separator + professionName + ".txt", e);
 			}
 			lineIndex = setBasicCharacteristics(lines, lineIndex);
 			lineIndex = setMagicRealmsAvailable(lines, lineIndex);
@@ -220,7 +220,7 @@ public class Profession {
 			} catch (Exception e) {
 				throw new InvalidProfessionException(
 						"Problemas con el reino de magia " + lines.get(index)
-								+ " mostrada en el archivo " + name + ".txt.");
+								+ " mostrada en el archivo " + name + ".txt.", e);
 			}
 			index++;
 		}
@@ -249,7 +249,7 @@ public class Profession {
 			} catch (NullPointerException npe) {
 				throw new InvalidProfessionException("Bonus de "
 						+ categoryOrSkillName + " en " + name
-						+ ".txt mal definido.");
+						+ ".txt mal definido.", npe);
 			}
 			index++;
 		}
@@ -283,7 +283,7 @@ public class Profession {
 				}
 			} catch (Exception e) {
 				throw new InvalidProfessionException("Categoría mal definida: "
-						+ categoryName);
+						+ categoryName, e);
 			}
 			index++;
 		}
@@ -389,7 +389,7 @@ public class Profession {
 						groupSkillsToChoose.add(chooseSkills);
 					} catch (InvalidSkillException e) {
 						throw new InvalidProfessionException(
-								"Error leyendo una habilidad: " + skillLine);
+								"Error leyendo una habilidad: " + skillLine, e);
 					}
 				} else {
 					// One skill.
@@ -424,9 +424,8 @@ public class Profession {
 				magicCosts.setMagicCost(MagicListType.getMagicType(listName),
 						MagicLevelRange.getLevelRange(listLevel), listCost);
 			} catch (Exception e) {
-				e.printStackTrace();
 				throw new InvalidProfessionException(
-						"Coste de magia mal formado: " + lines.get(index));
+						"Coste de magia mal formado: " + lines.get(index), e);
 			}
 			index++;
 		}
@@ -462,7 +461,7 @@ public class Profession {
 				} catch (Exception e) {
 					throw new InvalidProfessionException(
 							"Coste de Adiestramiento mal formado: "
-									+ lines.get(index));
+									+ lines.get(index), e);
 				}
 				index++;
 			}

@@ -6,4 +6,12 @@ public class InvalidCultureException extends Exception {
 	public InvalidCultureException(String message) {
 		super(message);
 	}
+
+	public InvalidCultureException(String message, Exception e) {
+		super(message, e);
+	}
+
+	public InvalidCultureException(Exception e) {
+		super(e);
+	}
 }

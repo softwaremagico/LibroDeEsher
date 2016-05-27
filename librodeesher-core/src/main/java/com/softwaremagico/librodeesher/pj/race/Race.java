@@ -126,7 +126,7 @@ public class Race {
 			try {
 				lines = Folder.readFileLines(raceFile, false);
 			} catch (IOException e) {
-				throw new InvalidRaceException("Invalid race file: " + RaceFactory.RACE_FOLDER + File.separator + raceName + ".txt");
+				throw new InvalidRaceException("Invalid race file: " + RaceFactory.RACE_FOLDER + File.separator + raceName + ".txt", e);
 			}
 
 			lineIndex = setCharacteristicsBonus(lines, lineIndex);
@@ -165,7 +165,7 @@ public class Race {
 				index++;
 			}
 		} catch (Exception e) {
-			throw new InvalidRaceException("Error al leer las características de la raza " + name + ". Los bonus pueden no ser correctos.");
+			throw new InvalidRaceException("Error al leer las características de la raza " + name + ". Los bonus pueden no ser correctos.", e);
 		}
 		return index;
 	}
@@ -183,7 +183,7 @@ public class Race {
 			}
 			index++;
 		} catch (NumberFormatException nfe) {
-			throw new InvalidRaceException("Life length number not valid for race '" + name + "'.");
+			throw new InvalidRaceException("Life length number not valid for race '" + name + "'.", nfe);
 		}
 
 		return index;
@@ -205,7 +205,7 @@ public class Race {
 				index++;
 			}
 		} catch (Exception e) {
-			throw new InvalidRaceException("Race resistances are invalid in race " + name + ". Bonuses must be wrong.");
+			throw new InvalidRaceException("Race resistances are invalid in race " + name + ". Bonuses must be wrong.", e);
 		}
 		return index;
 	}
@@ -224,7 +224,7 @@ public class Race {
 				index++;
 			}
 		} catch (Exception e) {
-			throw new InvalidRaceException("Progression cost invalid in race '" + name + "'.");
+			throw new InvalidRaceException("Progression cost invalid in race '" + name + "'.", e);
 		}
 		return index;
 	}
@@ -272,7 +272,7 @@ public class Race {
 						try {
 							definedProfessions.addAll(MagicFactory.getSpellCasters(RealmOfMagic.getMagicRealm(magicRealm)));
 						} catch (Exception e) {
-							throw new InvalidRaceException("Restricted profession '" + profession + "' invalid for race '" + name + "'.");
+							throw new InvalidRaceException("Restricted profession '" + profession + "' invalid for race '" + name + "'.", e);
 						}
 					} else {
 						definedProfessions.add(profession.trim());
@@ -289,7 +289,7 @@ public class Race {
 				restrictedProfessions.addAll(allProfessions);
 			}
 		} catch (Exception e) {
-			throw new InvalidRaceException("Restricted professions reading problem for race '" + name + "'.");
+			throw new InvalidRaceException("Restricted professions reading problem for race '" + name + "'.", e);
 		}
 		return index;
 	}
@@ -302,7 +302,7 @@ public class Race {
 			soulDepartTime = Integer.parseInt(lines.get(index));
 			index++;
 		} catch (NumberFormatException nfe) {
-			throw new InvalidRaceException("Soul departure invalid for race '" + name + "'.");
+			throw new InvalidRaceException("Soul departure invalid for race '" + name + "'.", nfe);
 		}
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -311,7 +311,7 @@ public class Race {
 			raceType = Integer.parseInt(lines.get(index));
 			index++;
 		} catch (NumberFormatException nfe) {
-			throw new InvalidRaceException("Race type invalid in race '" + name + "'.");
+			throw new InvalidRaceException("Race type invalid in race '" + name + "'.", nfe);
 		}
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -325,7 +325,7 @@ public class Race {
 			restorationTime = Float.parseFloat(lines.get(index).replace(",", "."));
 			index++;
 		} catch (NumberFormatException nfe) {
-			throw new InvalidRaceException("Healing rate invalid for race '" + getName() + "'.");
+			throw new InvalidRaceException("Healing rate invalid for race '" + getName() + "'.", nfe);
 		}
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -334,7 +334,7 @@ public class Race {
 			languagePoints = Integer.parseInt(lines.get(index));
 			index++;
 		} catch (NumberFormatException nfe) {
-			throw new InvalidRaceException("Langauge points invalid for race '" + name + "'.");
+			throw new InvalidRaceException("Langauge points invalid for race '" + name + "'.", nfe);
 		}
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -343,7 +343,7 @@ public class Race {
 			historialPoints = Integer.parseInt(lines.get(index));
 			index++;
 		} catch (NumberFormatException nfe) {
-			throw new InvalidRaceException("History points invalid in race '" + name + "'.");
+			throw new InvalidRaceException("History points invalid in race '" + name + "'.", nfe);
 		}
 		return index;
 	}
@@ -388,9 +388,9 @@ public class Race {
 				maxLanguages.put(language, Integer.parseInt(maxCultureLanguage[1]));
 
 			} catch (NumberFormatException nfe) {
-				throw new InvalidRaceException("Language value invalid in '" + lines.get(index) + "'.");
+				throw new InvalidRaceException("Language value invalid in '" + lines.get(index) + "'.", nfe);
 			} catch (Exception e) {
-				throw new InvalidRaceException("Language line invalid '" + lines.get(index) + "' in line '" + index + "'.");
+				throw new InvalidRaceException("Language line invalid '" + lines.get(index) + "' in line '" + index + "'.", e);
 			}
 			index++;
 		}
@@ -470,8 +470,7 @@ public class Race {
 						}
 					} catch (InvalidCultureException e) {
 						EsherLog.errorMessage(this.getClass().getName(), e);
-						e.printStackTrace();
-						throw new InvalidRaceException("Culture '" + cultureName + "' does not exists in race '" + getName() + "'.");
+						throw new InvalidRaceException("Culture '" + cultureName + "' does not exists in race '" + getName() + "'.", e);
 					}
 				}
 			}
@@ -535,7 +534,7 @@ public class Race {
 						}
 					}
 				} catch (Exception e) {
-					throw new InvalidRaceException(e.getMessage());
+					throw new InvalidRaceException(e);
 				}
 				// Remove cost of training.
 				if (specialLine.contains("[")) {
@@ -552,7 +551,7 @@ public class Race {
 					try {
 						naturalArmourType = Integer.parseInt(specialLine.replaceAll("[^\\d.]", ""));
 					} catch (Exception e) {
-						throw new InvalidRaceException("Invalid natural armour:" + specialLine);
+						throw new InvalidRaceException("Invalid natural armour:" + specialLine, e);
 					}
 				}
 			}
@@ -578,7 +577,7 @@ public class Race {
 				index++;
 			}
 		} catch (IndexOutOfBoundsException iob) {
-			throw new InvalidRaceException("Invalid name definition in race '" + name + "'.");
+			throw new InvalidRaceException("Invalid name definition in race '" + name + "'.", iob);
 		}
 
 		try {
@@ -586,7 +585,7 @@ public class Race {
 				index++;
 			}
 		} catch (IndexOutOfBoundsException iob) {
-			throw new InvalidRaceException("Invalid name definition in race '" + name + "'.");
+			throw new InvalidRaceException("Invalid name definition in race '" + name + "'.", iob);
 		}
 
 		// Female Names.
@@ -598,7 +597,7 @@ public class Race {
 				index++;
 			}
 		} catch (IndexOutOfBoundsException iob) {
-			throw new InvalidRaceException("Invalid name definition in race '" + name + "'.");
+			throw new InvalidRaceException("Invalid name definition in race '" + name + "'.", iob);
 		}
 
 		try {
@@ -606,7 +605,7 @@ public class Race {
 				index++;
 			}
 		} catch (IndexOutOfBoundsException iob) {
-			throw new InvalidRaceException("Invalid name definition in race '" + name + "'.");
+			throw new InvalidRaceException("Invalid name definition in race '" + name + "'.", iob);
 		}
 
 		// Surnames
@@ -618,7 +617,7 @@ public class Race {
 				index++;
 			}
 		} catch (IndexOutOfBoundsException iob) {
-			throw new InvalidRaceException("Invalid name definition in race '" + name + "'.");
+			throw new InvalidRaceException("Invalid name definition in race '" + name + "'.", iob);
 		}
 
 		return index;

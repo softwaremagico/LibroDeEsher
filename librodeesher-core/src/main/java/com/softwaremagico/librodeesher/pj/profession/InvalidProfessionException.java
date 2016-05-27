@@ -6,4 +6,12 @@ public class InvalidProfessionException extends Exception {
 	public InvalidProfessionException(String message) {
 		super(message);
 	}
+
+	public InvalidProfessionException(String message, Exception e) {
+		super(message, e);
+	}
+
+	public InvalidProfessionException(Exception e) {
+		super(e);
+	}
 }

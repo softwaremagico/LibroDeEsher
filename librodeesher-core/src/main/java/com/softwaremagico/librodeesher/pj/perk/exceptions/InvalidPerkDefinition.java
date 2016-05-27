@@ -6,4 +6,12 @@ public class InvalidPerkDefinition extends Exception {
 	public InvalidPerkDefinition(String message) {
 		super(message);
 	}
+
+	public InvalidPerkDefinition(String message, Exception e) {
+		super(message);
+	}
+
+	public InvalidPerkDefinition(Exception e) {
+		super(e);
+	}
 }

@@ -6,4 +6,13 @@ public class InvalidRaceException extends Exception {
 	public InvalidRaceException(String message) {
 		super(message);
 	}
+	
+	public InvalidRaceException(String message, Exception e) {
+		super(message, e);
+	}
+	
+	public InvalidRaceException(Exception e) {
+		super(e);
+	}
+	
 }

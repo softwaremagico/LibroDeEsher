@@ -57,8 +57,7 @@ public class Culture {
 	}
 
 	public List<String> getLanguagesMaxRanks() {
-		List<String> sortedLanguages = new ArrayList<>(
-				languagesMaxRanks.keySet());
+		List<String> sortedLanguages = new ArrayList<>(languagesMaxRanks.keySet());
 		Collections.sort(sortedLanguages);
 		return sortedLanguages;
 	}
@@ -97,20 +96,15 @@ public class Culture {
 		return total;
 	}
 
-	private void readCultureFile(String cultureName)
-			throws InvalidCultureException {
+	private void readCultureFile(String cultureName) throws InvalidCultureException {
 		int lineIndex = 0;
-		String cultureFile = RolemasterFolderStructure
-				.getDirectoryModule(CultureFactory.CULTURE_FOLDER
-						+ File.separator + cultureName + ".txt");
+		String cultureFile = RolemasterFolderStructure.getDirectoryModule(CultureFactory.CULTURE_FOLDER + File.separator + cultureName + ".txt");
 		if (cultureFile.length() > 0) {
 			List<String> lines;
 			try {
 				lines = Folder.readFileLines(cultureFile, false);
 			} catch (IOException e) {
-				throw new InvalidCultureException("Invalid culture file: "
-						+ CultureFactory.CULTURE_FOLDER + File.separator
-						+ cultureName + ".txt");
+				throw new InvalidCultureException("Invalid culture file: " + CultureFactory.CULTURE_FOLDER + File.separator + cultureName + ".txt");
 			}
 			lineIndex = setCultureWeapons(lines, lineIndex);
 			lineIndex = setCultureArmour(lines, lineIndex);
@@ -119,22 +113,18 @@ public class Culture {
 			lineIndex = setHobbySkillsAndCategories(lines, lineIndex);
 			lineIndex = setCultureMaxLanguages(lines, lineIndex);
 		} else {
-			throw new InvalidCultureException("Invalid culture file: "
-					+ CultureFactory.CULTURE_FOLDER + File.separator
-					+ cultureName + ".txt");
+			throw new InvalidCultureException("Invalid culture file: " + CultureFactory.CULTURE_FOLDER + File.separator + cultureName + ".txt");
 		}
 	}
 
-	private int setCultureWeapons(List<String> lines, int index)
-			throws InvalidCultureException {
+	private int setCultureWeapons(List<String> lines, int index) throws InvalidCultureException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
 		try {
 			cultureWeapons = new ArrayList<>();
 			if (!lines.get(index).toLowerCase().equals(Spanish.ALL_TAG)) {
-				while (!lines.get(index).equals("")
-						&& !lines.get(index).startsWith("#")) {
+				while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 					String lineaArmasCultura = lines.get(index);
 					String[] weapons = lineaArmasCultura.split(", ");
 					for (String weaponName : weapons) {
@@ -149,45 +139,39 @@ public class Culture {
 				cultureWeapons = WeaponFactory.getAllStandardWeapons();
 				index++;
 			}
-		} catch (IndexOutOfBoundsException iof) {
-			throw new InvalidCultureException("Error in line: "
-					+ lines.get(index));
+		} catch (IndexOutOfBoundsException iob) {
+			throw new InvalidCultureException("Error in line: " + lines.get(index), iob);
 		}
 		return index;
 	}
 
-	private int setCultureArmour(List<String> lines, int index)
-			throws InvalidCultureException {
+	private int setCultureArmour(List<String> lines, int index) throws InvalidCultureException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
 
 		cultureArmours = new ArrayList<>();
 		try {
-			while (!lines.get(index).equals("")
-					&& !lines.get(index).startsWith("#")) {
+			while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 				String lineaArmadurasCultura = lines.get(index);
 				String[] arrayArmaduras = lineaArmadurasCultura.split(", ");
 				cultureArmours.addAll(Arrays.asList(arrayArmaduras));
 				index++;
 			}
 		} catch (IndexOutOfBoundsException iob) {
-			throw new InvalidCultureException("Error in line: "
-					+ lines.get(index));
+			throw new InvalidCultureException("Error in line: " + lines.get(index), iob);
 		}
 		return index;
 	}
 
-	private int setSkillRanks(List<String> lines, int index)
-			throws InvalidCultureException {
+	private int setSkillRanks(List<String> lines, int index) throws InvalidCultureException {
 		categories = new HashMap<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
 		try {
 			CultureCategory category = null;
-			while (!lines.get(index).equals("")
-					&& !lines.get(index).startsWith("#")) {
+			while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 				String cultureLine = lines.get(index);
 				if (!cultureLine.startsWith("  *  ")) {
 					String[] categoryRow = cultureLine.split("\t");
@@ -199,42 +183,35 @@ public class Culture {
 				}
 				index++;
 			}
-		} catch (IndexOutOfBoundsException iobe) {
-			throw new InvalidCultureException("Error in line: "
-					+ lines.get(index));
+		} catch (IndexOutOfBoundsException iob) {
+			throw new InvalidCultureException("Error in line: " + lines.get(index), iob);
 		}
 		return index;
 	}
 
-	private int setHobbyRanks(List<String> lines, int index)
-			throws InvalidCultureException {
+	private int setHobbyRanks(List<String> lines, int index) throws InvalidCultureException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
-		while (!lines.get(index).equals("")
-				&& !lines.get(index).startsWith("#")) {
+		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 			String hobbyLine = lines.get(index);
 			try {
 				hobbyRanks = Integer.parseInt(hobbyLine);
 			} catch (NumberFormatException nfe) {
-				throw new InvalidCultureException(
-						"Error al obtener los rangos de la aficiones culturales.\n Línea: "
-								+ hobbyLine + "\nEn cultura: " + getName()
-								+ ". Razón: " + nfe.getMessage());
+				throw new InvalidCultureException("Error al obtener los rangos de la aficiones culturales en línea '" + hobbyLine + "' para la cultura '"
+						+ getName() + "'. ", nfe);
 			}
 			index++;
 		}
 		return index;
 	}
 
-	private int setHobbySkillsAndCategories(List<String> lines, int index)
-			throws InvalidCultureException {
+	private int setHobbySkillsAndCategories(List<String> lines, int index) throws InvalidCultureException {
 		hobbySkills = new ArrayList<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
-		while (!lines.get(index).equals("")
-				&& !lines.get(index).startsWith("#")) {
+		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 			String[] hobbySkillColumns = lines.get(index).split(", ");
 			for (String hobby : hobbySkillColumns) {
 				// If it is a category.
@@ -249,30 +226,23 @@ public class Culture {
 				} else if (SkillFactory.existSkill(hobby)) {
 					hobbySkills.add(hobby);
 					// It is a special tag for a group of skills. Add it.
-				} else if (hobby.toLowerCase().equals(Spanish.WEAPON)
-						|| hobby.toLowerCase().equals(Spanish.ARMOUR)
+				} else if (hobby.toLowerCase().equals(Spanish.WEAPON) || hobby.toLowerCase().equals(Spanish.ARMOUR)
 						|| hobby.toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
 					hobbySkills.add(hobby);
 					// Is a culture skill: add it;
-				} else if (hobby.contains(Spanish.FAUNA_KNOWNLEDGE_TAG)
-						|| hobby.contains(Spanish.FLORA_KNOWNLEDGE_TAG)
-						|| hobby.contains(Spanish.CULTURAL_KNOWNLEDGE_TAG)
-						|| hobby.contains(Spanish.REGIONAL_KNOWNLEDGE_TAG)) {
-					Category cat = CategoryFactory
-							.getCategory(Spanish.GENERAL_KNOWLEDGE_TAG);
+				} else if (hobby.contains(Spanish.FAUNA_KNOWNLEDGE_TAG) || hobby.contains(Spanish.FLORA_KNOWNLEDGE_TAG)
+						|| hobby.contains(Spanish.CULTURAL_KNOWNLEDGE_TAG) || hobby.contains(Spanish.REGIONAL_KNOWNLEDGE_TAG)) {
+					Category cat = CategoryFactory.getCategory(Spanish.GENERAL_KNOWLEDGE_TAG);
 					cat.addSkill(hobby);
 					// CultureSkill skill = new CultureSkill(hobby);
 					hobbySkills.add(hobby);
 				} else if (hobby.contains(Spanish.SURVIVAL_TAG)) {
-					Category cat = CategoryFactory
-							.getCategory(Spanish.OUTDOORS_ENVIRONMENT_TAG);
+					Category cat = CategoryFactory.getCategory(Spanish.OUTDOORS_ENVIRONMENT_TAG);
 					cat.addSkill(hobby);
 					// CultureSkill skill = new CultureSkill(hobby);
 					hobbySkills.add(hobby);
 				} else { // Not recognized.
-					throw new InvalidCultureException(
-							"Afición no encontrada en cultura \"" + getName()
-									+ "\": " + hobby);
+					throw new InvalidCultureException("Afición no encontrada en cultura '" + getName() + "' línea '" + hobby + "'.");
 				}
 			}
 			index++;
@@ -281,43 +251,33 @@ public class Culture {
 		return index;
 	}
 
-	private int setCultureMaxLanguages(List<String> lines, int index)
-			throws InvalidCultureException {
+	private int setCultureMaxLanguages(List<String> lines, int index) throws InvalidCultureException {
 		languagesMaxRanks = new HashMap<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
-		while (!lines.get(index).equals("")
-				&& !lines.get(index).startsWith("#")) {
+		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 			String[] languageColumn = lines.get(index).split("\t");
 			String[] languageRanks = languageColumn[1].split("/");
 			try {
 				String language = Spanish.SPOKEN_TAG + " " + languageColumn[0];
 
 				// Add language to category.
-				if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY)
-						.getSkill(language) == null) {
-					CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY)
-							.addSkill(language);
+				if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
+					CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
 				}
 
-				languagesMaxRanks.put(language,
-						Integer.parseInt(languageRanks[0]));
+				languagesMaxRanks.put(language, Integer.parseInt(languageRanks[0]));
 				language = Spanish.WRITTEN_TAG + " " + languageColumn[0];
 
 				// Add language to category.
-				if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY)
-						.getSkill(language) == null) {
-					CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY)
-							.addSkill(language);
+				if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
+					CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
 				}
 
-				languagesMaxRanks.put(language,
-						Integer.parseInt(languageRanks[1]));
+				languagesMaxRanks.put(language, Integer.parseInt(languageRanks[1]));
 			} catch (NumberFormatException nfe) {
-				throw new InvalidCultureException(
-						"Error al obtener los rangos escritos del idioma: "
-								+ name + ". Razón: " + nfe.getMessage());
+				throw new InvalidCultureException("Error al obtener los rangos escritos del idioma'" + lines.get(index) + "'.", nfe);
 			}
 			index++;
 		}

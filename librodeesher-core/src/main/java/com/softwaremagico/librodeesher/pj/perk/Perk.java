@@ -204,7 +204,7 @@ public class Perk {
 			commonSkillsToChoose.add(new ChooseSkillGroup(commonSkills, SkillFactory.getSkills(category), ChooseType.COMMON));
 		} catch (Exception e) {
 			EsherLog.errorMessage(this.getClass().getName(), e);
-			throw new InvalidPerkDefinition("Invalid common skill definition in Category '" + category + "' for Perk '" + name + "',");
+			throw new InvalidPerkDefinition("Invalid common skill definition in category '" + category + "' for perk '" + name + "'.", e);
 		}
 	}
 
