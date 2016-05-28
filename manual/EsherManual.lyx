@@ -2441,6 +2441,35 @@ Plantilla de Profesiones
 \end_layout
 
 \begin_layout Subsection
+Habilidades comunes, profesionales y restringidas
+\end_layout
+
+\begin_layout Standard
+Un listado de habilidades.
+ En el caso de tener que elegir una habilidad de una categoría se puede
+ escribir 
+\begin_inset Quotes eld
+\end_inset
+
+Categoría#1
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Por ejemplo 
+\begin_inset Quotes eld
+\end_inset
+
+Maniobras de Combate#1
+\begin_inset Quotes erd
+\end_inset
+
+ en la sección de habilidades comunes, significará escoge una habilidad
+ de maniobras de combate para que sea común.
+ 
+\end_layout
+
+\begin_layout Subsection
 Adiestramientos
 \end_layout
 

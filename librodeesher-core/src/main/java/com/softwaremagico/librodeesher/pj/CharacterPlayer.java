@@ -1887,6 +1887,7 @@ public class CharacterPlayer extends StorableObject {
 					&& getProfession().getTrainingTypes().get(trainingName).equals(TrainingType.FORBIDDEN)) {
 				continue;
 			}
+			//Allowed 
 			availableTrainings.add(trainingName);
 		}
 		Collections.sort(availableTrainings);
