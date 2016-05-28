@@ -233,7 +233,7 @@
 								</copy>
 								<copy todir="${windows.releasedir}" overwrite="true"
 									flatten="true">
-									<fileset dir="${windows.origin}/" includes="**/icon.ico" />
+									<fileset dir="${windows.origin}/" includes="**/*.ico" />
 								</copy>
 								<copy todir="${windows.releasedir}/rolemaster/" overwrite="true">
 									<fileset dir="../rolemaster/" includes="**/*" />

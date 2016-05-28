@@ -23,7 +23,7 @@ DefaultDirName={pf}\SoftwareMagico\{#MyAppName}
 DefaultGroupName=SoftwareMagico\{#MyAppName}
 LicenseFile=gnu.txt
 OutputBaseFilename={#MyAppName}-{#MyAppVersion}
-SetupIconFile=icon.ico
+SetupIconFile=librodeesher.ico
 Compression=lzma
 SolidCompression=yes
 
@@ -44,7 +44,7 @@ Source: "manual\*"; DestDir: "{app}\manual"; Flags: ignoreversion recursesubdirs
 Source: "rolemaster"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "rolemaster\*"; DestDir: "{app}\rolemaster"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "LibroDeEsher.jar"; DestDir: "{app}"; Flags: ignoreversion
-Source: "icon.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "librodeesher.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

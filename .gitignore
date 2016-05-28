@@ -2,7 +2,7 @@
 /install_windows/
 librodeesher.deb
 .settings/
-*.svg
+librodeesher-gui/src/main/resources/icons/*.svg
 *.prefs
 .settings
 .project
