@@ -144,42 +144,43 @@ Listas Hechizos de Adiestramientos de Otros Reinos (21+)	8/8
 
 #ADIESTRAMIENTO	//+ Preferida 	- Prohibida
 ####################################
-Amigo de las Bestias	22
-Artista	26
-Aventurero	31
-Caballero	40
-Cazador	29
-Desvalijador	30
-Doctor	23
-Erudito	20
-Explorador	20
-Guardia	27
-Herbolario	20
-Mago Principiante	26
-Mercader	20
-Soldado	29
-Viajero	13
+Amigo de las Bestias+	22
 Artesano	24
 Artista Marcial	35
+Artista	26
 Asesino	34
+Aventurero	31
 Berseker	36
+Caballero	40
+Cazador	29
 Cortabolsas	30
+Desvalijador	30
 Detective	27
 Diplomático	25
+Doctor	23
+Erudito+	20
 Erudito Aventurero	29
-Erudito Enclaustrado	24
+Erudito Enclaustrado+	24
 Espía	30
 Expedicionario	30
 Experto en Armas	51
+Explorador+	30
 Fanático Religioso	26
 Filósofo	29
+Guardia	27
 Guardián	31
-Marino	20
+Herbolario+	20
+Houri	37
+Mago Principiante	26
+Marino+	20
+Mercader+	20
 Mercenario	35
 Sacerdote Chamánico	26
 Salteador	24
+Soldado	29
 Timador	24
 Trotamundos	26
-Houri	37
+Viajero	13
+
 
 ### FIN PROFESION ###

@@ -39,10 +39,7 @@ PP Psiónico	0/2/1/1/1
 
 #PROFESIONES RESTRINGIDAS
 ####################################
-Paladín, Mago, Hechicero, Ilusionista, Mentalista, Vidente, Bardo, Indagador
-Montaraz, Monje, Monje Zen, Monje Taoísta, Lord del Caos, Alquimista de Canalización
-Alquimista de Esencia, Alquimista de Mentalismo, Elementalista, Magente, Animista
-Clérigo, Sanador, Invocador
+Paladín, {Esencia}, {Canalización}, {Mentalismo} 
 
 #PARTIDA DEL ALMA
 ####################################

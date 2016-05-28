@@ -39,7 +39,7 @@ PP Psiónico	0/2/1/1/1
 
 #PROFESIONES RESTRINGIDAS
 ####################################
-Ninguna
+Paladín, {Esencia}, {Canalización}, {Mentalismo} 
 
 #PARTIDA DEL ALMA
 ####################################

@@ -39,7 +39,7 @@ PP Psiónico	0/4/3/2/1
 
 #PROFESIONES RESTRINGIDAS
 ####################################
-Ninguna
+Paladín
 
 #PARTIDA DEL ALMA
 ####################################
