@@ -2510,7 +2510,8 @@ Todos los adiestramientos que tengan un símbolo
 \begin_layout Standard
 Si un adiestramiento no se incluye en esta lista, no podrá ser escogido.
  Por ejemplo, los adiestramientos propios de la profesión elementalista
- no podrán ser escogidos por otras profesiones ya que no tienen costes asociados.
+ no podrán ser escogidos por un luchador ya que no tienen costes asociados
+ en la plantilla de luchador.
  
 \end_layout
 
