@@ -1867,11 +1867,15 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getTrainingCost(String trainingName) {
+		if (characterPlayerHelper.getTrainingCost(trainingName) != null) {
+			return characterPlayerHelper.getTrainingCost(trainingName);
+		}
 		Integer baseCost = getProfession().getTrainingCost(trainingName);
 		Training training = TrainingFactory.getTraining(trainingName);
 		baseCost += getTrainingSkillCostReduction(SkillFactory.getSkills(training.getSkillRequirementsList()), training);
 		baseCost += getTrainingCharacteristicCostReduction(Characteristics.getCharacteristics(), training);
 		baseCost = (int) Math.ceil(getCulture().getTrainingPricePercentage(trainingName) * baseCost);
+		characterPlayerHelper.setTrainingCost(trainingName, baseCost);
 		return baseCost;
 	}
 
@@ -1920,24 +1924,12 @@ public class CharacterPlayer extends StorableObject {
 		return raceName;
 	}
 
-	protected void setRaceName(String raceName) {
-		this.raceName = raceName;
-	}
-
 	protected String getCultureName() {
 		return cultureName;
 	}
 
-	protected void setCultureName(String cultureName) {
-		this.cultureName = cultureName;
-	}
-
 	protected String getProfessionName() {
 		return professionName;
-	}
-
-	protected void setProfessionName(String professionName) {
-		this.professionName = professionName;
 	}
 
 	public Map<CharacteristicsAbbreviature, Integer> getCharacteristicsInitialTemporalValues() {

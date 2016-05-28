@@ -89,7 +89,7 @@ Nadar
 
 #CULTURAS
 ####################################
-Minera, Urbana
+Minera, {Urbana}
 
 #ESPECIALES
 ####################################

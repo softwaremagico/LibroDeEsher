@@ -86,7 +86,7 @@ Ninguna
 
 #CULTURAS
 ####################################
-Ártica, Nómada
+Ártica, {Nómada}
 
 #ESPECIALES
 ####################################

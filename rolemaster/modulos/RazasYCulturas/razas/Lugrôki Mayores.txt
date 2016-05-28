@@ -84,7 +84,7 @@ Ninguna
 
 #CULTURAS
 ####################################
-Subterránea, Militarista
+Subterránea, {Militarista}
 
 #ESPECIALES
 ####################################

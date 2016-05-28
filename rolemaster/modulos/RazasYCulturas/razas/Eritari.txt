@@ -87,7 +87,7 @@ Ninguna
 
 #CULTURAS
 ####################################
-Litoral, Rural, Pueblo del Bosque
+Litoral, Rural, Silvana (Pueblo de los Bosques)
 
 #ESPECIALES
 ####################################

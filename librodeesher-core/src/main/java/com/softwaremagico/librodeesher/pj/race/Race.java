@@ -165,7 +165,8 @@ public class Race {
 				index++;
 			}
 		} catch (Exception e) {
-			throw new InvalidRaceException("Error al leer las características de la raza " + name + ". Los bonus pueden no ser correctos.", e);
+			throw new InvalidRaceException("Error al leer las características de la raza " + name + ". Los bonus pueden no ser correctos.",
+					e);
 		}
 		return index;
 	}
@@ -405,7 +406,8 @@ public class Race {
 		return setLanguages(lines, index, maxHistoryLanguages, new HashMap<String, Integer>());
 	}
 
-	private int setSpecialSkills(List<String> lines, int index, List<Skill> skillsList, List<Category> categoriesList) throws InvalidRaceException {
+	private int setSpecialSkills(List<String> lines, int index, List<Skill> skillsList, List<Category> categoriesList)
+			throws InvalidRaceException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -469,7 +471,6 @@ public class Race {
 							definedCultures.addAll(CultureFactory.getAvailableCulturesPrefix(cultureName));
 						}
 					} catch (InvalidCultureException e) {
-						EsherLog.errorMessage(this.getClass().getName(), e);
 						throw new InvalidRaceException("Culture '" + cultureName + "' does not exists in race '" + getName() + "'.", e);
 					}
 				}
@@ -516,7 +517,8 @@ public class Race {
 								index++;
 								continue;
 							} else {
-								EsherLog.warning(this.getClass().getName(), "Unknown skill '" + skillBonus[1] + "' in race '" + getName() + "'.");
+								EsherLog.warning(this.getClass().getName(), "Unknown skill '" + skillBonus[1] + "' in race '" + getName()
+										+ "'.");
 							}
 						} catch (NumberFormatException nfe) {
 							// Not a number, is not a skill bonus, continue

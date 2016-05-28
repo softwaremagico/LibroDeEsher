@@ -75,7 +75,7 @@ public class CultureFactory {
 		}
 		return cultures;
 	}
-	
+
 	/**
 	 * All "Sylvan" cultures, etc.
 	 * 
@@ -94,8 +94,7 @@ public class CultureFactory {
 		return cultures;
 	}
 
-	public static Culture getCulture(String cultureName)
-			throws InvalidCultureException {
+	public static Culture getCulture(String cultureName) throws InvalidCultureException {
 		try {
 			if (getAvailableCultures().contains(cultureName)) {
 				Culture culture = culturesAvailable.get(cultureName);
@@ -109,7 +108,6 @@ public class CultureFactory {
 			EsherLog.errorMessage(CultureFactory.class.getName(), e);
 			e.printStackTrace();
 		}
-		throw new InvalidCultureException("Culture does not exist: "
-				+ cultureName);
+		throw new InvalidCultureException("Culture does not exist '" + cultureName + "'.");
 	}
 }

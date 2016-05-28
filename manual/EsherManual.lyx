@@ -1,5 +1,5 @@
-#LyX 2.0 created this file. For more info see http://www.lyx.org/
-\lyxformat 413
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
 \begin_document
 \begin_header
 \textclass book
@@ -12,13 +12,13 @@
 \font_roman default
 \font_sans default
 \font_typewriter default
+\font_math auto
 \font_default_family default
 \use_non_tex_fonts false
 \font_sc false
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
-
 \graphics default
 \default_output_format default
 \output_sync 0
@@ -30,15 +30,24 @@
 \use_hyperref false
 \papersize a4paper
 \use_geometry false
-\use_amsmath 1
-\use_esint 1
-\use_mhchem 1
-\use_mathdots 1
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
 \cite_engine basic
+\cite_engine_type default
+\biblio_style plain
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
 \suppress_date false
+\justification true
 \use_refstyle 0
 \index Índice
 \shortcut idx
@@ -158,7 +167,7 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 Ventana principal del programa.
@@ -576,7 +585,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 Ejemplo de uso de la ventana de características.
@@ -713,7 +722,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -797,7 +806,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -961,7 +970,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -1067,7 +1076,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 Ejemplo de selección de categorías y habilidades.
@@ -1197,7 +1206,7 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -1283,7 +1292,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -1737,7 +1746,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 Ventana de configuración.
@@ -2340,6 +2349,90 @@ Un nombre estará compuesto por un nombre inicial y un apellido.
  Por tanto el programa escoge un apellido para el personaje si está indicado
  como aleatorio.
  Obviamente no distingue si es personaje es masculino o femenino.
+\end_layout
+
+\begin_layout Section
+Plantilla de Culturas
+\end_layout
+
+\begin_layout Subsection
+Aficiones
+\end_layout
+
+\begin_layout Standard
+Todas las habilidades que se incluyan en esta lista podrán ser utilizadas
+ por el jugador para gastar sus puntos de aficiones.
+ Además, se permite la siguiente sintaxis:
+\end_layout
+
+\begin_layout Enumerate
+Si se incluye una categoría, todas las habilidades de dicha categoría estarán
+ disponibles para su elección.
+\end_layout
+
+\begin_layout Enumerate
+Si se incluye las palabras especiales 
+\begin_inset Quotes eld
+\end_inset
+
+arma
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+armadura
+\begin_inset Quotes erd
+\end_inset
+
+ o 
+\begin_inset Quotes eld
+\end_inset
+
+lista de hechizos
+\begin_inset Quotes erd
+\end_inset
+
+ se seleccionará para las aficiones un arma, armadura o hechizos propios
+ de la cultura.
+\end_layout
+
+\begin_layout Enumerate
+Las habilidades de Conocimiento Regional, Conocimiento de la Flora, Supervivenci
+a y similares siempre se aplican al entorno propio de la cultura si no está
+ especificado.
+\end_layout
+
+\begin_layout Enumerate
+Si una habilidad tiene al inicio el símbolo 
+\begin_inset Quotes eld
+\end_inset
+
+-
+\begin_inset Quotes erd
+\end_inset
+
+, esta habilidad es una excepción que se eliminará de la lista de habilidades.
+ Por ejemplo, si se selecciona como aficiones 
+\begin_inset Quotes eld
+\end_inset
+
+Armas·Proyecties
+\begin_inset Quotes erd
+\end_inset
+
+ y también 
+\begin_inset Quotes eld
+\end_inset
+
+-Ballesta Pesada
+\begin_inset Quotes erd
+\end_inset
+
+ significará tener como aficiones todas las armas de proyectiles excepto
+ la ballesta pesada.
 \end_layout
 
 \begin_layout Section

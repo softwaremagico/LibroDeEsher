@@ -27,6 +27,8 @@ public class CharacterPlayerHelper {
 
 	private Map<CharacteristicsAbbreviature, Integer> temporalValues;
 
+	private Map<String, Integer> trainingCosts;
+
 	private boolean enabled = true;
 
 	private Integer developmentPoints;
@@ -52,6 +54,7 @@ public class CharacterPlayerHelper {
 		skillTotal = new HashMap<>();
 		developmentPoints = null;
 		temporalValues = new HashMap<>();
+		trainingCosts = new HashMap<>();
 		setDirty(true);
 	}
 
@@ -345,6 +348,14 @@ public class CharacterPlayerHelper {
 
 	public void resetCharacteristicTemporalValues() {
 		temporalValues = new HashMap<>();
+	}
+
+	public void setTrainingCost(String trainingName, int cost) {
+		trainingCosts.put(trainingName, cost);
+	}
+
+	public Integer getTrainingCost(String trainingName) {
+		return trainingCosts.get(trainingName);
 	}
 
 }

@@ -1,3 +1,3 @@
 #Nombre	Características	Progresión	Habilidades {AñadirNuevaHabilidad1; AñadirNuevaHabilidad2;...} [Especialidad1; Especialidad2; ...]
 ################################################################
-Oficios(Ofi)	Ag/Me/Ad	Combinada	Tatuar, Bordar
+Oficios(Ofi)	Ag/Me/Ad	Combinada	Tatuar, Bordar, Tallar el Hueso

@@ -94,7 +94,7 @@ Ninguna
 
 #CULTURAS
 ####################################
-Subterránea, Minera, Rural, Urbana
+Subterránea, Minera, {Rural}, {Urbana}
 
 #ESPECIALES
 ####################################

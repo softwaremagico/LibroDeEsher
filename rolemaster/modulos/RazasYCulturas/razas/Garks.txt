@@ -90,8 +90,7 @@ Ninguna
 
 #CULTURAS
 ####################################
-Ártica, Ártica Militarista
-Silvana Barbara, Áerea Barbara
+Ártica, Ártica Militarista, Silvana Bárbara, Aérea Bárbara
 
 #ESPECIALES
 ####################################

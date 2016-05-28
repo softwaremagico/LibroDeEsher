@@ -60,13 +60,9 @@ Listas Abiertas de Hechizos	0
 # AFICIONES
 ####################
 Armadura·Ligera, Armadura·Media, Armadura·Pesada, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas
-Camuflaje, Cazar, Comerciar, Cantar, Carrera de Fondo, Conocimiento Regional (Ártico), Esquiar
-Conocimiento de la Fauna (Ártico), Construir Trampas, Desarrollo Físico, Escalar, Espeleología, Forrajear
-Manejo de los Animales, Narrar Historias, Observación, Orientación Celeste, Patinar, Primeros Auxilios
-Rastrear, Remar, Percepción del Entorno: Ciudades, Percepción del Entorno: Combate, 
-Percepción del Entorno: Durmiendo, Percepción del Entorno: Exploración, 
-Sentido de la Dirección, Vista, Olfato, Gusto, Oído, Tacto, Vigilancia, Supervivencia (Ártico)
-Trabajar el Metal, Trabajar la Madera
+Camuflaje, Cazar, Conocimiento Regional (Ártico), Esquiar, Construir Trampas, Desarrollo Físico, Esquiar, Manejo de los Animales
+Observación, Orientación Celeste, Patinar, Primeros Auxilios, Rastrear, Percepción·Sentidos, Sentido de la Dirección
+Supervivencia (Ártico), Trabajar el Cuero, Trabajar el Metal, Trabajar la Madera
 
 # IDIOMAS
 ####################
@@ -78,6 +74,7 @@ Titán	4/4
 
 # ADIESTAMIENTOS
 ####################
-Ninguno
+Mercader	75%
+Soldado	75%
 
 ### FIN CULTURA ###

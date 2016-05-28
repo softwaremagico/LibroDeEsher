@@ -87,7 +87,7 @@ Ninguna
 
 #CULTURAS
 ####################################
-Tierras Altas, Bárbara, Militarista
+Tierras Altas, {Bárbara}, {Militarista}
 
 #ESPECIALES
 ####################################

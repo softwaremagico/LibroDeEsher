@@ -30,7 +30,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
@@ -205,8 +207,8 @@ public class Culture {
 			try {
 				hobbyRanks = Integer.parseInt(hobbyLine);
 			} catch (NumberFormatException nfe) {
-				throw new InvalidCultureException("Error al obtener los rangos de la aficiones culturales en línea '" + hobbyLine
-						+ "' para la cultura '" + getName() + "'. ", nfe);
+				throw new InvalidCultureException("Error obtaining hobby ranks '" + hobbyLine
+						+ "' for culture '" + getName() + "'. ", nfe);
 			}
 			index++;
 		}
@@ -218,6 +220,7 @@ public class Culture {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
+		Set<String> exceptions = new HashSet<>();
 		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 			String[] hobbySkillColumns = lines.get(index).split(", ");
 			for (String hobby : hobbySkillColumns) {
@@ -230,6 +233,14 @@ public class Culture {
 						hobbySkills.add(skill.getName());
 					}
 					// Is a skill.
+				} else if (hobby.startsWith("-")) {
+					hobby = hobby.substring(1);
+					if (SkillFactory.existSkill(hobby)) {
+						exceptions.add(hobby);
+					} else {
+						throw new InvalidCultureException("Hobby not found in culture '" + getName() + "' with name '" + hobby + "'.");
+					}
+
 				} else if (SkillFactory.existSkill(hobby)) {
 					hobbySkills.add(hobby);
 					// It is a special tag for a group of skills. Add it.
@@ -249,11 +260,12 @@ public class Culture {
 					// CultureSkill skill = new CultureSkill(hobby);
 					hobbySkills.add(hobby);
 				} else { // Not recognized.
-					throw new InvalidCultureException("Afición no encontrada en cultura '" + getName() + "' línea '" + hobby + "'.");
+					throw new InvalidCultureException("Hobby not found in culture '" + getName() + "' line '" + hobby + "'.");
 				}
 			}
 			index++;
 		}
+		hobbySkills.removeAll(exceptions);
 		Collections.sort(hobbySkills);
 		return index;
 	}
@@ -284,7 +296,7 @@ public class Culture {
 
 				languagesMaxRanks.put(language, Integer.parseInt(languageRanks[1]));
 			} catch (NumberFormatException nfe) {
-				throw new InvalidCultureException("Error al obtener los rangos escritos del idioma'" + lines.get(index) + "'.", nfe);
+				throw new InvalidCultureException("Error obtaining ranks for language '" + lines.get(index) + "'.", nfe);
 			}
 			index++;
 		}
@@ -307,11 +319,11 @@ public class Culture {
 					Float value = Float.parseFloat(trainingColumn[1].replace("%", "").replace(".", "").replace(",", "").trim());
 					trainingPrice.put(training.getName(), value / 100);
 				} catch (NumberFormatException nfe) {
-					throw new InvalidCultureException("Invalid training in '" + lines.get(index) + "' for culture '" + getName() + "'.",
-							nfe);
+					throw new InvalidCultureException("Invalid training value in '" + lines.get(index) + "' for culture '" + getName()
+							+ "'.", nfe);
 				}
 			} else {
-				throw new InvalidCultureException("Invalid training in '" + lines.get(index) + "' for culture '" + getName() + "'.");
+				throw new InvalidCultureException("Invalid training '" + trainingColumn[0] + "' for culture '" + getName() + "'.");
 			}
 			index++;
 		}
