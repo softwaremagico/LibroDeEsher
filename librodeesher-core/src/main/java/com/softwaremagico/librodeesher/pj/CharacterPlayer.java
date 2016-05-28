@@ -104,6 +104,8 @@ import com.softwaremagico.librodeesher.pj.training.TrainingCategory;
 import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 import com.softwaremagico.librodeesher.pj.training.TrainingItem;
+import com.softwaremagico.librodeesher.pj.training.TrainingSkill;
+import com.softwaremagico.librodeesher.pj.training.TrainingSkillComparator;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 import com.softwaremagico.log.EsherLog;
 import com.softwaremagico.persistence.StorableObject;
@@ -2416,39 +2418,73 @@ public class CharacterPlayer extends StorableObject {
 	public List<String> getRealHobbySkills() {
 		List<String> realSkills = new ArrayList<>();
 		for (String skill : getCulture().getHobbySkills()) {
-			if (skill.toLowerCase().equals(Spanish.WEAPON)) {
-				for (Weapon weapon : getCulture().getCultureWeapons()) {
-					realSkills.add(weapon.getName());
-				}
-			} else if (skill.toLowerCase().equals(Spanish.ARMOUR)) {
-				for (String armour : getCulture().getCultureArmours()) {
-					realSkills.add(armour);
-				}
-			} else if (skill.toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
-				List<String> spells = new ArrayList<>();
-				// Add open lists.
-				for (Skill spell : getCategory(CategoryFactory.getCategory(Spanish.OPEN_LISTS)).getSkills()) {
-					// addHobbyLine(spell.getName());
-					spells.add(spell.getName());
-				}
-				// Add race lists. Note than spell casters has race lists as
-				// basic and not as open. Therefore are not included in the
-				// previous step.
-				for (String spell : MagicFactory.getRaceLists(getRace().getName())) {
-					// avoid to add a race list two times.
-					if (!spells.contains(spell)) {
-						spells.add(spell);
-					}
-				}
-				// Create line.
-				for (String spell : spells) {
-					realSkills.add(spell);
-				}
-			} else {
-				realSkills.add(skill);
-			}
+			realSkills.addAll(getRealSkills(skill));
 		}
 		return realSkills;
+	}
+
+	/**
+	 * Convert special tags as 'weapon' or 'armor' to real skills names
+	 * depending on the culture possibilities.
+	 * 
+	 * @return
+	 */
+	public List<String> getRealSkills(String skillName) {
+		List<String> realSkills = new ArrayList<>();
+		if (skillName.toLowerCase().equals(Spanish.WEAPON)) {
+			for (Weapon weapon : getCulture().getCultureWeapons()) {
+				realSkills.add(weapon.getName());
+			}
+		} else if (skillName.toLowerCase().equals(Spanish.ARMOUR)) {
+			for (String armour : getCulture().getCultureArmours()) {
+				realSkills.add(armour);
+			}
+		} else if (skillName.toLowerCase().equals(Spanish.SPELLS) || skillName.toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
+			List<String> spells = new ArrayList<>();
+			// Add open lists.
+			for (Skill spell : getCategory(CategoryFactory.getCategory(Spanish.OPEN_LISTS)).getSkills()) {
+				spells.add(spell.getName());
+			}
+			// Add race lists. Note than spell casters has race lists as
+			// basic and not as open. Therefore are not included in the
+			// previous step.
+			for (String spell : MagicFactory.getRaceLists(getRace().getName())) {
+				// avoid to add a race list two times.
+				if (!spells.contains(spell)) {
+					spells.add(spell);
+				}
+			}
+			// Create line.
+			for (String spell : spells) {
+				realSkills.add(spell);
+			}
+		} else {
+			realSkills.add(skillName);
+		}
+		return realSkills;
+	}
+
+	/**
+	 * Gets the training skills to be choose for adding ranks. For spells select the correct spell list. 
+	 * @param trainingCategory
+	 * @param selectedCategory
+	 * @return
+	 */
+	public List<TrainingSkill> getTrainingOptionsSkills(TrainingCategory trainingCategory, String selectedCategory) {
+		if (trainingCategory.mustAddAllSkills(selectedCategory)) {
+			List<TrainingSkill> skills = new ArrayList<>();
+			Category category = getCategory(selectedCategory);
+			for (Skill skill : category.getSkills()) {
+				List<String> skillList = new ArrayList<>();
+				skillList.add(skill.getName()); // List with only one element.
+				TrainingSkill trainingSkill = new TrainingSkill(skillList, 0);
+				skills.add(trainingSkill);
+			}
+			Collections.sort(skills, new TrainingSkillComparator());
+			return skills;
+		} else {
+			return trainingCategory.getSkills(selectedCategory);
+		}
 	}
 
 	public List<String> getTrainings() {

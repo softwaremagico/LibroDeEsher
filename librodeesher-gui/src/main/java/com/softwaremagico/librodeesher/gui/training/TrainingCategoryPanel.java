@@ -58,17 +58,15 @@ public class TrainingCategoryPanel extends BasePanel {
 
 		if (training != null) {
 			for (TrainingCategory trainingCategory : training.getCategoriesWithRanks()) {
-				TrainingCategoryLine categoryLine = new TrainingCategoryLine(character, trainingCategory, this,
-						getLineBackgroundColor(i));
+				TrainingCategoryLine categoryLine = new TrainingCategoryLine(character, trainingCategory, this, getLineBackgroundColor(i));
 				add(categoryLine);
 				trainingCategoryLines.add(categoryLine);
 				trainingSkillLinesPerCategory.put(trainingCategory, new ArrayList<TrainingSkillLine>());
 
 				i++;
 				String selectedCategory = trainingCategory.getCategoryOptions().get(0);
-				for (TrainingSkill skill : trainingCategory.getSkills(selectedCategory)) {
-					TrainingSkillLine skillLine = new TrainingSkillLine(character, trainingCategory, skill, this,
-							getLineBackgroundColor(i));
+				for (TrainingSkill skill : character.getTrainingOptionsSkills(trainingCategory, selectedCategory)) {
+					TrainingSkillLine skillLine = new TrainingSkillLine(character, trainingCategory, skill, this, getLineBackgroundColor(i));
 					add(skillLine);
 					i++;
 					trainingSkillLinesPerCategory.get(trainingCategory).add(skillLine);
@@ -155,8 +153,7 @@ public class TrainingCategoryPanel extends BasePanel {
 		if (index >= 0 && selectedCategory < trainingCategory.getCategoryOptions().size()) {
 			String selectedCategoryName = trainingCategory.getCategoryOptions().get(selectedCategory);
 			for (TrainingSkill skill : trainingCategory.getSkills(selectedCategoryName)) {
-				TrainingSkillLine skillLine = new TrainingSkillLine(character, trainingCategory, skill, this,
-						getLineBackgroundColor(index));
+				TrainingSkillLine skillLine = new TrainingSkillLine(character, trainingCategory, skill, this, getLineBackgroundColor(index));
 				add(skillLine, index);
 				index++;
 				trainingSkillLinesPerCategory.get(trainingCategory).add(skillLine);
@@ -165,10 +162,10 @@ public class TrainingCategoryPanel extends BasePanel {
 		this.revalidate();
 		this.repaint();
 	}
-	
-	public void setSkillRanks(){
-		for(TrainingCategory trainingCategory : trainingSkillLinesPerCategory.keySet()){
-			for(TrainingSkillLine skillLine : trainingSkillLinesPerCategory.get(trainingCategory)){
+
+	public void setSkillRanks() {
+		for (TrainingCategory trainingCategory : trainingSkillLinesPerCategory.keySet()) {
+			for (TrainingSkillLine skillLine : trainingSkillLinesPerCategory.get(trainingCategory)) {
 				skillLine.setSkillRanks();
 			}
 		}

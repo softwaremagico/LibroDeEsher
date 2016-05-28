@@ -6,10 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.softwaremagico.librodeesher.pj.categories.Category;
-import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
-import com.softwaremagico.librodeesher.pj.skills.Skill;
-
 public class TrainingCategory {
 	private Integer categoryRanks;
 	private Integer minSkills;
@@ -102,7 +98,7 @@ public class TrainingCategory {
 		return total;
 	}
 
-	private boolean mustAddGeneralSkills(String categoryName) {
+	public boolean mustAddAllSkills(String categoryName) {
 		if (skillsPerCategory.get(categoryName) == null) {
 			return true;
 		}
@@ -113,20 +109,6 @@ public class TrainingCategory {
 			return true;
 		}
 		return false;
-	}
-
-	/**
-	 * Add any skill if category has not preselected skills.
-	 */
-	public void addGeneralSkills() {
-		for (String categoryName : categoryOptions) {
-			if (mustAddGeneralSkills(categoryName)) {
-				Category category = CategoryFactory.getCategory(categoryName);
-				for (Skill skill : category.getSkills()) {
-					addSkill(categoryName, skill.getName());
-				}
-			}
-		}
 	}
 
 	public Integer getCategoryRanks() {

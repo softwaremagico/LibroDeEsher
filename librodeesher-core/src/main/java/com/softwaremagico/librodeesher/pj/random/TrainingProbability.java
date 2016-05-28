@@ -154,7 +154,7 @@ public class TrainingProbability {
 			}
 
 			// Random skill.
-			List<TrainingSkill> skillsOfCategory = trainingCategory.getSkills(categoryName);
+			List<TrainingSkill> skillsOfCategory = characterPlayer.getTrainingOptionsSkills(trainingCategory, categoryName);
 			Collections.shuffle(skillsOfCategory);
 			List<TrainingSkill> skillsToUpdate;
 			if (specialization >= 0) {

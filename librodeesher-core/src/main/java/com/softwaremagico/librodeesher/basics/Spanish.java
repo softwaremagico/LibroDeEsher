@@ -47,6 +47,7 @@ public class Spanish {
 	public static final String CLOSE_COMBAT_WEAPON = "arma cuerpo a cuerpo";
 	public static final String ARMOUR = "armadura";
 	public static final String CULTURE_SPELLS = "lista de hechizos";
+	public static final String SPELLS = "hechizos";
 	public static final String WEAPON_CATEGORY_PREFIX = "armas·";
 	public static final String SPELL_CATEGORY_PREFIX = "listas ";
 	public static final String NOTHING_TAG = "ningun";
