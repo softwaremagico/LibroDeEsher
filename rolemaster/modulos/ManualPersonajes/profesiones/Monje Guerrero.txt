@@ -170,7 +170,7 @@ Soldado	31
 Timador	22
 Trotamundos	29
 Viajero	13
-Houri	
+Houri	36
 
 
 ### FIN PROFESION ###

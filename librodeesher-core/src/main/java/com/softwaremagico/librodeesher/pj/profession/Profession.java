@@ -410,20 +410,21 @@ public class Profession {
 				String trainingLine = lines.get(index);
 				String[] trainingColumns = trainingLine.split("\t");
 
-				TrainingType type;
-				if (trainingColumns[1].contains("+")) {
-					type = TrainingType.FAVOURITE;
-				} else if (trainingColumns[1].contains("-")) {
-					type = TrainingType.FORBIDDEN;
-				} else {
-					type = TrainingType.STANDAR;
-				}
-
 				try {
+					TrainingType type;
+					if (trainingColumns[0].contains("+") || trainingColumns[1].contains("+")) {
+						type = TrainingType.FAVOURITE;
+					} else if (trainingColumns[0].contains("-") || trainingColumns[1].contains("-")) {
+						type = TrainingType.FORBIDDEN;
+					} else {
+						type = TrainingType.STANDAR;
+					}
+
+					String trainingName = trainingColumns[0].replace("+", "").replace("-", "");
 					Integer cost = Integer.parseInt(trainingColumns[1].replace("+", "").replace("-", "")
 							.trim());
-					trainingCosts.put(trainingColumns[0], cost);
-					trainingTypes.put(trainingColumns[0], type);
+					trainingCosts.put(trainingName, cost);
+					trainingTypes.put(trainingName, type);
 				} catch (Exception e) {
 					throw new InvalidProfessionException("Invalid training cost for '" + getName() + "' in '"
 							+ lines.get(index) + "'.", e);
