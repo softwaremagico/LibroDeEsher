@@ -106,6 +106,7 @@ import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 import com.softwaremagico.librodeesher.pj.training.TrainingItem;
 import com.softwaremagico.librodeesher.pj.training.TrainingSkill;
 import com.softwaremagico.librodeesher.pj.training.TrainingSkillComparator;
+import com.softwaremagico.librodeesher.pj.training.TrainingType;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 import com.softwaremagico.log.EsherLog;
 import com.softwaremagico.persistence.StorableObject;
@@ -1830,7 +1831,7 @@ public class CharacterPlayer extends StorableObject {
 		List<String> availableTrainings = new ArrayList<>();
 		List<String> selectedTrainings = getSelectedTrainings();
 		for (String trainingName : TrainingFactory.getAvailableTrainings()) {
-			// Correct race of training.
+			// Right race of training.
 			if (TrainingFactory.getTraining(trainingName).getLimitedRaces().size() > 0) {
 				if (!TrainingFactory.getTraining(trainingName).getLimitedRaces().contains(getRace().getName())) {
 					continue;
@@ -1842,6 +1843,10 @@ public class CharacterPlayer extends StorableObject {
 			}
 			// Not already selected Training
 			if (selectedTrainings.contains(trainingName)) {
+				continue;
+			}
+			// Not a forbidden training
+			if (getProfession().getTrainingTypes().get(trainingName).equals(TrainingType.FORBIDDEN)) {
 				continue;
 			}
 			availableTrainings.add(trainingName);

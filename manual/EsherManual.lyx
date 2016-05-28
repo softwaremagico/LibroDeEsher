@@ -1855,7 +1855,8 @@ Creación de módulos
 Se pueden crear nuevos módulos para El Libro de Esher de una forma sencilla
  y sin saber nada sobre complejos lenguajes de programación.
  Simplemente se necesita un editor de textos sin formato, como el Notepad,
- el Notepad++ o el SciTE (este último lo recomiendo).
+ el Notepad++ o el SciTE (este último lo recomiendo) y que acepte format
+ UTF-8.
  Se desaconseja utilizar programas de generación de documentos como Microsoft
  Word ya que el texto enriquecido haría imposible al programa leer los campos.
  
@@ -2433,6 +2434,55 @@ Armas·Proyecties
 
  significará tener como aficiones todas las armas de proyectiles excepto
  la ballesta pesada.
+\end_layout
+
+\begin_layout Section
+Plantilla de Profesiones
+\end_layout
+
+\begin_layout Subsection
+Adiestramientos
+\end_layout
+
+\begin_layout Standard
+Aquí puedes incluir el coste de puntos de desarrollo para adquirir un adiestrami
+ento.
+ La sintaxis especial es:
+\end_layout
+
+\begin_layout Enumerate
+Todos los adiestramientos que tengan un símbolo 
+\begin_inset Quotes eld
+\end_inset
+
++
+\begin_inset Quotes erd
+\end_inset
+
+ al inicio o al final, se considerarán como adiestramientos favoritos.
+ Esto solamente tiene utilidad a la hora de generar personajes aleatorios.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Todos los adiestramientos que tengan un símbolo 
+\begin_inset Quotes eld
+\end_inset
+
+-
+\begin_inset Quotes erd
+\end_inset
+
+ al inicio o al final, se considerarán como adiestramientos no permitidos.
+ Estos adiestramientos no podrán ser escogidos.
+ 
+\end_layout
+
+\begin_layout Standard
+Si un adiestramiento no se incluye en esta lista, no podrá ser escogido.
+ Por ejemplo, los adiestramientos propios de la profesión elementalista
+ no podrán ser escogidos por otras profesiones ya que no tienen costes asociados.
+ 
 \end_layout
 
 \begin_layout Section
