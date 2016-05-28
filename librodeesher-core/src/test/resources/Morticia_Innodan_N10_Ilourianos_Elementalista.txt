@@ -171,15 +171,15 @@ Aura:	 Te da +4 a cada rango de la habilidad de Desarrollo de Puntos de Poder. C
 
 Zoquete:	 Artes Marciales·Barridos (-20), Artes Marciales·Golpes (-20), Artes Marciales·Maniobras de Combate (-20). Consulta la página 89 del libro de personajes para más información.
 
-Sin Equilibrio:	 Caminar con Zancos (-20), Acechar (-20), Caminar por la Cuerda Floja (-20). Consulta la página 89 del libro de personajes para más información.
+Sin Equilibrio:	 Acechar (-20), Caminar con Zancos (-20), Caminar por la Cuerda Floja (-20). Consulta la página 89 del libro de personajes para más información.
 
 Maldición de las Armas:	 {Selección}. Consulta la página 94 del libro de personajes para más información.
 
-Capacidad Mágica:	 Listas Cerradas de Hechizos (25), Listas Básicas Elementales Complementarias (25), Listas Hechizos de Adiestramiento (25), Listas Abiertas de Hechizos (25), Listas Básicas de Hechizos (25), Listas Básicas de Otras Profesiones (25), Listas Básicas de la Tríada (25), Sintonización (25*), Leer Runas (25*). Solo afecta a los hechizos y objetos de tu propio reino. Consulta la página 62 del libro de personajes para más información.
+Capacidad Mágica:	 Listas Abiertas de Hechizos (25), Listas Básicas Elementales Complementarias (25), Listas Básicas de Hechizos (25), Listas Básicas de Otras Profesiones (25), Listas Básicas de la Tríada (25), Listas Cerradas de Hechizos (25), Listas Hechizos de Adiestramiento (25), Leer Runas (25*), Sintonización (25*). Solo afecta a los hechizos y objetos de tu propio reino. Consulta la página 62 del libro de personajes para más información.
 
 Experimentado (Cat) (Máximo):	 {Selección}. Solamente Categorías con progresión Estándar o Combinada. Consulta la página 54 del libro de personajes para más información.
 
-Mirada Intensa:	 Comerciar (10*), Embaucar (10*), Interrogar (10*), Diplomacia (10*), Sobornar (10*), Mendigar (10*), Liderazgo (10*), Seducción (10*). Siempre que los ojos sean visibles. Consulta la página 59 para más información.
+Mirada Intensa:	 Comerciar (10*), Diplomacia (10*), Embaucar (10*), Interrogar (10*), Liderazgo (10*), Mendigar (10*), Seducción (10*), Sobornar (10*). Siempre que los ojos sean visibles. Consulta la página 59 para más información.
 
 
 

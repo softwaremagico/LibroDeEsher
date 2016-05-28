@@ -74,7 +74,7 @@ Habla de los Mares	10/10
 
 # ADIESTAMIENTOS
 ####################
-Mercenario [75%]
-Soldado	[75%]
+Mercenario	75%
+Soldado	75%
 
 ### FIN CULTURA ###

@@ -39,6 +39,8 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
+import com.softwaremagico.librodeesher.pj.training.Training;
+import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 import com.softwaremagico.librodeesher.pj.weapons.WeaponFactory;
 
@@ -50,6 +52,7 @@ public class Culture {
 	private Integer hobbyRanks;
 	private List<String> hobbySkills;
 	private HashMap<String, Integer> languagesMaxRanks;
+	private HashMap<String, Float> trainingPrice;
 
 	public Culture(String name) throws InvalidCultureException {
 		this.name = name;
@@ -98,13 +101,15 @@ public class Culture {
 
 	private void readCultureFile(String cultureName) throws InvalidCultureException {
 		int lineIndex = 0;
-		String cultureFile = RolemasterFolderStructure.getDirectoryModule(CultureFactory.CULTURE_FOLDER + File.separator + cultureName + ".txt");
+		String cultureFile = RolemasterFolderStructure.getDirectoryModule(CultureFactory.CULTURE_FOLDER + File.separator + cultureName
+				+ ".txt");
 		if (cultureFile.length() > 0) {
 			List<String> lines;
 			try {
 				lines = Folder.readFileLines(cultureFile, false);
 			} catch (IOException e) {
-				throw new InvalidCultureException("Invalid culture file: " + CultureFactory.CULTURE_FOLDER + File.separator + cultureName + ".txt");
+				throw new InvalidCultureException("Invalid culture file '" + CultureFactory.CULTURE_FOLDER + File.separator + cultureName
+						+ ".txt'", e);
 			}
 			lineIndex = setCultureWeapons(lines, lineIndex);
 			lineIndex = setCultureArmour(lines, lineIndex);
@@ -112,8 +117,10 @@ public class Culture {
 			lineIndex = setHobbyRanks(lines, lineIndex);
 			lineIndex = setHobbySkillsAndCategories(lines, lineIndex);
 			lineIndex = setCultureMaxLanguages(lines, lineIndex);
+			lineIndex = setTrainingDiscount(lines, lineIndex);
 		} else {
-			throw new InvalidCultureException("Invalid culture file: " + CultureFactory.CULTURE_FOLDER + File.separator + cultureName + ".txt");
+			throw new InvalidCultureException("Invalid culture file '" + CultureFactory.CULTURE_FOLDER + File.separator + cultureName
+					+ ".txt'");
 		}
 	}
 
@@ -198,8 +205,8 @@ public class Culture {
 			try {
 				hobbyRanks = Integer.parseInt(hobbyLine);
 			} catch (NumberFormatException nfe) {
-				throw new InvalidCultureException("Error al obtener los rangos de la aficiones culturales en línea '" + hobbyLine + "' para la cultura '"
-						+ getName() + "'. ", nfe);
+				throw new InvalidCultureException("Error al obtener los rangos de la aficiones culturales en línea '" + hobbyLine
+						+ "' para la cultura '" + getName() + "'. ", nfe);
 			}
 			index++;
 		}
@@ -284,6 +291,33 @@ public class Culture {
 		return index;
 	}
 
+	private int setTrainingDiscount(List<String> lines, int index) throws InvalidCultureException {
+		trainingPrice = new HashMap<>();
+		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
+			index++;
+		}
+		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
+			String[] trainingColumn = lines.get(index).split("\t");
+			if (trainingColumn[0].toLowerCase().startsWith(Spanish.NOTHING_TAG)) {
+				break;
+			}
+			Training training = TrainingFactory.getTraining(trainingColumn[0]);
+			if (training != null) {
+				try {
+					Float value = Float.parseFloat(trainingColumn[1].replace("%", "").replace(".", "").replace(",", "").trim());
+					trainingPrice.put(training.getName(), value / 100);
+				} catch (NumberFormatException nfe) {
+					throw new InvalidCultureException("Invalid training in '" + lines.get(index) + "' for culture '" + getName() + "'.",
+							nfe);
+				}
+			} else {
+				throw new InvalidCultureException("Invalid training in '" + lines.get(index) + "' for culture '" + getName() + "'.");
+			}
+			index++;
+		}
+		return index;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -310,5 +344,12 @@ public class Culture {
 
 	public List<String> getCultureArmours() {
 		return cultureArmours;
+	}
+
+	public float getTrainingPricePercentage(String trainingName) {
+		if (trainingPrice.get(trainingName) != null) {
+			return trainingPrice.get(trainingName);
+		}
+		return 1f;
 	}
 }

@@ -83,7 +83,7 @@ Ninguna
 
 #CULTURAS	0
 ####################################
-Rural, Llanuras, {Urbana}, Pueblo de los Bosques
+Rural, Llanuras, {Urbana}, Silvana (Pueblo de los Bosques)
 
 #ESPECIALES	
 ####################################

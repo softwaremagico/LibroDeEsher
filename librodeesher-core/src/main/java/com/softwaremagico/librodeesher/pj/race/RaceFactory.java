@@ -62,10 +62,11 @@ public class RaceFactory {
 					racesStored.put(raceName, race);
 				}
 				return race;
+			} else {
+				throw new InvalidRaceException("Raza no existente: " + raceName);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new InvalidRaceException("Raza no existente: " + raceName, e);
 		}
-		throw new InvalidRaceException("Raza no existente: " + raceName);
 	}
 }

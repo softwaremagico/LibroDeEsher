@@ -91,7 +91,7 @@ Oratoria, Seducción, Comerciar
 
 #CULTURAS
 ####################################
-Subterránea, Militarista
+Subterránea, {Militarista}
 
 #ESPECIALES
 ####################################

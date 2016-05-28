@@ -716,7 +716,7 @@ public class CharacterPlayer extends StorableObject {
 		Integer total = 0;
 		LevelUp levelUp = levelUps.get(level);
 		for (String trainingName : levelUp.getTrainings()) {
-			total += getProfession().getTrainingCost(trainingName);
+			total += getTrainingCost(trainingName);
 		}
 		return total;
 	}
@@ -1871,6 +1871,7 @@ public class CharacterPlayer extends StorableObject {
 		Training training = TrainingFactory.getTraining(trainingName);
 		baseCost += getTrainingSkillCostReduction(SkillFactory.getSkills(training.getSkillRequirementsList()), training);
 		baseCost += getTrainingCharacteristicCostReduction(Characteristics.getCharacteristics(), training);
+		baseCost = (int) Math.ceil(getCulture().getTrainingPricePercentage(trainingName) * baseCost);
 		return baseCost;
 	}
 
