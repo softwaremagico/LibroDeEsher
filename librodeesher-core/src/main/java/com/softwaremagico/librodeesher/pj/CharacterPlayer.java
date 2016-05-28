@@ -874,6 +874,22 @@ public class CharacterPlayer extends StorableObject {
 		}
 	}
 
+	public Integer getCurrentLevelSkillsRanks(Category category) {
+		if (characterPlayerHelper.getSkillTotalRanksPerCategory(category.getName()) != null) {
+			return characterPlayerHelper.getSkillTotalRanksPerCategory(category.getName());
+		}
+		if (levelUps.size() > 0) {
+			Integer skillRanks = 0;
+			for (Skill skill : category.getSkills()) {
+				skillRanks += getCurrentLevel().getSkillsRanks(skill.getName());
+			}
+			characterPlayerHelper.setSkillTotalRanksPerCategory(category.getName(), skillRanks);
+			return skillRanks;
+		} else {
+			return 0;
+		}
+	}
+
 	public LevelUp getCurrentLevel() {
 		if (levelUps == null || levelUps.isEmpty()) {
 			return null;
@@ -2465,7 +2481,9 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * Gets the training skills to be choose for adding ranks. For spells select the correct spell list. 
+	 * Gets the training skills to be choose for adding ranks. For spells select
+	 * the correct spell list.
+	 * 
 	 * @param trainingCategory
 	 * @param selectedCategory
 	 * @return

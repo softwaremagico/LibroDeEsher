@@ -24,6 +24,7 @@ public class CharacterPlayerHelper {
 	private Map<String, Integer> skillObjectsBonus;
 	private Map<String, Integer> skillTotalBonus;
 	private Map<String, Integer> skillTotal;
+	private Map<String, Integer> skillTotalRanksPerCategory;
 
 	private Map<CharacteristicsAbbreviature, Integer> temporalValues;
 
@@ -55,6 +56,7 @@ public class CharacterPlayerHelper {
 		developmentPoints = null;
 		temporalValues = new HashMap<>();
 		trainingCosts = new HashMap<>();
+		skillTotalRanksPerCategory = new HashMap<>();
 		setDirty(true);
 	}
 
@@ -143,6 +145,7 @@ public class CharacterPlayerHelper {
 
 	public void resetSkillRanks(String skillName) {
 		skillRanks.remove(skillName);
+		skillTotalRanksPerCategory = new HashMap<>();
 		resetSkillTotalBonus(skillName);
 		resetDelvelopmentPoints();
 		setDirty(true);
@@ -356,6 +359,14 @@ public class CharacterPlayerHelper {
 
 	public Integer getTrainingCost(String trainingName) {
 		return trainingCosts.get(trainingName);
+	}
+
+	public Integer getSkillTotalRanksPerCategory(String categoryName) {
+		return skillTotalRanksPerCategory.get(categoryName);
+	}
+
+	public void setSkillTotalRanksPerCategory(String categoryName, int totalRanks) {
+		skillTotalRanksPerCategory.put(categoryName, totalRanks);
 	}
 
 }

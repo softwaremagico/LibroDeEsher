@@ -12,6 +12,7 @@ import com.softwaremagico.log.EsherLog;
 
 public class SkillProbability {
 	private final static int MAX_VALUE = 1000;
+	private final static int LAST_DEVELOPMENT_POINTS_RANGE = 10;
 	private CharacterPlayer characterPlayer;
 	private Skill skill;
 	private Map<String, Integer> suggestedSkillsRanks;
@@ -76,6 +77,9 @@ public class SkillProbability {
 				int preferredSkill = preferredSkill();
 				EsherLog.debug(SkillProbability.class.getName(), "\t Preferred Skill: " + preferredSkill);
 				probability += preferredSkill;
+				int skillsPerCategory = skillsPerCategory();
+				EsherLog.debug(SkillProbability.class.getName(), "\t Number of Skills: " + skillsPerCategory);
+				probability += skillsPerCategory;
 				int bestSkills = bestSkills();
 				EsherLog.debug(SkillProbability.class.getName(), "\t Best Skills: " + bestSkills);
 				probability += bestSkills;
@@ -108,15 +112,13 @@ public class SkillProbability {
 				probability += maxRanks;
 				// Limitation of value.
 				if (probability > 150) {
-					EsherLog.warning(SkillProbability.class.getName(),
-							"Increased Category: " + preferredCategory + "\t Preferred Skill: " + preferredSkill
-									+ "\t Best Skills: " + bestSkills + "\t Skill expensiveness: " + skillExpensiveness
-									+ "\t Specialization: " + applyCharacterSpecialization + "\t Still not used: "
-									+ stillNotUsedSkill + "\t Wizard skill: " + wizardPreferredSkills
-									+ "\t Warrior skill: " + warriorsPreferredSkills + "\t Smart randomness: "
-									+ smartRandomness + "\t Ridicolous randomness: " + ridicolousSkill
-									+ "\t Cultural Skill: " + culturalSkill + "\t Max ranks: " + maxRanks + "\t Total: "
-									+ probability);
+					EsherLog.warning(SkillProbability.class.getName(), "Increased Category: " + preferredCategory + "\t Preferred Skill: "
+							+ preferredSkill + "\t Number of Skills: " + skillsPerCategory + "\t Best Skills: " + bestSkills
+							+ "\t Skill expensiveness: " + skillExpensiveness + "\t Specialization: " + applyCharacterSpecialization
+							+ "\t Still not used: " + stillNotUsedSkill + "\t Wizard skill: " + wizardPreferredSkills
+							+ "\t Warrior skill: " + warriorsPreferredSkills + "\t Smart randomness: " + smartRandomness
+							+ "\t Ridicolous randomness: " + ridicolousSkill + "\t Cultural Skill: " + culturalSkill + "\t Max ranks: "
+							+ maxRanks + "\t Total: " + probability);
 				}
 				if (probability > 90 && probability < 150) {
 					probability = 90;
@@ -135,8 +137,8 @@ public class SkillProbability {
 	 */
 	private int stillNotUsedSkill() {
 		int bonus = 0;
-		bonus += Math.max(characterPlayer.getLevelUps().size() - characterPlayer.getNewRankCost(skill)
-				- characterPlayer.getRealRanks(skill) * 2, 0);
+		bonus += Math.max(
+				characterPlayer.getLevelUps().size() - characterPlayer.getNewRankCost(skill) - characterPlayer.getRealRanks(skill) * 2, 0);
 		return bonus;
 	}
 
@@ -154,7 +156,17 @@ public class SkillProbability {
 				return (30 - (int) (Math.pow(characterPlayer.getNewRankCost(skill), 2)));
 			}
 		}
-		return Math.max(1, 30 - (int) ((Math.pow(characterPlayer.getNewRankCost(skill), 2)) * 3));
+		if (characterPlayer.getRemainingDevelopmentPoints() > 1) {
+			return Math.max(1, 30 - (int) ((Math.pow(characterPlayer.getNewRankCost(skill), 2)) * 3));
+		} else {
+			// Last development point is hard to use. Set it if only one point
+			// remaining.
+			if (characterPlayer.getNewRankCost(skill) == 1) {
+				return 30;
+			} else {
+				return 0;
+			}
+		}
 	}
 
 	/**
@@ -162,8 +174,8 @@ public class SkillProbability {
 	 */
 	private int smartRandomness() {
 		return randomnessByRace() + randomnessByCulture()
-				+ ProfessionRandomness.preferredSkillByProfession(characterPlayer, skill, specializationLevel)
-				+ randomnessByRanks() + randomnessBySkill() + randomnessByOptions();
+				+ ProfessionRandomness.preferredSkillByProfession(characterPlayer, skill, specializationLevel) + randomnessByRanks()
+				+ randomnessBySkill() + randomnessByOptions();
 	}
 
 	private int randomnessByRace() {
@@ -193,13 +205,18 @@ public class SkillProbability {
 
 	private int randomnessByCulture() {
 		int bonus = 0;
-		// Only communication skills that already has ranks (to avoid extrange
+		// Only communication skills that already has ranks (to avoid weird
 		// languages!).
 		if (skill.getCategory().getName().toLowerCase().contains(Spanish.COMUNICATION_CATEGORY)
 				&& characterPlayer.getTotalRanks(skill) == 0) {
 			bonus -= 40;
 		}
 		return bonus;
+	}
+
+	private int skillsPerCategory() {
+		// Greater specialization allows more skills per category.
+		return (characterPlayer.getCurrentLevelSkillsRanks(skill.getCategory()) * specializationLevel * 2);
 	}
 
 	private int randomnessByRanks() {
@@ -216,8 +233,7 @@ public class SkillProbability {
 		}
 
 		// No more than 10 ranks per language.
-		if (skill.getCategory().getName().toLowerCase().contains(Spanish.COMUNICATION_CATEGORY)
-				&& characterPlayer.getRealRanks(skill) > 9) {
+		if (skill.getCategory().getName().toLowerCase().contains(Spanish.COMUNICATION_CATEGORY) && characterPlayer.getRealRanks(skill) > 9) {
 			return -MAX_VALUE;
 		}
 
@@ -233,12 +249,17 @@ public class SkillProbability {
 			bonus -= 40;
 		}
 
-		if (skill.getName().toLowerCase().equals(Spanish.SOFT_LEATHER_TAG)
-				&& characterPlayer.getTotalValue(skill) > 30) {
+		// No so much general knowledge if still has points for other
+		// categories.
+		if (skill.getCategory().getName().toLowerCase().equals(Spanish.GENERAL_KNOWLEDGE_TAG.toLowerCase())
+				&& characterPlayer.getRemainingDevelopmentPoints() > LAST_DEVELOPMENT_POINTS_RANGE) {
+			bonus -= characterPlayer.getCurrentLevelSkillsRanks(skill.getCategory()) * 10;
+		}
+
+		if (skill.getName().toLowerCase().equals(Spanish.SOFT_LEATHER_TAG) && characterPlayer.getTotalValue(skill) > 30) {
 			return -MAX_VALUE;
 		}
-		if (skill.getName().toLowerCase().equals(Spanish.HARD_LEATHER_TAG)
-				&& characterPlayer.getTotalValue(skill) > 90) {
+		if (skill.getName().toLowerCase().equals(Spanish.HARD_LEATHER_TAG) && characterPlayer.getTotalValue(skill) > 90) {
 			return -MAX_VALUE;
 		}
 		if (skill.getName().toLowerCase().equals(Spanish.CHAINMAIL_TAG) && characterPlayer.getTotalValue(skill) > 100) {
@@ -284,8 +305,7 @@ public class SkillProbability {
 			return -MAX_VALUE;
 		}
 
-		if (!characterPlayer.isFirearmsAllowed()
-				&& skill.getCategory().getName().toLowerCase().contains(Spanish.COMBAT_SKILLS_TAG)
+		if (!characterPlayer.isFirearmsAllowed() && skill.getCategory().getName().toLowerCase().contains(Spanish.COMBAT_SKILLS_TAG)
 				&& skill.getName().toLowerCase().contains(Spanish.FIREARMS_SUFIX)) {
 			return -MAX_VALUE;
 		}
@@ -306,31 +326,36 @@ public class SkillProbability {
 		if (characterPlayer.isWizard()) {
 			if (characterPlayer.getRealmOfMagic().getRealmsOfMagic().contains(RealmOfMagic.ESSENCE)) {
 				if (skill.getName().toLowerCase().equals(Spanish.SHIELD_SPELLS_TAG)) {
-					return Math.max(50 - characterPlayer.getCurrentLevelRanks(skill)
-							* characterPlayer.getRankCost(skill, characterPlayer.getCurrentLevelRanks(skill), 1)
-							* (8 - specializationLevel), 0);
+					return Math.max(
+							50 - characterPlayer.getCurrentLevelRanks(skill)
+									* characterPlayer.getRankCost(skill, characterPlayer.getCurrentLevelRanks(skill), 1)
+									* (8 - specializationLevel), 0);
 				}
 				if (skill.getName().toLowerCase().equals(Spanish.QUICKNESS_SPELLS_TAG)) {
-					return Math.max(20 - characterPlayer.getCurrentLevelRanks(skill)
-							* characterPlayer.getRankCost(skill, characterPlayer.getCurrentLevelRanks(skill), 1)
-							* (5 - specializationLevel), 0);
+					return Math.max(
+							20 - characterPlayer.getCurrentLevelRanks(skill)
+									* characterPlayer.getRankCost(skill, characterPlayer.getCurrentLevelRanks(skill), 1)
+									* (5 - specializationLevel), 0);
 				}
 			}
 			if (characterPlayer.getRealmOfMagic().getRealmsOfMagic().contains(RealmOfMagic.MENTALISM)) {
 				if (skill.getName().toLowerCase().equals(Spanish.DODGE_SPELLS_TAG)) {
-					return Math.max(50 - characterPlayer.getCurrentLevelRanks(skill)
-							* characterPlayer.getRankCost(skill, characterPlayer.getCurrentLevelRanks(skill), 1)
-							* (8 - specializationLevel), 0);
+					return Math.max(
+							50 - characterPlayer.getCurrentLevelRanks(skill)
+									* characterPlayer.getRankCost(skill, characterPlayer.getCurrentLevelRanks(skill), 1)
+									* (8 - specializationLevel), 0);
 				}
 				if (skill.getName().toLowerCase().equals(Spanish.AUTOHEALTH_SPELLS_TAG)) {
-					return Math.max(30 - characterPlayer.getCurrentLevelRanks(skill)
-							* characterPlayer.getRankCost(skill, characterPlayer.getCurrentLevelRanks(skill), 1)
-							* (5 - specializationLevel), 0);
+					return Math.max(
+							30 - characterPlayer.getCurrentLevelRanks(skill)
+									* characterPlayer.getRankCost(skill, characterPlayer.getCurrentLevelRanks(skill), 1)
+									* (5 - specializationLevel), 0);
 				}
 				if (skill.getName().toLowerCase().equals(Spanish.SPEED_SPELLS_TAG)) {
-					return Math.max(20 - characterPlayer.getCurrentLevelRanks(skill)
-							* characterPlayer.getRankCost(skill, characterPlayer.getCurrentLevelRanks(skill), 1)
-							* (5 - specializationLevel), 0);
+					return Math.max(
+							20 - characterPlayer.getCurrentLevelRanks(skill)
+									* characterPlayer.getRankCost(skill, characterPlayer.getCurrentLevelRanks(skill), 1)
+									* (5 - specializationLevel), 0);
 				}
 			}
 		}
@@ -379,8 +404,10 @@ public class SkillProbability {
 	 */
 	private int preferredSkill() {
 		int prob;
-		prob = Math.min(50, (characterPlayer.getRealRanks(skill)) * (specializationLevel) * 3
-				+ (characterPlayer.getRanksSpentInSkillSpecializations(skill) * (specializationLevel) * 5));
+		prob = Math.min(
+				50,
+				(characterPlayer.getRealRanks(skill)) * (specializationLevel) * 3
+						+ (characterPlayer.getRanksSpentInSkillSpecializations(skill) * (specializationLevel) * 5));
 		return prob;
 	}
 
@@ -409,9 +436,10 @@ public class SkillProbability {
 	 * @return
 	 */
 	private int ridicolousSkill() {
-		if (characterPlayer.getRealRanks(skill) == 0 && (skill.getName().toLowerCase().contains(Spanish.LICANTROPY_TAG)
-				|| skill.getName().toLowerCase().contains(Spanish.BEARS_TAG)
-				|| skill.getName().toLowerCase().contains(Spanish.CAMEL_TAG))) {
+		if (characterPlayer.getRealRanks(skill) == 0
+				&& (skill.getName().toLowerCase().contains(Spanish.LICANTROPY_TAG)
+						|| skill.getName().toLowerCase().contains(Spanish.BEARS_TAG) || skill.getName().toLowerCase()
+						.contains(Spanish.CAMEL_TAG))) {
 			return -MAX_VALUE;
 		}
 		return 0;
@@ -439,8 +467,7 @@ public class SkillProbability {
 	}
 
 	private int maxRanks() {
-		if (((characterPlayer.getRealRanks(skill) > 10 && !characterPlayer.isLifeStyle(skill))
-				|| (characterPlayer.getRealRanks(skill) > 15))) {
+		if (((characterPlayer.getRealRanks(skill) > 10 && !characterPlayer.isLifeStyle(skill)) || (characterPlayer.getRealRanks(skill) > 15))) {
 			return -MAX_VALUE;
 		}
 		return 0;
