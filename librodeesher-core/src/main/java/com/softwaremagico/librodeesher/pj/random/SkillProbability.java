@@ -69,77 +69,69 @@ public class SkillProbability {
 		}
 
 		if (characterPlayer.getCurrentLevelRanks(skill) <= 3) {
-			if (characterPlayer.getRemainingDevelopmentPoints() >= cost) {
 
-				EsherLog.debug(SkillProbability.class.getName(), "Probability of skill '" + skill.getName()
-						+ "'");
-				int preferredCategory = increasedCategory() / 3;
-				EsherLog.debug(SkillProbability.class.getName(), "\t Increased Category: "
-						+ preferredCategory);
-				probability += preferredCategory;
-				int preferredSkill = preferredSkill();
-				EsherLog.debug(SkillProbability.class.getName(), "\t Preferred Skill: " + preferredSkill);
-				probability += preferredSkill;
-				int skillsPerCategory = skillsPerCategory();
-				EsherLog.debug(SkillProbability.class.getName(), "\t Number of Skills per Category: "
-						+ skillsPerCategory);
-				probability += skillsPerCategory;
-				int raceBonus = raceSkills();
-				EsherLog.debug(SkillProbability.class.getName(), "\t Race bonus: " + raceBonus);
-				probability += raceBonus;
-				int bestSkills = bestSkills();
-				EsherLog.debug(SkillProbability.class.getName(), "\t Best Skills: " + bestSkills);
-				probability += bestSkills;
-				int skillExpensiveness = skillExpensiveness();
-				EsherLog.debug(SkillProbability.class.getName(), "\t Skill expensiveness: "
-						+ skillExpensiveness);
-				probability += skillExpensiveness;
-				int applyCharacterSpecialization = applyCharacterSpecialization();
-				EsherLog.debug(SkillProbability.class.getName(), "\t Specialization: "
-						+ applyCharacterSpecialization);
-				probability += applyCharacterSpecialization;
-				int stillNotUsedSkill = stillNotUsedSkill();
-				EsherLog.debug(SkillProbability.class.getName(), "\t Still not used: " + stillNotUsedSkill);
-				probability += stillNotUsedSkill;
-				int wizardPreferredSkills = wizardPreferredSkills();
-				EsherLog.debug(SkillProbability.class.getName(), "\t Wizard skill: " + wizardPreferredSkills);
-				probability += wizardPreferredSkills;
-				int warriorsPreferredSkills = warriorsPreferredSkills();
-				EsherLog.debug(SkillProbability.class.getName(), "\t Warrior skill: "
-						+ warriorsPreferredSkills);
-				probability += warriorsPreferredSkills;
-				int smartRandomness = smartRandomness();
-				EsherLog.debug(SkillProbability.class.getName(), "\t Smart randomness: " + smartRandomness);
-				probability += smartRandomness;
-				int ridicolousSkill = ridicolousSkill();
-				EsherLog.debug(SkillProbability.class.getName(), "\t Ridicolous randomness: "
-						+ ridicolousSkill);
-				probability += ridicolousSkill;
-				int culturalSkill = culturalSkill();
-				EsherLog.debug(SkillProbability.class.getName(), "\t Cultural Skill: " + culturalSkill);
-				probability += culturalSkill;
-				int maxRanks = maxRanks();
-				EsherLog.debug(SkillProbability.class.getName(), "\t Max ranks: " + maxRanks);
-				probability += maxRanks;
-				// Limitation of value.
-				if (probability > 150) {
-					EsherLog.warning(SkillProbability.class.getName(), "Increased Category: "
-							+ preferredCategory + "\t Preferred Skill: " + preferredSkill
-							+ "\t Number of Skills per category: " + skillsPerCategory + "\t Best Skills: "
-							+ bestSkills + "\t Skill expensiveness: " + skillExpensiveness
-							+ "\t Specialization: " + applyCharacterSpecialization + "\t Still not used: "
-							+ stillNotUsedSkill + "\t Wizard skill: " + wizardPreferredSkills
-							+ "\t Warrior skill: " + warriorsPreferredSkills + "\t Smart randomness: "
-							+ smartRandomness + "\t Ridicolous randomness: " + ridicolousSkill
-							+ "\t Cultural Skill: " + culturalSkill + "\t Max ranks: " + maxRanks
-							+ "\t Total: " + probability);
-				}
-				if (probability > 90 && probability < 150) {
-					probability = 90;
-				}
-				EsherLog.debug(SkillProbability.class.getName(), "\t Total: " + probability);
-				return probability;
+			EsherLog.debug(SkillProbability.class.getName(), "Probability of skill '" + skill.getName() + "'");
+			int preferredCategory = increasedCategory() / 3;
+			EsherLog.debug(SkillProbability.class.getName(), "\t Increased Category: " + preferredCategory);
+			probability += preferredCategory;
+			int preferredSkill = preferredSkill();
+			EsherLog.debug(SkillProbability.class.getName(), "\t Preferred Skill: " + preferredSkill);
+			probability += preferredSkill;
+			int skillsPerCategory = skillsPerCategory();
+			EsherLog.debug(SkillProbability.class.getName(), "\t Number of Skills per Category: "
+					+ skillsPerCategory);
+			probability += skillsPerCategory;
+			int raceBonus = raceSkills();
+			EsherLog.debug(SkillProbability.class.getName(), "\t Race bonus: " + raceBonus);
+			probability += raceBonus;
+			int bestSkills = bestSkills();
+			EsherLog.debug(SkillProbability.class.getName(), "\t Best Skills: " + bestSkills);
+			probability += bestSkills;
+			int skillExpensiveness = skillExpensiveness();
+			EsherLog.debug(SkillProbability.class.getName(), "\t Skill expensiveness: " + skillExpensiveness);
+			probability += skillExpensiveness;
+			int applyCharacterSpecialization = applyCharacterSpecialization();
+			EsherLog.debug(SkillProbability.class.getName(), "\t Specialization: "
+					+ applyCharacterSpecialization);
+			probability += applyCharacterSpecialization;
+			int stillNotUsedSkill = stillNotUsedSkill();
+			EsherLog.debug(SkillProbability.class.getName(), "\t Still not used: " + stillNotUsedSkill);
+			probability += stillNotUsedSkill;
+			int wizardPreferredSkills = wizardPreferredSkills();
+			EsherLog.debug(SkillProbability.class.getName(), "\t Wizard skill: " + wizardPreferredSkills);
+			probability += wizardPreferredSkills;
+			int warriorsPreferredSkills = warriorsPreferredSkills();
+			EsherLog.debug(SkillProbability.class.getName(), "\t Warrior skill: " + warriorsPreferredSkills);
+			probability += warriorsPreferredSkills;
+			int smartRandomness = smartRandomness();
+			EsherLog.debug(SkillProbability.class.getName(), "\t Smart randomness: " + smartRandomness);
+			probability += smartRandomness;
+			int ridicolousSkill = ridicolousSkill();
+			EsherLog.debug(SkillProbability.class.getName(), "\t Ridicolous randomness: " + ridicolousSkill);
+			probability += ridicolousSkill;
+			int culturalSkill = culturalSkill();
+			EsherLog.debug(SkillProbability.class.getName(), "\t Cultural Skill: " + culturalSkill);
+			probability += culturalSkill;
+			int maxRanks = maxRanks();
+			EsherLog.debug(SkillProbability.class.getName(), "\t Max ranks: " + maxRanks);
+			probability += maxRanks;
+			// Limitation of value.
+			if (probability > 150) {
+				EsherLog.warning(SkillProbability.class.getName(), "Increased Category: " + preferredCategory
+						+ "\t Preferred Skill: " + preferredSkill + "\t Number of Skills per category: "
+						+ skillsPerCategory + "\t Best Skills: " + bestSkills + "\t Skill expensiveness: "
+						+ skillExpensiveness + "\t Specialization: " + applyCharacterSpecialization
+						+ "\t Still not used: " + stillNotUsedSkill + "\t Wizard skill: "
+						+ wizardPreferredSkills + "\t Warrior skill: " + warriorsPreferredSkills
+						+ "\t Smart randomness: " + smartRandomness + "\t Ridicolous randomness: "
+						+ ridicolousSkill + "\t Cultural Skill: " + culturalSkill + "\t Max ranks: "
+						+ maxRanks + "\t Total: " + probability);
 			}
+			if (probability > 90 && probability < 150) {
+				probability = 90;
+			}
+			EsherLog.debug(SkillProbability.class.getName(), "\t Total: " + probability);
+			return probability;
 		}
 		return 0;
 	}
@@ -276,20 +268,26 @@ public class SkillProbability {
 			bonus -= characterPlayer.getCurrentLevelSkillsRanks(skill.getCategory()) * 10;
 		}
 
+		// Check armour values. Also armours are useless if race has natural
+		// armour.
 		if (skill.getName().toLowerCase().equals(Spanish.SOFT_LEATHER_TAG)
-				&& characterPlayer.getTotalValue(skill) > 30) {
+				&& (characterPlayer.getRace().getNaturalArmourType() > 2 || characterPlayer
+						.getTotalValue(skill) > 30)) {
 			return -MAX_VALUE;
 		}
 		if (skill.getName().toLowerCase().equals(Spanish.HARD_LEATHER_TAG)
-				&& characterPlayer.getTotalValue(skill) > 90) {
+				&& (characterPlayer.getRace().getNaturalArmourType() > 4 || characterPlayer
+						.getTotalValue(skill) > 90)) {
 			return -MAX_VALUE;
 		}
 		if (skill.getName().toLowerCase().equals(Spanish.CHAINMAIL_TAG)
-				&& characterPlayer.getTotalValue(skill) > 100) {
+				&& (characterPlayer.getRace().getNaturalArmourType() > 12 || characterPlayer
+						.getTotalValue(skill) > 100)) {
 			return -MAX_VALUE;
 		}
 		if (skill.getName().toLowerCase().equals(Spanish.CUIRASS_TAG)
-				&& characterPlayer.getTotalValue(skill) > 120) {
+				&& (characterPlayer.getRace().getNaturalArmourType() > 16 || characterPlayer
+						.getTotalValue(skill) > 120)) {
 			return -MAX_VALUE;
 		}
 
@@ -427,7 +425,7 @@ public class SkillProbability {
 				}
 			} else if (skill.getCategory().getCategoryGroup().equals(CategoryGroup.WEAPON)) {
 				return 10;
-			} else if(skill.getName().toLowerCase().startsWith(Spanish.RACIAL_ATTACK_TAG.toLowerCase())){
+			} else if (skill.getName().toLowerCase().startsWith(Spanish.RACIAL_ATTACK_TAG.toLowerCase())) {
 				return 30;
 			}
 		}
