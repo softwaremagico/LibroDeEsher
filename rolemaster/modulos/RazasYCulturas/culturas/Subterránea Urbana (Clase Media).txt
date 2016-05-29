@@ -62,7 +62,7 @@ Listas Abiertas de Hechizos	0
 Alerta, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas, Armas·Contundentes
 Armadura, Buscar, Callejeo, Comerciar, Conocimiento Regional, Emboscar
 Espeleología, Ocultar Objetos, Sentido de la Dirección, Sentido del Espacio, Sentido del Tiempo
-Vista, Olfato, Tacto, Gusto, Oído, Supervivencia (Subterránea), Tasar, Trabajr el Cuero
+Vista, Olfato, Tacto, Gusto, Oído, Supervivencia (Subterránea), Tasar, Trabajar el Cuero
 Trabajar el Metal, Trabajar la Piedra, Vigilancia
 
 # IDIOMAS

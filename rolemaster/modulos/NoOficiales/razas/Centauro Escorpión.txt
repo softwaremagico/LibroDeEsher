@@ -83,7 +83,7 @@ Ataque Racial: Extremidades, Trepar
 ####################################
 Juegos Atléticos (Gimnasia), Acrobacias, Caer, Contorsionismo
 Malabarismos, Volar/Planear, Volteretas, Caminar con Zancos
-Esquiar, Hacer Surf, Patinar, Rappeling
+Esquiar, Hacer Surf, Patinar, Rappelling
 Salto con Pértiga, Combate Montado, Montar: Lobos, Montar: Caballos, 
 Montar: Osos, Boxeo, Golpes de Artes Marciales, Barridos de Artes Marciales
 

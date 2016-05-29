@@ -61,14 +61,14 @@ Listas Abiertas de Hechizos	0
 
 # AFICIONES
 ####################
-Abrir Cerraduras, Acechar, Agenciar, Armas, Armadura·Ligera
+Abrir Cerraduras, Acechar, Agenciar, Arma, Armadura·Ligera
 Cantar, Carrera de Fondo, Cocinar, Conocimiento Regional
-Coser, Desarrollo Físico, Disimulo, Esconderse, Forrejear, Instinto Urbano
-Juego, Juegos de Manos, Maestría de los Animales, Malabarismo
+Coser/Tejer, Desarrollo Físico, Disimulo, Esconderse, Forrajear, Instinto Urbano
+Juego, Juegos de Manos, Maestría de Animales, Malabarismos
 Manejo de los Animales, Mendigar, Observación, Primeros Auxilios
 Rastrear, Seducción, Sentido de la Dirección, Sobornar, Supervivencia (Desierto)
-Tocar Instrumento, Trabajr el Cuero, Trabajr el Metal, Trabajar la Madera
-Trabajr al Piedra
+Tocar Instrumento, Trabajar el Cuero, Trabajar el Metal, Trabajar la Madera
+Trabajar la Piedra
 
 # IDIOMAS
 ####################

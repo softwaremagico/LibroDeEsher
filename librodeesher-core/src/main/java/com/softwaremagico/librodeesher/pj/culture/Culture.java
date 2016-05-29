@@ -45,6 +45,7 @@ import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 import com.softwaremagico.librodeesher.pj.weapons.WeaponFactory;
+import com.softwaremagico.log.EsherLog;
 
 public class Culture {
 	private String name;
@@ -207,8 +208,7 @@ public class Culture {
 			try {
 				hobbyRanks = Integer.parseInt(hobbyLine);
 			} catch (NumberFormatException nfe) {
-				throw new InvalidCultureException("Error obtaining hobby ranks '" + hobbyLine
-						+ "' for culture '" + getName() + "'. ", nfe);
+				throw new InvalidCultureException("Error obtaining hobby ranks '" + hobbyLine + "' for culture '" + getName() + "'. ", nfe);
 			}
 			index++;
 		}
@@ -259,8 +259,11 @@ public class Culture {
 					cat.addSkill(hobby);
 					// CultureSkill skill = new CultureSkill(hobby);
 					hobbySkills.add(hobby);
+				} else if (hobby.toLowerCase().equals(Spanish.CULTURE_LANGUAGE_TAG.toLowerCase())) {
+					// TODO select a language
 				} else { // Not recognized.
-					throw new InvalidCultureException("Hobby not found in culture '" + getName() + "' line '" + hobby + "'.");
+					throw new InvalidCultureException("Hobby '" + hobby + "' not found in culture '" + getName() + "' line '"
+							+ lines.get(index) + "'.");
 				}
 			}
 			index++;
@@ -323,7 +326,9 @@ public class Culture {
 							+ "'.", nfe);
 				}
 			} else {
-				throw new InvalidCultureException("Invalid training '" + trainingColumn[0] + "' for culture '" + getName() + "'.");
+				EsherLog.warning(this.getClass().getName(), "Invalid training '" + trainingColumn[0] + "' for culture '" + getName() + "'.");
+				// throw new InvalidCultureException("Invalid training '" +
+				// trainingColumn[0] + "' for culture '" + getName() + "'.");
 			}
 			index++;
 		}

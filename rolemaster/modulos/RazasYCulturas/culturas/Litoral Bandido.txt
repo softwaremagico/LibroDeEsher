@@ -60,7 +60,7 @@ Listas Abiertas de Hechizos	0
 # AFICIONES
 ####################
 Acrobacias, Manejo de Botes, Manejo de Cuerdas, Nadar, Navegación, Observación
-Orientación Celeste, Pelea, Predicción del Clima, Rappeling, Saltar, Trepar
+Orientación Celeste, Pelea, Predicción del Clima, Rappelling, Saltar, Trepar
 Acechar, Arma, Armadura, Bailar, Comerciar, Conocimiento Cultural, Conocimiento Regional
 Desarrollo Físico, Emboscar, Esconderse, Escultura, Esprintar, Falsificación
 Florituras, Historia, Liderazgo, Oratoria, Primeros Auxilios, Rastrear, Señales

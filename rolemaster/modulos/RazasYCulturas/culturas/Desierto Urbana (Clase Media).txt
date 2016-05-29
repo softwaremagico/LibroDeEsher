@@ -63,9 +63,9 @@ Listas Abiertas de Hechizos	0
 ####################
 Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas, Armas·Contundentes
 Armadura·Ligera, Callejeo, Combate Montado, Comerciar, Conocimiento Regional
-Desarrollo Físico, Historia, Idioma, Juegos de Estrategia, Manejo de los Animales
+Desarrollo Físico, Historia, Idiomas, Juegos de Estrategia, Manejo de los Animales
 Montar, Orientación Celeste, Sentido de la Dirección, Sentido del Tiempo
-Sobornar, Supervivencia (Desierto), Trabajr el Cuero, Trabajr al Piedra
+Sobornar, Supervivencia (Desierto), Trabajar el Cuero, Trabajar la Piedra
 
 # IDIOMAS
 ####################

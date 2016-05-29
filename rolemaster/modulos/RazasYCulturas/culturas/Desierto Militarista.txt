@@ -61,7 +61,7 @@ Listas Abiertas de Hechizos	0
 
 # AFICIONES
 ####################
-Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizasm, Armas·Contundentes
+Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas, Armas·Contundentes
 Armadura·Ligera, Carrera de Fondo, Combate Montado, Comerciar
 Conocimiento Regional, Desarrollo Físico, Forrajear, Historia
 Maestría de Animales, Manejo de los Animales, Montar, Orientación Celeste

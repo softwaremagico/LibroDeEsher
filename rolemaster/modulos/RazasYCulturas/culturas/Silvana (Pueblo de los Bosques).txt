@@ -63,7 +63,7 @@ Acechar, Acrobacias, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta
 Armadura·Ligera, Bailar, Bordar, Caminar por la Cuerda Floja, Trabajar la Madera, Trepar
 Conocimiento de la Fauna, Conocimiento de la Flora, Conocimiento Regional, Desarrollo Físico
 Emboscar, Esconderse, Forrajear, Hacer Flechas, Leer Runas, Manejo de Cuerdas, Nadar
-Narrar Historias, Observación, Primeros Auxilios, Rappeling, Rastrear, Señales, Trabajar el Cuero
+Narrar Historias, Observación, Primeros Auxilios, Rappelling, Rastrear, Señales, Trabajar el Cuero
 
 # IDIOMAS
 ####################

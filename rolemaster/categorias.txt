@@ -18,7 +18,7 @@ Artes Marciales·Barridos(AmB)	Ag/Fu/Fu	Estándar	Barridos de Artes Marciales, B
 Artes Marciales·Golpes(AmG)	Fu/Ag/Fu	Estándar	Boxeo, Placaje, Golpes de Artes Marciales
 Artes Marciales·Maniobras de Combate(AmMC)	Ag/Rp/Ag	Combinada	Esquiva Adrenal, Evasión Adrenal
 Ataques Especiales(AtaEsp)	Fu/Ag/Ad	Combinada	Ataque Racial: Extremidades*, Ataque Racial: Boca*, Ataque Racial: Aliento*, Ataque Racial: Otro*, Ataque Racial: Vómito*, Desarmar Enemigo (Armado), Desarmar Enemigo (Desarmado), Fintar (Armado), Fintar (Desarmado), Justar, Pelea
-Atletismo·Gimnasia(AtlG)	Ag/Rp/Ag	Estándar	Juegos Atléticos (Gimnasia), Acrobacias, Caer, Contorsionismo, Malabarismos, Trepar, Volar/Planear, Volteretas, Caminar con Zancos, Caminar por la Cuerda Floja, Esquiar, Hacer Surf, Patinar, Rappeling, Salto con Pértiga
+Atletismo·Gimnasia(AtlG)	Ag/Rp/Ag	Estándar	Juegos Atléticos (Gimnasia), Acrobacias, Caer, Contorsionismo, Malabarismos, Trepar, Volar/Planear, Volteretas, Caminar con Zancos, Caminar por la Cuerda Floja, Esquiar, Hacer Surf, Patinar, Rappelling, Salto con Pértiga
 Atletismo·Potencia(AtlP)	Fu/Co/Ag	Estándar	Juegos Atléticos (Potencia), Levantar Pesos, Saltar, Golpe Poderoso, Lanzamiento Poderoso
 Atletismo·Resistencia(AtlR)	Co/Ag/Fu	Estándar	Juegos Atléticos (Resistencia), Carrera de Fondo, Escalar, Esprintar, Nadar, Remar
 Autocontrol(Autoc)	Ad/Pr/Ad	Estándar	Frenesí, Meditación, Mnemotecnia, Superar Aturdimiento, Caída Adrenal, Concentración Adrenal, Control de la Licantropía (R), Desenvainar Adrenal, Equilibrio Adrenal, Estabilización Adrenal (R), Fuerza Adrenal, Maniobrar Aturdido, Salto Adrenal, Trance Adormecedor, Trance de la Muerte  (R), Trance Purificador  (R), Trance Sanador, Velocidad Adrenal

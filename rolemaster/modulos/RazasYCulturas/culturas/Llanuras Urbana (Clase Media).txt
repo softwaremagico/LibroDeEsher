@@ -61,10 +61,10 @@ Listas Abiertas de Hechizos	0
 ####################
 Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas, Armas·Contundentes
 Armadura·Ligera, Carrera de Fondo, Cazar, Cocinar, Comerciar, 
-Conocimiento Regional, Maestría de los Animales, Manejo de Animales
+Conocimiento Regional, Maestría de Animales, Manejo de los Animales
 Manejo de Cuerdas, Montar, Observación, Orientación Celeste
 Predicción del Clima, Supervivencia (Llanuras), Trabajar el Cuero
-Trabajar el Metal, Trabajr la Madera, Trabajar la Piedra
+Trabajar el Metal, Trabajar la Madera, Trabajar la Piedra
 
 # IDIOMAS
 ####################

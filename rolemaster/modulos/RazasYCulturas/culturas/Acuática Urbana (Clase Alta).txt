@@ -61,7 +61,7 @@ Listas Abiertas de Hechizos	0
 ####################
 Armas·Asta, Armadura·Ligera, Caer, Conocimiento Regional
 Desarrollo Físico, Diplomacia, Hacer Surf, Heráldica
-Historia, Idiomas, Juego, Liderazgo, Manejo de Animales
+Historia, Idiomas, Juego, Liderazgo, Manejo de los Animales
 Montar, Nadar, Oratoria
 
 # IDIOMAS

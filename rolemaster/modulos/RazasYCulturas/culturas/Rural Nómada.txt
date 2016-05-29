@@ -61,7 +61,7 @@ Listas Abiertas de Hechizos	0
 ####################
 Acechar, Acrobacias, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas, Armas·Contundentes
 Armadura·Ligera, Bailar, Cocinar, Conocimiento Regional, Escalar, Esconderse
-Forrajear, Maestría de los Animales, Manejo de los Animales, Manejo de Cuerdas
+Forrajear, Maestría de Animales, Manejo de los Animales, Manejo de Cuerdas
 Montar, Observación, Orientación Celeste, Predicción del Clima, Rastrear
 Trabajar el Cuero, Trabajar la Madera
 

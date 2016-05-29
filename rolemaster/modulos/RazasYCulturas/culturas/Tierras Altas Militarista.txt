@@ -62,7 +62,7 @@ Listas Abiertas de Hechizos	0
 Acechar, Arma, Armadura, Cantar, Conocimiento Regional, Desarrollo Físico
 Emboscar, Esprintar, Forrajear, Hechizos Dirigidos, Historia, Lista de Hechizos
 Manejo de los Animales, Montar, Narrar Historias, Observación, Oratoria, Orientación Celeste
-Pelea, Pintura:Corporal, Predicción del Clima, Rastrear, Saltar, Táctica, Tatuar
+Pelea, Pintura: Corporal, Predicción del Clima, Rastrear, Saltar, Táctica, Tatuar
 Trabajar el Cuero, Trabajar el Metal, Trepar
 
 # IDIOMAS

@@ -59,10 +59,10 @@ Listas Abiertas de Hechizos	0
 
 # AFICIONES
 ####################
-Acechar, Acrobacia, Agenciar, Arma, Armadura·Ligera, Bailar, Cantar
+Acechar, Acrobacias, Agenciar, Arma, Armadura·Ligera, Bailar, Cantar
 Cocinar, Conocimiento Cultural ,Coser, Desactivar Trampas, Desarrollo Físico
 Disimulo, Emboscar, Historia, Instinto Urbano, Juego, Juegos de Manos
-Manejo de Cuerda, Nadar, Observación, Orientacíon Celeste, Pelea
+Manejo de Cuerdas, Nadar, Observación, Orientación Celeste, Pelea
 Predicción del Clima, Primeros Auxilios, Rappelling, Saltar, Señales
 Sobornar, Tasar, Trepar
 

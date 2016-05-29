@@ -59,7 +59,7 @@ Listas Abiertas de Hechizos	0
 
 # AFICIONES
 ####################
-Armas, Armadura, Conocimiento Regional, Desarrollo Físico, Espeleología
+Arma, Armadura, Conocimiento Regional, Desarrollo Físico, Espeleología
 Historia, Montar: Lobos, Montar: Osos, Primeros Auxilios, Táctica, Tasar
 Trabajar el Cuero, Trabajar el Metal, Trabajar la Madera, Trepar
 

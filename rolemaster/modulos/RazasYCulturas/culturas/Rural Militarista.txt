@@ -59,7 +59,7 @@ Listas Abiertas de Hechizos	0
 
 # AFICIONES
 ####################
-Acechar, Armas, Armadura, Cocinar, Conocimiento Regional, Forrajear
+Acechar, Arma, Armadura, Cocinar, Conocimiento Regional, Forrajear
 Historia, Manejo de los Animales, Manejo de Cuerdas, Montar, Observación
 Orientación Celeste, Predicción del Clima, Rastrear, Trabajar el Cuero, Trabajar la Madera
 

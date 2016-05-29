@@ -63,7 +63,7 @@ Acrobacias, Armadura·Ligera, Armas·Filo, Armas·2manos, Armas·Proyectiles
 Armas·Asta, Armas·Arrojadizas, Caminar por la Cuerda Floja, Camuflaje
 Cantar, Carrera de Fondo, Conocimiento de la Fauna, Desarrollo Físico
 Escalar, Forrajear, Manejo de Cuerdas, Observación
-Predicción del Clima, Rappeling, Supervivencia (Montañas), Trepar
+Predicción del Clima, Rappelling, Supervivencia (Montañas), Trepar
 
 # IDIOMAS
 ####################

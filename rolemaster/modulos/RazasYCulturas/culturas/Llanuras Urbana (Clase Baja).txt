@@ -59,13 +59,13 @@ Listas Abiertas de Hechizos	0
 
 # AFICIONES
 ####################
-Abrir Cerraduras, Agencias, Armas·Filo, Armas·2manos, Armas·Proyectiles
+Abrir Cerraduras, Agenciar, Armas·Filo, Armas·2manos, Armas·Proyectiles
 Armas·Asta, Armas·Arrojadizas, Armas·Contundentes
 Armadura·Ligera, Callejeo, Carrera de Fondo, Cazar, Cocinar, Conducir
-Conocimiento Regional, Disimulo, Juegos de Manos, Manejo de Animales
+Conocimiento Regional, Disimulo, Juegos de Manos, Manejo de los Animales
 Manejo de Cuerdas, Montar, Observación, Predicción del Clima
 Rastrear, Sobornar, Supervivencia (Llanuras), Trabajar el Cuero
-Trabajr la Madera
+Trabajar la Madera
 
 # IDIOMAS
 ####################
