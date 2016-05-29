@@ -1,10 +1,10 @@
 #CARACTERÍSTICAS POR ORDEN
 ####################################
-Ad Pr Fu Rp Ra Ag Co Me In Em
+Ad Em Rp Fu Ra Ag Co Pr Me In
 
 #REINOS DE MAGIA
 ####################################
-Mentalismo
+Esencia
 
 #BONIFICACIÓN POR PROFESIÓN
 ####################################
@@ -21,28 +21,27 @@ Armas·Proyectiles	5
 Artes Marciales·Barridos	10
 Artes Marciales·Golpes	10
 Artes Marciales·Maniobras de Combate	10
+Exteriores·Animales	5
+Exteriores·Entorno	5
 Percepción·Búsqueda	5
 Percepción·Perspicacia	5
 Percepción·Sentidos	5
 Percepción de Poder	5
-Subterfugio·Ataque	5
-Subterfugio·Mecánica	5
-Subterfugio·Sigilo	5
 
 #HABILIDADES Y CATEGORÍAS DE HABILIDADES
 ####################################
 Armadura·Ligera	9
 Armadura·Media	10
 Armadura·Pesada	11
-Armas·Categoría1	6
+Armas·Categoría1	5
 Armas·Categoría2	8
 Armas·Categoría3	8
 Armas·Categoría4	8
 Armas·Categoría5	15
 Armas·Categoría6	15
 Armas·Categoría7	15
-Arte·Activo	2/5
-Arte·Pasivo	2/4
+Arte·Activo	2/4
+Arte·Pasivo	2/5
 Artes Marciales·Golpes	2/5
 Artes Marciales·Barridos	2/5
 Artes Marciales·Maniobras de Combate	4/9
@@ -63,14 +62,14 @@ Desarrollo de Puntos de Poder	8
 Desarrollo Físico	4/14
 Exteriores·Animales	2/7
 Exteriores·Entorno	2/7
-Hechizos Dirigidos	10
-Influencia	2/7
+Hechizos Dirigidos	9
+Influencia	2/6
 Maniobras de Combate	5/12
 Manipulación del Poder	6/12
 Oficios	4/10
 Percepción·Búsqueda	2/6
-Percepción·Perspicacia	4/12
-Percepción·Sentidos	2/6
+Percepción·Perspicacia	4/14
+Percepción·Sentidos	3/7
 Percepción de Poder	3/7
 Subterfugio·Ataque	8
 Subterfugio·Mecánica	4
@@ -186,20 +185,20 @@ Trotamundos	29
 Sacerdote Guerrero	33
 Houri	37
 Artista Marcial	45
-Artista Marcial de la Calle	26
+Artista Marcial de la Calle	28
 Artista Marcial Elegante		37
-Campeón de Artes Marciales	39
+Campeón de Artes Marciales	37
 Competidor de Artes Marciales	43
 Escolta de Caravanas	40
-Experto en Armas	64
+Experto en Armas	61
 Guardaspaldas	35
-Instructor de Armas	51
+Instructor de Armas	50
 Maestro Chi	38
-Maestro de Escuela Marcial	33
-Miembro de Sociedad Secreta	17
+Maestro de Escuela Marcial	32
+Miembro de Sociedad Secreta	18
 Monje de Templo	50
 Monje Errante	46
 Ninja	58
-Sacerdote Guerrero	33
+Sacerdote Guerrero	32
 
 ### FIN PROFESION ###
