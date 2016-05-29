@@ -44,7 +44,7 @@ public class ChooseSkillGroup extends ChooseGroup<Skill> {
 		super(chooseType);
 		this.numberOfOptionsToChoose = chooseNumber;
 		for (String skillName : skillGroup) {
-			Skill skill = SkillFactory.getAvailableSkill(skillName);
+			Skill skill = SkillFactory.getAvailableSkill(skillName.trim());
 			if (skill != null) {
 				this.optionsGroup.add(skill);
 			} else {

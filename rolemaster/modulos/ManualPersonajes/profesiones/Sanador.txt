@@ -4,8 +4,7 @@ In Pr Ad Co Me Em Ra Fu Ag Rp
 
 #REINOS DE MAGIA
 ####################################
-Canalización
-Mentalismo
+Canalización/Mentalismo
 
 #BONIFICACIÓN POR PROFESIÓN
 ####################################
@@ -81,7 +80,7 @@ Urbana	3
 # HABILIDADES COMUNES          //Cateogia#numero es "numero" de habilidades de dicha categoria; 
 ####################################
 Sentido del Tiempo, Estabilización Adrenal, Conocimiento de las Hierbas, Forrajear
-{Cirugía, Cuidados Médicos, Partería}#1
+{Cirugía; Cuidados Médicos; Partería}#1
 
 #HABILIDADES PROFESIONALES
 ####################################

@@ -4,14 +4,14 @@
 		<groups>
 			<run>				
 				<include name="readFiles" />
-				<exclude name="characterCreation" />
-				<exclude name="characterStorage" />
-				<exclude name="characterPdf" />
-				<exclude name="characterTxt" />
-				<exclude name="characterJson" />
-				<exclude name="NihalDragoniana" />
-				<exclude name="MorticiaInnodanTest" />
-				<exclude name="perkPoints" />
+				<include name="characterCreation" />
+				<include name="characterStorage" />
+				<include name="characterPdf" />
+				<include name="characterTxt" />
+				<include name="characterJson" />
+				<include name="NihalDragoniana" />
+				<include name="MorticiaInnodanTest" />
+				<include name="perkPoints" />
 			</run>
 		</groups>
 		<classes>

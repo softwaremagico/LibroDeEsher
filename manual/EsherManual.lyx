@@ -71,11 +71,21 @@
 \begin_body
 
 \begin_layout Title
-El Libro de Esher v2.0.0
+El Libro de Esher v2.3.0
 \begin_inset Newline newline
 \end_inset
 
 Generador de personajes para Rolemaster
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename /home/jhortelano/workspace/LibroDeEsher/librodeesher-gui/src/main/resources/images/splash.png
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Author
@@ -2441,13 +2451,82 @@ Plantilla de Profesiones
 \end_layout
 
 \begin_layout Subsection
+Características
+\end_layout
+
+\begin_layout Standard
+Aquí se pone un listado de las abreviaturas de las características.
+ Las dos primeras deben ser las obligatorias por la profesión.
+ El resto únicamente indicará las preferencias a la hora de generar un personaje
+ aleatorio.
+\end_layout
+
+\begin_layout Subsection
+Reino de magia
+\end_layout
+
+\begin_layout Standard
+Los reinos de magia disponibles para la profesión.
+ Si es un no hechicero, puedes colocar los tres reinos de magia separados
+ por comas.
+ En el caso de un hechicero híbrido de dos reinos, separa los reinos con
+ una barra.
+ Por ejemplo, el sanador tiene el reino 
+\begin_inset Quotes eld
+\end_inset
+
+Canalización/Mentalismo
+\begin_inset Quotes erd
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Bonificación por profesión
+\end_layout
+
+\begin_layout Standard
+Un listado de categorías y habilidades que tienen un bonus especial por
+ la profesión escogida.
+\end_layout
+
+\begin_layout Subsection
+Habilidades y categorías de habilidades
+\end_layout
+
+\begin_layout Standard
+El coste de los rangos para cada categoría.
+ Tal como se muestran en los libros de Rolemaster.
+ 
+\end_layout
+
+\begin_layout Subsection
+Desarrollo de hechizos
+\end_layout
+
+\begin_layout Standard
+El coste de cada una de las listas de hechizos dependiendo del nivel de
+ esta.
+ 
+\end_layout
+
+\begin_layout Subsection
 Habilidades comunes, profesionales y restringidas
 \end_layout
 
 \begin_layout Standard
-Un listado de habilidades.
- En el caso de tener que elegir una habilidad de una categoría se puede
- escribir 
+Un listado de habilidades que serán comunes debido a la selección de esta
+ profesión.
+ En el caso de tener que elegir entre un grupo de habilidades, se puede
+ usar la siguiente sintaxis:
+\end_layout
+
+\begin_layout Enumerate
+Si es una elección de una o más habilidades entre todas las de una categoría,
+ se puede escribir la categoría junto con el número de habilidades a escoger.
+ Con el formato 
 \begin_inset Quotes eld
 \end_inset
 
@@ -2466,6 +2545,23 @@ Maniobras de Combate#1
 
  en la sección de habilidades comunes, significará escoge una habilidad
  de maniobras de combate para que sea común.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Si es una selección entre un conjunto definido de habilidades, en vez de
+ la categoría se debe escribir las habilidades a elegir entre llaves y separadas
+ por puntos y comas.
+ Por ejemplo, para la profesión de Sanador está la opción de 
+\begin_inset Quotes eld
+\end_inset
+
+{Cirugía; Cuidados Médicos; Partería}#1
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Esto significa que el jugador debe escoger una entre estas tres habilidades.
  
 \end_layout
 
@@ -2489,7 +2585,7 @@ Todos los adiestramientos que tengan un símbolo
 \end_inset
 
  al inicio o al final, se considerarán como adiestramientos favoritos.
- Esto solamente tiene utilidad a la hora de generar personajes aleatorios.
+ Esto únicamente tiene utilidad a la hora de generar personajes aleatorios.
  
 \end_layout
 
