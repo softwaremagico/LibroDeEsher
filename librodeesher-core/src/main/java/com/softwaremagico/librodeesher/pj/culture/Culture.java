@@ -339,14 +339,9 @@ public class Culture {
 							+ "' for culture '" + getName() + "'.", nfe);
 				}
 			} else {
-<<<<<<< HEAD
 				EsherLog.warning(this.getClass().getName(), "Invalid training '" + trainingColumn[0] + "' for culture '" + getName() + "'.");
 				// throw new InvalidCultureException("Invalid training '" +
 				// trainingColumn[0] + "' for culture '" + getName() + "'.");
-=======
-				throw new InvalidCultureException("Invalid training '" + trainingColumn[0]
-						+ "' for culture '" + getName() + "'.");
->>>>>>> 325ce4d09e08bfe5028c0acdcee05aa6ad048f07
 			}
 			index++;
 		}
