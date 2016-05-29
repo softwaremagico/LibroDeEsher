@@ -1,10 +1,12 @@
 # ARMAS TÍPICAS
 ####################
-Espada, Hacha de Batalla, Arco Corto, Arco Largo, Arco Compuesto, Ballesta Ligera, Ballesta Pesada, Daga Arrojadiza, Lanza
+Machete, Sable, Cimitarra, Espadón, Hacha de Batalla
+Honda, Arco Corto, Arco Largo, Arco Compuesto, Látigo, Mangual
+Maza, Lanza, Jabalina, Lanza de Caballería
 
 # ARMADURAS TÍPICAS
 ####################
-Cuero Blando, Cuero Endurecido
+Cuero Blando, Cuero Endurecido, Cota de Mallas
 
 # RANGOS
 ####################
@@ -16,40 +18,40 @@ Armadura·Media	0
 Armas·Contundentes	0
   *  Arma	0
 Armas·Filo	1
-  *  Arma	1
+  *  Arma	0
 Armas·2manos	0
   *  Arma	0
 Armas·Proyectiles	2
   *  Arma	2
-Armas·Asta	2
-  *  Arma	2
+Armas·Asta	0
+  *  Arma	0
 Armas·Arrojadizas	1
   *  Arma	1
 Atletismo·Gimnasia	1
   *  Trepar	0
 Atletismo·Potencia	1
-Atletismo·Resistencia	1
+Atletismo·Resistencia	3
   *  Nadar	0
 Ciencia/Analítica·Básica	0
 Comunicación	1
-  *  Idiomas	6
+  *  Idiomas	4
 Conocimiento·General	3
   *  Conocimiento Regional	3
   *  Conocimiento Cultural	3
-Exteriores·Animales	3
-  *  Montar: Caballos	3
+Exteriores·Animales	5
+  *  Montar: Caballos	5
 Exteriores·Entorno	3
 Percepción de Poder	0
 Percepción·Búsqueda	1
 Percepción·Perspicacia	0
-  *  Alerta	2
+  *  Alerta	1
 Subterfugio·Sigilo	0
   *  Acechar	0
   *  Esconderse	0
 Técnica/comercio·General	1
 Urbana	0
-Desarrollo Físico	0
-  *  Desarrollo Físico	3
+Desarrollo Físico	0	
+  *  Desarrollo Físico	2
 Listas Abiertas de Hechizos	0
   *  Lista de Hechizos	0
 
@@ -59,22 +61,22 @@ Listas Abiertas de Hechizos	0
 
 # AFICIONES
 ####################
-Acechar, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Contundentes, Armas·Asta, Armas·Arrojadizas, Armas·Contundentes
-Armadura·Ligera, Bordar, Conocimiento de la Fauna, Contorsionismo, Desarrollo Físico, Emboscar
-Esconderse, Forrajear, Hacer Flechas, Hechizos Dirigidos, Manejo de los Animales, Montar, Narrar Historias
-Observación, Organización Militar, Orientación Celeste, Tatuar, Predicción del Clima
-Rastrear, Señales, Táctica, Tallar el Hueso, Trabajar el Cuero
+Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas, Armas·Contundentes
+Armadura·Ligera, Callejeo, Combate Montado, Comerciar, Conocimiento Regional
+Desarrollo Físico, Historia, Idioma, Juegos de Estrategia, Manejo de los Animales
+Montar, Orientación Celeste, Sentido de la Dirección, Sentido del Tiempo
+Sobornar, Supervivencia (Desierto), Trabajr el Cuero, Trabajr al Piedra
 
 # IDIOMAS
 ####################
 Habla Común	8/8
-Habla Alta	6/6
+Habla del Norte	8/8
+Habla del Sur	8/8
 Habla de las Llanuras	8/8
-Habla del Norte	6/6
-Habla del Sur	6/6
 
 # ADIESTAMIENTOS
 ####################
-Ninguno
+Artesano 	75%
+Mercader	75%
 
 ### FIN CULTURA ###

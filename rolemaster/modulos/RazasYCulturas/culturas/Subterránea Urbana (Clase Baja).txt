@@ -59,11 +59,11 @@ Listas Abiertas de Hechizos	0
 
 # AFICIONES
 ####################
-Alerta, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas, Armas·Contundentes
-Armadura·Ligera, Buscar, Caminar por la Cuerda Floja, Conocimiento Regional, Emboscar
-Espeleología, Ocultar Objetos, Resistencia Adrenal, Sentido de la Dirección, Sentido del Espacio
-Sentido del Tiempo, Vista, Olfato, Tacto, Gusto, Oído, Supervivencia, Tasar, Trabajar el Metal
-Trabajar la Piedra, Vigilancia, Volteretas, Zahorí
+Abrir Cerraduras, Agenciar, Alerta, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas, Armas·Contundentes
+Armadura·Ligera, Buscar, Callejeo, Disimulo, Emboscar, Espeleología, 
+Instinto Urbano, Juego, Ocultar Objetos, Sentido de la Dirección, Sentido del Espacio, Sentido del Tiempo
+Vista, Olfato, Tacto, Gusto, Oído, Supervivencia (Subterránea)
+Trabajar la Piedra, Vigilancia, Volteretas
 
 # IDIOMAS
 ####################

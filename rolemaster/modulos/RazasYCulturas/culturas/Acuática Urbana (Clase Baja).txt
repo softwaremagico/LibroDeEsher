@@ -59,11 +59,10 @@ Listas Abiertas de Hechizos	0
 
 # AFICIONES
 ####################
-Acrobacias, Armas·Asta, Caer, Conocimiento de la Fauna (Acuática)
-Conocimiento de la Flora (Acuática), Contorsionismo
-Volteretas, Desarrollo Físico, Domar, Forrajear
-Hacer Surf, Maestría de Animales, Manejo de los Animales
-Montar, Nadar, Supervivencia (Acuática)
+Agenciar, Armas·Asta, Caer, Conducir, Conocimiento Regional
+Desarrollo Físico, Forrajear, Hacer Surf, Instinto Urbano
+Juegos de Manos, Manejo de los Animales, Mendigar, Nadar
+Supervivencia (Acuática)
 
 # IDIOMAS
 ####################

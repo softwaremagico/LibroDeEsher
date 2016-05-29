@@ -1,18 +1,18 @@
 # ARMAS TÍPICAS
 ####################
-Todas
+Daga, Hacha de Mano, Garrote, Honda, Cayado, Jabalina, Arpón, Guadaña, Espada, Hacha de Batalla, Lanza de Caballería, Espada Bastarda
 
 # ARMADURAS TÍPICAS
 ####################
-Cota de Mallas, Cuero Blando, Cuero Endurecido
+Cuero Blando, Cuero Endurecido, Cota de Mallas, Coraza
 
 # RANGOS
 ####################
-Armadura·Ligera	2
-  *  Cuero Blando	2
-  *  Cuero Endurecido	2
-Armadura·Media	1
-  *  Cota de Mallas	1
+Armadura·Ligera	1
+  *  Cuero Blando	1
+  *  Cuero Endurecido	1
+Armadura·Media	0
+  *  Cota de Mallas	0
 Armas·Contundentes	2
   *  Arma	2
 Armas·Filo	0
@@ -26,21 +26,21 @@ Armas·Asta	0
 Armas·Arrojadizas	1
   *  Arma	1
 Atletismo·Gimnasia	1
-  *  Trepar	1
+  *  Trepar	0
 Atletismo·Potencia	1
 Atletismo·Resistencia	1
-  *  Nadar	0
+  *  Nadar	1
 Ciencia/Analítica·Básica	0
 Comunicación	1
-  *  Idiomas	4
+  *  Idiomas	8
 Conocimiento·General	3
   *  Conocimiento Regional	3
   *  Conocimiento Cultural	3
-Exteriores·Animales	0
-  *  Montar	0
+Exteriores·Animales	1
+  *  Montar: Caballos	1
 Exteriores·Entorno	2
 Percepción de Poder	0
-Percepción·Búsqueda	2
+Percepción·Búsqueda	1
 Percepción·Perspicacia	0
   *  Alerta	2
 Subterfugio·Sigilo	1
@@ -49,27 +49,29 @@ Subterfugio·Sigilo	1
 Técnica/comercio·General	1
 Urbana	0
 Desarrollo Físico	0
-  *  Desarrollo Físico	1
+  *  Desarrollo Físico	2
 Listas Abiertas de Hechizos	0
   *  Lista de Hechizos	0
 
 # PUNTOS AFICIONES
 ####################
-10
+12
 
 # AFICIONES
 ####################
-Alerta, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas, Armas·Contundentes
-Armadura·Ligera, Buscar, Caminar por la Cuerda Floja, Conocimiento Regional, Emboscar
-Espeleología, Ocultar Objetos, Resistencia Adrenal, Sentido de la Dirección, Sentido del Espacio
-Sentido del Tiempo, Vista, Olfato, Tacto, Gusto, Oído, Supervivencia, Tasar, Trabajar el Metal
-Trabajar la Piedra, Vigilancia, Volteretas, Zahorí
+Acechar, Acrobacias, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas, Armas·Contundentes
+Armadura·Ligera, Bailar, Cocinar, Conocimiento Regional, Escalar, Esconderse
+Forrajear, Maestría de los Animales, Manejo de los Animales, Manejo de Cuerdas
+Montar, Observación, Orientación Celeste, Predicción del Clima, Rastrear
+Trabajar el Cuero, Trabajar la Madera
 
 # IDIOMAS
 ####################
 Habla Común	8/8
-Habla Negra	8/8
-Orco	8/8
+Habla Alta	6/6
+Habla Pequeña	6/6
+Habla del Norte	8/8
+Habla del Sur	8/8
 
 # ADIESTAMIENTOS
 ####################

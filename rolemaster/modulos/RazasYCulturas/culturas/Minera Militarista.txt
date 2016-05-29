@@ -1,6 +1,6 @@
 # ARMAS TÍPICAS
 ####################
-Todas
+Daga, Espada Corta, Ballesta Pesada, Ballesta Ligera, Lanza, Arma de Asta, Hacha de Mano, Garrote, Martillo de Guerra, Maza, Hacha de Batalla, Pica de Guerra
 
 # ARMADURAS TÍPICAS
 ####################
@@ -9,18 +9,18 @@ Cota de Mallas, Cuero Blando, Cuero Endurecido
 # RANGOS
 ####################
 Armadura·Ligera	2
-  *  Cuero Blando	2
+  *  Cuero Blando	0
   *  Cuero Endurecido	2
-Armadura·Media	1
-  *  Cota de Mallas	1
-Armas·Contundentes	2
-  *  Arma	2
+Armadura·Media	2
+  *  Cota de Mallas	2
+Armas·Contundentes	4
+  *  Arma	4
 Armas·Filo	0
   *  Arma	0
 Armas·2manos	0
   *  Arma	0
-Armas·Proyectiles	1
-  *  Arma	1
+Armas·Proyectiles	0
+  *  Arma	0
 Armas·Asta	0
   *  Arma	0
 Armas·Arrojadizas	1
@@ -30,9 +30,9 @@ Atletismo·Gimnasia	1
 Atletismo·Potencia	1
 Atletismo·Resistencia	1
   *  Nadar	0
-Ciencia/Analítica·Básica	0
+Ciencia/Analítica·Básica	1
 Comunicación	1
-  *  Idiomas	4
+  *  Idiomas	8
 Conocimiento·General	3
   *  Conocimiento Regional	3
   *  Conocimiento Cultural	3
@@ -40,39 +40,41 @@ Exteriores·Animales	0
   *  Montar	0
 Exteriores·Entorno	2
 Percepción de Poder	0
-Percepción·Búsqueda	2
+Percepción·Búsqueda	1
 Percepción·Perspicacia	0
-  *  Alerta	2
-Subterfugio·Sigilo	1
-  *  Acechar	1
-  *  Esconderse	1
+  *  Alerta	4
+Subterfugio·Sigilo	0
+  *  Acechar	0
+  *  Esconderse	0
 Técnica/comercio·General	1
 Urbana	0
 Desarrollo Físico	0
-  *  Desarrollo Físico	1
+  *  Desarrollo Físico	3
 Listas Abiertas de Hechizos	0
   *  Lista de Hechizos	0
 
 # PUNTOS AFICIONES
 ####################
-10
+12
 
 # AFICIONES
 ####################
-Alerta, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas, Armas·Contundentes
-Armadura·Ligera, Buscar, Caminar por la Cuerda Floja, Conocimiento Regional, Emboscar
-Espeleología, Ocultar Objetos, Resistencia Adrenal, Sentido de la Dirección, Sentido del Espacio
-Sentido del Tiempo, Vista, Olfato, Tacto, Gusto, Oído, Supervivencia, Tasar, Trabajar el Metal
-Trabajar la Piedra, Vigilancia, Volteretas, Zahorí
+Armas, Armadura, Conocimiento Regional, Desarrollo Físico, Espeleología
+Historia, Montar: Lobos, Montar: Osos, Primeros Auxilios, Táctica, Tasar
+Trabajar el Cuero, Trabajar el Metal, Trabajar la Madera, Trepar
 
 # IDIOMAS
 ####################
 Habla Común	8/8
-Habla Negra	8/8
-Orco	8/8
+Habla Negra	6/6
+Habla de las Colinas	10/10
+Enano	4/4
+Murlogi	6/4
 
 # ADIESTAMIENTOS
 ####################
-Ninguno
+Mercenario	75%
+Soldato 	75%
+Experto en Armas	75%
 
 ### FIN CULTURA ###

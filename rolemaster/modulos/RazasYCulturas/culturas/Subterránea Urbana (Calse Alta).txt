@@ -60,16 +60,20 @@ Listas Abiertas de Hechizos	0
 # AFICIONES
 ####################
 Alerta, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas, Armas·Contundentes
-Armadura·Ligera, Buscar, Caminar por la Cuerda Floja, Conocimiento Regional, Emboscar
-Espeleología, Ocultar Objetos, Resistencia Adrenal, Sentido de la Dirección, Sentido del Espacio
-Sentido del Tiempo, Vista, Olfato, Tacto, Gusto, Oído, Supervivencia, Tasar, Trabajar el Metal
-Trabajar la Piedra, Vigilancia, Volteretas, Zahorí
+Armadura·Ligera, Emboscar, Espeleología, Historia, Liderazgo, Oratoria
+Ritual Mágico, Sentido de la Dirección, Sentido del Espacio, Sentido del Tiempo
+Vista, Olfato, Tacto, Gusto, Oído, Supervivencia (Subterránea), Tasar, Trabajar el Metal
+Trabajar la Piedra, Vigilancia
 
 # IDIOMAS
 ####################
 Habla Común	8/8
 Habla Negra	8/8
 Orco	8/8
+Dyari	4/4
+Lugrôki	6/6
+Murlogi	6/6
+Idioma Regional	6/6
 
 # ADIESTAMIENTOS
 ####################

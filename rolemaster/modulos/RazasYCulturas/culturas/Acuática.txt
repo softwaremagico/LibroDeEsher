@@ -71,6 +71,9 @@ Habla Común	8/8
 Habla del Norte	6/4
 Habla del Sur	6/4
 Habla de los Mares	10/10
+Sirénido	10/10
+Shuluri	8/8
+Idioma Regional	8/8
 
 # ADIESTAMIENTOS
 ####################
