@@ -116,7 +116,7 @@ public class WeaponFactory {
 		return weaponsByType.get(type);
 	}
 
-	public static Weapon getWeapon(String name) {
+	public static Weapon getWeapon(String name) throws InvalidWeaponException {
 		String nameInLower = name.toLowerCase();
 		for (WeaponType type : WeaponType.values()) {
 			List<Weapon> weapons = getWeaponsByType(type);
@@ -126,8 +126,7 @@ public class WeaponFactory {
 				}
 			}
 		}
-		EsherLog.warning(WeaponFactory.class.getName(), "Weapon '" + name + "' abbreviature not found!");
-		return null;
+		throw new InvalidWeaponException("Weapon '" + name + "' abbreviature not found!");
 	}
 
 }
