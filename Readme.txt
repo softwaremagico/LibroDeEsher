@@ -30,8 +30,7 @@ Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadore
 Versión
 ------------
 2.3.0	Añadido:
-		- Más de 30 razas añadidas. 
-		- Más de 10 culturas añadidas.
+		- Todas la razas y culturas del manual Razas y Culturas.
 		- Añadido a la definición de raza: clase de armadura, bonus a habilidades y categorias.
 		
 2.2.4	Añadido:
