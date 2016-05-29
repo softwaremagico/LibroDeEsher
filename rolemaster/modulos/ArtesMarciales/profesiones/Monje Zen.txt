@@ -183,11 +183,12 @@ Sacerdote Chamánico	30
 Salteador	25
 Timador	22
 Trotamundos	29
-Sacerdote Guerrero	33
+
 Houri	37
+
 Artista Marcial	45
 Artista Marcial de la Calle	26
-Artista Marcial Elegante		37
+Artista Marcial Elegante	37
 Campeón de Artes Marciales	39
 Competidor de Artes Marciales	43
 Escolta de Caravanas	40

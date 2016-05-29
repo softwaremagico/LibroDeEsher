@@ -385,8 +385,8 @@ public class Profession {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
-		while (!lines.get(index).equals("")) {
-			while (!lines.get(index).equals("")) {
+		while (!lines.get(index).startsWith("#")) {
+			if (lines.get(index).length() > 0) {
 				String trainingLine = lines.get(index);
 				String[] trainingColumns = trainingLine.split("\t");
 
@@ -407,8 +407,8 @@ public class Profession {
 				} catch (Exception e) {
 					throw new InvalidProfessionException("Invalid training cost for '" + getName() + "' in '" + lines.get(index) + "'.", e);
 				}
-				index++;
 			}
+			index++;
 		}
 		return index;
 	}
