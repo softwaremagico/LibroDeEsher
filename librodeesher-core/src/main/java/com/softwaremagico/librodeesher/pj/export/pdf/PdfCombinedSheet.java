@@ -18,7 +18,6 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -49,8 +48,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 
 	private List<List<Category>> columns;
 
-	public PdfCombinedSheet(CharacterPlayer characterPlayer, String path) throws MalformedURLException,
-			DocumentException, IOException {
+	public PdfCombinedSheet(CharacterPlayer characterPlayer, String path) throws MalformedURLException, DocumentException, IOException {
 		super(characterPlayer, path, false);
 	}
 
@@ -76,35 +74,27 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		}
 	}
 
-	private void createPdf(Document document, PdfWriter writer) throws BadElementException,
-			MalformedURLException, DocumentException, IOException {
-		String categoriesfont = FontFactory.HELVETICA;
-		BaseFont font = FontFactory.getFont(categoriesfont).getBaseFont();
-
-		twoFaced = (getCharacterPlayer().getPerks().size() > 0
-				|| getCharacterPlayer().getRace().getSpecials().size() > 0 || getCharacterPlayer()
+	private void createPdf(Document document, PdfWriter writer) throws BadElementException, MalformedURLException, DocumentException, IOException {
+		twoFaced = (getCharacterPlayer().getPerks().size() > 0 || getCharacterPlayer().getRace().getSpecials().size() > 0 || getCharacterPlayer()
 				.getEquipment().size() > 0);
 
 		DocumentData(document, writer);
 		document.open();
-		characteristicsPage(document, writer, font);
+		characteristicsPage(document, writer);
 		if (twoFaced) {
-			equipmentPage(document, writer, font);
+			equipmentPage(document, writer);
 		}
-		combinedPage(document, writer, font);
+		combinedPage(document, writer);
 		document.close();
 	}
 
-	private void combinedPage(Document document, PdfWriter writer, BaseFont font) throws BadElementException,
-			MalformedURLException, DocumentException, IOException {
+	private void combinedPage(Document document, PdfWriter writer) throws BadElementException, MalformedURLException, DocumentException, IOException {
 		document.newPage();
-		createBackgroundImage(document, RolemasterFolderStructure.getSheetFolder() + File.separator
-				+ "RMHPComb.png");
-		combinedSkillsPage(document, writer, font);
+		createBackgroundImage(document, RolemasterFolderStructure.getSheetFolder() + File.separator + "RMHPComb.png");
+		combinedSkillsPage(document, writer);
 	}
 
-	private void combinedSkillsPage(Document document, PdfWriter writer,  BaseFont font)
-			throws MalformedURLException, BadElementException, IOException, DocumentException {
+	private void combinedSkillsPage(Document document, PdfWriter writer) throws MalformedURLException, BadElementException, IOException, DocumentException {
 		PdfPCell cell;
 
 		cell = new PdfPCell(createHeader());
@@ -119,47 +109,40 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 			int emptyLinesToAdd = MAX_LINES_PER_COLUMN - linesByCategory;
 			for (Category category : column) {
 				// Add The Category title
-				PdfPCell categoryCell = categoryCell(writer, document, category, font);
+				PdfPCell categoryCell = categoryCell(writer, document, category);
 				tableColumn.addCell(categoryCell);
 
 				// Add the title for skill list
-				PdfPCell skillTitleCell = skillLine("Habilidad:", "#", null, "Rng:", "Cat", "Obj:", "Esp:",
-						"Total:", new Font(getHandWrittingFont(), fontSize - 1, Font.BOLD));
+				PdfPCell skillTitleCell = skillLine("Habilidad:", "#", null, "Rng:", "Cat", "Obj:", "Esp:", "Total:", new Font(getHandWrittingFont(),
+						fontSize - 1, Font.BOLD));
 				tableColumn.addCell(skillTitleCell);
 
 				// Skills list.
 				for (Skill skill : category.getSkills()) {
 					if (getCharacterPlayer().isSkillInteresting(skill)) {
-						PdfPCell skillLineCell = skillLine(TxtSheet.getNameSpecificLength(
-								getCharacterPlayer(), skill, SKILL_NAME_LENGTH), getCharacterPlayer()
-								.getPreviousRanks(skill) + "", getNewRanksImage(getCharacterPlayer()
-								.getCurrentLevelRanks(skill)),
-								getCharacterPlayer().getRanksValue(skill) + "", getCharacterPlayer()
-										.getTotalValue(skill.getCategory()) + "", getCharacterPlayer()
-										.getItemBonus(skill) + "", getBonusValue(skill),
-								getTotalValue(skill), new Font(getHandWrittingFont(), fontSize - 1));
+						PdfPCell skillLineCell = skillLine(TxtSheet.getNameSpecificLength(getCharacterPlayer(), skill, SKILL_NAME_LENGTH), getCharacterPlayer()
+								.getPreviousRanks(skill) + "", getNewRanksImage(getCharacterPlayer().getCurrentLevelRanks(skill)), getCharacterPlayer()
+								.getRanksValue(skill) + "", getCharacterPlayer().getTotalValue(skill.getCategory()) + "",
+								getCharacterPlayer().getItemBonus(skill) + "", getBonusValue(skill), getTotalValue(skill), new Font(getHandWrittingFont(),
+										fontSize - 1));
 						tableColumn.addCell(skillLineCell);
 
 						// Add specialization
 						for (String specialization : getCharacterPlayer().getSkillSpecializations(skill)) {
-							PdfPCell skillSpecializedLineCell = skillLine("  " + specialization, "", null,
-									getCharacterPlayer().getSpecializedRanksValue(skill) + "",
-									getCharacterPlayer().getTotalValue(skill.getCategory()) + "",
-									getCharacterPlayer().getItemBonus(skill) + "", getBonusValue(skill),
-									getTotalSpecializedValue(skill), new Font(getHandWrittingFont(), fontSize - 1));
+							PdfPCell skillSpecializedLineCell = skillLine("  " + specialization, "", null, getCharacterPlayer().getSpecializedRanksValue(skill)
+									+ "", getCharacterPlayer().getTotalValue(skill.getCategory()) + "", getCharacterPlayer().getItemBonus(skill) + "",
+									getBonusValue(skill), getTotalSpecializedValue(skill), new Font(getHandWrittingFont(), fontSize - 1));
 							tableColumn.addCell(skillSpecializedLineCell);
 						}
 					}
 				}
 
 				// Empty skill lines to fill gaps:
-				int addEmptyLines = (emptyLinesToAdd / (column.size() - column.indexOf(category)))
-						+ MIN_EMPTY_SKILLS_PER_CATEGORY;
+				int addEmptyLines = (emptyLinesToAdd / (column.size() - column.indexOf(category))) + MIN_EMPTY_SKILLS_PER_CATEGORY;
 
 				for (int i = 0; i < addEmptyLines; i++) {
-					PdfPCell emptySkillLines = skillLine("________________________", "__",
-							getNewRanksImage(0), "___", getCharacterPlayer().getTotalValue(category) + "",
-							"___", "___", "___", new Font(getHandWrittingFont(), fontSize - 1));
+					PdfPCell emptySkillLines = skillLine("________________________", "__", getNewRanksImage(0), "___",
+							getCharacterPlayer().getTotalValue(category) + "", "___", "___", "___", new Font(getHandWrittingFont(), fontSize - 1));
 					tableColumn.addCell(emptySkillLines);
 					emptyLinesToAdd--;
 				}
@@ -168,27 +151,23 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 			addColumn(document);
 
 			if (columnIndex % 2 == 0 && columnIndex < columns.size()) {
-				addNewSkillPage(document, writer, font);
+				addNewSkillPage(document, writer);
 			}
 			columnIndex++;
 		}
 
-		closePage(document, writer, font);
+		closePage(document, writer);
 	}
 
 	private String getBonusValue(Skill skill) {
-		String bonusText = getCharacterPlayer().getProfession().getSkillBonus(skill.getName())
-				+ getCharacterPlayer().getHistorial().getBonus(skill)
-				+ getCharacterPlayer().getPerkBonus(skill)
-				+ getCharacterPlayer().getConditionalPerkBonus(skill) + "";
+		String bonusText = getCharacterPlayer().getProfession().getSkillBonus(skill.getName()) + getCharacterPlayer().getHistorial().getBonus(skill)
+				+ getCharacterPlayer().getPerkBonus(skill) + getCharacterPlayer().getConditionalPerkBonus(skill) + "";
 
 		String letter = "";
 		if (getCharacterPlayer().getHistorial().getBonus(skill) > 0) {
 			letter += "H";
 		}
-		if (getCharacterPlayer() != null
-				&& (getCharacterPlayer().getPerkBonus(skill) != 0 || getCharacterPlayer()
-						.getConditionalPerkBonus(skill) != 0)) {
+		if (getCharacterPlayer() != null && (getCharacterPlayer().getPerkBonus(skill) != 0 || getCharacterPlayer().getConditionalPerkBonus(skill) != 0)) {
 			letter += "T";
 			if (getCharacterPlayer().getConditionalPerkBonus(skill) != 0) {
 				letter += "*";
@@ -201,23 +180,18 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 	}
 
 	private String getTotalValue(Skill skill) {
-		if (getCharacterPlayer().getItemBonus(skill) > 0
-				|| getCharacterPlayer().getConditionalPerkBonus(skill) > 0) {
-			return getCharacterPlayer().getTotalValue(skill) - getCharacterPlayer().getItemBonus(skill)
-					- getCharacterPlayer().getConditionalPerkBonus(skill) + "/"
-					+ getCharacterPlayer().getTotalValue(skill) + "";
+		if (getCharacterPlayer().getItemBonus(skill) > 0 || getCharacterPlayer().getConditionalPerkBonus(skill) > 0) {
+			return getCharacterPlayer().getTotalValue(skill) - getCharacterPlayer().getItemBonus(skill) - getCharacterPlayer().getConditionalPerkBonus(skill)
+					+ "/" + getCharacterPlayer().getTotalValue(skill) + "";
 		} else {
 			return getCharacterPlayer().getTotalValue(skill) + "";
 		}
 	}
 
 	private String getTotalSpecializedValue(Skill skill) {
-		if (getCharacterPlayer().getItemBonus(skill) > 0
-				|| getCharacterPlayer().getConditionalPerkBonus(skill) > 0) {
-			return getCharacterPlayer().getSpecializedTotalValue(skill)
-					- getCharacterPlayer().getItemBonus(skill)
-					- getCharacterPlayer().getConditionalPerkBonus(skill) + "/"
-					+ getCharacterPlayer().getSpecializedTotalValue(skill) + "";
+		if (getCharacterPlayer().getItemBonus(skill) > 0 || getCharacterPlayer().getConditionalPerkBonus(skill) > 0) {
+			return getCharacterPlayer().getSpecializedTotalValue(skill) - getCharacterPlayer().getItemBonus(skill)
+					- getCharacterPlayer().getConditionalPerkBonus(skill) + "/" + getCharacterPlayer().getSpecializedTotalValue(skill) + "";
 		} else {
 			return getCharacterPlayer().getSpecializedTotalValue(skill) + "";
 		}
@@ -235,8 +209,8 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		tableColumn.flushContent();
 	}
 
-	private void closePage(Document document, PdfWriter writer, BaseFont font) {
-		PdfPCell cell = new PdfPCell(createFooter(font, fontSize));
+	private void closePage(Document document, PdfWriter writer) {
+		PdfPCell cell = new PdfPCell(createFooter(fontSize));
 		cell.setBorderWidth(0);
 		cell.setColspan(2);
 		cell.setMinimumHeight(20);
@@ -264,8 +238,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 					if (getCharacterPlayer().isSkillInteresting(skill)) {
 						linesByCategory += SKILL_SIZE;
 						// Count specializations
-						linesByCategory += getCharacterPlayer().getSkillSpecializations(skill).size()
-								* SKILL_SIZE;
+						linesByCategory += getCharacterPlayer().getSkillSpecializations(skill).size() * SKILL_SIZE;
 					}
 				}
 
@@ -302,17 +275,15 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 				if (getCharacterPlayer().isSkillInteresting(skill)) {
 					linesByCategory += SKILL_SIZE;
 					// Count specializations
-					linesByCategory += getCharacterPlayer().getSkillSpecializations(skill).size()
-							* SKILL_SIZE;
+					linesByCategory += getCharacterPlayer().getSkillSpecializations(skill).size() * SKILL_SIZE;
 				}
 			}
 		}
 		return linesByCategory;
 	}
 
-	private static PdfPCell skillLine(String skillName, String previousSkillRanks, Image currentLevelRanks,
-			String rankValue, String totalCategoryValue, String itemBonus, String totalBonus, String total,
-			Font font) throws BadElementException, MalformedURLException, IOException, DocumentException {
+	private static PdfPCell skillLine(String skillName, String previousSkillRanks, Image currentLevelRanks, String rankValue, String totalCategoryValue,
+			String itemBonus, String totalBonus, String total, Font font) throws BadElementException, MalformedURLException, IOException, DocumentException {
 		Paragraph p;
 		PdfPCell cell;
 		BaseColor background = BaseColor.WHITE;
@@ -393,16 +364,15 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		return cell;
 	}
 
-	private PdfPCell categoryCell(PdfWriter writer, Document document, Category category, BaseFont font)
-			throws MalformedURLException, BadElementException, IOException, DocumentException {
+	private PdfPCell categoryCell(PdfWriter writer, Document document, Category category) throws MalformedURLException, BadElementException, IOException,
+			DocumentException {
 		Paragraph p;
 		float[] widths = { 0.23f, 0.18f, 0.19f, 0.11f, 0.13f, 0.16f };
 		PdfPTable categoryTable = new PdfPTable(widths);
 		categoryTable.flushContent();
 		BaseColor background = VERY_LIGHT_GRAY;
 
-		p = new Paragraph(category.getName(33).toUpperCase(), new Font(getHandWrittingFont(), fontSize - 1,
-				Font.BOLD));
+		p = new Paragraph(category.getName(33).toUpperCase(), new Font(getHandWrittingFont(), fontSize - 1, Font.BOLD));
 		PdfPCell cell = getCategoryCell(p, background);
 		cell.setColspan(2);
 		categoryTable.addCell(cell);
@@ -410,17 +380,14 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		p = new Paragraph(category.getCharacterisitcsTags(), new Font(getHandWrittingFont(), fontSize));
 		categoryTable.addCell(getCategoryCell(p, background));
 
-		p = new Paragraph(getCharacterPlayer().getCategoryCost(category, 0).getCostTag(),
-				new Font(getHandWrittingFont(), fontSize));
+		p = new Paragraph(getCharacterPlayer().getCategoryCost(category, 0).getCostTag(), new Font(getHandWrittingFont(), fontSize));
 		categoryTable.addCell(getCategoryCell(p, background));
 
-		p = new Paragraph("Rang: " + getCharacterPlayer().getPreviousRanks(category) + "",
-				new Font(getHandWrittingFont(), fontSize));
+		p = new Paragraph("Rang: " + getCharacterPlayer().getPreviousRanks(category) + "", new Font(getHandWrittingFont(), fontSize));
 		categoryTable.addCell(getCategoryCell(p, background));
 
 		if (category.getCategoryType().equals(CategoryType.STANDARD)) {
-			categoryTable.addCell(getCategoryCell(
-					getNewRanksImage(getCharacterPlayer().getCurrentLevelRanks(category)), background));
+			categoryTable.addCell(getCategoryCell(getNewRanksImage(getCharacterPlayer().getCurrentLevelRanks(category)), background));
 		} else {
 			String text;
 			if (category.getCategoryType().equals(CategoryType.COMBINED)) {
@@ -428,10 +395,8 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 				p = new Paragraph(text, new Font(getHandWrittingFont(), fontSize));
 				categoryTable.addCell(getCategoryCell(p, background));
 			}
-			if (category.getCategoryType().equals(CategoryType.LIMITED)
-					|| category.getCategoryType().equals(CategoryType.SPECIAL)
-					|| category.getCategoryType().equals(CategoryType.PPD)
-					|| category.getCategoryType().equals(CategoryType.PD)) {
+			if (category.getCategoryType().equals(CategoryType.LIMITED) || category.getCategoryType().equals(CategoryType.SPECIAL)
+					|| category.getCategoryType().equals(CategoryType.PPD) || category.getCategoryType().equals(CategoryType.PD)) {
 				text = "+";
 				p = new Paragraph(text, new Font(getHandWrittingFont(), fontSize));
 				categoryTable.addCell(getCategoryCell(p, background));
@@ -439,16 +404,13 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		}
 
 		// Second line
-		p = new Paragraph("Bonif. Rango: " + getCharacterPlayer().getRanksValue(category),
-				new Font(getHandWrittingFont(), fontSize));
+		p = new Paragraph("Bonif. Rango: " + getCharacterPlayer().getRanksValue(category), new Font(getHandWrittingFont(), fontSize));
 		categoryTable.addCell(getCategoryCell(p, background));
 
-		p = new Paragraph("Caract: " + getCharacterPlayer().getCharacteristicsBonus(category),
-				new Font(getHandWrittingFont(), fontSize));
+		p = new Paragraph("Caract: " + getCharacterPlayer().getCharacteristicsBonus(category), new Font(getHandWrittingFont(), fontSize));
 		categoryTable.addCell(getCategoryCell(p, background));
 
-		String text = (getCharacterPlayer().getHistorial().getBonus(category) + getCharacterPlayer()
-				.getPerkBonus(category)) + "";
+		String text = (getCharacterPlayer().getHistorial().getBonus(category) + getCharacterPlayer().getPerkBonus(category)) + "";
 		String letter = "";
 
 		if (getCharacterPlayer().getHistorial().getBonus(category) > 0) {
@@ -469,18 +431,15 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		p = new Paragraph("Esp: " + text, new Font(getHandWrittingFont(), fontSize));
 		categoryTable.addCell(getCategoryCell(p, background));
 
-		p = new Paragraph("Prof: "
-				+ (category.getBonus() + getCharacterPlayer().getProfession().getCategoryBonus(
-						category.getName())), new Font(getHandWrittingFont(), fontSize));
+		p = new Paragraph("Prof: " + (category.getBonus() + getCharacterPlayer().getProfession().getCategoryBonus(category.getName())), new Font(
+				getHandWrittingFont(), fontSize));
 
 		categoryTable.addCell(getCategoryCell(p, background));
 
-		p = new Paragraph("Obj: " + getCharacterPlayer().getItemBonus(category), new Font(getHandWrittingFont(),
-				fontSize));
+		p = new Paragraph("Obj: " + getCharacterPlayer().getItemBonus(category), new Font(getHandWrittingFont(), fontSize));
 		categoryTable.addCell(getCategoryCell(p, background));
 
-		p = new Paragraph("Total: " + getCharacterPlayer().getTotalValue(category), new Font(getHandWrittingFont(),
-				fontSize));
+		p = new Paragraph("Total: " + getCharacterPlayer().getTotalValue(category), new Font(getHandWrittingFont(), fontSize));
 		categoryTable.addCell(getCategoryCell(p, background));
 
 		cell = new PdfPCell(categoryTable);
@@ -545,8 +504,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 
 		columns = obtainCategoriesPerColumn(MIN_EMPTY_SKILLS_PER_CATEGORY);
 
-		Paragraph p = new Paragraph("Hoja Combinada de Habilidades (" + (page + 1) + " de "
-				+ ((columns.size() + 1) / COLUMNS_PER_PAGE) + ")", f);
+		Paragraph p = new Paragraph("Hoja Combinada de Habilidades (" + (page + 1) + " de " + ((columns.size() + 1) / COLUMNS_PER_PAGE) + ")", f);
 		// Paragraph p = new Paragraph("Hoja Combinada de Habilidades (" + page
 		// + ")", f);
 		cell = new PdfPCell(p);
@@ -565,8 +523,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		tableC.flushContent();
 		PdfPCell cell;
 
-		Paragraph p = new Paragraph("Personaje: " + getCharacterPlayer().getName(), FontFactory.getFont(
-				FontFactory.HELVETICA, fontSize));
+		Paragraph p = new Paragraph("Personaje: " + getCharacterPlayer().getName(), FontFactory.getFont(FontFactory.HELVETICA, fontSize));
 		cell = new PdfPCell(p);
 		cell.setMinimumHeight(15);
 		cell.setBorderWidth(0);
@@ -575,8 +532,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setPaddingLeft(5f);
 		tableC.addCell(cell);
 
-		p = new Paragraph("Jugador: ___________________________________", FontFactory.getFont(
-				FontFactory.HELVETICA, fontSize));
+		p = new Paragraph("Jugador: ___________________________________", FontFactory.getFont(FontFactory.HELVETICA, fontSize));
 		cell = new PdfPCell(p);
 		cell.setMinimumHeight(15);
 		cell.setBorderWidth(0);
@@ -588,12 +544,11 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		return cell;
 	}
 
-	protected void addNewSkillPage(Document document, PdfWriter writer, BaseFont font)
-			throws BadElementException, MalformedURLException, IOException, DocumentException {
+	protected void addNewSkillPage(Document document, PdfWriter writer) throws BadElementException, MalformedURLException, IOException, DocumentException {
 		PdfPCell cell;
 
 		// Close previous page
-		closePage(document, writer, font);
+		closePage(document, writer);
 
 		// Create a new one
 		float[] widths = { 0.45f, 0.45f };
@@ -605,8 +560,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		document.newPage();
 		page++;
 		try {
-			createBackgroundImage(document, RolemasterFolderStructure.getSheetFolder() + File.separator
-					+ "RMHPComb.png");
+			createBackgroundImage(document, RolemasterFolderStructure.getSheetFolder() + File.separator + "RMHPComb.png");
 		} catch (DocumentException ex) {
 			EsherLog.errorMessage(PdfCombinedSheet.class.getName(), ex);
 		}
