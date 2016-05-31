@@ -113,7 +113,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 				tableColumn.addCell(categoryCell);
 
 				// Add the title for skill list
-				PdfPCell skillTitleCell = skillLine("Habilidad:", "#", null, "Rng:", "Cat", "Obj:", "Esp:", "Total:", new Font(getHandWrittingFont(),
+				PdfPCell skillTitleCell = skillLine("Habilidad:", "#", null, "Rng:", "Cat", "Obj:", "Esp:", "Total:", new Font(getDefaultFont(),
 						fontSize - 1, Font.BOLD));
 				tableColumn.addCell(skillTitleCell);
 
@@ -142,7 +142,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 
 				for (int i = 0; i < addEmptyLines; i++) {
 					PdfPCell emptySkillLines = skillLine("________________________", "__", getNewRanksImage(0), "___",
-							getCharacterPlayer().getTotalValue(category) + "", "___", "___", "___", new Font(getHandWrittingFont(), fontSize - 1));
+							getCharacterPlayer().getTotalValue(category) + "", "___", "___", "___", new Font(getDefaultFont(), fontSize - 1));
 					tableColumn.addCell(emptySkillLines);
 					emptyLinesToAdd--;
 				}
@@ -372,18 +372,18 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		categoryTable.flushContent();
 		BaseColor background = VERY_LIGHT_GRAY;
 
-		p = new Paragraph(category.getName(33).toUpperCase(), new Font(getHandWrittingFont(), fontSize - 1, Font.BOLD));
+		p = new Paragraph(category.getName(33).toUpperCase(), new Font(getDefaultFont(), fontSize - 2, Font.BOLD));
 		PdfPCell cell = getCategoryCell(p, background);
 		cell.setColspan(2);
 		categoryTable.addCell(cell);
 
-		p = new Paragraph(category.getCharacterisitcsTags(), new Font(getHandWrittingFont(), fontSize));
+		p = new Paragraph(category.getCharacterisitcsTags(), new Font(getDefaultFont(), fontSize));
 		categoryTable.addCell(getCategoryCell(p, background));
 
-		p = new Paragraph(getCharacterPlayer().getCategoryCost(category, 0).getCostTag(), new Font(getHandWrittingFont(), fontSize));
+		p = new Paragraph(getCharacterPlayer().getCategoryCost(category, 0).getCostTag(), new Font(getDefaultFont(), fontSize));
 		categoryTable.addCell(getCategoryCell(p, background));
 
-		p = new Paragraph("Rang: " + getCharacterPlayer().getPreviousRanks(category) + "", new Font(getHandWrittingFont(), fontSize));
+		p = new Paragraph("Rang: " + getCharacterPlayer().getPreviousRanks(category) + "", new Font(getDefaultFont(), fontSize));
 		categoryTable.addCell(getCategoryCell(p, background));
 
 		if (category.getCategoryType().equals(CategoryType.STANDARD)) {
@@ -392,22 +392,22 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 			String text;
 			if (category.getCategoryType().equals(CategoryType.COMBINED)) {
 				text = "*";
-				p = new Paragraph(text, new Font(getHandWrittingFont(), fontSize));
+				p = new Paragraph(text, new Font(getDefaultFont(), fontSize));
 				categoryTable.addCell(getCategoryCell(p, background));
 			}
 			if (category.getCategoryType().equals(CategoryType.LIMITED) || category.getCategoryType().equals(CategoryType.SPECIAL)
 					|| category.getCategoryType().equals(CategoryType.PPD) || category.getCategoryType().equals(CategoryType.PD)) {
 				text = "+";
-				p = new Paragraph(text, new Font(getHandWrittingFont(), fontSize));
+				p = new Paragraph(text, new Font(getDefaultFont(), fontSize));
 				categoryTable.addCell(getCategoryCell(p, background));
 			}
 		}
 
 		// Second line
-		p = new Paragraph("Bonif. Rango: " + getCharacterPlayer().getRanksValue(category), new Font(getHandWrittingFont(), fontSize));
+		p = new Paragraph("Bonif. Rango: " + getCharacterPlayer().getRanksValue(category), new Font(getDefaultFont(), fontSize));
 		categoryTable.addCell(getCategoryCell(p, background));
 
-		p = new Paragraph("Caract: " + getCharacterPlayer().getCharacteristicsBonus(category), new Font(getHandWrittingFont(), fontSize));
+		p = new Paragraph("Caract: " + getCharacterPlayer().getCharacteristicsBonus(category), new Font(getDefaultFont(), fontSize));
 		categoryTable.addCell(getCategoryCell(p, background));
 
 		String text = (getCharacterPlayer().getHistorial().getBonus(category) + getCharacterPlayer().getPerkBonus(category)) + "";
@@ -428,18 +428,18 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 			text += " (" + letter + ")";
 		}
 
-		p = new Paragraph("Esp: " + text, new Font(getHandWrittingFont(), fontSize));
+		p = new Paragraph("Esp: " + text, new Font(getDefaultFont(), fontSize));
 		categoryTable.addCell(getCategoryCell(p, background));
 
 		p = new Paragraph("Prof: " + (category.getBonus() + getCharacterPlayer().getProfession().getCategoryBonus(category.getName())), new Font(
-				getHandWrittingFont(), fontSize));
+				getDefaultFont(), fontSize));
 
 		categoryTable.addCell(getCategoryCell(p, background));
 
-		p = new Paragraph("Obj: " + getCharacterPlayer().getItemBonus(category), new Font(getHandWrittingFont(), fontSize));
+		p = new Paragraph("Obj: " + getCharacterPlayer().getItemBonus(category), new Font(getDefaultFont(), fontSize));
 		categoryTable.addCell(getCategoryCell(p, background));
 
-		p = new Paragraph("Total: " + getCharacterPlayer().getTotalValue(category), new Font(getHandWrittingFont(), fontSize));
+		p = new Paragraph("Total: " + getCharacterPlayer().getTotalValue(category), new Font(getDefaultFont(), fontSize));
 		categoryTable.addCell(getCategoryCell(p, background));
 
 		cell = new PdfPCell(categoryTable);
@@ -532,7 +532,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		cell.setPaddingLeft(5f);
 		tableC.addCell(cell);
 
-		p = new Paragraph("Jugador: ___________________________________", FontFactory.getFont(FontFactory.HELVETICA, fontSize));
+		p = new Paragraph("Jugador: ___________________________________", new Font(getDefaultFont(), fontSize));
 		cell = new PdfPCell(p);
 		cell.setMinimumHeight(15);
 		cell.setBorderWidth(0);
