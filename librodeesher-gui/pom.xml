@@ -29,6 +29,9 @@
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
+				<excludes>
+					<exclude>**/*.ttf</exclude>
+				</excludes>
 			</resource>
 		</resources>
 		<plugins>
@@ -100,6 +103,7 @@
 						<exclude>**/*.exe</exclude>
 						<exclude>**/*.bat</exclude>
 						<exclude>**/*.iss</exclude>
+						<exclude>**/*.ttf</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
