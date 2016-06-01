@@ -1359,8 +1359,8 @@ public class PdfStandardSheet {
 			Paragraph p1 = new Paragraph(text, new Font(getHandWrittingFont(), fontSize));
 			Paragraph p2 = new Paragraph(line, new Font(getDefaultFont(), fontSize));
 			p = new Paragraph();
-			p.add(p1);
 			p.add(p2);
+			p.add(p1);
 		} else {
 			text = "_________________________";
 			p = new Paragraph(text, new Font(getDefaultFont(), fontSize));
