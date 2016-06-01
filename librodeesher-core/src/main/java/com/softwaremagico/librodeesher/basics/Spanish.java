@@ -35,6 +35,7 @@ public class Spanish {
 	public static final String FIREARMS_CHECKBOX_TEXT = "Permitir habilidades de armas de fuego.";
 	public static final String DARKSPELLS_CHECKBOX_TEXT = "Permitir el uso de listas de hechizos malignas como básicas.";
 	public static final String CHI_POWERS_TEXT = "Permitir el uso de poderes Chi.";
+	public static final String HANDWRITTING_TEXT = "Simular escritura manual en las fichas.";
 	public static final String OTHER_TRAINING_SPELLS = "Permitir el uso de listas de adiestramientos de otros reinos.";
 	public static final String ENABLE_PERK_HISTORY_COST = "Los talentos cuestan puntos de historial.";
 	public static final String PDF_SORT_SKILLS = "Ordenar habilidades alfabéticamente.";

@@ -72,18 +72,18 @@ Comunicación                                           2/2/2    8        16    
   *  Idiomas Mágicos: Espiritus (r)                             6        9        44       0        53      
   *  Idiomas Mágicos: Hechizos Elementales (r)                  8        12       44       0        56      
 Conocimiento·General                                   1/3      8        16       27       0        43      
-  *  Conocimiento Cultural                                      3        9        43       0        52      
-  *  Conocimiento Regional                                      3        9        43       0        52      
+  *  Con. Cultural                                              3        9        43       0        52      
+  *  Con. Regional                                              3        9        43       0        52      
   *  Religión                                                   1        3        43       0        46      
 Conocimiento·Mágico                                    1/4      9        18       27       10       55      
-  *  Conocimiento de los Artefactos                             6        18       55       0        73      
-  *  Conocimiento de los Hechizos                               2        6        55       0        61      
-  *  Conocimiento de los No-Muertos                             2        6        55       0        61      
-  *  Conocimiento de los Planos (c)                             4        24       55       0        79      
+  *  Con. de los Artefactos                                     6        18       55       0        73      
+  *  Con. de los Hechizos                                       2        6        55       0        61      
+  *  Con. de los No-Muertos                                     2        6        55       0        61      
+  *  Con. de los Planos (c)                                     4        24       55       0        79      
 Conocimiento·Oscuro                                    3/7      1        2        27       0        29      
   *  Demonología                                                3        9        29       10(O)    38/48   
 Conocimiento·Técnico                                   2/6      4        8        27       0        35      
-  *  Conocimiento de las Hierbas                                3        9        35       0        44      
+  *  Con. de las Hierbas                                        3        9        35       0        44      
 Defensas Especiales                                    40       0        0        0        0        0       
 Desarrollo Físico                                      15       0        0        16       10       26      
   *  Desarrollo Físico                                          1        6        26       10(H)    42      

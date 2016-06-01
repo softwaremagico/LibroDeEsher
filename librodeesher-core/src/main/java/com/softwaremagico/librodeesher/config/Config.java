@@ -45,10 +45,10 @@ public class Config {
 	private static final String ENABLE_PERK_HISTORY_COST = "perksCostHistoryPoints";
 	private static final String DISABLED_MODULES = "disabledModules";
 	private static final String PDF_SORT_SKILLS = "sortSkills";
+	private static final String PDF_HANDWRITTING_FONT = "userHandwrittingFont";
 	private static Properties configuration = new Properties();
-	private static Boolean maximized = false, fireArmsActivated = false, darkSpellsAsBasic = false,
-			chiPowersAllowed = false, otherRealmsTrainingSpells = false, pdfSortSkills = false,
-			perksCostHistoryPoints = true;
+	private static Boolean maximized = false, fireArmsActivated = false, darkSpellsAsBasic = false, chiPowersAllowed = false,
+			otherRealmsTrainingSpells = false, pdfSortSkills = false, perksCostHistoryPoints = true, handWrittingFont = true;
 	private static Integer categoryMaxCost = 50;
 
 	static {
@@ -75,8 +75,8 @@ public class Config {
 		configuration.setProperty(OTHER_REALM_TRAINING_SPELLS, getOtherRealmtrainingSpells().toString());
 		configuration.setProperty(DISABLED_MODULES, getDisabledModules());
 		configuration.setProperty(PDF_SORT_SKILLS, getPdfSortSkills().toString());
-		configuration.setProperty(PDF_SORT_SKILLS, getPdfSortSkills().toString());
 		configuration.setProperty(ENABLE_PERK_HISTORY_COST, getPerksCostHistoryPoints().toString());
+		configuration.setProperty(PDF_HANDWRITTING_FONT, getHandWrittingFont().toString());
 	}
 
 	private static void loadConfiguration() {
@@ -88,14 +88,12 @@ public class Config {
 				maximized = Boolean.parseBoolean(configuration.getProperty(MAXIMIZE_WINDOW_PROPERTY));
 				categoryMaxCost = Integer.parseInt(configuration.getProperty(CATEGORY_MAX_COST));
 				fireArmsActivated = Boolean.parseBoolean(configuration.getProperty(FIREARMS_ALLOWED));
-				darkSpellsAsBasic = Boolean
-						.parseBoolean(configuration.getProperty(DARK_SPELLS_AS_BASIC_LIST));
+				darkSpellsAsBasic = Boolean.parseBoolean(configuration.getProperty(DARK_SPELLS_AS_BASIC_LIST));
 				chiPowersAllowed = Boolean.parseBoolean(configuration.getProperty(CHI_POWERS));
-				otherRealmsTrainingSpells = Boolean.parseBoolean(configuration
-						.getProperty(OTHER_REALM_TRAINING_SPELLS));
-				perksCostHistoryPoints = Boolean.parseBoolean(configuration
-						.getProperty(ENABLE_PERK_HISTORY_COST));
+				otherRealmsTrainingSpells = Boolean.parseBoolean(configuration.getProperty(OTHER_REALM_TRAINING_SPELLS));
+				perksCostHistoryPoints = Boolean.parseBoolean(configuration.getProperty(ENABLE_PERK_HISTORY_COST));
 				pdfSortSkills = Boolean.parseBoolean(configuration.getProperty(PDF_SORT_SKILLS));
+				handWrittingFont = Boolean.parseBoolean(configuration.getProperty(PDF_HANDWRITTING_FONT));
 				loadDisabledModules(configuration.getProperty(DISABLED_MODULES));
 			}
 		} catch (Exception e) {
@@ -106,8 +104,7 @@ public class Config {
 	public static void storeConfiguration() {
 		setProperties();
 		try {
-			configuration.store(new FileOutputStream(RolemasterFolderStructure.getConfigurationFilePath()),
-					null);
+			configuration.store(new FileOutputStream(RolemasterFolderStructure.getConfigurationFilePath()), null);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -157,12 +154,22 @@ public class Config {
 		Config.otherRealmsTrainingSpells = otherRealmTrainingSpells;
 		storeConfiguration();
 	}
+
 	public static Boolean getPerksCostHistoryPoints() {
 		return perksCostHistoryPoints;
 	}
 
 	public static void setPerksCostHistoryPoints(Boolean otherRealmTrainingSpells) {
 		perksCostHistoryPoints = otherRealmTrainingSpells;
+		storeConfiguration();
+	}
+
+	public static Boolean getHandWrittingFont() {
+		return handWrittingFont;
+	}
+
+	public static void setHandWrittingFont(Boolean handWrittingFont) {
+		Config.handWrittingFont = handWrittingFont;
 		storeConfiguration();
 	}
 
