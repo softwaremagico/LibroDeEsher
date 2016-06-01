@@ -461,7 +461,7 @@ public class TxtSheet {
 		if (currentName == null) {
 			return null;
 		}
-		return currentName.replace(Spanish.KNOWLEDGE_TAG, "Con.");
+		return currentName.replace(Spanish.KNOWLEDGE_TAG, "Con.").replace(Spanish.SURVIVAL_TAG, "Superv.").replace(Spanish.PERCEPTION_SKILL, "Per.");
 	}
 
 	public static String formatName(CharacterPlayer characterPlayer, Skill skill) {

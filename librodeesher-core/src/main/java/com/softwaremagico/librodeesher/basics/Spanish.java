@@ -63,6 +63,7 @@ public class Spanish {
 	public static final String ANY_WEAPON_CATEGORY = "cualquier categoría de armas";
 	public static final String ANY_WEAPON = "cualquier arma";
 	public static final String OUTDOORS_ENVIRONMENT_TAG = "Exteriores·Entorno";
+	public static final String PERCEPTION_SKILL = "Percepción";
 	public static final String KNOWLEDGE_TAG = "Conocimiento";
 	public static final String GENERAL_KNOWLEDGE_TAG = "Conocimiento·General";
 	public static final String FAUNA_KNOWNLEDGE_TAG = "Conocimiento de la Fauna";
