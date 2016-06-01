@@ -372,7 +372,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 		categoryTable.flushContent();
 		BaseColor background = VERY_LIGHT_GRAY;
 
-		p = new Paragraph(category.getName(33).toUpperCase(), new Font(getDefaultFont(), fontSize - 2, Font.BOLD));
+		p = new Paragraph(category.getName(33).toUpperCase(), new Font(getDefaultFont(), fontSize - 1, Font.BOLD));
 		PdfPCell cell = getCategoryCell(p, background);
 		cell.setColspan(2);
 		categoryTable.addCell(cell);
