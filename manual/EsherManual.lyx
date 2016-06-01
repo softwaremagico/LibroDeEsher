@@ -1202,7 +1202,7 @@ Una vez el personaje está ya definido, el programa permite asignar los puntos
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -1810,6 +1810,14 @@ Permite seleccionar como se rellenarán las distintas habilidades en la hoja
  de las categorías a las que pertenecen (modelo tradicional de Rolemaster).
  De esta forma se imprimirán en la ficha y se facilitará la forma de búsqueda
  de habilidades, que puede resultar una tarea un poco engorrosa.
+ 
+\end_layout
+
+\begin_layout Standard
+También permite elegir el tipo de fuente para el PDF.
+ Si se activa esta opción, la ficha PDF generada tendrá un efecto como si
+ hubiera sido rellenada a mano gracias al uso de una fuente que imita la
+ escritura humana.
  
 \end_layout
 
