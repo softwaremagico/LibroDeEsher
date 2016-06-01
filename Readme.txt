@@ -30,6 +30,7 @@ Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadore
 Versión
 ------------
 2.3.0	Añadido:
+		- Opción de escoger una fuente que simula la escritura manual en las fichas de personaje.
 		- Todas la razas y culturas del manual Razas y Culturas.
 		- Añadido a la definición de raza: clase de armadura, bonus a habilidades y categorias.
 		
