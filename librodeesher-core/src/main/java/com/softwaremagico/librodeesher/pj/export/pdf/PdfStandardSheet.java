@@ -172,7 +172,7 @@ public class PdfStandardSheet {
 		Paragraph p;
 		if (characterPlayer != null) {
 			p = new Paragraph(characterPlayer.getName().substring(0,
-					Math.max(characterPlayer.getName().length(), 20)), new Font(getHandWrittingFont(),
+					Math.min(characterPlayer.getName().length(), 20)), new Font(getHandWrittingFont(),
 					fontSize));
 		} else {
 			p = new Paragraph("", new Font(getDefaultFont(), fontSize + 2));
