@@ -37,7 +37,7 @@ public class PdfCombinedSheet extends PdfStandardSheet {
 	private final static int SKILL_SIZE = 1;
 	private final static int COLUMNS_PER_PAGE = 2;
 	private final static int BORDER = 0;
-	private final static int SKILL_NAME_LENGTH = 30;
+	private final static int SKILL_NAME_LENGTH = 25;
 	private final static int MIN_EMPTY_SKILLS_PER_CATEGORY = 1;
 	private static final BaseColor VERY_LIGHT_GRAY = new BaseColor(215, 215, 215);
 

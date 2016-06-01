@@ -34,8 +34,9 @@ import com.softwaremagico.log.EsherLog;
 import com.softwaremagico.persistence.StorableObject;
 
 /**
- * Categories that are already defined are not stored in this class, can be obtained from training class. Skills that
- * are already defined are stored in this class as a list with one element.
+ * Categories that are already defined are not stored in this class, can be
+ * obtained from training class. Skills that are already defined are stored in
+ * this class as a list with one element.
  */
 @Entity
 @Table(name = "T_TRAINING_DECISION")
@@ -152,8 +153,7 @@ public class TrainingDecision extends StorableObject {
 	}
 
 	public int getSkillRank(Integer trainingCategory, String skill) {
-		if (skillsSelected.get(trainingCategory) == null
-				|| skillsSelected.get(trainingCategory).getSkillsRanks().get(skill) == null) {
+		if (skillsSelected.get(trainingCategory) == null || skillsSelected.get(trainingCategory).getSkillsRanks().get(skill) == null) {
 			return 0;
 		}
 		return skillsSelected.get(trainingCategory).getSkillsRanks().get(skill);
@@ -195,10 +195,9 @@ public class TrainingDecision extends StorableObject {
 		skillsSelected.remove(trainingCategory);
 	}
 
-	public CharacteristicRoll addCharactersiticUpdate(CharacteristicsAbbreviature abbreviature,
-			Integer currentTemporalValue, Integer currentPotentialValue, Roll roll) {
-		CharacteristicRoll characteristicRoll = new CharacteristicRoll(abbreviature, currentTemporalValue,
-				currentPotentialValue, roll);
+	public CharacteristicRoll addCharactersiticUpdate(CharacteristicsAbbreviature abbreviature, Integer currentTemporalValue, Integer currentPotentialValue,
+			Roll roll) {
+		CharacteristicRoll characteristicRoll = new CharacteristicRoll(abbreviature, currentTemporalValue, currentPotentialValue, roll);
 		characteristicsUpdates.add(characteristicRoll);
 		return characteristicRoll;
 	}
@@ -234,8 +233,7 @@ public class TrainingDecision extends StorableObject {
 		return magicItems;
 	}
 
-	public static List<MagicObject> convertTrainingEquipmentToMagicObject(CharacterPlayer characterPlayer,
-			String trainingName) {
+	public static List<MagicObject> convertTrainingEquipmentToMagicObject(CharacterPlayer characterPlayer, String trainingName) {
 		List<MagicObject> magicObjects = new ArrayList<>();
 		List<TrainingItem> equipment = characterPlayer.getTrainingEquipment(trainingName);
 		for (TrainingItem item : equipment) {
@@ -264,11 +262,9 @@ public class TrainingDecision extends StorableObject {
 				magicObjects.add(magicArmour);
 				break;
 			case SKILL:
-				MagicObject magicObjectOfSkill = new MagicObject();
 				Skill skill = SkillFactory.getAvailableSkill(item.getSkill());
 				if (skill != null) {
-					magicObjectOfSkill.setSkillBonus(skill.getName(), item.getBonus());
-					magicObjects.add(magicObjectOfSkill);
+					magicObjects.add(createMagicObjectFor(skill, item));
 				} else {
 					EsherLog.warning(TrainingProbability.class.getName(), "Skill '" + item.getSkill()
 							+ "' not found when creating a magic object of training '" + trainingName + "'.");

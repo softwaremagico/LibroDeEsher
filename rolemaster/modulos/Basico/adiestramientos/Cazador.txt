@@ -11,9 +11,9 @@ Ninguno
 d10 Pieles de animales (10mp cada una)	50
 d10 Pieles de animales (10mp cada una)	50
 d10 Pieles de animales (10mp cada una)	50
-Trampas de calidad (no mágicas)	30	15	Preparar Trampas
+Trampas de calidad (no mágicas)	30	15	Construir Trampas
 Comprador de Pieles de fiar	30
-Trampas(no mágicas)	100	10	Preparar Trampas
+Trampas(no mágicas)	100	10	Construir Trampas
 
 #HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
 ####################################
