@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.history;
+
 /*
  * #%L
  * Libro de Esher
@@ -36,17 +37,18 @@ public class HistorySkillTitle extends SkillTitleLine {
 		enableColumns(false, false, false, false, false, false, false, true);
 		addHistoryCheckBox();
 	}
-	
+
 	private void addHistoryCheckBox() {
 		historyLabel = new TitleLabel("Hst", SwingConstants.LEFT);
 		addColumn(historyLabel, 0);
 	}
-	
-	public void sizeChanged(){
+
+	@Override
+	public void sizeChanged() {
 		defaultElementsSizeChanged();
 		if (this.getWidth() < 800) {
 			historyLabel.setText("Hst");
-		}else{
+		} else {
 			historyLabel.setText("Historial");
 		}
 	}

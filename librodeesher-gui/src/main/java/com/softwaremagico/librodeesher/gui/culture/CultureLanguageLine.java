@@ -36,14 +36,13 @@ import javax.swing.text.DefaultFormatter;
 
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
-public class LanguageLine extends CultureLine {
+public class CultureLanguageLine extends CultureLine {
 
 	private static final long serialVersionUID = 2401612544094265349L;
 	protected String language;
 	private Integer initalValue;
 
-	public LanguageLine(CharacterPlayer characterPlayer, String language,
-			CulturePanel languagePanel, Color background) {
+	public CultureLanguageLine(CharacterPlayer characterPlayer, String language, CulturePanel languagePanel, Color background) {
 		this.characterPlayer = characterPlayer;
 		this.skillName = language;
 		this.parentPanel = languagePanel;
@@ -51,9 +50,7 @@ public class LanguageLine extends CultureLine {
 		setElements(background);
 		setBackground(background);
 		initalValue = characterPlayer.getLanguageInitialRanks(language);
-		SpinnerModel sm = new SpinnerNumberModel((int) initalValue
-				+ characterPlayer.getCultureLanguageRanks(
-						language), (int) initalValue,
+		SpinnerModel sm = new SpinnerNumberModel((int) initalValue + characterPlayer.getCultureLanguageRanks(language), (int) initalValue,
 				(int) characterPlayer.getLanguageMaxInitialRanks(language), 1);
 		rankSpinner.setModel(sm);
 
@@ -74,19 +71,13 @@ public class LanguageLine extends CultureLine {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				// Update character
-				characterPlayer.setCultureLanguageRanks(
-						language,
-						(Integer) rankSpinner.getValue()
-								- characterPlayer
-										.getLanguageInitialRanks(language));
+				characterPlayer.setCultureLanguageRanks(language, (Integer) rankSpinner.getValue() - characterPlayer.getLanguageInitialRanks(language));
 				// Max language points limit.
-				if (characterPlayer.getCultureTotalLanguageRanks() > characterPlayer
-						.getRace().getLanguagePoints()
+				if (characterPlayer.getCultureTotalLanguageRanks() > characterPlayer.getRace().getLanguagePoints()
 						+ characterPlayer.getCulture().getLanguageRanksToChoose()) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 					// Race and culture language limit.
-				} else if ((Integer) rankSpinner.getValue() > characterPlayer
-						.getLanguageMaxInitialRanks(language)) {
+				} else if ((Integer) rankSpinner.getValue() > characterPlayer.getLanguageMaxInitialRanks(language)) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					setTitle();
@@ -97,9 +88,7 @@ public class LanguageLine extends CultureLine {
 
 	private void setTitle() {
 		parentPanel.setRankTitle("Rangos ("
-				+ (characterPlayer.getRace().getLanguagePoints()
-						+ characterPlayer.getCulture()
-								.getLanguageRanksToChoose() - characterPlayer
+				+ (characterPlayer.getRace().getLanguagePoints() + characterPlayer.getCulture().getLanguageRanksToChoose() - characterPlayer
 						.getCultureTotalLanguageRanks()) + ")");
 	}
 

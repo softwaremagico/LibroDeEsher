@@ -25,6 +25,7 @@ package com.softwaremagico.librodeesher.pj.historial;
  */
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -57,13 +58,13 @@ public class Historial extends StorableObject {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(name = "T_HISTORIAL_CATEGORIES")
 	private List<String> categories;
-	
+
 	@Expose
 	@ElementCollection
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(name = "T_HISTORIAL_SKILLS")
 	private List<String> skills;
-	
+
 	@Expose
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -71,20 +72,23 @@ public class Historial extends StorableObject {
 	@OrderColumn(name = "roll_index")
 	private List<CharacteristicRoll> characteristicsUpdates;
 
+	private HashMap<String, Integer> languageRanks;
+
 	public Historial() {
 		categories = new ArrayList<>();
 		skills = new ArrayList<>();
 		characteristicsUpdates = new ArrayList<>();
+		languageRanks = new HashMap<>();
 	}
-	
+
 	@Override
-	public void resetIds(){
+	public void resetIds() {
 		resetIds(this);
 		resetIds(characteristicsUpdates);
 	}
-	
+
 	@Override
-	public void resetComparationIds(){
+	public void resetComparationIds() {
 		resetComparationIds(this);
 		resetComparationIds(characteristicsUpdates);
 	}
@@ -132,13 +136,12 @@ public class Historial extends StorableObject {
 	}
 
 	public Integer getSpentHistoryPoints() {
-		return skills.size() + categories.size() + getCharacteristicsUpdatesPoints();
+		return skills.size() + categories.size() + getCharacteristicsUpdatesPoints() + getLanguagesPointCost();
 	}
 
-	public CharacteristicRoll addCharactersiticUpdate(CharacteristicsAbbreviature abbreviature, Integer currentTemporalValue,
-			Integer currentPotentialValue, Roll roll) {
-		CharacteristicRoll characteristicRoll = new CharacteristicRoll(abbreviature, currentTemporalValue,
-				currentPotentialValue, roll);
+	public CharacteristicRoll addCharactersiticUpdate(CharacteristicsAbbreviature abbreviature, Integer currentTemporalValue, Integer currentPotentialValue,
+			Roll roll) {
+		CharacteristicRoll characteristicRoll = new CharacteristicRoll(abbreviature, currentTemporalValue, currentPotentialValue, roll);
 		characteristicsUpdates.add(characteristicRoll);
 		return characteristicRoll;
 	}
@@ -180,5 +183,28 @@ public class Historial extends StorableObject {
 
 	protected void setCharacteristicsUpdates(List<CharacteristicRoll> characteristicsUpdates) {
 		this.characteristicsUpdates = characteristicsUpdates;
+	}
+
+	public void setHistoryLanguageRank(String language, int rank) {
+		languageRanks.put(language, rank);
+	}
+
+	public int getHistoryLanguageRank(String language) {
+		if (languageRanks.get(language) != null) {
+			return languageRanks.get(language);
+		}
+		return 0;
+	}
+
+	public int getLanguagesTotalRanksAdded() {
+		int total = 0;
+		for (String language : languageRanks.keySet()) {
+			total += languageRanks.get(language);
+		}
+		return total;
+	}
+
+	public int getLanguagesPointCost() {
+		return (int) Math.ceil(getLanguagesTotalRanksAdded() % 20);
 	}
 }

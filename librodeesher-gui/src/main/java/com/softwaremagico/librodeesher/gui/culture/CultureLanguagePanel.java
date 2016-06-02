@@ -30,10 +30,10 @@ import java.util.List;
 
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
-public class LanguagePanel extends CulturePanel {
+public class CultureLanguagePanel extends CulturePanel {
 	private static final long serialVersionUID = -9203104559414795802L;
 
-	public LanguagePanel(CharacterPlayer character, CultureTitleLine title) {
+	public CultureLanguagePanel(CharacterPlayer character, CultureTitleLine title) {
 		this.character = character;
 		this.title = title;
 		setElements(character);
@@ -58,7 +58,7 @@ public class LanguagePanel extends CulturePanel {
 		}
 		Collections.sort(languages);
 		for (String language : languages) {
-			LanguageLine languageLine = new LanguageLine(character, language,
+			CultureLanguageLine languageLine = new CultureLanguageLine(character, language,
 					this, getLineBackgroundColor(i));
 			add(languageLine);
 			hobbyLines.add(languageLine);

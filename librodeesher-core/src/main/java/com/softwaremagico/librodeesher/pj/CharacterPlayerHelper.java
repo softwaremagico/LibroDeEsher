@@ -30,6 +30,8 @@ public class CharacterPlayerHelper {
 
 	private Map<String, Integer> trainingCosts;
 
+	private Map<String, Integer> maxHistoryLanguages;
+
 	private boolean enabled = true;
 
 	private Integer developmentPoints;
@@ -56,6 +58,7 @@ public class CharacterPlayerHelper {
 		developmentPoints = null;
 		temporalValues = new HashMap<>();
 		trainingCosts = new HashMap<>();
+		maxHistoryLanguages = new HashMap<>();
 		skillTotalRanksPerCategory = new HashMap<>();
 		setDirty(true);
 	}
@@ -367,6 +370,14 @@ public class CharacterPlayerHelper {
 
 	public void setSkillTotalRanksPerCategory(String categoryName, int totalRanks) {
 		skillTotalRanksPerCategory.put(categoryName, totalRanks);
+	}
+
+	public Map<String, Integer> getMaxHistoryLanguages() {
+		return maxHistoryLanguages;
+	}
+
+	public void setMaxHistoryLanguages(Map<String, Integer> maxLanguages) {
+		maxHistoryLanguages = maxLanguages;
 	}
 
 }

@@ -606,6 +606,44 @@ public class CharacterPlayer extends StorableObject {
 		return race;
 	}
 
+	/**
+	 * Max history languages are specific to race and culture.
+	 * 
+	 * @return
+	 */
+	public Map<String, Integer> getMaxHistoryLanguages() {
+		if (characterPlayerHelper.getMaxHistoryLanguages() != null) {
+			return characterPlayerHelper.getMaxHistoryLanguages();
+		}
+		Map<String, Integer> maxLanguage = new HashMap<>();
+		for (String language : getCulture().getLanguagesMaxRanks()) {
+			if (maxLanguage.get(language) == null || maxLanguage.get(language) < getCulture().getLanguageMaxRanks(language)) {
+				maxLanguage.put(language, getRace().getInitialRaceLanguages().get(language));
+			}
+		}
+		for (String language : getRace().getInitialRaceLanguages().keySet()) {
+			if (maxLanguage.get(language) == null || maxLanguage.get(language) < getRace().getInitialRaceLanguages().get(language)) {
+				maxLanguage.put(language, getRace().getInitialRaceLanguages().get(language));
+			}
+		}
+		for (String language : getRace().getAvailableLanguages()) {
+			if (maxLanguage.get(language) == null || maxLanguage.get(language) < getRace().getLanguageMaxRanks(language)) {
+				maxLanguage.put(language, getRace().getLanguageMaxRanks(language));
+			}
+		}
+		for (String language : getRace().getMaxHistoryLanguages().keySet()) {
+			if (maxLanguage.get(language) == null || maxLanguage.get(language) < getRace().getMaxHistoryLanguages().get(language)) {
+				maxLanguage.put(language, getRace().getMaxHistoryLanguages().get(language));
+			}
+		}
+		characterPlayerHelper.setMaxHistoryLanguages(maxLanguage);
+		return maxLanguage;
+	}
+
+	public void setHistoryRanks(String language, int ranks) {
+		historial.setHistoryLanguageRank(language, ranks);
+	}
+
 	public Integer getDefensiveBonus() {
 		return (getCharacteristicTotalBonus(CharacteristicsAbbreviature.SPEED) * 3) + getItemBonus(BonusType.DEFENSIVE_BONUS);
 	}
@@ -827,6 +865,7 @@ public class CharacterPlayer extends StorableObject {
 
 	public void setRace(String raceName) {
 		this.raceName = raceName;
+		characterPlayerHelper.resetAll();
 	}
 
 	public void setRealmOfMagic(ProfessionalRealmsOfMagicOptions realmOfMagic) {
@@ -850,6 +889,12 @@ public class CharacterPlayer extends StorableObject {
 		return getRace().getLanguageInitialRanks(language);
 	}
 
+	/**
+	 * Max languages by culture and race but not history points.
+	 * 
+	 * @param language
+	 * @return
+	 */
 	public Integer getLanguageMaxInitialRanks(String language) {
 		return Math.max(getCulture().getLanguageMaxRanks(language), getRace().getLanguageMaxRanks(language));
 	}
@@ -972,6 +1017,8 @@ public class CharacterPlayer extends StorableObject {
 			}
 		}
 		total += getTrainingRanks(skill);
+		// History language points.
+		total += historial.getHistoryLanguageRank(skill.getName());
 
 		for (PerkDecision perkDecision : getPerkDecisions().values()) {
 			total += perkDecision.getSkillsRanksChosen().contains(skill.getName()) ? 1 : 0;
@@ -2730,6 +2777,13 @@ public class CharacterPlayer extends StorableObject {
 
 	public void setSortPdfSkills(boolean sortPdfSkills) {
 		this.sortPdfSkills = sortPdfSkills;
+	}
+
+	public int getHistoryLanguageRanks() {
+		if (historial == null) {
+			return 0;
+		}
+		return historial.getLanguagesTotalRanksAdded();
 	}
 
 }

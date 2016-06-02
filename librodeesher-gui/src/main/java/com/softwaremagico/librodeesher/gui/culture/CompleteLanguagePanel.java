@@ -30,12 +30,12 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 public class CompleteLanguagePanel extends BaseScrollPanel {
 	private static final long serialVersionUID = -714349581832077977L;
 	private CultureTitleLine title;
-	private LanguagePanel languagePanel;
+	private CultureLanguagePanel languagePanel;
 
 	public CompleteLanguagePanel(CharacterPlayer character) {
 		title = new CultureTitleLine("Idiomas", "Rangos (" + 0 + ")");
 		addTitle(title);
-		languagePanel = new LanguagePanel(character, title);
+		languagePanel = new CultureLanguagePanel(character, title);
 		setBody(languagePanel);
 	}
 
