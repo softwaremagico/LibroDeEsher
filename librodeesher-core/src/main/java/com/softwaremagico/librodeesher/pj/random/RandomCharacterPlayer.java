@@ -686,6 +686,38 @@ public class RandomCharacterPlayer {
 		int loops = 0;
 		while (characterPlayer.getRemainingHistorialPoints() > 0) {
 			List<Category> shuffledCategoryList = getProfessionalShuffledCategories(characterPlayer);
+			// 30% for adding some languages 
+			if (Math.random() * 100 < 30 - (specializationLevel * 10) - characterPlayer.getHistoryTotalLanguageRanks() * 10) {
+				int communicationLanguagesPoints = 20;
+				int tries = 0;
+				List<String> languages = new ArrayList<>();
+				for (String language : characterPlayer.getMaxHistoryLanguages().keySet()) {
+					if (!languages.contains(language)) {
+						languages.add(language);
+					}
+				}
+				do {
+					Collections.shuffle(languages);
+					for (String language : languages) {
+						int ranksToAdd = Math.min(
+								communicationLanguagesPoints,
+								Math.min(
+										(int) Math.max(1, Math.random() * ((specializationLevel + 2) * 5f)),
+										characterPlayer.getMaxHistoryLanguages().get(language)
+												- characterPlayer.getTotalRanks(SkillFactory.getAvailableSkill(language))));
+						characterPlayer.setHistoryLanguageRanks(language, characterPlayer.getHistoryLanguageRanks(language) + ranksToAdd);
+						communicationLanguagesPoints -= ranksToAdd;
+						if (communicationLanguagesPoints < 1) {
+							break;
+						}
+					}
+					tries++;
+				} while (communicationLanguagesPoints > 0 && MAX_TRIES > tries);
+				if (communicationLanguagesPoints > 0) {
+					EsherLog.warning(RandomCharacterPlayer.class.getName(), "Remaining '" + communicationLanguagesPoints
+							+ "' ranks for a history point.");
+				}
+			}
 			for (int i = 0; i < shuffledCategoryList.size(); i++) {
 				Category category = characterPlayer.getCategory(shuffledCategoryList.get(i));
 				// Avoid some categories.

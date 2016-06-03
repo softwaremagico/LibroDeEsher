@@ -1,5 +1,4 @@
 Idiomas "Idioma regional" "Idioma racial"
-History language --> Random languages not implemented. 
 Remove Subcultures for conocimiento regional and supervivencia
 Insert skills and ranks
 Perks in race not used (Troll de guerra)
