@@ -41,15 +41,13 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class GenericSkillLine extends BaseSkillLine {
 	private static final long serialVersionUID = -3194401962061016906L;
-	protected ListLabel skillNameLabel, bonusRankLabel, totalLabel, bonusCategory, otherBonusLabel, prevRanksLabel,
-			bonusMagicObject;
+	protected ListLabel skillNameLabel, bonusRankLabel, totalLabel, bonusCategory, otherBonusLabel, prevRanksLabel, bonusMagicObject;
 	protected Skill skill;
 	private Color background;
 	private Set<SkillChangedListener> listeners;
 	private int nameLength;
 
-	public GenericSkillLine(CharacterPlayer character, Skill skill, int nameLength, Color background,
-			BaseSkillPanel parentWindow) {
+	public GenericSkillLine(CharacterPlayer character, Skill skill, int nameLength, Color background, BaseSkillPanel parentWindow) {
 		listeners = new HashSet<>();
 		this.character = character;
 		this.skill = skill;
@@ -101,8 +99,7 @@ public class GenericSkillLine extends BaseSkillLine {
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			if (oldRanksPanel) {
-				prevRanksLabel = new ListLabel(previousRanks.toString(), SwingConstants.CENTER, columnWidth,
-						columnHeight);
+				prevRanksLabel = new ListLabel(previousRanks.toString(), SwingConstants.CENTER, columnWidth, columnHeight);
 			} else {
 				prevRanksLabel = new ListLabel("", SwingConstants.CENTER, columnWidth, columnHeight);
 			}
@@ -154,8 +151,7 @@ public class GenericSkillLine extends BaseSkillLine {
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			if (bonusCategoryPanel) {
-				bonusCategory = new ListLabel(character.getTotalValue(skill.getCategory()).toString(), columnWidth,
-						columnHeight);
+				bonusCategory = new ListLabel(character.getTotalValue(skill.getCategory()).toString(), columnWidth, columnHeight);
 			} else {
 				bonusCategory = new ListLabel("", columnWidth, columnHeight);
 			}
@@ -199,6 +195,12 @@ public class GenericSkillLine extends BaseSkillLine {
 		}
 
 		enableRanks(previousRanks);
+	}
+
+	public void updateOldRanksPanel() {
+		if (oldRanksPanel || !isEmptyColumns()) {
+			prevRanksLabel.setText(character.getPreviousRanks(skill).toString());
+		}
 	}
 
 	protected String getSkillName() {
@@ -289,7 +291,7 @@ public class GenericSkillLine extends BaseSkillLine {
 		setRanksSelected(character.getCurrentLevelRanks(skill));
 	}
 
-	public void AddSkillChangedListener(SkillChangedListener listener) {
+	public void addSkillChangedListener(SkillChangedListener listener) {
 		this.listeners.add(listener);
 	}
 }

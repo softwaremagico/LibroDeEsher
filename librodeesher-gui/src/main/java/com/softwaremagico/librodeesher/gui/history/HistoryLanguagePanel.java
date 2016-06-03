@@ -54,7 +54,7 @@ public class HistoryLanguagePanel extends BasePanel {
 			if (!languages.contains(language)) {
 				languages.add(language);
 			}
-		}		
+		}
 		Collections.sort(languages);
 		for (String language : languages) {
 			HistoryLanguageLine languageLine = new HistoryLanguageLine(character, language, this, getLineBackgroundColor(i));
@@ -71,5 +71,11 @@ public class HistoryLanguagePanel extends BasePanel {
 
 	public void setTitle(int ranks) {
 		parent.setTitleRanks(ranks);
+	}
+
+	public void updateHistoryLines() {
+		for (HistoryLanguageLine languageLine : languageLines) {
+			languageLine.updateRanks();
+		}
 	}
 }

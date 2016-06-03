@@ -60,14 +60,20 @@ public class HistoryLanguageLine extends BaseLine {
 		this.language = language;
 		setElements(background);
 		setBackground(background);
-		initalValue = characterPlayer.getRealRanks(SkillFactory.getAvailableSkill(language));
-		SpinnerModel sm = new SpinnerNumberModel((int) initalValue + characterPlayer.getHistoryLanguageRanks(language), (int) initalValue,
-				(int) (characterPlayer.getMaxHistoryLanguages().get(language) != null ? (int) characterPlayer.getMaxHistoryLanguages().get(
-						language) : initalValue), 1);
+
+		// Set spinner.
+		initalValue = characterPlayer.getTotalRanks(SkillFactory.getAvailableSkill(language));
+		SpinnerModel sm = new SpinnerNumberModel((int) initalValue, (int) initalValue - characterPlayer.getHistoryLanguageRanks(language),
+				(int) Math.max(initalValue, (characterPlayer.getMaxHistoryLanguages().get(language) != null ? (int) characterPlayer
+						.getMaxHistoryLanguages().get(language) : initalValue)), 1);
 		rankSpinner.setModel(sm);
 
 		// Languages can have 10 ranks. We need a bigger editor.
 		rankSpinner.setColumns(2);
+
+		if (characterPlayer.getCurrentLevelNumber() != 1) {
+			rankSpinner.setEnabled(false);
+		}
 
 		// Initialize the title.
 		setTitle();
@@ -109,9 +115,11 @@ public class HistoryLanguageLine extends BaseLine {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				// Update character
-				characterPlayer.setHistoryLanguageRanks(language, (Integer) rankSpinner.getValue() - initalValue);
+				characterPlayer.setHistoryLanguageRanks(language,
+						(Integer) rankSpinner.getValue() - (initalValue));
 				// Race and culture language limit.
-				if (characterPlayer.getCultureTotalLanguageRanks() > characterPlayer.getRealRanks(SkillFactory.getSkill(language))) {
+				if (Math.max(characterPlayer.getMaxHistoryLanguages().get(language), initalValue) < characterPlayer
+						.getTotalRanks(SkillFactory.getSkill(language))) {
 					try {
 						rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 					} catch (Exception ex) {
@@ -129,7 +137,7 @@ public class HistoryLanguageLine extends BaseLine {
 	}
 
 	private void setTitle() {
-		int ranks = 20 - (characterPlayer.getHistoryLanguageRanks() % 20);
+		int ranks = 20 - (characterPlayer.getHistoryTotalLanguageRanks() % 20);
 		parentPanel.setTitle(ranks == 20 ? 0 : ranks);
 	}
 
@@ -188,5 +196,9 @@ public class HistoryLanguageLine extends BaseLine {
 	@Override
 	public void update() {
 		parentPanel.update();
+	}
+
+	public void updateRanks() {
+		rankSpinner.setValue((int) initalValue + characterPlayer.getHistoryLanguageRanks(language));
 	}
 }

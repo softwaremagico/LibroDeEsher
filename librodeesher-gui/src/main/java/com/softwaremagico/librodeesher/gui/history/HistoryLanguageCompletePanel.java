@@ -45,6 +45,10 @@ public class HistoryLanguageCompletePanel extends BaseScrollPanel {
 	public void update() {
 		parent.updateFrame();
 	}
+	
+	public void updateHistoryLines() {
+		languagePanel.updateHistoryLines();
+	}
 
 	public void sizeChanged() {
 		if (title != null) {

@@ -186,7 +186,11 @@ public class Historial extends StorableObject {
 	}
 
 	public void setHistoryLanguageRank(String language, int ranks) {
-		languageRanks.put(language, ranks > 0 ? ranks : 0);
+		if (ranks <= 0) {
+			languageRanks.remove(language);
+		} else {
+			languageRanks.put(language, ranks);
+		}
 	}
 
 	public int getHistoryLanguageRank(String language) {

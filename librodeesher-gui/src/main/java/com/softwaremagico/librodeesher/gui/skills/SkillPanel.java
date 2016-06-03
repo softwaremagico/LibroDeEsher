@@ -81,14 +81,12 @@ public class SkillPanel extends BaseSkillPanel {
 					if (cost == null) {
 						cost = character.getFirstWeaponCostNotSelected();
 					}
-					WeaponCategoryLine wl = new WeaponCategoryLine(character, category,
-							getLineBackgroundColor(i), this, cost, weapon);
+					WeaponCategoryLine wl = new WeaponCategoryLine(character, category, getLineBackgroundColor(i), this, cost, weapon);
 					add(wl);
 					weaponsLines.add(wl);
 					weapon++;
 				} else {
-					CategoryLine categoryLine = new CategoryLine(character, category,
-							getLineBackgroundColor(i), this);
+					CategoryLine categoryLine = new CategoryLine(character, category, getLineBackgroundColor(i), this);
 					categoryLines.add(categoryLine);
 					add(categoryLine);
 				}
@@ -105,9 +103,8 @@ public class SkillPanel extends BaseSkillPanel {
 							i++;
 							// Add specializations.
 							for (String specialization : characterPlayer.getSkillSpecializations(skill)) {
-								SpecializedSkillLine specializatedSkillLine = new SpecializedSkillLine(
-										characterPlayer, skill, specialization, getLineBackgroundColor(i),
-										this);
+								SpecializedSkillLine specializatedSkillLine = new SpecializedSkillLine(characterPlayer, skill,
+										specialization, getLineBackgroundColor(i), this);
 								getSkillLinesPerCategory(category).add(specializatedSkillLine);
 								add(specializatedSkillLine);
 								skillSpecializationLines.get(skill).add(specializatedSkillLine);
@@ -134,8 +131,7 @@ public class SkillPanel extends BaseSkillPanel {
 
 	private SkillLine createSkillLine(int backgroundIndex, Skill skill) {
 		if (characterPlayer.isSkillUseful(skill) && !characterPlayer.isSkillDisabled(skill)) {
-			SkillLine skillLine = new SkillLine(characterPlayer, skill,
-					getLineBackgroundColor(backgroundIndex), this);
+			final SkillLine skillLine = new SkillLine(characterPlayer, skill, getLineBackgroundColor(backgroundIndex), this);
 			add(skillLine);
 			skillLine.addSkillEnabledListener(new SkillEnabledListener() {
 
@@ -146,8 +142,7 @@ public class SkillPanel extends BaseSkillPanel {
 						// Remove any rank if selected
 						try {
 							if (characterPlayer.getEnabledSkill().get(skill.getName()) != null
-									&& characterPlayer.getEnabledSkill().get(skill.getName())
-											.equals(skillSelectedName)) {
+									&& characterPlayer.getEnabledSkill().get(skill.getName()).equals(skillSelectedName)) {
 								characterPlayer.getEnabledSkill().remove(skill.getName());
 							}
 							characterPlayer.setCurrentLevelRanks(skillSelected, 0);
@@ -162,7 +157,7 @@ public class SkillPanel extends BaseSkillPanel {
 					update();
 				}
 			});
-			skillLine.AddSkillChangedListener(new SkillChangedListener() {
+			skillLine.addSkillChangedListener(new SkillChangedListener() {
 
 				@Override
 				public void skillChanged(Skill skill) {
@@ -203,9 +198,8 @@ public class SkillPanel extends BaseSkillPanel {
 							backgroundIndex++;
 							// Add specializations.
 							for (String specialization : characterPlayer.getSkillSpecializations(skill)) {
-								SpecializedSkillLine specializatedSkillLine = new SpecializedSkillLine(
-										characterPlayer, skill, specialization,
-										getLineBackgroundColor(backgroundIndex), this);
+								SpecializedSkillLine specializatedSkillLine = new SpecializedSkillLine(characterPlayer, skill,
+										specialization, getLineBackgroundColor(backgroundIndex), this);
 								getSkillLinesPerCategory(category).add(specializatedSkillLine);
 								add(specializatedSkillLine, categoryLineIndex);
 								skillSpecializationLines.get(skill).add(specializatedSkillLine);
@@ -253,8 +247,7 @@ public class SkillPanel extends BaseSkillPanel {
 		}
 	}
 
-	protected void updateWeaponsCost(Integer newUsedItemIndex, Integer oldUsedItemIndex,
-			Integer skipedWeaponLine) {
+	protected void updateWeaponsCost(Integer newUsedItemIndex, Integer oldUsedItemIndex, Integer skipedWeaponLine) {
 
 		for (int i = 0; i < weaponsLines.size(); i++) {
 			if (i != skipedWeaponLine) {
@@ -284,8 +277,7 @@ public class SkillPanel extends BaseSkillPanel {
 
 	public void updateWeaponCost() {
 		for (WeaponCategoryLine weaponLine : weaponsLines) {
-			weaponLine.setSelected(characterPlayer.getProfessionDecisions().getWeaponCost(
-					weaponLine.getCategory()));
+			weaponLine.setSelected(characterPlayer.getProfessionDecisions().getWeaponCost(weaponLine.getCategory()));
 		}
 	}
 }

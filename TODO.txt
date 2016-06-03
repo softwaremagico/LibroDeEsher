@@ -1,4 +1,5 @@
 Idiomas "Idioma regional" "Idioma racial"
+Remove Subcultures for conocimiento regional and supervivencia
 Insert skills and ranks
 Perks in race not used (Troll de guerra)
 Random character no tiene talentos.

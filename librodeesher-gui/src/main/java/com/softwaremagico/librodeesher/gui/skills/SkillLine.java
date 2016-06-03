@@ -76,6 +76,7 @@ public class SkillLine extends GenericSkillLine {
 				}
 			});
 		}
+		updateOldRanksPanel();
 	}
 
 	public void addSkillEnabledListener(SkillEnabledListener listener) {

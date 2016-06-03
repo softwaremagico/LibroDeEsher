@@ -155,6 +155,7 @@ public class HistoryWindow extends BaseFrame {
 				}
 				updateFrame();
 				updateHistoryLines();
+				updateLanguageLines();
 			}
 		};
 		buttonPanel.add(randomButton);
@@ -182,6 +183,10 @@ public class HistoryWindow extends BaseFrame {
 
 	public void updateHistoryLines() {
 		skillPanel.updateHistoryLines();
+	}
+	
+	public void updateLanguageLines() {
+		languagePanel.updateHistoryLines();
 	}
 
 	class HideUselessSkillsActionListener implements ActionListener {

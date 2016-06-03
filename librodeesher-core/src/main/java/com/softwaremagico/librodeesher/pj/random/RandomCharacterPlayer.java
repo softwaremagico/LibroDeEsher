@@ -470,7 +470,7 @@ public class RandomCharacterPlayer {
 			if (characterPlayer.getCultureTotalLanguageRanks() < characterPlayer.getRace().getLanguagePoints()
 					+ characterPlayer.getCulture().getLanguageRanksToChoose()) {
 				// Max limit of language.
-				if (characterPlayer.getLanguageInitialRanks(randomLanguage) + characterPlayer.getCultureLanguageRanks(randomLanguage) < characterPlayer
+				if (characterPlayer.getLanguageRaceInitialRanks(randomLanguage) + characterPlayer.getCultureLanguageRanks(randomLanguage) < characterPlayer
 						.getLanguageMaxInitialRanks(randomLanguage)) {
 					if (Math.random() * 100 + 1 < getLanguageProbability(characterPlayer, randomLanguage, specializationLevel)) {
 						characterPlayer
