@@ -55,15 +55,15 @@ public class HistoryLanguageTitle extends BaseTitleLine {
 		gridBagConstraints.weighty = 0;
 
 		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridwidth = 2;
-		gridBagConstraints.weightx = 0.6;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0.5;
 		languageNameLabel = new TitleLabel("Idioma", SwingConstants.LEFT, 200, columnHeight);
 		add(new TitleBackgroundPanel(languageNameLabel), gridBagConstraints);
 
-		gridBagConstraints.gridx = 2;
+		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 0.3;
-		ranksValue = new TitleLabel("Rangos", 50, columnHeight);
+		gridBagConstraints.weightx = 0.5;
+		ranksValue = new TitleLabel("Rangos", 120, columnHeight);
 		add(new TitleBackgroundPanel(ranksValue), gridBagConstraints);
 	}
 

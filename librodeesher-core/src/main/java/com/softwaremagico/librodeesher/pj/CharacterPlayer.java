@@ -612,13 +612,13 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public Map<String, Integer> getMaxHistoryLanguages() {
-		if (characterPlayerHelper.getMaxHistoryLanguages() != null) {
+		if (!characterPlayerHelper.getMaxHistoryLanguages().isEmpty()) {
 			return characterPlayerHelper.getMaxHistoryLanguages();
 		}
 		Map<String, Integer> maxLanguage = new HashMap<>();
 		for (String language : getCulture().getLanguagesMaxRanks()) {
 			if (maxLanguage.get(language) == null || maxLanguage.get(language) < getCulture().getLanguageMaxRanks(language)) {
-				maxLanguage.put(language, getRace().getInitialRaceLanguages().get(language));
+				maxLanguage.put(language, getCulture().getLanguageMaxRanks(language));
 			}
 		}
 		for (String language : getRace().getInitialRaceLanguages().keySet()) {
@@ -640,9 +640,14 @@ public class CharacterPlayer extends StorableObject {
 		return maxLanguage;
 	}
 
-	public void setHistoryRanks(String language, int ranks) {
+	public void setHistoryLanguageRanks(String language, int ranks) {
 		historial.setHistoryLanguageRank(language, ranks);
 	}
+	
+	public int  getHistoryLanguageRanks(String language) {
+		return historial.getHistoryLanguageRank(language);
+	}
+
 
 	public Integer getDefensiveBonus() {
 		return (getCharacteristicTotalBonus(CharacteristicsAbbreviature.SPEED) * 3) + getItemBonus(BonusType.DEFENSIVE_BONUS);
@@ -1018,7 +1023,7 @@ public class CharacterPlayer extends StorableObject {
 		}
 		total += getTrainingRanks(skill);
 		// History language points.
-		total += historial.getHistoryLanguageRank(skill.getName());
+		total += getHistoryLanguageRanks(skill.getName());
 
 		for (PerkDecision perkDecision : getPerkDecisions().values()) {
 			total += perkDecision.getSkillsRanksChosen().contains(skill.getName()) ? 1 : 0;

@@ -139,8 +139,8 @@ public class Historial extends StorableObject {
 		return skills.size() + categories.size() + getCharacteristicsUpdatesPoints() + getLanguagesPointCost();
 	}
 
-	public CharacteristicRoll addCharactersiticUpdate(CharacteristicsAbbreviature abbreviature, Integer currentTemporalValue, Integer currentPotentialValue,
-			Roll roll) {
+	public CharacteristicRoll addCharactersiticUpdate(CharacteristicsAbbreviature abbreviature, Integer currentTemporalValue,
+			Integer currentPotentialValue, Roll roll) {
 		CharacteristicRoll characteristicRoll = new CharacteristicRoll(abbreviature, currentTemporalValue, currentPotentialValue, roll);
 		characteristicsUpdates.add(characteristicRoll);
 		return characteristicRoll;
@@ -185,8 +185,8 @@ public class Historial extends StorableObject {
 		this.characteristicsUpdates = characteristicsUpdates;
 	}
 
-	public void setHistoryLanguageRank(String language, int rank) {
-		languageRanks.put(language, rank);
+	public void setHistoryLanguageRank(String language, int ranks) {
+		languageRanks.put(language, ranks > 0 ? ranks : 0);
 	}
 
 	public int getHistoryLanguageRank(String language) {
@@ -205,6 +205,6 @@ public class Historial extends StorableObject {
 	}
 
 	public int getLanguagesPointCost() {
-		return (int) Math.ceil(getLanguagesTotalRanksAdded() % 20);
+		return (int) Math.ceil(getLanguagesTotalRanksAdded() / 20f);
 	}
 }

@@ -49,13 +49,14 @@ public class HistoryWindow extends BaseFrame {
 	private CharacterPlayer character;
 	private HistoryCompleteSkillPointsPanel skillPanel;
 	private HistoryCompleteCharacteristicPanel characteristicPanel;
+	private HistoryLanguageCompletePanel languagePanel;
 	private BaseLabel historyPointsLabel;
 	private PointsCounterTextField historyPoints;
 	private BaseCheckBox hideUselessSkillsCheckBox;
 
 	public HistoryWindow(CharacterPlayer character) {
 		this.character = character;
-		defineWindow(700, 420);
+		defineWindow(800, 420);
 		historyPoints = new PointsCounterTextField();
 		setResizable(false);
 		setElements();
@@ -73,21 +74,33 @@ public class HistoryWindow extends BaseFrame {
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.gridwidth = 3;
 		gridBagConstraints.gridheight = 2;
 		gridBagConstraints.weightx = 0.7;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		skillPanel = new HistoryCompleteSkillPointsPanel(character, (BaseFrame) this);
 		getContentPane().add(skillPanel, gridBagConstraints);
-
+		
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
-		gridBagConstraints.gridx = 1;
+		gridBagConstraints.gridx = 3;
 		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.gridwidth = 2;
 		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.weightx = 0.4;
+		gridBagConstraints.weightx = 0.5;
+		gridBagConstraints.weighty = 1;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+		languagePanel = new HistoryLanguageCompletePanel(character, (BaseFrame) this);
+		getContentPane().add(languagePanel, gridBagConstraints);
+		
+		gridBagConstraints.fill = GridBagConstraints.BOTH;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridx = 5;
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.gridwidth = 2;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.weightx = 0.5;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		characteristicPanel = new HistoryCompleteCharacteristicPanel(character, (BaseFrame) this);
@@ -97,7 +110,7 @@ public class HistoryWindow extends BaseFrame {
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 2;
-		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.gridwidth = 3;
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.weightx = 0.7;
 		gridBagConstraints.weighty = 0;
@@ -111,9 +124,9 @@ public class HistoryWindow extends BaseFrame {
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
-		gridBagConstraints.gridx = 1;
+		gridBagConstraints.gridx = 3;
 		gridBagConstraints.gridy = 1;
-		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+		gridBagConstraints.gridwidth = 4;
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.weightx = 0.4;
 		gridBagConstraints.weighty = 0;
@@ -151,10 +164,10 @@ public class HistoryWindow extends BaseFrame {
 		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
 		gridBagConstraints.fill = GridBagConstraints.NONE;
 		gridBagConstraints.ipadx = xPadding;
-		gridBagConstraints.gridx = 1;
+		gridBagConstraints.gridx = 4;
 		gridBagConstraints.gridy = 2;
 		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.gridwidth = 3;
 		gridBagConstraints.weightx = 0.3;
 		gridBagConstraints.weighty = 0;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);

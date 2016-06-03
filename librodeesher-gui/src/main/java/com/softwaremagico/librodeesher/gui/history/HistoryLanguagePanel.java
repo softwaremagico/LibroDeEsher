@@ -24,6 +24,7 @@ package com.softwaremagico.librodeesher.gui.history;
  * #L%
  */
 
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -44,6 +45,8 @@ public class HistoryLanguagePanel extends BasePanel {
 	}
 
 	protected void setElements() {
+		this.removeAll();
+		setLayout(new GridLayout(0, 1));
 		int i = 0;
 		// Add race languages.
 		List<String> languages = new ArrayList<>();
@@ -63,7 +66,7 @@ public class HistoryLanguagePanel extends BasePanel {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
+		parent.update();
 	}
 
 	public void setTitle(int ranks) {

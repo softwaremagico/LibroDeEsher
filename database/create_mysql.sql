@@ -157,6 +157,7 @@
         comparationId varchar(255) not null,
         creationTime datetime not null,
         updateTime datetime,
+        languageRanks tinyblob,
         primary key (ID)
     );
 

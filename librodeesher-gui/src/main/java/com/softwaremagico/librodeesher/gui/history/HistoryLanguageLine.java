@@ -1,5 +1,29 @@
 package com.softwaremagico.librodeesher.gui.history;
 
+/*
+ * #%L
+ * Libro de Esher (GUI)
+ * %%
+ * Copyright (C) 2007 - 2016 Softwaremagico
+ * %%
+ * This software is designed by Jorge Hortelano Otero. Jorge Hortelano Otero
+ * <softwaremagico@gmail.com> Valencia (Spain).
+ *  
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *  
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *  
+ * You should have received a copy of the GNU General Public License along with
+ * this program; If not, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * #L%
+ */
+
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -36,9 +60,10 @@ public class HistoryLanguageLine extends BaseLine {
 		this.language = language;
 		setElements(background);
 		setBackground(background);
-		initalValue = characterPlayer.getLanguageInitialRanks(language);
-		SpinnerModel sm = new SpinnerNumberModel((int) initalValue + characterPlayer.getMaxHistoryLanguages().get(language), (int) initalValue,
-				(int) characterPlayer.getMaxHistoryLanguages().get(language), 1);
+		initalValue = characterPlayer.getRealRanks(SkillFactory.getAvailableSkill(language));
+		SpinnerModel sm = new SpinnerNumberModel((int) initalValue + characterPlayer.getHistoryLanguageRanks(language), (int) initalValue,
+				(int) (characterPlayer.getMaxHistoryLanguages().get(language) != null ? (int) characterPlayer.getMaxHistoryLanguages().get(
+						language) : initalValue), 1);
 		rankSpinner.setModel(sm);
 
 		// Languages can have 10 ranks. We need a bigger editor.
@@ -84,22 +109,28 @@ public class HistoryLanguageLine extends BaseLine {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				// Update character
-				characterPlayer.setHistoryRanks(language, (Integer) rankSpinner.getValue() - initalValue);
+				characterPlayer.setHistoryLanguageRanks(language, (Integer) rankSpinner.getValue() - initalValue);
 				// Race and culture language limit.
 				if (characterPlayer.getCultureTotalLanguageRanks() > characterPlayer.getRealRanks(SkillFactory.getSkill(language))) {
-					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
-					// No enought history points
-				} else if (characterPlayer.getRemainingHistorialPoints() <= 0) {
+					try {
+						rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
+					} catch (Exception ex) {
+						rankSpinner.setValue(initalValue);
+					}
+					// No enough history points
+				} else if (characterPlayer.getRemainingHistorialPoints() < 0) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					setTitle();
 				}
+				update();
 			}
 		});
 	}
 
 	private void setTitle() {
-		parentPanel.setTitle(characterPlayer.getHistoryLanguageRanks() % 20);
+		int ranks = 20 - (characterPlayer.getHistoryLanguageRanks() % 20);
+		parentPanel.setTitle(ranks == 20 ? 0 : ranks);
 	}
 
 	protected Integer getSelectedRanks() {
@@ -156,6 +187,6 @@ public class HistoryLanguageLine extends BaseLine {
 
 	@Override
 	public void update() {
-
+		parentPanel.update();
 	}
 }
