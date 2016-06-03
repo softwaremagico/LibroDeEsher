@@ -116,7 +116,7 @@ public class HistoryLanguageLine extends BaseLine {
 			public void stateChanged(ChangeEvent e) {
 				// Update character
 				characterPlayer.setHistoryLanguageRanks(language,
-						(Integer) rankSpinner.getValue() - (initalValue));
+						(Integer) rankSpinner.getValue() - (characterPlayer.getTotalRanks(SkillFactory.getAvailableSkill(language)) - characterPlayer.getHistoryLanguageRanks(language)));
 				// Race and culture language limit.
 				if (Math.max(characterPlayer.getMaxHistoryLanguages().get(language), initalValue) < characterPlayer
 						.getTotalRanks(SkillFactory.getSkill(language))) {
