@@ -45,7 +45,8 @@ public class SkillFactory {
 
 	public static Skill getSkill(String skillNameAndType) {
 		Skill skill = availableSkills.get(skillNameAndType);
-		if (skill == null) {
+		if (skill == null && !skillNameAndType.toLowerCase().equals(Spanish.WEAPON.toLowerCase())
+				) {
 			skill = createSkill(skillNameAndType);
 			addSkill(skill);
 		}
@@ -62,11 +63,9 @@ public class SkillFactory {
 	}
 
 	public static Skill getSkill(String skillNameAndType, List<String> specialities) {
-		Skill skill = availableSkills.get(skillNameAndType);
-		if (skill == null) {
-			skill = createSkill(skillNameAndType);
+		Skill skill = getSkill(skillNameAndType);
+		if (skill != null) {
 			skill.addSpecialities(specialities);
-			addSkill(skill);
 		}
 		return skill;
 	}
@@ -108,8 +107,7 @@ public class SkillFactory {
 
 	public static Skill getSkill(String skillPrefix, String containText) {
 		for (Skill skill : availableSkills.values()) {
-			if (skill.getName().toLowerCase().startsWith(skillPrefix)
-					&& skill.getName().toLowerCase().contains((containText))) {
+			if (skill.getName().toLowerCase().startsWith(skillPrefix) && skill.getName().toLowerCase().contains((containText))) {
 				return skill;
 			}
 		}
@@ -140,8 +138,8 @@ public class SkillFactory {
 
 	private static String removeTypeFromName(String skillName) {
 		// String pattern = Pattern.quote("*");
-		return skillName.replace("*", "").replace("(R)", "").replace("(r)", "").replace("(C)", "").replace("(c)", "")
-				.replace("(P)", "").replace("(p)", "");
+		return skillName.replace("*", "").replace("(R)", "").replace("(r)", "").replace("(C)", "").replace("(c)", "").replace("(P)", "")
+				.replace("(p)", "");
 	}
 
 	public static List<Skill> getSkills() {
@@ -167,8 +165,8 @@ public class SkillFactory {
 		for (Skill skill : availableSkills.values()) {
 			try {
 				if (skill.getCategory() == null) {
-					EsherLog.severe(SkillFactory.class.getName(),
-							"Skill '" + skill.getName() + "' has no category defined.");
+					EsherLog.severe(SkillFactory.class.getName(), "Skill '" + skill.getName() + "' has no category defined in '" + category
+							+ "'.");
 				} else if (skill != null && skill.getCategory().equals(category)) {
 					skills.add(skill);
 				}
