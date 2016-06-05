@@ -194,23 +194,23 @@ public class PerkPointsCalculator {
 	private int getRecoveryRacePoints() throws InvalidRaceDefinition {
 		if (race.getRestorationTime() >= 3) {
 			return -45;
-		} else if ((float) race.getRestorationTime() == 2) {
+		} else if ((float) race.getRestorationTime() > 2) {
 			return -25;
-		} else if ((float) race.getRestorationTime() == 1.5f) {
+		} else if ((float) race.getRestorationTime() > 1.5f) {
 			return -10;
-		} else if ((float) race.getRestorationTime() == 1.2f) {
+		} else if ((float) race.getRestorationTime() > 1.2f) {
 			return -8;
-		} else if ((float) race.getRestorationTime() == 1) {
+		} else if ((float) race.getRestorationTime() > 1) {
 			return 0;
-		} else if ((float) race.getRestorationTime() == 0.9f) {
+		} else if ((float) race.getRestorationTime() > 0.9f) {
 			return 3;
-		} else if ((float) race.getRestorationTime() == 0.75f) {
+		} else if ((float) race.getRestorationTime() > 0.75f) {
 			return 5;
-		} else if ((float) race.getRestorationTime() == 0.6f) {
+		} else if ((float) race.getRestorationTime() > 0.6f) {
 			return 7;
-		} else if ((float) race.getRestorationTime() == 0.5f) {
+		} else if ((float) race.getRestorationTime() > 0.5f) {
 			return 10;
-		} else if ((float) race.getRestorationTime() == 0.2f) {
+		} else if ((float) race.getRestorationTime() > 0.2f) {
 			return 25;
 		} else {
 			throw new InvalidRaceDefinition("Unknown Recovery bonus '" + race.getRestorationTime()

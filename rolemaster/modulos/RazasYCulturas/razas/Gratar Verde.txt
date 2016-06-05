@@ -96,6 +96,10 @@ Anfibio
 #NOMBRES MASCULINOS
 ####################################
 Babs, Babouche, Badel, Bado, Bango, Bellow, Bistro, Bor
+Tadacki, Chi-krits, Kualgesht, Skreki, Burche, Checkak
+Chit-bar, Dwelliki, Skellski, Rassche, Rec, Thrognawta
+Durzel, Drakche, Riskki, Vermiarr, Ricritt, Vi-ki, Puki
+Devi
 
 #NOMBRES FEMENINOS
 ####################################

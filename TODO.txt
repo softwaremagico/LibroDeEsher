@@ -1,3 +1,5 @@
+Personaje Carlos: Esquiva adrenal total mal mostrado la primera vez.
+PerkCostGenerator falla cuando rangos no definidos. 
 Idiomas "Idioma regional" "Idioma racial"
 Remove Subcultures for conocimiento regional and supervivencia
 Insert skills and ranks

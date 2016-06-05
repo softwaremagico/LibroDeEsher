@@ -128,3 +128,4 @@ Descoordinación	-7	Todos	Menor	Físico	Ninguna	Sufres un crítico A de Desequil
 Sin Concentración	-10	Todos	Menor	Mental	Ninguna	-25 a todas las habilidades que duren más de medio minuto. Pagina 97 del Manual de Personajes.
 Ciego al Color	-5	Todos	Mínimo	Físico	Ninguna	Ves en blanco y negro. Pagina 84 del Manual de Personajes.
 Ruidoso	-15	Todos	Mayor	Físico	Subterfugio·Sigilo (-10), Acechar(-15), Esconderse (-15)	No eres especialmente silencioso. Consulta la página 88 del Manual de Personajes para más detalles.
+Sentido Interno	10	Menor	Todos	Mental	Maniobrar Aturdido (20), Superar Aturdimiento (20)	Pagina 67 del Manual de Personajes.
