@@ -1,4 +1,5 @@
 Personaje Carlos: Esquiva adrenal total mal mostrado la primera vez.
+Test ahora no pueden guardar en la BBDD
 PerkCostGenerator falla cuando rangos no definidos. 
 Idiomas "Idioma regional" "Idioma racial"
 Remove Subcultures for conocimiento regional and supervivencia
