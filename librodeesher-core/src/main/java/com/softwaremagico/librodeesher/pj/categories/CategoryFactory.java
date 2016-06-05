@@ -59,7 +59,6 @@ public class CategoryFactory {
 			getCategoriesFromFiles();
 		} catch (Exception e) {
 			EsherLog.errorMessage(CategoryFactory.class.getName(), e);
-			e.printStackTrace();
 		}
 	}
 
@@ -103,8 +102,7 @@ public class CategoryFactory {
 		return skills;
 	}
 
-	public static Category createCategory(String categoryName, String abbreviature, String characteristicsTag,
-			String type, String skills) {
+	public static Category createCategory(String categoryName, String abbreviature, String characteristicsTag, String type, String skills) {
 		CategoryType catType = CategoryType.getCategoryType(type);
 		Category cat;
 		switch (catType) {
@@ -175,7 +173,7 @@ public class CategoryFactory {
 			List<String> lines = RolemasterFolderStructure.getCategoryFile(categoriesFile.get(j));
 
 			for (String oneLine : lines) {
-				if (!oneLine.startsWith("#")) {
+				if (!oneLine.startsWith("#") && oneLine.length() > 1) {
 					String[] descomposed_line = oneLine.split("\t");
 					String[] categoryAbbrevName = descomposed_line[0].split("\\(");
 					String categoryName = categoryAbbrevName[0];
@@ -183,8 +181,7 @@ public class CategoryFactory {
 						String abrevCat = categoryAbbrevName[1].replace(")", "");
 						Category cat = availableCategories.get(categoryName);
 						if (cat == null) {
-							cat = createCategory(categoryName, abrevCat, descomposed_line[1], descomposed_line[2],
-									descomposed_line[3]);
+							cat = createCategory(categoryName, abrevCat, descomposed_line[1], descomposed_line[2], descomposed_line[3]);
 							availableCategories.put(categoryName, cat);
 							availableCategoriesByName.add(categoryName);
 						} else {
@@ -212,8 +209,8 @@ public class CategoryFactory {
 		SkillFactory.updateDisabledSkills();
 	}
 
-	public static Category getCategory(String categoryName, String abbrev, String characteristics, String type,
-			String skills) throws Exception {
+	public static Category getCategory(String categoryName, String abbrev, String characteristics, String type, String skills)
+			throws Exception {
 
 		Category cat = availableCategories.get(categoryName);
 		if (cat == null) {
@@ -244,8 +241,7 @@ public class CategoryFactory {
 			closeCombatWeaponsCategories = new ArrayList<>();
 			for (Category category : weaponsCategoriesFromFiles) {
 				if (category.getName().equals(Spanish.WEAPONS_EDGE) || category.getName().equals(Spanish.WEAPONS_POLE)
-						|| category.getName().equals(Spanish.WEAPONS_HAMMERS)
-						|| category.getName().equals(Spanish.WEAPONS_TWOHANDS)) {
+						|| category.getName().equals(Spanish.WEAPONS_HAMMERS) || category.getName().equals(Spanish.WEAPONS_TWOHANDS)) {
 					closeCombatWeaponsCategories.add(category);
 				}
 			}
@@ -257,8 +253,7 @@ public class CategoryFactory {
 		if (longRangeWeaponsCategories == null) {
 			longRangeWeaponsCategories = new ArrayList<>();
 			for (Category category : weaponsCategoriesFromFiles) {
-				if (category.getName().equals(Spanish.WEAPONS_PROJECTILE)
-						|| category.getName().equals(Spanish.WEAPONS_THROWABLE)
+				if (category.getName().equals(Spanish.WEAPONS_PROJECTILE) || category.getName().equals(Spanish.WEAPONS_THROWABLE)
 						|| category.getName().equals(Spanish.WEAPONS_FIREARMS_ONEHAND)
 						|| category.getName().equals(Spanish.WEAPONS_FIREARMS_TWOHANDS)) {
 					longRangeWeaponsCategories.add(category);
@@ -272,8 +267,7 @@ public class CategoryFactory {
 		if (othersWeaponsCategories == null) {
 			othersWeaponsCategories = new ArrayList<>();
 			for (Category category : weaponsCategoriesFromFiles) {
-				if (category.getName().equals(Spanish.WEAPONS_MARTIALS_HITS)
-						|| category.getName().equals(Spanish.WEAPONS_MARTIALS_KICKS)
+				if (category.getName().equals(Spanish.WEAPONS_MARTIALS_HITS) || category.getName().equals(Spanish.WEAPONS_MARTIALS_KICKS)
 						|| category.getName().equals(Spanish.WEAPONS_MARTIALS_MANIOBRES)
 						|| category.getName().equals(Spanish.WEAPONS_SPECIALS)) {
 					othersWeaponsCategories.add(category);
