@@ -206,6 +206,8 @@ public class PerkPointsCalculator {
 			return 3;
 		} else if ((float) race.getRestorationTime() == 0.75f) {
 			return 5;
+		} else if ((float) race.getRestorationTime() == 0.6f) {
+			return 7;
 		} else if ((float) race.getRestorationTime() == 0.5f) {
 			return 10;
 		} else if ((float) race.getRestorationTime() == 0.2f) {
@@ -395,8 +397,12 @@ public class PerkPointsCalculator {
 				return 7;
 			case 20:
 				return 10;
+			case 25:
+				return 11;
 			case 30:
 				return 13;
+			case 35:
+				return 14;
 			case 40:
 				return 16;
 			case 50:
