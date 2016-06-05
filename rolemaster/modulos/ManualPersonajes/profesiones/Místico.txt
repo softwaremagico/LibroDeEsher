@@ -185,5 +185,6 @@ Trotamundos	29
 Viajero	19
 Houri	32
 
+Ninja	106
 
 ### FIN PROFESION ###

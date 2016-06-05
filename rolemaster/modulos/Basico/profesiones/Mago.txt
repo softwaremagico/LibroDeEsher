@@ -177,4 +177,6 @@ Timador	27
 Trotamundos	30
 Houri	36
 
+Ninja	130
+
 ### FIN PROFESION ###

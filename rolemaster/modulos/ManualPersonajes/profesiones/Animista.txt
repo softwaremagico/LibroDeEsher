@@ -182,5 +182,6 @@ Timador	24
 Trotamundos	26
 Viajero	13
 
+Ninja	96
 
 ### FIN PROFESION ###

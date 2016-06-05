@@ -180,4 +180,6 @@ Houri	36
 Rukleftak-sher	25
 Shaguk Kun-Toramim	21
 
+Ninja	132
+
 ### FIN PROFESION ###
