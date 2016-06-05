@@ -1,7 +1,5 @@
 package com.softwaremagico.librodeesher.pj.training;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,33 +12,13 @@ public class TrainingCategory {
 	private List<String> categoryOptions; // List to choose one category from.
 	private Map<String, TrainingSkillList> skillsPerCategory;
 
-	public TrainingCategory(List<String> categoryOptions, Integer ranks, Integer minSkills,
-			Integer maxSkills, Integer skillRanks) {
+	public TrainingCategory(List<String> categoryOptions, Integer ranks, Integer minSkills, Integer maxSkills, Integer skillRanks) {
 		this.categoryOptions = categoryOptions;
 		this.categoryRanks = ranks;
 		this.minSkills = minSkills;
 		this.maxSkills = maxSkills;
 		this.skillRanks = skillRanks;
 		skillsPerCategory = new HashMap<>();
-	}
-
-	protected void addSkill(String categoryName, String skillName) {
-		List<String> skillList = new ArrayList<>();
-		skillList.add(skillName); // List with only one element.
-		TrainingSkill trainingSkill = new TrainingSkill(skillList, 0);
-		addSkill(categoryName, trainingSkill);
-	}
-
-	protected void addSkill(String categoryName, TrainingSkill skill) {
-		TrainingSkillList skillList = skillsPerCategory.get(categoryName);
-		if (skillList == null) {
-			skillList = new TrainingSkillList();
-		}
-		if (!skillList.getAll().contains(skill)) {
-			skillList.add(skill);
-			Collections.sort(skillList.getAll(), new TrainingSkillComparator());
-			skillsPerCategory.put(categoryName, skillList);
-		}
 	}
 
 	/**
@@ -73,7 +51,10 @@ public class TrainingCategory {
 	}
 
 	public List<TrainingSkill> getSkills(String categoryName) {
-		return skillsPerCategory.get(categoryName).getAll();
+		if (skillsPerCategory.get(categoryName) != null) {
+			return skillsPerCategory.get(categoryName).getAll();
+		}
+		return null;
 	}
 
 	public boolean needToChooseOneCategory() {
@@ -90,8 +71,7 @@ public class TrainingCategory {
 
 	public Integer getRanksInSkills(String categoryName) {
 		Integer total = 0;
-		List<TrainingSkill> skills = skillsPerCategory.get(categoryName)
-				.getAll();
+		List<TrainingSkill> skills = skillsPerCategory.get(categoryName).getAll();
 		for (TrainingSkill skill : skills) {
 			total += skill.getRanks();
 		}

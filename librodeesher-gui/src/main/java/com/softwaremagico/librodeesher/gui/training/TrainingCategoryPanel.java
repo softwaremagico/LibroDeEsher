@@ -152,7 +152,7 @@ public class TrainingCategoryPanel extends BasePanel {
 		}
 		if (index >= 0 && selectedCategory < trainingCategory.getCategoryOptions().size()) {
 			String selectedCategoryName = trainingCategory.getCategoryOptions().get(selectedCategory);
-			for (TrainingSkill skill : trainingCategory.getSkills(selectedCategoryName)) {
+			for (TrainingSkill skill : character.getTrainingOptionsSkills(trainingCategory, selectedCategoryName)) {
 				TrainingSkillLine skillLine = new TrainingSkillLine(character, trainingCategory, skill, this, getLineBackgroundColor(index));
 				add(skillLine, index);
 				index++;
