@@ -1757,6 +1757,9 @@ public class CharacterPlayer extends StorableObject {
 				perkDecisions.put(perk.getName(), perkDecision);
 			}
 			perkDecision.setCommonSkillsChosen(commonSkillsChosen);
+			for (String skill : commonSkillsChosen) {
+				characterPlayerHelper.resetSkillRanks(skill);
+			}
 		}
 	}
 
@@ -1765,6 +1768,9 @@ public class CharacterPlayer extends StorableObject {
 			TrainingDecision trainingDecision = getTrainingDecision(training.getName());
 			if (trainingDecision != null) {
 				trainingDecision.setCommonSkillsChosen(commonSkillsChosen);
+			}
+			for (String skill : commonSkillsChosen) {
+				characterPlayerHelper.resetSkillRanks(skill);
 			}
 		}
 	}
@@ -1775,6 +1781,9 @@ public class CharacterPlayer extends StorableObject {
 			if (trainingDecision != null) {
 				trainingDecision.setProfessionalSkillsChosen(professionalSkillsChosen);
 			}
+			for (String skill : professionalSkillsChosen) {
+				characterPlayerHelper.resetSkillRanks(skill);
+			}
 		}
 	}
 
@@ -1783,6 +1792,9 @@ public class CharacterPlayer extends StorableObject {
 			TrainingDecision trainingDecision = getTrainingDecision(training.getName());
 			if (trainingDecision != null) {
 				trainingDecision.setProfessionalSkillsChosen(restrictedSkillsChosen);
+			}
+			for (String skill : restrictedSkillsChosen) {
+				characterPlayerHelper.resetSkillRanks(skill);
 			}
 		}
 	}
@@ -1876,14 +1888,23 @@ public class CharacterPlayer extends StorableObject {
 
 	public void setCommonSkillsChoseFromProfession(List<String> commonSkillsChose) {
 		professionDecisions.setCommonSkillsChosen(commonSkillsChose);
+		for (String skill : commonSkillsChose) {
+			characterPlayerHelper.resetSkillRanks(skill);
+		}
 	}
 
 	public void setRestrictedSkillsChoseFromProfession(List<String> restrictedSkillsChose) {
 		professionDecisions.setRestrictedSkillsChosen(restrictedSkillsChose);
+		for (String skill : restrictedSkillsChose) {
+			characterPlayerHelper.resetSkillRanks(skill);
+		}
 	}
 
 	public void setProfessionalSkillsChoseFromProfession(List<String> professionalSkillsChose) {
 		professionDecisions.setProfessionalSkillsChosen(professionalSkillsChose);
+		for (String skill : professionalSkillsChose) {
+			characterPlayerHelper.resetSkillRanks(skill);
+		}
 	}
 
 	public List<String> getCommonSkillsChoseFromProfession() {
