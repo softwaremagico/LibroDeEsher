@@ -27,6 +27,7 @@ package com.softwaremagico.librodeesher.pj.historial;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
@@ -75,7 +76,7 @@ public class Historial extends StorableObject {
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_HISTORIAL_LANGUAGE_RANKS")
-	private HashMap<String, Integer> languageRanks;
+	private Map<String, Integer> languageRanks;
 
 	public Historial() {
 		categories = new ArrayList<>();

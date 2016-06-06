@@ -64,8 +64,7 @@ public class PerkPointsCalculator {
 		racePoints += lifeExpectationPoints;
 		for (ResistanceType resistance : ResistanceType.values()) {
 			int resistancePoints = getResisteceRacePoints(resistance);
-			EsherLog.debug(this.getClass().getName(), "Resistance '" + resistance + "' points: "
-					+ resistancePoints);
+			EsherLog.debug(this.getClass().getName(), "Resistance '" + resistance + "' points: " + resistancePoints);
 			racePoints += resistancePoints;
 		}
 		int soulDeparturePoints = getSoulDepartTimeRacePoints();
@@ -78,8 +77,7 @@ public class PerkPointsCalculator {
 
 		for (CharacteristicsAbbreviature characteristic : CharacteristicsAbbreviature.values()) {
 			int characteristicPoints = getCharactersiticBonusRacePoints(characteristic);
-			EsherLog.debug(this.getClass().getName(), "Characteristic '" + characteristic + "' points: "
-					+ characteristicPoints);
+			EsherLog.debug(this.getClass().getName(), "Characteristic '" + characteristic + "' points: " + characteristicPoints);
 			racePoints += characteristicPoints;
 		}
 
@@ -166,8 +164,7 @@ public class PerkPointsCalculator {
 		case 5:
 			return -10;
 		default:
-			throw new InvalidRaceDefinition("Unknown race type '" + race.getRaceType() + "' for race '"
-					+ race.getName() + "'!");
+			throw new InvalidRaceDefinition("Unknown race type '" + race.getRaceType() + "' for race '" + race.getName() + "'!");
 		}
 	}
 
@@ -194,27 +191,28 @@ public class PerkPointsCalculator {
 	private int getRecoveryRacePoints() throws InvalidRaceDefinition {
 		if (race.getRestorationTime() >= 3) {
 			return -45;
-		} else if ((float) race.getRestorationTime() > 2) {
+		} else if ((float) race.getRestorationTime() >= 2) {
 			return -25;
-		} else if ((float) race.getRestorationTime() > 1.5f) {
+		} else if ((float) race.getRestorationTime() >= 1.5f) {
 			return -10;
-		} else if ((float) race.getRestorationTime() > 1.2f) {
+		} else if ((float) race.getRestorationTime() >= 1.2f) {
 			return -8;
-		} else if ((float) race.getRestorationTime() > 1) {
+		} else if ((float) race.getRestorationTime() >= 1) {
 			return 0;
-		} else if ((float) race.getRestorationTime() > 0.9f) {
+		} else if ((float) race.getRestorationTime() >= 0.9f) {
 			return 3;
-		} else if ((float) race.getRestorationTime() > 0.75f) {
+		} else if ((float) race.getRestorationTime() >= 0.75f) {
 			return 5;
-		} else if ((float) race.getRestorationTime() > 0.6f) {
+		} else if ((float) race.getRestorationTime() >= 0.6f) {
 			return 7;
-		} else if ((float) race.getRestorationTime() > 0.5f) {
+		} else if ((float) race.getRestorationTime() >= 0.5f) {
 			return 10;
-		} else if ((float) race.getRestorationTime() > 0.2f) {
+		} else if ((float) race.getRestorationTime() >= 0.2f) {
 			return 25;
+		} else if ((float) race.getRestorationTime() >= 0.1f) {
+			return 45;
 		} else {
-			throw new InvalidRaceDefinition("Unknown Recovery bonus '" + race.getRestorationTime()
-					+ "' for race '" + race.getName() + "'!");
+			throw new InvalidRaceDefinition("Unknown Recovery bonus '" + race.getRestorationTime() + "' for race '" + race.getName() + "'!");
 		}
 	}
 
@@ -228,8 +226,7 @@ public class PerkPointsCalculator {
 		return 0;
 	}
 
-	private int getCharactersiticBonusRacePoints(CharacteristicsAbbreviature characteristic)
-			throws InvalidRaceDefinition {
+	private int getCharactersiticBonusRacePoints(CharacteristicsAbbreviature characteristic) throws InvalidRaceDefinition {
 		if (!characteristic.equals(CharacteristicsAbbreviature.APPEARENCE)) {
 			switch (race.getCharacteristicBonus(characteristic)) {
 			case -10:
@@ -274,9 +271,17 @@ public class PerkPointsCalculator {
 				return 73;
 			case 10:
 				return 80;
+			case 11:
+				return 100;
+			case 12:
+				return 120;
+			case 13:
+				return 125;
+			case 14:
+				return 150;
 			default:
-				throw new InvalidRaceDefinition("Unknown Characteristic bonus '" + characteristic
-						+ "' for race '" + race.getName() + "'!");
+				throw new InvalidRaceDefinition("Unknown Characteristic bonus '" + race.getCharacteristicBonus(characteristic)
+						+ "' for characteristic '" + characteristic + "' for race '" + race.getName() + "'!");
 			}
 		}
 		return 0;
@@ -285,7 +290,7 @@ public class PerkPointsCalculator {
 	private int getStartingLanguagesRacePoints() {
 		int languageCost = 0;
 		int languages = 0;
-		
+
 		for (String language : race.getInitialRaceLanguages().keySet()) {
 			// Differenciante between spoken and written.
 			int ranks = race.getInitialRaceLanguages().get(language);
@@ -306,7 +311,7 @@ public class PerkPointsCalculator {
 				}
 			}
 		}
-		
+
 		// Number of languages has penalties.
 		switch (languages) {
 		case 1:
@@ -420,8 +425,7 @@ public class PerkPointsCalculator {
 			case 150:
 				return 150;
 			default:
-				throw new InvalidRaceDefinition("Unknown Resistence value '" + bonus + "' for race '"
-						+ race.getName() + "'!");
+				throw new InvalidRaceDefinition("Unknown Resistence value '" + bonus + "' for race '" + race.getName() + "'!");
 			}
 		}
 	}
@@ -449,8 +453,7 @@ public class PerkPointsCalculator {
 	}
 
 	private int getPowerPointsRacePoints(RealmOfMagic realm) throws InvalidRaceDefinition {
-		String cost = race
-				.getProgressionRankValuesAsString(ProgressionCostType.getProgressionCostType(realm));
+		String cost = race.getProgressionRankValuesAsString(ProgressionCostType.getProgressionCostType(realm));
 		switch (cost) {
 		case "0/2/1/1/1":
 			return -25;
@@ -474,9 +477,8 @@ public class PerkPointsCalculator {
 			return 15;
 		default:
 			if (!realm.equals(RealmOfMagic.RACE)) {
-				throw new InvalidRaceDefinition("Unknown cost '" + cost
-						+ "' for power point progression of realm '" + realm + "' for race '"
-						+ race.getName() + "'.");
+				throw new InvalidRaceDefinition("Unknown cost '" + cost + "' for power point progression of realm '" + realm
+						+ "' for race '" + race.getName() + "'.");
 			} else {
 				return 0;
 			}
@@ -517,8 +519,7 @@ public class PerkPointsCalculator {
 		case "0/15/13/11/9":
 			return 100;
 		default:
-			throw new InvalidRaceDefinition("Unknown physical development cost '" + cost
-					+ "' value for race '" + race.getName() + "'!");
+			throw new InvalidRaceDefinition("Unknown physical development cost '" + cost + "' value for race '" + race.getName() + "'!");
 		}
 	}
 }

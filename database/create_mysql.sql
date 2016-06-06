@@ -157,7 +157,6 @@
         comparationId varchar(255) not null,
         creationTime datetime not null,
         updateTime datetime,
-        languageRanks tinyblob,
         primary key (ID)
     );
 
@@ -171,6 +170,13 @@
         characteristicsUpdates_ID bigint not null,
         roll_index integer not null,
         primary key (T_HISTORIAL_ID, roll_index)
+    );
+
+    create table T_HISTORIAL_LANGUAGE_RANKS (
+        Historial_ID bigint not null,
+        languageRanks integer,
+        languageRanks_KEY varchar(255),
+        primary key (Historial_ID, languageRanks_KEY)
     );
 
     create table T_HISTORIAL_SKILLS (
@@ -836,6 +842,11 @@
     alter table T_HISTORIAL_CHARACTERISTICS_UPDATES 
         add constraint FK_bu9fdjwtblk4m412wp2v4ft9k 
         foreign key (T_HISTORIAL_ID) 
+        references T_HISTORIAL (ID);
+
+    alter table T_HISTORIAL_LANGUAGE_RANKS 
+        add constraint FK_n5u594ccohc0iyd7saqom6jvx 
+        foreign key (Historial_ID) 
         references T_HISTORIAL (ID);
 
     alter table T_HISTORIAL_SKILLS 

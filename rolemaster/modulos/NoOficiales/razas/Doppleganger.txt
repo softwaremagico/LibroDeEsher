@@ -30,7 +30,7 @@ Miedo	0
 
 #PROGRESIÓN	
 ####################################
-Desarrollo Físico	0/6/5/4/3
+Desarrollo Físico	0/6/4/2/1
 PP Arcano	0/4/3/2/1
 PP Canalización	0/2/1/1/1
 PP Esencia	0/4/3/2/1
