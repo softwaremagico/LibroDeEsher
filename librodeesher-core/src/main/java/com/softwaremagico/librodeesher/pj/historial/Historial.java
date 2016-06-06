@@ -72,6 +72,9 @@ public class Historial extends StorableObject {
 	@OrderColumn(name = "roll_index")
 	private List<CharacteristicRoll> characteristicsUpdates;
 
+	@Expose
+	@ElementCollection
+	@CollectionTable(name = "T_HISTORIAL_LANGUAGE_RANKS")
 	private HashMap<String, Integer> languageRanks;
 
 	public Historial() {
