@@ -19,7 +19,7 @@ Velocidad Deslumbrante	5	Todos	Menor	Físico	Movimiento (10)	Tu capacidad de mov
 Prototipo	18	Todos	Mayor	Mágico	Desarrollo de Puntos de Poder (Común)	La habilidad de Desarrollo de Puntos de Poder es común. Consulta la página 64 del libro de personajes para más información.	
 Control Mental	25	Todos	Máximo	Mental	Ninguno	Ganas la habilidad de controlar mentalmente a un sujeto. Consulta la página 65 del libro de personajes para más información.	
 Mente sobre Material	10	Todos	Menor	Mental	Autocontrol (20)	Consulta la página 67 del libro de personajes para más información.	
-Reflejos de Combate	7	Todos	Menor	Físico	Ninguno	Puedes tirar un dado más de iniciativa y elegir. Consulta la página 67 del libro de personajes para más información.	
+Reflejos de Combate	7	Todos	Menor	Físico	Ninguno	Puedes hacer una tirada adicional de iniciativa y elegir. Consulta la página 67 del libro de personajes para más información.	
 Sentido de la Firmeza	10	Todos	Menor	Mental	Ninguno	Reduces en 1 los asaltos aturdido. Consulta la página 67 del libro de personajes para más información.	
 Adherencia	25	Todos	Máximo	Capacidad Especial	Trepar (50)	Puedes caminar por las paredes o techos. Consulta la página 68 del libro de personajes para más información.	
 Bonificación a Agilidad (Menor)	10	Todos	Menor	Capacidad Especial	Ag (3)	Otorga un +3 a Empatía. Consulta la página 69 del libro de personajes para más información.	
@@ -129,3 +129,15 @@ Sin Concentración	-10	Todos	Menor	Mental	Ninguna	-25 a todas las habilidades qu
 Ciego al Color	-5	Todos	Mínimo	Físico	Ninguna	Ves en blanco y negro. Pagina 84 del Manual de Personajes.
 Ruidoso	-15	Todos	Mayor	Físico	Subterfugio·Sigilo (-10), Acechar(-15), Esconderse (-15)	No eres especialmente silencioso. Consulta la página 88 del Manual de Personajes para más detalles.
 Sentido Interno	10	Menor	Todos	Mental	Maniobrar Aturdido (20), Superar Aturdimiento (20)	Pagina 67 del Manual de Personajes.
+Olfato Fino	10	Menor	Todos	Físico	Olfato (10), Rastrear (25*)	Tienes un sentido del olfato muy fino. Detectas olores hasta 30 metros con el viento en contra, 600 metros con el viento a favor y 150 con el viento en calma. Pagina 59 del Manual de Personajes.
+Acróbata	7	Menor	Todos	Adiestramiento Especial	Atletismo·Gimnasia (20)	Pagina 52 del Manual de Personajes.
+Planear	15	Mayor	Todos	Físico	Ninguna	Puedes planear como un pájaro. El producto de tu altitud y tu velocidad horizontal no puede exceder los 30 metros por asalto. Por ejemplo, puedes planear a una velocidad de 1,5 metros por asalto a una altura de 20 metros o a una velocidad de 15 metros por asalto si la altura es de 2 metros. El múltiplo debe ser siempre 30. Pagina 60 del Manual de Personajes.
+Salto Potente	5	Mínimo	Todos	Físico	Saltar (30)	Pagina 61 del Manual de Personajes.
+Envejecimiento Anormal	5	Mínimo	Todos	Capacidad Mágica	Ninguna	Envejeces más lentamente que el resto de tu raza. Todas las maniobras de envejecimiento se realizan con una categoría menos hacia la izquierda. Pagina 63 del Manual de Personajes.
+Sensible al Poder	6	Menor	Todos	Capacidad Mágica	Ninguna	Los pelos de tu nuca se ponen de punta cuando te encuentras cerca de una gran fuente de poder, un lugar encantado, un nodo de poder, un área maldita, etc. Pagina 64 del Manual de Personajes.
+Visión Étera	10	Menor	Todos	Capacidad Mágica	Ninguna	Cerrando los ojos y concentrándote durante 2d10 asaltos, puedes cambiar tu visión para percibir cosas invisibles. Esto dura 10D10 minutos y sólo puede ser usado una vez al día. La activación de este poder no interfiere con tu visión normal. Pagina 65 del Manual de Personajes.
+Culpa de Sangre	-10	Menor	Todos	Mental	Ninguna	Te sientes culpable y deprimido siempre que mates a un humanoide. Si dañas o hieres a uno de ellos, tendrás una penalización de -25 durante los d10 días siguientes. Pagina 91 del Manual de Personajes.
+Ilusión (Mínimo)	-3	Mínimo	Todos	Mental	Ninguna	Tienes una ilusión en la que crees ciegamente. El engaño es de carácter menor (por ejemplo, el planeta es plano). Debes interpretarlo siempre que sea necesario. Pagina 92 del Manual de Personajes.
+Ilusión (Menor)	-10	Menor	Todos	Mental	Ninguna	Tienes una ilusión en la que crees ciegamente. El engaño afecta a tu vida de forma importante, pero no impide tu interacción con los demás. Debes interpretarlo siempre que sea necesario. Pagina 92 del Manual de Personajes.
+Ilusión (Mayor)	-15	Mayor	Todos	Mental	Ninguna	Tienes una ilusión en la que crees ciegamente. El engaño posee repercusiones potencialmente fatales. Debes interpretarlo siempre que sea necesario. Pagina 92 del Manual de Personajes.
+Indeciso	-20	Máximo	Todos	Mental	Ninguna	Eres indeciso. Tu indecisión es nayor cuanto más rápida es la decisión a realizar. Sufres una penalización de -50 a todas tus acciones apresuradas en lugar del -20 habitual. Pagina 93 del Manual de Personajes.
