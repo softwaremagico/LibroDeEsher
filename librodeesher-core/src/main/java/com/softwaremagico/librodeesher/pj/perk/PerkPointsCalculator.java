@@ -279,6 +279,8 @@ public class PerkPointsCalculator {
 				return 125;
 			case 14:
 				return 150;
+			case 15:
+				return 170;
 			default:
 				throw new InvalidRaceDefinition("Unknown Characteristic bonus '" + race.getCharacteristicBonus(characteristic)
 						+ "' for characteristic '" + characteristic + "' for race '" + race.getName() + "'!");

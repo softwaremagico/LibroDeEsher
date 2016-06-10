@@ -51,7 +51,7 @@ Conocimiento·Mágico	6
 Conocimiento·Oscuro	3/7
 Conocimiento·Técnico	2/6
 Defensas Especiales	4/9
-Desarrollo de Puntos de Poder	1/5
+Desarrollo de Puntos de Poder	15
 Desarrollo Físico	4/10
 Exteriores·Animales	2/6
 Exteriores·Entorno	2/6

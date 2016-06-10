@@ -1,6 +1,6 @@
 Personaje Carlos: Esquiva adrenal total mal mostrado la primera vez.
 Eliminar fichero de configuracion y guardar toda la configuración en el personaje.
-Test ahora no pueden guardar en la BBDD
+Sort perks by cost or name.
 PerkCostGenerator falla cuando rangos no definidos. 
 Idiomas "Idioma regional" "Idioma racial"
 Remove Subcultures for conocimiento regional and supervivencia
