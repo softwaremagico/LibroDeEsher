@@ -206,9 +206,12 @@ public class CharacterRacePanel extends BasePanel {
 		}
 	}
 
+	@Override
 	public void update() {
 		if (character.getCulture() != null) {
+			enableCultureComboBox = false;
 			cultureComboBox.setSelectedItem(character.getCulture().getName());
+			enableCultureComboBox = true;
 		}
 		cultureComboBox.setEnabled(!character.areCharacteristicsConfirmed());
 		enableRaceComboBox = false;

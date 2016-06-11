@@ -1,4 +1,4 @@
-Personaje Carlos: Esquiva adrenal total mal mostrado la primera vez.
+Listas Abiertas cultura no incluidas
 Eliminar fichero de configuracion y guardar toda la configuración en el personaje.
 Sort perks by cost or name.
 PerkCostGenerator falla cuando rangos no definidos. 

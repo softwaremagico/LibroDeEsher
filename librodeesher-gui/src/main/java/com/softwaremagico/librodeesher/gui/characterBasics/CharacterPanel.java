@@ -120,6 +120,7 @@ public class CharacterPanel extends BasePanel {
 		}
 	}
 
+	@Override
 	public void update() {
 		if (characterBasics != null) {
 			characterBasics.update();

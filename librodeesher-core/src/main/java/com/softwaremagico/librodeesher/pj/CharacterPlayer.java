@@ -1303,7 +1303,7 @@ public class CharacterPlayer extends StorableObject {
 		if (characterPlayerHelper.getCategoryTotal(category.getName()) != null) {
 			return characterPlayerHelper.getCategoryTotal(category.getName());
 		}
-		int totalValue = getRanksValue(category) + getBonus(category) + getCharacteristicsBonus(category);		
+		int totalValue = getRanksValue(category) + getBonus(category) + getCharacteristicsBonus(category);
 		characterPlayerHelper.setCategoryTotal(category.getName(), totalValue);
 		return totalValue;
 	}
