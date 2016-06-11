@@ -36,6 +36,7 @@ import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.profession.InvalidProfessionException;
 import com.softwaremagico.librodeesher.pj.profession.ProfessionFactory;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
+import com.softwaremagico.log.EsherLog;
 
 public class MagicFactory {
 
@@ -46,7 +47,11 @@ public class MagicFactory {
 		for (RealmOfMagic realms : RealmOfMagic.values()) {
 			spellsByGroup.put(realms, new HashMap<String, Set<String>>());
 		}
-		readSpellsFromFiles();
+		try {
+			readSpellsFromFiles();
+		} catch (MagicDefinitionException e) {
+			EsherLog.errorMessage(MagicFactory.class.getName(), e);
+		}
 	}
 
 	public static Set<String> getSpellCasters(RealmOfMagic realmsOfMagic) {
@@ -284,9 +289,9 @@ public class MagicFactory {
 		return lists;
 	}
 
-	private static void getSpellsFromLines(List<String> lines, RealmOfMagic realm) {
-		try {
-			for (int i = 0; i < lines.size(); i++) {
+	private static void getSpellsFromLines(List<String> lines, RealmOfMagic realm) throws MagicDefinitionException {
+		for (int i = 0; i < lines.size(); i++) {
+			try {
 				String spellLine = lines.get(i);
 				if (!spellLine.equals("")) {
 					String[] spellColumns = spellLine.split("\t");
@@ -305,13 +310,13 @@ public class MagicFactory {
 						}
 					}
 				}
+			} catch (IndexOutOfBoundsException iobe) {
+				throw new MagicDefinitionException("Invalid magic spell list definition '" + lines.get(i) + "' for realm '" + realm + "'. ");
 			}
-		} catch (IndexOutOfBoundsException iobe) {
-			iobe.printStackTrace();
 		}
 	}
 
-	private static void readSpellsFromFiles() {
+	private static void readSpellsFromFiles() throws MagicDefinitionException {
 		for (RealmOfMagic realm : RealmOfMagic.values()) {
 			List<String> lines = RolemasterFolderStructure.getSpellLines(realm.getName() + ".txt");
 			getSpellsFromLines(lines, realm);

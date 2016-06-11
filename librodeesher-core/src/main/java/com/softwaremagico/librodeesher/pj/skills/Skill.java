@@ -99,7 +99,8 @@ public class Skill {
 
 			if (enabledSkills.contains("&")) {
 				allEnabled = true;
-				String[] enabledArray = enabledSkills.split("\\&");
+				//Not OR and AND mixed. Use it as everything an AND:
+				String[] enabledArray = enabledSkills.replace("\\|", "\\&").split("\\&");
 				for (String skillEnabled : enabledArray) {
 					enableSkills.add(skillEnabled.trim());
 				}

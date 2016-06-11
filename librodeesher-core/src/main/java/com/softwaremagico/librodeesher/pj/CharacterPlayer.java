@@ -323,6 +323,7 @@ public class CharacterPlayer extends StorableObject {
 		otherRealmtrainingSpellsAllowed = Config.getOtherRealmtrainingSpells();
 		perksCostHistoryPoints = Config.getPerksCostHistoryPoints();
 		handWrittingFont = Config.getHandWrittingFont();
+		sortPdfSkills = Config.getPdfSortSkills();
 	}
 
 	/**
