@@ -337,7 +337,7 @@ public class SkillProbability {
 		}
 
 		if (!characterPlayer.isChiPowersAllowed()
-				&& skill.getName().toLowerCase().startsWith(Spanish.CHI_SUFIX)) {
+				&& skill.getName().toLowerCase().startsWith(Spanish.CHI_SUFIX.toLowerCase())) {
 			return -MAX_VALUE;
 		}
 		return 0;

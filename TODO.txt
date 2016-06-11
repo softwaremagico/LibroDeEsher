@@ -1,7 +1,6 @@
-Listas Abiertas cultura no incluidas
 Eliminar fichero de configuracion y guardar toda la configuración en el personaje.
+Poderes Chi no filtrados correctamente
 Sort perks by cost or name.
-PerkCostGenerator falla cuando rangos no definidos. 
 Idiomas "Idioma regional" "Idioma racial"
 Remove Subcultures for conocimiento regional and supervivencia
 Insert skills and ranks

@@ -42,7 +42,7 @@ public class Spanish {
 	public static final String FIREARMS_SKILL3 = "Fuego Rápido";
 	public static final String FIREARMS_SKILL2 = "Fuego de Supresión";
 	public static final String FIREARMS_SKILL1 = "Percepción del Entorno: Munición";
-	public static final String CHI_SUFIX = "poderes chi:";
+	public static final String CHI_SUFIX = "Poderes Chi:";
 	public static final String WEAPON = "arma";
 	public static final String PROJECTILE_WEAPON = "arma proyectiles";
 	public static final String CLOSE_COMBAT_WEAPON = "arma cuerpo a cuerpo";

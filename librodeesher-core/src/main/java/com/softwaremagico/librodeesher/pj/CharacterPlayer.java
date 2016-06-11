@@ -2640,8 +2640,8 @@ public class CharacterPlayer extends StorableObject {
 	 */
 	public boolean isSkillDisabled(Skill skill) {
 		// Chi powers can ben forbidden as an option.
-		if (skill.getName().toLowerCase().startsWith(Spanish.CHI_SUFIX)) {
-			if (!chiPowersAllowed) {
+		if (skill.getName().toLowerCase().startsWith(Spanish.CHI_SUFIX.toLowerCase())) {
+			if (!isChiPowersAllowed()) {
 				return false;
 			}
 		}

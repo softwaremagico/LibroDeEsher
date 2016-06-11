@@ -42,6 +42,8 @@ public class Skill {
 	private SkillGroup skillGroup;
 	private boolean rare = true;
 	private boolean enabled = true;
+	// Enable only one or all skills.
+	private boolean allEnabled = false;
 
 	public Skill(String name, SkillType type) {
 		this.skilltype = type;
@@ -95,9 +97,17 @@ public class Skill {
 			// Remove enabled skills from name.
 			name = name.replaceAll(Pattern.quote("{" + enabledSkills + "}"), "").trim();
 
-			String[] enabledArray = enabledSkills.split("\\|");
-			for (String skillEnabled : enabledArray) {
-				enableSkills.add(skillEnabled.trim());
+			if (enabledSkills.contains("&")) {
+				allEnabled = true;
+				String[] enabledArray = enabledSkills.split("\\&");
+				for (String skillEnabled : enabledArray) {
+					enableSkills.add(skillEnabled.trim());
+				}
+			} else {
+				String[] enabledArray = enabledSkills.split("\\|");
+				for (String skillEnabled : enabledArray) {
+					enableSkills.add(skillEnabled.trim());
+				}
 			}
 		}
 		return name;
@@ -131,15 +141,12 @@ public class Skill {
 				Integer total = 0;
 				for (RealmOfMagic realm : character.getRealmOfMagic().getRealmsOfMagic()) {
 					ProgressionCostType progressionValue = ProgressionCostType.getProgressionCostType(realm);
-					total += getCategory().getSkillRankValues(ranksNumber,
-							character.getRace().getProgressionRankValues(progressionValue));
+					total += getCategory().getSkillRankValues(ranksNumber, character.getRace().getProgressionRankValues(progressionValue));
 				}
 				return total / character.getRealmOfMagic().getRealmsOfMagic().size();
 			case PD:
-				return getCategory().getSkillRankValues(
-						ranksNumber,
-						character.getRace()
-								.getProgressionRankValues(ProgressionCostType.PHYSICAL_DEVELOPMENT));
+				return getCategory().getSkillRankValues(ranksNumber,
+						character.getRace().getProgressionRankValues(ProgressionCostType.PHYSICAL_DEVELOPMENT));
 			default:
 				return 0;
 			}
@@ -201,6 +208,10 @@ public class Skill {
 
 	public List<String> getEnableSkills() {
 		return enableSkills;
+	}
+
+	public boolean isAllEnabled() {
+		return allEnabled;
 	}
 
 }

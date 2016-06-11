@@ -157,7 +157,7 @@ public class RolemasterFolderStructure implements Serializable {
 		return fileList;
 	}
 
-	public static List<String> getAvailableCategoriesFiles() throws Exception {
+	public static List<String> getAvailableCategoriesFiles() {
 		List<String> categoriesFiles = new ArrayList<>();
 		if (new File(ROLEMASTER_FOLDER + File.separator + CATEGORIES_FILE)
 				.exists()) {

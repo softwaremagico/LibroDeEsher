@@ -45,8 +45,7 @@ public class SkillFactory {
 
 	public static Skill getSkill(String skillNameAndType) {
 		Skill skill = availableSkills.get(skillNameAndType);
-		if (skill == null && !skillNameAndType.toLowerCase().equals(Spanish.WEAPON.toLowerCase())
-				) {
+		if (skill == null && !skillNameAndType.toLowerCase().equals(Spanish.WEAPON.toLowerCase())) {
 			skill = createSkill(skillNameAndType);
 			addSkill(skill);
 		}
@@ -178,7 +177,12 @@ public class SkillFactory {
 		return skills;
 	}
 
-	public static void updateDisabledSkills() {
+	public static void updateDisabledSkills() throws InvalidSkillException {
+		for (String skillDisabled : disabledSkills) {
+			if (availableSkills.get(skillDisabled) == null) {
+				throw new InvalidSkillException("Skill '" + skillDisabled + "' does not exist.");
+			}
+		}
 		for (Skill skill : availableSkills.values()) {
 			if (disabledSkills.contains(skill.getName())) {
 				skill.setEnabled(false);

@@ -33,6 +33,7 @@ import java.util.Map;
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
+import com.softwaremagico.librodeesher.pj.skills.InvalidSkillException;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
@@ -57,7 +58,10 @@ public class CategoryFactory {
 	private static void readCategories() {
 		try {
 			getCategoriesFromFiles();
-		} catch (Exception e) {
+		} catch (InvalidCategoryException e) {
+			EsherLog.errorMessage(CategoryFactory.class.getName(), e);
+		} catch (InvalidSkillException e) {
+			System.out.println(e.getMessage());
 			EsherLog.errorMessage(CategoryFactory.class.getName(), e);
 		}
 	}
@@ -166,8 +170,11 @@ public class CategoryFactory {
 
 	/**
 	 * Lee el fichero de categorías.
+	 * 
+	 * @throws InvalidCategoryException
+	 * @throws InvalidSkillException
 	 */
-	public static void getCategoriesFromFiles() throws Exception {
+	public static void getCategoriesFromFiles() throws InvalidCategoryException, InvalidSkillException {
 		List<String> categoriesFile = RolemasterFolderStructure.getAvailableCategoriesFiles();
 		for (int j = 0; j < categoriesFile.size(); j++) {
 			List<String> lines = RolemasterFolderStructure.getCategoryFile(categoriesFile.get(j));
@@ -205,7 +212,7 @@ public class CategoryFactory {
 		Collections.sort(availableCategoriesByName);
 	}
 
-	private static void disableSkills() {
+	private static void disableSkills() throws InvalidSkillException {
 		SkillFactory.updateDisabledSkills();
 	}
 
