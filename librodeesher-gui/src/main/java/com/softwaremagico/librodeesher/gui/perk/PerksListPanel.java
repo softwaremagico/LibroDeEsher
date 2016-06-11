@@ -25,30 +25,37 @@ package com.softwaremagico.librodeesher.gui.perk;
  */
 
 import java.awt.GridLayout;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.perk.Perk;
+import com.softwaremagico.librodeesher.pj.perk.PerkComparatorByCost;
+import com.softwaremagico.librodeesher.pj.perk.PerkComparatorByName;
 import com.softwaremagico.librodeesher.pj.perk.PerkFactory;
 
 public class PerksListPanel extends BasePanel {
-
 	private static final long serialVersionUID = -1612700951233838060L;
 	private PerksListCompletePanel parent;
 	private Map<Perk, Perk> perksWithWeakness = new HashMap<>();
+	private CharacterPlayer character;
 
 	public PerksListPanel(CharacterPlayer character, PerksListCompletePanel parent) {
+		this.character = character;
 		this.parent = parent;
-		setElements(character);
 	}
 
-	public void setElements(CharacterPlayer character) {
+	public void setElements(CharacterPlayer character, Comparator<Perk> comparator) {
 		this.removeAll();
 		setLayout(new GridLayout(0, 1));
 		int i = 0;
-		for (Perk perk : PerkFactory.gerPerks()) {
+		List<Perk> perks = PerkFactory.gerPerks();
+		Collections.sort(perks, comparator);
+		for (Perk perk : perks) {
 			// Only perks that can be used.
 			if (perk.isPerkAllowed(character.getRace().getName(), character.getProfession().getName())) {
 				PerkLine perkLine = new PerkLine(character, perk, getLineBackgroundColor(i), this);
@@ -56,6 +63,16 @@ public class PerksListPanel extends BasePanel {
 				i++;
 			}
 		}
+	}
+
+	public void sortElements(boolean sortByCost) {
+		if (sortByCost) {
+			setElements(character, new PerkComparatorByCost());
+		} else {
+			setElements(character, new PerkComparatorByName());
+		}
+		revalidate();
+		repaint();
 	}
 
 	public void addWeakness(Perk perk, Perk weakness) {

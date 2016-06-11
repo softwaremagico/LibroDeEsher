@@ -29,14 +29,18 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 
 import com.softwaremagico.files.MessageManager;
 import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
+import com.softwaremagico.librodeesher.gui.elements.BaseRadioButton;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
@@ -45,17 +49,20 @@ import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceDefinition;
 
 public class PerkWindow extends BaseFrame {
 	private static final long serialVersionUID = 4804191786722149503L;
+	private static boolean sortByCost = false;
 	private CharacterPlayer character;
 	private PerksListCompletePanel perksPanel;
 	private BaseLabel perksPointsLabel;
 	private PointsCounterTextField perksPoints;
 	private PointsCounterTextField historyPoints;
+	private BaseRadioButton sortByNameRadioButton, sortByCostRadioButton;
 
 	public PerkWindow(CharacterPlayer character) {
 		this.character = character;
 		defineWindow(750, 400);
 		perksPoints = new PointsCounterTextField();
 		setElements();
+		sortPerks();
 	}
 
 	private void setHistorialPointText() {
@@ -77,19 +84,36 @@ public class PerkWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 0;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+
 		JPanel perksPointPanel = new JPanel();
 		perksPointPanel.setLayout(new BoxLayout(perksPointPanel, BoxLayout.X_AXIS));
-		perksPointPanel.add(Box.createRigidArea(new Dimension(20,0)));
+		perksPointPanel.add(Box.createRigidArea(new Dimension(20, 0)));
 		perksPointsLabel = new BaseLabel("Puntos de Talentos: ");
 		perksPointPanel.add(perksPointsLabel);
+
 		perksPoints.setColumns(3);
 		perksPoints.setEditable(false);
 		perksPoints.setMaximumSize(new Dimension(60, 25));
 		setPerksPointsText();
 		perksPointPanel.add(perksPoints);
 
+		// Group the radio buttons.
+		sortByNameRadioButton = new BaseRadioButton("Nombre");
+		sortByCostRadioButton = new BaseRadioButton("Coste");
+		sortByNameRadioButton.addActionListener(new ChangeSortingListener());
+		sortByCostRadioButton.addActionListener(new ChangeSortingListener());
+
+		perksPointPanel.add(Box.createRigidArea(new Dimension(50, 0)));
+		perksPointPanel.add(new BaseLabel("Ordenar: "));
+		ButtonGroup sortGroup = new ButtonGroup();
+		sortGroup.add(sortByNameRadioButton);
+		sortGroup.add(sortByCostRadioButton);
+		sortByNameRadioButton.setSelected(true);
+		perksPointPanel.add(sortByNameRadioButton);
+		perksPointPanel.add(sortByCostRadioButton);
+
 		if (Config.getPerksCostHistoryPoints()) {
-			perksPointPanel.add(Box.createRigidArea(new Dimension(10,0)));
+			perksPointPanel.add(Box.createRigidArea(new Dimension(10, 0)));
 			BaseLabel historyPointsLabel = new BaseLabel("Puntos de Historial: ");
 			perksPointPanel.add(historyPointsLabel);
 			historyPoints = new PointsCounterTextField();
@@ -144,5 +168,22 @@ public class PerkWindow extends BaseFrame {
 	public void updateFrame() {
 		setHistorialPointText();
 		setPerksPointsText();
+	}
+
+	private void sortPerks() {
+		perksPanel.sortElements(sortByCost);
+	}
+
+	class ChangeSortingListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (sortByNameRadioButton.isSelected()) {
+				sortByCost = false;
+			} else {
+				sortByCost = true;
+			}
+			sortPerks();
+		}
 	}
 }

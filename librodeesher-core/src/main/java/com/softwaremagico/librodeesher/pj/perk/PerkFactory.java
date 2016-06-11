@@ -95,7 +95,7 @@ public class PerkFactory {
 			}
 			index++;
 		}
-		Collections.sort(perksList, new PerkComparator());
+		Collections.sort(perksList, new PerkComparatorByName());
 		return index;
 	}
 

@@ -43,6 +43,10 @@ public class PerksListCompletePanel extends BaseScrollPanel {
 		perksPanel = new PerksListPanel(character, this);
 		setBody(perksPanel);
 	}
+	
+	public void sortElements(boolean sortByCost) {
+		perksPanel.sortElements(sortByCost);
+	}
 
 	@Override
 	public void update() {
