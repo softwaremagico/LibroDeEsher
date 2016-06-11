@@ -229,6 +229,16 @@ public class PerkPointsCalculator {
 	private int getCharactersiticBonusRacePoints(CharacteristicsAbbreviature characteristic) throws InvalidRaceDefinition {
 		if (!characteristic.equals(CharacteristicsAbbreviature.APPEARENCE)) {
 			switch (race.getCharacteristicBonus(characteristic)) {
+			case -15:
+				return -80;
+			case -14:
+				return -70;
+			case -13:
+				return -65;
+			case -12:
+				return -55;
+			case -11:
+				return -50;
 			case -10:
 				return -45;
 			case -9:
@@ -465,16 +475,22 @@ public class PerkPointsCalculator {
 			return -10;
 		case "0/5/3/2/1":
 			return -1;
+		case "0/5/2/2/2":
+			return -1;
 		case "0/5/3/2/2":
 			return 0;
 		case "0/5/4/3/2":
 			return 3;
+		case "0/6/4/3/1":
+			return 4;
 		case "0/6/4/3/2":
 			return 5;
 		case "0/6/5/4/3":
 			return 10;
 		case "0/6/6/4/3":
 			return 13;
+		case "0/7/5/4/3":
+			return 14;
 		case "0/7/6/5/4":
 			return 15;
 		default:
@@ -494,14 +510,20 @@ public class PerkPointsCalculator {
 			return -50;
 		case "0/5/2/2/1":
 			return -30;
+		case "0/5/3/2/1":
+			return -20;
 		case "0/6/2/2/1":
 			return -17;
 		case "0/6/3/1/1":
 			return -15;
+		case "0/5/4/2/1":
+			return -11;
 		case "0/5/4/3/2":
 			return -10;
 		case "0/6/3/2/1":
 			return -10;
+		case "0/6/3/2/2":
+			return -9;
 		case "0/6/4/2/1":
 			return 0;
 		case "0/7/3/2/1":
@@ -510,10 +532,16 @@ public class PerkPointsCalculator {
 			return 10;
 		case "0/7/4/2/1":
 			return 13;
+		case "0/6/5/4/3":
+			return 14;
 		case "0/7/5/3/1":
 			return 15;
+		case "0/7/6/5/2":
+			return 19;
 		case "0/8/6/4/2":
 			return 20;
+		case "0/9/6/5/3":
+			return 24;
 		case "0/9/6/5/4":
 			return 25;
 		case "0/11/9/7/5":
