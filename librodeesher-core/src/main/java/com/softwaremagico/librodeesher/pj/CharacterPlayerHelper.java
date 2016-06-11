@@ -20,6 +20,8 @@ public class CharacterPlayerHelper {
 	private Map<String, Integer> categoryTotal;
 
 	private Map<String, Integer> skillRanks;
+	private Map<String, Integer> skillRealRanks;
+	private Map<String, Integer> skillPreviousRanks;
 	private Map<String, Integer> skillGeneralBonus;
 	private Map<String, Integer> skillObjectsBonus;
 	private Map<String, Integer> skillTotalBonus;
@@ -60,6 +62,8 @@ public class CharacterPlayerHelper {
 		trainingCosts = new HashMap<>();
 		maxHistoryLanguages = new HashMap<>();
 		skillTotalRanksPerCategory = new HashMap<>();
+		skillPreviousRanks = new HashMap<>();
+		skillRealRanks = new HashMap<>();
 		setDirty(true);
 	}
 
@@ -76,6 +80,8 @@ public class CharacterPlayerHelper {
 
 	public void resetAllSkillRanks() {
 		skillRanks = new HashMap<>();
+		skillPreviousRanks = new HashMap<>();
+		skillRealRanks = new HashMap<>();
 		resetAllSkillTotal();
 		setDirty(true);
 	}
@@ -148,9 +154,11 @@ public class CharacterPlayerHelper {
 
 	public void resetSkillRanks(String skillName) {
 		skillRanks.remove(skillName);
+		skillPreviousRanks.remove(skillName);
 		skillTotalRanksPerCategory = new HashMap<>();
+		skillRealRanks = new HashMap<>();
 		resetSkillTotalBonus(skillName);
-		resetDelvelopmentPoints();
+		resetDevelopmentPoints();
 		setDirty(true);
 	}
 
@@ -187,7 +195,7 @@ public class CharacterPlayerHelper {
 	public void setCategoryRanks(String categoryName, Integer ranks) {
 		categoryRanks.put(categoryName, ranks);
 		resetCategoryTotal(categoryName);
-		resetDelvelopmentPoints();
+		resetDevelopmentPoints();
 		setDirty(true);
 	}
 
@@ -265,7 +273,7 @@ public class CharacterPlayerHelper {
 	public void setSkillRanks(String skillName, Integer ranks) {
 		skillRanks.put(skillName, ranks);
 		resetSkillTotalBonus(skillName);
-		resetDelvelopmentPoints();
+		resetDevelopmentPoints();
 		setDirty(true);
 	}
 
@@ -332,7 +340,7 @@ public class CharacterPlayerHelper {
 		setDirty(true);
 	}
 
-	public void resetDelvelopmentPoints() {
+	public void resetDevelopmentPoints() {
 		developmentPoints = null;
 	}
 
@@ -345,11 +353,15 @@ public class CharacterPlayerHelper {
 	}
 
 	public Integer getCharacteristicTemporalValue(CharacteristicsAbbreviature abbreviature) {
+		if (!enabled) {
+			return null;
+		}
 		return temporalValues.get(abbreviature);
 	}
 
 	public void setCharacteristicTemporalValue(CharacteristicsAbbreviature abbreviature, Integer value) {
 		temporalValues.put(abbreviature, value);
+		setDirty(true);
 	}
 
 	public void resetCharacteristicTemporalValues() {
@@ -361,23 +373,57 @@ public class CharacterPlayerHelper {
 	}
 
 	public Integer getTrainingCost(String trainingName) {
+		if (!enabled) {
+			return null;
+		}
 		return trainingCosts.get(trainingName);
 	}
 
 	public Integer getSkillTotalRanksPerCategory(String categoryName) {
+		if (!enabled) {
+			return null;
+		}
 		return skillTotalRanksPerCategory.get(categoryName);
 	}
 
 	public void setSkillTotalRanksPerCategory(String categoryName, int totalRanks) {
 		skillTotalRanksPerCategory.put(categoryName, totalRanks);
+		setDirty(true);
 	}
 
 	public Map<String, Integer> getMaxHistoryLanguages() {
+		if (!enabled) {
+			return null;
+		}
 		return maxHistoryLanguages;
 	}
 
 	public void setMaxHistoryLanguages(Map<String, Integer> maxLanguages) {
 		maxHistoryLanguages = maxLanguages;
+		setDirty(true);
 	}
 
+	public Integer getSkillPreviousRanks(String skillName) {
+		if (!enabled) {
+			return null;
+		}
+		return skillPreviousRanks.get(skillName);
+	}
+	
+	public void setSkillPreviousRanks(String skillName, int ranks){
+		skillPreviousRanks.put(skillName, ranks);
+		setDirty(true);
+	}
+	
+	public Integer getSkillRealRanks(String skillName) {
+		if (!enabled) {
+			return null;
+		}
+		return skillRealRanks.get(skillName);
+	}
+	
+	public void setSkillRealRanks(String skillName, int ranks){
+		skillRealRanks.put(skillName, ranks);
+		setDirty(true);
+	}
 }

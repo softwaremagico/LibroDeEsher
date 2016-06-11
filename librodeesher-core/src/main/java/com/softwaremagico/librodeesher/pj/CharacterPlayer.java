@@ -1027,6 +1027,9 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getPreviousRanks(Skill skill) {
+		if (characterPlayerHelper.getSkillPreviousRanks(skill.getName()) != null) {
+			return characterPlayerHelper.getSkillPreviousRanks(skill.getName());
+		}
 		Integer total = 0;
 		total += getCulture().getCultureRanks(skill);
 		total += getCultureWeaponsRanks(skill.getName());
@@ -1047,6 +1050,7 @@ public class CharacterPlayer extends StorableObject {
 			total += perkDecision.getSkillsRanksChosen().contains(skill.getName()) ? 1 : 0;
 		}
 
+		characterPlayerHelper.setSkillPreviousRanks(skill.getName(), total);
 		return total;
 	}
 
@@ -1118,6 +1122,9 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getRealRanks(Skill skill) {
+		if (characterPlayerHelper.getSkillRealRanks(skill.getName()) != null) {
+			return characterPlayerHelper.getSkillRealRanks(skill.getName());
+		}
 		Float modifier = (float) 1;
 		if (isRestricted(skill)) {
 			modifier = (float) 0.5;
@@ -1132,7 +1139,9 @@ public class CharacterPlayer extends StorableObject {
 		} else if (isCommon(skill)) {
 			modifier = (float) 2;
 		}
-		return (int) (getTotalRanks(skill) * modifier);
+		int total = (int) (getTotalRanks(skill) * modifier);
+		characterPlayerHelper.setSkillRealRanks(skill.getName(), total);
+		return total;
 	}
 
 	public Integer getRanksValue(Category category) {
@@ -1294,7 +1303,7 @@ public class CharacterPlayer extends StorableObject {
 		if (characterPlayerHelper.getCategoryTotal(category.getName()) != null) {
 			return characterPlayerHelper.getCategoryTotal(category.getName());
 		}
-		int totalValue = getRanksValue(category) + getBonus(category) + getCharacteristicsBonus(category);
+		int totalValue = getRanksValue(category) + getBonus(category) + getCharacteristicsBonus(category);		
 		characterPlayerHelper.setCategoryTotal(category.getName(), totalValue);
 		return totalValue;
 	}
@@ -1630,7 +1639,7 @@ public class CharacterPlayer extends StorableObject {
 		CharacteristicRoll characteristicRoll = historial.addCharactersiticUpdate(abbreviature,
 				getCharacteristicTemporalValue(abbreviature), getCharacteristicPotentialValue(abbreviature), roll);
 		characterPlayerHelper.resetAllCategoryCharacteristicsBonus();
-		characterPlayerHelper.resetDelvelopmentPoints();
+		characterPlayerHelper.resetDevelopmentPoints();
 		characterPlayerHelper.resetCharacteristicTemporalValues();
 		return characteristicRoll;
 	}
@@ -1647,7 +1656,7 @@ public class CharacterPlayer extends StorableObject {
 		CharacteristicRoll characteristicRoll = getTrainingDecision(trainingName).addCharactersiticUpdate(abbreviature,
 				getCharacteristicTemporalValue(abbreviature), getCharacteristicPotentialValue(abbreviature), roll);
 		characterPlayerHelper.resetAllCategoryCharacteristicsBonus();
-		characterPlayerHelper.resetDelvelopmentPoints();
+		characterPlayerHelper.resetDevelopmentPoints();
 		characterPlayerHelper.resetCharacteristicTemporalValues();
 		return characteristicRoll;
 	}

@@ -117,6 +117,7 @@ public class Controller {
 			selectedCharacter = characterPlayer;
 			mainGui.setCharacter(selectedCharacter);
 			mainGui.updateFrame();
+			characterPlayer.setDirty(false);
 			updateCharacterListToMenu();
 		}
 	}
