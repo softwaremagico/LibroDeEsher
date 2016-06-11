@@ -1035,6 +1035,7 @@ public class CharacterPlayer extends StorableObject {
 		total += getCultureWeaponsRanks(skill.getName());
 		total += getCultureHobbyRanks(skill.getName());
 		total += getCultureLanguageRanks(skill.getName());
+		total += getCultureSpellRanks(skill.getName());
 		total += getPreviousLevelsRanks(skill);
 		total += getInsertedRanks(skill);
 		if (skill.getCategory() != null) {
