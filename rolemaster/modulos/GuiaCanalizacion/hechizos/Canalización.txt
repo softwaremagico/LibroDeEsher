@@ -4,3 +4,49 @@ Invocaciones de Animales	Invocador
 Invocaciones Planares	Invocador
 Maestría de las Invocaciones	Invocador
 Umbrales	Invocador
+Destrucción de la Fe	Nefando
+Ley de la Perdición	Nefando
+Ley de la Venganza	Nefando
+Maestría de lo Extraño	Nefando
+Semblante del Terror	Nefando
+Transformaciones	Nefando
+El Defensor Mítico
+El Ojo	Mítico
+La Máscara	Mítico
+La Voluntad	Mítico
+Misión Sagrada	Mítico
+Venganza	Mítico
+Arma Sagrada	Sacerdote
+Aura Divina	Sacerdote
+Ceremonias	Sacerdote
+Conocimiento del Tiempo	Sacerdote
+Cruzada	Sacerdote
+Curación de Campaña	Sacerdote
+Defensa Sagrada	Sacerdote
+Destierros	Sacerdote
+Disciplina Sagrada	Sacerdote
+Dominación de la Naturaleza	Sacerdote
+Dominación de los Espíritus	Sacerdote
+El Cazador	Sacerdote
+Elementos Sagrados	Sacerdote
+Encantamientos	Sacerdote
+Escudo de la Fe	Sacerdote
+Formas Acuáticas	Sacerdote
+Formas Terrestres	Sacerdote
+Ira Sagrada	Sacerdote
+Ley de las Serpientes	Sacerdote
+Ley de los Espíritus	Sacerdote
+Maestría de la Caza	Sacerdote
+Maestría de la Muerte	Sacerdote
+Maestría de las Piedras	Sacerdote
+Maestría de los Árboles	Sacerdote
+Maestría de los Caballos	Sacerdote
+Maestría de los Insectos	Sacerdote
+Magia Divina	Sacerdote
+Magia Vudú	Sacerdote
+Proselitismo	Sacerdote
+Símbolo Sagrado	Sacerdote
+Trances Sagrados	Sacerdote
+Vientos Sagrados	Sacerdote
+Visiones Espirituales	Sacerdote
+
