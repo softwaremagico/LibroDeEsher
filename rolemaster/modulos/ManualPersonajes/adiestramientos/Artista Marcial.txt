@@ -8,22 +8,34 @@ Ninguno
 
 #ESPECIAL	//Nombre, probabilidad, bonus
 ####################################
-Arma (no mágica)	30	10	Arma
-Objeto Diario I	30
-Símbolo de orden religiosa	100
+Victoria en un torneo local	50
+Pergamino (+10 no mágico a un conocimiento concreto)	40
+Pergamino (+5 no mágico a una categoría de conocimiento)	40
+Hierbas Comunes (1d5 dosis)	50
+Muñequeras	30	5	Artes Marciales·Golpes
+Libro (+5 no mágico a un conocimiento concreto)	30
+Reputación como luchadore habilidos	100
 
 #HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
 ####################################
-{Armas·2manos; Armas·Arrojadizas; Armas·Artillería; Armas·Contundentes; Armas·Asta; Armas·Filo; Armas·Fuego 1mano; Armas·Fuego 2manos; Armas·Proyectiles}	1	1	1	1
-Comunicación	2	1	1	2
-Conocimiento·General	4	2	2	4
-  *  Religión	3	-	-	-
-Influencia	3	1	1	3
-  *  Oratoria	3	-	-	-
+Arte·Pasivo	2	1	2	2
+Artes Marciales·Barridos	3	2	2	3
+  *  Artes Marciales·Barridos	2	-	-	-
+  *  Inmovilizaciones	1	-	-	-
+Artes Marciales·Golpes	3	2	2	3
+  *  Golpes de Artes Marciales	2	-	-	-
+  *  Golpes Nerviosos	1	-	-	-
+Artes Marciales·Maniobras de Combate	0	1	1	2
+Autocontrol	2	1	2	2
+Conocimiento·General	2	2	3	4
+..*..Conocimiento de Estilos Marciales	2	-	-	-
+Desarrollo Físico	0	1	1	2
+..*..Desarrollo Físico	2	-	-	-
+
 
 #AUMENTOS CARACTERÍSTICAS
 ####################################
-In
+Fu, Ag
 
 #REQUISITOS PROFESIONALES
 ####################################
