@@ -94,7 +94,7 @@ public class SkillPanel extends BaseSkillPanel {
 
 				List<GenericSkillLine> skillLines = new ArrayList<>();
 				for (Skill skill : category.getSkills()) {
-					if (character.isSkillUseful(skill) && !character.isSkillDisabled(skill)) {
+					if (!character.isSkillDisabled(skill)) {
 						GenericSkillLine skillLine = createSkillLine(i, skill);
 						skillSpecializationLines.put(skill, new ArrayList<GenericSkillLine>());
 						if (skillLine != null) {
@@ -130,7 +130,7 @@ public class SkillPanel extends BaseSkillPanel {
 	}
 
 	private SkillLine createSkillLine(int backgroundIndex, Skill skill) {
-		if (characterPlayer.isSkillUseful(skill) && !characterPlayer.isSkillDisabled(skill)) {
+		if (!characterPlayer.isSkillDisabled(skill)) {
 			final SkillLine skillLine = new SkillLine(characterPlayer, skill, getLineBackgroundColor(backgroundIndex), this);
 			add(skillLine);
 			skillLine.addSkillEnabledListener(new SkillEnabledListener() {
@@ -188,7 +188,7 @@ public class SkillPanel extends BaseSkillPanel {
 				int backgroundIndex = getBackgroundColorIndex(categoryLine.getBackground());
 				backgroundIndex++;
 				for (Skill skill : category.getSkills()) {
-					if (characterPlayer.isSkillUseful(skill) && !characterPlayer.isSkillDisabled(skill)) {
+					if (!characterPlayer.isSkillDisabled(skill)) {
 						SkillLine skillLine = createSkillLine(categoryLine, skill, backgroundIndex);
 						if (skillLine != null) {
 							skillSpecializationLines.put(skill, new ArrayList<GenericSkillLine>());

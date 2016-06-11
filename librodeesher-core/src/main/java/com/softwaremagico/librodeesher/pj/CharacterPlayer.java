@@ -1475,22 +1475,6 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * Skill is useful to this character and can be used to add new ranks.
-	 * 
-	 * @param skill
-	 * @return
-	 */
-	public boolean isSkillUseful(Skill skill) {
-		if (skill.getSkillGroup().equals(SkillGroup.CHI) && !isChiPowersAllowed()) {
-			return false;
-		}
-		if (skill.getSkillGroup().equals(SkillGroup.FIREARM) && !isFirearmsAllowed()) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
 	 * Skill has some information than need to be shown.
 	 * 
 	 * @param skill
@@ -2640,11 +2624,12 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public boolean isSkillDisabled(Skill skill) {
-		// Chi powers can ben forbidden as an option.
-		if (skill.getName().toLowerCase().startsWith(Spanish.CHI_SUFIX.toLowerCase())) {
-			if (!isChiPowersAllowed()) {
-				return false;
-			}
+		// Skills disabled by options
+		if (skill.getSkillGroup().equals(SkillGroup.CHI) && !isChiPowersAllowed()) {
+			return true;
+		}
+		if (skill.getSkillGroup().equals(SkillGroup.FIREARM) && !isFirearmsAllowed()) {
+			return true;
 		}
 		// Some skills enable other skills that are disabled by default.
 		return !skill.isEnabled() && !getEnabledSkills().contains(skill.getName());

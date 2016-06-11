@@ -138,7 +138,7 @@ public class SkillFactory {
 	private static String removeTypeFromName(String skillName) {
 		// String pattern = Pattern.quote("*");
 		return skillName.replace("*", "").replace("(R)", "").replace("(r)", "").replace("(C)", "").replace("(c)", "").replace("(P)", "")
-				.replace("(p)", "");
+				.replace("(p)", "").trim();
 	}
 
 	public static List<Skill> getSkills() {

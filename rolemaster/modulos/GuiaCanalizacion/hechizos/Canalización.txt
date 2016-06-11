@@ -10,7 +10,7 @@ Ley de la Venganza	Nefando
 Maestría de lo Extraño	Nefando
 Semblante del Terror	Nefando
 Transformaciones	Nefando
-El Defensor Mítico
+El Defensor	Mítico
 El Ojo	Mítico
 La Máscara	Mítico
 La Voluntad	Mítico

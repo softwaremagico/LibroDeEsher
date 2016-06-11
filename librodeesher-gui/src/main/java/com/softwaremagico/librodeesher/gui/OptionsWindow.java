@@ -82,6 +82,7 @@ public class OptionsWindow extends BaseFrame {
 		trainingOtherRealms.setSelected(character.isOtherRealmTrainingSpellsAllowed());
 		perkHistoryPoints.setSelected(character.isPerksCostHistoryPoints());
 		handwrittingFont.setSelected(character.isHandWrittingFont());
+		sortedSkills.setSelected(character.isSortPdfSkills());
 		updatingState = false;
 	}
 
@@ -92,7 +93,8 @@ public class OptionsWindow extends BaseFrame {
 
 		JPanel characterPanel = new JPanel();
 		characterPanel.setLayout(new BoxLayout(characterPanel, BoxLayout.Y_AXIS));
-		characterPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Personaje actual"));
+		characterPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),
+				"Personaje actual"));
 
 		fireArmsMenuItem = new JCheckBox(Spanish.FIREARMS_CHECKBOX_TEXT);
 		fireArmsMenuItem.addActionListener(checkboxListener);
@@ -127,7 +129,8 @@ public class OptionsWindow extends BaseFrame {
 
 		JPanel pdfOptionsPanel = new JPanel();
 		pdfOptionsPanel.setLayout(new BoxLayout(pdfOptionsPanel, BoxLayout.Y_AXIS));
-		pdfOptionsPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Fichas en PDF"));
+		pdfOptionsPanel
+				.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Fichas en PDF"));
 
 		handwrittingFont = new JCheckBox(Spanish.HANDWRITTING_TEXT);
 		handwrittingFont.addActionListener(checkboxListener);
@@ -141,7 +144,8 @@ public class OptionsWindow extends BaseFrame {
 
 		JPanel graphicOptionsPanel = new JPanel();
 		graphicOptionsPanel.setLayout(new BoxLayout(graphicOptionsPanel, BoxLayout.Y_AXIS));
-		graphicOptionsPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Interfaz Gráfica"));
+		graphicOptionsPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),
+				"Interfaz Gráfica"));
 
 		JPanel maxCategoryRanks = new JPanel();
 		maxCategoryRanks.setLayout(new BoxLayout(maxCategoryRanks, BoxLayout.X_AXIS));
@@ -175,7 +179,8 @@ public class OptionsWindow extends BaseFrame {
 
 		JPanel globalPanel = createModulesPanel();
 		globalPanel.setLayout(new BoxLayout(globalPanel, BoxLayout.X_AXIS));
-		globalPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Opciones Globales"));
+		globalPanel
+				.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Opciones Globales"));
 		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
