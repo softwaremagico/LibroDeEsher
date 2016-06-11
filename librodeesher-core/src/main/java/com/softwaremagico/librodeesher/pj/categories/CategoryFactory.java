@@ -69,7 +69,7 @@ public class CategoryFactory {
 	private static void addCultureSkills() {
 		Category cat = availableCategories.get(Spanish.GENERAL_KNOWLEDGE_TAG);
 		for (String culture : CultureFactory.getAvailableCultures()) {
-			if (!culture.contains("(")) {
+			if (!culture.contains(" ")) {
 				cat.addSkill(Spanish.FAUNA_KNOWNLEDGE_TAG + " (" + culture + ")");
 				cat.addSkill(Spanish.FLORA_KNOWNLEDGE_TAG + " (" + culture + ")");
 				cat.addSkill(Spanish.CULTURAL_KNOWNLEDGE_TAG + " (" + culture + ")");

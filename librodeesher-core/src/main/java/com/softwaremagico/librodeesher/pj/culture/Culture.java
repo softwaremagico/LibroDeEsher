@@ -261,7 +261,7 @@ public class Culture {
 					cat.addSkill(hobby);
 					// CultureSkill skill = new CultureSkill(hobby);
 					hobbySkills.add(hobby);
-				} else if (hobby.contains(Spanish.SURVIVAL_TAG)) {
+				} else if (hobby.toLowerCase().contains(Spanish.SURVIVAL_TAG.toLowerCase())) {
 					Category cat = CategoryFactory.getCategory(Spanish.OUTDOORS_ENVIRONMENT_TAG);
 					cat.addSkill(hobby);
 					// CultureSkill skill = new CultureSkill(hobby);
