@@ -26,6 +26,7 @@ public class PdfCombinedSheet1Column extends PdfCombinedSheet2Columns {
 	private final static int MIN_EMPTY_SKILLS_PER_CATEGORY = 1;
 	private final static int CATEGORY_SIZE = 4;
 	private final static int SKILL_SIZE = 1;
+	private final static int MIN_CATEGORY_PER_COLUMN = 4;
 
 	private static int FONT_SIZE = 8;
 
@@ -49,6 +50,11 @@ public class PdfCombinedSheet1Column extends PdfCombinedSheet2Columns {
 		for (List<Category> column : getColumns()) {
 			int linesByCategory = getMinNeededColumnLines(column);
 			int emptyLinesToAdd = getMaxLinesPerColumn() - linesByCategory;
+			// Categories row proportion is not exactly a multiple of skill
+			// rows. In some case, we need to correct it.
+			if (column.size() < 7) {
+				emptyLinesToAdd--;
+			}
 			for (Category category : column) {
 				// Add The Category title
 				PdfPCell categoryCell = categoryCell(writer, document, category);
@@ -95,7 +101,7 @@ public class PdfCombinedSheet1Column extends PdfCombinedSheet2Columns {
 					getColumnTable().addCell(emptySkillLines);
 					emptyLinesToAdd--;
 				}
-				//Already calculated. Remove it.
+				// Already calculated. Remove it.
 				emptyLinesToAdd += getMinEmptySkillsPerCategory();
 			}
 			addColumn(document);
@@ -162,5 +168,10 @@ public class PdfCombinedSheet1Column extends PdfCombinedSheet2Columns {
 	@Override
 	protected int getMaxLinesPerColumn() {
 		return MAX_LINES_PER_COLUMN;
+	}
+
+	@Override
+	protected int getMinCategoriesPerColumn() {
+		return MIN_CATEGORY_PER_COLUMN;
 	}
 }

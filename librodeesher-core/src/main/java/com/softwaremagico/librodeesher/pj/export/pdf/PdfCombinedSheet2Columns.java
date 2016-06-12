@@ -40,6 +40,7 @@ public class PdfCombinedSheet2Columns extends PdfStandardSheet {
 	private final static int SKILL_NAME_LENGTH = 25;
 	private final static int CATEGORY_NAME_LENGTH = 33;
 	private final static int MIN_EMPTY_SKILLS_PER_CATEGORY = 1;
+	private final static int MIN_CATEGORY_PER_COLUMN = 4;
 	private static final BaseColor VERY_LIGHT_GRAY = new BaseColor(215, 215, 215);
 
 	private static int FONT_SIZE = 6;
@@ -159,7 +160,7 @@ public class PdfCombinedSheet2Columns extends PdfStandardSheet {
 					getColumnTable().addCell(emptySkillLines);
 					emptyLinesToAdd--;
 				}
-				//Already calculated. Remove it.
+				// Already calculated. Remove it.
 				emptyLinesToAdd += getMinEmptySkillsPerCategory();
 			}
 
@@ -276,8 +277,9 @@ public class PdfCombinedSheet2Columns extends PdfStandardSheet {
 		// Add last column.
 		columns.add(categoriesPerColumn);
 
-		// If we have an empty column, move categories to this column.
-		if (columns.size() % getColumnsPerPage() == 1) {
+		// If we have an empty column or one with low number of categories, move
+		// categories to this column.
+		if (columns.size() % getColumnsPerPage() == 1 || columns.get(columns.size() - 1).size() < getMinCategoriesPerColumn()) {
 			columns = getCategoriesPerColumn(emptyLinesPerCategory + 1);
 		}
 
@@ -547,10 +549,8 @@ public class PdfCombinedSheet2Columns extends PdfStandardSheet {
 		Font f = FontFactory.getFont(FontFactory.TIMES_BOLDITALIC, getFontSize() + 9);
 		f.setColor(BaseColor.WHITE);
 
-		Paragraph p = new Paragraph(
-				"Hoja de Habilidades (" + (page + 1) + " de " + ((getColumns().size() + 1) / getColumnsPerPage()) + ")", f);
-		// Paragraph p = new Paragraph("Hoja Combinada de Habilidades (" + page
-		// + ")", f);
+		Paragraph p = new Paragraph("Hoja de Habilidades (" + (page + 1) + " de "
+				+ ((int) Math.ceil(((getColumns().size()) / (float)getColumnsPerPage()))) + ")", f);
 		cell = new PdfPCell(p);
 		cell.setMinimumHeight(30);
 		cell.setBackgroundColor(BaseColor.BLACK);
@@ -679,5 +679,9 @@ public class PdfCombinedSheet2Columns extends PdfStandardSheet {
 
 	protected int getMaxLinesPerColumn() {
 		return MAX_LINES_PER_COLUMN;
+	}
+
+	protected int getMinCategoriesPerColumn() {
+		return MIN_CATEGORY_PER_COLUMN;
 	}
 }
