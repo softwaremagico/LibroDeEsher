@@ -23,7 +23,7 @@ import com.softwaremagico.librodeesher.pj.export.json.CharacterJsonManager;
 import com.softwaremagico.librodeesher.pj.export.json.LevelJsonManager;
 import com.softwaremagico.librodeesher.pj.export.json.exceptions.InvalidCharacterException;
 import com.softwaremagico.librodeesher.pj.export.json.exceptions.InvalidLevelException;
-import com.softwaremagico.librodeesher.pj.export.pdf.PdfCombinedSheet;
+import com.softwaremagico.librodeesher.pj.export.pdf.PdfCombinedSheet2Columns;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfStandardSheet;
 import com.softwaremagico.librodeesher.pj.export.txt.TxtSheet;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
@@ -98,7 +98,7 @@ public class CharacterCreationTest {
 
 	@Test(groups = { "characterPdf" }, dependsOnMethods = { "createCharacter" })
 	public void combinedPdf() throws MalformedURLException, DocumentException, IOException {
-		new PdfCombinedSheet(characterPlayer, PDF_PATH_COMBINED);
+		new PdfCombinedSheet2Columns(characterPlayer, PDF_PATH_COMBINED);
 	}
 
 	@Test(groups = { "characterTxt" }, dependsOnMethods = { "createCharacter" })

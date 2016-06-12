@@ -105,17 +105,17 @@ public class TrainingProbability {
 			}
 		}
 
-		int probability = ((28 - cost) * 2 + characterPlayer.getLevelUps().size() - ((characterPlayer
-				.getSelectedTrainings().size() + specialization) * 20));
+		int probability = (int) ((28 - cost) * 1.5 + characterPlayer.getLevelUps().size() - ((characterPlayer
+				.getSelectedTrainings().size() + specialization) * 25));
 
 		if (characterPlayer.getProfession().getTrainingTypes().get(trainingName)
 				.equals(TrainingType.FAVOURITE)) {
-			probability += 25;
+			probability += 15;
 		}
 
 		// Culture has favorite training.
 		if (characterPlayer.getCulture().getTrainingPricePercentage(training.getName()) > 0) {
-			probability += 15;
+			probability += 10;
 		}
 
 		if (probability < 1

@@ -33,6 +33,7 @@ Versión
 		- Opción de escoger una fuente que simula la escritura manual en las fichas de personaje.
 		- Todas la razas y culturas del manual Razas y Culturas.
 		- Añadido a la definición de raza: clase de armadura, bonus a habilidades y categorias.
+		- Hoja de personaje combinada a una columna (PDF).
 		Revisado:
 		- Rendimiento de la aplicación mejorado.
 		

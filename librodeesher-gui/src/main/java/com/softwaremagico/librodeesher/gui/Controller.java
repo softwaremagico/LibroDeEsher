@@ -69,7 +69,8 @@ import com.softwaremagico.librodeesher.pj.export.json.CharacterJsonManager;
 import com.softwaremagico.librodeesher.pj.export.json.LevelJsonManager;
 import com.softwaremagico.librodeesher.pj.export.json.exceptions.InvalidCharacterException;
 import com.softwaremagico.librodeesher.pj.export.json.exceptions.InvalidLevelException;
-import com.softwaremagico.librodeesher.pj.export.pdf.PdfCombinedSheet;
+import com.softwaremagico.librodeesher.pj.export.pdf.PdfCombinedSheet1Column;
+import com.softwaremagico.librodeesher.pj.export.pdf.PdfCombinedSheet2Columns;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfStandardSheet;
 import com.softwaremagico.librodeesher.pj.export.txt.TxtSheet;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
@@ -138,7 +139,8 @@ public class Controller {
 		mainGui.getMainMenu().addTrainingWindowListener(new TrainingWindowsListener());
 		mainGui.getMainMenu().addLevelUpActionListener(new IncreaseLevelActionListener());
 		mainGui.getMainMenu().addStandardSheetPdfActionListener(new ExportToStandardPdf());
-		mainGui.getMainMenu().addCombinedSheetPdfActionListener(new ExportToCombinedPdf());
+		mainGui.getMainMenu().addCombinedSheetPdf1ColumnActionListener(new ExportToCombinedPdf1Column());
+		mainGui.getMainMenu().addCombinedSheetPdf2ColumnsActionListener(new ExportToCombinedPdf2Columns());
 		mainGui.getMainMenu().addStandardTxtActionListener(new ExportToStandardTxt());
 		mainGui.getMainMenu().addAbbreviatedTxtActionListener(new ExportAbbreviatedToTxt());
 		mainGui.getMainMenu().addSaveActionListener(new SaveCharacterPlayer());
@@ -435,8 +437,8 @@ public class Controller {
 			}
 		}
 	}
-
-	class ExportToCombinedPdf implements ActionListener {
+	
+	class ExportToCombinedPdf1Column implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForPdf selectPdf = new ExploreWindowForPdf("RMFComb.pdf");
@@ -450,7 +452,31 @@ public class Controller {
 					}
 				}
 				if (create && path != null && path.length() > 0) {
-					new PdfCombinedSheet(selectedCharacter, path);
+					new PdfCombinedSheet1Column(selectedCharacter, path);
+					MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.", "PDF");
+				}
+			} catch (DocumentException | IOException ex) {
+				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al crear el PDF.", "PDF");
+				EsherLog.errorMessage(Controller.class.getName(), ex);
+			}
+		}
+	}
+
+	class ExportToCombinedPdf2Columns implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ExploreWindowForPdf selectPdf = new ExploreWindowForPdf("RMFComb.pdf");
+			String path = selectPdf.exploreWindows("Hoja en PDF", JFileChooser.FILES_ONLY, getCharacterNameFormatted() + ".pdf");
+			try {
+				File file = new File(path);
+				boolean create = true;
+				if (file.exists() && !file.isDirectory()) {
+					if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
+						create = false;
+					}
+				}
+				if (create && path != null && path.length() > 0) {
+					new PdfCombinedSheet2Columns(selectedCharacter, path);
 					MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.", "PDF");
 				}
 			} catch (DocumentException | IOException ex) {
