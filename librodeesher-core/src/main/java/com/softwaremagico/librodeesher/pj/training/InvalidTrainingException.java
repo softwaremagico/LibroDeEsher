@@ -6,4 +6,8 @@ public class InvalidTrainingException extends Exception {
 	public InvalidTrainingException(String message) {
 		super(message);
 	}
+
+	public InvalidTrainingException(String message, Exception e) {
+		super(message, e);
+	}
 }

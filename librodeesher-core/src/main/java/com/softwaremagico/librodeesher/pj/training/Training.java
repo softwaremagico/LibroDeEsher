@@ -32,6 +32,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import com.softwaremagico.files.Folder;
@@ -61,6 +62,8 @@ public class Training {
 	private List<ChooseSkillGroup> commonSkills;
 	private List<ChooseSkillGroup> professionalSkills;
 	private List<ChooseSkillGroup> restrictedSkills;
+	private Map<String, Integer> professionCosts;
+	private HashMap<String, TrainingType> professionPreferences;
 
 	public Training(String name) throws InvalidTrainingException {
 		this.name = name;
@@ -68,6 +71,8 @@ public class Training {
 		commonSkills = new ArrayList<>();
 		professionalSkills = new ArrayList<>();
 		restrictedSkills = new ArrayList<>();
+		professionCosts = new HashMap<>();
+		professionPreferences = new HashMap<>();
 		readTrainingFile(name);
 	}
 
@@ -81,15 +86,15 @@ public class Training {
 
 	private void readTrainingFile(String trainingName) throws InvalidTrainingException {
 		int lineIndex = 0;
-		String trainingFile = RolemasterFolderStructure.getDirectoryModule(TrainingFactory.TRAINING_FOLDER + File.separator + trainingName
-				+ ".txt");
+		String trainingFile = RolemasterFolderStructure.getDirectoryModule(TrainingFactory.TRAINING_FOLDER
+				+ File.separator + trainingName + ".txt");
 		if (trainingFile.length() > 0) {
 			List<String> lines;
 			try {
 				lines = Folder.readFileLines(trainingFile, false);
 			} catch (IOException e) {
-				throw new InvalidTrainingException("Invalid training file: " + TrainingFactory.TRAINING_FOLDER + File.separator
-						+ trainingName + ".txt");
+				throw new InvalidTrainingException("Invalid training file: "
+						+ TrainingFactory.TRAINING_FOLDER + File.separator + trainingName + ".txt");
 			}
 			lineIndex = setTrainingTime(lines, lineIndex);
 			lineIndex = setLimitedRaces(lines, lineIndex);
@@ -101,9 +106,10 @@ public class Training {
 			lineIndex = setSpecialSkills(lines, lineIndex, commonSkills, ChooseType.COMMON);
 			lineIndex = setSpecialSkills(lines, lineIndex, professionalSkills, ChooseType.PROFESSIONAL);
 			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkills, ChooseType.RESTRICTED);
+			lineIndex = getProfessionCosts(lines, lineIndex);
 		} else {
-			throw new InvalidTrainingException("Invalid training file: " + TrainingFactory.TRAINING_FOLDER + File.separator + trainingName
-					+ ".txt");
+			throw new InvalidTrainingException("Invalid training file: " + TrainingFactory.TRAINING_FOLDER
+					+ File.separator + trainingName + ".txt");
 		}
 	}
 
@@ -114,7 +120,8 @@ public class Training {
 		try {
 			trainingTime = Integer.parseInt(lines.get(index));
 		} catch (Exception e) {
-			throw new InvalidTrainingException("Error in line '" + lines.get(index) + "' for training '" + getName() + "'.");
+			throw new InvalidTrainingException("Error in line '" + lines.get(index) + "' for training '"
+					+ getName() + "'.");
 		}
 		return ++index;
 	}
@@ -134,7 +141,8 @@ public class Training {
 					}
 				}
 			} catch (ArrayIndexOutOfBoundsException aiofb) {
-				throw new InvalidTrainingException("Error in line '" + trainingLine + "' for training '" + getName() + "'.");
+				throw new InvalidTrainingException("Error in line '" + trainingLine + "' for training '"
+						+ getName() + "'.");
 			}
 			index++;
 		}
@@ -166,11 +174,13 @@ public class Training {
 						skill = "";
 					}
 				} catch (NumberFormatException nfe) {
-					throw new InvalidTrainingException("Incorrect number '" + special + "' in training '" + getName() + "'.");
+					throw new InvalidTrainingException("Incorrect number '" + special + "' in training '"
+							+ getName() + "'.");
 				}
 				objects.add(new TrainingItem(special, bonus, skill, probability));
 			} catch (ArrayIndexOutOfBoundsException aiofb) {
-				throw new InvalidTrainingException("Error in line '" + trainingLine + "' for training '" + getName() + "'.");
+				throw new InvalidTrainingException("Error in line '" + trainingLine + "' for training '"
+						+ getName() + "'.");
 			}
 			index++;
 		}
@@ -190,7 +200,8 @@ public class Training {
 					if (lines.get(index).contains("{")) {
 						// List of categories to choose one.
 						String[] lineColumns = lines.get(index).trim().split("}");
-						String[] categoriesList = lineColumns[0].replace("{", "").replace(";", ",").split(",");
+						String[] categoriesList = lineColumns[0].replace("{", "").replace(";", ",")
+								.split(",");
 						String[] categoryRanks = lineColumns[1].split("\t");
 
 						List<String> categoriesOptions = new ArrayList<>();
@@ -198,26 +209,28 @@ public class Training {
 							categoriesOptions.add(category.trim());
 						}
 
-						trainingCategory = new TrainingCategory(categoriesOptions, Integer.parseInt(categoryRanks[1]),
-								Integer.parseInt(categoryRanks[2]), Integer.parseInt(categoryRanks[3]), Integer.parseInt(categoryRanks[4]));
+						trainingCategory = new TrainingCategory(categoriesOptions,
+								Integer.parseInt(categoryRanks[1]), Integer.parseInt(categoryRanks[2]),
+								Integer.parseInt(categoryRanks[3]), Integer.parseInt(categoryRanks[4]));
 						categoriesWithRanks.add(trainingCategory);
 					} else {
 						String[] categoryRanks = lines.get(index).split("\t");
 						if (CategoryFactory.existCategory(categoryRanks[0])) {
 							List<String> categoriesList = new ArrayList<>();
 							categoriesList.add(categoryRanks[0].trim());
-							trainingCategory = new TrainingCategory(categoriesList, Integer.parseInt(categoryRanks[1]),
-									Integer.parseInt(categoryRanks[2]), Integer.parseInt(categoryRanks[3]),
-									Integer.parseInt(categoryRanks[4]));
+							trainingCategory = new TrainingCategory(categoriesList,
+									Integer.parseInt(categoryRanks[1]), Integer.parseInt(categoryRanks[2]),
+									Integer.parseInt(categoryRanks[3]), Integer.parseInt(categoryRanks[4]));
 							categoriesWithRanks.add(trainingCategory);
 
 						} else {
-							throw new InvalidTrainingException("Category not found for training '" + getName() + "' in " + categoryRanks[0]);
+							throw new InvalidTrainingException("Category not found for training '"
+									+ getName() + "' in " + categoryRanks[0]);
 						}
 					}
 				} catch (NumberFormatException nfe) {
-					throw new InvalidTrainingException("Incorrect ranks number '" + lines.get(index) + "' for training '" + getName()
-							+ "'.");
+					throw new InvalidTrainingException("Incorrect ranks number '" + lines.get(index)
+							+ "' for training '" + getName() + "'.");
 				}
 			} else { // It is a skill. Must come from a defined category and not
 						// a list to choose.
@@ -229,16 +242,18 @@ public class Training {
 						// List of skills to choose one.
 						String[] lineColumns = lines.get(index).replace("*", "").trim().split("}");
 						String[] skillList = lineColumns[0].replace("{", "").replace(";", ",").split(",");
-						TrainingSkill skill = new TrainingSkill(Arrays.asList(skillList), Integer.parseInt(lineColumns[1].trim()));
+						TrainingSkill skill = new TrainingSkill(Arrays.asList(skillList),
+								Integer.parseInt(lineColumns[1].trim()));
 						trainingCategory.addSkill(skill);
 					} else {
 						// Skill with ranges.
 						String[] trainingSkills = lines.get(index).replace("*", "").trim().split("\t");
-						addTrainingSkill(trainingCategory, trainingSkills[0], Integer.parseInt(trainingSkills[1]));
+						addTrainingSkill(trainingCategory, trainingSkills[0],
+								Integer.parseInt(trainingSkills[1]));
 					}
 				} catch (NumberFormatException nfe) {
-					throw new InvalidTrainingException("Incorrect ranks number '" + lines.get(index) + "' for training '" + getName()
-							+ "'.");
+					throw new InvalidTrainingException("Incorrect ranks number '" + lines.get(index)
+							+ "' for training '" + getName() + "'.");
 				}
 			}
 			index++;
@@ -268,7 +283,8 @@ public class Training {
 					trainingLine = trainingLine.replace("}", "").replace("{", "");
 					String[] chars = trainingLine.replace(";", ",").split(",");
 					for (String abbrev : chars) {
-						listToChoose.add(CharacteristicsAbbreviature.getCharacteristicsAbbreviature(abbrev.trim()));
+						listToChoose.add(CharacteristicsAbbreviature.getCharacteristicsAbbreviature(abbrev
+								.trim()));
 					}
 					updateCharacteristics.add(listToChoose);
 				} else {
@@ -280,13 +296,15 @@ public class Training {
 						String[] chars = trainingLine.replace(";", ",").split(",");
 						for (String abbrev : chars) {
 							List<CharacteristicsAbbreviature> listToChoose = new ArrayList<>();
-							listToChoose.add(CharacteristicsAbbreviature.getCharacteristicsAbbreviature(abbrev.trim()));
+							listToChoose.add(CharacteristicsAbbreviature
+									.getCharacteristicsAbbreviature(abbrev.trim()));
 							updateCharacteristics.add(listToChoose);
 						}
 					}
 				}
 			} catch (Exception e) {
-				throw new InvalidTrainingException("Incorrect ranks number '" + lines.get(index) + "' for training '" + getName() + "'.");
+				throw new InvalidTrainingException("Incorrect ranks number '" + lines.get(index)
+						+ "' for training '" + getName() + "'.");
 			}
 			index++;
 		}
@@ -329,17 +347,17 @@ public class Training {
 						} else if (Characteristics.isCharacteristicValid(requirementName)) {
 							// It it is a characteristic, a minimal temporal
 							// value is required.
-							characteristicRequirements.put(CharacteristicsAbbreviature.getCharacteristicsAbbreviature(requirementName),
-									value);
-							characteristicRequirementsCostModification.put(
-									CharacteristicsAbbreviature.getCharacteristicsAbbreviature(requirementName), costModification);
+							characteristicRequirements.put(CharacteristicsAbbreviature
+									.getCharacteristicsAbbreviature(requirementName), value);
+							characteristicRequirementsCostModification.put(CharacteristicsAbbreviature
+									.getCharacteristicsAbbreviature(requirementName), costModification);
 						} else {
-							throw new InvalidTrainingException("Unknown requirement '" + lines.get(index) + "' for training '" + getName()
-									+ "'.");
+							throw new InvalidTrainingException("Unknown requirement '" + lines.get(index)
+									+ "' for training '" + getName() + "'.");
 						}
 					} catch (NumberFormatException nfe) {
-						throw new InvalidTrainingException("Malformed requirement '" + lines.get(index) + "' for training '" + getName()
-								+ "'.");
+						throw new InvalidTrainingException("Malformed requirement '" + lines.get(index)
+								+ "' for training '" + getName() + "'.");
 					}
 				}
 			}
@@ -348,7 +366,8 @@ public class Training {
 		return index;
 	}
 
-	private int setSpecialSkills(List<String> lines, int index, List<ChooseSkillGroup> skillCategory, ChooseType chooseType) {
+	private int setSpecialSkills(List<String> lines, int index, List<ChooseSkillGroup> skillCategory,
+			ChooseType chooseType) {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -367,8 +386,49 @@ public class Training {
 				} else {
 					String[] skills = skillColumns[i].replace("{", "").replace("}", "").split(";");
 					List<String> skillList = new ArrayList<String>(Arrays.asList(skills));
-					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1, SkillFactory.getSkills(skillList), chooseType);
+					ChooseSkillGroup chooseSkills = new ChooseSkillGroup(1,
+							SkillFactory.getSkills(skillList), chooseType);
 					skillCategory.add(chooseSkills);
+				}
+			}
+			index++;
+		}
+		return index;
+	}
+
+	private int getProfessionCosts(List<String> lines, int index) throws InvalidTrainingException {
+		characteristicRequirements = new HashMap<>();
+		characteristicRequirementsCostModification = new HashMap<>();
+		skillRequirements = new HashMap<>();
+		skillRequirementsCostModification = new HashMap<>();
+
+		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
+			index++;
+		}
+
+		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
+			if (!lines.get(index).toLowerCase().contains("ningun")) {
+				String professionLine = lines.get(index);
+				String[] professionColumns = professionLine.split("\t");
+
+				try {
+					TrainingType type;
+					if (professionColumns[0].contains("+") || professionColumns[1].contains("+")) {
+						type = TrainingType.FAVOURITE;
+					} else if (professionColumns[0].contains("-") || professionColumns[1].contains("-")) {
+						type = TrainingType.FORBIDDEN;
+					} else {
+						type = TrainingType.STANDAR;
+					}
+
+					String professionName = professionColumns[0].replace("+", "").replace("-", "");
+					Integer cost = Integer.parseInt(professionColumns[1].replace("+", "").replace("-", "")
+							.trim());
+					professionCosts.put(professionName, cost);
+					professionPreferences.put(professionName, type);
+				} catch (Exception e) {
+					throw new InvalidTrainingException("Invalid training cost for '" + getName() + "' in '"
+							+ lines.get(index) + "'.", e);
 				}
 			}
 			index++;
@@ -449,5 +509,16 @@ public class Training {
 			return new ArrayList<>();
 		}
 		return restrictedSkills;
+	}
+
+	public Integer getTrainingCost(String profession) {
+		if (professionCosts.get(profession) != null) {
+			return professionCosts.get(profession);
+		}
+		return Integer.MAX_VALUE;
+	}
+	
+	public HashMap<String, TrainingType> getProfessionPreferences() {
+		return professionPreferences;
 	}
 }

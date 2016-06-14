@@ -108,8 +108,13 @@ public class TrainingProbability {
 		int probability = (int) ((28 - cost) * 1.5 + characterPlayer.getLevelUps().size() - ((characterPlayer
 				.getSelectedTrainings().size() + specialization) * 25));
 
-		if (characterPlayer.getProfession().getTrainingTypes().get(trainingName)
-				.equals(TrainingType.FAVOURITE)) {
+		if (characterPlayer.getProfession().getTrainingTypes().get(trainingName) != null
+				&& characterPlayer.getProfession().getTrainingTypes().get(trainingName)
+						.equals(TrainingType.FAVOURITE)) {
+			probability += 15;
+		} else if (training.getProfessionPreferences().get(characterPlayer.getProfession().getName()) != null
+				&& training.getProfessionPreferences().get(characterPlayer.getProfession().getName())
+						.equals(TrainingType.FAVOURITE)) {
 			probability += 15;
 		}
 
@@ -125,6 +130,10 @@ public class TrainingProbability {
 
 		if (characterPlayer.getProfession().getTrainingTypes().get(trainingName)
 				.equals(TrainingType.FORBIDDEN)) {
+			probability -= 1500;
+		} else if (training.getProfessionPreferences().get(characterPlayer.getProfession().getName()) != null
+				&& training.getProfessionPreferences().get(characterPlayer.getProfession().getName())
+						.equals(TrainingType.FORBIDDEN)) {
 			probability -= 1500;
 		}
 
