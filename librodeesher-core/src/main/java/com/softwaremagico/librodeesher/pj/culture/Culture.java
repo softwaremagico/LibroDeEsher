@@ -39,8 +39,10 @@ import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
+import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
+import com.softwaremagico.librodeesher.pj.training.InvalidTrainingException;
 import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 import com.softwaremagico.librodeesher.pj.weapons.InvalidWeaponException;
@@ -105,15 +107,13 @@ public class Culture {
 
 	private void readCultureFile(String cultureName) throws InvalidCultureException {
 		int lineIndex = 0;
-		String cultureFile = RolemasterFolderStructure.getDirectoryModule(CultureFactory.CULTURE_FOLDER + File.separator + cultureName
-				+ ".txt");
+		String cultureFile = RolemasterFolderStructure.getDirectoryModule(CultureFactory.CULTURE_FOLDER + File.separator + cultureName + ".txt");
 		if (cultureFile.length() > 0) {
 			List<String> lines;
 			try {
 				lines = Folder.readFileLines(cultureFile, false);
 			} catch (IOException e) {
-				throw new InvalidCultureException("Invalid culture file '" + CultureFactory.CULTURE_FOLDER + File.separator + cultureName
-						+ ".txt'", e);
+				throw new InvalidCultureException("Invalid culture file '" + CultureFactory.CULTURE_FOLDER + File.separator + cultureName + ".txt'", e);
 			}
 			lineIndex = setCultureWeapons(lines, lineIndex);
 			lineIndex = setCultureArmour(lines, lineIndex);
@@ -123,8 +123,7 @@ public class Culture {
 			lineIndex = setCultureMaxLanguages(lines, lineIndex);
 			lineIndex = setTrainingDiscount(lines, lineIndex);
 		} else {
-			throw new InvalidCultureException("Invalid culture file '" + CultureFactory.CULTURE_FOLDER + File.separator + cultureName
-					+ ".txt'");
+			throw new InvalidCultureException("Invalid culture file '" + CultureFactory.CULTURE_FOLDER + File.separator + cultureName + ".txt'");
 		}
 	}
 
@@ -146,8 +145,7 @@ public class Culture {
 								cultureWeapons.add(weapon);
 							}
 						} catch (InvalidWeaponException e) {
-							EsherLog.warning(WeaponFactory.class.getName(), "Weapon '" + weaponName + "' not found in culture '"
-									+ getName() + "'!");
+							EsherLog.warning(WeaponFactory.class.getName(), "Weapon '" + weaponName + "' not found in culture '" + getName() + "'!");
 						}
 					}
 					index++;
@@ -269,8 +267,7 @@ public class Culture {
 				} else if (hobby.toLowerCase().equals(Spanish.CULTURE_LANGUAGE_TAG.toLowerCase())) {
 					// TODO select a language
 				} else { // Not recognized.
-					throw new InvalidCultureException("Hobby '" + hobby + "' not found in culture '" + getName() + "' line '"
-							+ lines.get(index) + "'.");
+					throw new InvalidCultureException("Hobby '" + hobby + "' not found in culture '" + getName() + "' line '" + lines.get(index) + "'.");
 				}
 			}
 			index++;
@@ -323,19 +320,20 @@ public class Culture {
 			if (trainingColumn[0].toLowerCase().startsWith(Spanish.NOTHING_TAG)) {
 				break;
 			}
-			Training training = TrainingFactory.getTraining(trainingColumn[0]);
-			if (training != null) {
-				try {
-					Float value = Float.parseFloat(trainingColumn[1].replace("%", "").replace(".", "").replace(",", "").trim());
-					trainingPrice.put(training.getName(), value / 100);
-				} catch (NumberFormatException nfe) {
-					throw new InvalidCultureException("Invalid training value in '" + lines.get(index) + "' for culture '" + getName()
-							+ "'.", nfe);
+			try {
+				Training training = TrainingFactory.getTraining(trainingColumn[0]);
+				if (training != null) {
+					try {
+						Float value = Float.parseFloat(trainingColumn[1].replace("%", "").replace(".", "").replace(",", "").trim());
+						trainingPrice.put(training.getName(), value / 100);
+					} catch (NumberFormatException nfe) {
+						throw new InvalidCultureException("Invalid training value in '" + lines.get(index) + "' for culture '" + getName() + "'.", nfe);
+					}
+				} else {
+					EsherLog.warning(this.getClass().getName(), "Invalid training '" + trainingColumn[0] + "' for culture '" + getName() + "'.");
 				}
-			} else {
-				EsherLog.warning(this.getClass().getName(), "Invalid training '" + trainingColumn[0] + "' for culture '" + getName() + "'.");
-				// throw new InvalidCultureException("Invalid training '" +
-				// trainingColumn[0] + "' for culture '" + getName() + "'.");
+			} catch (InvalidTrainingException e) {
+				EsherLog.errorMessage(RandomCharacterPlayer.class.getName(), e);
 			}
 			index++;
 		}

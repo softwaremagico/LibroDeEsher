@@ -90,6 +90,7 @@ import com.softwaremagico.librodeesher.pj.race.Race;
 import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceDefinition;
 import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceException;
+import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -99,6 +100,7 @@ import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.skills.SkillForEnablingMustBeSelected;
 import com.softwaremagico.librodeesher.pj.skills.SkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.SkillType;
+import com.softwaremagico.librodeesher.pj.training.InvalidTrainingException;
 import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingCategory;
 import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
@@ -1055,10 +1057,14 @@ public class CharacterPlayer extends StorableObject {
 	protected Integer getTrainingRanks(Skill skill) {
 		int total = 0;
 		for (String trainingName : getTrainings()) {
-			Training training = TrainingFactory.getTraining(trainingName);
-			for (TrainingCategory trainingCategory : training.getCategoriesWithRanks()) {
-				TrainingDecision trainingDecision = getTrainingDecision(training.getName());
-				total += trainingDecision.getSkillRank(training.getTrainingCategoryIndex(trainingCategory), skill);
+			try {
+				Training training = TrainingFactory.getTraining(trainingName);
+				for (TrainingCategory trainingCategory : training.getCategoriesWithRanks()) {
+					TrainingDecision trainingDecision = getTrainingDecision(training.getName());
+					total += trainingDecision.getSkillRank(training.getTrainingCategoryIndex(trainingCategory), skill);
+				}
+			} catch (InvalidTrainingException e) {
+				EsherLog.errorMessage(RandomCharacterPlayer.class.getName(), e);
 			}
 		}
 		return total;
@@ -1067,19 +1073,23 @@ public class CharacterPlayer extends StorableObject {
 	protected Integer getTrainingRanks(Category category) {
 		int total = 0;
 		for (String trainingName : getTrainings()) {
-			Training training = TrainingFactory.getTraining(trainingName);
-			for (TrainingCategory trainingCategory : training.getCategoriesWithRanks()) {
-				// Default category
-				if (trainingCategory.getCategoryOptions().size() == 1 && trainingCategory.getCategoryOptions().get(0).equals(category.getName())) {
-					total += trainingCategory.getCategoryRanks();
-				} else {
-					// Selected category from list
-					TrainingDecision trainingDecision = getTrainingDecisions().get(trainingName);
-					if (trainingDecision != null
-							&& trainingDecision.getSelectedCategory(training.getTrainingCategoryIndex(trainingCategory)).contains(category.getName())) {
+			try {
+				Training training = TrainingFactory.getTraining(trainingName);
+				for (TrainingCategory trainingCategory : training.getCategoriesWithRanks()) {
+					// Default category
+					if (trainingCategory.getCategoryOptions().size() == 1 && trainingCategory.getCategoryOptions().get(0).equals(category.getName())) {
 						total += trainingCategory.getCategoryRanks();
+					} else {
+						// Selected category from list
+						TrainingDecision trainingDecision = getTrainingDecisions().get(trainingName);
+						if (trainingDecision != null
+								&& trainingDecision.getSelectedCategory(training.getTrainingCategoryIndex(trainingCategory)).contains(category.getName())) {
+							total += trainingCategory.getCategoryRanks();
+						}
 					}
 				}
+			} catch (InvalidTrainingException e) {
+				EsherLog.errorMessage(RandomCharacterPlayer.class.getName(), e);
 			}
 		}
 		return total;
@@ -1795,15 +1805,21 @@ public class CharacterPlayer extends StorableObject {
 
 	public boolean isProfessionalByTraining(Skill skill) {
 		for (String trainingName : getTrainings()) {
-			Training training = TrainingFactory.getTraining(trainingName);
-			for (ChooseSkillGroup skills : training.getProfessionalSkills()) {
-				if (skills.getOptionsAsString().size() == 1 && skills.getOptionsAsString().get(0).equals(skill.getName())) {
+			Training training;
+			try {
+				training = TrainingFactory.getTraining(trainingName);
+
+				for (ChooseSkillGroup skills : training.getProfessionalSkills()) {
+					if (skills.getOptionsAsString().size() == 1 && skills.getOptionsAsString().get(0).equals(skill.getName())) {
+						return true;
+					}
+				}
+				TrainingDecision trainingDecision = getTrainingDecision(trainingName);
+				if (trainingDecision.getProfessionalSkillsChosen().contains(skill.getName())) {
 					return true;
 				}
-			}
-			TrainingDecision trainingDecision = getTrainingDecision(trainingName);
-			if (trainingDecision.getProfessionalSkillsChosen().contains(skill.getName())) {
-				return true;
+			} catch (InvalidTrainingException e) {
+				EsherLog.errorMessage(RandomCharacterPlayer.class.getName(), e);
 			}
 		}
 		return false;
@@ -1816,15 +1832,19 @@ public class CharacterPlayer extends StorableObject {
 
 	public boolean isRestrictedByTraining(Skill skill) {
 		for (String trainingName : getTrainings()) {
-			Training training = TrainingFactory.getTraining(trainingName);
-			for (ChooseSkillGroup skills : training.getRestrictedSkills()) {
-				if (skills.getOptionsAsString().size() == 1 && skills.getOptionsAsString().get(0).equals(skill.getName())) {
+			try {
+				Training training = TrainingFactory.getTraining(trainingName);
+				for (ChooseSkillGroup skills : training.getRestrictedSkills()) {
+					if (skills.getOptionsAsString().size() == 1 && skills.getOptionsAsString().get(0).equals(skill.getName())) {
+						return true;
+					}
+				}
+				TrainingDecision trainingDecision = getTrainingDecision(trainingName);
+				if (trainingDecision.getRestrictedSkillsChosen().contains(skill.getName())) {
 					return true;
 				}
-			}
-			TrainingDecision trainingDecision = getTrainingDecision(trainingName);
-			if (trainingDecision.getRestrictedSkillsChosen().contains(skill.getName())) {
-				return true;
+			} catch (InvalidTrainingException e) {
+				EsherLog.errorMessage(RandomCharacterPlayer.class.getName(), e);
 			}
 		}
 		return false;
@@ -1837,15 +1857,19 @@ public class CharacterPlayer extends StorableObject {
 
 	public boolean isCommonByTraining(Skill skill) {
 		for (String trainingName : getTrainings()) {
-			Training training = TrainingFactory.getTraining(trainingName);
-			for (ChooseSkillGroup skills : training.getCommonSkills()) {
-				if (skills.getOptionsAsString().size() == 1 && skills.getOptionsAsString().get(0).equals(skill.getName())) {
+			try {
+				Training training = TrainingFactory.getTraining(trainingName);
+				for (ChooseSkillGroup skills : training.getCommonSkills()) {
+					if (skills.getOptionsAsString().size() == 1 && skills.getOptionsAsString().get(0).equals(skill.getName())) {
+						return true;
+					}
+				}
+				TrainingDecision trainingDecision = getTrainingDecision(trainingName);
+				if (trainingDecision.getCommonSkillsChosen().contains(skill.getName())) {
 					return true;
 				}
-			}
-			TrainingDecision trainingDecision = getTrainingDecision(trainingName);
-			if (trainingDecision.getCommonSkillsChosen().contains(skill.getName())) {
-				return true;
+			} catch (InvalidTrainingException e) {
+				EsherLog.errorMessage(RandomCharacterPlayer.class.getName(), e);
 			}
 		}
 		return false;
@@ -1912,32 +1936,36 @@ public class CharacterPlayer extends StorableObject {
 		List<String> availableTrainings = new ArrayList<>();
 		List<String> selectedTrainings = getSelectedTrainings();
 		for (String trainingName : TrainingFactory.getAvailableTrainings()) {
-			// Right race of training.
-			Training training = TrainingFactory.getTraining(trainingName);
-			if (training.getLimitedRaces().size() > 0) {
-				if (!training.getLimitedRaces().contains(getRace().getName())) {
+			try {
+				// Right race of training.
+				Training training = TrainingFactory.getTraining(trainingName);
+				if (training.getLimitedRaces().size() > 0) {
+					if (!training.getLimitedRaces().contains(getRace().getName())) {
+						continue;
+					}
+				}
+				// Enough developmentPoints
+				if (areCharacteristicsConfirmed() && getTrainingCost(trainingName) > getRemainingDevelopmentPoints()) {
 					continue;
 				}
+				// Not already selected Training
+				if (selectedTrainings.contains(trainingName)) {
+					continue;
+				}
+				// Not a forbidden training
+				if (getProfession().getTrainingTypes().get(trainingName) != null
+						&& getProfession().getTrainingTypes().get(trainingName).equals(TrainingType.FORBIDDEN)) {
+					continue;
+				} else if (training.getProfessionPreferences().get(getProfession().getName()) != null
+				// Not a forbidden training
+						&& training.getProfessionPreferences().get(getProfession().getName()).equals(TrainingType.FORBIDDEN)) {
+					continue;
+				}
+				// Allowed
+				availableTrainings.add(trainingName);
+			} catch (InvalidTrainingException e) {
+				EsherLog.errorMessage(RandomCharacterPlayer.class.getName(), e);
 			}
-			// Enough developmentPoints
-			if (areCharacteristicsConfirmed() && getTrainingCost(trainingName) > getRemainingDevelopmentPoints()) {
-				continue;
-			}
-			// Not already selected Training
-			if (selectedTrainings.contains(trainingName)) {
-				continue;
-			}
-			// Not a forbidden training
-			if (getProfession().getTrainingTypes().get(trainingName) != null
-					&& getProfession().getTrainingTypes().get(trainingName).equals(TrainingType.FORBIDDEN)) {
-				continue;
-			} else if (training.getProfessionPreferences().get(getProfession().getName()) != null
-			// Not a forbidden training
-					&& training.getProfessionPreferences().get(getProfession().getName()).equals(TrainingType.FORBIDDEN)) {
-				continue;
-			}
-			// Allowed
-			availableTrainings.add(trainingName);
 		}
 		Collections.sort(availableTrainings);
 		return availableTrainings;
@@ -1982,13 +2010,17 @@ public class CharacterPlayer extends StorableObject {
 			return characterPlayerHelper.getTrainingCost(trainingName);
 		}
 		Integer baseCost = getProfession().getTrainingCost(trainingName);
-		Training training = TrainingFactory.getTraining(trainingName);
-		if (baseCost == null || baseCost > 1000) {
-			baseCost = training.getTrainingCost(getProfession().getName());
+		try {
+			Training training = TrainingFactory.getTraining(trainingName);
+			if (baseCost == null || baseCost > 10000) {
+				baseCost = training.getTrainingCost(getProfession().getName());
+			}
+			baseCost += getTrainingSkillCostReduction(SkillFactory.getSkills(training.getSkillRequirementsList()), training);
+			baseCost += getTrainingCharacteristicCostReduction(Characteristics.getCharacteristics(), training);
+			baseCost = (int) Math.ceil(getCulture().getTrainingPricePercentage(trainingName) * baseCost);
+		} catch (InvalidTrainingException e) {
+			EsherLog.errorMessage(RandomCharacterPlayer.class.getName(), e);
 		}
-		baseCost += getTrainingSkillCostReduction(SkillFactory.getSkills(training.getSkillRequirementsList()), training);
-		baseCost += getTrainingCharacteristicCostReduction(Characteristics.getCharacteristics(), training);
-		baseCost = (int) Math.ceil(getCulture().getTrainingPricePercentage(trainingName) * baseCost);
 		characterPlayerHelper.setTrainingCost(trainingName, baseCost);
 		return baseCost;
 	}

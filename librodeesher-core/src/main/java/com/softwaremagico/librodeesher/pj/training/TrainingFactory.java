@@ -51,7 +51,7 @@ public class TrainingFactory {
 		return availableTraining;
 	}
 
-	public static Training getTraining(String trainingName) {
+	public static Training getTraining(String trainingName) throws InvalidTrainingException {
 		try {
 			if (availableTrainings().contains(trainingName)) {
 				Training training = trainingsStored.get(trainingName);
@@ -62,11 +62,8 @@ public class TrainingFactory {
 				return training;
 			}
 		} catch (Exception e) {
+			throw new InvalidTrainingException("Invalid training '" + trainingName + "'.", e);
 		}
-		/*
-		 * ShowMessage.showErrorMessage("Adiestramiento no existente: " + trainingName, "Creación de adiestramientos.");
-		 */
 		return null;
 	}
-
 }

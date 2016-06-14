@@ -10,6 +10,7 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryComparatorBySkillWi
 import com.softwaremagico.librodeesher.pj.categories.CategoryComparatorBySkillWithRanks;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
+import com.softwaremagico.librodeesher.pj.training.InvalidTrainingException;
 import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingCategory;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
@@ -62,7 +63,7 @@ public class TrainingProbability {
 	}
 
 	protected static int trainingRandomness(CharacterPlayer characterPlayer, String trainingName,
-			int specialization, List<String> suggestedTrainings, int finalLevel) {
+			int specialization, List<String> suggestedTrainings, int finalLevel) throws InvalidTrainingException {
 		int cost = characterPlayer.getTrainingCost(trainingName);
 		// No too expensive trainings.
 		if (cost > characterPlayer.getRemainingDevelopmentPoints()) {
@@ -146,7 +147,7 @@ public class TrainingProbability {
 	}
 
 	public static void setRandomCategoryRanks(CharacterPlayer characterPlayer, String trainingName,
-			int specialization) {
+			int specialization) throws InvalidTrainingException {
 		Training training = TrainingFactory.getTraining(trainingName);
 
 		// For each category
@@ -206,7 +207,7 @@ public class TrainingProbability {
 		}
 	}
 
-	public static void setRandomCharacteristicsUpgrades(CharacterPlayer characterPlayer, String trainingName) {
+	public static void setRandomCharacteristicsUpgrades(CharacterPlayer characterPlayer, String trainingName) throws InvalidTrainingException {
 		// Only do it for remaining characteristic updates (if any).
 		for (int i = characterPlayer.getTrainingCharacteristicsUpdates(trainingName).size(); i < TrainingFactory
 				.getTraining(trainingName).getUpdateCharacteristics().size(); i++) {
@@ -245,7 +246,7 @@ public class TrainingProbability {
 		}
 	}
 
-	public static void setRandomObjects(CharacterPlayer characterPlayer, String trainingName) {
+	public static void setRandomObjects(CharacterPlayer characterPlayer, String trainingName) throws InvalidTrainingException {
 		int accepted = 1;
 		Training training = TrainingFactory.getTraining(trainingName);
 		for (int i = 0; i < training.getObjects().size(); i++) {

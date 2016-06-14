@@ -52,11 +52,14 @@ import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
+import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 import com.softwaremagico.librodeesher.pj.random.TrainingProbability;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.training.InvalidTrainingException;
 import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
+import com.softwaremagico.log.EsherLog;
 
 public class TrainingWindow extends BaseFrame {
 	private static final long serialVersionUID = 3835272249277413846L;
@@ -210,9 +213,13 @@ public class TrainingWindow extends BaseFrame {
 	@Override
 	public void updateFrame() {
 		setDevelopmentPointText();
-		lastSelectedTraining = TrainingFactory.getTraining(trainingsAvailable.getSelectedItem().toString());
-		categoryPanel.setTraining(lastSelectedTraining);
-		selectedTrainingName.setText(lastSelectedTraining.getName());
+		try {
+			lastSelectedTraining = TrainingFactory.getTraining(trainingsAvailable.getSelectedItem().toString());
+			categoryPanel.setTraining(lastSelectedTraining);
+			selectedTrainingName.setText(lastSelectedTraining.getName());
+		} catch (InvalidTrainingException e) {
+			EsherLog.errorMessage(RandomCharacterPlayer.class.getName(), e);
+		}
 		fillTrainingComboBox();
 	}
 
@@ -226,8 +233,7 @@ public class TrainingWindow extends BaseFrame {
 
 	private void setTrainingCost() {
 		if (trainingsAvailable.getSelectedIndex() >= 0) {
-			setDevelopmentPointCostText(characterPlayer
-					.getTrainingCost(trainingsAvailable.getSelectedItem().toString()));
+			setDevelopmentPointCostText(characterPlayer.getTrainingCost(trainingsAvailable.getSelectedItem().toString()));
 		} else {
 			setDevelopmentPointCostText(0);
 		}
@@ -259,17 +265,15 @@ public class TrainingWindow extends BaseFrame {
 
 	private void obtainCharacteristicsUpdates() {
 		if (lastSelectedTraining != null) {
-			List<List<CharacteristicsAbbreviature>> characteristicsUpdates = lastSelectedTraining
-					.getUpdateCharacteristics();
+			List<List<CharacteristicsAbbreviature>> characteristicsUpdates = lastSelectedTraining.getUpdateCharacteristics();
 			// for (List<String> characteristicSet : characteristicsUpdates) {
-			while (characterPlayer.getTrainingCharacteristicsUpdates(lastSelectedTraining.getName()).size() < characteristicsUpdates
-					.size()) {
-				List<CharacteristicsAbbreviature> characteristicSet = characteristicsUpdates.get(characterPlayer
-						.getTrainingCharacteristicsUpdates(lastSelectedTraining.getName()).size());
+			while (characterPlayer.getTrainingCharacteristicsUpdates(lastSelectedTraining.getName()).size() < characteristicsUpdates.size()) {
+				List<CharacteristicsAbbreviature> characteristicSet = characteristicsUpdates.get(characterPlayer.getTrainingCharacteristicsUpdates(
+						lastSelectedTraining.getName()).size());
 				// List is sorted from small to biggest list.
 				if (characteristicSet.size() == 1) {
-					CharacteristicRoll characteristicRoll = characterPlayer.addNewCharacteristicTrainingUpdate(
-							characteristicSet.get(0), lastSelectedTraining.getName());
+					CharacteristicRoll characteristicRoll = characterPlayer.addNewCharacteristicTrainingUpdate(characteristicSet.get(0),
+							lastSelectedTraining.getName());
 					ShowMessage.showInfoMessage(
 							"Hay una aumento para la característica '"
 									+ characteristicSet.get(0)
@@ -279,10 +283,8 @@ public class TrainingWindow extends BaseFrame {
 									+ characteristicRoll.getRoll().getSecondDice()
 									+ "]\n"
 									+ "Por tanto, la característica ha cambiado en: "
-									+ Characteristic.getCharacteristicUpgrade(
-											characteristicRoll.getCharacteristicTemporalValue(),
-											characteristicRoll.getCharacteristicPotentialValue(),
-											characteristicRoll.getRoll()), "Característica aumentada!");
+									+ Characteristic.getCharacteristicUpgrade(characteristicRoll.getCharacteristicTemporalValue(),
+											characteristicRoll.getCharacteristicPotentialValue(), characteristicRoll.getRoll()), "Característica aumentada!");
 				} else {
 					// Select chars
 					List<Characteristic> availableCharacteristics = new ArrayList<>();
@@ -297,14 +299,18 @@ public class TrainingWindow extends BaseFrame {
 	}
 
 	private void setTrainingObjects() {
-		TrainingProbability.setRandomObjects(characterPlayer, lastSelectedTraining.getName());
+		try {
+			TrainingProbability.setRandomObjects(characterPlayer, lastSelectedTraining.getName());
+		} catch (InvalidTrainingException e) {
+			EsherLog.errorMessage(RandomCharacterPlayer.class.getName(), e);
+		}
 	}
 
 	private BaseDialog createDialog(List<Characteristic> availableCharacteristics) {
 		selectCharacteristicDialog = new BaseDialog(this, "El Libro de Esher", true);
 
-		TrainingCharacteristicsUpPanel characteristicWindow = new TrainingCharacteristicsUpPanel(characterPlayer,
-				availableCharacteristics, selectCharacteristicDialog);
+		TrainingCharacteristicsUpPanel characteristicWindow = new TrainingCharacteristicsUpPanel(characterPlayer, availableCharacteristics,
+				selectCharacteristicDialog);
 		characteristicWindow.setTraining(lastSelectedTraining.getName());
 
 		selectCharacteristicDialog.setContentPane(characteristicWindow);
@@ -353,12 +359,10 @@ public class TrainingWindow extends BaseFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (repeatedCategory()) {
-				ShowMessage.showErrorMessage("No puede seleccionarse dos veces la misma categoría.",
-						"Categoría repetida");
+				ShowMessage.showErrorMessage("No puede seleccionarse dos veces la misma categoría.", "Categoría repetida");
 			} else {
 				if (lastSelectedTraining != null) {
-					if (ShowMessage.showQuestionMessage(window, "Esta acción confirmará el adistramiento \""
-							+ lastSelectedTraining.getName()
+					if (ShowMessage.showQuestionMessage(window, "Esta acción confirmará el adistramiento \"" + lastSelectedTraining.getName()
 							+ "\".\n Esta acción es permante. ¿Está seguro de continuar?", "Adiestramiento")) {
 						setSkillRanks();
 						setTrainingObjects();
@@ -371,29 +375,27 @@ public class TrainingWindow extends BaseFrame {
 	}
 
 	/**
-	 * Lets the user to choose the common, professional or restricted skills needed. 
+	 * Lets the user to choose the common, professional or restricted skills
+	 * needed.
 	 */
 	private void selectSkills() {
 		for (ChooseSkillGroup options : lastSelectedTraining.getCommonSkills()) {
 			if (options.getOptionsGroup().size() > 1) {
-				TrainingOptionsWindow<Skill> optionsWindow = new TrainingOptionsWindow<Skill>(characterPlayer,
-						lastSelectedTraining, options, this);
+				TrainingOptionsWindow<Skill> optionsWindow = new TrainingOptionsWindow<Skill>(characterPlayer, lastSelectedTraining, options, this);
 				optionsWindow.setPointCounterLabel("Habilidades comunes: ");
 				optionsWindow.setVisible(true);
 			}
 		}
 		for (ChooseSkillGroup options : lastSelectedTraining.getProfessionalSkills()) {
 			if (options.getOptionsGroup().size() > 1) {
-				TrainingOptionsWindow<Skill> optionsWindow = new TrainingOptionsWindow<Skill>(characterPlayer,
-						lastSelectedTraining, options, this);
+				TrainingOptionsWindow<Skill> optionsWindow = new TrainingOptionsWindow<Skill>(characterPlayer, lastSelectedTraining, options, this);
 				optionsWindow.setPointCounterLabel("Habilidades profesionales: ");
 				optionsWindow.setVisible(true);
 			}
 		}
 		for (ChooseSkillGroup options : lastSelectedTraining.getRestrictedSkills()) {
 			if (options.getOptionsGroup().size() > 1) {
-				TrainingOptionsWindow<Skill> optionsWindow = new TrainingOptionsWindow<Skill>(characterPlayer,
-						lastSelectedTraining, options, this);
+				TrainingOptionsWindow<Skill> optionsWindow = new TrainingOptionsWindow<Skill>(characterPlayer, lastSelectedTraining, options, this);
 				optionsWindow.setPointCounterLabel("Habilidades restringidas: ");
 				optionsWindow.setVisible(true);
 			}
