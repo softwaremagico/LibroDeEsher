@@ -375,6 +375,7 @@ public class Training {
 		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 			String skillLine = lines.get(index);
 			if (skillLine.toLowerCase().contains("ningun") || skillLine.toLowerCase().contains("nothing")) {
+				index++;
 				break;
 			}
 			String[] skillColumns = skillLine.split(", ");

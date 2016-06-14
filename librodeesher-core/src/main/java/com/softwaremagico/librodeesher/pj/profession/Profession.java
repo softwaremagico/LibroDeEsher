@@ -492,7 +492,7 @@ public class Profession {
 		if (cost != null) {
 			return cost;
 		}
-		return Integer.MAX_VALUE;
+		return null;
 	}
 
 	public List<CharacteristicsAbbreviature> getCharacteristicPreferences() {
