@@ -126,15 +126,14 @@ public class Profession {
 	private void readProfessionFile(String professionName) throws InvalidProfessionException {
 		int lineIndex = 0;
 
-		String professionFile = RolemasterFolderStructure.getDirectoryModule(ProfessionFactory.PROFESSION_FOLDER + File.separator
-				+ professionName + ".txt");
+		String professionFile = RolemasterFolderStructure.getDirectoryModule(ProfessionFactory.PROFESSION_FOLDER + File.separator + professionName + ".txt");
 		if (professionFile.length() > 0) {
 			List<String> lines;
 			try {
 				lines = Folder.readFileLines(professionFile, false);
 			} catch (IOException e) {
-				throw new InvalidProfessionException("Invalid profession file: " + ProfessionFactory.PROFESSION_FOLDER + File.separator
-						+ professionName + ".txt", e);
+				throw new InvalidProfessionException("Invalid profession file: " + ProfessionFactory.PROFESSION_FOLDER + File.separator + professionName
+						+ ".txt", e);
 			}
 			lineIndex = setBasicCharacteristics(lines, lineIndex);
 			lineIndex = setMagicRealmsAvailable(lines, lineIndex);
@@ -146,8 +145,7 @@ public class Profession {
 			lineIndex = setMagicCost(lines, lineIndex);
 			lineIndex = setTrainingCosts(lines, lineIndex);
 		} else {
-			throw new InvalidProfessionException("Invalid profession file: " + ProfessionFactory.PROFESSION_FOLDER + File.separator
-					+ professionName + ".txt");
+			throw new InvalidProfessionException("Invalid profession file: " + ProfessionFactory.PROFESSION_FOLDER + File.separator + professionName + ".txt");
 		}
 	}
 
@@ -307,8 +305,8 @@ public class Profession {
 		}
 	}
 
-	private int setSpecialSkills(List<String> lines, int index, List<String> groupSkills, List<ChooseSkillGroup> groupSkillsToChoose,
-			ChooseType chooseType) throws InvalidProfessionException {
+	private int setSpecialSkills(List<String> lines, int index, List<String> groupSkills, List<ChooseSkillGroup> groupSkillsToChoose, ChooseType chooseType)
+			throws InvalidProfessionException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -325,14 +323,12 @@ public class Profession {
 					String[] categoryColumns = skillColumns[i].split("#");
 					Category cat = CategoryFactory.getCategory(categoryColumns[0]);
 					if (cat != null) {
-						ChooseSkillGroup chooseSkills = new ChooseSkillGroup(Integer.parseInt(categoryColumns[1]), cat.getSkills(),
-								chooseType);
+						ChooseSkillGroup chooseSkills = new ChooseSkillGroup(Integer.parseInt(categoryColumns[1]), cat.getSkills(), chooseType);
 						groupSkillsToChoose.add(chooseSkills);
 					} else if (categoryColumns[0].contains("{") && categoryColumns[0].contains("}") && categoryColumns[0].contains(";")) {
 						String[] skillsArray = categoryColumns[0].replace("{", "").replace("}", "").split(";");
 						try {
-							ChooseSkillGroup chooseSkills = new ChooseSkillGroup(Integer.parseInt(categoryColumns[1]), skillsArray,
-									chooseType);
+							ChooseSkillGroup chooseSkills = new ChooseSkillGroup(Integer.parseInt(categoryColumns[1]), skillsArray, chooseType);
 							groupSkillsToChoose.add(chooseSkills);
 						} catch (InvalidSkillException e) {
 							throw new InvalidProfessionException("Invalid skill for '" + getName() + "' in '" + skillLine + "'.", e);
@@ -382,10 +378,10 @@ public class Profession {
 	private int setTrainingCosts(List<String> lines, int index) throws InvalidProfessionException {
 		trainingCosts = new HashMap<>();
 		trainingTypes = new HashMap<>();
-		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
+		while (index < lines.size() && (lines.get(index).equals("") || lines.get(index).startsWith("#"))) {
 			index++;
 		}
-		while (!lines.get(index).startsWith("#")) {
+		while (index < lines.size() && (!lines.get(index).startsWith("#"))) {
 			if (lines.get(index).length() > 0) {
 				String trainingLine = lines.get(index);
 				String[] trainingColumns = trainingLine.split("\t");

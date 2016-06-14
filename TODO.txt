@@ -1,5 +1,4 @@
 Eliminar fichero de configuracion y guardar toda la configuración en el personaje.
-Sort perks by cost or name.
 Idiomas "Idioma regional" "Idioma racial"
 Insert skills and ranks
 Perks in race not used (Troll de guerra)

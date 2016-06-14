@@ -127,7 +127,7 @@ public class Training {
 			index++;
 		}
 		limitedRaces = new ArrayList<>();
-		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
+		while (lines.get(index).length()!=0 && !lines.get(index).startsWith("#")) {
 			String trainingLine = lines.get(index);
 			try {
 				String[] limitedRacesColumn = trainingLine.split(", ");
@@ -152,7 +152,7 @@ public class Training {
 		String skill = "";
 		int probability = 0;
 		objects = new ArrayList<>();
-		while (!lines.get(index).equals("")) {
+		while (lines.get(index).length()!=0) {
 			String trainingLine = lines.get(index);
 			try {
 				String[] specialColumns = trainingLine.split("\t");
@@ -186,7 +186,7 @@ public class Training {
 		}
 		categoriesWithRanks = new ArrayList<>();
 		TrainingCategory trainingCategory = null;
-		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
+		while (lines.get(index).length()!=0 && !lines.get(index).startsWith("#")) {
 			// It is a category
 			if (!lines.get(index).contains("*")) {
 				try {
@@ -259,7 +259,7 @@ public class Training {
 			index++;
 		}
 		updateCharacteristics = new ArrayList<>();
-		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
+		while (lines.get(index).length()!=0 && !lines.get(index).startsWith("#")) {
 			String trainingLine = lines.get(index);
 			try {
 				if (trainingLine.contains("{")) {
@@ -310,7 +310,7 @@ public class Training {
 			index++;
 		}
 
-		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
+		while (lines.get(index).length()!=0 && !lines.get(index).startsWith("#")) {
 			if (!lines.get(index).toLowerCase().contains("ningun")) {
 				String[] requirementsGroup = lines.get(index).split(", ");
 				for (int i = 0; i < requirementsGroup.length; i++) {
@@ -350,7 +350,7 @@ public class Training {
 			index++;
 		}
 
-		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
+		while (lines.get(index).length()!=0 && !lines.get(index).startsWith("#")) {
 			String skillLine = lines.get(index);
 			if (skillLine.toLowerCase().contains("ningun") || skillLine.toLowerCase().contains("nothing")) {
 				index++;
@@ -384,7 +384,7 @@ public class Training {
 			index++;
 		}
 
-		while (index < lines.size() && (!lines.get(index).equals("") && !lines.get(index).startsWith("#"))) {
+		while (index < lines.size() && (lines.get(index).length()!=0 && !lines.get(index).startsWith("#"))) {
 			if (!lines.get(index).toLowerCase().contains("ningun")) {
 				String professionLine = lines.get(index);
 				String[] professionColumns = professionLine.split("\t");
