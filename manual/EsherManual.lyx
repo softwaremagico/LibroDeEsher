@@ -1,5 +1,5 @@
-#LyX 2.1 created this file. For more info see http://www.lyx.org/
-\lyxformat 474
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
 \begin_document
 \begin_header
 \textclass book
@@ -12,13 +12,13 @@
 \font_roman default
 \font_sans default
 \font_typewriter default
-\font_math auto
 \font_default_family default
 \use_non_tex_fonts false
 \font_sc false
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
+
 \graphics default
 \default_output_format default
 \output_sync 0
@@ -30,24 +30,15 @@
 \use_hyperref false
 \papersize a4paper
 \use_geometry false
-\use_package amsmath 1
-\use_package amssymb 1
-\use_package cancel 1
-\use_package esint 1
-\use_package mathdots 1
-\use_package mathtools 1
-\use_package mhchem 1
-\use_package stackrel 1
-\use_package stmaryrd 1
-\use_package undertilde 1
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
 \cite_engine basic
-\cite_engine_type default
-\biblio_style plain
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
 \suppress_date false
-\justification true
 \use_refstyle 0
 \index Índice
 \shortcut idx
@@ -76,12 +67,29 @@ El Libro de Esher v2.3.0
 \end_inset
 
 Generador de personajes para Rolemaster
-\end_layout
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
-\align center
+
+\size scriptsize
+(http://librodeesher.sourceforge.net/)
+\size default
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
 \begin_inset Graphics
 	filename /home/jhortelano/workspace/LibroDeEsher/librodeesher-gui/src/main/resources/images/splash.png
+	scale 80
 
 \end_inset
 
@@ -89,22 +97,6 @@ Generador de personajes para Rolemaster
 \end_layout
 
 \begin_layout Author
-(http://librodeesher.sourceforge.net/)
-\begin_inset Newline newline
-\end_inset
-
-
-\begin_inset Newline newline
-\end_inset
-
-
-\begin_inset Newline newline
-\end_inset
-
-
-\begin_inset Newline newline
-\end_inset
-
 Jorge Hortelano Otero 
 \begin_inset Newline newline
 \end_inset
@@ -114,23 +106,8 @@ Jorge Hortelano Otero
 \end_inset
 
 
-\begin_inset Newline newline
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset CommandInset toc
 LatexCommand tableofcontents
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset FloatList figure
 
 \end_inset
 
@@ -177,7 +154,7 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption Standard
+\begin_inset Caption
 
 \begin_layout Plain Layout
 Ventana principal del programa.
@@ -595,7 +572,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption Standard
+\begin_inset Caption
 
 \begin_layout Plain Layout
 Ejemplo de uso de la ventana de características.
@@ -732,7 +709,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption Standard
+\begin_inset Caption
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -816,7 +793,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption Standard
+\begin_inset Caption
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -980,7 +957,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption Standard
+\begin_inset Caption
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -1086,7 +1063,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption Standard
+\begin_inset Caption
 
 \begin_layout Plain Layout
 Ejemplo de selección de categorías y habilidades.
@@ -1216,7 +1193,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption Standard
+\begin_inset Caption
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -1302,7 +1279,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption Standard
+\begin_inset Caption
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -1756,7 +1733,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption Standard
+\begin_inset Caption
 
 \begin_layout Plain Layout
 Ventana de configuración.
@@ -2626,7 +2603,7 @@ name "sec:Añadir-Categorías"
 
 \end_inset
 
-Donde situar las nuevas categorías y habilidades
+Nuevas categorías y habilidades
 \end_layout
 
 \begin_layout Standard
@@ -2635,6 +2612,69 @@ Puedes incluir nuevas categorías y habilidades sin necesidad de modificar
  Solamente tienes que crear un nuevo fichero dentro de la carpeta de tu
  módulo incluyendo solamente las habilidades y categorías a las que pertenecen.
  Si ya existen en algún otro módulo, el programa no las incluirá de nuevo.
+ 
+\end_layout
+
+\begin_layout Standard
+Cuando incluyas una nueva habilidad, ten en cuenta lo siguiente:
+\end_layout
+
+\begin_layout Enumerate
+Puedes incluir en el nombre de la habilidad las etiquetas (R) para hacerla
+ restringida, (C) para hacerla común, (P) para hacerla profesional.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Existen habilidades que únicamente pueden ser utilizadas si previamente
+ has incluído algún rango en otra.
+ Esto es claramente visible en el Manual de las Artes Marciales, en donde
+ los estilos de lucha habilitan ciertos poderes chi.
+ La sintaxis es indicar las habilidades ha habilitar entre llaves, separadas
+ por 
+\begin_inset Quotes eld
+\end_inset
+
+|
+\begin_inset Quotes erd
+\end_inset
+
+ si el usuario debe escoger una o 
+\begin_inset Quotes eld
+\end_inset
+
+&
+\begin_inset Quotes erd
+\end_inset
+
+ si habilita todas ellas.
+ Por ejemplo, en 
+\begin_inset Quotes eld
+\end_inset
+
+Estilo de la Grulla {Poderes Chi: Ataque Sin Sombra | Poderes Chi: Golpes
+ Contínuos}
+\begin_inset Quotes erd
+\end_inset
+
+ el usuario podrá escoger uno de los dos poderes chi si aprende el Estilo
+ de la Grulla.
+ Pero en 
+\begin_inset Quotes eld
+\end_inset
+
+Estilo Tigre {Poderes Chi: Golpe en Salto & Poderes Chi: Golpes Contínuos}
+\begin_inset Quotes erd
+\end_inset
+
+ el usuario ganará acceso a ambos poderes chi.
+ 
+\emph on
+Nota: incluir una habilidad para ser habilitada por otra automáticamente
+ la deshabilita.
+ Por lo que en el ejemplo anterior, al definir el Estilo de la Grulla junto
+ con sus dos poderes chi automáticamente ha deshabilitado ambos poderes
+ chi de poder ser escogidos de forma normal por un jugador.
  
 \end_layout
 
