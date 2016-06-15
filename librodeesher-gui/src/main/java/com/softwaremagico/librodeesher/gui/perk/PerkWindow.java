@@ -65,9 +65,9 @@ public class PerkWindow extends BaseFrame {
 		sortPerks();
 	}
 
-	private void setHistorialPointText() {
+	private void setBackgroundPointText() {
 		if (historyPoints != null) {
-			historyPoints.setPoints(character.getRemainingHistorialPoints());
+			historyPoints.setPoints(character.getRemainingBackgroundPoints());
 		}
 	}
 
@@ -120,7 +120,7 @@ public class PerkWindow extends BaseFrame {
 			historyPoints.setColumns(3);
 			historyPoints.setEditable(false);
 			historyPoints.setMaximumSize(new Dimension(60, 25));
-			setHistorialPointText();
+			setBackgroundPointText();
 			perksPointPanel.add(historyPoints);
 		}
 
@@ -166,7 +166,7 @@ public class PerkWindow extends BaseFrame {
 
 	@Override
 	public void updateFrame() {
-		setHistorialPointText();
+		setBackgroundPointText();
 		setPerksPointsText();
 	}
 

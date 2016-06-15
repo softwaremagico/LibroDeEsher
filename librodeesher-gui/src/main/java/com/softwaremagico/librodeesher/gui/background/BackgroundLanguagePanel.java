@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.history;
+package com.softwaremagico.librodeesher.gui.background;
 
 /*
  * #%L
@@ -32,13 +32,13 @@ import java.util.List;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
-public class HistoryLanguagePanel extends BasePanel {
+public class BackgroundLanguagePanel extends BasePanel {
 	private static final long serialVersionUID = -9203104559414795802L;
 	private CharacterPlayer character;
-	private HistoryLanguageCompletePanel parent;
-	protected List<HistoryLanguageLine> languageLines = new ArrayList<>();
+	private BackgroundLanguageCompletePanel parent;
+	protected List<BackgroundLanguageLine> languageLines = new ArrayList<>();
 
-	public HistoryLanguagePanel(CharacterPlayer character, HistoryLanguageCompletePanel parent) {
+	public BackgroundLanguagePanel(CharacterPlayer character, BackgroundLanguageCompletePanel parent) {
 		this.character = character;
 		this.parent = parent;
 		setElements();
@@ -57,7 +57,7 @@ public class HistoryLanguagePanel extends BasePanel {
 		}
 		Collections.sort(languages);
 		for (String language : languages) {
-			HistoryLanguageLine languageLine = new HistoryLanguageLine(character, language, this, getLineBackgroundColor(i));
+			BackgroundLanguageLine languageLine = new BackgroundLanguageLine(character, language, this, getLineBackgroundColor(i));
 			add(languageLine);
 			languageLines.add(languageLine);
 			i++;
@@ -74,7 +74,7 @@ public class HistoryLanguagePanel extends BasePanel {
 	}
 
 	public void updateHistoryLines() {
-		for (HistoryLanguageLine languageLine : languageLines) {
+		for (BackgroundLanguageLine languageLine : languageLines) {
 			languageLine.updateRanks();
 		}
 	}

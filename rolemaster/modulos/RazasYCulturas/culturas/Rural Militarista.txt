@@ -74,7 +74,7 @@ Habla del Sur	8/8
 # ADIESTAMIENTOS
 ####################
 Mercenario	75%
-Soldato 	75%
+Soldado 	75%
 Experto en Armas	75%
 
 ### FIN CULTURA ###

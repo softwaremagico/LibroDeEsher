@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.history;
+package com.softwaremagico.librodeesher.gui.background;
 /*
  * #%L
  * Libro de Esher (GUI)
@@ -27,17 +27,17 @@ import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
-public class HistoryLanguageCompletePanel extends BaseScrollPanel {
+public class BackgroundLanguageCompletePanel extends BaseScrollPanel {
 	private static final long serialVersionUID = -9212875782853105580L;
 	private BaseFrame parent;
-	private HistoryLanguageTitle title;
-	private HistoryLanguagePanel languagePanel;
+	private BackgroundLanguageTitle title;
+	private BackgroundLanguagePanel languagePanel;
 
-	public HistoryLanguageCompletePanel(CharacterPlayer character, BaseFrame parent) {
+	public BackgroundLanguageCompletePanel(CharacterPlayer character, BaseFrame parent) {
 		this.parent = parent;
-		title = new HistoryLanguageTitle();
+		title = new BackgroundLanguageTitle();
 		addTitle(title);
-		languagePanel = new HistoryLanguagePanel(character, this);
+		languagePanel = new BackgroundLanguagePanel(character, this);
 		setBody(languagePanel);
 	}
 

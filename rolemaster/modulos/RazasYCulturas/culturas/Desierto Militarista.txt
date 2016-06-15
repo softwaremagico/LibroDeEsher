@@ -77,8 +77,8 @@ Habla de las Llanuras	8/8
 # ADIESTAMIENTOS
 ####################
 Mercenario	75%
-Soldato	75%
+Soldado	75%
 Fanático Religioso	75%
-Experto en Arma	75%
+Experto en Armas	75%
 
 ### FIN CULTURA ###

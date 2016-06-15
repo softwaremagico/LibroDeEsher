@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.history;
+package com.softwaremagico.librodeesher.gui.background;
 
 /*
  * #%L
@@ -32,16 +32,16 @@ import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicUpPanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 
-public class HistoryCharacteristicPanel extends CharacteristicUpPanel {
+public class BackgroundCharacteristicPanel extends CharacteristicUpPanel {
 	private static final long serialVersionUID = -3311606513343600118L;
 
-	public HistoryCharacteristicPanel(CharacterPlayer character, List<Characteristic> characteristics) {
+	public BackgroundCharacteristicPanel(CharacterPlayer character, List<Characteristic> characteristics) {
 		super(character, characteristics);
 	}
 
 	@Override
 	public CharacteristicUpLine createLine(CharacterPlayer character, Characteristic characteristic,
 			Color background) {
-		return new HistoryCharacteristicLine(character, characteristic, background);
+		return new BackgroundCharacteristicLine(character, characteristic, background);
 	}
 }

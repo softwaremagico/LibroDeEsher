@@ -177,11 +177,11 @@ public class PdfCombinedSheet2Columns extends PdfStandardSheet {
 
 	protected String getBonusValue(Skill skill) {
 		String bonusText = getCharacterPlayer().getProfession().getSkillBonus(skill.getName())
-				+ getCharacterPlayer().getHistorial().getBonus(skill) + getCharacterPlayer().getPerkBonus(skill)
+				+ getCharacterPlayer().getBackground().getBonus(skill) + getCharacterPlayer().getPerkBonus(skill)
 				+ getCharacterPlayer().getConditionalPerkBonus(skill) + "";
 
 		String letter = "";
-		if (getCharacterPlayer().getHistorial().getBonus(skill) > 0) {
+		if (getCharacterPlayer().getBackground().getBonus(skill) > 0) {
 			letter += "H";
 		}
 		if (getCharacterPlayer() != null
@@ -442,10 +442,10 @@ public class PdfCombinedSheet2Columns extends PdfStandardSheet {
 		p.add(p2);
 		categoryTable.addCell(getCategoryCell(p, background));
 
-		String text = (getCharacterPlayer().getHistorial().getBonus(category) + getCharacterPlayer().getPerkBonus(category)) + "";
+		String text = (getCharacterPlayer().getBackground().getBonus(category) + getCharacterPlayer().getPerkBonus(category)) + "";
 		String letter = "";
 
-		if (getCharacterPlayer().getHistorial().getBonus(category) > 0) {
+		if (getCharacterPlayer().getBackground().getBonus(category) > 0) {
 			letter += "H";
 		}
 

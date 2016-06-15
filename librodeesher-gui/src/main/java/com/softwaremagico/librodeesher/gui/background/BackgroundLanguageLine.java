@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.history;
+package com.softwaremagico.librodeesher.gui.background;
 
 /*
  * #%L
@@ -43,17 +43,17 @@ import com.softwaremagico.librodeesher.gui.style.BaseLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
-public class HistoryLanguageLine extends BaseLine {
+public class BackgroundLanguageLine extends BaseLine {
 
 	private static final long serialVersionUID = 2401612544094265349L;
 	private String language;
 	private Integer initalValue;
-	private HistoryLanguagePanel parentPanel;
+	private BackgroundLanguagePanel parentPanel;
 	private CharacterPlayer characterPlayer;
 	private BaseSpinner rankSpinner;
 	private String skillName;
 
-	public HistoryLanguageLine(CharacterPlayer characterPlayer, String language, HistoryLanguagePanel languagePanel, Color background) {
+	public BackgroundLanguageLine(CharacterPlayer characterPlayer, String language, BackgroundLanguagePanel languagePanel, Color background) {
 		this.characterPlayer = characterPlayer;
 		this.skillName = language;
 		this.parentPanel = languagePanel;
@@ -126,7 +126,7 @@ public class HistoryLanguageLine extends BaseLine {
 						rankSpinner.setValue(initalValue);
 					}
 					// No enough history points
-				} else if (characterPlayer.getRemainingHistorialPoints() < 0) {
+				} else if (characterPlayer.getRemainingBackgroundPoints() < 0) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					setTitle();
@@ -161,11 +161,11 @@ public class HistoryLanguageLine extends BaseLine {
 		this.initalValue = initalValue;
 	}
 
-	public HistoryLanguagePanel getParentPanel() {
+	public BackgroundLanguagePanel getParentPanel() {
 		return parentPanel;
 	}
 
-	public void setParentPanel(HistoryLanguagePanel parentPanel) {
+	public void setParentPanel(BackgroundLanguagePanel parentPanel) {
 		this.parentPanel = parentPanel;
 	}
 

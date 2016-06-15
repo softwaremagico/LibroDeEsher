@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.history;
+package com.softwaremagico.librodeesher.gui.background;
 
 /*
  * #%L
@@ -36,12 +36,12 @@ import com.softwaremagico.librodeesher.gui.elements.GenericCategoryLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 
-public class HistoryCategoryLine extends GenericCategoryLine {
+public class BackgroundCategoryLine extends GenericCategoryLine {
 	private static final long serialVersionUID = -3523895407174764934L;
 	private final static int NAME_LENGTH = 200;
-	private BaseCheckBox historyCheckBox;
+	private BaseCheckBox backgroundCheckBox;
 
-	public HistoryCategoryLine(CharacterPlayer character, Category category, Color background, BaseSkillPanel parentWindow) {
+	public BackgroundCategoryLine(CharacterPlayer character, Category category, Color background, BaseSkillPanel parentWindow) {
 		super(character, category, NAME_LENGTH,  background, parentWindow);
 		enableColumns(false, false, false, false, false, false, false, true);
 		addHistoryCheckBox();
@@ -49,26 +49,26 @@ public class HistoryCategoryLine extends GenericCategoryLine {
 
 	private void addHistoryCheckBox() {
 		JPanel panel = new JPanel();
-		historyCheckBox = new BaseCheckBox("");
-		historyCheckBox.setSelected(character.isHistoryPointSelected(category));
-		panel.add(historyCheckBox);
-		historyCheckBox.addItemListener(new CheckBoxListener());
+		backgroundCheckBox = new BaseCheckBox("");
+		backgroundCheckBox.setSelected(character.isHistoryPointSelected(category));
+		panel.add(backgroundCheckBox);
+		backgroundCheckBox.addItemListener(new CheckBoxListener());
 		addColumn(panel, 0, 0.1f);
 	}
 
 	class CheckBoxListener implements ItemListener {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
-			character.setHistoryPoints(category, historyCheckBox.isSelected());
-			if (character.getRemainingHistorialPoints() < 0) {
-				historyCheckBox.setSelected(false);
+			character.setHistoryPoints(category, backgroundCheckBox.isSelected());
+			if (character.getRemainingBackgroundPoints() < 0) {
+				backgroundCheckBox.setSelected(false);
 			}
 			update();
 		}
 	}
 
 	public void updateComboBox() {
-		historyCheckBox.setSelected(character.isHistoryPointSelected(getCategory()));
+		backgroundCheckBox.setSelected(character.isHistoryPointSelected(getCategory()));
 	}
 
 	@Override

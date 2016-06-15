@@ -77,8 +77,8 @@ Murlogi	6/4
 
 # ADIESTAMIENTOS
 ####################
-Experto en Arma	75%
+Experto en Armas	75%
 Mercenario	75%
-Soldato	75%
+Soldado	75%
 
 ### FIN CULTURA ###

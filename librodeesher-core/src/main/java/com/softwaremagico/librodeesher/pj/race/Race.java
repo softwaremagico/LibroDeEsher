@@ -70,7 +70,7 @@ public class Race {
 	private RaceSize size;
 	private Float restorationTime;
 	private Integer languagePoints;
-	private Integer historialPoints;
+	private Integer backgroundPoints;
 	private Map<String, Integer> initialRaceLanguages;
 	private Map<String, Integer> maxRaceLanguages;
 	private Map<String, Integer> maxHistoryLanguages;
@@ -341,7 +341,7 @@ public class Race {
 			index++;
 		}
 		try {
-			historialPoints = Integer.parseInt(lines.get(index));
+			backgroundPoints = Integer.parseInt(lines.get(index));
 			index++;
 		} catch (NumberFormatException nfe) {
 			throw new InvalidRaceException("History points invalid in race '" + name + "'.", nfe);
@@ -684,8 +684,8 @@ public class Race {
 		return new ArrayList<>(maxRaceLanguages.keySet());
 	}
 
-	public Integer getHistorialPoints() {
-		return historialPoints;
+	public Integer getBackgroundPoints() {
+		return backgroundPoints;
 	}
 
 	public Integer getPerksPoints() throws InvalidRaceDefinition {

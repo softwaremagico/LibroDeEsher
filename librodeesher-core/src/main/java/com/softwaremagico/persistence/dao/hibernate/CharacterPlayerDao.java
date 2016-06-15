@@ -67,7 +67,7 @@ public class CharacterPlayerDao extends GenericDao<CharacterPlayer> implements I
 				Hibernate.initialize(player.getEnabledSkill());
 				Hibernate.initialize(player.getMagicItems());
 				Hibernate.initialize(player.getTrainingDecisions());
-				Hibernate.initialize(player.getHistorial());
+				Hibernate.initialize(player.getBackground());
 				Hibernate.initialize(player.getRealmOfMagic());
 				Hibernate.initialize(player.getProfessionDecisions());
 				Hibernate.initialize(player.getCultureDecisions());

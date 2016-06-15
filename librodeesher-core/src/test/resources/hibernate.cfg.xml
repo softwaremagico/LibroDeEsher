@@ -48,7 +48,7 @@
 	<mapping class="com.softwaremagico.librodeesher.pj.categories.CategoryCost"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.basics.ChooseGroup"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.culture.CultureDecisions"></mapping>
-	<mapping class="com.softwaremagico.librodeesher.pj.historial.Historial"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.background.Background"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.level.LevelUp"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.magic.MagicSpellLists"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.perk.PerkDecision"></mapping>

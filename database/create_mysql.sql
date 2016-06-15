@@ -8,6 +8,38 @@
         primary key (ID)
     );
 
+    create table T_BACKGROUND (
+        ID bigint not null,
+        comparationId varchar(255) not null,
+        creationTime datetime not null,
+        updateTime datetime,
+        primary key (ID)
+    );
+
+    create table T_BACKGROUND_CATEGORIES (
+        Background_ID bigint not null,
+        categories varchar(255)
+    );
+
+    create table T_BACKGROUND_CHARACTERISTICS_UPDATES (
+        T_BACKGROUND_ID bigint not null,
+        characteristicsUpdates_ID bigint not null,
+        roll_index integer not null,
+        primary key (T_BACKGROUND_ID, roll_index)
+    );
+
+    create table T_BACKGROUND_LANGUAGE_RANKS (
+        Background_ID bigint not null,
+        languageRanks integer,
+        languageRanks_KEY varchar(255),
+        primary key (Background_ID, languageRanks_KEY)
+    );
+
+    create table T_BACKGROUND_SKILLS (
+        Background_ID bigint not null,
+        skills varchar(255)
+    );
+
     create table T_CATEGORY_COST (
         ID bigint not null,
         comparationId varchar(255) not null,
@@ -51,8 +83,8 @@
         sortPdfSkills bit not null,
         version varchar(255),
         appearance_ID bigint,
+        backgroundId bigint,
         cultureDecisionsId bigint,
-        historialId bigint,
         insertedDataId bigint,
         professionDecisionsId bigint,
         professionalRealmId bigint,
@@ -150,38 +182,6 @@
     create table T_FAVOURITE_SKILLS (
         LevelUp_ID bigint not null,
         favouriteSkills varchar(255)
-    );
-
-    create table T_HISTORIAL (
-        ID bigint not null,
-        comparationId varchar(255) not null,
-        creationTime datetime not null,
-        updateTime datetime,
-        primary key (ID)
-    );
-
-    create table T_HISTORIAL_CATEGORIES (
-        Historial_ID bigint not null,
-        categories varchar(255)
-    );
-
-    create table T_HISTORIAL_CHARACTERISTICS_UPDATES (
-        T_HISTORIAL_ID bigint not null,
-        characteristicsUpdates_ID bigint not null,
-        roll_index integer not null,
-        primary key (T_HISTORIAL_ID, roll_index)
-    );
-
-    create table T_HISTORIAL_LANGUAGE_RANKS (
-        Historial_ID bigint not null,
-        languageRanks integer,
-        languageRanks_KEY varchar(255),
-        primary key (Historial_ID, languageRanks_KEY)
-    );
-
-    create table T_HISTORIAL_SKILLS (
-        Historial_ID bigint not null,
-        skills varchar(255)
     );
 
     create table T_INSERTED_CATEGORIES_RANKS (
@@ -542,6 +542,15 @@
     alter table T_APPEARANCE 
         add constraint UK_fvvhnk8c7ii3jvbmo5b6fg5un unique (comparationId);
 
+    alter table T_BACKGROUND 
+        add constraint UK_tcyp241rqmolym4d1a1h575di unique (ID);
+
+    alter table T_BACKGROUND 
+        add constraint UK_kg8ehmc8pkdlemaya4qgxr2g3 unique (comparationId);
+
+    alter table T_BACKGROUND_CHARACTERISTICS_UPDATES 
+        add constraint UK_4sttp2pdvsngqkhbigpb2l597 unique (characteristicsUpdates_ID);
+
     alter table T_CATEGORY_COST 
         add constraint UK_fcmfkigake2hqq44gyge781xw unique (ID);
 
@@ -580,15 +589,6 @@
 
     alter table T_CULTUREDECISIONS 
         add constraint UK_i4vxctno4axrv6clm66mmrngb unique (comparationId);
-
-    alter table T_HISTORIAL 
-        add constraint UK_b78higqrsil53rexxwbd88dn3 unique (ID);
-
-    alter table T_HISTORIAL 
-        add constraint UK_mguv54adf0m90noy52x1lea5x unique (comparationId);
-
-    alter table T_HISTORIAL_CHARACTERISTICS_UPDATES 
-        add constraint UK_ryqf6ahmvfyfo3da42imitxen unique (characteristicsUpdates_ID);
 
     alter table T_INSERTED_DATA 
         add constraint UK_h99y61rxnrq69c3nx0n2ko4m3 unique (ID);
@@ -704,6 +704,31 @@
     alter table T_TRAINING_SKILLS_SELECTED 
         add constraint UK_s4duauy8ccp5mc0938bw027dl unique (comparationId);
 
+    alter table T_BACKGROUND_CATEGORIES 
+        add constraint FK_qfry0khx7puobhvanxbum9lob 
+        foreign key (Background_ID) 
+        references T_BACKGROUND (ID);
+
+    alter table T_BACKGROUND_CHARACTERISTICS_UPDATES 
+        add constraint FK_4sttp2pdvsngqkhbigpb2l597 
+        foreign key (characteristicsUpdates_ID) 
+        references T_CHARACTERISTIC_ROLL_GROUP (ID);
+
+    alter table T_BACKGROUND_CHARACTERISTICS_UPDATES 
+        add constraint FK_83gvbe7gn6lw2trqk9a4i8w6o 
+        foreign key (T_BACKGROUND_ID) 
+        references T_BACKGROUND (ID);
+
+    alter table T_BACKGROUND_LANGUAGE_RANKS 
+        add constraint FK_h9p5rr5wpryrt7ofvfs5nov8 
+        foreign key (Background_ID) 
+        references T_BACKGROUND (ID);
+
+    alter table T_BACKGROUND_SKILLS 
+        add constraint FK_swltv618wty5mj3e6mcrs0xav 
+        foreign key (Background_ID) 
+        references T_BACKGROUND (ID);
+
     alter table T_CHARACTERISTIC_ROLL_GROUP 
         add constraint FK_jb6k15e74i40yqa7r969c1qwx 
         foreign key (roll_ID) 
@@ -715,14 +740,14 @@
         references T_APPEARANCE (ID);
 
     alter table T_CHARACTERPLAYER 
+        add constraint FK_os1kt82jl37c7r6o4fnurp3n2 
+        foreign key (backgroundId) 
+        references T_BACKGROUND (ID);
+
+    alter table T_CHARACTERPLAYER 
         add constraint FK_a6if2gfydatge62dg8j1pgy5w 
         foreign key (cultureDecisionsId) 
         references T_CULTUREDECISIONS (ID);
-
-    alter table T_CHARACTERPLAYER 
-        add constraint FK_fosyvcj2m4uxy71k8c0yal7f4 
-        foreign key (historialId) 
-        references T_HISTORIAL (ID);
 
     alter table T_CHARACTERPLAYER 
         add constraint FK_sf6x1b6j7k1j0k5u6l2rmdrje 
@@ -828,31 +853,6 @@
         add constraint FK_e4sag5ym4ve2sequ1a09uwfdb 
         foreign key (LevelUp_ID) 
         references T_LEVELUP (ID);
-
-    alter table T_HISTORIAL_CATEGORIES 
-        add constraint FK_bywynufv173nmi7oi67mifquw 
-        foreign key (Historial_ID) 
-        references T_HISTORIAL (ID);
-
-    alter table T_HISTORIAL_CHARACTERISTICS_UPDATES 
-        add constraint FK_ryqf6ahmvfyfo3da42imitxen 
-        foreign key (characteristicsUpdates_ID) 
-        references T_CHARACTERISTIC_ROLL_GROUP (ID);
-
-    alter table T_HISTORIAL_CHARACTERISTICS_UPDATES 
-        add constraint FK_bu9fdjwtblk4m412wp2v4ft9k 
-        foreign key (T_HISTORIAL_ID) 
-        references T_HISTORIAL (ID);
-
-    alter table T_HISTORIAL_LANGUAGE_RANKS 
-        add constraint FK_n5u594ccohc0iyd7saqom6jvx 
-        foreign key (Historial_ID) 
-        references T_HISTORIAL (ID);
-
-    alter table T_HISTORIAL_SKILLS 
-        add constraint FK_3jaxecovlcm50nr1sxbl3hvkr 
-        foreign key (Historial_ID) 
-        references T_HISTORIAL (ID);
 
     alter table T_INSERTED_CATEGORIES_RANKS 
         add constraint FK_oty3rpochepuhxys6dr4k0586 
