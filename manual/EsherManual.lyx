@@ -62,24 +62,24 @@
 \begin_body
 
 \begin_layout Title
-El Libro de Esher v2.3.0
+EL LIBRO DE ESHER
 \begin_inset Newline newline
 \end_inset
 
-Generador de personajes para Rolemaster
+Generador de Personajes para Rolemaster
 \begin_inset Newline newline
 \end_inset
 
 
 \size scriptsize
-(http://librodeesher.sourceforge.net/)
+(http://librodeesher.sourceforge.net)
 \size default
 
 \begin_inset Newline newline
 \end_inset
 
 
-\begin_inset Newline newline
+\begin_inset space ~
 \end_inset
 
 
@@ -88,24 +88,24 @@ Generador de personajes para Rolemaster
 
 
 \begin_inset Graphics
-	filename /home/jhortelano/workspace/LibroDeEsher/librodeesher-gui/src/main/resources/images/splash.png
-	scale 80
+	filename ../librodeesher-gui/src/main/resources/images/librodeesher.svg
+	lyxscale 60
+	width 40col%
 
 \end_inset
 
 
+\begin_inset Newline newline
+\end_inset
+
+v2.3.0
 \end_layout
 
 \begin_layout Author
-Jorge Hortelano Otero 
-\begin_inset Newline newline
-\end_inset
+Jorge Hortelano Otero
+\end_layout
 
-
-\begin_inset Newline newline
-\end_inset
-
-
+\begin_layout Standard
 \begin_inset CommandInset toc
 LatexCommand tableofcontents
 
@@ -2584,7 +2584,8 @@ Todos los adiestramientos que tengan un símbolo
 \end_inset
 
  al inicio o al final, se considerarán como adiestramientos no permitidos.
- Estos adiestramientos no podrán ser escogidos.
+ Estos adiestramientos no podrán ser escogidos por el usuario de la aplicación
+ ni los escogerá el programa al generar un personaje aleatorio.
  
 \end_layout
 
