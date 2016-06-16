@@ -45,6 +45,7 @@ import javax.swing.SwingUtilities;
 
 import com.itextpdf.text.DocumentException;
 import com.softwaremagico.files.MessageManager;
+import com.softwaremagico.librodeesher.gui.background.BackgroundWindow;
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicsWindow;
 import com.softwaremagico.librodeesher.gui.components.CharacterMenuItem;
 import com.softwaremagico.librodeesher.gui.culture.CultureWindow;
@@ -52,7 +53,6 @@ import com.softwaremagico.librodeesher.gui.files.ExploreWindowForPdf;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForRlm;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForRlmLvl;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForTxt;
-import com.softwaremagico.librodeesher.gui.history.HistoryWindow;
 import com.softwaremagico.librodeesher.gui.magicitem.InsertMagicItemWindow;
 import com.softwaremagico.librodeesher.gui.perk.PerkWindow;
 import com.softwaremagico.librodeesher.gui.persistence.LoadCharacterListener;
@@ -90,7 +90,7 @@ public class Controller {
 	private List<CharacterPlayer> characters;
 	private CharacterPlayer selectedCharacter;
 	private OptionsWindow optionsWindow;
-	private HistoryWindow historyWindow;
+	private BackgroundWindow historyWindow;
 	private PerkWindow perksWindow;
 	private ProfessionWindow professionWindow;
 	private TrainingWindow trainingWindow;
@@ -709,7 +709,7 @@ public class Controller {
 				historyWindow.dispose();
 			} catch (NullPointerException npe) {
 			}
-			historyWindow = new HistoryWindow(selectedCharacter);
+			historyWindow = new BackgroundWindow(selectedCharacter);
 			historyWindow.setVisible(true);
 		}
 	}

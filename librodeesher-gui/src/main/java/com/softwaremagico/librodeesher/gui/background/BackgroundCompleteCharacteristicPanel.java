@@ -1,8 +1,8 @@
-package com.softwaremagico.librodeesher.gui.history;
+package com.softwaremagico.librodeesher.gui.background;
 
 /*
  * #%L
- * Libro de Esher
+ * Libro de Esher GUI
  * %%
  * Copyright (C) 2007 - 2013 Softwaremagico
  * %%
@@ -24,41 +24,24 @@ package com.softwaremagico.librodeesher.gui.history;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
+import java.util.List;
+
+import com.softwaremagico.librodeesher.gui.characteristic.CompleteCharacteristicUpPanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
+import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 
-public class HistoryCompleteSkillPointsPanel extends BaseScrollPanel {
-	private static final long serialVersionUID = 4044886584364311850L;
-	private BaseFrame parent;
-	private HistorySkillTitle title;
-	private HistorySkillsPanel skillPanel;
+public class BackgroundCompleteCharacteristicPanel extends CompleteCharacteristicUpPanel {
+	private static final long serialVersionUID = 3944923090293710832L;
 
-	public HistoryCompleteSkillPointsPanel(CharacterPlayer character, BaseFrame parent) {
-		this.parent = parent;
-		title = new HistorySkillTitle();
-		addTitle(title);
-		skillPanel = new HistorySkillsPanel(character, this);
-		setBody(skillPanel);
+	public BackgroundCompleteCharacteristicPanel(CharacterPlayer character, BaseFrame parent) {
+		super(character, parent, character.getCharacteristics());
 	}
 
 	@Override
-	public void update() {
-		parent.updateFrame();
-	}
-
-	public void sizeChanged() {
-		if (title != null) {
-			title.sizeChanged();
-		}
-	}
-
-	public void updateHistoryLines() {
-		skillPanel.updateHistoryLines();
-	}
-	
-	public void hideUselessSkills(boolean hideUselessSkills) {
-		skillPanel.hideUselessSkills(hideUselessSkills);
+	public BasePanel createBodyPanel(List<Characteristic> availableCharacteristics) {
+		return new BackgroundCharacteristicPanel(getCharacter(), availableCharacteristics);
 	}
 
 }

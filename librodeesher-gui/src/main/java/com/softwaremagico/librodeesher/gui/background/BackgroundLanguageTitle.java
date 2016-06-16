@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.history;
+package com.softwaremagico.librodeesher.gui.background;
 
 /*
  * #%L
@@ -33,12 +33,12 @@ import com.softwaremagico.librodeesher.gui.elements.TitleBackgroundPanel;
 import com.softwaremagico.librodeesher.gui.elements.TitleLabel;
 import com.softwaremagico.librodeesher.gui.style.BaseTitleLine;
 
-public class HistoryLanguageTitle extends BaseTitleLine {
+public class BackgroundLanguageTitle extends BaseTitleLine {
 	private static final long serialVersionUID = -7713583862792690761L;
 	private TitleLabel languageNameLabel;
 	private TitleLabel ranksValue;
 
-	public HistoryLanguageTitle() {
+	public BackgroundLanguageTitle() {
 		setBackground(title_background);
 		setElements();
 	}

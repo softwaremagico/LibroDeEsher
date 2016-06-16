@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.history;
+package com.softwaremagico.librodeesher.gui.background;
 
 /*
  * #%L
@@ -36,12 +36,12 @@ import com.softwaremagico.librodeesher.gui.elements.GenericSkillLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
-public class HistorySkillLine extends GenericSkillLine {
+public class BackgroundSkillLine extends GenericSkillLine {
 	private static final long serialVersionUID = 5951462195062999304L;
 	private final static int NAME_LENGTH = 200;
-	private BaseCheckBox historyCheckBox;
+	private BaseCheckBox backgroundCheckBox;
 
-	public HistorySkillLine(CharacterPlayer character, Skill skill, Color background,
+	public BackgroundSkillLine(CharacterPlayer character, Skill skill, Color background,
 			BaseSkillPanel parentWindow) {
 		super(character, skill, NAME_LENGTH, background, parentWindow);
 		setEmptyColumns(true);
@@ -51,26 +51,26 @@ public class HistorySkillLine extends GenericSkillLine {
 
 	private void addHistoryCheckBox() {
 		JPanel panel = new JPanel();
-		historyCheckBox = new BaseCheckBox("");
-		historyCheckBox.setSelected(character.isHistoryPointSelected(skill));
-		panel.add(historyCheckBox);
-		historyCheckBox.addItemListener(new CheckBoxListener());
+		backgroundCheckBox = new BaseCheckBox("");
+		backgroundCheckBox.setSelected(character.isHistoryPointSelected(skill));
+		panel.add(backgroundCheckBox);
+		backgroundCheckBox.addItemListener(new CheckBoxListener());
 		addColumn(panel, 0, 0.1f);
 	}
 
 	class CheckBoxListener implements ItemListener {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
-			character.setHistoryPoints(skill, historyCheckBox.isSelected());
-			if (character.getRemainingHistorialPoints() < 0) {
-				historyCheckBox.setSelected(false);
+			character.setHistoryPoints(skill, backgroundCheckBox.isSelected());
+			if (character.getRemainingBackgroundPoints() < 0) {
+				backgroundCheckBox.setSelected(false);
 			}
 			update();
 		}
 	}
 	
 	public void updateComboBox() {
-		historyCheckBox.setSelected(character.isHistoryPointSelected(getSkill()));
+		backgroundCheckBox.setSelected(character.isHistoryPointSelected(getSkill()));
 	}
 
 }

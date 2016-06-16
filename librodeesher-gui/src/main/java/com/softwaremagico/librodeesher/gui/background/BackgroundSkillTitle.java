@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.history;
+package com.softwaremagico.librodeesher.gui.background;
 
 /*
  * #%L
@@ -29,11 +29,11 @@ import javax.swing.SwingConstants;
 import com.softwaremagico.librodeesher.gui.elements.SkillTitleLine;
 import com.softwaremagico.librodeesher.gui.elements.TitleLabel;
 
-public class HistorySkillTitle extends SkillTitleLine {
+public class BackgroundSkillTitle extends SkillTitleLine {
 	private static final long serialVersionUID = -7713583862792690761L;
 	private TitleLabel historyLabel;
 
-	public HistorySkillTitle() {
+	public BackgroundSkillTitle() {
 		enableColumns(false, false, false, false, false, false, false, true);
 		addHistoryCheckBox();
 	}

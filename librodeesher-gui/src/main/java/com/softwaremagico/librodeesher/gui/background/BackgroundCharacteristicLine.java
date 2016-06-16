@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.history;
+package com.softwaremagico.librodeesher.gui.background;
 
 /*
  * #%L
@@ -34,10 +34,10 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 
-public class HistoryCharacteristicLine extends CharacteristicUpLine {
+public class BackgroundCharacteristicLine extends CharacteristicUpLine {
 	private static final long serialVersionUID = 5817155091343950674L;
 
-	public HistoryCharacteristicLine(CharacterPlayer character, Characteristic characteristic, Color background) {
+	public BackgroundCharacteristicLine(CharacterPlayer character, Characteristic characteristic, Color background) {
 		super(character, characteristic, background);
 	}
 
@@ -58,7 +58,7 @@ public class HistoryCharacteristicLine extends CharacteristicUpLine {
 									.getCharacteristicTemporalValue(characteristic.getAbbreviature()))
 							+ ".\n Esta acción es permante. ¿Está seguro de continuar?", "Aumento de característica")) {
 
-				CharacteristicRoll characteristicRoll = character.setCharacteristicHistorialUpdate(characteristic
+				CharacteristicRoll characteristicRoll = character.setCharacteristicBackgroundUpdate(characteristic
 						.getAbbreviature());
 				ShowMessage.showInfoMessage(
 						"El resultado de los dados es: ["
@@ -80,7 +80,7 @@ public class HistoryCharacteristicLine extends CharacteristicUpLine {
 	@Override
 	public void setAcceptEnabled() {
 		getUpdateButton().setEnabled(
-				character.getRemainingHistorialPoints() > 0
+				character.getRemainingBackgroundPoints() > 0
 						&& (character.getCharacteristicPotentialValue(characteristic.getAbbreviature())
 								- character.getCharacteristicTemporalValue(characteristic.getAbbreviature()) > 0));
 	}

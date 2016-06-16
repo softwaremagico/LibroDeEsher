@@ -338,10 +338,10 @@ public class PdfStandardSheet {
 					table.addCell(cell);
 
 					if (characterPlayer != null && i < CategoryFactory.getAvailableCategories().size()) {
-						text = (characterPlayer.getHistorial().getBonus(category) + characterPlayer.getPerkBonus(category)) + "";
+						text = (characterPlayer.getBackground().getBonus(category) + characterPlayer.getPerkBonus(category)) + "";
 						String letter = "";
 
-						if (characterPlayer.getHistorial().getBonus(category) > 0) {
+						if (characterPlayer.getBackground().getBonus(category) > 0) {
 							letter += "H";
 						}
 
@@ -516,7 +516,7 @@ public class PdfStandardSheet {
 		if (characterPlayer != null) {
 			text = characterPlayer.getSimpleBonus(skill) + "";
 			String letter = "";
-			if (characterPlayer != null && characterPlayer.getHistorial().getBonus(skill) > 0) {
+			if (characterPlayer != null && characterPlayer.getBackground().getBonus(skill) > 0) {
 				letter += "H";
 			}
 
@@ -636,10 +636,10 @@ public class PdfStandardSheet {
 		table.addCell(cell);
 
 		if (characterPlayer != null) {
-			text = characterPlayer.getProfession().getSkillBonus(skill.getName()) + characterPlayer.getHistorial().getBonus(skill)
+			text = characterPlayer.getProfession().getSkillBonus(skill.getName()) + characterPlayer.getBackground().getBonus(skill)
 					+ characterPlayer.getPerkBonus(skill) + "";
 			String letra = "";
-			if (characterPlayer != null && characterPlayer.getHistorial().getBonus(skill) > 0) {
+			if (characterPlayer != null && characterPlayer.getBackground().getBonus(skill) > 0) {
 				letra += "H";
 			}
 

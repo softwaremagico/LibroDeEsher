@@ -52,6 +52,7 @@ import com.softwaremagico.librodeesher.basics.Roll;
 import com.softwaremagico.librodeesher.basics.RollGroup;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.config.Config;
+import com.softwaremagico.librodeesher.pj.background.Background;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
@@ -70,7 +71,6 @@ import com.softwaremagico.librodeesher.pj.equipment.BonusType;
 import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
 import com.softwaremagico.librodeesher.pj.equipment.ObjectBonus;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfStandardSheet;
-import com.softwaremagico.librodeesher.pj.historial.Historial;
 import com.softwaremagico.librodeesher.pj.level.LevelUp;
 import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
 import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
@@ -187,8 +187,8 @@ public class CharacterPlayer extends StorableObject {
 
 	@Expose
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "historialId")
-	private Historial historial;
+	@JoinColumn(name = "backgroundId")
+	private Background background;
 
 	@Expose
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -247,7 +247,7 @@ public class CharacterPlayer extends StorableObject {
 		characterPlayerHelper = new CharacterPlayerHelper();
 		appearance = new Appearance();
 		levelUps = new ArrayList<>();
-		historial = new Historial();
+		background = new Background();
 		characteristicsInitialTemporalValues = new HashMap<>();
 		characteristicsTemporalUpdatesRolls = new HashMap<>();
 		characteristicsPotentialValues = new HashMap<>();
@@ -280,7 +280,7 @@ public class CharacterPlayer extends StorableObject {
 		resetIds(cultureDecisions);
 		resetIds(professionDecisions);
 		resetIds(realmOfMagic);
-		resetIds(historial);
+		resetIds(background);
 		resetIds(magicItems);
 		resetIds(insertedData);
 		resetIds(enabledSkill);
@@ -299,7 +299,7 @@ public class CharacterPlayer extends StorableObject {
 		resetComparationIds(cultureDecisions);
 		resetComparationIds(professionDecisions);
 		resetComparationIds(realmOfMagic);
-		resetComparationIds(historial);
+		resetComparationIds(background);
 		resetComparationIds(magicItems);
 		resetComparationIds(insertedData);
 		resetComparationIds(enabledSkill);
@@ -488,7 +488,7 @@ public class CharacterPlayer extends StorableObject {
 			}
 			// History rolls only if not inserted data.
 			if (!insertedData.isEnabled()) {
-				for (CharacteristicRoll roll : historial.getCharacteristicsUpdates(abbreviature)) {
+				for (CharacteristicRoll roll : background.getCharacteristicsUpdates(abbreviature)) {
 					temporalValue += Characteristic.getCharacteristicUpgrade(roll.getCharacteristicTemporalValue(), roll.getCharacteristicPotentialValue(),
 							roll.getRoll());
 				}
@@ -645,15 +645,15 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public void setHistoryLanguageRanks(String language, int ranks) {
-		historial.setHistoryLanguageRank(language, ranks);
+		background.setHistoryLanguageRank(language, ranks);
 		characterPlayerHelper.resetSkillRanks(language);
 		if (getMaxHistoryLanguages().get(language) < getTotalRanks(SkillFactory.getSkill(language))) {
-			historial.setHistoryLanguageRank(language, 0);
+			background.setHistoryLanguageRank(language, 0);
 		}
 	}
 
 	public int getHistoryLanguageRanks(String language) {
-		return historial.getHistoryLanguageRank(language);
+		return background.getHistoryLanguageRank(language);
 	}
 
 	public Integer getDefensiveBonus() {
@@ -1186,7 +1186,7 @@ public class CharacterPlayer extends StorableObject {
 			return characterPlayerHelper.getCategoryGeneralBonus(category.getName());
 		}
 		Integer genericBonus = category.getBonus() + getProfession().getCategoryBonus(category.getName()) + getRace().getBonus(category)
-				+ getHistorial().getBonus(category) + getPerkBonus(category) + getConditionalPerkBonus(category);
+				+ getBackground().getBonus(category) + getPerkBonus(category) + getConditionalPerkBonus(category);
 		characterPlayerHelper.setCategoryGeneralBonus(category.getName(), genericBonus);
 		return genericBonus;
 	}
@@ -1212,7 +1212,7 @@ public class CharacterPlayer extends StorableObject {
 		if (characterPlayerHelper.getSkillGeneralBonus(skill.getName()) != null) {
 			return characterPlayerHelper.getSkillGeneralBonus(skill.getName());
 		}
-		Integer genericBonus = getProfession().getSkillBonus(skill.getName()) + getHistorial().getBonus(skill) + getPerkBonus(skill)
+		Integer genericBonus = getProfession().getSkillBonus(skill.getName()) + getBackground().getBonus(skill) + getPerkBonus(skill)
 				+ getConditionalPerkBonus(skill) + getRace().getBonus(skill);
 		characterPlayerHelper.setSkillGeneralBonus(skill.getName(), genericBonus);
 		return genericBonus;
@@ -1596,25 +1596,25 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public void setHistoryPoints(Skill skill, boolean value) {
-		historial.setPoint(skill, value);
+		background.setPoint(skill, value);
 		characterPlayerHelper.resetSkillGeneralBonus(skill.getName());
 	}
 
 	public void setHistoryPoints(Category category, boolean value) {
-		historial.setPoint(category, value);
+		background.setPoint(category, value);
 		characterPlayerHelper.resetCategoryGeneralBonus(category.getName());
 	}
 
 	public boolean isHistoryPointSelected(Category category) {
-		return historial.isHistorialPointSelected(category);
+		return background.isBackgroundPointSelected(category);
 	}
 
 	public boolean isHistoryPointSelected(Skill skill) {
-		return historial.isHistorialPointSelected(skill);
+		return background.isBackgroundPointSelected(skill);
 	}
 
-	public Integer getRemainingHistorialPoints() {
-		return getRace().getHistorialPoints() - historial.getSpentHistoryPoints() - getPerksHistoryPointsCost();
+	public Integer getRemainingBackgroundPoints() {
+		return getRace().getBackgroundPoints() - background.getSpentHistoryPoints() - getPerksHistoryPointsCost();
 	}
 
 	private int getPerksHistoryPointsCost() {
@@ -1624,9 +1624,9 @@ public class CharacterPlayer extends StorableObject {
 		return PerkFactory.getPerksHistoryCost(selectedPerks);
 	}
 
-	public CharacteristicRoll setCharacteristicHistorialUpdate(CharacteristicsAbbreviature abbreviature) {
+	public CharacteristicRoll setCharacteristicBackgroundUpdate(CharacteristicsAbbreviature abbreviature) {
 		Roll roll = getStoredCharacteristicRoll(abbreviature);
-		CharacteristicRoll characteristicRoll = historial.addCharactersiticUpdate(abbreviature, getCharacteristicTemporalValue(abbreviature),
+		CharacteristicRoll characteristicRoll = background.addCharactersiticUpdate(abbreviature, getCharacteristicTemporalValue(abbreviature),
 				getCharacteristicPotentialValue(abbreviature), roll);
 		characterPlayerHelper.resetAllCategoryCharacteristicsBonus();
 		characterPlayerHelper.resetDevelopmentPoints();
@@ -2210,12 +2210,12 @@ public class CharacterPlayer extends StorableObject {
 		return trainingDecisions;
 	}
 
-	public Historial getHistorial() {
-		return historial;
+	public Background getBackground() {
+		return background;
 	}
 
-	protected void setHistorial(Historial historial) {
-		this.historial = historial;
+	protected void setBackground(Background background) {
+		this.background = background;
 	}
 
 	public List<Perk> getPerks() {
@@ -2856,10 +2856,10 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public int getHistoryTotalLanguageRanks() {
-		if (historial == null) {
+		if (background == null) {
 			return 0;
 		}
-		return historial.getLanguagesTotalRanksAdded();
+		return background.getLanguagesTotalRanksAdded();
 	}
 
 }

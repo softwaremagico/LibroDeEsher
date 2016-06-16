@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.history;
+package com.softwaremagico.librodeesher.gui.background;
 
 /*
  * #%L
@@ -44,17 +44,17 @@ import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 
-public class HistoryWindow extends BaseFrame {
+public class BackgroundWindow extends BaseFrame {
 	private static final long serialVersionUID = -2770063842107842255L;
 	private CharacterPlayer character;
-	private HistoryCompleteSkillPointsPanel skillPanel;
-	private HistoryCompleteCharacteristicPanel characteristicPanel;
-	private HistoryLanguageCompletePanel languagePanel;
+	private BackgroundCompleteSkillPointsPanel skillPanel;
+	private BackgroundCompleteCharacteristicPanel characteristicPanel;
+	private BackgroundLanguageCompletePanel languagePanel;
 	private BaseLabel historyPointsLabel;
 	private PointsCounterTextField historyPoints;
 	private BaseCheckBox hideUselessSkillsCheckBox;
 
-	public HistoryWindow(CharacterPlayer character) {
+	public BackgroundWindow(CharacterPlayer character) {
 		this.character = character;
 		defineWindow(800, 420);
 		historyPoints = new PointsCounterTextField();
@@ -62,8 +62,8 @@ public class HistoryWindow extends BaseFrame {
 		setElements();
 	}
 
-	private void setHistorialPointText() {
-		historyPoints.setPoints(character.getRemainingHistorialPoints());
+	private void setBackgroundPointText() {
+		historyPoints.setPoints(character.getRemainingBackgroundPoints());
 	}
 
 	private void setElements() {
@@ -79,7 +79,7 @@ public class HistoryWindow extends BaseFrame {
 		gridBagConstraints.weightx = 0.7;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		skillPanel = new HistoryCompleteSkillPointsPanel(character, (BaseFrame) this);
+		skillPanel = new BackgroundCompleteSkillPointsPanel(character, (BaseFrame) this);
 		getContentPane().add(skillPanel, gridBagConstraints);
 		
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -91,7 +91,7 @@ public class HistoryWindow extends BaseFrame {
 		gridBagConstraints.weightx = 0.5;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		languagePanel = new HistoryLanguageCompletePanel(character, (BaseFrame) this);
+		languagePanel = new BackgroundLanguageCompletePanel(character, (BaseFrame) this);
 		getContentPane().add(languagePanel, gridBagConstraints);
 		
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -103,7 +103,7 @@ public class HistoryWindow extends BaseFrame {
 		gridBagConstraints.weightx = 0.5;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		characteristicPanel = new HistoryCompleteCharacteristicPanel(character, (BaseFrame) this);
+		characteristicPanel = new BackgroundCompleteCharacteristicPanel(character, (BaseFrame) this);
 		getContentPane().add(characteristicPanel, gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -137,7 +137,7 @@ public class HistoryWindow extends BaseFrame {
 		historyPoints.setColumns(3);
 		historyPoints.setEditable(false);
 		historyPoints.setMaximumSize(new Dimension(60, 25));
-		setHistorialPointText();
+		setBackgroundPointText();
 		developmentPointsPanel.add(historyPoints);
 		getContentPane().add(developmentPointsPanel, gridBagConstraints);
 
@@ -149,7 +149,7 @@ public class HistoryWindow extends BaseFrame {
 			@Override
 			public void RandomAction() {
 				Integer tries = 0;
-				while (character.getRemainingHistorialPoints() > 0 && tries <= RandomCharacterPlayer.MAX_TRIES) {
+				while (character.getRemainingBackgroundPoints() > 0 && tries <= RandomCharacterPlayer.MAX_TRIES) {
 					RandomCharacterPlayer.setHistoryPoints(character, 0);
 					tries++;
 				}
@@ -177,7 +177,7 @@ public class HistoryWindow extends BaseFrame {
 
 	@Override
 	public void updateFrame() {
-		setHistorialPointText();
+		setBackgroundPointText();
 		characteristicPanel.update();
 	}
 

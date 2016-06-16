@@ -119,8 +119,8 @@ public class CharacterComparator {
 									+ character1.getTotalValue(category)
 									+ "', profession bonus '"
 									+ character1.getProfession().getSkillBonus(skill.getName())
-									+ "', historial bonus'"
-									+ character1.getHistorial().getBonus(skill)
+									+ "', background bonus'"
+									+ character1.getBackground().getBonus(skill)
 									+ "', perk bonus '"
 									+ character1.getPerkBonus(skill)
 									+ "', conditional perk bonus '"
@@ -153,7 +153,7 @@ public class CharacterComparator {
 									+ character2.getSkillSpecializations(skill) + ", category value '"
 									+ character2.getTotalValue(category) + "', profession bonus '"
 									+ character2.getProfession().getSkillBonus(skill.getName())
-									+ "', historial bonus'" + character2.getHistorial().getBonus(skill)
+									+ "', background bonus'" + character2.getBackground().getBonus(skill)
 									+ "', perk bonus '" + character2.getPerkBonus(skill)
 									+ "', conditional perk bonus '"
 									+ character2.getConditionalPerkBonus(skill) + "', item bonus '"

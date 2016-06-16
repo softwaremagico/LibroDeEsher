@@ -112,7 +112,7 @@ public class OptionsWindow extends BaseFrame {
 		trainingOtherRealms.addActionListener(checkboxListener);
 		characterPanel.add(trainingOtherRealms);
 
-		perkHistoryPoints = new JCheckBox(Spanish.ENABLE_PERK_HISTORY_COST);
+		perkHistoryPoints = new JCheckBox(Spanish.ENABLE_PERK_BACKGROUND_COST);
 		perkHistoryPoints.addActionListener(checkboxListener);
 		characterPanel.add(perkHistoryPoints);
 
@@ -251,7 +251,7 @@ public class OptionsWindow extends BaseFrame {
 				} else if (e.getActionCommand().equals(Spanish.OTHER_TRAINING_SPELLS)) {
 					character.setOtherRealmTrainingSpellsAllowed(trainingOtherRealms.isSelected());
 					Config.setOtherRealmTrainingSpells(trainingOtherRealms.isSelected());
-				} else if (e.getActionCommand().equals(Spanish.ENABLE_PERK_HISTORY_COST)) {
+				} else if (e.getActionCommand().equals(Spanish.ENABLE_PERK_BACKGROUND_COST)) {
 					character.setPerksCostHistoryPoints(perkHistoryPoints.isSelected());
 					Config.setPerksCostHistoryPoints(perkHistoryPoints.isSelected());
 				} else if (e.getActionCommand().equals(Spanish.HANDWRITTING_TEXT)) {

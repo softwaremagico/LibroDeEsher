@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.history;
+package com.softwaremagico.librodeesher.gui.background;
 
 /*
  * #%L
@@ -35,16 +35,16 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
-public class HistorySkillsPanel extends BaseSkillPanel {
+public class BackgroundSkillsPanel extends BaseSkillPanel {
 	private static final long serialVersionUID = -1612700951233838060L;
-	private HashMap<Category, List<HistorySkillLine>> skillLinesPerCategory;
-	private HashMap<HistoryCategoryLine, List<HistorySkillLine>> skillLinesPerCategoryLine;
-	private HistoryCompleteSkillPointsPanel parent;
-	private List<HistoryCategoryLine> categoryLines;
+	private HashMap<Category, List<BackgroundSkillLine>> skillLinesPerCategory;
+	private HashMap<BackgroundCategoryLine, List<BackgroundSkillLine>> skillLinesPerCategoryLine;
+	private BackgroundCompleteSkillPointsPanel parent;
+	private List<BackgroundCategoryLine> categoryLines;
 	private boolean hideUselessSkills = true;
 	private CharacterPlayer characterPlayer;
 
-	public HistorySkillsPanel(CharacterPlayer character, HistoryCompleteSkillPointsPanel parent) {
+	public BackgroundSkillsPanel(CharacterPlayer character, BackgroundCompleteSkillPointsPanel parent) {
 		this.characterPlayer = character;
 		skillLinesPerCategory = new HashMap<>();
 		skillLinesPerCategoryLine = new HashMap<>();
@@ -61,16 +61,16 @@ public class HistorySkillsPanel extends BaseSkillPanel {
 			// Translate general category to player specific category.
 			category = character.getCategory(category);
 			if (!hideUselessSkills || character.isCategoryUseful(category)) {
-				HistoryCategoryLine categoryLine = new HistoryCategoryLine(character, category,
+				BackgroundCategoryLine categoryLine = new BackgroundCategoryLine(character, category,
 						getLineBackgroundColor(i), this);
 				add(categoryLine);
 				categoryLines.add(categoryLine);
 				i++;
 
-				List<HistorySkillLine> skillLines = new ArrayList<>();
+				List<BackgroundSkillLine> skillLines = new ArrayList<>();
 				for (Skill skill : category.getSkills()) {
 					if (!hideUselessSkills || character.isSkillInteresting(skill)) {
-						HistorySkillLine skillLine = new HistorySkillLine(character, skill, getLineBackgroundColor(i),
+						BackgroundSkillLine skillLine = new BackgroundSkillLine(character, skill, getLineBackgroundColor(i),
 								this);
 						add(skillLine);
 						skillLines.add(skillLine);
@@ -91,18 +91,18 @@ public class HistorySkillsPanel extends BaseSkillPanel {
 
 	@Override
 	public void updateSkillsOfCategory(Category category) {
-		List<HistorySkillLine> skillLines = skillLinesPerCategory.get(category);
+		List<BackgroundSkillLine> skillLines = skillLinesPerCategory.get(category);
 		if (skillLines != null) {
-			for (HistorySkillLine skillLine : skillLines) {
+			for (BackgroundSkillLine skillLine : skillLines) {
 				skillLine.update();
 			}
 		}
 	}
 
 	public void updateHistoryLines() {
-		for (HistoryCategoryLine categoryLine : skillLinesPerCategoryLine.keySet()) {
+		for (BackgroundCategoryLine categoryLine : skillLinesPerCategoryLine.keySet()) {
 			categoryLine.updateComboBox();
-			for (HistorySkillLine skillLine : skillLinesPerCategoryLine.get(categoryLine)) {
+			for (BackgroundSkillLine skillLine : skillLinesPerCategoryLine.get(categoryLine)) {
 				skillLine.updateComboBox();
 			}
 		}

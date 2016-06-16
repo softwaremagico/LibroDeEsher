@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.pj.historial;
+package com.softwaremagico.librodeesher.pj.background;
 
 /*
  * #%L
@@ -49,36 +49,36 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.persistence.StorableObject;
 
 @Entity
-@Table(name = "T_HISTORIAL")
-public class Historial extends StorableObject {
+@Table(name = "T_BACKGROUND")
+public class Background extends StorableObject {
 	private static final long serialVersionUID = 4564464938854797944L;
 	private static final Integer SKILL_BONUS = 10;
 	private static final Integer CATEGORY_BONUS = 5;
 	@Expose
 	@ElementCollection
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@CollectionTable(name = "T_HISTORIAL_CATEGORIES")
+	@CollectionTable(name = "T_BACKGROUND_CATEGORIES")
 	private List<String> categories;
 
 	@Expose
 	@ElementCollection
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@CollectionTable(name = "T_HISTORIAL_SKILLS")
+	@CollectionTable(name = "T_BACKGROUND_SKILLS")
 	private List<String> skills;
 
 	@Expose
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@CollectionTable(name = "T_HISTORIAL_CHARACTERISTICS_UPDATES")
+	@CollectionTable(name = "T_BACKGROUND_CHARACTERISTICS_UPDATES")
 	@OrderColumn(name = "roll_index")
 	private List<CharacteristicRoll> characteristicsUpdates;
 
 	@Expose
 	@ElementCollection
-	@CollectionTable(name = "T_HISTORIAL_LANGUAGE_RANKS")
+	@CollectionTable(name = "T_BACKGROUND_LANGUAGE_RANKS")
 	private Map<String, Integer> languageRanks;
 
-	public Historial() {
+	public Background() {
 		categories = new ArrayList<>();
 		skills = new ArrayList<>();
 		characteristicsUpdates = new ArrayList<>();
@@ -99,7 +99,7 @@ public class Historial extends StorableObject {
 
 	public void setPoint(Skill skill, boolean value) {
 		if (value) {
-			if (!isHistorialPointSelected(skill)) {
+			if (!isBackgroundPointSelected(skill)) {
 				skills.add(skill.getName());
 			}
 		} else {
@@ -109,7 +109,7 @@ public class Historial extends StorableObject {
 
 	public void setPoint(Category category, boolean value) {
 		if (value) {
-			if (!isHistorialPointSelected(category)) {
+			if (!isBackgroundPointSelected(category)) {
 				categories.add(category.getName());
 			}
 		} else {
@@ -117,11 +117,11 @@ public class Historial extends StorableObject {
 		}
 	}
 
-	public boolean isHistorialPointSelected(Category category) {
+	public boolean isBackgroundPointSelected(Category category) {
 		return categories.contains(category.getName());
 	}
 
-	public boolean isHistorialPointSelected(Skill skill) {
+	public boolean isBackgroundPointSelected(Skill skill) {
 		return skills.contains(skill.getName());
 	}
 

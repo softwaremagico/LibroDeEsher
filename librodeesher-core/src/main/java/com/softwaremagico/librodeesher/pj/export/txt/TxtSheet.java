@@ -73,7 +73,7 @@ public class TxtSheet {
 			category = characterPlayer.getCategory(category);
 			if (characterPlayer.isCategoryUseful(category)) {
 				String bonus = "";
-				if (characterPlayer.getHistorial().isHistorialPointSelected(category)) {
+				if (characterPlayer.getBackground().isBackgroundPointSelected(category)) {
 					bonus += "H";
 				}
 				if (characterPlayer.getPerkBonus(category) != 0) {
@@ -96,7 +96,7 @@ public class TxtSheet {
 					Skill skill = category.getSkills().get(j);
 					if (characterPlayer.isSkillInteresting(skill)) {
 						bonus = "";
-						if (characterPlayer.getHistorial().isHistorialPointSelected(skill)) {
+						if (characterPlayer.getBackground().isBackgroundPointSelected(skill)) {
 							bonus += "H";
 						}
 						int perkBonus = characterPlayer.getPerkBonus(skill);
