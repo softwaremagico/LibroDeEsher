@@ -95,7 +95,7 @@ public class InsertedData extends StorableObject {
 		generalizedSkillsAdded = new ArrayList<>();
 		skillSpecializationsAdded = new ArrayList<>();
 		trainingDecisions = new HashMap<>();
-		initializeAsZeroSkillsAndCategories();
+		//initializeAsZeroSkillsAndCategories();
 	}
 
 	private void initializeAsZeroSkillsAndCategories() {
