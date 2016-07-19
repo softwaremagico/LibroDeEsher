@@ -59,7 +59,7 @@ public class CategoryCost extends StorableObject {
 		categoryCostId = categoryCost.getCategoryCostId();
 	}
 
-	protected CategoryCost() {
+	public CategoryCost() {
 		super();
 		rankCost = new ArrayList<>();
 	}

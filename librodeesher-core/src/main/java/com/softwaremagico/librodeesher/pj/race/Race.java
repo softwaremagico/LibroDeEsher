@@ -120,13 +120,15 @@ public class Race {
 	private void readRaceFile(String raceName) throws InvalidRaceException {
 		int lineIndex = 0;
 
-		String raceFile = RolemasterFolderStructure.getDirectoryModule(RaceFactory.RACE_FOLDER + File.separator + raceName + ".txt");
+		String raceFile = RolemasterFolderStructure.getDirectoryModule(RaceFactory.RACE_FOLDER
+				+ File.separator + raceName + ".txt");
 		if (raceFile.length() > 0) {
 			List<String> lines;
 			try {
 				lines = Folder.readFileLines(raceFile, false);
 			} catch (IOException e) {
-				throw new InvalidRaceException("Invalid race file: " + RaceFactory.RACE_FOLDER + File.separator + raceName + ".txt", e);
+				throw new InvalidRaceException("Invalid race file: " + RaceFactory.RACE_FOLDER
+						+ File.separator + raceName + ".txt", e);
 			}
 
 			lineIndex = setCharacteristicsBonus(lines, lineIndex);
@@ -143,7 +145,8 @@ public class Race {
 			lineIndex = setOtherSpecials(lines, lineIndex);
 			lineIndex = setNames(lines, lineIndex);
 		} else {
-			throw new InvalidRaceException("Invalid race file: " + RaceFactory.RACE_FOLDER + File.separator + raceName + ".txt");
+			throw new InvalidRaceException("Invalid race file: " + RaceFactory.RACE_FOLDER + File.separator
+					+ raceName + ".txt");
 		}
 	}
 
@@ -159,14 +162,15 @@ public class Race {
 				if (characteristicValue[0].equals(CharacteristicsAbbreviature.APPEARENCE.getTag())) {
 					apperanceBonus = Integer.parseInt(characteristicValue[1]);
 				} else {
-					characteristicBonus.put(CharacteristicsAbbreviature.getCharacteristicsAbbreviature(characteristicValue[0]),
-							Integer.parseInt(characteristicValue[1]));
+					characteristicBonus.put(CharacteristicsAbbreviature
+							.getCharacteristicsAbbreviature(characteristicValue[0]), Integer
+							.parseInt(characteristicValue[1]));
 				}
 				index++;
 			}
 		} catch (Exception e) {
-			throw new InvalidRaceException("Error al leer las características de la raza " + name + ". Los bonus pueden no ser correctos.",
-					e);
+			throw new InvalidRaceException("Error al leer las características de la raza " + name
+					+ ". Los bonus pueden no ser correctos.", e);
 		}
 		return index;
 	}
@@ -201,12 +205,14 @@ public class Race {
 				String resistanceLine = lines.get(index);
 				String[] resistanceColumns = resistanceLine.split("\t");
 
-				resistancesBonus.put(ResistanceType.getResistancesType(resistanceColumns[0]), Integer.parseInt(resistanceColumns[1]));
+				resistancesBonus.put(ResistanceType.getResistancesType(resistanceColumns[0]),
+						Integer.parseInt(resistanceColumns[1]));
 
 				index++;
 			}
 		} catch (Exception e) {
-			throw new InvalidRaceException("Race resistances are invalid in race " + name + ". Bonuses must be wrong.", e);
+			throw new InvalidRaceException("Race resistances are invalid in race " + name
+					+ ". Bonuses must be wrong.", e);
 		}
 		return index;
 	}
@@ -271,9 +277,11 @@ public class Race {
 					if (profession.contains("{")) {
 						String magicRealm = profession.replace("{", "").replace("}", "").trim();
 						try {
-							definedProfessions.addAll(MagicFactory.getSpellCasters(RealmOfMagic.getMagicRealm(magicRealm)));
+							definedProfessions.addAll(MagicFactory.getSpellCasters(RealmOfMagic
+									.getMagicRealm(magicRealm)));
 						} catch (Exception e) {
-							throw new InvalidRaceException("Restricted profession '" + profession + "' invalid for race '" + name + "'.", e);
+							throw new InvalidRaceException("Restricted profession '" + profession
+									+ "' invalid for race '" + name + "'.", e);
 						}
 					} else {
 						definedProfessions.add(profession.trim());
@@ -290,7 +298,8 @@ public class Race {
 				restrictedProfessions.addAll(allProfessions);
 			}
 		} catch (Exception e) {
-			throw new InvalidRaceException("Restricted professions reading problem for race '" + name + "'.", e);
+			throw new InvalidRaceException("Restricted professions reading problem for race '" + name + "'.",
+					e);
 		}
 		return index;
 	}
@@ -349,8 +358,8 @@ public class Race {
 		return index;
 	}
 
-	private int setLanguages(List<String> lines, int index, Map<String, Integer> initialLanguages, Map<String, Integer> maxLanguages)
-			throws InvalidRaceException {
+	private int setLanguages(List<String> lines, int index, Map<String, Integer> initialLanguages,
+			Map<String, Integer> maxLanguages) throws InvalidRaceException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -391,7 +400,8 @@ public class Race {
 			} catch (NumberFormatException nfe) {
 				throw new InvalidRaceException("Language value invalid in '" + lines.get(index) + "'.", nfe);
 			} catch (Exception e) {
-				throw new InvalidRaceException("Language line invalid '" + lines.get(index) + "' in line '" + index + "'.", e);
+				throw new InvalidRaceException("Language line invalid '" + lines.get(index) + "' in line '"
+						+ index + "'.", e);
 			}
 			index++;
 		}
@@ -406,8 +416,8 @@ public class Race {
 		return setLanguages(lines, index, maxHistoryLanguages, new HashMap<String, Integer>());
 	}
 
-	private int setSpecialSkills(List<String> lines, int index, List<Skill> skillsList, List<Category> categoriesList)
-			throws InvalidRaceException {
+	private int setSpecialSkills(List<String> lines, int index, List<Skill> skillsList,
+			List<Category> categoriesList) throws InvalidRaceException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -429,7 +439,8 @@ public class Race {
 					if (skill != null) {
 						skillsList.add(skill);
 					} else {
-						throw new InvalidRaceException("Invalid common skill '" + skillColumns[i] + "' for race '" + getName() + "'.");
+						throw new InvalidRaceException("Invalid common skill '" + skillColumns[i]
+								+ "' for race '" + getName() + "'.");
 					}
 				}
 			}
@@ -471,7 +482,8 @@ public class Race {
 							definedCultures.addAll(CultureFactory.getAvailableCulturesPrefix(cultureName));
 						}
 					} catch (InvalidCultureException e) {
-						throw new InvalidRaceException("Culture '" + cultureName + "' does not exists in race '" + getName() + "'.", e);
+						EsherLog.warning(this.getClass().getName(), "Culture '" + cultureName
+								+ "' does not exists in race '" + getName() + "'.");
 					}
 				}
 			}
@@ -517,8 +529,8 @@ public class Race {
 								index++;
 								continue;
 							} else {
-								EsherLog.warning(this.getClass().getName(), "Unknown skill '" + skillBonus[1] + "' in race '" + getName()
-										+ "'.");
+								EsherLog.warning(this.getClass().getName(), "Unknown skill '" + skillBonus[1]
+										+ "' in race '" + getName() + "'.");
 							}
 						} catch (NumberFormatException nfe) {
 							// Not a number, is not a skill bonus, continue
@@ -529,7 +541,8 @@ public class Race {
 				// Add perks as race specials.
 				try {
 					if (specialLine.contains("[")) {
-						racePoints = Integer.parseInt(specialLine.substring(specialLine.indexOf('[') + 1, specialLine.indexOf(']')));
+						racePoints = Integer.parseInt(specialLine.substring(specialLine.indexOf('[') + 1,
+								specialLine.indexOf(']')));
 						Perk perk = PerkFactory.getPerk(specialLine.split("\t")[0].replaceFirst(":", ""));
 						if (perk != null) {
 							racePerks.add(perk);

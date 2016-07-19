@@ -34,7 +34,6 @@ import java.util.List;
 
 import javax.swing.JComboBox;
 
-import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -153,7 +152,7 @@ public class CharacterRacePanel extends BasePanel {
 						cultureComboBox.addItem(culture);
 					}
 				} catch (InvalidRaceException e) {
-					ShowMessage.showErrorMessage(e.getMessage(), "Error");
+					//ShowMessage.showErrorMessage(e.getMessage(), "Error");
 				}
 			} catch (NullPointerException npe) {
 				EsherLog.errorMessage(CharacterRacePanel.class.getName(), npe);
