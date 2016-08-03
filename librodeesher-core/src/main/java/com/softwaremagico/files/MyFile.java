@@ -44,11 +44,8 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-/**
- * 
- * @author Jorge Hortelano
- */
 public class MyFile {
+	public static final String UTF8_BOM = "\uFEFF";
 
 	/**
 	 * Creates a new instance of MyFile
@@ -106,6 +103,9 @@ public class MyFile {
 			input = new BufferedReader(new InputStreamReader(new FileInputStream(new File(filename)), mode));
 			String line;
 			while ((line = input.readLine()) != null) {
+				if (line.startsWith(UTF8_BOM)) {
+					line = line.substring(1);
+				}
 				contents.add(line);
 			}
 		} catch (FileNotFoundException ex) {
