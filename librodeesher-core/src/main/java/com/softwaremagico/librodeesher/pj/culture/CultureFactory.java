@@ -96,13 +96,15 @@ public class CultureFactory {
 
 	public static Culture getCulture(String cultureName) throws InvalidCultureException {
 		try {
-			if (getAvailableCultures().contains(cultureName)) {
-				Culture culture = culturesAvailable.get(cultureName);
-				if (culture == null) {
-					culture = new Culture(cultureName);
-					culturesAvailable.put(cultureName, culture);
+			for (String cultureAvailable : getAvailableCultures()) {
+				if (cultureAvailable.contains(cultureName)) {
+					Culture culture = culturesAvailable.get(cultureAvailable);
+					if (culture == null) {
+						culture = new Culture(cultureAvailable);
+						culturesAvailable.put(cultureAvailable, culture);
+					}
+					return culture;
 				}
-				return culture;
 			}
 		} catch (Exception e) {
 			EsherLog.errorMessage(CultureFactory.class.getName(), e);
