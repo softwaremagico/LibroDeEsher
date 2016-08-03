@@ -88,7 +88,7 @@ Ninguna
 
 #CULTURAS
 ####################################
-Industrializado, Tercer Mundo
+{Industrializado}, {Tercer Mundo}
 
 #ESPECIALES
 ####################################
