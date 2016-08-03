@@ -63,10 +63,10 @@ public class RaceFactory {
 				}
 				return race;
 			} else {
-				throw new InvalidRaceException("Raza no existente: " + raceName);
+				throw new InvalidRaceException("Not existing race: " + raceName);
 			}
 		} catch (Exception e) {
-			throw new InvalidRaceException("Raza invalida: " + raceName, e);
+			throw new InvalidRaceException("Invalid race: " + raceName, e);
 		}
 	}
 }
