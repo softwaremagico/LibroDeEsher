@@ -42,10 +42,8 @@ public class CharacterCreationTest {
 	private final static String PDF_PATH_STANDARD = System.getProperty("java.io.tmpdir") + "/testStnd.pdf";
 	private final static String PDF_PATH_COMBINED = System.getProperty("java.io.tmpdir") + "/testCmb.pdf";
 	private final static String TXT_PATH = System.getProperty("java.io.tmpdir") + "/testStandard.txt";
-	private final static String TXT_ABBREVIATED_PATH = System.getProperty("java.io.tmpdir")
-			+ "/testAbbreviated.txt";
-	private final static String JSON_LEVEL_PATH = System.getProperty("java.io.tmpdir")
-			+ "/testLevelJson.json";
+	private final static String TXT_ABBREVIATED_PATH = System.getProperty("java.io.tmpdir") + "/testAbbreviated.txt";
+	private final static String JSON_LEVEL_PATH = System.getProperty("java.io.tmpdir") + "/testLevelJson.json";
 	private CharacterPlayerDao characterPlayerDao = CharacterPlayerDao.getInstance();
 	private CharacterPlayerInfoDao characterPlayerInfoDao = CharacterPlayerInfoDao.getInstance();
 	private CharacterPlayer characterPlayer;
@@ -112,13 +110,11 @@ public class CharacterCreationTest {
 	}
 
 	@Test(groups = { "characterJson" }, dependsOnMethods = { "createCharacter", "characterInfo" })
-	public void exportCharacterJson() throws FileNotFoundException, CharacteristicNotEqualsException,
-			CategoryNotEqualsException, SkillNotEqualsException {
+	public void exportCharacterJson() throws FileNotFoundException, CharacteristicNotEqualsException, CategoryNotEqualsException, SkillNotEqualsException {
 		String jsonText = CharacterJsonManager.toJson(characterPlayer);
 		// get json to object.
 		CharacterPlayer importedCharacter = CharacterJsonManager.fromJson(jsonText);
-		PrintWriter out3 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
-				+ "character_l1.json");
+		PrintWriter out3 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "character_l1.json");
 		out3.println(jsonText);
 		out3.close();
 
@@ -129,13 +125,11 @@ public class CharacterCreationTest {
 		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
 		String importedSheet = TxtSheet.getCharacterStandardSheetAsText(importedCharacter);
 
-		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
-				+ "originalCharacterSheet.txt");
+		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "originalCharacterSheet.txt");
 		out1.println(orginalSheet);
 		out1.close();
 
-		PrintWriter out2 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
-				+ "importedCharacterSheet.txt");
+		PrintWriter out2 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "importedCharacterSheet.txt");
 		out2.println(importedSheet);
 		out2.close();
 
@@ -147,8 +141,8 @@ public class CharacterCreationTest {
 		BufferedReader bufferReader = null;
 		String jsonText = "";
 		// Read file.
-		bufferReader = new BufferedReader(new InputStreamReader(new FileInputStream(
-				System.getProperty("java.io.tmpdir") + File.separator + "character_l1.json"), "UTF8"));
+		bufferReader = new BufferedReader(new InputStreamReader(
+				new FileInputStream(System.getProperty("java.io.tmpdir") + File.separator + "character_l1.json"), "UTF8"));
 		String str;
 
 		while ((str = bufferReader.readLine()) != null) {
@@ -160,14 +154,13 @@ public class CharacterCreationTest {
 		int charactersStored = characterPlayerDao.getRowCount();
 		// Only one character allowed. Must be overridden.
 		characterPlayerDao.makePersistent(importedCharacter);
-		//No new characters on database.
+		// No new characters on database.
 		Assert.assertEquals(characterPlayerDao.getRowCount(), charactersStored);
 	}
 
 	@Test(groups = { "characterJson" }, dependsOnMethods = { "importCharacterFromJson" })
-	public void exportLevelJson() throws MagicDefinitionException, InvalidProfessionException,
-			FileNotFoundException, InvalidLevelException, InvalidCharacterException,
-			CharacteristicNotEqualsException, CategoryNotEqualsException, SkillNotEqualsException {
+	public void exportLevelJson() throws MagicDefinitionException, InvalidProfessionException, FileNotFoundException, InvalidLevelException,
+			InvalidCharacterException, CharacteristicNotEqualsException, CategoryNotEqualsException, SkillNotEqualsException {
 		String jsonText = CharacterJsonManager.toJson(characterPlayer);
 		CharacterPlayer duplicatedCharacter = CharacterJsonManager.fromJson(jsonText);
 		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
@@ -189,8 +182,7 @@ public class CharacterCreationTest {
 
 		// Export character
 		String characterLevel2 = CharacterJsonManager.toJson(characterPlayer);
-		PrintWriter out3 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
-				+ "character_l2.json");
+		PrintWriter out3 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "character_l2.json");
 		out3.println(characterLevel2);
 		out3.close();
 
@@ -213,19 +205,16 @@ public class CharacterCreationTest {
 		String orginalSheet2 = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
 		String importedSheet2 = TxtSheet.getCharacterStandardSheetAsText(duplicatedCharacter);
 
-		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
-				+ "originalCharacterSheetLvl2.txt");
+		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "originalCharacterSheetLvl2.txt");
 		out1.println(orginalSheet2);
 		out1.close();
 
-		PrintWriter out2 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
-				+ "importedCharacterSheetLvl2.txt");
+		PrintWriter out2 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "importedCharacterSheetLvl2.txt");
 		out2.println(importedSheet2);
 		out2.close();
 
 		String characterLevel2duplicated = CharacterJsonManager.toJson(duplicatedCharacter);
-		PrintWriter out4 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
-				+ "character_l2dup.json");
+		PrintWriter out4 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "character_l2dup.json");
 		out4.println(characterLevel2duplicated);
 		out4.close();
 
@@ -239,8 +228,7 @@ public class CharacterCreationTest {
 		out1.println(orginalSheet);
 		out1.close();
 
-		out2 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
-				+ "importedLevelSheet.txt");
+		out2 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "importedLevelSheet.txt");
 		out2.println(importedSheet);
 		out2.close();
 

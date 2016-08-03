@@ -28,8 +28,13 @@ public class TxtSheet {
 	 * Create text with basic info.
 	 */
 	public static String basicCharacterInfo(CharacterPlayer characterPlayer) {
-		String text = characterPlayer.getName() + "\tNº " + characterPlayer.getCurrentLevelNumber() + "\n" + characterPlayer.getRace().getName() + " ("
-				+ characterPlayer.getCulture().getName() + ")" + "\n" + characterPlayer.getProfession().getName();
+		if (characterPlayer == null) {
+			return "";
+		}
+		String text = characterPlayer.getName() + "\tNº " + characterPlayer.getCurrentLevelNumber() + "\n"
+				+ (characterPlayer.getRace() != null ? characterPlayer.getRace().getName() : "Unknown Race") + " ("
+				+ (characterPlayer.getCulture() != null ? characterPlayer.getCulture().getName() : "Unknown Culture") + ")" + "\n"
+				+ (characterPlayer.getProfession() != null ? characterPlayer.getProfession().getName() : "Unknwon profession");
 		String trainings = "";
 		if (characterPlayer.getTrainings().size() > 0) {
 			for (String training : characterPlayer.getTrainings()) {
@@ -259,6 +264,9 @@ public class TxtSheet {
 	}
 
 	private static String getAttackCode(CharacterPlayer characterPlayer, Skill skill) {
+		if (skill == null) {
+			return "??";
+		}
 		try {
 			if (WeaponFactory.getWeapon(skill.getName()) != null) {
 				return WeaponFactory.getWeapon(skill.getName()).getAbbreviature();

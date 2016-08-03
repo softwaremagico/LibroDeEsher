@@ -19,14 +19,12 @@ public class PerkPointsPerRaceTest {
 
 	@Test
 	public void centauroCaballoPerks() throws InvalidRaceDefinition, InvalidRaceException {
-		Assert.assertEquals(55,
-				new PerkPointsCalculator(RaceFactory.getRace("Centauro Caballo")).getPerkPoints());
+		Assert.assertEquals(55, new PerkPointsCalculator(RaceFactory.getRace("Centauro Caballo")).getPerkPoints());
 	}
 
 	@Test
 	public void centauroLeonPerks() throws InvalidRaceDefinition, InvalidRaceException {
-		Assert.assertEquals(50,
-				new PerkPointsCalculator(RaceFactory.getRace("Centauro León")).getPerkPoints());
+		Assert.assertEquals(50, new PerkPointsCalculator(RaceFactory.getRace("Centauro León")).getPerkPoints());
 	}
 
 	@Test
@@ -41,8 +39,7 @@ public class PerkPointsPerRaceTest {
 
 	@Test
 	public void trollPerks() throws InvalidRaceDefinition, InvalidRaceException {
-		Assert.assertEquals(5,
-				new PerkPointsCalculator(RaceFactory.getRace("Troll de Guerra")).getPerkPoints());
+		Assert.assertEquals(5, new PerkPointsCalculator(RaceFactory.getRace("Troll de Guerra")).getPerkPoints());
 	}
 
 	@Test
@@ -54,7 +51,7 @@ public class PerkPointsPerRaceTest {
 	public void ilourianosPerks() throws InvalidRaceDefinition, InvalidRaceException {
 		Assert.assertEquals(50, new PerkPointsCalculator(RaceFactory.getRace("Ilourianos")).getPerkPoints());
 	}
-	
+
 	@Test
 	public void jhordiPerks() throws InvalidRaceDefinition, InvalidRaceException {
 		Assert.assertEquals(55, new PerkPointsCalculator(RaceFactory.getRace("Jhordi")).getPerkPoints());
