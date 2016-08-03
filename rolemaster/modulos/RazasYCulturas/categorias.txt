@@ -1,4 +1,5 @@
 #Nombre	Características	Progresión	Habilidades {AñadirNuevaHabilidad1; AñadirNuevaHabilidad2;...} [Especialidad1; Especialidad2; ...]
 ################################################################
+Comunicación(Comun)	Ra/Me/Em	Estándar	Hablar Lengua Negra, Escribir Lengua Negra, Hablar Élfico, Escribir Élfico, Hablar Élfico Alto, Escribir Élfico Alto, Hablar Élfico Gris, Escribir Élfico Gris, Hablar Élfico de los Bosques, Escribir Élfico de los Bosques, Hablar Faérico, Escribir Faérico, Hablar Gnómico, Escribir Gnómico, Hablar Enano, Escribir Enano, Hablar Centauro, Escribir Centauro, Hablar Hirazi, Escribir Hirazi, Hablar Lennai, Escribir Lennai, Hablar Dríade, Escribir Dríade, Hablar Orco, Escribir Orco, Hablar Ky'taari, Escribir Ky'taari, Hablar Jameri, Escribir Jameri, Hablar Lydiano, Escribir Lydiano, Hablar Dyari, Escribir Dyari, Hablar Habla Troll, Escribir Habla Troll, Hablar Erlini, Escribir Erlini
 Arte·Pasivo(ArtP)	Em/In/Pr	Estándar	Pintura: Corporal
 Oficios(Ofi)	Ag/Me/Ad	Combinada	Tatuar, Bordar, Tallar el Hueso

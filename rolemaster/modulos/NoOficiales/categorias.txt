@@ -1,3 +1,4 @@
 #Nombre	Características	Progresión	Habilidades {AñadirNuevaHabilidad1; AñadirNuevaHabilidad2;...} [Especialidad1; Especialidad2; ...]
 ################################################################
+Comunicación(Comun)	Ra/Me/Em	Estándar	Hablar Centauro Escorpión, Escribir Centauro Escorpión,
 Oficios(Ofi)	Ag/Me/Ad	Combinada	Barrer
