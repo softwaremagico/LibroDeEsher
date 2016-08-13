@@ -81,7 +81,7 @@ Sobornar, Supervivencia (Desierto), Trabajar el Cuero, Trabajar la Piedra
 ####################
 Habla 1	6/6
 Habla 2	4/4
-Habla 3	0
+Habla 3	0/0
 
 
 # ADIESTAMIENTOS
