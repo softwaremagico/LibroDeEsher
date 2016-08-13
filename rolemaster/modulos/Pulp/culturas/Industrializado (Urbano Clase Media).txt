@@ -16,7 +16,7 @@ Armadura·Ligera	1
 Armadura·Media	0
   *  Cota de Mallas	0
 Arte·Activo	0	
-Arte·Pasivo	1
+Arte·Pasivo	0	
 Armas·Contundentes	0
   *  Arma	0
 Armas·Filo	1
@@ -35,31 +35,31 @@ Atletismo·Gimnasia	1
   *  Trepar	0
 Artes Marciales·Golpes	0
 Artes Marciales·Barridos	0
-Atletismo·Potencia	0
+Atletismo·Potencia	1
 Atletismo·Resistencia	1
   *  Nadar	1
 Ciencia/Analítica·Básica	1
-  *  Ciencia/Analítica·Básica	5
-Comunicación	9
-  *  Habla 1	12
+  *  Ciencia/Analítica·Básica	4
+Comunicación	8
+  *  Habla 1	11
 Conocimiento·General	5
   *  Conocimiento Regional	4
   *  Conocimiento Cultural	4
 Exteriores·Animales	0
   *  Montar: Caballos	0
-Exteriores·Entorno	0
+Exteriores·Entorno	1
 Percepción de Poder	0
 Percepción·Búsqueda	1
 Percepción·Perspicacia	0
   *  Alerta	1
-Subterfugio·Sigilo	1
+Subterfugio·Sigilo	2
   *  Acechar	0
   *  Esconderse	1
 Técnica/comercio·General	3
-Técnica/comercio·Profesional	0
-Técnica/comercio·Vocacional	2
+Técnica/comercio·Profesional	1
+Técnica/comercio·Vocacional	1
 Urbana	4
-Influencia	3
+Influencia	2
 Desarrollo Físico	0	
   *  Desarrollo Físico	1
 Listas Abiertas de Hechizos	0
@@ -67,22 +67,22 @@ Listas Abiertas de Hechizos	0
 
 # PUNTOS AFICIONES
 ####################
-10
+11
 
 # AFICIONES
 ####################
-Actuar, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas, Armas·Contundentes
-Armadura, Cantar, Combate Montado, Conocimiento Regional, Desarrollo Físico, 
-Diplomacia, Escultura, Heráldica, Historia, Idiomas, Juego
-Leer Runas, Liderazgo, Manejo de los Animales, Montar, Observación, 
-Oratoria, Pintura, Primeros Auxilios, Sentido de la Dirección, Tasar
-Tocar Instrumento
+Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas, Armas·Contundentes
+Armadura·Ligera, Callejeo, Combate Montado, Comerciar, Conocimiento Regional
+Desarrollo Físico, Historia, Idiomas, Juegos de Estrategia, Manejo de los Animales
+Montar, Orientación Celeste, Sentido de la Dirección, Sentido del Tiempo
+Sobornar, Supervivencia (Desierto), Trabajar el Cuero, Trabajar la Piedra
 
 # IDIOMAS
 ####################
 Habla 1	6/6
 Habla 2	4/4
 Habla 3	0
+
 
 # ADIESTAMIENTOS
 ####################

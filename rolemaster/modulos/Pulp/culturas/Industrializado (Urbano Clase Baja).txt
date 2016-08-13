@@ -16,7 +16,7 @@ Armadura·Ligera	1
 Armadura·Media	0
   *  Cota de Mallas	0
 Arte·Activo	0	
-Arte·Pasivo	1
+Arte·Pasivo	0
 Armas·Contundentes	0
   *  Arma	0
 Armas·Filo	1
@@ -32,51 +32,53 @@ Armas·Arrojadizas	1
 Armas·Fuego 1mano	1
   *  Arma	1
 Atletismo·Gimnasia	1
-  *  Trepar	0
-Artes Marciales·Golpes	0
+  *  Trepar	1
+Artes Marciales·Golpes	1
 Artes Marciales·Barridos	0
-Atletismo·Potencia	0
+Atletismo·Potencia	1
 Atletismo·Resistencia	1
   *  Nadar	1
-Ciencia/Analítica·Básica	1
-  *  Ciencia/Analítica·Básica	5
-Comunicación	9
-  *  Habla 1	12
+Ciencia/Analítica·Básica	0
+  *  Ciencia/Analítica·Básica	3
+Comunicación	6
+  *  Habla 1	10
 Conocimiento·General	5
-  *  Conocimiento Regional	4
+  *  Conocimiento Regional	3
   *  Conocimiento Cultural	4
 Exteriores·Animales	0
   *  Montar: Caballos	0
-Exteriores·Entorno	0
+Exteriores·Entorno	1
 Percepción de Poder	0
 Percepción·Búsqueda	1
 Percepción·Perspicacia	0
   *  Alerta	1
-Subterfugio·Sigilo	1
+Subterfugio·Sigilo	2
   *  Acechar	0
   *  Esconderse	1
 Técnica/comercio·General	3
 Técnica/comercio·Profesional	0
 Técnica/comercio·Vocacional	2
-Urbana	4
-Influencia	3
+Urbana	3
+Influencia	1
 Desarrollo Físico	0	
-  *  Desarrollo Físico	1
+  *  Desarrollo Físico	2
 Listas Abiertas de Hechizos	0
   *  Lista de Hechizos	0
 
 # PUNTOS AFICIONES
 ####################
-10
+12
 
 # AFICIONES
 ####################
-Actuar, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas, Armas·Contundentes
-Armadura, Cantar, Combate Montado, Conocimiento Regional, Desarrollo Físico, 
-Diplomacia, Escultura, Heráldica, Historia, Idiomas, Juego
-Leer Runas, Liderazgo, Manejo de los Animales, Montar, Observación, 
-Oratoria, Pintura, Primeros Auxilios, Sentido de la Dirección, Tasar
-Tocar Instrumento
+Abrir Cerraduras, Acechar, Agenciar, Arma, Armadura·Ligera
+Cantar, Carrera de Fondo, Cocinar, Conocimiento Regional
+Coser/Tejer, Desarrollo Físico, Disimulo, Esconderse, Forrajear, Instinto Urbano
+Juego, Juegos de Manos, Maestría de Animales, Malabarismos
+Manejo de los Animales, Mendigar, Observación, Primeros Auxilios
+Rastrear, Seducción, Sentido de la Dirección, Sobornar, Supervivencia (Desierto)
+Tocar Instrumento, Trabajar el Cuero, Trabajar el Metal, Trabajar la Madera
+Trabajar la Piedra
 
 # IDIOMAS
 ####################

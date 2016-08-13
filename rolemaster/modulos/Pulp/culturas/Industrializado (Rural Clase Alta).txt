@@ -15,8 +15,6 @@ Armadura·Ligera	1
   *  Cuero Endurecido	0
 Armadura·Media	0
   *  Cota de Mallas	0
-Arte·Activo	0	
-Arte·Pasivo	1
 Armas·Contundentes	0
   *  Arma	0
 Armas·Filo	1
@@ -29,45 +27,37 @@ Armas·Asta	0
   *  Arma	0
 Armas·Arrojadizas	1
   *  Arma	1
-Armas·Fuego 1mano	1
-  *  Arma	1
 Atletismo·Gimnasia	1
   *  Trepar	0
-Artes Marciales·Golpes	0
-Artes Marciales·Barridos	0
-Atletismo·Potencia	0
-Atletismo·Resistencia	1
-  *  Nadar	1
-Ciencia/Analítica·Básica	1
-  *  Ciencia/Analítica·Básica	5
-Comunicación	9
-  *  Habla 1	12
-Conocimiento·General	5
-  *  Conocimiento Regional	4
-  *  Conocimiento Cultural	4
-Exteriores·Animales	0
-  *  Montar: Caballos	0
-Exteriores·Entorno	0
+Atletismo·Potencia	1
+Atletismo·Resistencia	3
+  *  Nadar	0
+Ciencia/Analítica·Básica	0
+Comunicación	1
+  *  Idiomas	4
+Conocimiento·General	3
+  *  Conocimiento Regional	3
+  *  Conocimiento Cultural	3
+Exteriores·Animales	5
+  *  Montar: Caballos	5
+Exteriores·Entorno	3
 Percepción de Poder	0
 Percepción·Búsqueda	1
 Percepción·Perspicacia	0
   *  Alerta	1
-Subterfugio·Sigilo	1
+Subterfugio·Sigilo	0
   *  Acechar	0
-  *  Esconderse	1
-Técnica/comercio·General	3
-Técnica/comercio·Profesional	0
-Técnica/comercio·Vocacional	2
-Urbana	4
-Influencia	3
+  *  Esconderse	0
+Técnica/comercio·General	1
+Urbana	0
 Desarrollo Físico	0	
-  *  Desarrollo Físico	1
+  *  Desarrollo Físico	2
 Listas Abiertas de Hechizos	0
   *  Lista de Hechizos	0
 
 # PUNTOS AFICIONES
 ####################
-10
+12
 
 # AFICIONES
 ####################
@@ -80,12 +70,13 @@ Tocar Instrumento
 
 # IDIOMAS
 ####################
-Habla 1	6/6
-Habla 2	4/4
-Habla 3	0
+Habla Común	8/8
+Habla del Norte	8/8
+Habla del Sur	8/8
+Habla de las Llanuras	8/8
 
 # ADIESTAMIENTOS
 ####################
-Ninguno
+Diplomático 	75%
 
 ### FIN CULTURA ###
