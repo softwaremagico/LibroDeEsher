@@ -72,9 +72,9 @@ Listas Abiertas de Hechizos	0
 # AFICIONES
 ####################
 Actuar, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas, Armas·Contundentes
-Armadura, Cantar, Combate Montado, Conocimiento Regional, Desarrollo Físico, 
+Armadura, Cantar, Combate Montado, Conocimiento Regional, Desarrollo Físico
 Diplomacia, Escultura, Heráldica, Historia, Idiomas, Juego
-Leer Runas, Liderazgo, Manejo de los Animales, Montar, Observación, 
+Leer Runas, Liderazgo, Manejo de los Animales, Montar, Observación
 Oratoria, Pintura, Primeros Auxilios, Sentido de la Dirección, Tasar
 Tocar Instrumento
 
