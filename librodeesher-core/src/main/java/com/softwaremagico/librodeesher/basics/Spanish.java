@@ -72,7 +72,7 @@ public class Spanish {
 	public static final String CULTURAL_KNOWNLEDGE_TAG = "Conocimiento Cultural";
 	public static final String REGIONAL_KNOWNLEDGE_TAG = "Conocimiento Regional";
 	public static final String SURVIVAL_TAG = "Supervivencia";
-	public static final String COMUNICATION_CATEGORY = "comunicación";
+	public static final String COMUNICATION_CATEGORY = "Comunicación";
 	public static final String ALL_TAG = "todas";
 	public static final String OPEN_LIST_TAG = "Lista Abierta";
 	public static final String CLOSED_LIST_TAG = "Lista Cerrada";

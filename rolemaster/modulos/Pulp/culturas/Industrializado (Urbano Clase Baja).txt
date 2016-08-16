@@ -41,7 +41,7 @@ Atletismo·Resistencia	1
 Ciencia/Analítica·Básica	0
   *  Ciencia/Analítica·Básica	3
 Comunicación	6
-  *  Habla 1	10
+  *  Idiomas	10
 Conocimiento·General	5
   *  Conocimiento Regional	3
   *  Conocimiento Cultural	4

@@ -1045,7 +1045,7 @@ public class CharacterPlayer extends StorableObject {
 		total += getPreviousLevelsRanks(skill);
 		total += getInsertedRanks(skill);
 		if (skill.getCategory() != null) {
-			if (skill.getCategory().getName().toLowerCase().equals(Spanish.COMUNICATION_CATEGORY)) {
+			if (skill.getCategory().getName().toLowerCase().equals(Spanish.COMUNICATION_CATEGORY.toLowerCase())) {
 				total += getLanguageRanks(skill.getName());
 			}
 		}

@@ -705,7 +705,7 @@ public class RandomCharacterPlayer {
 			for (int i = 0; i < shuffledCategoryList.size(); i++) {
 				Category category = characterPlayer.getCategory(shuffledCategoryList.get(i));
 				// Avoid some categories.
-				if (category.getName().toLowerCase().contains(Spanish.COMUNICATION_CATEGORY)) {
+				if (category.getName().toLowerCase().contains(Spanish.COMUNICATION_CATEGORY.toLowerCase())) {
 					continue;
 				}
 				if (!characterPlayer.isHistoryPointSelected(category) && characterPlayer.getRemainingBackgroundPoints() > 0

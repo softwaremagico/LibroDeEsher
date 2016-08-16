@@ -110,7 +110,7 @@ public class CharacterComparator {
 									+ character1.getInsertedRanks(skill)
 									+ "', new ranks '"
 									+ character1.getCurrentLevelRanks(skill)
-									+ (category.getName().toLowerCase().equals(Spanish.COMUNICATION_CATEGORY) ? "language ranks '"
+									+ (category.getName().toLowerCase().equals(Spanish.COMUNICATION_CATEGORY.toLowerCase()) ? "language ranks '"
 											+ character1.getLanguageRanks(skill.getName()) + "'"
 											: "")
 									+ ", specialization ranks '"

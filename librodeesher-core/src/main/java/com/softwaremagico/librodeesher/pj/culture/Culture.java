@@ -366,11 +366,11 @@ public class Culture {
 	}
 
 	public Integer getSpellRanks() {
-		return categories.get("Listas Abiertas de Hechizos").getChooseRanks();
+		return categories.get(Spanish.OPEN_LISTS).getChooseRanks();
 	}
 
 	public Integer getLanguageRanksToChoose() {
-		return categories.get("Comunicación").getChooseRanks();
+		return categories.get(Spanish.COMUNICATION_CATEGORY).getChooseRanks();
 	}
 
 	public Integer getLanguageMaxRanks(String language) {

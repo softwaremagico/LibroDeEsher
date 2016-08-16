@@ -3,15 +3,16 @@
 	<test name="CharacterCrud" enabled="true" preserve-order="true">
 		<groups>
 			<run>				
-				<include name="readFiles" />
-				<include name="characterCreation" />
-				<include name="characterStorage" />
-				<include name="characterPdf" />
-				<include name="characterTxt" />
-				<include name="characterJson" />
-				<include name="NihalDragoniana" />
-				<include name="MorticiaInnodanTest" />
-				<include name="perkPoints" />
+				<exclude name="readFiles" />
+				<exclude name="characterCreation" />
+				<exclude name="characterStorage" />
+				<exclude name="characterPdf" />
+				<exclude name="characterTxt" />
+				<exclude name="characterJson" />
+				<exclude name="NihalDragoniana" />
+				<exclude name="MorticiaInnodanTest" />
+				<exclude name="perkPoints" />
+				<include name="pulpTests" />
 			</run>
 		</groups>
 		<classes>
@@ -20,6 +21,7 @@
 			<class name="com.softwaremagico.librodeesher.pj.MorticiaInnodanTest" />
 			<class name="com.softwaremagico.librodeesher.pj.PerkPointsPerRaceTest" />
 			<class name="com.softwaremagico.librodeesher.pj.ReadFilesTest" />
+			<class name="com.softwaremagico.librodeesher.pj.PulpTests" />
 		</classes>
 	</test>
 </suite>
