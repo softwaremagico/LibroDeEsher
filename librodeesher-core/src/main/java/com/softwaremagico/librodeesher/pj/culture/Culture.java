@@ -48,6 +48,7 @@ import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 import com.softwaremagico.librodeesher.pj.weapons.InvalidWeaponException;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 import com.softwaremagico.librodeesher.pj.weapons.WeaponFactory;
+import com.softwaremagico.librodeesher.pj.weapons.WeaponType;
 import com.softwaremagico.log.EsherLog;
 
 public class Culture {
@@ -125,8 +126,8 @@ public class Culture {
 			lineIndex = setCultureMaxLanguages(lines, lineIndex);
 			lineIndex = setTrainingDiscount(lines, lineIndex);
 		} else {
-			throw new InvalidCultureException("Invalid culture file '" + CultureFactory.CULTURE_FOLDER
-					+ File.separator + cultureName + ".txt'");
+			throw new InvalidCultureException("Invalid culture file '" + CultureFactory.CULTURE_FOLDER + File.separator
+					+ cultureName + ".txt'");
 		}
 	}
 
@@ -146,6 +147,12 @@ public class Culture {
 							weapon = WeaponFactory.getWeapon(weaponName);
 							if (weapon != null) {
 								cultureWeapons.add(weapon);
+							} else {
+								// It is a category
+								WeaponType type = WeaponType.getWeaponType(weaponName);
+								if (type != null) {
+									cultureWeapons.addAll(WeaponFactory.getWeaponsByTypeNonRare(type));
+								}
 							}
 						} catch (InvalidWeaponException e) {
 							EsherLog.warning(WeaponFactory.class.getName(), "Weapon '" + weaponName
@@ -217,8 +224,8 @@ public class Culture {
 			try {
 				hobbyRanks = Integer.parseInt(hobbyLine);
 			} catch (NumberFormatException nfe) {
-				throw new InvalidCultureException("Error obtaining hobby ranks '" + hobbyLine
-						+ "' for culture '" + getName() + "'. ", nfe);
+				throw new InvalidCultureException("Error obtaining hobby ranks '" + hobbyLine + "' for culture '"
+						+ getName() + "'. ", nfe);
 			}
 			index++;
 		}
@@ -248,20 +255,18 @@ public class Culture {
 					if (SkillFactory.existSkill(hobby)) {
 						exceptions.add(hobby);
 					} else {
-						throw new InvalidCultureException("Hobby not found in culture '" + getName()
-								+ "' with name '" + hobby + "'.");
+						throw new InvalidCultureException("Hobby not found in culture '" + getName() + "' with name '"
+								+ hobby + "'.");
 					}
 
 				} else if (SkillFactory.existSkill(hobby)) {
 					hobbySkills.add(hobby);
 					// It is a special tag for a group of skills. Add it.
-				} else if (hobby.toLowerCase().equals(Spanish.WEAPON)
-						|| hobby.toLowerCase().equals(Spanish.ARMOUR)
+				} else if (hobby.toLowerCase().equals(Spanish.WEAPON) || hobby.toLowerCase().equals(Spanish.ARMOUR)
 						|| hobby.toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
 					hobbySkills.add(hobby);
 					// Is a culture skill: add it;
-				} else if (hobby.contains(Spanish.FAUNA_KNOWNLEDGE_TAG)
-						|| hobby.contains(Spanish.FLORA_KNOWNLEDGE_TAG)
+				} else if (hobby.contains(Spanish.FAUNA_KNOWNLEDGE_TAG) || hobby.contains(Spanish.FLORA_KNOWNLEDGE_TAG)
 						|| hobby.contains(Spanish.CULTURAL_KNOWNLEDGE_TAG)
 						|| hobby.contains(Spanish.REGIONAL_KNOWNLEDGE_TAG)) {
 					Category cat = CategoryFactory.getCategory(Spanish.GENERAL_KNOWLEDGE_TAG);
@@ -276,8 +281,8 @@ public class Culture {
 				} else if (hobby.toLowerCase().equals(Spanish.CULTURE_LANGUAGE_TAG.toLowerCase())) {
 					// TODO select a language
 				} else { // Not recognized.
-					throw new InvalidCultureException("Hobby '" + hobby + "' not found in culture '"
-							+ getName() + "' line '" + lines.get(index) + "'.");
+					throw new InvalidCultureException("Hobby '" + hobby + "' not found in culture '" + getName()
+							+ "' line '" + lines.get(index) + "'.");
 				}
 			}
 			index++;
