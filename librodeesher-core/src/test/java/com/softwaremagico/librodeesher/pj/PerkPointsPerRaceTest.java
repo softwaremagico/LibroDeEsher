@@ -39,7 +39,7 @@ public class PerkPointsPerRaceTest {
 
 	@Test
 	public void trollPerks() throws InvalidRaceDefinition, InvalidRaceException {
-		Assert.assertEquals(5, new PerkPointsCalculator(RaceFactory.getRace("Troll de Guerra")).getPerkPoints());
+		Assert.assertEquals(0, new PerkPointsCalculator(RaceFactory.getRace("Troll de Guerra")).getPerkPoints());
 	}
 
 	@Test
@@ -55,6 +55,13 @@ public class PerkPointsPerRaceTest {
 	@Test
 	public void jhordiPerks() throws InvalidRaceDefinition, InvalidRaceException {
 		Assert.assertEquals(55, new PerkPointsCalculator(RaceFactory.getRace("Jhordi")).getPerkPoints());
+	}
+
+	@Test
+	public void checkTrollRacePerks() {
+		CharacterPlayer character = new CharacterPlayer();
+		character.setRace("Troll de Guerra");
+		Assert.assertEquals(9, character.getRace().getPerks().size());
 	}
 
 }
