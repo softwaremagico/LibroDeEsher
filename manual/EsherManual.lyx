@@ -2361,12 +2361,18 @@ Plantilla de Culturas
 \end_layout
 
 \begin_layout Subsection
-Armas
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Armas-Típicas"
+
+\end_inset
+
+Armas Típicas
 \end_layout
 
 \begin_layout Standard
 Aquí se incluye un listado de armas de la cultura.
- Estas armas estarán disponibles para el jugador a la hora de gastar hobbies
+ Estas armas estarán disponibles para el jugador a la hora de gastar aficiones
  o distribuir rangos en las armas.
  En el caso de escribir la palabra 
 \begin_inset Quotes eld
@@ -2423,7 +2429,14 @@ lista de hechizos
 \end_inset
 
  se seleccionará para las aficiones un arma, armadura o hechizos propios
- de la cultura.
+ de la cultura, tal como han sido definidas en el punto 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Armas-Típicas"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Enumerate

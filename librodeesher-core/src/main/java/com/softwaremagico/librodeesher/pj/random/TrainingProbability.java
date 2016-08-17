@@ -19,8 +19,7 @@ import com.softwaremagico.librodeesher.pj.training.TrainingType;
 
 public class TrainingProbability {
 
-	protected static List<String> shuffleTrainings(CharacterPlayer characterPlayer,
-			List<String> suggestedTrainings) {
+	protected static List<String> shuffleTrainings(CharacterPlayer characterPlayer, List<String> suggestedTrainings) {
 		List<String> allTrainings = TrainingFactory.getAvailableTrainings();
 		Collections.shuffle(allTrainings);
 
@@ -62,8 +61,8 @@ public class TrainingProbability {
 				|| training.contains(Spanish.ELEMENTALIST_PROFESSION);
 	}
 
-	protected static int trainingRandomness(CharacterPlayer characterPlayer, String trainingName,
-			int specialization, List<String> suggestedTrainings, int finalLevel) throws InvalidTrainingException {
+	protected static int trainingRandomness(CharacterPlayer characterPlayer, String trainingName, int specialization,
+			List<String> suggestedTrainings, int finalLevel) throws InvalidTrainingException {
 		int cost = characterPlayer.getTrainingCost(trainingName);
 		// No too expensive trainings.
 		if (cost > characterPlayer.getRemainingDevelopmentPoints()) {
@@ -83,8 +82,7 @@ public class TrainingProbability {
 
 		// Has not the skills requirements.
 		for (String skill : training.getSkillRequirements().keySet()) {
-			if (training.getSkillRequirements().get(skill) > characterPlayer.getRealRanks(SkillFactory
-					.getSkill(skill))) {
+			if (training.getSkillRequirements().get(skill) > characterPlayer.getRealRanks(SkillFactory.getSkill(skill))) {
 				return 0;
 			}
 		}
@@ -95,8 +93,7 @@ public class TrainingProbability {
 				suggestedTrainings.removeAll(characterPlayer.getSelectedTrainings());
 			}
 			if (suggestedTrainings.contains(trainingName)
-					&& characterPlayer.getTrainingCost(trainingName) <= characterPlayer
-							.getRemainingDevelopmentPoints()) {
+					&& characterPlayer.getTrainingCost(trainingName) <= characterPlayer.getRemainingDevelopmentPoints()) {
 				// At least one training per level
 				if (characterPlayer.getCurrentLevel().getTrainings().isEmpty()) {
 					return 100;
@@ -110,8 +107,7 @@ public class TrainingProbability {
 				.getSelectedTrainings().size() + specialization) * 25));
 
 		if (characterPlayer.getProfession().getTrainingTypes().get(trainingName) != null
-				&& characterPlayer.getProfession().getTrainingTypes().get(trainingName)
-						.equals(TrainingType.FAVOURITE)) {
+				&& characterPlayer.getProfession().getTrainingTypes().get(trainingName).equals(TrainingType.FAVOURITE)) {
 			probability += 15;
 		} else if (training.getProfessionPreferences().get(characterPlayer.getProfession().getName()) != null
 				&& training.getProfessionPreferences().get(characterPlayer.getProfession().getName())
@@ -129,8 +125,8 @@ public class TrainingProbability {
 			probability = 1;
 		}
 
-		if (characterPlayer.getProfession().getTrainingTypes().get(trainingName)
-				.equals(TrainingType.FORBIDDEN)) {
+		if (characterPlayer.getProfession().getTrainingTypes().get(trainingName) != null
+				&& characterPlayer.getProfession().getTrainingTypes().get(trainingName).equals(TrainingType.FORBIDDEN)) {
 			probability -= 1500;
 		} else if (training.getProfessionPreferences().get(characterPlayer.getProfession().getName()) != null
 				&& training.getProfessionPreferences().get(characterPlayer.getProfession().getName())
@@ -146,8 +142,8 @@ public class TrainingProbability {
 		return probability / (characterPlayer.getCurrentLevel().getTrainings().size() + 1);
 	}
 
-	public static void setRandomCategoryRanks(CharacterPlayer characterPlayer, String trainingName,
-			int specialization) throws InvalidTrainingException {
+	public static void setRandomCategoryRanks(CharacterPlayer characterPlayer, String trainingName, int specialization)
+			throws InvalidTrainingException {
 		Training training = TrainingFactory.getTraining(trainingName);
 
 		// For each category
@@ -155,11 +151,9 @@ public class TrainingProbability {
 			// Choose one category option.
 			List<String> availableCategories = trainingCategory.getCategoryOptions();
 			if (specialization >= 0) {
-				Collections
-						.sort(availableCategories, new CategoryComparatorBySkillWithRanks(characterPlayer));
+				Collections.sort(availableCategories, new CategoryComparatorBySkillWithRanks(characterPlayer));
 			} else {
-				Collections.sort(availableCategories, new CategoryComparatorBySkillWithLessRanks(
-						characterPlayer));
+				Collections.sort(availableCategories, new CategoryComparatorBySkillWithLessRanks(characterPlayer));
 			}
 
 			// Select category from list.
@@ -207,7 +201,8 @@ public class TrainingProbability {
 		}
 	}
 
-	public static void setRandomCharacteristicsUpgrades(CharacterPlayer characterPlayer, String trainingName) throws InvalidTrainingException {
+	public static void setRandomCharacteristicsUpgrades(CharacterPlayer characterPlayer, String trainingName)
+			throws InvalidTrainingException {
 		// Only do it for remaining characteristic updates (if any).
 		for (int i = characterPlayer.getTrainingCharacteristicsUpdates(trainingName).size(); i < TrainingFactory
 				.getTraining(trainingName).getUpdateCharacteristics().size(); i++) {
@@ -246,7 +241,8 @@ public class TrainingProbability {
 		}
 	}
 
-	public static void setRandomObjects(CharacterPlayer characterPlayer, String trainingName) throws InvalidTrainingException {
+	public static void setRandomObjects(CharacterPlayer characterPlayer, String trainingName)
+			throws InvalidTrainingException {
 		int accepted = 1;
 		Training training = TrainingFactory.getTraining(trainingName);
 		for (int i = 0; i < training.getObjects().size(); i++) {

@@ -32,6 +32,8 @@ import java.awt.SplashScreen;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import com.softwaremagico.files.MessageManager;
+import com.softwaremagico.log.EsherLog;
 import com.softwaremagico.persistence.HibernateInitializator;
 
 public class Main {
@@ -75,25 +77,28 @@ public class Main {
 				}
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			EsherLog.errorMessage(Main.class.getName(), ex);
 		}
-
-		new Controller();
+		try {
+			new Controller();
+		} catch (Exception ex) {
+			MessageManager.showErrorInformation(Main.class.getName(), ex);
+		}
 	}
 
 	private static void modifySplashString() {
 		final SplashScreen splash = SplashScreen.getSplashScreen();
 		if (splash != null) {
 			Graphics2D g = splash.createGraphics();
-			if (g != null) {		
+			if (g != null) {
 				renderSplashFrame(g, "Database");
 				splash.update();
 				// Force database creation
 				HibernateInitializator.getSessionFactory();
 				renderSplashFrame(g, "GUI");
 				splash.update();
-				
-				//End it
+
+				// End it
 				splash.close();
 			}
 		}

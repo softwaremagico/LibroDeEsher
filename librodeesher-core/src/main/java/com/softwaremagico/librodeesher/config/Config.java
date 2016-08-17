@@ -45,10 +45,12 @@ public class Config {
 	private static final String ENABLE_PERK_HISTORY_COST = "perksCostHistoryPoints";
 	private static final String DISABLED_MODULES = "disabledModules";
 	private static final String PDF_SORT_SKILLS = "sortSkills";
+	private static final String DEBUG_ENABLED = "debugEnabled";
 	private static final String PDF_HANDWRITTING_FONT = "userHandwrittingFont";
 	private static Properties configuration = new Properties();
-	private static Boolean maximized = false, fireArmsActivated = false, darkSpellsAsBasic = false, chiPowersAllowed = false,
-			otherRealmsTrainingSpells = false, pdfSortSkills = false, perksCostHistoryPoints = true, handWrittingFont = true;
+	private static Boolean maximized = false, fireArmsActivated = false, darkSpellsAsBasic = false,
+			chiPowersAllowed = false, otherRealmsTrainingSpells = false, pdfSortSkills = false,
+			perksCostHistoryPoints = true, handWrittingFont = true, debugEnabled = false;
 	private static Integer categoryMaxCost = 50;
 
 	static {
@@ -74,9 +76,10 @@ public class Config {
 		configuration.setProperty(CHI_POWERS, getChiPowersAllowed().toString());
 		configuration.setProperty(OTHER_REALM_TRAINING_SPELLS, getOtherRealmtrainingSpells().toString());
 		configuration.setProperty(DISABLED_MODULES, getDisabledModules());
-		configuration.setProperty(PDF_SORT_SKILLS, getPdfSortSkills().toString());
+		configuration.setProperty(PDF_SORT_SKILLS, isPdfSortSkillsEnabled().toString());
 		configuration.setProperty(ENABLE_PERK_HISTORY_COST, getPerksCostHistoryPoints().toString());
 		configuration.setProperty(PDF_HANDWRITTING_FONT, getHandWrittingFont().toString());
+		configuration.setProperty(DEBUG_ENABLED, isDebugEnabled().toString());
 	}
 
 	private static void loadConfiguration() {
@@ -90,9 +93,11 @@ public class Config {
 				fireArmsActivated = Boolean.parseBoolean(configuration.getProperty(FIREARMS_ALLOWED));
 				darkSpellsAsBasic = Boolean.parseBoolean(configuration.getProperty(DARK_SPELLS_AS_BASIC_LIST));
 				chiPowersAllowed = Boolean.parseBoolean(configuration.getProperty(CHI_POWERS));
-				otherRealmsTrainingSpells = Boolean.parseBoolean(configuration.getProperty(OTHER_REALM_TRAINING_SPELLS));
+				otherRealmsTrainingSpells = Boolean
+						.parseBoolean(configuration.getProperty(OTHER_REALM_TRAINING_SPELLS));
 				perksCostHistoryPoints = Boolean.parseBoolean(configuration.getProperty(ENABLE_PERK_HISTORY_COST));
 				pdfSortSkills = Boolean.parseBoolean(configuration.getProperty(PDF_SORT_SKILLS));
+				debugEnabled = Boolean.parseBoolean(configuration.getProperty(DEBUG_ENABLED));
 				handWrittingFont = Boolean.parseBoolean(configuration.getProperty(PDF_HANDWRITTING_FONT));
 				loadDisabledModules(configuration.getProperty(DISABLED_MODULES));
 			}
@@ -178,6 +183,11 @@ public class Config {
 		storeConfiguration();
 	}
 
+	public static void setEnableDebug(Boolean enableDebug) {
+		Config.debugEnabled = enableDebug;
+		storeConfiguration();
+	}
+
 	private static String getDisabledModules() {
 		String result = "";
 		for (String moduleDisabled : RolemasterFolderStructure.getDisabledModules()) {
@@ -191,9 +201,16 @@ public class Config {
 		RolemasterFolderStructure.setDisabledModules(new ArrayList<String>(Arrays.asList(values)));
 	}
 
-	public static Boolean getPdfSortSkills() {
+	public static Boolean isPdfSortSkillsEnabled() {
 		if (pdfSortSkills != null) {
 			return pdfSortSkills;
+		}
+		return false;
+	}
+
+	public static Boolean isDebugEnabled() {
+		if (debugEnabled != null) {
+			return debugEnabled;
 		}
 		return false;
 	}
