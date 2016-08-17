@@ -13,6 +13,7 @@
 				<include name="MorticiaInnodanTest" />
 				<include name="perkPoints" />
 				<include name="pulpTests" />
+				<include name="config" />
 			</run>
 		</groups>
 		<classes>
@@ -22,6 +23,7 @@
 			<class name="com.softwaremagico.librodeesher.pj.PerkPointsPerRaceTest" />
 			<class name="com.softwaremagico.librodeesher.pj.ReadFilesTest" />
 			<class name="com.softwaremagico.librodeesher.pj.PulpTests" />
+			<class name="com.softwaremagico.librodeesher.pj.ConfigTests" />
 		</classes>
 	</test>
 </suite>

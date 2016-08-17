@@ -274,6 +274,7 @@ public class CharacterPlayer extends StorableObject {
 		resetIds(magicItems);
 		resetIds(insertedData);
 		resetIds(enabledSkill);
+		resetIds(configuration);
 	}
 
 	@Override
@@ -293,6 +294,7 @@ public class CharacterPlayer extends StorableObject {
 		resetComparationIds(magicItems);
 		resetComparationIds(insertedData);
 		resetComparationIds(enabledSkill);
+		resetComparationIds(configuration);
 	}
 
 	public void clearCache() {
