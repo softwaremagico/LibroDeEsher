@@ -205,21 +205,6 @@ public class CharacterPlayer extends StorableObject {
 	private Appearance appearance;
 
 	@Expose
-	private boolean darkSpellsAsBasicListsAllowed = false;
-	@Expose
-	private boolean firearmsAllowed = false;
-	@Expose
-	private boolean chiPowersAllowed = false;
-	@Expose
-	private boolean otherRealmtrainingSpellsAllowed = false;
-	@Expose
-	private boolean perksCostHistoryPoints = false;
-	@Expose
-	private boolean handWrittingFont = true;
-	@Expose
-	private boolean sortPdfSkills = false;
-
-	@Expose
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@CollectionTable(name = "T_CHARACTERPLAYER_LEVEL_UP")
 	@OrderColumn(name = "level_index")
@@ -242,6 +227,11 @@ public class CharacterPlayer extends StorableObject {
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "insertedDataId")
 	private InsertedData insertedData;
+
+	@Expose
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "configuration")
+	private CharacterConfiguration configuration = null;
 
 	public CharacterPlayer() {
 		characterPlayerHelper = new CharacterPlayerHelper();
@@ -319,13 +309,20 @@ public class CharacterPlayer extends StorableObject {
 	 * this default config options.
 	 */
 	private void setDefaultConfig() {
-		darkSpellsAsBasicListsAllowed = Config.getDarkSpellsAsBasic();
-		firearmsAllowed = Config.getFireArmsActivated();
-		chiPowersAllowed = Config.getChiPowersAllowed();
-		otherRealmtrainingSpellsAllowed = Config.getOtherRealmtrainingSpells();
-		perksCostHistoryPoints = Config.getPerksCostHistoryPoints();
-		handWrittingFont = Config.getHandWrittingFont();
-		sortPdfSkills = Config.isPdfSortSkillsEnabled();
+		getCharacterConfiguration().setDarkSpellsAsBasic(Config.getDarkSpellsAsBasic());
+		getCharacterConfiguration().setFireArmsActivated(Config.getFireArmsActivated());
+		getCharacterConfiguration().setChiPowersAllowed(Config.getChiPowersAllowed());
+		getCharacterConfiguration().setOtherRealmsTrainingSpells(Config.getOtherRealmtrainingSpells());
+		getCharacterConfiguration().setPerksCostHistoryPoints(Config.getPerksCostHistoryPoints());
+		getCharacterConfiguration().setHandWrittingFont(Config.getHandWrittingFont());
+		getCharacterConfiguration().setSortPdfSkills(Config.isPdfSortSkillsEnabled());
+	}
+
+	private CharacterConfiguration getCharacterConfiguration() {
+		if (configuration == null) {
+			configuration = new CharacterConfiguration();
+		}
+		return configuration;
 	}
 
 	/**
@@ -1578,22 +1575,22 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public boolean isDarkSpellsAsBasicListsAllowed() {
-		return darkSpellsAsBasicListsAllowed;
+		return getCharacterConfiguration().isDarkSpellsAsBasic();
 	}
 
 	public void setDarkSpellsAsBasicListsAllowed(boolean darkSpellsAsBasicLists) {
-		this.darkSpellsAsBasicListsAllowed = darkSpellsAsBasicLists;
+		getCharacterConfiguration().setDarkSpellsAsBasic(darkSpellsAsBasicLists);
 	}
 
 	public boolean isFirearmsAllowed() {
-		return firearmsAllowed;
+		return getCharacterConfiguration().isFireArmsActivated();
 	}
 
 	public void setFirearmsAllowed(boolean firearmsActivated) {
-		this.firearmsAllowed = firearmsActivated;
+		getCharacterConfiguration().setFireArmsActivated(firearmsActivated);
 		if (getProfessionDecisions().isWeaponCostDecided()) {
 			// Add costs for firearms
-			if (firearmsAllowed) {
+			if (getCharacterConfiguration().isFireArmsActivated()) {
 				for (Category category : CategoryFactory.getWeaponsCategories()) {
 					if (getProfessionDecisions().getWeaponCost(category) == null) {
 						getProfessionDecisions().setWeaponCost(category, getFirstWeaponCostNotSelected());
@@ -1616,19 +1613,19 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public boolean isChiPowersAllowed() {
-		return chiPowersAllowed;
+		return getCharacterConfiguration().isChiPowersAllowed();
 	}
 
 	public void setChiPowersAllowed(boolean chiPowersAllowed) {
-		this.chiPowersAllowed = chiPowersAllowed;
+		getCharacterConfiguration().setChiPowersAllowed(chiPowersAllowed);
 	}
 
 	public boolean isOtherRealmTrainingSpellsAllowed() {
-		return otherRealmtrainingSpellsAllowed;
+		return getCharacterConfiguration().isOtherRealmsTrainingSpells();
 	}
 
-	public void setOtherRealmTrainingSpellsAllowed(boolean otherRealmtrainingSpells) {
-		this.otherRealmtrainingSpellsAllowed = otherRealmtrainingSpells;
+	public void setOtherRealmTrainingSpellsAllowed(boolean otherRealmsTrainingSpells) {
+		getCharacterConfiguration().setOtherRealmsTrainingSpells(otherRealmsTrainingSpells);
 	}
 
 	public CategoryCost getFirstWeaponCostNotSelected() {
@@ -1665,7 +1662,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	private int getPerksHistoryPointsCost() {
-		if (!perksCostHistoryPoints) {
+		if (!getCharacterConfiguration().isPerksCostHistoryPoints()) {
 			return 0;
 		}
 		return PerkFactory.getPerksHistoryCost(selectedPerks);
@@ -2893,11 +2890,11 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public boolean isPerksCostHistoryPoints() {
-		return perksCostHistoryPoints;
+		return getCharacterConfiguration().isPerksCostHistoryPoints();
 	}
 
 	public void setPerksCostHistoryPoints(boolean perksCostHistoryPoints) {
-		this.perksCostHistoryPoints = perksCostHistoryPoints;
+		getCharacterConfiguration().setPerksCostHistoryPoints(perksCostHistoryPoints);
 	}
 
 	public int getCharacteristicsTemporalTotalPoints() {
@@ -2912,19 +2909,19 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public boolean isHandWrittingFont() {
-		return handWrittingFont;
+		return getCharacterConfiguration().isHandWrittingFont();
 	}
 
 	public void setHandWrittingFont(boolean handWrittingFont) {
-		this.handWrittingFont = handWrittingFont;
+		getCharacterConfiguration().setHandWrittingFont(handWrittingFont);
 	}
 
 	public boolean isSortPdfSkills() {
-		return sortPdfSkills;
+		return getCharacterConfiguration().isSortPdfSkills();
 	}
 
 	public void setSortPdfSkills(boolean sortPdfSkills) {
-		this.sortPdfSkills = sortPdfSkills;
+		getCharacterConfiguration().setSortPdfSkills(sortPdfSkills);
 	}
 
 	public int getHistoryTotalLanguageRanks() {

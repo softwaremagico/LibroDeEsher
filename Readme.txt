@@ -29,6 +29,9 @@ Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadore
 
 Versión
 ------------
+2.3.2	Añadido:
+		- Modo debug.
+		
 2.3.1	Arreglado:
 		- Error al deshabilitar módulos. 
 

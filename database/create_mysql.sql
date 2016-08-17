@@ -68,22 +68,16 @@
         updateTime datetime,
         characteristicsConfirmed bit not null,
         characteristicsTemporalTotalPoints integer,
-        chiPowersAllowed bit not null,
         cultureName varchar(255),
-        darkSpellsAsBasicListsAllowed bit not null,
-        firearmsAllowed bit not null,
-        handWrittingFont bit not null,
         historyText varchar(255),
         name varchar(255),
-        otherRealmtrainingSpellsAllowed bit not null,
-        perksCostHistoryPoints bit not null,
         professionName varchar(255),
         raceName varchar(255),
         sex varchar(255),
-        sortPdfSkills bit not null,
         version varchar(255),
         appearance_ID bigint,
         backgroundId bigint,
+        configuration bigint,
         cultureDecisionsId bigint,
         insertedDataId bigint,
         professionDecisionsId bigint,
@@ -141,6 +135,21 @@
         characteristicsTemporalUpdatesRolls_ID bigint not null,
         characteristicsTemporalUpdatesRolls_KEY integer,
         primary key (T_CHARACTERPLAYER_ID, characteristicsTemporalUpdatesRolls_KEY)
+    );
+
+    create table T_CHARACTER_CONFIGURATION (
+        ID bigint not null,
+        comparationId varchar(255) not null,
+        creationTime datetime not null,
+        updateTime datetime,
+        chiPowersAllowed bit not null,
+        darkSpellsAsBasic bit not null,
+        fireArmsActivated bit not null,
+        handWrittingFont bit not null,
+        otherRealmsTrainingSpells bit not null,
+        perksCostHistoryPoints bit not null,
+        sortPdfSkills bit not null,
+        primary key (ID)
     );
 
     create table T_CULTUREDECISIONS (
@@ -584,6 +593,12 @@
     alter table T_CHARACTERPLAYER_TEMPORAL_CHARACTERISTICS_ROLLS 
         add constraint UK_rsdhy70yoehafjvur7w9b2o66 unique (characteristicsTemporalUpdatesRolls_ID);
 
+    alter table T_CHARACTER_CONFIGURATION 
+        add constraint UK_j71g2kcogvhhr78fdk4hdsilt unique (ID);
+
+    alter table T_CHARACTER_CONFIGURATION 
+        add constraint UK_h49dq3fm78h7isy08sayox779 unique (comparationId);
+
     alter table T_CULTUREDECISIONS 
         add constraint UK_blq96e017u1trnpdefgr091nl unique (ID);
 
@@ -743,6 +758,11 @@
         add constraint FK_os1kt82jl37c7r6o4fnurp3n2 
         foreign key (backgroundId) 
         references T_BACKGROUND (ID);
+
+    alter table T_CHARACTERPLAYER 
+        add constraint FK_hxi005f422otrkhcf92puorkc 
+        foreign key (configuration) 
+        references T_CHARACTER_CONFIGURATION (ID);
 
     alter table T_CHARACTERPLAYER 
         add constraint FK_a6if2gfydatge62dg8j1pgy5w 

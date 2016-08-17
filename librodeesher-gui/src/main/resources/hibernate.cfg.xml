@@ -66,6 +66,7 @@
          
 	 <!--  Class mapping -->
 	<mapping class="com.softwaremagico.librodeesher.pj.CharacterPlayer"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.CharacterConfiguration"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.characteristic.Appearance"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.basics.Roll"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.basics.RollGroup"></mapping>
