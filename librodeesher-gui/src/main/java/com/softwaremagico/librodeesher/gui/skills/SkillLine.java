@@ -43,7 +43,7 @@ public class SkillLine extends GenericSkillLine {
 
 	public SkillLine(CharacterPlayer character, Skill skill, Color background, BaseSkillPanel parentWindow) {
 		super(character, skill, NAME_LENGTH, background, parentWindow);
-		enableColumns(true, true, true, true, true, true, true, true);
+		enableColumns(true, true, false, true, false, true, true, true, true, true);
 		setRanksSelected(character.getCurrentLevelRanks(skill));
 		listeners = new ArrayList<>();
 	}

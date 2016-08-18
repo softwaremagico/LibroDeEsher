@@ -152,6 +152,15 @@ public class Controller {
 		mainGui.getMainMenu().addImportLevelListener(new ImportLevel());
 		mainGui.getMainMenu().addInsertMagicItemListener(new InsertMagicObject());
 		mainGui.getMainMenu().addEnableDebugItemListener(new EnableDebugListener());
+		mainGui.getMainMenu().addRanksItemListener(new AddRankListener());
+	}
+
+	class AddRankListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+
+		}
 	}
 
 	class EnableDebugListener implements ActionListener {

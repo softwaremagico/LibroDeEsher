@@ -47,7 +47,7 @@ public class MainMenu {
 			importLevelMenuItem, exitMenuItem;
 	private JMenuItem aboutMenuItem, cultureMenuItem, professionMenuItem, charactMenuItem, trainingMenuItem,
 			skillsMenuItem, perksMenuItem, historyMenuItem, levelUpMenuItem;
-	private JMenuItem insertMagicObject;
+	private JMenuItem insertMagicObject, insertSkillRanks;
 	private JMenuItem randomName, randomCharacter;
 	private JMenuItem optionsMenu;
 	private JCheckBoxMenuItem enableDebug;
@@ -220,19 +220,17 @@ public class MainMenu {
 		JMenu createMenu = new JMenu("Insertar");
 		createMenu.setIcon((Icon) getIcon("insert_character.png"));
 		createMenu.setMnemonic(KeyEvent.VK_I);
-		createMenu.getAccessibleContext().setAccessibleDescription("Insertar un personaje.");
-
-		// insertCharacter = new JMenuItem("Insertar Personaje", KeyEvent.VK_P);
-		// insertCharacter.setIcon((Icon) getIcon("insert_character.png"));
-		// insertCharacter.getAccessibleContext().setAccessibleDescription("Insertar un personaje.");
-		// createMenu.add(insertCharacter);
-		//
-		// createMenu.addSeparator();
+		createMenu.getAccessibleContext().setAccessibleDescription("Insertar elementos al personaje.");
 
 		insertMagicObject = new JMenuItem("Insertar Objeto Mágico", KeyEvent.VK_M);
 		insertMagicObject.setIcon((Icon) getIcon("potion.png"));
 		insertMagicObject.getAccessibleContext().setAccessibleDescription("Insertar un objeto mágico.");
 		createMenu.add(insertMagicObject);
+
+		insertSkillRanks = new JMenuItem("Añadir Rangos", KeyEvent.VK_R);
+		insertSkillRanks.setIcon((Icon) getIcon("addRanks.png"));
+		insertSkillRanks.getAccessibleContext().setAccessibleDescription("Insertar un objeto mágico.");
+		createMenu.add(insertSkillRanks);
 
 		// insertEquipment = new JMenuItem("Insertar Equipo", KeyEvent.VK_E);
 		// insertEquipment.setIcon((Icon) getIcon("horse.png"));
@@ -422,6 +420,10 @@ public class MainMenu {
 
 	public void addEnableDebugItemListener(ActionListener al) {
 		enableDebug.addActionListener(al);
+	}
+
+	public void addRanksItemListener(ActionListener al) {
+		insertSkillRanks.addActionListener(al);
 	}
 
 	class CloseListener implements ActionListener {

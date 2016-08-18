@@ -40,7 +40,7 @@ public class SpecializedSkillLine extends GenericSkillLine {
 			Color background, BaseSkillPanel parentWindow) {
 		super(character, skill, NAME_LENGTH, background, parentWindow);
 		this.specialization = specialization;
-		enableColumns(false, false, false, true, true, true, true, true);
+		enableColumns(false, false, false, false, false, true, true, true, true, true);
 	}
 
 	@Override

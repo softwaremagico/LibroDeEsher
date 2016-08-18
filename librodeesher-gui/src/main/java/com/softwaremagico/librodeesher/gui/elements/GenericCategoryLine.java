@@ -32,6 +32,8 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -39,10 +41,13 @@ import com.softwaremagico.librodeesher.pj.categories.Category;
 
 public abstract class GenericCategoryLine extends BaseSkillLine {
 	private static final long serialVersionUID = 2914665641808878141L;
-	protected BoldListLabel categoryNameLabel, bonusRankLabel, totalLabel, prevRanksLabel, bonusCharLabel, otherBonus, bonusMagicObject;
+	protected BoldListLabel categoryNameLabel, bonusRankLabel, totalLabel, prevRanksLabel, bonusCharLabel, otherBonus,
+			bonusMagicObject, totalRanksLabel;
+	protected BaseSpinner insertedRanksSpinner;
 	private int nameLength;
 
-	public GenericCategoryLine(CharacterPlayer character, Category category, int nameLength, Color background, BaseSkillPanel parentWindow) {
+	public GenericCategoryLine(CharacterPlayer character, Category category, int nameLength, Color background,
+			BaseSkillPanel parentWindow) {
 		this.character = character;
 		this.category = category;
 		this.parentWindow = parentWindow;
@@ -118,6 +123,16 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			add(new ListBackgroundPanel(prevRanksLabel, getDefaultBackground()), gridBagConstraints);
 		}
 
+		if (insertedRanksPanel) {
+			gridBagConstraints.gridx = 7;
+			gridBagConstraints.gridwidth = 1;
+			gridBagConstraints.weightx = 0.1;
+			SpinnerModel sm = new SpinnerNumberModel(0, 0, 10, 1);
+			insertedRanksSpinner = new BaseSpinner(sm);
+			insertedRanksSpinner.setBackground(getDefaultBackground());
+			add(new ListBackgroundPanel(insertedRanksSpinner, getDefaultBackground()), gridBagConstraints);
+		}
+
 		if (chooseRanksPanel) {
 			JPanel checkBoxPane = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 			checkBoxPane.setBackground(getDefaultBackground());
@@ -138,7 +153,7 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 				checkBoxPane.add(thirdRank);
 			}
 
-			gridBagConstraints.gridx = 7;
+			gridBagConstraints.gridx = 9;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			checkBoxPane.setMinimumSize(new Dimension(columnWidth * 2, columnHeight));
@@ -146,8 +161,16 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			add(checkBoxPane, gridBagConstraints);
 		}
 
+		if (totalRanksPanel) {
+			gridBagConstraints.gridx = 11;
+			gridBagConstraints.gridwidth = 1;
+			gridBagConstraints.weightx = 0.1;
+			totalRanksLabel = new BoldListLabel(character.getTotalRanks(category).toString(), columnWidth, columnHeight);
+			add(new ListBackgroundPanel(totalRanksLabel, getDefaultBackground()), gridBagConstraints);
+		}
+
 		if (ranksValuePanel) {
-			gridBagConstraints.gridx = 9;
+			gridBagConstraints.gridx = 13;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			bonusRankLabel = new BoldListLabel(character.getRanksValue(category).toString(), columnWidth, columnHeight);
@@ -155,15 +178,16 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 		}
 
 		if (bonusCategoryPanel) {
-			gridBagConstraints.gridx = 11;
+			gridBagConstraints.gridx = 15;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			bonusCharLabel = new BoldListLabel(character.getCharacteristicsBonus(category).toString(), columnWidth, columnHeight);
+			bonusCharLabel = new BoldListLabel(character.getCharacteristicsBonus(category).toString(), columnWidth,
+					columnHeight);
 			add(new ListBackgroundPanel(bonusCharLabel, getDefaultBackground()), gridBagConstraints);
 		}
 
 		if (otherBonusPanel) {
-			gridBagConstraints.gridx = 13;
+			gridBagConstraints.gridx = 17;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			otherBonus = new BoldListLabel(character.getSimpleBonus(category) + "", columnWidth, columnHeight);
@@ -171,7 +195,7 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 		}
 
 		if (objectBonusPanel) {
-			gridBagConstraints.gridx = 15;
+			gridBagConstraints.gridx = 19;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			bonusMagicObject = new BoldListLabel(character.getItemBonus(category) + "", columnWidth, columnHeight);
@@ -179,7 +203,7 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 		}
 
 		if (totalPanel) {
-			gridBagConstraints.gridx = 17;
+			gridBagConstraints.gridx = 21;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			totalLabel = new BoldListLabel(character.getTotalValue(category).toString(), columnWidth, columnHeight);

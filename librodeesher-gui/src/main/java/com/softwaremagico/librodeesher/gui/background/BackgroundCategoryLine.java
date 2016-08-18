@@ -43,7 +43,7 @@ public class BackgroundCategoryLine extends GenericCategoryLine {
 
 	public BackgroundCategoryLine(CharacterPlayer character, Category category, Color background, BaseSkillPanel parentWindow) {
 		super(character, category, NAME_LENGTH,  background, parentWindow);
-		enableColumns(false, false, false, false, false, false, false, true);
+		enableColumns(false, false, false, false, false, false, false, false, false, true);
 		addHistoryCheckBox();
 	}
 

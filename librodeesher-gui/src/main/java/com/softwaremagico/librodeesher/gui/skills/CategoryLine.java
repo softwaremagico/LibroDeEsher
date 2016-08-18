@@ -37,7 +37,7 @@ public class CategoryLine extends GenericCategoryLine {
 	public CategoryLine(CharacterPlayer character, Category category, Color background,
 			SkillPanel parentWindow) {
 		super(character, category, NAME_LENGTH, background, parentWindow);
-		enableColumns(true, true, true, true, true, true, true, true);
+		enableColumns(true, true, false, true, false, true, true, true, true, true);
 		setRanksSelected(character.getCurrentLevelRanks(category));
 	}
 

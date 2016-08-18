@@ -34,6 +34,8 @@ import java.util.Set;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -41,13 +43,16 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class GenericSkillLine extends BaseSkillLine {
 	private static final long serialVersionUID = -3194401962061016906L;
-	protected ListLabel skillNameLabel, bonusRankLabel, totalLabel, bonusCategory, otherBonusLabel, prevRanksLabel, bonusMagicObject;
+	protected ListLabel skillNameLabel, bonusRankLabel, totalLabel, bonusCategory, otherBonusLabel, prevRanksLabel,
+			bonusMagicObject, totalRanksLabel;
+	protected BaseSpinner insertedRanksSpinner;
 	protected Skill skill;
 	private Color background;
 	private Set<SkillChangedListener> listeners;
 	private int nameLength;
 
-	public GenericSkillLine(CharacterPlayer character, Skill skill, int nameLength, Color background, BaseSkillPanel parentWindow) {
+	public GenericSkillLine(CharacterPlayer character, Skill skill, int nameLength, Color background,
+			BaseSkillPanel parentWindow) {
 		listeners = new HashSet<>();
 		this.character = character;
 		this.skill = skill;
@@ -99,11 +104,22 @@ public class GenericSkillLine extends BaseSkillLine {
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			if (oldRanksPanel) {
-				prevRanksLabel = new ListLabel(previousRanks.toString(), SwingConstants.CENTER, columnWidth, columnHeight);
+				prevRanksLabel = new ListLabel(previousRanks.toString(), SwingConstants.CENTER, columnWidth,
+						columnHeight);
 			} else {
 				prevRanksLabel = new ListLabel("", SwingConstants.CENTER, columnWidth, columnHeight);
 			}
 			add(new ListBackgroundPanel(prevRanksLabel, background), gridBagConstraints);
+		}
+
+		if (insertedRanksPanel) {
+			gridBagConstraints.gridx = 7;
+			gridBagConstraints.gridwidth = 1;
+			gridBagConstraints.weightx = 0.1;
+			SpinnerModel sm = new SpinnerNumberModel(0, 0, 10, 1);
+			insertedRanksSpinner = new BaseSpinner(sm);
+			insertedRanksSpinner.setBackground(background);
+			add(new ListBackgroundPanel(insertedRanksSpinner, background), gridBagConstraints);
 		}
 
 		if (chooseRanksPanel || !isEmptyColumns()) {
@@ -126,7 +142,7 @@ public class GenericSkillLine extends BaseSkillLine {
 				checkBoxPane.add(thirdRank);
 			}
 
-			gridBagConstraints.gridx = 7;
+			gridBagConstraints.gridx = 9;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			checkBoxPane.setMinimumSize(new Dimension(columnWidth * 2, columnHeight));
@@ -134,8 +150,16 @@ public class GenericSkillLine extends BaseSkillLine {
 			add(checkBoxPane, gridBagConstraints);
 		}
 
+		if (totalRanksPanel) {
+			gridBagConstraints.gridx = 11;
+			gridBagConstraints.gridwidth = 1;
+			gridBagConstraints.weightx = 0.1;
+			totalRanksLabel = new ListLabel(getTotalRanks(), columnWidth, columnHeight);
+			add(new ListBackgroundPanel(totalRanksLabel, background), gridBagConstraints);
+		}
+
 		if (ranksValuePanel || !isEmptyColumns()) {
-			gridBagConstraints.gridx = 9;
+			gridBagConstraints.gridx = 13;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			if (ranksValuePanel) {
@@ -147,11 +171,12 @@ public class GenericSkillLine extends BaseSkillLine {
 		}
 
 		if (bonusCategoryPanel || !isEmptyColumns()) {
-			gridBagConstraints.gridx = 11;
+			gridBagConstraints.gridx = 15;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			if (bonusCategoryPanel) {
-				bonusCategory = new ListLabel(character.getTotalValue(skill.getCategory()).toString(), columnWidth, columnHeight);
+				bonusCategory = new ListLabel(character.getTotalValue(skill.getCategory()).toString(), columnWidth,
+						columnHeight);
 			} else {
 				bonusCategory = new ListLabel("", columnWidth, columnHeight);
 			}
@@ -159,7 +184,7 @@ public class GenericSkillLine extends BaseSkillLine {
 		}
 
 		if (otherBonusPanel || !isEmptyColumns()) {
-			gridBagConstraints.gridx = 13;
+			gridBagConstraints.gridx = 17;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			if (otherBonusPanel) {
@@ -171,7 +196,7 @@ public class GenericSkillLine extends BaseSkillLine {
 		}
 
 		if (objectBonusPanel || !isEmptyColumns()) {
-			gridBagConstraints.gridx = 15;
+			gridBagConstraints.gridx = 19;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			if (objectBonusPanel) {
@@ -183,7 +208,7 @@ public class GenericSkillLine extends BaseSkillLine {
 		}
 
 		if (totalPanel || !isEmptyColumns()) {
-			gridBagConstraints.gridx = 17;
+			gridBagConstraints.gridx = 21;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
 			if (totalPanel) {
@@ -205,6 +230,10 @@ public class GenericSkillLine extends BaseSkillLine {
 
 	protected String getSkillName() {
 		return character.getSkillNameWithSufix(skill);
+	}
+
+	protected String getTotalRanks() {
+		return character.getTotalRanks(skill).toString();
 	}
 
 	protected String getRanksValue() {
@@ -238,6 +267,8 @@ public class GenericSkillLine extends BaseSkillLine {
 	}
 
 	public void updateRankValues() {
+		insertedRanksSpinner.setValue(0);
+		totalRanksLabel.setText(character.getTotalRanks(skill).toString());
 		prevRanksLabel.setText(character.getPreviousRanks(skill).toString());
 		bonusRankLabel.setText(getRanksValue());
 		bonusCategory.setText(character.getTotalValue(skill.getCategory()).toString());

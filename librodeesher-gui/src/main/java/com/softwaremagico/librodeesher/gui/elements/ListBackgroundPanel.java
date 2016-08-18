@@ -26,22 +26,24 @@ package com.softwaremagico.librodeesher.gui.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 
 import javax.swing.JPanel;
 
 public class ListBackgroundPanel extends JPanel {
 	private static final long serialVersionUID = 8111566323041219062L;
 
-	public ListBackgroundPanel(ListLabel label, Color bgColor) {
+	public ListBackgroundPanel(Component label, Color bgColor) {
 		setLayout(new BorderLayout());
 		setBackground(bgColor);
+		label.setBackground(bgColor);
 		add(label);
 	}
 
-	public ListBackgroundPanel(BaseComboBox<?> comboBox, Color bgColor) {
-		setLayout(new BorderLayout());
-		setBackground(bgColor);
-		comboBox.setBackgroundColor(bgColor);
-		add(comboBox);
-	}
+	// public ListBackgroundPanel(BaseComboBox<?> comboBox, Color bgColor) {
+	// setLayout(new BorderLayout());
+	// setBackground(bgColor);
+	// comboBox.setBackgroundColor(bgColor);
+	// add(comboBox);
+	// }
 }

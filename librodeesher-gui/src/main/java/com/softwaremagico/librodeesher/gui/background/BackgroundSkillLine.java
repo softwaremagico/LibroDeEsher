@@ -41,11 +41,10 @@ public class BackgroundSkillLine extends GenericSkillLine {
 	private final static int NAME_LENGTH = 200;
 	private BaseCheckBox backgroundCheckBox;
 
-	public BackgroundSkillLine(CharacterPlayer character, Skill skill, Color background,
-			BaseSkillPanel parentWindow) {
+	public BackgroundSkillLine(CharacterPlayer character, Skill skill, Color background, BaseSkillPanel parentWindow) {
 		super(character, skill, NAME_LENGTH, background, parentWindow);
 		setEmptyColumns(true);
-		enableColumns(false, false, false, false, false, false, false, true);
+		enableColumns(false, false, false, false, false, false, false, false, false, true);
 		addHistoryCheckBox();
 	}
 
@@ -68,7 +67,7 @@ public class BackgroundSkillLine extends GenericSkillLine {
 			update();
 		}
 	}
-	
+
 	public void updateComboBox() {
 		backgroundCheckBox.setSelected(character.isHistoryPointSelected(getSkill()));
 	}
