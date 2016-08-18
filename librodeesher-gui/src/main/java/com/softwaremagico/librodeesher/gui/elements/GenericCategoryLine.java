@@ -130,7 +130,7 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 		if (insertedRanksPanel) {
 			gridBagConstraints.gridx = 7;
 			gridBagConstraints.gridwidth = 1;
-			gridBagConstraints.weightx = 0.1;
+			gridBagConstraints.weightx = 0;
 			SpinnerModel sm = new SpinnerNumberModel((int) character.getInsertedRanks(category), 0, 10, 1);
 			insertedRanksSpinner = new BaseSpinner(sm);
 			insertedRanksSpinner.setColumns(2);
