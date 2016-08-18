@@ -1035,12 +1035,24 @@ public class CharacterPlayer extends StorableObject {
 		return total;
 	}
 
-	protected Integer getInsertedRanks(Category category) {
+	public Integer getInsertedRanks(Category category) {
 		return insertedData.getCategoryRanksModification(category.getName());
 	}
 
-	protected Integer getInsertedRanks(Skill skill) {
+	public void setInsertedRanks(Category category, int ranks) {
+		if (category != null) {
+			insertedData.setCategoryRanksModification(category.getName(), ranks);
+		}
+	}
+
+	public Integer getInsertedRanks(Skill skill) {
 		return insertedData.getSkillsRanksModification(skill.getName());
+	}
+
+	public void setInsertedRanks(Skill skill, int ranks) {
+		if (skill != null) {
+			insertedData.setSkillsRanksModification(skill.getName(), ranks);
+		}
 	}
 
 	public Integer getPreviousRanks(Skill skill) {

@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.skills.insert;
+
 /*
  * #%L
  * Libro de Esher (GUI)
@@ -23,21 +24,46 @@ package com.softwaremagico.librodeesher.gui.skills.insert;
  * #L%
  */
 
-import java.awt.Color;
-
+import com.softwaremagico.librodeesher.gui.components.SkillWindow;
 import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
-import com.softwaremagico.librodeesher.gui.elements.GenericSkillLine;
+import com.softwaremagico.librodeesher.gui.elements.SkillTitleLine;
+import com.softwaremagico.librodeesher.gui.skills.CompleteSkillPanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
-import com.softwaremagico.librodeesher.pj.skills.Skill;
 
-public class InsertRanksSkillLine extends GenericSkillLine {
-	private static final long serialVersionUID = -7339945564702313803L;
+public class InsertRanksWindow extends SkillWindow {
+	private static final long serialVersionUID = 1285242972167122110L;
 
-	public InsertRanksSkillLine(CharacterPlayer character, Skill skill, int nameLength, Color background,
-			BaseSkillPanel parentWindow) {
-		super(character, skill, nameLength, background, parentWindow);
-		setEmptyColumns(true);
-		enableColumns(false, false, true, false, true, true, true, true, true, true);
+	public InsertRanksWindow(CharacterPlayer character) {
+		super(character);
+		setElements();
+	}
+
+	@Override
+	protected void setElements() {
+		super.setElements();
+	}
+
+	@Override
+	public void updateFrame() {
+
+	}
+
+	@Override
+	protected CompleteSkillPanel createSkillPanel() {
+		return new CompleteSkillPanel(character, this) {
+			private static final long serialVersionUID = -8992775247823001768L;
+
+			@Override
+			public BaseSkillPanel createSkillPanel() {
+				return new InsertRanksSkillPanel(character, this);
+			}
+
+			@Override
+			public SkillTitleLine createSkillTitle() {
+				return new InsertRanksSkillTitle();
+			}
+
+		};
 	}
 
 }

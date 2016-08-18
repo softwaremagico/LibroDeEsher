@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.components;
+
 /*
  * #%L
  * Libro de Esher
@@ -29,6 +30,6 @@ public class ResumeSkillTitle extends SkillTitleLine {
 	private static final long serialVersionUID = -7713583862792690761L;
 
 	public ResumeSkillTitle() {
-		enableColumns(true, true, true, true, true, true, true, true);
+		enableColumns(true, true, false, true, false, true, true, true, true, true);
 	}
 }

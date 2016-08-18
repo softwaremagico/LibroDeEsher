@@ -49,6 +49,7 @@ import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.librodeesher.gui.background.BackgroundWindow;
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicsWindow;
 import com.softwaremagico.librodeesher.gui.components.CharacterMenuItem;
+import com.softwaremagico.librodeesher.gui.components.SkillWindow;
 import com.softwaremagico.librodeesher.gui.culture.CultureWindow;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForPdf;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForRlm;
@@ -63,7 +64,8 @@ import com.softwaremagico.librodeesher.gui.profession.ProfessionWindow;
 import com.softwaremagico.librodeesher.gui.random.RandomCharacterUpdatedListener;
 import com.softwaremagico.librodeesher.gui.random.RandomSplashScreen;
 import com.softwaremagico.librodeesher.gui.random.RandomWindow;
-import com.softwaremagico.librodeesher.gui.skills.SkillWindow;
+import com.softwaremagico.librodeesher.gui.skills.SkillRanksWindow;
+import com.softwaremagico.librodeesher.gui.skills.insert.InsertRanksWindow;
 import com.softwaremagico.librodeesher.gui.training.TrainingWindow;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.export.json.CharacterJsonManager;
@@ -98,6 +100,7 @@ public class Controller {
 	private RandomWindow randomWindow;
 	private LoadCharacterPlayerWindow loadWindow;
 	private InsertMagicItemWindow insertMagicItemWindow;
+	private InsertRanksWindow insertRankWindows;
 
 	private boolean actionsEnables = true;
 
@@ -159,7 +162,12 @@ public class Controller {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-
+			try {
+				insertRankWindows.dispose();
+			} catch (NullPointerException npe) {
+			}
+			insertRankWindows = new InsertRanksWindow(selectedCharacter);
+			insertRankWindows.setVisible(true);
 		}
 	}
 
@@ -697,7 +705,7 @@ public class Controller {
 				skillWindow.dispose();
 			} catch (NullPointerException npe) {
 			}
-			skillWindow = new SkillWindow(selectedCharacter);
+			skillWindow = new SkillRanksWindow(selectedCharacter);
 			skillWindow.setVisible(true);
 		}
 	}

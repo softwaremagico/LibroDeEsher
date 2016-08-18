@@ -29,6 +29,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
@@ -45,9 +47,11 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			bonusMagicObject, totalRanksLabel;
 	protected BaseSpinner insertedRanksSpinner;
 	private int nameLength;
+	private Set<CategoryChangedListener> skillChangedlisteners;
 
 	public GenericCategoryLine(CharacterPlayer character, Category category, int nameLength, Color background,
 			BaseSkillPanel parentWindow) {
+		skillChangedlisteners = new HashSet<>();
 		this.character = character;
 		this.category = category;
 		this.parentWindow = parentWindow;
@@ -129,8 +133,19 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.weightx = 0.1;
 			SpinnerModel sm = new SpinnerNumberModel(0, 0, 10, 1);
 			insertedRanksSpinner = new BaseSpinner(sm);
+			insertedRanksSpinner.setColumns(2);
 			insertedRanksSpinner.setBackground(getDefaultBackground());
 			add(new ListBackgroundPanel(insertedRanksSpinner, getDefaultBackground()), gridBagConstraints);
+			insertedRanksSpinner.addSpinnerValueChangedListener(new SpinnerValueChangedListener() {
+
+				@Override
+				public void valueChanged(int value) {
+					for (CategoryChangedListener listener : getCategoryChangedlisteners()) {
+						character.setInsertedRanks(category, (Integer) insertedRanksSpinner.getValue());
+						listener.categoryChanged(category);
+					}
+				}
+			});
 		}
 
 		if (chooseRanksPanel) {
@@ -252,16 +267,42 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 	}
 
 	public void updateRankValues() {
-		prevRanksLabel.setText(character.getPreviousRanks(category).toString());
-		bonusRankLabel.setText(character.getRanksValue(category).toString());
-		bonusCharLabel.setText(character.getCharacteristicsBonus(category).toString());
-		otherBonus.setText(character.getBonus(category).toString());
-		bonusMagicObject.setText("0");
-		totalLabel.setText(character.getTotalValue(category).toString());
+		if (insertedRanksSpinner != null) {
+			insertedRanksSpinner.setValue(character.getInsertedRanks(category).toString());
+		}
+		if (totalRanksLabel != null) {
+			totalRanksLabel.setText(character.getTotalRanks(category).toString());
+		}
+		if (prevRanksLabel != null) {
+			prevRanksLabel.setText(character.getPreviousRanks(category).toString());
+		}
+		if (bonusRankLabel != null) {
+			bonusRankLabel.setText(character.getRanksValue(category).toString());
+		}
+		if (bonusCharLabel != null) {
+			bonusCharLabel.setText(character.getCharacteristicsBonus(category).toString());
+		}
+		if (otherBonus != null) {
+			otherBonus.setText(character.getBonus(category).toString());
+		}
+		if (bonusMagicObject != null) {
+			bonusMagicObject.setText(character.getItemBonus(category) + "");
+		}
+		if (totalLabel != null) {
+			totalLabel.setText(character.getTotalValue(category).toString());
+		}
 	}
 
 	public Category getCategory() {
 		return category;
+	}
+
+	public void addCategoryChangedListener(CategoryChangedListener listener) {
+		skillChangedlisteners.add(listener);
+	}
+
+	public Set<CategoryChangedListener> getCategoryChangedlisteners() {
+		return skillChangedlisteners;
 	}
 
 }

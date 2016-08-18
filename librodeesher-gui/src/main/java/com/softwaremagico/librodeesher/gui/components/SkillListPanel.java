@@ -52,14 +52,14 @@ public class SkillListPanel extends BaseSkillPanel {
 				i++;
 				for (Skill skill : category.getSkills()) {
 					if (character.isSkillInteresting(skill)) {
-						ResumedSkillLine skillLine = new ResumedSkillLine(character, skill,
-								getLineBackgroundColor(i), this);
+						ResumedSkillLine skillLine = new ResumedSkillLine(character, skill, getLineBackgroundColor(i),
+								this);
 						add(skillLine);
 						i++;
 						// Add specializations.
 						for (String specialization : character.getSkillSpecializations(skill)) {
-							SpecializedSkillLine specializatedSkillLine = new SpecializedSkillLine(character,
-									skill, specialization, getLineBackgroundColor(i), this);
+							SpecializedSkillLine specializatedSkillLine = new SpecializedSkillLine(character, skill,
+									specialization, getLineBackgroundColor(i), this);
 							add(specializatedSkillLine);
 							i++;
 						}
@@ -75,5 +75,13 @@ public class SkillListPanel extends BaseSkillPanel {
 
 	@Override
 	public void updateSkillsOfCategory(Category category) {
+	}
+
+	@Override
+	public void updateRanks() {
+	}
+
+	@Override
+	public void updateWeaponCost() {
 	}
 }

@@ -25,8 +25,8 @@ package com.softwaremagico.librodeesher.gui.skills;
  */
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
 import com.softwaremagico.librodeesher.gui.elements.GenericSkillLine;
@@ -39,13 +39,13 @@ public class SkillLine extends GenericSkillLine {
 	private static final long serialVersionUID = -4551393729801208171L;
 	private final static int NAME_LENGTH = 200;
 	private SelectSkillWindow selectSkillWindow;
-	private List<SkillEnabledListener> listeners;	
+	private Set<SkillEnabledListener> skillEnabledlisteners;
 
 	public SkillLine(CharacterPlayer character, Skill skill, Color background, BaseSkillPanel parentWindow) {
 		super(character, skill, NAME_LENGTH, background, parentWindow);
 		enableColumns(true, true, false, true, false, true, true, true, true, true);
 		setRanksSelected(character.getCurrentLevelRanks(skill));
-		listeners = new ArrayList<>();
+		skillEnabledlisteners = new HashSet<>();
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class SkillLine extends GenericSkillLine {
 			// If ranks set to zero, removed enabled skills
 			if (ranks == 0) {
 				for (String skillSelected : skill.getEnableSkills()) {
-					for (SkillEnabledListener listener : listeners) {
+					for (SkillEnabledListener listener : getSkillEnabledlisteners()) {
 						listener.skillEnabledEvent(skill, skillSelected, false);
 					}
 				}
@@ -70,7 +70,7 @@ public class SkillLine extends GenericSkillLine {
 
 				@Override
 				public void skillEnabledEvent(Skill skill, String skillSelected, boolean selected) {
-					for (SkillEnabledListener listener : listeners) {
+					for (SkillEnabledListener listener : getSkillEnabledlisteners()) {
 						listener.skillEnabledEvent(skill, skillSelected, selected);
 					}
 				}
@@ -79,8 +79,12 @@ public class SkillLine extends GenericSkillLine {
 		updateOldRanksPanel();
 	}
 
-	public void addSkillEnabledListener(SkillEnabledListener listener) {
-		listeners.add(listener);
+	public Set<SkillEnabledListener> getSkillEnabledlisteners() {
+		return skillEnabledlisteners;
+	}
+
+	public void addSkillEnabledListener(SkillEnabledListener skillEnabledListener) {
+		skillEnabledlisteners.add(skillEnabledListener);
 	}
 
 }

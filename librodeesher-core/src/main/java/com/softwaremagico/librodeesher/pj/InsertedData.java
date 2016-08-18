@@ -163,11 +163,11 @@ public class InsertedData extends StorableObject {
 		return ranks;
 	}
 
-	public void setSkillsRanksModification(Skill skill, Integer ranks) {
+	public void setSkillsRanksModification(String skillName, Integer ranks) {
 		if (ranks == 0) {
-			skillsRanksModification.remove(skill.getName());
+			skillsRanksModification.remove(skillName);
 		} else {
-			skillsRanksModification.put(skill.getName(), ranks);
+			skillsRanksModification.put(skillName, ranks);
 		}
 	}
 

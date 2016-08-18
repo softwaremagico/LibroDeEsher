@@ -38,8 +38,8 @@ public class SkillTitleLine extends BaseTitleLine {
 	private static final long serialVersionUID = 4480268296161276440L;
 	private static final Integer columnWidth = 30;
 	private static final Integer columnHeight = 20;
-	private TitleLabel prevRanksLabel, insertedRanksLabel, currentRanksLabel, totalRanksLabel, bonusRankLabel, bonusCharLabel, bonusMagicObject,
-			otherBonus, totalLabel;
+	private TitleLabel prevRanksLabel, insertedRanksLabel, currentRanksLabel, totalRanksLabel, bonusRankLabel,
+			bonusCharLabel, bonusMagicObject, otherBonus, totalLabel;
 	protected boolean costPanel = false;
 	protected boolean oldRanksPanel = false;
 	protected boolean insertedRanksPanel = false;
@@ -55,12 +55,14 @@ public class SkillTitleLine extends BaseTitleLine {
 		setBackground(title_background);
 	}
 
-	public void enableColumns(boolean costPanel, boolean oldRanksPanel, boolean chooseRanksPanel,
-			boolean ranksValuePanel, boolean bonusCategoryPanel, boolean otherBonusPanel,
-			boolean objectBonusPanel, boolean totalPanel) {
+	public void enableColumns(boolean costPanel, boolean oldRanksPanel, boolean insertedRanksPanel,
+			boolean chooseRanksPanel, boolean totalRanksPanel, boolean ranksValuePanel, boolean bonusCategoryPanel,
+			boolean otherBonusPanel, boolean objectBonusPanel, boolean totalPanel) {
 		this.costPanel = costPanel;
 		this.oldRanksPanel = oldRanksPanel;
+		this.insertedRanksPanel = insertedRanksPanel;
 		this.chooseRanksPanel = chooseRanksPanel;
+		this.totalRanksPanel = totalRanksPanel;
 		this.ranksValuePanel = ranksValuePanel;
 		this.bonusCategoryPanel = bonusCategoryPanel;
 		this.otherBonusPanel = otherBonusPanel;
@@ -101,7 +103,7 @@ public class SkillTitleLine extends BaseTitleLine {
 			prevRanksLabel = new TitleLabel("Rng", columnWidth, columnHeight);
 			add(new TitleBackgroundPanel(prevRanksLabel), gridBagConstraints);
 		}
-		
+
 		if (insertedRanksPanel) {
 			gridBagConstraints.gridx = 7;
 			gridBagConstraints.gridwidth = 1;
@@ -117,7 +119,7 @@ public class SkillTitleLine extends BaseTitleLine {
 			currentRanksLabel = new TitleLabel("Rng", columnWidth * 2, columnHeight);
 			add(new TitleBackgroundPanel(currentRanksLabel), gridBagConstraints);
 		}
-		
+
 		if (totalRanksPanel) {
 			gridBagConstraints.gridx = 11;
 			gridBagConstraints.gridwidth = 1;
@@ -242,7 +244,7 @@ public class SkillTitleLine extends BaseTitleLine {
 		panel.setBackground(title_background);
 		add(panel, gridBagConstraints);
 	}
-	
+
 	protected void addColumn(TitleLabel label, Integer column) {
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 		gridBagConstraints.fill = GridBagConstraints.CENTER;

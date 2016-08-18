@@ -48,12 +48,12 @@ public class GenericSkillLine extends BaseSkillLine {
 	protected BaseSpinner insertedRanksSpinner;
 	protected Skill skill;
 	private Color background;
-	private Set<SkillChangedListener> listeners;
+	private Set<SkillChangedListener> skillChangedlisteners;
 	private int nameLength;
 
 	public GenericSkillLine(CharacterPlayer character, Skill skill, int nameLength, Color background,
 			BaseSkillPanel parentWindow) {
-		listeners = new HashSet<>();
+		skillChangedlisteners = new HashSet<>();
 		this.character = character;
 		this.skill = skill;
 		this.category = skill.getCategory();
@@ -118,8 +118,19 @@ public class GenericSkillLine extends BaseSkillLine {
 			gridBagConstraints.weightx = 0.1;
 			SpinnerModel sm = new SpinnerNumberModel(0, 0, 10, 1);
 			insertedRanksSpinner = new BaseSpinner(sm);
+			insertedRanksSpinner.setColumns(2);
 			insertedRanksSpinner.setBackground(background);
 			add(new ListBackgroundPanel(insertedRanksSpinner, background), gridBagConstraints);
+			insertedRanksSpinner.addSpinnerValueChangedListener(new SpinnerValueChangedListener() {
+
+				@Override
+				public void valueChanged(int value) {
+					for (SkillChangedListener listener : getSkillChangedlisteners()) {
+						character.setInsertedRanks(skill, (Integer) insertedRanksSpinner.getValue());
+						listener.skillChanged(skill);
+					}
+				}
+			});
 		}
 
 		if (chooseRanksPanel || !isEmptyColumns()) {
@@ -247,7 +258,7 @@ public class GenericSkillLine extends BaseSkillLine {
 	@Override
 	public void update() {
 		updateRanksValue();
-		for (SkillChangedListener listener : listeners) {
+		for (SkillChangedListener listener : skillChangedlisteners) {
 			listener.skillChanged(skill);
 		}
 		parentWindow.update();
@@ -267,14 +278,30 @@ public class GenericSkillLine extends BaseSkillLine {
 	}
 
 	public void updateRankValues() {
-		insertedRanksSpinner.setValue(0);
-		totalRanksLabel.setText(character.getTotalRanks(skill).toString());
-		prevRanksLabel.setText(character.getPreviousRanks(skill).toString());
-		bonusRankLabel.setText(getRanksValue());
-		bonusCategory.setText(character.getTotalValue(skill.getCategory()).toString());
-		otherBonusLabel.setText(character.getBonus(skill).toString());
-		bonusMagicObject.setText("0");
-		totalLabel.setText(getTotalValue());
+		if (insertedRanksSpinner != null) {
+			insertedRanksSpinner.setValue(character.getInsertedRanks(skill).toString());
+		}
+		if (totalRanksLabel != null) {
+			totalRanksLabel.setText(character.getTotalRanks(skill).toString());
+		}
+		if (prevRanksLabel != null) {
+			prevRanksLabel.setText(character.getPreviousRanks(skill).toString());
+		}
+		if (bonusRankLabel != null) {
+			bonusRankLabel.setText(getRanksValue());
+		}
+		if (bonusCategory != null) {
+			bonusCategory.setText(character.getTotalValue(skill.getCategory()).toString());
+		}
+		if (otherBonusLabel != null) {
+			otherBonusLabel.setText(character.getBonus(skill).toString());
+		}
+		if (bonusMagicObject != null) {
+			bonusMagicObject.setText(character.getItemBonus(skill) + "");
+		}
+		if (totalLabel != null) {
+			totalLabel.setText(getTotalValue());
+		}
 	}
 
 	@Override
@@ -323,6 +350,11 @@ public class GenericSkillLine extends BaseSkillLine {
 	}
 
 	public void addSkillChangedListener(SkillChangedListener listener) {
-		this.listeners.add(listener);
+		skillChangedlisteners.add(listener);
 	}
+
+	public Set<SkillChangedListener> getSkillChangedlisteners() {
+		return skillChangedlisteners;
+	}
+
 }

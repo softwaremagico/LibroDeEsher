@@ -34,7 +34,7 @@ public class BackgroundSkillTitle extends SkillTitleLine {
 	private TitleLabel historyLabel;
 
 	public BackgroundSkillTitle() {
-		enableColumns(false, false, false, false, false, false, false, true);
+		enableColumns(false, false, false, false, false, false, false, false, false, true);
 		addHistoryCheckBox();
 	}
 

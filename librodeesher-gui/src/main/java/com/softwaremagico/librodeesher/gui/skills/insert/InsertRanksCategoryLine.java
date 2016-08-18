@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.skills;
+package com.softwaremagico.librodeesher.gui.skills.insert;
 
 /*
  * #%L
@@ -31,14 +31,14 @@ import com.softwaremagico.librodeesher.gui.elements.GenericCategoryLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 
-public class CategoryLine extends GenericCategoryLine {
+public class InsertRanksCategoryLine extends GenericCategoryLine {
 	private static final long serialVersionUID = -4406447607170722318L;
 	private final static int NAME_LENGTH = 200;
 
-	public CategoryLine(CharacterPlayer character, Category category, Color background,
+	public InsertRanksCategoryLine(CharacterPlayer character, Category category, Color background,
 			BaseSkillPanel parentWindow) {
 		super(character, category, NAME_LENGTH, background, parentWindow);
-		enableColumns(true, true, false, true, false, true, true, true, true, true);
+		enableColumns(false, false, true, false, true, true, true, true, true, true);
 		setRanksSelected(character.getCurrentLevelRanks(category));
 	}
 

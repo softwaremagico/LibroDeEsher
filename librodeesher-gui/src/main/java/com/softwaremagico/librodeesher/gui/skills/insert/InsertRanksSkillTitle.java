@@ -1,9 +1,9 @@
 package com.softwaremagico.librodeesher.gui.skills.insert;
 /*
  * #%L
- * Libro de Esher (GUI)
+ * Libro de Esher
  * %%
- * Copyright (C) 2007 - 2016 Softwaremagico
+ * Copyright (C) 2007 - 2013 Softwaremagico
  * %%
  * This software is designed by Jorge Hortelano Otero. Jorge Hortelano Otero
  * <softwaremagico@gmail.com> Valencia (Spain).
@@ -23,21 +23,12 @@ package com.softwaremagico.librodeesher.gui.skills.insert;
  * #L%
  */
 
-import java.awt.Color;
+import com.softwaremagico.librodeesher.gui.elements.SkillTitleLine;
 
-import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
-import com.softwaremagico.librodeesher.gui.elements.GenericSkillLine;
-import com.softwaremagico.librodeesher.pj.CharacterPlayer;
-import com.softwaremagico.librodeesher.pj.skills.Skill;
+public class InsertRanksSkillTitle extends SkillTitleLine {
+	private static final long serialVersionUID = 2377564322572168783L;
 
-public class InsertRanksSkillLine extends GenericSkillLine {
-	private static final long serialVersionUID = -7339945564702313803L;
-
-	public InsertRanksSkillLine(CharacterPlayer character, Skill skill, int nameLength, Color background,
-			BaseSkillPanel parentWindow) {
-		super(character, skill, nameLength, background, parentWindow);
-		setEmptyColumns(true);
+	public InsertRanksSkillTitle(){
 		enableColumns(false, false, true, false, true, true, true, true, true, true);
 	}
-
 }

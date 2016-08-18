@@ -49,7 +49,7 @@ public class SelectSkillWindow extends BaseFrame {
 	private SelectOption<String> optionsToChoose;
 	private List<SkillEnabledListener> listeners;
 
-	interface SkillEnabledListener {
+	public interface SkillEnabledListener {
 		void skillEnabledEvent(Skill skill, String skillSelected, boolean selected);
 	}
 
