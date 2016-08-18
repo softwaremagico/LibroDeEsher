@@ -131,7 +131,7 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 7;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			SpinnerModel sm = new SpinnerNumberModel(0, 0, 10, 1);
+			SpinnerModel sm = new SpinnerNumberModel((int) character.getInsertedRanks(category), 0, 10, 1);
 			insertedRanksSpinner = new BaseSpinner(sm);
 			insertedRanksSpinner.setColumns(2);
 			insertedRanksSpinner.setBackground(getDefaultBackground());
@@ -140,8 +140,8 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 
 				@Override
 				public void valueChanged(int value) {
+					character.setInsertedRanks(category, (Integer) insertedRanksSpinner.getValue());
 					for (CategoryChangedListener listener : getCategoryChangedlisteners()) {
-						character.setInsertedRanks(category, (Integer) insertedRanksSpinner.getValue());
 						listener.categoryChanged(category);
 					}
 				}
@@ -267,9 +267,9 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 	}
 
 	public void updateRankValues() {
-		if (insertedRanksSpinner != null) {
-			insertedRanksSpinner.setValue(character.getInsertedRanks(category).toString());
-		}
+//		if (insertedRanksSpinner != null) {
+//			insertedRanksSpinner.setValue(character.getInsertedRanks(category).toString());
+//		}
 		if (totalRanksLabel != null) {
 			totalRanksLabel.setText(character.getTotalRanks(category).toString());
 		}

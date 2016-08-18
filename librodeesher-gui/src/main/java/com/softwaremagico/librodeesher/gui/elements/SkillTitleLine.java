@@ -124,7 +124,7 @@ public class SkillTitleLine extends BaseTitleLine {
 			gridBagConstraints.gridx = 11;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			totalRanksLabel = new TitleLabel("TR", columnWidth, columnHeight);
+			totalRanksLabel = new TitleLabel("#", columnWidth, columnHeight);
 			add(new TitleBackgroundPanel(totalRanksLabel), gridBagConstraints);
 		}
 

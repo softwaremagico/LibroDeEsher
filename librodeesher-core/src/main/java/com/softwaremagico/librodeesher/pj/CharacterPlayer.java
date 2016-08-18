@@ -1041,6 +1041,7 @@ public class CharacterPlayer extends StorableObject {
 
 	public void setInsertedRanks(Category category, int ranks) {
 		if (category != null) {
+			characterPlayerHelper.resetCategoryRanks(category.getName());
 			insertedData.setCategoryRanksModification(category.getName(), ranks);
 		}
 	}
@@ -1051,6 +1052,7 @@ public class CharacterPlayer extends StorableObject {
 
 	public void setInsertedRanks(Skill skill, int ranks) {
 		if (skill != null) {
+			characterPlayerHelper.resetSkillRanks(skill.getName());
 			insertedData.setSkillsRanksModification(skill.getName(), ranks);
 		}
 	}

@@ -116,7 +116,7 @@ public class GenericSkillLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 7;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			SpinnerModel sm = new SpinnerNumberModel(0, 0, 10, 1);
+			SpinnerModel sm = new SpinnerNumberModel((int) character.getInsertedRanks(skill), 0, 10, 1);
 			insertedRanksSpinner = new BaseSpinner(sm);
 			insertedRanksSpinner.setColumns(2);
 			insertedRanksSpinner.setBackground(background);
@@ -125,8 +125,8 @@ public class GenericSkillLine extends BaseSkillLine {
 
 				@Override
 				public void valueChanged(int value) {
+					character.setInsertedRanks(skill, (Integer) insertedRanksSpinner.getValue());
 					for (SkillChangedListener listener : getSkillChangedlisteners()) {
-						character.setInsertedRanks(skill, (Integer) insertedRanksSpinner.getValue());
 						listener.skillChanged(skill);
 					}
 				}
@@ -278,9 +278,9 @@ public class GenericSkillLine extends BaseSkillLine {
 	}
 
 	public void updateRankValues() {
-		if (insertedRanksSpinner != null) {
-			insertedRanksSpinner.setValue(character.getInsertedRanks(skill).toString());
-		}
+		// if (insertedRanksSpinner != null) {
+		// insertedRanksSpinner.setValue(character.getInsertedRanks(skill).toString());
+		// }
 		if (totalRanksLabel != null) {
 			totalRanksLabel.setText(character.getTotalRanks(skill).toString());
 		}
