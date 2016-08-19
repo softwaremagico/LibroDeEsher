@@ -51,8 +51,8 @@ public class Perk {
 	private Integer chosenBonus;
 	private Integer movementBonus;
 
-	public Perk(String name, Integer cost, PerkGrade classification, PerkType perkType, String description, List<String> avalibleToRaces,
-			List<String> avalibleToProfessions) {
+	public Perk(String name, Integer cost, PerkGrade classification, PerkType perkType, String description,
+			List<String> avalibleToRaces, List<String> avalibleToProfessions) {
 		this.name = name;
 		this.cost = cost;
 		this.description = description;
@@ -155,8 +155,8 @@ public class Perk {
 			skillRanksBonus.put(skillName, ranks);
 		}
 	}
-	
-	public Map<String, Integer> getSkillRanksBonus(){
+
+	public Map<String, Integer> getSkillRanksBonus() {
 		return skillRanksBonus;
 	}
 
@@ -206,10 +206,12 @@ public class Perk {
 
 	public void setCategoryToSelectCommonSkills(Category category, Integer commonSkills) throws InvalidPerkDefinition {
 		try {
-			commonSkillsToChoose.add(new ChooseSkillGroup(commonSkills, SkillFactory.getSkills(category), ChooseType.COMMON));
+			commonSkillsToChoose.add(new ChooseSkillGroup(commonSkills, SkillFactory.getSkills(category),
+					ChooseType.COMMON));
 		} catch (Exception e) {
 			EsherLog.errorMessage(this.getClass().getName(), e);
-			throw new InvalidPerkDefinition("Invalid common skill definition in category '" + category + "' for perk '" + name + "'.", e);
+			throw new InvalidPerkDefinition("Invalid common skill definition in category '" + category + "' for perk '"
+					+ name + "'.", e);
 		}
 	}
 
@@ -293,10 +295,16 @@ public class Perk {
 		return name;
 	}
 
+	public String getNameBasic() {
+		if (name.contains("(")) {
+			return name.substring(0, name.indexOf("(")).trim();
+		}
+		return getName();
+	}
+
 	/**
-	 * If a perk is restricted to a race or a profession the character must have
-	 * selected this race or profession. If not, the perk is no allowed to be
-	 * used.
+	 * If a perk is restricted to a race or a profession the character must have selected this race or profession. If
+	 * not, the perk is no allowed to be used.
 	 * 
 	 * @param raceName
 	 * @param professionName

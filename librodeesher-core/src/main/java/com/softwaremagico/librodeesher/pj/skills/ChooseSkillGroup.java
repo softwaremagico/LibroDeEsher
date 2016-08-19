@@ -57,7 +57,9 @@ public class ChooseSkillGroup extends ChooseGroup<Skill> {
 	public List<String> getOptionsAsString() {
 		List<String> nameList = new ArrayList<>();
 		for (Skill skill : optionsGroup) {
-			nameList.add(skill.getName());
+			if (skill != null) {
+				nameList.add(skill.getName());
+			}
 		}
 		return nameList;
 	}

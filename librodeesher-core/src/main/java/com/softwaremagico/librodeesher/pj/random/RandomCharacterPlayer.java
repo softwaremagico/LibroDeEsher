@@ -708,9 +708,14 @@ public class RandomCharacterPlayer {
 	}
 
 	private static void setRandomPerks(CharacterPlayer characterPlayer) {
-		for (Perk perk : PerkFactory.gerPerks()) {
+		List<Perk> perksToCheck = PerkFactory.gerPerks();
+		Collections.shuffle(perksToCheck);
+		for (Perk perk : perksToCheck) {
 			int probability = new PerkProbability(characterPlayer, perk).getProbability();
-			if (Math.random() * 100 < probability) {
+			double value = Math.random() * 100;
+			EsherLog.info(RandomCharacterPlayer.class.getName(), "Perk '" + perk + "' probability '" + probability
+					+ "'. Obtained: '" + value + "'.");
+			if (value < probability) {
 				// Select weakness.
 				Perk weakness = null;
 				List<PerkGrade> weaknessAvailable = perk.getGrade().getLesserGrades(1);
@@ -726,7 +731,7 @@ public class RandomCharacterPlayer {
 				if (characterPlayer.getRemainingBackgroundPoints() < 0) {
 					characterPlayer.removePerk(perk);
 				} else {
-					EsherLog.info(RandomCharacterPlayer.class.getName(), "Added random perk '" + perk + "'.");
+					EsherLog.info(RandomCharacterPlayer.class.getName(), "Added perk '" + perk + "'!");
 				}
 			}
 		}

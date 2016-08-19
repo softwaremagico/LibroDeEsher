@@ -137,5 +137,6 @@ public class Spanish {
 	public static final String DEFENSIVE_BONUS = "Bonificación Defensiva";
 	public static final String REALM_TAG = "Reino";
 	public static final String INNMORTALS = "Inmortales";
+	public static final String PERK_SCEPTIC = "Escéptico";
 
 }

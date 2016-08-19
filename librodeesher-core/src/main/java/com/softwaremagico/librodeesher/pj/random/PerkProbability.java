@@ -1,5 +1,6 @@
 package com.softwaremagico.librodeesher.pj.random;
 
+import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.perk.Perk;
@@ -17,29 +18,51 @@ public class PerkProbability {
 
 	public int getProbability() {
 		int probability = 0;
-		System.out.println("----------- " + perk);
-		if (perk.isPerkAllowed(characterPlayer.getRace().getName(), characterPlayer.getProfession().getName())) {
+		int probabilityBySkills = 0;
+		if (perk.isPerkAllowed(characterPlayer.getRace().getName(), characterPlayer.getProfession().getName())
+				&& !hasAlreadySimilarPerk()) {
 			probability += getProbabilityByCost();
 			if (probability >= 0) {
 				probability += getProbabilityByGrade();
-				System.out.println(probability);
+				probability += getProbabilityByCharacteristics();
 				probability += getProbabilityByResistances();
-				System.out.println(probability);
-				probability += getProbabilityBySkillsBonus();
-				System.out.println(probability);
+				probabilityBySkills += getProbabilityBySkillsBonus();
+				if (probabilityBySkills > 15) {
+					probabilityBySkills = 15;
+				}
+				probability += probabilityBySkills;
 				probability += getProbabilityByCommonsOrRestricted();
-				System.out.println(probability);
 				probability += getProbabilityByArmourClass();
-				System.out.println(probability);
 				probability += getProbabilityByMovement();
-				System.out.println(probability);
 			}
-			// No bonus, no malus. A standard perk.
-			if (probability == 0) {
-				probability = 2;
+			// No bonus, no malus. A standard perk. Add it if has no perk chosen.
+			if (probabilityBySkills == 0 && probability < 0) {
+				probability = 3 - characterPlayer.getPerks().size();
 			}
+
+			probability += smartRandomness();
 		}
 		return probability;
+	}
+
+	private boolean hasAlreadySimilarPerk() {
+		for (Perk characterPerk : characterPlayer.getPerks()) {
+			if (characterPerk.getNameBasic().equals(perk.getNameBasic())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private int smartRandomness() {
+		int bonus = 0;
+		if (characterPlayer.isWizard()) {
+			// No sceptic perk for wizards.
+			if (perk.getName().equals(Spanish.PERK_SCEPTIC)) {
+				return Integer.MIN_VALUE;
+			}
+		}
+		return bonus;
 	}
 
 	private int getProbabilityByMovement() {
@@ -103,6 +126,14 @@ public class PerkProbability {
 			if (characterPlayer.isSkillInteresting(SkillFactory.getSkill(skillName))) {
 				bonus += perk.getConditionalSkillBonus().get(skillName) / 3;
 			}
+		}
+		return bonus;
+	}
+
+	private int getProbabilityByCharacteristics() {
+		int bonus = 0;
+		for (Integer charBonus : perk.getCharacteristicBonus().values()) {
+			bonus += charBonus;
 		}
 		return bonus;
 	}
