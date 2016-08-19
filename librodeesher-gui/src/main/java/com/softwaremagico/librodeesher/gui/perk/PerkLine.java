@@ -218,7 +218,7 @@ public class PerkLine extends BaseLine {
 				optionsWindow.setPointCounterLabel("Categorias con (" + getBonusTag() + "): ");
 				optionsWindow.setVisible(true);
 			}
-		}
+		}else
 		// One category, select skills.
 		if (perk.getCategoriesToChoose().size() == 1) {
 			ChooseCategoryGroup options = perk.getCategoriesToChoose().get(0);
@@ -229,8 +229,7 @@ public class PerkLine extends BaseLine {
 			PerkOptionsWindow<Skill> optionsWindow = new PerkOptionsWindow<Skill>(character, perk, skillOptions, this);
 			optionsWindow.setPointCounterLabel("Habilidades: ");
 			optionsWindow.setVisible(true);
-		}
-
+		}else
 		// Select one skill from list.
 		if (!perk.getSkillsToChoose().isEmpty()) {
 			for (ChooseSkillGroup options : perk.getSkillsToChoose()) {
@@ -238,8 +237,7 @@ public class PerkLine extends BaseLine {
 				optionsWindow.setPointCounterLabel("Habilidades con (" + getBonusTag() + "): ");
 				optionsWindow.setVisible(true);
 			}
-		}
-
+		}else
 		if (!perk.getCommonSkillsToChoose().isEmpty()) {
 			for (ChooseSkillGroup options : perk.getCommonSkillsToChoose()) {
 				PerkOptionsWindow<Skill> optionsWindow = new PerkOptionsWindow<Skill>(character, perk, options, this);
