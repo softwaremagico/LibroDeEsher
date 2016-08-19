@@ -76,7 +76,7 @@ public class PerksTests {
 		CharacterPlayer character = new CharacterPlayer();
 		Perk perk = PerkFactory.getPerk("Experimentado (Cat) (Máximo)");
 		Assert.assertNotNull(perk);
-		PerkProbability perkProbability = new PerkProbability(character, perk);
+		PerkProbability perkProbability = new PerkProbability(character, perk, 0);
 		perkProbability.selectOptions();
 		PerkDecision perkDecision = character.getPerkDecisions().get(perk.getName());
 		Assert.assertNotNull(perkDecision);
@@ -88,7 +88,7 @@ public class PerksTests {
 		CharacterPlayer character = new CharacterPlayer();
 		Perk perk = PerkFactory.getPerk("Maldición de las Armas");
 		Assert.assertNotNull(perk);
-		PerkProbability perkProbability = new PerkProbability(character, perk);
+		PerkProbability perkProbability = new PerkProbability(character, perk, 0);
 		perkProbability.selectOptions();
 		PerkDecision perkDecision = character.getPerkDecisions().get(perk.getName());
 		Assert.assertNotNull(perkDecision);
@@ -100,7 +100,7 @@ public class PerksTests {
 		CharacterPlayer character = new CharacterPlayer();
 		Perk perk = PerkFactory.getPerk("Experimentado (Hab) (Máximo)");
 		Assert.assertNotNull(perk);
-		PerkProbability perkProbability = new PerkProbability(character, perk);
+		PerkProbability perkProbability = new PerkProbability(character, perk, 0);
 		perkProbability.selectOptions();
 		PerkDecision perkDecision = character.getPerkDecisions().get(perk.getName());
 		Assert.assertNotNull(perkDecision);
@@ -112,7 +112,7 @@ public class PerksTests {
 		CharacterPlayer character = new CharacterPlayer();
 		Perk perk = PerkFactory.getPerk("Experto en Armas Especializado (Menor)");
 		Assert.assertNotNull(perk);
-		PerkProbability perkProbability = new PerkProbability(character, perk);
+		PerkProbability perkProbability = new PerkProbability(character, perk, 0);
 		perkProbability.selectOptions();
 		PerkDecision perkDecision = character.getPerkDecisions().get(perk.getName());
 		Assert.assertNotNull(perkDecision);
@@ -129,7 +129,7 @@ public class PerksTests {
 		randomCharacterPlayer.createRandomValues();
 		Perk perk = PerkFactory.getPerk("Poder (Mínimo)");
 		Assert.assertNotNull(perk);
-		PerkProbability perkProbability = new PerkProbability(character, perk);
+		PerkProbability perkProbability = new PerkProbability(character, perk, 0);
 		perkProbability.selectOptions();
 		PerkDecision perkDecision = character.getPerkDecisions().get(perk.getName());
 		Assert.assertNotNull(perkDecision);

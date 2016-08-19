@@ -718,7 +718,7 @@ public class RandomCharacterPlayer {
 		for (Perk perk : perksToCheck) {
 			PerkProbability perkProbability = new PerkProbability(characterPlayer, perk, specializationLevel);
 			int probability = perkProbability.getProbability();
-			int value = (int) Math.random() * 100;
+			int value = (int) Math.floor(Math.random() * 100);
 			EsherLog.info(RandomCharacterPlayer.class.getName(), "Perk '" + perk + "' probability '" + probability
 					+ "'. Obtained: '" + value + "'.");
 			if (value < probability) {

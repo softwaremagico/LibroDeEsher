@@ -33,7 +33,7 @@ public class PerkProbability {
 				&& !hasAlreadySimilarPerk()) {
 			probability += getProbabilityByCost();
 			if (probability >= 0) {
-				probability += getProbabilityByNumber();
+				probability += getProbabilityByNumberOfPerks();
 				probability += getProbabilityByGrade();
 				probability += getProbabilityByCharacteristics();
 				probability += getProbabilityByResistances();
@@ -65,8 +65,8 @@ public class PerkProbability {
 		return false;
 	}
 
-	private int getProbabilityByNumber() {
-		return characterPlayer.getPerks().size() * (2 - specicializationLevel) * 5;
+	private int getProbabilityByNumberOfPerks() {
+		return -1 * characterPlayer.getPerks().size() * (2 - specicializationLevel) * 5;
 	}
 
 	private int smartRandomness() {
