@@ -50,6 +50,7 @@ public class RandomCharacterPlayer {
 	private int finalLevel;
 	private String race, culture, profession;
 	private boolean selectPerks = false;
+
 	// Specialization level [-3...3]
 	private Integer specializationLevel;
 	private Map<String, Integer> suggestedSkillsRanks;
@@ -177,12 +178,16 @@ public class RandomCharacterPlayer {
 		setDevelopmentPoints();
 		if (selectPerks) {
 			sendFeedBack("Eligiendo talentos.");
-			setRandomPerks(characterPlayer);
+			setRandomPerks(characterPlayer, specializationLevel);
 		}
 		sendFeedBack("Gastando los puntos de historial.");
 		setHistoryPoints(characterPlayer, getSpecializationLevel());
 		setLevels();
 		sendFeedBack("Personaje aleatorio completado!");
+	}
+
+	public void setSelectPerks(boolean selectPerks) {
+		this.selectPerks = selectPerks;
 	}
 
 	private SexType getSex() {
@@ -707,11 +712,11 @@ public class RandomCharacterPlayer {
 		return categoryList;
 	}
 
-	private static void setRandomPerks(CharacterPlayer characterPlayer) {
+	private static void setRandomPerks(CharacterPlayer characterPlayer, int specializationLevel) {
 		List<Perk> perksToCheck = PerkFactory.gerPerks();
 		Collections.shuffle(perksToCheck);
 		for (Perk perk : perksToCheck) {
-			PerkProbability perkProbability = new PerkProbability(characterPlayer, perk);
+			PerkProbability perkProbability = new PerkProbability(characterPlayer, perk, specializationLevel);
 			int probability = perkProbability.getProbability();
 			int value = (int) Math.random() * 100;
 			EsherLog.info(RandomCharacterPlayer.class.getName(), "Perk '" + perk + "' probability '" + probability

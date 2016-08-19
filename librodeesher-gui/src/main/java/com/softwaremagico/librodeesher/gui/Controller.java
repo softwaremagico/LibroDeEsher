@@ -622,7 +622,7 @@ public class Controller {
 										randomCharacter.setSuggestedCategoryRanks(skillName, randomWindow
 												.getSuggestedSkillsRanks().get(skillName));
 									}
-
+									randomCharacter.setSelectPerks(randomWindow.isPerksEnabled());
 									randomCharacter.addFeedbackListener(new RandomFeedbackListener() {
 
 										@Override

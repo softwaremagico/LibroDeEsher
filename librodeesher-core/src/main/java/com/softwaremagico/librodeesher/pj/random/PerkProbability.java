@@ -18,10 +18,12 @@ import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 public class PerkProbability {
 	private CharacterPlayer characterPlayer;
 	private Perk perk;
+	private int specicializationLevel;
 
-	public PerkProbability(CharacterPlayer characterPlayer, Perk perk) {
+	public PerkProbability(CharacterPlayer characterPlayer, Perk perk, int specicializationLevel) {
 		this.characterPlayer = characterPlayer;
 		this.perk = perk;
+		this.specicializationLevel = specicializationLevel;
 	}
 
 	public int getProbability() {
@@ -31,6 +33,7 @@ public class PerkProbability {
 				&& !hasAlreadySimilarPerk()) {
 			probability += getProbabilityByCost();
 			if (probability >= 0) {
+				probability += getProbabilityByNumber();
 				probability += getProbabilityByGrade();
 				probability += getProbabilityByCharacteristics();
 				probability += getProbabilityByResistances();
@@ -45,7 +48,7 @@ public class PerkProbability {
 			}
 			// No bonus, no malus. A standard perk. Add it if has no perk chosen.
 			if (probabilityBySkills == 0 && probability < 0) {
-				probability = 2 - characterPlayer.getPerks().size();
+				probability = 2 - characterPlayer.getPerks().size() + specicializationLevel;
 			}
 
 			probability += smartRandomness();
@@ -60,6 +63,10 @@ public class PerkProbability {
 			}
 		}
 		return false;
+	}
+
+	private int getProbabilityByNumber() {
+		return characterPlayer.getPerks().size() * (2 - specicializationLevel) * 5;
 	}
 
 	private int smartRandomness() {
