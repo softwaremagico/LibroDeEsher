@@ -711,7 +711,8 @@ public class RandomCharacterPlayer {
 		List<Perk> perksToCheck = PerkFactory.gerPerks();
 		Collections.shuffle(perksToCheck);
 		for (Perk perk : perksToCheck) {
-			int probability = new PerkProbability(characterPlayer, perk).getProbability();
+			PerkProbability perkProbability = new PerkProbability(characterPlayer, perk);
+			int probability = perkProbability.getProbability();
 			double value = Math.random() * 100;
 			EsherLog.info(RandomCharacterPlayer.class.getName(), "Perk '" + perk + "' probability '" + probability
 					+ "'. Obtained: '" + value + "'.");
@@ -731,6 +732,8 @@ public class RandomCharacterPlayer {
 				if (characterPlayer.getRemainingBackgroundPoints() < 0) {
 					characterPlayer.removePerk(perk);
 				} else {
+					// Choose skills and categories.
+					perkProbability.selectOptions();
 					EsherLog.info(RandomCharacterPlayer.class.getName(), "Added perk '" + perk + "'!");
 				}
 			}

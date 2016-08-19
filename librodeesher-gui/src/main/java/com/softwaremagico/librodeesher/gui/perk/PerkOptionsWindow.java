@@ -126,6 +126,7 @@ public class PerkOptionsWindow<T> extends BaseFrame {
 	}
 
 	class WindowsClose extends WindowAdapter {
+		@Override
 		public void windowClosing(WindowEvent e) {
 			checkSelection();
 		}
@@ -138,6 +139,7 @@ public class PerkOptionsWindow<T> extends BaseFrame {
 			super(window);
 		}
 
+		@Override
 		protected void closeAction() {
 			checkSelection();
 			window.dispose();

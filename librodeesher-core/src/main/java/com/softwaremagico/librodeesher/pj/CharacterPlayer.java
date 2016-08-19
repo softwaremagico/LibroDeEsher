@@ -48,6 +48,7 @@ import javax.persistence.Transient;
 
 import com.google.gson.annotations.Expose;
 import com.softwaremagico.files.Version;
+import com.softwaremagico.librodeesher.basics.ChooseType;
 import com.softwaremagico.librodeesher.basics.Roll;
 import com.softwaremagico.librodeesher.basics.RollGroup;
 import com.softwaremagico.librodeesher.basics.Spanish;
@@ -1776,6 +1777,22 @@ public class CharacterPlayer extends StorableObject {
 
 	public Integer getRemainingPerksPoints() throws InvalidRaceDefinition {
 		return getRace().getPerksPoints() - getSpentPerksPoints();
+	}
+
+	public void setPerkDecision(Perk perk, Set<String> chosenOptions, ChooseType type) {
+		switch (type) {
+		case BONUS:
+			setPerkBonusDecision(perk, chosenOptions);
+			break;
+		case COMMON:
+			setPerkCommonDecision(perk, chosenOptions);
+			break;
+		case RANK:
+			setPerkRankDecision(perk, chosenOptions);
+			break;
+		default:
+			break;
+		}
 	}
 
 	public void setPerkBonusDecision(Perk perk, Set<String> chosenOptions) {
