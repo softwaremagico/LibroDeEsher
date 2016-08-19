@@ -340,7 +340,7 @@
         updateTime datetime,
         cost integer,
         name varchar(255),
-        weakness tinyblob,
+        weakness_ID bigint,
         primary key (ID)
     );
 
@@ -978,6 +978,11 @@
         add constraint FK_1fhy2i4j6k3tpe4qa2ml1o973 
         foreign key (T_MAGIC_OBJECT_ID) 
         references T_MAGIC_OBJECT (ID);
+
+    alter table T_PERKS 
+        add constraint FK_g9wpaab49hqhf44m5yg8qn55s 
+        foreign key (weakness_ID) 
+        references T_PERKS (ID);
 
     alter table T_PERKS_DECISION_CATEGORY_BONUS_CHOSEN 
         add constraint FK_f1fjh72xeap6mctkfyviei7qy 

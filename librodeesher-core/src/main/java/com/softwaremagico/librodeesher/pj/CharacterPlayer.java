@@ -1538,6 +1538,10 @@ public class CharacterPlayer extends StorableObject {
 		return true;
 	}
 
+	public boolean isCategoryInteresting(Category category) {
+		return isCategoryUseful(category) && (getTotalRanks(category) > 0 || getBonus(category) > 0);
+	}
+
 	/**
 	 * Skill has some information than need to be shown.
 	 * 
@@ -1674,7 +1678,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getRemainingBackgroundPoints() {
-		return getRace().getBackgroundPoints() - background.getSpentHistoryPoints() - getPerksHistoryPointsCost();
+		return getRace().getBackgroundPoints() - background.getSpentBackgroundPoints() - getPerksHistoryPointsCost();
 	}
 
 	private int getPerksHistoryPointsCost() {
@@ -1762,7 +1766,7 @@ public class CharacterPlayer extends StorableObject {
 		return randomWeakness;
 	}
 
-	private Integer getSpentPerksPoints() {
+	public Integer getSpentPerksPoints() {
 		Integer total = 0;
 		for (SelectedPerk perk : getRealSelectedPerks()) {
 			total += perk.getCost();

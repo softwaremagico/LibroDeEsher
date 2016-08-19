@@ -29,8 +29,10 @@ Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadore
 
 Versión
 ------------
-2.3.2	Añadido:
+2.4.0	Añadido:
 		- Modo debug.
+		- Posible insertar rangos fuera de los puntos de desarrollo.
+		- Personajes aleatorios pueden tener talentos. 
 		
 2.3.1	Arreglado:
 		- Error al deshabilitar módulos. 

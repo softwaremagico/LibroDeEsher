@@ -118,7 +118,7 @@ public class MessageManager {
 	 */
 	public static void showErrorInformation(String className, Exception ex) {
 		if (Config.isDebugEnabled()) {
-			basicErrorMessage(className, ex.getMessage(), "Application Error");
+			basicErrorMessage(className, ex.getMessage(), "Unexpected Error");
 		}
 	}
 }

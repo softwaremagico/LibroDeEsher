@@ -1,6 +1,9 @@
 package com.softwaremagico.librodeesher.pj.perk;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
@@ -15,6 +18,7 @@ public class SelectedPerk extends StorableObject {
 	@Expose
 	private Integer cost;
 	@Expose
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private SelectedPerk weakness;
 
 	protected SelectedPerk() {

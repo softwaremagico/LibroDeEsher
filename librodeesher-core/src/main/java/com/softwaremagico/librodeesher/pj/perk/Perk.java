@@ -77,6 +77,7 @@ public class Perk {
 		categoriesToChoose = new ArrayList<>();
 		skillsToChoose = new ArrayList<>();
 		commonSkillsToChoose = new ArrayList<>();
+		categoryExtraRanks = new HashMap<>();
 		appareanceBonus = 0;
 		armourClass = 1;
 		chosenBonus = 0;
@@ -153,6 +154,10 @@ public class Perk {
 		} else {
 			skillRanksBonus.put(skillName, ranks);
 		}
+	}
+	
+	public Map<String, Integer> getSkillRanksBonus(){
+		return skillRanksBonus;
 	}
 
 	public void setExtraSkillRanks() {
@@ -490,7 +495,7 @@ public class Perk {
 		this.avalibleToProfessions = avalibleToProfessions;
 	}
 
-	protected Map<String, Integer> getCategoryBonus() {
+	public Map<String, Integer> getCategoryBonus() {
 		return categoryBonus;
 	}
 
@@ -539,7 +544,7 @@ public class Perk {
 		return categorySkillsRanksBonus.get(categoryName);
 	}
 
-	protected Map<String, Integer> getSkillBonus() {
+	public Map<String, Integer> getSkillBonus() {
 		return skillBonus;
 	}
 
@@ -570,7 +575,7 @@ public class Perk {
 		this.resistanceBonus = resistanceBonus;
 	}
 
-	protected Map<CharacteristicsAbbreviature, Integer> getCharacteristicBonus() {
+	public Map<CharacteristicsAbbreviature, Integer> getCharacteristicBonus() {
 		return characteristicBonus;
 	}
 
@@ -586,7 +591,7 @@ public class Perk {
 		this.categoryWithRestricted = categoryWithRestricted;
 	}
 
-	protected List<String> getCommonSkills() {
+	public List<String> getCommonSkills() {
 		return commonSkills;
 	}
 
@@ -594,7 +599,7 @@ public class Perk {
 		this.commonSkills = commonSkills;
 	}
 
-	protected List<String> getCommonCategories() {
+	public List<String> getCommonCategories() {
 		return commonCategories;
 	}
 
@@ -602,7 +607,7 @@ public class Perk {
 		this.commonCategories = commonCategories;
 	}
 
-	protected List<String> getRestrictedSkills() {
+	public List<String> getRestrictedSkills() {
 		return restrictedSkills;
 	}
 
@@ -610,7 +615,7 @@ public class Perk {
 		this.restrictedSkills = restrictedSkills;
 	}
 
-	protected List<String> getRestrictedCategories() {
+	public List<String> getRestrictedCategories() {
 		return restrictedCategories;
 	}
 
@@ -701,5 +706,13 @@ public class Perk {
 
 	public PerkType getPerkType() {
 		return perkType;
+	}
+
+	public Map<String, Integer> getCategoryExtraRanks() {
+		return categoryExtraRanks;
+	}
+
+	public Map<String, Integer> getCategoryRanksBonus() {
+		return categoryRanksBonus;
 	}
 }

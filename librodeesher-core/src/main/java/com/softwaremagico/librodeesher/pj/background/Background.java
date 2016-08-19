@@ -139,7 +139,7 @@ public class Background extends StorableObject {
 		return 0;
 	}
 
-	public Integer getSpentHistoryPoints() {
+	public Integer getSpentBackgroundPoints() {
 		return skills.size() + categories.size() + getCharacteristicsUpdatesPoints() + getLanguagesPointCost();
 	}
 
