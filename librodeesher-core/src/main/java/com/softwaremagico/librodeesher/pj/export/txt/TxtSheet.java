@@ -396,6 +396,12 @@ public class TxtSheet {
 			}
 			text += perk.getName();
 		}
+		for (Perk weakness : characterPlayer.getWeakness()) {
+			if (text.length() > 0) {
+				text += ", ";
+			}
+			text += weakness.getName();
+		}
 		return text;
 	}
 
@@ -440,7 +446,7 @@ public class TxtSheet {
 		}
 		String perkText = generateShortPerkList(characterPlayer);
 		if (perkText.length() > 0) {
-			perkText = "\nTALENTOS: " + perkText;
+			perkText = "\n\nTALENTOS: " + perkText;
 		}
 
 		String text = characterPlayer.getName() + " (" + characterPlayer.getProfession().getName() + ")\n"
