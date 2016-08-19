@@ -912,6 +912,9 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getLanguageRaceInitialRanks(String language) {
+		if(getRace()==null){
+			return 0;
+		}
 		return getRace().getLanguageInitialRanks(language);
 	}
 
@@ -1540,7 +1543,8 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public boolean isCategoryInteresting(Category category) {
-		return isCategoryUseful(category) && (getTotalRanks(category) > 0 || getBonus(category) > 0);
+		return isCategoryUseful(category) && (isWizard() || category.getCategoryGroup().equals(CategoryGroup.SPELL))
+				&& (getTotalRanks(category) > 0 || getBonus(category) > 0);
 	}
 
 	/**

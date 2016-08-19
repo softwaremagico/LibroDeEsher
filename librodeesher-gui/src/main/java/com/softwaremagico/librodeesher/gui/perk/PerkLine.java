@@ -210,7 +210,8 @@ public class PerkLine extends BaseLine {
 
 	private void createSelectOptionsWindow() {
 		// More than one category, select one of them.
-		if (perk.getCategoriesToChoose().size() > 1) {
+		if (perk.getCategoriesToChoose().size() == 1
+				&& perk.getCategoriesToChoose().get(0).getOptionsGroup().size() > 1) {
 			for (ChooseCategoryGroup options : perk.getCategoriesToChoose()) {
 				PerkOptionsWindow<Category> optionsWindow = new PerkOptionsWindow<Category>(character, perk, options,
 						this);

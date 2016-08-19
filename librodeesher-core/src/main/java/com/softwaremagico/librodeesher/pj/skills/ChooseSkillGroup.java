@@ -42,11 +42,11 @@ public class ChooseSkillGroup extends ChooseGroup<Skill> {
 
 	public ChooseSkillGroup(int chooseNumber, String[] skillGroup, ChooseType chooseType) throws InvalidSkillException {
 		super(chooseType);
-		this.numberOfOptionsToChoose = chooseNumber;
+		setNumberOfOptionsToChoose(chooseNumber);
 		for (String skillName : skillGroup) {
 			Skill skill = SkillFactory.getAvailableSkill(skillName.trim());
 			if (skill != null) {
-				this.optionsGroup.add(skill);
+				getOptionsGroup().add(skill);
 			} else {
 				throw new InvalidSkillException("Error leyendo un conjunto de categorias. Fallo en: " + skillName);
 			}
@@ -56,7 +56,7 @@ public class ChooseSkillGroup extends ChooseGroup<Skill> {
 	@Override
 	public List<String> getOptionsAsString() {
 		List<String> nameList = new ArrayList<>();
-		for (Skill skill : optionsGroup) {
+		for (Skill skill : getOptionsGroup()) {
 			if (skill != null) {
 				nameList.add(skill.getName());
 			}

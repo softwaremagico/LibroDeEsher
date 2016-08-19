@@ -1,5 +1,6 @@
 package com.softwaremagico.librodeesher.pj.random;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -44,7 +45,7 @@ public class PerkProbability {
 			}
 			// No bonus, no malus. A standard perk. Add it if has no perk chosen.
 			if (probabilityBySkills == 0 && probability < 0) {
-				probability = 3 - characterPlayer.getPerks().size();
+				probability = 2 - characterPlayer.getPerks().size();
 			}
 
 			probability += smartRandomness();
@@ -178,7 +179,7 @@ public class PerkProbability {
 					|| characterPlayer.isCategoryInteresting(CategoryFactory.getCategory(categories.get(i)))) {
 				selected.add(categories.get(i));
 			}
-			if (selected.size() <= selections) {
+			if (selected.size() >= selections) {
 				break;
 			}
 		}
@@ -193,7 +194,7 @@ public class PerkProbability {
 					|| characterPlayer.isSkillInteresting(SkillFactory.getSkill(skills.get(i)))) {
 				selected.add(skills.get(i));
 			}
-			if (selected.size() <= selections) {
+			if (selected.size() >= selections) {
 				break;
 			}
 		}
@@ -203,24 +204,26 @@ public class PerkProbability {
 	public void selectOptions() {
 		// Select options.
 		// More than one category, select one of them.
-		if (perk.getCategoriesToChoose().size() > 1) {
+		if (perk.getCategoriesToChoose().size() == 1
+				&& perk.getCategoriesToChoose().get(0).getOptionsGroup().size() > 1) {
 			for (ChooseCategoryGroup options : perk.getCategoriesToChoose()) {
-				characterPlayer.setPerkDecision(perk,
-						selectCategories(options.getOptionsAsString(), options.getNumberOfOptionsToChoose()),
-						options.getChooseType());
+				characterPlayer.setPerkDecision(
+						perk,
+						selectCategories(new ArrayList<String>(options.getOptionsAsString()),
+								options.getNumberOfOptionsToChoose()), options.getChooseType());
 			}
-		}
-
+		} else
 		// One category, select skills.
 		if (perk.getCategoriesToChoose().size() == 1) {
 			ChooseCategoryGroup options = perk.getCategoriesToChoose().get(0);
 			ChooseSkillGroup skillOptions = new ChooseSkillGroup(perk.getCategorySkillsRanksBonus(characterPlayer
 					.getCategory(options.getOptionsGroup().get(0)).getName()), characterPlayer.getCategory(
 					options.getOptionsGroup().get(0)).getSkills(), options.getChooseType());
+			skillOptions.setNumberOfOptionsToChoose(options.getNumberOfOptionsToChoose());
 			characterPlayer.setPerkDecision(perk,
-					selectSkills(skillOptions.getOptionsAsString(), skillOptions.getNumberOfOptionsToChoose()),
+					selectSkills(skillOptions.getOptionsAsString(), options.getNumberOfOptionsToChoose()),
 					skillOptions.getChooseType());
-		}
+		} else
 		// Select one skill from list.
 		if (!perk.getSkillsToChoose().isEmpty()) {
 			for (ChooseSkillGroup skillOptions : perk.getSkillsToChoose()) {
@@ -228,7 +231,7 @@ public class PerkProbability {
 						selectSkills(skillOptions.getOptionsAsString(), skillOptions.getNumberOfOptionsToChoose()),
 						skillOptions.getChooseType());
 			}
-		}
+		} else
 		// Select common skills.
 		if (!perk.getCommonSkillsToChoose().isEmpty()) {
 			for (ChooseSkillGroup skillOptions : perk.getCommonSkillsToChoose()) {

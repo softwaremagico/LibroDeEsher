@@ -89,7 +89,7 @@ public class PerkDecision extends StorableObject {
 		this.commonSkillsChosen = commonSkillsChosen;
 	}
 
-	protected Set<String> getCategoriesBonusChosen() {
+	public Set<String> getCategoriesBonusChosen() {
 		return categoriesBonusChosen;
 	}
 
@@ -97,7 +97,7 @@ public class PerkDecision extends StorableObject {
 		this.categoriesBonusChosen = categoriesBonusChosen;
 	}
 
-	protected Set<String> getSkillsBonusChosen() {
+	public Set<String> getSkillsBonusChosen() {
 		return skillsBonusChosen;
 	}
 

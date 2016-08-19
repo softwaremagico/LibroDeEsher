@@ -15,7 +15,7 @@ public class ChooseSkillName extends ChooseGroup<String> {
 	@Override
 	public List<String> getOptionsAsString() {
 		List<String> nameList = new ArrayList<>();
-		for (String skill : optionsGroup) {
+		for (String skill : getOptionsGroup()) {
 			nameList.add(skill);
 		}
 		return nameList;
