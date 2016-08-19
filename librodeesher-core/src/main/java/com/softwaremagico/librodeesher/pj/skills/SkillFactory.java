@@ -72,8 +72,10 @@ public class SkillFactory {
 	public static void setAvailableSkill(String[] skills) {
 		for (String skillParameter : skills) {
 			String skillName = skillParameter.trim();
-			Skill skill = createSkill(skillName);
-			addSkill(skill);
+			if (!skillName.equals(Spanish.NOT_IMPORTANT)) {
+				Skill skill = createSkill(skillName);
+				addSkill(skill);
+			}
 		}
 	}
 
@@ -106,7 +108,8 @@ public class SkillFactory {
 
 	public static Skill getSkill(String skillPrefix, String containText) {
 		for (Skill skill : availableSkills.values()) {
-			if (skill.getName().toLowerCase().startsWith(skillPrefix) && skill.getName().toLowerCase().contains((containText))) {
+			if (skill.getName().toLowerCase().startsWith(skillPrefix)
+					&& skill.getName().toLowerCase().contains((containText))) {
 				return skill;
 			}
 		}
@@ -137,8 +140,8 @@ public class SkillFactory {
 
 	private static String removeTypeFromName(String skillName) {
 		// String pattern = Pattern.quote("*");
-		return skillName.replace("*", "").replace("(R)", "").replace("(r)", "").replace("(C)", "").replace("(c)", "").replace("(P)", "")
-				.replace("(p)", "").trim();
+		return skillName.replace("*", "").replace("(R)", "").replace("(r)", "").replace("(C)", "").replace("(c)", "")
+				.replace("(P)", "").replace("(p)", "").trim();
 	}
 
 	public static List<Skill> getSkills() {
@@ -164,8 +167,8 @@ public class SkillFactory {
 		for (Skill skill : availableSkills.values()) {
 			try {
 				if (skill.getCategory() == null) {
-					EsherLog.severe(SkillFactory.class.getName(), "Skill '" + skill.getName() + "' has no category defined in '" + category
-							+ "'.");
+					EsherLog.severe(SkillFactory.class.getName(), "Skill '" + skill.getName()
+							+ "' has no category defined in '" + category + "'.");
 				} else if (skill != null && skill.getCategory().equals(category)) {
 					skills.add(skill);
 				}

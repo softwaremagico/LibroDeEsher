@@ -138,5 +138,6 @@ public class Spanish {
 	public static final String REALM_TAG = "Reino";
 	public static final String INNMORTALS = "Inmortales";
 	public static final String PERK_SCEPTIC = "Escéptico";
+	public static final String NOT_IMPORTANT = "noimporta";
 
 }
