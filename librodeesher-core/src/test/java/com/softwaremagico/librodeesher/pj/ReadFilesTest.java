@@ -1,14 +1,17 @@
 package com.softwaremagico.librodeesher.pj;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.pj.culture.Culture;
+import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.culture.InvalidCultureException;
 import com.softwaremagico.librodeesher.pj.perk.PerkPointsCalculator;
 import com.softwaremagico.librodeesher.pj.profession.InvalidProfessionException;
 import com.softwaremagico.librodeesher.pj.profession.Profession;
 import com.softwaremagico.librodeesher.pj.race.Race;
+import com.softwaremagico.librodeesher.pj.race.RaceFactory;
 import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceDefinition;
 import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceException;
 import com.softwaremagico.librodeesher.pj.training.InvalidTrainingException;
@@ -48,5 +51,27 @@ public class ReadFilesTest {
 		for (String cultureName : RolemasterFolderStructure.getFilesAvailable(CULTURE_FOLDER)) {
 			new Culture(cultureName);
 		}
+	}
+
+	@Test
+	private void readRaceOptionalLanguages() throws InvalidRaceException {
+		Race dopplenganger = RaceFactory.getRace("Doppleganger");
+		Assert.assertEquals(dopplenganger.getOptionalLanguages().size(), 2);
+		Assert.assertEquals(dopplenganger.getOptionalLanguages().iterator().next().getStartingSpeakingRanks(), 0);
+		Assert.assertEquals(dopplenganger.getOptionalLanguages().iterator().next().getStartingWrittingRanks(), 0);
+		Assert.assertEquals(dopplenganger.getOptionalLanguages().iterator().next().getMaxSpeakingRanks(), 10);
+		Assert.assertEquals(dopplenganger.getOptionalLanguages().iterator().next().getMaxWritingRanks(), 10);
+
+		Race laan = RaceFactory.getRace("Laan");
+		Assert.assertEquals(laan.getOptionalLanguages().size(), 3);
+
+		Race punkari = RaceFactory.getRace("Punkari");
+		Assert.assertEquals(punkari.getOptionalLanguages().size(), 1);
+	}
+
+	@Test
+	private void readCulturalOptionalLanguages() throws InvalidCultureException {
+		Culture subterraneaUrbana = CultureFactory.getCulture("Subterránea Urbana (Calse Alta)");
+		Assert.assertEquals(subterraneaUrbana.getOptionalLanguages().size(), 1);
 	}
 }

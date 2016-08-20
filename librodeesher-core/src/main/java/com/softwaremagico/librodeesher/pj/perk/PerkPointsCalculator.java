@@ -3,6 +3,7 @@ package com.softwaremagico.librodeesher.pj.perk;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.ProgressionCostType;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
+import com.softwaremagico.librodeesher.pj.language.OptionLanguage;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.race.Race;
 import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceDefinition;
@@ -77,7 +78,8 @@ public class PerkPointsCalculator {
 
 		for (CharacteristicsAbbreviature characteristic : CharacteristicsAbbreviature.values()) {
 			int characteristicPoints = getCharactersiticBonusRacePoints(characteristic);
-			EsherLog.debug(this.getClass().getName(), "Characteristic '" + characteristic + "' points: " + characteristicPoints);
+			EsherLog.debug(this.getClass().getName(), "Characteristic '" + characteristic + "' points: "
+					+ characteristicPoints);
 			racePoints += characteristicPoints;
 		}
 
@@ -164,7 +166,8 @@ public class PerkPointsCalculator {
 		case 5:
 			return -10;
 		default:
-			throw new InvalidRaceDefinition("Unknown race type '" + race.getRaceType() + "' for race '" + race.getName() + "'!");
+			throw new InvalidRaceDefinition("Unknown race type '" + race.getRaceType() + "' for race '"
+					+ race.getName() + "'!");
 		}
 	}
 
@@ -212,7 +215,8 @@ public class PerkPointsCalculator {
 		} else if ((float) race.getRestorationTime() >= 0.1f) {
 			return 45;
 		} else {
-			throw new InvalidRaceDefinition("Unknown Recovery bonus '" + race.getRestorationTime() + "' for race '" + race.getName() + "'!");
+			throw new InvalidRaceDefinition("Unknown Recovery bonus '" + race.getRestorationTime() + "' for race '"
+					+ race.getName() + "'!");
 		}
 	}
 
@@ -226,7 +230,8 @@ public class PerkPointsCalculator {
 		return 0;
 	}
 
-	private int getCharactersiticBonusRacePoints(CharacteristicsAbbreviature characteristic) throws InvalidRaceDefinition {
+	private int getCharactersiticBonusRacePoints(CharacteristicsAbbreviature characteristic)
+			throws InvalidRaceDefinition {
 		if (!characteristic.equals(CharacteristicsAbbreviature.APPEARENCE)) {
 			switch (race.getCharacteristicBonus(characteristic)) {
 			case -15:
@@ -292,8 +297,9 @@ public class PerkPointsCalculator {
 			case 15:
 				return 170;
 			default:
-				throw new InvalidRaceDefinition("Unknown Characteristic bonus '" + race.getCharacteristicBonus(characteristic)
-						+ "' for characteristic '" + characteristic + "' for race '" + race.getName() + "'!");
+				throw new InvalidRaceDefinition("Unknown Characteristic bonus '"
+						+ race.getCharacteristicBonus(characteristic) + "' for characteristic '" + characteristic
+						+ "' for race '" + race.getName() + "'!");
 			}
 		}
 		return 0;
@@ -324,8 +330,14 @@ public class PerkPointsCalculator {
 			}
 		}
 
+		//Optional languages as language.
+		for (OptionLanguage language : race.getOptionalLanguages()) {
+			languageCost += language.getStartingSpeakingRanks() - 5;
+			languageCost += language.getStartingWrittingRanks();
+		}
+
 		// Number of languages has penalties.
-		switch (languages) {
+		switch (languages + race.getOptionalLanguages().size()) {
 		case 1:
 			languageCost += -5;
 			break;
@@ -437,7 +449,8 @@ public class PerkPointsCalculator {
 			case 150:
 				return 150;
 			default:
-				throw new InvalidRaceDefinition("Unknown Resistence value '" + bonus + "' for race '" + race.getName() + "'!");
+				throw new InvalidRaceDefinition("Unknown Resistence value '" + bonus + "' for race '" + race.getName()
+						+ "'!");
 			}
 		}
 	}
@@ -495,8 +508,8 @@ public class PerkPointsCalculator {
 			return 15;
 		default:
 			if (!realm.equals(RealmOfMagic.RACE)) {
-				throw new InvalidRaceDefinition("Unknown cost '" + cost + "' for power point progression of realm '" + realm
-						+ "' for race '" + race.getName() + "'.");
+				throw new InvalidRaceDefinition("Unknown cost '" + cost + "' for power point progression of realm '"
+						+ realm + "' for race '" + race.getName() + "'.");
 			} else {
 				return 0;
 			}
@@ -549,7 +562,8 @@ public class PerkPointsCalculator {
 		case "0/15/13/11/9":
 			return 100;
 		default:
-			throw new InvalidRaceDefinition("Unknown physical development cost '" + cost + "' value for race '" + race.getName() + "'!");
+			throw new InvalidRaceDefinition("Unknown physical development cost '" + cost + "' value for race '"
+					+ race.getName() + "'!");
 		}
 	}
 }

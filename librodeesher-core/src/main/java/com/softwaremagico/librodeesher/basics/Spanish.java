@@ -139,5 +139,7 @@ public class Spanish {
 	public static final String INNMORTALS = "Inmortales";
 	public static final String PERK_SCEPTIC = "Escéptico";
 	public static final String NOT_IMPORTANT = "noimporta";
+	public static final String ANY_RACE_LANGUAGE = "Idioma Racial";
+	public static final String ANY_CULTURE_LANGUAGE = "Idioma Regional";
 
 }

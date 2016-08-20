@@ -45,6 +45,7 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.culture.InvalidCultureException;
+import com.softwaremagico.librodeesher.pj.language.OptionLanguage;
 import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.perk.Perk;
@@ -91,6 +92,7 @@ public class Race {
 	private Map<String, Integer> bonusSkills;
 	private Map<String, Integer> bonusCategory;
 	private Set<Perk> racePerks;
+	private Set<OptionLanguage> optionalLanguages;
 
 	public Race(String name) throws InvalidRaceException {
 		this.name = name;
@@ -106,6 +108,7 @@ public class Race {
 		bonusSkills = new HashMap<>();
 		bonusCategory = new HashMap<>();
 		racePerks = new HashSet<>();
+		optionalLanguages = new HashSet<>();
 		readRaceFile(name);
 	}
 
@@ -374,28 +377,39 @@ public class Race {
 					raceLanguage = languageInformation[0];
 				}
 
-				String language = Spanish.SPOKEN_TAG + " " + languageInformation[0];
-				initialLanguages.put(language, Integer.parseInt(languageRank[0]));
+				// User selection language.
+				if (languageInformation[0].startsWith(Spanish.ANY_RACE_LANGUAGE)
+						|| languageInformation[0].startsWith(Spanish.ANY_CULTURE_LANGUAGE)) {
+					OptionLanguage optionLanguage = new OptionLanguage();
+					optionLanguage.setStartingSpeakingRanks(Integer.parseInt(languageRank[0]));
+					optionLanguage.setStartingWrittingRanks(Integer.parseInt(languageRank[1]));
+					optionLanguage.setMaxSpeakingRanks(Integer.parseInt(maxCultureLanguage[0]));
+					optionLanguage.setMaxWritingRanks(Integer.parseInt(maxCultureLanguage[1]));
+					optionalLanguages.add(optionLanguage);
+				} else {
+					// Standard language.
+					String language = Spanish.SPOKEN_TAG + " " + languageInformation[0];
+					initialLanguages.put(language, Integer.parseInt(languageRank[0]));
 
-				// Add language to category.
-				if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
-					CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
+					// Add language to category.
+					if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
+						CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
+					}
+
+					language = Spanish.WRITTEN_TAG + " " + languageInformation[0];
+					initialLanguages.put(language, Integer.parseInt(languageRank[1]));
+
+					// Add language to category.
+					if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
+						CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
+					}
+
+					language = Spanish.SPOKEN_TAG + " " + languageInformation[0];
+					maxLanguages.put(language, Integer.parseInt(maxCultureLanguage[0]));
+
+					language = Spanish.WRITTEN_TAG + " " + languageInformation[0];
+					maxLanguages.put(language, Integer.parseInt(maxCultureLanguage[1]));
 				}
-
-				language = Spanish.WRITTEN_TAG + " " + languageInformation[0];
-				initialLanguages.put(language, Integer.parseInt(languageRank[1]));
-
-				// Add language to category.
-				if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
-					CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
-				}
-
-				language = Spanish.SPOKEN_TAG + " " + languageInformation[0];
-				maxLanguages.put(language, Integer.parseInt(maxCultureLanguage[0]));
-
-				language = Spanish.WRITTEN_TAG + " " + languageInformation[0];
-				maxLanguages.put(language, Integer.parseInt(maxCultureLanguage[1]));
-
 			} catch (NumberFormatException nfe) {
 				throw new InvalidRaceException("Language value invalid in '" + lines.get(index) + "'.", nfe);
 			} catch (Exception e) {
@@ -826,5 +840,9 @@ public class Race {
 
 	public Set<Perk> getPerks() {
 		return racePerks;
+	}
+
+	public Set<OptionLanguage> getOptionalLanguages() {
+		return optionalLanguages;
 	}
 }

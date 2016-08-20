@@ -39,6 +39,7 @@ import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
+import com.softwaremagico.librodeesher.pj.language.OptionLanguage;
 import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
@@ -60,9 +61,11 @@ public class Culture {
 	private List<String> hobbySkills;
 	private HashMap<String, Integer> languagesMaxRanks;
 	private HashMap<String, Float> trainingPrice;
+	private Set<OptionLanguage> optionalLanguages;
 
 	public Culture(String name) throws InvalidCultureException {
 		this.name = name;
+		optionalLanguages = new HashSet<>();
 		readCultureFile(name);
 	}
 
@@ -301,22 +304,34 @@ public class Culture {
 			String[] languageColumn = lines.get(index).split("\t");
 			String[] languageRanks = languageColumn[1].split("/");
 			try {
-				String language = Spanish.SPOKEN_TAG + " " + languageColumn[0];
+				// User selection language.
+				if (languageColumn[0].startsWith(Spanish.ANY_RACE_LANGUAGE)
+						|| languageColumn[0].startsWith(Spanish.ANY_CULTURE_LANGUAGE)) {
+					OptionLanguage optionLanguage = new OptionLanguage();
+					optionLanguage.setStartingSpeakingRanks(0);
+					optionLanguage.setStartingWrittingRanks(0);
+					optionLanguage.setMaxSpeakingRanks(Integer.parseInt(languageRanks[0]));
+					optionLanguage.setMaxWritingRanks(Integer.parseInt(languageRanks[1]));
+					optionalLanguages.add(optionLanguage);
+				} else {
+					// Standard language.
+					String language = Spanish.SPOKEN_TAG + " " + languageColumn[0];
 
-				// Add language to category.
-				if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
-					CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
+					// Add language to category.
+					if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
+						CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
+					}
+
+					languagesMaxRanks.put(language, Integer.parseInt(languageRanks[0]));
+					language = Spanish.WRITTEN_TAG + " " + languageColumn[0];
+
+					// Add language to category.
+					if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
+						CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
+					}
+
+					languagesMaxRanks.put(language, Integer.parseInt(languageRanks[1]));
 				}
-
-				languagesMaxRanks.put(language, Integer.parseInt(languageRanks[0]));
-				language = Spanish.WRITTEN_TAG + " " + languageColumn[0];
-
-				// Add language to category.
-				if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
-					CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
-				}
-
-				languagesMaxRanks.put(language, Integer.parseInt(languageRanks[1]));
 			} catch (NumberFormatException nfe) {
 				throw new InvalidCultureException("Error obtaining ranks for language '" + lines.get(index)
 						+ "' in culture '" + getName() + "'.", nfe);
@@ -395,5 +410,9 @@ public class Culture {
 			return trainingPrice.get(trainingName);
 		}
 		return 1f;
+	}
+
+	public Set<OptionLanguage> getOptionalLanguages() {
+		return optionalLanguages;
 	}
 }

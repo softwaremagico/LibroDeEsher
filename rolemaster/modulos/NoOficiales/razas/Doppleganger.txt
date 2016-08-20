@@ -72,7 +72,7 @@ Idioma Regional	0/0	10/10
 
 #IDIOMAS HISTORIAL
 ####################################
-Idioma Racial	0/0	10/10
+Idioma Regional	0/0	10/10
 
 #HABILIDADES COMUNES	0
 ####################################
