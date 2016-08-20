@@ -40,8 +40,8 @@ public class SkillFactory {
 	private static HashMap<String, Skill> availableSkills = new HashMap<>();
 	private static List<String> availableSkillsByName = new ArrayList<>();
 	private static Set<String> disabledSkills = new HashSet<>();
-
 	private static List<Skill> weaponSkills;
+	private static List<String> languages = null;
 
 	public static Skill getSkill(String skillNameAndType) {
 		Skill skill = availableSkills.get(skillNameAndType);
@@ -77,6 +77,20 @@ public class SkillFactory {
 				addSkill(skill);
 			}
 		}
+	}
+
+	public static List<String> getAvailableLanguages() {
+		if (languages == null) {
+			languages = new ArrayList<>();
+			Category communication = CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY);
+			for (Skill skill : communication.getSkills()) {
+				// Use speaking for selecting languages values.
+				if (skill.getName().startsWith(Spanish.SPOKEN_TAG)) {
+					languages.add(skill.getName().replace(Spanish.SPOKEN_TAG, "").trim());
+				}
+			}
+		}
+		return languages;
 	}
 
 	public static List<String> getAvailableSkills() {

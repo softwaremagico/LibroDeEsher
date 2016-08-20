@@ -17,6 +17,7 @@ import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
+import com.softwaremagico.librodeesher.pj.language.OptionalLanguage;
 import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
 import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
@@ -474,17 +475,75 @@ public class RandomCharacterPlayer {
 		return characterPlayer.getCultureLanguageRanks(language) * specializationLevel + 15;
 	}
 
-	private static void setRandomCultureAndRaceLanguages(CharacterPlayer characterPlayer, int specializationLevel) {
+	private static void selectOptionalLanguages(CharacterPlayer characterPlayer) {
+		List<String> languages = characterPlayer.getUnusedLanguages();
+		Collections.shuffle(languages);
+		for (OptionalLanguage optionalLanguage : characterPlayer.getRace().getOptionalLanguages()) {
+			String selectedLanguage = languages.remove(0);
+			// Initial race ranks
+			characterPlayer.getCultureDecisions().addOptionalRaceInitialLanguageSelection(
+					Spanish.SPOKEN_TAG + " " + selectedLanguage, optionalLanguage.getStartingSpeakingRanks());
+			characterPlayer.getCultureDecisions().addOptionalRaceInitialLanguageSelection(
+					Spanish.WRITTEN_TAG + " " + selectedLanguage, optionalLanguage.getStartingWrittingRanks());
+			// Max race ranks
+			characterPlayer.getCultureDecisions().addOptionalRaceMaxLanguageSelection(
+					Spanish.SPOKEN_TAG + " " + selectedLanguage, optionalLanguage.getMaxSpeakingRanks());
+			characterPlayer.getCultureDecisions().addOptionalRaceMaxLanguageSelection(
+					Spanish.WRITTEN_TAG + " " + selectedLanguage, optionalLanguage.getMaxWritingRanks());
+		}
+
+		for (OptionalLanguage optionalLanguage : characterPlayer.getCulture().getOptionalLanguages()) {
+			String selectedLanguage = languages.remove(0);
+			// Initial race ranks
+			characterPlayer.getCultureDecisions().addOptionalCulturalLanguageSelection(
+					Spanish.SPOKEN_TAG + " " + selectedLanguage, optionalLanguage.getStartingSpeakingRanks());
+			characterPlayer.getCultureDecisions().addOptionalCulturalLanguageSelection(
+					Spanish.WRITTEN_TAG + " " + selectedLanguage, optionalLanguage.getStartingWrittingRanks());
+			// Max race ranks
+			characterPlayer.getCultureDecisions().addOptionalCulturalLanguageSelection(
+					Spanish.SPOKEN_TAG + " " + selectedLanguage, optionalLanguage.getMaxSpeakingRanks());
+			characterPlayer.getCultureDecisions().addOptionalCulturalLanguageSelection(
+					Spanish.WRITTEN_TAG + " " + selectedLanguage, optionalLanguage.getMaxWritingRanks());
+		}
+	}
+
+	public static void setRandomCultureAndRaceLanguages(CharacterPlayer characterPlayer, int specializationLevel) {
+		selectOptionalLanguages(characterPlayer);
 		while (characterPlayer.getRace().getLanguagePoints() + characterPlayer.getCulture().getLanguageRanksToChoose()
 				- characterPlayer.getCultureTotalLanguageRanks() > 0) {
 			String randomLanguage;
-			// Use culture or race language
-			if (Math.random() < 0.5) {
+			// Use culture, race or optional languages.
+			double randomValue = Math.random();
+			if (randomValue < 0.4) {
+				if (characterPlayer.getCulture().getLanguagesMaxRanks().isEmpty()) {
+					continue;
+				}
 				randomLanguage = characterPlayer.getCulture().getLanguagesMaxRanks()
 						.get((int) (Math.random() * characterPlayer.getCulture().getLanguagesMaxRanks().size()));
-			} else {
+			} else if (randomValue < 0.8) {
+				if (characterPlayer.getRace().getAvailableLanguages().isEmpty()) {
+					continue;
+				}
 				randomLanguage = characterPlayer.getRace().getAvailableLanguages()
 						.get((int) (Math.random() * characterPlayer.getRace().getAvailableLanguages().size()));
+			} else if (randomValue < 0.9) {
+				if (characterPlayer.getCultureDecisions().getOptionalCulturalLanguages().isEmpty()) {
+					continue;
+				}
+				randomLanguage = characterPlayer
+						.getCultureDecisions()
+						.getOptionalCulturalLanguages()
+						.get((int) (Math.random() * characterPlayer.getCultureDecisions()
+								.getOptionalCulturalLanguages().size()));
+			} else {
+				if (characterPlayer.getCultureDecisions().getOptionalRaceLanguages().isEmpty()) {
+					continue;
+				}
+				randomLanguage = characterPlayer
+						.getCultureDecisions()
+						.getOptionalRaceLanguages()
+						.get((int) (Math.random() * characterPlayer.getCultureDecisions().getOptionalRaceLanguages()
+								.size()));
 			}
 			// Enough points
 			if (characterPlayer.getCultureTotalLanguageRanks() < characterPlayer.getRace().getLanguagePoints()

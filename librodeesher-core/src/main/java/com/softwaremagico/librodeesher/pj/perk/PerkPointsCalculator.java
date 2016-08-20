@@ -3,7 +3,7 @@ package com.softwaremagico.librodeesher.pj.perk;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.ProgressionCostType;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
-import com.softwaremagico.librodeesher.pj.language.OptionLanguage;
+import com.softwaremagico.librodeesher.pj.language.OptionalLanguage;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.race.Race;
 import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceDefinition;
@@ -331,7 +331,7 @@ public class PerkPointsCalculator {
 		}
 
 		//Optional languages as language.
-		for (OptionLanguage language : race.getOptionalLanguages()) {
+		for (OptionalLanguage language : race.getOptionalLanguages()) {
 			languageCost += language.getStartingSpeakingRanks() - 5;
 			languageCost += language.getStartingWrittingRanks();
 		}

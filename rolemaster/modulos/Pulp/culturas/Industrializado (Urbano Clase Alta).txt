@@ -80,9 +80,9 @@ Tocar Instrumento
 
 # IDIOMAS
 ####################
-Habla 1	6/6
-Habla 2	4/4
-Habla 3	0/0
+Idioma Regional	6/6
+Idioma Regional	4/4
+Idioma Regional	0/0
 
 # ADIESTAMIENTOS
 ####################

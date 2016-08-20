@@ -45,7 +45,7 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.culture.InvalidCultureException;
-import com.softwaremagico.librodeesher.pj.language.OptionLanguage;
+import com.softwaremagico.librodeesher.pj.language.OptionalLanguage;
 import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
 import com.softwaremagico.librodeesher.pj.perk.Perk;
@@ -92,7 +92,7 @@ public class Race {
 	private Map<String, Integer> bonusSkills;
 	private Map<String, Integer> bonusCategory;
 	private Set<Perk> racePerks;
-	private Set<OptionLanguage> optionalLanguages;
+	private Set<OptionalLanguage> optionalLanguages;
 
 	public Race(String name) throws InvalidRaceException {
 		this.name = name;
@@ -380,7 +380,7 @@ public class Race {
 				// User selection language.
 				if (languageInformation[0].startsWith(Spanish.ANY_RACE_LANGUAGE)
 						|| languageInformation[0].startsWith(Spanish.ANY_CULTURE_LANGUAGE)) {
-					OptionLanguage optionLanguage = new OptionLanguage();
+					OptionalLanguage optionLanguage = new OptionalLanguage();
 					optionLanguage.setStartingSpeakingRanks(Integer.parseInt(languageRank[0]));
 					optionLanguage.setStartingWrittingRanks(Integer.parseInt(languageRank[1]));
 					optionLanguage.setMaxSpeakingRanks(Integer.parseInt(maxCultureLanguage[0]));
@@ -842,7 +842,7 @@ public class Race {
 		return racePerks;
 	}
 
-	public Set<OptionLanguage> getOptionalLanguages() {
+	public Set<OptionalLanguage> getOptionalLanguages() {
 		return optionalLanguages;
 	}
 }

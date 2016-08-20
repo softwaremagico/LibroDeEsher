@@ -174,6 +174,27 @@
         primary key (CultureDecisions_ID, languageRanks_KEY)
     );
 
+    create table T_CULTURE_OPTIONAL_CULTURE_MAX_LANGUAGE_RANKS (
+        CultureDecisions_ID bigint not null,
+        optionalCulturalMaxLanguageSelection integer,
+        optionalCulturalMaxLanguageSelection_KEY varchar(255),
+        primary key (CultureDecisions_ID, optionalCulturalMaxLanguageSelection_KEY)
+    );
+
+    create table T_CULTURE_OPTIONAL_RACE_MAX_LANGUAGE_RANKS (
+        CultureDecisions_ID bigint not null,
+        optionalRaceMaxLanguageSelection integer,
+        optionalRaceMaxLanguageSelection_KEY varchar(255),
+        primary key (CultureDecisions_ID, optionalRaceMaxLanguageSelection_KEY)
+    );
+
+    create table T_CULTURE_OPTIONAL_RACE_STARTING_LANGUAGE_RANKS (
+        CultureDecisions_ID bigint not null,
+        optionalRaceInitialLanguageSelection integer,
+        optionalRaceInitialLanguageSelection_KEY varchar(255),
+        primary key (CultureDecisions_ID, optionalRaceInitialLanguageSelection_KEY)
+    );
+
     create table T_CULTURE_SPELL_RANKS (
         CultureDecisions_ID bigint not null,
         spellRanks integer,
@@ -856,6 +877,21 @@
 
     alter table T_CULTURE_LANGUAGE_RANKS 
         add constraint FK_f0iotbk7g37ft2eid62prpsct 
+        foreign key (CultureDecisions_ID) 
+        references T_CULTUREDECISIONS (ID);
+
+    alter table T_CULTURE_OPTIONAL_CULTURE_MAX_LANGUAGE_RANKS 
+        add constraint FK_lbrufrqtt0qr3dij99dy7491a 
+        foreign key (CultureDecisions_ID) 
+        references T_CULTUREDECISIONS (ID);
+
+    alter table T_CULTURE_OPTIONAL_RACE_MAX_LANGUAGE_RANKS 
+        add constraint FK_lmvmp3uoexhg9fe5sf3xgo3md 
+        foreign key (CultureDecisions_ID) 
+        references T_CULTUREDECISIONS (ID);
+
+    alter table T_CULTURE_OPTIONAL_RACE_STARTING_LANGUAGE_RANKS 
+        add constraint FK_ij0b23ixrwvvyw7bbt0dul5st 
         foreign key (CultureDecisions_ID) 
         references T_CULTUREDECISIONS (ID);
 

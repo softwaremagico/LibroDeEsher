@@ -44,8 +44,12 @@ public class CultureLanguagePanel extends CulturePanel {
 		int i = 0;
 		// Add race languages.
 		List<String> languages = new ArrayList<>();
-		for (String language : character.getRace().getInitialRaceLanguages()
-				.keySet()) {
+		for (String language : character.getRace().getInitialRaceLanguages().keySet()) {
+			if (!languages.contains(language)) {
+				languages.add(language);
+			}
+		}
+		for (String language : character.getRaceOptionalLanguageSelection()) {
 			if (!languages.contains(language)) {
 				languages.add(language);
 			}
@@ -56,10 +60,15 @@ public class CultureLanguagePanel extends CulturePanel {
 				languages.add(language);
 			}
 		}
+		for (String language : character.getCultureOptionalLanguageSelection()) {
+			if (!languages.contains(language)) {
+				languages.add(language);
+			}
+		}
 		Collections.sort(languages);
 		for (String language : languages) {
-			CultureLanguageLine languageLine = new CultureLanguageLine(character, language,
-					this, getLineBackgroundColor(i));
+			CultureLanguageLine languageLine = new CultureLanguageLine(character, language, this,
+					getLineBackgroundColor(i));
 			add(languageLine);
 			hobbyLines.add(languageLine);
 			i++;

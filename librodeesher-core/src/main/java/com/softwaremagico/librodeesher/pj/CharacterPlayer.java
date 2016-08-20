@@ -648,6 +648,19 @@ public class CharacterPlayer extends StorableObject {
 				maxLanguage.put(language, getRace().getMaxHistoryLanguages().get(language));
 			}
 		}
+		for (String language : getCultureDecisions().getOptionalCulturalLanguages()) {
+			if (maxLanguage.get(language) == null
+					|| maxLanguage.get(language) < getCultureDecisions().getOptionalCulturalMaxLanguageSelection(
+							language)) {
+				maxLanguage.put(language, getCultureDecisions().getOptionalCulturalMaxLanguageSelection(language));
+			}
+		}
+		for (String language : getCultureDecisions().getOptionalRaceLanguages()) {
+			if (maxLanguage.get(language) == null
+					|| maxLanguage.get(language) < getCultureDecisions().getOptionalRaceMaxLanguageSelection(language)) {
+				maxLanguage.put(language, getCultureDecisions().getOptionalRaceMaxLanguageSelection(language));
+			}
+		}
 		characterPlayerHelper.setMaxHistoryLanguages(maxLanguage);
 		return maxLanguage;
 	}
@@ -912,8 +925,12 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getLanguageRaceInitialRanks(String language) {
-		if(getRace()==null){
+		if (getRace() == null) {
 			return 0;
+		}
+		// Selected language
+		if (getCultureDecisions().getOptionalRaceInitialLanguageSelection(language) > 0) {
+			return getCultureDecisions().getOptionalRaceInitialLanguageSelection(language);
 		}
 		return getRace().getLanguageInitialRanks(language);
 	}
@@ -925,7 +942,10 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public Integer getLanguageMaxInitialRanks(String language) {
-		return Math.max(getCulture().getLanguageMaxRanks(language), getRace().getLanguageMaxRanks(language));
+		return Math.max(
+				getCultureDecisions().getOptionalCulturalMaxLanguageSelection(language),
+				Math.max(getCultureDecisions().getOptionalRaceMaxLanguageSelection(language),
+						Math.max(getCulture().getLanguageMaxRanks(language), getRace().getLanguageMaxRanks(language))));
 	}
 
 	public Integer getLanguageRanks(String language) {
@@ -2864,6 +2884,14 @@ public class CharacterPlayer extends StorableObject {
 		return cultureDecisions;
 	}
 
+	public List<String> getRaceOptionalLanguageSelection() {
+		return getCultureDecisions().getOptionalRaceLanguages();
+	}
+
+	public List<String> getCultureOptionalLanguageSelection() {
+		return getCultureDecisions().getOptionalCulturalLanguages();
+	}
+
 	public int getInsertedLevel() {
 		if (insertedData == null) {
 			return 0;
@@ -2970,6 +2998,16 @@ public class CharacterPlayer extends StorableObject {
 			return 0;
 		}
 		return background.getLanguagesTotalRanksAdded();
+	}
+
+	public List<String> getUnusedLanguages() {
+		List<String> languages = SkillFactory.getAvailableLanguages();
+		for (Skill skill : CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkills()) {
+			if (getTotalRanks(skill) > 0) {
+				languages.remove(skill.getName());
+			}
+		}
+		return languages;
 	}
 
 }

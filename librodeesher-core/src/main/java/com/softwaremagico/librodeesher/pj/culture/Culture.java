@@ -39,7 +39,7 @@ import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
-import com.softwaremagico.librodeesher.pj.language.OptionLanguage;
+import com.softwaremagico.librodeesher.pj.language.OptionalLanguage;
 import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
@@ -61,7 +61,7 @@ public class Culture {
 	private List<String> hobbySkills;
 	private HashMap<String, Integer> languagesMaxRanks;
 	private HashMap<String, Float> trainingPrice;
-	private Set<OptionLanguage> optionalLanguages;
+	private Set<OptionalLanguage> optionalLanguages;
 
 	public Culture(String name) throws InvalidCultureException {
 		this.name = name;
@@ -307,7 +307,7 @@ public class Culture {
 				// User selection language.
 				if (languageColumn[0].startsWith(Spanish.ANY_RACE_LANGUAGE)
 						|| languageColumn[0].startsWith(Spanish.ANY_CULTURE_LANGUAGE)) {
-					OptionLanguage optionLanguage = new OptionLanguage();
+					OptionalLanguage optionLanguage = new OptionalLanguage();
 					optionLanguage.setStartingSpeakingRanks(0);
 					optionLanguage.setStartingWrittingRanks(0);
 					optionLanguage.setMaxSpeakingRanks(Integer.parseInt(languageRanks[0]));
@@ -412,7 +412,7 @@ public class Culture {
 		return 1f;
 	}
 
-	public Set<OptionLanguage> getOptionalLanguages() {
+	public Set<OptionalLanguage> getOptionalLanguages() {
 		return optionalLanguages;
 	}
 }

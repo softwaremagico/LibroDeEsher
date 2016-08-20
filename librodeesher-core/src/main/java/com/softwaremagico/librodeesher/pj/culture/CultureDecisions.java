@@ -24,7 +24,9 @@ package com.softwaremagico.librodeesher.pj.culture;
  * #L%
  */
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CollectionTable;
@@ -69,11 +71,32 @@ public class CultureDecisions extends StorableObject {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<String, Integer> languageRanks;
 
+	@Expose
+	@ElementCollection
+	@CollectionTable(name = "T_CULTURE_OPTIONAL_CULTURE_MAX_LANGUAGE_RANKS")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private Map<String, Integer> optionalCulturalMaxLanguageSelection;
+
+	@Expose
+	@ElementCollection
+	@CollectionTable(name = "T_CULTURE_OPTIONAL_RACE_STARTING_LANGUAGE_RANKS")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private Map<String, Integer> optionalRaceInitialLanguageSelection;
+
+	@Expose
+	@ElementCollection
+	@CollectionTable(name = "T_CULTURE_OPTIONAL_RACE_MAX_LANGUAGE_RANKS")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private Map<String, Integer> optionalRaceMaxLanguageSelection;
+
 	public CultureDecisions() {
 		languageRanks = new HashMap<>();
 		weaponRanks = new HashMap<>();
 		hobbyRanks = new HashMap<>();
 		spellRanks = new HashMap<>();
+		optionalCulturalMaxLanguageSelection = new HashMap<>();
+		optionalRaceInitialLanguageSelection = new HashMap<>();
+		optionalRaceMaxLanguageSelection = new HashMap<>();
 	}
 
 	@Override
@@ -87,8 +110,7 @@ public class CultureDecisions extends StorableObject {
 	}
 
 	/**
-	 * Includes the ranks in the communication category of the culture plus the
-	 * communications ranks of the race.
+	 * Includes the ranks in the communication category of the culture plus the communications ranks of the race.
 	 * 
 	 * @param language
 	 * @param ranks
@@ -233,4 +255,52 @@ public class CultureDecisions extends StorableObject {
 		this.languageRanks = languageRanks;
 	}
 
+	public int getOptionalCulturalMaxLanguageSelection(String language) {
+		if (optionalCulturalMaxLanguageSelection.get(language) != null) {
+			return optionalCulturalMaxLanguageSelection.get(language);
+		}
+		return 0;
+	}
+
+	public List<String> getOptionalCulturalLanguages() {
+		return new ArrayList<String>(optionalCulturalMaxLanguageSelection.keySet());
+	}
+
+	public void addOptionalCulturalLanguageSelection(String language, int ranks) {
+		if (ranks > 0) {
+			optionalCulturalMaxLanguageSelection.put(language, ranks);
+		} else {
+			optionalCulturalMaxLanguageSelection.remove(language);
+		}
+	}
+
+	public int getOptionalRaceInitialLanguageSelection(String language) {
+		if (optionalRaceInitialLanguageSelection.get(language) != null) {
+			return optionalRaceInitialLanguageSelection.get(language);
+		}
+		return 0;
+	}
+
+	public void addOptionalRaceInitialLanguageSelection(String language, int ranks) {
+		if (ranks > 0) {
+			optionalRaceInitialLanguageSelection.put(language, ranks);
+		} else {
+			optionalRaceInitialLanguageSelection.remove(language);
+		}
+	}
+
+	public int getOptionalRaceMaxLanguageSelection(String language) {
+		if (optionalRaceMaxLanguageSelection.get(language) != null) {
+			return optionalRaceMaxLanguageSelection.get(language);
+		}
+		return 0;
+	}
+
+	public List<String> getOptionalRaceLanguages() {
+		return new ArrayList<String>(optionalRaceMaxLanguageSelection.keySet());
+	}
+
+	public void addOptionalRaceMaxLanguageSelection(String language, int ranks) {
+		optionalRaceMaxLanguageSelection.put(language, ranks);
+	}
 }

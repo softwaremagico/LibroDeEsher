@@ -100,14 +100,14 @@ Acuática
 #ESPECIALES
 ####################################
 Todas las habilidades que se usan de forma exclusiva en la superficie cuentan como restringidas.
-Piernas Temporales: pueden convertir la cola en piernas hasta un total de 4 h +1h por nivel cada día, para ellos deberán de concentrarse 1 minuto sin interrupción.
-Mintras están transformado tendrán un TA3
+Piernas Temporales: pueden convertir la cola en piernas hasta un total de 4 h +1h por nivel cada día, para ello deberá concentrarse 1 minuto sin interrupción.
+Mientras está transformado tendrá un TA 3
 
 Penalizaciones en Tierra Firme: Deben volver a su elemento cada día. Aquel que no hay sido sumergido en agua salada (océano, río poderoso o lago grande)
 sufrirà una penalización -10 a todas la actividades por cada dia perdido.
 Si intenta hacerlo bajo una cascada o sumergiéndose en una bañera, sufrirà una penalización de -5.
 Si la penalización alcanza -80 entra en coma.
-Si la penalización alcanza -100 muore.
+Si la penalización alcanza -100 muere.
 
 #NOMBRES MASCULINOS
 ####################################

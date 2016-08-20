@@ -3,7 +3,7 @@ package com.softwaremagico.librodeesher.pj.language;
 /**
  * Idioma Racial, Idioma Cultural
  */
-public class OptionLanguage {
+public class OptionalLanguage {
 	int startingSpeakingRanks = 0;
 	int startingWrittingRanks = 0;
 	int maxSpeakingRanks = 0;
