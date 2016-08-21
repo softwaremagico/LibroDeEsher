@@ -78,7 +78,7 @@ public class SelectLanguagesWindow extends BaseFrame {
 		widthCells = (characterPlayer.getRace().getOptionalLanguages().isEmpty() ? 0 : 1)
 				+ (characterPlayer.getCulture().getOptionalLanguages().isEmpty() ? 0 : 1);
 		defineWindow((LANGUAGE_PANEL_WIDTH + 10) * widthCells, 500);
-		setMaximumSize(new Dimension((LANGUAGE_PANEL_WIDTH + 10) * widthCells, 500));
+		setMaximumSize(new Dimension(((LANGUAGE_PANEL_WIDTH + 10) * widthCells) + 50, 500));
 		setElements();
 	}
 
@@ -150,6 +150,7 @@ public class SelectLanguagesWindow extends BaseFrame {
 		closeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				updateFrame();
 				for (LanguageSelectionUpdateListener listener : updateListeners) {
 					listener.updated();
 				}
@@ -185,15 +186,10 @@ public class SelectLanguagesWindow extends BaseFrame {
 	@Override
 	public void updateFrame() {
 		// Remove any selected rank in optional languages.
-		for (String language : characterPlayer.getCultureDecisions().getLanguageRanks().keySet()) {
-			if (characterPlayer.getCultureDecisions().getOptionalCulturalLanguages().contains(language)) {
-				characterPlayer.getCultureDecisions().setLanguageRank(language, 0);
-			}
-			if (characterPlayer.getCultureDecisions().getOptionalRaceLanguages().contains(language)) {
-				characterPlayer.getCultureDecisions().setLanguageRank(language, 0);
-			}
+		for (String language : new HashSet<String>(characterPlayer.getCultureDecisions().getLanguageRanks().keySet())) {
+			characterPlayer.setCultureLanguageRanks(language, 0);
 		}
-		// Remove any language.
+		// Remove any selected language.
 		characterPlayer.getCultureDecisions().resetLanguageOptions();
 		// Race languages.
 		if (raceLayout != null) {
