@@ -48,7 +48,7 @@ public class ChooseSkillGroup extends ChooseGroup<Skill> {
 			if (skill != null) {
 				getOptionsGroup().add(skill);
 			} else {
-				throw new InvalidSkillException("Error leyendo un conjunto de categorias. Fallo en: " + skillName);
+				throw new InvalidSkillException("Error reading a category set. Error in '" + skillName + "'.");
 			}
 		}
 	}

@@ -94,9 +94,7 @@ public class CultureDecisions extends StorableObject {
 		weaponRanks = new HashMap<>();
 		hobbyRanks = new HashMap<>();
 		spellRanks = new HashMap<>();
-		optionalCulturalMaxLanguageSelection = new HashMap<>();
-		optionalRaceInitialLanguageSelection = new HashMap<>();
-		optionalRaceMaxLanguageSelection = new HashMap<>();
+		resetLanguageOptions();
 	}
 
 	@Override
@@ -107,6 +105,12 @@ public class CultureDecisions extends StorableObject {
 	@Override
 	public void resetComparationIds() {
 		resetComparationIds(this);
+	}
+
+	public void resetLanguageOptions() {
+		optionalCulturalMaxLanguageSelection = new HashMap<>();
+		optionalRaceInitialLanguageSelection = new HashMap<>();
+		optionalRaceMaxLanguageSelection = new HashMap<>();
 	}
 
 	/**

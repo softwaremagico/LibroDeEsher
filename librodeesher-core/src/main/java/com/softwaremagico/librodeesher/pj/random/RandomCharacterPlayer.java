@@ -482,9 +482,9 @@ public class RandomCharacterPlayer {
 			String selectedLanguage = languages.remove(0);
 			// Initial race ranks
 			characterPlayer.getCultureDecisions().addOptionalRaceInitialLanguageSelection(
-					Spanish.SPOKEN_TAG + " " + selectedLanguage, optionalLanguage.getStartingSpeakingRanks());
+					Spanish.SPOKEN_TAG + " " + selectedLanguage, optionalLanguage.getInitialSpeakingRanks());
 			characterPlayer.getCultureDecisions().addOptionalRaceInitialLanguageSelection(
-					Spanish.WRITTEN_TAG + " " + selectedLanguage, optionalLanguage.getStartingWrittingRanks());
+					Spanish.WRITTEN_TAG + " " + selectedLanguage, optionalLanguage.getInitialWrittingRanks());
 			// Max race ranks
 			characterPlayer.getCultureDecisions().addOptionalRaceMaxLanguageSelection(
 					Spanish.SPOKEN_TAG + " " + selectedLanguage, optionalLanguage.getMaxSpeakingRanks());
@@ -496,9 +496,9 @@ public class RandomCharacterPlayer {
 			String selectedLanguage = languages.remove(0);
 			// Initial race ranks
 			characterPlayer.getCultureDecisions().addOptionalCulturalLanguageSelection(
-					Spanish.SPOKEN_TAG + " " + selectedLanguage, optionalLanguage.getStartingSpeakingRanks());
+					Spanish.SPOKEN_TAG + " " + selectedLanguage, optionalLanguage.getInitialSpeakingRanks());
 			characterPlayer.getCultureDecisions().addOptionalCulturalLanguageSelection(
-					Spanish.WRITTEN_TAG + " " + selectedLanguage, optionalLanguage.getStartingWrittingRanks());
+					Spanish.WRITTEN_TAG + " " + selectedLanguage, optionalLanguage.getInitialWrittingRanks());
 			// Max race ranks
 			characterPlayer.getCultureDecisions().addOptionalCulturalLanguageSelection(
 					Spanish.SPOKEN_TAG + " " + selectedLanguage, optionalLanguage.getMaxSpeakingRanks());

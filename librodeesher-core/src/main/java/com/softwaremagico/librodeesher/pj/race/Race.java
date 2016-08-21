@@ -92,7 +92,7 @@ public class Race {
 	private Map<String, Integer> bonusSkills;
 	private Map<String, Integer> bonusCategory;
 	private Set<Perk> racePerks;
-	private Set<OptionalLanguage> optionalLanguages;
+	private List<OptionalLanguage> optionalLanguages;
 
 	public Race(String name) throws InvalidRaceException {
 		this.name = name;
@@ -108,7 +108,7 @@ public class Race {
 		bonusSkills = new HashMap<>();
 		bonusCategory = new HashMap<>();
 		racePerks = new HashSet<>();
-		optionalLanguages = new HashSet<>();
+		optionalLanguages = new ArrayList<>();
 		readRaceFile(name);
 	}
 
@@ -842,7 +842,7 @@ public class Race {
 		return racePerks;
 	}
 
-	public Set<OptionalLanguage> getOptionalLanguages() {
+	public List<OptionalLanguage> getOptionalLanguages() {
 		return optionalLanguages;
 	}
 }

@@ -9,7 +9,7 @@ public class OptionalLanguage {
 	int maxSpeakingRanks = 0;
 	int maxWritingRanks = 0;
 
-	public int getStartingSpeakingRanks() {
+	public int getInitialSpeakingRanks() {
 		return startingSpeakingRanks;
 	}
 
@@ -17,7 +17,7 @@ public class OptionalLanguage {
 		this.startingSpeakingRanks = startingSpeakingRanks;
 	}
 
-	public int getStartingWrittingRanks() {
+	public int getInitialWrittingRanks() {
 		return startingWrittingRanks;
 	}
 

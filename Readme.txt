@@ -33,6 +33,7 @@ Versión
 		- Modo debug.
 		- Posible insertar rangos fuera de los puntos de desarrollo.
 		- Personajes aleatorios pueden tener talentos. 
+		- Idiomas seleccionables por raza y cultura (ej. Idioma Racial)
 		
 2.3.1	Arreglado:
 		- Error al deshabilitar módulos. 

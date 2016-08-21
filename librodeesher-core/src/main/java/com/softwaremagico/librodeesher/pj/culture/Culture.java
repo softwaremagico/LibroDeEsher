@@ -61,11 +61,11 @@ public class Culture {
 	private List<String> hobbySkills;
 	private HashMap<String, Integer> languagesMaxRanks;
 	private HashMap<String, Float> trainingPrice;
-	private Set<OptionalLanguage> optionalLanguages;
+	private List<OptionalLanguage> optionalLanguages;
 
 	public Culture(String name) throws InvalidCultureException {
 		this.name = name;
-		optionalLanguages = new HashSet<>();
+		optionalLanguages = new ArrayList<>();
 		readCultureFile(name);
 	}
 
@@ -412,7 +412,7 @@ public class Culture {
 		return 1f;
 	}
 
-	public Set<OptionalLanguage> getOptionalLanguages() {
+	public List<OptionalLanguage> getOptionalLanguages() {
 		return optionalLanguages;
 	}
 }

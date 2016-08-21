@@ -45,7 +45,6 @@ public class ProfessionWindow extends BaseFrame {
 	private List<SelectOption<Skill>> commonOptions;
 	private List<SelectOption<Skill>> professionalOptions;
 	private List<SelectOption<Skill>> restrictedOptions;
-	Integer widthCells, heighCells;
 
 	public ProfessionWindow(CharacterPlayer character) {
 		commonOptions = new ArrayList<>();
@@ -58,11 +57,11 @@ public class ProfessionWindow extends BaseFrame {
 	}
 
 	private void defineSize() {
-		widthCells = Math.max(
+		int widthCells = Math.max(
 				Math.max(character.getProfession().getProfessionalSkillsToChoose().size(), character
 						.getProfession().getCommonSkillsToChoose().size()), character.getProfession()
 						.getRestrictedSkillsToChoose().size());
-		heighCells = 0;
+		int heighCells = 0;
 		if (!character.getProfession().getProfessionalSkillsToChoose().isEmpty()) {
 			heighCells++;
 		}

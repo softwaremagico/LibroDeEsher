@@ -57,8 +57,8 @@ public class ReadFilesTest {
 	private void readRaceOptionalLanguages() throws InvalidRaceException {
 		Race dopplenganger = RaceFactory.getRace("Doppleganger");
 		Assert.assertEquals(dopplenganger.getOptionalLanguages().size(), 2);
-		Assert.assertEquals(dopplenganger.getOptionalLanguages().iterator().next().getStartingSpeakingRanks(), 0);
-		Assert.assertEquals(dopplenganger.getOptionalLanguages().iterator().next().getStartingWrittingRanks(), 0);
+		Assert.assertEquals(dopplenganger.getOptionalLanguages().iterator().next().getInitialSpeakingRanks(), 0);
+		Assert.assertEquals(dopplenganger.getOptionalLanguages().iterator().next().getInitialWrittingRanks(), 0);
 		Assert.assertEquals(dopplenganger.getOptionalLanguages().iterator().next().getMaxSpeakingRanks(), 10);
 		Assert.assertEquals(dopplenganger.getOptionalLanguages().iterator().next().getMaxWritingRanks(), 10);
 

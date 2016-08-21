@@ -34,6 +34,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import com.softwaremagico.librodeesher.gui.ShowMessage;
+import com.softwaremagico.librodeesher.gui.culture.SelectLanguagesWindow.LanguageSelectionUpdateListener;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.RandomButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
@@ -51,6 +52,17 @@ public class CultureWindow extends BaseFrame {
 		defineWindow(650, 400);
 		// setResizable(false);
 		setElements();
+		if (!character.getRace().getOptionalLanguages().isEmpty()
+				|| !character.getCulture().getOptionalLanguages().isEmpty()) {
+			SelectLanguagesWindow selectWindow = new SelectLanguagesWindow(character);
+			selectWindow.addLanguageSelectionUpdateListener(new LanguageSelectionUpdateListener() {
+				@Override
+				public void updated() {
+
+				}
+			});
+			selectWindow.setVisible(true);
+		}
 	}
 
 	private void setElements() {
