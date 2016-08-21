@@ -45,6 +45,10 @@ import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 
 public class CultureWindow extends BaseFrame {
 	private static final long serialVersionUID = -3866934730061829486L;
+	private static final int WEAPONS_PANEL_INDEX = 0;
+	private static final int HOBBIES_PANEL_INDEX = 1;
+	private static final int LANGUAGES_PANEL_INDEX = 2;
+	private static final int SPELLS_PANEL_INDEX = 3;
 	private CharacterPlayer character;
 
 	public CultureWindow(CharacterPlayer character) {
@@ -58,7 +62,9 @@ public class CultureWindow extends BaseFrame {
 			selectWindow.addLanguageSelectionUpdateListener(new LanguageSelectionUpdateListener() {
 				@Override
 				public void updated() {
-
+					createLanguagePanel();
+					revalidate();
+					repaint();
 				}
 			});
 			selectWindow.setVisible(true);
@@ -69,49 +75,10 @@ public class CultureWindow extends BaseFrame {
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
-		gridBagConstraints.fill = GridBagConstraints.BOTH;
-		gridBagConstraints.ipadx = xPadding;
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 1;
-		gridBagConstraints.weighty = 1;
-		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		getContentPane().add(new CompleteWeaponPanel(character), gridBagConstraints);
-
-		gridBagConstraints.fill = GridBagConstraints.BOTH;
-		gridBagConstraints.ipadx = xPadding;
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 1;
-		gridBagConstraints.weighty = 1;
-		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		getContentPane().add(new CompleteHobbiesPanel(character), gridBagConstraints);
-
-		gridBagConstraints.fill = GridBagConstraints.BOTH;
-		gridBagConstraints.ipadx = xPadding;
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 1;
-		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 1;
-		gridBagConstraints.weighty = 1;
-		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		getContentPane().add(new CompleteLanguagePanel(character), gridBagConstraints);
-
-		gridBagConstraints.fill = GridBagConstraints.BOTH;
-		gridBagConstraints.ipadx = xPadding;
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 1;
-		gridBagConstraints.gridheight = 1;
-		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 1;
-		gridBagConstraints.weighty = 0;
-		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		getContentPane().add(new CompleteSpellPanel(character), gridBagConstraints);
+		createWeaponsPanel();
+		createHobbiesPanel();
+		createLanguagePanel();
+		createSpellsPanel();
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
 		JPanel emptyPanel = new JPanel();
@@ -145,6 +112,79 @@ public class CultureWindow extends BaseFrame {
 		gridBagConstraints.weightx = 0;
 		gridBagConstraints.weighty = 0;
 		getContentPane().add(buttonPanel, gridBagConstraints);
+	}
+
+	private void createWeaponsPanel() {
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+
+		gridBagConstraints.fill = GridBagConstraints.BOTH;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 1;
+		gridBagConstraints.weighty = 1;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+		try {
+			getContentPane().remove(WEAPONS_PANEL_INDEX);
+		} catch (Exception e) {
+		}
+		getContentPane().add(new CompleteWeaponPanel(character), gridBagConstraints, WEAPONS_PANEL_INDEX);
+	}
+
+	private void createHobbiesPanel() {
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		gridBagConstraints.fill = GridBagConstraints.BOTH;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridx = 1;
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 1;
+		gridBagConstraints.weighty = 1;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+		try {
+			getContentPane().remove(HOBBIES_PANEL_INDEX);
+		} catch (Exception e) {
+		}
+		getContentPane().add(new CompleteHobbiesPanel(character), gridBagConstraints, HOBBIES_PANEL_INDEX);
+	}
+
+	private void createLanguagePanel() {
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		gridBagConstraints.fill = GridBagConstraints.BOTH;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 1;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 1;
+		gridBagConstraints.weighty = 1;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+		try {
+			getContentPane().remove(LANGUAGES_PANEL_INDEX);
+		} catch (Exception e) {
+		}
+		getContentPane().add(new CompleteLanguagePanel(character), gridBagConstraints, LANGUAGES_PANEL_INDEX);
+	}
+
+	private void createSpellsPanel() {
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		gridBagConstraints.fill = GridBagConstraints.BOTH;
+		gridBagConstraints.ipadx = xPadding;
+		gridBagConstraints.gridx = 1;
+		gridBagConstraints.gridy = 1;
+		gridBagConstraints.gridheight = 1;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 1;
+		gridBagConstraints.weighty = 0;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+		try {
+			getContentPane().remove(SPELLS_PANEL_INDEX);
+		} catch (Exception e) {
+		}
+		getContentPane().add(new CompleteSpellPanel(character), gridBagConstraints, SPELLS_PANEL_INDEX);
 	}
 
 	@Override

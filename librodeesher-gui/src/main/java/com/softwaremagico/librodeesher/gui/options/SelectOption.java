@@ -125,6 +125,10 @@ public class SelectOption<T> extends BasePanel {
 		optionsCount.setPoints(options.getNumberOfOptionsToChoose());
 	}
 
+	public void setOptionsCountVisible(boolean visible) {
+		optionsCount.setVisible(visible);
+	}
+
 	@Override
 	public void update() {
 		try {
