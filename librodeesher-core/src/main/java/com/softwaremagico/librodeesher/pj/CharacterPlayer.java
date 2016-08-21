@@ -948,10 +948,6 @@ public class CharacterPlayer extends StorableObject {
 						Math.max(getCulture().getLanguageMaxRanks(language), getRace().getLanguageMaxRanks(language))));
 	}
 
-	public Integer getLanguageRanks(String language) {
-		return Math.max(getLanguageRaceInitialRanks(language), cultureDecisions.getLanguageRanks(language));
-	}
-
 	public Integer getCurrentLevelRanks(Category category) {
 		if (levelUps.size() > 0) {
 			Integer ranks = getCurrentLevel().getCategoryRanks(category.getName());
@@ -1097,7 +1093,8 @@ public class CharacterPlayer extends StorableObject {
 		total += getInsertedRanks(skill);
 		if (skill.getCategory() != null) {
 			if (skill.getCategory().getName().toLowerCase().equals(Spanish.COMUNICATION_CATEGORY.toLowerCase())) {
-				total += getLanguageRanks(skill.getName());
+				// total += getLanguageRanks(skill.getName());
+				total += getLanguageRaceInitialRanks(skill.getName());
 			}
 		}
 		total += getTrainingRanks(skill);
