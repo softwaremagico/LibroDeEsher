@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
@@ -108,9 +109,9 @@ public class CultureDecisions extends StorableObject {
 	}
 
 	public void resetLanguageOptions() {
-		optionalCulturalMaxLanguageSelection = new HashMap<>();
-		optionalRaceInitialLanguageSelection = new HashMap<>();
-		optionalRaceMaxLanguageSelection = new HashMap<>();
+		optionalCulturalMaxLanguageSelection = new TreeMap<>();
+		optionalRaceInitialLanguageSelection = new TreeMap<>();
+		optionalRaceMaxLanguageSelection = new TreeMap<>();
 	}
 
 	/**

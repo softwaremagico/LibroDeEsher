@@ -39,11 +39,12 @@ import java.util.Set;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import com.softwaremagico.files.MessageManager;
 import com.softwaremagico.librodeesher.basics.ChooseGroup;
 import com.softwaremagico.librodeesher.basics.ChooseType;
 import com.softwaremagico.librodeesher.basics.Spanish;
-import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.options.SelectOption;
+import com.softwaremagico.librodeesher.gui.style.BaseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -103,7 +104,7 @@ public class SelectLanguagesWindow extends BaseFrame {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.gridx = 0;
-		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+		gridBagConstraints.insets = new Insets(2, 2, 2, 10);
 
 		// Race language
 		for (int languageIndex = 0; languageIndex < characterPlayer.getRace().getOptionalLanguages().size(); languageIndex++) {
@@ -146,13 +147,16 @@ public class SelectLanguagesWindow extends BaseFrame {
 		}
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
-		CloseButton closeButton = new CloseButton(this);
+		BaseButton closeButton = new BaseButton("Aceptar");
 		closeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				updateFrame();
-				for (LanguageSelectionUpdateListener listener : updateListeners) {
-					listener.updated();
+				if (validateValues()) {
+					updateFrame();
+					for (LanguageSelectionUpdateListener listener : updateListeners) {
+						listener.updated();
+					}
+					dispose();
 				}
 			}
 		});
@@ -183,6 +187,23 @@ public class SelectLanguagesWindow extends BaseFrame {
 		getContentPane().add(buttonPanel, gridBagConstraints);
 	}
 
+	private boolean validateValues() {
+		// Check values.
+		if (characterPlayer.getRaceOptionalLanguageSelection().size() / 2 != characterPlayer.getRace()
+				.getOptionalLanguages().size()) {
+			MessageManager.basicErrorMessage(this.getClass().getName(),
+					"Debes seleccionar todos los idiomas de raza y estos no pueden estar repetidos.", "Error");
+			return false;
+		}
+		if (characterPlayer.getCultureOptionalLanguageSelection().size() / 2 != characterPlayer.getCulture()
+				.getOptionalLanguages().size()) {
+			MessageManager.basicErrorMessage(this.getClass().getName(),
+					"Debes seleccionar todos los idiomas de cultura y estos no pueden estar repetidos.", "Error");
+			return false;
+		}
+		return true;
+	}
+
 	@Override
 	public void updateFrame() {
 		// Remove any selected rank in optional languages.
@@ -196,6 +217,8 @@ public class SelectLanguagesWindow extends BaseFrame {
 			for (int i = 0; i < raceLanguageOptions.size(); i++) {
 				// Max race ranks
 				if (!raceLanguageOptions.get(i).getSelectedOptions().isEmpty()) {
+					characterPlayer.getRaceOptionalLanguageSelection().add(
+							raceLanguageOptions.get(i).getSelectedOptions().get(0));
 					characterPlayer.getCultureDecisions().addOptionalRaceInitialLanguageSelection(
 							Spanish.SPOKEN_TAG + " " + raceLanguageOptions.get(i).getSelectedOptions().get(0),
 							characterPlayer.getRace().getOptionalLanguages().get(i).getInitialSpeakingRanks());
@@ -208,20 +231,26 @@ public class SelectLanguagesWindow extends BaseFrame {
 					characterPlayer.getCultureDecisions().addOptionalRaceMaxLanguageSelection(
 							Spanish.WRITTEN_TAG + " " + raceLanguageOptions.get(i).getSelectedOptions().get(0),
 							characterPlayer.getRace().getOptionalLanguages().get(i).getMaxWritingRanks());
+				} else {
+					characterPlayer.getRaceOptionalLanguageSelection().add(null);
 				}
 			}
 		}
 		// Culture languages.
 		if (cultureLayout != null) {
 			for (int i = 0; i < cultureLanguageOptions.size(); i++) {
-				// Max race ranks
+				// Max culture ranks
 				if (!cultureLanguageOptions.get(i).getSelectedOptions().isEmpty()) {
+					characterPlayer.getCultureOptionalLanguageSelection().add(
+							cultureLanguageOptions.get(i).getSelectedOptions().get(0));
 					characterPlayer.getCultureDecisions().addOptionalCulturalLanguageSelection(
 							Spanish.SPOKEN_TAG + " " + cultureLanguageOptions.get(i).getSelectedOptions().get(0),
 							characterPlayer.getRace().getOptionalLanguages().get(i).getMaxSpeakingRanks());
 					characterPlayer.getCultureDecisions().addOptionalCulturalLanguageSelection(
 							Spanish.WRITTEN_TAG + " " + cultureLanguageOptions.get(i).getSelectedOptions().get(0),
 							characterPlayer.getRace().getOptionalLanguages().get(i).getMaxWritingRanks());
+				} else {
+					characterPlayer.getCultureOptionalLanguageSelection().add(null);
 				}
 			}
 		}
