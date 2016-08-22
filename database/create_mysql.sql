@@ -174,25 +174,18 @@
         primary key (CultureDecisions_ID, languageRanks_KEY)
     );
 
-    create table T_CULTURE_OPTIONAL_CULTURE_MAX_LANGUAGE_RANKS (
+    create table T_CULTURE_OPTIONAL_CULTURE_LANGUAGES (
         CultureDecisions_ID bigint not null,
-        optionalCulturalMaxLanguageSelection integer,
-        optionalCulturalMaxLanguageSelection_KEY varchar(255),
-        primary key (CultureDecisions_ID, optionalCulturalMaxLanguageSelection_KEY)
+        optionalCulturalMaxLanguageSelection varchar(255),
+        raceLanguageIndex integer not null,
+        primary key (CultureDecisions_ID, raceLanguageIndex)
     );
 
     create table T_CULTURE_OPTIONAL_RACE_MAX_LANGUAGE_RANKS (
         CultureDecisions_ID bigint not null,
-        optionalRaceMaxLanguageSelection integer,
-        optionalRaceMaxLanguageSelection_KEY varchar(255),
-        primary key (CultureDecisions_ID, optionalRaceMaxLanguageSelection_KEY)
-    );
-
-    create table T_CULTURE_OPTIONAL_RACE_STARTING_LANGUAGE_RANKS (
-        CultureDecisions_ID bigint not null,
-        optionalRaceInitialLanguageSelection integer,
-        optionalRaceInitialLanguageSelection_KEY varchar(255),
-        primary key (CultureDecisions_ID, optionalRaceInitialLanguageSelection_KEY)
+        optionalRaceMaxLanguageSelection varchar(255),
+        raceLanguageIndex integer not null,
+        primary key (CultureDecisions_ID, raceLanguageIndex)
     );
 
     create table T_CULTURE_SPELL_RANKS (
@@ -880,18 +873,13 @@
         foreign key (CultureDecisions_ID) 
         references T_CULTUREDECISIONS (ID);
 
-    alter table T_CULTURE_OPTIONAL_CULTURE_MAX_LANGUAGE_RANKS 
-        add constraint FK_lbrufrqtt0qr3dij99dy7491a 
+    alter table T_CULTURE_OPTIONAL_CULTURE_LANGUAGES 
+        add constraint FK_r3n5fqnifsedv0i1ocht6qwbq 
         foreign key (CultureDecisions_ID) 
         references T_CULTUREDECISIONS (ID);
 
     alter table T_CULTURE_OPTIONAL_RACE_MAX_LANGUAGE_RANKS 
         add constraint FK_lmvmp3uoexhg9fe5sf3xgo3md 
-        foreign key (CultureDecisions_ID) 
-        references T_CULTUREDECISIONS (ID);
-
-    alter table T_CULTURE_OPTIONAL_RACE_STARTING_LANGUAGE_RANKS 
-        add constraint FK_ij0b23ixrwvvyw7bbt0dul5st 
         foreign key (CultureDecisions_ID) 
         references T_CULTUREDECISIONS (ID);
 

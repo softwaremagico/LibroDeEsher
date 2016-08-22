@@ -28,11 +28,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
@@ -74,27 +74,25 @@ public class CultureDecisions extends StorableObject {
 
 	@Expose
 	@ElementCollection
-	@CollectionTable(name = "T_CULTURE_OPTIONAL_CULTURE_MAX_LANGUAGE_RANKS")
+	@CollectionTable(name = "T_CULTURE_OPTIONAL_CULTURE_LANGUAGES")
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private Map<String, Integer> optionalCulturalMaxLanguageSelection;
-
-	@Expose
-	@ElementCollection
-	@CollectionTable(name = "T_CULTURE_OPTIONAL_RACE_STARTING_LANGUAGE_RANKS")
-	@LazyCollection(LazyCollectionOption.FALSE)
-	private Map<String, Integer> optionalRaceInitialLanguageSelection;
+	@OrderColumn(name= "raceLanguageIndex")
+	private List<String> optionalCulturalMaxLanguageSelection;
 
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_CULTURE_OPTIONAL_RACE_MAX_LANGUAGE_RANKS")
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private Map<String, Integer> optionalRaceMaxLanguageSelection;
+	@OrderColumn(name= "raceLanguageIndex")
+	private List<String> optionalRaceMaxLanguageSelection;
 
 	public CultureDecisions() {
 		languageRanks = new HashMap<>();
 		weaponRanks = new HashMap<>();
 		hobbyRanks = new HashMap<>();
 		spellRanks = new HashMap<>();
+		optionalCulturalMaxLanguageSelection = new ArrayList<>();
+		optionalRaceMaxLanguageSelection = new ArrayList<>();
 		resetLanguageOptions();
 	}
 
@@ -109,9 +107,8 @@ public class CultureDecisions extends StorableObject {
 	}
 
 	public void resetLanguageOptions() {
-		optionalCulturalMaxLanguageSelection = new TreeMap<>();
-		optionalRaceInitialLanguageSelection = new TreeMap<>();
-		optionalRaceMaxLanguageSelection = new TreeMap<>();
+		optionalCulturalMaxLanguageSelection.clear();
+		optionalRaceMaxLanguageSelection.clear();
 	}
 
 	/**
@@ -260,52 +257,11 @@ public class CultureDecisions extends StorableObject {
 		this.languageRanks = languageRanks;
 	}
 
-	public int getOptionalCulturalMaxLanguageSelection(String language) {
-		if (optionalCulturalMaxLanguageSelection.get(language) != null) {
-			return optionalCulturalMaxLanguageSelection.get(language);
-		}
-		return 0;
-	}
-
 	public List<String> getOptionalCulturalLanguages() {
-		return new ArrayList<String>(optionalCulturalMaxLanguageSelection.keySet());
-	}
-
-	public void addOptionalCulturalLanguageSelection(String language, int ranks) {
-		if (ranks > 0) {
-			optionalCulturalMaxLanguageSelection.put(language, ranks);
-		} else {
-			optionalCulturalMaxLanguageSelection.remove(language);
-		}
-	}
-
-	public int getOptionalRaceInitialLanguageSelection(String language) {
-		if (optionalRaceInitialLanguageSelection.get(language) != null) {
-			return optionalRaceInitialLanguageSelection.get(language);
-		}
-		return 0;
-	}
-
-	public void addOptionalRaceInitialLanguageSelection(String language, int ranks) {
-		if (ranks > 0) {
-			optionalRaceInitialLanguageSelection.put(language, ranks);
-		} else {
-			optionalRaceInitialLanguageSelection.remove(language);
-		}
-	}
-
-	public int getOptionalRaceMaxLanguageSelection(String language) {
-		if (optionalRaceMaxLanguageSelection.get(language) != null) {
-			return optionalRaceMaxLanguageSelection.get(language);
-		}
-		return 0;
+		return optionalCulturalMaxLanguageSelection;
 	}
 
 	public List<String> getOptionalRaceLanguages() {
-		return new ArrayList<String>(optionalRaceMaxLanguageSelection.keySet());
-	}
-
-	public void addOptionalRaceMaxLanguageSelection(String language, int ranks) {
-		optionalRaceMaxLanguageSelection.put(language, ranks);
+		return optionalRaceMaxLanguageSelection;
 	}
 }

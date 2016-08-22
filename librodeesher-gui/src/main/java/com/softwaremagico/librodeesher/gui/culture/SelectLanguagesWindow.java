@@ -203,13 +203,13 @@ public class SelectLanguagesWindow extends BaseFrame {
 
 	private boolean validateValues() {
 		// Check values.
-		if (characterPlayer.getRaceOptionalLanguageSelection().size() / 2 != characterPlayer.getRace()
+		if (characterPlayer.getCultureDecisions().getOptionalRaceLanguages().size() != characterPlayer.getRace()
 				.getOptionalLanguages().size()) {
 			MessageManager.basicErrorMessage(this.getClass().getName(),
 					"Debes seleccionar todos los idiomas de raza y estos no pueden estar repetidos.", "Error");
 			return false;
 		}
-		if (characterPlayer.getCultureOptionalLanguageSelection().size() / 2 != characterPlayer.getCulture()
+		if (characterPlayer.getCultureDecisions().getOptionalCulturalLanguages().size() != characterPlayer.getCulture()
 				.getOptionalLanguages().size()) {
 			MessageManager.basicErrorMessage(this.getClass().getName(),
 					"Debes seleccionar todos los idiomas de cultura y estos no pueden estar repetidos.", "Error");
@@ -231,22 +231,10 @@ public class SelectLanguagesWindow extends BaseFrame {
 			for (int i = 0; i < raceLanguageOptions.size(); i++) {
 				// Max race ranks
 				if (!raceLanguageOptions.get(i).getSelectedOptions().isEmpty()) {
-					characterPlayer.getRaceOptionalLanguageSelection().add(
-							raceLanguageOptions.get(i).getSelectedOptions().get(0));
-					characterPlayer.getCultureDecisions().addOptionalRaceInitialLanguageSelection(
-							Spanish.SPOKEN_TAG + " " + raceLanguageOptions.get(i).getSelectedOptions().get(0),
-							characterPlayer.getRace().getOptionalLanguages().get(i).getInitialSpeakingRanks());
-					characterPlayer.getCultureDecisions().addOptionalRaceInitialLanguageSelection(
-							Spanish.WRITTEN_TAG + " " + raceLanguageOptions.get(i).getSelectedOptions().get(0),
-							characterPlayer.getRace().getOptionalLanguages().get(i).getInitialWrittingRanks());
-					characterPlayer.getCultureDecisions().addOptionalRaceMaxLanguageSelection(
-							Spanish.SPOKEN_TAG + " " + raceLanguageOptions.get(i).getSelectedOptions().get(0),
-							characterPlayer.getRace().getOptionalLanguages().get(i).getMaxSpeakingRanks());
-					characterPlayer.getCultureDecisions().addOptionalRaceMaxLanguageSelection(
-							Spanish.WRITTEN_TAG + " " + raceLanguageOptions.get(i).getSelectedOptions().get(0),
-							characterPlayer.getRace().getOptionalLanguages().get(i).getMaxWritingRanks());
+					characterPlayer.getCultureDecisions().getOptionalRaceLanguages()
+							.add(raceLanguageOptions.get(i).getSelectedOptions().get(0));
 				} else {
-					characterPlayer.getRaceOptionalLanguageSelection().add(null);
+					characterPlayer.getCultureDecisions().getOptionalRaceLanguages().add(null);
 				}
 			}
 		}
@@ -255,16 +243,10 @@ public class SelectLanguagesWindow extends BaseFrame {
 			for (int i = 0; i < cultureLanguageOptions.size(); i++) {
 				// Max culture ranks
 				if (!cultureLanguageOptions.get(i).getSelectedOptions().isEmpty()) {
-					characterPlayer.getCultureOptionalLanguageSelection().add(
-							cultureLanguageOptions.get(i).getSelectedOptions().get(0));
-					characterPlayer.getCultureDecisions().addOptionalCulturalLanguageSelection(
-							Spanish.SPOKEN_TAG + " " + cultureLanguageOptions.get(i).getSelectedOptions().get(0),
-							characterPlayer.getRace().getOptionalLanguages().get(i).getMaxSpeakingRanks());
-					characterPlayer.getCultureDecisions().addOptionalCulturalLanguageSelection(
-							Spanish.WRITTEN_TAG + " " + cultureLanguageOptions.get(i).getSelectedOptions().get(0),
-							characterPlayer.getRace().getOptionalLanguages().get(i).getMaxWritingRanks());
+					characterPlayer.getCultureDecisions().getOptionalCulturalLanguages()
+							.add(cultureLanguageOptions.get(i).getSelectedOptions().get(i));
 				} else {
-					characterPlayer.getCultureOptionalLanguageSelection().add(null);
+					characterPlayer.getCultureDecisions().getOptionalCulturalLanguages().add(null);
 				}
 			}
 		}

@@ -53,9 +53,8 @@ public class PulpTests {
 		Assert.assertEquals(characterPlayer.getCulture().getOptionalLanguages().size(), 3);
 
 		RandomCharacterPlayer.setRandomCultureAndRaceLanguages(characterPlayer, 0);
-		// 6 languages written, 6 spoken.
-		Assert.assertEquals(characterPlayer.getCultureDecisions().getOptionalRaceLanguages().size(), 12);
-		Assert.assertEquals(characterPlayer.getCultureDecisions().getOptionalCulturalLanguages().size(), 4);
+		Assert.assertEquals(characterPlayer.getCultureDecisions().getOptionalRaceLanguages().size(), 6);
+		Assert.assertEquals(characterPlayer.getCultureDecisions().getOptionalCulturalLanguages().size(), 3);
 
 		// Check new languages has ranges.
 		int culturalRanksAssigned = 0;

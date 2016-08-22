@@ -650,19 +650,60 @@ public class CharacterPlayer extends StorableObject {
 		}
 		for (String language : getCultureDecisions().getOptionalCulturalLanguages()) {
 			if (maxLanguage.get(language) == null
-					|| maxLanguage.get(language) < getCultureDecisions().getOptionalCulturalMaxLanguageSelection(
-							language)) {
-				maxLanguage.put(language, getCultureDecisions().getOptionalCulturalMaxLanguageSelection(language));
+					|| maxLanguage.get(language) < getOptionalCulturalMaxLanguageSelection(language)) {
+				maxLanguage.put(language, getOptionalCulturalMaxLanguageSelection(language));
 			}
 		}
 		for (String language : getCultureDecisions().getOptionalRaceLanguages()) {
 			if (maxLanguage.get(language) == null
-					|| maxLanguage.get(language) < getCultureDecisions().getOptionalRaceMaxLanguageSelection(language)) {
-				maxLanguage.put(language, getCultureDecisions().getOptionalRaceMaxLanguageSelection(language));
+					|| maxLanguage.get(language) < getOptionalRaceMaxLanguageSelection(language)) {
+				maxLanguage.put(language, getOptionalRaceMaxLanguageSelection(language));
 			}
 		}
 		characterPlayerHelper.setMaxHistoryLanguages(maxLanguage);
 		return maxLanguage;
+	}
+
+	public int getOptionalCulturalMaxLanguageSelection(String language) {
+		int index = getCultureDecisions().getOptionalCulturalLanguages().indexOf(
+				language.replaceAll(Spanish.SPOKEN_TAG, "").trim());
+		if (index >= 0) {
+			return getCulture().getOptionalLanguages().get(index).getMaxSpeakingRanks();
+		}
+		index = getCultureDecisions().getOptionalCulturalLanguages().indexOf(
+				language.replaceAll(Spanish.WRITTEN_TAG, "").trim());
+		if (index >= 0) {
+			getCulture().getOptionalLanguages().get(index).getMaxWritingRanks();
+		}
+		return 0;
+	}
+
+	public int getOptionalRaceMaxLanguageSelection(String language) {
+		int index = getCultureDecisions().getOptionalRaceLanguages().indexOf(
+				language.replaceAll(Spanish.SPOKEN_TAG, "").trim());
+		if (index >= 0) {
+			return getRace().getOptionalLanguages().get(index).getMaxSpeakingRanks();
+		}
+		index = getCultureDecisions().getOptionalRaceLanguages().indexOf(
+				language.replaceAll(Spanish.WRITTEN_TAG, "").trim());
+		if (index >= 0) {
+			getRace().getOptionalLanguages().get(index).getMaxWritingRanks();
+		}
+		return 0;
+	}
+
+	public int getOptionalRaceInitialLanguageSelection(String language) {
+		int index = getCultureDecisions().getOptionalRaceLanguages().indexOf(
+				language.replaceAll(Spanish.SPOKEN_TAG, "").trim());
+		if (index >= 0) {
+			return getRace().getOptionalLanguages().get(index).getInitialSpeakingRanks();
+		}
+		index = getCultureDecisions().getOptionalRaceLanguages().indexOf(
+				language.replaceAll(Spanish.WRITTEN_TAG, "").trim());
+		if (index >= 0) {
+			getRace().getOptionalLanguages().get(index).getInitialWrittingRanks();
+		}
+		return 0;
 	}
 
 	public void setHistoryLanguageRanks(String language, int ranks) {
@@ -929,8 +970,8 @@ public class CharacterPlayer extends StorableObject {
 			return 0;
 		}
 		// Selected language
-		if (getCultureDecisions().getOptionalRaceInitialLanguageSelection(language) > 0) {
-			return getCultureDecisions().getOptionalRaceInitialLanguageSelection(language);
+		if (getOptionalRaceInitialLanguageSelection(language) > 0) {
+			return getOptionalRaceInitialLanguageSelection(language);
 		}
 		return getRace().getLanguageInitialRanks(language);
 	}
@@ -943,8 +984,8 @@ public class CharacterPlayer extends StorableObject {
 	 */
 	public Integer getLanguageMaxInitialRanks(String language) {
 		return Math.max(
-				getCultureDecisions().getOptionalCulturalMaxLanguageSelection(language),
-				Math.max(getCultureDecisions().getOptionalRaceMaxLanguageSelection(language),
+				getOptionalCulturalMaxLanguageSelection(language),
+				Math.max(getOptionalRaceMaxLanguageSelection(language),
 						Math.max(getCulture().getLanguageMaxRanks(language), getRace().getLanguageMaxRanks(language))));
 	}
 
@@ -2879,14 +2920,6 @@ public class CharacterPlayer extends StorableObject {
 
 	public CultureDecisions getCultureDecisions() {
 		return cultureDecisions;
-	}
-
-	public List<String> getRaceOptionalLanguageSelection() {
-		return getCultureDecisions().getOptionalRaceLanguages();
-	}
-
-	public List<String> getCultureOptionalLanguageSelection() {
-		return getCultureDecisions().getOptionalCulturalLanguages();
 	}
 
 	public int getInsertedLevel() {
