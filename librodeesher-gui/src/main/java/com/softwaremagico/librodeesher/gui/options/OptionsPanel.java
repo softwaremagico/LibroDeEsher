@@ -66,6 +66,12 @@ public class OptionsPanel extends BaseScrollPanel {
 		return optionsListPanel.getSelectedOptions();
 	}
 
+	public void setSelectedOptions(List<String> selectedOptions) {
+		if (selectedOptions != null) {
+			optionsListPanel.setSelectedOptions(selectedOptions);
+		}
+	}
+
 	@Override
 	public void update() {
 		for (UpdatePanelListener listener : updatePanelListeners) {

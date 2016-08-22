@@ -125,6 +125,14 @@ public class SelectLanguagesWindow extends BaseFrame {
 			raceLayout.setPreferredSize(new Dimension(LANGUAGE_PANEL_WIDTH, LANGUAGE_PANEL_HEIGHT));
 			raceLayout.setOptionsCountVisible(false);
 			rootPanel.add(raceLayout, gridBagConstraints);
+
+			// Select previously selected.
+			if (languageIndex * 2 < characterPlayer.getCultureDecisions().getOptionalRaceLanguages().size()) {
+				System.out.println(characterPlayer.getCultureDecisions().getOptionalRaceLanguages()
+						.get(languageIndex * 2).replace(Spanish.SPOKEN_TAG, "").trim());
+				raceLayout.select(characterPlayer.getCultureDecisions().getOptionalRaceLanguages()
+						.get(languageIndex * 2).replace(Spanish.SPOKEN_TAG, "").trim());
+			}
 		}
 
 		gridBagConstraints.gridx = 1;
@@ -144,6 +152,12 @@ public class SelectLanguagesWindow extends BaseFrame {
 			cultureLayout.setPreferredSize(new Dimension(LANGUAGE_PANEL_WIDTH, LANGUAGE_PANEL_HEIGHT));
 			cultureLayout.setOptionsCountVisible(false);
 			rootPanel.add(cultureLayout, gridBagConstraints);
+
+			// Select previously selected.
+			if (languageIndex * 2 < characterPlayer.getCultureDecisions().getOptionalCulturalLanguages().size()) {
+				raceLayout.select(characterPlayer.getCultureDecisions().getOptionalCulturalLanguages()
+						.get(languageIndex * 2).replace(Spanish.SPOKEN_TAG, "").trim());
+			}
 		}
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
