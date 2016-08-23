@@ -17,11 +17,8 @@ public class PulpTests {
 	private final static String MODERN_MAN_RACE = "Hombre Moderno";
 	private final static String INDUSTRY_CULTURE = "Industrializado (Urbano Clase Alta)";
 	private final static List<String> PULP_CULTURES = Arrays.asList("Industrializado (Urbano Clase Alta)",
-			"Industrializado (Rural Clase Media)", "Industrializado (Rural Clase Alta)",
-			"Industrializado (Rural Clase Baja)", "Industrializado (Urbano Clase Media)",
-			"Industrializado (Urbano Clase Baja)", "Tercer mundo (Urbano Clase Alta)",
-			"Tercer mundo (Rural Clase Media)", "Tercer mundo (Rural Clase Alta)", "Tercer mundo (Rural Clase Baja)",
-			"Tercer mundo (Urbano Clase Media)", "Tercer mundo (Urbano Clase Baja)");
+			"Industrializado (Urbano Clase Media)",
+			"Industrializado (Urbano Clase Baja)");
 
 	static {
 		Collections.sort(PULP_CULTURES);
@@ -49,11 +46,11 @@ public class PulpTests {
 		characterPlayer.setRace(MODERN_MAN_RACE);
 		characterPlayer.setCulture(INDUSTRY_CULTURE);
 
-		Assert.assertEquals(characterPlayer.getRace().getOptionalRaceLanguages().size(), 6);
+		Assert.assertEquals(characterPlayer.getRace().getOptionalRaceLanguages().size(), 3);
 		Assert.assertEquals(characterPlayer.getCulture().getOptionalLanguages().size(), 3);
 
 		RandomCharacterPlayer.setRandomCultureAndRaceLanguages(characterPlayer, 0);
-		Assert.assertEquals(characterPlayer.getCultureDecisions().getOptionalRaceLanguages().size(), 6);
+		Assert.assertEquals(characterPlayer.getCultureDecisions().getOptionalRaceLanguages().size(), 3);
 		Assert.assertEquals(characterPlayer.getCultureDecisions().getOptionalCulturalLanguages().size(), 3);
 
 		// Check new languages has ranges.

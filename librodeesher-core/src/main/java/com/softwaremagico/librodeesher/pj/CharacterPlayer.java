@@ -725,8 +725,10 @@ public class CharacterPlayer extends StorableObject {
 	public void setHistoryLanguageRanks(String language, int ranks) {
 		background.setHistoryLanguageRank(language, ranks);
 		characterPlayerHelper.resetSkillRanks(language);
-		if (getMaxHistoryLanguages().get(language) < getTotalRanks(SkillFactory.getSkill(language))) {
-			background.setHistoryLanguageRank(language, 0);
+		if (getMaxHistoryLanguages().get(language) != null) {
+			if (getMaxHistoryLanguages().get(language) < getTotalRanks(SkillFactory.getSkill(language))) {
+				background.setHistoryLanguageRank(language, 0);
+			}
 		}
 	}
 
