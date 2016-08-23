@@ -49,7 +49,7 @@ public class PulpTests {
 		characterPlayer.setRace(MODERN_MAN_RACE);
 		characterPlayer.setCulture(INDUSTRY_CULTURE);
 
-		Assert.assertEquals(characterPlayer.getRace().getOptionalLanguages().size(), 6);
+		Assert.assertEquals(characterPlayer.getRace().getOptionalRaceLanguages().size(), 6);
 		Assert.assertEquals(characterPlayer.getCulture().getOptionalLanguages().size(), 3);
 
 		RandomCharacterPlayer.setRandomCultureAndRaceLanguages(characterPlayer, 0);

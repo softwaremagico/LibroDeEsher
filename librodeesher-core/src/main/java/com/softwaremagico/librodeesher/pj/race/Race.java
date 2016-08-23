@@ -74,7 +74,7 @@ public class Race {
 	private Integer backgroundPoints;
 	private Map<String, Integer> initialRaceLanguages;
 	private Map<String, Integer> maxRaceLanguages;
-	private Map<String, Integer> maxHistoryLanguages;
+	private Map<String, Integer> maxBackgroundLanguages;
 	private List<Skill> commonSkills;
 	private List<Category> commonCategories;
 	private List<Skill> restrictedSkills;
@@ -92,7 +92,8 @@ public class Race {
 	private Map<String, Integer> bonusSkills;
 	private Map<String, Integer> bonusCategory;
 	private Set<Perk> racePerks;
-	private List<OptionalLanguage> optionalLanguages;
+	private List<OptionalLanguage> optionalRaceLanguages;
+	private List<OptionalLanguage> optionalBackgroundLanguages;
 
 	public Race(String name) throws InvalidRaceException {
 		this.name = name;
@@ -104,11 +105,12 @@ public class Race {
 		specialsRacePoints = new HashMap<>();
 		initialRaceLanguages = new HashMap<>();
 		maxRaceLanguages = new HashMap<>();
-		maxHistoryLanguages = new HashMap<>();
+		maxBackgroundLanguages = new HashMap<>();
 		bonusSkills = new HashMap<>();
 		bonusCategory = new HashMap<>();
 		racePerks = new HashSet<>();
-		optionalLanguages = new ArrayList<>();
+		optionalRaceLanguages = new ArrayList<>();
+		optionalBackgroundLanguages = new ArrayList<>();
 		readRaceFile(name);
 	}
 
@@ -361,7 +363,7 @@ public class Race {
 	}
 
 	private int setLanguages(List<String> lines, int index, Map<String, Integer> initialLanguages,
-			Map<String, Integer> maxLanguages) throws InvalidRaceException {
+			Map<String, Integer> maxLanguages, List<OptionalLanguage> optionalLanguages) throws InvalidRaceException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -422,11 +424,12 @@ public class Race {
 	}
 
 	private int setRaceLanguages(List<String> lines, int index) throws InvalidRaceException {
-		return setLanguages(lines, index, initialRaceLanguages, maxRaceLanguages);
+		return setLanguages(lines, index, initialRaceLanguages, maxRaceLanguages, optionalRaceLanguages);
 	}
 
 	private int setHistoryLanguages(List<String> lines, int index) throws InvalidRaceException {
-		return setLanguages(lines, index, maxHistoryLanguages, new HashMap<String, Integer>());
+		return setLanguages(lines, index, maxBackgroundLanguages, new HashMap<String, Integer>(),
+				optionalBackgroundLanguages);
 	}
 
 	private int setSpecialSkills(List<String> lines, int index, List<Skill> skillsList, List<Category> categoriesList)
@@ -815,7 +818,7 @@ public class Race {
 	}
 
 	public Map<String, Integer> getMaxHistoryLanguages() {
-		return maxHistoryLanguages;
+		return maxBackgroundLanguages;
 	}
 
 	public int getNaturalArmourType() {
@@ -842,7 +845,7 @@ public class Race {
 		return racePerks;
 	}
 
-	public List<OptionalLanguage> getOptionalLanguages() {
-		return optionalLanguages;
+	public List<OptionalLanguage> getOptionalRaceLanguages() {
+		return optionalRaceLanguages;
 	}
 }

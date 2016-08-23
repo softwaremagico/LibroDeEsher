@@ -56,7 +56,7 @@ public class CultureWindow extends BaseFrame {
 		defineWindow(650, 400);
 		// setResizable(false);
 		setElements();
-		if (!character.getRace().getOptionalLanguages().isEmpty()
+		if (!character.getRace().getOptionalRaceLanguages().isEmpty()
 				|| !character.getCulture().getOptionalLanguages().isEmpty()) {
 			SelectLanguagesWindow selectWindow = new SelectLanguagesWindow(character);
 			selectWindow.addLanguageSelectionUpdateListener(new LanguageSelectionUpdateListener() {

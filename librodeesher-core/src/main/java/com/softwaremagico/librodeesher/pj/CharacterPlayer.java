@@ -649,15 +649,31 @@ public class CharacterPlayer extends StorableObject {
 			}
 		}
 		for (String language : getCultureDecisions().getOptionalCulturalLanguages()) {
-			if (maxLanguage.get(language) == null
-					|| maxLanguage.get(language) < getOptionalCulturalMaxLanguageSelection(language)) {
-				maxLanguage.put(language, getOptionalCulturalMaxLanguageSelection(language));
+			if (maxLanguage.get(Spanish.SPOKEN_TAG + " " + language) == null
+					|| maxLanguage.get(Spanish.SPOKEN_TAG + " " + language) < getOptionalCulturalMaxLanguageSelection(Spanish.SPOKEN_TAG
+							+ " " + language)) {
+				maxLanguage.put(Spanish.SPOKEN_TAG + " " + language,
+						getOptionalCulturalMaxLanguageSelection(Spanish.SPOKEN_TAG + " " + language));
+			}
+			if (maxLanguage.get(Spanish.WRITTEN_TAG + " " + language) == null
+					|| maxLanguage.get(Spanish.WRITTEN_TAG + " " + language) < getOptionalCulturalMaxLanguageSelection(Spanish.WRITTEN_TAG
+							+ " " + language)) {
+				maxLanguage.put(Spanish.WRITTEN_TAG + " " + language,
+						getOptionalCulturalMaxLanguageSelection(Spanish.WRITTEN_TAG + " " + language));
 			}
 		}
 		for (String language : getCultureDecisions().getOptionalRaceLanguages()) {
-			if (maxLanguage.get(language) == null
-					|| maxLanguage.get(language) < getOptionalRaceMaxLanguageSelection(language)) {
-				maxLanguage.put(language, getOptionalRaceMaxLanguageSelection(language));
+			if (maxLanguage.get(Spanish.SPOKEN_TAG + " " + language) == null
+					|| maxLanguage.get(Spanish.SPOKEN_TAG + " " + language) < getOptionalRaceMaxLanguageSelection(Spanish.SPOKEN_TAG
+							+ " " + language)) {
+				maxLanguage.put(Spanish.SPOKEN_TAG + " " + language,
+						getOptionalRaceMaxLanguageSelection(Spanish.SPOKEN_TAG + " " + language));
+			}
+			if (maxLanguage.get(Spanish.WRITTEN_TAG + " " + language) == null
+					|| maxLanguage.get(Spanish.WRITTEN_TAG + " " + language) < getOptionalRaceMaxLanguageSelection(Spanish.WRITTEN_TAG
+							+ " " + language)) {
+				maxLanguage.put(Spanish.WRITTEN_TAG + " " + language,
+						getOptionalRaceMaxLanguageSelection(Spanish.WRITTEN_TAG + " " + language));
 			}
 		}
 		characterPlayerHelper.setMaxHistoryLanguages(maxLanguage);
@@ -682,12 +698,12 @@ public class CharacterPlayer extends StorableObject {
 		int index = getCultureDecisions().getOptionalRaceLanguages().indexOf(
 				language.replaceAll(Spanish.SPOKEN_TAG, "").trim());
 		if (index >= 0) {
-			return getRace().getOptionalLanguages().get(index).getMaxSpeakingRanks();
+			return getRace().getOptionalRaceLanguages().get(index).getMaxSpeakingRanks();
 		}
 		index = getCultureDecisions().getOptionalRaceLanguages().indexOf(
 				language.replaceAll(Spanish.WRITTEN_TAG, "").trim());
 		if (index >= 0) {
-			getRace().getOptionalLanguages().get(index).getMaxWritingRanks();
+			getRace().getOptionalRaceLanguages().get(index).getMaxWritingRanks();
 		}
 		return 0;
 	}
@@ -696,12 +712,12 @@ public class CharacterPlayer extends StorableObject {
 		int index = getCultureDecisions().getOptionalRaceLanguages().indexOf(
 				language.replaceAll(Spanish.SPOKEN_TAG, "").trim());
 		if (index >= 0) {
-			return getRace().getOptionalLanguages().get(index).getInitialSpeakingRanks();
+			return getRace().getOptionalRaceLanguages().get(index).getInitialSpeakingRanks();
 		}
 		index = getCultureDecisions().getOptionalRaceLanguages().indexOf(
 				language.replaceAll(Spanish.WRITTEN_TAG, "").trim());
 		if (index >= 0) {
-			getRace().getOptionalLanguages().get(index).getInitialWrittingRanks();
+			return getRace().getOptionalRaceLanguages().get(index).getInitialWrittingRanks();
 		}
 		return 0;
 	}

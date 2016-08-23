@@ -331,13 +331,13 @@ public class PerkPointsCalculator {
 		}
 
 		//Optional languages as language.
-		for (OptionalLanguage language : race.getOptionalLanguages()) {
+		for (OptionalLanguage language : race.getOptionalRaceLanguages()) {
 			languageCost += language.getInitialSpeakingRanks() - 5;
 			languageCost += language.getInitialWrittingRanks();
 		}
 
 		// Number of languages has penalties.
-		switch (languages + race.getOptionalLanguages().size()) {
+		switch (languages + race.getOptionalRaceLanguages().size()) {
 		case 1:
 			languageCost += -5;
 			break;

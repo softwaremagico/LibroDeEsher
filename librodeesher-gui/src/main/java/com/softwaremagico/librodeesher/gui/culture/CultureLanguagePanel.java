@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class CultureLanguagePanel extends CulturePanel {
@@ -49,9 +50,12 @@ public class CultureLanguagePanel extends CulturePanel {
 				languages.add(language);
 			}
 		}
-		for (String language : character.getRaceOptionalLanguageSelection()) {
-			if (!languages.contains(language)) {
-				languages.add(language);
+		for (String language : character.getCultureDecisions().getOptionalRaceLanguages()) {
+			if (!languages.contains(Spanish.SPOKEN_TAG + " " + language)) {
+				languages.add(Spanish.SPOKEN_TAG + " " + language);
+			}
+			if (!languages.contains(Spanish.WRITTEN_TAG + " " + language)) {
+				languages.add(Spanish.WRITTEN_TAG + " " + language);
 			}
 		}
 		// Add culture languages.
@@ -60,9 +64,12 @@ public class CultureLanguagePanel extends CulturePanel {
 				languages.add(language);
 			}
 		}
-		for (String language : character.getCultureOptionalLanguageSelection()) {
-			if (!languages.contains(language)) {
-				languages.add(language);
+		for (String language : character.getCultureDecisions().getOptionalCulturalLanguages()) {
+			if (!languages.contains(Spanish.SPOKEN_TAG + " " + language)) {
+				languages.add(Spanish.SPOKEN_TAG + " " + language);
+			}
+			if (!languages.contains(Spanish.WRITTEN_TAG + " " + language)) {
+				languages.add(Spanish.WRITTEN_TAG + " " + language);
 			}
 		}
 		Collections.sort(languages);

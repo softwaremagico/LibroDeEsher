@@ -42,7 +42,6 @@ import javax.swing.JScrollPane;
 import com.softwaremagico.files.MessageManager;
 import com.softwaremagico.librodeesher.basics.ChooseGroup;
 import com.softwaremagico.librodeesher.basics.ChooseType;
-import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.gui.options.SelectOption;
 import com.softwaremagico.librodeesher.gui.style.BaseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
@@ -76,7 +75,7 @@ public class SelectLanguagesWindow extends BaseFrame {
 	}
 
 	private void defineSize() {
-		widthCells = (characterPlayer.getRace().getOptionalLanguages().isEmpty() ? 0 : 1)
+		widthCells = (characterPlayer.getRace().getOptionalRaceLanguages().isEmpty() ? 0 : 1)
 				+ (characterPlayer.getCulture().getOptionalLanguages().isEmpty() ? 0 : 1);
 		defineWindow((LANGUAGE_PANEL_WIDTH + 10) * widthCells, 500);
 		setMaximumSize(new Dimension(((LANGUAGE_PANEL_WIDTH + 10) * widthCells) + 50, 500));
@@ -107,7 +106,9 @@ public class SelectLanguagesWindow extends BaseFrame {
 		gridBagConstraints.insets = new Insets(2, 2, 2, 10);
 
 		// Race language
-		for (int languageIndex = 0; languageIndex < characterPlayer.getRace().getOptionalLanguages().size(); languageIndex++) {
+		List<String> selectedLanguages = new ArrayList<>(characterPlayer.getCultureDecisions()
+				.getOptionalRaceLanguages());
+		for (int languageIndex = 0; languageIndex < characterPlayer.getRace().getOptionalRaceLanguages().size(); languageIndex++) {
 			ChooseGroup<String> chooseLanguageByRaceGroup = new ChooseSkillName(1,
 					characterPlayer.getUnusedLanguages(), ChooseType.ENABLED);
 			raceLayout = new SelectOption<String>(this, chooseLanguageByRaceGroup);
@@ -115,27 +116,26 @@ public class SelectLanguagesWindow extends BaseFrame {
 
 			gridBagConstraints.gridy = languageIndex;
 			raceLayout.setPointCounterLabel("   Idioma '"
-					+ characterPlayer.getRace().getOptionalLanguages().get(languageIndex).getInitialSpeakingRanks()
+					+ characterPlayer.getRace().getOptionalRaceLanguages().get(languageIndex).getInitialSpeakingRanks()
 					+ "/"
-					+ characterPlayer.getRace().getOptionalLanguages().get(languageIndex).getInitialWrittingRanks()
+					+ characterPlayer.getRace().getOptionalRaceLanguages().get(languageIndex).getInitialWrittingRanks()
 					+ "' - '"
-					+ characterPlayer.getRace().getOptionalLanguages().get(languageIndex).getMaxSpeakingRanks() + "/"
-					+ characterPlayer.getRace().getOptionalLanguages().get(languageIndex).getMaxWritingRanks()
+					+ characterPlayer.getRace().getOptionalRaceLanguages().get(languageIndex).getMaxSpeakingRanks()
+					+ "/"
+					+ characterPlayer.getRace().getOptionalRaceLanguages().get(languageIndex).getMaxWritingRanks()
 					+ "' por Raza");
 			raceLayout.setPreferredSize(new Dimension(LANGUAGE_PANEL_WIDTH, LANGUAGE_PANEL_HEIGHT));
 			raceLayout.setOptionsCountVisible(false);
 			rootPanel.add(raceLayout, gridBagConstraints);
 
 			// Select previously selected.
-			if (languageIndex * 2 < characterPlayer.getCultureDecisions().getOptionalRaceLanguages().size()) {
-				System.out.println(characterPlayer.getCultureDecisions().getOptionalRaceLanguages()
-						.get(languageIndex * 2).replace(Spanish.SPOKEN_TAG, "").trim());
-				raceLayout.select(characterPlayer.getCultureDecisions().getOptionalRaceLanguages()
-						.get(languageIndex * 2).replace(Spanish.SPOKEN_TAG, "").trim());
+			if (languageIndex < selectedLanguages.size()) {
+				raceLayout.select(selectedLanguages.get(languageIndex));
 			}
 		}
 
 		gridBagConstraints.gridx = 1;
+		selectedLanguages = new ArrayList<>(characterPlayer.getCultureDecisions().getOptionalCulturalLanguages());
 		for (int languageIndex = 0; languageIndex < characterPlayer.getCulture().getOptionalLanguages().size(); languageIndex++) {
 			// Culture language
 			ChooseGroup<String> chooseLanguageByCultureGroup = new ChooseSkillName(1,
@@ -154,9 +154,8 @@ public class SelectLanguagesWindow extends BaseFrame {
 			rootPanel.add(cultureLayout, gridBagConstraints);
 
 			// Select previously selected.
-			if (languageIndex * 2 < characterPlayer.getCultureDecisions().getOptionalCulturalLanguages().size()) {
-				raceLayout.select(characterPlayer.getCultureDecisions().getOptionalCulturalLanguages()
-						.get(languageIndex * 2).replace(Spanish.SPOKEN_TAG, "").trim());
+			if (languageIndex < selectedLanguages.size()) {
+				raceLayout.select(selectedLanguages.get(languageIndex));
 			}
 		}
 
@@ -204,7 +203,7 @@ public class SelectLanguagesWindow extends BaseFrame {
 	private boolean validateValues() {
 		// Check values.
 		if (characterPlayer.getCultureDecisions().getOptionalRaceLanguages().size() != characterPlayer.getRace()
-				.getOptionalLanguages().size()) {
+				.getOptionalRaceLanguages().size()) {
 			MessageManager.basicErrorMessage(this.getClass().getName(),
 					"Debes seleccionar todos los idiomas de raza y estos no pueden estar repetidos.", "Error");
 			return false;
@@ -222,6 +221,7 @@ public class SelectLanguagesWindow extends BaseFrame {
 	public void updateFrame() {
 		// Remove any selected rank in optional languages.
 		for (String language : new HashSet<String>(characterPlayer.getCultureDecisions().getLanguageRanks().keySet())) {
+			// Old language not selected now, remove any added rank.
 			characterPlayer.setCultureLanguageRanks(language, 0);
 		}
 		// Remove any selected language.
@@ -250,6 +250,7 @@ public class SelectLanguagesWindow extends BaseFrame {
 				}
 			}
 		}
+		characterPlayer.clearCache();
 	}
 
 	public void addLanguageSelectionUpdateListener(LanguageSelectionUpdateListener listener) {

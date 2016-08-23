@@ -61,6 +61,7 @@ public class CultureLanguageLine extends CultureLine {
 		setTitle();
 	}
 
+	@Override
 	protected void addRankSpinnerEvent() {
 		JComponent comp = rankSpinner.getEditor();
 		JFormattedTextField field = (JFormattedTextField) comp.getComponent(0);

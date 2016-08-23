@@ -478,7 +478,7 @@ public class RandomCharacterPlayer {
 	private static void selectOptionalLanguages(CharacterPlayer characterPlayer) {
 		List<String> languages = characterPlayer.getUnusedLanguages();
 		Collections.shuffle(languages);
-		for (int i = 0; i < characterPlayer.getRace().getOptionalLanguages().size(); i++) {
+		for (int i = 0; i < characterPlayer.getRace().getOptionalRaceLanguages().size(); i++) {
 			String selectedLanguage = languages.remove(0);
 			// Initial race ranks
 			characterPlayer.getCultureDecisions().getOptionalRaceLanguages().add(selectedLanguage);
