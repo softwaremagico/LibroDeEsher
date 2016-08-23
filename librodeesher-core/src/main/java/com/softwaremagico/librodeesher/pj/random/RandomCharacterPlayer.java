@@ -477,13 +477,15 @@ public class RandomCharacterPlayer {
 	private static void selectOptionalLanguages(CharacterPlayer characterPlayer) {
 		List<String> languages = characterPlayer.getUnusedLanguages();
 		Collections.shuffle(languages);
-		for (int i = 0; i < characterPlayer.getRace().getOptionalRaceLanguages().size(); i++) {
+		for (int i = 0; i < characterPlayer.getRace().getOptionalRaceLanguages().size()
+				- characterPlayer.getCultureDecisions().getOptionalRaceLanguages().size(); i++) {
 			String selectedLanguage = languages.remove(0);
 			// Initial race ranks
 			characterPlayer.getCultureDecisions().getOptionalRaceLanguages().add(selectedLanguage);
 		}
 
-		for (int i = 0; i < characterPlayer.getCulture().getOptionalLanguages().size(); i++) {
+		for (int i = 0; i < characterPlayer.getCulture().getOptionalLanguages().size()
+				- characterPlayer.getCultureDecisions().getOptionalCulturalLanguages().size(); i++) {
 			String selectedLanguage = languages.remove(0);
 			// Initial race ranks
 			characterPlayer.getCultureDecisions().getOptionalCulturalLanguages().add(selectedLanguage);
@@ -518,6 +520,11 @@ public class RandomCharacterPlayer {
 						.getOptionalCulturalLanguages()
 						.get((int) (Math.random() * characterPlayer.getCultureDecisions()
 								.getOptionalCulturalLanguages().size()));
+				if (Math.random() < 0.5) {
+					randomLanguage = Spanish.SPOKEN_TAG + " " + randomLanguage;
+				} else {
+					randomLanguage = Spanish.WRITTEN_TAG + " " + randomLanguage;
+				}
 			} else {
 				if (characterPlayer.getCultureDecisions().getOptionalRaceLanguages().isEmpty()) {
 					continue;
@@ -527,6 +534,11 @@ public class RandomCharacterPlayer {
 						.getOptionalRaceLanguages()
 						.get((int) (Math.random() * characterPlayer.getCultureDecisions().getOptionalRaceLanguages()
 								.size()));
+				if (Math.random() < 0.5) {
+					randomLanguage = Spanish.SPOKEN_TAG + " " + randomLanguage;
+				} else {
+					randomLanguage = Spanish.WRITTEN_TAG + " " + randomLanguage;
+				}
 			}
 			// Enough points
 			if (characterPlayer.getCultureTotalLanguageRanks() < characterPlayer.getRace().getLanguagePoints()

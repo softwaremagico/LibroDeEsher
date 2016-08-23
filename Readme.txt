@@ -222,6 +222,7 @@ Notas
 -------------------------
 Iconos obtenidos del Gartoon Gnome Icon Theme bajo licencia GNU.
 Utilización de la librería iText para la generación de las fichas en PDF. 
+Pulp templates creadas por Daniel Cordellat
 
 Mas información
 -------------------------
