@@ -40,4 +40,10 @@ public class OptionalLanguage {
 	public void setMaxWritingRanks(int maxWritingRanks) {
 		this.maxWritingRanks = maxWritingRanks;
 	}
+
+	@Override
+	public String toString() {
+		return "OptionalLanguage {" + startingSpeakingRanks + "/" + startingWrittingRanks + " -> " + maxSpeakingRanks
+				+ "/" + maxWritingRanks + "}";
+	}
 }

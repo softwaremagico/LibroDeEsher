@@ -49,7 +49,7 @@ import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillName;
 
-public class SelectLanguagesWindow extends BaseFrame {
+public class SelectCultureLanguagesWindow extends BaseFrame {
 	private static final long serialVersionUID = 4191435751876725272L;
 	private static final int LANGUAGE_PANEL_WIDTH = 300;
 	private static final int LANGUAGE_PANEL_HEIGHT = 500;
@@ -65,7 +65,7 @@ public class SelectLanguagesWindow extends BaseFrame {
 		void updated();
 	}
 
-	public SelectLanguagesWindow(CharacterPlayer characterPlayer) {
+	public SelectCultureLanguagesWindow(CharacterPlayer characterPlayer) {
 		this.characterPlayer = characterPlayer;
 		updateListeners = new HashSet<>();
 		raceLanguageOptions = new ArrayList<>();
@@ -244,7 +244,7 @@ public class SelectLanguagesWindow extends BaseFrame {
 				// Max culture ranks
 				if (!cultureLanguageOptions.get(i).getSelectedOptions().isEmpty()) {
 					characterPlayer.getCultureDecisions().getOptionalCulturalLanguages()
-							.add(cultureLanguageOptions.get(i).getSelectedOptions().get(i));
+							.add(cultureLanguageOptions.get(i).getSelectedOptions().get(0));
 				} else {
 					characterPlayer.getCultureDecisions().getOptionalCulturalLanguages().add(null);
 				}

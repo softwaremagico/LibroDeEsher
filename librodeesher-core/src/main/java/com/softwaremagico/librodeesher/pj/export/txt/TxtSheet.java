@@ -16,6 +16,7 @@ import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.weapons.InvalidWeaponException;
 import com.softwaremagico.librodeesher.pj.weapons.WeaponFactory;
+import com.softwaremagico.log.EsherLog;
 
 public class TxtSheet {
 	private CharacterPlayer characterPlayer;
@@ -101,12 +102,16 @@ public class TxtSheet {
 				}
 				bonus = characterPlayer.getBonus(category) + bonus;
 
-				text = text
-						+ String.format(categoryFormat, category.getName(), characterPlayer
-								.getCategoryCost(category, 0).getCostTag(), characterPlayer.getTotalRanks(category),
-								characterPlayer.getRanksValue(category), characterPlayer
-										.getCharacteristicsBonus(category), bonus, characterPlayer
-										.getTotalValue(category));
+				try {
+					text = text
+							+ String.format(categoryFormat, category.getName(),
+									characterPlayer.getCategoryCost(category, 0).getCostTag(),
+									characterPlayer.getTotalRanks(category), characterPlayer.getRanksValue(category),
+									characterPlayer.getCharacteristicsBonus(category), bonus,
+									characterPlayer.getTotalValue(category));
+				} catch (Exception e) {
+					EsherLog.errorMessage(TxtSheet.class.getName(), e);
+				}
 
 				for (int j = 0; j < category.getSkills().size(); j++) {
 					Skill skill = category.getSkills().get(j);

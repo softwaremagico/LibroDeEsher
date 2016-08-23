@@ -848,4 +848,8 @@ public class Race {
 	public List<OptionalLanguage> getOptionalRaceLanguages() {
 		return optionalRaceLanguages;
 	}
+
+	public List<OptionalLanguage> getOptionalBackgroundLanguages() {
+		return optionalBackgroundLanguages;
+	}
 }

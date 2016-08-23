@@ -34,7 +34,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import com.softwaremagico.librodeesher.gui.ShowMessage;
-import com.softwaremagico.librodeesher.gui.culture.SelectLanguagesWindow.LanguageSelectionUpdateListener;
+import com.softwaremagico.librodeesher.gui.culture.SelectCultureLanguagesWindow.LanguageSelectionUpdateListener;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.RandomButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
@@ -51,7 +51,7 @@ public class CultureWindow extends BaseFrame {
 	private static final int SPELLS_PANEL_INDEX = 3;
 	private CharacterPlayer character;
 	private CultureWindowMenu mainMenu;
-	private SelectLanguagesWindow selectWindow;
+	private SelectCultureLanguagesWindow selectWindow;
 
 	public CultureWindow(CharacterPlayer character) {
 		this.character = character;
@@ -78,7 +78,7 @@ public class CultureWindow extends BaseFrame {
 		} catch (Exception e) {
 
 		}
-		selectWindow = new SelectLanguagesWindow(character);
+		selectWindow = new SelectCultureLanguagesWindow(character);
 		selectWindow.addLanguageSelectionUpdateListener(new LanguageSelectionUpdateListener() {
 			@Override
 			public void updated() {
@@ -221,14 +221,6 @@ public class CultureWindow extends BaseFrame {
 		setElements();
 		revalidate();
 		repaint();
-	}
-
-	class AcceptListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-
-		}
 	}
 
 }

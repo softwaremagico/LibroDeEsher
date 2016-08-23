@@ -77,22 +77,22 @@ public class CultureDecisions extends StorableObject {
 	@CollectionTable(name = "T_CULTURE_OPTIONAL_CULTURE_LANGUAGES")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OrderColumn(name= "raceLanguageIndex")
-	private List<String> optionalCulturalMaxLanguageSelection;
+	private List<String> optionalCulturalLanguageSelection;
 
 	@Expose
 	@ElementCollection
-	@CollectionTable(name = "T_CULTURE_OPTIONAL_RACE_MAX_LANGUAGE_RANKS")
+	@CollectionTable(name = "T_CULTURE_OPTIONAL_RACE_LANGUAGES")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OrderColumn(name= "raceLanguageIndex")
-	private List<String> optionalRaceMaxLanguageSelection;
+	private List<String> optionalRaceLanguageSelection;
 
 	public CultureDecisions() {
 		languageRanks = new HashMap<>();
 		weaponRanks = new HashMap<>();
 		hobbyRanks = new HashMap<>();
 		spellRanks = new HashMap<>();
-		optionalCulturalMaxLanguageSelection = new ArrayList<>();
-		optionalRaceMaxLanguageSelection = new ArrayList<>();
+		optionalCulturalLanguageSelection = new ArrayList<>();
+		optionalRaceLanguageSelection = new ArrayList<>();
 		resetLanguageOptions();
 	}
 
@@ -107,8 +107,8 @@ public class CultureDecisions extends StorableObject {
 	}
 
 	public void resetLanguageOptions() {
-		optionalCulturalMaxLanguageSelection.clear();
-		optionalRaceMaxLanguageSelection.clear();
+		optionalCulturalLanguageSelection.clear();
+		optionalRaceLanguageSelection.clear();
 	}
 
 	/**
@@ -258,10 +258,10 @@ public class CultureDecisions extends StorableObject {
 	}
 
 	public List<String> getOptionalCulturalLanguages() {
-		return optionalCulturalMaxLanguageSelection;
+		return optionalCulturalLanguageSelection;
 	}
 
 	public List<String> getOptionalRaceLanguages() {
-		return optionalRaceMaxLanguageSelection;
+		return optionalRaceLanguageSelection;
 	}
 }

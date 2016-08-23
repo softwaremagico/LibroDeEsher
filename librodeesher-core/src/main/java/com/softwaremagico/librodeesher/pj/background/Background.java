@@ -72,6 +72,13 @@ public class Background extends StorableObject {
 	@CollectionTable(name = "T_BACKGROUND_CHARACTERISTICS_UPDATES")
 	@OrderColumn(name = "roll_index")
 	private List<CharacteristicRoll> characteristicsUpdates;
+	
+	@Expose
+	@ElementCollection
+	@CollectionTable(name = "T_BACKGROUND_OPTIONAL_RACE_LANGUAGES")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OrderColumn(name= "raceLanguageIndex")
+	private List<String> optionalRaceLanguageSelection;
 
 	@Expose
 	@ElementCollection
@@ -83,6 +90,7 @@ public class Background extends StorableObject {
 		skills = new ArrayList<>();
 		characteristicsUpdates = new ArrayList<>();
 		languageRanks = new HashMap<>();
+		optionalRaceLanguageSelection = new ArrayList<>();	
 	}
 
 	@Override
@@ -95,6 +103,10 @@ public class Background extends StorableObject {
 	public void resetComparationIds() {
 		resetComparationIds(this);
 		resetComparationIds(characteristicsUpdates);
+	}
+	
+	public void resetLanguageOptions() {
+		optionalRaceLanguageSelection.clear();
 	}
 
 	public void setPoint(Skill skill, boolean value) {
@@ -214,5 +226,13 @@ public class Background extends StorableObject {
 
 	public int getLanguagesPointCost() {
 		return (int) Math.ceil(getLanguagesTotalRanksAdded() / 20f);
+	}
+
+	public List<String> getOptionalRaceLanguageSelection() {
+		return optionalRaceLanguageSelection;
+	}
+
+	public Map<String, Integer> getLanguageRanks() {
+		return languageRanks;
 	}
 }

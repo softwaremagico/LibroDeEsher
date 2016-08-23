@@ -35,6 +35,13 @@
         primary key (Background_ID, languageRanks_KEY)
     );
 
+    create table T_BACKGROUND_OPTIONAL_RACE_LANGUAGES (
+        Background_ID bigint not null,
+        optionalRaceLanguageSelection varchar(255),
+        raceLanguageIndex integer not null,
+        primary key (Background_ID, raceLanguageIndex)
+    );
+
     create table T_BACKGROUND_SKILLS (
         Background_ID bigint not null,
         skills varchar(255)
@@ -176,14 +183,14 @@
 
     create table T_CULTURE_OPTIONAL_CULTURE_LANGUAGES (
         CultureDecisions_ID bigint not null,
-        optionalCulturalMaxLanguageSelection varchar(255),
+        optionalCulturalLanguageSelection varchar(255),
         raceLanguageIndex integer not null,
         primary key (CultureDecisions_ID, raceLanguageIndex)
     );
 
-    create table T_CULTURE_OPTIONAL_RACE_MAX_LANGUAGE_RANKS (
+    create table T_CULTURE_OPTIONAL_RACE_LANGUAGES (
         CultureDecisions_ID bigint not null,
-        optionalRaceMaxLanguageSelection varchar(255),
+        optionalRaceLanguageSelection varchar(255),
         raceLanguageIndex integer not null,
         primary key (CultureDecisions_ID, raceLanguageIndex)
     );
@@ -753,6 +760,11 @@
         foreign key (Background_ID) 
         references T_BACKGROUND (ID);
 
+    alter table T_BACKGROUND_OPTIONAL_RACE_LANGUAGES 
+        add constraint FK_7l4gp0h23os7gyjylysu73phq 
+        foreign key (Background_ID) 
+        references T_BACKGROUND (ID);
+
     alter table T_BACKGROUND_SKILLS 
         add constraint FK_swltv618wty5mj3e6mcrs0xav 
         foreign key (Background_ID) 
@@ -878,8 +890,8 @@
         foreign key (CultureDecisions_ID) 
         references T_CULTUREDECISIONS (ID);
 
-    alter table T_CULTURE_OPTIONAL_RACE_MAX_LANGUAGE_RANKS 
-        add constraint FK_lmvmp3uoexhg9fe5sf3xgo3md 
+    alter table T_CULTURE_OPTIONAL_RACE_LANGUAGES 
+        add constraint FK_7j7i6y8sw7x6c3txfxtxuufev 
         foreign key (CultureDecisions_ID) 
         references T_CULTUREDECISIONS (ID);
 
