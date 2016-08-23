@@ -50,28 +50,56 @@ public class CultureWindow extends BaseFrame {
 	private static final int LANGUAGES_PANEL_INDEX = 2;
 	private static final int SPELLS_PANEL_INDEX = 3;
 	private CharacterPlayer character;
+	private CultureWindowMenu mainMenu;
+	private SelectLanguagesWindow selectWindow;
 
 	public CultureWindow(CharacterPlayer character) {
 		this.character = character;
 		defineWindow(650, 400);
 		// setResizable(false);
 		setElements();
+		if (character.getRace().getOptionalRaceLanguages().size() != character.getCultureDecisions()
+				.getOptionalRaceLanguages().size()
+				|| character.getCulture().getOptionalLanguages().size() != character.getCultureDecisions()
+						.getOptionalCulturalLanguages().size()) {
+			openLanguageWindow();
+		}
 		if (!character.getRace().getOptionalRaceLanguages().isEmpty()
 				|| !character.getCulture().getOptionalLanguages().isEmpty()) {
-			SelectLanguagesWindow selectWindow = new SelectLanguagesWindow(character);
-			selectWindow.addLanguageSelectionUpdateListener(new LanguageSelectionUpdateListener() {
-				@Override
-				public void updated() {
-					createLanguagePanel();
-					revalidate();
-					repaint();
-				}
-			});
-			selectWindow.setVisible(true);
+			mainMenu.enableLanguageWindowMenuItem(true);
+		} else {
+			mainMenu.enableLanguageWindowMenuItem(false);
 		}
 	}
 
+	private void openLanguageWindow() {
+		try {
+			selectWindow.dispose();
+		} catch (Exception e) {
+
+		}
+		selectWindow = new SelectLanguagesWindow(character);
+		selectWindow.addLanguageSelectionUpdateListener(new LanguageSelectionUpdateListener() {
+			@Override
+			public void updated() {
+				createLanguagePanel();
+				revalidate();
+				repaint();
+			}
+		});
+		selectWindow.setVisible(true);
+	}
+
 	private void setElements() {
+		mainMenu = new CultureWindowMenu();
+		setJMenuBar(mainMenu.createMenu());
+		mainMenu.addLanguageMenuListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				openLanguageWindow();
+			}
+		});
+
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 

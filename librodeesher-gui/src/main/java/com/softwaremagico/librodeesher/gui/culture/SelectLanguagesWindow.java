@@ -155,7 +155,7 @@ public class SelectLanguagesWindow extends BaseFrame {
 
 			// Select previously selected.
 			if (languageIndex < selectedLanguages.size()) {
-				raceLayout.select(selectedLanguages.get(languageIndex));
+				cultureLayout.select(selectedLanguages.get(languageIndex));
 			}
 		}
 
