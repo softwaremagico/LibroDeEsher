@@ -186,6 +186,9 @@ public class TrainingProbability {
 			// Add rank to each skill.
 			int ranksAdded = 0;
 			while (true) {
+				if (skillsToUpdate.isEmpty()) {
+					break;
+				}
 				TrainingSkill trainingSkill = skillsToUpdate.get(ranksAdded % skillsToUpdate.size());
 				List<String> skillOptions = trainingSkill.getSkillOptions();
 				Collections.shuffle(skillOptions);
