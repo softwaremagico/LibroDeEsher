@@ -6,7 +6,7 @@
 \use_default_options false
 \maintain_unincluded_children false
 \language spanish
-\language_package default
+\language_package none
 \inputencoding auto
 \fontencoding global
 \font_roman default
@@ -848,6 +848,29 @@ Idiomas
 Hechizos
 \end_layout
 
+\begin_layout Standard
+Para algunas razas o culturas, existe la posibilidad de escoger un 
+\begin_inset Quotes eld
+\end_inset
+
+Idioma Racial
+\begin_inset Quotes erd
+\end_inset
+
+ o un 
+\begin_inset Quotes eld
+\end_inset
+
+Idioma Regional
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Si es el caso del personaje en creación, en el menú superior de la ventana,
+ aparecerá la opción para abrir una ventana y poder seleccionar el idioma
+ deseado.
+\end_layout
+
 \begin_layout Subsection
 Orden de las categorías de armas
 \end_layout
@@ -1235,6 +1258,40 @@ Se puede gastar un punto de historial para obtener un +5 a una categoría
  disfrutar de esa bonificación.
  Los puntos de historia son restados automáticamente.
  
+\end_layout
+
+\begin_layout Subsection
+Rangos en idiomas
+\end_layout
+
+\begin_layout Standard
+Existe la posibilidad de invertir puntos de historial en idiomas.
+ Simplemente asigna un rango a cualquier idioma deseado.
+ Un punto de historial será restado del total disponible y podrás asignar
+ hasta 20 rangos por punto de historial.
+\end_layout
+
+\begin_layout Standard
+Para algunas razas, existe la posibilidad de escoger un 
+\begin_inset Quotes eld
+\end_inset
+
+Idioma Racial
+\begin_inset Quotes erd
+\end_inset
+
+ o un 
+\begin_inset Quotes eld
+\end_inset
+
+Idioma Regional
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Si es el caso del personaje actual, en el menú superior de la ventana,
+ aparecerá la opción para abrir una ventana y poder seleccionar el idioma
+ deseado.
 \end_layout
 
 \begin_layout Subsection
