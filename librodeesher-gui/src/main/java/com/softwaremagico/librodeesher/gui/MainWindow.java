@@ -37,8 +37,10 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import com.softwaremagico.librodeesher.gui.characterBasics.CharacterBasicsPanel.SexChangedListener;
 import com.softwaremagico.librodeesher.gui.characterBasics.CharacterPanel;
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicSummaryPanel;
+import com.softwaremagico.librodeesher.gui.components.CharacterMenuItem;
 import com.softwaremagico.librodeesher.gui.components.ResumeSkillPanel;
 import com.softwaremagico.librodeesher.gui.resistance.ResistancePanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
@@ -95,11 +97,20 @@ public class MainWindow extends BaseFrame {
 		gridBagConstraints.weighty = 0;
 		gridBagConstraints.insets = new Insets(1, 1, 1, 1);
 		getContentPane().add(characterPanel, gridBagConstraints);
+		characterPanel.addSexChangedListener(new SexChangedListener() {
+			@Override
+			public void sexChanged(CharacterPlayer character) {
+				for (int i = 0; i < mainMenu.getCharacterListMenu().getItemCount(); i++) {
+					if (mainMenu.getCharacterListMenu().getItem(i) instanceof CharacterMenuItem) {
+						((CharacterMenuItem) mainMenu.getCharacterListMenu().getItem(i)).updateIcon();
+					}
+				}
+			}
+		});
 
 		characteristicsPanel = new CharacteristicSummaryPanel();
 		characteristicScrollPanel = new JScrollPane(characteristicsPanel,
-				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		characteristicScrollPanel.setBorder(getBorder());
 		characteristicScrollPanel.setMinimumSize(new Dimension(80, 0));
 		characteristicScrollPanel.setBounds(margin, margin, characteristicScrollPanel.getWidth(),
@@ -115,8 +126,7 @@ public class MainWindow extends BaseFrame {
 		getContentPane().add(characteristicScrollPanel, gridBagConstraints);
 
 		resistancePanel = new ResistancePanel();
-		resistanceScrollPanel = new JScrollPane(resistancePanel,
-				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+		resistanceScrollPanel = new JScrollPane(resistancePanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		resistanceScrollPanel.setBorder(getBorder());
 		resistanceScrollPanel.setMinimumSize(new Dimension(80, 0));

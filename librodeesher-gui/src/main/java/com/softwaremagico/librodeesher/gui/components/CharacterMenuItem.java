@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.components;
+
 /*
  * #%L
  * Libro de Esher
@@ -34,14 +35,18 @@ import com.softwaremagico.librodeesher.pj.SexType;
 
 public class CharacterMenuItem extends JMenuItem {
 	private static final long serialVersionUID = 6981333043794608235L;
-	private CharacterPlayer characterInMenu;
+	private CharacterPlayer characterInMenu, currentSelectedPlayer;
 
 	public CharacterMenuItem(CharacterPlayer characterInMenu, CharacterPlayer currentSelectedPlayer) {
 		super(characterInMenu.getName());
 		this.characterInMenu = characterInMenu;
+		this.currentSelectedPlayer = currentSelectedPlayer;
+		updateIcon();
+	}
 
+	public void updateIcon() {
 		if (characterInMenu.equals(currentSelectedPlayer)) {
-			if (characterInMenu.getSex() == SexType.MALE) {
+			if (characterInMenu.getSex().equals(SexType.MALE)) {
 				setIcon((Icon) MainMenu.getIcon("character_male.png"));
 			} else {
 				setIcon((Icon) MainMenu.getIcon("character_female.png"));
@@ -49,7 +54,7 @@ public class CharacterMenuItem extends JMenuItem {
 			Font font = getFont();
 			setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
 		} else {
-			if (characterInMenu.getSex() == SexType.MALE) {
+			if (characterInMenu.getSex().equals(SexType.MALE)) {
 				setIcon((Icon) MainMenu.getIcon("character_male_shadow.png"));
 			} else {
 				setIcon((Icon) MainMenu.getIcon("character_female_shadow.png"));

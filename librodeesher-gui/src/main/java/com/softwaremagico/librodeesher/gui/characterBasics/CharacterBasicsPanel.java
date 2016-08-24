@@ -30,6 +30,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
@@ -48,8 +50,14 @@ public class CharacterBasicsPanel extends BasePanel {
 	private BaseTextField nameTextField;
 	private CharacterPlayer character;
 	private BaseLabel nameLabel;
+	private Set<SexChangedListener> sexChangedListeners;
+
+	public interface SexChangedListener {
+		void sexChanged(CharacterPlayer character);
+	}
 
 	public CharacterBasicsPanel() {
+		sexChangedListeners = new HashSet<>();
 		setElements();
 		setDefaultSize();
 	}
@@ -163,6 +171,10 @@ public class CharacterBasicsPanel extends BasePanel {
 		}
 	}
 
+	public void addSexChangedListener(SexChangedListener listener) {
+		sexChangedListeners.add(listener);
+	}
+
 	class ChangeSexListener implements ActionListener {
 
 		@Override
@@ -171,6 +183,9 @@ public class CharacterBasicsPanel extends BasePanel {
 				character.setSex(SexType.MALE);
 			} else {
 				character.setSex(SexType.FEMALE);
+			}
+			for (SexChangedListener listener : sexChangedListeners) {
+				listener.sexChanged(character);
 			}
 		}
 	}

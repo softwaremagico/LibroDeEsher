@@ -29,6 +29,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import com.softwaremagico.librodeesher.gui.MainWindow;
+import com.softwaremagico.librodeesher.gui.characterBasics.CharacterBasicsPanel.SexChangedListener;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
@@ -51,8 +52,7 @@ public class CharacterPanel extends BasePanel {
 		GridBagConstraints c = new GridBagConstraints();
 
 		characterBasics = new CharacterBasicsPanel();
-		characterBasics
-				.setBounds(xPadding, xPadding, characterBasics.getWidth(), characterBasics.getHeight());
+		characterBasics.setBounds(xPadding, xPadding, characterBasics.getWidth(), characterBasics.getHeight());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 5;
 		c.gridx = 0;
@@ -62,8 +62,7 @@ public class CharacterPanel extends BasePanel {
 		add(characterBasics, c);
 
 		characterRacePanel = new CharacterRacePanel(this);
-		characterRacePanel.setBounds(xPadding, xPadding, characterBasics.getWidth(),
-				characterBasics.getHeight());
+		characterRacePanel.setBounds(xPadding, xPadding, characterBasics.getWidth(), characterBasics.getHeight());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 5;
 		c.gridx = 1;
@@ -74,8 +73,7 @@ public class CharacterPanel extends BasePanel {
 
 		characterProfessionPanel = new CharacterProfessionPanel(this);
 		characterRacePanel.setProfessionPanel(characterProfessionPanel);
-		characterProfessionPanel.setBounds(xPadding, xPadding, characterBasics.getWidth(),
-				characterBasics.getHeight());
+		characterProfessionPanel.setBounds(xPadding, xPadding, characterBasics.getWidth(), characterBasics.getHeight());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 5;
 		c.gridx = 2;
@@ -86,8 +84,7 @@ public class CharacterPanel extends BasePanel {
 		// characterProfessionPanel.update();
 
 		characterLevelPanel = new CharacterLevelPanel();
-		characterLevelPanel.setBounds(xPadding, xPadding, characterBasics.getWidth(),
-				characterBasics.getHeight());
+		characterLevelPanel.setBounds(xPadding, xPadding, characterBasics.getWidth(), characterBasics.getHeight());
 		characterProfessionPanel.setLevelPanel(characterLevelPanel);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 5;
@@ -135,8 +132,13 @@ public class CharacterPanel extends BasePanel {
 			characterLevelPanel.update();
 		}
 	}
-	
+
 	public void updateSkills() {
 		parent.updateSkills();
 	}
+
+	public void addSexChangedListener(SexChangedListener listener) {
+		characterBasics.addSexChangedListener(listener);
+	}
+
 }
