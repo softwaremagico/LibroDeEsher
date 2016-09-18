@@ -1,12 +1,11 @@
 # ARMAS TÍPICAS
 ####################
-Machete, Sable, Cimitarra, Espadón, Hacha de Batalla
-Honda, Arco Corto, Arco Largo, Arco Compuesto, Látigo, Mangual
-Maza, Lanza, Jabalina, Lanza de Caballería
+Machete, Sable, Pistola Automática,
+Revolver
 
 # ARMADURAS TÍPICAS
 ####################
-Cuero Blando, Cuero Endurecido, Cota de Mallas
+Cuero Blando, Cuero Endurecido, 
 
 # RANGOS
 ####################
@@ -41,7 +40,7 @@ Atletismo·Resistencia	1
 Ciencia/Analítica·Básica	1
   *  Ciencia/Analítica·Básica	5
 Comunicación	9
-  *  Habla 1	12
+  *  Idiomas	12
 Conocimiento·General	5
   *  Conocimiento Regional	4
   *  Conocimiento Cultural	4
@@ -72,17 +71,11 @@ Listas Abiertas de Hechizos	0
 # AFICIONES
 ####################
 Actuar, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas, Armas·Contundentes
-Armadura, Cantar, Combate Montado, Conocimiento Regional, Desarrollo Físico
+Armadura, Cantar, Combate Montado, Conocimiento Regional, Desarrollo Físico, 
 Diplomacia, Escultura, Heráldica, Historia, Idiomas, Juego
-Leer Runas, Liderazgo, Manejo de los Animales, Montar, Observación
+Leer Runas, Liderazgo, Manejo de los Animales, Montar, Observación, 
 Oratoria, Pintura, Primeros Auxilios, Sentido de la Dirección, Tasar
 Tocar Instrumento
-
-# IDIOMAS
-####################
-Habla 1	6/6
-Habla 2	4/4
-Habla 3	0/0
 
 # ADIESTAMIENTOS
 ####################

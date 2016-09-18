@@ -1,0 +1,3 @@
+#Nombre	Características	Progresión	Habilidades {AñadirNuevaHabilidad1; AñadirNuevaHabilidad2;...} [Especialidad1; Especialidad2; ...]
+################################################################
+Conocimiento·Academico(ConAca)	Me/Ra/Me	Estándar	Historia del Arte, Filosofía, Periodismo, Ciencias Políticas, Derecho, Historia, Religión

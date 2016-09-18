@@ -1,8 +1,6 @@
 # ARMAS TÍPICAS
 ####################
-Machete, Sable, Cimitarra, Espadón, Hacha de Batalla
-Honda, Arco Corto, Arco Largo, Arco Compuesto, Látigo, Mangual
-Maza, Lanza, Jabalina, Lanza de Caballería
+Machete, Sable, {Pistola Automática; Revolver}
 
 # ARMADURAS TÍPICAS
 ####################
@@ -41,7 +39,7 @@ Atletismo·Resistencia	1
 Ciencia/Analítica·Básica	0
   *  Ciencia/Analítica·Básica	3
 Comunicación	6
-  *  Habla 1	10
+  *  Idiomas	10
 Conocimiento·General	5
   *  Conocimiento Regional	3
   *  Conocimiento Cultural	4
@@ -79,12 +77,6 @@ Manejo de los Animales, Mendigar, Observación, Primeros Auxilios
 Rastrear, Seducción, Sentido de la Dirección, Sobornar, Supervivencia (Desierto)
 Tocar Instrumento, Trabajar el Cuero, Trabajar el Metal, Trabajar la Madera
 Trabajar la Piedra
-
-# IDIOMAS
-####################
-Habla 1	6/6
-Habla 2	4/4
-Habla 3	0/0
 
 # ADIESTAMIENTOS
 ####################
