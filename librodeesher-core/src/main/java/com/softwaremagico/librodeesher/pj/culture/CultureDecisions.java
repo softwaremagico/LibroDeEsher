@@ -24,12 +24,15 @@ package com.softwaremagico.librodeesher.pj.culture;
  * #L%
  */
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
@@ -69,11 +72,28 @@ public class CultureDecisions extends StorableObject {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<String, Integer> languageRanks;
 
+	@Expose
+	@ElementCollection
+	@CollectionTable(name = "T_CULTURE_OPTIONAL_CULTURE_LANGUAGES")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OrderColumn(name= "raceLanguageIndex")
+	private List<String> optionalCulturalLanguageSelection;
+
+	@Expose
+	@ElementCollection
+	@CollectionTable(name = "T_CULTURE_OPTIONAL_RACE_LANGUAGES")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OrderColumn(name= "raceLanguageIndex")
+	private List<String> optionalRaceLanguageSelection;
+
 	public CultureDecisions() {
 		languageRanks = new HashMap<>();
 		weaponRanks = new HashMap<>();
 		hobbyRanks = new HashMap<>();
 		spellRanks = new HashMap<>();
+		optionalCulturalLanguageSelection = new ArrayList<>();
+		optionalRaceLanguageSelection = new ArrayList<>();
+		resetLanguageOptions();
 	}
 
 	@Override
@@ -86,9 +106,13 @@ public class CultureDecisions extends StorableObject {
 		resetComparationIds(this);
 	}
 
+	public void resetLanguageOptions() {
+		optionalCulturalLanguageSelection.clear();
+		optionalRaceLanguageSelection.clear();
+	}
+
 	/**
-	 * Includes the ranks in the communication category of the culture plus the
-	 * communications ranks of the race.
+	 * Includes the ranks in the communication category of the culture plus the communications ranks of the race.
 	 * 
 	 * @param language
 	 * @param ranks
@@ -233,4 +257,11 @@ public class CultureDecisions extends StorableObject {
 		this.languageRanks = languageRanks;
 	}
 
+	public List<String> getOptionalCulturalLanguages() {
+		return optionalCulturalLanguageSelection;
+	}
+
+	public List<String> getOptionalRaceLanguages() {
+		return optionalRaceLanguageSelection;
+	}
 }

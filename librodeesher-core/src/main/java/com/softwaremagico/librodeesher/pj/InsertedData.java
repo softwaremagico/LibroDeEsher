@@ -95,9 +95,12 @@ public class InsertedData extends StorableObject {
 		generalizedSkillsAdded = new ArrayList<>();
 		skillSpecializationsAdded = new ArrayList<>();
 		trainingDecisions = new HashMap<>();
-		//initializeAsZeroSkillsAndCategories();
+		// initializeAsZeroSkillsAndCategories();
 	}
 
+	/**
+	 * Used to have a list of all available list in the json object.
+	 */
 	private void initializeAsZeroSkillsAndCategories() {
 		for (Characteristic characteristic : Characteristics.getCharacteristics()) {
 			characteristicsTemporalValuesModification.put(characteristic.getAbbreviature(), null);
@@ -120,7 +123,7 @@ public class InsertedData extends StorableObject {
 		resetIds(this);
 		resetIds(trainingDecisions);
 	}
-	
+
 	@Override
 	public void resetComparationIds() {
 		resetComparationIds(this);
@@ -160,11 +163,11 @@ public class InsertedData extends StorableObject {
 		return ranks;
 	}
 
-	public void setSkillsRanksModification(Skill skill, Integer ranks) {
+	public void setSkillsRanksModification(String skillName, Integer ranks) {
 		if (ranks == 0) {
-			skillsRanksModification.remove(skill.getName());
+			skillsRanksModification.remove(skillName);
 		} else {
-			skillsRanksModification.put(skill.getName(), ranks);
+			skillsRanksModification.put(skillName, ranks);
 		}
 	}
 

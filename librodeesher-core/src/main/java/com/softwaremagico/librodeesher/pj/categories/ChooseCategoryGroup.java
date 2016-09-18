@@ -16,11 +16,11 @@ public class ChooseCategoryGroup extends ChooseGroup<Category> {
 	public ChooseCategoryGroup(int chooseNumber, String[] categoryGroup, ChooseType chooseType)
 			throws InvalidCategoryException {
 		super(chooseType);
-		this.numberOfOptionsToChoose = chooseNumber;
+		setNumberOfOptionsToChoose(chooseNumber);
 		for (String categoryName : categoryGroup) {
 			Category category = CategoryFactory.getCategory(categoryName);
 			if (category != null) {
-				this.optionsGroup.add(category);
+				getOptionsGroup().add(category);
 			} else {
 				throw new InvalidCategoryException("Error leyendo un conjunto de categorias. Fallo en: " + categoryName);
 			}
@@ -30,7 +30,7 @@ public class ChooseCategoryGroup extends ChooseGroup<Category> {
 	@Override
 	public List<String> getOptionsAsString() {
 		List<String> nameList = new ArrayList<>();
-		for (Category category : optionsGroup) {
+		for (Category category : getOptionsGroup()) {
 			nameList.add(category.getName());
 		}
 		return Collections.unmodifiableList(nameList);

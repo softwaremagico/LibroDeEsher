@@ -70,8 +70,8 @@ public class BackgroundSkillsPanel extends BaseSkillPanel {
 				List<BackgroundSkillLine> skillLines = new ArrayList<>();
 				for (Skill skill : category.getSkills()) {
 					if (!hideUselessSkills || character.isSkillInteresting(skill)) {
-						BackgroundSkillLine skillLine = new BackgroundSkillLine(character, skill, getLineBackgroundColor(i),
-								this);
+						BackgroundSkillLine skillLine = new BackgroundSkillLine(character, skill,
+								getLineBackgroundColor(i), this);
 						add(skillLine);
 						skillLines.add(skillLine);
 						i++;
@@ -111,5 +111,13 @@ public class BackgroundSkillsPanel extends BaseSkillPanel {
 	public void hideUselessSkills(boolean hideUselessSkills) {
 		this.hideUselessSkills = hideUselessSkills;
 		setElements(characterPlayer);
+	}
+
+	@Override
+	public void updateRanks() {
+	}
+
+	@Override
+	public void updateWeaponCost() {
 	}
 }

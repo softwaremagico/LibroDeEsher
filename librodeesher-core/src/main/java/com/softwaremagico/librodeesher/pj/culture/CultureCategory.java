@@ -60,28 +60,33 @@ public class CultureCategory {
 		return new ArrayList<CultureSkill>(skills.values());
 	}
 
-	public CultureCategory(String name, String ranks) throws InvalidCultureException {
+	public CultureCategory(String name, String ranks)
+			throws InvalidCultureException {
 		this.name = name;
 		skills = new HashMap<>();
 		try {
 			this.ranks = Integer.parseInt(ranks);
 		} catch (NumberFormatException nfe) {
-			throw new InvalidCultureException("Error al obtener los rangos de la categoria cultural: " + getName()
-					+ ". Razón: " + nfe.getMessage());
+			throw new InvalidCultureException(
+					"Error al obtener los rangos de la categoria cultural: "
+							+ getName() + ". Razón: " + nfe.getMessage());
 		}
 	}
 
-	public CultureSkill addSkillFromLine(String skillLine) throws InvalidCultureException {
+	public CultureSkill addSkillFromLine(String skillLine)
+			throws InvalidCultureException {
 		skillLine = skillLine.replace("*", "").trim();
 		String[] skillColumns = skillLine.split("\t");
 		if (skillColumns[0].toLowerCase().equals(Spanish.WEAPON)
 				|| skillColumns[0].toLowerCase().equals(Spanish.CULTURE_SPELLS)
-				|| skillColumns[0].toLowerCase().equals(Spanish.CULTURE_LANGUAGE_TAG)) {
+				|| skillColumns[0].toLowerCase().equals(
+						Spanish.CULTURE_LANGUAGE_TAG)) {
 			try {
 				ranksToChoose = Integer.parseInt(skillColumns[1]);
 			} catch (NumberFormatException nfe) {
-				throw new InvalidCultureException("Error al obtener los rangos de la habilidad cultural: " + skillLine
-						+ ". Razón: " + nfe.getMessage());
+				throw new InvalidCultureException(
+						"Error al obtener los rangos de la habilidad cultural: "
+								+ skillLine + ". Razón: " + nfe.getMessage());
 			}
 			return null;
 		} else {
@@ -97,10 +102,16 @@ public class CultureCategory {
 	 * @return
 	 */
 	public Integer getChooseRanks() {
+		if (ranksToChoose == null) {
+			return 0;
+		}
 		return ranksToChoose;
 	}
 
 	public Integer getRanks() {
+		if (ranks == 0) {
+			return 0;
+		}
 		return ranks;
 	}
 

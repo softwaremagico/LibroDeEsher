@@ -88,6 +88,13 @@ public class OptionsListPanel extends BasePanel {
 
 	public void setSelectedOptions(List<String> selectedOptions) {
 		this.selectedOptions = selectedOptions;
+		updateSelectedOptions();
+	}
+
+	private void updateSelectedOptions() {
+		for (OptionLine line : optionLines) {
+			line.setSelected(selectedOptions.contains(line.getOption()));
+		}
 	}
 
 	@Override

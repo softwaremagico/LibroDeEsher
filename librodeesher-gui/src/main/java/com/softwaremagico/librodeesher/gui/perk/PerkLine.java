@@ -90,7 +90,8 @@ public class PerkLine extends BaseLine {
 		JPanel panel = new JPanel();
 		updating = true;
 		perkCheckBox = new BaseCheckBox("");
-		perkCheckBox.setSelected(character.isPerkChoosed(perk));
+		perkCheckBox.setSelected(character.isPerkChoosed(perk) || character.getRace().getPerks().contains(perk));
+		perkCheckBox.setEnabled(!character.getRace().getPerks().contains(perk));
 		panel.add(perkCheckBox);
 		panel.setBackground(background);
 		perkCheckBox.setBackground(background);
@@ -130,30 +131,31 @@ public class PerkLine extends BaseLine {
 		public void itemStateChanged(ItemEvent e) {
 			try {
 				if (!updating) {
-					if (perkCheckBox.isSelected()) {
-						if (perk.getCost() <= character.getRemainingPerksPoints()) {
-							createSelectOptionsWindow();
-							Perk weakness = selectWeakness();
-							if (weakness != null) {
-								MessageManager.infoMessage(
-										this.getClass().getName(), "El defecto adquirido es: " + weakness.getName()
-												+ " [" + weakness.getGrade().getTag() + "]",
-										"Nuevo defecto adquirido!");
+					if (!character.getRace().getPerks().contains(perk)) {
+						if (perkCheckBox.isSelected()) {
+							if (perk.getCost() <= character.getRemainingPerksPoints()) {
+								createSelectOptionsWindow();
+								Perk weakness = selectWeakness();
+								if (weakness != null) {
+									MessageManager.infoMessage(this.getClass().getName(), "El defecto adquirido es: "
+											+ weakness.getName() + " [" + weakness.getGrade().getTag() + "]",
+											"Nuevo defecto adquirido!");
+								}
+								character.addPerk(perk, weakness);
+								// SelectOptionWindows unselect the checkbox by
+								// unknown reason. We force again to select it.
+								updating = true;
+								perkCheckBox.setSelected(true);
+								updating = false;
+							} else {
+								perkCheckBox.setSelected(false);
 							}
-							character.addPerk(perk, weakness);
-							// SelectOptionWindows unselect the checkbox by
-							// unknown reason. We force again to select it.
-							updating = true;
-							perkCheckBox.setSelected(true);
-							updating = false;
 						} else {
-							perkCheckBox.setSelected(false);
-						}
-					} else {
-						if (character.getRemainingPerksPoints() + perk.getCost() < 0) {
-							perkCheckBox.setSelected(true);
-						} else {
-							character.removePerk(perk);
+							if (character.getRemainingPerksPoints() + perk.getCost() < 0) {
+								perkCheckBox.setSelected(true);
+							} else {
+								character.removePerk(perk);
+							}
 						}
 					}
 					update();
@@ -208,26 +210,26 @@ public class PerkLine extends BaseLine {
 
 	private void createSelectOptionsWindow() {
 		// More than one category, select one of them.
-		if (perk.getCategoriesToChoose().size() > 1) {
+		if (perk.getCategoriesToChoose().size() == 1
+				&& perk.getCategoriesToChoose().get(0).getOptionsGroup().size() > 1) {
 			for (ChooseCategoryGroup options : perk.getCategoriesToChoose()) {
 				PerkOptionsWindow<Category> optionsWindow = new PerkOptionsWindow<Category>(character, perk, options,
 						this);
 				optionsWindow.setPointCounterLabel("Categorias con (" + getBonusTag() + "): ");
 				optionsWindow.setVisible(true);
 			}
-		}
+		}else
 		// One category, select skills.
 		if (perk.getCategoriesToChoose().size() == 1) {
 			ChooseCategoryGroup options = perk.getCategoriesToChoose().get(0);
-			ChooseSkillGroup skillOptions = new ChooseSkillGroup(
-					perk.getCategorySkillsRanksBonus(character.getCategory(options.getOptionsGroup().get(0)).getName()),
-					character.getCategory(options.getOptionsGroup().get(0)).getSkills(), options.getChooseType());
+			ChooseSkillGroup skillOptions = new ChooseSkillGroup(perk.getCategorySkillsRanksBonus(character
+					.getCategory(options.getOptionsGroup().get(0)).getName()), character.getCategory(
+					options.getOptionsGroup().get(0)).getSkills(), options.getChooseType());
 			skillOptions.setNumberOfOptionsToChoose(options.getNumberOfOptionsToChoose());
 			PerkOptionsWindow<Skill> optionsWindow = new PerkOptionsWindow<Skill>(character, perk, skillOptions, this);
 			optionsWindow.setPointCounterLabel("Habilidades: ");
 			optionsWindow.setVisible(true);
-		}
-
+		}else
 		// Select one skill from list.
 		if (!perk.getSkillsToChoose().isEmpty()) {
 			for (ChooseSkillGroup options : perk.getSkillsToChoose()) {
@@ -235,8 +237,7 @@ public class PerkLine extends BaseLine {
 				optionsWindow.setPointCounterLabel("Habilidades con (" + getBonusTag() + "): ");
 				optionsWindow.setVisible(true);
 			}
-		}
-
+		}else
 		if (!perk.getCommonSkillsToChoose().isEmpty()) {
 			for (ChooseSkillGroup options : perk.getCommonSkillsToChoose()) {
 				PerkOptionsWindow<Skill> optionsWindow = new PerkOptionsWindow<Skill>(character, perk, options, this);

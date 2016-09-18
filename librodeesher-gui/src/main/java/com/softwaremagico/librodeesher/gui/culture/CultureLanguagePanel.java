@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class CultureLanguagePanel extends CulturePanel {
@@ -44,10 +45,17 @@ public class CultureLanguagePanel extends CulturePanel {
 		int i = 0;
 		// Add race languages.
 		List<String> languages = new ArrayList<>();
-		for (String language : character.getRace().getInitialRaceLanguages()
-				.keySet()) {
+		for (String language : character.getRace().getInitialRaceLanguages().keySet()) {
 			if (!languages.contains(language)) {
 				languages.add(language);
+			}
+		}
+		for (String language : character.getCultureDecisions().getOptionalRaceLanguages()) {
+			if (!languages.contains(Spanish.SPOKEN_TAG + " " + language)) {
+				languages.add(Spanish.SPOKEN_TAG + " " + language);
+			}
+			if (!languages.contains(Spanish.WRITTEN_TAG + " " + language)) {
+				languages.add(Spanish.WRITTEN_TAG + " " + language);
 			}
 		}
 		// Add culture languages.
@@ -56,10 +64,18 @@ public class CultureLanguagePanel extends CulturePanel {
 				languages.add(language);
 			}
 		}
+		for (String language : character.getCultureDecisions().getOptionalCulturalLanguages()) {
+			if (!languages.contains(Spanish.SPOKEN_TAG + " " + language)) {
+				languages.add(Spanish.SPOKEN_TAG + " " + language);
+			}
+			if (!languages.contains(Spanish.WRITTEN_TAG + " " + language)) {
+				languages.add(Spanish.WRITTEN_TAG + " " + language);
+			}
+		}
 		Collections.sort(languages);
 		for (String language : languages) {
-			CultureLanguageLine languageLine = new CultureLanguageLine(character, language,
-					this, getLineBackgroundColor(i));
+			CultureLanguageLine languageLine = new CultureLanguageLine(character, language, this,
+					getLineBackgroundColor(i));
 			add(languageLine);
 			hobbyLines.add(languageLine);
 			i++;

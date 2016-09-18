@@ -26,6 +26,7 @@ package com.softwaremagico.librodeesher.gui.skills;
 
 import java.awt.Color;
 
+import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
 import com.softwaremagico.librodeesher.gui.elements.GenericCategoryLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
@@ -35,9 +36,9 @@ public class CategoryLine extends GenericCategoryLine {
 	private final static int NAME_LENGTH = 200;
 
 	public CategoryLine(CharacterPlayer character, Category category, Color background,
-			SkillPanel parentWindow) {
+			BaseSkillPanel parentWindow) {
 		super(character, category, NAME_LENGTH, background, parentWindow);
-		enableColumns(true, true, true, true, true, true, true, true);
+		enableColumns(true, true, false, true, false, true, true, true, true, true);
 		setRanksSelected(character.getCurrentLevelRanks(category));
 	}
 

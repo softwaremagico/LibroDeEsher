@@ -1,0 +1,2 @@
+#Generalizaciones: Pistola Automática, Revolver, Pistola Avancarga, Pistola energética
+Pistola Energética: Saukur	pstSa

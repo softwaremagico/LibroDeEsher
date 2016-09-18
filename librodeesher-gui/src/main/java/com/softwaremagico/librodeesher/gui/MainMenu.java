@@ -31,22 +31,26 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class MainMenu {
-	private JMenuItem newMenuItem, closeMenuItem, loadMenuItem, saveMenuItem, exportToTextMenuItem, exportAbbreviatedToTextMenuItem,
-			exportToPdfStandardMenuItem, exportToPdfCombined2ColumnsMenuItem, exportToPdfCombined1ColumnMenuItem, exportCharacterMenuItem,
-			exportLevelMenuItem, importCharacterMenuItem, importLevelMenuItem, exitMenuItem;
-	private JMenuItem aboutMenuItem, cultureMenuItem, professionMenuItem, charactMenuItem, trainingMenuItem, skillsMenuItem, perksMenuItem,
-			historyMenuItem, levelUpMenuItem;
-	private JMenuItem insertMagicObject;
+	private JMenuItem newMenuItem, closeMenuItem, loadMenuItem, saveMenuItem, exportToTextMenuItem,
+			exportAbbreviatedToTextMenuItem, exportToPdfStandardMenuItem, exportToPdfCombined2ColumnsMenuItem,
+			exportToPdfCombined1ColumnMenuItem, exportCharacterMenuItem, exportLevelMenuItem, importCharacterMenuItem,
+			importLevelMenuItem, exitMenuItem;
+	private JMenuItem aboutMenuItem, cultureMenuItem, professionMenuItem, charactMenuItem, trainingMenuItem,
+			skillsMenuItem, perksMenuItem, historyMenuItem, levelUpMenuItem;
+	private JMenuItem insertMagicObject, insertSkillRanks;
 	private JMenuItem randomName, randomCharacter;
 	private JMenuItem optionsMenu;
+	private JCheckBoxMenuItem enableDebug;
 	private JFrame parentWindow;
 	private JMenu characterListMenu, exportMenu, importMenu;
 	private CharacterPlayer character;
@@ -101,7 +105,8 @@ public class MainMenu {
 
 		exportCharacterMenuItem = new JMenuItem("Personaje", KeyEvent.VK_P);
 		exportCharacterMenuItem.setIcon((Icon) getIcon("character-export.png"));
-		exportCharacterMenuItem.getAccessibleContext().setAccessibleDescription("Exporta para importar en otro ordenador.");
+		exportCharacterMenuItem.getAccessibleContext().setAccessibleDescription(
+				"Exporta para importar en otro ordenador.");
 		exportMenu.add(exportCharacterMenuItem);
 
 		exportLevelMenuItem = new JMenuItem("Subida de Nivel", KeyEvent.VK_P);
@@ -116,17 +121,20 @@ public class MainMenu {
 
 		exportAbbreviatedToTextMenuItem = new JMenuItem("Texto (Resumen)", KeyEvent.VK_T);
 		exportAbbreviatedToTextMenuItem.setIcon((Icon) getIcon("text.png"));
-		exportAbbreviatedToTextMenuItem.getAccessibleContext().setAccessibleDescription("Exporta un resumen a un fichero de texto plano.");
+		exportAbbreviatedToTextMenuItem.getAccessibleContext().setAccessibleDescription(
+				"Exporta un resumen a un fichero de texto plano.");
 		exportMenu.add(exportAbbreviatedToTextMenuItem);
 
 		exportToPdfStandardMenuItem = new JMenuItem("PDF Estándar", KeyEvent.VK_P);
 		exportToPdfStandardMenuItem.setIcon((Icon) getIcon("pdf.png"));
-		exportToPdfStandardMenuItem.getAccessibleContext().setAccessibleDescription("Exporta a un fichero PDF (Hoja Estándar).");
+		exportToPdfStandardMenuItem.getAccessibleContext().setAccessibleDescription(
+				"Exporta a un fichero PDF (Hoja Estándar).");
 		exportMenu.add(exportToPdfStandardMenuItem);
 
 		exportToPdfCombined1ColumnMenuItem = new JMenuItem("PDF Combinada", KeyEvent.VK_P);
 		exportToPdfCombined1ColumnMenuItem.setIcon((Icon) getIcon("pdf.png"));
-		exportToPdfCombined1ColumnMenuItem.getAccessibleContext().setAccessibleDescription("Exporta a un fichero PDF (Hoja Combinada).");
+		exportToPdfCombined1ColumnMenuItem.getAccessibleContext().setAccessibleDescription(
+				"Exporta a un fichero PDF (Hoja Combinada).");
 		exportMenu.add(exportToPdfCombined1ColumnMenuItem);
 
 		exportToPdfCombined2ColumnsMenuItem = new JMenuItem("PDF Combinada (2 columnas)", KeyEvent.VK_P);
@@ -212,19 +220,17 @@ public class MainMenu {
 		JMenu createMenu = new JMenu("Insertar");
 		createMenu.setIcon((Icon) getIcon("insert_character.png"));
 		createMenu.setMnemonic(KeyEvent.VK_I);
-		createMenu.getAccessibleContext().setAccessibleDescription("Insertar un personaje.");
-
-		// insertCharacter = new JMenuItem("Insertar Personaje", KeyEvent.VK_P);
-		// insertCharacter.setIcon((Icon) getIcon("insert_character.png"));
-		// insertCharacter.getAccessibleContext().setAccessibleDescription("Insertar un personaje.");
-		// createMenu.add(insertCharacter);
-		//
-		// createMenu.addSeparator();
+		createMenu.getAccessibleContext().setAccessibleDescription("Insertar elementos al personaje.");
 
 		insertMagicObject = new JMenuItem("Insertar Objeto Mágico", KeyEvent.VK_M);
 		insertMagicObject.setIcon((Icon) getIcon("potion.png"));
 		insertMagicObject.getAccessibleContext().setAccessibleDescription("Insertar un objeto mágico.");
 		createMenu.add(insertMagicObject);
+
+		insertSkillRanks = new JMenuItem("Añadir Rangos", KeyEvent.VK_R);
+		insertSkillRanks.setIcon((Icon) getIcon("addRanks.png"));
+		insertSkillRanks.getAccessibleContext().setAccessibleDescription("Insertar un objeto mágico.");
+		createMenu.add(insertSkillRanks);
 
 		// insertEquipment = new JMenuItem("Insertar Equipo", KeyEvent.VK_E);
 		// insertEquipment.setIcon((Icon) getIcon("horse.png"));
@@ -249,7 +255,8 @@ public class MainMenu {
 
 		randomCharacter = new JMenuItem("Pesonaje Aleatorio", KeyEvent.VK_P);
 		randomCharacter.setIcon((Icon) getIcon("random_character.png"));
-		randomCharacter.getAccessibleContext().setAccessibleDescription("Genera un personaje de forma completamente aleatoria.");
+		randomCharacter.getAccessibleContext().setAccessibleDescription(
+				"Genera un personaje de forma completamente aleatoria.");
 		randomMenu.add(randomCharacter);
 
 		return randomMenu;
@@ -265,6 +272,12 @@ public class MainMenu {
 		optionsMenu.setIcon((Icon) getIcon("options.png"));
 		optionsMenu.getAccessibleContext().setAccessibleDescription("Opciones de configuración.");
 		configMenu.add(optionsMenu);
+
+		enableDebug = new JCheckBoxMenuItem("Debug");
+		enableDebug.setIcon((Icon) getIcon("debug.png"));
+		enableDebug.getAccessibleContext().setAccessibleDescription("Visualiza los errores de la aplicación.");
+		enableDebug.setSelected(Config.isDebugEnabled());
+		configMenu.add(enableDebug);
 
 		return configMenu;
 	}
@@ -405,6 +418,14 @@ public class MainMenu {
 		insertMagicObject.addActionListener(al);
 	}
 
+	public void addEnableDebugItemListener(ActionListener al) {
+		enableDebug.addActionListener(al);
+	}
+
+	public void addRanksItemListener(ActionListener al) {
+		insertSkillRanks.addActionListener(al);
+	}
+
 	class CloseListener implements ActionListener {
 
 		@Override
@@ -431,6 +452,10 @@ public class MainMenu {
 		skillsMenuItem.setEnabled(enable);
 		historyMenuItem.setEnabled(enable && character.getLevelUps().size() == 1);
 		isCharacterWellFormed();
+	}
+
+	public boolean isDebugEnabled() {
+		return enableDebug.isSelected();
 	}
 
 	private void isCharacterWellFormed() {

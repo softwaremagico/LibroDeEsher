@@ -32,9 +32,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -45,6 +47,7 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
+import com.softwaremagico.librodeesher.gui.elements.BaseCheckBox;
 import com.softwaremagico.librodeesher.gui.elements.BaseSpinner;
 import com.softwaremagico.librodeesher.gui.elements.BaseTextField;
 import com.softwaremagico.librodeesher.gui.elements.CategoryChangedListener;
@@ -74,16 +77,17 @@ public class RandomWindow extends BaseFrame {
 	private TrainingComboBox trainingComboBox;
 	private BaseTextField suggestedTraining;
 	private List<String> suggestedTrainingList;
-	private List<RandomCharacterUpdatedListener> randomCharacterUpdatedListeners;
+	private Set<RandomCharacterUpdatedListener> randomCharacterUpdatedListeners;
 	private BaseSpinner levelSpinner;
+	private BaseCheckBox perksCheckBox;
 
 	public RandomWindow(CharacterPlayer characterPlayer) {
 		this.characterPlayer = characterPlayer;
 		suggestedCategoriesRanks = new HashMap<>();
 		suggestedSkillsRanks = new HashMap<>();
 		suggestedTrainingList = new ArrayList<>();
-		randomCharacterUpdatedListeners = new ArrayList<>();
-		defineWindow(500, 400);
+		randomCharacterUpdatedListeners = new HashSet<>();
+		defineWindow(500, 460);
 		setResizable(false);
 		setElements();
 	}
@@ -116,6 +120,8 @@ public class RandomWindow extends BaseFrame {
 		constraints.gridy = 3;
 		panel.add(createTrainingPanel(), constraints);
 		constraints.gridy = 4;
+		panel.add(createPerkPanel(), constraints);
+		constraints.gridy = 5;
 		constraints.weighty = 0;
 		panel.add(createButtonPanel(), constraints);
 		add(panel);
@@ -152,6 +158,36 @@ public class RandomWindow extends BaseFrame {
 		constraints.gridwidth = 1;
 		constraints.gridx = 3;
 		panel.add(levelSpinner, constraints);
+
+		return panel;
+	}
+
+	private JPanel createPerkPanel() {
+		JPanel panel = createBasicPanel();
+
+		GridBagLayout layout = new GridBagLayout();
+		panel.setLayout(layout);
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.anchor = GridBagConstraints.CENTER;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.ipadx = xPadding;
+		constraints.gridx = 0;
+		constraints.weightx = 1;
+		constraints.weighty = 1;
+
+		JLabel titleLabel = new JLabel("Talentos:");
+		titleLabel.setFont(Fonts.getInstance().getBoldFont());
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridy = 0;
+		constraints.gridwidth = 3;
+		panel.add(titleLabel, constraints);
+
+		perksCheckBox = new BaseCheckBox("Incluir Talentos en el Personaje");
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		constraints.gridwidth = 3;
+		panel.add(perksCheckBox, constraints);
 
 		return panel;
 	}
@@ -512,5 +548,9 @@ public class RandomWindow extends BaseFrame {
 
 	public Map<String, Integer> getSuggestedCategoriesRanks() {
 		return suggestedCategoriesRanks;
+	}
+
+	public boolean isPerksEnabled() {
+		return perksCheckBox.isSelected();
 	}
 }

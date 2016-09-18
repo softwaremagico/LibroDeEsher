@@ -77,6 +77,15 @@ Leer Runas, Liderazgo, Manejo de los Animales, Montar, Observación,
 Oratoria, Pintura, Primeros Auxilios, Sentido de la Dirección, Tasar
 Tocar Instrumento
 
+<<<<<<< HEAD
+=======
+# IDIOMAS
+####################
+Idioma Regional	6/6
+Idioma Regional	4/4
+Idioma Regional	0/0
+
+>>>>>>> 532ff43d349df9d825ff6d13a75f67845cc03fdd
 # ADIESTAMIENTOS
 ####################
 Ninguno

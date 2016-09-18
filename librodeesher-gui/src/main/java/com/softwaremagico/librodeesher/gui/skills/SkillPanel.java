@@ -258,6 +258,7 @@ public class SkillPanel extends BaseSkillPanel {
 		}
 	}
 
+	@Override
 	public void updateRanks() {
 		for (CategoryLine categoryLine : categoryLines) {
 			categoryLine.updateCurrentRanks();
@@ -275,6 +276,7 @@ public class SkillPanel extends BaseSkillPanel {
 		}
 	}
 
+	@Override
 	public void updateWeaponCost() {
 		for (WeaponCategoryLine weaponLine : weaponsLines) {
 			weaponLine.setSelected(characterPlayer.getProfessionDecisions().getWeaponCost(weaponLine.getCategory()));

@@ -38,7 +38,7 @@ public class ResumedCategoryLine extends GenericCategoryLine {
 	public ResumedCategoryLine(CharacterPlayer character, Category category, Color background,
 			BaseSkillPanel parentWindow) {
 		super(character, category, NAME_LENGTH, background, parentWindow);
-		enableColumns(true, true, true, true, true, true, true, true);
+		enableColumns(true, true, false, true, false, true, true, true, true, true);
 		setRanksSelected(character.getCurrentLevelRanks(category));
 	}
 

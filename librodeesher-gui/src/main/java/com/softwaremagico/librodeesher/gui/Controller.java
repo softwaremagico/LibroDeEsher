@@ -45,9 +45,11 @@ import javax.swing.SwingUtilities;
 
 import com.itextpdf.text.DocumentException;
 import com.softwaremagico.files.MessageManager;
+import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.librodeesher.gui.background.BackgroundWindow;
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicsWindow;
 import com.softwaremagico.librodeesher.gui.components.CharacterMenuItem;
+import com.softwaremagico.librodeesher.gui.components.SkillWindow;
 import com.softwaremagico.librodeesher.gui.culture.CultureWindow;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForPdf;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForRlm;
@@ -62,7 +64,8 @@ import com.softwaremagico.librodeesher.gui.profession.ProfessionWindow;
 import com.softwaremagico.librodeesher.gui.random.RandomCharacterUpdatedListener;
 import com.softwaremagico.librodeesher.gui.random.RandomSplashScreen;
 import com.softwaremagico.librodeesher.gui.random.RandomWindow;
-import com.softwaremagico.librodeesher.gui.skills.SkillWindow;
+import com.softwaremagico.librodeesher.gui.skills.SkillRanksWindow;
+import com.softwaremagico.librodeesher.gui.skills.insert.InsertRanksWindow;
 import com.softwaremagico.librodeesher.gui.training.TrainingWindow;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.export.json.CharacterJsonManager;
@@ -97,6 +100,7 @@ public class Controller {
 	private RandomWindow randomWindow;
 	private LoadCharacterPlayerWindow loadWindow;
 	private InsertMagicItemWindow insertMagicItemWindow;
+	private InsertRanksWindow insertRankWindows;
 
 	private boolean actionsEnables = true;
 
@@ -150,6 +154,28 @@ public class Controller {
 		mainGui.getMainMenu().addExportLevelListener(new ExportLevel());
 		mainGui.getMainMenu().addImportLevelListener(new ImportLevel());
 		mainGui.getMainMenu().addInsertMagicItemListener(new InsertMagicObject());
+		mainGui.getMainMenu().addEnableDebugItemListener(new EnableDebugListener());
+		mainGui.getMainMenu().addRanksItemListener(new AddRankListener());
+	}
+
+	class AddRankListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			try {
+				insertRankWindows.dispose();
+			} catch (NullPointerException npe) {
+			}
+			insertRankWindows = new InsertRanksWindow(selectedCharacter);
+			insertRankWindows.setVisible(true);
+		}
+	}
+
+	class EnableDebugListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			Config.setEnableDebug(mainGui.getMainMenu().isDebugEnabled());
+		}
 	}
 
 	class InsertMagicObject implements ActionListener {
@@ -177,8 +203,7 @@ public class Controller {
 				@Override
 				public void addCharacter(CharacterPlayer characterPlayer) {
 					addCharacterPlayer(characterPlayer);
-					MessageManager.infoMessage(Controller.class.getName(), "Personaje cargado con éxito!",
-							"Cargar");
+					MessageManager.infoMessage(Controller.class.getName(), "Personaje cargado con éxito!", "Cargar");
 				}
 			});
 			loadWindow.addRemoveCharacterListener(new RemoveCharacterListener() {
@@ -216,11 +241,9 @@ public class Controller {
 						return;
 					}
 				}
-				CharacterPlayer characterPersisted = CharacterPlayerDao.getInstance().makePersistent(
-						selectedCharacter);
+				CharacterPlayer characterPersisted = CharacterPlayerDao.getInstance().makePersistent(selectedCharacter);
 				if (characterPersisted != null) {
-					MessageManager.infoMessage(Controller.class.getName(), "Personaje guardado con éxito!",
-							"Salvar");
+					MessageManager.infoMessage(Controller.class.getName(), "Personaje guardado con éxito!", "Salvar");
 				} else {
 					MessageManager
 							.basicErrorMessage(
@@ -248,8 +271,8 @@ public class Controller {
 			File file = new File(path);
 			boolean create = true;
 			if (file.exists() && !file.isDirectory()) {
-				if (!MessageManager.questionMessage(
-						"Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
+				if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?",
+						"Save")) {
 					create = false;
 				}
 			}
@@ -258,19 +281,16 @@ public class Controller {
 				// store in a file.
 				try {
 					File fileDir = new File(path);
-					Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileDir),
-							"UTF8"));
+					Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileDir), "UTF8"));
 
 					out.append(jsonText);
 					out.flush();
 					out.close();
-					MessageManager.infoMessage(Controller.class.getName(), "Nivel exportado correctamente.",
-							"RLMLVL");
+					MessageManager.infoMessage(Controller.class.getName(), "Nivel exportado correctamente.", "RLMLVL");
 					return;
 				} catch (IOException e1) {
 				}
-				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al exportar el nivel!",
-						"RLMLVL");
+				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al exportar el nivel!", "RLMLVL");
 			}
 		}
 	}
@@ -299,8 +319,7 @@ public class Controller {
 				try {
 					LevelUp level = LevelJsonManager.fromJson(selectedCharacter, jsonText);
 					selectedCharacter.importLevel(level);
-					MessageManager.infoMessage(Controller.class.getName(), "Nivel importado correctamente.",
-							"RLMLVL");
+					MessageManager.infoMessage(Controller.class.getName(), "Nivel importado correctamente.", "RLMLVL");
 				} catch (InvalidCharacterException ice) {
 					MessageManager
 							.basicErrorMessage(
@@ -316,8 +335,7 @@ public class Controller {
 				}
 			} catch (Exception exc) {
 				EsherLog.errorMessage(Controller.class.getName(), exc);
-				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al importar el nivel!",
-						"RLMLVL");
+				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al importar el nivel!", "RLMLVL");
 			} finally {
 				try {
 					if (bufferReader != null)
@@ -338,8 +356,8 @@ public class Controller {
 			File file = new File(path);
 			boolean create = true;
 			if (file.exists() && !file.isDirectory()) {
-				if (!MessageManager.questionMessage(
-						"Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
+				if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?",
+						"Save")) {
 					create = false;
 				}
 			}
@@ -349,18 +367,16 @@ public class Controller {
 				File fileDir = new File(path);
 
 				try {
-					Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileDir),
-							"UTF8"));
+					Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileDir), "UTF8"));
 
 					out.append(jsonText);
 					out.flush();
 					out.close();
 
-					MessageManager.infoMessage(Controller.class.getName(),
-							"Personaje exportado correctamente.", "RLM");
+					MessageManager.infoMessage(Controller.class.getName(), "Personaje exportado correctamente.", "RLM");
 				} catch (IOException e1) {
-					MessageManager.basicErrorMessage(Controller.class.getName(),
-							"Error al exportar el personaje!", "RLM");
+					MessageManager.basicErrorMessage(Controller.class.getName(), "Error al exportar el personaje!",
+							"RLM");
 				}
 
 			}
@@ -371,8 +387,7 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForRlm selectTxt = new ExploreWindowForRlm("Personaje.rlm");
-			String path = selectTxt.exploreWindows("Importar Personaje", JFileChooser.FILES_ONLY,
-					"Personaje.rlm");
+			String path = selectTxt.exploreWindows("Importar Personaje", JFileChooser.FILES_ONLY, "Personaje.rlm");
 
 			String jsonText = "";
 			BufferedReader bufferReader = null;
@@ -385,13 +400,11 @@ public class Controller {
 				}
 				bufferReader.close();
 				CharacterPlayer characterPlayer = CharacterJsonManager.fromJson(jsonText);
-				MessageManager.infoMessage(Controller.class.getName(), "Personaje importado correctamente.",
-						"RLM");
+				MessageManager.infoMessage(Controller.class.getName(), "Personaje importado correctamente.", "RLM");
 				addCharacterPlayer(characterPlayer);
 			} catch (Exception exc) {
 				EsherLog.errorMessage(Controller.class.getName(), exc);
-				MessageManager.basicErrorMessage(Controller.class.getName(),
-						"Error al importar el personaje!", "RLM");
+				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al importar el personaje!", "RLM");
 			} finally {
 				try {
 					if (bufferReader != null)
@@ -407,13 +420,13 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForTxt selectTxt = new ExploreWindowForTxt("Ficha.txt");
-			String path = selectTxt.exploreWindows("Hoja en Txt", JFileChooser.FILES_ONLY,
-					getCharacterNameFormatted() + ".txt");
+			String path = selectTxt.exploreWindows("Hoja en Txt", JFileChooser.FILES_ONLY, getCharacterNameFormatted()
+					+ ".txt");
 			File file = new File(path);
 			boolean create = true;
 			if (file.exists() && !file.isDirectory()) {
-				if (!MessageManager.questionMessage(
-						"Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
+				if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?",
+						"Save")) {
 					create = false;
 				}
 			}
@@ -428,13 +441,13 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForTxt selectTxt = new ExploreWindowForTxt("Ficha.pdf");
-			String path = selectTxt.exploreWindows("Hoja en Txt", JFileChooser.FILES_ONLY,
-					getCharacterNameFormatted() + ".txt");
+			String path = selectTxt.exploreWindows("Hoja en Txt", JFileChooser.FILES_ONLY, getCharacterNameFormatted()
+					+ ".txt");
 			File file = new File(path);
 			boolean create = true;
 			if (file.exists() && !file.isDirectory()) {
-				if (!MessageManager.questionMessage(
-						"Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
+				if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?",
+						"Save")) {
 					create = false;
 				}
 			}
@@ -449,21 +462,20 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			final ExploreWindowForPdf selectPdf = new ExploreWindowForPdf("Hoja en PDF");
-			String path = selectPdf.exploreWindows("Hoja en PDF", JFileChooser.FILES_ONLY,
-					getCharacterNameFormatted() + ".pdf");
+			String path = selectPdf.exploreWindows("Hoja en PDF", JFileChooser.FILES_ONLY, getCharacterNameFormatted()
+					+ ".pdf");
 			File file = new File(path);
 			boolean create = true;
 			if (file.exists() && !file.isDirectory()) {
-				if (!MessageManager.questionMessage(
-						"Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
+				if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?",
+						"Save")) {
 					create = false;
 				}
 			}
 			try {
 				if (create && path != null && path.length() > 0) {
 					new PdfStandardSheet(selectedCharacter, path, selectedCharacter.isSortPdfSkills());
-					MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.",
-							"PDF");
+					MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.", "PDF");
 				}
 			} catch (DocumentException | IOException ex) {
 				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al crear el PDF.", "PDF");
@@ -476,21 +488,20 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForPdf selectPdf = new ExploreWindowForPdf("RMFComb.pdf");
-			String path = selectPdf.exploreWindows("Hoja en PDF", JFileChooser.FILES_ONLY,
-					getCharacterNameFormatted() + ".pdf");
+			String path = selectPdf.exploreWindows("Hoja en PDF", JFileChooser.FILES_ONLY, getCharacterNameFormatted()
+					+ ".pdf");
 			try {
 				File file = new File(path);
 				boolean create = true;
 				if (file.exists() && !file.isDirectory()) {
-					if (!MessageManager.questionMessage(
-							"Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
+					if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?",
+							"Save")) {
 						create = false;
 					}
 				}
 				if (create && path != null && path.length() > 0) {
 					new PdfCombinedSheet1Column(selectedCharacter, path);
-					MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.",
-							"PDF");
+					MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.", "PDF");
 				}
 			} catch (DocumentException | IOException ex) {
 				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al crear el PDF.", "PDF");
@@ -503,21 +514,20 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForPdf selectPdf = new ExploreWindowForPdf("RMFComb.pdf");
-			String path = selectPdf.exploreWindows("Hoja en PDF", JFileChooser.FILES_ONLY,
-					getCharacterNameFormatted() + ".pdf");
+			String path = selectPdf.exploreWindows("Hoja en PDF", JFileChooser.FILES_ONLY, getCharacterNameFormatted()
+					+ ".pdf");
 			try {
 				File file = new File(path);
 				boolean create = true;
 				if (file.exists() && !file.isDirectory()) {
-					if (!MessageManager.questionMessage(
-							"Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
+					if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?",
+							"Save")) {
 						create = false;
 					}
 				}
 				if (create && path != null && path.length() > 0) {
 					new PdfCombinedSheet2Columns(selectedCharacter, path);
-					MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.",
-							"PDF");
+					MessageManager.infoMessage(Controller.class.getName(), "Ficha creada correctamente.", "PDF");
 				}
 			} catch (DocumentException | IOException ex) {
 				MessageManager.basicErrorMessage(Controller.class.getName(), "Error al crear el PDF.", "PDF");
@@ -601,12 +611,10 @@ public class Controller {
 								// Create random character.
 								characters.remove(selectedCharacter);
 								try {
-									RandomCharacterPlayer randomCharacter = new RandomCharacterPlayer(
-											character, randomWindow.getFinalLevel());
-									randomCharacter.setSuggestedTrainings(randomWindow
-											.getSuggestedTrainingList());
-									for (String categoryName : randomWindow.getSuggestedCategoriesRanks()
-											.keySet()) {
+									RandomCharacterPlayer randomCharacter = new RandomCharacterPlayer(character,
+											randomWindow.getFinalLevel());
+									randomCharacter.setSuggestedTrainings(randomWindow.getSuggestedTrainingList());
+									for (String categoryName : randomWindow.getSuggestedCategoriesRanks().keySet()) {
 										randomCharacter.setSuggestedCategoryRanks(categoryName, randomWindow
 												.getSuggestedCategoriesRanks().get(categoryName));
 									}
@@ -614,7 +622,7 @@ public class Controller {
 										randomCharacter.setSuggestedCategoryRanks(skillName, randomWindow
 												.getSuggestedSkillsRanks().get(skillName));
 									}
-
+									randomCharacter.setSelectPerks(randomWindow.isPerksEnabled());
 									randomCharacter.addFeedbackListener(new RandomFeedbackListener() {
 
 										@Override
@@ -697,7 +705,7 @@ public class Controller {
 				skillWindow.dispose();
 			} catch (NullPointerException npe) {
 			}
-			skillWindow = new SkillWindow(selectedCharacter);
+			skillWindow = new SkillRanksWindow(selectedCharacter);
 			skillWindow.setVisible(true);
 		}
 	}
@@ -822,11 +830,8 @@ public class Controller {
 	}
 
 	private String getCharacterNameFormatted() {
-		return selectedCharacter.getName().replace(" ", "_")
-				+ "_N"
-				+ selectedCharacter.getCurrentLevelNumber()
+		return selectedCharacter.getName().replace(" ", "_") + "_N" + selectedCharacter.getCurrentLevelNumber()
 				+ (selectedCharacter.getRace() != null ? "_" + selectedCharacter.getRace().getName() : "")
-				+ (selectedCharacter.getProfession() != null ? "_"
-						+ selectedCharacter.getProfession().getName() : "");
+				+ (selectedCharacter.getProfession() != null ? "_" + selectedCharacter.getProfession().getName() : "");
 	}
 }

@@ -11,15 +11,19 @@
 				<include name="characterJson" />
 				<include name="NihalDragoniana" />
 				<include name="MorticiaInnodanTest" />
-				<include name="perkPoints" />
+				<include name="perkTests" />
+				<include name="pulpTests" />
+				<include name="config" />
 			</run>
 		</groups>
 		<classes>
 			<class name="com.softwaremagico.librodeesher.pj.CharacterCreationTest" />
 			<class name="com.softwaremagico.librodeesher.pj.NihalDragonianaTest" />
 			<class name="com.softwaremagico.librodeesher.pj.MorticiaInnodanTest" />
-			<class name="com.softwaremagico.librodeesher.pj.PerkPointsPerRaceTest" />
+			<class name="com.softwaremagico.librodeesher.pj.PerksTests" />
 			<class name="com.softwaremagico.librodeesher.pj.ReadFilesTest" />
+			<class name="com.softwaremagico.librodeesher.pj.PulpTests" />
+			<class name="com.softwaremagico.librodeesher.pj.ConfigTests" />
 		</classes>
 	</test>
 </suite>

@@ -35,6 +35,13 @@
         primary key (Background_ID, languageRanks_KEY)
     );
 
+    create table T_BACKGROUND_OPTIONAL_RACE_LANGUAGES (
+        Background_ID bigint not null,
+        optionalRaceLanguageSelection varchar(255),
+        raceLanguageIndex integer not null,
+        primary key (Background_ID, raceLanguageIndex)
+    );
+
     create table T_BACKGROUND_SKILLS (
         Background_ID bigint not null,
         skills varchar(255)
@@ -68,22 +75,16 @@
         updateTime datetime,
         characteristicsConfirmed bit not null,
         characteristicsTemporalTotalPoints integer,
-        chiPowersAllowed bit not null,
         cultureName varchar(255),
-        darkSpellsAsBasicListsAllowed bit not null,
-        firearmsAllowed bit not null,
-        handWrittingFont bit not null,
         historyText varchar(255),
         name varchar(255),
-        otherRealmtrainingSpellsAllowed bit not null,
-        perksCostHistoryPoints bit not null,
         professionName varchar(255),
         raceName varchar(255),
         sex varchar(255),
-        sortPdfSkills bit not null,
         version varchar(255),
         appearance_ID bigint,
         backgroundId bigint,
+        configuration bigint,
         cultureDecisionsId bigint,
         insertedDataId bigint,
         professionDecisionsId bigint,
@@ -143,6 +144,21 @@
         primary key (T_CHARACTERPLAYER_ID, characteristicsTemporalUpdatesRolls_KEY)
     );
 
+    create table T_CHARACTER_CONFIGURATION (
+        ID bigint not null,
+        comparationId varchar(255) not null,
+        creationTime datetime not null,
+        updateTime datetime,
+        chiPowersAllowed bit not null,
+        darkSpellsAsBasic bit not null,
+        fireArmsActivated bit not null,
+        handWrittingFont bit not null,
+        otherRealmsTrainingSpells bit not null,
+        perksCostHistoryPoints bit not null,
+        sortPdfSkills bit not null,
+        primary key (ID)
+    );
+
     create table T_CULTUREDECISIONS (
         ID bigint not null,
         comparationId varchar(255) not null,
@@ -163,6 +179,20 @@
         languageRanks integer,
         languageRanks_KEY varchar(255),
         primary key (CultureDecisions_ID, languageRanks_KEY)
+    );
+
+    create table T_CULTURE_OPTIONAL_CULTURE_LANGUAGES (
+        CultureDecisions_ID bigint not null,
+        optionalCulturalLanguageSelection varchar(255),
+        raceLanguageIndex integer not null,
+        primary key (CultureDecisions_ID, raceLanguageIndex)
+    );
+
+    create table T_CULTURE_OPTIONAL_RACE_LANGUAGES (
+        CultureDecisions_ID bigint not null,
+        optionalRaceLanguageSelection varchar(255),
+        raceLanguageIndex integer not null,
+        primary key (CultureDecisions_ID, raceLanguageIndex)
     );
 
     create table T_CULTURE_SPELL_RANKS (
@@ -331,7 +361,7 @@
         updateTime datetime,
         cost integer,
         name varchar(255),
-        weakness tinyblob,
+        weakness_ID bigint,
         primary key (ID)
     );
 
@@ -584,6 +614,12 @@
     alter table T_CHARACTERPLAYER_TEMPORAL_CHARACTERISTICS_ROLLS 
         add constraint UK_rsdhy70yoehafjvur7w9b2o66 unique (characteristicsTemporalUpdatesRolls_ID);
 
+    alter table T_CHARACTER_CONFIGURATION 
+        add constraint UK_j71g2kcogvhhr78fdk4hdsilt unique (ID);
+
+    alter table T_CHARACTER_CONFIGURATION 
+        add constraint UK_h49dq3fm78h7isy08sayox779 unique (comparationId);
+
     alter table T_CULTUREDECISIONS 
         add constraint UK_blq96e017u1trnpdefgr091nl unique (ID);
 
@@ -724,6 +760,11 @@
         foreign key (Background_ID) 
         references T_BACKGROUND (ID);
 
+    alter table T_BACKGROUND_OPTIONAL_RACE_LANGUAGES 
+        add constraint FK_7l4gp0h23os7gyjylysu73phq 
+        foreign key (Background_ID) 
+        references T_BACKGROUND (ID);
+
     alter table T_BACKGROUND_SKILLS 
         add constraint FK_swltv618wty5mj3e6mcrs0xav 
         foreign key (Background_ID) 
@@ -743,6 +784,11 @@
         add constraint FK_os1kt82jl37c7r6o4fnurp3n2 
         foreign key (backgroundId) 
         references T_BACKGROUND (ID);
+
+    alter table T_CHARACTERPLAYER 
+        add constraint FK_hxi005f422otrkhcf92puorkc 
+        foreign key (configuration) 
+        references T_CHARACTER_CONFIGURATION (ID);
 
     alter table T_CHARACTERPLAYER 
         add constraint FK_a6if2gfydatge62dg8j1pgy5w 
@@ -836,6 +882,16 @@
 
     alter table T_CULTURE_LANGUAGE_RANKS 
         add constraint FK_f0iotbk7g37ft2eid62prpsct 
+        foreign key (CultureDecisions_ID) 
+        references T_CULTUREDECISIONS (ID);
+
+    alter table T_CULTURE_OPTIONAL_CULTURE_LANGUAGES 
+        add constraint FK_r3n5fqnifsedv0i1ocht6qwbq 
+        foreign key (CultureDecisions_ID) 
+        references T_CULTUREDECISIONS (ID);
+
+    alter table T_CULTURE_OPTIONAL_RACE_LANGUAGES 
+        add constraint FK_7j7i6y8sw7x6c3txfxtxuufev 
         foreign key (CultureDecisions_ID) 
         references T_CULTUREDECISIONS (ID);
 
@@ -958,6 +1014,11 @@
         add constraint FK_1fhy2i4j6k3tpe4qa2ml1o973 
         foreign key (T_MAGIC_OBJECT_ID) 
         references T_MAGIC_OBJECT (ID);
+
+    alter table T_PERKS 
+        add constraint FK_g9wpaab49hqhf44m5yg8qn55s 
+        foreign key (weakness_ID) 
+        references T_PERKS (ID);
 
     alter table T_PERKS_DECISION_CATEGORY_BONUS_CHOSEN 
         add constraint FK_f1fjh72xeap6mctkfyviei7qy 

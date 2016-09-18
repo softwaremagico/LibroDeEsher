@@ -1,4 +1,5 @@
 package com.softwaremagico.files;
+
 /*
  * #%L
  * KendoTournamentGenerator
@@ -30,6 +31,7 @@ import java.io.Writer;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.log.EsherLog;
 
 public class MessageManager {
@@ -99,8 +101,8 @@ public class MessageManager {
 	}
 
 	public static int questionMessage(String text, String title, Object[] options) {
-		int n = JOptionPane.showOptionDialog(null, text, title, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
-				null, options, options[0]);
+		int n = JOptionPane.showOptionDialog(null, text, title, JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 		return n;
 	}
 
@@ -109,5 +111,14 @@ public class MessageManager {
 		PrintWriter printWriter = new PrintWriter(writer);
 		throwable.printStackTrace(printWriter);
 		return writer.toString();
+	}
+
+	/**
+	 * If debug is activated, show information about the error.
+	 */
+	public static void showErrorInformation(String className, Exception ex) {
+		if (Config.isDebugEnabled()) {
+			basicErrorMessage(className, ex.getMessage(), "Unexpected Error");
+		}
 	}
 }

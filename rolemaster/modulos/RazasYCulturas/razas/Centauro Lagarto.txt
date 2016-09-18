@@ -107,7 +107,7 @@ Braga, Liuva, Imelda, Hildegarda, Rosamunda
 
 #APELLIDOS
 ####################################
-Chuckwalla, Escíncido, GIla, Komodo, Rastrero, Sphynx, Basiliscus, Vittatus
+Chuckwalla, Escíncido, Gila, Komodo, Rastrero, Sphynx, Basiliscus, Vittatus
 Fasciatus, Cordylus, Elgaria, Anolis, Takydromus, Furcifer, Pardalis, Calumma
 Parsonii, Jacksonii, Cyclura
 

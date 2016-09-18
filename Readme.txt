@@ -29,6 +29,12 @@ Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadore
 
 Versión
 ------------
+2.4.0	Añadido:
+		- Modo debug.
+		- Posible insertar rangos fuera de los puntos de desarrollo.
+		- Personajes aleatorios pueden tener talentos. 
+		- Idiomas seleccionables por raza y cultura (ej. Idioma Racial)
+		
 2.3.1	Arreglado:
 		- Error al deshabilitar módulos. 
 
@@ -216,6 +222,7 @@ Notas
 -------------------------
 Iconos obtenidos del Gartoon Gnome Icon Theme bajo licencia GNU.
 Utilización de la librería iText para la generación de las fichas en PDF. 
+Pulp templates creadas por Daniel Cordellat
 
 Mas información
 -------------------------

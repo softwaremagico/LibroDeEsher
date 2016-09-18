@@ -6,25 +6,25 @@ import java.util.List;
 
 public abstract class ChooseGroup<T> {
 
-	protected int numberOfOptionsToChoose;
-	protected List<T> optionsGroup;
-	protected ChooseType chooseType;
+	private int numberOfOptionsToChoose;
+	private List<T> optionsGroup;
+	private ChooseType chooseType;
 
 	public ChooseGroup(ChooseType chooseType) {
-		this.numberOfOptionsToChoose = 0;
-		this.optionsGroup = new ArrayList<>();
+		numberOfOptionsToChoose = 0;
+		optionsGroup = new ArrayList<>();
 		this.chooseType = chooseType;
 	}
 
 	public ChooseGroup(int chooseNumber, List<T> optionsGroup, ChooseType chooseType) {
-		this.numberOfOptionsToChoose = chooseNumber;
+		numberOfOptionsToChoose = chooseNumber;
 		this.optionsGroup = optionsGroup;
 		this.chooseType = chooseType;
 	}
 
 	public ChooseGroup(int chooseNumber, T option, ChooseType chooseType) {
 		this.chooseType = chooseType;
-		this.numberOfOptionsToChoose = chooseNumber;
+		numberOfOptionsToChoose = chooseNumber;
 		List<T> optionsGroup = new ArrayList<>();
 		optionsGroup.add(option);
 		this.optionsGroup = optionsGroup;

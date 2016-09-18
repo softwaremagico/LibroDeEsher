@@ -110,8 +110,8 @@ public class CharacterComparator {
 									+ character1.getInsertedRanks(skill)
 									+ "', new ranks '"
 									+ character1.getCurrentLevelRanks(skill)
-									+ (category.getName().toLowerCase().equals(Spanish.COMUNICATION_CATEGORY) ? "language ranks '"
-											+ character1.getLanguageRanks(skill.getName()) + "'"
+									+ (category.getName().toLowerCase().equals(Spanish.COMUNICATION_CATEGORY.toLowerCase()) ? "language ranks '"
+											+ character1.getCultureLanguageRanks(skill.getName()) + "'"
 											: "")
 									+ ", specialization ranks '"
 									+ character1.getSkillSpecializations(skill)
@@ -148,7 +148,7 @@ public class CharacterComparator {
 									+ "', new ranks '"
 									+ character2.getCurrentLevelRanks(skill)
 									+ (category.getName().toLowerCase().equals(Spanish.COMUNICATION_CATEGORY) ? "language ranks '"
-											+ character2.getLanguageRanks(skill.getName()) + "'"
+											+ character2.getCultureLanguageRanks(skill.getName()) + "'"
 											: "") + ", specialization ranks '"
 									+ character2.getSkillSpecializations(skill) + ", category value '"
 									+ character2.getTotalValue(category) + "', profession bonus '"

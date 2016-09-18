@@ -68,7 +68,7 @@ public class OptionsWindow extends BaseFrame {
 
 	public OptionsWindow(CharacterPlayer character) {
 		this.character = character;
-		defineWindow(500, 390);
+		defineWindow(500, 410);
 		setElements();
 		setCurrentCharacterConfig();
 		setResizable(false);

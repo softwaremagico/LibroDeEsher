@@ -1,0 +1,2 @@
+#Generalizaciones: Escopeta, Rifle, Rifle de Francotirador, Rifle de Avancarga, Rifle Energético
+Rifle Energético: Saukur	rflSa

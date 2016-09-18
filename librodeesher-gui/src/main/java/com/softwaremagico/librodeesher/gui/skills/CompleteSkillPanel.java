@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.skills;
+
 /*
  * #%L
  * Libro de Esher
@@ -23,44 +24,50 @@ package com.softwaremagico.librodeesher.gui.skills;
  * #L%
  */
 
+import com.softwaremagico.librodeesher.gui.components.SkillWindow;
 import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
+import com.softwaremagico.librodeesher.gui.elements.BaseSkillPanel;
+import com.softwaremagico.librodeesher.gui.elements.SkillTitleLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
-public class CompleteSkillPanel extends BaseScrollPanel {
+public abstract class CompleteSkillPanel extends BaseScrollPanel {
 	private static final long serialVersionUID = -6707835769716507229L;
-	private SkillTitle title;
-	private SkillPanel skillPanel;
+	private SkillTitleLine title;
+	private BaseSkillPanel skillPanel;
 	private SkillWindow parentWindow;
 
 	public CompleteSkillPanel(CharacterPlayer character, SkillWindow parentWindow) {
 		this.parentWindow = parentWindow;
-		title = new SkillTitle();
+		title = createSkillTitle();
 		addTitle(title);
-		skillPanel = new SkillPanel(character, this);
+		skillPanel = createSkillPanel();
 		setBody(skillPanel);
 	}
+
+	public abstract BaseSkillPanel createSkillPanel();
 	
-	
+	public abstract SkillTitleLine createSkillTitle();
+
 	public void sizeChanged() {
 		if (title != null) {
 			title.sizeChanged();
 		}
 	}
-	
+
 	@Override
 	public void update() {
 		parentWindow.updateFrame();
 	}
-	
-	public void updateCategories(){
+
+	public void updateCategories() {
 		setElements();
 	}
-	
-	public void updateRanks(){
+
+	public void updateRanks() {
 		skillPanel.updateRanks();
 	}
-	
-	public void updateWeaponCost(){
+
+	public void updateWeaponCost() {
 		skillPanel.updateWeaponCost();
 	}
 

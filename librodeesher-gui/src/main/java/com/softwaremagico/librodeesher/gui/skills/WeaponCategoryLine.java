@@ -48,7 +48,7 @@ public class WeaponCategoryLine extends GenericCategoryLine {
 			CategoryCost cost, Integer weaponIndex) {
 		super(character, category, NAME_LENGTH, background, parentWindow);
 		updatingWeaponCost = true;
-		enableColumns(true, true, true, true, true, true, true, true);
+		enableColumns(true, true, false, true, false, true, true, true, true, true);
 		setDefaultBackground(background);
 		this.weaponLineNumber = weaponIndex;
 		previousSelectedIndex = weaponIndex;

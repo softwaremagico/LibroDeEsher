@@ -216,7 +216,7 @@ public class SkillProbability {
 		int bonus = 0;
 		// Only communication skills that already has ranks (to avoid weird
 		// languages!).
-		if (skill.getCategory().getName().toLowerCase().contains(Spanish.COMUNICATION_CATEGORY)
+		if (skill.getCategory().getName().toLowerCase().contains(Spanish.COMUNICATION_CATEGORY.toLowerCase())
 				&& characterPlayer.getTotalRanks(skill) == 0) {
 			bonus -= 40;
 		}
@@ -243,7 +243,7 @@ public class SkillProbability {
 		}
 
 		// No more than 10 ranks per language.
-		if (skill.getCategory().getName().toLowerCase().contains(Spanish.COMUNICATION_CATEGORY)
+		if (skill.getCategory().getName().toLowerCase().contains(Spanish.COMUNICATION_CATEGORY.toLowerCase())
 				&& characterPlayer.getRealRanks(skill) > 9) {
 			return -MAX_VALUE;
 		}

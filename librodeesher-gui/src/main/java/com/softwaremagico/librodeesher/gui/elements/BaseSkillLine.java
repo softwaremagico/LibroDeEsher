@@ -43,7 +43,9 @@ public abstract class BaseSkillLine extends BaseLine {
 	protected BaseSkillPanel parentWindow;
 	protected boolean costPanel = false;
 	protected boolean oldRanksPanel = false;
+	protected boolean insertedRanksPanel = false;
 	protected boolean chooseRanksPanel = false;
+	protected boolean totalRanksPanel = false;
 	protected boolean ranksValuePanel = false;
 	protected boolean bonusCategoryPanel = false;
 	protected boolean otherBonusPanel = false;
@@ -51,12 +53,14 @@ public abstract class BaseSkillLine extends BaseLine {
 	protected boolean totalPanel = false;
 	private boolean emptyColumns = false;
 
-	public void enableColumns(boolean costPanel, boolean oldRanksPanel, boolean chooseRanksPanel,
-			boolean ranksValuePanel, boolean bonusCategoryPanel, boolean otherBonusPanel,
-			boolean objectBonusPanel, boolean totalPanel) {
+	public void enableColumns(boolean costPanel, boolean oldRanksPanel, boolean insertedRanksPanel,
+			boolean chooseRanksPanel, boolean totalRanksPanel, boolean ranksValuePanel, boolean bonusCategoryPanel,
+			boolean otherBonusPanel, boolean objectBonusPanel, boolean totalPanel) {
 		this.costPanel = costPanel;
 		this.oldRanksPanel = oldRanksPanel;
+		this.insertedRanksPanel = insertedRanksPanel;
 		this.chooseRanksPanel = chooseRanksPanel;
+		this.totalRanksPanel = totalRanksPanel;
 		this.ranksValuePanel = ranksValuePanel;
 		this.bonusCategoryPanel = bonusCategoryPanel;
 		this.otherBonusPanel = otherBonusPanel;

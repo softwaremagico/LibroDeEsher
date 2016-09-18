@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.elements;
+
 /*
  * #%L
  * Libro de Esher
@@ -32,4 +33,8 @@ public abstract class BaseSkillPanel extends BasePanel {
 	public abstract void update();
 
 	public abstract void updateSkillsOfCategory(Category category);
+
+	public abstract void updateRanks();
+
+	public abstract void updateWeaponCost();
 }

@@ -50,7 +50,7 @@ public class CharacterCreationTest {
 
 	@Test(groups = { "characterCreation" })
 	public void createCharacter() throws MagicDefinitionException, InvalidProfessionException {
-		RandomCharacterPlayer randomCharacter = new RandomCharacterPlayer(null, null, null, null, 1);
+		RandomCharacterPlayer randomCharacter = new RandomCharacterPlayer(null, null, null, null, true, 1);
 		// randomCharacter.setSuggestedTrainings(new
 		// ArrayList<String>(Arrays.asList("Soldado", "Guardia")));
 		randomCharacter.addFeedbackListener(new RandomFeedbackListener() {
