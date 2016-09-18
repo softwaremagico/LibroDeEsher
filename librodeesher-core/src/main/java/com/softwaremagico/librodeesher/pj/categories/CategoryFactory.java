@@ -61,7 +61,6 @@ public class CategoryFactory {
 		} catch (InvalidCategoryException e) {
 			EsherLog.errorMessage(CategoryFactory.class.getName(), e);
 		} catch (InvalidSkillException e) {
-			System.out.println(e.getMessage());
 			EsherLog.errorMessage(CategoryFactory.class.getName(), e);
 		}
 	}
@@ -106,7 +105,8 @@ public class CategoryFactory {
 		return skills;
 	}
 
-	public static Category createCategory(String categoryName, String abbreviature, String characteristicsTag, String type, String skills) {
+	public static Category createCategory(String categoryName, String abbreviature,
+			String characteristicsTag, String type, String skills) {
 		CategoryType catType = CategoryType.getCategoryType(type);
 		Category cat;
 		switch (catType) {
@@ -188,14 +188,16 @@ public class CategoryFactory {
 						String abrevCat = categoryAbbrevName[1].replace(")", "");
 						Category cat = availableCategories.get(categoryName);
 						if (cat == null) {
-							cat = createCategory(categoryName, abrevCat, descomposed_line[1], descomposed_line[2], descomposed_line[3]);
+							cat = createCategory(categoryName, abrevCat, descomposed_line[1],
+									descomposed_line[2], descomposed_line[3]);
 							availableCategories.put(categoryName, cat);
 							availableCategoriesByName.add(categoryName);
 						} else {
 							cat.addSkills(descomposed_line[3]);
 						}
 					} catch (ArrayIndexOutOfBoundsException aiofb) {
-						throw new InvalidCategoryException("Abreviatura de categoria mal definida en " + categoryName);
+						throw new InvalidCategoryException("Abreviatura de categoria mal definida en "
+								+ categoryName);
 					}
 				}
 			}
@@ -216,8 +218,8 @@ public class CategoryFactory {
 		SkillFactory.updateDisabledSkills();
 	}
 
-	public static Category getCategory(String categoryName, String abbrev, String characteristics, String type, String skills)
-			throws Exception {
+	public static Category getCategory(String categoryName, String abbrev, String characteristics,
+			String type, String skills) throws Exception {
 
 		Category cat = availableCategories.get(categoryName);
 		if (cat == null) {
@@ -247,8 +249,10 @@ public class CategoryFactory {
 		if (closeCombatWeaponsCategories == null) {
 			closeCombatWeaponsCategories = new ArrayList<>();
 			for (Category category : weaponsCategoriesFromFiles) {
-				if (category.getName().equals(Spanish.WEAPONS_EDGE) || category.getName().equals(Spanish.WEAPONS_POLE)
-						|| category.getName().equals(Spanish.WEAPONS_HAMMERS) || category.getName().equals(Spanish.WEAPONS_TWOHANDS)) {
+				if (category.getName().equals(Spanish.WEAPONS_EDGE)
+						|| category.getName().equals(Spanish.WEAPONS_POLE)
+						|| category.getName().equals(Spanish.WEAPONS_HAMMERS)
+						|| category.getName().equals(Spanish.WEAPONS_TWOHANDS)) {
 					closeCombatWeaponsCategories.add(category);
 				}
 			}
@@ -260,7 +264,8 @@ public class CategoryFactory {
 		if (longRangeWeaponsCategories == null) {
 			longRangeWeaponsCategories = new ArrayList<>();
 			for (Category category : weaponsCategoriesFromFiles) {
-				if (category.getName().equals(Spanish.WEAPONS_PROJECTILE) || category.getName().equals(Spanish.WEAPONS_THROWABLE)
+				if (category.getName().equals(Spanish.WEAPONS_PROJECTILE)
+						|| category.getName().equals(Spanish.WEAPONS_THROWABLE)
 						|| category.getName().equals(Spanish.WEAPONS_FIREARMS_ONEHAND)
 						|| category.getName().equals(Spanish.WEAPONS_FIREARMS_TWOHANDS)) {
 					longRangeWeaponsCategories.add(category);
@@ -274,7 +279,8 @@ public class CategoryFactory {
 		if (othersWeaponsCategories == null) {
 			othersWeaponsCategories = new ArrayList<>();
 			for (Category category : weaponsCategoriesFromFiles) {
-				if (category.getName().equals(Spanish.WEAPONS_MARTIALS_HITS) || category.getName().equals(Spanish.WEAPONS_MARTIALS_KICKS)
+				if (category.getName().equals(Spanish.WEAPONS_MARTIALS_HITS)
+						|| category.getName().equals(Spanish.WEAPONS_MARTIALS_KICKS)
 						|| category.getName().equals(Spanish.WEAPONS_MARTIALS_MANIOBRES)
 						|| category.getName().equals(Spanish.WEAPONS_SPECIALS)) {
 					othersWeaponsCategories.add(category);

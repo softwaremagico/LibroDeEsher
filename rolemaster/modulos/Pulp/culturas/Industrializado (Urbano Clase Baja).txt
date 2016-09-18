@@ -1,6 +1,6 @@
 # ARMAS TÍPICAS
 ####################
-Machete, Sable, {Pistola Automática; Revolver}
+Machete, Sable, Pistola Automática, Revolver
 
 # ARMADURAS TÍPICAS
 ####################
@@ -78,15 +78,12 @@ Rastrear, Seducción, Sentido de la Dirección, Sobornar, Supervivencia (Desiert
 Tocar Instrumento, Trabajar el Cuero, Trabajar el Metal, Trabajar la Madera
 Trabajar la Piedra
 
-<<<<<<< HEAD
-=======
 # IDIOMAS
 ####################
 Idioma Regional	6/6
 Idioma Regional	4/4
 Idioma Regional	0/0
 
->>>>>>> 532ff43d349df9d825ff6d13a75f67845cc03fdd
 # ADIESTAMIENTOS
 ####################
 Ninguno

@@ -1,6 +1,6 @@
 # ARMAS TÍPICAS
 ####################
-Machete, Sable, {Pistola Automática; Revolver}
+Machete, Sable, Pistola Automática, Revolver
 
 # ARMADURAS TÍPICAS
 ####################
@@ -75,15 +75,12 @@ Desarrollo Físico, Historia, Idiomas, Juegos de Estrategia, Manejo de los Anima
 Montar, Orientación Celeste, Sentido de la Dirección, Sentido del Tiempo
 Sobornar, Supervivencia (Desierto), Trabajar el Cuero, Trabajar la Piedra
 
-<<<<<<< HEAD
-=======
 # IDIOMAS
 ####################
 Idioma Regional	6/6
 Idioma Regional	4/4
 Idioma Regional	0/0
 
->>>>>>> 532ff43d349df9d825ff6d13a75f67845cc03fdd
 # ADIESTAMIENTOS
 ####################
 Ninguno

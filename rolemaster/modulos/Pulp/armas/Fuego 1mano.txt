@@ -1,0 +1,3 @@
+#Generalizaciones: Pistola Automática, Revolver, Pistola Avancarga, Pistola energética
+Revolver: Colt Trooper	pstCt
+Pistola Automática	pstAut
