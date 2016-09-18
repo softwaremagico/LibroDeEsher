@@ -145,16 +145,20 @@ public class Culture {
 					String lineaArmasCultura = lines.get(index);
 					String[] weapons = lineaArmasCultura.split(", ");
 					for (String weaponName : weapons) {
-						Weapon weapon;
 						try {
-							weapon = WeaponFactory.getWeapon(weaponName);
-							if (weapon != null) {
-								cultureWeapons.add(weapon);
+							if(weaponName.contains("{")) {
+								//Is a subset of weapons, such as "revolver".
+								cultureWeapons.addAll(WeaponFactory.getWeaponsByPrefix(weaponName));
 							} else {
-								// It is a category
-								WeaponType type = WeaponType.getWeaponType(weaponName);
-								if (type != null) {
-									cultureWeapons.addAll(WeaponFactory.getWeaponsByTypeNonRare(type));
+								Weapon weapon = WeaponFactory.getWeapon(weaponName);
+								if (weapon != null) {
+									cultureWeapons.add(weapon);
+								} else {
+									// It is a category
+									WeaponType type = WeaponType.getWeaponType(weaponName);
+									if (type != null) {
+										cultureWeapons.addAll(WeaponFactory.getWeaponsByTypeNonRare(type));
+									}  
 								}
 							}
 						} catch (InvalidWeaponException e) {

@@ -149,5 +149,25 @@ public class WeaponFactory {
 		throw new InvalidWeaponException("Weapon '" + name
 				+ "' abbreviature not found!");
 	}
+	
+	
+	/**
+	 * Returns a subset of weapons by a prefix. Something like gets all revolvers.	
+	 * @param prefix
+	 * @return
+	 */
+	public static List<Weapon> getWeaponsByPrefix(String prefix) {
+		List<Weapon> filteredWeapons = new ArrayList<>();
+		prefix = prefix.replaceAll("\\{", "").replaceAll("\\}", "").toLowerCase();
+		for (WeaponType type : WeaponType.values()) {
+			List<Weapon> weapons = weaponsByType.get(type);			
+			for (Weapon weapon : weapons) {
+				if (weapon.getName().toLowerCase().startsWith(prefix)) {
+					filteredWeapons.add(weapon);
+				}
+			}
+		}
+		return filteredWeapons;
+	}
 
 }

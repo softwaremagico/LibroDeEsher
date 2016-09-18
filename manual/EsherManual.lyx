@@ -2431,7 +2431,11 @@ Armas Típicas
 Aquí se incluye un listado de armas de la cultura.
  Estas armas estarán disponibles para el jugador a la hora de gastar aficiones
  o distribuir rangos en las armas.
- En el caso de escribir la palabra 
+ Las reglas aplicables aquí son:
+\end_layout
+
+\begin_layout Enumerate
+En el caso de escribir la palabra 
 \begin_inset Quotes eld
 \end_inset
 
@@ -2441,8 +2445,24 @@ Todas
 
  se podrá escoger cualquier arma que no sea considerada rara, es decir,
  cualquier arma que no tenga un asterisco en su definición.
- Si se incluye el nombre de una categoría de armas, se podrá escoger cualquier
+ 
+\end_layout
+
+\begin_layout Enumerate
+Si se incluye el nombre de una categoría de armas, se podrá escoger cualquier
  arma de dicha categoría si no es considerada rara.
+\end_layout
+
+\begin_layout Enumerate
+Si se incluye una palabra entre llaves, como por ejemplo 
+\begin_inset Quotes eld
+\end_inset
+
+{Revólver}
+\begin_inset Quotes erd
+\end_inset
+
+, se incluirá todas las armas que tengan esa palabra como prefijo.
 \end_layout
 
 \begin_layout Subsection
@@ -2777,6 +2797,34 @@ Nota: incluir una habilidad para ser habilitada por otra automáticamente
  Por lo que en el ejemplo anterior, al definir el Estilo de la Grulla junto
  con sus dos poderes chi automáticamente ha deshabilitado ambos poderes
  chi de poder ser escogidos de forma normal por un jugador.
+ 
+\end_layout
+
+\begin_layout Standard
+Tienes que tener en cuenta que añadir una categoría no hará que aparezca
+ automáticamente en el programa.
+ Esto es debido a que este filtra las categorías disponibles por coste por
+ profesión.
+ Es decir, si añades una categoría que sea 
+\begin_inset Quotes eld
+\end_inset
+
+Explosivos
+\begin_inset Quotes erd
+\end_inset
+
+, esta no aparecerá en ningún personaje salvo que este escoja una profesión
+ con un coste asociado a la categoría 
+\begin_inset Quotes eld
+\end_inset
+
+Explosivos
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Para usarlo, tendrías que crear una nueva profesión con coste en dicha
+ categoría o modificar las ya existentes y añadirle el coste oportuno.
  
 \end_layout
 

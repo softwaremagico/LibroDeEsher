@@ -1,6 +1,6 @@
 # ARMAS TÍPICAS
 ####################
-Machete, Sable, Pistola Automática, Revolver
+Machete, Sable, {Pistola Automática}, {Revolver}
 
 # ARMADURAS TÍPICAS
 ####################
