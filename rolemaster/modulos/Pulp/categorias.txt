@@ -1,4 +1,4 @@
 #Nombre	Características	Progresión	Habilidades {AñadirNuevaHabilidad1; AñadirNuevaHabilidad2;...} [Especialidad1; Especialidad2; ...]
 ################################################################
-Comunicación(Comun)	Ra/Me/Em	Estándar	Hablar Inglés, Escribir Inglés, Hablar Francés, Escribir Francés, Hablar Español, Escribir Español
+Comunicación(Comun)	Ra/Me/Em	Estándar	Hablar Inglés, Escribir Inglés, Hablar Francés, Escribir Francés, Hablar Español, Escribir Español, Hablar Ruso, Escribir Ruso, Hablar Catalán, Escribir Catalán, Hablar Portugués, Escribir Portugués, Hablar Italiano, Escribir Italiano, Hablar Rumano, Escribir Rumano, Hablar Lituano, Escribir Lituano, Hablar Alemán, Escribir Alemán, Hablar Holandés, Escribir Holandés, Hablar Mandarín, Escribir Mandarín, Hablar Catonés, Escribir Cantonés, Hablar Tibetano, Escribir Tibetano, Hablar Thai, Escribir Thai, Hablar Japonés, Escribir Japonés
 Conocimiento·Académico(ConAca)	Me/Ra/Me	Estándar	Historia del Arte, Filosofía, Periodismo, Ciencias Políticas, Derecho, Historia, Religión
