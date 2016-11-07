@@ -29,6 +29,9 @@ Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadore
 
 Versión
 ------------
+2.4.1	Añadido:
+		- Generalización de armas. 
+		
 2.4.0	Añadido:
 		- Modo debug.
 		- Posible insertar rangos fuera de los puntos de desarrollo.
