@@ -1,0 +1,6 @@
+#Nombre	Características	Progresión	Habilidades {AñadirHabilidadDesbloqueada1; AñadirHabilidadDesbloqueada2;...} [Especialidad1; Especialidad2; ...]
+################################################################
+Ataques Especiales(AtaEsp)	Fu/Ag/Ad	Combinada	Ataque Racial: Extremidades*, Ataque Racial: Boca*, Ataque Racial: Aliento*, Ataque Racial: Otro*, Ataque Racial: Vómito*
+Comunicación(Comun)	Ra/Me/Em	Estándar	Hablar Habla Común, Escribir Habla Común, Hablar Habla de las Llanuras, Escribir Habla de las Llanuras, Hablar Habla Alta, Escribir Habla Alta, Hablar Habla del Desierto, Escribir Habla del Desierto, Hablar Habla del Norte, Escribir Habla del Norte, Hablar Habla del Sur, Escribir Habla del Sur, Hablar Habla de los Mares, Escribir Habla de los Mares, Hablar Habla de las Colinas, Escribir Habla de las Colinas, Hablar Habla de los Bosques, Escribir Habla de los Bosques, Idiomas Mágicos  (R), Idiomas Mágicos: Hechizos Elementales (R), Idiomas Mágicos: Espiritus (R)
+Exteriores·Animales(ExtAni)	Em/Ag/Em	Estándar	Montar: Montura Elemental*
+Manipulación del Poder(ManPod)	Em/In/Ad	Combinada	Trascender Armadura (R)
