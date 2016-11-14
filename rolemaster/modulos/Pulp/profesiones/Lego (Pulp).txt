@@ -18,6 +18,8 @@ Armas·Contundentes	5
 Armas·Asta	5
 Armas·Filo	5
 Armas·Proyectiles	5
+Armas·Fuego 1Mano	5
+Armas·Fuego 2Manos	5
 Atletismo·Gimnasia	5
 Atletismo·Potencia	5
 Atletismo·Resistencia	5
@@ -173,7 +175,7 @@ Femme Fatale	30
 Hombre del Gobierno	48
 Gadgeteer	32
 Gangster	32
-Great White Hunter	42
+Gran Cazador Blanco	42
 Guardian	41
 Cazador	34
 Villano Indisioso	37

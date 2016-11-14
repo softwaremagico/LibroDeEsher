@@ -157,7 +157,7 @@ Femme Fatale	34
 Hombre del Gobierno	55
 Gadgeteer	30
 Gangster	42
-Great White Hunter	55
+Gran Cazador Blanco	55
 Guardian	54
 Cazador	43
 Villano Indisioso	36
