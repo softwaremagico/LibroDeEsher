@@ -4,7 +4,7 @@ Machete, Sable, {Pistola Automática}, {Revolver}
 
 # ARMADURAS TÍPICAS
 ####################
-Cuero Blando, Cuero Endurecido
+Armadura Tipo I, Armadura Tipo II
 
 # RANGOS
 ####################
