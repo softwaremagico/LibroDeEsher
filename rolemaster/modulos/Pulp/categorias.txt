@@ -5,8 +5,8 @@ Atletismo·Gimnasia(AtlG)	Ag/Rp/Ag	Estándar	Braquiación, Paracaidismo
 Atletismo·Resistencia(AtlR)	Co/Ag/Fu	Estándar	Ciclismo
 Autocontrol(Autoc)	Ad/Pr/Ad	Estándar	Recarga Adrenal
 Ciencia/Analítica·Especializada(CienE)	Ra/Me/Ra	Combinada	Física
-Ciencia·Médica	Ra/Me/In	Estándar	Autópsia, Práctica Médica, Ciencia Médica, Fármacos, Terapia con Drogas
-Ciencia·Técnica	Ra/Me/Ag	Estándar	Tecnología Criminal, Tecnología Electrónica, Tecnología Genética, Tecnología Mecánica, Tecnología Armamentística, Creación de Artilugios
+Ciencia/Analítica·Médica(CienM)	Ra/Me/In	Estándar	Autópsia, Práctica Médica, Ciencia Médica, Fármacos, Terapia con Drogas
+Ciencia/Analítica·Técnica(CienT)	Ra/Me/Ag	Estándar	Tecnología Criminal, Tecnología Electrónica, Tecnología Genética, Tecnología Mecánica, Tecnología Armamentística, Creación de Artilugios
 Comunicación(Comun)	Ra/Me/Em	Estándar	Lectura Rápida, Hablar Inglés, Escribir Inglés, Hablar Francés, Escribir Francés, Hablar Español, Escribir Español, Hablar Ruso, Escribir Ruso, Hablar Catalán, Escribir Catalán, Hablar Portugués, Escribir Portugués, Hablar Italiano, Escribir Italiano, Hablar Rumano, Escribir Rumano, Hablar Lituano, Escribir Lituano, Hablar Alemán, Escribir Alemán, Hablar Holandés, Escribir Holandés, Hablar Mandarín, Escribir Mandarín, Hablar Catonés, Escribir Cantonés, Hablar Tibetano, Escribir Tibetano, Hablar Thai, Escribir Thai, Hablar Japonés, Escribir Japonés
 Conocimiento·Académico(ConAca)	Me/Ra/Me	Estándar	Historia del Arte, Filosofía, Periodismo, Ciencias Políticas, Derecho, Historia de la Religión, Artes Gráficas, Canon, Comparación de Religiones, Doctrina Filosófica/Religiosa, Sociología
 Influencia(Infl)	Pr/Em/In	Estándar	Lavado de Cerebro, Saber Hacer

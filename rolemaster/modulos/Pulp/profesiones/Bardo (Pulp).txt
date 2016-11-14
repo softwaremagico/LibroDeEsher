@@ -46,8 +46,8 @@ Atletismo·Resistencia	2/7
 Autocontrol	2/7
 Ciencia/Analítica·Básica	2/5
 Ciencia/Analítica·Especializada	6
-Ciencia/Médica	6
-Ciencia/Técnica	4
+Ciencia/Analítica·Médica	6
+Ciencia/Analítica·Técnica	4
 Comunicación	1/2/2
 Conocimiento·General	1/2
 Conocimiento·Académico	1/2

@@ -1,6 +1,6 @@
 # Nombre	Coste	Permitido	Grado	Tipo	Categoria1 (bonus), Categoria2 (bonus), {listado a seleccionar una}...	Descripcion	
 #########	#########	#########	#######	#########	#########	#########	
-Acróbata	7	Menor	Todos	Adiestramiento Especial	Atletismo·Gimnasia (20)	Pagina 52 del Manual de Personajes.
+Acróbata	7	Todos	Menor	Adiestramiento Especial	Atletismo·Gimnasia (20)	Pagina 52 del Manual de Personajes.
 Adherencia	25	Todos	Máximo	Capacidad Especial	Trepar (50)	Puedes caminar por las paredes o techos. Consulta la página 68 del libro de personajes para más información.	
 Adicción Ligera	-20	Todos	Máximo	Mental	Ninguno	Consulta la página 90 del libro de personajes para más información.	
 Adicción Mínima	-5	Todos	Mínimo	Mental	Ninguna	Consulta la página 90 del libro de personajes para más información.	

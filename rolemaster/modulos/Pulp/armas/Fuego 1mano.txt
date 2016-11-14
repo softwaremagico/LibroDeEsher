@@ -1,6 +1,6 @@
 #Generalizaciones: Pistola Automática, Revolver, Pistola Avancarga, Pistola energética
 Revolver: Colt Trooper	pstCt
-Revolver: Colt Army (Peacemaker) pstPM
+Revolver: Colt Army (Peacemaker)	pstPM
 Revolver: Colt DA Army	pstDA
 Revolver: Colt Detective Special	pstDS
 Revolver: Colt Navy	pstNv
