@@ -58,6 +58,8 @@ Atletismo·Resistencia	2/7
 Autocontrol	2/7
 Ciencia/Analítica·Básica	2/5
 Ciencia/Analítica·Especializada	6
+Ciencia/Médica	4
+Ciencia/Técnica	6
 Comunicación	1/2/2
 Conocimiento·General	1/3
 Conocimiento·Académico	2/6
@@ -170,6 +172,8 @@ Explorador	30
 Femme Fatale	30
 Hombre del Gobierno	48
 Gadgeteer	32
+Gangster	32
+Great White Hunter	42
 Guardian	41
 Cazador	34
 Villano Indisioso	37
@@ -177,6 +181,7 @@ Periodista	32
 Erudito	29	14
 Artista Marcial	38
 Mecánico	26
+Mercenario	38
 Mercante	16
 Soldado	48
 Ocultista	60	30
@@ -191,7 +196,6 @@ Deportista	38
 Espía	26
 Viajero	24
 Trotamundos	27
-Gangster	32
 Experto en Armas	57
 Fanático Religioso	26
 

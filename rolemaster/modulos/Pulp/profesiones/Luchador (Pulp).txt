@@ -36,12 +36,11 @@ Armas·Categoría4	2/7
 Armas·Categoría5	2/7
 Armas·Categoría6	5
 Armas·Categoría7	5
-Armas·Categoría8	5
-Armas·Categoría9	5
 Arte·Activo	2/5
 Arte·Pasivo	2/5
 Artes Marciales·Golpes	3/5
 Artes Marciales·Barridos	3/5
+Artes Marciales·Maniobras de Combate	5/12
 Ataques Especiales	2/6
 Atletismo·Gimnasia	2/5
 Atletismo·Potencia	2/5
@@ -49,13 +48,16 @@ Atletismo·Resistencia	2/6
 Autocontrol	2/6
 Ciencia/Analítica·Básica	3/6
 Ciencia/Analítica·Especializada	10
+Ciencia/Médica	8
+Ciencia/Técnica	10
 Comunicación	2/2/2
 Conocimiento·General	1/3
+Conocimiento·Académico	2/6
 Conocimiento·Mágico	12
 Conocimiento·Oscuro	3/7
 Conocimiento·Técnico	2/6
 Defensas Especiales	35
-Desarrollo de Puntos de Poder	40
+Desarrollo de Puntos de Poder	20
 Desarrollo Físico	2/5
 Exteriores·Animales	1/4
 Exteriores·Entorno	2/5
@@ -95,41 +97,41 @@ Ninguna
 
 #DESARROLLO DE HECHIZOS
 ####################################
-Lista Abierta (1-5)	25
-Lista Abierta (6-10)	50
-Lista Abierta (11-15)	75
-Lista Abierta (16-20)	100
-Lista Abierta (21+)	125
-Lista Cerrada (1-5)	40
-Lista Cerrada (6-10)	80
-Lista Cerrada (11-15)	120
-Lista Cerrada (16-20)	160
-Lista Cerrada (21+)	200
-Listas Básicas de Otras Profesiones (1-5)	80
-Listas Básicas de Otras Profesiones (6-10)	160
-Listas Básicas de Otras Profesiones (11-15)	240
-Listas Básicas de Otras Profesiones (16-20)	320
-Listas Básicas de Otras Profesiones (21+)	400
-Listas Abiertas de Otros Reinos (1-5)	90
-Listas Abiertas de Otros Reinos (6-10)	180
-Listas Abiertas de Otros Reinos (11-15)	270
-Listas Abiertas de Otros Reinos (16-20)	360
-Listas Abiertas de Otros Reinos (21+)	450
-Listas Cerradas de Otros Reinos (1-5)	105
-Listas Cerradas de Otros Reinos (6-10)	210
-Listas Cerradas de Otros Reinos (11-15)	315
-Listas Cerradas de Otros Reinos (16-20)	420
-Listas Cerradas de Otros Reinos (21+)	525
-Listas Básicas de Otros Reinos (1-5)	80
-Listas Básicas de Otros Reinos (6-10)	160
-Listas Básicas de Otros Reinos (11-15)	240
-Listas Básicas de Otros Reinos (16-20)	320
-Listas Básicas de Otros Reinos (21+)	400
-Listas Abiertas Arcanas (1-5)	30
-Listas Abiertas Arcanas (6-10)	60
-Listas Abiertas Arcanas (11-15)	90
-Listas Abiertas Arcanas (16-20)	120
-Listas Abiertas Arcanas (21+)	150
+Lista Abierta (1-5)	50
+Lista Abierta (6-10)	100
+Lista Abierta (11-15)	150
+Lista Abierta (16-20)	200
+Lista Abierta (21+)	250
+Lista Cerrada (1-5)	80
+Lista Cerrada (6-10)	160
+Lista Cerrada (11-15)	240
+Lista Cerrada (16-20)	320
+Lista Cerrada (21+)	400
+Listas Básicas de Otras Profesiones (1-5)	160
+Listas Básicas de Otras Profesiones (6-10)	320
+Listas Básicas de Otras Profesiones (11-15)	480
+Listas Básicas de Otras Profesiones (16-20)	640
+Listas Básicas de Otras Profesiones (21+)	800
+Listas Abiertas de Otros Reinos (1-5)	180
+Listas Abiertas de Otros Reinos (6-10)	360
+Listas Abiertas de Otros Reinos (11-15)	540
+Listas Abiertas de Otros Reinos (16-20)	720
+Listas Abiertas de Otros Reinos (21+)	900
+Listas Cerradas de Otros Reinos (1-5)	210
+Listas Cerradas de Otros Reinos (6-10)	420
+Listas Cerradas de Otros Reinos (11-15)	630
+Listas Cerradas de Otros Reinos (16-20)	840
+Listas Cerradas de Otros Reinos (21+)	1050
+Listas Básicas de Otros Reinos (1-5)	160
+Listas Básicas de Otros Reinos (6-10)	320
+Listas Básicas de Otros Reinos (11-15)	480
+Listas Básicas de Otros Reinos (16-20)	640
+Listas Básicas de Otros Reinos (21+)	800
+Listas Abiertas Arcanas (1-5)	60
+Listas Abiertas Arcanas (6-10)	120
+Listas Abiertas Arcanas (11-15)	180
+Listas Abiertas Arcanas (16-20)	240
+Listas Abiertas Arcanas (21+)	300
 Listas Hechizos de Adiestramiento (1-5)	8/8/8
 Listas Hechizos de Adiestramiento (6-10)	8/8/8
 Listas Hechizos de Adiestramiento (11-15)	8/8/8
@@ -143,42 +145,53 @@ Listas Hechizos de Adiestramientos de Otros Reinos (21+)	16/16
 
 #ADIESTRAMIENTO	//+ Preferida 	- Prohibida
 ####################################
-Amigo de las Bestias	26
-Artista	28
-Aventurero	29
-Caballero	25+
-Cazador	29
-Desvalijador	21
-Doctor	23
-Erudito	29
-Explorador	21
-Guardia	15+
-Herbolario	23
-Mago Principiante	43
-Mercader	25
-Soldado	15
-Viajero	13
-Artesano	24
-Artista Marcial	30
-Asesino	25
-Berseker	22
+Aventurero	42	30
+Amigo de las Bestias	27
+Asesino	29
+Salteador	23
+Clero	40	28
+Justiciero Enmascarado	42
+Erudito Enclaustrado	26
+Timador	20
+Artesano	20
+Erudito Aventurero	26
 Cortabolsas	24
+Temerario	20
 Detective	22
-Diplomático	28
-Erudito Aventurero	29
-Erudito Enclaustrado	29
-Espía	28
-Expedicionario	27
-Experto en Armas	29
-Fanático Religioso	25
+Dilettante	38
+Diplomático	25
+Doctor	22
+Animador	29
+Expedicionario	38
+Explorador	29
+Femme Fatale	30
+Hombre del Gobierno	42
+Gadgeteer	39
+Gangster	28
+Great White Hunter	42
+Guardian	36
+Cazador	33
+Villano Indisioso	43
+Periodista	36
+Erudito	40	16
+Artista Marcial	38
+Mecánico	26
+Mercenario	30
+Mercante	20
+Soldado	45
+Ocultista	86	34
+Artista	25
 Filósofo	32
-Guardián	27
-Marino	20
-Mercenario	28
-Sacerdote Chamánico	34
-Salteador	19
-Timador	21
-Trotamundos	29
-Houri	36
+Piloto	28
+Agente de Policía	31
+Marinero	18
+Científico	58
+Explorador	23
+Deportista	35
+Espía	26
+Viajero	23
+Trotamundos	28
+Experto en Armas	38
+Fanático Religioso	26
 
 ### FIN PROFESION ###
