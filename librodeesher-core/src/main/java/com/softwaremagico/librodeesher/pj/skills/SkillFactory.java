@@ -25,6 +25,7 @@ package com.softwaremagico.librodeesher.pj.skills;
  */
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -154,8 +155,8 @@ public class SkillFactory {
 
 	private static String removeTypeFromName(String skillName) {
 		// String pattern = Pattern.quote("*");
-		return skillName.replace("*", "").replace("(R)", "").replace("(r)", "").replace("(C)", "").replace("(c)", "")
-				.replace("(P)", "").replace("(p)", "").trim();
+		return skillName.replace("*", "").replace("(R)", "").replace("(r)", "").replace("(C)", "")
+				.replace("(c)", "").replace("(P)", "").replace("(p)", "").trim();
 	}
 
 	public static List<Skill> getSkills() {
@@ -194,6 +195,16 @@ public class SkillFactory {
 		return skills;
 	}
 
+	public static List<Skill> getSkills(String skillPrefix) {
+		List<Skill> skillsForPrefix = new ArrayList<>();
+		for (Skill skill : availableSkills.values()) {
+			if (skill.getName().toLowerCase().startsWith(skillPrefix.toLowerCase())) {
+				skillsForPrefix.add(skill);
+			}
+		}
+		return skillsForPrefix;
+	}
+
 	public static void updateDisabledSkills() throws InvalidSkillException {
 		for (String skillDisabled : disabledSkills) {
 			if (availableSkills.get(skillDisabled) == null) {
@@ -205,6 +216,14 @@ public class SkillFactory {
 				skill.setEnabled(false);
 			}
 		}
+	}
+
+	public static List<String> getSkillNames(Collection<Skill> skills) {
+		List<String> names = new ArrayList<>();
+		for (Skill skill : skills) {
+			names.add(skill.getName());
+		}
+		return names;
 	}
 
 	public void reset() {

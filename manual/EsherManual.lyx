@@ -2671,6 +2671,22 @@ Si es una selección entre un conjunto definido de habilidades, en vez de
  
 \end_layout
 
+\begin_layout Enumerate
+Si es una selección entre un conjunto de habilidades con prefijo, se puede
+ seleccionar usando también las llaves, pero sin que aparezca ningún punto
+ y coma.
+ Por ejemplo, 
+\begin_inset Quotes eld
+\end_inset
+
+{Percepción del Entorno}#1
+\begin_inset Quotes erd
+\end_inset
+
+ permitirá seleccionar una habilidad cuyo nombre empiece así.
+ 
+\end_layout
+
 \begin_layout Subsection
 Adiestramientos
 \end_layout
