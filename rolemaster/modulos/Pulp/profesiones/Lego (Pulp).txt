@@ -10,7 +10,6 @@ Canalización
 
 #BONIFICACIÓN POR PROFESIÓN
 ####################################
-Autocontrol	5
 Desarrollo Físico	5
 Armas·2manos	5
 Armas·Arrojadizas	5
@@ -22,18 +21,18 @@ Armas·Proyectiles	5
 Atletismo·Gimnasia	5
 Atletismo·Potencia	5
 Atletismo·Resistencia	5
+Autocontrol	5
+Conocimiento·General	5
 Exteriores·Animales	5
 Exteriores·Entorno	5
-Manipulación del Poder	0
+Influencia	5
 Oficios	5
 Percepción·Búsqueda	5
 Percepción·Perspicacia	5
 Percepción·Sentidos	5
 Percepción de Poder	5
 Técnica/comercio·General	5
-Técnica/comercio·Profesional	5
-Técnica/comercio·Vocacional	5
-Conocimiento·General	5
+
 
 #HABILIDADES Y CATEGORÍAS DE HABILIDADES
 ####################################
@@ -47,12 +46,11 @@ Armas·Categoría4	5
 Armas·Categoría5	6
 Armas·Categoría6	7
 Armas·Categoría7	7
-Armas·Categoría8	7
-Armas·Categoría9	7
 Arte·Activo	2/5
 Arte·Pasivo	2/5
 Artes Marciales·Golpes	3
 Artes Marciales·Barridos	3
+Artes Marciales·Maniobras de Combate	6
 Ataques Especiales	5/11
 Atletismo·Gimnasia	2/6
 Atletismo·Potencia	3/6
@@ -60,12 +58,14 @@ Atletismo·Resistencia	2/7
 Autocontrol	2/7
 Ciencia/Analítica·Básica	2/5
 Ciencia/Analítica·Especializada	6
+Ciencia/Analítica·Médica	4
+Ciencia/Analítica·Técnica	6
 Comunicación	1/2/2
 Conocimiento·General	1/3
+Conocimiento·Académico	2/6
 Conocimiento·Mágico	6
 Conocimiento·Oscuro	3/7
 Conocimiento·Técnico	2/6
-Conocimiento·Académico	2/6
 Defensas Especiales	30
 Desarrollo de Puntos de Poder	20
 Desarrollo Físico	4/12
@@ -102,41 +102,41 @@ Canalización
 
 #DESARROLLO DE HECHIZOS
 ####################################
-Lista Abierta (1-5)	10
-Lista Abierta (6-10)	20
-Lista Abierta (11-15)	30
-Lista Abierta (16-20)	40
-Lista Abierta (21+)	50
-Lista Cerrada (1-5)	15
-Lista Cerrada (6-10)	30
-Lista Cerrada (11-15)	45
-Lista Cerrada (16-20)	60
-Lista Cerrada (21+)	75
-Listas Básicas de Otras Profesiones (1-5)	30
-Listas Básicas de Otras Profesiones (6-10)	60
-Listas Básicas de Otras Profesiones (11-15)	90
-Listas Básicas de Otras Profesiones (16-20)	120
-Listas Básicas de Otras Profesiones (21+)	150
-Listas Abiertas de Otros Reinos (1-5)	40
-Listas Abiertas de Otros Reinos (6-10)	80
-Listas Abiertas de Otros Reinos (11-15)	120
-Listas Abiertas de Otros Reinos (16-20)	160
-Listas Abiertas de Otros Reinos (21+)	200
-Listas Cerradas de Otros Reinos (1-5)	80
-Listas Cerradas de Otros Reinos (6-10)	160
-Listas Cerradas de Otros Reinos (11-15)	240
-Listas Cerradas de Otros Reinos (16-20)	320
-Listas Cerradas de Otros Reinos (21+)	360
-Listas Básicas de Otros Reinos (1-5)	100
-Listas Básicas de Otros Reinos (6-10)	200
-Listas Básicas de Otros Reinos (11-15)	300
-Listas Básicas de Otros Reinos (16-20)	400
-Listas Básicas de Otros Reinos (21+)	500
-Listas Abiertas Arcanas (1-5)	15
-Listas Abiertas Arcanas (6-10)	30
-Listas Abiertas Arcanas (11-15)	45
-Listas Abiertas Arcanas (16-20)	60
-Listas Abiertas Arcanas (21+)	75
+Lista Abierta (1-5)	20
+Lista Abierta (6-10)	40
+Lista Abierta (11-15)	60
+Lista Abierta (16-20)	80
+Lista Abierta (21+)	100
+Lista Cerrada (1-5)	30
+Lista Cerrada (6-10)	60
+Lista Cerrada (11-15)	90
+Lista Cerrada (16-20)	120
+Lista Cerrada (21+)	150
+Listas Básicas de Otras Profesiones (1-5)	60
+Listas Básicas de Otras Profesiones (6-10)	120
+Listas Básicas de Otras Profesiones (11-15)	180
+Listas Básicas de Otras Profesiones (16-20)	240
+Listas Básicas de Otras Profesiones (21+)	300
+Listas Abiertas de Otros Reinos (1-5)	80
+Listas Abiertas de Otros Reinos (6-10)	160
+Listas Abiertas de Otros Reinos (11-15)	240
+Listas Abiertas de Otros Reinos (16-20)	320
+Listas Abiertas de Otros Reinos (21+)	400
+Listas Cerradas de Otros Reinos (1-5)	160
+Listas Cerradas de Otros Reinos (6-10)	320
+Listas Cerradas de Otros Reinos (11-15)	480
+Listas Cerradas de Otros Reinos (16-20)	640
+Listas Cerradas de Otros Reinos (21+)	720
+Listas Básicas de Otros Reinos (1-5)	200
+Listas Básicas de Otros Reinos (6-10)	400
+Listas Básicas de Otros Reinos (11-15)	600
+Listas Básicas de Otros Reinos (16-20)	800
+Listas Básicas de Otros Reinos (21+)	1000
+Listas Abiertas Arcanas (1-5)	30
+Listas Abiertas Arcanas (6-10)	60
+Listas Abiertas Arcanas (11-15)	90
+Listas Abiertas Arcanas (16-20)	120
+Listas Abiertas Arcanas (21+)	150
 Listas Hechizos de Adiestramiento (1-5)	8/8/8
 Listas Hechizos de Adiestramiento (6-10)	8/8/8
 Listas Hechizos de Adiestramiento (11-15)	8/8/8
@@ -150,44 +150,53 @@ Listas Hechizos de Adiestramientos de Otros Reinos (21+)	16/16
 
 #ADIESTRAMIENTO	//+ Preferida 	- Prohibida
 ####################################
-Amigo de las Bestias	28
+Aventurero	39	33
+Amigo de las Bestias	30
+Asesino	33
+Salteador	25
+Clero	32	26
+Justiciero Enmascarado	44
+Erudito Enclaustrado	23
+Timador	20
 Artesano	24
-Artista Marcial	30
-Artista	25
-Asesino	28
-Aventurero	29
-Berseker	28
-Caballero	31
-Cazador	30
+Erudito Aventurero	24
 Cortabolsas	25
-Desvalijador	25
+Temerario	22
 Detective	24
-Diplomático	25
-Doctor	23
-Erudito+	20
-Erudito Aventurero	28
-Erudito Enclaustrado	29
-Espía	27
-Expedicionario	28
-Experto en Armas	36
-Explorador	25
-Fanático Religioso+	25
-Filósofo	29
-Guardia+	20
-Guardián	29
-Herbolario	23
-Houri	36
-Mago Principiante	32
-Marino+	20
-Mercader	21
-Mercenario	31
-Sacerdote Chamánico	30
-Salteador	22
-Soldado	23
-Timador	21
-Trotamundos	28
-Viajero	14
-
-Ninja	60
+Dilettante	35
+Diplomático	20
+Doctor	22
+Animador	28
+Expedicionario	36
+Explorador	30
+Femme Fatale	30
+Hombre del Gobierno	48
+Gadgeteer	32
+Gangster	32
+Great White Hunter	42
+Guardian	41
+Cazador	34
+Villano Indisioso	37
+Periodista	32
+Erudito	29	14
+Artista Marcial	38
+Mecánico	26
+Mercenario	38
+Mercante	16
+Soldado	48
+Ocultista	60	30
+Artista	22
+Filósofo	27
+Piloto	25
+Agente de Policía	36
+Marinero	18
+Científico	47
+Explorador	26
+Deportista	38
+Espía	26
+Viajero	24
+Trotamundos	27
+Experto en Armas	57
+Fanático Religioso	26
 
 ### FIN PROFESION ###
