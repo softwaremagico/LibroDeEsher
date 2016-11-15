@@ -1,12 +1,12 @@
 #Nombre	Características	Progresión	Habilidades {AñadirNuevaHabilidad1; AñadirNuevaHabilidad2;...} [Especialidad1; Especialidad2; ...]
 ################################################################
-Armadura·Media(Armmed)	Fu/Ag/Fu	Estándar	Armadura Tipo III, Armadura Tipo IV
 Armadura·Ligera(ArmLig)	Ag/Fu/Ag	Estándar	Armadura Tipo I, Armadura Tipo II
+Armadura·Media(Armmed)	Fu/Ag/Fu	Estándar	Armadura Tipo III, Armadura Tipo IV
 Ataques Especiales(AtaEsp)	Fu/Ag/Ad	Combinada	Francotirador, Apuntar, Dejar Inconsciente
 Atletismo·Gimnasia(AtlG)	Ag/Rp/Ag	Estándar	Braquiación, Paracaidismo
 Atletismo·Resistencia(AtlR)	Co/Ag/Fu	Estándar	Ciclismo
 Autocontrol(Autoc)	Ad/Pr/Ad	Estándar	Recarga Adrenal
-Ciencia/Analítica·Especializada(CienE)	Ra/Me/Ra	Combinada	Física
+Ciencia/Analítica·Especializada(CienE)	Ra/Me/Ra	Combinada	Física, Criminología
 Ciencia/Analítica·Médica(CienM)	Ra/Me/In	Estándar	Autópsia, Práctica Médica, Ciencia Médica, Fármacos, Terapia con Drogas
 Ciencia/Analítica·Técnica(CienT)	Ra/Me/Ag	Estándar	Tecnología Criminal, Tecnología Electrónica, Tecnología Genética, Tecnología Mecánica, Tecnología Armamentística, Creación de Artilugios
 Comunicación(Comun)	Ra/Me/Em	Estándar	Lectura Rápida, Hablar Inglés, Escribir Inglés, Hablar Francés, Escribir Francés, Hablar Español, Escribir Español, Hablar Ruso, Escribir Ruso, Hablar Catalán, Escribir Catalán, Hablar Portugués, Escribir Portugués, Hablar Italiano, Escribir Italiano, Hablar Rumano, Escribir Rumano, Hablar Lituano, Escribir Lituano, Hablar Alemán, Escribir Alemán, Hablar Holandés, Escribir Holandés, Hablar Mandarín, Escribir Mandarín, Hablar Catonés, Escribir Cantonés, Hablar Tibetano, Escribir Tibetano, Hablar Thai, Escribir Thai, Hablar Japonés, Escribir Japonés
@@ -14,6 +14,6 @@ Conocimiento·Académico(ConAca)	Me/Ra/Me	Estándar	Historia del Arte, Filosofí
 Influencia(Infl)	Pr/Em/In	Estándar	Lavado de Cerebro, Saber Hacer
 Maniobras de Combate(ManCom)	Ag/Rp/Ad	Combinada	Piloto de Combate, Piloto de Tanque, Demoliciones, Emboscada con Armas Estacionarias
 Subterfugio·Mecánica(SubMec)	In/Ag/Ra	Estándar	Abrir Cajas Fuertes, Operaciones de Seguridad, Evasión de Impuestos
-Técnica/Comercio·General(TecGen)	Ra/Me/Ad	Estándar	Jugar el Billar, Conducir (Mecánica), Piloto de Aeronaves, Capitán de Barco, Navegar, Ingeniero de Trenes
+Técnica/Comercio·General(TecGen)	Ra/Me/Ad	Estándar	Jugar el Billar, Conducir (Vehículo Mecánico), Piloto de Aeronaves, Capitán de Barco, Navegar, Ingeniero de Trenes
 Técnica/Comercio·Vocacional(TecVoc)	Me/In/Ra	Combinada	Mecánica
 

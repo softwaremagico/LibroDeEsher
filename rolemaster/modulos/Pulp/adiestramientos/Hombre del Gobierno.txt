@@ -1,0 +1,67 @@
+# TIEMPO (meses)
+####################################
+135
+
+# EXCLUSIVO RAZA
+####################################
+Hombre Moderno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Contactos útiles en la ciudad	50
+Contactos útiles en el gobierno	50
+Arma de fuego	40
+Esposas	40
+Favor de un oficial de alto rango	30
+Automóvil	30
+Reputación de éxito	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+{Armas·Fuego 1mano; Armas·Fuego 2manos}	2	1	1	2
+Armadura·Ligera	1	1	1	1
+  *  {Armadura Tipo I; Armadura Tipo II}	1	-	-	-
+Percepción·Perspicacia	0	1	1	1
+Percepción·Búsqueda	2	1	2	2
+Percepción·Sentidos	1	1	1	1
+  *  Percepción del Entorno: Ciudades	1
+Desarrollo Físico	0	1	1	1
+  *  Desarrollo Físico	1	-	-	-
+Maniobras de Combate	0	1	1	1
+Influencia	0	2	2	2
+  *  Interrogar	1	-	-	-
+  *  Liderazgo	1	-	-	-
+Ciencia/Analítica·Especializada	0	1	1	1
+  *  Criminología	1	-	-	-
+Ataques Especiales	0	1	1	1
+Técnica/Comercio·Profesional	0	1	1	1
+  *  Conducir (Vehículo Mecánico)	1
+Técnica/Comercio·Vocacional	0	1	1	1
+  *  Administración	1	-	-	-
+Urbana	2	1	2	2
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+In
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###
