@@ -230,7 +230,7 @@ public class Training {
 						// List of skills to choose one.
 						String[] lineColumns = lines.get(index).replace("*", "").trim().split("}");
 						String[] skillList = lineColumns[0].replace("{", "").replace(";", ",").split(",");
-						TrainingSkill skill = new TrainingSkill(Arrays.asList(skillList), Integer.parseInt(lineColumns[1].trim()));
+						TrainingSkill skill = new TrainingSkill(Arrays.asList(skillList), Integer.parseInt(lineColumns[1].replace("-", "").replace("\t", "").trim()));
 						trainingCategory.addSkill(skill);
 					} else {
 						// Skill with ranges.
