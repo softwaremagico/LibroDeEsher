@@ -169,7 +169,7 @@ Dilettante	35
 Diplomático	20
 Doctor	22
 Animador	28
-Expedicionario	36
+Emprendedor	36
 Explorador	30
 Femme Fatale	30
 Hombre del Gobierno	48
