@@ -25,7 +25,7 @@ Comunicación	3	2	2	6
 Oficios	0	1	1	2
 Influencia	4	1	4	4
 Conocimiento·Técnico	2	1	1	2
-Técnica/comercio·Profesional	0	1	4	4
+Técnica/Comercio·Profesional	0	1	4	4
 Urbana	2	1	2	2
 
 #AUMENTOS CARACTERÍSTICAS

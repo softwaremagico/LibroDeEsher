@@ -30,9 +30,9 @@ Percepción·Búsqueda	5
 Percepción·Perspicacia	5
 Percepción·Sentidos	5
 Percepción de Poder	5
-Técnica/comercio·General	5
-Técnica/comercio·Profesional	5
-Técnica/comercio·Vocacional	5
+Técnica/Comercio·General	5
+Técnica/Comercio·Profesional	5
+Técnica/Comercio·Vocacional	5
 
 #HABILIDADES Y CATEGORÍAS DE HABILIDADES
 ####################################
@@ -80,9 +80,9 @@ Percepción de Poder	4/7
 Subterfugio·Ataque	6/12
 Subterfugio·Mecánica	3/6
 Subterfugio·Sigilo	2/6
-Técnica/comercio·General	3/7
-Técnica/comercio·Profesional	8
-Técnica/comercio·Vocacional	5/2
+Técnica/Comercio·General	3/7
+Técnica/Comercio·Profesional	8
+Técnica/Comercio·Vocacional	5/2
 Urbana	2/5
 
 # HABILIDADES COMUNES

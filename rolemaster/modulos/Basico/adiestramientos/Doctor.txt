@@ -18,10 +18,10 @@ Equipo médico (no mágico)	100	5	Medicina
 
 #HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
 ####################################
-Técnica/comercio·General	0	2	2	2
+Técnica/Comercio·General	0	2	2	2
   *  Primeros Auxilios	1
   *  Usar Hierbas	1
-Técnica/comercio·Profesional	0	2	2	6
+Técnica/Comercio·Profesional	0	2	2	6
   *  Cuidados Médicos	3
   *  Diagnosis	3
 

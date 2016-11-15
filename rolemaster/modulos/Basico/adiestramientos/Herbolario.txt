@@ -30,7 +30,7 @@ Exteriores·Entorno	4	1	2	4
   *  Forrajear	3	0	0	0
 Oficios	0	1	1	2
   *  Horticultura	2	0	0	0
-Técnica/comercio·General	0	1	1	2
+Técnica/Comercio·General	0	1	1	2
   *  Usar Hierbas	2	0	0	0
 
 #AUMENTOS CARACTERÍSTICAS

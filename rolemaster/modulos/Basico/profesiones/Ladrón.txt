@@ -73,9 +73,9 @@ Percepción de Poder	6
 Subterfugio·Ataque	2/6
 Subterfugio·Mecánica	1/3
 Subterfugio·Sigilo	1/3
-Técnica/comercio·General	3/7
-Técnica/comercio·Profesional	8
-Técnica/comercio·Vocacional	5/12
+Técnica/Comercio·General	3/7
+Técnica/Comercio·Profesional	8
+Técnica/Comercio·Vocacional	5/12
 Urbana	1/2
 
 # HABILIDADES COMUNES

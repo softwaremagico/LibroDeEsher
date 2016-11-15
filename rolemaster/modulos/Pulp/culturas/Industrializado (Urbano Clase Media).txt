@@ -53,9 +53,9 @@ Percepción·Perspicacia	0
 Subterfugio·Sigilo	2
   *  Acechar	0
   *  Esconderse	1
-Técnica/comercio·General	3
-Técnica/comercio·Profesional	1
-Técnica/comercio·Vocacional	1
+Técnica/Comercio·General	3
+Técnica/Comercio·Profesional	1
+Técnica/Comercio·Vocacional	1
 Urbana	4
 Influencia	2
 Desarrollo Físico	0	

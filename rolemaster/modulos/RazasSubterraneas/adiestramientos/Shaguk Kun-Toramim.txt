@@ -20,9 +20,9 @@ Sumando de hechizos (+1)	100
 ####################################
 Listas Básicas de Hechizos	0	1	1	2
   *  Nigromancia	2	-	-	-	
-Técnica/comercio·General	1	1	1	1
+Técnica/Comercio·General	1	1	1	1
   *  Primeros Auxilios	1	-	-	-
-Técnica/comercio·Profesional	0	2	2	2
+Técnica/Comercio·Profesional	0	2	2	2
   *  Cuidados Médicos	1	-	-	-
   *  Cirugía	1	-	-	-
 Ciencia/Analítica·Especializada	0	1	1	1

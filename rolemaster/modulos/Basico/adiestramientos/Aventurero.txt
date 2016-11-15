@@ -29,7 +29,7 @@ Percepción·Búsqueda	2	1	1	1
   *  Observación	1	-	-	-
 Percepción·Perspicacia	0	1	1	2
   *  Alerta	2	-	-	-
-Técnica/comercio·General	1	1	1	1
+Técnica/Comercio·General	1	1	1	1
   *  Primeros Auxilios	1	-	-	-
 
 #AUMENTOS CARACTERÍSTICAS

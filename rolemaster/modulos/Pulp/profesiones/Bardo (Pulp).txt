@@ -71,9 +71,9 @@ Percepción de Poder	6/12
 Subterfugio·Ataque	12
 Subterfugio·Mecánica	4
 Subterfugio·Sigilo	2/7
-Técnica/comercio·General	2/5
-Técnica/comercio·Profesional	6
-Técnica/comercio·Vocacional	3/9
+Técnica/Comercio·General	2/5
+Técnica/Comercio·Profesional	6
+Técnica/Comercio·Vocacional	3/9
 Urbana	2/5
 
 # HABILIDADES COMUNES          //Cateogia#numero es "numero" de habilidades de dicha categoria; 

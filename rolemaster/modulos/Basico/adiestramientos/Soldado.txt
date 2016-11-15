@@ -29,7 +29,7 @@ Conocimiento·General	1	1	1	1
   *  Heráldica	1	0	0	0
 Desarrollo Físico	0	1	1	2
   *  Desarrollo Físico	2	0	0	0
-Técnica/comercio·Vocacional	0	1	1	1
+Técnica/Comercio·Vocacional	0	1	1	1
   *  Táctica	1	0	0	0
 
 #AUMENTOS CARACTERÍSTICAS

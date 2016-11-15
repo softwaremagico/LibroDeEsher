@@ -25,7 +25,7 @@ Desarrollo Físico	0	1	1	1
   *  Desarrollo Físico	1	0	0	0
 Percepción·Búsqueda	1	1	1	1
   *  Observación	1	0	0	0
-Técnica/comercio·General	1	1	1	1
+Técnica/Comercio·General	1	1	1	1
   *  Primeros Auxilios	1	0	0	0
 Urbana	1	1	1	1
   *  Instinto Urbano	1	0	0	0

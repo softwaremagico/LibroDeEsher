@@ -53,9 +53,9 @@ Percepción de Poder
 Subterfugio·Ataque	
 Subterfugio·Mecánica	
 Subterfugio·Sigilo	
-Técnica/comercio·General	
-Técnica/comercio·Profesional	
-Técnica/comercio·Vocacional	
+Técnica/Comercio·General	
+Técnica/Comercio·Profesional	
+Técnica/Comercio·Vocacional	
 Urbana	
 
 # HABILIDADES COMUNES          //Cateogia#numero es "numero" de habilidades de dicha categoria; 

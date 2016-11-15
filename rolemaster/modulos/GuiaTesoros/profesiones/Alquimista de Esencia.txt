@@ -22,7 +22,7 @@ Listas Básicas de Otros Reinos	5
 Listas Abiertas Arcanas	5
 Oficios	15
 Percepción de Poder	5
-Técnica/comercio·Vocacional	5
+Técnica/Comercio·Vocacional	5
 
 #HABILIDADES Y CATEGORÍAS DE HABILIDADES
 ####################################
@@ -70,9 +70,9 @@ Percepción de Poder	1/4
 Subterfugio·Ataque	15
 Subterfugio·Mecánica	7
 Subterfugio·Sigilo	5
-Técnica/comercio·General	3/7
-Técnica/comercio·Profesional	8
-Técnica/comercio·Vocacional	3/7
+Técnica/Comercio·General	3/7
+Técnica/Comercio·Profesional	8
+Técnica/Comercio·Vocacional	3/7
 Urbana	3
 
 # HABILIDADES COMUNES          //Cateogia#numero es "numero" de habilidades de dicha categoria; 

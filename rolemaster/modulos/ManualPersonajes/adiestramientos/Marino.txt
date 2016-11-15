@@ -27,7 +27,7 @@ Exteriores·Entorno	1	1	1	1
   *  {Orientación Celeste; Predicción del Clima}	1
 Oficios	0	1	1	1
   *  Manejo de Cuerdas	1
-Técnica/comercio·General	1	1	1	1
+Técnica/Comercio·General	1	1	1	1
   *  Orientación	1
 
 #AUMENTOS CARACTERÍSTICAS
