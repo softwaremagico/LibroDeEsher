@@ -4,7 +4,7 @@
 
 # EXCLUSIVO RAZA
 ####################################
-Ninguno
+Hombre Moderno
 
 #ESPECIAL	//Nombre, probabilidad, bonus
 ####################################
