@@ -83,6 +83,19 @@ public class Culture {
 		return cultureWeapons;
 	}
 
+	public boolean hasSkillToChooseRanks(Category category) {
+		if (category != null) {
+			for (String categoryName : categories.keySet()) {
+				if (categoryName.equals(category.getName())) {
+					if (categories.get(categoryName).getChooseRanks() > 0) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
 	public Integer getCultureRanks(Category category) {
 		if (category != null) {
 			for (String categoryName : categories.keySet()) {
