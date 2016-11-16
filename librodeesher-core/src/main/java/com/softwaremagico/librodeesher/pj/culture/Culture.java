@@ -252,11 +252,9 @@ public class Culture {
 				Category category;
 				if ((category = CategoryFactory.getCategory(hobby)) != null) {
 					for (Skill skill : category.getNonRareSkills()) {
-						// CultureSkill cultureSkill = new
-						// CultureSkill(skill.getName());
 						hobbySkills.add(skill.getName());
 					}
-					// Is a skill.
+					// It is a skill.
 				} else if (hobby.startsWith("-")) {
 					hobby = hobby.substring(1);
 					if (SkillFactory.existSkill(hobby)) {
