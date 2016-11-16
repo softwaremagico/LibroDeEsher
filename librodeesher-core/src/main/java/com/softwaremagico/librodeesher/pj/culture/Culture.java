@@ -406,7 +406,12 @@ public class Culture {
 	}
 
 	public Integer getSpellRanks() {
-		return categories.get(Spanish.OPEN_LISTS).getChooseRanks();
+		try {
+			return categories.get(Spanish.OPEN_LISTS).getChooseRanks();
+		} catch (NullPointerException npe) {
+			// Spell ranks not defined, as in Pulp module.
+			return 0;
+		}
 	}
 
 	public Integer getLanguageRanksToChoose() {
