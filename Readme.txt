@@ -29,6 +29,9 @@ Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadore
 
 Versión
 ------------
+2.4.2	Añadido:
+		- Adaptación a las reglas del Rolemaster Pulp.
+
 2.4.1	Añadido:
 		- Generalización de armas. 
 		
