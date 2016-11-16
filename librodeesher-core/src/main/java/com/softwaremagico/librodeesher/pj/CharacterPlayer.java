@@ -4,7 +4,7 @@ package com.softwaremagico.librodeesher.pj;
  * #%L
  * Libro de Esher
  * %%
- * Copyright (C) 2007 - 2012 Softwaremagico
+ * Copyright (C) 2007 - 2016 Softwaremagico
  * %%
  * This software is designed by Jorge Hortelano Otero. Jorge Hortelano Otero
  * <softwaremagico@gmail.com> C/Quart 89, 3. Valencia CP:46008 (Spain).

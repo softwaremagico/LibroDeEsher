@@ -24,20 +24,19 @@ public class PulpTests {
 		Collections.sort(PULP_CULTURES);
 	}
 
-	@Test
-	public void checkCultureFiles() {
-		CharacterPlayer characterPlayer = new CharacterPlayer();
-		characterPlayer.setRace(MODERN_MAN_RACE);
-		Assert.assertEquals(characterPlayer.getRace().getAvailableCultures().size(), PULP_CULTURES.size());
-
-	}
+//	@Test
+//	public void checkCultureFiles() {
+//		CharacterPlayer characterPlayer = new CharacterPlayer();
+//		characterPlayer.setRace(MODERN_MAN_RACE);
+//		Assert.assertEquals(characterPlayer.getRace().getAvailableCultures().size(), PULP_CULTURES.size());
+//	}
 
 	@Test
 	public void checkCultureRanks() throws MagicDefinitionException, InvalidProfessionException {
 		CharacterPlayer characterPlayer = new CharacterPlayer();
 		characterPlayer.setRace(MODERN_MAN_RACE);
 		characterPlayer.setCulture(INDUSTRY_CULTURE);
-		Assert.assertEquals((int) characterPlayer.getTotalRanks(CategoryFactory.getCategory("Armas·Fuego 1mano")), 1);
+		Assert.assertEquals((int) characterPlayer.getTotalRanks(CategoryFactory.getCategory("Percepción·Búsqueda")), 1);
 	}
 
 	@Test

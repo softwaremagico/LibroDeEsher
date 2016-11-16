@@ -129,8 +129,8 @@ public class Culture {
 			lineIndex = setCultureMaxLanguages(lines, lineIndex);
 			lineIndex = setTrainingDiscount(lines, lineIndex);
 		} else {
-			throw new InvalidCultureException("Invalid culture file '" + CultureFactory.CULTURE_FOLDER + File.separator
-					+ cultureName + ".txt'");
+			throw new InvalidCultureException("Invalid culture file '" + CultureFactory.CULTURE_FOLDER
+					+ File.separator + cultureName + ".txt'");
 		}
 	}
 
@@ -146,8 +146,8 @@ public class Culture {
 					String[] weapons = lineaArmasCultura.split(", ");
 					for (String weaponName : weapons) {
 						try {
-							if(weaponName.contains("{")) {
-								//Is a subset of weapons, such as "revolver".
+							if (weaponName.contains("{")) {
+								// Is a subset of weapons, such as "revolver".
 								cultureWeapons.addAll(WeaponFactory.getWeaponsByPrefix(weaponName));
 							} else {
 								Weapon weapon = WeaponFactory.getWeapon(weaponName);
@@ -158,7 +158,7 @@ public class Culture {
 									WeaponType type = WeaponType.getWeaponType(weaponName);
 									if (type != null) {
 										cultureWeapons.addAll(WeaponFactory.getWeaponsByTypeNonRare(type));
-									}  
+									}
 								}
 							}
 						} catch (InvalidWeaponException e) {
@@ -208,9 +208,18 @@ public class Culture {
 				String cultureLine = lines.get(index);
 				if (!cultureLine.startsWith("  *  ")) {
 					String[] categoryRow = cultureLine.split("\t");
-					String categoryName = categoryRow[0].trim();
-					category = new CultureCategory(categoryName, categoryRow[1]);
-					categories.put(categoryName, category);
+					// Choose category from list.
+					if (cultureLine.contains("{")) {
+						String categoryName = categoryRow[0].substring(0, categoryRow[0].indexOf("}")).trim();
+						String[] categoriesList = categoryName.replace("{", "").replace("}", "")
+								.replace(";", ",").split(",");
+						category = new CultureCategory(categoriesList, categoryRow[1].trim());
+						categories.put(categoryName, category);
+					} else {
+						String categoryName = categoryRow[0].trim();
+						category = new CultureCategory(categoryName, categoryRow[1].trim());
+						categories.put(categoryName, category);
+					}
 				} else {
 					category.addSkillFromLine(cultureLine);
 				}
@@ -231,8 +240,8 @@ public class Culture {
 			try {
 				hobbyRanks = Integer.parseInt(hobbyLine);
 			} catch (NumberFormatException nfe) {
-				throw new InvalidCultureException("Error obtaining hobby ranks '" + hobbyLine + "' for culture '"
-						+ getName() + "'. ", nfe);
+				throw new InvalidCultureException("Error obtaining hobby ranks '" + hobbyLine
+						+ "' for culture '" + getName() + "'. ", nfe);
 			}
 			index++;
 		}
@@ -246,49 +255,58 @@ public class Culture {
 		}
 		Set<String> exceptions = new HashSet<>();
 		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
-			String[] hobbySkillColumns = lines.get(index).split(", ");
-			for (String hobby : hobbySkillColumns) {
-				// If it is a category.
-				Category category;
-				if ((category = CategoryFactory.getCategory(hobby)) != null) {
-					for (Skill skill : category.getNonRareSkills()) {
-						hobbySkills.add(skill.getName());
-					}
-					// It is a skill.
-				} else if (hobby.startsWith("-")) {
-					hobby = hobby.substring(1);
-					if (SkillFactory.existSkill(hobby)) {
-						exceptions.add(hobby);
-					} else {
-						throw new InvalidCultureException("Hobby not found in culture '" + getName() + "' with name '"
-								+ hobby + "'.");
-					}
+			if (!lines.get(index).toLowerCase().equals(Spanish.ALL_TAG.toLowerCase())) {
+				String[] hobbySkillColumns = lines.get(index).split(", ");
+				for (String hobby : hobbySkillColumns) {
+					// If it is a category.
+					Category category;
+					if ((category = CategoryFactory.getCategory(hobby)) != null) {
+						for (Skill skill : category.getNonRareSkills()) {
+							hobbySkills.add(skill.getName());
+						}
+						// It is a skill.
+					} else if (hobby.startsWith("-")) {
+						hobby = hobby.substring(1);
+						if (SkillFactory.existSkill(hobby)) {
+							exceptions.add(hobby);
+						} else {
+							throw new InvalidCultureException("Hobby not found in culture '" + getName()
+									+ "' with name '" + hobby + "'.");
+						}
 
-				} else if (SkillFactory.existSkill(hobby)) {
-					hobbySkills.add(hobby);
-					// It is a special tag for a group of skills. Add it.
-				} else if (hobby.toLowerCase().equals(Spanish.WEAPON) || hobby.toLowerCase().equals(Spanish.ARMOUR)
-						|| hobby.toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
-					hobbySkills.add(hobby);
-					// Is a culture skill: add it;
-				} else if (hobby.contains(Spanish.FAUNA_KNOWNLEDGE_TAG) || hobby.contains(Spanish.FLORA_KNOWNLEDGE_TAG)
-						|| hobby.contains(Spanish.CULTURAL_KNOWNLEDGE_TAG)
-						|| hobby.contains(Spanish.REGIONAL_KNOWNLEDGE_TAG)) {
-					Category cat = CategoryFactory.getCategory(Spanish.GENERAL_KNOWLEDGE_TAG);
-					cat.addSkill(hobby);
-					// CultureSkill skill = new CultureSkill(hobby);
-					hobbySkills.add(hobby);
-				} else if (hobby.toLowerCase().contains(Spanish.SURVIVAL_TAG.toLowerCase())) {
-					Category cat = CategoryFactory.getCategory(Spanish.OUTDOORS_ENVIRONMENT_TAG);
-					cat.addSkill(hobby);
-					// CultureSkill skill = new CultureSkill(hobby);
-					hobbySkills.add(hobby);
-				} else if (hobby.toLowerCase().equals(Spanish.CULTURE_LANGUAGE_TAG.toLowerCase())) {
-					// TODO select a language
-				} else { // Not recognized.
-					throw new InvalidCultureException("Hobby '" + hobby + "' not found in culture '" + getName()
-							+ "' line '" + lines.get(index) + "'.");
+					} else if (SkillFactory.existSkill(hobby)) {
+						hobbySkills.add(hobby);
+						// It is a special tag for a group of skills. Add it.
+					} else if (hobby.toLowerCase().equals(Spanish.WEAPON)
+							|| hobby.toLowerCase().equals(Spanish.ARMOUR)
+							|| hobby.toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
+						hobbySkills.add(hobby);
+						// Is a culture skill: add it;
+					} else if (hobby.contains(Spanish.FAUNA_KNOWNLEDGE_TAG)
+							|| hobby.contains(Spanish.FLORA_KNOWNLEDGE_TAG)
+							|| hobby.contains(Spanish.CULTURAL_KNOWNLEDGE_TAG)
+							|| hobby.contains(Spanish.REGIONAL_KNOWNLEDGE_TAG)) {
+						Category cat = CategoryFactory.getCategory(Spanish.GENERAL_KNOWLEDGE_TAG);
+						cat.addSkill(hobby);
+						// CultureSkill skill = new CultureSkill(hobby);
+						hobbySkills.add(hobby);
+					} else if (hobby.toLowerCase().contains(Spanish.SURVIVAL_TAG.toLowerCase())) {
+						Category cat = CategoryFactory.getCategory(Spanish.OUTDOORS_ENVIRONMENT_TAG);
+						cat.addSkill(hobby);
+						// CultureSkill skill = new CultureSkill(hobby);
+						hobbySkills.add(hobby);
+					} else if (hobby.toLowerCase().equals(Spanish.CULTURE_LANGUAGE_TAG.toLowerCase())) {
+						// TODO select a language
+					} else { // Not recognized.
+						throw new InvalidCultureException("Hobby '" + hobby + "' not found in culture '"
+								+ getName() + "' line '" + lines.get(index) + "'.");
+					}
 				}
+			} else {
+				hobbySkills.addAll(SkillFactory.getAvailableSkills());
+				hobbySkills.add(Spanish.WEAPON);
+				hobbySkills.add(Spanish.ARMOUR);
+				hobbySkills.add(Spanish.CULTURE_SPELLS);
 			}
 			index++;
 		}
