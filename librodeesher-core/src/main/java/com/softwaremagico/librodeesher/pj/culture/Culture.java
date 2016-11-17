@@ -335,42 +335,50 @@ public class Culture {
 		}
 		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 			String[] languageColumn = lines.get(index).split("\t");
-			String[] languageRanks = languageColumn[1].split("/");
-			try {
-				// User selection language.
-				if (languageColumn[0].startsWith(Spanish.ANY_RACE_LANGUAGE)
-						|| languageColumn[0].startsWith(Spanish.ANY_CULTURE_LANGUAGE)) {
-					OptionalLanguage optionLanguage = new OptionalLanguage();
-					optionLanguage.setStartingSpeakingRanks(0);
-					optionLanguage.setStartingWrittingRanks(0);
-					optionLanguage.setMaxSpeakingRanks(Integer.parseInt(languageRanks[0]));
-					optionLanguage.setMaxWritingRanks(Integer.parseInt(languageRanks[1]));
-					optionalLanguages.add(optionLanguage);
-				} else {
-					// Standard language.
-					String language = Spanish.SPOKEN_TAG + " " + languageColumn[0];
-
-					// Add language to category.
-					if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
-						CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
-					}
-
-					languagesMaxRanks.put(language, Integer.parseInt(languageRanks[0]));
-					language = Spanish.WRITTEN_TAG + " " + languageColumn[0];
-
-					// Add language to category.
-					if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
-						CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
-					}
-
-					languagesMaxRanks.put(language, Integer.parseInt(languageRanks[1]));
+			// Any language
+			if (languageColumn[0].toLowerCase().equals(Spanish.ALL_TAG) || languageColumn[0].toLowerCase().equals(Spanish.ALL_TAG2)) {
+				for (String language : SkillFactory.getAvailableLanguages()) {
+					languagesMaxRanks.put(Spanish.SPOKEN_TAG + " " + language, 10);
+					languagesMaxRanks.put(Spanish.WRITTEN_TAG + " " + language, 10);
 				}
-			} catch (NumberFormatException nfe) {
-				throw new InvalidCultureException("Error obtaining ranks for language '" + lines.get(index)
-						+ "' in culture '" + getName() + "'.", nfe);
-			} catch (ArrayIndexOutOfBoundsException aiob) {
-				throw new InvalidCultureException("Error obtaining ranks for language '" + lines.get(index)
-						+ "' in culture '" + getName() + "'.", aiob);
+				// User selection language.
+			} else {
+				String[] languageRanks = languageColumn[1].split("/");
+				try {
+					if (languageColumn[0].startsWith(Spanish.ANY_RACE_LANGUAGE)
+							|| languageColumn[0].startsWith(Spanish.ANY_CULTURE_LANGUAGE)) {
+						OptionalLanguage optionLanguage = new OptionalLanguage();
+						optionLanguage.setStartingSpeakingRanks(0);
+						optionLanguage.setStartingWrittingRanks(0);
+						optionLanguage.setMaxSpeakingRanks(Integer.parseInt(languageRanks[0]));
+						optionLanguage.setMaxWritingRanks(Integer.parseInt(languageRanks[1]));
+						optionalLanguages.add(optionLanguage);
+					} else {
+						// Standard language.
+						String language = Spanish.SPOKEN_TAG + " " + languageColumn[0];
+
+						// Add language to category.
+						if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
+							CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
+						}
+
+						languagesMaxRanks.put(language, Integer.parseInt(languageRanks[0]));
+						language = Spanish.WRITTEN_TAG + " " + languageColumn[0];
+
+						// Add language to category.
+						if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
+							CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
+						}
+
+						languagesMaxRanks.put(language, Integer.parseInt(languageRanks[1]));
+					}
+				} catch (NumberFormatException nfe) {
+					throw new InvalidCultureException("Error obtaining ranks for language '"
+							+ lines.get(index) + "' in culture '" + getName() + "'.", nfe);
+				} catch (ArrayIndexOutOfBoundsException aiob) {
+					throw new InvalidCultureException("Error obtaining ranks for language '"
+							+ lines.get(index) + "' in culture '" + getName() + "'.", aiob);
+				}
 			}
 			index++;
 		}

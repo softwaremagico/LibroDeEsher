@@ -74,6 +74,7 @@ public class Spanish {
 	public static final String SURVIVAL_TAG = "Supervivencia";
 	public static final String COMUNICATION_CATEGORY = "Comunicación";
 	public static final String ALL_TAG = "todas";
+	public static final String ALL_TAG2 = "todos";
 	public static final String OPEN_LIST_TAG = "Lista Abierta";
 	public static final String CLOSED_LIST_TAG = "Lista Cerrada";
 	public static final String BASIC_LIST_TAG = "listas básicas de hechizos";

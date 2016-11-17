@@ -52,9 +52,7 @@ Todas
 
 # IDIOMAS
 ####################
-Idioma Regional	6/6
-Idioma Regional	4/4
-Idioma Regional	0/0
+Todos
 
 # ADIESTAMIENTOS
 ####################
