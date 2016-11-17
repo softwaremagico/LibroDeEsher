@@ -56,7 +56,7 @@ public class ChooseWeaponPanel extends BasePanel {
 			i++;
 			ArrayList<WeaponSkillLine> weaponLineList = new ArrayList<>();
 			weaponLines.put(category, weaponLineList);
-			if (character.getCulture().hasSkillToChooseRanks(category)) {
+			if (character.getCulture().hasSkillsToChooseRanks(category)) {
 				for (Weapon weapon : character.getCulture().getCultureWeapons()) {
 					try {
 						if (weapon.getType().getWeaponCategoryName().equals(category.getName())) {
