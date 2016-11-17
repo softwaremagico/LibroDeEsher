@@ -40,7 +40,7 @@ Técnica/Comercio·Profesional	2
 Técnica/Comercio·Vocacional	0
 Urbana	3
 {Armas}#1	1
-  *  Cualquiera#1	0
+  *  Arma	0
 
 # PUNTOS AFICIONES
 ####################

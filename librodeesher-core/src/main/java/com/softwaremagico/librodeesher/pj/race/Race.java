@@ -370,55 +370,58 @@ public class Race {
 			index++;
 		}
 		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
-			try {
-				String languageLine = lines.get(index);
-				String[] languageInformation = languageLine.split("\t");
-				String[] languageRank = languageInformation[1].split("/");
-				String[] maxCultureLanguage = languageInformation[2].split("/");
+			if (!lines.get(index).toLowerCase().startsWith(Spanish.NOTHING_TAG)) {
+				try {
+					String languageLine = lines.get(index);
+					String[] languageInformation = languageLine.split("\t");
+					String[] languageRank = languageInformation[1].split("/");
+					String[] maxCultureLanguage = languageInformation[2].split("/");
 
-				// First language is main language.
-				if (raceLanguage == null) {
-					raceLanguage = languageInformation[0];
-				}
-
-				// User selection language.
-				if (languageInformation[0].startsWith(Spanish.ANY_RACE_LANGUAGE)
-						|| languageInformation[0].startsWith(Spanish.ANY_CULTURE_LANGUAGE)) {
-					OptionalLanguage optionLanguage = new OptionalLanguage();
-					optionLanguage.setStartingSpeakingRanks(Integer.parseInt(languageRank[0]));
-					optionLanguage.setStartingWrittingRanks(Integer.parseInt(languageRank[1]));
-					optionLanguage.setMaxSpeakingRanks(Integer.parseInt(maxCultureLanguage[0]));
-					optionLanguage.setMaxWritingRanks(Integer.parseInt(maxCultureLanguage[1]));
-					optionalLanguages.add(optionLanguage);
-				} else {
-					// Standard language.
-					String language = Spanish.SPOKEN_TAG + " " + languageInformation[0];
-					initialLanguages.put(language, Integer.parseInt(languageRank[0]));
-
-					// Add language to category.
-					if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
-						CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
+					// First language is main language.
+					if (raceLanguage == null) {
+						raceLanguage = languageInformation[0];
 					}
 
-					language = Spanish.WRITTEN_TAG + " " + languageInformation[0];
-					initialLanguages.put(language, Integer.parseInt(languageRank[1]));
+					// User selection language.
+					if (languageInformation[0].startsWith(Spanish.ANY_RACE_LANGUAGE)
+							|| languageInformation[0].startsWith(Spanish.ANY_CULTURE_LANGUAGE)) {
+						OptionalLanguage optionLanguage = new OptionalLanguage();
+						optionLanguage.setStartingSpeakingRanks(Integer.parseInt(languageRank[0]));
+						optionLanguage.setStartingWrittingRanks(Integer.parseInt(languageRank[1]));
+						optionLanguage.setMaxSpeakingRanks(Integer.parseInt(maxCultureLanguage[0]));
+						optionLanguage.setMaxWritingRanks(Integer.parseInt(maxCultureLanguage[1]));
+						optionalLanguages.add(optionLanguage);
+					} else {
+						// Standard language.
+						String language = Spanish.SPOKEN_TAG + " " + languageInformation[0];
+						initialLanguages.put(language, Integer.parseInt(languageRank[0]));
 
-					// Add language to category.
-					if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
-						CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
+						// Add language to category.
+						if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
+							CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
+						}
+
+						language = Spanish.WRITTEN_TAG + " " + languageInformation[0];
+						initialLanguages.put(language, Integer.parseInt(languageRank[1]));
+
+						// Add language to category.
+						if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
+							CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
+						}
+
+						language = Spanish.SPOKEN_TAG + " " + languageInformation[0];
+						maxLanguages.put(language, Integer.parseInt(maxCultureLanguage[0]));
+
+						language = Spanish.WRITTEN_TAG + " " + languageInformation[0];
+						maxLanguages.put(language, Integer.parseInt(maxCultureLanguage[1]));
 					}
-
-					language = Spanish.SPOKEN_TAG + " " + languageInformation[0];
-					maxLanguages.put(language, Integer.parseInt(maxCultureLanguage[0]));
-
-					language = Spanish.WRITTEN_TAG + " " + languageInformation[0];
-					maxLanguages.put(language, Integer.parseInt(maxCultureLanguage[1]));
+				} catch (NumberFormatException nfe) {
+					throw new InvalidRaceException("Language value invalid in '" + lines.get(index) + "'.",
+							nfe);
+				} catch (Exception e) {
+					throw new InvalidRaceException("Language line invalid '" + lines.get(index)
+							+ "' in line '" + index + "'.", e);
 				}
-			} catch (NumberFormatException nfe) {
-				throw new InvalidRaceException("Language value invalid in '" + lines.get(index) + "'.", nfe);
-			} catch (Exception e) {
-				throw new InvalidRaceException("Language line invalid '" + lines.get(index) + "' in line '"
-						+ index + "'.", e);
 			}
 			index++;
 		}
