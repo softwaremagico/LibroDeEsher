@@ -156,7 +156,6 @@ public class CultureCategory implements Comparable<CultureCategory> {
 
 	@Override
 	public int compareTo(CultureCategory cultureCategory) {
-		// TODO Auto-generated method stub
 		return getCategoryOptions().get(0).compareTo(cultureCategory.getCategoryOptions().get(0));
 	}
 }

@@ -415,13 +415,13 @@ public class CharacterPlayer extends StorableObject {
 		return cultureDecisions.getTotalSpellRanks();
 	}
 
-	public void setCultureWeaponsRanks(String skillName, Integer ranks) {
-		cultureDecisions.setWeaponRanks(skillName, ranks);
+	public void setCultureSkillRanks(String skillName, Integer ranks) {
+		cultureDecisions.setSkillRanks(skillName, ranks);
 		characterPlayerHelper.resetSkillRanks(skillName);
 	}
 
 	public int getCultureWeaponsRanks(String skillName) {
-		return cultureDecisions.getWeaponRanks(skillName);
+		return cultureDecisions.getSkillRanks(skillName);
 	}
 
 	public int getCultureTotalWeaponsRanks(Category category) {
@@ -3038,7 +3038,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public void removeCultureSkills(CultureCategory cultureCategory) {
-		// getCultureDecisions().removeSkillsSelected();
+		getCultureDecisions().removeSkills(cultureCategory);
 		characterPlayerHelper.resetAllSkillRanks();
 	}
 }

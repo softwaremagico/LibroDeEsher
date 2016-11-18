@@ -591,7 +591,7 @@ public class RandomCharacterPlayer {
 					Skill weaponSkill = weaponsOfCategory.get((int) (Math.random() * weaponsOfCategory.size()));
 					if (Math.random() * 100 + 1 < Math.max(characterPlayer.getRealRanks(weaponSkill)
 							* specializationLevel * 25, 10 - specializationLevel)) {
-						characterPlayer.setCultureWeaponsRanks(weaponSkill.getName(),
+						characterPlayer.setCultureSkillRanks(weaponSkill.getName(),
 								characterPlayer.getCultureWeaponsRanks(weaponSkill.getName()) + 1);
 					}
 				}

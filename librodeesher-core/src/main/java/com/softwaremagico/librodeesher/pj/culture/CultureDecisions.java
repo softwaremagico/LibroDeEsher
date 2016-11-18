@@ -39,6 +39,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.persistence.StorableObject;
@@ -49,10 +50,11 @@ public class CultureDecisions extends StorableObject {
 	private static final long serialVersionUID = 2367407444500030039L;
 
 	@Expose
+	@SerializedName(value="skillRanks", alternate={"weaponRanks"})
 	@ElementCollection
-	@CollectionTable(name = "T_CULTURE_WEAPON_RANKS")
+	@CollectionTable(name = "T_CULTURE_SKILL_RANKS")
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private Map<String, Integer> weaponRanks;
+	private Map<String, Integer> skillRanks;
 
 	@Expose
 	@ElementCollection
@@ -76,19 +78,25 @@ public class CultureDecisions extends StorableObject {
 	@ElementCollection
 	@CollectionTable(name = "T_CULTURE_OPTIONAL_CULTURE_LANGUAGES")
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OrderColumn(name= "raceLanguageIndex")
+	@OrderColumn(name = "raceLanguageIndex")
 	private List<String> optionalCulturalLanguageSelection;
 
 	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_CULTURE_OPTIONAL_RACE_LANGUAGES")
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OrderColumn(name= "raceLanguageIndex")
+	@OrderColumn(name = "raceLanguageIndex")
 	private List<String> optionalRaceLanguageSelection;
+
+	@ElementCollection
+	@CollectionTable(name = "T_CULTURE_OPTIONAL_CATEGORIES")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OrderColumn(name = "raceLanguageIndex")
+	private List<String> adolescenceCategoriesSelected;
 
 	public CultureDecisions() {
 		languageRanks = new HashMap<>();
-		weaponRanks = new HashMap<>();
+		skillRanks = new HashMap<>();
 		hobbyRanks = new HashMap<>();
 		spellRanks = new HashMap<>();
 		optionalCulturalLanguageSelection = new ArrayList<>();
@@ -112,7 +120,8 @@ public class CultureDecisions extends StorableObject {
 	}
 
 	/**
-	 * Includes the ranks in the communication category of the culture plus the communications ranks of the race.
+	 * Includes the ranks in the communication category of the culture plus the
+	 * communications ranks of the race.
 	 * 
 	 * @param language
 	 * @param ranks
@@ -141,16 +150,16 @@ public class CultureDecisions extends StorableObject {
 		return ranks;
 	}
 
-	public void setWeaponRanks(String weaponSkill, Integer ranks) {
+	public void setSkillRanks(String skill, Integer ranks) {
 		if (ranks <= 0) {
-			weaponRanks.remove(weaponSkill);
+			skillRanks.remove(skill);
 		} else {
-			weaponRanks.put(weaponSkill, ranks);
+			skillRanks.put(skill, ranks);
 		}
 	}
 
-	public Integer getWeaponRanks(String weaponSkill) {
-		Integer value = weaponRanks.get(weaponSkill);
+	public Integer getSkillRanks(String skill) {
+		Integer value = skillRanks.get(skill);
 		if (value == null) {
 			return 0;
 		}
@@ -160,7 +169,7 @@ public class CultureDecisions extends StorableObject {
 	public Integer getTotalWeaponRanks(Category category) {
 		Integer total = 0;
 		for (Skill skill : category.getSkills()) {
-			total += getWeaponRanks(skill.getName());
+			total += getSkillRanks(skill.getName());
 		}
 		return total;
 	}
@@ -213,48 +222,8 @@ public class CultureDecisions extends StorableObject {
 		return total;
 	}
 
-	public Map<String, Integer> getWeaponRanks() {
-		return weaponRanks;
-	}
-
-	public void setWeaponRanks(HashMap<String, Integer> weaponRanks) {
-		this.weaponRanks = weaponRanks;
-	}
-
-	public Map<String, Integer> getHobbyRanks() {
-		return hobbyRanks;
-	}
-
-	public void setHobbyRanks(HashMap<String, Integer> hobbyRanks) {
-		this.hobbyRanks = hobbyRanks;
-	}
-
-	public Map<String, Integer> getSpellRanks() {
-		return spellRanks;
-	}
-
-	public void setSpellRanks(HashMap<String, Integer> spellRanks) {
-		this.spellRanks = spellRanks;
-	}
-
 	public Map<String, Integer> getLanguageRanks() {
 		return languageRanks;
-	}
-
-	protected void setWeaponRanks(Map<String, Integer> weaponRanks) {
-		this.weaponRanks = weaponRanks;
-	}
-
-	protected void setHobbyRanks(Map<String, Integer> hobbyRanks) {
-		this.hobbyRanks = hobbyRanks;
-	}
-
-	protected void setSpellRanks(Map<String, Integer> spellRanks) {
-		this.spellRanks = spellRanks;
-	}
-
-	protected void setLanguageRanks(Map<String, Integer> languageRanks) {
-		this.languageRanks = languageRanks;
 	}
 
 	public List<String> getOptionalCulturalLanguages() {
@@ -263,5 +232,13 @@ public class CultureDecisions extends StorableObject {
 
 	public List<String> getOptionalRaceLanguages() {
 		return optionalRaceLanguageSelection;
+	}
+
+	public void removeSkills(CultureCategory cultureCategory) {
+		for (String category : cultureCategory.getCategoryOptions()) {
+			for (Skill skill : cultureCategory.getCultureSkills(category)) {
+				skillRanks.remove(skill.getName());
+			}
+		}
 	}
 }

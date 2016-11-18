@@ -181,6 +181,13 @@
         primary key (CultureDecisions_ID, languageRanks_KEY)
     );
 
+    create table T_CULTURE_OPTIONAL_CATEGORIES (
+        CultureDecisions_ID bigint not null,
+        adolescenceCategoriesSelected varchar(255),
+        raceLanguageIndex integer not null,
+        primary key (CultureDecisions_ID, raceLanguageIndex)
+    );
+
     create table T_CULTURE_OPTIONAL_CULTURE_LANGUAGES (
         CultureDecisions_ID bigint not null,
         optionalCulturalLanguageSelection varchar(255),
@@ -195,18 +202,18 @@
         primary key (CultureDecisions_ID, raceLanguageIndex)
     );
 
+    create table T_CULTURE_SKILL_RANKS (
+        CultureDecisions_ID bigint not null,
+        skillRanks integer,
+        skillRanks_KEY varchar(255),
+        primary key (CultureDecisions_ID, skillRanks_KEY)
+    );
+
     create table T_CULTURE_SPELL_RANKS (
         CultureDecisions_ID bigint not null,
         spellRanks integer,
         spellRanks_KEY varchar(255),
         primary key (CultureDecisions_ID, spellRanks_KEY)
-    );
-
-    create table T_CULTURE_WEAPON_RANKS (
-        CultureDecisions_ID bigint not null,
-        weaponRanks integer,
-        weaponRanks_KEY varchar(255),
-        primary key (CultureDecisions_ID, weaponRanks_KEY)
     );
 
     create table T_FAVOURITE_SKILLS (
@@ -885,6 +892,11 @@
         foreign key (CultureDecisions_ID) 
         references T_CULTUREDECISIONS (ID);
 
+    alter table T_CULTURE_OPTIONAL_CATEGORIES 
+        add constraint FK_5fdlhloq13167thk8nll68m3p 
+        foreign key (CultureDecisions_ID) 
+        references T_CULTUREDECISIONS (ID);
+
     alter table T_CULTURE_OPTIONAL_CULTURE_LANGUAGES 
         add constraint FK_r3n5fqnifsedv0i1ocht6qwbq 
         foreign key (CultureDecisions_ID) 
@@ -895,13 +907,13 @@
         foreign key (CultureDecisions_ID) 
         references T_CULTUREDECISIONS (ID);
 
-    alter table T_CULTURE_SPELL_RANKS 
-        add constraint FK_qf6tc6n7nslys2rhnhe94cgw 
+    alter table T_CULTURE_SKILL_RANKS 
+        add constraint FK_1y8qbfl0yltrrt62vt7gmo3be 
         foreign key (CultureDecisions_ID) 
         references T_CULTUREDECISIONS (ID);
 
-    alter table T_CULTURE_WEAPON_RANKS 
-        add constraint FK_kcq1tf5emosdrc3jd4ok65whv 
+    alter table T_CULTURE_SPELL_RANKS 
+        add constraint FK_qf6tc6n7nslys2rhnhe94cgw 
         foreign key (CultureDecisions_ID) 
         references T_CULTUREDECISIONS (ID);
 

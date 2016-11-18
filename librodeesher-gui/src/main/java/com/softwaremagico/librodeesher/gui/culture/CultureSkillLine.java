@@ -46,7 +46,7 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class CultureSkillLine extends BaseLine {
 	private static final long serialVersionUID = -4697558156145520144L;
-	private Skill weaponSkill;
+	private Skill skill;
 	private BaseSpinner rankSpinner;
 	private CultureCategory category;
 	private ChooseCategoryPanel parentPanel;
@@ -56,7 +56,7 @@ public class CultureSkillLine extends BaseLine {
 		this.character = character;
 		this.parentPanel = parentPanel;
 		this.category = category;
-		this.weaponSkill = weaponSkill;
+		this.skill = weaponSkill;
 		setElements(background);
 		setBackground(background);
 		rankSpinner.setValue(character.getCultureWeaponsRanks(weaponSkill.getName()));
@@ -80,7 +80,7 @@ public class CultureSkillLine extends BaseLine {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 0;
 
-		ListLabel weaponSkillLabel = new ListLabel(weaponSkill.getName(), SwingConstants.LEFT);
+		ListLabel weaponSkillLabel = new ListLabel(skill.getName(), SwingConstants.LEFT);
 		add(weaponSkillLabel, gridBagConstraints);
 
 		SpinnerModel sm = new SpinnerNumberModel(0, 0, 3, 1);
@@ -107,11 +107,11 @@ public class CultureSkillLine extends BaseLine {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				// Correct the spinner
-				if (parentPanel.getSpinnerValues(category) > category.getRanks()) {
+				if (parentPanel.getSpinnerValues(category) > category.getRanksToChoose()) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character
-					character.setCultureWeaponsRanks(weaponSkill.getName(), (Integer) rankSpinner.getValue());
+					character.setCultureSkillRanks(skill.getName(), (Integer) rankSpinner.getValue());
 				}
 			}
 		});
