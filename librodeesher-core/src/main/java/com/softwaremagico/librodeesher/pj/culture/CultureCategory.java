@@ -146,7 +146,7 @@ public class CultureCategory implements Comparable<CultureCategory> {
 			}
 			return skills;
 		} else {
-			return CategoryFactory.getCategory(selectedCategory).getSkills();
+			return CategoryFactory.getCategory(selectedCategory).getNonRareSkills();
 		}
 	}
 
@@ -157,5 +157,10 @@ public class CultureCategory implements Comparable<CultureCategory> {
 	@Override
 	public int compareTo(CultureCategory cultureCategory) {
 		return getCategoryOptions().get(0).compareTo(cultureCategory.getCategoryOptions().get(0));
+	}
+
+	@Override
+	public String toString() {
+		return categoryOptions.toString();
 	}
 }

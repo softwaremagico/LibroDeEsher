@@ -52,14 +52,14 @@ public class CultureSkillLine extends BaseLine {
 	private ChooseCategoryPanel parentPanel;
 	private CharacterPlayer character;
 
-	public CultureSkillLine(CharacterPlayer character, CultureCategory category, ChooseCategoryPanel parentPanel, Skill weaponSkill, Color background) {
+	public CultureSkillLine(CharacterPlayer character, CultureCategory category, ChooseCategoryPanel parentPanel, Skill skill, Color background) {
 		this.character = character;
 		this.parentPanel = parentPanel;
 		this.category = category;
-		this.skill = weaponSkill;
+		this.skill = skill;
 		setElements(background);
 		setBackground(background);
-		rankSpinner.setValue(character.getCultureWeaponsRanks(weaponSkill.getName()));
+		rankSpinner.setValue(character.getCultureAdolescenceRanks(skill.getName()));
 	}
 
 	protected void setDefaultSize() {

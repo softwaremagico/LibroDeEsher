@@ -473,4 +473,9 @@ public class Culture {
 	public Set<CultureCategory> getAdolescenceCategories() {
 		return new HashSet<>(categories.values());
 	}
+
+	@Override
+	public String toString() {
+		return getName();
+	}
 }

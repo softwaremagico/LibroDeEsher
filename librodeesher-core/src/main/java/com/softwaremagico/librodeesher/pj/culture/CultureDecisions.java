@@ -50,7 +50,7 @@ public class CultureDecisions extends StorableObject {
 	private static final long serialVersionUID = 2367407444500030039L;
 
 	@Expose
-	@SerializedName(value="skillRanks", alternate={"weaponRanks"})
+	@SerializedName(value = "skillRanks", alternate = { "weaponRanks" })
 	@ElementCollection
 	@CollectionTable(name = "T_CULTURE_SKILL_RANKS")
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -101,6 +101,7 @@ public class CultureDecisions extends StorableObject {
 		spellRanks = new HashMap<>();
 		optionalCulturalLanguageSelection = new ArrayList<>();
 		optionalRaceLanguageSelection = new ArrayList<>();
+		adolescenceCategoriesSelected = new ArrayList<>();
 		resetLanguageOptions();
 	}
 
@@ -166,7 +167,7 @@ public class CultureDecisions extends StorableObject {
 		return value;
 	}
 
-	public Integer getTotalWeaponRanks(Category category) {
+	public Integer getTotalAdolescenceSkillRanks(Category category) {
 		Integer total = 0;
 		for (Skill skill : category.getSkills()) {
 			total += getSkillRanks(skill.getName());
@@ -240,5 +241,15 @@ public class CultureDecisions extends StorableObject {
 				skillRanks.remove(skill.getName());
 			}
 		}
+	}
+
+	public void addAdolescenceCategorySelection(String categoryName) {
+		if (!adolescenceCategoriesSelected.contains(categoryName)) {
+			adolescenceCategoriesSelected.add(categoryName);
+		}
+	}
+
+	public void removeAdolescenceCategorySelection(String categoryName) {
+		adolescenceCategoriesSelected.remove(categoryName);
 	}
 }

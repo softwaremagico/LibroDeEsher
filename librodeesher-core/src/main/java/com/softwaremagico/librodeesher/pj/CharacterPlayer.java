@@ -420,12 +420,12 @@ public class CharacterPlayer extends StorableObject {
 		characterPlayerHelper.resetSkillRanks(skillName);
 	}
 
-	public int getCultureWeaponsRanks(String skillName) {
+	public int getCultureAdolescenceRanks(String skillName) {
 		return cultureDecisions.getSkillRanks(skillName);
 	}
 
-	public int getCultureTotalWeaponsRanks(Category category) {
-		return cultureDecisions.getTotalWeaponRanks(category);
+	public int getTotalAdolescenceSkillRanksSelected(Category category) {
+		return cultureDecisions.getTotalAdolescenceSkillRanks(category);
 	}
 
 	public ProfessionDecisions getProfessionDecisions() {
@@ -1143,7 +1143,7 @@ public class CharacterPlayer extends StorableObject {
 		if (getCulture() != null) {
 			total += getCulture().getCultureRanks(skill);
 		}
-		total += getCultureWeaponsRanks(skill.getName());
+		total += getCultureAdolescenceRanks(skill.getName());
 		total += getCultureHobbyRanks(skill.getName());
 		total += getCultureLanguageRanks(skill.getName());
 		total += getCultureSpellRanks(skill.getName());

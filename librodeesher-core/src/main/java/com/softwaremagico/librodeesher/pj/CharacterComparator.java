@@ -56,8 +56,8 @@ public class CharacterComparator {
 				throw new CategoryNotEqualsException("Category '" + category.getName()
 						+ "' comparation error.\n\tranks '" + character1.getPreviousRanks(category)
 						+ "', culture ranks '" + character1.getCulture().getCultureRanks(category)
-						+ "', culture weapons ranks '"
-						+ character1.getCultureWeaponsRanks(category.getName()) + "', culture hobby ranks '"
+						+ "', culture adolescence ranks '"
+						+ character1.getCultureAdolescenceRanks(category.getName()) + "', culture hobby ranks '"
 						+ character1.getCultureHobbyRanks(category.getName()) + "', previous level ranks '"
 						+ character1.getPreviousLevelsRanks(category) + "', training ranks '"
 						+ character1.getTrainingRanks(category) + "', inserted ranks '"
@@ -67,7 +67,7 @@ public class CharacterComparator {
 						+ character1.getBonus(category) + "', total '" + character1.getTotalValue(category)
 						+ "'.\n\tranks '" + character2.getPreviousRanks(category) + "', culture ranks '"
 						+ character2.getCulture().getCultureRanks(category) + "', culture weapons ranks '"
-						+ character2.getCultureWeaponsRanks(category.getName()) + "', culture hobby ranks '"
+						+ character2.getCultureAdolescenceRanks(category.getName()) + "', culture hobby ranks '"
 						+ character2.getCultureHobbyRanks(category.getName()) + "', previous level ranks '"
 						+ character2.getPreviousLevelsRanks(category) + "', training ranks '"
 						+ character2.getTrainingRanks(category) + "', inserted ranks '"
@@ -98,8 +98,8 @@ public class CharacterComparator {
 									+ character1.getPreviousRanks(skill)
 									+ "', culture ranks '"
 									+ character1.getCulture().getCultureRanks(skill)
-									+ "', culture weapons ranks '"
-									+ character1.getCultureWeaponsRanks(skill.getName())
+									+ "', culture adolescence ranks '"
+									+ character1.getCultureAdolescenceRanks(skill.getName())
 									+ "', culture hobby ranks '"
 									+ character1.getCultureHobbyRanks(skill.getName())
 									+ "', previous level ranks '"
@@ -136,7 +136,7 @@ public class CharacterComparator {
 									+ "', culture ranks '"
 									+ character2.getCulture().getCultureRanks(skill)
 									+ "', culture weapons ranks '"
-									+ character2.getCultureWeaponsRanks(skill.getName())
+									+ character2.getCultureAdolescenceRanks(skill.getName())
 									+ "', culture hobby ranks '"
 									+ character2.getCultureHobbyRanks(skill.getName())
 									+ "', previous level ranks '"
