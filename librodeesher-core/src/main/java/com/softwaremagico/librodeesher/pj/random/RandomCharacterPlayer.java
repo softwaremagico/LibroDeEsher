@@ -596,25 +596,26 @@ public class RandomCharacterPlayer {
 
 	private static void setRandomCultureAdolescenceRanks(CharacterPlayer characterPlayer,
 			int specializationLevel) {
-		for (CultureCategory category : characterPlayer.getCulture().getAdolescenceCategories()) {
+		for (CultureCategory cultureCategory : characterPlayer.getCulture().getAdolescenceCategories()) {
 			// Select category.
 			String selectedCategory = null;
-			if (category.getCategoryOptions().size() > 1) {
-				selectedCategory = category.getCategoryOptions().get(
-						((int) (Math.random() * category.getCategoryOptions().size())));
+			if (cultureCategory.getCategoryOptions().size() > 1) {
+				selectedCategory = cultureCategory.getCategoryOptions().get(
+						((int) (Math.random() * cultureCategory.getCategoryOptions().size())));
 				characterPlayer.getCultureDecisions().addAdolescenceCategorySelection(selectedCategory);
 			} else {
-				selectedCategory = category.getCategoryOptions().get(0);
+				selectedCategory = cultureCategory.getCategoryOptions().get(0);
 			}
 			System.out.println("################################3");
 			System.out.println(characterPlayer.getCulture());
 			System.out.println(selectedCategory);
 			// Select skills.
-			if (category.getRanksToChoose() > 0) {
-				List<Skill> skills = category.getCultureSkills(selectedCategory);
+			if (cultureCategory.getSkillRanksToChoose() > 0
+					&& !cultureCategory.getCategoryOptions().get(0).equals(Spanish.COMUNICATION_CATEGORY)) {
+				List<Skill> skills = cultureCategory.getCultureSkills(selectedCategory);
 				System.out.println(skills);
 				int ranksAdded = 0;
-				while (category.getRanksToChoose() > ranksAdded) {
+				while (cultureCategory.getSkillRanksToChoose() > ranksAdded) {
 					Collections.shuffle(skills);
 					characterPlayer.getCultureDecisions().setSkillRanks(skills.get(0).getName(),
 							characterPlayer.getCultureDecisions().getSkillRanks(skills.get(0).getName()));

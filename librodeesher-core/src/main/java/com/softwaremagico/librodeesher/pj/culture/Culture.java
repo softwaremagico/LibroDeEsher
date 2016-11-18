@@ -87,7 +87,7 @@ public class Culture {
 		if (category != null) {
 			for (String categoryName : categories.keySet()) {
 				if (categoryName.equals(category.getName())) {
-					if (categories.get(categoryName).getRanksToChoose() > 0) {
+					if (categories.get(categoryName).getSkillRanksToChoose() > 0) {
 						return true;
 					}
 				}
@@ -436,7 +436,7 @@ public class Culture {
 
 	public Integer getSpellRanks() {
 		try {
-			return categories.get(Spanish.OPEN_LISTS).getRanksToChoose();
+			return categories.get(Spanish.OPEN_LISTS).getSkillRanksToChoose();
 		} catch (NullPointerException npe) {
 			// Spell ranks not defined, as in Pulp module.
 			return 0;
@@ -444,7 +444,7 @@ public class Culture {
 	}
 
 	public Integer getLanguageRanksToChoose() {
-		return categories.get(Spanish.COMUNICATION_CATEGORY).getRanksToChoose();
+		return categories.get(Spanish.COMUNICATION_CATEGORY).getSkillRanksToChoose();
 	}
 
 	public Integer getLanguageMaxRanks(String language) {

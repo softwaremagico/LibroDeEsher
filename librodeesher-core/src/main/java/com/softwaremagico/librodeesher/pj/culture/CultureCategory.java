@@ -26,6 +26,7 @@ package com.softwaremagico.librodeesher.pj.culture;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,7 +37,7 @@ import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
 public class CultureCategory implements Comparable<CultureCategory> {
 	private Integer ranks;
-	private Integer ranksToChoose;
+	private Integer skillRanksToChoose;
 	private HashMap<String, CultureSkill> skills;
 	private List<String> categoryOptions; // List to choose one category from.
 
@@ -45,7 +46,7 @@ public class CultureCategory implements Comparable<CultureCategory> {
 		categoryOptions = new ArrayList<String>();
 		categoryOptions.add(name);
 		this.ranks = ranks;
-		ranksToChoose = 0;
+		skillRanksToChoose = 0;
 	}
 
 	public CultureCategory(String name, String ranks) throws InvalidCultureException {
@@ -62,6 +63,7 @@ public class CultureCategory implements Comparable<CultureCategory> {
 
 	public CultureCategory(String[] options, String ranks) throws InvalidCultureException {
 		categoryOptions = new ArrayList<String>(Arrays.asList(options));
+		Collections.sort(categoryOptions);
 		skills = new HashMap<>();
 		try {
 			this.ranks = Integer.parseInt(ranks);
@@ -92,7 +94,7 @@ public class CultureCategory implements Comparable<CultureCategory> {
 				|| skillColumns[0].toLowerCase().equals(Spanish.CULTURE_LANGUAGE_TAG)
 				|| skillColumns[0].toLowerCase().equals(Spanish.ANY_SKILL)) {
 			try {
-				ranksToChoose = Integer.parseInt(skillColumns[1]);
+				skillRanksToChoose = Integer.parseInt(skillColumns[1]);
 			} catch (NumberFormatException nfe) {
 				throw new InvalidCultureException("Error al obtener los rangos de la habilidad cultural: "
 						+ skillLine + ". Razón: " + nfe.getMessage());
@@ -110,11 +112,11 @@ public class CultureCategory implements Comparable<CultureCategory> {
 	 * 
 	 * @return
 	 */
-	public Integer getRanksToChoose() {
-		if (ranksToChoose == null) {
+	public Integer getSkillRanksToChoose() {
+		if (skillRanksToChoose == null) {
 			return 0;
 		}
-		return ranksToChoose;
+		return skillRanksToChoose;
 	}
 
 	public Integer getRanks() {
@@ -151,7 +153,7 @@ public class CultureCategory implements Comparable<CultureCategory> {
 	}
 
 	public boolean isUseful() {
-		return (ranks + (ranksToChoose != null ? ranksToChoose : 0)) > 0;
+		return (ranks + (skillRanksToChoose != null ? skillRanksToChoose : 0)) > 0;
 	}
 
 	@Override

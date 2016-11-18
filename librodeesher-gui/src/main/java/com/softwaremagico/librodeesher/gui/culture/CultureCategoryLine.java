@@ -89,7 +89,7 @@ public class CultureCategoryLine extends BaseLine {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
 		gridBagConstraints.gridx = 1;
-		ListLabel rankLabel = new ListLabel(cultureCategory.getRanks().toString() + " (" + cultureCategory.getRanksToChoose().toString() + ")");
+		ListLabel rankLabel = new ListLabel(cultureCategory.getRanks().toString() + " (" + cultureCategory.getSkillRanksToChoose().toString() + ")");
 		add(rankLabel, gridBagConstraints);
 	}
 

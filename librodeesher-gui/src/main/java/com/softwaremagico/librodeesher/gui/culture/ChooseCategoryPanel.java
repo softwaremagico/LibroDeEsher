@@ -74,7 +74,7 @@ public class ChooseCategoryPanel extends BasePanel {
 
 						i++;
 						String selectedCategory = cultureCategory.getCategoryOptions().get(0);
-						if (cultureCategory.getRanksToChoose() > 0) {
+						if (cultureCategory.getSkillRanksToChoose() > 0) {
 							for (Skill skill : cultureCategory.getCultureSkills(selectedCategory)) {
 								CultureSkillLine skillLine = new CultureSkillLine(character, cultureCategory,
 										this, SkillFactory.getAvailableSkill(skill.getName()),
@@ -114,7 +114,7 @@ public class ChooseCategoryPanel extends BasePanel {
 		}
 		if (index >= 0) {
 			skillsLinesPerCategory.put(cultureCategory, new ArrayList<CultureSkillLine>());
-			if (cultureCategory.getRanksToChoose() > 0) {
+			if (cultureCategory.getSkillRanksToChoose() > 0) {
 				for (Skill skill : cultureCategory.getCultureSkills(selectedCategory)) {
 					CultureSkillLine skillLine = new CultureSkillLine(character, cultureCategory, this,
 							SkillFactory.getAvailableSkill(skill.getName()), getLineBackgroundColor(index));
