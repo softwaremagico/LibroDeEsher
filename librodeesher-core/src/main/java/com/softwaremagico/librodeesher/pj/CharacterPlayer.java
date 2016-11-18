@@ -65,6 +65,7 @@ import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.culture.Culture;
+import com.softwaremagico.librodeesher.pj.culture.CultureCategory;
 import com.softwaremagico.librodeesher.pj.culture.CultureDecisions;
 import com.softwaremagico.librodeesher.pj.culture.CultureFactory;
 import com.softwaremagico.librodeesher.pj.culture.InvalidCultureException;
@@ -3034,5 +3035,10 @@ public class CharacterPlayer extends StorableObject {
 			}
 		}
 		return languages;
+	}
+
+	public void removeCultureSkills(CultureCategory cultureCategory) {
+		// getCultureDecisions().removeSkillsSelected();
+		characterPlayerHelper.resetAllSkillRanks();
 	}
 }

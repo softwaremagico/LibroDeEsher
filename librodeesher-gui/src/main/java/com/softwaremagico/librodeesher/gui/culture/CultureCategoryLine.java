@@ -35,15 +35,20 @@ import com.softwaremagico.librodeesher.gui.elements.ListBackgroundPanel;
 import com.softwaremagico.librodeesher.gui.elements.ListLabel;
 import com.softwaremagico.librodeesher.gui.style.BaseLine;
 import com.softwaremagico.librodeesher.gui.style.Fonts;
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.culture.CultureCategory;
 
 public class CultureCategoryLine extends BaseLine {
 	private static final long serialVersionUID = 4480268296161276440L;
 	private CultureCategory cultureCategory;
 	private CategoryComboBox<String> chooseCategoryComboBox = null;
+	private ChooseCategoryPanel parentPanel;
+	private CharacterPlayer character;
 
-	public CultureCategoryLine(CultureCategory cultureCategory, Color background) {
+	public CultureCategoryLine(CharacterPlayer character, CultureCategory cultureCategory, Color background, ChooseCategoryPanel parentPanel) {
 		this.cultureCategory = cultureCategory;
+		this.parentPanel = parentPanel;
+		this.character = character;
 		setElements(background);
 		setBackground(background);
 	}
@@ -84,7 +89,7 @@ public class CultureCategoryLine extends BaseLine {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
 		gridBagConstraints.gridx = 1;
-		ListLabel rankLabel = new ListLabel("(" + cultureCategory.getRanks().toString() + ")");
+		ListLabel rankLabel = new ListLabel(cultureCategory.getRanks().toString() + " (" + cultureCategory.getRanksToChoose().toString() + ")");
 		add(rankLabel, gridBagConstraints);
 	}
 
@@ -99,10 +104,14 @@ public class CultureCategoryLine extends BaseLine {
 		@Override
 		public void doAction() {
 			// Remove skills of old category.
-			parentPanel.removeSkillLinesOfCategory(trainingCategory);
-			character.removeTrainingSkill(parentPanel.getTraining(), trainingCategory);
+			parentPanel.removeSkillLinesOfCategory(cultureCategory);
+			character.removeCultureSkills(cultureCategory);
 			// add new skills in the correct place.
-			parentPanel.addSkillLinesOfCategory(trainingCategory, chooseCategoryComboBox.getSelectedIndex());
+			parentPanel.addSkillLinesOfCategory(cultureCategory, (String) chooseCategoryComboBox.getSelectedItem());
 		}
+	}
+
+	public CultureCategory getCultureCategory() {
+		return cultureCategory;
 	}
 }

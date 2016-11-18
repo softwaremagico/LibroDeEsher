@@ -105,7 +105,7 @@ public class CultureCategory {
 	 * 
 	 * @return
 	 */
-	public Integer getChooseRanks() {
+	public Integer getRanksToChoose() {
 		if (ranksToChoose == null) {
 			return 0;
 		}

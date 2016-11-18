@@ -24,6 +24,7 @@ package com.softwaremagico.librodeesher.gui.culture;
  * #L%
  */
 
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
+import com.softwaremagico.librodeesher.gui.training.TrainingCategoryLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.culture.CultureCategory;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -40,24 +42,26 @@ public class ChooseCategoryPanel extends BasePanel {
 	private static final long serialVersionUID = 544393371168606333L;
 
 	private HashMap<CultureCategory, List<CultureSkillLine>> weaponLines = new HashMap<>();
-	private Map<CultureCategory, List<CultureSkillLine>> trainingSkillLinesPerCategory = new HashMap<>();
-	private List<CultureCategoryLine> trainingCategoryLines;
+	private Map<CultureCategory, List<CultureSkillLine>> skillsLinesPerCategory = new HashMap<>();
+	private List<CultureCategoryLine> categoryLines;
+	private CharacterPlayer character;
 
 	public ChooseCategoryPanel(CharacterPlayer character) {
-		setElements(character);
+		this.character = character;
+		setElements();
 	}
 
-	private void setElements(CharacterPlayer character) {
+	private void setElements() {
 		this.removeAll();
 		setLayout(new GridLayout(0, 1));
 		int i = 0;
 
 		if (character.getCulture() != null) {
 			for (CultureCategory cultureCategory : character.getCulture().getAdolescenceCategories()) {
-				CultureCategoryLine categoryLine = new CultureCategoryLine(cultureCategory, getLineBackgroundColor(i));
+				CultureCategoryLine categoryLine = new CultureCategoryLine(character, cultureCategory, getLineBackgroundColor(i), this);
 				add(categoryLine);
-				trainingCategoryLines.add(categoryLine);
-				trainingSkillLinesPerCategory.put(cultureCategory, new ArrayList<CultureSkillLine>());
+				categoryLines.add(categoryLine);
+				skillsLinesPerCategory.put(cultureCategory, new ArrayList<CultureSkillLine>());
 
 				i++;
 				String selectedCategory = cultureCategory.getCategoryOptions().get(0);
@@ -66,7 +70,7 @@ public class ChooseCategoryPanel extends BasePanel {
 							getLineBackgroundColor(i));
 					add(skillLine);
 					i++;
-					trainingSkillLinesPerCategory.get(cultureCategory).add(skillLine);
+					skillsLinesPerCategory.get(cultureCategory).add(skillLine);
 				}
 			}
 		}
@@ -97,6 +101,41 @@ public class ChooseCategoryPanel extends BasePanel {
 		// }
 		// }
 		// }
+	}
+
+	protected void removeSkillLinesOfCategory(CultureCategory cultureCategory) {
+		if (skillsLinesPerCategory.get(cultureCategory) != null) {
+			for (CultureSkillLine line : skillsLinesPerCategory.get(cultureCategory)) {
+				this.remove(line);
+			}
+			skillsLinesPerCategory.put(cultureCategory, new ArrayList<CultureSkillLine>());
+		}
+	}
+
+	protected void addSkillLinesOfCategory(CultureCategory cultureCategory, String selectedCategory) {
+		// Get the index of the category.
+		int index = -1;
+
+		for (int i = 0; i < this.getComponents().length; i++) {
+			Component component = this.getComponents()[i];
+			if (component instanceof TrainingCategoryLine) {
+				if (((CultureCategoryLine) component).getCultureCategory().equals(cultureCategory)) {
+					index = i + 1;
+					break;
+				}
+			}
+		}
+
+		for (Skill skill : cultureCategory.getCultureSkills(selectedCategory)) {
+			CultureSkillLine skillLine = new CultureSkillLine(character, cultureCategory, this, SkillFactory.getAvailableSkill(skill.getName()),
+					getLineBackgroundColor(index));
+			add(skillLine, index);
+			index++;
+			skillsLinesPerCategory.get(cultureCategory).add(skillLine);
+		}
+
+		this.revalidate();
+		this.repaint();
 	}
 
 	protected Integer getSpinnerValues(CultureCategory category) {
