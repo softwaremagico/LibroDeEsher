@@ -26,15 +26,15 @@ package com.softwaremagico.librodeesher.gui.culture;
 import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
-public class CompleteWeaponPanel extends BaseScrollPanel {
+public class CompleteCultureCategoryPanel extends BaseScrollPanel {
 	private static final long serialVersionUID = 2892662401064032217L;
 	private CultureTitleLine title;
-	private ChooseWeaponPanel weaponPanel;
+	private ChooseCategoryPanel weaponPanel;
 
-	public CompleteWeaponPanel(CharacterPlayer character) {
-		title = new CultureTitleLine("Armas", "Rangos");
+	public CompleteCultureCategoryPanel(CharacterPlayer character) {
+		title = new CultureTitleLine("Habilidad", "Rangos");
 		addTitle(title);
-		weaponPanel = new ChooseWeaponPanel(character);
+		weaponPanel = new ChooseCategoryPanel(character);
 		setBody(weaponPanel);
 	}
 }

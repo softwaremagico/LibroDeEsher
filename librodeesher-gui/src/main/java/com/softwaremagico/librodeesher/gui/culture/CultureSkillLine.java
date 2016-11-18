@@ -41,19 +41,18 @@ import com.softwaremagico.librodeesher.gui.elements.BaseSpinner;
 import com.softwaremagico.librodeesher.gui.elements.ListLabel;
 import com.softwaremagico.librodeesher.gui.style.BaseLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
-import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.culture.CultureCategory;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
-public class WeaponSkillLine extends BaseLine {
+public class CultureSkillLine extends BaseLine {
 	private static final long serialVersionUID = -4697558156145520144L;
 	private Skill weaponSkill;
 	private BaseSpinner rankSpinner;
-	private Category category;
-	private ChooseWeaponPanel parentPanel;
+	private CultureCategory category;
+	private ChooseCategoryPanel parentPanel;
 	private CharacterPlayer character;
 
-	public WeaponSkillLine(CharacterPlayer character, Category category, ChooseWeaponPanel parentPanel,
-			Skill weaponSkill, Color background) {
+	public CultureSkillLine(CharacterPlayer character, CultureCategory category, ChooseCategoryPanel parentPanel, Skill weaponSkill, Color background) {
 		this.character = character;
 		this.parentPanel = parentPanel;
 		this.category = category;
@@ -108,12 +107,11 @@ public class WeaponSkillLine extends BaseLine {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				// Correct the spinner
-				if (parentPanel.getSpinnerValues(category) > character.getCulture().getCultureRanks(category)) {
+				if (parentPanel.getSpinnerValues(category) > category.getRanks()) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character
-					character.setCultureWeaponsRanks(weaponSkill.getName(),
-							(Integer) rankSpinner.getValue());
+					character.setCultureWeaponsRanks(weaponSkill.getName(), (Integer) rankSpinner.getValue());
 				}
 			}
 		});
@@ -121,6 +119,6 @@ public class WeaponSkillLine extends BaseLine {
 
 	@Override
 	public void update() {
-				
+
 	}
 }

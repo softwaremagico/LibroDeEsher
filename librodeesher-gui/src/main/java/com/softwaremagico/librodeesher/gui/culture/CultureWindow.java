@@ -158,7 +158,7 @@ public class CultureWindow extends BaseFrame {
 			getContentPane().remove(WEAPONS_PANEL_INDEX);
 		} catch (Exception e) {
 		}
-		getContentPane().add(new CompleteWeaponPanel(character), gridBagConstraints, WEAPONS_PANEL_INDEX);
+		getContentPane().add(new CompleteCultureCategoryPanel(character), gridBagConstraints, WEAPONS_PANEL_INDEX);
 	}
 
 	private void createHobbiesPanel() {

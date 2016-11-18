@@ -30,6 +30,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.basics.Spanish;
+import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 
 public class CultureCategory {
 	private Integer ranks;
@@ -52,8 +55,7 @@ public class CultureCategory {
 		try {
 			this.ranks = Integer.parseInt(ranks);
 		} catch (NumberFormatException nfe) {
-			throw new InvalidCultureException("Error al obtener los rangos de la categoria cultural: "
-					+ categoryOptions + ". " + nfe.getMessage());
+			throw new InvalidCultureException("Error al obtener los rangos de la categoria cultural: " + categoryOptions + ". " + nfe.getMessage());
 		}
 	}
 
@@ -63,8 +65,7 @@ public class CultureCategory {
 		try {
 			this.ranks = Integer.parseInt(ranks);
 		} catch (NumberFormatException nfe) {
-			throw new InvalidCultureException("Error al obtener los rangos de la categoria cultural: "
-					+ categoryOptions + ". Razón: " + nfe.getMessage());
+			throw new InvalidCultureException("Error al obtener los rangos de la categoria cultural: " + categoryOptions + ". Razón: " + nfe.getMessage());
 		}
 	}
 
@@ -84,14 +85,12 @@ public class CultureCategory {
 	public CultureSkill addSkillFromLine(String skillLine) throws InvalidCultureException {
 		skillLine = skillLine.replace("*", "").trim();
 		String[] skillColumns = skillLine.split("\t");
-		if (skillColumns[0].toLowerCase().equals(Spanish.WEAPON)
-				|| skillColumns[0].toLowerCase().equals(Spanish.CULTURE_SPELLS)
+		if (skillColumns[0].toLowerCase().equals(Spanish.WEAPON) || skillColumns[0].toLowerCase().equals(Spanish.CULTURE_SPELLS)
 				|| skillColumns[0].toLowerCase().equals(Spanish.CULTURE_LANGUAGE_TAG)) {
 			try {
 				ranksToChoose = Integer.parseInt(skillColumns[1]);
 			} catch (NumberFormatException nfe) {
-				throw new InvalidCultureException("Error al obtener los rangos de la habilidad cultural: "
-						+ skillLine + ". Razón: " + nfe.getMessage());
+				throw new InvalidCultureException("Error al obtener los rangos de la habilidad cultural: " + skillLine + ". Razón: " + nfe.getMessage());
 			}
 			return null;
 		} else {
@@ -124,4 +123,25 @@ public class CultureCategory {
 		return categoryOptions;
 	}
 
+	/**
+	 * When selecting the culture, in some cultures you have a specific category
+	 * with a list of skills with ranks. In other case, you can choose some
+	 * categories and some skills to set ranks.
+	 * 
+	 * @param cultureCategory
+	 * @param selectedCategory
+	 * @return
+	 */
+	public List<Skill> getCultureSkills(String selectedCategory) {
+		// return option skills if no category to choose.
+		if (getCategoryOptions().isEmpty() || getCategoryOptions().size() == 1) {
+			List<Skill> skills = new ArrayList<Skill>();
+			for (CultureSkill skill : getSkills()) {
+				skills.add(SkillFactory.getSkill(skill.getName()));
+			}
+			return skills;
+		} else {
+			return CategoryFactory.getCategory(selectedCategory).getSkills();
+		}
+	}
 }

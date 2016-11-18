@@ -49,8 +49,7 @@ public class CultureSkill {
 		try {
 			this.ranks = Integer.parseInt(ranks);
 		} catch (NumberFormatException nfe) {
-			throw new InvalidCultureException("Error al obtener los rangos de la habilidad cultural: " + getName()
-					+ ". Razón: " + nfe.getMessage());
+			throw new InvalidCultureException("Error al obtener los rangos de la habilidad cultural: " + getName() + ". Razón: " + nfe.getMessage());
 		}
 	}
 

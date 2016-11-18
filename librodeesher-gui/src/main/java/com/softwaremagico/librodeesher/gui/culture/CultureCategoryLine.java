@@ -30,21 +30,29 @@ import java.awt.GridBagLayout;
 
 import javax.swing.SwingConstants;
 
+import com.softwaremagico.librodeesher.gui.elements.BaseComboBox;
+import com.softwaremagico.librodeesher.gui.elements.ListBackgroundPanel;
 import com.softwaremagico.librodeesher.gui.elements.ListLabel;
 import com.softwaremagico.librodeesher.gui.style.BaseLine;
 import com.softwaremagico.librodeesher.gui.style.Fonts;
-import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.culture.CultureCategory;
 
-public class WeaponCategoryLine extends BaseLine {
+public class CultureCategoryLine extends BaseLine {
 	private static final long serialVersionUID = 4480268296161276440L;
-	private Category weaponsCategory;
-	private Integer ranks;
+	private CultureCategory cultureCategory;
+	private CategoryComboBox<String> chooseCategoryComboBox = null;
 
-	public WeaponCategoryLine(Category weaponsCategory, Integer ranks, Color background) {
-		this.weaponsCategory = weaponsCategory;
-		this.ranks = ranks;
+	public CultureCategoryLine(CultureCategory cultureCategory, Color background) {
+		this.cultureCategory = cultureCategory;
 		setElements(background);
 		setBackground(background);
+	}
+
+	private void addItemsToComboBox() {
+		chooseCategoryComboBox.removeAllItems();
+		for (String categoryName : cultureCategory.getCategoryOptions()) {
+			chooseCategoryComboBox.addItem(categoryName);
+		}
 	}
 
 	protected void setElements(Color background) {
@@ -61,20 +69,40 @@ public class WeaponCategoryLine extends BaseLine {
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 0;
 
-		ListLabel weaponCategoryLabel = new ListLabel(weaponsCategory.getName(), SwingConstants.LEFT);
-		weaponCategoryLabel.setFont(Fonts.getInstance().getBoldFont());
-		add(weaponCategoryLabel, gridBagConstraints);
+		if (cultureCategory.getCategoryOptions().size() == 1) {
+			ListLabel cultureCategoryLabel = new ListLabel(cultureCategory.getCategoryOptions().get(0), SwingConstants.LEFT);
+			cultureCategoryLabel.setFont(Fonts.getInstance().getBoldFont());
+			add(cultureCategoryLabel, gridBagConstraints);
+		} else {
+			// User can choose one of the options.
+			chooseCategoryComboBox = new CategoryComboBox<>();
+			addItemsToComboBox();
+			add(new ListBackgroundPanel(chooseCategoryComboBox, getDefaultBackground()), gridBagConstraints);
+		}
 
 		gridBagConstraints.anchor = GridBagConstraints.CENTER;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
 		gridBagConstraints.gridx = 1;
-		ListLabel rankLabel = new ListLabel("(" + ranks.toString() + ")");
+		ListLabel rankLabel = new ListLabel("(" + cultureCategory.getRanks().toString() + ")");
 		add(rankLabel, gridBagConstraints);
 	}
 
 	@Override
 	public void update() {
-		
+
+	}
+
+	protected class CategoryComboBox<E> extends BaseComboBox<E> {
+		private static final long serialVersionUID = -2235910396163201201L;
+
+		@Override
+		public void doAction() {
+			// Remove skills of old category.
+			parentPanel.removeSkillLinesOfCategory(trainingCategory);
+			character.removeTrainingSkill(parentPanel.getTraining(), trainingCategory);
+			// add new skills in the correct place.
+			parentPanel.addSkillLinesOfCategory(trainingCategory, chooseCategoryComboBox.getSelectedIndex());
+		}
 	}
 }
