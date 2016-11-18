@@ -46,29 +46,29 @@ public class CultureLanguagePanel extends CulturePanel {
 		// Add race languages.
 		List<String> languages = new ArrayList<>();
 		for (String language : character.getRace().getInitialRaceLanguages().keySet()) {
-			if (!languages.contains(language)) {
+			if (language != null && !languages.contains(language)) {
 				languages.add(language);
 			}
 		}
 		for (String language : character.getCultureDecisions().getOptionalRaceLanguages()) {
-			if (!languages.contains(Spanish.SPOKEN_TAG + " " + language)) {
+			if (language != null && !languages.contains(Spanish.SPOKEN_TAG + " " + language)) {
 				languages.add(Spanish.SPOKEN_TAG + " " + language);
 			}
-			if (!languages.contains(Spanish.WRITTEN_TAG + " " + language)) {
+			if (language != null && !languages.contains(Spanish.WRITTEN_TAG + " " + language)) {
 				languages.add(Spanish.WRITTEN_TAG + " " + language);
 			}
 		}
 		// Add culture languages.
 		for (String language : character.getCulture().getLanguagesMaxRanks()) {
-			if (!languages.contains(language)) {
+			if (language != null && !languages.contains(language)) {
 				languages.add(language);
 			}
 		}
 		for (String language : character.getCultureDecisions().getOptionalCulturalLanguages()) {
-			if (!languages.contains(Spanish.SPOKEN_TAG + " " + language)) {
+			if (language != null && !languages.contains(Spanish.SPOKEN_TAG + " " + language)) {
 				languages.add(Spanish.SPOKEN_TAG + " " + language);
 			}
-			if (!languages.contains(Spanish.WRITTEN_TAG + " " + language)) {
+			if (language != null && !languages.contains(Spanish.WRITTEN_TAG + " " + language)) {
 				languages.add(Spanish.WRITTEN_TAG + " " + language);
 			}
 		}

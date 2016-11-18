@@ -68,15 +68,13 @@ Medio
 
 #IDIOMAS	Inicial	Max.Cultura
 ####################################
-Idioma Regional	8/6	10/10
-Idioma Regional	0/0	6/6
-Idioma Regional	0/0	6/6
+Ninguno
 
 #IDIOMAS HISTORIAL
 ####################################
-Idioma Regional	0/0	8/8
-Idioma Regional	0/0	8/8
-Idioma Regional	0/0	8/8
+Idioma Regional	0/0	10/10
+Idioma Regional	0/0	10/10
+Idioma Regional	0/0	10/10
 
 #HABILIDADES COMUNES
 ####################################

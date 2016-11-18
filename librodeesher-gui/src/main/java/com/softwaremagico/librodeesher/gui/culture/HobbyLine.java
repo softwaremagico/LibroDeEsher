@@ -67,7 +67,8 @@ public class HobbyLine extends CultureLine {
 				} else if (getSelectedRanks() > characterPlayer.getMaxRanksPerCulture(skill.getCategory())) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 					// Cost greater than 40 can not be a hobby
-				} else if (characterPlayer.getCultureStimatedCategoryCost(skill.getCategory()) > MAX_HOBBY_COST) {
+				} else if (characterPlayer.getCultureStimatedCategoryCost(skill.getCategory()) > MAX_HOBBY_COST
+						&& ((Integer) rankSpinner.getValue()) > 0) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character

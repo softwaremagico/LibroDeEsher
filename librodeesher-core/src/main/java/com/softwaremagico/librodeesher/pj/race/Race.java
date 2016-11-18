@@ -125,15 +125,15 @@ public class Race {
 	private void readRaceFile(String raceName) throws InvalidRaceException {
 		int lineIndex = 0;
 
-		String raceFile = RolemasterFolderStructure.getDirectoryModule(RaceFactory.RACE_FOLDER + File.separator
-				+ raceName + ".txt");
+		String raceFile = RolemasterFolderStructure.getDirectoryModule(RaceFactory.RACE_FOLDER
+				+ File.separator + raceName + ".txt");
 		if (raceFile.length() > 0) {
 			List<String> lines;
 			try {
 				lines = Folder.readFileLines(raceFile, false);
 			} catch (IOException e) {
-				throw new InvalidRaceException("Invalid race file: " + RaceFactory.RACE_FOLDER + File.separator
-						+ raceName + ".txt", e);
+				throw new InvalidRaceException("Invalid race file: " + RaceFactory.RACE_FOLDER
+						+ File.separator + raceName + ".txt", e);
 			}
 
 			lineIndex = setCharacteristicsBonus(lines, lineIndex);
@@ -150,8 +150,8 @@ public class Race {
 			lineIndex = setOtherSpecials(lines, lineIndex);
 			lineIndex = setNames(lines, lineIndex);
 		} else {
-			throw new InvalidRaceException("Invalid race file: " + RaceFactory.RACE_FOLDER + File.separator + raceName
-					+ ".txt");
+			throw new InvalidRaceException("Invalid race file: " + RaceFactory.RACE_FOLDER + File.separator
+					+ raceName + ".txt");
 		}
 	}
 
@@ -167,9 +167,9 @@ public class Race {
 				if (characteristicValue[0].equals(CharacteristicsAbbreviature.APPEARENCE.getTag())) {
 					apperanceBonus = Integer.parseInt(characteristicValue[1]);
 				} else {
-					characteristicBonus.put(
-							CharacteristicsAbbreviature.getCharacteristicsAbbreviature(characteristicValue[0]),
-							Integer.parseInt(characteristicValue[1]));
+					characteristicBonus.put(CharacteristicsAbbreviature
+							.getCharacteristicsAbbreviature(characteristicValue[0]), Integer
+							.parseInt(characteristicValue[1]));
 				}
 				index++;
 			}
@@ -216,8 +216,8 @@ public class Race {
 				index++;
 			}
 		} catch (Exception e) {
-			throw new InvalidRaceException("Race resistances are invalid in race " + name + ". Bonuses must be wrong.",
-					e);
+			throw new InvalidRaceException("Race resistances are invalid in race " + name
+					+ ". Bonuses must be wrong.", e);
 		}
 		return index;
 	}
@@ -303,7 +303,8 @@ public class Race {
 				restrictedProfessions.addAll(allProfessions);
 			}
 		} catch (Exception e) {
-			throw new InvalidRaceException("Restricted professions reading problem for race '" + name + "'.", e);
+			throw new InvalidRaceException("Restricted professions reading problem for race '" + name + "'.",
+					e);
 		}
 		return index;
 	}
@@ -363,60 +364,64 @@ public class Race {
 	}
 
 	private int setLanguages(List<String> lines, int index, Map<String, Integer> initialLanguages,
-			Map<String, Integer> maxLanguages, List<OptionalLanguage> optionalLanguages) throws InvalidRaceException {
+			Map<String, Integer> maxLanguages, List<OptionalLanguage> optionalLanguages)
+			throws InvalidRaceException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
 		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
-			try {
-				String languageLine = lines.get(index);
-				String[] languageInformation = languageLine.split("\t");
-				String[] languageRank = languageInformation[1].split("/");
-				String[] maxCultureLanguage = languageInformation[2].split("/");
+			if (!lines.get(index).toLowerCase().startsWith(Spanish.NOTHING_TAG)) {
+				try {
+					String languageLine = lines.get(index);
+					String[] languageInformation = languageLine.split("\t");
+					String[] languageRank = languageInformation[1].split("/");
+					String[] maxCultureLanguage = languageInformation[2].split("/");
 
-				// First language is main language.
-				if (raceLanguage == null) {
-					raceLanguage = languageInformation[0];
-				}
-
-				// User selection language.
-				if (languageInformation[0].startsWith(Spanish.ANY_RACE_LANGUAGE)
-						|| languageInformation[0].startsWith(Spanish.ANY_CULTURE_LANGUAGE)) {
-					OptionalLanguage optionLanguage = new OptionalLanguage();
-					optionLanguage.setStartingSpeakingRanks(Integer.parseInt(languageRank[0]));
-					optionLanguage.setStartingWrittingRanks(Integer.parseInt(languageRank[1]));
-					optionLanguage.setMaxSpeakingRanks(Integer.parseInt(maxCultureLanguage[0]));
-					optionLanguage.setMaxWritingRanks(Integer.parseInt(maxCultureLanguage[1]));
-					optionalLanguages.add(optionLanguage);
-				} else {
-					// Standard language.
-					String language = Spanish.SPOKEN_TAG + " " + languageInformation[0];
-					initialLanguages.put(language, Integer.parseInt(languageRank[0]));
-
-					// Add language to category.
-					if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
-						CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
+					// First language is main language.
+					if (raceLanguage == null) {
+						raceLanguage = languageInformation[0];
 					}
 
-					language = Spanish.WRITTEN_TAG + " " + languageInformation[0];
-					initialLanguages.put(language, Integer.parseInt(languageRank[1]));
+					// User selection language.
+					if (languageInformation[0].startsWith(Spanish.ANY_RACE_LANGUAGE)
+							|| languageInformation[0].startsWith(Spanish.ANY_CULTURE_LANGUAGE)) {
+						OptionalLanguage optionLanguage = new OptionalLanguage();
+						optionLanguage.setStartingSpeakingRanks(Integer.parseInt(languageRank[0]));
+						optionLanguage.setStartingWrittingRanks(Integer.parseInt(languageRank[1]));
+						optionLanguage.setMaxSpeakingRanks(Integer.parseInt(maxCultureLanguage[0]));
+						optionLanguage.setMaxWritingRanks(Integer.parseInt(maxCultureLanguage[1]));
+						optionalLanguages.add(optionLanguage);
+					} else {
+						// Standard language.
+						String language = Spanish.SPOKEN_TAG + " " + languageInformation[0];
+						initialLanguages.put(language, Integer.parseInt(languageRank[0]));
 
-					// Add language to category.
-					if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
-						CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
+						// Add language to category.
+						if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
+							CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
+						}
+
+						language = Spanish.WRITTEN_TAG + " " + languageInformation[0];
+						initialLanguages.put(language, Integer.parseInt(languageRank[1]));
+
+						// Add language to category.
+						if (CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).getSkill(language) == null) {
+							CategoryFactory.getCategory(Spanish.COMUNICATION_CATEGORY).addSkill(language);
+						}
+
+						language = Spanish.SPOKEN_TAG + " " + languageInformation[0];
+						maxLanguages.put(language, Integer.parseInt(maxCultureLanguage[0]));
+
+						language = Spanish.WRITTEN_TAG + " " + languageInformation[0];
+						maxLanguages.put(language, Integer.parseInt(maxCultureLanguage[1]));
 					}
-
-					language = Spanish.SPOKEN_TAG + " " + languageInformation[0];
-					maxLanguages.put(language, Integer.parseInt(maxCultureLanguage[0]));
-
-					language = Spanish.WRITTEN_TAG + " " + languageInformation[0];
-					maxLanguages.put(language, Integer.parseInt(maxCultureLanguage[1]));
+				} catch (NumberFormatException nfe) {
+					throw new InvalidRaceException("Language value invalid in '" + lines.get(index) + "'.",
+							nfe);
+				} catch (Exception e) {
+					throw new InvalidRaceException("Language line invalid '" + lines.get(index)
+							+ "' in line '" + index + "'.", e);
 				}
-			} catch (NumberFormatException nfe) {
-				throw new InvalidRaceException("Language value invalid in '" + lines.get(index) + "'.", nfe);
-			} catch (Exception e) {
-				throw new InvalidRaceException("Language line invalid '" + lines.get(index) + "' in line '" + index
-						+ "'.", e);
 			}
 			index++;
 		}
@@ -432,8 +437,8 @@ public class Race {
 				optionalBackgroundLanguages);
 	}
 
-	private int setSpecialSkills(List<String> lines, int index, List<Skill> skillsList, List<Category> categoriesList)
-			throws InvalidRaceException {
+	private int setSpecialSkills(List<String> lines, int index, List<Skill> skillsList,
+			List<Category> categoriesList) throws InvalidRaceException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
 		}
@@ -455,8 +460,8 @@ public class Race {
 					if (skill != null) {
 						skillsList.add(skill);
 					} else {
-						throw new InvalidRaceException("Invalid common skill '" + skillColumns[i] + "' for race '"
-								+ getName() + "'.");
+						throw new InvalidRaceException("Invalid common skill '" + skillColumns[i]
+								+ "' for race '" + getName() + "'.");
 					}
 				}
 			}
@@ -474,7 +479,8 @@ public class Race {
 		boolean exception = false;
 		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 			String cultureLine = lines.get(index);
-			if (cultureLine.toLowerCase().contains("todas") || cultureLine.toLowerCase().contains("all")) {
+			if (cultureLine.toLowerCase().contains(Spanish.ALL_TAG)
+					|| cultureLine.toLowerCase().contains("all")) {
 				definedCultures.addAll(CultureFactory.getAvailableCultures());
 				index++;
 				break;

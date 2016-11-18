@@ -105,7 +105,8 @@ public class TxtSheet {
 				try {
 					text = text
 							+ String.format(categoryFormat, category.getName(),
-									characterPlayer.getCategoryCost(category, 0).getCostTag(),
+									characterPlayer.getCategoryCost(category, 0) != null ? characterPlayer
+											.getCategoryCost(category, 0).getCostTag() : "",
 									characterPlayer.getTotalRanks(category), characterPlayer.getRanksValue(category),
 									characterPlayer.getCharacteristicsBonus(category), bonus,
 									characterPlayer.getTotalValue(category));

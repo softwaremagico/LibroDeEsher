@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.culture;
+
 /*
  * #%L
  * Libro de Esher
@@ -55,17 +56,20 @@ public class ChooseWeaponPanel extends BasePanel {
 			i++;
 			ArrayList<WeaponSkillLine> weaponLineList = new ArrayList<>();
 			weaponLines.put(category, weaponLineList);
-			for (Weapon weapon : character.getCulture().getCultureWeapons()) {
-				try {
-					if (weapon.getType().getWeaponCategoryName().equals(category.getName())) {
-						WeaponSkillLine weaponLine = new WeaponSkillLine(character, category, this,
-								SkillFactory.getAvailableSkill(weapon.getName()), getLineBackgroundColor(i));
-						add(weaponLine);
-						weaponLineList.add(weaponLine);
-						i++;
+			if (character.getCulture().hasSkillsToChooseRanks(category)) {
+				for (Weapon weapon : character.getCulture().getCultureWeapons()) {
+					try {
+						if (weapon.getType().getWeaponCategoryName().equals(category.getName())) {
+							WeaponSkillLine weaponLine = new WeaponSkillLine(character, category, this,
+									SkillFactory.getAvailableSkill(weapon.getName()),
+									getLineBackgroundColor(i));
+							add(weaponLine);
+							weaponLineList.add(weaponLine);
+							i++;
+						}
+					} catch (NullPointerException npe) {
+						// Arma de cultura no existe en el programa. Ignorar.
 					}
-				} catch (NullPointerException npe) {
-					// Arma de cultura no existe en el programa. Ignorar.
 				}
 			}
 		}
@@ -80,6 +84,6 @@ public class ChooseWeaponPanel extends BasePanel {
 	}
 
 	@Override
-	public void update() {		
+	public void update() {
 	}
 }
