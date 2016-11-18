@@ -124,23 +124,26 @@ public class Culture {
 
 	private void readCultureFile(String cultureName) throws InvalidCultureException {
 		int lineIndex = 0;
-		String cultureFile = RolemasterFolderStructure.getDirectoryModule(CultureFactory.CULTURE_FOLDER + File.separator + cultureName + ".txt");
+		String cultureFile = RolemasterFolderStructure.getDirectoryModule(CultureFactory.CULTURE_FOLDER
+				+ File.separator + cultureName + ".txt");
 		if (cultureFile.length() > 0) {
 			List<String> lines;
 			try {
 				lines = Folder.readFileLines(cultureFile, false);
 			} catch (IOException e) {
-				throw new InvalidCultureException("Invalid culture file '" + CultureFactory.CULTURE_FOLDER + File.separator + cultureName + ".txt'", e);
+				throw new InvalidCultureException("Invalid culture file '" + CultureFactory.CULTURE_FOLDER
+						+ File.separator + cultureName + ".txt'", e);
 			}
 			lineIndex = setCultureWeapons(lines, lineIndex);
 			lineIndex = setCultureArmour(lines, lineIndex);
-			lineIndex = setSkillRanks(lines, lineIndex);
+			lineIndex = setAdolescenceSkillRanks(lines, lineIndex);
 			lineIndex = setHobbyRanks(lines, lineIndex);
 			lineIndex = setHobbySkillsAndCategories(lines, lineIndex);
 			lineIndex = setCultureMaxLanguages(lines, lineIndex);
 			lineIndex = setTrainingDiscount(lines, lineIndex);
 		} else {
-			throw new InvalidCultureException("Invalid culture file '" + CultureFactory.CULTURE_FOLDER + File.separator + cultureName + ".txt'");
+			throw new InvalidCultureException("Invalid culture file '" + CultureFactory.CULTURE_FOLDER
+					+ File.separator + cultureName + ".txt'");
 		}
 	}
 
@@ -172,7 +175,8 @@ public class Culture {
 								}
 							}
 						} catch (InvalidWeaponException e) {
-							EsherLog.warning(WeaponFactory.class.getName(), "Weapon '" + weaponName + "' not found in culture '" + getName() + "'!");
+							EsherLog.warning(WeaponFactory.class.getName(), "Weapon '" + weaponName
+									+ "' not found in culture '" + getName() + "'!");
 						}
 					}
 					index++;
@@ -206,7 +210,7 @@ public class Culture {
 		return index;
 	}
 
-	private int setSkillRanks(List<String> lines, int index) throws InvalidCultureException {
+	private int setAdolescenceSkillRanks(List<String> lines, int index) throws InvalidCultureException {
 		categories = new HashMap<>();
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -220,7 +224,15 @@ public class Culture {
 					// Choose category from list.
 					if (cultureLine.contains("{")) {
 						String categoryName = categoryRow[0].substring(0, categoryRow[0].indexOf("}")).trim();
-						String[] categoriesList = categoryName.replace("{", "").replace("}", "").replace(";", ",").split(",");
+						String[] categoriesList = categoryName.replace("{", "").replace("}", "")
+								.replace(";", ",").split(",");
+						// Some categories are a group of categories.
+						if (categoriesList.length == 1) {
+							List<String> categories = CategoryFactory.toString(CategoryFactory
+									.getCategoryByGroup(categoriesList[0]));
+							categoriesList = new String[categories.size()];
+							categoriesList = categories.toArray(categoriesList);
+						}
 						category = new CultureCategory(categoriesList, categoryRow[1].trim());
 						categories.put(categoryName, category);
 					} else {
@@ -248,7 +260,8 @@ public class Culture {
 			try {
 				hobbyRanks = Integer.parseInt(hobbyLine);
 			} catch (NumberFormatException nfe) {
-				throw new InvalidCultureException("Error obtaining hobby ranks '" + hobbyLine + "' for culture '" + getName() + "'. ", nfe);
+				throw new InvalidCultureException("Error obtaining hobby ranks '" + hobbyLine
+						+ "' for culture '" + getName() + "'. ", nfe);
 			}
 			index++;
 		}
@@ -277,18 +290,22 @@ public class Culture {
 						if (SkillFactory.existSkill(hobby)) {
 							exceptions.add(hobby);
 						} else {
-							throw new InvalidCultureException("Hobby not found in culture '" + getName() + "' with name '" + hobby + "'.");
+							throw new InvalidCultureException("Hobby not found in culture '" + getName()
+									+ "' with name '" + hobby + "'.");
 						}
 
 					} else if (SkillFactory.existSkill(hobby)) {
 						hobbySkills.add(hobby);
 						// It is a special tag for a group of skills. Add it.
-					} else if (hobby.toLowerCase().equals(Spanish.WEAPON) || hobby.toLowerCase().equals(Spanish.ARMOUR)
+					} else if (hobby.toLowerCase().equals(Spanish.WEAPON)
+							|| hobby.toLowerCase().equals(Spanish.ARMOUR)
 							|| hobby.toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
 						hobbySkills.add(hobby);
 						// Is a culture skill: add it;
-					} else if (hobby.contains(Spanish.FAUNA_KNOWNLEDGE_TAG) || hobby.contains(Spanish.FLORA_KNOWNLEDGE_TAG)
-							|| hobby.contains(Spanish.CULTURAL_KNOWNLEDGE_TAG) || hobby.contains(Spanish.REGIONAL_KNOWNLEDGE_TAG)) {
+					} else if (hobby.contains(Spanish.FAUNA_KNOWNLEDGE_TAG)
+							|| hobby.contains(Spanish.FLORA_KNOWNLEDGE_TAG)
+							|| hobby.contains(Spanish.CULTURAL_KNOWNLEDGE_TAG)
+							|| hobby.contains(Spanish.REGIONAL_KNOWNLEDGE_TAG)) {
 						Category cat = CategoryFactory.getCategory(Spanish.GENERAL_KNOWLEDGE_TAG);
 						cat.addSkill(hobby);
 						// CultureSkill skill = new CultureSkill(hobby);
@@ -301,7 +318,8 @@ public class Culture {
 					} else if (hobby.toLowerCase().equals(Spanish.CULTURE_LANGUAGE_TAG.toLowerCase())) {
 						// TODO select a language
 					} else { // Not recognized.
-						throw new InvalidCultureException("Hobby '" + hobby + "' not found in culture '" + getName() + "' line '" + lines.get(index) + "'.");
+						throw new InvalidCultureException("Hobby '" + hobby + "' not found in culture '"
+								+ getName() + "' line '" + lines.get(index) + "'.");
 					}
 				}
 			} else {
@@ -325,7 +343,8 @@ public class Culture {
 		while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 			String[] languageColumn = lines.get(index).split("\t");
 			// Any language
-			if (languageColumn[0].toLowerCase().equals(Spanish.ALL_TAG) || languageColumn[0].toLowerCase().equals(Spanish.ALL_TAG2)) {
+			if (languageColumn[0].toLowerCase().equals(Spanish.ALL_TAG)
+					|| languageColumn[0].toLowerCase().equals(Spanish.ALL_TAG2)) {
 				for (String language : SkillFactory.getAvailableLanguages()) {
 					languagesMaxRanks.put(Spanish.SPOKEN_TAG + " " + language, 10);
 					languagesMaxRanks.put(Spanish.WRITTEN_TAG + " " + language, 10);
@@ -334,7 +353,8 @@ public class Culture {
 			} else {
 				String[] languageRanks = languageColumn[1].split("/");
 				try {
-					if (languageColumn[0].startsWith(Spanish.ANY_RACE_LANGUAGE) || languageColumn[0].startsWith(Spanish.ANY_CULTURE_LANGUAGE)) {
+					if (languageColumn[0].startsWith(Spanish.ANY_RACE_LANGUAGE)
+							|| languageColumn[0].startsWith(Spanish.ANY_CULTURE_LANGUAGE)) {
 						OptionalLanguage optionLanguage = new OptionalLanguage();
 						optionLanguage.setStartingSpeakingRanks(0);
 						optionLanguage.setStartingWrittingRanks(0);
@@ -361,9 +381,11 @@ public class Culture {
 						languagesMaxRanks.put(language, Integer.parseInt(languageRanks[1]));
 					}
 				} catch (NumberFormatException nfe) {
-					throw new InvalidCultureException("Error obtaining ranks for language '" + lines.get(index) + "' in culture '" + getName() + "'.", nfe);
+					throw new InvalidCultureException("Error obtaining ranks for language '"
+							+ lines.get(index) + "' in culture '" + getName() + "'.", nfe);
 				} catch (ArrayIndexOutOfBoundsException aiob) {
-					throw new InvalidCultureException("Error obtaining ranks for language '" + lines.get(index) + "' in culture '" + getName() + "'.", aiob);
+					throw new InvalidCultureException("Error obtaining ranks for language '"
+							+ lines.get(index) + "' in culture '" + getName() + "'.", aiob);
 				}
 			}
 			index++;
@@ -385,13 +407,16 @@ public class Culture {
 				Training training = TrainingFactory.getTraining(trainingColumn[0]);
 				if (training != null) {
 					try {
-						Float value = Float.parseFloat(trainingColumn[1].replace("%", "").replace(".", "").replace(",", "").trim());
+						Float value = Float.parseFloat(trainingColumn[1].replace("%", "").replace(".", "")
+								.replace(",", "").trim());
 						trainingPrice.put(training.getName(), value / 100);
 					} catch (NumberFormatException nfe) {
-						throw new InvalidCultureException("Invalid training value in '" + lines.get(index) + "' for culture '" + getName() + "'.", nfe);
+						throw new InvalidCultureException("Invalid training value in '" + lines.get(index)
+								+ "' for culture '" + getName() + "'.", nfe);
 					}
 				} else {
-					EsherLog.warning(this.getClass().getName(), "Invalid training '" + trainingColumn[0] + "' for culture '" + getName() + "'.");
+					EsherLog.warning(this.getClass().getName(), "Invalid training '" + trainingColumn[0]
+							+ "' for culture '" + getName() + "'.");
 				}
 			} catch (InvalidTrainingException e) {
 				EsherLog.errorMessage(RandomCharacterPlayer.class.getName(), e);

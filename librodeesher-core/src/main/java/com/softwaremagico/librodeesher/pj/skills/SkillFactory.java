@@ -231,4 +231,12 @@ public class SkillFactory {
 		availableSkillsByName = new ArrayList<>();
 		disabledSkills = new HashSet<>();
 	}
+
+	public static List<String> toString(List<Skill> skills) {
+		List<String> skillNames = new ArrayList<>();
+		for (Skill skill : skills) {
+			skillNames.add(skill.getName());
+		}
+		return skillNames;
+	}
 }

@@ -29,7 +29,7 @@ import java.awt.GridLayout;
 
 import javax.swing.SwingConstants;
 
-import com.softwaremagico.librodeesher.gui.elements.BaseComboBox;
+import com.softwaremagico.librodeesher.gui.elements.BaseCategoryComboBox;
 import com.softwaremagico.librodeesher.gui.elements.BoldListLabel;
 import com.softwaremagico.librodeesher.gui.elements.ListBackgroundPanel;
 import com.softwaremagico.librodeesher.gui.elements.ListLabel;
@@ -98,7 +98,7 @@ public class TrainingCategoryLine extends BaseLine {
 		ranksLabel.setText(trainingCategory.getSkillRanks().toString());
 	}
 
-	protected class CategoryComboBox<E> extends BaseComboBox<E> {
+	protected class CategoryComboBox<E> extends BaseCategoryComboBox<E> {
 		private static final long serialVersionUID = -2235910396163201201L;
 
 		@Override

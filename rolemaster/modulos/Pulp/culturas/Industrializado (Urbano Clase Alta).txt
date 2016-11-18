@@ -26,12 +26,12 @@ Comunicación	9
 Oficios	2
 Influencia	3
 {Conocimiento}	5
-  *  Cualquiera	8
+  *  Cualquier Habilidad	8
 {Artes Marciales·Barridos;Artes Marciales·Golpes}#1	0
 Exteriores·Animales	0
 Exteriores·Entorno	0
 {Ciencia/Analítica}	5
-  *  Cualquiera	5
+  *  Cualquier Habilidad	5
 Subterfugio·Sigilo	1
   *  Acechar	0
   *  Esconderse	1

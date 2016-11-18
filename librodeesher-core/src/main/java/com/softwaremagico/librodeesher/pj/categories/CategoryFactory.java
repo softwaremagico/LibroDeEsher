@@ -168,6 +168,16 @@ public class CategoryFactory {
 		return null;
 	}
 
+	public static List<Category> getCategoryByGroup(String groupPrefix) {
+		List<Category> categories = new ArrayList<>();
+		for (Category availableCategory : availableCategories.values()) {
+			if (availableCategory.getName().toLowerCase().startsWith(groupPrefix.toLowerCase() + "·")) {
+				categories.add(availableCategory);
+			}
+		}
+		return categories;
+	}
+
 	/**
 	 * Lee el fichero de categorías.
 	 * 
@@ -299,4 +309,11 @@ public class CategoryFactory {
 		return weaponsCategoriesFromFiles;
 	}
 
+	public static List<String> toString(List<Category> categories) {
+		List<String> categoriesNames = new ArrayList<>();
+		for (Category category : categories) {
+			categoriesNames.add(category.getName());
+		}
+		return categoriesNames;
+	}
 }

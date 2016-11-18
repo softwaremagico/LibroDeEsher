@@ -30,7 +30,7 @@ import java.awt.FlowLayout;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JPanel;
 
-import com.softwaremagico.librodeesher.gui.elements.BaseComboBox;
+import com.softwaremagico.librodeesher.gui.elements.BaseCategoryComboBox;
 import com.softwaremagico.librodeesher.gui.elements.GenericCategoryLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
@@ -118,7 +118,7 @@ public class WeaponCategoryLine extends GenericCategoryLine {
 		character.setCurrentLevelRanks(category, ranks);
 	}
 
-	public class WeaponComboBox<E> extends BaseComboBox<E> {
+	public class WeaponComboBox<E> extends BaseCategoryComboBox<E> {
 		private static final long serialVersionUID = -6417842795397244151L;
 
 		@Override

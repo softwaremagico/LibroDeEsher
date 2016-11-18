@@ -27,12 +27,13 @@ package com.softwaremagico.librodeesher.gui.culture;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
-import com.softwaremagico.librodeesher.gui.training.TrainingCategoryLine;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.culture.CultureCategory;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -41,7 +42,6 @@ import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 public class ChooseCategoryPanel extends BasePanel {
 	private static final long serialVersionUID = 544393371168606333L;
 
-	private HashMap<CultureCategory, List<CultureSkillLine>> weaponLines = new HashMap<>();
 	private Map<CultureCategory, List<CultureSkillLine>> skillsLinesPerCategory = new HashMap<>();
 	private List<CultureCategoryLine> categoryLines;
 	private CharacterPlayer character;
@@ -55,52 +55,39 @@ public class ChooseCategoryPanel extends BasePanel {
 		this.removeAll();
 		setLayout(new GridLayout(0, 1));
 		int i = 0;
+		categoryLines = new ArrayList<>();
 
 		if (character.getCulture() != null) {
-			for (CultureCategory cultureCategory : character.getCulture().getAdolescenceCategories()) {
-				CultureCategoryLine categoryLine = new CultureCategoryLine(character, cultureCategory, getLineBackgroundColor(i), this);
-				add(categoryLine);
-				categoryLines.add(categoryLine);
-				skillsLinesPerCategory.put(cultureCategory, new ArrayList<CultureSkillLine>());
+			List<CultureCategory> categories = new ArrayList<>(character.getCulture()
+					.getAdolescenceCategories());
+			Collections.sort(categories);
+			for (CultureCategory cultureCategory : categories) {
+				// Any except communication.
+				if (!cultureCategory.getCategoryOptions().get(0).equals(Spanish.COMUNICATION_CATEGORY)) {
+					// Must have ranks.
+					if (cultureCategory.isUseful()) {
+						skillsLinesPerCategory.put(cultureCategory, new ArrayList<CultureSkillLine>());
+						CultureCategoryLine categoryLine = new CultureCategoryLine(character,
+								cultureCategory, getLineBackgroundColor(i), this);
+						add(categoryLine);
+						categoryLines.add(categoryLine);
 
-				i++;
-				String selectedCategory = cultureCategory.getCategoryOptions().get(0);
-				for (Skill skill : cultureCategory.getCultureSkills(selectedCategory)) {
-					CultureSkillLine skillLine = new CultureSkillLine(character, cultureCategory, this, SkillFactory.getAvailableSkill(skill.getName()),
-							getLineBackgroundColor(i));
-					add(skillLine);
-					i++;
-					skillsLinesPerCategory.get(cultureCategory).add(skillLine);
+						i++;
+						String selectedCategory = cultureCategory.getCategoryOptions().get(0);
+						if (cultureCategory.getRanksToChoose() > 0) {
+							for (Skill skill : cultureCategory.getCultureSkills(selectedCategory)) {
+								CultureSkillLine skillLine = new CultureSkillLine(character, cultureCategory,
+										this, SkillFactory.getAvailableSkill(skill.getName()),
+										getLineBackgroundColor(i));
+								add(skillLine);
+								i++;
+								skillsLinesPerCategory.get(cultureCategory).add(skillLine);
+							}
+						}
+					}
 				}
 			}
 		}
-
-		// for (Category category : CategoryFactory.getWeaponsCategories()) {
-		// add(new CultureCategoryLine(category,
-		// character.getCulture().getCultureRanks(category),
-		// getLineBackgroundColor(i)));
-		// i++;
-		// ArrayList<WeaponSkillLine> weaponLineList = new ArrayList<>();
-		// weaponLines.put(category, weaponLineList);
-		// if (character.getCulture().hasSkillsToChooseRanks(category)) {
-		// for (Weapon weapon : character.getCulture().getCultureWeapons()) {
-		// try {
-		// if
-		// (weapon.getType().getWeaponCategoryName().equals(category.getName()))
-		// {
-		// WeaponSkillLine weaponLine = new WeaponSkillLine(character, category,
-		// this, SkillFactory.getAvailableSkill(weapon.getName()),
-		// getLineBackgroundColor(i));
-		// add(weaponLine);
-		// weaponLineList.add(weaponLine);
-		// i++;
-		// }
-		// } catch (NullPointerException npe) {
-		// // Arma de cultura no existe en el programa. Ignorar.
-		// }
-		// }
-		// }
-		// }
 	}
 
 	protected void removeSkillLinesOfCategory(CultureCategory cultureCategory) {
@@ -116,31 +103,35 @@ public class ChooseCategoryPanel extends BasePanel {
 		// Get the index of the category.
 		int index = -1;
 
-		for (int i = 0; i < this.getComponents().length; i++) {
-			Component component = this.getComponents()[i];
-			if (component instanceof TrainingCategoryLine) {
+		for (int i = 0; i < getComponents().length; i++) {
+			Component component = getComponents()[i];
+			if (component instanceof CultureCategoryLine) {
 				if (((CultureCategoryLine) component).getCultureCategory().equals(cultureCategory)) {
 					index = i + 1;
 					break;
 				}
 			}
 		}
+		if (index >= 0) {
+			skillsLinesPerCategory.put(cultureCategory, new ArrayList<CultureSkillLine>());
+			if (cultureCategory.getRanksToChoose() > 0) {
+				for (Skill skill : cultureCategory.getCultureSkills(selectedCategory)) {
+					CultureSkillLine skillLine = new CultureSkillLine(character, cultureCategory, this,
+							SkillFactory.getAvailableSkill(skill.getName()), getLineBackgroundColor(index));
+					add(skillLine, index);
+					index++;
+					skillsLinesPerCategory.get(cultureCategory).add(skillLine);
+				}
+			}
 
-		for (Skill skill : cultureCategory.getCultureSkills(selectedCategory)) {
-			CultureSkillLine skillLine = new CultureSkillLine(character, cultureCategory, this, SkillFactory.getAvailableSkill(skill.getName()),
-					getLineBackgroundColor(index));
-			add(skillLine, index);
-			index++;
-			skillsLinesPerCategory.get(cultureCategory).add(skillLine);
+			this.revalidate();
+			this.repaint();
 		}
-
-		this.revalidate();
-		this.repaint();
 	}
 
 	protected Integer getSpinnerValues(CultureCategory category) {
 		Integer total = 0;
-		for (CultureSkillLine lines : weaponLines.get(category)) {
+		for (CultureSkillLine lines : skillsLinesPerCategory.get(category)) {
 			total += lines.getSelectedRanks();
 		}
 		return total;

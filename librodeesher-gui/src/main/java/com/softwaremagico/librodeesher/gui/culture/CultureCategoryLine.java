@@ -30,7 +30,7 @@ import java.awt.GridBagLayout;
 
 import javax.swing.SwingConstants;
 
-import com.softwaremagico.librodeesher.gui.elements.BaseComboBox;
+import com.softwaremagico.librodeesher.gui.elements.BaseCategoryComboBox;
 import com.softwaremagico.librodeesher.gui.elements.ListBackgroundPanel;
 import com.softwaremagico.librodeesher.gui.elements.ListLabel;
 import com.softwaremagico.librodeesher.gui.style.BaseLine;
@@ -98,7 +98,7 @@ public class CultureCategoryLine extends BaseLine {
 
 	}
 
-	protected class CategoryComboBox<E> extends BaseComboBox<E> {
+	protected class CategoryComboBox<E> extends BaseCategoryComboBox<E> {
 		private static final long serialVersionUID = -2235910396163201201L;
 
 		@Override
