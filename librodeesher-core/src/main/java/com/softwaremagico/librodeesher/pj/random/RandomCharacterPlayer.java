@@ -840,31 +840,35 @@ public class RandomCharacterPlayer {
 	private static void setRandomPerks(CharacterPlayer characterPlayer, int specializationLevel) {
 		List<Perk> perksToCheck = PerkFactory.gerPerks();
 		Collections.shuffle(perksToCheck);
-		for (Perk perk : perksToCheck) {
-			PerkProbability perkProbability = new PerkProbability(characterPlayer, perk, specializationLevel);
-			int probability = perkProbability.getProbability();
-			int value = (int) Math.floor(Math.random() * 100);
-			EsherLog.info(RandomCharacterPlayer.class.getName(), "Perk '" + perk + "' probability '"
-					+ probability + "'. Obtained: '" + value + "'.");
-			if (value < probability) {
-				// Select weakness.
-				Perk weakness = null;
-				List<PerkGrade> weaknessAvailable = perk.getGrade().getLesserGrades(1);
-				if (!weaknessAvailable.isEmpty()) {
-					weakness = PerkFactory.getRandomWeakness(weaknessAvailable.get(0), perk.getPerkType());
-					// Select a not selected already weakness.
-					while (characterPlayer.getRandomWeakness().contains(weakness)) {
-						weakness = PerkFactory.getRandomWeakness(weaknessAvailable.get(0));
+		if (characterPlayer.getRemainingBackgroundPoints() > 0) {
+			for (Perk perk : perksToCheck) {
+				PerkProbability perkProbability = new PerkProbability(characterPlayer, perk,
+						specializationLevel);
+				int probability = perkProbability.getProbability();
+				int value = (int) Math.floor(Math.random() * 100);
+				EsherLog.info(RandomCharacterPlayer.class.getName(), "Perk '" + perk + "' probability '"
+						+ probability + "'. Obtained: '" + value + "'.");
+				if (value < probability) {
+					// Select weakness.
+					Perk weakness = null;
+					List<PerkGrade> weaknessAvailable = perk.getGrade().getLesserGrades(1);
+					if (!weaknessAvailable.isEmpty()) {
+						weakness = PerkFactory
+								.getRandomWeakness(weaknessAvailable.get(0), perk.getPerkType());
+						// Select a not selected already weakness.
+						while (characterPlayer.getRandomWeakness().contains(weakness)) {
+							weakness = PerkFactory.getRandomWeakness(weaknessAvailable.get(0));
+						}
 					}
-				}
-				characterPlayer.addPerk(perk, weakness);
-				// Check cost.
-				if (characterPlayer.getRemainingBackgroundPoints() < 0) {
-					characterPlayer.removePerk(perk);
-				} else {
-					// Choose skills and categories.
-					perkProbability.selectOptions();
-					EsherLog.info(RandomCharacterPlayer.class.getName(), "Added perk '" + perk + "'!");
+					characterPlayer.addPerk(perk, weakness);
+					// Check cost.
+					if (characterPlayer.getRemainingBackgroundPoints() < 0) {
+						characterPlayer.removePerk(perk);
+					} else {
+						// Choose skills and categories.
+						perkProbability.selectOptions();
+						EsherLog.info(RandomCharacterPlayer.class.getName(), "Added perk '" + perk + "'!");
+					}
 				}
 			}
 		}

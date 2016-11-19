@@ -1879,6 +1879,7 @@ public class CharacterPlayer extends StorableObject {
 
 	public CharacteristicRoll addNewCharacteristicTrainingUpdate(CharacteristicsAbbreviature abbreviature,
 			String trainingName) {
+		EsherLog.debug(this.getClass().getName(), "Addin characterstic update for '"+abbreviature+"' in training '"+trainingName+"'.");
 		Roll roll = getStoredCharacteristicRoll(abbreviature);
 		CharacteristicRoll characteristicRoll = getTrainingDecision(trainingName).addCharactersiticUpdate(
 				abbreviature, getCharacteristicTemporalValue(abbreviature),
@@ -1911,8 +1912,7 @@ public class CharacterPlayer extends StorableObject {
 		}
 		if (perkToRemove != null) {
 			selectedPerks.remove(perkToRemove);
-			characterPlayerHelper.resetAllCategoryGeneralBonus();
-			characterPlayerHelper.resetAllSkillGeneralBonus();
+			characterPlayerHelper.resetAll();
 		}
 	}
 

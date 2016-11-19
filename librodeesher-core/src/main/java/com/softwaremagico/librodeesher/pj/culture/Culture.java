@@ -308,12 +308,10 @@ public class Culture {
 							|| hobby.contains(Spanish.REGIONAL_KNOWNLEDGE_TAG)) {
 						Category cat = CategoryFactory.getCategory(Spanish.GENERAL_KNOWLEDGE_TAG);
 						cat.addSkill(hobby);
-						// CultureSkill skill = new CultureSkill(hobby);
 						hobbySkills.add(hobby);
 					} else if (hobby.toLowerCase().contains(Spanish.SURVIVAL_TAG.toLowerCase())) {
 						Category cat = CategoryFactory.getCategory(Spanish.OUTDOORS_ENVIRONMENT_TAG);
 						cat.addSkill(hobby);
-						// CultureSkill skill = new CultureSkill(hobby);
 						hobbySkills.add(hobby);
 					} else if (hobby.toLowerCase().equals(Spanish.CULTURE_LANGUAGE_TAG.toLowerCase())) {
 						// TODO select a language

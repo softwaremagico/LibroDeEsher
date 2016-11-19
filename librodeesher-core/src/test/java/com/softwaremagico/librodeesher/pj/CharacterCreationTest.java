@@ -165,6 +165,17 @@ public class CharacterCreationTest {
 		CharacterPlayer duplicatedCharacter = CharacterJsonManager.fromJson(jsonText);
 		String orginalSheet = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
 		String importedSheet = TxtSheet.getCharacterStandardSheetAsText(duplicatedCharacter);
+		
+		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "originalCharacterSheet2.txt");
+		out1.println(orginalSheet);
+		out1.close();
+		
+		PrintWriter out2 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "importedSheet2.txt");
+		out2.println(importedSheet);
+		out2.close();
+		
+		
+		
 		Assert.assertTrue(importedSheet.equals(orginalSheet));
 
 		// Increase level of one character.
@@ -205,16 +216,16 @@ public class CharacterCreationTest {
 		String orginalSheet2 = TxtSheet.getCharacterStandardSheetAsText(characterPlayer);
 		String importedSheet2 = TxtSheet.getCharacterStandardSheetAsText(duplicatedCharacter);
 
-		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "originalCharacterSheetLvl2.txt");
+		PrintWriter out4 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "originalCharacterSheetLvl2.txt");
 		out1.println(orginalSheet2);
 		out1.close();
 
-		PrintWriter out2 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "importedCharacterSheetLvl2.txt");
+		PrintWriter out5 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "importedCharacterSheetLvl2.txt");
 		out2.println(importedSheet2);
 		out2.close();
 
 		String characterLevel2duplicated = CharacterJsonManager.toJson(duplicatedCharacter);
-		PrintWriter out4 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "character_l2dup.json");
+		PrintWriter out6 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "character_l2dup.json");
 		out4.println(characterLevel2duplicated);
 		out4.close();
 
