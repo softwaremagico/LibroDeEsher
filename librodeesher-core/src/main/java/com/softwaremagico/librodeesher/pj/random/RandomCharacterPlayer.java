@@ -612,7 +612,7 @@ public class RandomCharacterPlayer {
 			// Select skills.
 			if (cultureCategory.getSkillRanksToChoose() > 0
 					&& !cultureCategory.getCategoryOptions().get(0).equals(Spanish.COMUNICATION_CATEGORY)) {
-				List<Skill> skills = cultureCategory.getCultureSkills(selectedCategory);
+				List<Skill> skills = characterPlayer.getAdolescenceSkills(cultureCategory, selectedCategory);
 				System.out.println(skills);
 				int ranksAdded = 0;
 				while (cultureCategory.getSkillRanksToChoose() > ranksAdded) {

@@ -26,8 +26,10 @@ package com.softwaremagico.librodeesher.pj.culture;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
@@ -92,7 +94,7 @@ public class CultureDecisions extends StorableObject {
 	@CollectionTable(name = "T_CULTURE_OPTIONAL_CATEGORIES")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OrderColumn(name = "raceLanguageIndex")
-	private List<String> adolescenceCategoriesSelected;
+	private Set<String> adolescenceCategoriesSelected;
 
 	public CultureDecisions() {
 		languageRanks = new HashMap<>();
@@ -101,7 +103,7 @@ public class CultureDecisions extends StorableObject {
 		spellRanks = new HashMap<>();
 		optionalCulturalLanguageSelection = new ArrayList<>();
 		optionalRaceLanguageSelection = new ArrayList<>();
-		adolescenceCategoriesSelected = new ArrayList<>();
+		adolescenceCategoriesSelected = new HashSet<>();
 		resetLanguageOptions();
 	}
 
@@ -235,11 +237,9 @@ public class CultureDecisions extends StorableObject {
 		return optionalRaceLanguageSelection;
 	}
 
-	public void removeSkills(CultureCategory cultureCategory) {
-		for (String category : cultureCategory.getCategoryOptions()) {
-			for (Skill skill : cultureCategory.getCultureSkills(category)) {
-				skillRanks.remove(skill.getName());
-			}
+	public void removeSkills(List<Skill> skills) {
+		for (Skill skill : skills) {
+			skillRanks.remove(skill.getName());
 		}
 	}
 
@@ -251,5 +251,9 @@ public class CultureDecisions extends StorableObject {
 
 	public void removeAdolescenceCategorySelection(String categoryName) {
 		adolescenceCategoriesSelected.remove(categoryName);
+	}
+
+	public boolean isAdolescenceCategorySelected(String categoryName) {
+		return adolescenceCategoriesSelected.contains(categoryName);
 	}
 }

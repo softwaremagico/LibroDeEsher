@@ -105,9 +105,11 @@ public class CultureCategoryLine extends BaseLine {
 		public void doAction() {
 			// Remove skills of old category.
 			parentPanel.removeSkillLinesOfCategory(cultureCategory);
-			character.removeCultureSkills(cultureCategory);
+			character.removeCultureAdolescenceSelection(cultureCategory);
 			// add new skills in the correct place.
 			parentPanel.addSkillLinesOfCategory(cultureCategory, (String) chooseCategoryComboBox.getSelectedItem());
+			//Select new category
+			character.selectAdolescenceCategory(cultureCategory, (String) chooseCategoryComboBox.getSelectedItem());
 		}
 	}
 

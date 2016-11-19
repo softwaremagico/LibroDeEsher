@@ -183,9 +183,7 @@
 
     create table T_CULTURE_OPTIONAL_CATEGORIES (
         CultureDecisions_ID bigint not null,
-        adolescenceCategoriesSelected varchar(255),
-        raceLanguageIndex integer not null,
-        primary key (CultureDecisions_ID, raceLanguageIndex)
+        adolescenceCategoriesSelected varchar(255)
     );
 
     create table T_CULTURE_OPTIONAL_CULTURE_LANGUAGES (
