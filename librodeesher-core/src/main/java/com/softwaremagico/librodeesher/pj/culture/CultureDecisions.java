@@ -96,6 +96,7 @@ public class CultureDecisions extends StorableObject {
 	@OrderColumn(name = "raceLanguageIndex")
 	private List<String> optionalRaceLanguageSelection;
 
+	@Expose
 	@ElementCollection
 	@CollectionTable(name = "T_CULTURE_OPTIONAL_CATEGORIES")
 	@LazyCollection(LazyCollectionOption.FALSE)

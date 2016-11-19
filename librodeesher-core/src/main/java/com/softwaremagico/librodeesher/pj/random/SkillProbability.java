@@ -152,6 +152,9 @@ public class SkillProbability {
 	 * Cost in development points.
 	 */
 	private int skillExpensiveness() {
+		if (characterPlayer.getNewRankCost(skill) > 40) {
+			return -1000;
+		}
 		// Spells are a little more expensive that common categories. We make a
 		// softer probability.
 		if (skill.getCategory().getCategoryGroup().equals(CategoryGroup.SPELL)) {

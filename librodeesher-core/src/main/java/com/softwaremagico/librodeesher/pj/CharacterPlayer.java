@@ -120,6 +120,7 @@ import com.softwaremagico.persistence.StorableObject;
 @Table(name = "T_CHARACTERPLAYER")
 public class CharacterPlayer extends StorableObject {
 	private static final long serialVersionUID = -3029332867945656263L;
+	private static final int INVALID_COST = 200;
 	// Store into the database the software version of creation.
 	@Expose
 	private String version = Version.getVersion();
@@ -1595,7 +1596,7 @@ public class CharacterPlayer extends StorableObject {
 
 			}
 		}
-		return new CategoryCost(Integer.MAX_VALUE);
+		return new CategoryCost(INVALID_COST);
 	}
 
 	public Integer getMaxRanksPerLevel(Category category, Integer currentListRanks) {
@@ -1625,7 +1626,7 @@ public class CharacterPlayer extends StorableObject {
 		// currentRanks + 1;
 		CategoryCost cost = getCategoryCost(category, currentRanks);
 		if (cost == null || cost.getRankCost(rankAdded) == null) {
-			return Integer.MAX_VALUE;
+			return INVALID_COST;
 		}
 
 		return cost.getRankCost(rankAdded);
@@ -2279,7 +2280,7 @@ public class CharacterPlayer extends StorableObject {
 		Integer baseCost = getProfession().getTrainingCost(trainingName);
 		try {
 			Training training = TrainingFactory.getTraining(trainingName);
-			if (baseCost == null || baseCost > 10000) {
+			if (baseCost == null || baseCost >= INVALID_COST) {
 				baseCost = training.getTrainingCost(getProfession().getName());
 			}
 			baseCost += getTrainingSkillCostReduction(
