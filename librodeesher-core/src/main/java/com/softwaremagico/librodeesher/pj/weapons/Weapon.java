@@ -96,4 +96,9 @@ public class Weapon {
 		return abbreviature;
 	}
 
+	@Override
+	public String toString() {
+		return getName();
+	}
+
 }

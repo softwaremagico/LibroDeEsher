@@ -60,6 +60,12 @@ public class CultureDecisions extends StorableObject {
 
 	@Expose
 	@ElementCollection
+	@CollectionTable(name = "T_CULTURE_ADOLESCENCE_RANKS")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private Map<String, Integer> adolescenceRanks;
+
+	@Expose
+	@ElementCollection
 	@CollectionTable(name = "T_CULTURE_HOBBY_RANKS")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<String, Integer> hobbyRanks;
@@ -99,6 +105,7 @@ public class CultureDecisions extends StorableObject {
 	public CultureDecisions() {
 		languageRanks = new HashMap<>();
 		skillRanks = new HashMap<>();
+		adolescenceRanks = new HashMap<>();
 		hobbyRanks = new HashMap<>();
 		spellRanks = new HashMap<>();
 		optionalCulturalLanguageSelection = new ArrayList<>();
@@ -161,8 +168,24 @@ public class CultureDecisions extends StorableObject {
 		}
 	}
 
+	public void setAdolescenceSkillRanks(String skill, Integer ranks) {
+		if (ranks <= 0) {
+			adolescenceRanks.remove(skill);
+		} else {
+			adolescenceRanks.put(skill, ranks);
+		}
+	}
+
 	public Integer getSkillRanks(String skill) {
 		Integer value = skillRanks.get(skill);
+		if (value == null) {
+			return 0;
+		}
+		return value;
+	}
+
+	public Integer getAdolescenceSkillRanks(String skill) {
+		Integer value = adolescenceRanks.get(skill);
 		if (value == null) {
 			return 0;
 		}
@@ -172,7 +195,7 @@ public class CultureDecisions extends StorableObject {
 	public Integer getTotalAdolescenceSkillRanks(Category category) {
 		Integer total = 0;
 		for (Skill skill : category.getSkills()) {
-			total += getSkillRanks(skill.getName());
+			total += getAdolescenceSkillRanks(skill.getName());
 		}
 		return total;
 	}
@@ -249,11 +272,26 @@ public class CultureDecisions extends StorableObject {
 		}
 	}
 
+	public String getAdolescenceCategorySelected(CultureCategory cultureCategory) {
+		for (String option : cultureCategory.getCategoryOptions()) {
+			for (String selected : adolescenceCategoriesSelected) {
+				if (selected.equals(option)) {
+					return selected;
+				}
+			}
+		}
+		return null;
+	}
+
 	public void removeAdolescenceCategorySelection(String categoryName) {
 		adolescenceCategoriesSelected.remove(categoryName);
 	}
 
 	public boolean isAdolescenceCategorySelected(String categoryName) {
 		return adolescenceCategoriesSelected.contains(categoryName);
+	}
+
+	public Set<String> getAdolescenceCategoriesSelected() {
+		return adolescenceCategoriesSelected;
 	}
 }

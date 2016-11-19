@@ -63,6 +63,7 @@ public class CultureSkillLine extends BaseLine {
 		rankSpinner.setValue(character.getCultureAdolescenceRanks(skill.getName()));
 	}
 
+	@Override
 	protected void setDefaultSize() {
 
 	}
@@ -84,8 +85,10 @@ public class CultureSkillLine extends BaseLine {
 		ListLabel weaponSkillLabel = new ListLabel(skill.getName(), SwingConstants.LEFT);
 		add(weaponSkillLabel, gridBagConstraints);
 
-		SpinnerModel sm = new SpinnerNumberModel(0, 0, character.getCategoryCost(skill.getCategory(), 0)
-				.getRankCost().size(), 1);
+		// SpinnerModel sm = new SpinnerNumberModel(0, 0,
+		// character.getCategoryCost(skill.getCategory(),
+		// 0).getRankCost().size(), 1);
+		SpinnerModel sm = new SpinnerNumberModel(0, 0, 3, 1);
 		rankSpinner = new BaseSpinner(sm);
 		rankSpinner.setValue(0);
 		addRankSpinnerEvent();
@@ -109,11 +112,12 @@ public class CultureSkillLine extends BaseLine {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				// Correct the spinner
-				if (parentPanel.getSpinnerValues(category) > category.getSkillRanksToChoose()) {
+				if (parentPanel.getSpinnerValues(category) > category.getSkillRanksToChoose()
+						&& (Integer) rankSpinner.getValue() > 0) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character
-					character.setCultureSkillRanks(skill.getName(), (Integer) rankSpinner.getValue());
+					character.setCultureAdolescenceRanks(skill.getName(), (Integer) rankSpinner.getValue());
 				}
 			}
 		});

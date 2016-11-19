@@ -167,6 +167,13 @@
         primary key (ID)
     );
 
+    create table T_CULTURE_ADOLESCENCE_RANKS (
+        CultureDecisions_ID bigint not null,
+        adolescenceRanks integer,
+        adolescenceRanks_KEY varchar(255),
+        primary key (CultureDecisions_ID, adolescenceRanks_KEY)
+    );
+
     create table T_CULTURE_HOBBY_RANKS (
         CultureDecisions_ID bigint not null,
         hobbyRanks integer,
@@ -879,6 +886,11 @@
         add constraint FK_cwbxkyfe4g8d93yl6eruxvhyf 
         foreign key (T_CHARACTERPLAYER_ID) 
         references T_CHARACTERPLAYER (ID);
+
+    alter table T_CULTURE_ADOLESCENCE_RANKS 
+        add constraint FK_3k2mehjuwiqvd8ip0nmuerrsv 
+        foreign key (CultureDecisions_ID) 
+        references T_CULTUREDECISIONS (ID);
 
     alter table T_CULTURE_HOBBY_RANKS 
         add constraint FK_3qei47al2s0hxq2w1uo0ml0ai 

@@ -44,8 +44,10 @@ public class CultureCategoryLine extends BaseLine {
 	private CategoryComboBox<String> chooseCategoryComboBox = null;
 	private ChooseCategoryPanel parentPanel;
 	private CharacterPlayer character;
+	private boolean refreshing = false;
 
-	public CultureCategoryLine(CharacterPlayer character, CultureCategory cultureCategory, Color background, ChooseCategoryPanel parentPanel) {
+	public CultureCategoryLine(CharacterPlayer character, CultureCategory cultureCategory, Color background,
+			ChooseCategoryPanel parentPanel) {
 		this.cultureCategory = cultureCategory;
 		this.parentPanel = parentPanel;
 		this.character = character;
@@ -54,9 +56,19 @@ public class CultureCategoryLine extends BaseLine {
 	}
 
 	private void addItemsToComboBox() {
+		refreshing = true;
 		chooseCategoryComboBox.removeAllItems();
 		for (String categoryName : cultureCategory.getCategoryOptions()) {
 			chooseCategoryComboBox.addItem(categoryName);
+		}
+		refreshing = false;
+	}
+
+	public void setSelectedCategory(String category) {
+		if (category != null) {
+			refreshing = true;
+			chooseCategoryComboBox.setSelectedItem(category);
+			refreshing = false;
 		}
 	}
 
@@ -75,7 +87,8 @@ public class CultureCategoryLine extends BaseLine {
 		gridBagConstraints.weighty = 0;
 
 		if (cultureCategory.getCategoryOptions().size() == 1) {
-			ListLabel cultureCategoryLabel = new ListLabel(cultureCategory.getCategoryOptions().get(0), SwingConstants.LEFT);
+			ListLabel cultureCategoryLabel = new ListLabel(cultureCategory.getCategoryOptions().get(0),
+					SwingConstants.LEFT);
 			cultureCategoryLabel.setFont(Fonts.getInstance().getBoldFont());
 			add(cultureCategoryLabel, gridBagConstraints);
 		} else {
@@ -89,7 +102,8 @@ public class CultureCategoryLine extends BaseLine {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
 		gridBagConstraints.gridx = 1;
-		ListLabel rankLabel = new ListLabel(cultureCategory.getRanks().toString() + " (" + cultureCategory.getSkillRanksToChoose().toString() + ")");
+		ListLabel rankLabel = new ListLabel(cultureCategory.getRanks().toString() + " ("
+				+ cultureCategory.getSkillRanksToChoose().toString() + ")");
 		add(rankLabel, gridBagConstraints);
 	}
 
@@ -104,12 +118,19 @@ public class CultureCategoryLine extends BaseLine {
 		@Override
 		public void doAction() {
 			// Remove skills of old category.
-			parentPanel.removeSkillLinesOfCategory(cultureCategory);
-			character.removeCultureAdolescenceSelection(cultureCategory);
+			if (!refreshing) {
+				parentPanel.removeSkillLinesOfCategory(cultureCategory);
+				character.removeCultureAdolescenceSelection(cultureCategory);
+			}
 			// add new skills in the correct place.
-			parentPanel.addSkillLinesOfCategory(cultureCategory, (String) chooseCategoryComboBox.getSelectedItem());
-			//Select new category
-			character.selectAdolescenceCategory(cultureCategory, (String) chooseCategoryComboBox.getSelectedItem());
+			parentPanel.addSkillLinesOfCategory(cultureCategory,
+					(String) chooseCategoryComboBox.getSelectedItem());
+			// Select new category
+			if (!refreshing
+					&& character.getCultureDecisions().getAdolescenceCategorySelected(cultureCategory) == null) {
+				character.selectAdolescenceCategory(cultureCategory,
+						(String) chooseCategoryComboBox.getSelectedItem());
+			}
 		}
 	}
 

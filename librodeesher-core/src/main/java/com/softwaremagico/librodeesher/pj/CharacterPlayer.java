@@ -425,7 +425,12 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public int getCultureAdolescenceRanks(String skillName) {
-		return cultureDecisions.getSkillRanks(skillName);
+		return cultureDecisions.getAdolescenceSkillRanks(skillName);
+	}
+
+	public void setCultureAdolescenceRanks(String skillName, int rank) {
+		cultureDecisions.setAdolescenceSkillRanks(skillName, rank);
+		characterPlayerHelper.resetSkillRanks(skillName);
 	}
 
 	public int getTotalAdolescenceSkillRanksSelected(Category category) {
@@ -2815,6 +2820,7 @@ public class CharacterPlayer extends StorableObject {
 		for (String skill : getCulture().getHobbySkills()) {
 			realSkills.addAll(getRealSkills(skill));
 		}
+		Collections.sort(realSkills);
 		return realSkills;
 	}
 
@@ -3136,6 +3142,7 @@ public class CharacterPlayer extends StorableObject {
 
 	public void removeCultureAdolescenceSelection(CultureCategory cultureCategory) {
 		for (String category : cultureCategory.getCategoryOptions()) {
+			characterPlayerHelper.resetCategoryRanks(category);
 			getCultureDecisions().removeSkills(getAdolescenceSkills(cultureCategory, category));
 			getCultureDecisions().removeAdolescenceCategorySelection(category);
 		}
@@ -3143,6 +3150,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public void selectAdolescenceCategory(CultureCategory cultureCategory, String selection) {
+		removeCultureAdolescenceSelection(cultureCategory);
 		getCultureDecisions().addAdolescenceCategorySelection(selection);
 	}
 

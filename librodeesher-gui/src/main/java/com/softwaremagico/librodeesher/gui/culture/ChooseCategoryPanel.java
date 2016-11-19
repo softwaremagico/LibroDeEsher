@@ -73,7 +73,8 @@ public class ChooseCategoryPanel extends BasePanel {
 								cultureCategory, getLineBackgroundColor(i), this);
 						add(categoryLine);
 						categoryLines.add(categoryLine);
-
+						categoryLine.setSelectedCategory(character.getCultureDecisions().getAdolescenceCategorySelected(cultureCategory));
+						
 						i++;
 						String selectedCategory = cultureCategory.getCategoryOptions().get(0);
 						if (cultureCategory.getSkillRanksToChoose() > 0) {
@@ -126,7 +127,6 @@ public class ChooseCategoryPanel extends BasePanel {
 					skillsLinesPerCategory.get(cultureCategory).add(skillLine);
 				}
 			}
-
 			this.revalidate();
 			this.repaint();
 		}

@@ -42,7 +42,6 @@ public abstract class CulturePanel extends BasePanel {
 		for (CultureLine lines : hobbyLines) {
 			total += lines.getSelectedRanks();
 		}
-
 		return total;
 	}
 

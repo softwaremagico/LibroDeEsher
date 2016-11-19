@@ -62,7 +62,11 @@ public class HobbyLine extends CultureLine {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				// Correct the spinner
-				if (parentPanel.getSpinnerValues() > characterPlayer.getCulture().getHobbyRanks()) {
+				System.out.println(skill + ": " + parentPanel.getSpinnerValues() + ">"
+						+ characterPlayer.getCulture().getHobbyRanks() + " "
+						+ ((Integer) rankSpinner.getValue()));
+				if (parentPanel.getSpinnerValues() > characterPlayer.getCulture().getHobbyRanks()
+						&& (Integer) rankSpinner.getValue() > 0) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else if (getSelectedRanks() > characterPlayer.getMaxRanksPerCulture(skill.getCategory())) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);

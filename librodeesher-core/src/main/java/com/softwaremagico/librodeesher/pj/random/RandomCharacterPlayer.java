@@ -238,9 +238,9 @@ public class RandomCharacterPlayer {
 		}
 		EsherLog.info(RandomCharacterPlayer.class.getName(), "Culture: " + culture);
 		characterPlayer.setCulture(culture);
-		setRandomCultureHobbyRanks(characterPlayer, specializationLevel);
-		setRandomCultureWeaponRanks(characterPlayer, specializationLevel);
+		// setRandomCultureWeaponRanks(characterPlayer, specializationLevel);
 		setRandomCultureAdolescenceRanks(characterPlayer, specializationLevel);
+		setRandomCultureHobbyRanks(characterPlayer, specializationLevel);
 		setRandomCultureAndRaceLanguages(characterPlayer, specializationLevel);
 		setRandomCultureSpells(characterPlayer);
 	}
@@ -600,12 +600,18 @@ public class RandomCharacterPlayer {
 			// Select category.
 			String selectedCategory = null;
 			if (cultureCategory.getCategoryOptions().size() > 1) {
-				selectedCategory = cultureCategory.getCategoryOptions().get(
-						((int) (Math.random() * cultureCategory.getCategoryOptions().size())));
-				characterPlayer.getCultureDecisions().addAdolescenceCategorySelection(selectedCategory);
+				if (cultureCategory.isUseful()) {
+					selectedCategory = cultureCategory.getCategoryOptions().get(
+							((int) (Math.random() * cultureCategory.getCategoryOptions().size())));
+					characterPlayer.getCultureDecisions().addAdolescenceCategorySelection(selectedCategory);
+				}
 			} else {
 				selectedCategory = cultureCategory.getCategoryOptions().get(0);
 			}
+
+			EsherLog.debug(RandomCharacterPlayer.class.getName(), "Selected adolescence category '"
+					+ characterPlayer.getCultureDecisions().getAdolescenceCategoriesSelected() + "'.");
+
 			// Select skills.
 			if (cultureCategory.getSkillRanksToChoose() > 0
 					&& !cultureCategory.getCategoryOptions().get(0).equals(Spanish.COMUNICATION_CATEGORY)
@@ -614,8 +620,11 @@ public class RandomCharacterPlayer {
 				int ranksAdded = 0;
 				while (cultureCategory.getSkillRanksToChoose() > ranksAdded) {
 					Collections.shuffle(skills);
-					characterPlayer.getCultureDecisions().setSkillRanks(skills.get(0).getName(),
-							characterPlayer.getCultureDecisions().getSkillRanks(skills.get(0).getName()));
+					characterPlayer.setCultureAdolescenceRanks(skills.get(0).getName(),
+							characterPlayer.getCultureAdolescenceRanks(skills.get(0).getName()) + 1);
+					EsherLog.debug(RandomCharacterPlayer.class.getName(),
+							"Added adolescence rank to '" + skills.get(0).getName() + "'. Total: "
+									+ characterPlayer.getCultureAdolescenceRanks(skills.get(0).getName()));
 					ranksAdded++;
 				}
 			}
@@ -645,7 +654,7 @@ public class RandomCharacterPlayer {
 							.get((int) (Math.random() * weaponsOfCategory.size()));
 					if (Math.random() * 100 + 1 < Math.max(characterPlayer.getRealRanks(weaponSkill)
 							* specializationLevel * 25, 10 - specializationLevel)) {
-						characterPlayer.setCultureSkillRanks(weaponSkill.getName(),
+						characterPlayer.setCultureAdolescenceRanks(weaponSkill.getName(),
 								characterPlayer.getCultureAdolescenceRanks(weaponSkill.getName()) + 1);
 					}
 				}
@@ -983,6 +992,7 @@ public class RandomCharacterPlayer {
 		if (specializationLevel == -1) {
 			Collections.shuffle(skills);
 		} else {
+			Collections.shuffle(skills);
 			Collections.sort(skills, new SkillComparatorByRanks(characterPlayer));
 			if (specializationLevel < 0) {
 				Collections.reverse(skills);

@@ -45,7 +45,7 @@ import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 
 public class CultureWindow extends BaseFrame {
 	private static final long serialVersionUID = -3866934730061829486L;
-	private static final int WEAPONS_PANEL_INDEX = 0;
+	private static final int ADOLESCENCE_PANEL_INDEX = 0;
 	private static final int HOBBIES_PANEL_INDEX = 1;
 	private static final int LANGUAGES_PANEL_INDEX = 2;
 	private static final int SPELLS_PANEL_INDEX = 3;
@@ -103,7 +103,7 @@ public class CultureWindow extends BaseFrame {
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
-		createWeaponsPanel();
+		createAdolescencePanel();
 		createHobbiesPanel();
 		createLanguagePanel();
 		createSpellsPanel();
@@ -142,7 +142,7 @@ public class CultureWindow extends BaseFrame {
 		getContentPane().add(buttonPanel, gridBagConstraints);
 	}
 
-	private void createWeaponsPanel() {
+	private void createAdolescencePanel() {
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -155,10 +155,10 @@ public class CultureWindow extends BaseFrame {
 		gridBagConstraints.weighty = 1;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 		try {
-			getContentPane().remove(WEAPONS_PANEL_INDEX);
+			getContentPane().remove(ADOLESCENCE_PANEL_INDEX);
 		} catch (Exception e) {
 		}
-		getContentPane().add(new CompleteCultureCategoryPanel(character), gridBagConstraints, WEAPONS_PANEL_INDEX);
+		getContentPane().add(new CompleteCultureCategoryPanel(character), gridBagConstraints, ADOLESCENCE_PANEL_INDEX);
 	}
 
 	private void createHobbiesPanel() {

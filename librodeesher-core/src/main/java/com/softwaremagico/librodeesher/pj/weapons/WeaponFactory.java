@@ -27,7 +27,9 @@ package com.softwaremagico.librodeesher.pj.weapons;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.MyFile;
@@ -156,8 +158,8 @@ public class WeaponFactory {
 	 * @param prefix
 	 * @return
 	 */
-	public static List<Weapon> getWeaponsByPrefix(String prefix) {
-		List<Weapon> filteredWeapons = new ArrayList<>();
+	public static Set<Weapon> getWeaponsByPrefix(String prefix) {
+		Set<Weapon> filteredWeapons = new HashSet<>();
 		prefix = prefix.replaceAll("\\{", "").replaceAll("\\}", "").toLowerCase();
 		for (WeaponType type : WeaponType.values()) {
 			List<Weapon> weapons = weaponsByType.get(type);			

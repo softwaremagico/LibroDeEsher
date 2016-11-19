@@ -54,8 +54,8 @@ import com.softwaremagico.log.EsherLog;
 
 public class Culture {
 	private String name;
-	private List<Weapon> cultureWeapons;
-	private List<String> cultureArmours;
+	private Set<Weapon> cultureWeapons;
+	private Set<String> cultureArmours;
 	private HashMap<String, CultureCategory> categories;
 	private Integer hobbyRanks;
 	private List<String> hobbySkills;
@@ -79,7 +79,7 @@ public class Culture {
 		return hobbySkills;
 	}
 
-	public List<Weapon> getCultureWeapons() {
+	public Set<Weapon> getCultureWeapons() {
 		return cultureWeapons;
 	}
 
@@ -152,7 +152,7 @@ public class Culture {
 			index++;
 		}
 		try {
-			cultureWeapons = new ArrayList<>();
+			cultureWeapons = new HashSet<>();
 			if (!lines.get(index).toLowerCase().equals(Spanish.ALL_TAG.toLowerCase())) {
 				while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 					String lineaArmasCultura = lines.get(index);
@@ -182,12 +182,13 @@ public class Culture {
 					index++;
 				}
 			} else {
-				cultureWeapons = WeaponFactory.getAllStandardWeapons();
+				cultureWeapons = new HashSet<Weapon>(WeaponFactory.getAllStandardWeapons());
 				index++;
 			}
 		} catch (IndexOutOfBoundsException iob) {
 			throw new InvalidCultureException("Error in line: " + lines.get(index), iob);
 		}
+		System.out.println(cultureWeapons);
 		return index;
 	}
 
@@ -196,7 +197,7 @@ public class Culture {
 			index++;
 		}
 
-		cultureArmours = new ArrayList<>();
+		cultureArmours = new HashSet<String>();
 		try {
 			while (!lines.get(index).equals("") && !lines.get(index).startsWith("#")) {
 				String lineaArmadurasCultura = lines.get(index);
@@ -324,9 +325,6 @@ public class Culture {
 				}
 			} else {
 				hobbySkills.addAll(SkillFactory.getAvailableSkills());
-				hobbySkills.add(Spanish.WEAPON);
-				hobbySkills.add(Spanish.ARMOUR);
-				hobbySkills.add(Spanish.CULTURE_SPELLS);
 			}
 			index++;
 		}
@@ -455,7 +453,7 @@ public class Culture {
 		return ranks;
 	}
 
-	public List<String> getCultureArmours() {
+	public Set<String> getCultureArmours() {
 		return cultureArmours;
 	}
 
