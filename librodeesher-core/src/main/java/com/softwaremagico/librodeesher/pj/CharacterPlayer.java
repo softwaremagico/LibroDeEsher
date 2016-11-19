@@ -965,8 +965,16 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	private Roll getStoredCharacteristicRoll(CharacteristicsAbbreviature abbreviature) {
-		Roll roll = characteristicsTemporalUpdatesRolls.get(abbreviature).getFirst();
-		return roll;
+		try {
+			Roll roll = characteristicsTemporalUpdatesRolls.get(abbreviature).getFirst();
+			return roll;
+		} catch (NullPointerException e) {
+			// For undestanding what is wrong!
+			EsherLog.severe(this.getClass().getName(), "Invalid roll for abreviature '" + abbreviature
+					+ "'. ");
+			EsherLog.errorMessage(this.getClass().getName(), e);
+			return null;
+		}
 	}
 
 	public void setCharacteristicTemporalValues(CharacteristicsAbbreviature abbreviature, Integer value) {

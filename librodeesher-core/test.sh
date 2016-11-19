@@ -27,7 +27,7 @@ do
 	echo "Duration $(($ENDTIME - $STARTTIME)) seconds."
 done;
 GLOBAL_ENDTIME=$(date +%s)
-echo "Tdtal Duration $(($GLOBAL_ENDTIME - $GLOBAL_STARTTIME)) seconds."
+echo "Total Duration $(($GLOBAL_ENDTIME - $GLOBAL_STARTTIME)) seconds."
 
 #Search for errors. -L for not contains "Failures: 0".
 grep --include=\*.out -rnwL 'tests' -e "Failures: 0" > error.log
