@@ -188,7 +188,6 @@ public class Culture {
 		} catch (IndexOutOfBoundsException iob) {
 			throw new InvalidCultureException("Error in line: " + lines.get(index), iob);
 		}
-		System.out.println(cultureWeapons);
 		return index;
 	}
 

@@ -49,8 +49,8 @@ public abstract class Category {
 	private List<Float> skillRankValues; // Rank values. i.e: -15/3/2/1/0.5
 	private boolean notUsedInRandom = false;
 
-	public Category(String name, String abbreviature, CategoryType type,
-			String characteristicsTag, List<Float> skillRankValues) {
+	public Category(String name, String abbreviature, CategoryType type, String characteristicsTag,
+			List<Float> skillRankValues) {
 		this.name = name;
 		this.abbreviature = abbreviature;
 		this.categoryType = type;
@@ -63,11 +63,9 @@ public abstract class Category {
 
 	private void createCharacteristicList(String characteristicsTag) {
 		characteristics = new ArrayList<>();
-		String[] characteristicsTags = characteristicsTag.split(Pattern
-				.quote("/"));
+		String[] characteristicsTags = characteristicsTag.split(Pattern.quote("/"));
 		for (String characteristic : characteristicsTags) {
-			characteristics.add(CharacteristicsAbbreviature
-					.getCharacteristicsAbbreviature(characteristic));
+			characteristics.add(CharacteristicsAbbreviature.getCharacteristicsAbbreviature(characteristic));
 		}
 	}
 
@@ -145,12 +143,14 @@ public abstract class Category {
 	public Skill addSkill(String skillName) {
 		if (skillName.length() > 0) {
 			Skill skill = SkillFactory.getSkill(skillName);
-			skill.setCategory(this);
-			if (!skills.contains(skill)) {
-				skills.add(skill);
-				Collections.sort(skills, new SkillComparatorByName());
+			if (skill != null) {
+				skill.setCategory(this);
+				if (!skills.contains(skill)) {
+					skills.add(skill);
+					Collections.sort(skills, new SkillComparatorByName());
+				}
+				return skill;
 			}
-			return skill;
 		}
 		return null;
 	}
@@ -163,27 +163,21 @@ public abstract class Category {
 		return getSkillRankValues(ranksNumber, skillRankValues);
 	}
 
-	public Integer getSkillRankValues(Integer ranksNumber,
-			List<Float> definedSkillRankValues) {
+	public Integer getSkillRankValues(Integer ranksNumber, List<Float> definedSkillRankValues) {
 		if (ranksNumber <= 0) {
 			return definedSkillRankValues.get(0).intValue();
 		} else if (ranksNumber > 0 && ranksNumber <= 10) {
 			return definedSkillRankValues.get(1).intValue() * ranksNumber;
 		} else if (ranksNumber > 10 && ranksNumber <= 20) {
-			return definedSkillRankValues.get(1).intValue() * 10
-					+ definedSkillRankValues.get(2).intValue()
+			return definedSkillRankValues.get(1).intValue() * 10 + definedSkillRankValues.get(2).intValue()
 					* (ranksNumber - 10);
 		} else if (ranksNumber > 20 && ranksNumber <= 30) {
-			return definedSkillRankValues.get(1).intValue() * 10
-					+ definedSkillRankValues.get(2).intValue() * 10
-					+ definedSkillRankValues.get(3).intValue()
-					* (ranksNumber - 20);
+			return definedSkillRankValues.get(1).intValue() * 10 + definedSkillRankValues.get(2).intValue()
+					* 10 + definedSkillRankValues.get(3).intValue() * (ranksNumber - 20);
 		} else {
-			return definedSkillRankValues.get(1).intValue() * 10
-					+ definedSkillRankValues.get(2).intValue() * 10
-					+ definedSkillRankValues.get(3).intValue() * 10
-					+ definedSkillRankValues.get(4).intValue()
-					* (ranksNumber - 30);
+			return definedSkillRankValues.get(1).intValue() * 10 + definedSkillRankValues.get(2).intValue()
+					* 10 + definedSkillRankValues.get(3).intValue() * 10
+					+ definedSkillRankValues.get(4).intValue() * (ranksNumber - 30);
 		}
 	}
 
@@ -219,11 +213,9 @@ public abstract class Category {
 	}
 
 	private static CategoryGroup getCategoryGroup(String categoryName) {
-		if (categoryName.toLowerCase().startsWith(
-				Spanish.WEAPON_CATEGORY_PREFIX)) {
+		if (categoryName.toLowerCase().startsWith(Spanish.WEAPON_CATEGORY_PREFIX)) {
 			return CategoryGroup.WEAPON;
-		} else if (categoryName.toLowerCase().startsWith(
-				Spanish.SPELL_CATEGORY_PREFIX)) {
+		} else if (categoryName.toLowerCase().startsWith(Spanish.SPELL_CATEGORY_PREFIX)) {
 			return CategoryGroup.SPELL;
 		}
 		return CategoryGroup.STANDARD;
@@ -237,8 +229,7 @@ public abstract class Category {
 		return getName();
 	}
 
-	protected void setCharacteristicsListTags(
-			List<CharacteristicsAbbreviature> characteristicsListTags) {
+	protected void setCharacteristicsListTags(List<CharacteristicsAbbreviature> characteristicsListTags) {
 		this.characteristics = characteristicsListTags;
 	}
 

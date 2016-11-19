@@ -46,7 +46,8 @@ public class SkillFactory {
 
 	public static Skill getSkill(String skillNameAndType) {
 		Skill skill = availableSkills.get(skillNameAndType);
-		if (skill == null && !skillNameAndType.toLowerCase().equals(Spanish.WEAPON.toLowerCase())) {
+		if (skill == null && !skillNameAndType.toLowerCase().equals(Spanish.WEAPON.toLowerCase())
+				&& !skillNameAndType.toLowerCase().equals(Spanish.NOT_IMPORTANT.toLowerCase())) {
 			skill = createSkill(skillNameAndType);
 			addSkill(skill);
 		}
