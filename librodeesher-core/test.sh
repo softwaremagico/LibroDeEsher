@@ -22,6 +22,8 @@ do
 	mv /tmp/importedMorticia.txt $folder;
 	mv /tmp/importedCharacterSheetLvl2.txt $folder;
 	mv /tmp/originalCharacterSheetLvl2.txt $folder;
+	mv /tmp/importedSheet2.txt $folder;
+	mv /tmp/originalCharacterSheet2.txt $folder;
 	
 	ENDTIME=$(date +%s)
 	echo "Duration $(($ENDTIME - $STARTTIME)) seconds."

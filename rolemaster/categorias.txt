@@ -25,7 +25,7 @@ Autocontrol(Autoc)	Ad/Pr/Ad	Estándar	Frenesí, Meditación, Mnemotecnia, Supera
 Ciencia/Analítica·Básica(CienB)	Ra/Me/Ra	Estándar	Documentación, Matemáticas Básicas
 Ciencia/Analítica·Especializada(CienE)	Ra/Me/Ra	Combinada	Alquimia, Antropología, Matemáticas Avanzadas, Astronomía, Bioquímica, Psicología, Anatomía
 Comunicación(Comun)	Ra/Me/Em	Estándar	Leer los Labios, Señales
-Conocimiento·General(ConGen)	Me/Ra/Me	Estándar	Conocimiento de la Fauna, Conocimiento de la Flora, Conocimiento Cultural, Conocimiento Regional, Filosofía, Heráldica, Historia, Religión, Conocimiento de Estilos Marciales, Conocimiento de Estilos de Armas
+Conocimiento·General(ConGen)	Me/Ra/Me	Estándar	Conocimiento de la Fauna, Conocimiento de la Flora, Conocimiento Cultural, Conocimiento Regional, Heráldica, Historia, Religión, Conocimiento de Estilos Marciales, Conocimiento de Estilos de Armas
 Conocimiento·Mágico(ConMag)	Me/Ra/Me	Estándar	Conocimiento de los Artefactos, Conocimiento de los Hechizos, Conocimiento de los No-Muertos, Conocimiento de las Protecciones, Conocimiento de los Planos, Conocimiento de los Símbolos
 Conocimiento·Oscuro(ConOsc)	Me/Ra/Me	Estándar	Conocimiento de las Hadas, Conocimiento de los Dragones, Demonología, Xeno-Conocimientos*
 Conocimiento·Técnico(ConTec)	Me/Ra/Me	Estándar	Conocimiento de la Piedra, Conocimiento de las Cerraduras, Conocimiento de las Hierbas, Conocimiento de los Metales, Conocimiento de los Venenos, Conocimiento del Comercio
