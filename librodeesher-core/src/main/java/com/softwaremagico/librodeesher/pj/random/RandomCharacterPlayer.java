@@ -456,7 +456,8 @@ public class RandomCharacterPlayer {
 			if (skill != null && hobbies.size() > 0) {
 				int weaponsRanks = 0;
 				// Cost greater than 40 can not be a hobby
-				if (characterPlayer.getCultureStimatedCategoryCost(skill.getCategory()) <= MAX_HOBBY_COST) {
+				if (characterPlayer.getCultureStimatedCategoryCost(skill.getCategory()) != null
+						&& characterPlayer.getCultureStimatedCategoryCost(skill.getCategory()) <= MAX_HOBBY_COST) {
 					// Only if a new rank can be added to the hobby.
 					if (characterPlayer.getCultureHobbyRanks(skill.getName()) < characterPlayer
 							.getMaxRanksPerCulture(skill.getCategory())) {
@@ -618,7 +619,7 @@ public class RandomCharacterPlayer {
 					&& !cultureCategory.getCategoryOptions().get(0).equals(Spanish.OPEN_LISTS)) {
 				List<Skill> skills = characterPlayer.getAdolescenceSkills(cultureCategory, selectedCategory);
 				int ranksAdded = 0;
-				while (cultureCategory.getSkillRanksToChoose() > ranksAdded) {
+				while (skills.size() > 0 && cultureCategory.getSkillRanksToChoose() > ranksAdded) {
 					Collections.shuffle(skills);
 					characterPlayer.setCultureAdolescenceRanks(skills.get(0).getName(),
 							characterPlayer.getCultureAdolescenceRanks(skills.get(0).getName()) + 1);

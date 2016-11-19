@@ -1273,6 +1273,9 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getTotalRanks(Skill skill) {
+		if (skill == null) {
+			return 0;
+		}
 		if (characterPlayerHelper.getSkillRanks(skill.getName()) != null) {
 			return characterPlayerHelper.getSkillRanks(skill.getName());
 		}
@@ -1541,7 +1544,13 @@ public class CharacterPlayer extends StorableObject {
 		if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
 			return getProfession().getWeaponCategoryCost().get(0).getRankCost(0);
 		} else {
-			return getCategoryCost(category, 0).getRankCost(0);
+			if (getCategoryCost(category, 0) != null) {
+				return getCategoryCost(category, 0).getRankCost(0);
+			} else {
+				// Cost not defined, i.e. using barbarian with Genetic
+				// Technology.
+				return Integer.MAX_VALUE;
+			}
 		}
 	}
 
@@ -1556,7 +1565,11 @@ public class CharacterPlayer extends StorableObject {
 	 */
 	public CategoryCost getCategoryCost(Category category, Integer currentListRanks) {
 		if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
-			return getProfessionDecisions().getWeaponCost(category);
+			CategoryCost cost = getProfessionDecisions().getWeaponCost(category);
+			if (cost != null) {
+				return cost;
+			}
+			return new CategoryCost(Integer.MAX_VALUE);
 		} else if (getProfession() != null && category.getCategoryGroup().equals(CategoryGroup.SPELL)) {
 			CategoryCost cost = getProfession().getMagicCost(
 					MagicListType.getMagicTypeOfCategory(category.getName()), currentListRanks);
@@ -1566,11 +1579,15 @@ public class CharacterPlayer extends StorableObject {
 			return new CategoryCost();
 		} else {
 			try {
-				return getProfession().getCategoryCost(category.getName());
+				CategoryCost cost = getProfession().getCategoryCost(category.getName());
+				if (cost != null) {
+					return cost;
+				}
 			} catch (NullPointerException npe) {
-				return new CategoryCost();
+
 			}
 		}
+		return new CategoryCost(Integer.MAX_VALUE);
 	}
 
 	public Integer getMaxRanksPerLevel(Category category, Integer currentListRanks) {

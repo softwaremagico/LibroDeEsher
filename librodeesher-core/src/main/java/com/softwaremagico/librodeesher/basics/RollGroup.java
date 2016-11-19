@@ -57,7 +57,6 @@ public class RollGroup extends StorableObject {
 		resetIds(this);
 		resetIds(rolls);
 	}
-	
 
 	@Override
 	public void resetComparationIds() {
@@ -88,6 +87,9 @@ public class RollGroup extends StorableObject {
 	}
 
 	public Roll getFirst() {
+		if (rolls.isEmpty()) {
+			fillUpRolls();
+		}
 		Roll roll = rolls.remove(0);
 		fillUpRolls();
 		return new Roll(roll);

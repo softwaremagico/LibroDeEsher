@@ -74,6 +74,11 @@ public class CategoryCost extends StorableObject {
 		this.rankCost = covertStringToCost(rankCost);
 	}
 
+	public CategoryCost(Integer rankCost) {
+		this();
+		this.rankCost.add(rankCost);
+	}
+
 	@Override
 	public void resetIds() {
 		resetIds(this);

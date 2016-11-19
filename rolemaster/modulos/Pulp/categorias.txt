@@ -1,8 +1,8 @@
 #Nombre	Características	Progresión	Habilidades {AñadirNuevaHabilidad1; AñadirNuevaHabilidad2;...} [Especialidad1; Especialidad2; ...]
 ################################################################
-Armadura·Ligera(ArmLig)	Ag/Fu/Ag	Estándar	Armadura Tipo I, Armadura Tipo II
-Armadura·Media(Armmed)	Fu/Ag/Fu	Estándar	Armadura Tipo III, Armadura Tipo IV
-Ataques Especiales(AtaEsp)	Fu/Ag/Ad	Combinada	Francotirador, Apuntar, Dejar Inconsciente
+Armadura·Ligera(ArmLig)	Ag/Fu/Ag	Estándar	Armadura Tipo I*, Armadura Tipo II*
+Armadura·Media(Armmed)	Fu/Ag/Fu	Estándar	Armadura Tipo III*, Armadura Tipo IV*
+Ataques Especiales(AtaEsp)	Fu/Ag/Ad	Combinada	Francotirador*, Apuntar, Dejar Inconsciente
 Atletismo·Gimnasia(AtlG)	Ag/Rp/Ag	Estándar	Braquiación, Paracaidismo
 Atletismo·Resistencia(AtlR)	Co/Ag/Fu	Estándar	Ciclismo
 Autocontrol(Autoc)	Ad/Pr/Ad	Estándar	Recarga Adrenal
