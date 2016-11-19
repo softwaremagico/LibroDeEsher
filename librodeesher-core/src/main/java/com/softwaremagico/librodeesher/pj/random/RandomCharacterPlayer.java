@@ -183,7 +183,7 @@ public class RandomCharacterPlayer {
 			setRandomPerks(characterPlayer, specializationLevel);
 		}
 		sendFeedBack("Gastando los puntos de historial.");
-		setHistoryPoints(characterPlayer, getSpecializationLevel());
+		setBackgroundPoints(characterPlayer, getSpecializationLevel());
 		setLevels();
 		sendFeedBack("Personaje aleatorio completado!");
 	}
@@ -871,15 +871,17 @@ public class RandomCharacterPlayer {
 	}
 
 	/**
-	 * Sets randomly the history points.
+	 * Sets randomly the background points.
 	 */
-	public static void setHistoryPoints(CharacterPlayer characterPlayer, int specializationLevel) {
+	public static void setBackgroundPoints(CharacterPlayer characterPlayer, int specializationLevel) {
 		int loops = 0;
 		while (characterPlayer.getRemainingBackgroundPoints() > 0) {
 			List<Category> shuffledCategoryList = getProfessionalShuffledCategories(characterPlayer);
 			// 30% for adding some languages
 			if (Math.random() * 100 < 30 - (specializationLevel * 10)
 					- characterPlayer.getHistoryTotalLanguageRanks() * 10) {
+				EsherLog.debug(RandomCharacterPlayer.class.getName(),
+						"Spending one background point in languages!");
 				int communicationLanguagesPoints = 20;
 				int tries = 0;
 				List<String> languages = new ArrayList<>();
@@ -898,6 +900,8 @@ public class RandomCharacterPlayer {
 												.getAvailableSkill(language))));
 						characterPlayer.setHistoryLanguageRanks(language,
 								characterPlayer.getHistoryLanguageRanks(language) + ranksToAdd);
+						EsherLog.debug(RandomCharacterPlayer.class.getName(), "Adding '" + ranksToAdd
+								+ "' points to '" + language + "'.");
 						communicationLanguagesPoints -= ranksToAdd;
 						if (communicationLanguagesPoints < 1) {
 							break;
@@ -925,6 +929,8 @@ public class RandomCharacterPlayer {
 						&& category.getSkills().size() > 1
 						&& Math.random() * 100 < (characterPlayer.getTotalValue(category) - 15 + loops) * 3) {
 					characterPlayer.setHistoryPoints(category, true);
+					EsherLog.debug(RandomCharacterPlayer.class.getName(),
+							"Adding history point to category '" + category + "'.");
 				}
 				if (!category.getName().equals(Spanish.COMUNICATION_CATEGORY)
 						&& !category.getName().startsWith(Spanish.REGIONAL_KNOWNLEDGE_TAG)) {
@@ -937,6 +943,8 @@ public class RandomCharacterPlayer {
 								&& characterPlayer.isSkillInteresting(skill)
 								&& Math.random() * 100 < (characterPlayer.getTotalValue(skill) - 25 + loops) * 3) {
 							characterPlayer.setHistoryPoints(skill, true);
+							EsherLog.debug(RandomCharacterPlayer.class.getName(),
+									"Adding history point to skill '" + skill + "'.");
 						}
 					}
 				}
@@ -956,6 +964,8 @@ public class RandomCharacterPlayer {
 						specializationLevel, suggestedTrainings, finalLevel);
 				if (Math.random() * 100 < probability) {
 					setRandomTraining(characterPlayer, training, specializationLevel);
+					EsherLog.debug(RandomCharacterPlayer.class.getName(), "Training assigned '" + training
+							+ "'.");
 				}
 			} catch (InvalidTrainingException e) {
 				EsherLog.errorMessage(RandomCharacterPlayer.class.getName(), e);

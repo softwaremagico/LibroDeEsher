@@ -66,7 +66,7 @@ public class CharacterComparator {
 						+ character1.getCharacteristicsBonus(category) + "', bonus '"
 						+ character1.getBonus(category) + "', total '" + character1.getTotalValue(category)
 						+ "'.\n\tranks '" + character2.getPreviousRanks(category) + "', culture ranks '"
-						+ character2.getCulture().getCultureRanks(category) + "', culture weapons ranks '"
+						+ character2.getCulture().getCultureRanks(category) + "', culture adolescence ranks '"
 						+ character2.getCultureAdolescenceRanks(category.getName()) + "', culture hobby ranks '"
 						+ character2.getCultureHobbyRanks(category.getName()) + "', previous level ranks '"
 						+ character2.getPreviousLevelsRanks(category) + "', training ranks '"

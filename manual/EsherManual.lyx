@@ -2450,7 +2450,7 @@ Todas
 
 \begin_layout Enumerate
 Si se incluye el nombre de una categoría de armas, se podrá escoger cualquier
- arma de dicha categoría si no es considerada rara.
+ arma de dicha categoría (si no es considerada rara).
 \end_layout
 
 \begin_layout Enumerate
@@ -2477,8 +2477,12 @@ Aquí se incluyen los rangos típicos por cultura.
 \begin_layout Enumerate
 Si se incluye un conjunto de categorías entre llaves, se podrá elegir una
  entre la lista.
- Nota: no se permite repartir rangos entre varias habilidades debido a la
- limitación de la versión actual del software.
+ 
+\emph on
+Nota: no se permite repartir rangos entre varias categorías debido a la
+ limitación de la versión actual del software
+\emph default
+.
  
 \end_layout
 

@@ -125,7 +125,7 @@ public class BackgroundWindow extends BaseFrame {
 			public void RandomAction() {
 				Integer tries = 0;
 				while (character.getRemainingBackgroundPoints() > 0 && tries <= RandomCharacterPlayer.MAX_TRIES) {
-					RandomCharacterPlayer.setHistoryPoints(character, 0);
+					RandomCharacterPlayer.setBackgroundPoints(character, 0);
 					tries++;
 				}
 				updateFrame();
