@@ -62,8 +62,10 @@ public class ChooseCategoryPanel extends BasePanel {
 					.getAdolescenceCategories());
 			Collections.sort(categories);
 			for (CultureCategory cultureCategory : categories) {
-				// Any except communication.
-				if (!cultureCategory.getCategoryOptions().get(0).equals(Spanish.COMUNICATION_CATEGORY)) {
+				// Any except communication or spells. Are in a different place.
+				if (!cultureCategory.getCategoryOptions().get(0)
+						.equals(Spanish.COMUNICATION_CATEGORY)
+						&& !cultureCategory.getCategoryOptions().get(0).equals(Spanish.OPEN_LISTS)) {
 					// Must have ranks.
 					if (cultureCategory.isUseful()) {
 						skillsLinesPerCategory.put(cultureCategory, new ArrayList<CultureSkillLine>());
@@ -75,7 +77,8 @@ public class ChooseCategoryPanel extends BasePanel {
 						i++;
 						String selectedCategory = cultureCategory.getCategoryOptions().get(0);
 						if (cultureCategory.getSkillRanksToChoose() > 0) {
-							for (Skill skill : character.getAdolescenceSkills(cultureCategory, selectedCategory)) {
+							for (Skill skill : character.getAdolescenceSkills(cultureCategory,
+									selectedCategory)) {
 								CultureSkillLine skillLine = new CultureSkillLine(character, cultureCategory,
 										this, SkillFactory.getAvailableSkill(skill.getName()),
 										getLineBackgroundColor(i));

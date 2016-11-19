@@ -606,14 +606,11 @@ public class RandomCharacterPlayer {
 			} else {
 				selectedCategory = cultureCategory.getCategoryOptions().get(0);
 			}
-			System.out.println("################################3");
-			System.out.println(characterPlayer.getCulture());
-			System.out.println(selectedCategory);
 			// Select skills.
 			if (cultureCategory.getSkillRanksToChoose() > 0
-					&& !cultureCategory.getCategoryOptions().get(0).equals(Spanish.COMUNICATION_CATEGORY)) {
+					&& !cultureCategory.getCategoryOptions().get(0).equals(Spanish.COMUNICATION_CATEGORY)
+					&& !cultureCategory.getCategoryOptions().get(0).equals(Spanish.OPEN_LISTS)) {
 				List<Skill> skills = characterPlayer.getAdolescenceSkills(cultureCategory, selectedCategory);
-				System.out.println(skills);
 				int ranksAdded = 0;
 				while (cultureCategory.getSkillRanksToChoose() > ranksAdded) {
 					Collections.shuffle(skills);
