@@ -2466,6 +2466,31 @@ Si se incluye una palabra entre llaves, como por ejemplo
 \end_layout
 
 \begin_layout Subsection
+Rangos en la adolescencia
+\end_layout
+
+\begin_layout Standard
+Aquí se incluyen los rangos típicos por cultura.
+ Las reglas aplicables son:
+\end_layout
+
+\begin_layout Enumerate
+Si se incluye un conjunto de categorías entre llaves, se podrá elegir una
+ entre la lista.
+ Nota: no se permite repartir rangos entre varias habilidades debido a la
+ limitación de la versión actual del software.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Si se incluye un prefijo de una categoría entre llaves.
+ Se incluyen todas ellas.
+ Es decir, si se indica {Armas}, se generará una lista con todas las categorías
+ de armas.
+ 
+\end_layout
+
+\begin_layout Subsection
 Aficiones
 \end_layout
 

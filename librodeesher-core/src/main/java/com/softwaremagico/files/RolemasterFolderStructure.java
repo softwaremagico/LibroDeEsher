@@ -204,6 +204,7 @@ public class RolemasterFolderStructure implements Serializable {
 		List<String> spellLines = new ArrayList<>();
 		List<String> spellFile = getPathOfFile(SPELL_FOLDER + File.separator
 				+ file);
+		System.out.println(spellFile);
 		for (int i = 0; i < spellFile.size(); i++) {
 			try {
 				spellLines.addAll(Folder.readFileLines(spellFile.get(i),
