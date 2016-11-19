@@ -227,7 +227,7 @@ public class TrainingProbability {
 			for (CharacteristicsAbbreviature characteristic : characterPlayer.getProfession()
 					.getCharacteristicPreferences()) {
 				// Available for update.
-				if (availableUpdates.contains(characteristic)) {
+				if (characteristic != null && availableUpdates.contains(characteristic)) {
 					// Good to be updated if: long distance, medium distance per
 					// values > 70 or short distance per
 					// values > 85
@@ -251,7 +251,7 @@ public class TrainingProbability {
 			}
 			// Updates are mandatory. Update the last one to avoid decreasing an
 			// important one.
-			if (!updated) {
+			if (!updated && lastCharacteristicChecked != null) {
 				CharacteristicRoll roll = characterPlayer.addNewCharacteristicTrainingUpdate(
 						lastCharacteristicChecked, trainingName);
 				EsherLog.debug(TrainingProbability.class.getName(), "Characteristic update for training '"
