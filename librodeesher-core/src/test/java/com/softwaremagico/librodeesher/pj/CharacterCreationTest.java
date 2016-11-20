@@ -217,17 +217,17 @@ public class CharacterCreationTest {
 		String importedSheet2 = TxtSheet.getCharacterStandardSheetAsText(duplicatedCharacter);
 
 		PrintWriter out4 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "originalCharacterSheetLvl2.txt");
-		out1.println(orginalSheet2);
-		out1.close();
+		out4.println(orginalSheet2);
+		out4.close();
 
 		PrintWriter out5 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "importedCharacterSheetLvl2.txt");
-		out2.println(importedSheet2);
-		out2.close();
+		out5.println(importedSheet2);
+		out5.close();
 
 		String characterLevel2duplicated = CharacterJsonManager.toJson(duplicatedCharacter);
 		PrintWriter out6 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "character_l2dup.json");
-		out4.println(characterLevel2duplicated);
-		out4.close();
+		out6.println(characterLevel2duplicated);
+		out6.close();
 
 		CharacterComparator.compare(characterPlayer, duplicatedCharacter);
 
