@@ -19,8 +19,8 @@ public class CategoryProbability {
 	private Integer specializationLevel;
 	private int finalLevel;
 
-	public CategoryProbability(CharacterPlayer characterPlayer, Category category,
-			Map<String, Integer> suggestedSkillsRanks, Integer specializationLevel, int finalLevel) {
+	public CategoryProbability(CharacterPlayer characterPlayer, Category category, Map<String, Integer> suggestedSkillsRanks, Integer specializationLevel,
+			int finalLevel) {
 		this.characterPlayer = characterPlayer;
 		this.category = category;
 		this.suggestedCategoryRanks = suggestedSkillsRanks;
@@ -48,9 +48,8 @@ public class CategoryProbability {
 			if (characterPlayer.getTotalRanks(category) < suggestedCategoryRanks.get(category.getName())) {
 				if (characterPlayer.getCurrentLevelRanks(category) == 0) {
 					return 100;
-				} else if (characterPlayer.getTotalRanks(category) < suggestedCategoryRanks.get(category.getName())
-						- finalLevel
-						&& cost < 40) {
+				} else if (characterPlayer.getTotalRanks(category) < suggestedCategoryRanks.get(category.getName()) - finalLevel
+						&& cost < CharacterPlayer.MAX_REASONABLE_COST) {
 					return 100;
 				}
 			}
@@ -59,11 +58,9 @@ public class CategoryProbability {
 		if (cost != null && cost <= Config.getCategoryMaxCost()) {
 			if (characterPlayer.getRemainingDevelopmentPoints() >= characterPlayer.getNewRankCost(category)
 					&& category.getCategoryType().equals(CategoryType.STANDARD)) {
-				EsherLog.debug(CategoryProbability.class.getName(), "Probability of category '" + category.getName()
-						+ "'");
+				EsherLog.debug(CategoryProbability.class.getName(), "Probability of category '" + category.getName() + "'");
 				int getCharacteristicsBonus = characterPlayer.getCharacteristicsBonus(category);
-				EsherLog.debug(CategoryProbability.class.getName(), "\t Characteristic bonus: "
-						+ getCharacteristicsBonus);
+				EsherLog.debug(CategoryProbability.class.getName(), "\t Characteristic bonus: " + getCharacteristicsBonus);
 				probability += getCharacteristicsBonus;
 				int preferredCategory = preferredCategory();
 				EsherLog.debug(CategoryProbability.class.getName(), "\t Preferred category: " + preferredCategory);
@@ -96,16 +93,13 @@ public class CategoryProbability {
 		if (!characterPlayer.isFirearmsAllowed() && category.getName().contains(Spanish.FIREARMS_SUFIX)) {
 			bonus = -10000;
 		}
-		if (category.getName().toLowerCase().equals(Spanish.LIGHT_ARMOUR_TAG)
-				&& characterPlayer.getTotalValue(category) > 10) {
+		if (category.getName().toLowerCase().equals(Spanish.LIGHT_ARMOUR_TAG) && characterPlayer.getTotalValue(category) > 10) {
 			return -1000;
 		}
-		if (category.getName().toLowerCase().equals(Spanish.MEDIUM_ARMOUR_TAG)
-				&& characterPlayer.getTotalValue(category) > 20) {
+		if (category.getName().toLowerCase().equals(Spanish.MEDIUM_ARMOUR_TAG) && characterPlayer.getTotalValue(category) > 20) {
 			return -1000;
 		}
-		if (category.getName().toLowerCase().equals(Spanish.HEAVY_ARMOUR_TAG)
-				&& characterPlayer.getTotalValue(category) > 30) {
+		if (category.getName().toLowerCase().equals(Spanish.HEAVY_ARMOUR_TAG) && characterPlayer.getTotalValue(category) > 30) {
 			return -1000;
 		}
 		// Category with skills with ranks, more probability

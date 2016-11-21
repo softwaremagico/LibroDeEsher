@@ -57,7 +57,7 @@ public class SkillProbability {
 					return 100;
 				} else if (characterPlayer.getTotalRanks(skill) < suggestedSkillsRanks.get(skill.getName())
 						- finalLevel
-						&& characterPlayer.getNewRankCost(skill) < 40) {
+						&& characterPlayer.getNewRankCost(skill) < CharacterPlayer.MAX_REASONABLE_COST) {
 					return 100;
 				}
 			}
@@ -152,7 +152,7 @@ public class SkillProbability {
 	 * Cost in development points.
 	 */
 	private int skillExpensiveness() {
-		if (characterPlayer.getNewRankCost(skill) > 40) {
+		if (characterPlayer.getNewRankCost(skill) > CharacterPlayer.MAX_REASONABLE_COST) {
 			return -1000;
 		}
 		// Spells are a little more expensive that common categories. We make a

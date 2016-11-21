@@ -39,6 +39,7 @@ import com.softwaremagico.files.Folder;
 import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.basics.ChooseType;
 import com.softwaremagico.librodeesher.basics.Spanish;
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
@@ -127,7 +128,7 @@ public class Training {
 			index++;
 		}
 		limitedRaces = new ArrayList<>();
-		while (lines.get(index).length()!=0 && !lines.get(index).startsWith("#")) {
+		while (lines.get(index).length() != 0 && !lines.get(index).startsWith("#")) {
 			String trainingLine = lines.get(index);
 			try {
 				String[] limitedRacesColumn = trainingLine.split(", ");
@@ -152,7 +153,7 @@ public class Training {
 		String skill = "";
 		int probability = 0;
 		objects = new ArrayList<>();
-		while (lines.get(index).length()!=0) {
+		while (lines.get(index).length() != 0) {
 			String trainingLine = lines.get(index);
 			try {
 				String[] specialColumns = trainingLine.split("\t");
@@ -186,7 +187,7 @@ public class Training {
 		}
 		categoriesWithRanks = new ArrayList<>();
 		TrainingCategory trainingCategory = null;
-		while (lines.get(index).length()!=0 && !lines.get(index).startsWith("#")) {
+		while (lines.get(index).length() != 0 && !lines.get(index).startsWith("#")) {
 			// It is a category
 			if (!lines.get(index).contains("*")) {
 				try {
@@ -230,7 +231,8 @@ public class Training {
 						// List of skills to choose one.
 						String[] lineColumns = lines.get(index).replace("*", "").trim().split("}");
 						String[] skillList = lineColumns[0].replace("{", "").replace(";", ",").split(",");
-						TrainingSkill skill = new TrainingSkill(Arrays.asList(skillList), Integer.parseInt(lineColumns[1].replace("-", "").replace("\t", "").trim()));
+						TrainingSkill skill = new TrainingSkill(Arrays.asList(skillList), Integer.parseInt(lineColumns[1].replace("-", "").replace("\t", "")
+								.trim()));
 						trainingCategory.addSkill(skill);
 					} else {
 						// Skill with ranges.
@@ -259,7 +261,7 @@ public class Training {
 			index++;
 		}
 		updateCharacteristics = new ArrayList<>();
-		while (lines.get(index).length()!=0 && !lines.get(index).startsWith("#")) {
+		while (lines.get(index).length() != 0 && !lines.get(index).startsWith("#")) {
 			String trainingLine = lines.get(index);
 			try {
 				if (trainingLine.contains("{")) {
@@ -310,7 +312,7 @@ public class Training {
 			index++;
 		}
 
-		while (lines.get(index).length()!=0 && !lines.get(index).startsWith("#")) {
+		while (lines.get(index).length() != 0 && !lines.get(index).startsWith("#")) {
 			if (!lines.get(index).toLowerCase().contains("ningun")) {
 				String[] requirementsGroup = lines.get(index).split(", ");
 				for (int i = 0; i < requirementsGroup.length; i++) {
@@ -350,7 +352,7 @@ public class Training {
 			index++;
 		}
 
-		while (lines.get(index).length()!=0 && !lines.get(index).startsWith("#")) {
+		while (lines.get(index).length() != 0 && !lines.get(index).startsWith("#")) {
 			String skillLine = lines.get(index);
 			if (skillLine.toLowerCase().contains("ningun") || skillLine.toLowerCase().contains("nothing")) {
 				index++;
@@ -384,7 +386,7 @@ public class Training {
 			index++;
 		}
 
-		while (index < lines.size() && (lines.get(index).length()!=0 && !lines.get(index).startsWith("#"))) {
+		while (index < lines.size() && (lines.get(index).length() != 0 && !lines.get(index).startsWith("#"))) {
 			if (!lines.get(index).toLowerCase().contains("ningun")) {
 				String professionLine = lines.get(index);
 				String[] professionColumns = professionLine.split("\t");
@@ -491,7 +493,7 @@ public class Training {
 		if (professionCosts.get(profession) != null) {
 			return professionCosts.get(profession);
 		}
-		return Integer.MAX_VALUE;
+		return CharacterPlayer.INVALID_COST;
 	}
 
 	public HashMap<String, TrainingType> getProfessionPreferences() {
