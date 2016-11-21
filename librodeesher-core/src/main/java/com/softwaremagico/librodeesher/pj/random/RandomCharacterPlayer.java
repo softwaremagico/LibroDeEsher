@@ -768,7 +768,6 @@ public class RandomCharacterPlayer {
 
 	private static void setRandomPerks(CharacterPlayer characterPlayer, int specializationLevel, List<String> suggestdPerks) {
 		List<Perk> perksToCheck = PerkProbability.shufflePerks(characterPlayer, suggestdPerks);
-		Collections.shuffle(perksToCheck);
 		if (characterPlayer.getRemainingBackgroundPoints() > 0) {
 			for (Perk perk : perksToCheck) {
 				PerkProbability perkProbability = new PerkProbability(characterPlayer, perk, specializationLevel, suggestdPerks);

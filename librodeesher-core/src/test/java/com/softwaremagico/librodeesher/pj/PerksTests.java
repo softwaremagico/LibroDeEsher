@@ -159,11 +159,11 @@ public class PerksTests {
 		List<String> suggestedPerks = Arrays.asList(PERK_WITH_CATEGORY_TO_CHOSE);
 
 		RandomCharacterPlayer randomCharacterPlayer = new RandomCharacterPlayer(character);
+		randomCharacterPlayer.setSelectPerks(true);
 		randomCharacterPlayer.setSuggestedPerks(suggestedPerks);
 		randomCharacterPlayer.createRandomValues();
 
 		// Check perk is selected.
-		System.out.println("###############################3 " + character.getSelectedPerks());
 		boolean perkSelected = false;
 		for (SelectedPerk selectedPerk : character.getSelectedPerks()) {
 			if (selectedPerk.getName().equals(PERK_WITH_CATEGORY_TO_CHOSE)) {
