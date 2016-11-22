@@ -137,7 +137,7 @@ public class BackgroundLanguageLine extends BaseLine {
 	}
 
 	private void setTitle() {
-		int ranks = 20 - (characterPlayer.getHistoryTotalLanguageRanks() % 20);
+		int ranks = 20 - (characterPlayer.getBackgroundTotalLanguageRanks() % 20);
 		parentPanel.setTitle(ranks == 20 ? 0 : ranks);
 	}
 

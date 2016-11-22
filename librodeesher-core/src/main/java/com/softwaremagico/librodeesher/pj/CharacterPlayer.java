@@ -1791,23 +1791,23 @@ public class CharacterPlayer extends StorableObject {
 		characterPlayerHelper.resetCategoryGeneralBonus(category.getName());
 	}
 
-	public boolean isHistoryPointSelected(Category category) {
+	public boolean isBackgroundPointSelected(Category category) {
 		return background.isBackgroundPointSelected(category);
 	}
 
-	public boolean isHistoryPointSelected(Skill skill) {
+	public boolean isBackgroundPointSelected(Skill skill) {
 		return background.isBackgroundPointSelected(skill);
 	}
 
 	public Integer getRemainingBackgroundPoints() {
-		return getRace().getBackgroundPoints() - background.getSpentBackgroundPoints() - getPerksHistoryPointsCost();
+		return getRace().getBackgroundPoints() - background.getSpentBackgroundPoints() - getPerksBackgroundPointsCost();
 	}
 
-	private int getPerksHistoryPointsCost() {
+	private int getPerksBackgroundPointsCost() {
 		if (!getCharacterConfiguration().isPerksCostHistoryPoints()) {
 			return 0;
 		}
-		return PerkFactory.getPerksHistoryCost(selectedPerks);
+		return PerkFactory.getPerksBackgroundCost(selectedPerks);
 	}
 
 	public CharacteristicRoll setCharacteristicBackgroundUpdate(CharacteristicsAbbreviature abbreviature) {
@@ -3023,11 +3023,11 @@ public class CharacterPlayer extends StorableObject {
 				: PdfStandardSheet.MOST_USED_ATTACKS_LINES);
 	}
 
-	public boolean isPerksCostHistoryPoints() {
+	public boolean isPerksCostBackgroundPoints() {
 		return getCharacterConfiguration().isPerksCostHistoryPoints();
 	}
 
-	public void setPerksCostHistoryPoints(boolean perksCostHistoryPoints) {
+	public void setPerksCostBackgroundPoints(boolean perksCostHistoryPoints) {
 		getCharacterConfiguration().setPerksCostHistoryPoints(perksCostHistoryPoints);
 	}
 
@@ -3058,7 +3058,7 @@ public class CharacterPlayer extends StorableObject {
 		getCharacterConfiguration().setSortPdfSkills(sortPdfSkills);
 	}
 
-	public int getHistoryTotalLanguageRanks() {
+	public int getBackgroundTotalLanguageRanks() {
 		if (background == null) {
 			return 0;
 		}

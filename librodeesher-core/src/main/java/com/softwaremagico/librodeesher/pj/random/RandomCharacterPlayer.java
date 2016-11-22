@@ -807,7 +807,7 @@ public class RandomCharacterPlayer {
 		while (characterPlayer.getRemainingBackgroundPoints() > 0) {
 			List<Category> shuffledCategoryList = getProfessionalShuffledCategories(characterPlayer);
 			// 30% for adding some languages
-			if (Math.random() * 100 < 30 - (specializationLevel * 10) - characterPlayer.getHistoryTotalLanguageRanks() * 10) {
+			if (Math.random() * 100 < 30 - (specializationLevel * 10) - characterPlayer.getBackgroundTotalLanguageRanks() * 10) {
 				EsherLog.debug(RandomCharacterPlayer.class.getName(), "Spending one background point in languages!");
 				int communicationLanguagesPoints = 20;
 				int tries = 0;
@@ -845,7 +845,7 @@ public class RandomCharacterPlayer {
 				if (category.getName().toLowerCase().contains(Spanish.COMUNICATION_CATEGORY.toLowerCase())) {
 					continue;
 				}
-				if (!characterPlayer.isHistoryPointSelected(category) && characterPlayer.getRemainingBackgroundPoints() > 0
+				if (!characterPlayer.isBackgroundPointSelected(category) && characterPlayer.getRemainingBackgroundPoints() > 0
 						&& characterPlayer.getTotalRanks(category) > 0 && characterPlayer.isCategoryUseful(category)
 						// If only one skill, is better to use the point into
 						// the skill.
@@ -858,7 +858,7 @@ public class RandomCharacterPlayer {
 					sortSkillsBySpecialization(characterPlayer, shuffledSkillList, specializationLevel);
 					for (int j = 0; j < shuffledSkillList.size(); j++) {
 						Skill skill = shuffledSkillList.get(j);
-						if (!characterPlayer.isHistoryPointSelected(skill) && characterPlayer.getRemainingBackgroundPoints() > 0
+						if (!characterPlayer.isBackgroundPointSelected(skill) && characterPlayer.getRemainingBackgroundPoints() > 0
 								&& characterPlayer.isSkillInteresting(skill) && Math.random() * 100 < (characterPlayer.getTotalValue(skill) - 25 + loops) * 3) {
 							characterPlayer.setHistoryPoints(skill, true);
 							EsherLog.debug(RandomCharacterPlayer.class.getName(), "Adding history point to skill '" + skill + "'.");

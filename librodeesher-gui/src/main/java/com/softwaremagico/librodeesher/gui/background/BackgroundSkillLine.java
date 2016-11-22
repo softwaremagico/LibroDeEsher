@@ -51,7 +51,7 @@ public class BackgroundSkillLine extends GenericSkillLine {
 	private void addHistoryCheckBox() {
 		JPanel panel = new JPanel();
 		backgroundCheckBox = new BaseCheckBox("");
-		backgroundCheckBox.setSelected(character.isHistoryPointSelected(skill));
+		backgroundCheckBox.setSelected(character.isBackgroundPointSelected(skill));
 		panel.add(backgroundCheckBox);
 		backgroundCheckBox.addItemListener(new CheckBoxListener());
 		addColumn(panel, 0, 0.1f);
@@ -69,7 +69,7 @@ public class BackgroundSkillLine extends GenericSkillLine {
 	}
 
 	public void updateComboBox() {
-		backgroundCheckBox.setSelected(character.isHistoryPointSelected(getSkill()));
+		backgroundCheckBox.setSelected(character.isBackgroundPointSelected(getSkill()));
 	}
 
 }

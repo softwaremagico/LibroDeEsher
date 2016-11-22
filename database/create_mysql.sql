@@ -153,6 +153,7 @@
         darkSpellsAsBasic bit not null,
         fireArmsActivated bit not null,
         handWrittingFont bit not null,
+        magicAllowed bit not null,
         otherRealmsTrainingSpells bit not null,
         perksCostHistoryPoints bit not null,
         sortPdfSkills bit not null,

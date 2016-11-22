@@ -302,7 +302,7 @@ public class PerkFactory {
 		return getPerk(selectedPerk.getName());
 	}
 
-	public static int getPerksHistoryCost(List<SelectedPerk> selectedPerks) {
+	public static int getPerksBackgroundCost(List<SelectedPerk> selectedPerks) {
 		int cost = 0;
 		for (SelectedPerk selectedPerk : selectedPerks) {
 			cost += getPerkHistoryCost(PerkFactory.getPerk(selectedPerk),

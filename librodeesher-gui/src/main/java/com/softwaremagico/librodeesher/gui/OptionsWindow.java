@@ -80,7 +80,7 @@ public class OptionsWindow extends BaseFrame {
 		darkSpellsMenuItem.setSelected(character.isDarkSpellsAsBasicListsAllowed());
 		chiPowers.setSelected(character.isChiPowersAllowed());
 		trainingOtherRealms.setSelected(character.isOtherRealmTrainingSpellsAllowed());
-		perkHistoryPoints.setSelected(character.isPerksCostHistoryPoints());
+		perkHistoryPoints.setSelected(character.isPerksCostBackgroundPoints());
 		handwrittingFont.setSelected(character.isHandWrittingFont());
 		sortedSkills.setSelected(character.isSortPdfSkills());
 		updatingState = false;
@@ -252,7 +252,7 @@ public class OptionsWindow extends BaseFrame {
 					character.setOtherRealmTrainingSpellsAllowed(trainingOtherRealms.isSelected());
 					Config.setOtherRealmTrainingSpells(trainingOtherRealms.isSelected());
 				} else if (e.getActionCommand().equals(Spanish.ENABLE_PERK_BACKGROUND_COST)) {
-					character.setPerksCostHistoryPoints(perkHistoryPoints.isSelected());
+					character.setPerksCostBackgroundPoints(perkHistoryPoints.isSelected());
 					Config.setPerksCostHistoryPoints(perkHistoryPoints.isSelected());
 				} else if (e.getActionCommand().equals(Spanish.HANDWRITTING_TEXT)) {
 					character.setHandWrittingFont(handwrittingFont.isSelected());
