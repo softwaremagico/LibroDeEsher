@@ -26,7 +26,7 @@ public class CharacterConfiguration extends StorableObject {
 	@Expose
 	private boolean sortPdfSkills;
 	@Expose
-	private boolean magicAllowed;
+	private boolean magicAllowed = true;
 
 	@Override
 	public void resetIds() {
