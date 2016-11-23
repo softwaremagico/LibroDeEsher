@@ -34,6 +34,10 @@ public class CharacterPlayerHelper {
 
 	private Map<String, Integer> maxHistoryLanguages;
 
+	private Map<String, Boolean> interestingCategories;
+
+	private Map<String, Boolean> interestingSkills;
+
 	private boolean enabled = true;
 
 	private Integer developmentPoints;
@@ -64,6 +68,8 @@ public class CharacterPlayerHelper {
 		skillTotalRanksPerCategory = new HashMap<>();
 		skillPreviousRanks = new HashMap<>();
 		skillRealRanks = new HashMap<>();
+		interestingCategories = new HashMap<>();
+		interestingSkills = new HashMap<>();
 		setDirty(true);
 	}
 
@@ -75,6 +81,7 @@ public class CharacterPlayerHelper {
 
 	public void resetAllSkillTotal() {
 		skillTotal = new HashMap<>();
+		interestingSkills = new HashMap<>();
 		setDirty(true);
 	}
 
@@ -82,6 +89,7 @@ public class CharacterPlayerHelper {
 		skillRanks = new HashMap<>();
 		skillPreviousRanks = new HashMap<>();
 		skillRealRanks = new HashMap<>();
+		interestingSkills = new HashMap<>();
 		resetAllSkillTotal();
 		setDirty(true);
 	}
@@ -89,23 +97,27 @@ public class CharacterPlayerHelper {
 	public void resetAllCategoryGeneralBonus() {
 		categoryGeneralBonus = new HashMap<>();
 		resetAllCategoryTotalBonus();
+		interestingCategories = new HashMap<>();
 		setDirty(true);
 	}
 
 	public void resetAllCategoryCharacteristicsBonus() {
 		categoryCharacteristicsBonus = new HashMap<>();
 		resetAllCategoryTotal();
+		interestingCategories = new HashMap<>();
 		setDirty(true);
 	}
 
 	public void resetAllCategoryTotalBonus() {
 		categoryTotalBonus = new HashMap<>();
 		resetAllCategoryTotal();
+		interestingCategories = new HashMap<>();
 		setDirty(true);
 	}
 
 	public void resetAllCategoryTotal() {
 		categoryTotal = new HashMap<>();
+		interestingCategories = new HashMap<>();
 		setDirty(true);
 	}
 
@@ -113,35 +125,33 @@ public class CharacterPlayerHelper {
 		categoryRanks.remove(categoryName);
 		resetCategoryTotal(categoryName);
 		developmentPoints = null;
+		interestingCategories.remove(categoryName);
 		setDirty(true);
 	}
 
 	public void resetCategoryCharacteristicsBonus(String categoryName) {
 		categoryCharacteristicsBonus.remove(categoryName);
-		resetCategoryTotal(categoryName);
-		setDirty(true);
+		resetCategoryTotalBonus(categoryName);
 	}
 
 	public void resetCategoryGeneralBonus(String categoryName) {
 		categoryGeneralBonus.remove(categoryName);
 		resetCategoryTotalBonus(categoryName);
-		setDirty(true);
 	}
 
 	public void resetCategoryObjectBonus(String categoryName) {
 		categoryObjectBonus.remove(categoryName);
 		resetCategoryTotalBonus(categoryName);
-		setDirty(true);
 	}
 
 	public void resetCategoryTotalBonus(String categoryName) {
 		categoryTotalBonus.remove(categoryName);
 		resetCategoryTotal(categoryName);
-		setDirty(true);
 	}
 
 	public void resetCategoryTotal(String categoryName) {
 		categoryTotal.remove(categoryName);
+		interestingCategories.remove(categoryName);
 		try {
 			for (Skill skill : CategoryFactory.getCategory(categoryName).getSkills()) {
 				resetSkillTotal(skill.getName());
@@ -159,29 +169,26 @@ public class CharacterPlayerHelper {
 		skillRealRanks = new HashMap<>();
 		resetSkillTotalBonus(skillName);
 		resetDevelopmentPoints();
-		setDirty(true);
 	}
 
 	public void resetSkillGeneralBonus(String skillName) {
 		skillGeneralBonus.remove(skillName);
 		resetSkillTotalBonus(skillName);
-		setDirty(true);
 	}
 
 	public void resetSkillObjectBonus(String skillName) {
 		skillObjectsBonus.remove(skillName);
 		resetSkillTotalBonus(skillName);
-		setDirty(true);
 	}
 
 	public void resetSkillTotalBonus(String skillName) {
 		skillTotalBonus.remove(skillName);
 		resetSkillTotal(skillName);
-		setDirty(true);
 	}
 
 	public void resetSkillTotal(String skillName) {
 		skillTotal.remove(skillName);
+		interestingSkills.remove(skillName);
 		setDirty(true);
 	}
 
@@ -409,21 +416,37 @@ public class CharacterPlayerHelper {
 		}
 		return skillPreviousRanks.get(skillName);
 	}
-	
-	public void setSkillPreviousRanks(String skillName, int ranks){
+
+	public void setSkillPreviousRanks(String skillName, int ranks) {
 		skillPreviousRanks.put(skillName, ranks);
 		setDirty(true);
 	}
-	
+
 	public Integer getSkillRealRanks(String skillName) {
 		if (!enabled) {
 			return null;
 		}
 		return skillRealRanks.get(skillName);
 	}
-	
-	public void setSkillRealRanks(String skillName, int ranks){
+
+	public void setSkillRealRanks(String skillName, int ranks) {
 		skillRealRanks.put(skillName, ranks);
 		setDirty(true);
+	}
+
+	public Boolean isCategoryInteresting(String categoryName) {
+		return interestingCategories.get(categoryName);
+	}
+
+	public void setCategoryInteresting(String categoryName, boolean interesting) {
+		interestingCategories.put(categoryName, interesting);
+	}
+
+	public Boolean isSkillInteresting(String skillName) {
+		return interestingSkills.get(skillName);
+	}
+
+	public void setSkillInteresting(String skillName, boolean interesting) {
+		interestingSkills.put(skillName, interesting);
 	}
 }

@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.pj.categories;
+
 /*
  * #%L
  * Libro de Esher
@@ -24,5 +25,5 @@ package com.softwaremagico.librodeesher.pj.categories;
  */
 
 public enum CategoryGroup {
-	WEAPON, SPELL, STANDARD;
+	WEAPON, SPELL, AIMED_SPELLS, STANDARD;
 }

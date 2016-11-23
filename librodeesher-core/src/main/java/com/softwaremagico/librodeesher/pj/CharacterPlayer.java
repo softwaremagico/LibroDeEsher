@@ -1656,12 +1656,22 @@ public class CharacterPlayer extends StorableObject {
 		if (getNewRankCost(category, 0, 0) > Config.getCategoryMaxCost()) {
 			return false;
 		}
+		// Magic can be disabled.
+		if ((category.getCategoryGroup().equals(CategoryGroup.SPELL) || category.getCategoryGroup().equals(CategoryGroup.AIMED_SPELLS) || category
+				.getCategoryType().equals(CategoryType.PPD)) && !getCharacterConfiguration().isMagicAllowed()) {
+			return false;
+		}
 		return true;
 	}
 
 	public boolean isCategoryInteresting(Category category) {
-		return isCategoryUseful(category) && (isWizard() || category.getCategoryGroup().equals(CategoryGroup.SPELL))
+		if (characterPlayerHelper.isCategoryInteresting(category.getName()) != null) {
+			return characterPlayerHelper.isCategoryInteresting(category.getName());
+		}
+		boolean interesting = isCategoryUseful(category) && (isWizard() || !category.getCategoryGroup().equals(CategoryGroup.SPELL))
 				&& (getTotalRanks(category) > 0 || getBonus(category) > 0) && getDefaultCost(category) < MAX_REASONABLE_COST;
+		characterPlayerHelper.setCategoryInteresting(category.getName(), interesting);
+		return interesting;
 	}
 
 	/**
@@ -1671,15 +1681,21 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public boolean isSkillInteresting(Skill skill) {
+		if (characterPlayerHelper.isSkillInteresting(skill.getName()) != null) {
+			return characterPlayerHelper.isSkillInteresting(skill.getName());
+		}
 		// Skill tags are not interesting
 		if (skill.getName().toLowerCase().equals(Spanish.WEAPON) || skill.getName().toLowerCase().equals(Spanish.ARMOUR)
 				|| skill.getName().toLowerCase().equals(Spanish.CULTURE_SPELLS)) {
+			characterPlayerHelper.setSkillInteresting(skill.getName(), false);
 			return false;
 		}
 		// No ranks and no high bonus, not interesting
 		if ((getTotalRanks(skill) > 0) || (getBonus(skill) > 0)) {
+			characterPlayerHelper.setSkillInteresting(skill.getName(), true);
 			return true;
 		}
+		characterPlayerHelper.setSkillInteresting(skill.getName(), false);
 		return false;
 	}
 
@@ -2993,7 +3009,8 @@ public class CharacterPlayer extends StorableObject {
 			Skill skill = SkillFactory.getAvailableSkill(skillName);
 			if (skill != null
 					&& !(skill.getCategory().getCategoryGroup().equals(CategoryGroup.WEAPON) || CategoryFactory.getOthersAttack().contains(skill.getCategory())
-							|| skill.getCategory().getName().equals(Spanish.AIMED_SPELLS_CATEGORY) || skill.getName().startsWith(Spanish.WEAPONS_RACE))) {
+							|| skill.getCategory().getName().toLowerCase().equals(Spanish.AIMED_SPELLS_CATEGORY) || skill.getName().startsWith(
+							Spanish.WEAPONS_RACE))) {
 				favouriteSkills.add(skill);
 			}
 		}
@@ -3012,7 +3029,8 @@ public class CharacterPlayer extends StorableObject {
 			Skill skill = SkillFactory.getAvailableSkill(skillName);
 			if (skill != null
 					&& (skill.getCategory().getCategoryGroup().equals(CategoryGroup.WEAPON) || CategoryFactory.getOthersAttack().contains(skill.getCategory())
-							|| skill.getCategory().getName().equals(Spanish.AIMED_SPELLS_CATEGORY) || skill.getName().startsWith(Spanish.WEAPONS_RACE))) {
+							|| skill.getCategory().getName().toLowerCase().equals(Spanish.AIMED_SPELLS_CATEGORY) || skill.getName().startsWith(
+							Spanish.WEAPONS_RACE))) {
 				favouriteSkills.add(skill);
 			}
 		}

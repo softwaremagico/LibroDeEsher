@@ -194,7 +194,7 @@ public class PerkProbability {
 		Set<String> selected = new HashSet<>();
 		for (int i = 0; i < categories.size(); i++) {
 			if ((categories.size() - i <= selections)
-					|| (characterPlayer.isCategoryInteresting(CategoryFactory.getCategory(categories.get(i))) && characterPlayer.getSkillsWithRanks(
+					|| (characterPlayer.isCategoryUseful(CategoryFactory.getCategory(categories.get(i))) && characterPlayer.getSkillsWithRanks(
 							CategoryFactory.getCategory(categories.get(i))).size() > 0)) {
 				selected.add(categories.get(i));
 			}

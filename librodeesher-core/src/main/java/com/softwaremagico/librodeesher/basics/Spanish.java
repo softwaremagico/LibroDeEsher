@@ -108,7 +108,7 @@ public class Spanish {
 	public static final String DWARF_TAG = "enano";
 	public static final String RACIAL_ATTACK_TAG = "ataque racial";
 	public static final String AIMED_SPELLS = "Hechizos Dirigidos de";
-	public static final String AIMED_SPELLS_CATEGORY = "Hechizos Dirigidos";
+	public static final String AIMED_SPELLS_CATEGORY = "hechizos dirigidos";
 	public static final String ADRENAL_SKILL = "adrenal";
 	public static final String MONK_PROFESSION = "monje";
 	public static final String KNIGHT_TRAINING = "caballero";
