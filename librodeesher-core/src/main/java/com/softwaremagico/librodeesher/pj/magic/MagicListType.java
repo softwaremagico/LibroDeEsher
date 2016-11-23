@@ -25,17 +25,18 @@ package com.softwaremagico.librodeesher.pj.magic;
  */
 
 public enum MagicListType {
-	BASIC("lista básica", "Listas Básicas de Hechizos"), OPEN("lista abierta", "Listas Abiertas de Hechizos"), CLOSED(
-			"lista cerrada", "Listas Cerradas de Hechizos"), OTHER_PROFESSION(
-			"listas básicas de otras profesiones", "Listas Básicas de Otras Profesiones"), OTHER_REALM_OPEN(
-			"listas abiertas de otros reinos", "Listas Abiertas de Otros Reinos"), OTHER_REALM_CLOSED(
-			"listas cerradas de otros reinos", "Listas Cerradas de Otros Reinos"), OTHER_REALM_OTHER_PROFESSION(
-			"listas básicas de otros reinos", "Listas Básicas de Otros Reinos"), ARCHANUM(
-			"listas abiertas arcanas", "Listas Abiertas Arcanas"), TRIAD("listas básicas de la tríada",
-			"Listas Básicas de la Tríada"), COMPLEMENTARY_TRIAD("listas básicas elementales complementarias",
-			"Listas Básicas Elementales Complementarias"), TRAINING("listas hechizos de adiestramiento",
-			"Listas Hechizos de Adiestramiento"), OTHER_REALM_TRAINING("listas hechizos de adiestramientos de otros reinos",
-			"Listas Hechizos de Adiestramientos de Otros Reinos");
+	BASIC("lista básica", "Listas Básicas de Hechizos"), 
+	OPEN("lista abierta", "Listas Abiertas de Hechizos"), 
+	CLOSED("lista cerrada", "Listas Cerradas de Hechizos"), 
+	OTHER_PROFESSION("listas básicas de otras profesiones", "Listas Básicas de Otras Profesiones"), 
+	OTHER_REALM_OPEN("listas abiertas de otros reinos", "Listas Abiertas de Otros Reinos"), 
+	OTHER_REALM_CLOSED("listas cerradas de otros reinos", "Listas Cerradas de Otros Reinos"), 
+	OTHER_REALM_OTHER_PROFESSION("listas básicas de otros reinos", "Listas Básicas de Otros Reinos"), 
+	ARCHANUM("listas abiertas arcanas", "Listas Abiertas Arcanas"), 
+	TRIAD("listas básicas de la tríada", "Listas Básicas de la Tríada"), 
+	COMPLEMENTARY_TRIAD("listas básicas elementales complementarias", "Listas Básicas Elementales Complementarias"), 
+	TRAINING("listas hechizos de adiestramiento", "Listas Hechizos de Adiestramiento"),
+	OTHER_REALM_TRAINING("listas hechizos de adiestramientos de otros reinos", "Listas Hechizos de Adiestramientos de Otros Reinos");
 
 	private String tag;
 	private String categoryName;

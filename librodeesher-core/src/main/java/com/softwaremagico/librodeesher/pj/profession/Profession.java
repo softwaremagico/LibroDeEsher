@@ -98,12 +98,10 @@ public class Profession {
 	}
 
 	public boolean isCharacteristicProfessional(CharacteristicsAbbreviature characteristicAbbreviature) {
-		if (characteristicPreferences.size() > 0
-				&& characteristicAbbreviature.equals(characteristicPreferences.get(0))) {
+		if (characteristicPreferences.size() > 0 && characteristicAbbreviature.equals(characteristicPreferences.get(0))) {
 			return true;
 		}
-		if (characteristicPreferences.size() > 1
-				&& characteristicAbbreviature.equals(characteristicPreferences.get(1))) {
+		if (characteristicPreferences.size() > 1 && characteristicAbbreviature.equals(characteristicPreferences.get(1))) {
 			return true;
 		}
 		return false;
@@ -128,32 +126,26 @@ public class Profession {
 	private void readProfessionFile(String professionName) throws InvalidProfessionException {
 		int lineIndex = 0;
 
-		String professionFile = RolemasterFolderStructure
-				.getDirectoryModule(ProfessionFactory.PROFESSION_FOLDER + File.separator + professionName
-						+ ".txt");
+		String professionFile = RolemasterFolderStructure.getDirectoryModule(ProfessionFactory.PROFESSION_FOLDER + File.separator + professionName + ".txt");
 		if (professionFile.length() > 0) {
 			List<String> lines;
 			try {
 				lines = Folder.readFileLines(professionFile, false);
 			} catch (IOException e) {
-				throw new InvalidProfessionException("Invalid profession file: "
-						+ ProfessionFactory.PROFESSION_FOLDER + File.separator + professionName + ".txt", e);
+				throw new InvalidProfessionException("Invalid profession file: " + ProfessionFactory.PROFESSION_FOLDER + File.separator + professionName
+						+ ".txt", e);
 			}
 			lineIndex = setBasicCharacteristics(lines, lineIndex);
 			lineIndex = setMagicRealmsAvailable(lines, lineIndex);
 			lineIndex = setProfessionBonus(lines, lineIndex);
 			lineIndex = setCategoryCost(lines, lineIndex);
-			lineIndex = setSpecialSkills(lines, lineIndex, commonSkills, commonSkillsToChoose,
-					ChooseType.COMMON);
-			lineIndex = setSpecialSkills(lines, lineIndex, professionalSkills, professionalSkillsToChoose,
-					ChooseType.PROFESSIONAL);
-			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkills, restrictedSkillsToChoose,
-					ChooseType.RESTRICTED);
+			lineIndex = setSpecialSkills(lines, lineIndex, commonSkills, commonSkillsToChoose, ChooseType.COMMON);
+			lineIndex = setSpecialSkills(lines, lineIndex, professionalSkills, professionalSkillsToChoose, ChooseType.PROFESSIONAL);
+			lineIndex = setSpecialSkills(lines, lineIndex, restrictedSkills, restrictedSkillsToChoose, ChooseType.RESTRICTED);
 			lineIndex = setMagicCost(lines, lineIndex);
 			lineIndex = setTrainingCosts(lines, lineIndex);
 		} else {
-			throw new InvalidProfessionException("Invalid profession file: "
-					+ ProfessionFactory.PROFESSION_FOLDER + File.separator + professionName + ".txt");
+			throw new InvalidProfessionException("Invalid profession file: " + ProfessionFactory.PROFESSION_FOLDER + File.separator + professionName + ".txt");
 		}
 	}
 
@@ -176,11 +168,9 @@ public class Profession {
 
 			for (String abbrev : characteristicsTags) {
 				if (Characteristics.isCharacteristicValid(abbrev)) {
-					characteristicPreferences.add(CharacteristicsAbbreviature
-							.getCharacteristicsAbbreviature(abbrev));
+					characteristicPreferences.add(CharacteristicsAbbreviature.getCharacteristicsAbbreviature(abbrev));
 				} else {
-					throw new InvalidProfessionException("Characteristic invalid '" + abbrev + "' for '"
-							+ getName() + "'.");
+					throw new InvalidProfessionException("Characteristic invalid '" + abbrev + "' for '" + getName() + "'.");
 				}
 			}
 		}
@@ -202,8 +192,7 @@ public class Profession {
 					magicRealmsAvailable.add(realmMagicOptions);
 				}
 			} catch (Exception e) {
-				throw new InvalidProfessionException("Invalid magic realm for '" + getName() + "' in '"
-						+ lines.get(index) + "'.", e);
+				throw new InvalidProfessionException("Invalid magic realm for '" + getName() + "' in '" + lines.get(index) + "'.", e);
 			}
 			index++;
 		}
@@ -228,8 +217,7 @@ public class Profession {
 					skillBonus.put(categoryOrSkillName, bonus);
 				}
 			} catch (NullPointerException npe) {
-				throw new InvalidProfessionException("Invalid bonus '" + categoryOrSkillName + "' in '"
-						+ getName() + "'.", npe);
+				throw new InvalidProfessionException("Invalid bonus '" + categoryOrSkillName + "' in '" + getName() + "'.", npe);
 			}
 			index++;
 		}
@@ -251,15 +239,13 @@ public class Profession {
 				if (categoryName.startsWith("Armas·")) {
 					CategoryCost weaponsCost = new CategoryCost(categoryColumns[1]);
 					weaponCategoryCost.add(weaponsCost);
-					weaponsCost
-							.setCategoryCostId(CategoryGroup.WEAPON.toString() + weaponCategoryCost.size());
+					weaponsCost.setCategoryCostId(CategoryGroup.WEAPON.toString() + weaponCategoryCost.size());
 				} else {
 					Category cat = CategoryFactory.getCategory(categoryName);
 					categoryCost.put(cat.getName(), new CategoryCost(categoryColumns[1]));
 				}
 			} catch (Exception e) {
-				throw new InvalidProfessionException("Invalid category '" + categoryName + "' for '"
-						+ getName() + "'.", e);
+				throw new InvalidProfessionException("Invalid category '" + categoryName + "' for '" + getName() + "'.", e);
 			}
 			index++;
 		}
@@ -271,11 +257,9 @@ public class Profession {
 	private void createExtraWeaponsCosts() {
 		extraWeaponCategoryCost = new ArrayList<>();
 		for (int i = 0; i < HOW_MANY_EXTRA_COSTS; i++) {
-			CategoryCost weaponsCost = new CategoryCost(weaponCategoryCost.get(weaponCategoryCost.size() - 1)
-					.getRankCost());
+			CategoryCost weaponsCost = new CategoryCost(weaponCategoryCost.get(weaponCategoryCost.size() - 1).getRankCost());
 			extraWeaponCategoryCost.add(weaponsCost);
-			weaponsCost.setCategoryCostId(CategoryGroup.WEAPON.toString()
-					+ (weaponCategoryCost.size() + extraWeaponCategoryCost.size()));
+			weaponsCost.setCategoryCostId(CategoryGroup.WEAPON.toString() + (weaponCategoryCost.size() + extraWeaponCategoryCost.size()));
 		}
 	}
 
@@ -321,8 +305,7 @@ public class Profession {
 		}
 	}
 
-	private int setSpecialSkills(List<String> lines, int index, List<String> groupSkills,
-			List<ChooseSkillGroup> groupSkillsToChoose, ChooseType chooseType)
+	private int setSpecialSkills(List<String> lines, int index, List<String> groupSkills, List<ChooseSkillGroup> groupSkillsToChoose, ChooseType chooseType)
 			throws InvalidProfessionException {
 		while (lines.get(index).equals("") || lines.get(index).startsWith("#")) {
 			index++;
@@ -340,32 +323,27 @@ public class Profession {
 					String[] categoryColumns = skillColumns[i].split("#");
 					Category cat = CategoryFactory.getCategory(categoryColumns[0].replace("{", "").replace("}", ""));
 					if (cat != null) {
-						ChooseSkillGroup chooseSkills = new ChooseSkillGroup(
-								Integer.parseInt(categoryColumns[1]), cat.getSkills(), chooseType);
+						ChooseSkillGroup chooseSkills = new ChooseSkillGroup(Integer.parseInt(categoryColumns[1]), cat.getSkills(), chooseType);
 						groupSkillsToChoose.add(chooseSkills);
 					} else if (categoryColumns[0].contains("{") && categoryColumns[0].contains("}")) {
 						String[] skillsArray = null;
-						//One skill from a list.
+						// One skill from a list.
 						if (categoryColumns[0].contains(";")) {
 							skillsArray = categoryColumns[0].replace("{", "").replace("}", "").split(";");
 						} else {
-							//One skill that has a prefix.
-							List<String> skills = SkillFactory.getSkillNames(SkillFactory
-									.getSkills(categoryColumns[0].replace("{", "").replace("}", "")));
+							// One skill that has a prefix.
+							List<String> skills = SkillFactory.getSkillNames(SkillFactory.getSkills(categoryColumns[0].replace("{", "").replace("}", "")));
 							skillsArray = new String[skills.size()];
 							skillsArray = skills.toArray(skillsArray);
 						}
 						try {
-							ChooseSkillGroup chooseSkills = new ChooseSkillGroup(
-									Integer.parseInt(categoryColumns[1]), skillsArray, chooseType);
+							ChooseSkillGroup chooseSkills = new ChooseSkillGroup(Integer.parseInt(categoryColumns[1]), skillsArray, chooseType);
 							groupSkillsToChoose.add(chooseSkills);
 						} catch (InvalidSkillException e) {
-							throw new InvalidProfessionException("Invalid skill for '" + getName() + "' in '"
-									+ skillLine + "'.", e);
+							throw new InvalidProfessionException("Invalid skill for '" + getName() + "' in '" + skillLine + "'.", e);
 						}
 					} else {
-						throw new InvalidProfessionException("Invalid skill for '" + getName() + "' in '"
-								+ lines.get(index) + "'.");
+						throw new InvalidProfessionException("Invalid skill for '" + getName() + "' in '" + lines.get(index) + "'.");
 					}
 					// One skill of a set
 				} else {
@@ -397,15 +375,17 @@ public class Profession {
 				String listLevel = spellList[1].replace(")", "");
 				String listCost = spellsColumn[1];
 
-				magicCosts.setMagicCost(MagicListType.getMagicType(listName),
-						MagicLevelRange.getLevelRange(listLevel), listCost);
+				magicCosts.setMagicCost(MagicListType.getMagicType(listName), MagicLevelRange.getLevelRange(listLevel), listCost);
 			} catch (Exception e) {
-				throw new InvalidProfessionException("Invalid magic cost for '" + getName() + "' in '"
-						+ lines.get(index) + "'.", e);
+				throw new InvalidProfessionException("Invalid magic cost for '" + getName() + "' in '" + lines.get(index) + "'.", e);
 			}
 			index++;
 		}
 		return index;
+	}
+
+	public boolean isWizard() {
+		return getMagicCost(MagicListType.BASIC, 0) != null;
 	}
 
 	private int setTrainingCosts(List<String> lines, int index) throws InvalidProfessionException {
@@ -430,13 +410,11 @@ public class Profession {
 					}
 
 					String trainingName = trainingColumns[0].replace("+", "").replace("-", "");
-					Integer cost = Integer.parseInt(trainingColumns[1].replace("+", "").replace("-", "")
-							.trim());
+					Integer cost = Integer.parseInt(trainingColumns[1].replace("+", "").replace("-", "").trim());
 					trainingCosts.put(trainingName, cost);
 					trainingTypes.put(trainingName, type);
 				} catch (Exception e) {
-					throw new InvalidProfessionException("Invalid training cost for '" + getName() + "' in '"
-							+ lines.get(index) + "'.", e);
+					throw new InvalidProfessionException("Invalid training cost for '" + getName() + "' in '" + lines.get(index) + "'.", e);
 				}
 			}
 			index++;

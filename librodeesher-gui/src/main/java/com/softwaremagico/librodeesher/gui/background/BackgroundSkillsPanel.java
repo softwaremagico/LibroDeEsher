@@ -60,7 +60,7 @@ public class BackgroundSkillsPanel extends BaseSkillPanel {
 		for (Category category : CategoryFactory.getCategories()) {
 			// Translate general category to player specific category.
 			category = character.getCategory(category);
-			if (!hideUselessSkills || character.isCategoryUseful(category)) {
+			if (!hideUselessSkills || character.isCategoryOptionEnabled(category)) {
 				BackgroundCategoryLine categoryLine = new BackgroundCategoryLine(character, category,
 						getLineBackgroundColor(i), this);
 				add(categoryLine);

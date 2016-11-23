@@ -248,7 +248,7 @@ public class PdfCombinedSheet2Columns extends PdfStandardSheet {
 			int linesByCategory = 0;
 			Category category = CategoryFactory.getCategory(categoryName);
 			category = getCharacterPlayer().getCategory(category);
-			if (getCharacterPlayer().isCategoryUseful(category)
+			if (getCharacterPlayer().isCategoryOptionEnabled(category)
 			// Avoid firearms if not set.
 					&& getCharacterPlayer().getCategoryCost(category, 0) != null) {
 				linesByCategory += getCategoryRowSize();

@@ -11,7 +11,7 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.log.EsherLog;
 
 public class SkillProbability {
-	private final static int MAX_VALUE = 1000;
+	private final static int MAX_VALUE = 200;
 	private final static int LAST_DEVELOPMENT_POINTS_RANGE = 10;
 	private CharacterPlayer characterPlayer;
 	private Skill skill;
@@ -69,7 +69,6 @@ public class SkillProbability {
 		}
 
 		if (characterPlayer.getCurrentLevelRanks(skill) <= 3) {
-
 			EsherLog.debug(SkillProbability.class.getName(), "Probability of skill '" + skill.getName() + "'");
 			int preferredCategory = increasedCategory() / 3;
 			EsherLog.debug(SkillProbability.class.getName(), "\t Increased Category: " + preferredCategory);

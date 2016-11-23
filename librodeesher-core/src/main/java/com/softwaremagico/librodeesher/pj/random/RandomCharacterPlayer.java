@@ -646,7 +646,8 @@ public class RandomCharacterPlayer {
 			}
 			Category category = characterPlayer.getCategory(sortedCategoriesByCost.get(i));
 
-			if (characterPlayer.getNewRankCost(category) > developmentPoints || characterPlayer.getNewRankCost(category) > MAX_RANDOM_COST) {
+			if (characterPlayer.getNewRankCost(category) > developmentPoints || characterPlayer.getNewRankCost(category) > MAX_RANDOM_COST
+					|| !characterPlayer.isCategoryInteresting(category)) {
 				continue;
 			}
 
@@ -846,7 +847,7 @@ public class RandomCharacterPlayer {
 					continue;
 				}
 				if (!characterPlayer.isBackgroundPointSelected(category) && characterPlayer.getRemainingBackgroundPoints() > 0
-						&& characterPlayer.getTotalRanks(category) > 0 && characterPlayer.isCategoryUseful(category)
+						&& characterPlayer.getTotalRanks(category) > 0 && characterPlayer.isCategoryOptionEnabled(category)
 						// If only one skill, is better to use the point into
 						// the skill.
 						&& category.getSkills().size() > 1 && Math.random() * 100 < (characterPlayer.getTotalValue(category) - 15 + loops) * 3) {

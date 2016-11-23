@@ -1635,13 +1635,12 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * A category is not used if it has not skills or the cost is more than the
-	 * selected in the configuration.
+	 * A category can be disabled by some configuration options.
 	 * 
 	 * @param category
 	 * @return
 	 */
-	public boolean isCategoryUseful(Category category) {
+	public boolean isCategoryOptionEnabled(Category category) {
 		// Weapons are allowed despite cost is not set.
 		if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)) {
 			if (!isFirearmsAllowed() && category.getName().contains(Spanish.FIREARMS_SUFIX)) {
@@ -1658,19 +1657,30 @@ public class CharacterPlayer extends StorableObject {
 			return false;
 		}
 		// Magic can be disabled.
-		if ((category.getCategoryGroup().equals(CategoryGroup.SPELL) || category.getCategoryGroup().equals(CategoryGroup.AIMED_SPELLS) || category
-				.getCategoryType().equals(CategoryType.PPD)) && !getCharacterConfiguration().isMagicAllowed()) {
+		if ((category.getCategoryGroup().equals(CategoryGroup.SPELL) || category.getCategoryGroup().equals(CategoryGroup.SPELLS_RELATED))
+				&& !getCharacterConfiguration().isMagicAllowed()) {
 			return false;
 		}
 		return true;
 	}
 
+	/**
+	 * A category is not used if it has not skills or the cost is more than the
+	 * selected in the configuration. Used for random character creation.
+	 * 
+	 * @param category
+	 * @return
+	 */
 	public boolean isCategoryInteresting(Category category) {
 		if (characterPlayerHelper.isCategoryInteresting(category.getName()) != null) {
 			return characterPlayerHelper.isCategoryInteresting(category.getName());
 		}
-		boolean interesting = isCategoryUseful(category) && (isWizard() || !category.getCategoryGroup().equals(CategoryGroup.SPELL))
-				&& (getTotalRanks(category) > 0 || getBonus(category) > 0) && getDefaultCost(category) < MAX_REASONABLE_COST;
+		boolean interesting = isCategoryOptionEnabled(category)
+		// Has not spells, some categories are useless.
+				&& (isWizard() || (!category.getCategoryGroup().equals(CategoryGroup.SPELL) && !category.getCategoryGroup()
+						.equals(CategoryGroup.SPELLS_RELATED))) && (getTotalRanks(category) > 0 || getBonus(category) > 0)
+				// Too expensive, not interesting.
+				&& getDefaultCost(category) < MAX_REASONABLE_COST;
 		characterPlayerHelper.setCategoryInteresting(category.getName(), interesting);
 		return interesting;
 	}

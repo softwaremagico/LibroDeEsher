@@ -86,7 +86,7 @@ public class TxtSheet {
 		for (int i = 0; i < CategoryFactory.getCategories().size(); i++) {
 			Category category = CategoryFactory.getCategories().get(i);
 			category = characterPlayer.getCategory(category);
-			if (characterPlayer.isCategoryUseful(category)) {
+			if (characterPlayer.isCategoryOptionEnabled(category)) {
 				String bonus = "";
 				if (characterPlayer.getBackground().isBackgroundPointSelected(category)) {
 					bonus += "H";

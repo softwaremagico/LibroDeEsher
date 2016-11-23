@@ -214,8 +214,9 @@ public abstract class Category {
 			return CategoryGroup.WEAPON;
 		} else if (categoryName.toLowerCase().startsWith(Spanish.SPELL_CATEGORY_PREFIX)) {
 			return CategoryGroup.SPELL;
-		} else if (categoryName.toLowerCase().startsWith(Spanish.AIMED_SPELLS_CATEGORY)) {
-			return CategoryGroup.AIMED_SPELLS;
+		} else if (categoryName.toLowerCase().startsWith(Spanish.AIMED_SPELLS_CATEGORY) || categoryName.toLowerCase().startsWith(Spanish.POWER_MANIPULATION)
+				|| categoryName.toLowerCase().equals(Spanish.POWER_POINTS_CATEGORY)) {
+			return CategoryGroup.SPELLS_RELATED;
 		}
 		return CategoryGroup.STANDARD;
 	}

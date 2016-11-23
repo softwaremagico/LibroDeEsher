@@ -25,5 +25,5 @@ package com.softwaremagico.librodeesher.pj.categories;
  */
 
 public enum CategoryGroup {
-	WEAPON, SPELL, AIMED_SPELLS, STANDARD;
+	WEAPON, SPELL, SPELLS_RELATED, STANDARD;
 }
