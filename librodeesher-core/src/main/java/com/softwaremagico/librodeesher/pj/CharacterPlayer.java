@@ -323,6 +323,7 @@ public class CharacterPlayer extends StorableObject {
 		getCharacterConfiguration().setPerksCostHistoryPoints(Config.getPerksCostHistoryPoints());
 		getCharacterConfiguration().setHandWrittingFont(Config.getHandWrittingFont());
 		getCharacterConfiguration().setSortPdfSkills(Config.isPdfSortSkillsEnabled());
+		getCharacterConfiguration().setMagicAllowed(!Config.isMagicDisabled());
 	}
 
 	private CharacterConfiguration getCharacterConfiguration() {
@@ -3145,5 +3146,13 @@ public class CharacterPlayer extends StorableObject {
 		} else {
 			return CategoryFactory.getCategory(selectedCategory).getNonRareSkills();
 		}
+	}
+
+	public boolean isMagicAllowed() {
+		return getCharacterConfiguration().isMagicAllowed();
+	}
+
+	public void setMagicAllowed(boolean magicAllowed) {
+		getCharacterConfiguration().setMagicAllowed(magicAllowed);
 	}
 }

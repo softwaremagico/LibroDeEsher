@@ -140,7 +140,7 @@ public class PdfStandardSheet {
 		document.close();
 	}
 
-	Document DocumentData(Document document, PdfWriter writer) {
+	protected Document DocumentData(Document document, PdfWriter writer) {
 		document.addTitle("Ficha Personaje Rolemaster");
 		document.addAuthor("Software Magico");
 		document.addCreator("Libro de Esher - Generador de PJs y PNJs para Rolemaster");
@@ -151,7 +151,7 @@ public class PdfStandardSheet {
 		return document;
 	}
 
-	void createBackgroundImage(Document document, String imagen) throws BadElementException, DocumentException, MalformedURLException, IOException {
+	protected void createBackgroundImage(Document document, String imagen) throws BadElementException, DocumentException, MalformedURLException, IOException {
 		Image png;
 
 		png = Image.getInstance(imagen);
@@ -1082,7 +1082,7 @@ public class PdfStandardSheet {
 		cell.setPaddingBottom(5);
 		tablaRaza.addCell(cell);
 
-		if (characterPlayer != null) {
+		if (characterPlayer != null && characterPlayer.isMagicAllowed()) {
 			p = new Paragraph(Race.getProgressionRankValuesAsString(characterPlayer.getPowerPointsDevelopmentCost()), new Font(getHandWrittingFont(),
 					fontSize + 2));
 		} else {
@@ -1719,7 +1719,7 @@ public class PdfStandardSheet {
 		cell.setBorderWidth(BORDER);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		tabla.addCell(cell);
-		if (characterPlayer != null) {
+		if (characterPlayer != null && characterPlayer.isMagicAllowed()) {
 			p = new Paragraph(Math.max(characterPlayer.getPowerPoints(), 0) + "", new Font(getHandWrittingFont(), fontSize + 3));
 		} else {
 			p = new Paragraph("", new Font(getHandWrittingFont(), fontSize + 3));
@@ -1760,7 +1760,7 @@ public class PdfStandardSheet {
 		cell.setPaddingRight(30f);
 		tabla.addCell(cell);
 
-		if (characterPlayer != null) {
+		if (characterPlayer != null && characterPlayer.isMagicAllowed()) {
 			p = new Paragraph(Math.max(characterPlayer.getBonusCharacteristicOfRealmOfMagic() / 2, 1) + "", new Font(getHandWrittingFont(), fontSize));
 		} else {
 			p = new Paragraph(EMPTY_VALUE, new Font(getDefaultFont(), fontSize));
@@ -1795,7 +1795,7 @@ public class PdfStandardSheet {
 		cell.setPaddingRight(30f);
 		tabla.addCell(cell);
 
-		if (characterPlayer != null) {
+		if (characterPlayer != null && characterPlayer.isMagicAllowed()) {
 			p = new Paragraph(Math.max(characterPlayer.getPowerPoints() / 2, 1) + "", new Font(getHandWrittingFont(), fontSize));
 		} else {
 			p = new Paragraph("__", new Font(getHandWrittingFont(), fontSize));

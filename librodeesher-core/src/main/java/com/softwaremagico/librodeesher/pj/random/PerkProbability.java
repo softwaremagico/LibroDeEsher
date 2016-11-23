@@ -12,6 +12,7 @@ import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.categories.ChooseCategoryGroup;
 import com.softwaremagico.librodeesher.pj.perk.Perk;
 import com.softwaremagico.librodeesher.pj.perk.PerkFactory;
+import com.softwaremagico.librodeesher.pj.perk.PerkType;
 import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceDefinition;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
@@ -32,6 +33,9 @@ public class PerkProbability {
 	public int getProbability() {
 		int probability = 0;
 		int probabilityBySkills = 0;
+		if (perk.getPerkType().equals(PerkType.MAGICAL) && !characterPlayer.isMagicAllowed()) {
+			return 0;
+		}
 		if (perk.isPerkAllowed(characterPlayer.getRace().getName(), characterPlayer.getProfession().getName()) && !hasAlreadySimilarPerk()) {
 			probability += getProbabilityByCost();
 			if (probability >= 0) {

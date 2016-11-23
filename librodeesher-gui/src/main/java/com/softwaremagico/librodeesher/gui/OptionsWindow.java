@@ -60,7 +60,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 public class OptionsWindow extends BaseFrame {
 	private static final long serialVersionUID = -8015912539177057288L;
 	private CharacterPlayer character;
-	private JCheckBox fireArmsMenuItem, darkSpellsMenuItem, chiPowers, trainingOtherRealms, perkHistoryPoints, disabledCheckBox;
+	private JCheckBox fireArmsMenuItem, darkSpellsMenuItem, chiPowers, trainingOtherRealms, perkHistoryPoints, disabledCheckBox, magicDisabled;
 	private JCheckBox handwrittingFont, sortedSkills;
 	private boolean updatingState = false;
 	private BaseSpinner categoryMax;
@@ -68,7 +68,7 @@ public class OptionsWindow extends BaseFrame {
 
 	public OptionsWindow(CharacterPlayer character) {
 		this.character = character;
-		defineWindow(500, 410);
+		defineWindow(500, 430);
 		setElements();
 		setCurrentCharacterConfig();
 		setResizable(false);
@@ -83,6 +83,7 @@ public class OptionsWindow extends BaseFrame {
 		perkHistoryPoints.setSelected(character.isPerksCostBackgroundPoints());
 		handwrittingFont.setSelected(character.isHandWrittingFont());
 		sortedSkills.setSelected(character.isSortPdfSkills());
+		magicDisabled.setSelected(!character.isMagicAllowed());
 		updatingState = false;
 	}
 
@@ -93,8 +94,7 @@ public class OptionsWindow extends BaseFrame {
 
 		JPanel characterPanel = new JPanel();
 		characterPanel.setLayout(new BoxLayout(characterPanel, BoxLayout.Y_AXIS));
-		characterPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),
-				"Personaje actual"));
+		characterPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Personaje actual"));
 
 		fireArmsMenuItem = new JCheckBox(Spanish.FIREARMS_CHECKBOX_TEXT);
 		fireArmsMenuItem.addActionListener(checkboxListener);
@@ -116,6 +116,10 @@ public class OptionsWindow extends BaseFrame {
 		perkHistoryPoints.addActionListener(checkboxListener);
 		characterPanel.add(perkHistoryPoints);
 
+		magicDisabled = new JCheckBox(Spanish.DISABLE_MAGIC);
+		magicDisabled.addActionListener(checkboxListener);
+		characterPanel.add(magicDisabled);
+
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
@@ -129,8 +133,7 @@ public class OptionsWindow extends BaseFrame {
 
 		JPanel pdfOptionsPanel = new JPanel();
 		pdfOptionsPanel.setLayout(new BoxLayout(pdfOptionsPanel, BoxLayout.Y_AXIS));
-		pdfOptionsPanel
-				.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Fichas en PDF"));
+		pdfOptionsPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Fichas en PDF"));
 
 		handwrittingFont = new JCheckBox(Spanish.HANDWRITTING_TEXT);
 		handwrittingFont.addActionListener(checkboxListener);
@@ -144,8 +147,7 @@ public class OptionsWindow extends BaseFrame {
 
 		JPanel graphicOptionsPanel = new JPanel();
 		graphicOptionsPanel.setLayout(new BoxLayout(graphicOptionsPanel, BoxLayout.Y_AXIS));
-		graphicOptionsPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),
-				"Interfaz Gráfica"));
+		graphicOptionsPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Interfaz Gráfica"));
 
 		JPanel maxCategoryRanks = new JPanel();
 		maxCategoryRanks.setLayout(new BoxLayout(maxCategoryRanks, BoxLayout.X_AXIS));
@@ -179,8 +181,7 @@ public class OptionsWindow extends BaseFrame {
 
 		JPanel globalPanel = createModulesPanel();
 		globalPanel.setLayout(new BoxLayout(globalPanel, BoxLayout.X_AXIS));
-		globalPanel
-				.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Opciones Globales"));
+		globalPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Opciones Globales"));
 		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
@@ -260,7 +261,12 @@ public class OptionsWindow extends BaseFrame {
 				} else if (e.getActionCommand().equals(Spanish.PDF_SORT_SKILLS)) {
 					character.setSortPdfSkills(sortedSkills.isSelected());
 					Config.setPdfSortSkills(sortedSkills.isSelected());
+				} else if (e.getActionCommand().equals(Spanish.DISABLE_MAGIC)) {
+					character.setMagicAllowed(!magicDisabled.isSelected());
+					Config.setMagicdisabled(magicDisabled.isSelected());
 				}
+				ShowMessage.showInfoMessage("Recuerda reiniciar la aplicación para que está opción tenga efecto.", "Opciones");
+				Config.storeConfiguration();
 			}
 		}
 	}

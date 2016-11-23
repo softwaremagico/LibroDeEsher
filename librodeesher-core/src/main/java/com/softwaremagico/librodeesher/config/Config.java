@@ -47,10 +47,11 @@ public class Config {
 	private static final String PDF_SORT_SKILLS = "sortSkills";
 	private static final String DEBUG_ENABLED = "debugEnabled";
 	private static final String PDF_HANDWRITTING_FONT = "userHandwrittingFont";
+	private static final String MAGIC_DISABLED = "magicDisabled";
 	private static Properties configuration = new Properties();
-	private static Boolean maximized = false, fireArmsActivated = false, darkSpellsAsBasic = false,
-			chiPowersAllowed = false, otherRealmsTrainingSpells = false, pdfSortSkills = false,
-			perksCostHistoryPoints = true, handWrittingFont = true, debugEnabled = false;
+	private static Boolean maximized = false, fireArmsActivated = false, darkSpellsAsBasic = false, chiPowersAllowed = false,
+			otherRealmsTrainingSpells = false, pdfSortSkills = false, perksCostHistoryPoints = true, handWrittingFont = true, debugEnabled = false,
+			magicDisabled = false;
 	private static Integer categoryMaxCost = 50;
 
 	static {
@@ -80,6 +81,7 @@ public class Config {
 		configuration.setProperty(ENABLE_PERK_HISTORY_COST, getPerksCostHistoryPoints().toString());
 		configuration.setProperty(PDF_HANDWRITTING_FONT, getHandWrittingFont().toString());
 		configuration.setProperty(DEBUG_ENABLED, isDebugEnabled().toString());
+		configuration.setProperty(MAGIC_DISABLED, magicDisabled.toString());
 	}
 
 	private static void loadConfiguration() {
@@ -93,12 +95,12 @@ public class Config {
 				fireArmsActivated = Boolean.parseBoolean(configuration.getProperty(FIREARMS_ALLOWED));
 				darkSpellsAsBasic = Boolean.parseBoolean(configuration.getProperty(DARK_SPELLS_AS_BASIC_LIST));
 				chiPowersAllowed = Boolean.parseBoolean(configuration.getProperty(CHI_POWERS));
-				otherRealmsTrainingSpells = Boolean
-						.parseBoolean(configuration.getProperty(OTHER_REALM_TRAINING_SPELLS));
+				otherRealmsTrainingSpells = Boolean.parseBoolean(configuration.getProperty(OTHER_REALM_TRAINING_SPELLS));
 				perksCostHistoryPoints = Boolean.parseBoolean(configuration.getProperty(ENABLE_PERK_HISTORY_COST));
 				pdfSortSkills = Boolean.parseBoolean(configuration.getProperty(PDF_SORT_SKILLS));
 				debugEnabled = Boolean.parseBoolean(configuration.getProperty(DEBUG_ENABLED));
 				handWrittingFont = Boolean.parseBoolean(configuration.getProperty(PDF_HANDWRITTING_FONT));
+				magicDisabled = Boolean.parseBoolean(configuration.getProperty(MAGIC_DISABLED));
 				loadDisabledModules(configuration.getProperty(DISABLED_MODULES));
 			}
 		} catch (Exception e) {
@@ -148,6 +150,15 @@ public class Config {
 
 	public static void setChiPowersAllowed(Boolean chiPowersAllowed) {
 		Config.chiPowersAllowed = chiPowersAllowed;
+		storeConfiguration();
+	}
+
+	public static Boolean isMagicDisabled() {
+		return magicDisabled;
+	}
+
+	public static void setMagicdisabled(Boolean magicDisabled) {
+		Config.magicDisabled = magicDisabled;
 		storeConfiguration();
 	}
 
