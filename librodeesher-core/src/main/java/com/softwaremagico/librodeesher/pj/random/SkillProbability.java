@@ -11,7 +11,7 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.log.EsherLog;
 
 public class SkillProbability {
-	private final static int MAX_VALUE = 1000;
+	private final static int MAX_VALUE = 200;
 	private final static int LAST_DEVELOPMENT_POINTS_RANGE = 10;
 	private CharacterPlayer characterPlayer;
 	private Skill skill;
@@ -57,7 +57,7 @@ public class SkillProbability {
 					return 100;
 				} else if (characterPlayer.getTotalRanks(skill) < suggestedSkillsRanks.get(skill.getName())
 						- finalLevel
-						&& characterPlayer.getNewRankCost(skill) < 40) {
+						&& characterPlayer.getNewRankCost(skill) < CharacterPlayer.MAX_REASONABLE_COST) {
 					return 100;
 				}
 			}
@@ -69,7 +69,6 @@ public class SkillProbability {
 		}
 
 		if (characterPlayer.getCurrentLevelRanks(skill) <= 3) {
-
 			EsherLog.debug(SkillProbability.class.getName(), "Probability of skill '" + skill.getName() + "'");
 			int preferredCategory = increasedCategory() / 3;
 			EsherLog.debug(SkillProbability.class.getName(), "\t Increased Category: " + preferredCategory);
@@ -152,7 +151,7 @@ public class SkillProbability {
 	 * Cost in development points.
 	 */
 	private int skillExpensiveness() {
-		if (characterPlayer.getNewRankCost(skill) > 40) {
+		if (characterPlayer.getNewRankCost(skill) > CharacterPlayer.MAX_REASONABLE_COST) {
 			return -1000;
 		}
 		// Spells are a little more expensive that common categories. We make a

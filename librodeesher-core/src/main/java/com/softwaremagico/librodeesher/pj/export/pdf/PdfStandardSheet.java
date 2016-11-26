@@ -140,7 +140,7 @@ public class PdfStandardSheet {
 		document.close();
 	}
 
-	Document DocumentData(Document document, PdfWriter writer) {
+	protected Document DocumentData(Document document, PdfWriter writer) {
 		document.addTitle("Ficha Personaje Rolemaster");
 		document.addAuthor("Software Magico");
 		document.addCreator("Libro de Esher - Generador de PJs y PNJs para Rolemaster");
@@ -151,7 +151,7 @@ public class PdfStandardSheet {
 		return document;
 	}
 
-	void createBackgroundImage(Document document, String imagen) throws BadElementException, DocumentException, MalformedURLException, IOException {
+	protected void createBackgroundImage(Document document, String imagen) throws BadElementException, DocumentException, MalformedURLException, IOException {
 		Image png;
 
 		png = Image.getInstance(imagen);
@@ -201,7 +201,7 @@ public class PdfStandardSheet {
 			}
 
 			if (characterPlayer != null) {
-				if (characterPlayer.isCategoryUseful(category) || i >= CategoryFactory.getAvailableCategories().size()) {
+				if (characterPlayer.isCategoryOptionEnabled(category) || i >= CategoryFactory.getAvailableCategories().size()) {
 
 					// Add a category row
 					Paragraph p;
@@ -1763,7 +1763,7 @@ public class PdfStandardSheet {
 		if (characterPlayer != null) {
 			p = new Paragraph(Math.max(characterPlayer.getBonusCharacteristicOfRealmOfMagic() / 2, 1) + "", new Font(getHandWrittingFont(), fontSize));
 		} else {
-			p = new Paragraph(EMPTY_VALUE, new Font(getDefaultFont(), fontSize));
+			p = new Paragraph("__", new Font(getDefaultFont(), fontSize));
 		}
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(BORDER);
@@ -1779,7 +1779,7 @@ public class PdfStandardSheet {
 			}
 			p = new Paragraph(puntos + "", new Font(getHandWrittingFont(), fontSize));
 		} else {
-			p = new Paragraph("__", new Font(getHandWrittingFont(), fontSize));
+			p = new Paragraph("__", new Font(getDefaultFont(), fontSize));
 		}
 		cell = new PdfPCell(p);
 		cell.setMinimumHeight(20);
@@ -1798,7 +1798,7 @@ public class PdfStandardSheet {
 		if (characterPlayer != null) {
 			p = new Paragraph(Math.max(characterPlayer.getPowerPoints() / 2, 1) + "", new Font(getHandWrittingFont(), fontSize));
 		} else {
-			p = new Paragraph("__", new Font(getHandWrittingFont(), fontSize));
+			p = new Paragraph("__", new Font(getDefaultFont(), fontSize));
 		}
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(BORDER);

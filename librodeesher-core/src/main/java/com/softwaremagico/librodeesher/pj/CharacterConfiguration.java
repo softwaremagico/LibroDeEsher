@@ -25,6 +25,8 @@ public class CharacterConfiguration extends StorableObject {
 	private boolean handWrittingFont;
 	@Expose
 	private boolean sortPdfSkills;
+	@Expose
+	private boolean magicAllowed = true;
 
 	@Override
 	public void resetIds() {
@@ -90,6 +92,14 @@ public class CharacterConfiguration extends StorableObject {
 
 	public void setSortPdfSkills(boolean sortPdfSkills) {
 		this.sortPdfSkills = sortPdfSkills;
+	}
+
+	public boolean isMagicAllowed() {
+		return magicAllowed;
+	}
+
+	public void setMagicAllowed(boolean magicAllowed) {
+		this.magicAllowed = magicAllowed;
 	}
 
 }

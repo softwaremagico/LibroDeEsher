@@ -17,7 +17,7 @@ Aspecto Único (Máximo)	-15	Todos	Máximo	Físico	Ninguna	Posees una apariencia
 Aspecto Único (Menor)	-10	Todos	Menor	Físico	Ninguna	Posees una apariencia única. Algo que es significativamente distinguible en ti. Esto causa que la gente te reconozca mucho más fácilmente. Necesitas un disfraz para ocultarlo. Cuando no estás disfrazado, debes restar d10 a Apariencia. Consulta la página 81 del libro de personajes para más información.	
 Aspecto Único (Mínimo)	-5	Todos	Mínimo	Físico	Ninguna	Posees una apariencia única. Algo que es significativamente distinguible en ti. Esto causa que la gente te reconozca mucho más fácilmente. Lo que te hace único es relativamente fácil de ocultar. Consulta la página 81 del libro de personajes para más información.	
 Ataque Natural a Distancia (Mayor)	15	Todos	Mayor	Capacidad Especial	Ninguna	Puedes realizar un ataque a distancia equivalente a un rayo de descarga. Debes desarrollar esta habilidad.
-Aura	20	Todos	Máximo	Mágico	Desarrollo de Puntos de Poder (+4/r)	Te da +4 a cada rango de la habilidad de Desarrollo de Puntos de Poder. Consulta la página 62 del libro de personajes para más información.	
+Aura	20	Todos	Máximo	Capacidad Mágica	Desarrollo de Puntos de Poder (+4/r)	Te da +4 a cada rango de la habilidad de Desarrollo de Puntos de Poder. Consulta la página 62 del libro de personajes para más información.	
 Avaro	-5	Todos	Mínimo	Mental	Ninguno	Siempre que gastes grandes sumas de dinero, deberás tirar una tirada bajo AD. Consulta la página 90 del libro de personajes para más información.	
 Bonificación a Agilidad (Máximo)	30	Todos	Máximo	Capacidad Especial	Ag (8)	Otorga un +8 a Empatía. Consulta la página 69 del libro de personajes para más información.	
 Bonificación a Agilidad (Mayor)	20	Todos	Mayor	Capacidad Especial	Ag (5)	Otorga un +5 a Empatía. Consulta la página 69 del libro de personajes para más información.	
@@ -107,7 +107,7 @@ Promesa (Máximo)	-20	Todos	Mental	Máximo	Ninguno	Una promesa como ayudar el d�
 Promesa (Mayor)	-15	Todos	Mayor	Mental	Ninguno	Una promesa como no usar armas de filo, no hablar, etc. Consulta la página 96 del libro de personajes para más información.	
 Promesa (Menor)	-7	Todos	Menor	Mental	Ninguno	Una promesa como castidad, no comer carne, etc. Consulta la página 96 del libro de personajes para más información.	
 Promesa (Mínimo)	-3	Todos	Mental	Mínimo	Ninguno	Una promesa como no vestir nunca un color, etc. Consulta la página 96 del libro de personajes para más información.	
-Prototipo	18	Todos	Mayor	Mágico	Desarrollo de Puntos de Poder (Común)	La habilidad de Desarrollo de Puntos de Poder es común. Consulta la página 64 del libro de personajes para más información.	
+Prototipo	18	Todos	Mayor	Capacidad Mágica	Desarrollo de Puntos de Poder (Común)	La habilidad de Desarrollo de Puntos de Poder es común. Consulta la página 64 del libro de personajes para más información.	
 Pulmones Poderosos	5	Todos	Mínimo	Físico	Ninguno	Aguantas la respiración diez segundos más un minuto por cada punto de bonificación a constitución. Consulta la página 60 del libro de personajes para más información.	
 Reflejos de Combate	7	Todos	Menor	Físico	Ninguno	Puedes hacer una tirada adicional de iniciativa y elegir. Consulta la página 67 del libro de personajes para más información.	
 Regeneración (Máximo)	25	Todos	Máximo	Físico	Ninguna	Tu cuerpo recupera tres puntos de daño por asalto. Consulta la página 60 del Manual de Personajes para más detalles.

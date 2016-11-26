@@ -50,7 +50,7 @@ public class BackgroundCategoryLine extends GenericCategoryLine {
 	private void addHistoryCheckBox() {
 		JPanel panel = new JPanel();
 		backgroundCheckBox = new BaseCheckBox("");
-		backgroundCheckBox.setSelected(character.isHistoryPointSelected(category));
+		backgroundCheckBox.setSelected(character.isBackgroundPointSelected(category));
 		panel.add(backgroundCheckBox);
 		backgroundCheckBox.addItemListener(new CheckBoxListener());
 		addColumn(panel, 0, 0.1f);
@@ -68,7 +68,7 @@ public class BackgroundCategoryLine extends GenericCategoryLine {
 	}
 
 	public void updateComboBox() {
-		backgroundCheckBox.setSelected(character.isHistoryPointSelected(getCategory()));
+		backgroundCheckBox.setSelected(character.isBackgroundPointSelected(getCategory()));
 	}
 
 	@Override

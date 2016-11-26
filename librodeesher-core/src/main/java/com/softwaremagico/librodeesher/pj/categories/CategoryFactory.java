@@ -70,13 +70,13 @@ public class CategoryFactory {
 	}
 
 	private static void addCultureSkills() {
-		Category cat = availableCategories.get(Spanish.GENERAL_KNOWLEDGE_TAG);
+		Category category = availableCategories.get(Spanish.GENERAL_KNOWLEDGE_TAG);
 		for (String culture : CultureFactory.getAvailableCultures()) {
 			if (!culture.contains(" ")) {
-				cat.addSkill(Spanish.FAUNA_KNOWNLEDGE_TAG + " (" + culture + ")");
-				cat.addSkill(Spanish.FLORA_KNOWNLEDGE_TAG + " (" + culture + ")");
-				cat.addSkill(Spanish.CULTURAL_KNOWNLEDGE_TAG + " (" + culture + ")");
-				cat.addSkill(Spanish.REGIONAL_KNOWNLEDGE_TAG + " (" + culture + ")");
+				category.addSkill(Spanish.FAUNA_KNOWNLEDGE_TAG + " (" + culture + ")");
+				category.addSkill(Spanish.FLORA_KNOWNLEDGE_TAG + " (" + culture + ")");
+				category.addSkill(Spanish.CULTURAL_KNOWNLEDGE_TAG + " (" + culture + ")");
+				category.addSkill(Spanish.REGIONAL_KNOWNLEDGE_TAG + " (" + culture + ")");
 			}
 		}
 	}
@@ -196,14 +196,14 @@ public class CategoryFactory {
 					String categoryName = categoryAbbrevName[0];
 					try {
 						String abrevCat = categoryAbbrevName[1].replace(")", "");
-						Category cat = availableCategories.get(categoryName);
-						if (cat == null) {
-							cat = createCategory(categoryName, abrevCat, descomposed_line[1],
+						Category category = availableCategories.get(categoryName);
+						if (category == null) {
+							category = createCategory(categoryName, abrevCat, descomposed_line[1],
 									descomposed_line[2], descomposed_line[3]);
-							availableCategories.put(categoryName, cat);
+							availableCategories.put(categoryName, category);
 							availableCategoriesByName.add(categoryName);
 						} else {
-							cat.addSkills(descomposed_line[3]);
+							category.addSkills(descomposed_line[3]);
 						}
 					} catch (ArrayIndexOutOfBoundsException aiofb) {
 						throw new InvalidCategoryException("Abreviatura de categoria mal definida en "

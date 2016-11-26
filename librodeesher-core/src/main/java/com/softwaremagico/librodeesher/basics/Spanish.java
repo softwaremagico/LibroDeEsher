@@ -38,6 +38,7 @@ public class Spanish {
 	public static final String HANDWRITTING_TEXT = "Simular escritura manual en las fichas.";
 	public static final String OTHER_TRAINING_SPELLS = "Permitir el uso de listas de adiestramientos de otros reinos.";
 	public static final String ENABLE_PERK_BACKGROUND_COST = "Los talentos cuestan puntos de historial.";
+	public static final String DISABLE_MAGIC = "La magia no está permitida.";
 	public static final String PDF_SORT_SKILLS = "Ordenar habilidades alfabéticamente.";
 	public static final String FIREARMS_SKILL3 = "Fuego Rápido";
 	public static final String FIREARMS_SKILL2 = "Fuego de Supresión";
@@ -108,7 +109,8 @@ public class Spanish {
 	public static final String DWARF_TAG = "enano";
 	public static final String RACIAL_ATTACK_TAG = "ataque racial";
 	public static final String AIMED_SPELLS = "Hechizos Dirigidos de";
-	public static final String AIMED_SPELLS_CATEGORY = "Hechizos Dirigidos";
+	public static final String AIMED_SPELLS_CATEGORY = "hechizos dirigidos";
+	public static final String POWER_MANIPULATION = "manipulación del poder";
 	public static final String ADRENAL_SKILL = "adrenal";
 	public static final String MONK_PROFESSION = "monje";
 	public static final String KNIGHT_TRAINING = "caballero";
@@ -142,5 +144,4 @@ public class Spanish {
 	public static final String NOT_IMPORTANT = "noimporta";
 	public static final String ANY_RACE_LANGUAGE = "Idioma Racial";
 	public static final String ANY_CULTURE_LANGUAGE = "Idioma Regional";
-
 }

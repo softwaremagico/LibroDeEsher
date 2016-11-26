@@ -4,7 +4,7 @@ public enum PerkType {
 	
 	PHYSIC("Físico"),
 	MENTAL("Mental"),
-	MAGICAL("Mágico"),
+	MAGICAL("Capacidad Mágica"),
 	SPECIAL("Capacidad Especial"),
 	TRAINING("Adiestramiento Especial"),
 	//No official perks

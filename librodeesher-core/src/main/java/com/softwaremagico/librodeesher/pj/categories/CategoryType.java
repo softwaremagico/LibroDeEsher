@@ -33,7 +33,7 @@ public enum CategoryType {
     
     private String tag;
     
-    CategoryType(String tag){
+    private CategoryType(String tag){
         this.tag = tag;
     }
     

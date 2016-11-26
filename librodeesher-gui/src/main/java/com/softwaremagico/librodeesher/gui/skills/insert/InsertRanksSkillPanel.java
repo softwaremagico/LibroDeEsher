@@ -67,7 +67,7 @@ public class InsertRanksSkillPanel extends BaseSkillPanel {
 		for (Category category : CategoryFactory.getCategories()) {
 			// Translate general category to player specific category.
 			category = character.getCategory(category);
-			if (character.isCategoryUseful(category)) {
+			if (character.isCategoryOptionEnabled(category)) {
 				final InsertRanksCategoryLine categoryLine = new InsertRanksCategoryLine(character, category,
 						getLineBackgroundColor(i), this);
 				categoryLine.addCategoryChangedListener(new CategoryChangedListener() {
