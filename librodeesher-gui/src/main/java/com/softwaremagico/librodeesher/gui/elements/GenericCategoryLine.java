@@ -40,17 +40,18 @@ import javax.swing.SwingConstants;
 
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 
 public abstract class GenericCategoryLine extends BaseSkillLine {
 	private static final long serialVersionUID = 2914665641808878141L;
-	protected BoldListLabel categoryNameLabel, bonusRankLabel, totalLabel, prevRanksLabel, bonusCharLabel, otherBonus,
-			bonusMagicObject, totalRanksLabel;
+	protected BoldListLabel categoryNameLabel, bonusRankLabel, totalLabel, prevRanksLabel, bonusCharLabel,
+			otherBonus, bonusMagicObject, totalRanksLabel;
 	protected BaseSpinner insertedRanksSpinner;
 	private int nameLength;
 	private Set<CategoryChangedListener> skillChangedlisteners;
 
-	public GenericCategoryLine(CharacterPlayer character, Category category, int nameLength, Color background,
-			BaseSkillPanel parentWindow) {
+	public GenericCategoryLine(CharacterPlayer character, Category category, int nameLength,
+			Color background, BaseSkillPanel parentWindow) {
 		skillChangedlisteners = new HashSet<>();
 		this.character = character;
 		this.category = category;
@@ -67,11 +68,16 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 		// this label is not updated but the new cost will be used when
 		// necessary.
 		ListLabel rankCostLabel;
-		try {
-			rankCostLabel = new BoldListLabel(character.getCategoryCost(category, 0).getCostTag());
-			// Weapons maybe have not defined cost.
-		} catch (NullPointerException npe) {
+		if (category.getCategoryGroup().equals(CategoryGroup.WEAPON)
+				&& !character.getProfessionDecisions().isWeaponCostDecided()) {
 			rankCostLabel = new BoldListLabel("--/--");
+		} else {
+			try {
+				rankCostLabel = new BoldListLabel(character.getCategoryCost(category, 0).getCostTag());
+				// Weapons maybe have not defined cost.
+			} catch (NullPointerException npe) {
+				rankCostLabel = new BoldListLabel("--/--");
+			}
 		}
 		costPanel.setMinimumSize(new Dimension(columnWidth * 2, columnHeight));
 		costPanel.setPreferredSize(new Dimension(columnWidth * 2, columnHeight));
@@ -101,7 +107,8 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.3;
-		categoryNameLabel = new BoldListLabel(category.getName(), SwingConstants.LEFT, nameLength, columnHeight);
+		categoryNameLabel = new BoldListLabel(category.getName(), SwingConstants.LEFT, nameLength,
+				columnHeight);
 		add(new ListBackgroundPanel(categoryNameLabel, getDefaultBackground()), gridBagConstraints);
 
 		if (costPanel) {
@@ -180,7 +187,8 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 11;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			totalRanksLabel = new BoldListLabel(character.getTotalRanks(category).toString(), columnWidth, columnHeight);
+			totalRanksLabel = new BoldListLabel(character.getTotalRanks(category).toString(), columnWidth,
+					columnHeight);
 			add(new ListBackgroundPanel(totalRanksLabel, getDefaultBackground()), gridBagConstraints);
 		}
 
@@ -188,7 +196,8 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 13;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			bonusRankLabel = new BoldListLabel(character.getRanksValue(category).toString(), columnWidth, columnHeight);
+			bonusRankLabel = new BoldListLabel(character.getRanksValue(category).toString(), columnWidth,
+					columnHeight);
 			add(new ListBackgroundPanel(bonusRankLabel, getDefaultBackground()), gridBagConstraints);
 		}
 
@@ -196,8 +205,8 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 15;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			bonusCharLabel = new BoldListLabel(character.getCharacteristicsBonus(category).toString(), columnWidth,
-					columnHeight);
+			bonusCharLabel = new BoldListLabel(character.getCharacteristicsBonus(category).toString(),
+					columnWidth, columnHeight);
 			add(new ListBackgroundPanel(bonusCharLabel, getDefaultBackground()), gridBagConstraints);
 		}
 
@@ -213,7 +222,8 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 19;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			bonusMagicObject = new BoldListLabel(character.getItemBonus(category) + "", columnWidth, columnHeight);
+			bonusMagicObject = new BoldListLabel(character.getItemBonus(category) + "", columnWidth,
+					columnHeight);
 			add(new ListBackgroundPanel(bonusMagicObject, getDefaultBackground()), gridBagConstraints);
 		}
 
@@ -221,7 +231,8 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 21;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0.1;
-			totalLabel = new BoldListLabel(character.getTotalValue(category).toString(), columnWidth, columnHeight);
+			totalLabel = new BoldListLabel(character.getTotalValue(category).toString(), columnWidth,
+					columnHeight);
 			add(new ListBackgroundPanel(totalLabel, getDefaultBackground()), gridBagConstraints);
 		}
 
@@ -267,9 +278,9 @@ public abstract class GenericCategoryLine extends BaseSkillLine {
 	}
 
 	public void updateRankValues() {
-//		if (insertedRanksSpinner != null) {
-//			insertedRanksSpinner.setValue(character.getInsertedRanks(category).toString());
-//		}
+		// if (insertedRanksSpinner != null) {
+		// insertedRanksSpinner.setValue(character.getInsertedRanks(category).toString());
+		// }
 		if (totalRanksLabel != null) {
 			totalRanksLabel.setText(character.getTotalRanks(category).toString());
 		}
