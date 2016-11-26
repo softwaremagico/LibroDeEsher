@@ -4,47 +4,47 @@ Todas
 
 # ARMADURAS TÍPICAS
 ####################
-Armadura Tipo I, Armadura Tipo II
+Todas
 
 # RANGOS
 ####################
-Arte·Activo	0	
-Arte·Pasivo	1
-Atletismo·Potencia	0
+Arte·Activo	2	
+Arte·Pasivo	0
+Atletismo·Potencia	3
 Atletismo·Resistencia	1
-  *  Nadar	1
+  *  Nadar	2
 Atletismo·Gimnasia	1
-  *  Trepar	0
+  *  Trepar	3
 Percepción·Perspicacia	0
   *  Alerta	1
 Percepción·Búsqueda	1  
 Percepción·Sentidos	0
 Desarrollo Físico	0	
-  *  Desarrollo Físico	1
-Comunicación	9
-  *  Idiomas	12
-Oficios	0
-Influencia	3
-{Conocimiento}	5
-  *  Cualquier Habilidad	8
-{Artes Marciales·Barridos;Artes Marciales·Golpes}#1	0
-Exteriores·Animales	0
-Exteriores·Entorno	0
-{Ciencia/Analítica}	5
+  *  Desarrollo Físico	2
+Comunicación	4
+  *  Idiomas	8
+Oficios	1
+Influencia	0
+{Conocimiento}	4
   *  Cualquier Habilidad	5
-Subterfugio·Sigilo	1
+{Artes Marciales·Barridos;Artes Marciales·Golpes}#1	3
+Exteriores·Animales	3
+Exteriores·Entorno	3
+{Ciencia/Analítica}	2
+  *  Cualquier Habilidad	3
+Subterfugio·Sigilo	2
   *  Acechar	0
   *  Esconderse	1
 Técnica/Comercio·General	3
-Técnica/Comercio·Profesional	2
-Técnica/Comercio·Vocacional	0
+Técnica/Comercio·Profesional	0
+Técnica/Comercio·Vocacional	3
 Urbana	3
-{Armas}#1	1
-  *  Arma	0
+{Armas}#1	3
+  *  Arma	3
 
 # PUNTOS AFICIONES
 ####################
-10
+12
 
 # AFICIONES
 ####################

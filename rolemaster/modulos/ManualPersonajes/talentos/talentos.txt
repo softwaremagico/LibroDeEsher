@@ -134,6 +134,10 @@ Sin Equilibrio	-20	Todos	Máximo	Físico	Acechar (-20), Caminar con Zancos (-20)
 Suerte (Máximo)	30	Todos	Máximo	Capacidad Especial	Ninguno	Tiradas abiertas a 93-100. Consulta la página 73 del libro de personajes para más información.	
 Suerte (Mayor)	20	Todos	Mayor	Capacidad Especial	Ninguno	Tiradas abiertas a 94-100. Consulta la página 73 del libro de personajes para más información.	
 Suerte (Menor)	10	Todos	Menor	Capacidad Especial	Ninguno	Tiradas abiertas a 95-100. Consulta la página 73 del libro de personajes para más información.	
+Suerte Dramática (Mínimo)	5	Todos	Mínimo	Capacidad Especial	Ninguno	Tiradas abiertas a 01-05 y 95-100. Consulta la página 73 del libro de personajes para más información.	
+Suerte Dramática (Menor)	10	Todos	Mínimo	Capacidad Especial	Ninguno	Tiradas abiertas a 01-07 y 94-100. Consulta la página 73 del libro de personajes para más información.	
+Suerte Dramática (Mayor)	15	Todos	Mínimo	Capacidad Especial	Ninguno	Tiradas abiertas a 01-08 y 93-100. Consulta la página 73 del libro de personajes para más información.	
+Suerte Dramática (Máximo)	20	Todos	Mínimo	Capacidad Especial	Ninguno	Tiradas abiertas a 01-09 y 92-100. Consulta la página 73 del libro de personajes para más información.	
 Sutil	8	Todos	Menor	Físico	Acechar (25), Esconderse (25)	Consulta la página 61 del libro de personajes para más información.
 Velocidad Deslumbrante	5	Todos	Menor	Físico	Movimiento (10)	Tu capacidad de movimiento se incrementa en 10. Consulta la página 62 del libro de personajes para más información.	
 Visión Étera	10	Menor	Todos	Capacidad Mágica	Ninguna	Cerrando los ojos y concentrándote durante 2d10 asaltos, puedes cambiar tu visión para percibir cosas invisibles. Esto dura 10D10 minutos y sólo puede ser usado una vez al día. La activación de este poder no interfiere con tu visión normal. Pagina 65 del Manual de Personajes.
