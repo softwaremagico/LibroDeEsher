@@ -2326,7 +2326,12 @@ public class CharacterPlayer extends StorableObject {
 		if (characterPlayerHelper.getTrainingCost(trainingName) != null) {
 			return characterPlayerHelper.getTrainingCost(trainingName);
 		}
-		Integer baseCost = getProfession().getTrainingCost(trainingName);
+		Integer baseCost;
+		if(isMagicAllowed()){
+			baseCost = getProfession().getTrainingCost(trainingName);
+		}else{
+			baseCost = getProfession().getTrainingCostNotMagic(trainingName);
+		}
 		try {
 			Training training = TrainingFactory.getTraining(trainingName);
 			if (baseCost == null || baseCost >= INVALID_COST) {
@@ -2339,6 +2344,7 @@ public class CharacterPlayer extends StorableObject {
 		} catch (InvalidTrainingException e) {
 			EsherLog.errorMessage(RandomCharacterPlayer.class.getName(), e);
 		}
+		System.out.println("##################33" + characterPlayerHelper + " " + trainingName + "  " + baseCost);
 		characterPlayerHelper.setTrainingCost(trainingName, baseCost);
 		return baseCost;
 	}
