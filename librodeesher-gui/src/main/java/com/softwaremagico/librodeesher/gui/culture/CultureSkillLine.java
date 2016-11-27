@@ -119,6 +119,7 @@ public class CultureSkillLine extends BaseLine {
 					// Update character
 					character.setCultureAdolescenceRanks(skill.getName(), (Integer) rankSpinner.getValue());
 				}
+				parentPanel.update();
 			}
 		});
 	}

@@ -63,8 +63,7 @@ public class ChooseCategoryPanel extends BasePanel {
 			Collections.sort(categories);
 			for (CultureCategory cultureCategory : categories) {
 				// Any except communication or spells. Are in a different place.
-				if (!cultureCategory.getCategoryOptions().get(0)
-						.equals(Spanish.COMUNICATION_CATEGORY)
+				if (!cultureCategory.getCategoryOptions().get(0).equals(Spanish.COMUNICATION_CATEGORY)
 						&& !cultureCategory.getCategoryOptions().get(0).equals(Spanish.OPEN_LISTS)) {
 					// Must have ranks.
 					if (cultureCategory.isUseful()) {
@@ -73,8 +72,9 @@ public class ChooseCategoryPanel extends BasePanel {
 								cultureCategory, getLineBackgroundColor(i), this);
 						add(categoryLine);
 						categoryLines.add(categoryLine);
-						categoryLine.setSelectedCategory(character.getCultureDecisions().getAdolescenceCategorySelected(cultureCategory));
-						
+						categoryLine.setSelectedCategory(character.getCultureDecisions()
+								.getAdolescenceCategorySelected(cultureCategory));
+
 						i++;
 						String selectedCategory = cultureCategory.getCategoryOptions().get(0);
 						if (cultureCategory.getSkillRanksToChoose() > 0) {
@@ -142,5 +142,8 @@ public class ChooseCategoryPanel extends BasePanel {
 
 	@Override
 	public void update() {
+		for (CultureCategoryLine categoryLine : categoryLines) {
+			categoryLine.update();
+		}
 	}
 }

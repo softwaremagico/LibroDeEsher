@@ -45,6 +45,7 @@ public class CultureCategoryLine extends BaseLine {
 	private ChooseCategoryPanel parentPanel;
 	private CharacterPlayer character;
 	private boolean refreshing = false;
+	private ListLabel rankLabel;
 
 	public CultureCategoryLine(CharacterPlayer character, CultureCategory cultureCategory, Color background,
 			ChooseCategoryPanel parentPanel) {
@@ -60,6 +61,11 @@ public class CultureCategoryLine extends BaseLine {
 		chooseCategoryComboBox.removeAllItems();
 		for (String categoryName : cultureCategory.getCategoryOptions()) {
 			chooseCategoryComboBox.addItem(categoryName);
+		}
+		// Add default selection.
+		if (character.getSelectedAdolescenceCategoryRanks(cultureCategory) == null) {
+			character.selectAdolescenceCategory(cultureCategory,
+					(String) chooseCategoryComboBox.getSelectedItem());
 		}
 		refreshing = false;
 	}
@@ -102,14 +108,25 @@ public class CultureCategoryLine extends BaseLine {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
 		gridBagConstraints.gridx = 1;
-		ListLabel rankLabel = new ListLabel(cultureCategory.getRanks().toString() + " ("
-				+ cultureCategory.getSkillRanksToChoose().toString() + ")");
+		rankLabel = new ListLabel("");
+		updateText();
 		add(rankLabel, gridBagConstraints);
 	}
 
 	@Override
 	public void update() {
+		updateText();
+	}
 
+	private void updateText() {
+		if (cultureCategory.getSkillRanksToChoose() > 0) {
+			rankLabel.setText(cultureCategory.getRanks().toString()
+					+ " ("
+					+ (cultureCategory.getSkillRanksToChoose() - character
+							.getTotalAdolescenceSkillRanksSelected(cultureCategory)) + ")");
+		} else {
+			rankLabel.setText(cultureCategory.getRanks().toString());
+		}
 	}
 
 	protected class CategoryComboBox<E> extends BaseCategoryComboBox<E> {
