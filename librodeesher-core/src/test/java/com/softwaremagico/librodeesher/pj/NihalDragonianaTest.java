@@ -14,16 +14,18 @@ import com.softwaremagico.librodeesher.pj.export.txt.TxtSheet;
 import com.softwaremagico.persistence.dao.hibernate.CharacterPlayerDao;
 
 @Test(groups = "NihalDragoniana")
-public class NihalDragonianaTest {
+public class NihalDragonianaTest extends BasicTest {
 	private final static String CHARACTER_FILE = "Nihal_Dragoniana_N7.rlm";
 	private final static String CHARACTER_NAME = "Nihal_Dragoniana";
 	private CharacterPlayer characterPlayer;
 	private CharacterPlayer characterPlayer2;
 	private CharacterPlayerDao characterPlayerDao = CharacterPlayerDao.getInstance();
-	
+
 	private final static String CODIFICATION = "UTF-8";
 
 	public void importFromJson() throws IOException {
+		setFantasyConfiguration();
+
 		StringBuilder text = readLargerTextFile(CHARACTER_FILE);
 		String character = text.toString();
 		characterPlayer = CharacterJsonManager.fromJson(character);
@@ -61,7 +63,7 @@ public class NihalDragonianaTest {
 		Assert.assertEquals(prevCharacter, characterPlayerDao.getRowCount());
 	}
 
-	@Test(dependsOnMethods = {"saveAgainAsNew"})
+	@Test(dependsOnMethods = { "saveAgainAsNew" })
 	@After
 	public void removeAll() throws Exception {
 		List<CharacterPlayer> characterPlayers = characterPlayerDao.getAll();

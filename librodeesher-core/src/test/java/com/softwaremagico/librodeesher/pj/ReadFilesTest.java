@@ -18,7 +18,7 @@ import com.softwaremagico.librodeesher.pj.training.InvalidTrainingException;
 import com.softwaremagico.librodeesher.pj.training.Training;
 
 @Test(groups = "readFiles")
-public class ReadFilesTest {
+public class ReadFilesTest extends BasicTest {
 	public static final String RACE_FOLDER = "razas";
 	public static final String PROFESSION_FOLDER = "profesiones";
 	public static final String TRAINING_FOLDER = "adiestramientos";
@@ -57,10 +57,14 @@ public class ReadFilesTest {
 	private void readRaceOptionalLanguages() throws InvalidRaceException {
 		Race dopplenganger = RaceFactory.getRace("Doppleganger");
 		Assert.assertEquals(dopplenganger.getOptionalRaceLanguages().size(), 1);
-		Assert.assertEquals(dopplenganger.getOptionalRaceLanguages().iterator().next().getInitialSpeakingRanks(), 0);
-		Assert.assertEquals(dopplenganger.getOptionalRaceLanguages().iterator().next().getInitialWrittingRanks(), 0);
-		Assert.assertEquals(dopplenganger.getOptionalRaceLanguages().iterator().next().getMaxSpeakingRanks(), 10);
-		Assert.assertEquals(dopplenganger.getOptionalRaceLanguages().iterator().next().getMaxWritingRanks(), 10);
+		Assert.assertEquals(dopplenganger.getOptionalRaceLanguages().iterator().next()
+				.getInitialSpeakingRanks(), 0);
+		Assert.assertEquals(dopplenganger.getOptionalRaceLanguages().iterator().next()
+				.getInitialWrittingRanks(), 0);
+		Assert.assertEquals(dopplenganger.getOptionalRaceLanguages().iterator().next().getMaxSpeakingRanks(),
+				10);
+		Assert.assertEquals(dopplenganger.getOptionalRaceLanguages().iterator().next().getMaxWritingRanks(),
+				10);
 
 		Race laan = RaceFactory.getRace("Laan");
 		Assert.assertEquals(laan.getOptionalRaceLanguages().size(), 2);

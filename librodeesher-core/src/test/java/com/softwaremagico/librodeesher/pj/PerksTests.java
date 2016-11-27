@@ -28,7 +28,7 @@ import com.softwaremagico.librodeesher.pj.random.PerkProbability;
 import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 
 @Test(groups = "perkTests")
-public class PerksTests {
+public class PerksTests extends BasicTest {
 	private final static String PERK_WITH_CATEGORY_TO_CHOSE = "Experimentado (Cat) (Máximo)";
 
 	@Test
@@ -38,12 +38,14 @@ public class PerksTests {
 
 	@Test
 	public void centauroCaballoPerks() throws InvalidRaceDefinition, InvalidRaceException {
-		Assert.assertEquals(55, new PerkPointsCalculator(RaceFactory.getRace("Centauro Caballo")).getPerkPoints());
+		Assert.assertEquals(55,
+				new PerkPointsCalculator(RaceFactory.getRace("Centauro Caballo")).getPerkPoints());
 	}
 
 	@Test
 	public void centauroLeonPerks() throws InvalidRaceDefinition, InvalidRaceException {
-		Assert.assertEquals(50, new PerkPointsCalculator(RaceFactory.getRace("Centauro León")).getPerkPoints());
+		Assert.assertEquals(50,
+				new PerkPointsCalculator(RaceFactory.getRace("Centauro León")).getPerkPoints());
 	}
 
 	@Test
@@ -58,7 +60,8 @@ public class PerksTests {
 
 	@Test
 	public void trollPerks() throws InvalidRaceDefinition, InvalidRaceException {
-		Assert.assertEquals(0, new PerkPointsCalculator(RaceFactory.getRace("Troll de Guerra")).getPerkPoints());
+		Assert.assertEquals(0,
+				new PerkPointsCalculator(RaceFactory.getRace("Troll de Guerra")).getPerkPoints());
 	}
 
 	@Test
@@ -132,7 +135,8 @@ public class PerksTests {
 	}
 
 	@Test
-	public void checkRandomPerkSkillRankSelection() throws MagicDefinitionException, InvalidProfessionException {
+	public void checkRandomPerkSkillRankSelection() throws MagicDefinitionException,
+			InvalidProfessionException {
 		CharacterPlayer character = new CharacterPlayer();
 		character.setRace("Hombres Altos");
 		character.setProfession("Mago");
@@ -149,8 +153,9 @@ public class PerksTests {
 	}
 
 	@Test
-	public void checkRandomPerkCategoryOptionSelection() throws MagicDefinitionException, InvalidProfessionException, FileNotFoundException,
-			CharacteristicNotEqualsException, CategoryNotEqualsException, SkillNotEqualsException {
+	public void checkRandomPerkCategoryOptionSelection() throws MagicDefinitionException,
+			InvalidProfessionException, FileNotFoundException, CharacteristicNotEqualsException,
+			CategoryNotEqualsException, SkillNotEqualsException {
 		CharacterPlayer character = new CharacterPlayer();
 		character.setRace("Hombres Altos");
 		character.setProfession("Mago");
@@ -176,7 +181,8 @@ public class PerksTests {
 		String jsonText = CharacterJsonManager.toJson(character);
 		// get json to object.
 		CharacterPlayer importedCharacter = CharacterJsonManager.fromJson(jsonText);
-		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator + "character_with_perk.json");
+		PrintWriter out1 = new PrintWriter(System.getProperty("java.io.tmpdir") + File.separator
+				+ "character_with_perk.json");
 		out1.println(jsonText);
 		out1.close();
 

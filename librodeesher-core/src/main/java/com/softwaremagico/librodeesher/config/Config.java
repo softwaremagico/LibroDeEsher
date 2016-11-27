@@ -48,11 +48,13 @@ public class Config {
 	private static final String DEBUG_ENABLED = "debugEnabled";
 	private static final String PDF_HANDWRITTING_FONT = "userHandwrittingFont";
 	private static final String MAGIC_DISABLED = "magicDisabled";
+	private static final String FILE_PATH = "filePath";
 	private static Properties configuration = new Properties();
 	private static Boolean maximized = false, fireArmsActivated = false, darkSpellsAsBasic = false, chiPowersAllowed = false,
 			otherRealmsTrainingSpells = false, pdfSortSkills = false, perksCostHistoryPoints = true, handWrittingFont = true, debugEnabled = false,
 			magicDisabled = false;
 	private static Integer categoryMaxCost = 50;
+	private static String lastPath = "";
 
 	static {
 		loadConfiguration();
@@ -81,7 +83,8 @@ public class Config {
 		configuration.setProperty(ENABLE_PERK_HISTORY_COST, getPerksCostHistoryPoints().toString());
 		configuration.setProperty(PDF_HANDWRITTING_FONT, getHandWrittingFont().toString());
 		configuration.setProperty(DEBUG_ENABLED, isDebugEnabled().toString());
-		configuration.setProperty(MAGIC_DISABLED, magicDisabled.toString());
+		configuration.setProperty(MAGIC_DISABLED, isMagicDisabled().toString());
+		configuration.setProperty(FILE_PATH, getLastPath());
 	}
 
 	private static void loadConfiguration() {
@@ -101,10 +104,11 @@ public class Config {
 				debugEnabled = Boolean.parseBoolean(configuration.getProperty(DEBUG_ENABLED));
 				handWrittingFont = Boolean.parseBoolean(configuration.getProperty(PDF_HANDWRITTING_FONT));
 				magicDisabled = Boolean.parseBoolean(configuration.getProperty(MAGIC_DISABLED));
+				lastPath = configuration.getProperty(FILE_PATH);
 				loadDisabledModules(configuration.getProperty(DISABLED_MODULES));
 			}
 		} catch (Exception e) {
-			// File not exist, first time program is executed;
+			// File does not exist, first time program is executed;
 		}
 	}
 
@@ -224,6 +228,15 @@ public class Config {
 			return debugEnabled;
 		}
 		return false;
+	}
+
+	public static String getLastPath() {
+		return lastPath;
+	}
+
+	public static void setLastPath(String lastPath) {
+		Config.lastPath = lastPath;
+		storeConfiguration();
 	}
 
 }

@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import com.softwaremagico.librodeesher.config.Config;
 
 @Test(groups = "config")
-public class ConfigTests {
+public class ConfigTests extends BasicTest {
 
 	@Test
 	public void checkCharacterConfig() {

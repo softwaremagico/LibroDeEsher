@@ -30,10 +30,10 @@ import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
+import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.librodeesher.gui.ShowMessage;
 
 public abstract class ExploreWindow {
-	private static String explorationFolder;
 	private String defaultFileName;
 
 	ExploreWindow(String defaultFileName) {
@@ -44,11 +44,9 @@ public abstract class ExploreWindow {
 		return defaultFileName;
 	}
 
-	public static JFileChooser createFileChooser(String title, int mode,
-			String file, javax.swing.filechooser.FileFilter filter,
-			JComponent accesory, String defaultFileName) {
-		JFileChooser fc = new JFileChooser(new File(
-				getDefaultExplorationFolder() + File.separator));
+	public static JFileChooser createFileChooser(String title, int mode, String file,
+			javax.swing.filechooser.FileFilter filter, JComponent accesory, String defaultFileName) {
+		JFileChooser fc = new JFileChooser(new File(getDefaultExplorationFolder() + File.separator));
 		fc.setFileFilter(filter);
 		fc.setFileSelectionMode(mode);
 		if (accesory != null) {
@@ -66,34 +64,31 @@ public abstract class ExploreWindow {
 			javax.swing.filechooser.FileFilter filter, JComponent accesory) {
 		JFrame frame = null;
 		try {
-			JFileChooser fc = createFileChooser(title, mode, file, filter,
-					accesory, getDefaultFileName());
+			JFileChooser fc = createFileChooser(title, mode, file, filter, accesory, getDefaultFileName());
 			int fcReturn = fc.showDialog(frame, title);
 			if (fcReturn == JFileChooser.APPROVE_OPTION) {
 				setDefaultExplorationFolder(fc.getSelectedFile().toString());
 				if (fc.getSelectedFile().isDirectory()) {
-					return fc.getSelectedFile().toString() + File.pathSeparator
-							+ getDefaultFileName();
+					return fc.getSelectedFile().toString() + File.pathSeparator + getDefaultFileName();
 				}
 				return fc.getSelectedFile().toString();
 			}
 		} catch (NullPointerException npe) {
-			ShowMessage.showErrorMessage("Valor nulo.",
-					"Error al abrir un fichero.");
+			ShowMessage.showErrorMessage("Valor nulo.", "Error al abrir un fichero.");
 		}
 		return "";
 	}
 
 	public static String getDefaultExplorationFolder() {
-		if (explorationFolder == null) {
+		if (Config.getLastPath() == null || Config.getLastPath().length() < 2) {
 			return System.getProperty("user.home");
 		} else {
-			return explorationFolder;
+			return Config.getLastPath();
 		}
 	}
 
 	public static void setDefaultExplorationFolder(String path) {
-		explorationFolder = path;
+		Config.setLastPath(path);
 	}
 
 }
