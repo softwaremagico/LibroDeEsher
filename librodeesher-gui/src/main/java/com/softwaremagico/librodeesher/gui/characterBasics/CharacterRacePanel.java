@@ -141,6 +141,7 @@ public class CharacterRacePanel extends BasePanel {
 	}
 
 	private void updateCultureComboBox() {
+		enableCultureComboBox = false;
 		if (cultureComboBox != null) {
 			cultureComboBox.removeAllItems();
 			try {
@@ -152,20 +153,19 @@ public class CharacterRacePanel extends BasePanel {
 						cultureComboBox.addItem(culture);
 					}
 				} catch (InvalidRaceException e) {
-					//ShowMessage.showErrorMessage(e.getMessage(), "Error");
+					// ShowMessage.showErrorMessage(e.getMessage(), "Error");
 				}
 			} catch (NullPointerException npe) {
 				EsherLog.errorMessage(CharacterRacePanel.class.getName(), npe);
 			}
-			if (character != null) {
-				if (character.getCulture() != null) {
-					cultureComboBox.setSelectedItem(character.getCulture().getName());
-					if (!getSelectedCulture().equals(character.getCulture().getName())) {
-						updateCulture();
-					}
+			if (character != null && character.getCulture() != null) {
+				cultureComboBox.setSelectedItem(character.getCulture().getName());
+				if (!getSelectedCulture().equals(character.getCulture().getName())) {
+					updateCulture();
 				}
 			}
 		}
+		enableCultureComboBox = true;
 	}
 
 	public void setProfessionPanel(CharacterProfessionPanel professionPanel) {

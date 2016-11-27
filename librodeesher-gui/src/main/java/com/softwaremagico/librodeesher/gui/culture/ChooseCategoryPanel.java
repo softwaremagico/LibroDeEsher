@@ -72,20 +72,30 @@ public class ChooseCategoryPanel extends BasePanel {
 								cultureCategory, getLineBackgroundColor(i), this);
 						add(categoryLine);
 						categoryLines.add(categoryLine);
-						categoryLine.setSelectedCategory(character.getCultureDecisions()
-								.getAdolescenceCategorySelected(cultureCategory));
-
-						i++;
-						String selectedCategory = cultureCategory.getCategoryOptions().get(0);
-						if (cultureCategory.getSkillRanksToChoose() > 0) {
-							for (Skill skill : character.getAdolescenceSkills(cultureCategory,
-									selectedCategory)) {
-								CultureSkillLine skillLine = new CultureSkillLine(character, cultureCategory,
-										this, SkillFactory.getAvailableSkill(skill.getName()),
-										getLineBackgroundColor(i));
-								add(skillLine);
-								i++;
-								skillsLinesPerCategory.get(cultureCategory).add(skillLine);
+						// Must select a category
+						if (cultureCategory.getCategoryOptions().size() > 1) {
+							if (character.getCultureDecisions().getAdolescenceCategorySelected(
+									cultureCategory) == null) {
+								character.getCultureDecisions().addAdolescenceCategorySelection(
+										cultureCategory.getCategoryOptions().get(0));
+							}
+							//This launch the event to include all skills of categories. 
+							categoryLine.setSelectedCategory(character.getCultureDecisions()
+									.getAdolescenceCategorySelected(cultureCategory));
+						} else {
+							//Not selectable categories must add skills if needed. 
+							i++;
+							String selectedCategory = cultureCategory.getCategoryOptions().get(0);
+							if (cultureCategory.getSkillRanksToChoose() > 0) {
+								for (Skill skill : character.getAdolescenceSkills(cultureCategory,
+										selectedCategory)) {
+									CultureSkillLine skillLine = new CultureSkillLine(character,
+											cultureCategory, this, SkillFactory.getAvailableSkill(skill
+													.getName()), getLineBackgroundColor(i));
+									add(skillLine);
+									i++;
+									skillsLinesPerCategory.get(cultureCategory).add(skillLine);
+								}
 							}
 						}
 					}

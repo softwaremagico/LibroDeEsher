@@ -145,6 +145,9 @@ public class CategoryFactory {
 	}
 
 	public static Category getCategory(String categoryName) {
+		if (categoryName == null) {
+			return null;
+		}
 		Category category = availableCategories.get(categoryName);
 		if (category != null) {
 			return category;

@@ -70,6 +70,10 @@ public class CultureCategoryLine extends BaseLine {
 		refreshing = false;
 	}
 
+	public String getSelectedElement() {
+		return (String) chooseCategoryComboBox.getSelectedItem();
+	}
+
 	public void setSelectedCategory(String category) {
 		if (category != null) {
 			refreshing = true;
@@ -144,7 +148,8 @@ public class CultureCategoryLine extends BaseLine {
 					(String) chooseCategoryComboBox.getSelectedItem());
 			// Select new category
 			if (!refreshing
-					&& character.getCultureDecisions().getAdolescenceCategorySelected(cultureCategory) == null) {
+					&& character.getCultureDecisions().getAdolescenceCategorySelected(cultureCategory) != (String) chooseCategoryComboBox
+							.getSelectedItem()) {
 				character.selectAdolescenceCategory(cultureCategory,
 						(String) chooseCategoryComboBox.getSelectedItem());
 			}
