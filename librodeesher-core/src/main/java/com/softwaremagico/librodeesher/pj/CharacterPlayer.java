@@ -833,6 +833,16 @@ public class CharacterPlayer extends StorableObject {
 		}
 		return result;
 	}
+	
+	public List<Skill> getSkillsWithRanks() {
+		List<Skill> result = new ArrayList<>();
+		for (Skill skill : SkillFactory.getSkills()) {
+			if (getTotalRanks(skill) > 0) {
+				result.add(skill);
+			}
+		}
+		return result;
+	}
 
 	public List<Skill> getSkillsWithNewRanks(Category category) {
 		List<Skill> result = new ArrayList<>();

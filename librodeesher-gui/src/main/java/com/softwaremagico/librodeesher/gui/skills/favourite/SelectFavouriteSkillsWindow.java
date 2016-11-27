@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.skills.favourite;
+
 /*
  * #%L
  * Libro de Esher (GUI)
@@ -39,6 +40,7 @@ import com.softwaremagico.files.MessageManager;
 import com.softwaremagico.librodeesher.gui.components.SelectSkillPanel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.SkillChangedListener;
+import com.softwaremagico.librodeesher.gui.style.BaseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfStandardSheet;
@@ -78,8 +80,8 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 			@Override
 			public void skillChanged(Skill skill) {
 				if (skill != null) {
-					setSkillAsFavouritePanel
-							.setFavouriteCheckBoxSelected(character.getFavouriteSkills().contains(skill.getName()));
+					setSkillAsFavouritePanel.setFavouriteCheckBoxSelected(character.getFavouriteSkills()
+							.contains(skill.getName()));
 				}
 			}
 		});
@@ -101,8 +103,8 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 				} else {
 					character.getFavouriteSkills().add(selectSkillPanel.getSelectedSkill().getName());
 					// Check max favourite items!
-					if (!skillMessageShown && character.getFavouriteNoOffensiveSkills()
-							.size() > PdfStandardSheet.MOST_USED_SKILLS_LINES * 2) {
+					if (!skillMessageShown
+							&& character.getFavouriteNoOffensiveSkills().size() > PdfStandardSheet.MOST_USED_SKILLS_LINES * 2) {
 						MessageManager.warningMessage(this.getClass().getName(),
 								"Has seleccionado un número muy alto de habilidades favoritas, solo los "
 										+ (PdfStandardSheet.MOST_USED_SKILLS_LINES * 2)
@@ -110,8 +112,8 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 								"¡Demasiadas habilidades favoritas!");
 						skillMessageShown = true;
 					}
-					if (!attackMessageShown && character.getFavouriteOffensiveSkills()
-							.size() > PdfStandardSheet.MOST_USED_ATTACKS_LINES) {
+					if (!attackMessageShown
+							&& character.getFavouriteOffensiveSkills().size() > PdfStandardSheet.MOST_USED_ATTACKS_LINES) {
 						MessageManager.warningMessage(this.getClass().getName(),
 								"Has seleccionado un número muy alto de ataques favoritos, solo los "
 										+ PdfStandardSheet.MOST_USED_ATTACKS_LINES
@@ -132,6 +134,19 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 		getContentPane().add(selectSpecializationPanel, gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+
+		BaseButton auto = new BaseButton("Auto");
+		auto.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				for (Skill skill : character.getSkillsWithRanks()) {
+					character.getFavouriteSkills().add(skill.getName());
+				}
+				updateFavouriteList();
+			}
+		});
+		buttonPanel.add(auto);
+
 		CloseButton closeButton = new CloseButton(this);
 		buttonPanel.add(closeButton);
 		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
@@ -148,8 +163,8 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 		// Update first selected skill.
 		Skill skill = selectSkillPanel.getSelectedSkill();
 		if (skill != null) {
-			setSkillAsFavouritePanel
-					.setFavouriteCheckBoxSelected(character.getFavouriteSkills().contains(skill.getName()));
+			setSkillAsFavouritePanel.setFavouriteCheckBoxSelected(character.getFavouriteSkills().contains(
+					skill.getName()));
 		}
 	}
 
