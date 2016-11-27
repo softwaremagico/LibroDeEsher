@@ -3254,6 +3254,7 @@ public class CharacterPlayer extends StorableObject {
 					skills.add(SkillFactory.getSkill(weapon.getName()));
 				}
 			}
+			Collections.sort(skills, new SkillComparatorByName());
 			return skills;
 		} else if (selectedCategory.toLowerCase().startsWith(Spanish.ARMOUR)) {
 			for (String armour : getCulture().getCultureArmours()) {
@@ -3263,6 +3264,7 @@ public class CharacterPlayer extends StorableObject {
 					}
 				}
 			}
+			Collections.sort(skills, new SkillComparatorByName());
 			return skills;
 			// return option skills if no category to choose.
 		} else if (cultureCategory.getCategoryOptions().isEmpty()
@@ -3270,9 +3272,12 @@ public class CharacterPlayer extends StorableObject {
 			for (CultureSkill skill : cultureCategory.getSkills()) {
 				skills.add(SkillFactory.getSkill(skill.getName()));
 			}
+			Collections.sort(skills, new SkillComparatorByName());
 			return skills;
 		} else {
-			return CategoryFactory.getCategory(selectedCategory).getNonRareSkills();
+			skills = CategoryFactory.getCategory(selectedCategory).getNonRareSkills();
+			Collections.sort(skills, new SkillComparatorByName());
+			return skills;
 		}
 	}
 
