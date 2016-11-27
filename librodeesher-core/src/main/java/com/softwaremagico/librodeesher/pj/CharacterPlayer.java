@@ -2344,7 +2344,6 @@ public class CharacterPlayer extends StorableObject {
 		} catch (InvalidTrainingException e) {
 			EsherLog.errorMessage(RandomCharacterPlayer.class.getName(), e);
 		}
-		System.out.println("##################33" + characterPlayerHelper + " " + trainingName + "  " + baseCost);
 		characterPlayerHelper.setTrainingCost(trainingName, baseCost);
 		return baseCost;
 	}
