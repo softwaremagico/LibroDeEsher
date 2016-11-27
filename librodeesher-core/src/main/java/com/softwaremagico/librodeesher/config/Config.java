@@ -33,6 +33,7 @@ import java.util.Arrays;
 import java.util.Properties;
 
 import com.softwaremagico.files.RolemasterFolderStructure;
+import com.softwaremagico.log.EsherLog;
 
 public class Config {
 	private static final String DEFAULT_SEPARATION_CHAR = ";";
@@ -50,11 +51,13 @@ public class Config {
 	private static final String MAGIC_DISABLED = "magicDisabled";
 	private static final String FILE_PATH = "filePath";
 	private static Properties configuration = new Properties();
-	private static Boolean maximized = false, fireArmsActivated = false, darkSpellsAsBasic = false, chiPowersAllowed = false,
-			otherRealmsTrainingSpells = false, pdfSortSkills = false, perksCostHistoryPoints = true, handWrittingFont = true, debugEnabled = false,
+	private static Boolean maximized = false, fireArmsActivated = false, darkSpellsAsBasic = false,
+			chiPowersAllowed = false, otherRealmsTrainingSpells = false, pdfSortSkills = false,
+			perksCostHistoryPoints = true, handWrittingFont = true, debugEnabled = false,
 			magicDisabled = false;
 	private static Integer categoryMaxCost = 50;
 	private static String lastPath = "";
+	private static boolean disabledStoring = false;
 
 	static {
 		loadConfiguration();
@@ -96,10 +99,13 @@ public class Config {
 				maximized = Boolean.parseBoolean(configuration.getProperty(MAXIMIZE_WINDOW_PROPERTY));
 				categoryMaxCost = Integer.parseInt(configuration.getProperty(CATEGORY_MAX_COST));
 				fireArmsActivated = Boolean.parseBoolean(configuration.getProperty(FIREARMS_ALLOWED));
-				darkSpellsAsBasic = Boolean.parseBoolean(configuration.getProperty(DARK_SPELLS_AS_BASIC_LIST));
+				darkSpellsAsBasic = Boolean
+						.parseBoolean(configuration.getProperty(DARK_SPELLS_AS_BASIC_LIST));
 				chiPowersAllowed = Boolean.parseBoolean(configuration.getProperty(CHI_POWERS));
-				otherRealmsTrainingSpells = Boolean.parseBoolean(configuration.getProperty(OTHER_REALM_TRAINING_SPELLS));
-				perksCostHistoryPoints = Boolean.parseBoolean(configuration.getProperty(ENABLE_PERK_HISTORY_COST));
+				otherRealmsTrainingSpells = Boolean.parseBoolean(configuration
+						.getProperty(OTHER_REALM_TRAINING_SPELLS));
+				perksCostHistoryPoints = Boolean.parseBoolean(configuration
+						.getProperty(ENABLE_PERK_HISTORY_COST));
 				pdfSortSkills = Boolean.parseBoolean(configuration.getProperty(PDF_SORT_SKILLS));
 				debugEnabled = Boolean.parseBoolean(configuration.getProperty(DEBUG_ENABLED));
 				handWrittingFont = Boolean.parseBoolean(configuration.getProperty(PDF_HANDWRITTING_FONT));
@@ -113,11 +119,14 @@ public class Config {
 	}
 
 	public static void storeConfiguration() {
-		setProperties();
-		try {
-			configuration.store(new FileOutputStream(RolemasterFolderStructure.getConfigurationFilePath()), null);
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (!disabledStoring) {
+			setProperties();
+			try {
+				configuration.store(
+						new FileOutputStream(RolemasterFolderStructure.getConfigurationFilePath()), null);
+			} catch (IOException e) {
+				EsherLog.errorMessage(Config.class.getName(), e);
+			}
 		}
 	}
 
@@ -237,6 +246,10 @@ public class Config {
 	public static void setLastPath(String lastPath) {
 		Config.lastPath = lastPath;
 		storeConfiguration();
+	}
+
+	public static void setDisableStoring(boolean disabledStoring) {
+		Config.disabledStoring = disabledStoring;
 	}
 
 }
