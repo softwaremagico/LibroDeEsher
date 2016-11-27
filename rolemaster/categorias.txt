@@ -48,7 +48,7 @@ Listas Hechizos de Adiestramientos de Otros Reinos(ListAdOtR)	*	Limitada	Hechizo
 Listas Básicas de la Tríada(ListTri)	*	Limitada	Hechizos
 Listas Básicas Elementales Complementarias(ListElCom)	*	Limitada	Hechizos
 Influencia(Infl)	Pr/Em/In	Estándar	Comerciar, Diplomacia, Embaucar, Interrogar, Liderazgo, Oratoria, Seducción, Sobornar, Rumorear
-Maniobras de Combate(ManCom)	Ag/Rp/Ad	Combinada	Combate con 2 Armas, Combate Montado, Desenvainar, Florituras, Ataque de Revés, Esquiva Acrobática (R), Estilo de Arma (Básico), Estilo de Arma (Avanzado), Luchar a Ciegas, Subyugar
+Maniobras de Combate(ManCom)	Ag/Rp/Ad	Combinada	Combate con 2 Armas, Combate Montado, Desenvainar, Florituras, Ataque de Revés, Esquiva Acrobática (R), Estilo de Arma (Básico), Estilo de Arma (Avanzado), Subyugar
 Manipulación del Poder(ManPod)	Em/In/Ad	Combinada	Canalización, Maestría de los Hechizos, Maestría de los Hechizos: Control del Aire, Maestría de los Hechizos: Ley de la Luz, Maestría de los Hechizos: Maestría de los Espiritus, Ritual Mágico, Ocultación de Hechizos
 Oficios(Ofi)	Ag/Me/Ad	Combinada	Cocinar, Manejo de Cuerdas, Trabajar el Cuero, Trabajar el Metal, Trabajar la Madera, Trabajar la Piedra, Coser/Tejer, Dibujar, Escribir, Hacer Flechas, Horticultura, Peletería, Servicio, Trampero
 Percepción·Búsqueda(PerBus)	In/Ra/Ad	Estándar	Buscar, Detectar Mentiras, Detectar Trampas, Detectar Venenos, Leer Huellas, Observación, Rastrear
