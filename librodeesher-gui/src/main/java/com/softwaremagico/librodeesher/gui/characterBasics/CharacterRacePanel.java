@@ -207,15 +207,17 @@ public class CharacterRacePanel extends BasePanel {
 
 	@Override
 	public void update() {
+		enableRaceComboBox = false;
+		raceComboBox.setEnabled(!character.areCharacteristicsConfirmed());
+		enableRaceComboBox = true;
+		updateCultureComboBox();
+		updateProfessionPanel();
 		if (character.getCulture() != null) {
 			enableCultureComboBox = false;
 			cultureComboBox.setSelectedItem(character.getCulture().getName());
 			enableCultureComboBox = true;
 		}
 		cultureComboBox.setEnabled(!character.areCharacteristicsConfirmed());
-		enableRaceComboBox = false;
-		raceComboBox.setEnabled(!character.areCharacteristicsConfirmed());
-		enableRaceComboBox = true;
 	}
 
 	private void updateSkillList() {
