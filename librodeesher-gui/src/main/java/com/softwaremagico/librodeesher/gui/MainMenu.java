@@ -461,6 +461,7 @@ public class MainMenu {
 		perksMenuItem.setEnabled(enable && character.getLevelUps().size() == 1);
 		skillsMenuItem.setEnabled(enable);
 		backgroundMenuItem.setEnabled(enable && character.getLevelUps().size() == 1);
+		historyMenuItem.setEnabled(enable);
 		isCharacterWellFormed();
 	}
 
