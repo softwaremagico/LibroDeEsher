@@ -32,17 +32,10 @@ public class TxtSheet {
 		if (characterPlayer == null) {
 			return "";
 		}
-		String text = characterPlayer.getName()
-				+ "\tNº "
-				+ characterPlayer.getCurrentLevelNumber()
-				+ "\n"
-				+ (characterPlayer.getRace() != null ? characterPlayer.getRace().getName() : "Unknown Race")
-				+ " ("
-				+ (characterPlayer.getCulture() != null ? characterPlayer.getCulture().getName() : "Unknown Culture")
-				+ ")"
-				+ "\n"
-				+ (characterPlayer.getProfession() != null ? characterPlayer.getProfession().getName()
-						: "Unknwon profession");
+		String text = characterPlayer.getName() + "\tNº " + characterPlayer.getCurrentLevelNumber() + "\n"
+				+ (characterPlayer.getRace() != null ? characterPlayer.getRace().getName() : "Unknown Race") + " ("
+				+ (characterPlayer.getCulture() != null ? characterPlayer.getCulture().getName() : "Unknown Culture") + ")" + "\n"
+				+ (characterPlayer.getProfession() != null ? characterPlayer.getProfession().getName() : "Unknwon profession");
 		String trainings = "";
 		if (characterPlayer.getTrainings().size() > 0) {
 			for (String training : characterPlayer.getTrainings()) {
@@ -77,12 +70,10 @@ public class TxtSheet {
 	public static String exportSkillsToText(CharacterPlayer characterPlayer) {
 		int sizeMaxIncrease = 3;
 		int maxNameSize = getMaxNameLength(characterPlayer);
-		String categoryFormat = "%1$-" + (maxNameSize + sizeMaxIncrease)
-				+ "s %2$-8s %3$-8s %4$-8s %5$-8s %6$-8s %7$-8s%n";
+		String categoryFormat = "%1$-" + (maxNameSize + sizeMaxIncrease) + "s %2$-8s %3$-8s %4$-8s %5$-8s %6$-8s %7$-8s%n";
 		String stringFormat = "%1$-" + (maxNameSize + sizeMaxIncrease + 9) + "s %2$-8s %3$-8s %4$-8s %5$-8s %6$-8s%n";
 		String text = String.format(categoryFormat, "Nombre", "Coste", "Rangos", "Bonus", "Car", "Otros", "Total");
-		text += "------------------------------------------------------------------"
-				+ "-------------------------------------------------------------\n";
+		text += "------------------------------------------------------------------" + "-------------------------------------------------------------\n";
 		for (int i = 0; i < CategoryFactory.getCategories().size(); i++) {
 			Category category = CategoryFactory.getCategories().get(i);
 			category = characterPlayer.getCategory(category);
@@ -104,12 +95,9 @@ public class TxtSheet {
 
 				try {
 					text = text
-							+ String.format(categoryFormat, category.getName(),
-									characterPlayer.getCategoryCost(category, 0) != null ? characterPlayer
-											.getCategoryCost(category, 0).getCostTag() : "",
-									characterPlayer.getTotalRanks(category), characterPlayer.getRanksValue(category),
-									characterPlayer.getCharacteristicsBonus(category), bonus,
-									characterPlayer.getTotalValue(category));
+							+ String.format(categoryFormat, category.getName(), characterPlayer.getCategoryCost(category, 0) != null ? characterPlayer
+									.getCategoryCost(category, 0).getCostTag() : "", characterPlayer.getTotalRanks(category), characterPlayer
+									.getRanksValue(category), characterPlayer.getCharacteristicsBonus(category), bonus, characterPlayer.getTotalValue(category));
 				} catch (Exception e) {
 					EsherLog.errorMessage(TxtSheet.class.getName(), e);
 				}
@@ -139,34 +127,27 @@ public class TxtSheet {
 
 						String total;
 						if (characterPlayer.getItemBonus(skill) > 0 || conditionalPerkBonus > 0) {
-							total = (characterPlayer.getTotalValue(skill) - characterPlayer.getItemBonus(skill) - conditionalPerkBonus)
-									+ "/" + characterPlayer.getTotalValue(skill);
+							total = (characterPlayer.getTotalValue(skill) - characterPlayer.getItemBonus(skill) - conditionalPerkBonus) + "/"
+									+ characterPlayer.getTotalValue(skill);
 						} else {
 							total = characterPlayer.getTotalValue(skill).toString();
 						}
 						text = text
-								+ String.format(
-										stringFormat,
-										"  *  "
-												+ getNameSpecificLength(characterPlayer, skill, maxNameSize
-														+ sizeMaxIncrease - 3), characterPlayer.getTotalRanks(skill),
-										characterPlayer.getRanksValue(skill), characterPlayer.getTotalValue(category),
+								+ String.format(stringFormat, "  *  " + getNameSpecificLength(characterPlayer, skill, maxNameSize + sizeMaxIncrease - 3),
+										characterPlayer.getTotalRanks(skill), characterPlayer.getRanksValue(skill), characterPlayer.getTotalValue(category),
 										bonus, total);
 
 						// Add specialized skills.
 						for (int m = 0; m < characterPlayer.getSkillSpecializations(skill).size(); m++) {
 							if (characterPlayer.getItemBonus(skill) > 0 || conditionalPerkBonus > 0) {
-								total = (characterPlayer.getSpecializedTotalValue(skill)
-										- characterPlayer.getItemBonus(skill) - conditionalPerkBonus)
-										+ "/" + characterPlayer.getSpecializedTotalValue(skill) + "";
+								total = (characterPlayer.getSpecializedTotalValue(skill) - characterPlayer.getItemBonus(skill) - conditionalPerkBonus) + "/"
+										+ characterPlayer.getSpecializedTotalValue(skill) + "";
 							} else {
 								total = characterPlayer.getSpecializedTotalValue(skill).toString();
 							}
 							text = text
-									+ String.format(stringFormat,
-											"  *  " + characterPlayer.getSkillSpecializations(skill).get(m), "",
-											characterPlayer.getSpecializedRanksValue(skill),
-											characterPlayer.getTotalValue(category), bonus, total);
+									+ String.format(stringFormat, "  *  " + characterPlayer.getSkillSpecializations(skill).get(m), "",
+											characterPlayer.getSpecializedRanksValue(skill), characterPlayer.getTotalValue(category), bonus, total);
 						}
 					}
 				}
@@ -200,8 +181,7 @@ public class TxtSheet {
 					magicItemString += ": ";
 				}
 				for (int j = 0; j < magicItem.getBonus().size(); j++) {
-					magicItemString += magicItem.getBonus().get(j).getBonus() + " a "
-							+ magicItem.getBonus().get(j).getBonusName();
+					magicItemString += magicItem.getBonus().get(j).getBonus() + " a " + magicItem.getBonus().get(j).getBonusName();
 					if (j < magicItem.getBonus().size() - 1) {
 						magicItemString += ", ";
 					}
@@ -218,8 +198,7 @@ public class TxtSheet {
 		String text = "Modificación a las TR\n";
 		text += "--------------------------------------------------\n";
 		String stringFormat = "%1$-15s %2$-8s%n";
-		text += String.format(stringFormat, "Canalización",
-				characterPlayer.getResistanceBonus(ResistanceType.CANALIZATION));
+		text += String.format(stringFormat, "Canalización", characterPlayer.getResistanceBonus(ResistanceType.CANALIZATION));
 		text += String.format(stringFormat, "Esencia", characterPlayer.getResistanceBonus(ResistanceType.ESSENCE));
 		text += String.format(stringFormat, "Mentalismo", characterPlayer.getResistanceBonus(ResistanceType.MENTALISM));
 		text += String.format(stringFormat, "Psiónico", characterPlayer.getResistanceBonus(ResistanceType.PSIONIC));
@@ -241,6 +220,16 @@ public class TxtSheet {
 			text += characterPlayer.getRace().getSpecials().get(i) + "\n\n";
 		}
 		text = text.replaceAll("\t", "  ");
+		return text;
+	}
+
+	public static String exportHistory(CharacterPlayer characterPlayer) {
+		if (characterPlayer.getHistoryText().isEmpty()) {
+			return "";
+		}
+		String text = "Trasfondo:\n";
+		text += "--------------------------------------------------\n";
+		text += characterPlayer.getHistoryText();
 		return text;
 	}
 
@@ -276,10 +265,9 @@ public class TxtSheet {
 	}
 
 	public static String getCharacterStandardSheetAsText(CharacterPlayer characterPlayer) {
-		return basicCharacterInfo(characterPlayer) + "\n\n" + getCharacteristicsInfo(characterPlayer) + "\n\n"
-				+ exportResistances(characterPlayer) + "\n\n" + exportSkillsToText(characterPlayer) + "\n\n"
-				+ exportPerks(characterPlayer) + "\n\n" + exportSpecials(characterPlayer) + "\n\n"
-				+ exportItems(characterPlayer);
+		return basicCharacterInfo(characterPlayer) + "\n\n" + getCharacteristicsInfo(characterPlayer) + "\n\n" + exportResistances(characterPlayer) + "\n\n"
+				+ exportSkillsToText(characterPlayer) + "\n\n" + exportHistory(characterPlayer) + "\n\n" + exportPerks(characterPlayer) + "\n\n"
+				+ exportSpecials(characterPlayer) + "\n\n" + exportItems(characterPlayer);
 	}
 
 	private static String getSizeCode(CharacterPlayer characterPlayer) {
@@ -384,13 +372,10 @@ public class TxtSheet {
 		int maxNameSize = Math.max(characterPlayer.getRace().getName().length() + 2, 5);
 
 		String stringFormat = "%1$-" + maxNameSize + "s %2$-8s %3$-8s %4$-8s %5$-8s %6$-8s %7$-8s %8$-8s %9$-12s%n";
-		String text = String.format(stringFormat, "Raza", "Nivel", "Movim.", "MM", "VM/VA", "Tam", "PV", "TA(BD)",
-				"Ataques");
-		text += String.format(stringFormat, characterPlayer.getRace().getName(),
-				characterPlayer.getCurrentLevelNumber(), characterPlayer.getMovementCapacity(),
-				(characterPlayer.getCharacteristicTotalBonus(CharacteristicsAbbreviature.AGILITY) * 3) + "", vel,
-				getSizeCode(characterPlayer), PV,
-				characterPlayer.getArmourClass() + "(" + characterPlayer.getDefensiveBonus() + ")", attackString);
+		String text = String.format(stringFormat, "Raza", "Nivel", "Movim.", "MM", "VM/VA", "Tam", "PV", "TA(BD)", "Ataques");
+		text += String.format(stringFormat, characterPlayer.getRace().getName(), characterPlayer.getCurrentLevelNumber(),
+				characterPlayer.getMovementCapacity(), (characterPlayer.getCharacteristicTotalBonus(CharacteristicsAbbreviature.AGILITY) * 3) + "", vel,
+				getSizeCode(characterPlayer), PV, characterPlayer.getArmourClass() + "(" + characterPlayer.getDefensiveBonus() + ")", attackString);
 		return text;
 	}
 
@@ -455,9 +440,8 @@ public class TxtSheet {
 			perkText = "\n\nTALENTOS: " + perkText;
 		}
 
-		String text = characterPlayer.getName() + " (" + characterPlayer.getProfession().getName() + ")\n"
-				+ generateCharacterAsMonster(characterPlayer) + "\n" + "HABILIDADES: \n"
-				+ generatedShortedSkills(characterPlayer) + perkText;
+		String text = characterPlayer.getName() + " (" + characterPlayer.getProfession().getName() + ")\n" + generateCharacterAsMonster(characterPlayer) + "\n"
+				+ "HABILIDADES: \n" + generatedShortedSkills(characterPlayer) + perkText;
 		Folder.saveTextInFile(text, file);
 		return true;
 	}
@@ -522,8 +506,7 @@ public class TxtSheet {
 		if (currentName == null) {
 			return null;
 		}
-		return currentName.replace(Spanish.KNOWLEDGE_TAG, "Con.").replace(Spanish.SURVIVAL_TAG, "Superv.")
-				.replace(Spanish.PERCEPTION_SKILL, "Per.");
+		return currentName.replace(Spanish.KNOWLEDGE_TAG, "Con.").replace(Spanish.SURVIVAL_TAG, "Superv.").replace(Spanish.PERCEPTION_SKILL, "Per.");
 	}
 
 	public static String formatName(CharacterPlayer characterPlayer, Skill skill) {
@@ -574,7 +557,7 @@ public class TxtSheet {
 	}
 
 	private static String getFileName(CharacterPlayer characterPlayer) {
-		return characterPlayer.getName() + "_N" + characterPlayer.getCurrentLevelNumber() + "_"
-				+ characterPlayer.getRace().getName() + "_" + characterPlayer.getProfession().getName() + ".txt";
+		return characterPlayer.getName() + "_N" + characterPlayer.getCurrentLevelNumber() + "_" + characterPlayer.getRace().getName() + "_"
+				+ characterPlayer.getProfession().getName() + ".txt";
 	}
 }

@@ -109,7 +109,8 @@ public class PdfStandardSheet {
 	}
 
 	private void createPdf(Document document, PdfWriter writer) throws BadElementException, MalformedURLException, DocumentException, IOException {
-		twoFaced = (characterPlayer.getPerks().size() > 0 || characterPlayer.getRace().getSpecials().size() > 0 || characterPlayer.getEquipment().size() > 0);
+		twoFaced = ((characterPlayer.getHistoryText() != null && characterPlayer.getHistoryText().length() > 10) || characterPlayer.getPerks().size() > 0
+				|| characterPlayer.getRace().getSpecials().size() > 0 || characterPlayer.getEquipment().size() > 0);
 
 		DocumentData(document, writer);
 		document.open();
@@ -1919,6 +1920,10 @@ public class PdfStandardSheet {
 		return TxtSheet.exportItems(characterPlayer);
 	}
 
+	public String exportHistory() {
+		return TxtSheet.exportHistory(characterPlayer);
+	}
+
 	private void addSpecialText(Document document, PdfWriter writer, int fontSize) {
 		PdfPCell cell;
 		Paragraph p;
@@ -1928,7 +1933,7 @@ public class PdfStandardSheet {
 		tablaPagina.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 		tablaPagina.setTotalWidth(document.getPageSize().getWidth() - 60);
 
-		String texto = exportPerks() + "\n\n" + exportSpecials() + "\n" + exportItems();
+		String texto = exportHistory() + "\n\n" + exportPerks() + "\n\n" + exportSpecials() + "\n" + exportItems();
 		p = new Paragraph(texto, new Font(getHandWrittingFont(), fontSize - 1));
 
 		cell = new PdfPCell(p);
