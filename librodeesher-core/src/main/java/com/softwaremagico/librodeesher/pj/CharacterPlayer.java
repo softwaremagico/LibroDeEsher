@@ -132,7 +132,7 @@ public class CharacterPlayer extends StorableObject {
 	@Expose
 	@Enumerated(EnumType.STRING)
 	private SexType sex;
-	
+
 	@Expose
 	@Column(length = MAX_TEXT_LENGTH)
 	private String historyText;
@@ -383,7 +383,8 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public boolean isSemiWizard() {
-		return (getNewRankCost(getCategory(Spanish.BASIC_LIST_TAG), 0, 0) == 6);
+		return (getProfession().getMagicCost(MagicListType.BASIC, 0) != null && getProfession()
+				.getMagicCost(MagicListType.BASIC, 0).getRankCost().get(0) == 6);
 	}
 
 	public void setCultureHobbyRanks(String skillName, Integer ranks) {
@@ -2447,7 +2448,9 @@ public class CharacterPlayer extends StorableObject {
 			try {
 				magicSpellLists.orderSpellListsByCategory(this);
 			} catch (MagicDefinitionException | InvalidProfessionException e) {
-				EsherLog.errorMessage(this.getClass().getName(), e);
+				if (isWizard()) {
+					EsherLog.errorMessage(this.getClass().getName(), e);
+				}
 				magicSpellLists = new MagicSpellLists();
 			}
 		}
