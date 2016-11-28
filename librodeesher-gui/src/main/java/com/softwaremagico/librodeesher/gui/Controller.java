@@ -55,6 +55,7 @@ import com.softwaremagico.librodeesher.gui.files.ExploreWindowForPdf;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForRlm;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForRlmLvl;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForTxt;
+import com.softwaremagico.librodeesher.gui.history.WriteHistoryWindow;
 import com.softwaremagico.librodeesher.gui.magicitem.InsertMagicItemWindow;
 import com.softwaremagico.librodeesher.gui.perk.PerkWindow;
 import com.softwaremagico.librodeesher.gui.persistence.LoadCharacterListener;
@@ -93,7 +94,8 @@ public class Controller {
 	private List<CharacterPlayer> characters;
 	private CharacterPlayer selectedCharacter;
 	private OptionsWindow optionsWindow;
-	private BackgroundWindow historyWindow;
+	private WriteHistoryWindow historyWindow;
+	private BackgroundWindow backgroundWindow;
 	private PerkWindow perksWindow;
 	private ProfessionWindow professionWindow;
 	private TrainingWindow trainingWindow;
@@ -137,6 +139,7 @@ public class Controller {
 		mainGui.getMainMenu().addCultureListener(new CultureWindowsListener());
 		mainGui.getMainMenu().addSkillsAndCategoriesListener(new SkillsAndCategoriesWindowsListener());
 		mainGui.getMainMenu().addOptionsWindowListener(new OptionsWindowsListener());
+		mainGui.getMainMenu().addBackgroundWindowListener(new BackgroundWindowsListener());
 		mainGui.getMainMenu().addHistoryWindowListener(new HistoryWindowsListener());
 		mainGui.getMainMenu().addPerksWindowListener(new PerksWindowsListener());
 		mainGui.getMainMenu().addProfessionWindowListener(new ProfessionWindowsListener());
@@ -213,11 +216,10 @@ public class Controller {
 					if (characterPlayer != null) {
 						if (!characterPlayer.getId().equals(selectedCharacter.getId())) {
 							CharacterPlayerDao.getInstance().makeTransient(characterPlayer);
-							MessageManager.infoMessage(this.getClass().getName(),
-									"El personaje ha sido borrado con éxito.", "Borrar");
+							MessageManager.infoMessage(this.getClass().getName(), "El personaje ha sido borrado con éxito.", "Borrar");
 						} else {
-							MessageManager.basicErrorMessage(this.getClass().getName(),
-									"No se puede eliminar el personaje actualmente seleccionado.", "Borrar");
+							MessageManager
+									.basicErrorMessage(this.getClass().getName(), "No se puede eliminar el personaje actualmente seleccionado.", "Borrar");
 						}
 					}
 				}
@@ -232,12 +234,10 @@ public class Controller {
 			try {
 				// Imported character can have the same id of an existing
 				// character in database. Not allowed, must override.
-				if (selectedCharacter.getId() == null
-						&& CharacterPlayerDao.getInstance().exists(selectedCharacter.getComparationId())) {
-					if (!MessageManager
-							.questionMessage(
-									"Se va a sobreescrbir un personaje que ya ha sido guardado anteriormente en la base de datos. ¿Estas seguro de continuar?",
-									"Salvar")) {
+				if (selectedCharacter.getId() == null && CharacterPlayerDao.getInstance().exists(selectedCharacter.getComparationId())) {
+					if (!MessageManager.questionMessage(
+							"Se va a sobreescrbir un personaje que ya ha sido guardado anteriormente en la base de datos. ¿Estas seguro de continuar?",
+							"Salvar")) {
 						return;
 					}
 				}
@@ -266,13 +266,11 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForRlmLvl selectJson = new ExploreWindowForRlmLvl("PersonajeLevel.rlmlvl");
-			String path = selectJson.exploreWindows("Exportar Nivel", JFileChooser.FILES_ONLY,
-					getCharacterNameFormatted() + ".rlmlvl");
+			String path = selectJson.exploreWindows("Exportar Nivel", JFileChooser.FILES_ONLY, getCharacterNameFormatted() + ".rlmlvl");
 			File file = new File(path);
 			boolean create = true;
 			if (file.exists() && !file.isDirectory()) {
-				if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?",
-						"Save")) {
+				if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
 					create = false;
 				}
 			}
@@ -300,8 +298,8 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForRlmLvl selectTxt = new ExploreWindowForRlmLvl("Personaje.rlmlvl");
 			String path = selectTxt.exploreWindows("Importar Nivel", JFileChooser.FILES_ONLY,
-					getCharacterNameFormatted().substring(0, getCharacterNameFormatted().length() - 2)
-							+ (selectedCharacter.getCurrentLevelNumber() + 1) + ".rlmlvl");
+					getCharacterNameFormatted().substring(0, getCharacterNameFormatted().length() - 2) + (selectedCharacter.getCurrentLevelNumber() + 1)
+							+ ".rlmlvl");
 
 			BufferedReader bufferReader = null;
 			String jsonText = "";
@@ -321,17 +319,11 @@ public class Controller {
 					selectedCharacter.importLevel(level);
 					MessageManager.infoMessage(Controller.class.getName(), "Nivel importado correctamente.", "RLMLVL");
 				} catch (InvalidCharacterException ice) {
-					MessageManager
-							.basicErrorMessage(
-									Controller.class.getName(),
-									"Nivel invalido para importar. El nivel está definido para un personaje distinto al actualmente seleccionado.'",
-									"RLMLVL");
+					MessageManager.basicErrorMessage(Controller.class.getName(),
+							"Nivel invalido para importar. El nivel está definido para un personaje distinto al actualmente seleccionado.'", "RLMLVL");
 				} catch (InvalidLevelException ile) {
-					MessageManager
-							.basicErrorMessage(
-									Controller.class.getName(),
-									"Nivel inválido para importar. Probablemente sea un fichero que contenga un nivel antiguo o erróneo.",
-									"RLMLVL");
+					MessageManager.basicErrorMessage(Controller.class.getName(),
+							"Nivel inválido para importar. Probablemente sea un fichero que contenga un nivel antiguo o erróneo.", "RLMLVL");
 				}
 			} catch (Exception exc) {
 				EsherLog.errorMessage(Controller.class.getName(), exc);
@@ -351,13 +343,11 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForRlm selectJson = new ExploreWindowForRlm("Personaje.rlm");
-			String path = selectJson.exploreWindows("Exportar Personaje", JFileChooser.FILES_ONLY,
-					getCharacterNameFormatted() + ".rlm");
+			String path = selectJson.exploreWindows("Exportar Personaje", JFileChooser.FILES_ONLY, getCharacterNameFormatted() + ".rlm");
 			File file = new File(path);
 			boolean create = true;
 			if (file.exists() && !file.isDirectory()) {
-				if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?",
-						"Save")) {
+				if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
 					create = false;
 				}
 			}
@@ -375,8 +365,7 @@ public class Controller {
 
 					MessageManager.infoMessage(Controller.class.getName(), "Personaje exportado correctamente.", "RLM");
 				} catch (IOException e1) {
-					MessageManager.basicErrorMessage(Controller.class.getName(), "Error al exportar el personaje!",
-							"RLM");
+					MessageManager.basicErrorMessage(Controller.class.getName(), "Error al exportar el personaje!", "RLM");
 				}
 
 			}
@@ -420,13 +409,11 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForTxt selectTxt = new ExploreWindowForTxt("Ficha.txt");
-			String path = selectTxt.exploreWindows("Hoja en Txt", JFileChooser.FILES_ONLY, getCharacterNameFormatted()
-					+ ".txt");
+			String path = selectTxt.exploreWindows("Hoja en Txt", JFileChooser.FILES_ONLY, getCharacterNameFormatted() + ".txt");
 			File file = new File(path);
 			boolean create = true;
 			if (file.exists() && !file.isDirectory()) {
-				if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?",
-						"Save")) {
+				if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
 					create = false;
 				}
 			}
@@ -441,13 +428,11 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForTxt selectTxt = new ExploreWindowForTxt("Ficha.pdf");
-			String path = selectTxt.exploreWindows("Hoja en Txt", JFileChooser.FILES_ONLY, getCharacterNameFormatted()
-					+ ".txt");
+			String path = selectTxt.exploreWindows("Hoja en Txt", JFileChooser.FILES_ONLY, getCharacterNameFormatted() + ".txt");
 			File file = new File(path);
 			boolean create = true;
 			if (file.exists() && !file.isDirectory()) {
-				if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?",
-						"Save")) {
+				if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
 					create = false;
 				}
 			}
@@ -462,13 +447,11 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			final ExploreWindowForPdf selectPdf = new ExploreWindowForPdf("Hoja en PDF");
-			String path = selectPdf.exploreWindows("Hoja en PDF", JFileChooser.FILES_ONLY, getCharacterNameFormatted()
-					+ ".pdf");
+			String path = selectPdf.exploreWindows("Hoja en PDF", JFileChooser.FILES_ONLY, getCharacterNameFormatted() + ".pdf");
 			File file = new File(path);
 			boolean create = true;
 			if (file.exists() && !file.isDirectory()) {
-				if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?",
-						"Save")) {
+				if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
 					create = false;
 				}
 			}
@@ -488,14 +471,12 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForPdf selectPdf = new ExploreWindowForPdf("RMFComb.pdf");
-			String path = selectPdf.exploreWindows("Hoja en PDF", JFileChooser.FILES_ONLY, getCharacterNameFormatted()
-					+ ".pdf");
+			String path = selectPdf.exploreWindows("Hoja en PDF", JFileChooser.FILES_ONLY, getCharacterNameFormatted() + ".pdf");
 			try {
 				File file = new File(path);
 				boolean create = true;
 				if (file.exists() && !file.isDirectory()) {
-					if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?",
-							"Save")) {
+					if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
 						create = false;
 					}
 				}
@@ -514,14 +495,12 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ExploreWindowForPdf selectPdf = new ExploreWindowForPdf("RMFComb.pdf");
-			String path = selectPdf.exploreWindows("Hoja en PDF", JFileChooser.FILES_ONLY, getCharacterNameFormatted()
-					+ ".pdf");
+			String path = selectPdf.exploreWindows("Hoja en PDF", JFileChooser.FILES_ONLY, getCharacterNameFormatted() + ".pdf");
 			try {
 				File file = new File(path);
 				boolean create = true;
 				if (file.exists() && !file.isDirectory()) {
-					if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?",
-							"Save")) {
+					if (!MessageManager.questionMessage("Ya existe un fichero con ese nombre. ¿Desea sobreescribirlo?", "Save")) {
 						create = false;
 					}
 				}
@@ -550,8 +529,7 @@ public class Controller {
 	class CloseCharacterListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (ShowMessage.showQuestionMessage(null,
-					"Cualquier cambio no guardado se perderá. ¿Quieres continuar con la acción?", "Cerrar")) {
+			if (ShowMessage.showQuestionMessage(null, "Cualquier cambio no guardado se perderá. ¿Quieres continuar con la acción?", "Cerrar")) {
 				characters.remove(selectedCharacter);
 				if (characters.size() == 0) {
 					selectedCharacter = new CharacterPlayer();
@@ -611,16 +589,13 @@ public class Controller {
 								// Create random character.
 								characters.remove(selectedCharacter);
 								try {
-									RandomCharacterPlayer randomCharacter = new RandomCharacterPlayer(character,
-											randomWindow.getFinalLevel());
+									RandomCharacterPlayer randomCharacter = new RandomCharacterPlayer(character, randomWindow.getFinalLevel());
 									randomCharacter.setSuggestedTrainings(randomWindow.getSuggestedTrainingList());
 									for (String categoryName : randomWindow.getSuggestedCategoriesRanks().keySet()) {
-										randomCharacter.setSuggestedCategoryRanks(categoryName, randomWindow
-												.getSuggestedCategoriesRanks().get(categoryName));
+										randomCharacter.setSuggestedCategoryRanks(categoryName, randomWindow.getSuggestedCategoriesRanks().get(categoryName));
 									}
 									for (String skillName : randomWindow.getSuggestedSkillsRanks().keySet()) {
-										randomCharacter.setSuggestedCategoryRanks(skillName, randomWindow
-												.getSuggestedSkillsRanks().get(skillName));
+										randomCharacter.setSuggestedCategoryRanks(skillName, randomWindow.getSuggestedSkillsRanks().get(skillName));
 									}
 									randomCharacter.setSelectPerks(randomWindow.isPerksEnabled());
 									randomCharacter.addFeedbackListener(new RandomFeedbackListener() {
@@ -767,15 +742,27 @@ public class Controller {
 	}
 
 	class HistoryWindowsListener implements ActionListener {
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
 				historyWindow.dispose();
 			} catch (NullPointerException npe) {
 			}
-			historyWindow = new BackgroundWindow(selectedCharacter);
+			historyWindow = new WriteHistoryWindow(selectedCharacter);
 			historyWindow.setVisible(true);
+		}
+	}
+
+	class BackgroundWindowsListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				backgroundWindow.dispose();
+			} catch (NullPointerException npe) {
+			}
+			backgroundWindow = new BackgroundWindow(selectedCharacter);
+			backgroundWindow.setVisible(true);
 		}
 	}
 
@@ -824,8 +811,8 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			selectedCharacter.increaseLevel();
 			mainGui.updateFrame();
-			MessageManager.infoMessage(this.getClass().getName(), "Ahora el personaje está en nivel "
-					+ selectedCharacter.getCurrentLevelNumber(), "Subir de nivel");
+			MessageManager.infoMessage(this.getClass().getName(), "Ahora el personaje está en nivel " + selectedCharacter.getCurrentLevelNumber(),
+					"Subir de nivel");
 		}
 	}
 

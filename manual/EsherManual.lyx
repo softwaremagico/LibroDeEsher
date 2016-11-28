@@ -1117,24 +1117,14 @@ El siguiente paso consiste en gastar los puntos de desarrollo para adquirir
 \end_layout
 
 \begin_layout Subsection
-Selección de categorías
+Selección de rangos en categorías y habilidades
 \end_layout
 
 \begin_layout Standard
-Una lista de categorías permite seleccionar la adecuada, actualizando la
- ventana con el número de rangos obtenidos anteriormente y los rangos comprados
- en este nivel (marcado por los cuadraditos rellenos).
- 
-\end_layout
-
-\begin_layout Subsection
-Selección de habilidades
-\end_layout
-
-\begin_layout Standard
-Cuando una categoría es seleccionada, la lista de habilidades se actualiza
- para mostrar el conjunto de habilidades propias de dicha categoría.
- Seleccionando una de ellas se muestra un resumen de su estado actual.
+Una lista enumera todas las habilidades disponibles -según los módulos seleccion
+ados- en el que el usuario puede gastar rangos.
+ Además, aquí es dónde el usuario puede escoger el coste asociado a las
+ categorías de armas.
  
 \end_layout
 
@@ -1152,30 +1142,29 @@ El usuario puede comprar nuevos rangos tanto en habilidades como en categorías
 \end_layout
 
 \begin_layout Subsection
-Otros gastos de puntos de desarrollo
+Habilidades Favoritas
 \end_layout
 
 \begin_layout Standard
-Como nunca se sabe, se ha dejado un campo para añadir otros gastos en puntos
- de desarrollo.
- Básicamente la utilidad de esto es cubrir aquello que no está implementado
- en el programa.
- Dado el gran número de libros que compone Rolemaster, es posible que existan
- opciones no contempladas en El Libro de Esher.
- Por tanto aquí se puede añadir manualmente todo aquello que se crea conveniente
- y pagar los puntos de desarrollo necesarios.
+En el menú de la ventana, se pueden seleccionar que habilidades son consideradas
+ favoritas.
+ Una habilidad favorita simplemente será incluída en la página principal
+ de la ficha del personaje cuando se genere el documento en PDF.
+ No tiene ningún otro efecto.
  
 \end_layout
 
-\begin_layout Subsection
-Resumen de categorías y habilidades
+\begin_layout Standard
+Una lista de categorías permite seleccionar la adecuada, actualizando la
+ ventana con las habilidades de dicha categoría.
+ 
 \end_layout
 
 \begin_layout Standard
-En este área de texto se muestra un resumen de las categorías y habilidades
- del personaje.
- De esta forma puedes ver el total de todas ellas sin tener que ir seleccionándo
-las en la lista una a una.
+Existe la opción de asignar las habilidades favoritas en modo automático.
+ Pulsando el botón correspondiente todas las habilidades que tengan rangos
+ serán añadidas al listado de favoritas.
+ Después, en la ficha, únicamente aquellas con valores más altos aparecerán.
  
 \end_layout
 
@@ -1829,7 +1818,8 @@ Existen habilidades y reglas que cambian según los libros de Rolemaster
  También se pueden incluir Armas de Fuego si el nivel tecnológico del mundo
  resulta adecuado, activando así todas las habilidades y maniobras relacionadas
  con las Armas de Fuego.
- 
+ En el caso de que se quiera jugar una aventura Pulp, se puede deshabilitar
+ la magia para que se oculten todas las características.
 \end_layout
 
 \begin_layout Subsection

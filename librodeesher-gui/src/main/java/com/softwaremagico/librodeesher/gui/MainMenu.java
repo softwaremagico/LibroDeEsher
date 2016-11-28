@@ -46,7 +46,7 @@ public class MainMenu {
 			exportToPdfCombined1ColumnMenuItem, exportCharacterMenuItem, exportLevelMenuItem, importCharacterMenuItem,
 			importLevelMenuItem, exitMenuItem;
 	private JMenuItem aboutMenuItem, cultureMenuItem, professionMenuItem, charactMenuItem, trainingMenuItem,
-			skillsMenuItem, perksMenuItem, historyMenuItem, levelUpMenuItem;
+			skillsMenuItem, perksMenuItem, backgroundMenuItem, historyMenuItem, levelUpMenuItem;
 	private JMenuItem insertMagicObject, insertSkillRanks;
 	private JMenuItem randomName, randomCharacter;
 	private JMenuItem optionsMenu;
@@ -203,10 +203,16 @@ public class MainMenu {
 		perksMenuItem.setIcon((Icon) getIcon("perk.png"));
 		createMenu.add(perksMenuItem);
 
-		historyMenuItem = new JMenuItem("Historial", KeyEvent.VK_L);
+		backgroundMenuItem = new JMenuItem("Historial", KeyEvent.VK_L);
+		backgroundMenuItem.getAccessibleContext().setAccessibleDescription("Puntos de historial.");
+		backgroundMenuItem.setIcon((Icon) getIcon("history.png"));
+		createMenu.add(backgroundMenuItem);
+		
+		historyMenuItem = new JMenuItem("Trasfondo", KeyEvent.VK_L);
 		historyMenuItem.getAccessibleContext().setAccessibleDescription("Puntos de historial.");
-		historyMenuItem.setIcon((Icon) getIcon("history.png"));
-		createMenu.add(historyMenuItem);
+		historyMenuItem.setIcon((Icon) getIcon("book.png"));
+		createMenu.add(historyMenuItem);		
+		
 
 		levelUpMenuItem = new JMenuItem("Subir Nivel");
 		levelUpMenuItem.getAccessibleContext().setAccessibleDescription("Subir un nivel.");
@@ -350,7 +356,11 @@ public class MainMenu {
 		optionsMenu.addActionListener(al);
 	}
 
-	public void addHistoryWindowListener(ActionListener al) {
+	public void addBackgroundWindowListener(ActionListener al) {
+		backgroundMenuItem.addActionListener(al);
+	}
+	
+	public void addHistoryWindowListener(ActionListener al){
 		historyMenuItem.addActionListener(al);
 	}
 
@@ -450,7 +460,8 @@ public class MainMenu {
 		trainingMenuItem.setEnabled(enable);
 		perksMenuItem.setEnabled(enable && character.getLevelUps().size() == 1);
 		skillsMenuItem.setEnabled(enable);
-		historyMenuItem.setEnabled(enable && character.getLevelUps().size() == 1);
+		backgroundMenuItem.setEnabled(enable && character.getLevelUps().size() == 1);
+		historyMenuItem.setEnabled(enable);
 		isCharacterWellFormed();
 	}
 
