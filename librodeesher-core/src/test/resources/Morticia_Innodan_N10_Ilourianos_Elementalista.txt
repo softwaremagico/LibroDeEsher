@@ -183,8 +183,6 @@ Mirada Intensa:	 Comerciar (10*), Diplomacia (10*), Embaucar (10*), Interrogar (
 
 
 
-
-
 Objetos:
 --------------------------------------------------
 Libro de Demonología: 10 a Demonología

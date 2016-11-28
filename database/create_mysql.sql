@@ -76,7 +76,7 @@
         characteristicsConfirmed bit not null,
         characteristicsTemporalTotalPoints integer,
         cultureName varchar(255),
-        historyText varchar(255),
+        historyText longtext,
         name varchar(255),
         professionName varchar(255),
         raceName varchar(255),
