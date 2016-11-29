@@ -221,25 +221,20 @@ public class MainMenu {
 		createMenu.setMnemonic(KeyEvent.VK_I);
 		createMenu.getAccessibleContext().setAccessibleDescription("Insertar elementos al personaje.");
 
-		insertMagicObject = new JMenuItem("Insertar Objeto Mágico", KeyEvent.VK_M);
+		insertMagicObject = new JMenuItem("Objeto Mágico", KeyEvent.VK_M);
 		insertMagicObject.setIcon((Icon) getIcon("potion.png"));
 		insertMagicObject.getAccessibleContext().setAccessibleDescription("Insertar un objeto mágico.");
 		createMenu.add(insertMagicObject);
 
-		insertEquipment = new JMenuItem("Insertar Equipo", KeyEvent.VK_E);
-		insertEquipment.setIcon((Icon) getIcon("gem.png"));
+		insertEquipment = new JMenuItem("Equipo", KeyEvent.VK_E);
+		insertEquipment.setIcon((Icon) getIcon("horse.png"));
 		insertEquipment.getAccessibleContext().setAccessibleDescription("Insertar equipo.");
 		createMenu.add(insertEquipment);
 
-		insertSkillRanks = new JMenuItem("Añadir Rangos", KeyEvent.VK_R);
+		insertSkillRanks = new JMenuItem("Rangos", KeyEvent.VK_R);
 		insertSkillRanks.setIcon((Icon) getIcon("addRanks.png"));
 		insertSkillRanks.getAccessibleContext().setAccessibleDescription("Insertar un objeto mágico.");
 		createMenu.add(insertSkillRanks);
-
-		// insertEquipment = new JMenuItem("Insertar Equipo", KeyEvent.VK_E);
-		// insertEquipment.setIcon((Icon) getIcon("horse.png"));
-		// insertEquipment.getAccessibleContext().setAccessibleDescription("Insertar equipo.");
-		// createMenu.add(insertEquipment);
 
 		return createMenu;
 	}
