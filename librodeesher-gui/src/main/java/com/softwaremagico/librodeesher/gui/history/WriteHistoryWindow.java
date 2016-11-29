@@ -38,6 +38,7 @@ import javax.swing.ScrollPaneConstants;
 
 import com.softwaremagico.librodeesher.gui.style.BaseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
+import com.softwaremagico.librodeesher.gui.style.BaseTextArea;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class WriteHistoryWindow extends BaseFrame {
@@ -58,9 +59,7 @@ public class WriteHistoryWindow extends BaseFrame {
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
-		textArea = new JTextArea();
-		textArea.setLineWrap(true);
-
+		textArea = new BaseTextArea();
 		textArea.setText(characterPlayer.getHistoryText());
 		textArea.setCaretPosition(0);
 

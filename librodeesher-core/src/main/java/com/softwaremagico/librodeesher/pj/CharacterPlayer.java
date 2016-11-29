@@ -34,6 +34,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -122,6 +123,7 @@ public class CharacterPlayer extends StorableObject {
 	private static final long serialVersionUID = -3029332867945656263L;
 	public static final int INVALID_COST = 200;
 	public static final int MAX_REASONABLE_COST = 40;
+	public static final int MAX_TEXT_LENGTH = 5000;
 	// Store into the database the software version of creation.
 	@Expose
 	private String version = Version.getVersion();
@@ -130,7 +132,9 @@ public class CharacterPlayer extends StorableObject {
 	@Expose
 	@Enumerated(EnumType.STRING)
 	private SexType sex;
+
 	@Expose
+	@Column(length = MAX_TEXT_LENGTH)
 	private String historyText;
 
 	@Expose
@@ -379,7 +383,8 @@ public class CharacterPlayer extends StorableObject {
 	 * @return
 	 */
 	public boolean isSemiWizard() {
-		return (getNewRankCost(getCategory(Spanish.BASIC_LIST_TAG), 0, 0) == 6);
+		return (getProfession().getMagicCost(MagicListType.BASIC, 0) != null && getProfession()
+				.getMagicCost(MagicListType.BASIC, 0).getRankCost().get(0) == 6);
 	}
 
 	public void setCultureHobbyRanks(String skillName, Integer ranks) {
@@ -2326,7 +2331,12 @@ public class CharacterPlayer extends StorableObject {
 		if (characterPlayerHelper.getTrainingCost(trainingName) != null) {
 			return characterPlayerHelper.getTrainingCost(trainingName);
 		}
-		Integer baseCost = getProfession().getTrainingCost(trainingName);
+		Integer baseCost;
+		if (isMagicAllowed()) {
+			baseCost = getProfession().getTrainingCost(trainingName);
+		} else {
+			baseCost = getProfession().getTrainingCostNotMagic(trainingName);
+		}
 		try {
 			Training training = TrainingFactory.getTraining(trainingName);
 			if (baseCost == null || baseCost >= INVALID_COST) {
@@ -2438,7 +2448,9 @@ public class CharacterPlayer extends StorableObject {
 			try {
 				magicSpellLists.orderSpellListsByCategory(this);
 			} catch (MagicDefinitionException | InvalidProfessionException e) {
-				EsherLog.errorMessage(this.getClass().getName(), e);
+				if (isWizard()) {
+					EsherLog.errorMessage(this.getClass().getName(), e);
+				}
 				magicSpellLists = new MagicSpellLists();
 			}
 		}
