@@ -56,7 +56,7 @@ import com.softwaremagico.librodeesher.gui.files.ExploreWindowForRlm;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForRlmLvl;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForTxt;
 import com.softwaremagico.librodeesher.gui.history.WriteHistoryWindow;
-import com.softwaremagico.librodeesher.gui.magicitem.InsertMagicItemWindow;
+import com.softwaremagico.librodeesher.gui.item.magic.InsertMagicItemWindow;
 import com.softwaremagico.librodeesher.gui.perk.PerkWindow;
 import com.softwaremagico.librodeesher.gui.persistence.LoadCharacterListener;
 import com.softwaremagico.librodeesher.gui.persistence.LoadCharacterPlayerWindow;
@@ -102,6 +102,7 @@ public class Controller {
 	private RandomWindow randomWindow;
 	private LoadCharacterPlayerWindow loadWindow;
 	private InsertMagicItemWindow insertMagicItemWindow;
+	private InsertMagicItemWindow insertItemWindow;
 	private InsertRanksWindow insertRankWindows;
 
 	private boolean actionsEnables = true;
@@ -157,6 +158,7 @@ public class Controller {
 		mainGui.getMainMenu().addExportLevelListener(new ExportLevel());
 		mainGui.getMainMenu().addImportLevelListener(new ImportLevel());
 		mainGui.getMainMenu().addInsertMagicItemListener(new InsertMagicObject());
+		mainGui.getMainMenu().addInsertItemListener(new InsertItem());
 		mainGui.getMainMenu().addEnableDebugItemListener(new EnableDebugListener());
 		mainGui.getMainMenu().addRanksItemListener(new AddRankListener());
 	}
@@ -178,6 +180,18 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			Config.setEnableDebug(mainGui.getMainMenu().isDebugEnabled());
+		}
+	}
+
+	class InsertItem implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			try {
+				insertItemWindow.dispose();
+			} catch (NullPointerException npe) {
+			}
+			insertItemWindow = new InsertMagicItemWindow(selectedCharacter);
+			insertItemWindow.setVisible(true);
 		}
 	}
 

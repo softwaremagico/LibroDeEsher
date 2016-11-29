@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.magicitem;
+package com.softwaremagico.librodeesher.gui.item.magic;
 
 /*
  * #%L
@@ -43,7 +43,7 @@ import com.softwaremagico.librodeesher.gui.elements.CategoryComboBox;
 import com.softwaremagico.librodeesher.gui.elements.SkillChangedListener;
 import com.softwaremagico.librodeesher.gui.elements.SkillComboBox;
 import com.softwaremagico.librodeesher.gui.elements.SpinnerValueChangedListener;
-import com.softwaremagico.librodeesher.gui.magicitem.OtherBonusComboBox.OthersChangedListener;
+import com.softwaremagico.librodeesher.gui.item.magic.OtherBonusComboBox.OthersChangedListener;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.gui.style.Fonts;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;

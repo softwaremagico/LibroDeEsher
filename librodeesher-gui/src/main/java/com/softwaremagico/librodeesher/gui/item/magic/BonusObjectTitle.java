@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.magicitem;
+package com.softwaremagico.librodeesher.gui.item.magic;
 /*
  * #%L
  * Libro de Esher (GUI)

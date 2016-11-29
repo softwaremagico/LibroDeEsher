@@ -47,7 +47,7 @@ public class MainMenu {
 			importLevelMenuItem, exitMenuItem;
 	private JMenuItem aboutMenuItem, cultureMenuItem, professionMenuItem, charactMenuItem, trainingMenuItem,
 			skillsMenuItem, perksMenuItem, backgroundMenuItem, historyMenuItem, levelUpMenuItem;
-	private JMenuItem insertMagicObject, insertSkillRanks;
+	private JMenuItem insertMagicObject, insertItem, insertSkillRanks;
 	private JMenuItem randomName, randomCharacter;
 	private JMenuItem optionsMenu;
 	private JCheckBoxMenuItem enableDebug;
@@ -232,6 +232,11 @@ public class MainMenu {
 		insertMagicObject.setIcon((Icon) getIcon("potion.png"));
 		insertMagicObject.getAccessibleContext().setAccessibleDescription("Insertar un objeto mágico.");
 		createMenu.add(insertMagicObject);
+		
+		insertItem = new JMenuItem("Insertar Equipo", KeyEvent.VK_E);
+		insertItem.setIcon((Icon) getIcon("gem.png"));
+		insertItem.getAccessibleContext().setAccessibleDescription("Insertar equipo estándar.");
+		createMenu.add(insertItem);
 
 		insertSkillRanks = new JMenuItem("Añadir Rangos", KeyEvent.VK_R);
 		insertSkillRanks.setIcon((Icon) getIcon("addRanks.png"));
@@ -426,6 +431,10 @@ public class MainMenu {
 
 	public void addInsertMagicItemListener(ActionListener al) {
 		insertMagicObject.addActionListener(al);
+	}
+	
+	public void addInsertItemListener(ActionListener al){
+		insertItem.addActionListener(al);
 	}
 
 	public void addEnableDebugItemListener(ActionListener al) {

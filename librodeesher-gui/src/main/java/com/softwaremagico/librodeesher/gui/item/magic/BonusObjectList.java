@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.magicitem;
+package com.softwaremagico.librodeesher.gui.item.magic;
 /*
  * #%L
  * Libro de Esher (GUI)
@@ -23,24 +23,39 @@ package com.softwaremagico.librodeesher.gui.magicitem;
  * #L%
  */
 
-import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
-import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
+import java.awt.GridLayout;
 
-public class ResumeMagicObjectPanel extends BaseScrollPanel {
-	private static final long serialVersionUID = 4077686958927513421L;
-	private BonusObjectTitle title;
-	private BonusObjectList bonusPanel;
-	
-	public ResumeMagicObjectPanel() {
-		title = new BonusObjectTitle();
-		addTitle(title);
-		bonusPanel = new BonusObjectList();
-		setBody(bonusPanel);
+import com.softwaremagico.librodeesher.gui.style.BasePanel;
+import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
+import com.softwaremagico.librodeesher.pj.equipment.ObjectBonus;
+
+public class BonusObjectList extends BasePanel {
+	private static final long serialVersionUID = 6877410491444149606L;
+	private static final int MIN_ROWS = 5;
+
+	@Override
+	public void update() {
+
 	}
 
 	public void update(MagicObject magicItem) {
-		bonusPanel.update(magicItem);
-		this.repaint();
-	}
+		this.removeAll();
+		setLayout(new GridLayout(0, 1));
+		int linesAdded = 0;
+		if (magicItem != null) {
+			for (ObjectBonus bonus : magicItem.getBonus()) {
+				BonusLine line = new BonusLine(bonus, getLineBackgroundColor(linesAdded));
+				add(line);
+				linesAdded++;
+			}
+		}
+		// Add empty lines.
+		for (int i = linesAdded; i < MIN_ROWS; i++) {
+			BonusLine line = new BonusLine(null, getLineBackgroundColor(i));
+			add(line);
+		}
 
+		this.repaint();
+		this.revalidate();
+	}
 }

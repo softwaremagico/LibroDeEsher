@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.magicitem;
+package com.softwaremagico.librodeesher.gui.item.magic;
 
 /*
  * #%L
@@ -34,7 +34,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
-import com.softwaremagico.librodeesher.gui.magicitem.EditMagicItemPanel.MagicObjectNameUpdated;
+import com.softwaremagico.librodeesher.gui.item.magic.EditMagicItemPanel.MagicObjectNameUpdated;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.equipment.MagicObject;

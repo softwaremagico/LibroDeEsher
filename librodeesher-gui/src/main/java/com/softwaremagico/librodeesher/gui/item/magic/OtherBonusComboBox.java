@@ -1,4 +1,4 @@
-package com.softwaremagico.librodeesher.gui.magicitem;
+package com.softwaremagico.librodeesher.gui.item.magic;
 
 /*
  * #%L
@@ -28,37 +28,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseComboBox;
-import com.softwaremagico.librodeesher.pj.CharacterPlayer;
-import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
+import com.softwaremagico.librodeesher.pj.equipment.BonusType;
 
-public class ItemComboBox extends BaseComboBox<MagicObject> {
-	private static final long serialVersionUID = 4290328543865348273L;
-	private List<ItemChangedListener> itemListeners;
+public class OtherBonusComboBox extends BaseComboBox<BonusType> {
+	private static final long serialVersionUID = 169019436489940061L;
+	private List<OthersChangedListener> othersListeners;
 
-	public ItemComboBox() {
-		itemListeners = new ArrayList<>();
+	public interface OthersChangedListener {
+		public void otherChanged(BonusType type);
 	}
 
-	public void update(CharacterPlayer character) {
-		this.removeAllItems();
-		for (MagicObject object : character.getMagicItems()) {
-			addItem(object);
+	public OtherBonusComboBox() {
+		othersListeners = new ArrayList<>();
+		fillUp();
+	}
+
+	private void fillUp() {
+		removeAllItems();
+		for (BonusType type : BonusType.values()) {
+			// All except skills and categories.
+			if (!type.equals(BonusType.SKILL) && !type.equals(BonusType.CATEGORY))
+				addItem(type);
 		}
 	}
 
 	@Override
 	public void doAction() {
-		for (ItemChangedListener listener : itemListeners) {
-			listener.ItemChanged((MagicObject) this.getSelectedItem());
+		for (OthersChangedListener listener : othersListeners) {
+			listener.otherChanged((BonusType) this.getSelectedItem());
 		}
 	}
 
-	public void addItemChangedListener(ItemChangedListener listener) {
-		itemListeners.add(listener);
+	public void addOthersChangedListener(OthersChangedListener listener) {
+		othersListeners.add(listener);
 	}
 
-	public void removeItemChangedListener(ItemChangedListener listener) {
-		itemListeners.remove(listener);
+	public void removeOthersChangedListener(OthersChangedListener listener) {
+		othersListeners.remove(listener);
 	}
 
 }
