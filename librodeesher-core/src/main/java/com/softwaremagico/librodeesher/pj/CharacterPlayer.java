@@ -2751,6 +2751,7 @@ public class CharacterPlayer extends StorableObject {
 					trainingDecisions.getMagicItems().remove(magicObject);
 				}
 			}
+			updateMagicItemHelper(magicObject);
 			setDirty(true);
 		}
 	}

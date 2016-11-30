@@ -78,6 +78,12 @@ public class CharacterPlayerHelper {
 		resetAllSkillTotal();
 		setDirty(true);
 	}
+	
+	public void resetAllSkillObjectBonus() {
+		skillObjectsBonus = new HashMap<>();
+		resetAllSkillTotal();
+		setDirty(true);
+	}
 
 	public void resetAllSkillTotal() {
 		skillTotal = new HashMap<>();
