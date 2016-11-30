@@ -2724,6 +2724,7 @@ public class CharacterPlayer extends StorableObject {
 			updateMagicItemHelper(magicObject);
 			EsherLog.info(MagicObject.class.getName(), "Added magic item '" + magicObject.getName() + "'.");
 			magicItems.add(magicObject);
+			setDirty(true);
 		}
 	}
 
@@ -2736,13 +2737,21 @@ public class CharacterPlayer extends StorableObject {
 					characterPlayerHelper.resetSkillObjectBonus(objectBonus.getBonusName());
 				}
 			}
+			setDirty(true);
 		}
 	}
 
 	public void removeMagicItem(MagicObject magicObject) {
 		if (magicObject != null) {
 			EsherLog.info(MagicObject.class.getName(), "Removing magic item '" + magicObject.getName() + "'.");
-			magicItems.remove(magicObject);
+			if (magicItems.contains(magicObject)) {
+				magicItems.remove(magicObject);
+			} else {
+				for (TrainingDecision trainingDecisions : getTrainingDecisions().values()) {
+					trainingDecisions.getMagicItems().remove(magicObject);
+				}
+			}
+			setDirty(true);
 		}
 	}
 
@@ -2757,6 +2766,7 @@ public class CharacterPlayer extends StorableObject {
 		TrainingDecision trainingDecision = getTrainingDecision(trainingName);
 		EsherLog.info(MagicObject.class.getName(), "Added magic item '" + magicObject.getName() + "' of '" + trainingName + "'.");
 		trainingDecision.getMagicItems().add(magicObject);
+		setDirty(true);
 	}
 
 	public int getItemBonus(Category category) {
@@ -3060,6 +3070,9 @@ public class CharacterPlayer extends StorableObject {
 		return characterPlayerHelper.isDirty();
 	}
 
+	/**
+	 * Data is not updated in GUI.
+	 */
 	public void setDirty(boolean dirty) {
 		if (characterPlayerHelper != null) {
 			characterPlayerHelper.setDirty(dirty);
