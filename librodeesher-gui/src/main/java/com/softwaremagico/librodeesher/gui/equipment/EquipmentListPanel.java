@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.equipment;
+
 /*
  * #%L
  * Libro de Esher (GUI)
@@ -49,12 +50,13 @@ public class EquipmentListPanel extends BasePanel {
 		setLayout(new GridLayout(0, 1));
 		int linesAdded = 0;
 		if (characterPlayer != null) {
-			for (Equipment equipment : characterPlayer.getStandardEquipment())
+			for (Equipment equipment : characterPlayer.getAllNotMagicEquipment()) {
 				if (equipment != null) {
 					EquipmentLine line = new EquipmentLine(equipment, getLineBackgroundColor(linesAdded));
 					add(line);
 					linesAdded++;
 				}
+			}
 		}
 		// Add empty lines.
 		for (int i = linesAdded; i < MIN_ROWS; i++) {

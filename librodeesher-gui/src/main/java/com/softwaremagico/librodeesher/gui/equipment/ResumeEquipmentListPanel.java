@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.equipment;
+
 /*
  * #%L
  * Libro de Esher (GUI)
@@ -24,24 +25,18 @@ package com.softwaremagico.librodeesher.gui.equipment;
  */
 
 import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
-import com.softwaremagico.librodeesher.gui.item.magic.BonusObjectList;
-import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
+import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class ResumeEquipmentListPanel extends BaseScrollPanel {
 	private static final long serialVersionUID = 4077686958927513421L;
 	private EquipmentTitle title;
-	private BonusObjectList bonusPanel;
+	private EquipmentListPanel bonusPanel;
 
-	public ResumeEquipmentListPanel() {
+	public ResumeEquipmentListPanel(CharacterPlayer characterPlayer) {
 		title = new EquipmentTitle();
 		addTitle(title);
-		bonusPanel = new BonusObjectList();
+		bonusPanel = new EquipmentListPanel(characterPlayer);
 		setBody(bonusPanel);
-	}
-
-	public void add(MagicObject magicItem) {
-		bonusPanel.add(magicItem);
-		this.repaint();
 	}
 
 }

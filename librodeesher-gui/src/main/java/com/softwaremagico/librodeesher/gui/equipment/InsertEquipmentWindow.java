@@ -32,11 +32,11 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 public class InsertEquipmentWindow extends BaseFrame {
 	private static final long serialVersionUID = 2715820195499102991L;
 	private CharacterPlayer characterPlayer;
-	private EquipmentListPanel equipmentListPanel;
+	private ResumeEquipmentListPanel equipmentListPanel;
 
 	public InsertEquipmentWindow(CharacterPlayer characterPlayer) {
 		this.characterPlayer = characterPlayer;
-		defineWindow(400, 420);
+		defineWindow(420, 420);
 		setResizable(false);
 		setElements();
 	}
@@ -46,8 +46,8 @@ public class InsertEquipmentWindow extends BaseFrame {
 		setLayout(layout);
 		GridBagConstraints constraints = new GridBagConstraints();
 
-		equipmentListPanel = new EquipmentListPanel(characterPlayer);
-		constraints.fill = GridBagConstraints.HORIZONTAL;
+		equipmentListPanel = new ResumeEquipmentListPanel(characterPlayer);
+		constraints.fill = GridBagConstraints.BOTH;
 		constraints.anchor = GridBagConstraints.LINE_START;
 		constraints.gridx = 0;
 		constraints.gridy = 8;

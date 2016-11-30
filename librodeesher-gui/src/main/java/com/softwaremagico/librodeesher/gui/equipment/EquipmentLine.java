@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.equipment;
+
 /*
  * #%L
  * Libro de Esher (GUI)
@@ -66,9 +67,9 @@ public class EquipmentLine extends BaseLine {
 		gridBagConstraints.gridwidth = 2;
 		gridBagConstraints.weightx = 0.6;
 		if (equipment != null) {
-			equipmentNameLabel = new BoldListLabel(equipment.getName(), SwingConstants.LEFT, columnHeight);
+			equipmentNameLabel = new BoldListLabel(equipment.getName(), SwingConstants.LEFT, 200, columnHeight);
 		} else {
-			equipmentNameLabel = new BoldListLabel("", SwingConstants.LEFT, columnHeight);
+			equipmentNameLabel = new BoldListLabel("", SwingConstants.LEFT, 200, columnHeight);
 		}
 		add(new ListBackgroundPanel(equipmentNameLabel, getDefaultBackground()), gridBagConstraints);
 
@@ -76,9 +77,9 @@ public class EquipmentLine extends BaseLine {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0.3;
 		if (equipment != null) {
-			equipmentDescription = new BoldListLabel(equipment.getDescription(), columnHeight);
+			equipmentDescription = new BoldListLabel(equipment.getDescription(), SwingConstants.LEFT, 200, columnHeight);
 		} else {
-			equipmentDescription = new BoldListLabel("", 50, columnHeight);
+			equipmentDescription = new BoldListLabel("", SwingConstants.LEFT, 200, columnHeight);
 		}
 		add(new ListBackgroundPanel(equipmentDescription, getDefaultBackground()), gridBagConstraints);
 	}
