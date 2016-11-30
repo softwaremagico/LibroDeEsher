@@ -258,26 +258,25 @@ public class PerkProbability {
 	}
 
 	protected static List<Perk> shufflePerks(CharacterPlayer characterPlayer, List<String> suggestedPerksNames) {
-		List<Perk> suggestedPerks = new ArrayList<>();
+		List<Perk> perksOrdered = new ArrayList<>();
 		if (suggestedPerksNames != null) {
 			for (String perkName : suggestedPerksNames) {
-				suggestedPerks.add(PerkFactory.getPerk(perkName));
+				perksOrdered.add(PerkFactory.getPerk(perkName));
 			}
 		}
 
 		List<Perk> allPerks = PerkFactory.gerPerks();
+		// Remove all perks from list.
+		allPerks.removeAll(perksOrdered);
+
+		// Random order.
 		Collections.shuffle(allPerks);
 
-		// Suggested trainings at the beginning
-		if (suggestedPerks != null) {
-			allPerks.removeAll(suggestedPerks);
+		//Add all perks after suggested ones. 
+		for (Perk perk : allPerks) {
+			perksOrdered.add(perk);
 		}
 
-		if (suggestedPerks != null) {
-			for (Perk perk : suggestedPerks) {
-				allPerks.add(0, perk);
-			}
-		}
-		return allPerks;
+		return perksOrdered;
 	}
 }
