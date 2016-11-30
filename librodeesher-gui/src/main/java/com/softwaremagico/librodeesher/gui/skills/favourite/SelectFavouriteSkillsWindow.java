@@ -80,8 +80,7 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 			@Override
 			public void skillChanged(Skill skill) {
 				if (skill != null) {
-					setSkillAsFavouritePanel.setFavouriteCheckBoxSelected(character.getFavouriteSkills()
-							.contains(skill.getName()));
+					setSkillAsFavouritePanel.setFavouriteCheckBoxSelected(character.getFavouriteSkills().contains(skill.getName()));
 				}
 			}
 		});
@@ -103,21 +102,15 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 				} else {
 					character.getFavouriteSkills().add(selectSkillPanel.getSelectedSkill().getName());
 					// Check max favourite items!
-					if (!skillMessageShown
-							&& character.getFavouriteNoOffensiveSkills().size() > PdfStandardSheet.MOST_USED_SKILLS_LINES * 2) {
-						MessageManager.warningMessage(this.getClass().getName(),
-								"Has seleccionado un número muy alto de habilidades favoritas, solo los "
-										+ (PdfStandardSheet.MOST_USED_SKILLS_LINES * 2)
-										+ " primero se podrá visualizar en la ficha de personaje.",
+					if (!skillMessageShown && character.getFavouriteNoOffensiveSkills().size() > PdfStandardSheet.MOST_USED_SKILLS_LINES * 2) {
+						MessageManager.warningMessage(this.getClass().getName(), "Has seleccionado un número muy alto de habilidades favoritas, solo los "
+								+ (PdfStandardSheet.MOST_USED_SKILLS_LINES * 2) + " primero se podrá visualizar en la ficha de personaje.",
 								"¡Demasiadas habilidades favoritas!");
 						skillMessageShown = true;
 					}
-					if (!attackMessageShown
-							&& character.getFavouriteOffensiveSkills().size() > PdfStandardSheet.MOST_USED_ATTACKS_LINES) {
-						MessageManager.warningMessage(this.getClass().getName(),
-								"Has seleccionado un número muy alto de ataques favoritos, solo los "
-										+ PdfStandardSheet.MOST_USED_ATTACKS_LINES
-										+ " primeros se podrán visualizar en la ficha de personaje.",
+					if (!attackMessageShown && character.getFavouriteOffensiveSkills().size() > PdfStandardSheet.MOST_USED_ATTACKS_LINES) {
+						MessageManager.warningMessage(this.getClass().getName(), "Has seleccionado un número muy alto de ataques favoritos, solo los "
+								+ PdfStandardSheet.MOST_USED_ATTACKS_LINES + " primeros se podrán visualizar en la ficha de personaje.",
 								"¡Demasiadas habilidades favoritas!");
 						attackMessageShown = true;
 					}
@@ -139,9 +132,7 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 		auto.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				for (Skill skill : character.getSkillsWithRanks()) {
-					character.getFavouriteSkills().add(skill.getName());
-				}
+				character.autoGenerateFavouriteSkills();
 				updateFavouriteList();
 			}
 		});
@@ -163,8 +154,7 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 		// Update first selected skill.
 		Skill skill = selectSkillPanel.getSelectedSkill();
 		if (skill != null) {
-			setSkillAsFavouritePanel.setFavouriteCheckBoxSelected(character.getFavouriteSkills().contains(
-					skill.getName()));
+			setSkillAsFavouritePanel.setFavouriteCheckBoxSelected(character.getFavouriteSkills().contains(skill.getName()));
 		}
 	}
 

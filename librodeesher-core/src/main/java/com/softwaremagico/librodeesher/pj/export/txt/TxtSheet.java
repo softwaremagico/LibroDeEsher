@@ -522,6 +522,7 @@ public class TxtSheet {
 	}
 
 	public static String getNameSpecificLength(String text, int length) {
+		text = reduceName(text);
 		if (length > text.length()) {
 			for (int i = text.length(); i < length; i++) {
 				text += " ";

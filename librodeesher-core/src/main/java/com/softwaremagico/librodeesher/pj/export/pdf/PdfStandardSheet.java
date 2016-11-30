@@ -49,6 +49,9 @@ public class PdfStandardSheet {
 	private final static int BORDER = 0;
 	public final static int MOST_USED_SKILLS_LINES = 16;
 	public final static int MOST_USED_ATTACKS_LINES = 6;
+	private final static int MAX_FAVOURITE_SKILL_NAME_LENGTH = 27;
+	private final static int MAX_FAVOURITE_WEAPON_NAME_LENGTH = 25;
+	
 	private CharacterPlayer characterPlayer;
 	protected boolean twoFaced;
 	private boolean sortedSkills;
@@ -1433,7 +1436,7 @@ public class PdfStandardSheet {
 
 		int favouriteSkillsNumber = 0;
 		for (int i = 0; i < (favouriteAttacks.size() < MOST_USED_SKILLS_LINES ? favouriteAttacks.size() : MOST_USED_SKILLS_LINES); i++) {
-			cell = new PdfPCell(createMostUsedAttackLine(" " + TxtSheet.getNameSpecificLength(favouriteAttacks.get(i).getName(), 25),
+			cell = new PdfPCell(createMostUsedAttackLine(" " + TxtSheet.getNameSpecificLength(favouriteAttacks.get(i).getName(), MAX_FAVOURITE_WEAPON_NAME_LENGTH),
 					characterPlayer.getTotalRanks(favouriteAttacks.get(i)) + "", characterPlayer.getTotalValue(favouriteAttacks.get(i)) + "",
 					getHandWrittingFont(), fontSize));
 			cell.setBorderWidth(BORDER);
@@ -1536,7 +1539,7 @@ public class PdfStandardSheet {
 		int skillsShowed = 0;
 		List<Skill> skillsToAdd = new ArrayList<>(favouriteSkills);
 		for (int i = 0; i < (skillsToAdd.size() < MOST_USED_SKILLS_LINES ? skillsToAdd.size() : MOST_USED_SKILLS_LINES); i++) {
-			PdfPCell cell = new PdfPCell(createMostUsedSkillLine(" " + TxtSheet.getNameSpecificLength(skillsToAdd.get(i).getName(), 31),
+			PdfPCell cell = new PdfPCell(createMostUsedSkillLine(" " + TxtSheet.getNameSpecificLength(skillsToAdd.get(i).getName(), MAX_FAVOURITE_SKILL_NAME_LENGTH),
 					characterPlayer.getTotalRanks(skillsToAdd.get(i)) + "", characterPlayer.getTotalValue(skillsToAdd.get(i)) + "", getHandWrittingFont(),
 					fontSize));
 			cell.setBorderWidth(BORDER);

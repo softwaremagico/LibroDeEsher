@@ -3244,4 +3244,13 @@ public class CharacterPlayer extends StorableObject {
 	public void setMagicAllowed(boolean magicAllowed) {
 		getCharacterConfiguration().setMagicAllowed(magicAllowed);
 	}
+
+	/**
+	 * Create a list of favourite skills depending on the ranks.
+	 */
+	public void autoGenerateFavouriteSkills() {
+		for (Skill skill : getSkillsWithRanks()) {
+			getFavouriteSkills().add(skill.getName());
+		}
+	}
 }
