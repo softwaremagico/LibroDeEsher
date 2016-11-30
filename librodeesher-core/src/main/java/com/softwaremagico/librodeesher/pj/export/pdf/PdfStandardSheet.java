@@ -110,7 +110,7 @@ public class PdfStandardSheet {
 
 	private void createPdf(Document document, PdfWriter writer) throws BadElementException, MalformedURLException, DocumentException, IOException {
 		twoFaced = ((characterPlayer.getHistoryText() != null && characterPlayer.getHistoryText().length() > 10) || characterPlayer.getPerks().size() > 0
-				|| characterPlayer.getRace().getSpecials().size() > 0 || characterPlayer.getEquipment().size() > 0);
+				|| characterPlayer.getRace().getSpecials().size() > 0 || characterPlayer.getStandardEquipment().size() > 0);
 
 		DocumentData(document, writer);
 		document.open();

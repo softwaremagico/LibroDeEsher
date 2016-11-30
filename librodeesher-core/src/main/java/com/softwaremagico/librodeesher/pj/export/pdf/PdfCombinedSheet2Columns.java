@@ -79,7 +79,7 @@ public class PdfCombinedSheet2Columns extends PdfStandardSheet {
 	private void createPdf(Document document, PdfWriter writer) throws BadElementException, MalformedURLException, DocumentException,
 			IOException {
 		twoFaced = (getCharacterPlayer().getPerks().size() > 0 || getCharacterPlayer().getRace().getSpecials().size() > 0 || getCharacterPlayer()
-				.getEquipment().size() > 0);
+				.getStandardEquipment().size() > 0);
 
 		DocumentData(document, writer);
 		document.open();

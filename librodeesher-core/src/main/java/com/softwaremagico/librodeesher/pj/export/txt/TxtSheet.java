@@ -159,21 +159,13 @@ public class TxtSheet {
 
 	public static String exportItems(CharacterPlayer characterPlayer) {
 		String text = "";
-		text = text.replaceAll("\t", "  ");
-		if (characterPlayer.getEquipment().size() > 0) {
+		if (!characterPlayer.getAllMagicItems().isEmpty() || !characterPlayer.getAllNotMagicEquipment().isEmpty()) {
 			text = "Equipo:\n";
 			text += "--------------------------------------------------\n";
-			for (Equipment equipment : characterPlayer.getEquipment()) {
-				text += equipment.getName() + " " + equipment.getDescription() + "\n\n";
-			}
-			text += "\n";
 		}
-
-		if (characterPlayer.getMagicItems().size() > 0) {
-			text = "Objetos:\n";
-			text += "--------------------------------------------------\n";
-			for (int i = 0; i < characterPlayer.getMagicItems().size(); i++) {
-				MagicObject magicItem = characterPlayer.getMagicItems().get(i);
+		if (characterPlayer.getAllMagicItems().size() > 0) {
+			for (int i = 0; i < characterPlayer.getAllMagicItems().size(); i++) {
+				MagicObject magicItem = characterPlayer.getAllMagicItems().get(i);
 				String magicItemString = magicItem.getName();
 				if (magicItem.getDescription() != null && magicItem.getDescription().length() > 0) {
 					magicItemString += " (" + magicItem.getDescription() + ")";
@@ -189,6 +181,12 @@ public class TxtSheet {
 				}
 
 				text += magicItemString + "\n\n";
+			}
+			text += "\n";
+		}
+		if (characterPlayer.getAllNotMagicEquipment().size() > 0) {
+			for (Equipment equipment : characterPlayer.getStandardEquipment()) {
+				text += equipment.getName() + " " + equipment.getDescription() + "\n\n";
 			}
 			text += "\n";
 		}

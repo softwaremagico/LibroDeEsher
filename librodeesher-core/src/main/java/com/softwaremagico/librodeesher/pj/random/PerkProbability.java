@@ -36,6 +36,9 @@ public class PerkProbability {
 		if (perk.getPerkType().equals(PerkType.MAGICAL) && !characterPlayer.isMagicAllowed()) {
 			return 0;
 		}
+		if (suggestedPerks != null && suggestedPerks.contains(perk.getName())) {
+			return 100;
+		}
 		if (perk.isPerkAllowed(characterPlayer.getRace().getName(), characterPlayer.getProfession().getName()) && !hasAlreadySimilarPerk()) {
 			probability += getProbabilityByCost();
 			if (probability >= 0) {
@@ -51,9 +54,8 @@ public class PerkProbability {
 				probability += getProbabilityByCommonsOrRestricted();
 				probability += getProbabilityByArmourClass();
 				probability += getProbabilityByMovement();
-				probability += getProbabilityBySuggestedPerks();
 			}
-			// No bonus, no malus. A standard perk. Add it if has no perk
+			// No bonus, no malus. A standard perk. Add it if it has not perk
 			// chosen.
 			if (probabilityBySkills == 0 && probability < 0) {
 				probability = 2 - characterPlayer.getPerks().size() + specicializationLevel;
@@ -75,13 +77,6 @@ public class PerkProbability {
 
 	private int getProbabilityByNumberOfPerks() {
 		return -1 * characterPlayer.getPerks().size() * (2 - specicializationLevel) * 5;
-	}
-
-	private int getProbabilityBySuggestedPerks() {
-		if (suggestedPerks != null && suggestedPerks.contains(perk.getName())) {
-			return 100;
-		}
-		return 0;
 	}
 
 	private int smartRandomness() {
@@ -272,7 +267,7 @@ public class PerkProbability {
 		// Random order.
 		Collections.shuffle(allPerks);
 
-		//Add all perks after suggested ones. 
+		// Add all perks after suggested ones.
 		for (Perk perk : allPerks) {
 			perksOrdered.add(perk);
 		}

@@ -89,4 +89,13 @@ public class TrainingItem extends Equipment {
 	public TrainingItemType getType() {
 		return type;
 	}
+
+	@Override
+	public String toString() {
+		return getName();
+	}
+
+	public boolean isMagic() {
+		return getBonus() > 0;
+	}
 }

@@ -137,6 +137,12 @@
         primary key (CharacterPlayer_ID, enabledSkill_KEY)
     );
 
+    create table T_CHARACTERPLAYER_STANDARD_EQUIPMENT (
+        T_CHARACTERPLAYER_ID bigint not null,
+        standardEquipment_ID bigint not null,
+        primary key (T_CHARACTERPLAYER_ID, standardEquipment_ID)
+    );
+
     create table T_CHARACTERPLAYER_TEMPORAL_CHARACTERISTICS_ROLLS (
         T_CHARACTERPLAYER_ID bigint not null,
         characteristicsTemporalUpdatesRolls_ID bigint not null,
@@ -220,6 +226,16 @@
         spellRanks integer,
         spellRanks_KEY varchar(255),
         primary key (CultureDecisions_ID, spellRanks_KEY)
+    );
+
+    create table T_EQUIPMENT (
+        ID bigint not null,
+        comparationId varchar(255) not null,
+        creationTime datetime not null,
+        updateTime datetime,
+        description longtext,
+        name varchar(255),
+        primary key (ID)
     );
 
     create table T_FAVOURITE_SKILLS (
@@ -550,9 +566,9 @@
         comparationId varchar(255) not null,
         creationTime datetime not null,
         updateTime datetime,
-        bonus integer not null,
-        description varchar(255),
+        description longtext,
         name varchar(255),
+        bonus integer not null,
         probability integer not null,
         skill varchar(255),
         type varchar(255),
@@ -624,6 +640,9 @@
     alter table T_CHARACTERPLAYER_SELECTED_PERKS 
         add constraint UK_c36v4kn7rg6y2oeqamj1vftp6 unique (selectedPerks_ID);
 
+    alter table T_CHARACTERPLAYER_STANDARD_EQUIPMENT 
+        add constraint UK_q58h6ljane7fwlvbr76uul345 unique (standardEquipment_ID);
+
     alter table T_CHARACTERPLAYER_TEMPORAL_CHARACTERISTICS_ROLLS 
         add constraint UK_rsdhy70yoehafjvur7w9b2o66 unique (characteristicsTemporalUpdatesRolls_ID);
 
@@ -638,6 +657,12 @@
 
     alter table T_CULTUREDECISIONS 
         add constraint UK_i4vxctno4axrv6clm66mmrngb unique (comparationId);
+
+    alter table T_EQUIPMENT 
+        add constraint UK_l1k9aakkn094swxopxn9m2y33 unique (ID);
+
+    alter table T_EQUIPMENT 
+        add constraint UK_kflij7emfpl42selwvduquxcx unique (comparationId);
 
     alter table T_INSERTED_DATA 
         add constraint UK_h99y61rxnrq69c3nx0n2ko4m3 unique (ID);
@@ -876,6 +901,11 @@
     alter table T_CHARACTERPLAYER_SKILLS_ENABLED 
         add constraint FK_9ntkfbhey7gcb35m9l02pw7pe 
         foreign key (CharacterPlayer_ID) 
+        references T_CHARACTERPLAYER (ID);
+
+    alter table T_CHARACTERPLAYER_STANDARD_EQUIPMENT 
+        add constraint FK_21ndelexnmh57vowu9m75oywn 
+        foreign key (T_CHARACTERPLAYER_ID) 
         references T_CHARACTERPLAYER (ID);
 
     alter table T_CHARACTERPLAYER_TEMPORAL_CHARACTERISTICS_ROLLS 

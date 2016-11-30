@@ -41,7 +41,7 @@ public class ItemComboBox extends BaseComboBox<MagicObject> {
 
 	public void update(CharacterPlayer character) {
 		this.removeAllItems();
-		for (MagicObject object : character.getMagicItems()) {
+		for (MagicObject object : character.getAllMagicItems()) {
 			addItem(object);
 		}
 	}

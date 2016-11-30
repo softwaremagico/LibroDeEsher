@@ -225,7 +225,7 @@ public class TrainingDecision extends StorableObject {
 		characteristicsUpdates.add(characteristicRoll);
 	}
 
-	public List<TrainingItem> getEquipment() {
+	public List<TrainingItem> getStandardEquipment() {
 		return equipment;
 	}
 
@@ -284,6 +284,9 @@ public class TrainingDecision extends StorableObject {
 					EsherLog.warning(TrainingProbability.class.getName(), "Category '" + item.getSkill()
 							+ "' not found when creating a magic object of training '" + trainingName + "'.");
 				}
+				break;
+			case UNKNOWN:
+				// Nothing.
 				break;
 			default:
 				// Nothing.

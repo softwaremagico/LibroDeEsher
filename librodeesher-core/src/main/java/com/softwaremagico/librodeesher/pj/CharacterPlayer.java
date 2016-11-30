@@ -1522,9 +1522,9 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public int getDefaultCost(Category category) {
-		if (getCategoryCost(category, 0) != null) {
+		try {
 			return getCategoryCost(category, 0).getRankCost(0);
-		} else {
+		} catch (NullPointerException npe) {
 			// Cost not defined, i.e. using barbarian with Genetic
 			// Technology.
 			return INVALID_COST;
@@ -2438,11 +2438,11 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public void addTrainingEquipment(Training training, int trainingObjectIndex) {
-		getTrainingDecision(training.getName()).getEquipment().add(training.getObjects().get(trainingObjectIndex));
+		getTrainingDecision(training.getName()).getStandardEquipment().add(training.getObjects().get(trainingObjectIndex));
 	}
 
 	public List<TrainingItem> getTrainingEquipment(String trainingName) {
-		return getTrainingDecision(trainingName).getEquipment();
+		return getTrainingDecision(trainingName).getStandardEquipment();
 	}
 
 	public List<CharacteristicRoll> getTrainingCharacteristicsUpdates(String trainingName) {
@@ -2677,8 +2677,27 @@ public class CharacterPlayer extends StorableObject {
 	 * 
 	 * @return
 	 */
-	public Set<Equipment> getEquipment() {
+	public Set<Equipment> getStandardEquipment() {
 		return standardEquipment;
+	}
+
+	/**
+	 * Returns all equipment composed by training equipment and inserted
+	 * equipment.
+	 * 
+	 * @return
+	 */
+	public Set<Equipment> getAllNotMagicEquipment() {
+		Set<Equipment> equipment = new HashSet<>(getStandardEquipment());
+		for (TrainingDecision trainingDecision : getTrainingDecisions().values()) {
+			for (TrainingItem trainingItem : trainingDecision.getStandardEquipment()) {
+				// Not magic items
+				if (!trainingItem.isMagic()) {
+					equipment.add(trainingItem);
+				}
+			}
+		}
+		return equipment;
 	}
 
 	/**
@@ -2686,13 +2705,18 @@ public class CharacterPlayer extends StorableObject {
 	 * 
 	 * @return
 	 */
-	public List<MagicObject> getMagicItems() {
-		List<MagicObject> magicItems = new ArrayList<>();
+	public List<MagicObject> getAllMagicItems() {
+		List<MagicObject> allMagicItems = new ArrayList<>();
 		for (TrainingDecision trainingDecision : getTrainingDecisions().values()) {
-			magicItems.addAll(trainingDecision.getMagicItems());
+			for (MagicObject trainingItem : trainingDecision.getMagicItems()) {
+				// Is a magic items
+				if (!trainingItem.getBonus().isEmpty()) {
+					allMagicItems.add(trainingItem);
+				}
+			}
 		}
-		magicItems.addAll(this.magicItems);
-		return Collections.unmodifiableList(magicItems);
+		allMagicItems.addAll(magicItems);
+		return Collections.unmodifiableList(allMagicItems);
 	}
 
 	public void addMagicItem(MagicObject magicObject) {
@@ -2737,7 +2761,7 @@ public class CharacterPlayer extends StorableObject {
 
 	public int getItemBonus(Category category) {
 		int max = 0;
-		for (MagicObject magicObject : getMagicItems()) {
+		for (MagicObject magicObject : getAllMagicItems()) {
 			int value = magicObject.getCategoryBonus(category.getName());
 			if (value > max) {
 				max = value;
@@ -2748,7 +2772,7 @@ public class CharacterPlayer extends StorableObject {
 
 	public int getItemBonus(Skill skill) {
 		int max = 0;
-		for (MagicObject magicObject : getMagicItems()) {
+		for (MagicObject magicObject : getAllMagicItems()) {
 			int value = magicObject.getSkillBonus(skill.getName());
 			if (value > max) {
 				max = value;
@@ -2759,7 +2783,7 @@ public class CharacterPlayer extends StorableObject {
 
 	public int getItemBonus(BonusType type) {
 		int max = 0;
-		for (MagicObject magicObject : getMagicItems()) {
+		for (MagicObject magicObject : getAllMagicItems()) {
 			int value = magicObject.getObjectBonus(type);
 			if (value > max) {
 				max = value;

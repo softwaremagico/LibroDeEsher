@@ -1095,30 +1095,7 @@
 	  "commonSkillsChosen": [
             "Arco Corto"
           ],
-          "equipment": [
-            {
-              "name": "Sumando de Hechizos",
-              "description": "+2",
-              "bonus": 0,
-              "type": "UNKNOWN",
-              "skill": "",
-              "probability": 50,
-              "creationTime": "Apr 19, 2015 11:52:47 AM",
-              "updateTime": "Apr 19, 2015 11:52:47 AM",
-              "comparationId": "b90c8045-9946-4978-a03c-34b0b4e00e3f"
-            },
-            {
-              "name": "Sumando de Hechizos",
-              "description": "+1",
-              "bonus": 0,
-              "type": "UNKNOWN",
-              "skill": "",
-              "probability": 100,
-              "creationTime": "Apr 19, 2015 11:52:47 AM",
-              "updateTime": "Apr 19, 2015 11:52:47 AM",
-              "comparationId": "83f0f44b-2824-4df2-9e1c-445ef652844e"
-            }
-          ],
+          "equipment": [],
           "magicItems": [],
           "creationTime": "Apr 19, 2015 11:52:47 AM",
           "updateTime": "Apr 19, 2015 11:52:47 AM",
