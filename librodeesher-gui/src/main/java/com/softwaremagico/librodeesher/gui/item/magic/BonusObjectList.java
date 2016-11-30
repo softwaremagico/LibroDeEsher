@@ -38,7 +38,7 @@ public class BonusObjectList extends BasePanel {
 
 	}
 
-	public void update(MagicObject magicItem) {
+	public void add(MagicObject magicItem) {
 		this.removeAll();
 		setLayout(new GridLayout(0, 1));
 		int linesAdded = 0;

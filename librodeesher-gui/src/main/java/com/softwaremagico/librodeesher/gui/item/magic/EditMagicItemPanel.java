@@ -326,7 +326,7 @@ public class EditMagicItemPanel extends BasePanel {
 								((Category) categoryComboBox.getSelectedItem()).getName(), value);
 						character.updateMagicItemHelper(magicObject);
 					}
-					magicObjectResume.update(magicObject);
+					magicObjectResume.add(magicObject);
 				}
 			}
 		});
@@ -344,7 +344,7 @@ public class EditMagicItemPanel extends BasePanel {
 						magicObject.setSkillBonus(((Skill) skillComboBox.getSelectedItem()).getName(), value);
 						character.updateMagicItemHelper(magicObject);
 					}
-					magicObjectResume.update(magicObject);
+					magicObjectResume.add(magicObject);
 				}
 			}
 		});
@@ -364,7 +364,7 @@ public class EditMagicItemPanel extends BasePanel {
 								(BonusType) (othersComboBox.getSelectedItem()), value);
 						character.updateMagicItemHelper(magicObject);
 					}
-					magicObjectResume.update(magicObject);
+					magicObjectResume.add(magicObject);
 				}
 			}
 		});
@@ -399,7 +399,7 @@ public class EditMagicItemPanel extends BasePanel {
 			skillSpinner.setValue(0);
 			categorySpinner.setValue(0);
 		}
-		magicObjectResume.update(magicObject);
+		magicObjectResume.add(magicObject);
 		update();
 	}
 

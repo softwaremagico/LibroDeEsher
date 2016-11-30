@@ -71,6 +71,7 @@ public class CharacterPlayerDao extends GenericDao<CharacterPlayer> implements I
 				Hibernate.initialize(player.getRealmOfMagic());
 				Hibernate.initialize(player.getProfessionDecisions());
 				Hibernate.initialize(player.getCultureDecisions());
+				Hibernate.initialize(player.getEquipment());
 			}
 		}
 	}
@@ -84,8 +85,7 @@ public class CharacterPlayerDao extends GenericDao<CharacterPlayer> implements I
 		session.beginTransaction();
 		String sql = "DELETE FROM T_ROLL WHERE ID NOT IN (SELECT r.rolls_ID FROM T_ROLL_LIST r) AND ID NOT IN (SELECT crg.roll_ID FROM T_CHARACTERISTIC_ROLL_GROUP crg)";
 
-		SQLQuery query = session.createSQLQuery(sql).addEntity(Roll.class)
-				.addEntity(CharacteristicRoll.class).addEntity(RollGroup.class);
+		SQLQuery query = session.createSQLQuery(sql).addEntity(Roll.class).addEntity(CharacteristicRoll.class).addEntity(RollGroup.class);
 		query.executeUpdate();
 		session.getTransaction().commit();
 	}

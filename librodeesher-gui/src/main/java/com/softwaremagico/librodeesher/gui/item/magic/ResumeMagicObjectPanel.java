@@ -38,8 +38,8 @@ public class ResumeMagicObjectPanel extends BaseScrollPanel {
 		setBody(bonusPanel);
 	}
 
-	public void update(MagicObject magicItem) {
-		bonusPanel.update(magicItem);
+	public void add(MagicObject magicItem) {
+		bonusPanel.add(magicItem);
 		this.repaint();
 	}
 

@@ -8,17 +8,14 @@ import javax.persistence.Table;
 import com.google.gson.annotations.Expose;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
+import com.softwaremagico.librodeesher.pj.equipment.Equipment;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
-import com.softwaremagico.persistence.StorableObject;
 
 @Entity
 @Table(name = "T_TRAINING_OBJECT")
-public class TrainingItem extends StorableObject {
+public class TrainingItem extends Equipment {
 	private static final long serialVersionUID = 6296887781180082031L;
-	@Expose
-	private String name;
-	@Expose
-	private String description;
+
 	@Expose
 	private int bonus;
 	@Expose
@@ -30,22 +27,13 @@ public class TrainingItem extends StorableObject {
 	private int probability;
 
 	protected TrainingItem() {
-
-	}
-
-	@Override
-	public void resetIds() {
-		resetIds(this);
-	}
-	
-	@Override
-	public void resetComparationIds() {
-		resetComparationIds(this);
+		super();
 	}
 
 	public TrainingItem(TrainingItem trainingItem) {
-		name = trainingItem.getName();
-		description = trainingItem.getDescription();
+		super();
+		setName(trainingItem.getName());
+		setDescription(trainingItem.getDescription());
 		bonus = trainingItem.getBonus();
 		type = trainingItem.getType();
 		skill = trainingItem.getSkill();
@@ -54,11 +42,11 @@ public class TrainingItem extends StorableObject {
 
 	public TrainingItem(String name, int bonus, String skill, int probability) {
 		if (name.contains("(")) {
-			this.name = name.substring(0, name.indexOf("(")).trim();
-			this.description = name.substring(name.indexOf("(") + 1, name.indexOf(")")).trim();
+			setName(name.substring(0, name.indexOf("(")).trim());
+			setDescription(name.substring(name.indexOf("(") + 1, name.indexOf(")")).trim());
 		} else {
-			this.name = name;
-			this.description = "";
+			setName(name);
+			setDescription("");
 		}
 		this.probability = probability;
 		this.bonus = bonus;
@@ -86,10 +74,6 @@ public class TrainingItem extends StorableObject {
 		}
 	}
 
-	public String getName() {
-		return name;
-	}
-
 	public int getBonus() {
 		return bonus;
 	}
@@ -105,9 +89,4 @@ public class TrainingItem extends StorableObject {
 	public TrainingItemType getType() {
 		return type;
 	}
-
-	public String getDescription() {
-		return description;
-	}
-
 }
