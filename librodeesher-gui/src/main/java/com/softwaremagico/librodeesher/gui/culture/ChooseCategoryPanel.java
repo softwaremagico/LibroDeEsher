@@ -101,6 +101,7 @@ public class ChooseCategoryPanel extends BasePanel {
 					}
 				}
 			}
+			updateBackgrounds();
 		}
 	}
 
@@ -139,6 +140,19 @@ public class ChooseCategoryPanel extends BasePanel {
 			}
 			this.revalidate();
 			this.repaint();
+		}
+		updateBackgrounds();
+	}
+	
+	private void updateBackgrounds(){
+		int line = 0;
+		for(CultureCategoryLine cultureLine : categoryLines){
+			cultureLine.setBackground(getLineBackgroundColor(line));
+			line++;
+			for(CultureSkillLine skillLine : skillsLinesPerCategory.get(cultureLine.getCultureCategory())){
+				cultureLine.setBackground(getLineBackgroundColor(line));
+				line++;
+			}
 		}
 	}
 
