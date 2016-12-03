@@ -1,0 +1,186 @@
+#CARACTERÍSTICAS POR ORDEN
+####################################
+Ra Me Pr Ad In Em Co Fu Ag Rp
+
+#REINOS DE MAGIA
+####################################
+Esencia
+Canalización
+Mentalismo
+
+#BONIFICACIÓN POR PROFESIÓN
+####################################
+Conocimiento·General	5
+Conocimiento·Académico	5
+Conocimiento·Oscuro	5
+Conocimiento·Técnico	5
+Influencia	5
+
+#HABILIDADES Y CATEGORÍAS DE HABILIDADES
+####################################
+Armadura·Ligera	2/2/2
+Armadura·Media	6/6
+Armadura·Pesada	8/8
+Armas·Categoría1	4
+Armas·Categoría2	5
+Armas·Categoría3	6
+Armas·Categoría4	7
+Armas·Categoría5	7
+Armas·Categoría6	13
+Armas·Categoría7	13
+Arte·Activo	2/5
+Arte·Pasivo	2/5
+Artes Marciales·Golpes	4
+Artes Marciales·Barridos	4
+Artes Marciales·Maniobras de Combate	8
+Ataques Especiales	7
+Atletismo·Gimnasia	3/7
+Atletismo·Potencia	4/12
+Atletismo·Resistencia	2/6
+Autocontrol	4/10
+Ciencia/Analítica·Básica	2/4
+Ciencia/Analítica·Especializada	4/7
+Ciencia/Analítica·Médica	5
+Ciencia/Analítica·Técnica	5/11
+Comunicación	1/2/3
+Conocimiento·General	1/3
+Conocimiento·Académico	1/2
+Conocimiento·Mágico	5
+Conocimiento·Oscuro	2/4
+Conocimiento·Técnico	2/6
+Defensas Especiales	35
+Desarrollo de Puntos de Poder	12
+Desarrollo Físico	7/12
+Exteriores·Animales	2
+Exteriores·Entorno	4/12
+Hechizos Dirigidos	6
+Influencia	2/4
+Maniobras de Combate	7
+Manipulación del Poder	12
+Oficios	4/10
+Percepción·Búsqueda	2/6
+Percepción·Perspicacia	5
+Percepción·Sentidos	3/6
+Percepción de Poder	6
+Subterfugio·Ataque	10
+Subterfugio·Mecánica	5/11
+Subterfugio·Sigilo	4/8
+Técnica/Comercio·General	2/6
+Técnica/Comercio·Profesional	6
+Técnica/Comercio·Vocacional	3/9
+Urbana	3/8
+
+# HABILIDADES COMUNES
+####################################
+Administración
+Investigación
+{Percepción del Entorno}#1
+
+#HABILIDADES PROFESIONALES
+####################################
+Conocimiento·Académico#1
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#DESARROLLO DE HECHIZOS
+####################################
+Lista Abierta (1-5)	35
+Lista Abierta (6-10)	70
+Lista Abierta (11-15)	115
+Lista Abierta (16-20)	140
+Lista Abierta (21+)	175
+Lista Cerrada (1-5)	50
+Lista Cerrada (6-10)	100
+Lista Cerrada (11-15)	150
+Lista Cerrada (16-20)	200
+Lista Cerrada (21+)	250
+Listas Básicas de Otras Profesiones (1-5)	160
+Listas Básicas de Otras Profesiones (6-10)	320
+Listas Básicas de Otras Profesiones (11-15)	480
+Listas Básicas de Otras Profesiones (16-20)	640
+Listas Básicas de Otras Profesiones (21+)	800
+Listas Abiertas de Otros Reinos (1-5)	140
+Listas Abiertas de Otros Reinos (6-10)	280
+Listas Abiertas de Otros Reinos (11-15)	420
+Listas Abiertas de Otros Reinos (16-20)	560
+Listas Abiertas de Otros Reinos (21+)	700
+Listas Cerradas de Otros Reinos (1-5)	200
+Listas Cerradas de Otros Reinos (6-10)	400
+Listas Cerradas de Otros Reinos (11-15)	600
+Listas Cerradas de Otros Reinos (16-20)	800
+Listas Cerradas de Otros Reinos (21+)	1000
+Listas Básicas de Otros Reinos (1-5)	200
+Listas Básicas de Otros Reinos (6-10)	400
+Listas Básicas de Otros Reinos (11-15)	600
+Listas Básicas de Otros Reinos (16-20)	800
+Listas Básicas de Otros Reinos (21+)	1000
+Listas Abiertas Arcanas (1-5)	40
+Listas Abiertas Arcanas (6-10)	80
+Listas Abiertas Arcanas (11-15)	120
+Listas Abiertas Arcanas (16-20)	160
+Listas Abiertas Arcanas (21+)	200
+Listas Hechizos de Adiestramiento (1-5)	8/8/8
+Listas Hechizos de Adiestramiento (6-10)	8/8/8
+Listas Hechizos de Adiestramiento (11-15)	8/8/8
+Listas Hechizos de Adiestramiento (16-20)	8/8/8
+Listas Hechizos de Adiestramiento (21+)	8/8/8
+Listas Hechizos de Adiestramientos de Otros Reinos (1-5)	16/16
+Listas Hechizos de Adiestramientos de Otros Reinos (6-10)	16/16
+Listas Hechizos de Adiestramientos de Otros Reinos (11-15)	16/16
+Listas Hechizos de Adiestramientos de Otros Reinos (16-20)	16/16
+Listas Hechizos de Adiestramientos de Otros Reinos (21+)	16/16
+
+#ADIESTRAMIENTO	//+ Preferida 	- Prohibida
+####################################
+Aventurero	42	37
+Amigo de las Bestias	34
+Asesino	46
+Salteador	30
+Clero	31	26
+Justiciero Enmascarado	60
+Erudito Enclaustrado	22
+Timador	25
+Artesano	20
+Erudito Aventurero	26
+Cortabolsas	33
+Temerario	27
+Detective	28
+Dilettante	38
+Diplomático	20
+Doctor	22
+Animador	30
+Emprendedor	39
+Explorador	32
+Femme Fatale	34
+Hombre del Gobierno	55
+Gadgeteer	30
+Gangster	42
+Gran Cazador Blanco	55
+Guardian	54
+Cazador	43
+Villano Indisioso	36
+Periodista	32
+Erudito	27	14
+Artista Marcial	42
+Mecánico	27
+Mercenario	44
+Mercante	16
+Soldado	59
+Ocultista	52	26
+Artista	22
+Filósofo	28
+Piloto	27
+Agente de Policía	43
+Marinero	20
+Científico	44
+Explorador	31
+Deportista	48
+Espía	32
+Viajero	26
+Trotamundos	31
+Experto en Armas	74
+Fanático Religioso	26
+
+### FIN PROFESION ###
