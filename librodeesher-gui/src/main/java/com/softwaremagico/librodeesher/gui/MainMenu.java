@@ -206,12 +206,7 @@ public class MainMenu {
 		backgroundMenuItem = new JMenuItem("Historial", KeyEvent.VK_L);
 		backgroundMenuItem.getAccessibleContext().setAccessibleDescription("Puntos de historial.");
 		backgroundMenuItem.setIcon((Icon) getIcon("history.png"));
-		createMenu.add(backgroundMenuItem);
-		
-		historyMenuItem = new JMenuItem("Trasfondo", KeyEvent.VK_L);
-		historyMenuItem.getAccessibleContext().setAccessibleDescription("Puntos de historial.");
-		historyMenuItem.setIcon((Icon) getIcon("book.png"));
-		createMenu.add(historyMenuItem);		
+		createMenu.add(backgroundMenuItem);		
 		
 
 		levelUpMenuItem = new JMenuItem("Subir Nivel");
@@ -237,6 +232,12 @@ public class MainMenu {
 		insertSkillRanks.setIcon((Icon) getIcon("addRanks.png"));
 		insertSkillRanks.getAccessibleContext().setAccessibleDescription("Insertar un objeto mágico.");
 		createMenu.add(insertSkillRanks);
+		
+		
+		historyMenuItem = new JMenuItem("Trasfondo", KeyEvent.VK_L);
+		historyMenuItem.getAccessibleContext().setAccessibleDescription("Puntos de historial.");
+		historyMenuItem.setIcon((Icon) getIcon("book.png"));
+		createMenu.add(historyMenuItem);
 
 		// insertEquipment = new JMenuItem("Insertar Equipo", KeyEvent.VK_E);
 		// insertEquipment.setIcon((Icon) getIcon("horse.png"));
@@ -462,6 +463,8 @@ public class MainMenu {
 		skillsMenuItem.setEnabled(enable);
 		backgroundMenuItem.setEnabled(enable && character.getLevelUps().size() == 1);
 		historyMenuItem.setEnabled(enable);
+		insertSkillRanks.setEnabled(enable);
+		insertMagicObject.setEnabled(enable);
 		isCharacterWellFormed();
 	}
 
