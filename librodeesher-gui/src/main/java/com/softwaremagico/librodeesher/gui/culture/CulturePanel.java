@@ -55,6 +55,7 @@ public abstract class CulturePanel extends BasePanel {
 
 	protected abstract void setRankTitle(String rankLabelText);
 
+	@Override
 	public void update() {
 
 	}

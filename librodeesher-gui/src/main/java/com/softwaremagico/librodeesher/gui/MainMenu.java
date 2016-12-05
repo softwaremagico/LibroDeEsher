@@ -41,12 +41,13 @@ import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class MainMenu {
-	private JMenuItem newMenuItem, closeMenuItem, loadMenuItem, saveMenuItem, exportToTextMenuItem, exportAbbreviatedToTextMenuItem,
-			exportToPdfStandardMenuItem, exportToPdfCombined2ColumnsMenuItem, exportToPdfCombined1ColumnMenuItem, exportCharacterMenuItem, exportLevelMenuItem,
-			importCharacterMenuItem, importLevelMenuItem, exitMenuItem;
-	private JMenuItem aboutMenuItem, cultureMenuItem, professionMenuItem, charactMenuItem, trainingMenuItem, skillsMenuItem, perksMenuItem, backgroundMenuItem,
-			historyMenuItem, levelUpMenuItem;
-	private JMenuItem insertMagicObject, insertEquipment, insertSkillRanks;
+	private JMenuItem newMenuItem, closeMenuItem, loadMenuItem, saveMenuItem, exportToTextMenuItem,
+			exportAbbreviatedToTextMenuItem, exportToPdfStandardMenuItem, exportToPdfCombined2ColumnsMenuItem,
+			exportToPdfCombined1ColumnMenuItem, exportCharacterMenuItem, exportLevelMenuItem, importCharacterMenuItem,
+			importLevelMenuItem, exitMenuItem;
+	private JMenuItem aboutMenuItem, cultureMenuItem, professionMenuItem, charactMenuItem, trainingMenuItem,
+			skillsMenuItem, perksMenuItem, backgroundMenuItem, levelUpMenuItem;
+	private JMenuItem insertMagicObject, insertSkillRanks, historyMenuItem;
 	private JMenuItem randomName, randomCharacter;
 	private JMenuItem optionsMenu;
 	private JCheckBoxMenuItem enableDebug;
@@ -104,7 +105,8 @@ public class MainMenu {
 
 		exportCharacterMenuItem = new JMenuItem("Personaje", KeyEvent.VK_P);
 		exportCharacterMenuItem.setIcon((Icon) getIcon("character-export.png"));
-		exportCharacterMenuItem.getAccessibleContext().setAccessibleDescription("Exporta para importar en otro ordenador.");
+		exportCharacterMenuItem.getAccessibleContext().setAccessibleDescription(
+				"Exporta para importar en otro ordenador.");
 		exportMenu.add(exportCharacterMenuItem);
 
 		exportLevelMenuItem = new JMenuItem("Subida de Nivel", KeyEvent.VK_P);
@@ -119,22 +121,26 @@ public class MainMenu {
 
 		exportAbbreviatedToTextMenuItem = new JMenuItem("Texto (Resumen)", KeyEvent.VK_T);
 		exportAbbreviatedToTextMenuItem.setIcon((Icon) getIcon("text.png"));
-		exportAbbreviatedToTextMenuItem.getAccessibleContext().setAccessibleDescription("Exporta un resumen a un fichero de texto plano.");
+		exportAbbreviatedToTextMenuItem.getAccessibleContext().setAccessibleDescription(
+				"Exporta un resumen a un fichero de texto plano.");
 		exportMenu.add(exportAbbreviatedToTextMenuItem);
 
 		exportToPdfStandardMenuItem = new JMenuItem("PDF Estándar", KeyEvent.VK_P);
 		exportToPdfStandardMenuItem.setIcon((Icon) getIcon("pdf.png"));
-		exportToPdfStandardMenuItem.getAccessibleContext().setAccessibleDescription("Exporta a un fichero PDF (Hoja Estándar).");
+		exportToPdfStandardMenuItem.getAccessibleContext().setAccessibleDescription(
+				"Exporta a un fichero PDF (Hoja Estándar).");
 		exportMenu.add(exportToPdfStandardMenuItem);
 
 		exportToPdfCombined1ColumnMenuItem = new JMenuItem("PDF Combinada", KeyEvent.VK_P);
 		exportToPdfCombined1ColumnMenuItem.setIcon((Icon) getIcon("pdf.png"));
-		exportToPdfCombined1ColumnMenuItem.getAccessibleContext().setAccessibleDescription("Exporta a un fichero PDF (Hoja Combinada).");
+		exportToPdfCombined1ColumnMenuItem.getAccessibleContext().setAccessibleDescription(
+				"Exporta a un fichero PDF (Hoja Combinada).");
 		exportMenu.add(exportToPdfCombined1ColumnMenuItem);
 
 		exportToPdfCombined2ColumnsMenuItem = new JMenuItem("PDF Combinada (2 columnas)", KeyEvent.VK_P);
 		exportToPdfCombined2ColumnsMenuItem.setIcon((Icon) getIcon("pdf.png"));
-		exportToPdfCombined2ColumnsMenuItem.getAccessibleContext().setAccessibleDescription("Exporta a un fichero PDF (Hoja Combinada, 2 columnas por hoja).");
+		exportToPdfCombined2ColumnsMenuItem.getAccessibleContext().setAccessibleDescription(
+				"Exporta a un fichero PDF (Hoja Combinada, 2 columnas por hoja).");
 		exportMenu.add(exportToPdfCombined2ColumnsMenuItem);
 
 		importMenu = new JMenu("Importar...");
@@ -231,6 +237,11 @@ public class MainMenu {
 		insertEquipment.getAccessibleContext().setAccessibleDescription("Insertar equipo.");
 		createMenu.add(insertEquipment);
 
+		historyMenuItem = new JMenuItem("Trasfondo", KeyEvent.VK_L);
+		historyMenuItem.getAccessibleContext().setAccessibleDescription("Puntos de historial.");
+		historyMenuItem.setIcon((Icon) getIcon("book.png"));
+		createMenu.add(historyMenuItem);
+
 		insertSkillRanks = new JMenuItem("Rangos", KeyEvent.VK_R);
 		insertSkillRanks.setIcon((Icon) getIcon("addRanks.png"));
 		insertSkillRanks.getAccessibleContext().setAccessibleDescription("Insertar un objeto mágico.");
@@ -254,7 +265,8 @@ public class MainMenu {
 
 		randomCharacter = new JMenuItem("Pesonaje Aleatorio", KeyEvent.VK_P);
 		randomCharacter.setIcon((Icon) getIcon("random_character.png"));
-		randomCharacter.getAccessibleContext().setAccessibleDescription("Genera un personaje de forma completamente aleatoria.");
+		randomCharacter.getAccessibleContext().setAccessibleDescription(
+				"Genera un personaje de forma completamente aleatoria.");
 		randomMenu.add(randomCharacter);
 
 		return randomMenu;
@@ -351,8 +363,8 @@ public class MainMenu {
 	public void addBackgroundWindowListener(ActionListener al) {
 		backgroundMenuItem.addActionListener(al);
 	}
-
-	public void addHistoryWindowListener(ActionListener al) {
+	
+	public void addHistoryWindowListener(ActionListener al){
 		historyMenuItem.addActionListener(al);
 	}
 
@@ -448,12 +460,11 @@ public class MainMenu {
 		boolean enable = character.areCharacteristicsConfirmed();
 		// charactMenuItem.setEnabled(!enable);
 		cultureMenuItem.setEnabled(enable && character.getLevelUps().size() == 1);
-		professionMenuItem
-				.setEnabled(enable
-						&& character.getLevelUps().size() == 1
-						&& (!character.getProfession().getProfessionalSkillsToChoose().isEmpty()
-								|| !character.getProfession().getCommonSkillsToChoose().isEmpty() || !character.getProfession().getRestrictedSkillsToChoose()
-								.isEmpty()));
+		professionMenuItem.setEnabled(enable
+				&& character.getLevelUps().size() == 1
+				&& (!character.getProfession().getProfessionalSkillsToChoose().isEmpty()
+						|| !character.getProfession().getCommonSkillsToChoose().isEmpty() || !character.getProfession()
+						.getRestrictedSkillsToChoose().isEmpty()));
 		trainingMenuItem.setEnabled(enable);
 		perksMenuItem.setEnabled(enable && character.getLevelUps().size() == 1);
 		skillsMenuItem.setEnabled(enable);
