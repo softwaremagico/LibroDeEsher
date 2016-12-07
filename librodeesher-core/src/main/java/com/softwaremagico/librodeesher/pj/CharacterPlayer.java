@@ -99,6 +99,7 @@ import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.skills.SkillComparatorByFavourite;
 import com.softwaremagico.librodeesher.pj.skills.SkillComparatorByName;
 import com.softwaremagico.librodeesher.pj.skills.SkillComparatorByValue;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
@@ -3127,7 +3128,7 @@ public class CharacterPlayer extends StorableObject {
 				favouriteSkills.add(skill);
 			}
 		}
-		Collections.sort(favouriteSkills, new SkillComparatorByValue(this));
+		Collections.sort(favouriteSkills, new SkillComparatorByFavourite(this));
 		// Remove too much skills.
 		favouriteSkills = favouriteSkills.subList(0, (favouriteSkills.size() < PdfStandardSheet.MOST_USED_SKILLS_LINES * 2 ? favouriteSkills.size()
 				: PdfStandardSheet.MOST_USED_SKILLS_LINES * 2));

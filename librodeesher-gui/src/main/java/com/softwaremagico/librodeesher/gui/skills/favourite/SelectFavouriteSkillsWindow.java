@@ -135,7 +135,7 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 		selectedFavouriteSkillsPanel = new SelectedSkillsPanel();
 		getContentPane().add(selectedFavouriteSkillsPanel, gridBagConstraints);
 
-		includeRecommendedFavouriteSkills = new BaseCheckBox("Include recommended skills");
+		includeRecommendedFavouriteSkills = new BaseCheckBox("Incluir habilidades recomendadas");
 		includeRecommendedFavouriteSkills.addActionListener(new ActionListener() {
 
 			@Override
