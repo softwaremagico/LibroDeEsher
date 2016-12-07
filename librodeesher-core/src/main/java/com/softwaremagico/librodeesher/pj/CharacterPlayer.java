@@ -3091,6 +3091,10 @@ public class CharacterPlayer extends StorableObject {
 		if (recommendedFavouriteSkillsIncluded) {
 			// Add skills with ranks.
 			for (Skill skill : getSkillsWithRanks()) {
+				// Filter not so interesting skills.
+				if (skill.getCategory().getName().toLowerCase().equals(Spanish.COMUNICATION_CATEGORY.toLowerCase())) {
+					continue;
+				}
 				favouriteSkills.add(skill.getName());
 			}
 		}
