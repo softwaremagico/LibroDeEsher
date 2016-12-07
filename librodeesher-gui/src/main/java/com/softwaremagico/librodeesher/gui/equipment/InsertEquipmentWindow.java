@@ -33,6 +33,7 @@ public class InsertEquipmentWindow extends BaseFrame {
 	private static final long serialVersionUID = 2715820195499102991L;
 	private CharacterPlayer characterPlayer;
 	private ResumeEquipmentListPanel equipmentListPanel;
+	private EquipmentCreatorPanel equipmentCreatorPanel;
 
 	public InsertEquipmentWindow(CharacterPlayer characterPlayer) {
 		this.characterPlayer = characterPlayer;
@@ -45,16 +46,24 @@ public class InsertEquipmentWindow extends BaseFrame {
 		GridBagLayout layout = new GridBagLayout();
 		setLayout(layout);
 		GridBagConstraints constraints = new GridBagConstraints();
+		
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.anchor = GridBagConstraints.LINE_START;
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		constraints.gridwidth = 2;
+		constraints.gridheight = 3;
+		constraints.weightx = 1;
+		constraints.weighty = 1;
+		equipmentCreatorPanel = new EquipmentCreatorPanel();
+		add(equipmentCreatorPanel, constraints);
 
 		equipmentListPanel = new ResumeEquipmentListPanel(characterPlayer);
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.anchor = GridBagConstraints.LINE_START;
-		constraints.gridx = 0;
-		constraints.gridy = 8;
-		constraints.gridwidth = 5;
+		constraints.gridy = 3;
+		constraints.gridwidth = 2;
 		constraints.gridheight = 3;
-		constraints.weightx = 1;
-		constraints.weighty = 1;
 		add(equipmentListPanel, constraints);
 
 	}

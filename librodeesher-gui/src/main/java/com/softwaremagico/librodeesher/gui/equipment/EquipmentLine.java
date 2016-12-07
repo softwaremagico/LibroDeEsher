@@ -54,7 +54,7 @@ public class EquipmentLine extends BaseLine {
 
 	@Override
 	public void update() {
-
+		setElements();
 	}
 
 	protected void setElements() {
