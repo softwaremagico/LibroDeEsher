@@ -1,7 +1,9 @@
 package com.softwaremagico.librodeesher.pj;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
@@ -38,6 +40,8 @@ public class CharacterPlayerHelper {
 
 	private Map<String, Boolean> interestingSkills;
 
+	private Set<String> favouriteSkills;
+
 	private boolean enabled = true;
 
 	private Integer developmentPoints;
@@ -70,6 +74,7 @@ public class CharacterPlayerHelper {
 		skillRealRanks = new HashMap<>();
 		interestingCategories = new HashMap<>();
 		interestingSkills = new HashMap<>();
+		favouriteSkills = new HashSet<>();
 		setDirty(true);
 	}
 
@@ -91,6 +96,7 @@ public class CharacterPlayerHelper {
 		skillRealRanks = new HashMap<>();
 		interestingSkills = new HashMap<>();
 		resetAllSkillTotal();
+		resetFavouriteSkills();
 		setDirty(true);
 	}
 
@@ -168,6 +174,7 @@ public class CharacterPlayerHelper {
 		skillTotalRanksPerCategory = new HashMap<>();
 		skillRealRanks = new HashMap<>();
 		resetSkillTotalBonus(skillName);
+		resetFavouriteSkills();
 		resetDevelopmentPoints();
 	}
 
@@ -281,6 +288,7 @@ public class CharacterPlayerHelper {
 		skillRanks.put(skillName, ranks);
 		resetSkillTotalBonus(skillName);
 		resetDevelopmentPoints();
+		resetFavouriteSkills();
 		setDirty(true);
 	}
 
@@ -448,5 +456,18 @@ public class CharacterPlayerHelper {
 
 	public void setSkillInteresting(String skillName, boolean interesting) {
 		interestingSkills.put(skillName, interesting);
+	}
+
+	public Set<String> getFavouriteSkills() {
+		return favouriteSkills;
+	}
+
+	public void setFavouriteSkills(Set<String> favouriteSkills) {
+		resetFavouriteSkills();
+		this.favouriteSkills.addAll(favouriteSkills);
+	}
+
+	public void resetFavouriteSkills() {
+		favouriteSkills = new HashSet<>();
 	}
 }

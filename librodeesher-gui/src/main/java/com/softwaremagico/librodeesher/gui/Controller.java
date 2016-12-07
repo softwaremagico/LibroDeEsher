@@ -56,7 +56,6 @@ import com.softwaremagico.librodeesher.gui.files.ExploreWindowForRlm;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForRlmLvl;
 import com.softwaremagico.librodeesher.gui.files.ExploreWindowForTxt;
 import com.softwaremagico.librodeesher.gui.history.WriteHistoryWindow;
-import com.softwaremagico.librodeesher.gui.magicitem.InsertMagicItemWindow;
 import com.softwaremagico.librodeesher.gui.perk.PerkWindow;
 import com.softwaremagico.librodeesher.gui.persistence.LoadCharacterListener;
 import com.softwaremagico.librodeesher.gui.persistence.LoadCharacterPlayerWindow;
@@ -101,7 +100,7 @@ public class Controller {
 	private TrainingWindow trainingWindow;
 	private RandomWindow randomWindow;
 	private LoadCharacterPlayerWindow loadWindow;
-	private InsertMagicItemWindow insertMagicItemWindow;
+	//private InsertMagicItemWindow insertMagicItemWindow;
 	private InsertRanksWindow insertRankWindows;
 
 	private boolean actionsEnables = true;
@@ -184,12 +183,12 @@ public class Controller {
 	class InsertMagicObject implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			try {
-				insertMagicItemWindow.dispose();
-			} catch (NullPointerException npe) {
-			}
-			insertMagicItemWindow = new InsertMagicItemWindow(selectedCharacter);
-			insertMagicItemWindow.setVisible(true);
+//			try {
+//				insertMagicItemWindow.dispose();
+//			} catch (NullPointerException npe) {
+//			}
+//			insertMagicItemWindow = new InsertMagicItemWindow(selectedCharacter);
+//			insertMagicItemWindow.setVisible(true);
 		}
 	}
 

@@ -38,9 +38,9 @@ import javax.swing.JPanel;
 
 import com.softwaremagico.files.MessageManager;
 import com.softwaremagico.librodeesher.gui.components.SelectSkillPanel;
+import com.softwaremagico.librodeesher.gui.elements.BaseCheckBox;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.SkillChangedListener;
-import com.softwaremagico.librodeesher.gui.style.BaseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfStandardSheet;
@@ -50,11 +50,12 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 	private static final long serialVersionUID = -5951000255101455159L;
 	private CharacterPlayer character;
 	private SetSkillAsFavouritePanel setSkillAsFavouritePanel;
-	private SelectedSkillsPanel selectSpecializationPanel;
+	private SelectedSkillsPanel selectedFavouriteSkillsPanel;
+	private BaseCheckBox includeRecommendedFavouriteSkills;
 
 	public SelectFavouriteSkillsWindow(final CharacterPlayer character) {
 		this.character = character;
-		defineWindow(350, 350);
+		defineWindow(350, 400);
 		setResizable(false);
 		setElements();
 		updateFavouriteList();
@@ -80,8 +81,7 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 			@Override
 			public void skillChanged(Skill skill) {
 				if (skill != null) {
-					setSkillAsFavouritePanel.setFavouriteCheckBoxSelected(character.getFavouriteSkills()
-							.contains(skill.getName()));
+					setSkillAsFavouritePanel.setFavouriteCheckBoxSelected(character.getFavouriteSkills().contains(skill.getName()));
 				}
 			}
 		});
@@ -101,23 +101,17 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 					attackMessageShown = false;
 					skillMessageShown = false;
 				} else {
-					character.getFavouriteSkills().add(selectSkillPanel.getSelectedSkill().getName());
-					// Check max favourite items!
-					if (!skillMessageShown
-							&& character.getFavouriteNoOffensiveSkills().size() > PdfStandardSheet.MOST_USED_SKILLS_LINES * 2) {
-						MessageManager.warningMessage(this.getClass().getName(),
-								"Has seleccionado un número muy alto de habilidades favoritas, solo los "
-										+ (PdfStandardSheet.MOST_USED_SKILLS_LINES * 2)
-										+ " primero se podrá visualizar en la ficha de personaje.",
+					character.addFavouriteSkill(selectSkillPanel.getSelectedSkill().getName());
+					// Check max favorite items!
+					if (!skillMessageShown && character.getFavouriteNoOffensiveSkills().size() > PdfStandardSheet.MOST_USED_SKILLS_LINES * 2) {
+						MessageManager.warningMessage(this.getClass().getName(), "Has seleccionado un número muy alto de habilidades favoritas, solo los "
+								+ (PdfStandardSheet.MOST_USED_SKILLS_LINES * 2) + " primero se podrá visualizar en la ficha de personaje.",
 								"¡Demasiadas habilidades favoritas!");
 						skillMessageShown = true;
 					}
-					if (!attackMessageShown
-							&& character.getFavouriteOffensiveSkills().size() > PdfStandardSheet.MOST_USED_ATTACKS_LINES) {
-						MessageManager.warningMessage(this.getClass().getName(),
-								"Has seleccionado un número muy alto de ataques favoritos, solo los "
-										+ PdfStandardSheet.MOST_USED_ATTACKS_LINES
-										+ " primeros se podrán visualizar en la ficha de personaje.",
+					if (!attackMessageShown && character.getFavouriteOffensiveSkills().size() > PdfStandardSheet.MOST_USED_ATTACKS_LINES) {
+						MessageManager.warningMessage(this.getClass().getName(), "Has seleccionado un número muy alto de ataques favoritos, solo los "
+								+ PdfStandardSheet.MOST_USED_ATTACKS_LINES + " primeros se podrán visualizar en la ficha de personaje.",
 								"¡Demasiadas habilidades favoritas!");
 						attackMessageShown = true;
 					}
@@ -128,32 +122,39 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 		getContentPane().add(setSkillAsFavouritePanel, gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
+		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
 		gridBagConstraints.gridy = 2;
 		gridBagConstraints.weighty = 1;
-		selectSpecializationPanel = new SelectedSkillsPanel();
-		getContentPane().add(selectSpecializationPanel, gridBagConstraints);
+		selectedFavouriteSkillsPanel = new SelectedSkillsPanel();
+		getContentPane().add(selectedFavouriteSkillsPanel, gridBagConstraints);
 
-		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+	
+		includeRecommendedFavouriteSkills = new BaseCheckBox("Include recommended skills");
+		includeRecommendedFavouriteSkills.addActionListener(new ActionListener() {
 
-		BaseButton auto = new BaseButton("Auto");
-		auto.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				for (Skill skill : character.getSkillsWithRanks()) {
-					character.getFavouriteSkills().add(skill.getName());
-				}
+			public void actionPerformed(ActionEvent e) {
+				character.setRecommendedFavouriteSkillsIncluded(includeRecommendedFavouriteSkills.isSelected());
 				updateFavouriteList();
 			}
 		});
-		buttonPanel.add(auto);
+		includeRecommendedFavouriteSkills.setSelected(character.isRecommendedFavouriteSkillsIncluded());
+		gridBagConstraints.gridy = 3;
+		gridBagConstraints.fill = GridBagConstraints.NONE;
+		gridBagConstraints.anchor = GridBagConstraints.EAST;
+		gridBagConstraints.fill = GridBagConstraints.NONE;
+		gridBagConstraints.weighty = 0;
+		getContentPane().add(includeRecommendedFavouriteSkills, gridBagConstraints);
 
+		
+		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
 		CloseButton closeButton = new CloseButton(this);
 		buttonPanel.add(closeButton);
 		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
 		gridBagConstraints.fill = GridBagConstraints.NONE;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 3;
+		gridBagConstraints.gridy = 4;
 		gridBagConstraints.gridheight = 1;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 1;
@@ -163,8 +164,7 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 		// Update first selected skill.
 		Skill skill = selectSkillPanel.getSelectedSkill();
 		if (skill != null) {
-			setSkillAsFavouritePanel.setFavouriteCheckBoxSelected(character.getFavouriteSkills().contains(
-					skill.getName()));
+			setSkillAsFavouritePanel.setFavouriteCheckBoxSelected(character.getFavouriteSkills().contains(skill.getName()));
 		}
 	}
 
@@ -172,7 +172,7 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 		List<String> sortedSkills = new ArrayList<>();
 		sortedSkills.addAll(character.getFavouriteSkills());
 		Collections.sort(sortedSkills);
-		selectSpecializationPanel.setOptions(sortedSkills);
+		selectedFavouriteSkillsPanel.setOptions(sortedSkills);
 	}
 
 	@Override

@@ -80,6 +80,7 @@
         name varchar(255),
         professionName varchar(255),
         raceName varchar(255),
+        recommendedFavouriteSkillsIncluded bit not null,
         sex varchar(255),
         version varchar(255),
         appearance_ID bigint,
