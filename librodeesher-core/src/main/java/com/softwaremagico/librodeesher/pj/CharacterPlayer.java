@@ -3083,7 +3083,26 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Set<String> getFavouriteSkills() {
-		return getCurrentLevel().getFavouriteSkills();
+		if (!characterPlayerHelper.getFavouriteSkills().isEmpty()) {
+			return Collections.unmodifiableSet(characterPlayerHelper.getFavouriteSkills());
+		}
+
+		Set<String> favouriteSkills = new HashSet<>();
+		if (recommendedFavouriteSkillsIncluded) {
+			// Add skills with ranks.
+			for (Skill skill : getSkillsWithRanks()) {
+				favouriteSkills.add(skill.getName());
+			}
+		}
+		favouriteSkills.addAll(getCurrentLevel().getFavouriteSkills());
+
+		characterPlayerHelper.setFavouriteSkills(favouriteSkills);
+		return Collections.unmodifiableSet(favouriteSkills);
+	}
+
+	public void addFavouriteSkill(String skillName) {
+		getCurrentLevel().getFavouriteSkills().add(skillName);
+		characterPlayerHelper.resetFavouriteSkills();
 	}
 
 	public List<Skill> getFavouriteNoOffensiveSkills() {

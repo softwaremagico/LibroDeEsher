@@ -101,14 +101,13 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 					attackMessageShown = false;
 					skillMessageShown = false;
 				} else {
-					character.getFavouriteSkills().add(selectSkillPanel.getSelectedSkill().getName());
+					character.addFavouriteSkill(selectSkillPanel.getSelectedSkill().getName());
 					// Check max favourite items!
 					if (!skillMessageShown && character.getFavouriteNoOffensiveSkills().size() > PdfStandardSheet.MOST_USED_SKILLS_LINES * 2) {
 						MessageManager.warningMessage(this.getClass().getName(), "Has seleccionado un número muy alto de habilidades favoritas, solo los "
 								+ (PdfStandardSheet.MOST_USED_SKILLS_LINES * 2) + " primero se podrá visualizar en la ficha de personaje.",
 								"¡Demasiadas habilidades favoritas!");
 						skillMessageShown = true;
-						// character.addFavouriteSkill(selectSkillPanel.getSelectedSkill().getName());
 					}
 					// Check max favorite items!
 					if (!skillMessageShown && character.getFavouriteNoOffensiveSkills().size() > PdfStandardSheet.MOST_USED_SKILLS_LINES * 2) {
