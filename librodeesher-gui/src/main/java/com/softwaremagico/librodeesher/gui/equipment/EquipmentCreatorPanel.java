@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.equipment;
+
 /*
  * #%L
  * Libro de Esher (GUI)
@@ -51,7 +52,11 @@ public class EquipmentCreatorPanel extends BasePanel {
 	private BaseTextField nameField;
 	private BaseTextArea descriptionField;
 	private CharacterPlayer characterPlayer;
-	private Set<EquipmentChangedListener> equipmentChangedListeners;
+	private Set<EquipmentAddedListener> equipmentChangedListeners;
+
+	public interface EquipmentAddedListener {
+		public void add(Equipment e);
+	}
 
 	public EquipmentCreatorPanel(CharacterPlayer characterPlayer) {
 		equipmentChangedListeners = new HashSet<>();
@@ -113,8 +118,8 @@ public class EquipmentCreatorPanel extends BasePanel {
 				if (nameField.getText().trim().length() > 0) {
 					Equipment equipment = new Equipment(nameField.getText().trim(), descriptionField.getText().trim());
 					characterPlayer.addStandardEquipment(equipment);
-					for (EquipmentChangedListener listener : equipmentChangedListeners) {
-						listener.changed(equipment);
+					for (EquipmentAddedListener listener : equipmentChangedListeners) {
+						listener.add(equipment);
 					}
 					nameField.setText("");
 					descriptionField.setText("");
@@ -131,7 +136,7 @@ public class EquipmentCreatorPanel extends BasePanel {
 		add(buttonPanel, gridBagConstraints);
 	}
 
-	public void addEquipmentChangedListener(EquipmentChangedListener listener) {
+	public void addEquipmentChangedListener(EquipmentAddedListener listener) {
 		equipmentChangedListeners.add(listener);
 	}
 

@@ -27,9 +27,12 @@ package com.softwaremagico.librodeesher.gui.equipment;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.SwingConstants;
 
+import com.softwaremagico.librodeesher.gui.ShowMessage;
 import com.softwaremagico.librodeesher.gui.elements.BaseCheckBox;
 import com.softwaremagico.librodeesher.gui.elements.BoldListLabel;
 import com.softwaremagico.librodeesher.gui.elements.ListBackgroundPanel;
@@ -38,15 +41,21 @@ import com.softwaremagico.librodeesher.pj.equipment.Equipment;
 
 public class EquipmentLine extends BaseLine {
 	private static final long serialVersionUID = -6440213804132215064L;
-	public static final int SELECTION_COLUMN_WIDTH = 25;
+	public static final int SELECTION_COLUMN_WIDTH = 80;
 	public static final int EQUIPMENT_NAME_WIDTH = 200;
 	public static final int EQUIPMENT_DESCRIPTION_WIDTH = 400;
 	private BoldListLabel equipmentNameLabel, equipmentDescription;
 	private BaseCheckBox selected;
 	private Equipment equipment;
+	private EquipmentRemovedListener equipmentRemovedListener;
+
+	public interface EquipmentRemovedListener {
+		public void deleted(Equipment e);
+	}
 
 	public EquipmentLine(Equipment equipment, Color background) {
 		this.equipment = equipment;
+		equipmentRemovedListener = null;
 		setDefaultBackground(background);
 		setElements();
 		setBackground(background);
@@ -74,6 +83,16 @@ public class EquipmentLine extends BaseLine {
 			gridBagConstraints.weightx = 0;
 			selected = new BaseCheckBox("", SELECTION_COLUMN_WIDTH, columnHeight);
 			add(new ListBackgroundPanel(selected, getDefaultBackground()), gridBagConstraints);
+			selected.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (ShowMessage.showQuestionMessage(null, "Vas a eliminar el elemento del equipo \"" + equipment.getName()
+							+ "\".\n Esta acción es permante. ¿Está seguro de continuar?", "Borrar equipo")) {
+						equipmentRemovedListener.deleted(equipment);
+					}
+				}
+			});
 		}
 
 		gridBagConstraints.gridx = 1;
@@ -103,6 +122,10 @@ public class EquipmentLine extends BaseLine {
 
 	public Equipment getEquipment() {
 		return equipment;
+	}
+
+	public void addEquipmentRemovedListener(EquipmentRemovedListener equipmentRemovedListener) {
+		this.equipmentRemovedListener = equipmentRemovedListener;
 	}
 
 }

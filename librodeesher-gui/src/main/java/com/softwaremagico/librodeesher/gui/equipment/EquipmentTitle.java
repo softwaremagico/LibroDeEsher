@@ -55,7 +55,7 @@ public class EquipmentTitle extends BaseTitleLine {
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
-		TitleLabel selectedLabel = new TitleLabel(" ", SwingConstants.LEFT, EquipmentLine.SELECTION_COLUMN_WIDTH, columnHeight);
+		TitleLabel selectedLabel = new TitleLabel("Borrar", SwingConstants.LEFT, EquipmentLine.SELECTION_COLUMN_WIDTH, columnHeight);
 		add(new TitleBackgroundPanel(selectedLabel), gridBagConstraints);
 
 		gridBagConstraints.gridx = 1;

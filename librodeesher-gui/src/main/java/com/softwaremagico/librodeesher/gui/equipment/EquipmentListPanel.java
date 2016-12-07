@@ -28,6 +28,7 @@ import java.awt.GridLayout;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.softwaremagico.librodeesher.gui.equipment.EquipmentLine.EquipmentRemovedListener;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.equipment.Equipment;
@@ -68,8 +69,8 @@ public class EquipmentListPanel extends BasePanel {
 			EquipmentLine line = new EquipmentLine(null, getLineBackgroundColor(i));
 			add(line);
 		}
-//		this.revalidate();
-//		this.repaint();
+		// this.revalidate();
+		// this.repaint();
 	}
 
 	public Set<Equipment> getSelectedLines() {
@@ -80,5 +81,11 @@ public class EquipmentListPanel extends BasePanel {
 			}
 		}
 		return items;
+	}
+
+	public void addEquipmentRemovedListener(EquipmentRemovedListener equipmentRemovedListener) {
+		for (EquipmentLine line : lines) {
+			line.addEquipmentRemovedListener(equipmentRemovedListener);
+		}
 	}
 }

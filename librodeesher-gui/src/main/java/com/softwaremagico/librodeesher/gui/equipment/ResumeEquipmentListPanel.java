@@ -25,6 +25,7 @@ package com.softwaremagico.librodeesher.gui.equipment;
  */
 
 import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
+import com.softwaremagico.librodeesher.gui.equipment.EquipmentLine.EquipmentRemovedListener;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 
 public class ResumeEquipmentListPanel extends BaseScrollPanel {
@@ -38,11 +39,15 @@ public class ResumeEquipmentListPanel extends BaseScrollPanel {
 		equipmentListPanel = new EquipmentListPanel(characterPlayer);
 		setBody(equipmentListPanel);
 	}
-	
+
 	@Override
-	public void update(){
+	public void update() {
 		equipmentListPanel.update();
 		revalidate();
+	}
+
+	public void addEquipmentRemovedListener(EquipmentRemovedListener equipmentRemovedListener) {
+		equipmentListPanel.addEquipmentRemovedListener(equipmentRemovedListener);
 	}
 
 }

@@ -31,6 +31,8 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
+import com.softwaremagico.librodeesher.gui.equipment.EquipmentCreatorPanel.EquipmentAddedListener;
+import com.softwaremagico.librodeesher.gui.equipment.EquipmentLine.EquipmentRemovedListener;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.equipment.Equipment;
@@ -43,7 +45,7 @@ public class InsertEquipmentWindow extends BaseFrame {
 
 	public InsertEquipmentWindow(CharacterPlayer characterPlayer) {
 		this.characterPlayer = characterPlayer;
-		defineWindow(640, 500);
+		defineWindow(640, 520);
 		// setResizable(false);
 		setElements();
 	}
@@ -62,10 +64,11 @@ public class InsertEquipmentWindow extends BaseFrame {
 		constraints.weightx = 1;
 		constraints.weighty = 0.3;
 		equipmentCreatorPanel = new EquipmentCreatorPanel(characterPlayer);
-		equipmentCreatorPanel.addEquipmentChangedListener(new EquipmentChangedListener() {
+		equipmentCreatorPanel.addEquipmentChangedListener(new EquipmentAddedListener() {
 			@Override
-			public void changed(Equipment e) {
+			public void add(Equipment e) {
 				equipmentListPanel.update();
+				updateRemoveEquipmentListeners();
 			}
 		});
 		add(equipmentCreatorPanel, constraints);
@@ -77,23 +80,32 @@ public class InsertEquipmentWindow extends BaseFrame {
 		constraints.gridwidth = 2;
 		constraints.gridheight = 3;
 		constraints.weighty = 1;
+		updateRemoveEquipmentListeners();
 		add(equipmentListPanel, constraints);
-		
-		
+
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
 
 		CloseButton closeButton = new CloseButton(this);
 		buttonPanel.add(closeButton);
 		constraints.anchor = GridBagConstraints.LINE_END;
 		constraints.fill = GridBagConstraints.NONE;
-		constraints.gridx = 0;
+
 		constraints.gridy = 7;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 1;
 		constraints.weightx = 1;
 		constraints.weighty = 0;
 		getContentPane().add(buttonPanel, constraints);
+	}
 
+	private void updateRemoveEquipmentListeners() {
+		equipmentListPanel.addEquipmentRemovedListener(new EquipmentRemovedListener() {
+			@Override
+			public void deleted(Equipment e) {
+				characterPlayer.removeStandardEquipment(e);
+				equipmentListPanel.update();
+			}
+		});
 	}
 
 	@Override

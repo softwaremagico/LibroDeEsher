@@ -3295,4 +3295,8 @@ public class CharacterPlayer extends StorableObject {
 	public void addStandardEquipment(Equipment equipment) {
 		standardEquipment.add(equipment);
 	}
+
+	public void removeStandardEquipment(Equipment equipment) {
+		standardEquipment.remove(equipment);
+	}
 }
