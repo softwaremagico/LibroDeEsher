@@ -3091,8 +3091,7 @@ public class CharacterPlayer extends StorableObject {
 		if (recommendedFavouriteSkillsIncluded) {
 			// Add skills with ranks.
 			for (Skill skill : getSkillsWithRanks()) {
-				// Filter not so interesting skills.
-				if (skill.getCategory().getName().toLowerCase().equals(Spanish.COMUNICATION_CATEGORY.toLowerCase())) {
+				if (isUselessFavouriteSkill(skill)) {
 					continue;
 				}
 				favouriteSkills.add(skill.getName());
@@ -3102,6 +3101,14 @@ public class CharacterPlayer extends StorableObject {
 
 		characterPlayerHelper.setFavouriteSkills(favouriteSkills);
 		return Collections.unmodifiableSet(favouriteSkills);
+	}
+
+	private boolean isUselessFavouriteSkill(Skill skill) {
+		// Filter not so interesting skills.
+		if (skill.getCategory().getName().toLowerCase().equals(Spanish.COMUNICATION_CATEGORY.toLowerCase())) {
+			return true;
+		}
+		return false;
 	}
 
 	public void addFavouriteSkill(String skillName) {
