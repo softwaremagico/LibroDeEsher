@@ -47,7 +47,7 @@ public class MainMenu {
 			importLevelMenuItem, exitMenuItem;
 	private JMenuItem aboutMenuItem, cultureMenuItem, professionMenuItem, charactMenuItem, trainingMenuItem,
 			skillsMenuItem, perksMenuItem, backgroundMenuItem, levelUpMenuItem;
-	private JMenuItem insertMagicObject, insertSkillRanks, historyMenuItem;
+	private JMenuItem insertMagicObject, insertSkillRanks, insertEquipment, historyMenuItem;
 	private JMenuItem randomName, randomCharacter;
 	private JMenuItem optionsMenu;
 	private JCheckBoxMenuItem enableDebug;

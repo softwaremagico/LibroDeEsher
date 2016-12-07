@@ -61,7 +61,7 @@ public class CharacterCreationTest extends BasicTest {
 		});
 		randomCharacter.createRandomValues();
 		characterPlayer = randomCharacter.getCharacterPlayer();
-		characterPlayer.autoGenerateFavouriteSkills();
+		characterPlayer.setRecommendedFavouriteSkillsIncluded(true);
 		Assert.assertTrue(characterPlayer.getRemainingDevelopmentPoints() >= 0);
 	}
 
