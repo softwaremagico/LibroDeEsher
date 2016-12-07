@@ -208,11 +208,6 @@ public class MainMenu {
 		backgroundMenuItem.setIcon((Icon) getIcon("history.png"));
 		createMenu.add(backgroundMenuItem);
 
-		historyMenuItem = new JMenuItem("Trasfondo", KeyEvent.VK_L);
-		historyMenuItem.getAccessibleContext().setAccessibleDescription("Puntos de historial.");
-		historyMenuItem.setIcon((Icon) getIcon("book.png"));
-		createMenu.add(historyMenuItem);
-
 		levelUpMenuItem = new JMenuItem("Subir Nivel");
 		levelUpMenuItem.getAccessibleContext().setAccessibleDescription("Subir un nivel.");
 		levelUpMenuItem.setIcon((Icon) getIcon("level_up.png"));
