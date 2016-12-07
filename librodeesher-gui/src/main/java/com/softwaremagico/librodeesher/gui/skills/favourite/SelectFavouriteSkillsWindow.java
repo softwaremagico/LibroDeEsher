@@ -97,7 +97,7 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 				boolean attackMessageShown = false;
 				boolean skillMessageShown = false;
 				if (!setSkillAsFavouritePanel.isFavouriteCheckBoxSelected()) {
-					character.getFavouriteSkills().remove(selectSkillPanel.getSelectedSkill().getName());
+					character.removeFavouriteSkill(selectSkillPanel.getSelectedSkill().getName());
 					attackMessageShown = false;
 					skillMessageShown = false;
 				} else {
