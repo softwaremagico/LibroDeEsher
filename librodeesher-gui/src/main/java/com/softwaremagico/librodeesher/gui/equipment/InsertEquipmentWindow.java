@@ -104,6 +104,7 @@ public class InsertEquipmentWindow extends BaseFrame {
 			public void deleted(Equipment e) {
 				characterPlayer.removeStandardEquipment(e);
 				equipmentListPanel.update();
+				updateRemoveEquipmentListeners();
 			}
 		});
 	}

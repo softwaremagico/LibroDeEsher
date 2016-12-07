@@ -25,13 +25,17 @@ package com.softwaremagico.librodeesher.gui.equipment;
  */
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.softwaremagico.librodeesher.gui.equipment.EquipmentLine.EquipmentRemovedListener;
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.equipment.Equipment;
+import com.softwaremagico.librodeesher.pj.equipment.EquipmentComparatorByName;
 
 public class EquipmentListPanel extends BasePanel {
 	private static final long serialVersionUID = 6877410491444149606L;
@@ -55,7 +59,9 @@ public class EquipmentListPanel extends BasePanel {
 		setLayout(new GridLayout(0, 1));
 		int linesAdded = 0;
 		if (characterPlayer != null) {
-			for (Equipment equipment : characterPlayer.getAllNotMagicEquipment()) {
+			List<Equipment> items = new ArrayList<>(characterPlayer.getAllNotMagicEquipment());
+			Collections.sort(items, new EquipmentComparatorByName());
+			for (Equipment equipment : items) {
 				if (equipment != null) {
 					EquipmentLine line = new EquipmentLine(equipment, getLineBackgroundColor(linesAdded));
 					add(line);

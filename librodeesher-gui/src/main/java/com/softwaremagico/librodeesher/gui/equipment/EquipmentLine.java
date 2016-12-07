@@ -89,7 +89,9 @@ public class EquipmentLine extends BaseLine {
 				public void actionPerformed(ActionEvent e) {
 					if (ShowMessage.showQuestionMessage(null, "Vas a eliminar el elemento del equipo \"" + equipment.getName()
 							+ "\".\n Esta acción es permante. ¿Está seguro de continuar?", "Borrar equipo")) {
-						equipmentRemovedListener.deleted(equipment);
+						if (equipmentRemovedListener != null) {
+							equipmentRemovedListener.deleted(equipment);
+						}
 					}
 				}
 			});
