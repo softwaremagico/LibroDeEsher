@@ -1,5 +1,7 @@
 package com.softwaremagico.librodeesher.pj.export.txt;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.softwaremagico.files.Folder;
@@ -11,7 +13,9 @@ import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.equipment.Equipment;
+import com.softwaremagico.librodeesher.pj.equipment.EquipmentComparatorByName;
 import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
+import com.softwaremagico.librodeesher.pj.equipment.MagicObjectComparatorByName;
 import com.softwaremagico.librodeesher.pj.perk.Perk;
 import com.softwaremagico.librodeesher.pj.resistance.ResistanceType;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -164,8 +168,9 @@ public class TxtSheet {
 			text += "--------------------------------------------------\n";
 		}
 		if (characterPlayer.getAllMagicItems().size() > 0) {
-			for (int i = 0; i < characterPlayer.getAllMagicItems().size(); i++) {
-				MagicObject magicItem = characterPlayer.getAllMagicItems().get(i);
+			List<MagicObject> magicitems = new ArrayList<>(characterPlayer.getAllMagicItems());
+			Collections.sort(magicitems, new MagicObjectComparatorByName());
+			for (MagicObject magicItem : magicitems) {
 				String magicItemString = magicItem.getName();
 				if (magicItem.getDescription() != null && magicItem.getDescription().length() > 0) {
 					magicItemString += " (" + magicItem.getDescription() + ")";
@@ -184,8 +189,10 @@ public class TxtSheet {
 			}
 			text += "\n";
 		}
-		if (characterPlayer.getAllNotMagicEquipment().size() > 0) {
-			for (Equipment equipment : characterPlayer.getStandardEquipment()) {
+		if (!characterPlayer.getAllNotMagicEquipment().isEmpty()) {
+			List<Equipment> items = new ArrayList<>(characterPlayer.getAllNotMagicEquipment());
+			Collections.sort(items, new EquipmentComparatorByName());
+			for (Equipment equipment : characterPlayer.getAllNotMagicEquipment()) {
 				text += equipment.getName() + " " + equipment.getDescription() + "\n\n";
 			}
 			text += "\n";

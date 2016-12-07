@@ -187,8 +187,8 @@ Equipo:
 --------------------------------------------------
 Libro de Demonología: 10 a Demonología
 
-Silla de Montar: 20 a Montar: Caballos, 20 a Montar: Montura Elemental, 20 a Montar
-
 Medallón de la Geometría: 25 a Matemáticas Básicas
+
+Silla de Montar: 20 a Montar: Caballos, 20 a Montar: Montura Elemental, 20 a Montar
 
 
