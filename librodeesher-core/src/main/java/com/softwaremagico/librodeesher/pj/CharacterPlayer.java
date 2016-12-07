@@ -3297,6 +3297,11 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public void removeStandardEquipment(Equipment equipment) {
-		standardEquipment.remove(equipment);
+		if (!standardEquipment.remove(equipment)) {
+			// Try to remove a training item.
+			for (TrainingDecision trainingDecision : getTrainingDecisions().values()) {
+				trainingDecision.getStandardEquipment().remove(equipment);
+			}
+		}
 	}
 }
