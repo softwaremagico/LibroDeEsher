@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.equipment;
+
 /*
  * #%L
  * Libro de Esher (GUI)
@@ -52,10 +53,22 @@ public class EquipmentTitle extends BaseTitleLine {
 		gridBagConstraints.weighty = 0;
 
 		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0;
+		TitleLabel selectedLabel = new TitleLabel(" ", SwingConstants.LEFT, EquipmentLine.SELECTION_COLUMN_WIDTH, columnHeight);
+		add(new TitleBackgroundPanel(selectedLabel), gridBagConstraints);
+
+		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridwidth = 2;
-		gridBagConstraints.weightx = 0.6;
-		TitleLabel categoryNameLabel = new TitleLabel("Equipment", SwingConstants.LEFT, 200, columnHeight);
-		add(new TitleBackgroundPanel(categoryNameLabel), gridBagConstraints);
+		gridBagConstraints.weightx = 0;
+		TitleLabel itemNameLabel = new TitleLabel("Equipo", SwingConstants.LEFT, EquipmentLine.EQUIPMENT_NAME_WIDTH, columnHeight);
+		add(new TitleBackgroundPanel(itemNameLabel), gridBagConstraints);
+
+		gridBagConstraints.gridx = 32;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 1;
+		TitleLabel itemDescriptionLabel = new TitleLabel("Descripción", SwingConstants.LEFT, EquipmentLine.EQUIPMENT_DESCRIPTION_WIDTH, columnHeight);
+		add(new TitleBackgroundPanel(itemDescriptionLabel), gridBagConstraints);
 	}
 
 }

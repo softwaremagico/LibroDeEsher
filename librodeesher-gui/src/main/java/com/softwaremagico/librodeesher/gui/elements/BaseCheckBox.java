@@ -23,6 +23,8 @@ package com.softwaremagico.librodeesher.gui.elements;
  * #L%
  */
 
+import java.awt.Dimension;
+
 import javax.swing.JCheckBox;
 
 import com.softwaremagico.librodeesher.gui.style.Fonts;
@@ -35,7 +37,18 @@ public class BaseCheckBox extends JCheckBox {
 		setDefaultFont();
 	}
 	
+	public BaseCheckBox(String text, int width, int height){
+		super(text);
+		setDefaultFont();
+		setNewSize(width, height);
+	}
+	
 	protected void setDefaultFont() {
 		setFont(Fonts.getInstance().getBoldFont());
+	}
+	
+	private void setNewSize(int width, int height) {
+		setMinimumSize(new Dimension(width, height));
+		setPreferredSize(new Dimension(width, height));
 	}
 }

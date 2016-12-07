@@ -36,8 +36,8 @@ public class InsertEquipmentWindow extends BaseFrame {
 
 	public InsertEquipmentWindow(CharacterPlayer characterPlayer) {
 		this.characterPlayer = characterPlayer;
-		defineWindow(420, 420);
-		setResizable(false);
+		defineWindow(600, 420);
+		//setResizable(false);
 		setElements();
 	}
 

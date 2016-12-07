@@ -30,6 +30,7 @@ import java.awt.GridBagLayout;
 
 import javax.swing.SwingConstants;
 
+import com.softwaremagico.librodeesher.gui.elements.BaseCheckBox;
 import com.softwaremagico.librodeesher.gui.elements.BoldListLabel;
 import com.softwaremagico.librodeesher.gui.elements.ListBackgroundPanel;
 import com.softwaremagico.librodeesher.gui.style.BaseLine;
@@ -37,7 +38,11 @@ import com.softwaremagico.librodeesher.pj.equipment.Equipment;
 
 public class EquipmentLine extends BaseLine {
 	private static final long serialVersionUID = -6440213804132215064L;
+	public static final int SELECTION_COLUMN_WIDTH = 25;
+	public static final int EQUIPMENT_NAME_WIDTH = 200;
+	public static final int EQUIPMENT_DESCRIPTION_WIDTH = 400;
 	private BoldListLabel equipmentNameLabel, equipmentDescription;
+	private BaseCheckBox selected;
 	private Equipment equipment;
 
 	public EquipmentLine(Equipment equipment, Color background) {
@@ -64,22 +69,30 @@ public class EquipmentLine extends BaseLine {
 		gridBagConstraints.weighty = 0;
 
 		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridwidth = 2;
-		gridBagConstraints.weightx = 0.6;
+		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.weightx = 0;
 		if (equipment != null) {
-			equipmentNameLabel = new BoldListLabel(equipment.getName(), SwingConstants.LEFT, 200, columnHeight);
+			selected = new BaseCheckBox("", SELECTION_COLUMN_WIDTH, columnHeight);
+			add(new ListBackgroundPanel(selected, getDefaultBackground()), gridBagConstraints);
+		}
+
+		gridBagConstraints.gridx = 1;
+		gridBagConstraints.gridwidth = 2;
+		gridBagConstraints.weightx = 0;
+		if (equipment != null) {
+			equipmentNameLabel = new BoldListLabel(equipment.getName(), SwingConstants.LEFT, EQUIPMENT_NAME_WIDTH, columnHeight);
 		} else {
-			equipmentNameLabel = new BoldListLabel("", SwingConstants.LEFT, 200, columnHeight);
+			equipmentNameLabel = new BoldListLabel("", SwingConstants.LEFT, EQUIPMENT_NAME_WIDTH, columnHeight);
 		}
 		add(new ListBackgroundPanel(equipmentNameLabel, getDefaultBackground()), gridBagConstraints);
 
-		gridBagConstraints.gridx = 2;
+		gridBagConstraints.gridx = 3;
 		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 0.3;
+		gridBagConstraints.weightx = 1;
 		if (equipment != null) {
-			equipmentDescription = new BoldListLabel(equipment.getDescription(), SwingConstants.LEFT, 200, columnHeight);
+			equipmentDescription = new BoldListLabel(equipment.getDescription(), SwingConstants.LEFT, EQUIPMENT_DESCRIPTION_WIDTH, columnHeight);
 		} else {
-			equipmentDescription = new BoldListLabel("", SwingConstants.LEFT, 200, columnHeight);
+			equipmentDescription = new BoldListLabel("", SwingConstants.LEFT, EQUIPMENT_DESCRIPTION_WIDTH, columnHeight);
 		}
 		add(new ListBackgroundPanel(equipmentDescription, getDefaultBackground()), gridBagConstraints);
 	}
