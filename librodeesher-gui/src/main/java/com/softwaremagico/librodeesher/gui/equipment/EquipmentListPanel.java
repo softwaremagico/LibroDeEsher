@@ -40,17 +40,17 @@ public class EquipmentListPanel extends BasePanel {
 
 	protected EquipmentListPanel(CharacterPlayer characterPlayer) {
 		this.characterPlayer = characterPlayer;
-		addAll();
+		refreshAll();
 	}
 
 	@Override
 	public void update() {
-		addAll();
+		refreshAll();
 	}
 
-	public void addAll() {
+	public void refreshAll() {
 		lines = new HashSet<>();
-		removeAll();
+		this.removeAll();
 		setLayout(new GridLayout(0, 1));
 		int linesAdded = 0;
 		if (characterPlayer != null) {
@@ -68,8 +68,8 @@ public class EquipmentListPanel extends BasePanel {
 			EquipmentLine line = new EquipmentLine(null, getLineBackgroundColor(i));
 			add(line);
 		}
-		this.repaint();
-		this.revalidate();
+//		this.revalidate();
+//		this.repaint();
 	}
 
 	public Set<Equipment> getSelectedLines() {

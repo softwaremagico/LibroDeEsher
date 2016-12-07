@@ -41,8 +41,8 @@ public class ResumeEquipmentListPanel extends BaseScrollPanel {
 	
 	@Override
 	public void update(){
-		super.update();
 		equipmentListPanel.update();
+		revalidate();
 	}
 
 }
