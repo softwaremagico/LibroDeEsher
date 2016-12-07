@@ -3114,7 +3114,12 @@ public class CharacterPlayer extends StorableObject {
 
 	public void addFavouriteSkill(String skillName) {
 		getCurrentLevel().getFavouriteSkills().add(skillName);
-		characterPlayerHelper.resetFavouriteSkills();
+		characterPlayerHelper.getFavouriteSkills().add(skillName);
+	}
+	
+	public void removeFavouriteSkill(String skillName){
+		getCurrentLevel().getFavouriteSkills().remove(skillName);
+		characterPlayerHelper.getFavouriteSkills().remove(skillName);
 	}
 	
 	public void removeFavouriteSkill(String skillName){
