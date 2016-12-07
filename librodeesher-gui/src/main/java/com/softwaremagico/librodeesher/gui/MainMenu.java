@@ -222,15 +222,15 @@ public class MainMenu {
 		createMenu.setMnemonic(KeyEvent.VK_I);
 		createMenu.getAccessibleContext().setAccessibleDescription("Insertar elementos al personaje.");
 
-		insertMagicObject = new JMenuItem("Objeto Mágico", KeyEvent.VK_M);
-		insertMagicObject.setIcon((Icon) getIcon("potion.png"));
-		insertMagicObject.getAccessibleContext().setAccessibleDescription("Insertar un objeto mágico.");
-		createMenu.add(insertMagicObject);
-
 		insertEquipment = new JMenuItem("Equipo", KeyEvent.VK_E);
 		insertEquipment.setIcon((Icon) getIcon("horse.png"));
 		insertEquipment.getAccessibleContext().setAccessibleDescription("Insertar equipo.");
 		createMenu.add(insertEquipment);
+		
+		insertMagicObject = new JMenuItem("Objeto Mágico", KeyEvent.VK_M);
+		insertMagicObject.setIcon((Icon) getIcon("potion.png"));
+		insertMagicObject.getAccessibleContext().setAccessibleDescription("Insertar un objeto mágico.");
+		createMenu.add(insertMagicObject);
 
 		historyMenuItem = new JMenuItem("Trasfondo", KeyEvent.VK_L);
 		historyMenuItem.getAccessibleContext().setAccessibleDescription("Puntos de historial.");

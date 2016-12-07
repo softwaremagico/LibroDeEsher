@@ -25,6 +25,8 @@ package com.softwaremagico.librodeesher.gui.equipment;
  */
 
 import java.awt.GridLayout;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -34,6 +36,7 @@ public class EquipmentListPanel extends BasePanel {
 	private static final long serialVersionUID = 6877410491444149606L;
 	private static final int MIN_ROWS = 10;
 	private CharacterPlayer characterPlayer;
+	private Set<EquipmentLine> lines;
 
 	protected EquipmentListPanel(CharacterPlayer characterPlayer) {
 		this.characterPlayer = characterPlayer;
@@ -46,6 +49,7 @@ public class EquipmentListPanel extends BasePanel {
 	}
 
 	public void addAll() {
+		lines = new HashSet<>();
 		removeAll();
 		setLayout(new GridLayout(0, 1));
 		int linesAdded = 0;
@@ -54,6 +58,7 @@ public class EquipmentListPanel extends BasePanel {
 				if (equipment != null) {
 					EquipmentLine line = new EquipmentLine(equipment, getLineBackgroundColor(linesAdded));
 					add(line);
+					lines.add(line);
 					linesAdded++;
 				}
 			}
@@ -65,5 +70,15 @@ public class EquipmentListPanel extends BasePanel {
 		}
 		this.repaint();
 		this.revalidate();
+	}
+
+	public Set<Equipment> getSelectedLines() {
+		Set<Equipment> items = new HashSet<>();
+		for (EquipmentLine line : lines) {
+			if (line.isSelected()) {
+				items.add(line.getEquipment());
+			}
+		}
+		return items;
 	}
 }

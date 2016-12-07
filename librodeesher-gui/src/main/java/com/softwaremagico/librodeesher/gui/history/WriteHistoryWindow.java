@@ -33,7 +33,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 import com.softwaremagico.librodeesher.gui.style.BaseButton;
@@ -44,7 +43,7 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 public class WriteHistoryWindow extends BaseFrame {
 	private static final long serialVersionUID = -6800849720171166105L;
 	private CharacterPlayer characterPlayer;
-	private JTextArea textArea;
+	private BaseTextArea textArea;
 	private BaseButton acceptButton;
 
 	public WriteHistoryWindow(CharacterPlayer characterPlayer) {

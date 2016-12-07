@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.elements;
+
 /*
  * #%L
  * Libro de Esher GUI
@@ -58,8 +59,7 @@ public class BaseScrollPanel extends BasePanel {
 		gridBagConstraints.weighty = 0;
 		add(titlePanel, gridBagConstraints);
 
-		scrollPanel = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPanel = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPanel.setBorder(getBorder());
 		scrollPanel.setBounds(0, 0, scrollPanel.getWidth(), scrollPanel.getHeight());
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -93,7 +93,7 @@ public class BaseScrollPanel extends BasePanel {
 
 	@Override
 	public void update() {
-		
+		setElements();
 	}
 
 }

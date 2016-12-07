@@ -30,13 +30,19 @@ import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 public class ResumeEquipmentListPanel extends BaseScrollPanel {
 	private static final long serialVersionUID = 4077686958927513421L;
 	private EquipmentTitle title;
-	private EquipmentListPanel bonusPanel;
+	private EquipmentListPanel equipmentListPanel;
 
 	public ResumeEquipmentListPanel(CharacterPlayer characterPlayer) {
 		title = new EquipmentTitle();
 		addTitle(title);
-		bonusPanel = new EquipmentListPanel(characterPlayer);
-		setBody(bonusPanel);
+		equipmentListPanel = new EquipmentListPanel(characterPlayer);
+		setBody(equipmentListPanel);
+	}
+	
+	@Override
+	public void update(){
+		super.update();
+		equipmentListPanel.update();
 	}
 
 }

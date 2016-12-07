@@ -68,10 +68,10 @@ public class EquipmentLine extends BaseLine {
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.weighty = 0;
 
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.weightx = 0;
 		if (equipment != null) {
+			gridBagConstraints.gridx = 0;
+			gridBagConstraints.gridwidth = 1;
+			gridBagConstraints.weightx = 0;
 			selected = new BaseCheckBox("", SELECTION_COLUMN_WIDTH, columnHeight);
 			add(new ListBackgroundPanel(selected, getDefaultBackground()), gridBagConstraints);
 		}
@@ -95,6 +95,14 @@ public class EquipmentLine extends BaseLine {
 			equipmentDescription = new BoldListLabel("", SwingConstants.LEFT, EQUIPMENT_DESCRIPTION_WIDTH, columnHeight);
 		}
 		add(new ListBackgroundPanel(equipmentDescription, getDefaultBackground()), gridBagConstraints);
+	}
+
+	public boolean isSelected() {
+		return selected.isSelected();
+	}
+
+	public Equipment getEquipment() {
+		return equipment;
 	}
 
 }

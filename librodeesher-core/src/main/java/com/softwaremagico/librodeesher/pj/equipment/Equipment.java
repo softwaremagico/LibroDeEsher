@@ -47,13 +47,15 @@ public class Equipment extends StorableObject {
 	public Equipment(String name, String description) {
 		this();
 		this.name = name;
-		this.description = description;
-		if (name.contains("(")) {
-			this.name = name.substring(0, name.indexOf("(")).trim();
-			this.description = name.substring(name.indexOf("(") + 1, name.indexOf(")")).trim();
+		if (description != null && description.length() > 0) {
+			this.description = description;
 		} else {
-			this.name = name;
-			this.description = "";
+			if (name.contains("(")) {
+				this.name = name.substring(0, name.indexOf("(")).trim();
+				this.description = name.substring(name.indexOf("(") + 1, name.indexOf(")")).trim();
+			} else {
+				this.name = name;
+			}
 		}
 	}
 
@@ -75,7 +77,7 @@ public class Equipment extends StorableObject {
 
 	@Override
 	public String toString() {
-		return getName();
+		return getName() + " (" + getDescription() + ")";
 	}
 
 }

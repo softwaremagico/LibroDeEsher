@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.equipment;
+
 /*
  * #%L
  * Libro de Esher (GUI)
@@ -25,9 +26,14 @@ package com.softwaremagico.librodeesher.gui.equipment;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
+import javax.swing.JPanel;
+
+import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.equipment.Equipment;
 
 public class InsertEquipmentWindow extends BaseFrame {
 	private static final long serialVersionUID = 2715820195499102991L;
@@ -37,8 +43,8 @@ public class InsertEquipmentWindow extends BaseFrame {
 
 	public InsertEquipmentWindow(CharacterPlayer characterPlayer) {
 		this.characterPlayer = characterPlayer;
-		defineWindow(600, 420);
-		//setResizable(false);
+		defineWindow(640, 500);
+		// setResizable(false);
 		setElements();
 	}
 
@@ -46,16 +52,22 @@ public class InsertEquipmentWindow extends BaseFrame {
 		GridBagLayout layout = new GridBagLayout();
 		setLayout(layout);
 		GridBagConstraints constraints = new GridBagConstraints();
-		
+
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.anchor = GridBagConstraints.LINE_START;
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		constraints.gridwidth = 2;
-		constraints.gridheight = 3;
+		constraints.gridheight = 2;
 		constraints.weightx = 1;
-		constraints.weighty = 1;
-		equipmentCreatorPanel = new EquipmentCreatorPanel();
+		constraints.weighty = 0.3;
+		equipmentCreatorPanel = new EquipmentCreatorPanel(characterPlayer);
+		equipmentCreatorPanel.addEquipmentChangedListener(new EquipmentChangedListener() {
+			@Override
+			public void changed(Equipment e) {
+				equipmentListPanel.update();
+			}
+		});
 		add(equipmentCreatorPanel, constraints);
 
 		equipmentListPanel = new ResumeEquipmentListPanel(characterPlayer);
@@ -64,12 +76,28 @@ public class InsertEquipmentWindow extends BaseFrame {
 		constraints.gridy = 3;
 		constraints.gridwidth = 2;
 		constraints.gridheight = 3;
+		constraints.weighty = 1;
 		add(equipmentListPanel, constraints);
+		
+		
+		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+
+		CloseButton closeButton = new CloseButton(this);
+		buttonPanel.add(closeButton);
+		constraints.anchor = GridBagConstraints.LINE_END;
+		constraints.fill = GridBagConstraints.NONE;
+		constraints.gridx = 0;
+		constraints.gridy = 7;
+		constraints.gridheight = 1;
+		constraints.gridwidth = 1;
+		constraints.weightx = 1;
+		constraints.weighty = 0;
+		getContentPane().add(buttonPanel, constraints);
 
 	}
 
 	@Override
 	public void updateFrame() {
-		
+
 	}
 }
