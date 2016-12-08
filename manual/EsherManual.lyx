@@ -6,7 +6,7 @@
 \use_default_options false
 \maintain_unincluded_children false
 \language spanish
-\language_package none
+\language_package auto
 \inputencoding auto
 \fontencoding global
 \font_roman default
@@ -27,7 +27,16 @@
 \float_placement h
 \paperfontsize default
 \spacing single
-\use_hyperref false
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle false
 \papersize a4paper
 \use_geometry false
 \use_package amsmath 1
@@ -107,7 +116,7 @@ Generador de Personajes para Rolemaster
 \begin_inset Newline newline
 \end_inset
 
-v2.4.0
+v2.4.3
 \end_layout
 
 \begin_layout Author
@@ -1320,7 +1329,7 @@ Aunque opcional, el último paso en la creación de personajes, es la selección
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -1632,120 +1641,84 @@ Inserción de datos nuevos
 \end_layout
 
 \begin_layout Section
-Insertar Personajes
+Insertar equipo
 \end_layout
 
 \begin_layout Standard
-El programa también permite incluir personajes ignorando todas las reglas
- de creación de los mismos.
- Esta ventana permite añadir las características, rangos y habilidades sin
- contemplar los límites normales.
-\end_layout
-
-\begin_layout Subsection
-Utilidad de la inserción de personajes
-\end_layout
-
-\begin_layout Standard
-Por ejemplo, a la hora de añadir al personaje algo que no haya sido contemplado
- por el programa.
- Siempre habrá alguna opción de trasfondo, hisotorial u otra cosa que no
- haya sido contemplada y que aumente el personaje.
- También es útil si estabas previamente usando fichas de papel y necesitas
- introducir a tus jugadores en el programa o actualices la versión del programa
- y los ficheros salvados no sean compatibles.
+Permite incluir equipo no mágico.
+ También permite editar el equipo obtenido mediante adiestramientos.
+ Por ejemplo, si ya no es útil para el personaje.
  
 \end_layout
 
 \begin_layout Standard
-El sistema es similar a la creación del personaje y por tanto no lo repito
- aquí.
-\end_layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
 
-\begin_layout Section
-Inserción de categorias y habilidades nuevas
-\end_layout
-
-\begin_layout Standard
-Rolemaster es un reglamento que no está basado en un mundo específico.
- Se utiliza en juegos tan dispares como El Señor de los Anillos, Mundo de
- las Sombras o SpaceMaster.
- Por tanto es posible que cada personaje pueda tener habilidades o categorías
- totalmente inventadas que son imposibles de predecir a la hora de generar
- el personaje.
- Por tanto se incluye una opción para que puedan ser insertadas durante
- la creación del personaje.
- 
-\end_layout
-
-\begin_layout Standard
-
-\emph on
-Nota: si se quiere añadir nuevas categorías y habilidades disponibles para
- todos los personajes, resulta mucho más sencillo editar el fichero de categoría
-s.
- Ver sección 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:Añadir-Categorías"
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Imagenes/Equipo.png
+	width 70col%
 
 \end_inset
 
- para más información.
- 
+
 \end_layout
 
-\begin_layout Subsection
-Inserción de categorías
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Pantalla de inserción de equipo.
 \end_layout
 
-\begin_layout Standard
-Permite insertar una categoría nueva para poder ser usada en otra ventana.
- Hay que incluir además el coste por rango, las características que dan
- bonificación a esta categoría, una abreviatura y el tipo de categoría.
- Teniendo en cuenta que:
+\end_inset
+
+
 \end_layout
 
-\begin_layout Itemize
-El coste de cada rango dependerá de la profesión del personaje y del buen
- juicio del Director de Juego.
- 
+\end_inset
+
+
 \end_layout
 
-\begin_layout Itemize
-Para incluir las características, es necesario incluir la abreviatura de
- esta y no el nombre completo.
- La abreviatura viene definida por el reglamento de Rolemaster.
-\end_layout
-
-\begin_layout Itemize
-El tipo de categoría cambiará el bonificador que dará cada rango, como especific
-a el reglamento de Rolemaster.
- 
-\end_layout
-
-\begin_layout Itemize
-La abreviatura simplemente será utilizada si se genera un ficha en modo
- texto abreviada.
- 
-\end_layout
-
-\begin_layout Itemize
-Una categoría insertada no podrá ser borrada.
-\end_layout
-
-\begin_layout Subsection
-Inserción de habilidades
+\begin_layout Section
+Insertar objetos mágicos
 \end_layout
 
 \begin_layout Standard
-Permite añadir habilidades nuevas a categorías ya insertadas (inventadas
- o no).
- Por tanto antes de insertar la habilidad resulta necesario seleccionar
- la categoría en la que se quiere insertar.
- Una vez insertada esta apareceré en el programa como una habilidad más
- y podrá ser usada con total normalidad.
- Una habilidad insertada no podrá ser borrada.
+Permite incluir aquí objetos mágicos que den un bonus a una categoría o
+ habilidad.
+ De esta forma, el objeto será contabilizado para el total de dicha categoría
+ o habilidad.
+ 
+\end_layout
+
+\begin_layout Section
+Insertar transforndo
+\end_layout
+
+\begin_layout Standard
+El texto aquí escrito aparecerá en la hoja de personaje.
+ Se pueden incluir notas del personaje o simplemente la historia del mismo.
+ 
+\end_layout
+
+\begin_layout Section
+Insertar rangos
+\end_layout
+
+\begin_layout Standard
+El programa también permite incluir detalles ignorando todas las reglas
+ de creación de los mismos.
+ Esta ventana permite añadir las características, rangos y habilidades sin
+ contemplar los límites normales.
+ La utilidad viene principalmente para reflejar cualquier cambio que no
+ se aposible hacerlo con las limitaciones del software (trasfondos, eventos
+ relacionados con la trama de una partida, etc.)
 \end_layout
 
 \begin_layout Chapter
@@ -1805,7 +1778,7 @@ Ventana de configuración.
 \end_layout
 
 \begin_layout Subsection
-Habilidades
+Personaje actual
 \end_layout
 
 \begin_layout Standard
@@ -1834,7 +1807,7 @@ Indica si se quiere que los personajes aleatorios también tengan talentos.
 \end_layout
 
 \begin_layout Subsection
-Ficha PDF
+Fichas en PDF
 \end_layout
 
 \begin_layout Standard
@@ -1855,13 +1828,22 @@ También permite elegir el tipo de fuente para el PDF.
 \end_layout
 
 \begin_layout Subsection
+Interfaz gráfica
+\end_layout
+
+\begin_layout Standard
+Permite ocultar aquellas categorías que por su coste, resultan inútiles
+ a un personaje.
+\end_layout
+
+\begin_layout Subsection
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Módulos"
 
 \end_inset
 
-Módulos
+Opciones Globales
 \end_layout
 
 \begin_layout Standard

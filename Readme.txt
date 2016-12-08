@@ -32,6 +32,7 @@ Versión
 2.4.3	Añadido:
 		- Magia puede ser deshabilitada.
 		- Se puede añadir el trasfondo al personaje. 
+		- Se puede añadir equipo no mágico. Se puede modificar el equipo de adiestramientos.
 		
 2.4.2	Añadido:
 		- Adaptación a las reglas del Rolemaster Pulp.
