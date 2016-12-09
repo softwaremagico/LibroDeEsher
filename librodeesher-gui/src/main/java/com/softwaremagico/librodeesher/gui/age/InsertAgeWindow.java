@@ -32,6 +32,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.BaseSpinner;
@@ -57,7 +61,7 @@ public class InsertAgeWindow extends BaseFrame {
 	private void setElements() {
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-		
+
 		gridBagConstraints.fill = GridBagConstraints.NONE;
 		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridx = 0;
@@ -66,7 +70,7 @@ public class InsertAgeWindow extends BaseFrame {
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
 		gridBagConstraints.weighty = 0;
-		gridBagConstraints.insets = new Insets(5, 5, 5, 5);		
+		gridBagConstraints.insets = new Insets(5, 5, 5, 5);
 		ageLabel = new BaseLabel("Edad:");
 		add(ageLabel, gridBagConstraints);
 
@@ -74,7 +78,14 @@ public class InsertAgeWindow extends BaseFrame {
 		gridBagConstraints.gridwidth = 2;
 		gridBagConstraints.gridx = 1;
 		gridBagConstraints.weightx = 1;
-		ageSpinner = new BaseSpinner();		
+		ageSpinner = new BaseSpinner();
+		updateFrame();
+		ageSpinner.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				characterPlayer.setFinalAge((Integer) ageSpinner.getValue());
+			}
+		});
 		add(ageSpinner, gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
@@ -105,8 +116,9 @@ public class InsertAgeWindow extends BaseFrame {
 
 	@Override
 	public void updateFrame() {
-		// TODO Auto-generated method stub
-
+		SpinnerModel sm = new SpinnerNumberModel(characterPlayer.getFinalAge(), characterPlayer.getCurrentAge(), (int) characterPlayer.getRace()
+				.getExpectedLifeYears(), 1);
+		ageSpinner.setModel(sm);
 	}
 
 }
