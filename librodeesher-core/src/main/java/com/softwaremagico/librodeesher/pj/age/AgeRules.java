@@ -12,7 +12,8 @@ public class AgeRules {
 	public static void increaseAge(CharacterPlayer characterPlayer) {
 		while (characterPlayer.getCurrentAge() < characterPlayer.getFinalAge()) {
 			if (hasCharacteristicDecrease(characterPlayer)) {
-				AgeModification ageModification = new AgeModification(characterPlayer.getCurrentAge());
+				AgeModification ageModification = new AgeModification(characterPlayer.getCurrentAge(), characterPlayer.getRace()
+						.getRaceType());
 				characterPlayer.getCurrentLevel().addAgeModifications(ageModification);
 				EsherLog.debug(AgeRules.class.getName(), "Age modification for year '" + characterPlayer.getCurrentAge() + "' is '"
 						+ ageModification + "'.");

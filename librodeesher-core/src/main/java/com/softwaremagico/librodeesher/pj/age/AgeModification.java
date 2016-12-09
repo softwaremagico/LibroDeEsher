@@ -31,13 +31,29 @@ public class AgeModification extends StorableObject {
 	@Enumerated(EnumType.STRING)
 	private CharacteristicsAbbreviature characteristicsAbbreviature;
 
-	public AgeModification(int age) {
+	private int raceType;
+
+	public AgeModification(int age, int raceType) {
 		roll = new Roll();
+		this.raceType = raceType;
 		this.age = age;
 		characteristicsAbbreviature = AgeRules.getRandomAgeSelectedCharacteristic();
 	}
 
 	public int getCharacteristicModification() {
+		switch (raceType) {
+		case 1:
+			return ((roll.getFirstDice() + 1) / 2) - 1;
+		case 2:
+			return ((roll.getFirstDice() + 1) / 2) + 1;
+		case 3:
+			return roll.getFirstDice();
+		case 4:
+			return roll.getFirstDice() + 1;
+		case 5:
+			return roll.getFirstDice() + roll.getSecondDice() - 1;
+		}
+		// Default value;
 		return ((roll.getFirstDice() + 1) / 2) + 1;
 	}
 
@@ -57,7 +73,6 @@ public class AgeModification extends StorableObject {
 
 	@Override
 	public String toString() {
-		return age + ": " + characteristicsAbbreviature + " " + roll;
+		return characteristicsAbbreviature + " " + getCharacteristicModification();
 	}
-
 }

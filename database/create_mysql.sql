@@ -6,6 +6,7 @@
         updateTime datetime,
         age integer not null,
         characteristicsAbbreviature varchar(255),
+        raceType integer not null,
         roll_ID bigint,
         primary key (ID)
     );
