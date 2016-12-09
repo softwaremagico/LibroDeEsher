@@ -93,7 +93,6 @@ public class AgeRules {
 				modification += ageModification.getCharacteristicModification();
 			}
 		}
-		System.out.println(characteristicsAbbreviature + " modification is " + modification);
 		return modification;
 	}
 

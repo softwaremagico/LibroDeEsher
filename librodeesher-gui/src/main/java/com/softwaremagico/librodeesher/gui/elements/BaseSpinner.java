@@ -24,6 +24,8 @@ package com.softwaremagico.librodeesher.gui.elements;
  * #L%
  */
 
+import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,6 +86,11 @@ public class BaseSpinner extends JSpinner {
 				}
 			}
 		});
+	}
+	
+	public void setColor(Color color){
+		Component c = getEditor().getComponent(0);
+		c.setForeground(color);
 	}
 
 }

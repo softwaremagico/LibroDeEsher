@@ -24,6 +24,7 @@ package com.softwaremagico.librodeesher.gui.age;
  * #L%
  */
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -84,6 +85,11 @@ public class InsertAgeWindow extends BaseFrame {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				characterPlayer.setFinalAge((Integer) ageSpinner.getValue());
+				if (((Integer) ageSpinner.getValue()) > characterPlayer.getRace().getExpectedLifeYears()) {
+					ageSpinner.setColor(Color.RED);
+				} else {
+					ageSpinner.setColor(Color.DARK_GRAY);
+				}
 			}
 		});
 		add(ageSpinner, gridBagConstraints);
@@ -116,8 +122,7 @@ public class InsertAgeWindow extends BaseFrame {
 
 	@Override
 	public void updateFrame() {
-		SpinnerModel sm = new SpinnerNumberModel(characterPlayer.getFinalAge(), characterPlayer.getCurrentAge(), (int) characterPlayer.getRace()
-				.getExpectedLifeYears(), 1);
+		SpinnerModel sm = new SpinnerNumberModel(characterPlayer.getFinalAge(), characterPlayer.getCurrentAge(), Integer.MAX_VALUE, 1);
 		ageSpinner.setModel(sm);
 	}
 
