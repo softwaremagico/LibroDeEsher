@@ -59,8 +59,8 @@ public class Characteristics {
 		MENTAL_CHARACTERISTICS.add(CharacteristicsAbbreviature.REASON);
 		MENTAL_CHARACTERISTICS.add(CharacteristicsAbbreviature.EMPATHY);
 		MENTAL_CHARACTERISTICS.add(CharacteristicsAbbreviature.INTUITION);
-
-		PHYSICAL_CHARACTERISTICS.add(CharacteristicsAbbreviature.PRESENCE);
+		MENTAL_CHARACTERISTICS.add(CharacteristicsAbbreviature.PRESENCE);
+		
 		PHYSICAL_CHARACTERISTICS.add(CharacteristicsAbbreviature.SPEED);
 		PHYSICAL_CHARACTERISTICS.add(CharacteristicsAbbreviature.STRENGTH);
 		PHYSICAL_CHARACTERISTICS.add(CharacteristicsAbbreviature.SELFDISCIPLINE);

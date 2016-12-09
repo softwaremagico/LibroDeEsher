@@ -1153,7 +1153,7 @@ public class PdfStandardSheet {
 		cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		tabla.addCell(cell);
 
-		p = new Paragraph("/" + characterPlayer.getRace().getExpectedLifeYears(), new Font(getHandWrittingFont(), fontSize - 1));
+		p = new Paragraph(characterPlayer.getCurrentAge() + "/" + characterPlayer.getRace().getExpectedLifeYears(), new Font(getHandWrittingFont(), fontSize - 1));
 		cell = new PdfPCell(p);
 		cell.setBorderWidth(BORDER);
 		cell.setMinimumHeight(11);

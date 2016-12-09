@@ -38,7 +38,7 @@ public class AgeModification extends StorableObject {
 	}
 
 	public int getCharacteristicModification() {
-		return (roll.getFirstDice() / 2) + 1;
+		return ((roll.getFirstDice() + 1) / 2) + 1;
 	}
 
 	public CharacteristicsAbbreviature getCharacteristicsAbbreviature() {
@@ -53,6 +53,11 @@ public class AgeModification extends StorableObject {
 	@Override
 	public void resetComparationIds() {
 		resetComparationIds(this);
+	}
+
+	@Override
+	public String toString() {
+		return age + ": " + characteristicsAbbreviature + " " + roll;
 	}
 
 }
