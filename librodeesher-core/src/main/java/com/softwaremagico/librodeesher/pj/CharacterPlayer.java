@@ -54,6 +54,8 @@ import com.softwaremagico.librodeesher.basics.Roll;
 import com.softwaremagico.librodeesher.basics.RollGroup;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.config.Config;
+import com.softwaremagico.librodeesher.pj.age.AgeModification;
+import com.softwaremagico.librodeesher.pj.age.AgeRules;
 import com.softwaremagico.librodeesher.pj.background.Background;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryCost;
@@ -249,7 +251,16 @@ public class CharacterPlayer extends StorableObject {
 	@CollectionTable(name = "T_CHARACTERPLAYER_STANDARD_EQUIPMENT")
 	private Set<Equipment> standardEquipment;
 
+	@Expose
 	private boolean recommendedFavouriteSkillsIncluded = false;
+
+	// Age calculated until previous level.
+	@Expose
+	private int currentAge;
+
+	// Age that must be updated next level.
+	@Expose
+	private int finalAge;
 
 	public CharacterPlayer() {
 		characterPlayerHelper = new CharacterPlayerHelper();
@@ -271,6 +282,8 @@ public class CharacterPlayer extends StorableObject {
 		magicItems = new ArrayList<>();
 		insertedData = new InsertedData();
 		standardEquipment = new HashSet<>();
+		currentAge = AgeModification.INITIAL_AGE;
+		finalAge = currentAge;
 		setDefaultConfig();
 		// Starts in level 1.
 		increaseLevel();
@@ -465,14 +478,26 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	public Integer getCharacteristicPotentialValue(CharacteristicsAbbreviature abbreviature) {
+		Integer value = characterPlayerHelper.getCharacteristicPotentialValue(abbreviature);
+		if (value != null) {
+			return value;
+		}
+
+		int potentialValue = 0;
 		if (insertedData.getCharacteristicsPotentialValuesModification(abbreviature) != null) {
-			return insertedData.getCharacteristicsPotentialValuesModification(abbreviature);
+			potentialValue = insertedData.getCharacteristicsPotentialValuesModification(abbreviature);
+		} else {
+			Integer potential = characteristicsPotentialValues.get(abbreviature);
+			if (potential != null) {
+				potentialValue = potential;
+			}
 		}
-		Integer potential = characteristicsPotentialValues.get(abbreviature);
-		if (potential != null) {
-			return potential;
-		}
-		return 0;
+
+		// Age modifications
+		potentialValue -= AgeRules.getAgeCharactersiticPotentialValueChange(this, abbreviature);
+		characterPlayerHelper.setCharacteristicPotentialValue(abbreviature, potentialValue);
+
+		return potentialValue;
 	}
 
 	public Integer getCharacteristicRaceBonus(CharacteristicsAbbreviature abbreviature) {
@@ -523,6 +548,15 @@ public class CharacterPlayer extends StorableObject {
 				for (CharacteristicRoll roll : background.getCharacteristicsUpdates(abbreviature)) {
 					temporalValue += Characteristic.getCharacteristicUpgrade(roll.getCharacteristicTemporalValue(), roll.getCharacteristicPotentialValue(),
 							roll.getRoll());
+				}
+			}
+			// Age modifications
+			if (temporalValue != null) {
+				temporalValue -= AgeRules.getAgeCharactersiticTemporalValueChange(this, abbreviature);
+
+				int potentialValue = getCharacteristicPotentialValue(abbreviature);
+				if (temporalValue > potentialValue) {
+					temporalValue = potentialValue;
 				}
 			}
 		}
@@ -997,6 +1031,7 @@ public class CharacterPlayer extends StorableObject {
 						potential);
 			}
 		}
+		characterPlayerHelper.resetCharacteristicPotentialValues();
 	}
 
 	public void setProfession(String professionName) {
@@ -2655,6 +2690,8 @@ public class CharacterPlayer extends StorableObject {
 			levelUp.setFavouriteSkills(new HashSet<>(getCurrentLevel().getFavouriteSkills()));
 		}
 
+		// Add age modifications when upgrading level.
+
 		levelUps.add(levelUp);
 		// Reset id to force to be saved the character as a new record.
 		// resetIds();
@@ -3304,4 +3341,24 @@ public class CharacterPlayer extends StorableObject {
 			}
 		}
 	}
+
+	public int getFinalAge() {
+		return finalAge;
+	}
+
+	public void setFinalAge(int finalAge) {
+		this.finalAge = finalAge;
+	}
+
+	public int getCurrentAge() {
+		if (insertedData.getAge() != null && insertedData.getAge() > currentAge) {
+			return insertedData.getAge();
+		}
+		return currentAge;
+	}
+
+	public void setCurrentAge(int currentAge) {
+		this.currentAge = currentAge;
+	}
+
 }

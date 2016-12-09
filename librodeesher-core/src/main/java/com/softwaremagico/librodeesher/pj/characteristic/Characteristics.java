@@ -38,6 +38,9 @@ public class Characteristics {
 	public final static Integer INITIAL_CHARACTERISTIC_VALUE = 31;
 	public final static Integer MAX_INITIAL_CHARACTERISTIC_VALUE = 100;
 
+	public static List<CharacteristicsAbbreviature> MENTAL_CHARACTERISTICS = new ArrayList<>();
+	public static List<CharacteristicsAbbreviature> PHYSICAL_CHARACTERISTICS = new ArrayList<>();
+
 	private static List<Characteristic> characteristics = new ArrayList<>();
 
 	static {
@@ -51,6 +54,18 @@ public class Characteristics {
 		characteristics.add(new Characteristic(CharacteristicsAbbreviature.PRESENCE));
 		characteristics.add(new Characteristic(CharacteristicsAbbreviature.SPEED));
 		characteristics.add(new Characteristic(CharacteristicsAbbreviature.STRENGTH));
+
+		MENTAL_CHARACTERISTICS.add(CharacteristicsAbbreviature.MEMORY);
+		MENTAL_CHARACTERISTICS.add(CharacteristicsAbbreviature.REASON);
+		MENTAL_CHARACTERISTICS.add(CharacteristicsAbbreviature.EMPATHY);
+		MENTAL_CHARACTERISTICS.add(CharacteristicsAbbreviature.INTUITION);
+
+		PHYSICAL_CHARACTERISTICS.add(CharacteristicsAbbreviature.PRESENCE);
+		PHYSICAL_CHARACTERISTICS.add(CharacteristicsAbbreviature.SPEED);
+		PHYSICAL_CHARACTERISTICS.add(CharacteristicsAbbreviature.STRENGTH);
+		PHYSICAL_CHARACTERISTICS.add(CharacteristicsAbbreviature.SELFDISCIPLINE);
+		PHYSICAL_CHARACTERISTICS.add(CharacteristicsAbbreviature.CONSTITUTION);
+		PHYSICAL_CHARACTERISTICS.add(CharacteristicsAbbreviature.AGILITY);
 	}
 
 	public static List<Characteristic> getCharacteristics() {

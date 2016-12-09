@@ -1,4 +1,15 @@
 
+    create table T_AGE (
+        ID bigint not null,
+        comparationId varchar(255) not null,
+        creationTime datetime not null,
+        updateTime datetime,
+        age integer not null,
+        characteristicsAbbreviature varchar(255),
+        roll_ID bigint,
+        primary key (ID)
+    );
+
     create table T_APPEARANCE (
         ID bigint not null,
         comparationId varchar(255) not null,
@@ -76,6 +87,8 @@
         characteristicsConfirmed bit not null,
         characteristicsTemporalTotalPoints integer,
         cultureName varchar(255),
+        currentAge integer not null,
+        finalAge integer not null,
         historyText longtext,
         name varchar(255),
         professionName varchar(255),
@@ -91,6 +104,12 @@
         professionDecisionsId bigint,
         professionalRealmId bigint,
         primary key (ID)
+    );
+
+    create table T_CHARACTERPLAYER_AGE (
+        T_LEVELUP_ID bigint not null,
+        ageModifications_ID bigint not null,
+        primary key (T_LEVELUP_ID, ageModifications_ID)
     );
 
     create table T_CHARACTERPLAYER_INITIAL_TEMPORAL_VALUES (
@@ -256,6 +275,7 @@
         comparationId varchar(255) not null,
         creationTime datetime not null,
         updateTime datetime,
+        age integer,
         createdAtLevel integer,
         insertedLevels integer,
         primary key (ID)
@@ -596,6 +616,12 @@
         primary key (ID)
     );
 
+    alter table T_AGE 
+        add constraint UK_tnuyo03m1ik5v2cfnchy1uvot unique (ID);
+
+    alter table T_AGE 
+        add constraint UK_nodip8k16qfg2o4gxqab1g22h unique (comparationId);
+
     alter table T_APPEARANCE 
         add constraint UK_hlcvnifaglalnf0dpfbcak1u8 unique (ID);
 
@@ -628,6 +654,9 @@
 
     alter table T_CHARACTERPLAYER 
         add constraint UK_goif6qdq0k03683pf598f958 unique (comparationId);
+
+    alter table T_CHARACTERPLAYER_AGE 
+        add constraint UK_k2tyv3rsq0r9k9nvlst4mybr5 unique (ageModifications_ID);
 
     alter table T_CHARACTERPLAYER_LEVEL_UP 
         add constraint UK_l8mhtklrekoduk3xl5a85ll55 unique (levelUps_ID);
@@ -779,6 +808,11 @@
     alter table T_TRAINING_SKILLS_SELECTED 
         add constraint UK_s4duauy8ccp5mc0938bw027dl unique (comparationId);
 
+    alter table T_AGE 
+        add constraint FK_6yl7vntsxhfnwtkd9wljy0tqe 
+        foreign key (roll_ID) 
+        references T_ROLL (ID);
+
     alter table T_BACKGROUND_CATEGORIES 
         add constraint FK_qfry0khx7puobhvanxbum9lob 
         foreign key (Background_ID) 
@@ -848,6 +882,16 @@
         add constraint FK_oj2d58brr5h1doqyb52ywkmew 
         foreign key (professionalRealmId) 
         references T_PROFESSIONS_REALMS_MAGIC (ID);
+
+    alter table T_CHARACTERPLAYER_AGE 
+        add constraint FK_k2tyv3rsq0r9k9nvlst4mybr5 
+        foreign key (ageModifications_ID) 
+        references T_AGE (ID);
+
+    alter table T_CHARACTERPLAYER_AGE 
+        add constraint FK_e9au0j2s4iytm7ptvd1wfj1r1 
+        foreign key (T_LEVELUP_ID) 
+        references T_LEVELUP (ID);
 
     alter table T_CHARACTERPLAYER_INITIAL_TEMPORAL_VALUES 
         add constraint FK_s4do2so1bmthu4487n53g901n 
