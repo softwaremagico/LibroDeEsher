@@ -29,6 +29,9 @@ Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadore
 
 Versión
 ------------
+2.5.0	Añadido:
+		- Reglas de edad para los personajes.
+		
 2.4.3	Añadido:
 		- Magia puede ser deshabilitada.
 		- Se puede añadir el trasfondo al personaje. 
