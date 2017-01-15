@@ -65,5 +65,6 @@
 	<mapping class="com.softwaremagico.librodeesher.pj.equipment.MagicObject"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.equipment.ObjectBonus"></mapping>
 	<mapping class="com.softwaremagico.librodeesher.pj.InsertedData"></mapping>
+	<mapping class="com.softwaremagico.librodeesher.pj.age.AgeModification"></mapping>
     </session-factory>
 </hibernate-configuration>

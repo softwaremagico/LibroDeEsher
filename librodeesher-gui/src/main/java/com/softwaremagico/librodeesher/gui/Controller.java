@@ -46,6 +46,7 @@ import javax.swing.SwingUtilities;
 import com.itextpdf.text.DocumentException;
 import com.softwaremagico.files.MessageManager;
 import com.softwaremagico.librodeesher.config.Config;
+import com.softwaremagico.librodeesher.gui.age.InsertAgeWindow;
 import com.softwaremagico.librodeesher.gui.background.BackgroundWindow;
 import com.softwaremagico.librodeesher.gui.characteristic.CharacteristicsWindow;
 import com.softwaremagico.librodeesher.gui.components.CharacterMenuItem;
@@ -105,6 +106,7 @@ public class Controller {
 	private InsertMagicItemWindow insertMagicItemWindow;
 	private InsertEquipmentWindow insertEquipmentWindow;
 	private InsertRanksWindow insertRankWindows;
+	private InsertAgeWindow insertAgeWindow;
 
 	private boolean actionsEnables = true;
 
@@ -162,6 +164,20 @@ public class Controller {
 		mainGui.getMainMenu().addInsertEquipmentListener(new InsertItem());
 		mainGui.getMainMenu().addEnableDebugItemListener(new EnableDebugListener());
 		mainGui.getMainMenu().addRanksItemListener(new AddRankListener());
+		mainGui.getMainMenu().addInsertAgeListener(new AddAgeListener());
+	}
+
+	class AddAgeListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			try {
+				insertAgeWindow.dispose();
+			} catch (NullPointerException npe) {
+			}
+			insertAgeWindow = new InsertAgeWindow(selectedCharacter);
+			insertAgeWindow.setVisible(true);
+		}
 	}
 
 	class AddRankListener implements ActionListener {

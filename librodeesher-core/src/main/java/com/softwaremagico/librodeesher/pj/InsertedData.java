@@ -86,6 +86,9 @@ public class InsertedData extends StorableObject {
 	@CollectionTable(name = "T_INSERTED_TRAINING_DECISIONS")
 	private Map<String, TrainingDecision> trainingDecisions;
 
+	@Expose
+	private Integer age;
+
 	public InsertedData() {
 		characteristicsTemporalValuesModification = new HashMap<>();
 		characteristicsPotentialValuesModification = new HashMap<>();
@@ -214,6 +217,14 @@ public class InsertedData extends StorableObject {
 
 	public Integer getCharacteristicsPotentialValuesModification(CharacteristicsAbbreviature abbreviature) {
 		return characteristicsPotentialValuesModification.get(abbreviature);
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
 	}
 
 }

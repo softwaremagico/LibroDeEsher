@@ -11,6 +11,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,6 +20,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import com.google.gson.annotations.Expose;
 import com.softwaremagico.librodeesher.basics.Roll;
+import com.softwaremagico.librodeesher.pj.age.AgeModification;
 import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryGroup;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
@@ -110,6 +112,11 @@ public class LevelUp extends StorableObject {
 	@CollectionTable(name = "T_FAVOURITE_SKILLS")
 	private Set<String> favouriteSkills;
 
+	@Expose
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@CollectionTable(name = "T_CHARACTERPLAYER_AGE")
+	private Set<AgeModification> ageModifications;
+
 	public LevelUp() {
 		categoriesRanks = new HashMap<>();
 		skillsRanks = new HashMap<>();
@@ -120,6 +127,7 @@ public class LevelUp extends StorableObject {
 		skillSpecializations = new HashSet<>();
 		characteristicsUpdates = new ArrayList<>();
 		favouriteSkills = new HashSet<>();
+		ageModifications = new HashSet<>();
 	}
 
 	@Override
@@ -319,16 +327,14 @@ public class LevelUp extends StorableObject {
 		return null;
 	}
 
-	public CharacteristicRoll addCharactersiticUpdate(CharacteristicsAbbreviature abbreviature,
-			Integer currentTemporalValue, Integer currentPotentialValue, Roll roll) {
-		CharacteristicRoll characteristicRoll = new CharacteristicRoll(abbreviature, currentTemporalValue,
-				currentPotentialValue, roll);
+	public CharacteristicRoll addCharactersiticUpdate(CharacteristicsAbbreviature abbreviature, Integer currentTemporalValue, Integer currentPotentialValue,
+			Roll roll) {
+		CharacteristicRoll characteristicRoll = new CharacteristicRoll(abbreviature, currentTemporalValue, currentPotentialValue, roll);
 		characteristicsUpdates.add(characteristicRoll);
 		return characteristicRoll;
 	}
 
-	public void updateCharacteristicRoll(CharacteristicsAbbreviature abbreviature, int tempotalValue,
-			int potentialValue) {
+	public void updateCharacteristicRoll(CharacteristicsAbbreviature abbreviature, int tempotalValue, int potentialValue) {
 		getCharacteristicsUpdates(abbreviature).setCharacteristicTemporalValue(tempotalValue);
 		getCharacteristicsUpdates(abbreviature).setCharacteristicPotentialValue(potentialValue);
 	}
@@ -339,5 +345,13 @@ public class LevelUp extends StorableObject {
 
 	public void setFavouriteSkills(Set<String> favouriteSkills) {
 		this.favouriteSkills = favouriteSkills;
+	}
+
+	public Set<AgeModification> getAgeModifications() {
+		return ageModifications;
+	}
+
+	public void addAgeModifications(AgeModification ageModification) {
+		ageModifications.add(ageModification);
 	}
 }

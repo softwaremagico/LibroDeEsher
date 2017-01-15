@@ -31,6 +31,8 @@ public class CharacterPlayerHelper {
 	private Map<String, Integer> skillTotalRanksPerCategory;
 
 	private Map<CharacteristicsAbbreviature, Integer> temporalValues;
+	
+	private Map<CharacteristicsAbbreviature, Integer> potentialValues;
 
 	private Map<String, Integer> trainingCosts;
 
@@ -67,6 +69,7 @@ public class CharacterPlayerHelper {
 		skillTotal = new HashMap<>();
 		developmentPoints = null;
 		temporalValues = new HashMap<>();
+		potentialValues = new HashMap<>();
 		trainingCosts = new HashMap<>();
 		maxHistoryLanguages = new HashMap<>();
 		skillTotalRanksPerCategory = new HashMap<>();
@@ -379,14 +382,30 @@ public class CharacterPlayerHelper {
 		}
 		return temporalValues.get(abbreviature);
 	}
+	
+	public Integer getCharacteristicPotentialValue(CharacteristicsAbbreviature abbreviature) {
+		if (!enabled) {
+			return null;
+		}
+		return potentialValues.get(abbreviature);
+	}
 
 	public void setCharacteristicTemporalValue(CharacteristicsAbbreviature abbreviature, Integer value) {
 		temporalValues.put(abbreviature, value);
 		setDirty(true);
 	}
+	
+	public void setCharacteristicPotentialValue(CharacteristicsAbbreviature abbreviature, Integer value) {
+		potentialValues.put(abbreviature, value);
+		setDirty(true);
+	}
 
 	public void resetCharacteristicTemporalValues() {
 		temporalValues = new HashMap<>();
+	}
+	
+	public void resetCharacteristicPotentialValues() {
+		potentialValues = new HashMap<>();
 	}
 
 	public void setTrainingCost(String trainingName, int cost) {

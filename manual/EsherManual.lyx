@@ -116,7 +116,7 @@ Generador de Personajes para Rolemaster
 \begin_inset Newline newline
 \end_inset
 
-v2.4.3
+v2.4.4
 \end_layout
 
 \begin_layout Author
@@ -225,7 +225,7 @@ Nuevo: Borra todos los datos del personaje y comienza la realización de
 
 \begin_layout Description
 Cargar: Permite cargar los datos de un personaje guardado anteriormente.
- No es compatible con otras versiones anteriores de El Libro de Esher, asi
+ No es compatible con otras versiones anteriores de El Libro de Esher, así
  que cada vez que actualices el programa, deberás de generarlos de nuevo
  con la opción Insertar (Ver Capítulo 
 \begin_inset CommandInset ref
@@ -623,7 +623,7 @@ Valores Temporales
 \begin_layout Standard
 El usuario puede incrementar los valores temporales de las características
  de acuerdo con el coste en puntos de características especificado en el
- reglamento del rolemaster.
+ reglamento del Rolemaster.
  Además, esta herramienta tiene en cuenta algunas limitaciones, como que
  las características principales de la profesión deben de valer un mínimo
  de 90, o el mínimo valor posible para cualquier otra característica.
@@ -674,7 +674,7 @@ Puntos de características
 \end_layout
 
 \begin_layout Standard
-La aplicación permtie al personaje distribuir 660 puntos de características.
+La aplicación permite al personaje distribuir 660 puntos de características.
  Informa en todo momento de cuantos puntos dispone el usuario para repartir.
  Para aceptar el valor final de las características, hay que presionar el
  botón adecuado para ello.
@@ -705,7 +705,7 @@ Muchas profesiones incluyen habilidades comunes o profesionales.
  ser escogidas por el usuario.
  Una vez el personaje ha seleccionado la profesión y comienza a escoger
  las características de la misma, aparecerá si fuera necesario, una ventana
- que le permitirá escoger las habilidades adecudas.
+ que le permitirá escoger las habilidades adecuadas.
  
 \end_layout
 
@@ -917,7 +917,7 @@ Puntos de idiomas
 
 \begin_layout Standard
 Todas las culturas tienen puntos de idioma a distribuir en diferentes lenguas.
- Aquí el usuario puede distribuir los puntos corresondientes en las distintas
+ Aquí el usuario puede distribuir los puntos correspondientes en las distintas
  culturas.
  Nota: El programa no distingue entre desarrollo permitido de la adolescencia
  o lenguas obtenidas por raza.
@@ -1070,7 +1070,7 @@ Aceptar, Cancelar y Aleatorio
 
 \begin_layout Standard
 Una vez se da al botón Aceptar, el sistema almacena el adiestramiento y
- los bonuses indicados.
+ los bonus indicados.
  Si la opción escogida es Cancelar, el adiestramiento se elimina del personaje
  y se le devuelven los Puntos de Desarrollo gastados.
  
@@ -1157,7 +1157,7 @@ Habilidades Favoritas
 \begin_layout Standard
 En el menú de la ventana, se pueden seleccionar que habilidades son consideradas
  favoritas.
- Una habilidad favorita simplemente será incluída en la página principal
+ Una habilidad favorita simplemente será incluida en la página principal
  de la ficha del personaje cuando se genere el documento en PDF.
  No tiene ningún otro efecto.
  
@@ -1329,7 +1329,7 @@ Aunque opcional, el último paso en la creación de personajes, es la selección
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -1427,210 +1427,6 @@ Esta lista recoge todos los talentos por los que el jugador ya ha pagado,
 \end_layout
 
 \begin_layout Chapter
-Subida de nivel remota
-\end_layout
-
-\begin_layout Section
-Introducción
-\end_layout
-
-\begin_layout Standard
-El programa permite que cada uno de los jugadores se suba el nivel en su
- propia casa en unos pocos minutos sin la necesidad de quedar en la casa
- del Director de Juego.
- De esta forma se ahorra tiempo y resulta mucho más cómodo, utilizando el
- tiempo libre para jugar.
- Para ello, la subida de nivel debe de ser segura, es decir, debe impedir
- que los jugadores puedan hacer trampas y subir más rangos de los debidos.
- 
-\end_layout
-
-\begin_layout Section
-Metodología
-\end_layout
-
-\begin_layout Standard
-La metodología a seguir para usar esta opción sería la siguiente.
-\end_layout
-
-\begin_layout Subsection
-Generar el personaje
-\end_layout
-
-\begin_layout Standard
-Primero el personaje se genera en presencia del Director de Juego que controla
- la creación y aplica sus propias reglas de la campaña que tenga pensada
- utilizar.
- El personaje se guarda y también se imprime para su utilización.
- 
-\end_layout
-
-\begin_layout Subsection
-Subir de nivel
-\end_layout
-
-\begin_layout Standard
-Con el tiempo y experiencia acumulada, el personaje sube un nivel.
- Por tanto se debe modificar la ficha.
- Para ello lo novedoso del sistema sería que el Director del Juego envie
- el archivo del personaje por email al jugador.
- El jugador comodamente en casa puede subir de nivel al personaje tomandose
- el tiempo que crea conveniente.
- 
-\end_layout
-
-\begin_layout Subsection
-Exportar el nivel
-\end_layout
-
-\begin_layout Standard
-Una vez subido de nivel, el jugador no devuelve el personaje al Director
- de Juego, sino que lo que hace es exportar la subida de nivel.
- Esto generará un fichero de subida de nivel que será enviado al Director
- de Juego por email o el soporte digital que se crea oportuno.
-\end_layout
-
-\begin_layout Subsection
-Importar el nivel
-\end_layout
-
-\begin_layout Standard
-El Director de Juego importa el nivel del personaje utilizando para ello
- el fichero de personaje original del que disponía en su casa y el fichero
- de nivel que le ha enviado el jugador.
- El programa le indicará los puntos de desarrollo gastados y si detecta
- alguna anomalía.
- Una vez hecho esto, el Director podrá imprimir la ficha del jugador.
- 
-\end_layout
-
-\begin_layout Subsection
-Futuros niveles
-\end_layout
-
-\begin_layout Standard
-Cada vez que se suba de nivel, el Director de Juego debe enviar el personaje
- con el nivel actual y debe recibir la subida de nivel del nivel próximo.
- En el caso de que un personaje debiera subir dos niveles consecutivos por
- algún motivo, debe repetir este ciclo dos veces.
- No funcionará en el caso que el jugador suba los dos niveles consecutivos
- a la vez.
- 
-\end_layout
-
-\begin_layout Subsection
-Seguridad del sistema
-\end_layout
-
-\begin_layout Standard
-Este sistema es seguro ya que el director de juego mantiene en todo momento
- la creación original del personaje.
- De esta forma se evite que el jugador esté tentado de usar la opción de
- insertar personaje y que altere sus rangos o modifique el personaje de
- otra manera.
- Al importar el nivel, el programa calcula los costes de los rangos de forma
- normal, por lo que si el jugador se ha excedido en el coste, esto queda
- plasmado.
- Además las tiradas de características son precalculadas en la generación
- del personaje, por lo que el resultado obtenido aunque aleatorio, será
- siempre el mismo al subir de nivel, evitando la tentación del jugador de
- repetir tiradas.
-\end_layout
-
-\begin_layout Chapter
-\begin_inset CommandInset label
-LatexCommand label
-name "cha:Generación-aleatoria"
-
-\end_inset
-
-Generación aleatoria de personajes
-\end_layout
-
-\begin_layout Section
-Utilidad de la generación aleatoria de personajes
-\end_layout
-
-\begin_layout Standard
-Puede ser importante generar PNJs mientras la aventura sigue su curso.
- No todos los PNJs pueden estar definidos a priori, ya que los jugadores
- pueden seguir un rumbo no pensado previamente.
- O puede que lo que simplemente era un PNJ con un nombre se una a los PJs
- en sus aventuras y necesite características y habilidades de repente.
- Esta opción permite al Director de Juego solucionar todos estos problemas
- en unos pocos segundos.
- 
-\end_layout
-
-\begin_layout Section
-Generar un personaje aleatorio
-\end_layout
-
-\begin_layout Standard
-Es tan simple como seleccionar la opción adecuada en el menú.
- Seleccionar el nivel final que tendrá el personaje y tener en cuenta las
- siguientes consideraciones.
-\end_layout
-
-\begin_layout Subsection
-Diferencias entre un personaje especializado y uno genérico
-\end_layout
-
-\begin_layout Standard
-Se puede hacer que un personaje esté especializado, es decir, que gaste
- sus puntos de desarrollo en unas pocas habilidades o categorías para tener
- un valor más alto, o se pueden hacer genéricos, es decir que tenga tendencia
- a repartir sus puntos de desarrollo entre muchas habilidades.
- Antes de la creación del personaje, se puede decirdir que tipo de personaje
- se desea.
- En caso de duda, el valor por defecto es el adecuado en la mayoría de situacion
-es.
- 
-\end_layout
-
-\begin_layout Subsection
-Aleatorio puro o con habilidades sugeridas
-\end_layout
-
-\begin_layout Standard
-Si no se selecciona nada más, el personaje se generará de forma totalmente
- aleatoria siguiento los patrones indicados.
- Si bien a veces puede ser interesante que algunos PNJs tengan alguna habilidad
- ya incluida, como por ejemplo un arma característica de la cultura o una
- habilidad extendida en una región.
- Para ello existe una opción en donde se pueden indicar el mínimo número
- de rangos deseados en cualquier habilidad o categoría.
- Estos rangos serán comprados de forma normal mientras se genera aleatoriamente
- el personaje, por tanto no podrá tener más rangos que los que le permita
- su nivel (Será imposible tener 20 rangos en una habilidad cuando el personaje
- sea de Nº2, por ejemplo).
- 
-\end_layout
-
-\begin_layout Subsection
-Aplicar inteligencia a la aleatorización
-\end_layout
-
-\begin_layout Standard
-La aleatorización esta bien, pero da lugar a personajes un poco extraños.
- Por tanto he diseñado una opción que calcula los personajes de una forma
- 
-\begin_inset Quotes eld
-\end_inset
-
-más inteligente
-\begin_inset Quotes erd
-\end_inset
-
-.
- Es decir, calcula los personajes de una forma más cercana a lo que haría
- un jugador, o al menos como lo haría yo.
- Por ejemplo asegura que los magos tengan algún punto de poder, que los
- guerreros sepan luchar y cosas por el estilo.
- Sugiero que esta opción esté siempre activada.
-\end_layout
-
-\begin_layout Chapter
 \begin_inset CommandInset label
 LatexCommand label
 name "cha:Inserción"
@@ -1698,7 +1494,7 @@ Permite incluir aquí objetos mágicos que den un bonus a una categoría o
 \end_layout
 
 \begin_layout Section
-Insertar transforndo
+Insertar trasfondo
 \end_layout
 
 \begin_layout Standard
@@ -1717,8 +1513,150 @@ El programa también permite incluir detalles ignorando todas las reglas
  Esta ventana permite añadir las características, rangos y habilidades sin
  contemplar los límites normales.
  La utilidad viene principalmente para reflejar cualquier cambio que no
- se aposible hacerlo con las limitaciones del software (trasfondos, eventos
+ sea posible hacerlo con las limitaciones del software (trasfondos, eventos
  relacionados con la trama de una partida, etc.)
+\end_layout
+
+\begin_layout Section
+Insertar edad
+\end_layout
+
+\begin_layout Standard
+Con esta opción se permite calcular los cálculos de edad para un personaje.
+ Esta regla está inspirada en el Manual del Director de Juego, pero ha sido
+ generalizada para todas las razas.
+ Se resuelve como sigue:
+\end_layout
+
+\begin_layout Enumerate
+El cálculo de la fase de edad (joven, maduro, etc.) se hace mediante una
+ proporción según la esperanza de vida máxima de la raza.
+ Es por tanto la misma para razas con las misma esperanza de vida.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Solamente se hacen tiradas de edad si esta supera la mediana edad del personaje.
+ Es decir, solamente se hacen tiradas cuando el personaje es ya viejo.
+\end_layout
+
+\begin_layout Enumerate
+Se ignoran los modificadores de enfermedad, ya que el programa no puede
+ conocerlos.
+ 
+\end_layout
+
+\begin_layout Enumerate
+La pérdida de características se hace en función del tipo de raza.
+ Tipo 1: D5-1, Tipo 2: D5+1, Tipo 3: D10, Tipo 4: D10+1, Tipo 5: 2D10 -
+ 1.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Únicamente se resuelve los efectos de la edad cuando se hace una subida
+ de nivel.
+ 
+\end_layout
+
+\begin_layout Enumerate
+La pérdida de características se resuelve antes que la tirada de subida
+ de nivel para el aumento de las características temporales, lo que permite
+ paliar el efecto con la propia subida de nivel.
+ 
+\end_layout
+
+\begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "cha:Generación-aleatoria"
+
+\end_inset
+
+Generación aleatoria de personajes
+\end_layout
+
+\begin_layout Section
+Utilidad de la generación aleatoria de personajes
+\end_layout
+
+\begin_layout Standard
+Puede ser importante generar PNJs mientras la aventura sigue su curso.
+ No todos los PNJs pueden estar definidos a priori, ya que los jugadores
+ pueden seguir un rumbo no pensado previamente.
+ O puede que lo que simplemente era un PNJ con un nombre se una a los PJs
+ en sus aventuras y necesite características y habilidades de repente.
+ Esta opción permite al Director de Juego solucionar todos estos problemas
+ en unos pocos segundos.
+ 
+\end_layout
+
+\begin_layout Section
+Generar un personaje aleatorio
+\end_layout
+
+\begin_layout Standard
+Es tan simple como seleccionar la opción adecuada en el menú.
+ Seleccionar el nivel final que tendrá el personaje y tener en cuenta las
+ siguientes consideraciones.
+\end_layout
+
+\begin_layout Subsection
+Diferencias entre un personaje especializado y uno genérico
+\end_layout
+
+\begin_layout Standard
+Se puede hacer que un personaje esté especializado, es decir, que gaste
+ sus puntos de desarrollo en unas pocas habilidades o categorías para tener
+ un valor más alto, o se pueden hacer genéricos, es decir que tenga tendencia
+ a repartir sus puntos de desarrollo entre muchas habilidades.
+ Antes de la creación del personaje, se puede decidir que tipo de personaje
+ se desea.
+ En caso de duda, el valor por defecto es el adecuado en la mayoría de situacion
+es.
+ 
+\end_layout
+
+\begin_layout Subsection
+Aleatorio puro o con habilidades sugeridas
+\end_layout
+
+\begin_layout Standard
+Si no se selecciona nada más, el personaje se generará de forma totalmente
+ aleatoria siguiendo los patrones indicados.
+ Si bien a veces puede ser interesante que algunos PNJs tengan alguna habilidad
+ ya incluida, como por ejemplo un arma característica de la cultura o una
+ habilidad extendida en una región.
+ Para ello existe una opción en donde se pueden indicar el mínimo número
+ de rangos deseados en cualquier habilidad o categoría.
+ Estos rangos serán comprados de forma normal mientras se genera aleatoriamente
+ el personaje, por tanto no podrá tener más rangos que los que le permita
+ su nivel (Será imposible tener 20 rangos en una habilidad cuando el personaje
+ sea de Nº2, por ejemplo).
+ 
+\end_layout
+
+\begin_layout Subsection
+Aplicar inteligencia a la aleatorización
+\end_layout
+
+\begin_layout Standard
+La aleatorización esta bien, pero da lugar a personajes un poco extraños.
+ Por tanto he diseñado una opción que calcula los personajes de una forma
+ 
+\begin_inset Quotes eld
+\end_inset
+
+más inteligente
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Es decir, calcula los personajes de una forma más cercana a lo que haría
+ un jugador, o al menos como lo haría yo.
+ Por ejemplo asegura que los magos tengan algún punto de poder, que los
+ guerreros sepan luchar y cosas por el estilo.
+ Sugiero que esta opción esté siempre activada.
 \end_layout
 
 \begin_layout Chapter
@@ -1873,6 +1811,121 @@ Se recomienda reiniciar la aplicación una vez se añade o elimina un nuevo
 \end_layout
 
 \begin_layout Part
+Subida de nivel remota
+\end_layout
+
+\begin_layout Chapter
+Subir el nivel de un personaje sin supervisión
+\end_layout
+
+\begin_layout Section
+Introducción
+\end_layout
+
+\begin_layout Standard
+El programa permite que cada uno de los jugadores se suba el nivel en su
+ propia casa en unos pocos minutos sin la necesidad de quedar en la casa
+ del Director de Juego.
+ De esta forma se ahorra tiempo y resulta mucho más cómodo, utilizando el
+ tiempo libre para jugar.
+ Para ello, la subida de nivel debe de ser segura, es decir, debe impedir
+ que los jugadores puedan hacer trampas y subir más rangos de los debidos.
+ 
+\end_layout
+
+\begin_layout Section
+Metodología
+\end_layout
+
+\begin_layout Standard
+La metodología a seguir para usar esta opción sería la siguiente.
+\end_layout
+
+\begin_layout Subsection
+Generar el personaje
+\end_layout
+
+\begin_layout Standard
+Primero el personaje se genera en presencia del Director de Juego que controla
+ la creación y aplica sus propias reglas de la campaña que tenga pensada
+ utilizar.
+ El personaje se guarda y también se imprime para su utilización.
+ 
+\end_layout
+
+\begin_layout Subsection
+Subir de nivel
+\end_layout
+
+\begin_layout Standard
+Con el tiempo y experiencia acumulada, el personaje sube un nivel.
+ Por tanto se debe modificar la ficha.
+ Para ello lo novedoso del sistema sería que el Director del Juego envíe
+ el archivo del personaje por email al jugador.
+ El jugador cómodamente en casa puede subir de nivel al personaje tomándose
+ el tiempo que crea conveniente.
+ 
+\end_layout
+
+\begin_layout Subsection
+Exportar el nivel
+\end_layout
+
+\begin_layout Standard
+Una vez subido de nivel, el jugador no devuelve el personaje al Director
+ de Juego, sino que lo que hace es exportar la subida de nivel.
+ Esto generará un fichero de subida de nivel que será enviado al Director
+ de Juego por email o el soporte digital que se crea oportuno.
+\end_layout
+
+\begin_layout Subsection
+Importar el nivel
+\end_layout
+
+\begin_layout Standard
+El Director de Juego importa el nivel del personaje utilizando para ello
+ el fichero de personaje original del que disponía en su casa y el fichero
+ de nivel que le ha enviado el jugador.
+ El programa le indicará los puntos de desarrollo gastados y si detecta
+ alguna anomalía.
+ Una vez hecho esto, el Director podrá imprimir la ficha del jugador.
+ 
+\end_layout
+
+\begin_layout Subsection
+Futuros niveles
+\end_layout
+
+\begin_layout Standard
+Cada vez que se suba de nivel, el Director de Juego debe enviar el personaje
+ con el nivel actual y debe recibir la subida de nivel del nivel próximo.
+ En el caso de que un personaje debiera subir dos niveles consecutivos por
+ algún motivo, debe repetir este ciclo dos veces.
+ No funcionará en el caso que el jugador suba los dos niveles consecutivos
+ a la vez.
+ 
+\end_layout
+
+\begin_layout Subsection
+Seguridad del sistema
+\end_layout
+
+\begin_layout Standard
+Este sistema es seguro ya que el director de juego mantiene en todo momento
+ la creación original del personaje.
+ De esta forma se evite que el jugador esté tentado de usar la opción de
+ insertar personaje y que altere sus rangos o modifique el personaje de
+ otra manera.
+ Al importar el nivel, el programa calcula los costes de los rangos de forma
+ normal, por lo que si el jugador se ha excedido en el coste, esto queda
+ plasmado.
+ Además las tiradas de características son precalculadas en la generación
+ del personaje, por lo que el resultado obtenido aunque aleatorio, será
+ siempre el mismo al subir de nivel, evitando la tentación del jugador de
+ repetir tiradas.
+\end_layout
+
+\begin_layout Part
 Añadir nuevas opciones a El Libro De Esher
 \end_layout
 
@@ -1888,7 +1941,7 @@ Creación de módulos
 Se pueden crear nuevos módulos para El Libro de Esher de una forma sencilla
  y sin saber nada sobre complejos lenguajes de programación.
  Simplemente se necesita un editor de textos sin formato, como el Notepad,
- el Notepad++ o el SciTE (este último lo recomiendo) y que acepte format
+ el Notepad++ o el SciTE (este último lo recomiendo) y que acepte formato
  UTF-8.
  Se desaconseja utilizar programas de generación de documentos como Microsoft
  Word ya que el texto enriquecido haría imposible al programa leer los campos.
@@ -1897,8 +1950,8 @@ Se pueden crear nuevos módulos para El Libro de Esher de una forma sencilla
 
 \begin_layout Standard
 Para crear un módulo solamente se debe de crear una carpeta dentro de la
- carpeta dónde esté instalado El Libro de Esher, y llendo a la carpeta rolemaste
-r/módulos.
+ carpeta dónde esté instalado El Libro de Esher, y yendo a la carpeta rolemaster
+/módulos.
  Allí se generará una carpeta con el nombre del módulo que queramos añadir.
  Imita la estructura de los módulos ya presentes con el programa para evitar
  problemas.
@@ -2014,7 +2067,7 @@ Sí una profesión empieza con el símbolo
 \begin_inset Quotes erd
 \end_inset
 
- significiará que la raza tiene como restringida todas las profesiones excepto
+ significará que la raza tiene como restringida todas las profesiones excepto
  la de ladrón.
  Es decir, la única profesión disponible será ladrón.
  No se pueden mezclar excepciones con profesiones restringidas.
@@ -2068,7 +2121,7 @@ Tipo de raza
 \begin_layout Standard
 Este valor solamente sirve a la hora de completar la ficha de personaje,
  ya que no se utiliza para nada durante la creación del mismo.
- A fin de cuentas, solamente se utiliza a la hora de resuciar el personaje.
+ A fin de cuentas, solamente se utiliza a la hora de resucitar el personaje.
  
 \end_layout
 
@@ -2238,7 +2291,7 @@ Sí una cultura empieza con el símbolo
 \begin_inset Quotes erd
 \end_inset
 
- significiará que la raza tiene disponible todas las culturas del programa
+ significará que la raza tiene disponible todas las culturas del programa
  a excepción de la 
 \begin_inset Quotes eld
 \end_inset
@@ -2264,7 +2317,7 @@ Si una palabra va entre llaves, se incluirán todas las culturas que contengan
 \begin_inset Quotes erd
 \end_inset
 
- incluíra las culturas 
+ incluirá las culturas 
 \begin_inset Quotes eld
 \end_inset
 
@@ -2324,7 +2377,7 @@ es de dicha categoría.
 \end_layout
 
 \begin_layout Enumerate
-También pueden ser incluídos ciertos talentos aquí que serán escogidos obligator
+También pueden ser incluidos ciertos talentos aquí que serán escogidos obligator
 iamente al crear el personaje.
  Se puede incluir el coste entre corchetes para así ajustar los puntos totales
  de talentos disponibles para el personaje.
@@ -2349,7 +2402,7 @@ Talentos
 \begin_layout Standard
 Los puntos de talentos que puede gastar una raza.
  No todas las razas de Rolemaster tienen calculados estos puntos, por lo
- que se debe de utilizar la metología incluida en el Manual del Director
+ que se debe de utilizar la metodología incluida en el Manual del Director
  de Juego para calcularlos.
  
 \end_layout
@@ -2537,7 +2590,7 @@ Si una habilidad tiene al inicio el símbolo
 \begin_inset Quotes eld
 \end_inset
 
-Armas·Proyecties
+Armas·Proyectiles
 \begin_inset Quotes erd
 \end_inset
 
@@ -2766,7 +2819,7 @@ Puedes incluir en el nombre de la habilidad las etiquetas (R) para hacerla
 
 \begin_layout Enumerate
 Existen habilidades que únicamente pueden ser utilizadas si previamente
- has incluído algún rango en otra.
+ has incluido algún rango en otra.
  Esto es claramente visible en el Manual de las Artes Marciales, en donde
  los estilos de lucha habilitan ciertos poderes chi.
  La sintaxis es indicar las habilidades ha habilitar entre llaves, separadas
@@ -2792,7 +2845,7 @@ Existen habilidades que únicamente pueden ser utilizadas si previamente
 \end_inset
 
 Estilo de la Grulla {Poderes Chi: Ataque Sin Sombra | Poderes Chi: Golpes
- Contínuos}
+ Continuos}
 \begin_inset Quotes erd
 \end_inset
 
@@ -2802,7 +2855,7 @@ Estilo de la Grulla {Poderes Chi: Ataque Sin Sombra | Poderes Chi: Golpes
 \begin_inset Quotes eld
 \end_inset
 
-Estilo Tigre {Poderes Chi: Golpe en Salto & Poderes Chi: Golpes Contínuos}
+Estilo Tigre {Poderes Chi: Golpe en Salto & Poderes Chi: Golpes Continuos}
 \begin_inset Quotes erd
 \end_inset
 
