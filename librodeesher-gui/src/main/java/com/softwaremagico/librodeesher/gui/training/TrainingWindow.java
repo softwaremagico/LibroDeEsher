@@ -52,7 +52,6 @@ import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
-import com.softwaremagico.librodeesher.pj.random.RandomCharacterPlayer;
 import com.softwaremagico.librodeesher.pj.random.TrainingProbability;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
@@ -218,7 +217,7 @@ public class TrainingWindow extends BaseFrame {
 			categoryPanel.setTraining(lastSelectedTraining);
 			selectedTrainingName.setText(lastSelectedTraining.getName());
 		} catch (InvalidTrainingException e) {
-			EsherLog.errorMessage(RandomCharacterPlayer.class.getName(), e);
+			EsherLog.errorMessage(TrainingWindow.class.getName(), e);
 		}
 		fillTrainingComboBox();
 	}
@@ -302,7 +301,7 @@ public class TrainingWindow extends BaseFrame {
 		try {
 			TrainingProbability.setRandomObjects(characterPlayer, lastSelectedTraining.getName());
 		} catch (InvalidTrainingException e) {
-			EsherLog.errorMessage(RandomCharacterPlayer.class.getName(), e);
+			EsherLog.errorMessage(TrainingWindow.class.getName(), e);
 		}
 	}
 
@@ -406,7 +405,7 @@ public class TrainingWindow extends BaseFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			characterPlayer.removeTraining(lastSelectedTraining);
+			removeTraining();
 			clearData();
 		}
 	}

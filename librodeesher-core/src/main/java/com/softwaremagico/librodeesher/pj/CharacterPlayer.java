@@ -998,6 +998,7 @@ public class CharacterPlayer extends StorableObject {
 		setPotentialValues();
 		characteristicsConfirmed = true;
 		characterPlayerHelper.resetCharacteristicTemporalValues();
+		characterPlayerHelper.resetDevelopmentPoints();
 	}
 
 	private void setCharacteristicsTemporalUpdatesRolls() {
@@ -2726,6 +2727,7 @@ public class CharacterPlayer extends StorableObject {
 	public void removeTraining(Training training) {
 		if (training != null) {
 			getCurrentLevel().removeTraining(training.getName());
+			characterPlayerHelper.resetDevelopmentPoints();
 		}
 	}
 
