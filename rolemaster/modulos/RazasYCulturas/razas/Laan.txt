@@ -117,6 +117,7 @@ Jaceryl, Allar, Allard, Devan, Maric, Matthos, Azor, Byren, Salladhor, Dagmer, S
 Qalen, Wendamyr, Rodrik, Maron, Gryff, Sholloreon, Polliver, Dunsen, Deziel, Tremond, Harmen, Ulwyck, Ryon
 Daemon, Dagos, Myles, Mors, Dickon, Arron, Perhos, Flement, Gyles, Addam, Jalabhar, Harys, Merlon, Philipp
 Dick, Mudge, Watty, Kyle, Harwin, Utt, Anguy, Merrit, Clydas, Cellador, Follard, Hobb, Wynotur, Bowen
+Raoden, Hrathen, Dilaf, Kiin, Galladon, Hoid, BLunt, Demoux,
 
 #NOMBRES FEMENINOS
 ####################################
@@ -129,6 +130,7 @@ Kay, Sonara, Sulana, Eluisi, Kala, Zalenia, Selenia, Adriana, Aleria, Alledra, A
 Kestra, Awinor, Kimara, Aile, Allegra, Nirei, Harel, Kestra, Tessa, Catelyn, Sansa, Arya, Daenerys
 Cersei, Osha, Hali, Lyra, Karye, Lysa, Shella, Shireen, Dalla, Matrice, Selyre, Melisandre, Lollys, Falyre
 Tysha, Kahalan, Miranda, Asshai, Marya, Nissa, Esher, Helya, Myria, Larra, Jynessa, Ellaria
+Sarene, Siri
 
 #APELLIDOS
 ####################################
