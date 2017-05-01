@@ -97,16 +97,20 @@ Ninguna
 Aguabanahizan, Minguan, Ione, Fedinto, Auguo, Bristol, Aaron, Gorni, Nelgar, Mathon
 Romén, Pelinor, Balder, Pelleas, Radish, Fen, Regnald, Livon, Sennar, Nevik, Salis, Galla, Laio, Leven
 Nammen, Sate, Jona, Dodi, Benares, Valen, Rodham, Pewar, Pelama, Mavern, Archival, Megisto
-Mawas, Lonerin, Aelan, Shevreen,  Mael, Hiram, Dedael, Learco, Kirtash
+Mawas, Lonerin, Aelan, Shevreen,  Mael, Hiram, Dedael, Learco, Kirtash, Mako, Bolin, Tenzin
+Bumi, Amon, Tarrlok, Unalaq, Desna, Zaheer, Tonrraq, Meelo, Rohan, Iroh, Zuko
+Azula
 
 #NOMBRES FEMENINOS
 ####################################
 Eleazar, Leonor, Zoe, Kornelia, Judy, Pandora, Dara, Daza, Gaifa Taufía, Tarira, Moca, Adelina, Ahanna,
 Aniagua, Luria, Uruna, Leela, Niam, Sonara, Lerin, Sulana, Enawar, Eluisi, Mira, Linara, Zirea, Aires, Fantacchiro
-Nerla, Marva, Talya, Theana, Shilve, Faressin, Naiha, Najzane, Merydian, 
+Nerla, Marva, Talya, Theana, Shilve, Faressin, Naiha, Najzane, Merydian, Korra, Asami, Katara, Jinora
+Kya, Eska, Ikki, Pema, Sokka
+
 
 #APELLIDOS
 ####################################
-Belvedere, Dedalo, Belissa, Zansennine, Bessie, Bardanzellu
+Belvedere, Dedalo, Belissa, Zansennine, Bessie, Bardanzellu, Beifong
 
 #### FIN RAZA ####
