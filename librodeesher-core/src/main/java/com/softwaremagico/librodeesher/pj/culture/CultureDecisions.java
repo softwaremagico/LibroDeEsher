@@ -195,8 +195,10 @@ public class CultureDecisions extends StorableObject {
 
 	public Integer getTotalAdolescenceSkillRanks(Category category) {
 		Integer total = 0;
-		for (Skill skill : category.getSkills()) {
-			total += getAdolescenceSkillRanks(skill.getName());
+		if (category != null) {
+			for (Skill skill : category.getSkills()) {
+				total += getAdolescenceSkillRanks(skill.getName());
+			}
 		}
 		return total;
 	}
