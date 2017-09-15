@@ -29,6 +29,9 @@ Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadore
 
 Versión
 ------------
+2.5.1	Arreglado:
+		- Ventana culturas no se abre correctamente.
+		
 2.5.0	Añadido:
 		- Reglas de edad para los personajes.
 		
