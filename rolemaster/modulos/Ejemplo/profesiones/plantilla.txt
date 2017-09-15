@@ -140,7 +140,7 @@ Viajero
 Artesano	
 Artista Marcial	
 Asesino	
-Berseker	
+Berserker	
 Cortabolsas	
 Detective	
 Diplomático	

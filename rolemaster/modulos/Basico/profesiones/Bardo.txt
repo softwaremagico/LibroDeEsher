@@ -165,7 +165,7 @@ Viajero	15
 Artesano	24
 Artista Marcial	29
 Asesino	31
-Berseker	29
+Berserker	29
 Cortabolsas	25
 Detective	25
 Diplomático	19

@@ -152,7 +152,7 @@ Artista	28
 Artista Marcial	28
 Asesino	29
 Aventurero	29
-Berseker	31
+Berserker	31
 Caballero	36
 Cazador	30
 Cortabolsas	25
