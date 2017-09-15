@@ -31,6 +31,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -45,11 +47,17 @@ import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.PointsCounterTextField;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.perk.Perk;
+import com.softwaremagico.librodeesher.pj.perk.PerkFactory;
+import com.softwaremagico.librodeesher.pj.perk.PerkGrade;
 import com.softwaremagico.librodeesher.pj.race.exceptions.InvalidRaceDefinition;
+import com.softwaremagico.log.EsherLog;
 
 public class PerkWindow extends BaseFrame {
 	private static final long serialVersionUID = 4804191786722149503L;
+	private final static String NOTHING = "ninguno";
 	private static boolean sortByCost = false;
+
 	private CharacterPlayer character;
 	private PerksListCompletePanel perksPanel;
 	private BaseLabel perksPointsLabel;
@@ -72,6 +80,35 @@ public class PerkWindow extends BaseFrame {
 	}
 
 	private void setElements() {
+		PerksWindowsMenu mainMenu = new PerksWindowsMenu();
+		if (Config.getPerksCostHistoryPoints()) {
+			setJMenuBar(mainMenu.createMenu());
+			mainMenu.addRandomPerkMenuListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					Perk perk = selectRandomPerk();
+					if (perk != null) {
+						try {
+							if (perk.getCost() <= character.getRemainingPerksPoints()) {
+								MessageManager.infoMessage(this.getClass().getName(), "El talento adquirido es '" + perk.getName() + "'",
+										"¡Nuevo talento adquirido!");
+								character.setAsRandomPerk(perk);
+								perksPanel.selectRandomPerk(perk, true);
+								updateFrame();
+							} else {
+								MessageManager.basicErrorMessage(this.getClass().getName(), "El talento obtenido es '" + perk.getName()
+										+ "' pero no tienes puntos suficientes para adquirilo.", "¡Nuevo talento adquirido!");
+							}
+						} catch (InvalidRaceDefinition e) {
+							MessageManager.basicErrorMessage(this.getClass().getName(), e.getMessage(), "Raza incorrectamente definida.");
+							EsherLog.errorMessage(this.getClass().getName(), e);
+						}
+					}
+				}
+			});
+		}
+
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
@@ -158,8 +195,7 @@ public class PerkWindow extends BaseFrame {
 		try {
 			perksPoints.setPoints(character.getRemainingPerksPoints());
 		} catch (InvalidRaceDefinition ex) {
-			MessageManager.basicErrorMessage(this.getClass().getName(), ex.getMessage(),
-					"Raza incorrectamente definida.");
+			MessageManager.basicErrorMessage(this.getClass().getName(), ex.getMessage(), "Raza incorrectamente definida.");
 			MessageManager.errorMessage(this.getClass().getName(), ex);
 		}
 	}
@@ -172,6 +208,34 @@ public class PerkWindow extends BaseFrame {
 
 	private void sortPerks() {
 		perksPanel.sortElements(sortByCost);
+	}
+
+	private Perk selectRandomPerk() {
+		List<String> tags = new ArrayList<String>();
+		if (PerkGrade.values().length > 0) {
+			for (PerkGrade grade : PerkGrade.values()) {
+				tags.add(grade.getTag());
+			}
+			// add none option.
+			tags.add(NOTHING);
+			int selected = MessageManager.questionMessage("¿Desea escoger un talento aleatorio? Esta acción es irreversible.", "Añadir un talento aleatorio.",
+					tags.toArray());
+			if (selected < 0 || tags.get(selected).equals(NOTHING)) {
+				return null;
+			}
+
+			PerkGrade perkGrade = PerkGrade.getPerkCategory(tags.get(selected));
+			Perk randomPerk = null;
+			if (perkGrade != null) {
+				randomPerk = PerkFactory.getRandomPerk(perkGrade);
+				// Select a not selected already weakness.
+				while (character.getPerks().contains(randomPerk)) {
+					randomPerk = PerkFactory.getRandomPerk(perkGrade);
+				}
+			}
+			return randomPerk;
+		}
+		return null;
 	}
 
 	class ChangeSortingListener implements ActionListener {

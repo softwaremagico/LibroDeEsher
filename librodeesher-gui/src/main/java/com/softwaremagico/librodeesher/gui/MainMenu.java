@@ -168,7 +168,7 @@ public class MainMenu {
 		createMenu.getAccessibleContext().setAccessibleDescription("Crear paso a paso un personaje.");
 
 		charactMenuItem = new JMenuItem("Características", KeyEvent.VK_C);
-		charactMenuItem.setIcon((Icon) getIcon("characteristics.png"));
+		charactMenuItem.setIcon((Icon) getIcon("random.png"));
 		charactMenuItem.getAccessibleContext().setAccessibleDescription("Características del personaje.");
 		createMenu.add(charactMenuItem);
 

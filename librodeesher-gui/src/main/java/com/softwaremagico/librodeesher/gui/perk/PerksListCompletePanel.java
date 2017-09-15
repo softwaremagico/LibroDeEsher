@@ -27,6 +27,7 @@ package com.softwaremagico.librodeesher.gui.perk;
 import com.softwaremagico.librodeesher.gui.elements.BaseScrollPanel;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.perk.Perk;
 
 public class PerksListCompletePanel extends BaseScrollPanel {
 	private static final long serialVersionUID = -5606065330811602828L;
@@ -43,9 +44,14 @@ public class PerksListCompletePanel extends BaseScrollPanel {
 		perksPanel = new PerksListPanel(character, this);
 		setBody(perksPanel);
 	}
-	
+
 	public void sortElements(boolean sortByCost) {
 		perksPanel.sortElements(sortByCost);
+	}
+
+	public void selectRandomPerk(Perk perk, boolean selected) {
+		perksPanel.selectPerk(perk, selected);
+		perksPanel.enablePerk(perk, !selected);
 	}
 
 	@Override

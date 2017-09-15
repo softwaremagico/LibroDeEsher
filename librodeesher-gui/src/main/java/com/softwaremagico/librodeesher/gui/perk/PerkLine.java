@@ -91,7 +91,8 @@ public class PerkLine extends BaseLine {
 		updating = true;
 		perkCheckBox = new BaseCheckBox("");
 		perkCheckBox.setSelected(character.isPerkChoosed(perk) || character.getRace().getPerks().contains(perk));
-		perkCheckBox.setEnabled(!character.getRace().getPerks().contains(perk));
+		perkCheckBox.setEnabled(!character.getRace().getPerks().contains(perk) && !character.isSelectedAsRandomPerk(perk)
+				&& !character.isSelectedWeakness(perk));
 		panel.add(perkCheckBox);
 		panel.setBackground(background);
 		perkCheckBox.setBackground(background);
@@ -114,8 +115,7 @@ public class PerkLine extends BaseLine {
 		gridBagConstraints.gridx = 3;
 		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.weightx = 0;
-		perkCategory = new ListLabel(perk.getGrade().toString(), SwingConstants.CENTER, DEFAULT_COLUMN_WIDTH * 2,
-				columnHeight);
+		perkCategory = new ListLabel(perk.getGrade().toString(), SwingConstants.CENTER, DEFAULT_COLUMN_WIDTH * 2, columnHeight);
 		add(new ListBackgroundPanel(perkCategory, background), gridBagConstraints);
 
 		gridBagConstraints.gridx = 4;
@@ -136,12 +136,15 @@ public class PerkLine extends BaseLine {
 							if (perk.getCost() <= character.getRemainingPerksPoints()) {
 								createSelectOptionsWindow();
 								Perk weakness = selectWeakness();
-								if (weakness != null) {
-									MessageManager.infoMessage(this.getClass().getName(), "El defecto adquirido es: "
-											+ weakness.getName() + " [" + weakness.getGrade().getTag() + "]",
-											"Nuevo defecto adquirido!");
-								}
 								character.addPerk(perk, weakness);
+								if (weakness != null) {
+									MessageManager.infoMessage(this.getClass().getName(), "El defecto adquirido es '" + weakness.getName() + "' ["
+											+ weakness.getGrade().getTag() + "]", "¡Nuevo defecto adquirido!");
+									((PerksListPanel) parent).selectPerk(weakness, true);
+									((PerksListPanel) parent).enablePerk(weakness, false);
+									character.setAsRandomPerk(perk);
+									perkCheckBox.setEnabled(false);
+								}
 								// SelectOptionWindows unselect the checkbox by
 								// unknown reason. We force again to select it.
 								updating = true;
@@ -161,8 +164,7 @@ public class PerkLine extends BaseLine {
 					update();
 				}
 			} catch (InvalidRaceDefinition ex) {
-				MessageManager.basicErrorMessage(this.getClass().getName(), ex.getMessage(),
-						"Raza incorrectamente definida.");
+				MessageManager.basicErrorMessage(this.getClass().getName(), ex.getMessage(), "Raza incorrectamente definida.");
 				MessageManager.errorMessage(this.getClass().getName(), ex);
 			}
 		}
@@ -185,10 +187,9 @@ public class PerkLine extends BaseLine {
 				}
 				// add none option.
 				tags.add(NOTHING);
-				int selected = MessageManager.questionMessage(
-						"¿Quieres escoger un defecto aleatorio para este adiestramiento?",
-						"Coste en puntos de historial.", tags.toArray());
-				if (tags.get(selected).equals(NOTHING)) {
+				int selected = MessageManager.questionMessage("¿Quieres escoger un defecto aleatorio para este adiestramiento?", "Añadir un defecto.",
+						tags.toArray());
+				if (selected < 0 || tags.get(selected).equals(NOTHING)) {
 					return null;
 				}
 
@@ -210,26 +211,23 @@ public class PerkLine extends BaseLine {
 
 	private void createSelectOptionsWindow() {
 		// More than one category, select one of them.
-		if (perk.getCategoriesToChoose().size() == 1
-				&& perk.getCategoriesToChoose().get(0).getOptionsGroup().size() > 1) {
+		if (perk.getCategoriesToChoose().size() == 1 && perk.getCategoriesToChoose().get(0).getOptionsGroup().size() > 1) {
 			for (ChooseCategoryGroup options : perk.getCategoriesToChoose()) {
-				PerkOptionsWindow<Category> optionsWindow = new PerkOptionsWindow<Category>(character, perk, options,
-						this);
+				PerkOptionsWindow<Category> optionsWindow = new PerkOptionsWindow<Category>(character, perk, options, this);
 				optionsWindow.setPointCounterLabel("Categorias con (" + getBonusTag() + "): ");
 				optionsWindow.setVisible(true);
 			}
-		}else
+		} else
 		// One category, select skills.
 		if (perk.getCategoriesToChoose().size() == 1) {
 			ChooseCategoryGroup options = perk.getCategoriesToChoose().get(0);
-			ChooseSkillGroup skillOptions = new ChooseSkillGroup(perk.getCategorySkillsRanksBonus(character
-					.getCategory(options.getOptionsGroup().get(0)).getName()), character.getCategory(
-					options.getOptionsGroup().get(0)).getSkills(), options.getChooseType());
+			ChooseSkillGroup skillOptions = new ChooseSkillGroup(perk.getCategorySkillsRanksBonus(character.getCategory(options.getOptionsGroup().get(0))
+					.getName()), character.getCategory(options.getOptionsGroup().get(0)).getSkills(), options.getChooseType());
 			skillOptions.setNumberOfOptionsToChoose(options.getNumberOfOptionsToChoose());
 			PerkOptionsWindow<Skill> optionsWindow = new PerkOptionsWindow<Skill>(character, perk, skillOptions, this);
 			optionsWindow.setPointCounterLabel("Habilidades: ");
 			optionsWindow.setVisible(true);
-		}else
+		} else
 		// Select one skill from list.
 		if (!perk.getSkillsToChoose().isEmpty()) {
 			for (ChooseSkillGroup options : perk.getSkillsToChoose()) {
@@ -237,8 +235,7 @@ public class PerkLine extends BaseLine {
 				optionsWindow.setPointCounterLabel("Habilidades con (" + getBonusTag() + "): ");
 				optionsWindow.setVisible(true);
 			}
-		}else
-		if (!perk.getCommonSkillsToChoose().isEmpty()) {
+		} else if (!perk.getCommonSkillsToChoose().isEmpty()) {
 			for (ChooseSkillGroup options : perk.getCommonSkillsToChoose()) {
 				PerkOptionsWindow<Skill> optionsWindow = new PerkOptionsWindow<Skill>(character, perk, options, this);
 				optionsWindow.setPointCounterLabel("Habilidades comunes: ");
@@ -253,7 +250,14 @@ public class PerkLine extends BaseLine {
 	}
 
 	protected void removePerk() {
-		perkCheckBox.setSelected(false);
+		setSelected(false);
 	}
 
+	protected void setSelected(boolean selected) {
+		perkCheckBox.setSelected(selected);
+	}
+
+	protected void enabledCheckBox(boolean enabled) {
+		perkCheckBox.setEnabled(enabled);
+	}
 }

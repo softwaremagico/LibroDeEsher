@@ -43,6 +43,7 @@ public class PerksListPanel extends BasePanel {
 	private PerksListCompletePanel parent;
 	private Map<Perk, Perk> perksWithWeakness = new HashMap<>();
 	private CharacterPlayer character;
+	private Map<Perk, PerkLine> perksList = new HashMap<>();
 
 	public PerksListPanel(CharacterPlayer character, PerksListCompletePanel parent) {
 		this.character = character;
@@ -60,6 +61,7 @@ public class PerksListPanel extends BasePanel {
 			if (perk.isPerkAllowed(character.getRace().getName(), character.getProfession().getName())) {
 				PerkLine perkLine = new PerkLine(character, perk, getLineBackgroundColor(i), this);
 				add(perkLine);
+				perksList.put(perk, perkLine);
 				i++;
 			}
 		}
@@ -73,6 +75,18 @@ public class PerksListPanel extends BasePanel {
 		}
 		revalidate();
 		repaint();
+	}
+
+	protected void selectPerk(Perk perk, boolean selected) {
+		if (perksList.get(perk) != null) {
+			perksList.get(perk).setSelected(selected);
+		}
+	}
+
+	protected void enablePerk(Perk perk, boolean enabled) {
+		if (perksList.get(perk) != null) {
+			perksList.get(perk).enabledCheckBox(enabled);
+		}
 	}
 
 	public void addWeakness(Perk perk, Perk weakness) {

@@ -210,6 +210,11 @@ public class CharacterPlayer extends StorableObject {
 
 	@Expose
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@CollectionTable(name = "T_CHARACTERPLAYER_RANDOM_PERKS")
+	private Set<SelectedPerk> randomPerks;
+
+	@Expose
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@CollectionTable(name = "T_CHARACTERPLAYER_PERKS_DECISIONS")
 	private Map<String, PerkDecision> perkDecisions;
 
@@ -284,6 +289,7 @@ public class CharacterPlayer extends StorableObject {
 		standardEquipment = new HashSet<>();
 		currentAge = AgeModification.INITIAL_AGE;
 		finalAge = currentAge;
+		randomPerks = new HashSet<>();
 		setDefaultConfig();
 		// Starts in level 1.
 		increaseLevel();
@@ -1941,6 +1947,25 @@ public class CharacterPlayer extends StorableObject {
 		}
 	}
 
+	/**
+	 * Random perks cannot be unselected.
+	 * 
+	 * @param perk
+	 */
+	public void setAsRandomPerk(Perk perk) {
+		SelectedPerk selectedPerk = new SelectedPerk(perk);
+		randomPerks.add(selectedPerk);
+	}
+
+	public boolean isSelectedAsRandomPerk(Perk perk) {
+		for (SelectedPerk selectedPerk : randomPerks) {
+			if (selectedPerk.getName().equals(perk.getName()) && selectedPerk.getCost().equals(perk.getCost())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public void removePerk(Perk perk) {
 		SelectedPerk perkToRemove = null;
 		for (SelectedPerk selectedPerk : selectedPerks) {
@@ -1961,6 +1986,16 @@ public class CharacterPlayer extends StorableObject {
 				return true;
 			}
 			// Check not repeat weakness with selected perks.
+			if (selectedPerk.getWeakness() != null && selectedPerk.getWeakness().getName().equals(perk.getName())
+					&& selectedPerk.getWeakness().getCost().equals(perk.getCost())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isSelectedWeakness(Perk perk) {
+		for (SelectedPerk selectedPerk : getRealSelectedPerks()) {
 			if (selectedPerk.getWeakness() != null && selectedPerk.getWeakness().getName().equals(perk.getName())
 					&& selectedPerk.getWeakness().getCost().equals(perk.getCost())) {
 				return true;

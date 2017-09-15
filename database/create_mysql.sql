@@ -146,6 +146,12 @@
         primary key (CharacterPlayer_ID, characteristicsPotentialValues_KEY)
     );
 
+    create table T_CHARACTERPLAYER_RANDOM_PERKS (
+        T_CHARACTERPLAYER_ID bigint not null,
+        randomPerks_ID bigint not null,
+        primary key (T_CHARACTERPLAYER_ID, randomPerks_ID)
+    );
+
     create table T_CHARACTERPLAYER_SELECTED_PERKS (
         T_CHARACTERPLAYER_ID bigint not null,
         selectedPerks_ID bigint not null
@@ -668,6 +674,9 @@
     alter table T_CHARACTERPLAYER_PERKS_DECISIONS 
         add constraint UK_2rei81rlw78vo1pss3lmg7lsq unique (perkDecisions_ID);
 
+    alter table T_CHARACTERPLAYER_RANDOM_PERKS 
+        add constraint UK_b85hry22fh8dic2978c3yvksa unique (randomPerks_ID);
+
     alter table T_CHARACTERPLAYER_SELECTED_PERKS 
         add constraint UK_c36v4kn7rg6y2oeqamj1vftp6 unique (selectedPerks_ID);
 
@@ -932,6 +941,16 @@
     alter table T_CHARACTERPLAYER_POTENTIAL_VALUES 
         add constraint FK_n87ng61k8wj5d1sfq91jcvpt4 
         foreign key (CharacterPlayer_ID) 
+        references T_CHARACTERPLAYER (ID);
+
+    alter table T_CHARACTERPLAYER_RANDOM_PERKS 
+        add constraint FK_b85hry22fh8dic2978c3yvksa 
+        foreign key (randomPerks_ID) 
+        references T_PERKS (ID);
+
+    alter table T_CHARACTERPLAYER_RANDOM_PERKS 
+        add constraint FK_ebctke2u2p6lr5vspphwx055u 
+        foreign key (T_CHARACTERPLAYER_ID) 
         references T_CHARACTERPLAYER (ID);
 
     alter table T_CHARACTERPLAYER_SELECTED_PERKS 
