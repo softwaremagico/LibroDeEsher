@@ -421,6 +421,7 @@ public class Controller {
 				bufferReader.close();
 				CharacterPlayer characterPlayer = CharacterJsonManager.fromJson(jsonText);
 				MessageManager.infoMessage(Controller.class.getName(), "Personaje importado correctamente.", "RLM");
+				characterPlayer.clearCache();
 				addCharacterPlayer(characterPlayer);
 			} catch (Exception exc) {
 				EsherLog.errorMessage(Controller.class.getName(), exc);
