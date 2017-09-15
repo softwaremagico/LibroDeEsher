@@ -1980,6 +1980,17 @@ public class CharacterPlayer extends StorableObject {
 		}
 	}
 
+	public boolean removeWeakness(Perk weakness) {
+		for (SelectedPerk selectedPerk : selectedPerks) {
+			if (selectedPerk.getWeakness() != null && selectedPerk.getWeakness().getName().equals(weakness.getName())
+					&& selectedPerk.getWeakness().getCost().equals(weakness.getCost())) {
+				selectedPerk.setWeakness(null);
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public boolean isPerkChoosed(Perk perk) {
 		for (SelectedPerk selectedPerk : getRealSelectedPerks()) {
 			if (selectedPerk.getName().equals(perk.getName()) && selectedPerk.getCost().equals(perk.getCost())) {
@@ -1994,10 +2005,10 @@ public class CharacterPlayer extends StorableObject {
 		return false;
 	}
 
-	public boolean isSelectedWeakness(Perk perk) {
+	public boolean isSelectedWeakness(Perk weakness) {
 		for (SelectedPerk selectedPerk : getRealSelectedPerks()) {
-			if (selectedPerk.getWeakness() != null && selectedPerk.getWeakness().getName().equals(perk.getName())
-					&& selectedPerk.getWeakness().getCost().equals(perk.getCost())) {
+			if (selectedPerk.getWeakness() != null && selectedPerk.getWeakness().getName().equals(weakness.getName())
+					&& selectedPerk.getWeakness().getCost().equals(weakness.getCost())) {
 				return true;
 			}
 		}

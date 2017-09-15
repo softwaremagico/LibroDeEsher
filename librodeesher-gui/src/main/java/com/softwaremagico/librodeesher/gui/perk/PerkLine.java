@@ -54,6 +54,7 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class PerkLine extends BaseLine {
 	private static final long serialVersionUID = 4767533985935793545L;
+	private static final int MAX_TRYES = 100;
 	private final static Integer DEFAULT_COLUMN_WIDTH = 50;
 	private final static String NOTHING = "ninguno";
 	private BasePanel parent;
@@ -157,7 +158,10 @@ public class PerkLine extends BaseLine {
 							if (character.getRemainingPerksPoints() + perk.getCost() < 0) {
 								perkCheckBox.setSelected(true);
 							} else {
+								// It is a perk?
 								character.removePerk(perk);
+								// It is a weakness?
+								character.removeWeakness(perk);
 							}
 						}
 					}
@@ -198,8 +202,16 @@ public class PerkLine extends BaseLine {
 				if (weaknessGrade != null) {
 					weakness = PerkFactory.getRandomWeakness(weaknessGrade, perk.getPerkType());
 					// Select a not selected already weakness.
-					while (character.getRandomWeakness().contains(weakness)) {
+					int tryes = 0;
+					while ((character.isSelectedWeakness(weakness) || character.getPerks().contains(weakness)) && tryes < MAX_TRYES) {
 						weakness = PerkFactory.getRandomWeakness(weaknessGrade);
+						tryes++;
+					}
+					if (tryes == MAX_TRYES) {
+						// Not possible to obtain a non selected weakness.
+						MessageManager.warningMessage(this.getClass().getName(), "No es posible obtener una debilidad de tipo '" + weaknessGrade.getTag()
+								+ "'. Probablemente no quede ninguna disponible.", "Fallo en la obtención de una debilidad.");
+						return null;
 					}
 				}
 				return weakness;
