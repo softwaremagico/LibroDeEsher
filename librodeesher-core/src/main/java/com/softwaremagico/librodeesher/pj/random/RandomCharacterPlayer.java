@@ -38,9 +38,8 @@ import com.softwaremagico.librodeesher.pj.weapons.WeaponType;
 import com.softwaremagico.log.EsherLog;
 
 /**
- * Specialization level: if 0, categories and skills are obtained randomly. If
- * specialized are obtained by ranks number if not at inverse. If value is 3
- * then character can specialize skills, if -3 can generalize skills.
+ * Specialization level: if 0, categories and skills are obtained randomly. If specialized are obtained by ranks number if not at inverse. If value is 3 then
+ * character can specialize skills, if -3 can generalize skills.
  */
 public class RandomCharacterPlayer {
 	public final static int MAX_TRIES = 5;
@@ -253,8 +252,7 @@ public class RandomCharacterPlayer {
 	}
 
 	/**
-	 * Set random characteristics. Characteristics preferred that generates
-	 * development points have a little of advantage.
+	 * Set random characteristics. Characteristics preferred that generates development points have a little of advantage.
 	 */
 	public static void setCharacteristics(CharacterPlayer characterPlayer, int specializationLevel) {
 		int loop = 0;
@@ -786,7 +784,9 @@ public class RandomCharacterPlayer {
 							weakness = PerkFactory.getRandomWeakness(weaknessAvailable.get(0));
 						}
 					}
-					characterPlayer.addPerk(perk, weakness);
+					characterPlayer.addPerk(perk);
+					characterPlayer.addWeakness(perk, weakness);
+					characterPlayer.setAsRandomPerk(perk);
 					// Check cost.
 					if (characterPlayer.getRemainingBackgroundPoints() < 0) {
 						characterPlayer.removePerk(perk);

@@ -20,6 +20,7 @@ public class SelectedPerk extends StorableObject {
 	@Expose
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private SelectedPerk weakness;
+	private boolean random = false;
 
 	protected SelectedPerk() {
 		super();
@@ -60,5 +61,13 @@ public class SelectedPerk extends StorableObject {
 
 	public void setWeakness(SelectedPerk weakness) {
 		this.weakness = weakness;
+	}
+
+	public boolean isRandom() {
+		return random;
+	}
+
+	public void setRandom(boolean random) {
+		this.random = random;
 	}
 }

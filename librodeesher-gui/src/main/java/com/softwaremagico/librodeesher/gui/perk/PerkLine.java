@@ -92,8 +92,8 @@ public class PerkLine extends BaseLine {
 		updating = true;
 		perkCheckBox = new BaseCheckBox("");
 		perkCheckBox.setSelected(character.isPerkChoosed(perk) || character.getRace().getPerks().contains(perk));
-		perkCheckBox.setEnabled(!character.getRace().getPerks().contains(perk) && !character.isSelectedAsRandomPerk(perk)
-				&& !character.isSelectedWeakness(perk));
+		perkCheckBox.setEnabled(!character.getRace().getPerks().contains(perk) && !character.isSelectedAsRandomPerk(perk) && !character.isWeakness(perk)
+				&& !character.hasWeakness(perk));
 		panel.add(perkCheckBox);
 		panel.setBackground(background);
 		perkCheckBox.setBackground(background);
@@ -132,40 +132,62 @@ public class PerkLine extends BaseLine {
 		public void itemStateChanged(ItemEvent e) {
 			try {
 				if (!updating) {
+					Perk weakness = null;
 					if (!character.getRace().getPerks().contains(perk)) {
 						if (perkCheckBox.isSelected()) {
 							if (perk.getCost() <= character.getRemainingPerksPoints()) {
+								updating = true;
 								createSelectOptionsWindow();
-								Perk weakness = selectWeakness();
-								character.addPerk(perk, weakness);
-								if (weakness != null) {
-									MessageManager.infoMessage(this.getClass().getName(), "El defecto adquirido es '" + weakness.getName() + "' ["
-											+ weakness.getGrade().getTag() + "]", "¡Nuevo defecto adquirido!");
-									((PerksListPanel) parent).selectPerk(weakness, true);
-									((PerksListPanel) parent).enablePerk(weakness, false);
-									character.setAsRandomPerk(perk);
-									perkCheckBox.setEnabled(false);
+								// It is not a weakness selected from a previous perk.
+								if (!character.isWeakness(perk)) {
+									character.addPerk(perk);
+									// Must select a weakness.
+									weakness = selectWeakness();
+									if (weakness != null) {
+										MessageManager.infoMessage(this.getClass().getName(), "El defecto adquirido es '" + weakness.getName() + "' ["
+												+ weakness.getGrade().getTag() + "]", "¡Nuevo defecto adquirido!");
+										character.addWeakness(perk, weakness);
+										((PerksListPanel) parent).selectPerk(weakness, true);
+										((PerksListPanel) parent).enablePerk(weakness, false);
+										// character.setAsRandomPerk(perk);
+										perkCheckBox.setEnabled(false);
+									}
 								}
 								// SelectOptionWindows unselect the checkbox by
 								// unknown reason. We force again to select it.
-								updating = true;
 								perkCheckBox.setSelected(true);
 								updating = false;
 							} else {
 								perkCheckBox.setSelected(false);
 							}
 						} else {
+							// Cannot remove a weakness if cost does not allow it.
 							if (character.getRemainingPerksPoints() + perk.getCost() < 0) {
 								perkCheckBox.setSelected(true);
 							} else {
+								// It is a weakness?
+								if (character.removeWeakness(perk)) {
+									((PerksListPanel) parent).selectPerk(perk, false);
+									((PerksListPanel) parent).enablePerk(perk, true);
+								}
 								// It is a perk?
 								character.removePerk(perk);
-								// It is a weakness?
-								character.removeWeakness(perk);
 							}
 						}
 					}
 					update();
+					// Cannot afford a random perk. Remove it.
+					if ((character.getRemainingPerksPoints() < 0 || character.getRemainingBackgroundPoints() < 0) && !perkCheckBox.isEnabled()) {
+						MessageManager.warningMessage(this.getClass().getName(), "El coste del talento es demasiado alto. Se anula la operación",
+								"No de puede incluir el nuevo talento.");
+						perkCheckBox.setSelected(false);
+						perkCheckBox.setEnabled(true);
+						// Remove also the weakness if exists.
+						if (weakness != null) {
+							((PerksListPanel) parent).selectPerk(weakness, false);
+							((PerksListPanel) parent).enablePerk(weakness, true);
+						}
+					}
 				}
 			} catch (InvalidRaceDefinition ex) {
 				MessageManager.basicErrorMessage(this.getClass().getName(), ex.getMessage(), "Raza incorrectamente definida.");
@@ -186,11 +208,15 @@ public class PerkLine extends BaseLine {
 			List<PerkGrade> lesserGrades = perk.getGrade().getLesserGrades(2);
 			List<String> tags = new ArrayList<String>();
 			if (lesserGrades.size() > 0) {
-				for (PerkGrade grade : lesserGrades) {
-					tags.add(grade.getTag());
+				for (PerkGrade weaknessGrade : lesserGrades) {
+					// Cost is affordable.
+					tags.add(weaknessGrade.getTag());
 				}
 				// add none option.
 				tags.add(NOTHING);
+				if (tags.isEmpty()) {
+					return null;
+				}
 				int selected = MessageManager.questionMessage("¿Quieres escoger un defecto aleatorio para este adiestramiento?", "Añadir un defecto.",
 						tags.toArray());
 				if (selected < 0 || tags.get(selected).equals(NOTHING)) {
@@ -203,7 +229,7 @@ public class PerkLine extends BaseLine {
 					weakness = PerkFactory.getRandomWeakness(weaknessGrade, perk.getPerkType());
 					// Select a not selected already weakness.
 					int tryes = 0;
-					while ((character.isSelectedWeakness(weakness) || character.getPerks().contains(weakness)) && tryes < MAX_TRYES) {
+					while ((character.isWeakness(weakness) || character.getPerks().contains(weakness)) && tryes < MAX_TRYES) {
 						weakness = PerkFactory.getRandomWeakness(weaknessGrade);
 						tryes++;
 					}

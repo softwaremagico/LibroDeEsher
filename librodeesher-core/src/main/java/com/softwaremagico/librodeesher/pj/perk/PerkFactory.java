@@ -296,25 +296,34 @@ public class PerkFactory {
 	public static int getPerksBackgroundCost(List<SelectedPerk> selectedPerks) {
 		int cost = 0;
 		for (SelectedPerk selectedPerk : selectedPerks) {
-			cost += getPerkHistoryCost(PerkFactory.getPerk(selectedPerk), PerkFactory.getPerk(selectedPerk.getWeakness()));
+			cost += getPerkBackgroundCost(PerkFactory.getPerk(selectedPerk), PerkFactory.getPerk(selectedPerk.getWeakness()), selectedPerk.isRandom());
 		}
 		return cost;
 	}
 
 	/**
-	 * Obtains the cost for a perk depending on the grade and the weakness
-	 * chosen.
+	 * Obtains the cost for a perk depending on the grade and the weakness chosen.
 	 * 
 	 * @param perk
 	 * @param weakness
 	 * @return
 	 */
-	private static int getPerkHistoryCost(Perk perk, Perk weakness) {
-		if (perk.getCost() < 0) {
+	public static int getPerkBackgroundCost(Perk perk, Perk weakness, boolean random) {
+		if (perk == null) {
+			return 0;
+		}
+		return getPerkBackgroundCost(perk.getGrade(), weakness != null ? weakness.getGrade() : null, perk.getCost() < 0, random);
+	}
+
+	public static int getPerkBackgroundCost(PerkGrade perkGrade, PerkGrade weakness, boolean isWeakness, boolean random) {
+		if (perkGrade == null) {
+			return 0;
+		}
+		if (isWeakness) {
 			return 0;
 		}
 		int cost = 0;
-		switch (perk.getGrade()) {
+		switch (perkGrade) {
 		case MINIMUM:
 			cost = 2;
 			break;
@@ -329,11 +338,14 @@ public class PerkFactory {
 			break;
 		}
 		if (weakness != null) {
-			if (perk.getGrade().asNumber() - weakness.getGrade().asNumber() == 0) {
+			if (perkGrade.asNumber() - weakness.asNumber() == 0) {
 				cost = cost - 2;
-			} else if (perk.getGrade().asNumber() - weakness.getGrade().asNumber() == 1) {
+			} else if (perkGrade.asNumber() - weakness.asNumber() == 1) {
 				cost = cost - 1;
 			}
+		}
+		if (random && cost > 1) {
+			cost--;
 		}
 		return cost;
 	}

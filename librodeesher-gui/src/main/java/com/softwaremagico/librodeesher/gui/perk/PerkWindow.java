@@ -62,7 +62,7 @@ public class PerkWindow extends BaseFrame {
 	private PerksListCompletePanel perksPanel;
 	private BaseLabel perksPointsLabel;
 	private PointsCounterTextField perksPoints;
-	private PointsCounterTextField historyPoints;
+	private PointsCounterTextField backgroundPoints;
 	private BaseRadioButton sortByNameRadioButton, sortByCostRadioButton;
 
 	public PerkWindow(CharacterPlayer character) {
@@ -74,8 +74,8 @@ public class PerkWindow extends BaseFrame {
 	}
 
 	private void setBackgroundPointText() {
-		if (historyPoints != null) {
-			historyPoints.setPoints(character.getRemainingBackgroundPoints());
+		if (backgroundPoints != null) {
+			backgroundPoints.setPoints(character.getRemainingBackgroundPoints());
 		}
 	}
 
@@ -93,6 +93,7 @@ public class PerkWindow extends BaseFrame {
 							if (perk.getCost() <= character.getRemainingPerksPoints()) {
 								MessageManager.infoMessage(this.getClass().getName(), "El talento adquirido es '" + perk.getName() + "'",
 										"¡Nuevo talento adquirido!");
+								character.addPerk(perk);
 								character.setAsRandomPerk(perk);
 								perksPanel.selectRandomPerk(perk, true);
 								updateFrame();
@@ -153,12 +154,12 @@ public class PerkWindow extends BaseFrame {
 			perksPointPanel.add(Box.createRigidArea(new Dimension(10, 0)));
 			BaseLabel historyPointsLabel = new BaseLabel("Puntos de Historial: ");
 			perksPointPanel.add(historyPointsLabel);
-			historyPoints = new PointsCounterTextField();
-			historyPoints.setColumns(3);
-			historyPoints.setEditable(false);
-			historyPoints.setMaximumSize(new Dimension(60, 25));
+			backgroundPoints = new PointsCounterTextField();
+			backgroundPoints.setColumns(3);
+			backgroundPoints.setEditable(false);
+			backgroundPoints.setMaximumSize(new Dimension(60, 25));
 			setBackgroundPointText();
-			perksPointPanel.add(historyPoints);
+			perksPointPanel.add(backgroundPoints);
 		}
 
 		getContentPane().add(perksPointPanel, gridBagConstraints);
