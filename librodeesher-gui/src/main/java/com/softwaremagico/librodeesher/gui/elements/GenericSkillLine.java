@@ -43,6 +43,7 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class GenericSkillLine extends BaseSkillLine {
 	private static final long serialVersionUID = -3194401962061016906L;
+	private static final int MAX_INSERTED_RANKS = 20;
 	protected ListLabel skillNameLabel, bonusRankLabel, totalLabel, bonusCategory, otherBonusLabel, prevRanksLabel, bonusMagicObject, totalRanksLabel;
 	protected BaseSpinner insertedRanksSpinner;
 	protected Skill skill;
@@ -113,7 +114,8 @@ public class GenericSkillLine extends BaseSkillLine {
 			gridBagConstraints.gridx = 7;
 			gridBagConstraints.gridwidth = 1;
 			gridBagConstraints.weightx = 0;
-			SpinnerModel sm = new SpinnerNumberModel((int) character.getInsertedRanks(skill), 0, 10, 1);
+			SpinnerModel sm = new SpinnerNumberModel((int) character.getInsertedRanks(skill), 0, Math.max((int) character.getInsertedRanks(skill),
+					MAX_INSERTED_RANKS), 1);
 			insertedRanksSpinner = new BaseSpinner(sm);
 			insertedRanksSpinner.setColumns(2);
 			insertedRanksSpinner.setBackground(background);
