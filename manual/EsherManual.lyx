@@ -979,6 +979,9 @@ El usuario tiene la opción de escoger uno o más adiestramientos para su
  Una vez seleccionada, aparecerá un listado con los adiestramientos permitidos
  dependiendo de los que puede comprar, del coste y los Puntos de Desarrollo
  restantes o de los adiestramientos particulares de la raza.
+ Si un adiestramiento no aparece aquí, es por que el personaje no podrá
+ escoger por alguna limitación de profesión o coste.
+ O simplemente que el fichero que lo define está corrupto o mal formado.
  
 \end_layout
 
@@ -1975,7 +1978,7 @@ Para crear un módulo solamente se debe de crear una carpeta dentro de la
 \end_layout
 
 \begin_layout Section
-Donde situar las nuevas razas
+Plantilla de razas
 \end_layout
 
 \begin_layout Standard
@@ -1993,10 +1996,6 @@ rolemaster/modulos/<nombre_modulo>/razas
  debe ser el nombre de la raza, ya que será el nombre final que aparecerá
  en el programa al ejecutarlo.
  
-\end_layout
-
-\begin_layout Section
-Plantilla de razas
 \end_layout
 
 \begin_layout Standard
@@ -2366,7 +2365,15 @@ Llanuras Urbana (Clase Alta)
 \begin_inset Quotes erd
 \end_inset
 
- que significaría cualquier cultura no urbana.
+ que significaría cualquier cultura que no sea del tipo 
+\begin_inset Quotes eld
+\end_inset
+
+urbana
+\begin_inset Quotes erd
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -2789,6 +2796,130 @@ Si un adiestramiento no se incluye en esta lista, no podrá ser escogido.
  Por ejemplo, los adiestramientos propios de la profesión elementalista
  no podrán ser escogidos por un luchador ya que no tienen costes asociados
  en la plantilla de luchador.
+ 
+\end_layout
+
+\begin_layout Section
+Adiestramientos
+\end_layout
+
+\begin_layout Standard
+Puedes añadir más opciones de adiestramiento.
+ Teniendo en cuenta las siguientes normas:
+\end_layout
+
+\begin_layout Enumerate
+Si el adiestramiento permite escoger rangos en una categoría, debes indicar
+ la lista entre llaves y separadas por puntos y comas.
+ Por ejemplo, existen muchos adiestramientos que permiten escoger un rango
+ en una categoría de arma.
+ Deberás indicarlo así: {Armas·2manos; Armas·Arrojadizas; Armas·Artillería;
+ Armas·Contundentes; Armas·Asta; Armas·Filo; Armas·Fuego 1mano; Armas·Fuego
+ 2manos; Armas·Proyectiles}.
+\end_layout
+
+\begin_layout Enumerate
+Las habilidades deben ir precedidas con el prefijo 
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+*
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+ es decir, dos espacios, asterisco, dos espacios.
+ Deben ir justo después de la categoría que las incluye.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Las categorías deben definir el número mínimo de habilidades con rangos,
+ el número máximo de habilidades con rango, y el total de rangos para cada
+ habilidad.
+ Por ejemplo, en el adiestramiento de Asesino, puedes elgir hasta dos habilidade
+s de Suberfugio·Ataque con un total de rangos.
+ Esto se representa como 
+\begin_inset Quotes eld
+\end_inset
+
+Subterfugio·Ataque 0 1 2 3
+\begin_inset Quotes erd
+\end_inset
+
+.
+ El 0 indica que la categoría no tiene rangos, el 1 indica que como mínimo
+ una habilidad se debe seleccionar, el 2 es que como máximo una habilidad
+ y el 3 es el total de rangos a repartir entre las habilidades.
+ Otro ejemplo sería 
+\begin_inset Quotes eld
+\end_inset
+
+Comunicación 3 1 1 3
+\begin_inset Quotes erd
+\end_inset
+
+ de Erudito Enclaustrado.
+ Aquí se indica que la categoría de comunicación tiene 3 rangos, y solo
+ se pueden dar 4 rangos a una única habilidad.
+ 
+\end_layout
+
+\begin_layout Enumerate
+En el caso de que una categoría tenga rangos asignados a una habilidad concreta,
+ se deberá incluir también en el cómputo total del paso anterior.
+ Por ejemplo, en el adiestramiento de Fanático Religioso vemos 
+\begin_inset Quotes eld
+\end_inset
+
+Conocimiento·General 4 2 2 4
+\begin_inset Quotes erd
+\end_inset
+
+ junto con 
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+*
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Religión 3 - - -
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Aquí la categoría indica que se deben escoger dos habilidades con 4 rangos
+ a repartir.
+ Como Religión ya tiene tres rangos asignados, lo que significa es que se
+ puede escoger una única habilidad con un rango.
  
 \end_layout
 

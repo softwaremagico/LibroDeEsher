@@ -40,6 +40,7 @@ import com.softwaremagico.files.RolemasterFolderStructure;
 import com.softwaremagico.librodeesher.basics.ChooseType;
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
@@ -213,9 +214,25 @@ public class Training {
 							trainingCategory = new TrainingCategory(categoriesList, Integer.parseInt(categoryRanks[1]), Integer.parseInt(categoryRanks[2]),
 									Integer.parseInt(categoryRanks[3]), Integer.parseInt(categoryRanks[4]));
 							categoriesWithRanks.add(trainingCategory);
-
 						} else {
-							throw new InvalidTrainingException("Category not found '" + categoryRanks[0] + "' for training '" + getName() + "'.");
+							List<String> categoriesOptions = new ArrayList<>();
+							if (categoryRanks[0].toLowerCase().contains(Spanish.WEAPON)) {
+								for (Category category : CategoryFactory.getWeaponsCategories()) {
+									categoriesOptions.add(category.getName());
+								}
+							}
+							if (categoryRanks[0].toLowerCase().contains(Spanish.ATTACK)) {
+								for (Category category : CategoryFactory.getOthersAttack()) {
+									categoriesOptions.add(category.getName());
+								}
+							}
+							trainingCategory = new TrainingCategory(categoriesOptions, Integer.parseInt(categoryRanks[1]), Integer.parseInt(categoryRanks[2]),
+									Integer.parseInt(categoryRanks[3]), Integer.parseInt(categoryRanks[4]));
+							categoriesWithRanks.add(trainingCategory);
+
+							if (categoriesOptions.isEmpty()) {
+								throw new InvalidTrainingException("Category not found '" + categoryRanks[0] + "' for training '" + getName() + "'.");
+							}
 						}
 					}
 				} catch (NumberFormatException nfe) {
