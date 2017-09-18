@@ -33,6 +33,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import com.softwaremagico.files.MessageManager;
+import com.softwaremagico.librodeesher.config.Config;
 import com.softwaremagico.log.EsherLog;
 import com.softwaremagico.persistence.HibernateInitializator;
 
@@ -81,6 +82,10 @@ public class Main {
 		}
 		try {
 			new Controller();
+			//Check configurations.
+			if(Config.isMagicDisabled()){
+				MessageManager.warningMessage(Main.class.getName(), "Recuerda: la magia está desactivada.", "Opciones");
+			}
 		} catch (Exception ex) {
 			MessageManager.showErrorInformation(Main.class.getName(), ex);
 		}
