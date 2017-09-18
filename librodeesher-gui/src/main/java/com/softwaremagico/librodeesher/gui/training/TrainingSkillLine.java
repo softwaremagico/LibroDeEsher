@@ -79,6 +79,7 @@ public class TrainingSkillLine extends BaseLine {
 			return new ListBackgroundPanel(skillLabel, getDefaultBackground());
 		} else {
 			chooseSkillsComboBox = new SkillComboBox<>();
+			chooseSkillsComboBox.setBackground(getDefaultBackground());
 			addItemsToComboBox();
 			return new ListBackgroundPanel(chooseSkillsComboBox, getDefaultBackground());
 		}
@@ -103,6 +104,7 @@ public class TrainingSkillLine extends BaseLine {
 				(int) trainingSkill.getRanks(), (int) trainingCategory.getSkillRanks()
 						- trainingCategory.getMinSkills() + 1, 1);
 		rankSpinner = new BaseSpinner(sm);
+		rankSpinner.setBackground(getDefaultBackground());
 		spinnerPanel.add(rankSpinner);
 		spinnerPanel.setBackground(getDefaultBackground());
 		add(spinnerPanel, getDefaultBackground());

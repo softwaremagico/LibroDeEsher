@@ -25,6 +25,7 @@ package com.softwaremagico.librodeesher.gui.training;
  */
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.SwingConstants;
@@ -68,6 +69,7 @@ public class TrainingCategoryLine extends BaseLine {
 			return new ListBackgroundPanel(categoryLabel, getDefaultBackground());
 		} else {
 			chooseCategoryComboBox = new CategoryComboBox<>();
+			chooseCategoryComboBox.setSize(new Dimension(100, columnHeight));
 			addItemsToComboBox();
 			return new ListBackgroundPanel(chooseCategoryComboBox, getDefaultBackground());
 		}
