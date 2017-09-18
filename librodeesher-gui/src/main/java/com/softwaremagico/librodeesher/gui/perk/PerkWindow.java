@@ -80,6 +80,7 @@ public class PerkWindow extends BaseFrame {
 	}
 
 	private void setElements() {
+		if(Config.getPerksCostHistoryPoints()){
 		PerksWindowsMenu mainMenu = new PerksWindowsMenu();
 		if (Config.getPerksCostHistoryPoints()) {
 			setJMenuBar(mainMenu.createMenu());
@@ -108,6 +109,7 @@ public class PerkWindow extends BaseFrame {
 					}
 				}
 			});
+		}
 		}
 
 		setLayout(new GridBagLayout());
