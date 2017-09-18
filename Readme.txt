@@ -29,6 +29,10 @@ Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadore
 
 Versión
 ------------
+2.5.2	Añadido:
+		- Los talentos pueden escogerse de manera aleatoria.
+		- Nuevos adiestramientos. 
+	
 2.5.1	Arreglado:
 		- Ventana culturas no se abre correctamente.
 		
