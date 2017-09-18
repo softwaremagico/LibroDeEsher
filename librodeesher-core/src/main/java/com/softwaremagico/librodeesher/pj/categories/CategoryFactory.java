@@ -291,7 +291,7 @@ public class CategoryFactory {
 	public static List<Category> getOthersAttack() {
 		if (othersWeaponsCategories == null) {
 			othersWeaponsCategories = new ArrayList<>();
-			for (Category category : weaponsCategoriesFromFiles) {
+			for (Category category : availableCategories.values()) {
 				if (category.getName().equals(Spanish.WEAPONS_MARTIALS_HITS)
 						|| category.getName().equals(Spanish.WEAPONS_MARTIALS_KICKS)
 						|| category.getName().equals(Spanish.WEAPONS_MARTIALS_MANIOBRES)

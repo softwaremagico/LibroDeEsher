@@ -79,8 +79,7 @@ public class Training {
 	}
 
 	/**
-	 * Returns the index of a TrainingCategory. Used to store into database only
-	 * the index and not the POJO.
+	 * Returns the index of a TrainingCategory. Used to store into database only the index and not the POJO.
 	 */
 	public Integer getTrainingCategoryIndex(TrainingCategory trainingCategory) {
 		return categoriesWithRanks.indexOf(trainingCategory);
@@ -216,12 +215,12 @@ public class Training {
 							categoriesWithRanks.add(trainingCategory);
 						} else {
 							List<String> categoriesOptions = new ArrayList<>();
-							if (categoryRanks[0].toLowerCase().contains(Spanish.WEAPON)) {
+							if (categoryRanks[0].toLowerCase().contains(Spanish.WEAPON.toLowerCase())) {
 								for (Category category : CategoryFactory.getWeaponsCategories()) {
 									categoriesOptions.add(category.getName());
 								}
 							}
-							if (categoryRanks[0].toLowerCase().contains(Spanish.ATTACK)) {
+							if (categoryRanks[0].toLowerCase().contains(Spanish.ATTACK.toLowerCase())) {
 								for (Category category : CategoryFactory.getOthersAttack()) {
 									categoriesOptions.add(category.getName());
 								}

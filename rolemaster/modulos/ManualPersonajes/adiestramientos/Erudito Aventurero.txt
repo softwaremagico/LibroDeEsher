@@ -15,7 +15,7 @@ Bestia de monta o carga	100
 
 #HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
 ####################################
-{Armas·2manos; Armas·Arrojadizas; Armas·Artillería; Armas·Contundentes; Armas·Asta; Armas·Filo; Armas·Fuego 1mano; Armas·Fuego 2manos; Armas·Proyectiles}	1	1	1	1
+Arma/Ataque	1	1	1	1
 Comunicación	5	1	5	5
 Conocimiento·General	4	2	4	4
 Exteriores·Entorno	1	1	1	1
