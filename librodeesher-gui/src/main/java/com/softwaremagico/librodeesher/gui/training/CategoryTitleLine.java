@@ -74,7 +74,7 @@ public class CategoryTitleLine extends BaseTitleLine {
 			minHabLabel.setText("Hm");
 			maxHabLabel.setText("HM");
 			rankLabel.setText("Rk)");
-		} else if (this.getWidth() < 400) {
+		} else if (this.getWidth() < 800) {
 			categoryLabel.setText("Opcion.");
 			ranksLabel.setText("Rngs");
 			minHabLabel.setText("Hb. min");
@@ -85,7 +85,7 @@ public class CategoryTitleLine extends BaseTitleLine {
 			ranksLabel.setText("Rangos");
 			minHabLabel.setText("Habilidades mínimas");
 			maxHabLabel.setText("Habilidades máximas");
-			rankLabel.setText("Rangos");
+			rankLabel.setText("Rangos en Habilidades");
 		}
 	}
 

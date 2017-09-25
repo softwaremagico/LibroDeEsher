@@ -55,8 +55,7 @@ public class TrainingSkillLine extends BaseLine {
 	private SkillComboBox<String> chooseSkillsComboBox = null;
 	protected BaseSpinner rankSpinner;
 
-	protected TrainingSkillLine(CharacterPlayer character, TrainingCategory category, TrainingSkill skill,
-			TrainingCategoryPanel parent, Color background) {
+	protected TrainingSkillLine(CharacterPlayer character, TrainingCategory category, TrainingSkill skill, TrainingCategoryPanel parent, Color background) {
 		this.character = character;
 		this.trainingSkill = skill;
 		this.parentPanel = parent;
@@ -74,8 +73,7 @@ public class TrainingSkillLine extends BaseLine {
 
 	private ListBackgroundPanel getSkillOrGroup() {
 		if (!trainingSkill.needToChooseOneSkill()) {
-			ListLabel skillLabel = new ListLabel(trainingSkill.getSkillOptions().get(0), SwingConstants.LEFT,
-					150, columnHeight);
+			ListLabel skillLabel = new ListLabel(trainingSkill.getSkillOptions().get(0), SwingConstants.LEFT, 150, columnHeight);
 			return new ListBackgroundPanel(skillLabel, getDefaultBackground());
 		} else {
 			chooseSkillsComboBox = new SkillComboBox<>();
@@ -100,9 +98,8 @@ public class TrainingSkillLine extends BaseLine {
 		add(new ListBackgroundPanel(maxHab, getDefaultBackground()));
 
 		JPanel spinnerPanel = new JPanel();
-		SpinnerModel sm = new SpinnerNumberModel((int) trainingSkill.getRanks(),
-				(int) trainingSkill.getRanks(), (int) trainingCategory.getSkillRanks()
-						- trainingCategory.getMinSkills() + 1, 1);
+		SpinnerModel sm = new SpinnerNumberModel((int) trainingSkill.getRanks(), (int) trainingSkill.getRanks(), (int) trainingCategory.getSkillRanks()
+				- trainingCategory.getMinSkills() + 1, 1);
 		rankSpinner = new BaseSpinner(sm);
 		rankSpinner.setBackground(getDefaultBackground());
 		spinnerPanel.add(rankSpinner);
@@ -120,11 +117,16 @@ public class TrainingSkillLine extends BaseLine {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				// Correct the spinner if too much ranks
+				// Correct the spinner if too many ranks
 				if (parentPanel.getSpinnerValues(trainingCategory) > trainingCategory.getSkillRanks()) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
-					// Correct the spinner if too much skills.
+					// Correct the spinner if too many skills.
 				} else if (parentPanel.getSkillsWithRanks(trainingCategory) > trainingCategory.getMaxSkills()) {
+					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
+					// At least some skills.
+				} else if (parentPanel.getSkillsWithRanks(trainingCategory) < trainingCategory.getMinSkills()
+						&& (trainingCategory.getSkillRanks() - parentPanel.getSpinnerValues(trainingCategory)) < trainingCategory.getMinSkills()
+								- parentPanel.getSkillsWithRanks(trainingCategory)) {
 					rankSpinner.setValue((Integer) rankSpinner.getValue() - 1);
 				} else {
 					// Update character
@@ -135,8 +137,7 @@ public class TrainingSkillLine extends BaseLine {
 	}
 
 	public void setSkillRanks() {
-		character.addTrainingSkillRanks(parentPanel.getTraining(), trainingCategory, getSelectedSkill(),
-				(Integer) rankSpinner.getValue());
+		character.addTrainingSkillRanks(parentPanel.getTraining(), trainingCategory, getSelectedSkill(), (Integer) rankSpinner.getValue());
 	}
 
 	public int getSelectedRanks() {
