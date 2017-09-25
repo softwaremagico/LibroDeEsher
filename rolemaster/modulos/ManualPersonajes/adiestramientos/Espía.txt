@@ -1,6 +1,6 @@
 # TIEMPO (meses)
 ####################################
-73
+44
 
 # EXCLUSIVO RAZA
 ####################################
@@ -8,33 +8,26 @@ Ninguno
 
 #ESPECIAL	//Nombre, probabilidad, bonus
 ####################################
-Victoria en un torneo local	50
-Pergamino (+10 no mágico a un conocimiento concreto)	40
-Pergamino (+5 no mágico a una categoría de conocimiento)	40
-Hierbas Comunes (1d5 dosis)	50
-Muñequeras	30	5	Artes Marciales·Golpes
-Libro (+5 no mágico a un conocimiento concreto)	30
-Reputación como luchador habilidoso	100
+Identificación Falsa (+10 no mágico)	50	10
+Capa (+10 no mágico)	40	10
+Contactos con un gobierno amigo	40
+Ganzúas (+10 no mágicas)	30	10	Abrir Cerraduras
+Papeles Importantes (10D10 mp)	20
+Arma (+5 no mágica)	100	5	Arma
 
 #HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
 ####################################
-Arte·Pasivo	2	1	2	2
-Artes Marciales·Barridos	3	2	2	3
-  *  Artes Marciales·Barridos	2	-	-	-
-  *  Inmovilizaciones	1	-	-	-
-Artes Marciales·Golpes	3	2	2	3
-  *  Golpes de Artes Marciales	2	-	-	-
-  *  Golpes Nerviosos	1	-	-	-
-Artes Marciales·Maniobras de Combate	0	1	1	2
-Autocontrol	2	1	2	2
-Conocimiento·General	2	2	3	4
-  *  Conocimiento de Estilos Marciales	2	-	-	-
-Desarrollo Físico	0	1	1	2
-  *  Desarrollo Físico	2	-	-	-
+Comunicación	2	1	2	2
+Influencia	2	1	2	2
+Percepción·Búsqueda	2	1	2	2
+Percepción·Perspicacia	0	1	1	1
+  *  Alerta	1
+Subterfugio·Sigilo	4	1	4	4
+Subterfugio·Mecánica	1	1	1	1
 
 #AUMENTOS CARACTERÍSTICAS
 ####################################
-Fu, Ag
+Ninguno
 
 #REQUISITOS PROFESIONALES
 ####################################

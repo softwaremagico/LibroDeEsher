@@ -8,8 +8,8 @@ Ninguno
 
 #ESPECIAL	//Nombre, probabilidad, bonus
 ####################################
-Arma de mano (+10 no mágica)	50
-Arma de mano (+5 no mágica)	50
+Arma de mano (+10 no mágica)	50	10	Arma
+Arma de mano (+5 no mágica)	50	5	Arma
 Arma a 2 manos	100
 
 #HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
