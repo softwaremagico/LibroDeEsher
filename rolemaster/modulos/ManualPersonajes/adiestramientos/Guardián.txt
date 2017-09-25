@@ -1,0 +1,52 @@
+# TIEMPO (meses)
+####################################
+116
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Arma cuerpo a cuerpo (+10 no mágica)	50	10	arma cuerpo a cuerpo
+Arma de proyectil (+10 no mágica)	50	10	arma proyectiles
+Animal de compañía	30
+Capa de camuflaje (+10 a Esconderse)	30	10	esconderse
+Botas buenas (+10 a Acechar)	30	10	acechar
+Un amuleto o seña reconocida por los habitantes locales	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Arma / Ataque	2	1	1	2
+Armadura·Ligera	2	1	1	2
+Atletismo·Resistencia	2	1	1	2
+Exteriores·Entorno	6	1	3	6
+Percepción·Perspicacia	0	1	1	1
+Percepción·Búsqueda	2	1	1	2
+Percepción·Sentidos	1	1	1	1
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Co
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

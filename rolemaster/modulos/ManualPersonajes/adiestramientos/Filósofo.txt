@@ -1,0 +1,51 @@
+# TIEMPO (meses)
+####################################
+130
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+1D5 libros (+5 a conocimientos específicos)	50
+1D5 libros (+5 a habilidades científicas)	50
+Gran libro (+10 a una categoría de conocimiento)	30
+Gran libro (+10 a una categoría de Ciencia/Analítica)	30
+Sumando de hechizos +1	20
+Libro (+5 a una habilidad de conocimiento)	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Arte·Pasivo	1	1	1	1
+Ciencia/Analítica·Básica	2	1	2	2
+Comunicación	5	1	5	10
+Conocimiento·General	5	1	4	5
+Percepción·Perspicacia	0	1	1	1
+  *  Alerta	1
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Rz
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###
