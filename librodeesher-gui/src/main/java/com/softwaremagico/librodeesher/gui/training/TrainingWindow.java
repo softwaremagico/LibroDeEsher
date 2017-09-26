@@ -58,6 +58,7 @@ import com.softwaremagico.librodeesher.pj.skills.Skill;
 import com.softwaremagico.librodeesher.pj.training.InvalidTrainingException;
 import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
+import com.softwaremagico.librodeesher.pj.training.TrainingItem;
 import com.softwaremagico.log.EsherLog;
 
 public class TrainingWindow extends BaseFrame {
@@ -283,7 +284,7 @@ public class TrainingWindow extends BaseFrame {
 									+ "]\n"
 									+ "Por tanto, la característica ha cambiado en: "
 									+ Characteristic.getCharacteristicUpgrade(characteristicRoll.getCharacteristicTemporalValue(),
-											characteristicRoll.getCharacteristicPotentialValue(), characteristicRoll.getRoll()), "Característica aumentada!");
+											characteristicRoll.getCharacteristicPotentialValue(), characteristicRoll.getRoll()), "¡Característica aumentada!");
 				} else {
 					// Select chars
 					List<Characteristic> availableCharacteristics = new ArrayList<>();
@@ -302,6 +303,10 @@ public class TrainingWindow extends BaseFrame {
 			TrainingProbability.setRandomObjects(characterPlayer, lastSelectedTraining.getName());
 		} catch (InvalidTrainingException e) {
 			EsherLog.errorMessage(TrainingWindow.class.getName(), e);
+		}
+		for (TrainingItem trainingItem : characterPlayer.getTrainingEquipment(lastSelectedTraining.getName())) {
+			ShowMessage.showInfoMessage("Durante el adiestramiento '" + lastSelectedTraining.getName() + "' se ha obtenido el siguiente beneficio '"
+					+ trainingItem.getName() + (trainingItem.getBonus() != 0 ? " (" + trainingItem.getBonus() + ")" : "") + "'.", "¡Nuevo objeto!");
 		}
 	}
 
