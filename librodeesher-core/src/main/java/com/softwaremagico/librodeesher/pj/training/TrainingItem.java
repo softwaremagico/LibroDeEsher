@@ -1,5 +1,7 @@
 package com.softwaremagico.librodeesher.pj.training;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -96,6 +98,6 @@ public class TrainingItem extends Equipment {
 	}
 
 	public boolean isMagic() {
-		return getBonus() > 0;
+		return getBonus() != 0 && !Objects.equals(getType(), TrainingItemType.UNKNOWN);
 	}
 }

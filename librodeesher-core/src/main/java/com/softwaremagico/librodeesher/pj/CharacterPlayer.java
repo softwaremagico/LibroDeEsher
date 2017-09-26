@@ -2859,7 +2859,7 @@ public class CharacterPlayer extends StorableObject {
 			}
 		}
 		TrainingDecision trainingDecision = getTrainingDecision(trainingName);
-		EsherLog.info(MagicObject.class.getName(), "Added magic item '" + magicObject.getName() + "' of '" + trainingName + "'.");
+		EsherLog.info(MagicObject.class.getName(), "Added magic item '" + magicObject.getName() + "' for '" + trainingName + "'.");
 		trainingDecision.getMagicItems().add(magicObject);
 		setDirty(true);
 	}
