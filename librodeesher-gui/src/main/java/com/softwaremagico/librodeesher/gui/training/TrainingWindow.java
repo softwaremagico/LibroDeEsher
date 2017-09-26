@@ -35,6 +35,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -48,13 +49,18 @@ import com.softwaremagico.librodeesher.gui.style.BaseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseDialog;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
+import com.softwaremagico.librodeesher.pj.equipment.BonusType;
+import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
 import com.softwaremagico.librodeesher.pj.random.TrainingProbability;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.training.InvalidTrainingException;
 import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
@@ -304,6 +310,65 @@ public class TrainingWindow extends BaseFrame {
 		} catch (InvalidTrainingException e) {
 			EsherLog.errorMessage(TrainingWindow.class.getName(), e);
 		}
+		// Select skills.
+		for (TrainingItem trainingItem : characterPlayer.getTrainingEquipment(lastSelectedTraining.getName())) {
+			List<Category> categories;
+			List<Skill> skills;
+			MagicObject magicObject;
+			switch (trainingItem.getType()) {
+			case WEAPON:
+				categories = CategoryFactory.getWeaponsCategories();
+				skills = characterPlayer.getSkillsFromCategoriesOrderByValue(categories);
+				magicObject = MagicObject.createMagicObjectFor(skills.get(0), trainingItem);
+				break;
+			case WEAPON_CLOSE_COMBAT:
+				categories = CategoryFactory.getCloseCombatWeapons();
+				skills = characterPlayer.getSkillsFromCategoriesOrderByValue(categories);
+				magicObject = MagicObject.createMagicObjectFor(skills.get(0), trainingItem);
+				break;
+			case WEAPON_RANGED:
+				categories = CategoryFactory.getLongRangeWeapons();
+				skills = characterPlayer.getSkillsFromCategoriesOrderByValue(categories);
+				magicObject = MagicObject.createMagicObjectFor(skills.get(0), trainingItem);
+				break;
+			case ARMOUR:
+				MagicObject magicArmour = new MagicObject();
+				magicArmour.setObjectBonus(trainingItem.getName(), BonusType.DEFENSIVE_BONUS, trainingItem.getBonus());
+				magicObject = magicArmour;
+				break;
+			case SKILL:
+				Skill skill = SkillFactory.getAvailableSkill(trainingItem.getSkill());
+				if (skill != null) {
+					magicObject = MagicObject.createMagicObjectFor(skill, trainingItem);
+				} else {
+					EsherLog.warning(TrainingProbability.class.getName(), "Skill '" + trainingItem.getSkill()
+							+ "' not found when creating a magic object of training '" + lastSelectedTraining.getName() + "'.");
+				}
+				break;
+			case ANY:
+				skills = characterPlayer.getSkillsOrderByValue(SkillFactory.getSkills());
+				magicObject = MagicObject.createMagicObjectFor(skills.get(new Random().nextInt(skills.size() / 10)), trainingItem);
+				break;
+			case CATEGORY:
+				MagicObject magicObjectOfCategory = new MagicObject();
+				Category category = CategoryFactory.getCategory(trainingItem.getSkill());
+				if (category != null) {
+					magicObjectOfCategory.setCategoryBonus(category.getName(), trainingItem.getBonus());
+					magicObject = magicObjectOfCategory;
+				} else {
+					EsherLog.warning(TrainingProbability.class.getName(), "Category '" + trainingItem.getSkill()
+							+ "' not found when creating a magic object of training '" + lastSelectedTraining.getName() + "'.");
+				}
+				break;
+			case UNKNOWN:
+				// Nothing.
+				break;
+			default:
+				// Nothing.
+				break;
+			}
+		}
+		// Show message to user.
 		StringBuilder trainingText = new StringBuilder();
 		for (TrainingItem trainingItem : characterPlayer.getTrainingEquipment(lastSelectedTraining.getName())) {
 			if (trainingText.length() == 0) {

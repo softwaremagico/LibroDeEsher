@@ -12,6 +12,8 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.google.gson.annotations.Expose;
+import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.training.TrainingItem;
 import com.softwaremagico.persistence.StorableObject;
 
 @Entity
@@ -53,7 +55,7 @@ public class MagicObject extends StorableObject {
 			bonus.resetIds();
 		}
 	}
-	
+
 	@Override
 	public void resetComparationIds() {
 		setId(null);
@@ -128,6 +130,14 @@ public class MagicObject extends StorableObject {
 			objectBonus.setBonusName(bonusName);
 			bonus.add(objectBonus);
 		}
+	}
+
+	public static MagicObject createMagicObjectFor(Skill skill, TrainingItem trainingItem) {
+		MagicObject magicObject = new MagicObject();
+		magicObject.setName(trainingItem.getName());
+		magicObject.setDescription(trainingItem.getDescription());
+		magicObject.setSkillBonus(skill.getName(), trainingItem.getBonus());
+		return magicObject;
 	}
 
 	@Override

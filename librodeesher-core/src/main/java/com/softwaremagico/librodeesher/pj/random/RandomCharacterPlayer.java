@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import com.softwaremagico.librodeesher.basics.Spanish;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
@@ -17,6 +18,7 @@ import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristics;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbreviature;
 import com.softwaremagico.librodeesher.pj.culture.CultureCategory;
+import com.softwaremagico.librodeesher.pj.equipment.BonusType;
 import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
 import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
 import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
@@ -32,14 +34,15 @@ import com.softwaremagico.librodeesher.pj.skills.SkillComparatorByRanks;
 import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.skills.SkillForEnablingMustBeSelected;
 import com.softwaremagico.librodeesher.pj.training.InvalidTrainingException;
-import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
+import com.softwaremagico.librodeesher.pj.training.TrainingItem;
 import com.softwaremagico.librodeesher.pj.weapons.Weapon;
 import com.softwaremagico.librodeesher.pj.weapons.WeaponType;
 import com.softwaremagico.log.EsherLog;
 
 /**
- * Specialization level: if 0, categories and skills are obtained randomly. If specialized are obtained by ranks number if not at inverse. If value is 3 then
- * character can specialize skills, if -3 can generalize skills.
+ * Specialization level: if 0, categories and skills are obtained randomly. If
+ * specialized are obtained by ranks number if not at inverse. If value is 3
+ * then character can specialize skills, if -3 can generalize skills.
  */
 public class RandomCharacterPlayer {
 	public final static int MAX_TRIES = 5;
@@ -252,7 +255,8 @@ public class RandomCharacterPlayer {
 	}
 
 	/**
-	 * Set random characteristics. Characteristics preferred that generates development points have a little of advantage.
+	 * Set random characteristics. Characteristics preferred that generates
+	 * development points have a little of advantage.
 	 */
 	public static void setCharacteristics(CharacterPlayer characterPlayer, int specializationLevel) {
 		int loop = 0;
@@ -898,11 +902,74 @@ public class RandomCharacterPlayer {
 
 			// Set random Objects.
 			TrainingProbability.setRandomObjects(characterPlayer, trainingName);
-			List<MagicObject> trainingObjects = TrainingDecision.convertTrainingEquipmentToMagicObject(characterPlayer, trainingName);
+			List<MagicObject> trainingObjects = convertTrainingEquipmentToMagicObject(characterPlayer, trainingName);
 			for (MagicObject trainingObject : trainingObjects) {
 				characterPlayer.addMagicItem(trainingObject, trainingName);
 			}
 		}
+	}
+
+	public static List<MagicObject> convertTrainingEquipmentToMagicObject(CharacterPlayer characterPlayer, String trainingName) {
+		List<MagicObject> magicObjects = new ArrayList<>();
+		List<TrainingItem> equipment = characterPlayer.getTrainingEquipment(trainingName);
+		for (TrainingItem item : equipment) {
+			List<Category> categories;
+			List<Skill> skills;
+
+			switch (item.getType()) {
+			case WEAPON:
+				categories = CategoryFactory.getWeaponsCategories();
+				skills = characterPlayer.getSkillsFromCategoriesOrderByValue(categories);
+				magicObjects.add(MagicObject.createMagicObjectFor(skills.get(0), item));
+				break;
+			case WEAPON_CLOSE_COMBAT:
+				categories = CategoryFactory.getCloseCombatWeapons();
+				skills = characterPlayer.getSkillsFromCategoriesOrderByValue(categories);
+				magicObjects.add(MagicObject.createMagicObjectFor(skills.get(0), item));
+				break;
+			case WEAPON_RANGED:
+				categories = CategoryFactory.getLongRangeWeapons();
+				skills = characterPlayer.getSkillsFromCategoriesOrderByValue(categories);
+				magicObjects.add(MagicObject.createMagicObjectFor(skills.get(0), item));
+				break;
+			case ARMOUR:
+				MagicObject magicArmour = new MagicObject();
+				magicArmour.setObjectBonus(item.getName(), BonusType.DEFENSIVE_BONUS, item.getBonus());
+				magicObjects.add(magicArmour);
+				break;
+			case SKILL:
+				Skill skill = SkillFactory.getAvailableSkill(item.getSkill());
+				if (skill != null) {
+					magicObjects.add(MagicObject.createMagicObjectFor(skill, item));
+				} else {
+					EsherLog.warning(TrainingProbability.class.getName(), "Skill '" + item.getSkill()
+							+ "' not found when creating a magic object of training '" + trainingName + "'.");
+				}
+				break;
+			case ANY:
+				skills = characterPlayer.getSkillsOrderByValue(SkillFactory.getSkills());
+				magicObjects.add(MagicObject.createMagicObjectFor(skills.get(new Random().nextInt(skills.size() / 10)), item));
+				break;
+			case CATEGORY:
+				MagicObject magicObjectOfCategory = new MagicObject();
+				Category category = CategoryFactory.getCategory(item.getSkill());
+				if (category != null) {
+					magicObjectOfCategory.setCategoryBonus(category.getName(), item.getBonus());
+					magicObjects.add(magicObjectOfCategory);
+				} else {
+					EsherLog.warning(TrainingProbability.class.getName(), "Category '" + item.getSkill()
+							+ "' not found when creating a magic object of training '" + trainingName + "'.");
+				}
+				break;
+			case UNKNOWN:
+				// Nothing.
+				break;
+			default:
+				// Nothing.
+				break;
+			}
+		}
+		return magicObjects;
 	}
 
 	/**
