@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.cfg.Configuration;
+import org.hibernate.exception.JDBCConnectionException;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 
@@ -110,11 +111,14 @@ public class JpaSchemaExporter {
 		export.setDelimiter(";");
 		export.setOutputFile(directory + File.separator + "create_" + dialect.name().toLowerCase() + ".sql");
 		export.setFormat(true);
-		export.execute(true, false, false, onlyCreation);
+		try {
+			export.execute(true, false, false, onlyCreation);
+		} catch (JDBCConnectionException jce) {
+			EsherLog.warning(this.getClass().getName(), "Cannot connect to database for checking structure!");
+		}
 	}
 
-	public void updateDatabaseScript(HibernateDialect dialect, String outputDirectory, String host, String port,
-			String username, String password) {
+	public void updateDatabaseScript(HibernateDialect dialect, String outputDirectory, String host, String port, String username, String password) {
 		cfg.setProperty("hibernate.hbm2ddl.auto", "update");
 		cfg.setProperty("hibernate.dialect", dialect.getDialectClass());
 		cfg.setProperty("hibernate.show_sql", "true");
@@ -125,17 +129,21 @@ public class JpaSchemaExporter {
 
 		SchemaUpdate update = new SchemaUpdate(cfg);
 		update.setDelimiter(";");
-		update.setOutputFile(outputDirectory + "updates/update_" + dialect.name().toLowerCase() + "_" + getDate()
-				+ ".sql");
+		update.setOutputFile(outputDirectory + "updates/update_" + dialect.name().toLowerCase() + "_" + getDate() + ".sql");
 		update.setFormat(true);
-		update.execute(true, true);
+		try {
+			update.execute(true, true);
+		} catch (JDBCConnectionException jce) {
+			EsherLog.warning(this.getClass().getName(), "Cannot connect to database for checking structure!");
+		}
 	}
 
 	/**
 	 * For executing.
 	 * 
 	 * @param args
-	 *            args[0] -> directory, args[1] -> user, args[2] -> password, args[3] -> host, args[4] -> port
+	 *            args[0] -> directory, args[1] -> user, args[2] -> password,
+	 *            args[3] -> host, args[4] -> port
 	 */
 	public static void main(String[] args) {
 		JpaSchemaExporter gen = new JpaSchemaExporter(PACKETS_TO_SCAN);
@@ -175,8 +183,7 @@ public class JpaSchemaExporter {
 		gen.createDatabaseScript(HibernateDialect.MYSQL, directory, true);
 		gen.updateDatabaseScript(HibernateDialect.MYSQL, directory, host, port, user, password);
 
-		addTextToFile(createHibernateSequenceTable(), directory + File.separator + "create_"
-				+ HibernateDialect.MYSQL.name().toLowerCase() + ".sql");
+		addTextToFile(createHibernateSequenceTable(), directory + File.separator + "create_" + HibernateDialect.MYSQL.name().toLowerCase() + ".sql");
 	}
 
 	private static String getDate() {

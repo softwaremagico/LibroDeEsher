@@ -112,7 +112,7 @@ public class InsertedData extends StorableObject {
 		for (Category category : CategoryFactory.getCategories()) {
 			categoriesRanksModification.put(category.getName(), 0);
 		}
-		for (String skill : SkillFactory.getAvailableSkills()) {
+		for (String skill : SkillFactory.getAvailableSkillsNames()) {
 			skillsRanksModification.put(skill, 0);
 		}
 	}

@@ -55,7 +55,7 @@ public class CategoryFactory {
 		readCategories();
 	}
 
-	private static void readCategories() {
+	public static void readCategories() {
 		try {
 			getCategoriesFromFiles();
 		} catch (InvalidCategoryException e) {
@@ -182,12 +182,12 @@ public class CategoryFactory {
 	}
 
 	/**
-	 * Lee el fichero de categorías.
+	 * Read the category files.
 	 * 
 	 * @throws InvalidCategoryException
 	 * @throws InvalidSkillException
 	 */
-	public static void getCategoriesFromFiles() throws InvalidCategoryException, InvalidSkillException {
+	private static void getCategoriesFromFiles() throws InvalidCategoryException, InvalidSkillException {
 		List<String> categoriesFile = RolemasterFolderStructure.getAvailableCategoriesFiles();
 		for (int j = 0; j < categoriesFile.size(); j++) {
 			List<String> lines = RolemasterFolderStructure.getCategoryFile(categoriesFile.get(j));

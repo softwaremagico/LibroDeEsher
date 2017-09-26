@@ -341,7 +341,7 @@ public class Training {
 						Integer costModification = Integer.parseInt(requirements[2].replace(")", ""));
 						// If it is a skill, the requirement is to have at least
 						// X ranks.
-						if (SkillFactory.existSkill(requirementName)) {
+						if (SkillFactory.existsSkill(requirementName)) {
 							skillRequirements.put(requirementName, value);
 							skillRequirementsCostModification.put(requirementName, costModification);
 						} else if (Characteristics.isCharacteristicValid(requirementName)) {

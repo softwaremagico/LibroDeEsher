@@ -13,13 +13,18 @@ import com.softwaremagico.persistence.StorableObject;
 @Table(name = "T_PERKS")
 public class SelectedPerk extends StorableObject {
 	private static final long serialVersionUID = -3963266207696003617L;
+	
 	@Expose
 	private String name;
+	
 	@Expose
 	private Integer cost;
+	
 	@Expose
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private SelectedPerk weakness;
+	
+	@Expose
 	private boolean random = false;
 
 	protected SelectedPerk() {

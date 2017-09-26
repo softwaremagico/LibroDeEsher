@@ -95,8 +95,18 @@ public class SkillFactory {
 		return languages;
 	}
 
-	public static List<String> getAvailableSkills() {
+	public static List<String> getAvailableSkillsNames() {
+		if (availableSkillsByName.isEmpty()) {
+			CategoryFactory.readCategories();
+		}
 		return availableSkillsByName;
+	}
+	
+	private static HashMap<String, Skill> getAvailableSkills(){
+		if (availableSkills.isEmpty()) {
+			CategoryFactory.readCategories();
+		}
+		return availableSkills;
 	}
 
 	public static void addSkill(Skill skill) {
@@ -106,15 +116,15 @@ public class SkillFactory {
 	}
 
 	public static Skill getAvailableSkill(String skillName) {
-		return availableSkills.get(skillName);
+		return getAvailableSkills().get(skillName);
 	}
 
-	public static boolean existSkill(String skillName) {
+	public static boolean existsSkill(String skillName) {
 		return (getAvailableSkill(skillName.trim()) != null);
 	}
 
 	public static Skill getSkill(String skillName, SkillType skillType) {
-		Skill skill = availableSkills.get(skillName);
+		Skill skill = getAvailableSkills().get(skillName);
 		if (skill == null) {
 			skill = createSkill(skillName, skillType);
 			addSkill(skill);
@@ -123,9 +133,8 @@ public class SkillFactory {
 	}
 
 	public static Skill getSkill(String skillPrefix, String containText) {
-		for (Skill skill : availableSkills.values()) {
-			if (skill.getName().toLowerCase().startsWith(skillPrefix)
-					&& skill.getName().toLowerCase().contains((containText))) {
+		for (Skill skill : getAvailableSkills().values()) {
+			if (skill.getName().toLowerCase().startsWith(skillPrefix) && skill.getName().toLowerCase().contains((containText))) {
 				return skill;
 			}
 		}
@@ -147,8 +156,7 @@ public class SkillFactory {
 		if (skillName.toLowerCase().startsWith(Spanish.CHI_SUFIX.toLowerCase())) {
 			group = SkillGroup.CHI;
 		}
-		if (skillName.startsWith(Spanish.FIREARMS_SKILL1) || skillName.startsWith(Spanish.FIREARMS_SKILL2)
-				|| skillName.startsWith(Spanish.FIREARMS_SKILL3)) {
+		if (skillName.startsWith(Spanish.FIREARMS_SKILL1) || skillName.startsWith(Spanish.FIREARMS_SKILL2) || skillName.startsWith(Spanish.FIREARMS_SKILL3)) {
 			group = SkillGroup.FIREARM;
 		}
 		return new Skill(skillName, skillType, group);
@@ -156,8 +164,8 @@ public class SkillFactory {
 
 	private static String removeTypeFromName(String skillName) {
 		// String pattern = Pattern.quote("*");
-		return skillName.replace("*", "").replace("(R)", "").replace("(r)", "").replace("(C)", "")
-				.replace("(c)", "").replace("(P)", "").replace("(p)", "").trim();
+		return skillName.replace("*", "").replace("(R)", "").replace("(r)", "").replace("(C)", "").replace("(c)", "").replace("(P)", "").replace("(p)", "")
+				.trim();
 	}
 
 	public static List<Skill> getSkills() {
@@ -180,11 +188,10 @@ public class SkillFactory {
 
 	public static List<Skill> getSkills(Category category) {
 		List<Skill> skills = new ArrayList<>();
-		for (Skill skill : availableSkills.values()) {
+		for (Skill skill : getAvailableSkills().values()) {
 			try {
 				if (skill.getCategory() == null) {
-					EsherLog.severe(SkillFactory.class.getName(), "Skill '" + skill.getName()
-							+ "' has no category defined in '" + category + "'.");
+					EsherLog.severe(SkillFactory.class.getName(), "Skill '" + skill.getName() + "' has no category defined in '" + category + "'.");
 				} else if (skill != null && skill.getCategory().equals(category)) {
 					skills.add(skill);
 				}
@@ -198,7 +205,7 @@ public class SkillFactory {
 
 	public static List<Skill> getSkills(String skillPrefix) {
 		List<Skill> skillsForPrefix = new ArrayList<>();
-		for (Skill skill : availableSkills.values()) {
+		for (Skill skill : getAvailableSkills().values()) {
 			if (skill.getName().toLowerCase().startsWith(skillPrefix.toLowerCase())) {
 				skillsForPrefix.add(skill);
 			}
@@ -208,11 +215,11 @@ public class SkillFactory {
 
 	public static void updateDisabledSkills() throws InvalidSkillException {
 		for (String skillDisabled : disabledSkills) {
-			if (availableSkills.get(skillDisabled) == null) {
+			if (getAvailableSkills().get(skillDisabled) == null) {
 				throw new InvalidSkillException("Skill '" + skillDisabled + "' does not exist.");
 			}
 		}
-		for (Skill skill : availableSkills.values()) {
+		for (Skill skill : getAvailableSkills().values()) {
 			if (disabledSkills.contains(skill.getName())) {
 				skill.setEnabled(false);
 			}

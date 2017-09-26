@@ -65,7 +65,7 @@ public class TrainingItem extends Equipment {
 			type = TrainingItemType.ARMOUR;
 		} else if (tag.toLowerCase().equals(Spanish.ANY_SKILL)) {
 			type = TrainingItemType.ANY;
-		} else if (SkillFactory.existSkill(tag)) {
+		} else if (SkillFactory.existsSkill(tag)) {
 			type = TrainingItemType.SKILL;
 		} else if (CategoryFactory.existCategory(tag)) {
 			type = TrainingItemType.CATEGORY;

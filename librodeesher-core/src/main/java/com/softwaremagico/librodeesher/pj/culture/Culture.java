@@ -287,14 +287,14 @@ public class Culture {
 						// It is a skill.
 					} else if (hobby.startsWith("-")) {
 						hobby = hobby.substring(1);
-						if (SkillFactory.existSkill(hobby)) {
+						if (SkillFactory.existsSkill(hobby)) {
 							exceptions.add(hobby);
 						} else {
 							throw new InvalidCultureException("Hobby not found in culture '" + getName()
 									+ "' with name '" + hobby + "'.");
 						}
 
-					} else if (SkillFactory.existSkill(hobby)) {
+					} else if (SkillFactory.existsSkill(hobby)) {
 						hobbySkills.add(hobby);
 						// It is a special tag for a group of skills. Add it.
 					} else if (hobby.toLowerCase().equals(Spanish.WEAPON)
@@ -321,7 +321,7 @@ public class Culture {
 					}
 				}
 			} else {
-				hobbySkills.addAll(SkillFactory.getAvailableSkills());
+				hobbySkills.addAll(SkillFactory.getAvailableSkillsNames());
 			}
 			index++;
 		}
