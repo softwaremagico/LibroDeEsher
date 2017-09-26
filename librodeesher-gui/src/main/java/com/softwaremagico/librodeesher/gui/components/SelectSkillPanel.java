@@ -26,7 +26,10 @@ package com.softwaremagico.librodeesher.gui.components;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.swing.JLabel;
@@ -39,18 +42,22 @@ import com.softwaremagico.librodeesher.gui.style.BasePanel;
 import com.softwaremagico.librodeesher.gui.style.Fonts;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
 import com.softwaremagico.librodeesher.pj.categories.Category;
+import com.softwaremagico.librodeesher.pj.categories.CategoryComparatorByValue;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
+import com.softwaremagico.librodeesher.pj.skills.SkillComparatorByValue;
 
 public class SelectSkillPanel extends BasePanel {
 	private static final long serialVersionUID = -1400449718847716450L;
 	private CategoryComboBox categoryComboBox;
 	private SkillComboBox skillComboBox;
 	private Set<SkillChangedListener> skillListeners;
-	private CharacterPlayer player;
+	private CharacterPlayer characterPlayer;
+	private List<Category> categories;
 
-	public SelectSkillPanel(CharacterPlayer player) {
+	public SelectSkillPanel(CharacterPlayer player, List<Category> categories) {
 		skillListeners = new HashSet<>();
-		this.player = player;
+		this.categories = categories;
+		this.characterPlayer = player;
 		setElements();
 	}
 
@@ -87,6 +94,7 @@ public class SelectSkillPanel extends BasePanel {
 		constraints.gridwidth = 1;
 		add(categoryLabel, constraints);
 
+		skillComboBox = createSkillComboBox();
 		categoryComboBox = createCategoryComboBox();
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.gridx = 1;
@@ -103,30 +111,43 @@ public class SelectSkillPanel extends BasePanel {
 		constraints.gridwidth = 1;
 		add(skillLabel, constraints);
 
-		skillComboBox = createSkillComboBox();
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.gridx = 1;
 		constraints.gridy = 2;
 		constraints.gridwidth = 3;
 		constraints.weightx = 1;
 		add(skillComboBox, constraints);
-		skillComboBox.setSkills((Category) categoryComboBox.getSelectedItem());
+		setSkills((Category) categoryComboBox.getSelectedItem());
 	}
 
 	private CategoryComboBox createCategoryComboBox() {
-		CategoryComboBox categoryComboBox = new CategoryComboBox();
+		List<Category> categoryToSelect = new ArrayList<>(categories);
+		Collections.sort(categoryToSelect, new CategoryComparatorByValue(characterPlayer));
+		CategoryComboBox categoryComboBox = new CategoryComboBox(categories);
 		categoryComboBox.setNormalStyle();
 		categoryComboBox.addCategoryChangedListener(new CategoryChangedListener() {
 			@Override
 			public void categoryChanged(Category category) {
-				skillComboBox.setSkills(category);
+				setSkills(category);
 			}
 		});
+		if (!categoryToSelect.isEmpty()) {
+			categoryComboBox.setSelectedItem(categoryToSelect.get(categoryToSelect.size() - 1));
+		}
 		return categoryComboBox;
 	}
 
+	private void setSkills(Category category) {
+		List<Skill> skillsToSelect = new ArrayList<>(category.getSkills());
+		Collections.sort(skillsToSelect, new SkillComparatorByValue(characterPlayer));
+		skillComboBox.setSkills(category);
+		if (!skillsToSelect.isEmpty()) {
+			skillComboBox.setSelectedItem(skillsToSelect.get(skillsToSelect.size() - 1));
+		}
+	}
+
 	private SkillComboBox createSkillComboBox() {
-		SkillComboBox skillComboBox = new SkillComboBox(player);
+		SkillComboBox skillComboBox = new SkillComboBox(characterPlayer);
 		skillComboBox.setNormalStyle();
 		skillComboBox.addSkillChangedListener(new SkillChangedListener() {
 			@Override

@@ -51,6 +51,15 @@ public class SkillComboBox extends BaseComboBox<Skill> {
 		}
 	}
 
+	public void setSkills(List<Skill> skills) {
+		if (skills != null) {
+			this.removeAllItems();
+			for (Skill skill : skills) {
+				addItem(skill);
+			}
+		}
+	}
+
 	@Override
 	public void doAction() {
 		for (SkillChangedListener listener : skillListeners) {

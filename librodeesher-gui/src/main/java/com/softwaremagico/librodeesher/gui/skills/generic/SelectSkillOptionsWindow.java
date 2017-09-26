@@ -43,6 +43,7 @@ import com.softwaremagico.librodeesher.gui.skills.generic.SetSkillAsSpecializedO
 import com.softwaremagico.librodeesher.gui.skills.generic.SetSkillAsSpecializedOrGenericPanel.SkillModeChanged;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
 public class SelectSkillOptionsWindow extends BaseFrame {
@@ -109,7 +110,7 @@ public class SelectSkillOptionsWindow extends BaseFrame {
 		gridBagConstraints.weightx = 0;
 		gridBagConstraints.weighty = 0;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		SelectSkillPanel selectSkillPanel = new SelectSkillPanel(character);
+		SelectSkillPanel selectSkillPanel = new SelectSkillPanel(character, CategoryFactory.getCategories());
 		getContentPane().add(selectSkillPanel, gridBagConstraints);
 
 		gridBagConstraints.gridy = 1;
@@ -174,8 +175,7 @@ public class SelectSkillOptionsWindow extends BaseFrame {
 			@Override
 			public void updatePanel() {
 				if (selectedSkill != null) {
-					character.setSkillSpecialization(selectedSkill,
-							selectSpecializationPanel.getSelectedOptions());
+					character.setSkillSpecialization(selectedSkill, selectSpecializationPanel.getSelectedOptions());
 				}
 			}
 
@@ -203,8 +203,7 @@ public class SelectSkillOptionsWindow extends BaseFrame {
 	}
 
 	private void updateSpecializationOptions(Skill skill) {
-		selectSpecializationPanel.setOptions(skill.getSpecialities(), skill.getSpecialities().size(),
-				character.getSkillSpecializations(skill));
+		selectSpecializationPanel.setOptions(skill.getSpecialities(), skill.getSpecialities().size(), character.getSkillSpecializations(skill));
 		if (setSkillAsSpecializedOrGenericPanel != null) {
 			enableSkillSpecializationSelection(setSkillAsSpecializedOrGenericPanel.getSkillMode());
 		}

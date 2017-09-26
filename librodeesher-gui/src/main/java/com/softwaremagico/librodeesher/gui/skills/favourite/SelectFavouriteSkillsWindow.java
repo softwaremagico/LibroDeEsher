@@ -43,6 +43,7 @@ import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.elements.SkillChangedListener;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
+import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.export.pdf.PdfStandardSheet;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
 
@@ -75,7 +76,7 @@ public class SelectFavouriteSkillsWindow extends BaseFrame {
 		gridBagConstraints.weightx = 0;
 		gridBagConstraints.weighty = 0;
 		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
-		final SelectSkillPanel selectSkillPanel = new SelectSkillPanel(character);
+		final SelectSkillPanel selectSkillPanel = new SelectSkillPanel(character, CategoryFactory.getCategories());
 		selectSkillPanel.addSkillChangedListener(new SkillChangedListener() {
 
 			@Override

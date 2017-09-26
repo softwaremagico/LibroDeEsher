@@ -1,4 +1,5 @@
 package com.softwaremagico.librodeesher.gui.elements;
+
 /*
  * #%L
  * Libro de Esher (GUI)
@@ -34,8 +35,12 @@ public class CategoryComboBox extends BaseComboBox<Category> {
 	private List<CategoryChangedListener> categoryListeners;
 
 	public CategoryComboBox() {
+		this(CategoryFactory.getCategories());
+	}
+
+	public CategoryComboBox(List<Category> categories) {
 		categoryListeners = new ArrayList<>();
-		for (Category category : CategoryFactory.getCategories()) {
+		for (Category category : categories) {
 			addItem(category);
 		}
 	}

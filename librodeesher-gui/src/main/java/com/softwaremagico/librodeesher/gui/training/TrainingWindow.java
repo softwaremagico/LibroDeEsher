@@ -34,13 +34,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
 
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import com.softwaremagico.librodeesher.gui.ShowMessage;
+import com.softwaremagico.librodeesher.gui.components.SelectSkillWindow;
+import com.softwaremagico.librodeesher.gui.components.SelectSkillWindow.WindowClosedListener;
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.BaseTextField;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
@@ -49,7 +53,6 @@ import com.softwaremagico.librodeesher.gui.style.BaseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseDialog;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
 import com.softwaremagico.librodeesher.pj.CharacterPlayer;
-import com.softwaremagico.librodeesher.pj.categories.Category;
 import com.softwaremagico.librodeesher.pj.categories.CategoryFactory;
 import com.softwaremagico.librodeesher.pj.characteristic.Characteristic;
 import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicRoll;
@@ -60,7 +63,6 @@ import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
 import com.softwaremagico.librodeesher.pj.random.TrainingProbability;
 import com.softwaremagico.librodeesher.pj.skills.ChooseSkillGroup;
 import com.softwaremagico.librodeesher.pj.skills.Skill;
-import com.softwaremagico.librodeesher.pj.skills.SkillFactory;
 import com.softwaremagico.librodeesher.pj.training.InvalidTrainingException;
 import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
@@ -305,61 +307,37 @@ public class TrainingWindow extends BaseFrame {
 	}
 
 	private void setTrainingObjects() {
+		final String trainingName = lastSelectedTraining.getName();
 		try {
-			TrainingProbability.setRandomObjects(characterPlayer, lastSelectedTraining.getName());
+			TrainingProbability.setRandomObjects(characterPlayer, trainingName);
 		} catch (InvalidTrainingException e) {
 			EsherLog.errorMessage(TrainingWindow.class.getName(), e);
 		}
+
+		final Map<TrainingItem, MagicObject> createdObjects = new HashMap<>();
 		// Select skills.
-		for (TrainingItem trainingItem : characterPlayer.getTrainingEquipment(lastSelectedTraining.getName())) {
-			List<Category> categories;
-			List<Skill> skills;
-			MagicObject magicObject;
+		for (final TrainingItem trainingItem : characterPlayer.getTrainingEquipment(trainingName)) {
+			final JDialog dialog = new JDialog(this, "Selecciona una habilidad:", true);
+			SelectSkillWindow selectSkillWindow = null;
 			switch (trainingItem.getType()) {
 			case WEAPON:
-				categories = CategoryFactory.getWeaponsCategories();
-				skills = characterPlayer.getSkillsFromCategoriesOrderByValue(categories);
-				magicObject = MagicObject.createMagicObjectFor(skills.get(0), trainingItem);
+				selectSkillWindow = new SelectSkillWindow(dialog, characterPlayer, CategoryFactory.getWeaponsCategories());
 				break;
 			case WEAPON_CLOSE_COMBAT:
-				categories = CategoryFactory.getCloseCombatWeapons();
-				skills = characterPlayer.getSkillsFromCategoriesOrderByValue(categories);
-				magicObject = MagicObject.createMagicObjectFor(skills.get(0), trainingItem);
+				selectSkillWindow = new SelectSkillWindow(dialog, characterPlayer, CategoryFactory.getCloseCombatWeapons());
 				break;
 			case WEAPON_RANGED:
-				categories = CategoryFactory.getLongRangeWeapons();
-				skills = characterPlayer.getSkillsFromCategoriesOrderByValue(categories);
-				magicObject = MagicObject.createMagicObjectFor(skills.get(0), trainingItem);
+				selectSkillWindow = new SelectSkillWindow(dialog, characterPlayer, CategoryFactory.getLongRangeWeapons());
 				break;
 			case ARMOUR:
 				MagicObject magicArmour = new MagicObject();
 				magicArmour.setObjectBonus(trainingItem.getName(), BonusType.DEFENSIVE_BONUS, trainingItem.getBonus());
-				magicObject = magicArmour;
 				break;
 			case SKILL:
-				Skill skill = SkillFactory.getAvailableSkill(trainingItem.getSkill());
-				if (skill != null) {
-					magicObject = MagicObject.createMagicObjectFor(skill, trainingItem);
-				} else {
-					EsherLog.warning(TrainingProbability.class.getName(), "Skill '" + trainingItem.getSkill()
-							+ "' not found when creating a magic object of training '" + lastSelectedTraining.getName() + "'.");
-				}
-				break;
 			case ANY:
-				skills = characterPlayer.getSkillsOrderByValue(SkillFactory.getSkills());
-				magicObject = MagicObject.createMagicObjectFor(skills.get(new Random().nextInt(skills.size() / 10)), trainingItem);
+				selectSkillWindow = new SelectSkillWindow(dialog, characterPlayer, CategoryFactory.getCategories());
 				break;
 			case CATEGORY:
-				MagicObject magicObjectOfCategory = new MagicObject();
-				Category category = CategoryFactory.getCategory(trainingItem.getSkill());
-				if (category != null) {
-					magicObjectOfCategory.setCategoryBonus(category.getName(), trainingItem.getBonus());
-					magicObject = magicObjectOfCategory;
-				} else {
-					EsherLog.warning(TrainingProbability.class.getName(), "Category '" + trainingItem.getSkill()
-							+ "' not found when creating a magic object of training '" + lastSelectedTraining.getName() + "'.");
-				}
-				break;
 			case UNKNOWN:
 				// Nothing.
 				break;
@@ -367,18 +345,36 @@ public class TrainingWindow extends BaseFrame {
 				// Nothing.
 				break;
 			}
+
+			selectSkillWindow.addWindowClosedListener(new WindowClosedListener() {
+
+				@Override
+				public void setSelectedSkill(Skill skill) {
+					MagicObject magicObject = MagicObject.createMagicObjectFor(skill, trainingItem);
+					createdObjects.put(trainingItem, magicObject);
+					characterPlayer.addMagicItem(magicObject, trainingName);
+					EsherLog.info(this.getClass().getName(), "Se ha definido el objeto '" + magicObject + "' para el adiestramiento '" + trainingName + "'.");
+				}
+
+			});
+			// Modal window.
+			dialog.getContentPane().add(selectSkillWindow);
+			dialog.setSize(350, 130);
+			dialog.setLocationRelativeTo(null);
+			dialog.setVisible(true);
 		}
+
 		// Show message to user.
 		StringBuilder trainingText = new StringBuilder();
-		for (TrainingItem trainingItem : characterPlayer.getTrainingEquipment(lastSelectedTraining.getName())) {
+		for (TrainingItem trainingItem : characterPlayer.getTrainingEquipment(trainingName)) {
 			if (trainingText.length() == 0) {
-				trainingText.append("Durante el adiestramiento '" + lastSelectedTraining.getName() + "' se ha obtenido:\n");
+				trainingText.append("Durante el adiestramiento '" + trainingName + "' se ha obtenido:\n");
 			}
 			trainingText
 					.append("  -  "
 							+ trainingItem.getName()
 							+ (trainingItem.getBonus() != 0 ? " (" + (trainingItem.getBonus() > 0 ? "+" + trainingItem.getBonus() : trainingItem.getBonus())
-									+ ")" : "") + ".\n");
+									+ ")" : "") + (createdObjects.get(trainingItem) != null ? ": " + createdObjects.get(trainingItem).getBonus() : "") + ".\n");
 		}
 
 		if (trainingText.length() > 0) {

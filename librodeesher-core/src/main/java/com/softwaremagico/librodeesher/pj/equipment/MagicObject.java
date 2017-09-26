@@ -142,6 +142,6 @@ public class MagicObject extends StorableObject {
 
 	@Override
 	public String toString() {
-		return getName();
+		return getName() + " " + getBonus();
 	}
 }
