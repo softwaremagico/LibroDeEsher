@@ -52,8 +52,7 @@ public class ShowMessage {
 		int selection = JOptionPane.showOptionDialog(panel, // Componente padre
 				text, // Mensaje
 				title, // Título
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Aceptar",
-						"Cancelar" }, "Cancelar");
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Aceptar", "Cancelar" }, "Cancelar");
 		return (selection == JOptionPane.YES_OPTION);
 	}
 
@@ -67,15 +66,18 @@ public class ShowMessage {
 	}
 
 	private static void message(String text, String title, int option) {
-		int i = 0, caracteres = 0;
-		String texto[] = text.split(" ");
+		int i = 0, characters = 0;
+		String words[] = text.split(" ");
 		text = "";
-		while (i < texto.length) {
-			text += texto[i] + " ";
-			caracteres += texto[i].length();
-			if (caracteres > LINE) {
+		while (i < words.length) {
+			text += words[i] + " ";
+			characters += words[i].length();
+			if (words[i].contains("\n")) {
+				characters = 0;
+			}
+			if (characters > LINE) {
 				text = text.trim() + "\n";
-				caracteres = 0;
+				characters = 0;
 			}
 			i++;
 		}

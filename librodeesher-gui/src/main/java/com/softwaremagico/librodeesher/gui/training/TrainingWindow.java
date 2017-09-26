@@ -304,9 +304,20 @@ public class TrainingWindow extends BaseFrame {
 		} catch (InvalidTrainingException e) {
 			EsherLog.errorMessage(TrainingWindow.class.getName(), e);
 		}
+		StringBuilder trainingText = new StringBuilder();
 		for (TrainingItem trainingItem : characterPlayer.getTrainingEquipment(lastSelectedTraining.getName())) {
-			ShowMessage.showInfoMessage("Durante el adiestramiento '" + lastSelectedTraining.getName() + "' se ha obtenido el siguiente beneficio '"
-					+ trainingItem.getName() + (trainingItem.getBonus() != 0 ? " (" + trainingItem.getBonus() + ")" : "") + "'.", "¡Nuevo objeto!");
+			if (trainingText.length() == 0) {
+				trainingText.append("Durante el adiestramiento '" + lastSelectedTraining.getName() + "' se ha obtenido:\n");
+			}
+			trainingText
+					.append("  -  "
+							+ trainingItem.getName()
+							+ (trainingItem.getBonus() != 0 ? " (" + (trainingItem.getBonus() > 0 ? "+" + trainingItem.getBonus() : trainingItem.getBonus())
+									+ ")" : "") + ".\n");
+		}
+
+		if (trainingText.length() > 0) {
+			ShowMessage.showInfoMessage(trainingText.toString(), "¡Nuevos elementos!");
 		}
 	}
 
