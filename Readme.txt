@@ -32,6 +32,7 @@ Versión
 2.5.2	Añadido:
 		- Los talentos pueden escogerse de manera aleatoria.
 		- Nuevos adiestramientos. 
+		- Los objetos mágicos de los adiestramientos pueden ser seleccionados.
 	
 2.5.1	Arreglado:
 		- Ventana culturas no se abre correctamente.
