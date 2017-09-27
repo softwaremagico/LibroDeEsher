@@ -205,7 +205,7 @@ public class TrainingProbability {
 			for (CharacteristicsAbbreviature characteristic : characterPlayer.getProfession().getCharacteristicPreferences()) {
 				// Available for update.
 				if (characteristic != null && availableUpdates.contains(characteristic)) {
-					// Good to be updated if: long distance, medium distance per
+					// Good to be increased if: long distance, medium distance per
 					// values > 70 or short distance per
 					// values > 85
 					lastCharacteristicChecked = characteristic;

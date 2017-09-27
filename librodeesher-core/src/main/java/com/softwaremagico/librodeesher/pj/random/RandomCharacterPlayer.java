@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 import com.softwaremagico.librodeesher.basics.Spanish;
@@ -20,6 +21,7 @@ import com.softwaremagico.librodeesher.pj.characteristic.CharacteristicsAbbrevia
 import com.softwaremagico.librodeesher.pj.culture.CultureCategory;
 import com.softwaremagico.librodeesher.pj.equipment.BonusType;
 import com.softwaremagico.librodeesher.pj.equipment.MagicObject;
+import com.softwaremagico.librodeesher.pj.equipment.ObjectBonus;
 import com.softwaremagico.librodeesher.pj.magic.MagicDefinitionException;
 import com.softwaremagico.librodeesher.pj.magic.MagicFactory;
 import com.softwaremagico.librodeesher.pj.magic.RealmOfMagic;
@@ -920,17 +922,17 @@ public class RandomCharacterPlayer {
 			case WEAPON:
 				categories = CategoryFactory.getWeaponsCategories();
 				skills = characterPlayer.getSkillsFromCategoriesOrderByValue(categories);
-				magicObjects.add(MagicObject.createMagicObjectFor(skills.get(0), item));
+				magicObjects.add(MagicObject.createMagicObjectFor(selectSkillForMagicItem(magicObjects, skills), item));
 				break;
 			case WEAPON_CLOSE_COMBAT:
 				categories = CategoryFactory.getCloseCombatWeapons();
 				skills = characterPlayer.getSkillsFromCategoriesOrderByValue(categories);
-				magicObjects.add(MagicObject.createMagicObjectFor(skills.get(0), item));
+				magicObjects.add(MagicObject.createMagicObjectFor(selectSkillForMagicItem(magicObjects, skills), item));
 				break;
 			case WEAPON_RANGED:
 				categories = CategoryFactory.getLongRangeWeapons();
 				skills = characterPlayer.getSkillsFromCategoriesOrderByValue(categories);
-				magicObjects.add(MagicObject.createMagicObjectFor(skills.get(0), item));
+				magicObjects.add(MagicObject.createMagicObjectFor(selectSkillForMagicItem(magicObjects, skills), item));
 				break;
 			case ARMOUR:
 				MagicObject magicArmour = new MagicObject();
@@ -970,6 +972,40 @@ public class RandomCharacterPlayer {
 			}
 		}
 		return magicObjects;
+	}
+
+	private static Skill selectSkillForMagicItem(List<MagicObject> existingMagicObjects, List<Skill> skillsOrdered) {
+		if (skillsOrdered != null && !skillsOrdered.isEmpty()) {
+			int index = skillsOrdered.size() - 1;
+			while (index > 0) {
+				Skill bestSkill = skillsOrdered.get(index);
+				// Try to not repeat magic items.
+				boolean existingObject = false;
+				for (MagicObject magicObject : existingMagicObjects) {
+					for (ObjectBonus objectBonus : magicObject.getBonus()) {
+						// Already have an object for this skill.
+						if (Objects.equals(objectBonus.getBonusName(), bestSkill.getName())) {
+							index--;
+							existingObject = true;
+							continue;
+						}
+						// Not so rare objects. 50% of chance.
+						if (bestSkill.isRare()) {
+							if (Math.random() * 100 < 50) {
+								index--;
+								existingObject = true;
+								continue;
+							}
+						}
+					}
+				}
+				if (!existingObject || index == 1) {
+					return bestSkill;
+				}
+				index--;
+			}
+		}
+		return null;
 	}
 
 	/**
