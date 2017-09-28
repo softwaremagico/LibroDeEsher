@@ -904,14 +904,14 @@ public class RandomCharacterPlayer {
 
 			// Set random Objects.
 			TrainingProbability.setRandomObjects(characterPlayer, trainingName);
-			List<MagicObject> trainingObjects = convertTrainingEquipmentToMagicObject(characterPlayer, trainingName);
+			List<MagicObject> trainingObjects = convertTrainingEquipmentToMagicObject(characterPlayer, trainingName, specializationLevel < 2);
 			for (MagicObject trainingObject : trainingObjects) {
 				characterPlayer.addMagicItem(trainingObject, trainingName);
 			}
 		}
 	}
 
-	public static List<MagicObject> convertTrainingEquipmentToMagicObject(CharacterPlayer characterPlayer, String trainingName) {
+	public static List<MagicObject> convertTrainingEquipmentToMagicObject(CharacterPlayer characterPlayer, String trainingName, boolean avoidRareSkills) {
 		List<MagicObject> magicObjects = new ArrayList<>();
 		List<TrainingItem> equipment = characterPlayer.getTrainingEquipment(trainingName);
 		for (TrainingItem item : equipment) {
@@ -922,17 +922,17 @@ public class RandomCharacterPlayer {
 			case WEAPON:
 				categories = CategoryFactory.getWeaponsCategories();
 				skills = characterPlayer.getSkillsFromCategoriesOrderByValue(categories);
-				magicObjects.add(MagicObject.createMagicObjectFor(selectSkillForMagicItem(magicObjects, skills), item));
+				magicObjects.add(MagicObject.createMagicObjectFor(selectSkillForMagicItem(magicObjects, skills, avoidRareSkills), item));
 				break;
 			case WEAPON_CLOSE_COMBAT:
 				categories = CategoryFactory.getCloseCombatWeapons();
 				skills = characterPlayer.getSkillsFromCategoriesOrderByValue(categories);
-				magicObjects.add(MagicObject.createMagicObjectFor(selectSkillForMagicItem(magicObjects, skills), item));
+				magicObjects.add(MagicObject.createMagicObjectFor(selectSkillForMagicItem(magicObjects, skills, avoidRareSkills), item));
 				break;
 			case WEAPON_RANGED:
 				categories = CategoryFactory.getLongRangeWeapons();
 				skills = characterPlayer.getSkillsFromCategoriesOrderByValue(categories);
-				magicObjects.add(MagicObject.createMagicObjectFor(selectSkillForMagicItem(magicObjects, skills), item));
+				magicObjects.add(MagicObject.createMagicObjectFor(selectSkillForMagicItem(magicObjects, skills, avoidRareSkills), item));
 				break;
 			case ARMOUR:
 				MagicObject magicArmour = new MagicObject();
@@ -974,7 +974,7 @@ public class RandomCharacterPlayer {
 		return magicObjects;
 	}
 
-	private static Skill selectSkillForMagicItem(List<MagicObject> existingMagicObjects, List<Skill> skillsOrdered) {
+	private static Skill selectSkillForMagicItem(List<MagicObject> existingMagicObjects, List<Skill> skillsOrdered, boolean avoidRareSkills) {
 		if (skillsOrdered != null && !skillsOrdered.isEmpty()) {
 			int index = skillsOrdered.size() - 1;
 			while (index > 0) {
@@ -989,9 +989,9 @@ public class RandomCharacterPlayer {
 							existingObject = true;
 							continue;
 						}
-						// Not so rare objects. 50% of chance.
-						if (bestSkill.isRare()) {
-							if (Math.random() * 100 < 50) {
+						// Not so rare objects. Only 20% of chance.
+						if (!avoidRareSkills && bestSkill.isRare()) {
+							if (Math.random() * 100 < 80) {
 								index--;
 								existingObject = true;
 								continue;
