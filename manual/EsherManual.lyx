@@ -2800,11 +2800,65 @@ Si un adiestramiento no se incluye en esta lista, no podrá ser escogido.
 \end_layout
 
 \begin_layout Section
-Adiestramientos
+Plantilla de Adiestramientos
+\end_layout
+
+\begin_layout Subsection
+Tiempo
 \end_layout
 
 \begin_layout Standard
-Puedes añadir más opciones de adiestramiento.
+El tiempo que necesitas entrenar para obtener el adiestramiento.
+ Sin apenas efecto en la aplicación.
+ 
+\end_layout
+
+\begin_layout Subsection
+Exclusivo raza
+\end_layout
+
+\begin_layout Standard
+El adiestramiento únicamente estará disponible para las razas listadas aquí
+ si existe alguna.
+ En otro caso estará disponible para cualquier raza.
+ 
+\end_layout
+
+\begin_layout Subsection
+Especial
+\end_layout
+
+\begin_layout Standard
+Listado de tiradas de se pueden obtener con este adiestramiento.
+ El primer campo es el nombre del objeto/especial, el segundo es la probabilidad.
+ El tercer y cuarto son opcionales y representan el bonus que da a una habilidad.
+ Si se indica 
+\begin_inset Quotes eld
+\end_inset
+
+Arma
+\begin_inset Quotes erd
+\end_inset
+
+ aquí, permitirá escoger entre cualquier arma del juego.
+ Para objetos más complejos se deberán crear manualmente en la sección 
+\begin_inset Quotes eld
+\end_inset
+
+Insertar Objeto Mágico
+\begin_inset Quotes erd
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Habilidades
+\end_layout
+
+\begin_layout Standard
+Aquí debes definir los rangos a repartir entre categorías y habilidades.
  Teniendo en cuenta las siguientes normas:
 \end_layout
 
@@ -2852,8 +2906,8 @@ Las habilidades deben ir precedidas con el prefijo
 Las categorías deben definir el número mínimo de habilidades con rangos,
  el número máximo de habilidades con rango, y el total de rangos para cada
  habilidad.
- Por ejemplo, en el adiestramiento de Asesino, puedes elgir hasta dos habilidade
-s de Suberfugio·Ataque con un total de rangos.
+ Por ejemplo, en el adiestramiento de Asesino, puedes elegir hasta dos habilidad
+es de Subterfugio·Ataque con un total de 3 rangos.
  Esto se representa como 
 \begin_inset Quotes eld
 \end_inset
@@ -2876,7 +2930,7 @@ Comunicación 3 1 1 3
 
  de Erudito Enclaustrado.
  Aquí se indica que la categoría de comunicación tiene 3 rangos, y solo
- se pueden dar 4 rangos a una única habilidad.
+ se pueden dar 3 rangos a una única habilidad.
  
 \end_layout
 
@@ -2918,8 +2972,155 @@ Religión 3 - - -
 .
  Aquí la categoría indica que se deben escoger dos habilidades con 4 rangos
  a repartir.
- Como Religión ya tiene tres rangos asignados, lo que significa es que se
- puede escoger una única habilidad con un rango.
+ Como Religión ya tiene tres rangos asignados, esto significa que únicamente
+ se puede escoger una única habilidad adicional con un rango.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Existen dos palabras reservadas: 
+\begin_inset Quotes eld
+\end_inset
+
+Arma
+\begin_inset Quotes erd
+\end_inset
+
+ y 
+\begin_inset Quotes eld
+\end_inset
+
+Ataque
+\begin_inset Quotes erd
+\end_inset
+
+.
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Arma
+\begin_inset Quotes erd
+\end_inset
+
+ equivale a todas las categorías de armas.
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Ataque
+\begin_inset Quotes erd
+\end_inset
+
+ equivale a los ataques de artes marciales, ataques especiales, etc.
+ Se pueden combinar ambas indicándolo como 
+\begin_inset Quotes eld
+\end_inset
+
+Arma / Ataque
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Esto indica que puede ser una categoría que sea un arma o ataque de los
+ descritos anteriormente.
+ 
+\end_layout
+
+\begin_layout Subsection
+Aumentos de características
+\end_layout
+
+\begin_layout Standard
+Conjunto de características (en forma de abreviatura) a los que se aplicará
+ automáticamente una tirada de aumento si se escoge este adiestramiento.
+ Para escoger una característica entre un listado entre llaves las opciones.
+ Por ejemplo 
+\begin_inset Quotes eld
+\end_inset
+
+{Ag; Me; Ra; Ad; Em; In; Pr; Rp; Fu}
+\begin_inset Quotes erd
+\end_inset
+
+ indica que se puede escoger entre cualquier característica menos constitución.
+ En el caso de que haya que escoger dos veces debes indicar la lista dos
+ veces.
+ 
+\end_layout
+
+\begin_layout Subsection
+Requisitos profesionales
+\end_layout
+
+\begin_layout Standard
+Indica una reducción al coste si se cumplen unos requisitos determinados.
+ Los requisitos pueden ser:
+\end_layout
+
+\begin_layout Enumerate
+Una característica con un valor temporal mínimo.
+ Si se indica una característica con un valor temporal mínimo y el descuento
+ de coste.
+ Por ejemplo 
+\begin_inset Quotes eld
+\end_inset
+
+Co (90) (-1)
+\begin_inset Quotes erd
+\end_inset
+
+ indica que si se cumple un valor de constitución de al menos 90, el adiestramie
+nto costará un punto menos.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Una habilidad con un mínimo de rangos.
+ Se representa el nombre de la habilidad, los rangos necesarios y el descuento
+ al adiestramiento.
+ Por ejemplo 
+\begin_inset Quotes eld
+\end_inset
+
+Religión (10) (-3)
+\begin_inset Quotes erd
+\end_inset
+
+ indica que 10 rangos en religión permiten descontar tres puntos a este
+ adiestramiento.
+\end_layout
+
+\begin_layout Subsection
+Habilidades de estilo de vida, comunes, profesionales y restringidas
+\end_layout
+
+\begin_layout Standard
+Un listado de habilidades que se convierten en estilo de vida, comunes,
+ profesionales o restringidas.
+ La sintaxis permitida es:
+\end_layout
+
+\begin_layout Enumerate
+Para elegir una habilidad de un listado, al igual que en otras secciones,
+ se hace una lista de habilidades entre llaves 
+\begin_inset Quotes eld
+\end_inset
+
+{}
+\begin_inset Quotes erd
+\end_inset
+
+ y separadas por puntos y comas 
+\begin_inset Quotes eld
+\end_inset
+
+;
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Esto permitirá al jugador escoger una habilidad del listado.
  
 \end_layout
 
