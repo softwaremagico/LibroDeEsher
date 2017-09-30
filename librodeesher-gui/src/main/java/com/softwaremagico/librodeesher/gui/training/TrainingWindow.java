@@ -317,53 +317,55 @@ public class TrainingWindow extends BaseFrame {
 		final Map<TrainingItem, MagicObject> createdObjects = new HashMap<>();
 		// Select skills.
 		for (final TrainingItem trainingItem : characterPlayer.getTrainingEquipment(trainingName)) {
-			final JDialog dialog = new JDialog(this, "Selecciona una habilidad:", true);
-			SelectSkillWindow selectSkillWindow = null;
-			switch (trainingItem.getType()) {
-			case WEAPON:
-				selectSkillWindow = new SelectSkillWindow(dialog, characterPlayer, CategoryFactory.getWeaponsCategories());
-				break;
-			case WEAPON_CLOSE_COMBAT:
-				selectSkillWindow = new SelectSkillWindow(dialog, characterPlayer, CategoryFactory.getCloseCombatWeapons());
-				break;
-			case WEAPON_RANGED:
-				selectSkillWindow = new SelectSkillWindow(dialog, characterPlayer, CategoryFactory.getLongRangeWeapons());
-				break;
-			case ARMOUR:
-				MagicObject magicArmour = new MagicObject();
-				magicArmour.setObjectBonus(trainingItem.getName(), BonusType.DEFENSIVE_BONUS, trainingItem.getBonus());
-				break;
-			case SKILL:
-			case ANY:
-				selectSkillWindow = new SelectSkillWindow(dialog, characterPlayer, CategoryFactory.getCategories());
-				break;
-			case CATEGORY:
-			case UNKNOWN:
-				// Nothing.
-				break;
-			default:
-				// Nothing.
-				break;
-			}
+			if (trainingItem.getSkill() == null || trainingItem.getSkill().isEmpty()) {
+				final JDialog dialog = new JDialog(this, "Selecciona una habilidad:", true);
+				SelectSkillWindow selectSkillWindow = null;
+				switch (trainingItem.getType()) {
+				case WEAPON:
+					selectSkillWindow = new SelectSkillWindow(dialog, characterPlayer, CategoryFactory.getWeaponsCategories());
+					break;
+				case WEAPON_CLOSE_COMBAT:
+					selectSkillWindow = new SelectSkillWindow(dialog, characterPlayer, CategoryFactory.getCloseCombatWeapons());
+					break;
+				case WEAPON_RANGED:
+					selectSkillWindow = new SelectSkillWindow(dialog, characterPlayer, CategoryFactory.getLongRangeWeapons());
+					break;
+				case ARMOUR:
+					MagicObject magicArmour = new MagicObject();
+					magicArmour.setObjectBonus(trainingItem.getName(), BonusType.DEFENSIVE_BONUS, trainingItem.getBonus());
+					break;
+				case SKILL:
+				case ANY:
+					selectSkillWindow = new SelectSkillWindow(dialog, characterPlayer, CategoryFactory.getCategories());
+					break;
+				case CATEGORY:
+				case UNKNOWN:
+					// Nothing.
+					break;
+				default:
+					// Nothing.
+					break;
+				}
 
-			if (selectSkillWindow != null) {
-				selectSkillWindow.addWindowClosedListener(new WindowClosedListener() {
+				if (selectSkillWindow != null) {
+					selectSkillWindow.addWindowClosedListener(new WindowClosedListener() {
 
-					@Override
-					public void setSelectedSkill(Skill skill) {
-						MagicObject magicObject = MagicObject.createMagicObjectFor(skill, trainingItem);
-						createdObjects.put(trainingItem, magicObject);
-						characterPlayer.addMagicItem(magicObject, trainingName);
-						EsherLog.info(this.getClass().getName(), "Se ha definido el objeto '" + magicObject + "' para el adiestramiento '" + trainingName
-								+ "'.");
-					}
+						@Override
+						public void setSelectedSkill(Skill skill) {
+							MagicObject magicObject = MagicObject.createMagicObjectFor(skill, trainingItem);
+							createdObjects.put(trainingItem, magicObject);
+							characterPlayer.addMagicItem(magicObject, trainingName);
+							EsherLog.info(this.getClass().getName(), "Se ha definido el objeto '" + magicObject + "' para el adiestramiento '" + trainingName
+									+ "'.");
+						}
 
-				});
-				// Modal window.
-				dialog.getContentPane().add(selectSkillWindow);
-				dialog.setSize(350, 130);
-				dialog.setLocationRelativeTo(null);
-				dialog.setVisible(true);
+					});
+					// Modal window.
+					dialog.getContentPane().add(selectSkillWindow);
+					dialog.setSize(350, 130);
+					dialog.setLocationRelativeTo(null);
+					dialog.setVisible(true);
+				}
 			}
 		}
 
