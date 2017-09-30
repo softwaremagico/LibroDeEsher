@@ -346,22 +346,25 @@ public class TrainingWindow extends BaseFrame {
 				break;
 			}
 
-			selectSkillWindow.addWindowClosedListener(new WindowClosedListener() {
+			if (selectSkillWindow != null) {
+				selectSkillWindow.addWindowClosedListener(new WindowClosedListener() {
 
-				@Override
-				public void setSelectedSkill(Skill skill) {
-					MagicObject magicObject = MagicObject.createMagicObjectFor(skill, trainingItem);
-					createdObjects.put(trainingItem, magicObject);
-					characterPlayer.addMagicItem(magicObject, trainingName);
-					EsherLog.info(this.getClass().getName(), "Se ha definido el objeto '" + magicObject + "' para el adiestramiento '" + trainingName + "'.");
-				}
+					@Override
+					public void setSelectedSkill(Skill skill) {
+						MagicObject magicObject = MagicObject.createMagicObjectFor(skill, trainingItem);
+						createdObjects.put(trainingItem, magicObject);
+						characterPlayer.addMagicItem(magicObject, trainingName);
+						EsherLog.info(this.getClass().getName(), "Se ha definido el objeto '" + magicObject + "' para el adiestramiento '" + trainingName
+								+ "'.");
+					}
 
-			});
-			// Modal window.
-			dialog.getContentPane().add(selectSkillWindow);
-			dialog.setSize(350, 130);
-			dialog.setLocationRelativeTo(null);
-			dialog.setVisible(true);
+				});
+				// Modal window.
+				dialog.getContentPane().add(selectSkillWindow);
+				dialog.setSize(350, 130);
+				dialog.setLocationRelativeTo(null);
+				dialog.setVisible(true);
+			}
 		}
 
 		// Show message to user.
@@ -451,8 +454,7 @@ public class TrainingWindow extends BaseFrame {
 	}
 
 	/**
-	 * Lets the user to choose the common, professional or restricted skills
-	 * needed.
+	 * Lets the user to choose the common, professional or restricted skills needed.
 	 */
 	private void selectSkills() {
 		for (ChooseSkillGroup options : lastSelectedTraining.getCommonSkills()) {
