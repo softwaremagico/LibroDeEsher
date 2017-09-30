@@ -364,11 +364,11 @@ public class TrainingWindow extends BaseFrame {
 
 					});
 					// Modal window.
-					dialog.getContentPane().add(selectSkillWindow);
+					dialog.setContentPane(selectSkillWindow);
+					dialog.setResizable(false);
 					dialog.setSize(350, 130);
 					dialog.setLocationRelativeTo(null);
 					dialog.setVisible(true);
-					dialog.setResizable(false);
 				}
 			}
 		}
