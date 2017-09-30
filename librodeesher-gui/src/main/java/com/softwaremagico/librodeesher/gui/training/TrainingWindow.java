@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -67,6 +68,7 @@ import com.softwaremagico.librodeesher.pj.training.InvalidTrainingException;
 import com.softwaremagico.librodeesher.pj.training.Training;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 import com.softwaremagico.librodeesher.pj.training.TrainingItem;
+import com.softwaremagico.librodeesher.pj.training.TrainingItemType;
 import com.softwaremagico.log.EsherLog;
 
 public class TrainingWindow extends BaseFrame {
@@ -317,7 +319,7 @@ public class TrainingWindow extends BaseFrame {
 		final Map<TrainingItem, MagicObject> createdObjects = new HashMap<>();
 		// Select skills.
 		for (final TrainingItem trainingItem : characterPlayer.getTrainingEquipment(trainingName)) {
-			if (trainingItem.getSkill() == null || trainingItem.getSkill().isEmpty()) {
+			if (!Objects.equals(trainingItem.getType(), TrainingItemType.SKILL)) {
 				final JDialog dialog = new JDialog(this, "Selecciona una habilidad:", true);
 				SelectSkillWindow selectSkillWindow = null;
 				switch (trainingItem.getType()) {
