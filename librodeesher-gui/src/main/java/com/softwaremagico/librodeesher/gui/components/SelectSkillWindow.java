@@ -49,6 +49,7 @@ public class SelectSkillWindow extends BasePanel {
 	private List<Category> categories;
 	private Set<WindowClosedListener> listeners;
 	private JDialog parent;
+	private SelectSkillPanel skillPanel;
 
 	public interface WindowClosedListener {
 		void setSelectedSkill(Skill skill);
@@ -62,21 +63,26 @@ public class SelectSkillWindow extends BasePanel {
 		setElements();
 	}
 
+	public void setTitle(String text) {
+		skillPanel.setTitle(text);
+	}
+
 	private void setElements() {
 		setLayout(new GridBagLayout());
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
-		gridBagConstraints.fill = GridBagConstraints.BOTH;
-		gridBagConstraints.ipadx = xPadding;
+
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridheight = 2;
+		gridBagConstraints.ipadx = xPadding;
 		gridBagConstraints.gridwidth = 3;
+		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+		gridBagConstraints.fill = GridBagConstraints.BOTH;
+		gridBagConstraints.gridheight = 2;
 		gridBagConstraints.weightx = 1;
 		gridBagConstraints.weighty = 1;
-		gridBagConstraints.insets = new Insets(2, 2, 2, 2);
 
-		final SelectSkillPanel skillPanel = new SelectSkillPanel(characterPlayer, categories);
+		skillPanel = new SelectSkillPanel(characterPlayer, categories);
 		add(skillPanel, gridBagConstraints);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));

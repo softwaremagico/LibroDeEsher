@@ -350,6 +350,7 @@ public class TrainingWindow extends BaseFrame {
 				}
 
 				if (selectSkillWindow != null) {
+					selectSkillWindow.setTitle(trainingItem.getName() + " " + trainingItem.getDescription());
 					selectSkillWindow.addWindowClosedListener(new WindowClosedListener() {
 
 						@Override
@@ -367,6 +368,7 @@ public class TrainingWindow extends BaseFrame {
 					dialog.setSize(350, 130);
 					dialog.setLocationRelativeTo(null);
 					dialog.setVisible(true);
+					dialog.setResizable(false);
 				}
 			}
 		}

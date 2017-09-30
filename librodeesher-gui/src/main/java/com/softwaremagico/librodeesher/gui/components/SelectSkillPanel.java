@@ -53,12 +53,17 @@ public class SelectSkillPanel extends BasePanel {
 	private Set<SkillChangedListener> skillListeners;
 	private CharacterPlayer characterPlayer;
 	private List<Category> categories;
+	private JLabel titleLabel;
 
 	public SelectSkillPanel(CharacterPlayer player, List<Category> categories) {
 		skillListeners = new HashSet<>();
 		this.categories = categories;
 		this.characterPlayer = player;
 		setElements();
+	}
+	
+	public void setTitle(String text){
+		titleLabel.setText(text);
 	}
 
 	@Override
@@ -78,7 +83,7 @@ public class SelectSkillPanel extends BasePanel {
 		constraints.weightx = 0;
 		constraints.weighty = 0;
 
-		JLabel titleLabel = new JLabel("Selecciona una habilidad:");
+		titleLabel = new JLabel("Selecciona una habilidad:");
 		titleLabel.setFont(Fonts.getInstance().getBoldFont());
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.gridx = 0;
