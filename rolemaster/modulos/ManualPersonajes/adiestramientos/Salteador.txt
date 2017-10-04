@@ -1,0 +1,51 @@
+# TIEMPO (meses)
+####################################
+35
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Arma (+5 no mágica)	30	5	Arma
+Joyas robadas (5d10mp)	50
+Gemas robadas (5d10mp)	50
+Objeto de arte robado (5d10mp)	50
+Bestia de monta	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Arma	1	1	1	1
+Conocimiento·General	3	1	1	3
+Desarrollo Físico	0	1	1	1
+  *  Desarrollo Físico	1
+Exteriores·Entorno	4	2	2	4
+Percepción·Perspicacia	0	1	1	1
+  *  Alerta	1
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Ninguna
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -115,6 +116,7 @@ import com.softwaremagico.librodeesher.pj.training.TrainingCategory;
 import com.softwaremagico.librodeesher.pj.training.TrainingDecision;
 import com.softwaremagico.librodeesher.pj.training.TrainingFactory;
 import com.softwaremagico.librodeesher.pj.training.TrainingItem;
+import com.softwaremagico.librodeesher.pj.training.TrainingItemType;
 import com.softwaremagico.librodeesher.pj.training.TrainingSkill;
 import com.softwaremagico.librodeesher.pj.training.TrainingSkillComparator;
 import com.softwaremagico.librodeesher.pj.training.TrainingType;
@@ -340,8 +342,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * Default config is stored in a file and changed with the options windows.
-	 * When a new character is created, it uses this default config options.
+	 * Default config is stored in a file and changed with the options windows. When a new character is created, it uses this default config options.
 	 */
 	private void setDefaultConfig() {
 		getCharacterConfiguration().setDarkSpellsAsBasic(Config.getDarkSpellsAsBasic());
@@ -575,8 +576,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * Temporal value of the characteristic when starting the creation of the
-	 * character.
+	 * Temporal value of the characteristic when starting the creation of the character.
 	 * 
 	 * @param abbreviature
 	 * @return
@@ -1572,8 +1572,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * In culture, weapon costs are not defined. Therefore, we will use the best
-	 * value.
+	 * In culture, weapon costs are not defined. Therefore, we will use the best value.
 	 * 
 	 * @param category
 	 * @return
@@ -1591,8 +1590,7 @@ public class CharacterPlayer extends StorableObject {
 	 * 
 	 * @param category
 	 * @param currentListRanks
-	 *            current ranks spent in this skill. In magic, higher levels are
-	 *            more expensive.
+	 *            current ranks spent in this skill. In magic, higher levels are more expensive.
 	 * @return
 	 */
 	public CategoryCost getCategoryCost(Category category, Integer currentListRanks) {
@@ -1635,12 +1633,10 @@ public class CharacterPlayer extends StorableObject {
 	 * @param category
 	 *            category to be updated.
 	 * @param currentRanks
-	 *            Current ranks in category or skill. Must include old levels
-	 *            ranks and previous ranks included in this new level. Only used
-	 *            for spell cost (higher level spells are more expensive).
+	 *            Current ranks in category or skill. Must include old levels ranks and previous ranks included in this new level. Only used for spell cost
+	 *            (higher level spells are more expensive).
 	 * @param rankAdded
-	 *            If it is the first, second or third rank added at this level
-	 *            [0, 1, 2].
+	 *            If it is the first, second or third rank added at this level [0, 1, 2].
 	 * @return
 	 */
 	public Integer getNewRankCost(Category category, Integer currentRanks, Integer rankAdded) {
@@ -1669,12 +1665,9 @@ public class CharacterPlayer extends StorableObject {
 	 * @param skill
 	 *            skill to be updated.
 	 * @param currentRanks
-	 *            Current ranks in category or skill. Must include old levels
-	 *            ranks and previous ranks included in this new level. Only used
-	 *            for spell cost.
+	 *            Current ranks in category or skill. Must include old levels ranks and previous ranks included in this new level. Only used for spell cost.
 	 * @param rankAdded
-	 *            If it is the first, second or third rank added at this level
-	 *            [0, 1, 2].
+	 *            If it is the first, second or third rank added at this level [0, 1, 2].
 	 * @return
 	 */
 	public Integer getRankCost(Skill skill, Integer currentRanks, Integer rankAdded) {
@@ -1731,8 +1724,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * A category is not used if it has not skills or the cost is more than the
-	 * selected in the configuration. Used for random character creation.
+	 * A category is not used if it has not skills or the cost is more than the selected in the configuration. Used for random character creation.
 	 * 
 	 * @param category
 	 * @return
@@ -1788,8 +1780,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * Some categories depend on the profession of the character (as spell
-	 * lists).
+	 * Some categories depend on the profession of the character (as spell lists).
 	 * 
 	 * @param category
 	 * @return
@@ -2409,8 +2400,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * The user must to choose one category from a training if the training has
-	 * this option and it has not been chosen before.
+	 * The user must to choose one category from a training if the training has this option and it has not been chosen before.
 	 * 
 	 * @param trainingName
 	 * @return
@@ -2549,6 +2539,11 @@ public class CharacterPlayer extends StorableObject {
 
 	public void addTrainingEquipment(Training training, int trainingObjectIndex) {
 		getTrainingDecision(training.getName()).getStandardEquipment().add(training.getObjects().get(trainingObjectIndex));
+		// Object with a direct bonus. Add it.
+		if (Objects.equals(training.getObjects().get(trainingObjectIndex).getType(), TrainingItemType.SKILL)) {
+			Skill skill = SkillFactory.getAvailableSkill(training.getObjects().get(trainingObjectIndex).getSkill());
+			addMagicItem(MagicObject.createMagicObjectFor(skill, training.getObjects().get(trainingObjectIndex)), training.getName());
+		}
 	}
 
 	public List<TrainingItem> getTrainingEquipment(String trainingName) {
@@ -2790,8 +2785,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * Returns all equipment composed by training equipment and inserted
-	 * equipment.
+	 * Returns all equipment composed by training equipment and inserted equipment.
 	 * 
 	 * @return
 	 */
@@ -2956,8 +2950,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * Convert special tags as 'weapon' or 'armor' to real skills names
-	 * depending on the culture possibilities.
+	 * Convert special tags as 'weapon' or 'armor' to real skills names depending on the culture possibilities.
 	 * 
 	 * @return
 	 */
@@ -2971,8 +2964,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * Convert special tags as 'weapon' or 'armor' to real skills names
-	 * depending on the culture possibilities.
+	 * Convert special tags as 'weapon' or 'armor' to real skills names depending on the culture possibilities.
 	 * 
 	 * @return
 	 */
@@ -3012,8 +3004,7 @@ public class CharacterPlayer extends StorableObject {
 	}
 
 	/**
-	 * Gets the training skills to be choose for adding ranks. For spells select
-	 * the correct spell list.
+	 * Gets the training skills to be choose for adding ranks. For spells select the correct spell list.
 	 * 
 	 * @param trainingCategory
 	 * @param selectedCategory
