@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>com.softwaremagico</groupId>
 		<artifactId>librodeesher</artifactId>
-		<version>2.5.2</version>
+		<version>2.5.3</version>
 	</parent>
 
 	<properties>
@@ -161,7 +161,7 @@
 								<copy todir="${linux.releasedir}/DEBIAN" overwrite="true">
 									<fileset dir="${linux.origin}/DEBIAN" includes="**/*" />
 									<filterset>
-										<filter value="${project.version}" token="version" />
+										<filter value="${project.parent.version}" token="version" />
 									</filterset>
 								</copy>
 								<!-- exclude images because are corrupted -->
