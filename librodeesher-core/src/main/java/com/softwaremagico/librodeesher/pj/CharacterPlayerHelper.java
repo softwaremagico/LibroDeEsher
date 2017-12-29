@@ -31,7 +31,7 @@ public class CharacterPlayerHelper {
 	private Map<String, Integer> skillTotalRanksPerCategory;
 
 	private Map<CharacteristicsAbbreviature, Integer> temporalValues;
-	
+
 	private Map<CharacteristicsAbbreviature, Integer> potentialValues;
 
 	private Map<String, Integer> trainingCosts;
@@ -86,7 +86,7 @@ public class CharacterPlayerHelper {
 		resetAllSkillTotal();
 		setDirty(true);
 	}
-	
+
 	public void resetAllSkillObjectBonus() {
 		skillObjectsBonus = new HashMap<>();
 		resetAllSkillTotal();
@@ -168,11 +168,13 @@ public class CharacterPlayerHelper {
 		categoryTotal.remove(categoryName);
 		interestingCategories.remove(categoryName);
 		try {
-			for (Skill skill : CategoryFactory.getCategory(categoryName).getSkills()) {
+			for (Skill skill : CategoryFactory.getCategory(categoryName)
+					.getSkills()) {
 				resetSkillTotal(skill.getName());
 			}
 		} catch (NullPointerException npe) {
-			EsherLog.severe(this.getClass().getName(), "Category '" + categoryName + "' not found!");
+			EsherLog.severe(this.getClass().getName(), "Category '"
+					+ categoryName + "' not found!");
 		}
 		setDirty(true);
 	}
@@ -183,6 +185,8 @@ public class CharacterPlayerHelper {
 		skillTotalRanksPerCategory = new HashMap<>();
 		skillRealRanks = new HashMap<>();
 		resetSkillTotalBonus(skillName);
+		// Some trainings adds bonus depending on the ranks number.
+		resetSkillGeneralBonus(skillName);
 		resetFavouriteSkills();
 		resetDevelopmentPoints();
 	}
@@ -229,7 +233,8 @@ public class CharacterPlayerHelper {
 		return categoryCharacteristicsBonus.get(categoryName);
 	}
 
-	public void setCategoryCharacteristicsBonus(String categoryName, Integer value) {
+	public void setCategoryCharacteristicsBonus(String categoryName,
+			Integer value) {
 		categoryCharacteristicsBonus.put(categoryName, value);
 		resetCategoryTotal(categoryName);
 		setDirty(true);
@@ -376,26 +381,30 @@ public class CharacterPlayerHelper {
 		this.isDirty = isDirty;
 	}
 
-	public Integer getCharacteristicTemporalValue(CharacteristicsAbbreviature abbreviature) {
+	public Integer getCharacteristicTemporalValue(
+			CharacteristicsAbbreviature abbreviature) {
 		if (!enabled) {
 			return null;
 		}
 		return temporalValues.get(abbreviature);
 	}
-	
-	public Integer getCharacteristicPotentialValue(CharacteristicsAbbreviature abbreviature) {
+
+	public Integer getCharacteristicPotentialValue(
+			CharacteristicsAbbreviature abbreviature) {
 		if (!enabled) {
 			return null;
 		}
 		return potentialValues.get(abbreviature);
 	}
 
-	public void setCharacteristicTemporalValue(CharacteristicsAbbreviature abbreviature, Integer value) {
+	public void setCharacteristicTemporalValue(
+			CharacteristicsAbbreviature abbreviature, Integer value) {
 		temporalValues.put(abbreviature, value);
 		setDirty(true);
 	}
-	
-	public void setCharacteristicPotentialValue(CharacteristicsAbbreviature abbreviature, Integer value) {
+
+	public void setCharacteristicPotentialValue(
+			CharacteristicsAbbreviature abbreviature, Integer value) {
 		potentialValues.put(abbreviature, value);
 		setDirty(true);
 	}
@@ -403,7 +412,7 @@ public class CharacterPlayerHelper {
 	public void resetCharacteristicTemporalValues() {
 		temporalValues = new HashMap<>();
 	}
-	
+
 	public void resetCharacteristicPotentialValues() {
 		potentialValues = new HashMap<>();
 	}
@@ -426,7 +435,8 @@ public class CharacterPlayerHelper {
 		return skillTotalRanksPerCategory.get(categoryName);
 	}
 
-	public void setSkillTotalRanksPerCategory(String categoryName, int totalRanks) {
+	public void setSkillTotalRanksPerCategory(String categoryName,
+			int totalRanks) {
 		skillTotalRanksPerCategory.put(categoryName, totalRanks);
 		setDirty(true);
 	}
