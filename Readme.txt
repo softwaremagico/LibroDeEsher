@@ -29,6 +29,10 @@ Con esta metodología se ahorra tiempo en las partidas, reuniendo a los jugadore
 
 Versión
 ------------
+2.5.3
+	Arreglado:
+		- Pequeños bugs al contar ciertos valores de talentos.
+		
 2.5.2	Añadido:
 		- Los talentos pueden escogerse de manera aleatoria.
 		- Nuevos adiestramientos. 
