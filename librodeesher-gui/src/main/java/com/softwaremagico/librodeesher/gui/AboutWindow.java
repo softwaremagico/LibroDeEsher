@@ -31,6 +31,7 @@ import java.awt.Insets;
 import java.io.File;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.InvalidPathException;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -41,6 +42,7 @@ import com.softwaremagico.files.Version;
 import com.softwaremagico.librodeesher.gui.elements.BaseLabel;
 import com.softwaremagico.librodeesher.gui.elements.CloseButton;
 import com.softwaremagico.librodeesher.gui.style.BaseFrame;
+import com.softwaremagico.log.EsherLog;
 
 public class AboutWindow extends BaseFrame {
 	private static final long serialVersionUID = -987975681639493971L;
@@ -59,24 +61,36 @@ public class AboutWindow extends BaseFrame {
 		JTextArea textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setLineWrap(true);
-		
-		String path = "./" + README_FILE;
-		
-		URL url = AboutWindow.class.getProtectionDomain().getCodeSource().getLocation();
-		String jarPath = url.toExternalForm();
-		jarPath = jarPath.substring(jarPath.indexOf("/"), jarPath.lastIndexOf("/"));
-		File file = new File(jarPath + File.separator + README_FILE);
 
-		if (file.exists()) {
-			path = jarPath + File.separator + README_FILE;
-		} else {
-			path = jarPath + File.separator + ".." + File.separator + README_FILE;
+		String path = "./" + README_FILE;
+
+		URL url = AboutWindow.class.getProtectionDomain().getCodeSource()
+				.getLocation();
+		String jarPath = url.toExternalForm();
+		jarPath = jarPath.substring(jarPath.indexOf("/"),
+				jarPath.lastIndexOf("/"));
+
+		File file = new File(path);
+		if (!file.exists()) {
+			file = new File(jarPath + File.separator + README_FILE);
+			if (file.exists()) {
+				path = jarPath + File.separator + README_FILE;
+			} else {
+				path = jarPath + File.separator + ".." + File.separator
+						+ README_FILE;
+			}
 		}
 
-		textArea.setText(MyFile.readTextFile(path, StandardCharsets.UTF_8, false));
+		try {
+			textArea.setText(MyFile.readTextFile(path, StandardCharsets.UTF_8,
+					false));
+		} catch (InvalidPathException ipe) {
+			EsherLog.errorMessage(this.getClass().getName(), ipe);
+		}
 		textArea.setCaretPosition(0);
 
-		JScrollPane textScrollPanel = new JScrollPane(textArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+		JScrollPane textScrollPanel = new JScrollPane(textArea,
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -102,7 +116,8 @@ public class AboutWindow extends BaseFrame {
 		gridBagConstraints.weighty = 0;
 		add(versionLabel, gridBagConstraints);
 
-		BaseLabel authorLabel = new BaseLabel("(Creado por Jorge Hortelano Otero)");
+		BaseLabel authorLabel = new BaseLabel(
+				"(Creado por Jorge Hortelano Otero)");
 		authorLabel.setMinimumSize(new Dimension(250, textDefaultHeight));
 		gridBagConstraints.anchor = GridBagConstraints.CENTER;
 		gridBagConstraints.ipadx = xPadding;

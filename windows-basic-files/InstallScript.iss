@@ -45,6 +45,7 @@ Source: "rolemaster"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs crea
 Source: "rolemaster\*"; DestDir: "{app}\rolemaster"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "LibroDeEsher.jar"; DestDir: "{app}"; Flags: ignoreversion
 Source: "librodeesher.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "Readme.txt"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
