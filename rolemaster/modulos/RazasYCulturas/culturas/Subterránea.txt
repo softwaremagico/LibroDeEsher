@@ -1,0 +1,78 @@
+# ARMAS TÍPICAS
+####################
+Todas
+
+# ARMADURAS TÍPICAS
+####################
+Cota de Mallas, Cuero Blando, Cuero Endurecido
+
+# RANGOS
+####################
+Armadura·Ligera	2
+  *  Cuero Blando	2
+  *  Cuero Endurecido	2
+Armadura·Media	1
+  *  Cota de Mallas	1
+Armas·Contundentes	2
+  *  Arma	2
+Armas·Filo	0
+  *  Arma	0
+Armas·2manos	0
+  *  Arma	0
+Armas·Proyectiles	1
+  *  Arma	1
+Armas·Asta	0
+  *  Arma	0
+Armas·Arrojadizas	1
+  *  Arma	1
+Atletismo·Gimnasia	1
+  *  Trepar	1
+Atletismo·Potencia	1
+Atletismo·Resistencia	1
+  *  Nadar	0
+Ciencia/Analítica·Básica	0
+Comunicación	1
+  *  Idiomas	4
+Conocimiento·General	3
+  *  Conocimiento Regional	3
+  *  Conocimiento Cultural	3
+Exteriores·Animales	0
+  *  Montar	0
+Exteriores·Entorno	2
+Percepción de Poder	0
+Percepción·Búsqueda	2
+Percepción·Perspicacia	0
+  *  Alerta	2
+Subterfugio·Sigilo	1
+  *  Acechar	1
+  *  Esconderse	1
+Técnica/Comercio·General	1
+Urbana	0
+Desarrollo Físico	0
+  *  Desarrollo Físico	1
+Listas Abiertas de Hechizos	0
+  *  Lista de Hechizos	0
+
+# PUNTOS AFICIONES
+####################
+10
+
+# AFICIONES
+####################
+Alerta, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas, Armas·Contundentes
+Armadura·Ligera, Buscar, Caminar por la Cuerda Floja, Conocimiento Regional, Emboscar
+Espeleología, Ocultar Objetos, Resistencia Adrenal, Sentido de la Dirección, Sentido del Espacio
+Sentido del Tiempo, Vista, Olfato, Tacto, Gusto, Oído, Supervivencia, Tasar, Trabajar el Metal
+Trabajar la Piedra, Vigilancia, Volteretas, Zahorí
+
+# IDIOMAS
+####################
+Habla Común	8/8
+Habla Negra	8/8
+Orco	8/8
+
+# ADIESTAMIENTOS
+####################
+Ninguno
+
+### FIN CULTURA ###

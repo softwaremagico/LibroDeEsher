@@ -1,0 +1,55 @@
+#Generalizaciones: Pistola Automática, Revolver, Pistola Avancarga, Pistola energética
+Revolver: Colt Trooper	pstCt
+Revolver: Colt Army (Peacemaker)	pstPM
+Revolver: Colt DA Army	pstDA
+Revolver: Colt Detective Special	pstDS
+Revolver: Colt Navy	pstNv
+Revolver: Colt Police Positive	pstPP
+Revolver: Japanese Type 26	pstJa26
+Revolver: Nagant M1895	pstNa1895
+Revolver: Remington .41 Derringer	pstDe
+Revolver: S&W M27	pstM27
+Revolver: S&W Military & Police	pstM&P
+Revolver: Webley Mk3	pstW3
+Revolver: Webley Mk4	pstW4
+Pistola Automática: Astra 400	pstA400
+Pistola Automática: Astra 900	pstA900
+Pistola Automática: Astra 902	pstA902
+Pistola Automática: Astra M1921	pstAM1921
+Pistola Automática: Bayard 1923	pstB1923
+Pistola Automática: Beretta 1915	pstB1915
+Pistola Automática: Beretta 1934	pstB1934
+Pistola Automática: Browning 1910	pstB1910
+Pistola Automática: Browning 1922	pstB1922
+Pistola Automática: Browning Baby	pstBBy
+Pistola Automática: Browning GP35	pstGP35
+Pistola Automática: Colt M1911	pstC1911
+Pistola Automática: Colt Service	pstCS
+Pistola Automática: Colt Woodsman	pstCW
+Pistola Automática: CZ 24	pstCZ24
+Pistola Automática: CZ 27	pstCZ27
+Pistola Automática: Frommer M29	pstFM29
+Pistola Automática: Frommer M37	pstFM37
+Pistola Automática: Frommer Stop	pstFS
+Pistola Automática: Japanse Model 94	pstJa94
+Pistola Automática: Llama Model 11	pstLM11
+Pistola Automática: Llama Model 3	pstLM3
+Pistola Automática: Mab Model A	pstMMA
+Pistola Automática: Mab Model D	pstMMD
+Pistola Automática: Mannlicher 1901	pstM1901
+Pistola Automática: Mauser C96	pstMC96
+Pistola Automática: Mauser Pocket Model 1910	pstMPM1910
+Pistola Automática: Mauser Pocket Model 1934	pstMPM1934
+Pistola Automática: Nambu Baby	pstNBy
+Pistola Automática: Namby 1904	pstN1904
+Pistola Automática: Parabellum Luger P08	pstPLP08
+Pistola Automática: Radom	pstRdm
+Pistola Automática: Sauer Behorden Model	pstSBM
+Pistola Automática: Sauer Model 38H	pstSM38H
+Pistola Automática: Star Model B	pstSMB
+Pistola Automática: TT-33 Tokarev	pstTT33
+Pistola Automática: Type 80	pstT80
+Pistola Automática: Walther Model 8	pstWM8
+Pistola Automática: Walther Model Pistole	pstWMP
+Pistola Automática: Walther Model PP	pstWMPP
+Pistola Automática: Walther Model PPK	pstWMPPK

@@ -1,0 +1,122 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	0
+Co	2
+Me	0
+Ra	0
+Ad	2
+Em	0
+In	0
+Pr	0
+Rp	0
+Fu	2
+Ap	0
+
+# ESPERANZA DE VIDA
+####################################
+150
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-5
+Esencia	-5
+Mentalismo	-5
+Veneno	0
+Enfermedad	0
+Psiónico	-5
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/6/5/2/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/6/5/4/3
+PP Mentalismo	0/7/6/5/4
+PP Psiónico	0/7/6/5/4
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+10
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN
+####################################
+0.8
+
+#IDIOMAS
+####################################
+2
+
+#HISTORIAL
+####################################
+5
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Habla Alta	6/6	8/8
+Habla Común	8/6	10/10
+Élfico Gris	0/0	4/4
+Élfico Alto	0/0	2/2
+Habla de las Colinas	0/0	6/6
+Habla de los Mares	0/0	6/6
+Habla Pequeña	0/0	6/6
+Habla de las Llanuras	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
+Élfico Alto	0/0	4/4
+Habla de las Llanuras	0/0	8/8
+Habla de las Colinas	0/0	8/8
+Habla del Norte	0/0	8/8
+Habla de los Bosques	0/0	8/8
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+-Subterránea, -{Bárbara}
+
+#ESPECIALES
+####################################
+Ninguna
+
+#NOMBRES MASCULINOS
+####################################
+Bran, Eddard, Jon, Tyrion, Will, Robert, Jon, Bran, Jaime, Robb, Rickon, Joffrey
+Petyr, Bronn, Tywin, Renly, Syrio, Varys, Yoren, Edmure, Roose, Stannis, Mace
+Gared, Royce, Benjen, Samwell, Jeor, Aemon, Viserys, Aerys, Drogo, Jorah, Rhaegar
+Balon, Deagol, Smeagol, Denthor, Boromir, Faramir, Ecthelion
+
+
+#NOMBRES FEMENINOS
+####################################
+Catelyn, Daenerys, Arya, Sansa, Cersei, Lysa, Margaery, Elia, Anduin, Andúril
+Anórien, Arwen, Bree, Brida, Damrod, Isildur, Dernhelm, Eowyn, Lórien, Emyn
+
+#APELLIDOS
+####################################
+Stark, Tully, Targaryen, Nieve, Lannister, Baratheon, Arryn, Baelish, Forel, Hoster
+Bolton, Tyrell, Waymar, Tarly, Mormont, Rayder, Dothraki, Martell, Greyjoy, Tuk
+Dúnedain, Dúnhere, Dwimordene
+
+#### FIN RAZA ####

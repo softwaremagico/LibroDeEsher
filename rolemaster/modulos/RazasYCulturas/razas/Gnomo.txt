@@ -1,0 +1,130 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	2
+Co	0
+Me	2
+Ra	2
+Ad	0
+Em	-2
+In	4
+Pr	-2
+Rp	2
+Fu	-8
+Ap	-5
+
+# ESPERANZA DE VIDA
+####################################
+600
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	30
+Esencia	30
+Mentalismo	20
+Veneno	0
+Enfermedad	0
+Psiónico	10
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/5/4/3/2
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/6/5/4/3
+PP Mentalismo	0/6/5/4/3
+PP Psiónico	0/5/4/3/2
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+16
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA
+####################################
+Normal
+
+#RECUPERACIÓN
+####################################
+0.5
+
+#IDIOMAS
+####################################
+4
+
+#HISTORIAL
+####################################
+4
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Gnómico	8/8	10/10
+Habla Común	6/6	8/8
+Élfico Alto	0/0	6/6
+Habla Alta	0/0	8/8
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Común	0/0	10/10
+Enano	0/0	6/6	
+Élfico Gris	0/0	6/6
+Élfico Alto	0/0	8/8
+Lengua Alta	0/0	10/10
+
+#IDIOMAS HISTORIAL
+####################################
+
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Subterránea, Minera, {Rural}, {Urbana}
+
+#ESPECIALES
+####################################
+Visión Nocturna: Visión en la oscuridad
+
+#NOMBRES MASCULINOS
+####################################
+Daeb, Ido, Dola, Ichen, Venec, Alepos, Gimbar, Zanc, Nizac
+Snurf, Pequad, Nain, Beteil, Uriak, Teferi, Tefer, Jaudim, Atottis
+Od, Esir, Din, Oyn, Chesd, Ur, Pssod, Malickud, Detlev, Jaudin
+Michen, Xenel, Deat, Tom-tittot, Whuppity, Winterkoble, Hruzimugeli
+Titteli, Gilitrutt, Rumpelstilzquen, Aubert, Kernobee, Ubaldo, Usmenengaliano
+Barfolomo, Corpotoc, Dimbel, Fonkin, Gerbo, Glim, Gimble, Jebeddo, Namfudel
+Rundar, Sibo, Zuk, RikkiTikkiTavi, Milo, Ringo, Elmo, Arlo, Jethro, Rocco
+Aristodemo, Aristomaco, Stágoros, Truppty, Ríscolo
+
+#NOMBRES FEMENINOS
+####################################
+Moli, Nar, Tecla, Ketra, Quin, Helga, Feyarm, Enil, Ruash, Bimpnotia, Caramip
+Lambda, Tssadi, Sitranna, Ogna, Emi, Clarisa, Elimecha, Eliyodong, Marpilla
+Rizomotia, Roywyn, Duvamil, Shamil, Viasaquilla
+
+#APELLIDOS
+####################################
+Sabelotodo, Stoorie, Ture, Bardanzellu, Bam-Bam, Rutilante, Lenguamordiente
+Serio como la Montaña, Perteneciente a su Padre, Recuerdo Amargo, Barbudo Negro
+Bonachón, Panza Feliz, Mekkatorque, Risa Mellada, Hilirante, Piedramágica, Trastolillo 
+Shilencioso, Anselmohoso, Rustico, Dwindle, Afanafritos, Brillagema, Cenizhogar
+Doblehierro, Doblecierre, Fiquillo, Manto, Salpicabirras, Tejón, Trastompicón, Unzapato
+Tuercarota, Deboratarros, Suelosucio, Barbaquemada, Polvoceja, Cejijunto, Unojo
+Comemoco
+
+#### FIN RAZA ####

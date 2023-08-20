@@ -1,0 +1,116 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	0
+Co	6
+Me	0
+Ra	-4
+Ad	-2
+Em	-4
+In	0
+Pr	4
+Rp	0
+Fu	10
+Ap	-5
+
+# ESPERANZA DE VIDA
+####################################
+75
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-5
+Esencia	-5
+Mentalismo	-5
+Veneno	20
+Enfermedad	20
+Psiónico	-15
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/9/6/5/4
+PP Arcano	0/5/3/2/2
+PP Canalización	0/5/3/2/2
+PP Esencia	0/6/4/3/2
+PP Mentalismo	0/5/4/3/2
+PP Psiónico	0/5/3/2/2
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Montaraz
+
+#PARTIDA DEL ALMA
+####################################
+10
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+3
+
+#HISTORIAL
+####################################
+4
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Centauro Escorpión	8/6	10/10
+Habla del Desierto	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Común	0/0	6/6
+
+#HABILIDADES COMUNES
+####################################
+Acechar, Esconderse, Cazar, Forrajear, Rastrear, Ataque Racial: Otro
+Ataque Racial: Extremidades, Trepar
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Juegos Atléticos (Gimnasia), Acrobacias, Caer, Contorsionismo
+Malabarismos, Volar/Planear, Volteretas, Caminar con Zancos
+Esquiar, Hacer Surf, Patinar, Rappelling
+Salto con Pértiga, Combate Montado, Montar: Lobos, Montar: Caballos, 
+Montar: Osos, Boxeo, Golpes de Artes Marciales, Barridos de Artes Marciales
+
+#CULTURAS
+####################################
+Desierto, Subterránea
+
+#ESPECIALES
+####################################
+Reserva de Veneno: Aguijón que inyecta un veneno respiratorio nivel 6C
+Arma Natural: Pinzas de escorpión adicionales (Tamaño Medio)
+Piel Gruesa (Máximo): Armadura de Quitina (TA 12)
+
+#NOMBRES MASCULINOS
+####################################
+Anub'Arak, Hyjal, Kel'thuzad, Draktarhi, Loviatar, Malar, Tos'un
+Pharaun, Jeggred, Hast-Ra, Ka-Ron-Tu, Knick-Knick, Konat-Kale, Nunoo-Quarcoo
+Ra-Kul, Sh'Olmar, Swynard, T'Ch'aikotta, Thruhleow, Vashanka, X'Oaan, X'Rae, Xa, 
+X'Tra, Xxyzx, Tenembaun, Ya'an, Ynnd'r, Ar', Ch'kolrath, Ibreaka'unoze
+
+#NOMBRES FEMENINOS
+####################################
+Arach-Tilinith, Zin-Carla, Moander, Yochlol, Akordia, Mor-Am, Thyla, Totha,  Vivhenela
+Xebra, Xylia, K'tala
+
+#APELLIDOS
+####################################
+Lenguanegra, Baenre, Armgo, Parhm, Mizzrym, Raoul, Raoghnait, Skipwyth, Xyvzyphous
+
+#### FIN RAZA ####

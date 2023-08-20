@@ -1,0 +1,51 @@
+# TIEMPO (meses)
+####################################
+95
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Patrón (proporciona apoyo econonico)	40
+Libro (+10 no mágico a un conocimiento especifico)	30
+Libro (+10 no mágico a un conocimiento especifico)	30
+Libro (+10 no mágico a un conocimiento especifico)	30
+Libro (+10 no mágico a un conocimiento especifico)	30
+Libro (+10 no mágico a un conocimiento especifico)	30
+Animal doméstico (pequeño)	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Ciencia/Analítica·Básica	2	2	2	2
+  *  Documentación	1	-	-	-
+Comunicación	3	1	1	3
+Conocimiento·General	4	1	4	4
+Conocimiento·Mágico	1	1	1	1
+Conocimiento·Técnico	3	1	3	3
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Ninguna
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

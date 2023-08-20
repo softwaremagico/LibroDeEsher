@@ -1,0 +1,5 @@
+#Generalizaciones: 
+Arma de Asta	aa
+Jabalina	ja
+Lanza	la
+Lanza de Caballería	lc

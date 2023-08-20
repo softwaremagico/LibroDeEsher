@@ -1,0 +1,84 @@
+# ARMAS TÍPICAS
+####################
+Machete, Sable, Cimitarra, Espadón, Hacha de Batalla
+Honda, Arco Corto, Arco Largo, Arco Compuesto, Látigo, Mangual
+Maza, Lanza, Jabalina, Lanza de Caballería
+
+# ARMADURAS TÍPICAS
+####################
+Cuero Blando, Cuero Endurecido, Cota de Mallas
+
+# RANGOS
+####################
+Armadura·Ligera	1
+  *  Cuero Blando	0
+  *  Cuero Endurecido	0
+Armadura·Media	0
+  *  Cota de Mallas	0
+Armas·Contundentes	0
+  *  Arma	0
+Armas·Filo	1
+  *  Arma	0
+Armas·2manos	0
+  *  Arma	0
+Armas·Proyectiles	2
+  *  Arma	2
+Armas·Asta	0
+  *  Arma	0
+Armas·Arrojadizas	1
+  *  Arma	1
+Atletismo·Gimnasia	1
+  *  Trepar	0
+Atletismo·Potencia	1
+Atletismo·Resistencia	3
+  *  Nadar	0
+Ciencia/Analítica·Básica	0
+Comunicación	1
+  *  Idiomas	4
+Conocimiento·General	3
+  *  Conocimiento Regional	3
+  *  Conocimiento Cultural	3
+Exteriores·Animales	5
+  *  Montar: Caballos	5
+Exteriores·Entorno	3
+Percepción de Poder	0
+Percepción·Búsqueda	1
+Percepción·Perspicacia	0
+  *  Alerta	1
+Subterfugio·Sigilo	0
+  *  Acechar	0
+  *  Esconderse	0
+Técnica/Comercio·General	1
+Urbana	0
+Desarrollo Físico	0	
+  *  Desarrollo Físico	2
+Listas Abiertas de Hechizos	0
+  *  Lista de Hechizos	0
+
+# PUNTOS AFICIONES
+####################
+12
+
+# AFICIONES
+####################
+Abrir Cerraduras, Acechar, Agenciar, Arma, Armadura·Ligera
+Cantar, Carrera de Fondo, Cocinar, Conocimiento Regional
+Coser/Tejer, Desarrollo Físico, Disimulo, Esconderse, Forrajear, Instinto Urbano
+Juego, Juegos de Manos, Maestría de Animales, Malabarismos
+Manejo de los Animales, Mendigar, Observación, Primeros Auxilios
+Rastrear, Seducción, Sentido de la Dirección, Sobornar, Supervivencia (Desierto)
+Tocar Instrumento, Trabajar el Cuero, Trabajar el Metal, Trabajar la Madera
+Trabajar la Piedra
+
+# IDIOMAS
+####################
+Habla Común	8/8
+Habla del Norte	8/8
+Habla del Sur	8/8
+Habla de las Llanuras	8/8
+
+# ADIESTAMIENTOS
+####################
+Ninguno
+
+### FIN CULTURA ###

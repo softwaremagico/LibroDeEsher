@@ -1,0 +1,165 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	-2
+Co	4
+Me	0
+Ra	0
+Ad	0
+Em	0
+In	0
+Pr	4
+Rp	-2
+Fu	4
+Ap	5
+
+# ESPERANZA DE VIDA
+####################################
+300
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-5
+Esencia	-5
+Mentalismo	-5
+Veneno	0
+Enfermedad	0
+Psiónico	-5
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/7/5/3/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/6/5/4/3
+PP Mentalismo	0/7/6/5/4
+PP Psiónico	0/7/6/5/4
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+10
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN
+####################################
+0.7
+
+#IDIOMAS
+####################################
+3
+
+#HISTORIAL
+####################################
+4
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Habla Alta	8/6	10/10
+Habla Común	8/6	10/10
+Élfico Alto	2/2	6/6
+Élfico Gris	0/0	8/8
+Habla de las Colinas	0/0	6/6
+Habla de los Mares	0/0	8/8
+Habla Pequeña	0/0	6/6
+Habla de las Llanuras	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
+Élfico Alto	0/0	8/8
+Habla de las Llanuras	0/0	8/8
+Habla de las Colinas	0/0	8/8
+Habla del Norte	0/0	8/8
+Habla de los Bosques	0/0	8/8
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+-Subterránea, -Silvana, -{Bárbara}
+
+#ESPECIALES
+####################################
+Ninguna
+
+#NOMBRES MASCULINOS
+####################################
+Kaleb, Meredith, Shevrar, Gornar, Sanek, Sarek, Ghaan, Dunat, Forra, Raxa, Toph, Jennar
+Tharek, Trarek, Tori, Renni, Astaer, Londal, Semeion, Dameion, Brutha, Vorbis, Taraphen, Ler
+Folwar, Agnar, Ambros, Ambrose, Arbagon, Arboran, Arcadain, Dumas, Dumatrith, Dunaut, Duncan
+Farfle, Fargo, Farica, Farn, Gaarn, Gaben, Kondo, Jacon, Kristin, Kristion, Leandro, Lauren, Laurencio
+Landbercht, Landelis, Lando, Landoris, Maximus, Maxio, Zaiburo, Edecón, Nerseadin, Nereildun
+Dandelaion, Nelgar, Faraq, Rool, Davos, Adriano, Adric, Alan, Alestro, Asperon,  Astrol, Eevroen
+Alucio, Aius, Ultinos, Uraucen, Orison, Habis, Ashran, Denyal, Alsan, Shail, Rande, Feinar, Even, Iveron
+Kevanion, Kersh, Covan, Yohavir, Tanawe, Rown, Harel, Rawel, Rodrik, Moreo, Ned, Robb, Bran, Jon
+Joff, Viserys, Brandon, Eddard, Joffrey, Luwin, Yoren, Petyr, Aron, Selmy, Loras, Mance, Joly, Stiv, Joseth
+Mord, Lyn, Corbray, Albar, Marillion, Bronn, Vardis, Martyn, Jory, Theo, Wull, Ethan, Mark, Dustin, Oswell
+Gerold, Arys, Joss, Hullen, Desmond, Jayne, Boros, Timett, Rhaego, Cohollo, Baelish Flement, Jolabhan
+Aron, Sanlaga, Theon, Loras, Beric, Hoster, Brynden, Edmure, Jason, Bryce, Tytos, Wakder, Stevron
+Karyl, Jonos, Doran, Gerold, Lewyn, Jaehaerys, Darwell, Whalen, Rygen, Jered, Edmure, Velanyon
+Danwell, Hosteen, Marwyn, Cressen, Pylos, Jommy, Steffon, Harbert, Davos, Gulian, Beric, Caron, Renly
+Celtigar, Axell, Shalladhor, Argoth, Meryn, Hobber, Balon, Lothor, Serwyn, Rymus, Zeddicus, Jeziah
+Jaceryl, Allar, Allard, Devan, Maric, Matthos, Azor, Byren, Salladhor, Dagmer, Sylas, Botley, Patrek
+Qalen, Wendamyr, Rodrik, Maron, Gryff, Sholloreon, Polliver, Dunsen, Deziel, Tremond, Harmen, Ulwyck, Ryon
+Daemon, Dagos, Myles, Mors, Dickon, Arron, Perhos, Flement, Gyles, Addam, Jalabhar, Harys, Merlon, Philipp
+Dick, Mudge, Watty, Kyle, Harwin, Utt, Anguy, Merrit, Clydas, Cellador, Follard, Hobb, Wynotur, Bowen
+
+#NOMBRES FEMENINOS
+####################################
+Sherva, Dubhe, Theana, Gadara, Rekla, Shava, Rubria, Magara, Chloe, Gilda, Sheireen
+Asthey, Lefe, Tesanaka, Neil, Taysa, Aache, Arabela, Arade, Aradhel, Delana, Duana, Edith, Eldora
+Elisne, Elisota, Eliza, Elizabeth, Elizabetha, Elizota, Esabella, Felicia, Fala, Falia, Rose, Gabriela, Gabrielle
+Gunasekera, Halena, Indra, Ine, Jacha, Jelena, Krita, Leanna, Lauralee, Laurana, Laurelin, Lauretta
+Lariena, Larina, Loerya, Maddalena, Mayda, Zeina, Ysabel, Similce, Kara, Aunia, Nunn, Shae
+Kay, Sonara, Sulana, Eluisi, Kala, Zalenia, Selenia, Adriana, Aleria, Alledra, Ashely, Seihar, Zeihar
+Kestra, Awinor, Kimara, Aile, Allegra, Nirei, Harel, Kestra, Tessa, Catelyn, Sansa, Arya, Daenerys
+Cersei, Osha, Hali, Lyra, Karye, Lysa, Shella, Shireen, Dalla, Matrice, Selyre, Melisandre, Lollys, Falyre
+Tysha, Kahalan, Miranda, Asshai, Marya, Nissa, Esher, Helya, Myria, Larra, Jynessa, Ellaria
+
+#APELLIDOS
+####################################
+De Acastre, De Ackys, De Aker, De Ask, De Ayremyn, De Ayrennyn, De Balne, De Bardelby
+De Barnby, De Barneby, De Barton, De Benetland, De Berghnby, De Berlay, De Bernhyll
+De Bilburgh, De Birland, De Blaktoft, De Blakwell, De Bolthorp, De Boynton, De Brakenholm
+De Brayton, De Brigham, De Bromston, De Broune, De Browen, De Brungeflete, De Brungflete
+De Bruswyk, De Bryg, De Brysay, De Bubw, De Bubwyght, De Bucolne, De Bulbek, De Bulmer
+De Bulthorp, De Burbrygg, De Burne, De Butterwyk, De Bylton, De Byrdsay, De Byrland, De Camelthorp
+De Camsall, De Carlell, De Carleton, De Catnay, De Cattall, De Cawode, De Clay, De Claybroke
+De Clifton, De Clyf, De Colby, De Coldon, De Cotenesse, De Coton, De Coupeland, De Craue
+De Craven, De Croftes, De Cundall, De Dalby, De Darby, De Drax, De Driffeld, De Duffeld
+De Dunnyngton, De Ellerton, De Eluelay, De Emsay, De Esex, De Ffenton, De Fferyby, De Ffuntayns
+De Garthe, De Garton, De Ger,  De Gralayn, De Grene, De Grenrake, De Hall, De Hamylton
+De Hathelsay, De Haukstok, De Haysay, De Hesylwode, De Holand, De Holm, De Houk, De Kayuill
+De Kellek, De Kelsay, De Kirkby, De Kylpyn, De Laxton, De Lokyngton, De Lusceby, De Mawson
+De Melton, De Menthorp, De Merston, De Messyngham, De Moreby, De Morton, De Moyne
+De Mydelham, De Mydelton, De Naburn, De Neubald, De Neuson, De Newbald, De Newton
+De Northeby, De Notton, De Park, De Payth, De Poklay, De Pole, De Polynton, De Pothowe
+De Priston, De Pygateman, De Rome, De Sadyngton, De Saltmerssh, De Sancton, De Sandholme
+De Santon, De Skypwyth, De Slenggesby, De Slyndkesby, De Stather, De Staynholme, De Staynton
+De Stowe, De Styllingflete, De Suthwell, De Sutton, De Swanland, De Thorneclay, De Thorp
+De Touthorp, De Waghen, De Waldby, De Walkryngton, De Walkynton, De Walsay, De Wandesford
+De Wartre, De Warwyk, De Watton, De Wedall, De Weles, De Westby, De Weton, De Wharrom
+De Wressyl, De Wykstow, De Wystowe, De Yle, De Yucflet, De Redwyne, De Harrenhal, De Hollard
+De Deem, De Dalt, De Gargalen, De Uller, De Manwoody, De Qorgyle, De Tor, De Blackmont
+De Swyft, De Crakehall, De Foote, De Marbrand, De Xho, De Vadelcuerno, De Brax, De Dondarrion
+De Clegane, De Stout, De Marsh
+
+#### FIN RAZA ####

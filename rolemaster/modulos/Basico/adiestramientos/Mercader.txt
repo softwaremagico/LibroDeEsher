@@ -1,0 +1,51 @@
+# TIEMPO (meses)
+####################################
+23
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Amistad con un mercader	40
+Amistad con un mercader	40
+Amistad con un mercader	40
+Balanza y pesas de mercader	30
+Material para vender (10D10 mp)	30
+Material para vender (10D10 mp)	30
+Material para vender (1D10 mp)	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Ciencia/Analítica·Básica	1	1	1	1
+  *  Matemáticas Básicas	1
+Comunicación	3	1	3	3
+Técnica/Comercio·Vocacional	0	2	2	3
+  *  Tasar	2	
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Ninguno
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

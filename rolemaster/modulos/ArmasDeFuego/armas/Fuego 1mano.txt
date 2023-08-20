@@ -1,0 +1,4 @@
+#Generalizaciones: Pistola Automática, Revolver, Pistola Avancarga, Pistola energética
+Pistola Automática: Samuel Coutty	pstSc
+Pistola Avancarga: Thomas French Contract Pistol 	pstTfcp
+Revolver: Colt Trooper	pstCt

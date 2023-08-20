@@ -1,0 +1,110 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS	50
+####################################
+Ag	4
+Co	-2
+Me	0
+Ra	0
+Ad	0
+Em	2
+In	2
+Pr	0
+Rp	6
+Fu	-4
+Ap	0
+
+# ESPERANZA DE VIDA	3
+####################################
+150
+
+#MODIFICACIÓN A LA TR	0
+####################################
+Canalización	0
+Esencia	0
+Mentalismo	0
+Veneno	0
+Enfermedad	0
+Psiónico	0
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN	65
+####################################
+Desarrollo Físico	0/6/2/2/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/6/5/4/3
+PP Mentalismo	0/7/6/5/4
+PP Psiónico	0/7/6/5/4
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna.
+
+#PARTIDA DEL ALMA	-4
+####################################
+8
+
+#TIPO DE RAZA	0
+####################################
+3
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN	0
+####################################
+1
+
+#IDIOMAS	0
+####################################
+2
+
+#HISTORIAL	10
+####################################
+6
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Ilouriano	8/4	10/10
+Habla Común	5/0	8/8
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Común	0/0	10/10
+
+#HABILIDADES COMUNES	0
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS	0
+####################################
+Ninguna
+
+#CULTURAS	
+####################################
+Acuática, Aérea, Ártica, Llanuras, Tierras Altas, Desierto, Litoral, Minera, Rural, Silvana
+
+#ESPECIALES
+####################################
+Ninguno
+
+#NOMBRES MASCULINOS
+####################################
+Learco, Abano, Abilio, Ablonnio, Abrunaeno, Acario, Accio, Accón, Acuo, Bodo
+Caelio, Cancilo, Cillio, Dadón, Daegeno, Dorulio, Eleso, Erudino, Magilón, Nemayecano
+Obbellegino, Pento, Segetio, Talanio, Tusco, Virono
+
+#NOMBRES FEMENINOS
+####################################
+Morticia, Acca, Acida, Acuana, Aelatia, Amia, Calediga, Kankâ, Cicana, Deva
+Dobra, Irmana, Lugua, Miocula, Nicua, Noiva, Origena, Reburinia, Segaida, Talania
+Turaennia
+
+#APELLIDOS
+####################################
+Ignodan, Camáricos, Doidérigo, Elesicainos, Moroicano, Pentovieco, Ubalacino
+Ucesio, Vadinien, Verónigo, Viroma, Voconia
+
+#### FIN RAZA ####

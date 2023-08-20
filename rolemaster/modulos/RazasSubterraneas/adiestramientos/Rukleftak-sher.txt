@@ -1,0 +1,55 @@
+# TIEMPO (meses)
+####################################
+70
+
+# EXCLUSIVO RAZA
+####################################
+Orco Gris
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Arma cuerpo a cuerpo (no mágica)	50	20	Arma
+Armadura (no mágica)	50	10	Armadura
+Multiplicador PPs (x2)	40
+Escudo (no mágico)	40	10	Armadura
+Arma (no mágica)	30	10	Arma
+Objeto diario II	20
+Sumando de hechizos (+1)	20
+Arma (no magica)	100	5	Arma
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Desarrollo Físico	0	1	1	2
+  *  Desarrollo Físico	2
+Manipulación del Poder	0	1	1	2
+  *  Trascender Armadura	2
+Percepción de Poder	1	1	1	1
+{Armadura·Ligera; Armadura·Media; Armadura·Pesada}	2	1	1	2
+{Armas·2manos; Armas·Arrojadizas; Armas·Artillería; Armas·Contundentes; Armas·Asta; Armas·Filo; Armas·Proyectiles}	1	1	1	1
+{Listas Básicas de Hechizos; Listas Abiertas de Hechizos}	0	1	1	2
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+{Ag; Co; Ra; Me; Ad; Em; Pr; In; Rp; Fu}
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

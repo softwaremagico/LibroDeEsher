@@ -1,0 +1,59 @@
+# TIEMPO (meses)
+####################################
+102
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Lobo amigo	20
+Gato salvaje amigo	30
+Mapache amigo	40
+Hurón amigo	40
+Búho amigo	40
+Paloma amiga	50
+Serpiente amiga	30
+Perro domesticado amigo	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Conocimiento·General	4	3	3	4
+  *  Conocimiento de la Fauna	2	-	-	-
+  *  Conocimiento de la Flora	1	-	-	-
+  *  Conocimiento Regional	1	-	-	-
+Exteriores·Animales	4	1	3	4
+Exteriores·Entorno	2	1	2	2
+Percepción·Búsqueda	2	2	2	2
+  *  Leer Huellas	1	-	-	-
+  *  Rastrear	1	-	-	-
+Subterfugio·Sigilo	2	2	2	2
+  *  Acechar	1	-	-	-
+  *  Esconderse	1	-	-	-
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Em
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

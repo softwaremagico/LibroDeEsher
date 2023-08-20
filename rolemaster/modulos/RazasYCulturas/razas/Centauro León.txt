@@ -1,0 +1,120 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS	
+####################################
+Ag	0
+Co	4
+Me	0
+Ra	-2
+Ad	0
+Em	-2
+In	0
+Pr	4
+Rp	0
+Fu	6
+Ap	-5
+
+# ESPERANZA DE VIDA	
+####################################
+100
+
+#MODIFICACIÓN A LA TR	
+####################################
+Canalización	-5
+Esencia	-5
+Mentalismo	-5
+Veneno	15
+Enfermedad	20
+Psiónico	-10
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN	
+####################################
+Desarrollo Físico	0/9/6/5/4
+PP Arcano	0/5/4/3/2
+PP Canalización	0/5/4/3/2
+PP Esencia	0/5/4/3/2
+PP Mentalismo	0/6/5/4/3
+PP Psiónico	0/6/5/4/3
+
+#PROFESIONES RESTRINGIDAS	
+####################################
+Combate Montado, Montar
+
+#PARTIDA DEL ALMA	
+####################################
+10
+
+#TIPO DE RAZA	
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN	
+####################################
+1
+
+#IDIOMAS	
+####################################
+3
+
+#HISTORIAL
+####################################
+5
+
+#IDIOMAS	Inicial	Max.Cultura	
+####################################
+Centauro	8/6	10/10
+Habla Común	0/0	6/6
+Habla de las Llanuras	0/0	6/6
+Habla Alta	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Común	0/0	8/8
+Habla Alta	0/0	6/6
+
+#HABILIDADES COMUNES	
+####################################
+Acechar, Esconderse, Cazar, Forrajear, Rastrear
+
+#HABILIDADES RESTRINGIDAS	
+####################################
+Atletismo·Gimnasia, Combate Montado, Montar: Lobos, Montar: Caballos, Montar: Osos
+
+#CULTURAS
+####################################
+Llanuras
+
+#ESPECIALES
+####################################
+Ataque Natural: poseen garras retráctiles que pueden usar como armas en combate cuerpo a cuerpo hasta nivel medio.
+
+#NOMBRES MASCULINOS
+####################################
+Ladalu, Valeedu, Eblu, Airdsgainne, Aethelmaere, Adinett, Alerepem, Allanon
+Bebhinn, Beeblebrox, Bloddwyn, Brereton, Cangh, Ceannfhionn, Chrombobulus
+Dalamak, Darq'ab, Darr, Davaryush, Davic, Darius, Dellingr, Fearbhirigh
+Drinishok, Dunnyngton,  Efod, Eachthighearn, Erminric, Gothfraidh, Indhios
+Jormunrek, Klothe, Mantooth, Mryddren, Pengsass, Preostleah, Wydowson
+Wodderrowe, Zensunni, Zlefgig
+
+#NOMBRES FEMENINOS
+####################################
+Ankira, Bavmorda, Callipygia, Calliope, Caue, Claeg, Claire, Clare, Clerkdoghter
+Cymera, Cynara, Darra, Deirdre, Deasach, Dyareela, Dicondoghter, Efnie
+Elyndoghter, Huddoghter, Pyersdoghter, Syssondoghter, Galaphine, Geomorphisma
+Grada, Gulgonen, Hokora, Kypax, Kwabena, Madelhari, Nalen, Nishinou, Passelewe
+Sadhbha, Seanachan, Ygerna
+
+#APELLIDOS
+####################################
+Garrasacero, Atte, Atte Barke, Atte Bek, Atte Bouche, Atte Burgh, Atte Cotes
+Atte Cyrkarth, Atte Frers, Atte Gotte, Atte Hall, Atte Keld, Atte Kyrk, Atte Lane
+Atte Prestes, Atte Schurgh, Atte Vicars, Atte Wodhall, Atte Wylowes
+Atte Ye Bek, Atte the Lathys, Attehyll, Atteloft, Attew, Attewelle, Attheneldre
+
+#### FIN RAZA ####

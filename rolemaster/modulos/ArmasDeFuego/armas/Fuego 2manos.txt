@@ -1,0 +1,3 @@
+#Generalizaciones: Escopeta, Rifle, Rifle de Francotirador, Rifle de Avancarga, Rifle Energético
+Rifle de Avancarga: Mosquete Francés de 1600	rflMf
+Rifle de Avancarga: Moroccan Snaphance	rflMs

@@ -1,0 +1,61 @@
+# ARMAS TÍPICAS
+####################
+Todas
+
+# ARMADURAS TÍPICAS
+####################
+Todas
+
+# RANGOS
+####################
+Arte·Activo	2	
+Arte·Pasivo	0
+Atletismo·Potencia	3
+Atletismo·Resistencia	1
+  *  Nadar	2
+Atletismo·Gimnasia	1
+  *  Trepar	3
+Percepción·Perspicacia	0
+  *  Alerta	1
+Percepción·Búsqueda	1  
+Percepción·Sentidos	0
+Desarrollo Físico	0	
+  *  Desarrollo Físico	2
+Comunicación	4
+  *  Idiomas	8
+Oficios	1
+Influencia	0
+{Conocimiento}	4
+  *  Cualquier Habilidad	5
+{Artes Marciales·Barridos;Artes Marciales·Golpes}#1	3
+Exteriores·Animales	3
+Exteriores·Entorno	3
+{Ciencia/Analítica}	2
+  *  Cualquier Habilidad	3
+Subterfugio·Sigilo	2
+  *  Acechar	0
+  *  Esconderse	1
+Técnica/Comercio·General	3
+Técnica/Comercio·Profesional	0
+Técnica/Comercio·Vocacional	3
+Urbana	3
+{Armas}#1	3
+  *  Arma	3
+
+# PUNTOS AFICIONES
+####################
+12
+
+# AFICIONES
+####################
+Todas
+
+# IDIOMAS
+####################
+Todos
+
+# ADIESTAMIENTOS
+####################
+Ninguno
+
+### FIN CULTURA ###

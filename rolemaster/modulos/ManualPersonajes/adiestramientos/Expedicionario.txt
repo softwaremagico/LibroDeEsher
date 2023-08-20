@@ -1,0 +1,55 @@
+# TIEMPO (meses)
+####################################
+66
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Arma (+10 no mágica)	40	10	Arma
+Animal de monta	40
+Pasaje sin límite en un barco	40
+d10 hierbas	30
+Mapa del mundo conocido	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Arma / Ataque	1	1	1	1
+Atletismo·Gimnasia	1	1	1	1
+  *  Trepar	1
+Atletismo·Resistencia	1	1	1	1
+  *  Nadar	1
+Conocimiento·General	2	1	2	2
+Percepción·Búsqueda	1	1	1	1
+  *  Observación	1
+Técnica/Comercio·General	3	2	3	3
+  *  Primeros Auxilios	1
+
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Co, {Ag; Me; Ra; Ad; Em; In; Pr; Rp; Fu}
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

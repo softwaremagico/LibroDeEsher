@@ -1,0 +1,118 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	2
+Co	2
+Me	0
+Ra	0
+Ad	-3
+Em	0
+In	0
+Pr	4
+Rp	4
+Fu	2
+Ap	10
+
+# ESPERANZA DE VIDA
+####################################
+500
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-5
+Esencia	-5
+Mentalismo	-5
+Veneno	0
+Enfermedad	50
+Psiónico	0
+Frío	5
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/7/5/3/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/6/6/4/3
+PP Mentalismo	0/7/5/4/3
+PP Psiónico	0/6/4/3/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+6
+
+#TIPO DE RAZA
+####################################
+3
+
+#TAMAÑO DE RAZA
+####################################
+Normal
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+3
+
+#HISTORIAL
+####################################
+4
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Élfico Gris	8/6	10/10
+Habla Común	8/6	10/10
+Élfico Alto	6/5	10/10
+Habla Alta	0/0	10/10
+Élfico	0/0	10/10
+
+#IDIOMAS HISTORIAL
+####################################
+Habla del Norte	0/0	6/6
+Habla de las Llanuras	0/0	6/6
+Habla de los Bosques	0/0	6/6
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Todas
+
+#ESPECIALES
+####################################
+	Visión total a 15 m parcial, a 30 en la oscuridad con una fuente de luz mínima.
+	Visión total a la luz de luna o de las estrellas hasta 150m. 
+
+#NOMBRES MASCULINOS
+####################################
+Tanis, Ousall, Phevas, Rysi, Seicen, Sernis, Tasadi
+Sate, Maki-kip, Idan-ne, Amrin, Gainil, Makikip, Idan-ne
+Fesback, Estrik, Drag, Dagledu, Bluganu, Datagon, Dagledu
+Dablic, Manila, Inker, Raktar, Inko, Glasdur, Gaeru, Ludalu, Gaben
+Vrasta, Theris, Goriar, Debar, Aranzon, Jothr, Barbulkan, Hollus
+Wibadal, Karno, Bhyf, Torio, San, Whyl, Sbuly, Learco, Kyrion, Ydath
+
+#NOMBRES FEMENINOS
+####################################
+Eiwenna, Isadara, Baildra,  Inistra, Ayakistra, Neliam, Arsha
+Elina, Karale, Fada, Sulia, Lea, Lenca, Ankira, Karev, Kerav
+Granda, Baldwine, Brynnda
+
+#APELLIDOS
+####################################
+Bolado, Bort, Berna, Bastida, Capella, Cota, Fëfalas, Alcarin, Tasartir, Felagund, Espúreo
+
+#### FIN RAZA ####

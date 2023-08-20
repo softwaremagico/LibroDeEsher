@@ -1,0 +1,38 @@
+Conocimiento de las Estrellas	Astrólogo/Oráculo
+Luces de las Estrellas	Astrólogo
+Sendas de la Voz	Astrólogo
+Sentido de las Estrellas	Astrólogo
+Visiones Sagradas	Astrólogo
+Voz Lejana	Astrólogo
+Espejismo de Defensa	Encantador
+Espejismo de Recuerdos	Encantador
+Ley de los Espejismos	Encantador
+Maestría de los Espejismos	Encantador
+Mejora de los Espejismos	Encantador
+Proyección de los Espejismos	Encantador
+Ley de la Batalla	Maestro de Armas
+Ley de la Fortaleza	Maestro de Armas
+Ley del Guerrero	Maestro de Armas
+Ley Marcial	Maestro de Armas
+Maestría de las Armaduras	Maestro de Armas
+Maestría de las Armas	Maestro de Armas
+Apropiación de la Visión	Vidente
+Protección de las Visiones	Vidente
+Visiones Lejanas	Vidente
+Visiones del Futuro	Vidente/Oráculo
+Visiones del Pasado	Vidente
+Visiones Mentales	Vidente
+Charadas	Charlatán
+Ley de la Medicina	Médico Especialista
+Medicina	Médico Especialista
+Maestría de la Navegación	Marinero
+Maestría del Mar	Marinero
+Maestría del Conocimiento	Sabio
+Besos del Houri	Houri
+Engaños del Houri	Houri
+Viaje Onírico	Viajero Onírico
+Ley de los Sueños	Tejesueños
+Conocimiento de los Sueños	Tejesueños
+Atar Animales	Señor de las Bestias
+Cambio de Mente	NiIdea
+Cambio de Cuerpo	NiIdea

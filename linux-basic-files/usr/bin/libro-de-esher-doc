@@ -1,0 +1,1 @@
+gpdf /usr/share/libro-de-esher/manual/EsherManual.pdf | evince /usr/share/libro-de-esher/manual/EsherManual.pdf | kpdf /usr/share/kendo-tournament-generator/manual/EsherManual.pdf

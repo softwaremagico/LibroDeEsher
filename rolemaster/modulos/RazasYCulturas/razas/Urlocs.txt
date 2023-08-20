@@ -1,0 +1,125 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	0
+Co	0
+Me	6
+Ra	6
+Ad	-2
+Em	2
+In	2
+Pr	2
+Rp	-2
+Fu	-4
+Ap	-30
+
+# ESPERANZA DE VIDA
+####################################
+Inmortales
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-5
+Esencia	-5
+Mentalismo	-5
+Veneno	10
+Enfermedad	100
+Psiónico	0
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/5/3/2/1
+PP Arcano	0/7/6/5/4
+PP Canalización	0/7/6/5/4
+PP Esencia	0/7/6/5/4
+PP Mentalismo	0/7/6/5/4
+PP Psiónico	0/3/2/1/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+6
+
+#TIPO DE RAZA
+####################################
+4
+
+#TAMAÑO DE RAZA
+####################################
+Normal
+
+#RECUPERACIÓN
+####################################
+2
+
+#IDIOMAS
+####################################
+4
+
+#HISTORIAL
+####################################
+3
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Urloc	8/8	10/10
+Habla Común	8/6	10/10
+Hablas de lo Mares	0/0	8/8
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Negra	0/0	6/6
+Élfico Alto	0/0	6/6
+Habla Alta	0/0	6/6
+Habla del los Mares	0/0	10/10
+
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Litoral
+
+#ESPECIALES
+####################################
+Ninguna
+
+#NOMBRES MASCULINOS
+####################################
+Astosur, Sinoish, Isin, Ashon, Sinarisil, Siminy, Cerunar, Shani, Yshiisha, Shimish
+Sary, Ysunsil, Simises, Sinossham, Seraresh, Shimonmir, Isary, Shenansan, Su, Sham
+Rethgoth, Cthezarg, Halgrorn, Haaglas, Phe-mor, Be, Becan, Shandover, Mo
+Uldrak, Reth, Haagsorth, Ver'anvi, Gaargrak, Ahdag, Pheaa, Biula, Soindruk, 
+Rethgor, Lo'vakruul, Rendhauneus
+
+#NOMBRES FEMENINOS
+####################################
+Cheroshish, Sinarnir, Shanone, Ysashsan, Chenyr, Yshosur, Shanari, Esessen, Astenish
+Charushasha, Ish, Saryshmir, Seror, Ishynys, Charaisha, Chararider, Astososh, Chaneriy
+Us-sur, Kahudanmas, Koubas, Phanre'ba, Abusmon, Casnormarg, Br-han, Ashandla
+Gruk'ul, Sucgashfen, Bachfen, Kruulbecthe, Vorganmi, Ca'dro, Xabire, Kigo, Talor'los
+Gon-si
+
+#APELLIDOS
+####################################
+Asteshasha, Osun, Simis, Sanunsean, Amyshorsha, Astaresha, Shorosu, Esyrdar, Shamoshi
+Esen, Sarunsan, Cheroses, Cu'mil, I'grornrak, Pevideussorth, Laovererran, Blishekrul
+Goraie-si, Beimgashnor, Foreszergron, Drargusoth, Hagudganorchaxbeel, Lorna'shu
+Marg'shashu, Gakagrukdrag, Overmalorlixlasbar, Rudolion, Nemshareon-be, Imogrornroth
+Vorghauzamali, Kathancerfor, Darkmortorgud, Zaradagsharggaap, Ranphasphemali
+Rakpos'las, Blomashu, Tulvamurla, Ver'ka, Farsadresh'ras, Thargimtactha, Rothtarvorgza
+Ardnybgothvall, Bus-reshhem, Nebudagrorn, Bafocthazorg, Ga'ciu, Bel'cuca
+Behud-so, Ulreonphean, Mongaridark, Segorxasan, Thandpidrunhan
+
+#### FIN RAZA ####

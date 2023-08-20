@@ -1,0 +1,64 @@
+#Nombre	Características	Progresión	Habilidades {AñadirHabilidadDesbloqueada1; AñadirHabilidadDesbloqueada2;...} [Especialidad1; Especialidad2; ...]
+################################################################
+Armadura·Ligera(ArdL)	Ag/Fu/Ag	Estándar	Cuero Endurecido [TA9; TA10; TA11], Cuero Blando [TA5; TA6; TA7]
+Armadura·Media(ArdM)	Fu/Ag/Fu	Estándar	Cota de Mallas [TA13; TA14; TA15; TA16]
+Armadura·Pesada(ArdP)	Fu/Ag/Fu	Estándar	Coraza [TA17; TA18; TA19; TA20]
+Armas·2manos(Arm2M)	Fu/Ag/Fu	Estándar	noimporta
+Armas·Arrojadizas(ArmAj)	Ag/Fu/Ag	Estándar	noimporta
+Armas·Artillería(ArmAt)	In/Ag/Ra	Estándar	noimporta
+Armas·Contundentes(ArmC)	Fu/Ag/Fu	Estándar	noimporta
+Armas·Asta(ArmAs)	Fu/Ag/Fu	Estándar	noimporta
+Armas·Filo(ArmF)	Fu/Ag/Fu	Estándar	noimporta
+Armas·Fuego 1mano(ArmFue1)	Ag/Fu/Ag	Estándar	noimporta
+Armas·Fuego 2manos(ArmFue2)	Ag/Fu/Ag	Estándar	noimporta
+Armas·Proyectiles(ArmPr)	Ag/Fu/Ag	Estándar	noimporta
+Arte·Activo(ArtA)	Pr/Em/Ag	Estándar	Actuar, Bailar, Cantar, Imitar Sonidos, Improvisación Poética, Mímica, Narrar Historias, Tocar Instrumento, Ventriloquia
+Arte·Pasivo(ArtP)	Em/In/Pr	Estándar	Escultura, Música, Pintura, Poesía
+Artes Marciales·Barridos(AmB)	Ag/Fu/Fu	Estándar	Barridos de Artes Marciales, Blocar, Lucha Libre, Inmovilizar
+Artes Marciales·Golpes(AmG)	Fu/Ag/Fu	Estándar	Boxeo, Placaje, Golpes de Artes Marciales
+Artes Marciales·Maniobras de Combate(AmMC)	Ag/Rp/Ag	Combinada	Esquiva Adrenal, Evasión Adrenal
+Ataques Especiales(AtaEsp)	Fu/Ag/Ad	Combinada	Desarmar Enemigo (Armado), Desarmar Enemigo (Desarmado), Fintar (Armado), Fintar (Desarmado), Justar, Pelea
+Atletismo·Gimnasia(AtlG)	Ag/Rp/Ag	Estándar	Juegos Atléticos (Gimnasia), Acrobacias, Caer, Contorsionismo, Malabarismos, Trepar, Volar/Planear, Volteretas, Caminar con Zancos, Caminar por la Cuerda Floja, Esquiar, Hacer Surf, Patinar, Rappelling, Salto con Pértiga
+Atletismo·Potencia(AtlP)	Fu/Co/Ag	Estándar	Juegos Atléticos (Potencia), Levantar Pesos, Saltar, Golpe Poderoso, Lanzamiento Poderoso
+Atletismo·Resistencia(AtlR)	Co/Ag/Fu	Estándar	Juegos Atléticos (Resistencia), Carrera de Fondo, Escalar, Esprintar, Nadar, Remar
+Autocontrol(Autoc)	Ad/Pr/Ad	Estándar	Frenesí, Meditación, Mnemotecnia, Superar Aturdimiento, Caída Adrenal, Concentración Adrenal, Control de la Licantropía (R), Desenvainar Adrenal, Equilibrio Adrenal, Estabilización Adrenal (R), Fuerza Adrenal, Maniobrar Aturdido, Salto Adrenal, Trance Adormecedor, Trance de la Muerte  (R), Trance Purificador  (R), Trance Sanador, Velocidad Adrenal
+Ciencia/Analítica·Básica(CienB)	Ra/Me/Ra	Estándar	Documentación, Matemáticas Básicas
+Ciencia/Analítica·Especializada(CienE)	Ra/Me/Ra	Combinada	Alquimia, Antropología, Matemáticas Avanzadas, Astronomía, Bioquímica, Psicología, Anatomía
+Comunicación(Comun)	Ra/Me/Em	Estándar	Leer los Labios, Señales
+Conocimiento·General(ConGen)	Me/Ra/Me	Estándar	Conocimiento de la Fauna, Conocimiento de la Flora, Conocimiento Cultural, Conocimiento Regional, Heráldica, Historia, Religión, Conocimiento de Estilos Marciales, Conocimiento de Estilos de Armas
+Conocimiento·Mágico(ConMag)	Me/Ra/Me	Estándar	Conocimiento de los Artefactos, Conocimiento de los Hechizos, Conocimiento de los No-Muertos, Conocimiento de las Protecciones, Conocimiento de los Planos, Conocimiento de los Símbolos
+Conocimiento·Oscuro(ConOsc)	Me/Ra/Me	Estándar	Conocimiento de las Hadas, Conocimiento de los Dragones, Demonología, Xeno-Conocimientos*
+Conocimiento·Técnico(ConTec)	Me/Ra/Me	Estándar	Conocimiento de la Piedra, Conocimiento de las Cerraduras, Conocimiento de las Hierbas, Conocimiento de los Metales, Conocimiento de los Venenos, Conocimiento del Comercio
+Defensas Especiales(DefEsp)	Ninguna	Combinada	Aguante Adrenal, Defensa Adrenal, Resistencia Adrenal
+Desarrollo de Puntos de Poder(DesPP)	*	DPP	Desarrollo de Puntos de Poder
+Desarrollo Físico(DesFis)	Co/Ad/Co	DF	Desarrollo Físico
+Exteriores·Animales(ExtAni)	Em/Ag/Em	Estándar	Conducir, Domar, Maestría de Animales (R), Manejo de los Animales, Montar, Montar: Lobos, Montar: Caballos, Montar: Osos, Montar: Camellos, Montar: Elefantes*, Curación de Animales (R), Pastoreo
+Exteriores·Entorno(ExtEnt)	Ad/In/Me	Estándar	Cazar, Espeleología, Forrajear, Orientación Celeste, Predicción del Clima, Supervivencia, Supervivencia (Montañas), Supervivencia (Bosques), Supervivencia (Desiertos), Supervivencia (Llanuras), Supervivencia (Subterráneos), Supervivencia (Ártico)
+Hechizos Dirigidos(HecDir)	Ag/Ad/Ag	Estándar	Relámpago
+Listas Básicas de Hechizos(ListBas)	*	Limitada	Hechizos
+Listas Abiertas de Hechizos(ListAb)	*	Limitada	Hechizos
+Listas Cerradas de Hechizos(ListCerr)	*	Limitada	Hechizos
+Listas Básicas de Otras Profesiones(ListBasOt)	*	Limitada	Hechizos
+Listas Abiertas de Otros Reinos(ListAbOt)	*	Limitada	Hechizos
+Listas Cerradas de Otros Reinos(ListCerrOt)	*	Limitada	Hechizos
+Listas Básicas de Otros Reinos(ListBasOtR)	*	Limitada	Hechizos
+Listas Abiertas Arcanas(ListAbArc)	*	Limitada	Hechizos
+Listas Hechizos de Adiestramiento(ListAd)	*	Limitada	Hechizos
+Listas Hechizos de Adiestramientos de Otros Reinos(ListAdOtR)	*	Limitada	Hechizos
+Listas Básicas de la Tríada(ListTri)	*	Limitada	Hechizos
+Listas Básicas Elementales Complementarias(ListElCom)	*	Limitada	Hechizos
+Influencia(Infl)	Pr/Em/In	Estándar	Comerciar, Diplomacia, Embaucar, Interrogar, Liderazgo, Oratoria, Seducción, Sobornar, Rumorear
+Maniobras de Combate(ManCom)	Ag/Rp/Ad	Combinada	Combate con 2 Armas, Combate Montado, Desenvainar, Florituras, Ataque de Revés, Esquiva Acrobática (R), Estilo de Arma (Básico), Estilo de Arma (Avanzado), Subyugar
+Manipulación del Poder(ManPod)	Em/In/Ad	Combinada	Canalización, Maestría de los Hechizos, Maestría de los Hechizos: Control del Aire, Maestría de los Hechizos: Ley de la Luz, Maestría de los Hechizos: Maestría de los Espiritus, Ritual Mágico, Ocultación de Hechizos
+Oficios(Ofi)	Ag/Me/Ad	Combinada	Cocinar, Manejo de Cuerdas, Trabajar el Cuero, Trabajar el Metal, Trabajar la Madera, Trabajar la Piedra, Coser/Tejer, Dibujar, Escribir, Hacer Flechas, Horticultura, Peletería, Servicio, Trampero
+Percepción·Búsqueda(PerBus)	In/Ra/Ad	Estándar	Buscar, Detectar Mentiras, Detectar Trampas, Detectar Venenos, Leer Huellas, Observación, Rastrear
+Percepción·Perspicacia(PerPers)	In/Ad/In	Limitada	Alerta, Detectar Emboscadas
+Percepción·Sentidos(PerSen)	In/Ad/In	Estándar	Percepción del Entorno: Ciudades, Percepción del Entorno: Combate, Percepción del Entorno: Durmiendo, Percepción del Entorno: Exploración, Sentido de la Dirección, Sentido del Espacio (R), Sentido del Tiempo, Vista, Olfato, Gusto, Oído, Tacto, Sentido de la Realidad (R), Vigilancia
+Percepción de Poder(PerPod)	Em/In/Pr	Estándar	Leer Runas, Sintonización, Adivinación, Percepción del Poder (R)
+Subterfugio·Ataque(SubAta)	Ag/Ad/In	Estándar	Ataque Silencioso, Emboscar
+Subterfugio·Mecánica(SubMec)	In/Ag/Ra	Estándar	Abrir Cerraduras, Camuflaje, Desactivar Trampas, Disfrazarse, Construir Trampas, Preparar Trampas, Usa/Curar Venenos, Falsificación, Imitación, Ocultar Objetos
+Subterfugio·Sigilo(SubSig)	Ag/Ad/In	Estándar	Acechar, Esconderse, Juegos de Manos, Robar Bolsillos
+Técnica/Comercio·General(TecGen)	Ra/Me/Ad	Estándar	Dibujar Mapas, Juego, Juegos de Estrategia, Maquinaria, Mendigar, Navegar, Orientación, Primeros Auxilios, Usar Hierbas
+Técnica/Comercio·Profesional(TecPro)	Ra/Me/In	Combinada	Cuidados Médicos, Diagnosis, Ingeniería, Mecánica, Minería, Adormecerse, Arquitectura, Cirugía, Organización Militar, Propaganda, Zahorí, Investigación
+Técnica/Comercio·Vocacional(TecVoc)	Me/In/Ra	Combinada	Administración, Manejo de Botes, Evaluar Arma, Evaluar Armadura, Evaluar Metal, Evaluar Piedra, Navegación, Táctica, Tasar, Artimañas, Cartografía, Ingeniería de Asedio, Partería, Preparar Hierbas, Preparar Venenos
+Urbana(Urb)	In/Pr/Ra	Estándar	Agenciar, Callejeo, Disimulo, Instinto Urbano

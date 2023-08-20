@@ -1,0 +1,52 @@
+# TIEMPO (meses)
+####################################
+44
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Identificación Falsa (+10 no mágico)	50	10
+Capa (+10 no mágico)	40	10
+Contactos con un gobierno amigo	40
+Ganzúas (+10 no mágicas)	30	10	Abrir Cerraduras
+Papeles Importantes (10D10 mp)	20
+Arma (+5 no mágica)	100	5	Arma
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Comunicación	2	1	2	2
+Influencia	2	1	2	2
+Percepción·Búsqueda	2	1	2	2
+Percepción·Perspicacia	0	1	1	1
+  *  Alerta	1
+Subterfugio·Sigilo	4	1	4	4
+Subterfugio·Mecánica	1	1	1	1
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Ninguno
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

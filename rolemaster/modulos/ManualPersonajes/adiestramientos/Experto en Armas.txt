@@ -1,0 +1,48 @@
+# TIEMPO (meses)
+####################################
+95
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Arma (+15 no mágica)	40	15	Arma
+Arma (+15 no mágica)	40	15	Arma
+Arma (+10 no mágica)	30	10	Arma
+Arma (+10 no mágica)	30	10	Arma
+Arma (+15 no mágica)	100	5	Arma
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Arma	5	3	5	5
+Arma	4	2	4	4
+Arma	3	2	3	3
+Arma	1	1	1	1
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Fu, Ag
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

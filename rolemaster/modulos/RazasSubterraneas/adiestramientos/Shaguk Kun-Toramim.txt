@@ -1,0 +1,60 @@
+# TIEMPO (meses)
+####################################
+69
+
+# EXCLUSIVO RAZA
+####################################
+Orco Gris
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Multiplicador PPs (x2)	50
+Arma cuerpo a cuerpo (no mágica)	40	10	Arma Cuerpo a Cuerpo
+1-2 Ulogat-Toram	40
+Objeto diario III	30
+Libro	30	10	Conocimiento de los No-Muertos
+Zombi sin manos	40
+Sumando de hechizos (+1)	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Listas Básicas de Hechizos	0	1	1	2
+  *  Nigromancia	2	-	-	-	
+Técnica/Comercio·General	1	1	1	1
+  *  Primeros Auxilios	1	-	-	-
+Técnica/Comercio·Profesional	0	2	2	2
+  *  Cuidados Médicos	1	-	-	-
+  *  Cirugía	1	-	-	-
+Ciencia/Analítica·Especializada	0	1	1	1
+  *  Anatomía	1	-	-	-
+Conocimiento·Mágico	2	1	1	2
+  *  Conocimiento de los No-Muertos	2	-	-	-
+Manipulación del Poder	0	2	3	3
+  *  Canalización	1	-	-	-
+{Armas·2manos; Armas·Arrojadizas; Armas·Artillería; Armas·Contundentes; Armas·Asta; Armas·Filo; Armas·Proyectiles}	1	1	1	1
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+In
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

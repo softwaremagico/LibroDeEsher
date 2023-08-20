@@ -1,0 +1,62 @@
+Defensa Mágica	Lista Abierta
+Movimiento en las Alturas	Lista Abierta
+Senda del Sonido	Lista Abierta
+Ley de la Naturaleza	Lista Abierta
+Purificaciones	Lista Abierta
+Sendas de la Conmoción	Lista Abierta
+Ley de las Barreras	Lista Abierta
+Senda de la Luz	Lista Abierta
+Sendas del Clima	Lista Abierta
+Conocimiento	Lista Cerrada
+Ley de los Músculos	Lista Cerrada
+Sendas de la Localización	Lista Cerrada
+Creaciones	Lista Cerrada
+Ley de los Nervios	Lista Cerrada
+Sendas de los Símbolos	Lista Cerrada
+Ley de la Sangre	Lista Cerrada
+Ley de los Órganos	Lista Cerrada
+Serenar Espíritus	Lista Cerrada
+Ley de los Huesos	Lista Cerrada
+Conocimiento de la Naturaleza	Animista
+Maestría de las Plantas	Animista
+Movimiento/Sentidos de la Naturaleza	Animista
+Maestría de las Hierbas	Animista
+Maestría de los Animales	Animista
+Protecciones de la Naturaleza	Animista
+Canalizaciones	Clérigo
+Maestría de la Vida	Clérigo
+Rechazos	Clérigo
+Invocaciones	Clérigo
+Protecciones	Clérigo
+Sendas Comunes	Clérigo
+Ataques Sagrados	Paladín
+Curación Sagrada	Paladín
+Exorcismos	Paladín
+Comunión	Paladín
+Defensas Sagradas	Paladín
+Sendas de la Inspiración	Paladín
+Formas de la Naturaleza	Montaraz
+Maestría de los Caminos	Montaraz
+Sendas de la Naturaleza	Montaraz
+Invocación de la Naturaleza	Montaraz
+Muros Interiores	Montaraz
+Sendas del Movimiento	Montaraz
+Purificar	Sanador
+Sendas de las Superficies	Sanador
+Sendas de los Músculos	Sanador
+Sendas de la Sangre	Sanador
+Sendas de los Huesos	Sanador
+Senda de los Órganos	Sanador
+Destrucción de la Carne	Hechicero
+Destrucción de los Gases	Hechicero
+Destrucción del Alma	Hechicero
+Destrucción de los Fluidos	Hechicero
+Destrucción de los Sólidos	Hechicero
+Destrucción Mental	Hechicero
+Canalizaciones Oscuras	Canalización Maligna
+Enfermedades	Canalización Maligna
+Maldiciones	Canalización Maligna
+Conocimiento Impío	Canalización Maligna
+Herir	Canalización Maligna
+Nigromacia	Canalización Maligna
+

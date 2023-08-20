@@ -1,0 +1,121 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	4
+Co	0
+Me	2
+Ra	0
+Ad	-5
+Em	2
+In	0
+Pr	2
+Rp	2
+Fu	0
+Ap	10
+
+# ESPERANZA DE VIDA
+####################################
+Inmortales
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-5
+Esencia	-5
+Mentalismo	-5
+Veneno	10
+Enfermedad	100
+Psiónico	50
+Frío	10
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/6/3/1/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/7/6/5/4
+PP Mentalismo	0/6/5/4/3
+PP Psiónico	0/3/2/1/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+3
+
+#TIPO DE RAZA
+####################################
+3
+
+#TAMAÑO DE RAZA
+####################################
+Normal
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+3
+
+#HISTORIAL
+####################################
+4
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Élfico	10/10	10/10
+Élfico Alto	4/4	10/10
+Élfico Gris	8/6	10/10
+Habla Común	8/6	10/10
+Habla de las Llanuras	0/0	8/8
+Habla de los bosques	0/0/	8/8
+Habla alta	0/0/	4/4
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Alta	0/0	8/8
+Habla del Sur	0/0	6/6
+Habla Negra	0/0	6/6
+
+#HABILIDADES COMUNES
+####################################
+Juegos de Manos, Música, Tocar Instrumento, Trabajar la Madera
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Aérea, Silvana
+
+#ESPECIALES
+####################################
++10	Percepción si interviene el oído.
++10	Oído
++10	Ataque Basicos de Hechizos de la lista de Bardo.
++10	Acechar
++10	Esconderse
++10	Juegos de Manos
+	Visión total a 15 m parcial a 30 en la oscuridad con una fuente de luz mínima.
+	Visión total a la luz de luna o de las estrellas
++10	Contra Frío (BD y TR)
+
+#NOMBRES MASCULINOS
+####################################
+Findaráto, Fëanáro, Galdor, Amras, Manwë, Enawat, Oropher, Thranduil, Celeborn, Lothlórien
+
+#NOMBRES FEMENINOS
+####################################
+Elbereth, Nessa, Tári, Nindë, Inwë, Lúthien, Eámanë, Celebriän, Astrea, Nammen, Nihal
+
+#APELLIDOS
+####################################
+Isilrá, Tasardur, Tulcakelumë, Yávëtil, Súrion, Fëfalas, Alcarin, Tasartir, Felagund, Arahain, Auryaur
+Caidath, Cantor, Haroith, Laith-Koum, Lakoys, Nurmarif, Sehenlu, Selathoi, Sethayla, Talu, Yenayla
+
+#### FIN RAZA ####

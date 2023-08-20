@@ -1,0 +1,82 @@
+# ARMAS TÍPICAS
+####################
+Espada, Garrote, Daga, Hacha de Mano, Jabalina, Arco Corto, Lanza, Cabis, Baw, Porra
+
+# ARMADURAS TÍPICAS
+####################
+Cuero Blando, Cuero Endurecido
+
+# RANGOS
+####################
+Armadura·Ligera	1
+  *  Cuero Blando	1
+  *  Cuero Endurecido	0
+Armadura·Media	0
+  *  Cota de Mallas	0
+Armas·Contundentes	1
+  *  Arma	1
+Armas·Filo	0
+  *  Arma	0
+Armas·2manos	0
+  *  Arma	0
+Armas·Proyectiles	1
+  *  Arma	1
+Armas·Asta	2
+  *  Arma	2
+Armas·Arrojadizas	2
+  *  Arma	2
+Atletismo·Gimnasia	1
+  *  Trepar	4
+Atletismo·Potencia	2
+Atletismo·Resistencia	1
+  *  Nadar	1
+Ciencia/Analítica·Básica	0
+Comunicación	1
+  *  Idiomas	4
+Conocimiento·General	3
+  *  Conocimiento Regional	3
+  *  Conocimiento Cultural	3
+Exteriores·Animales	0
+  *  Montar: Caballos	0
+Exteriores·Entorno	4
+Percepción de Poder	0
+Percepción·Búsqueda	1
+Percepción·Perspicacia	0
+  *  Alerta	2
+Subterfugio·Sigilo	2
+  *  Acechar	2
+  *  Esconderse	2
+Técnica/Comercio·General	1
+Urbana	0
+Desarrollo Físico	0
+  *  Desarrollo Físico	2
+Listas Abiertas de Hechizos	0
+  *  Lista de Hechizos	0
+
+# PUNTOS AFICIONES
+####################
+12
+
+# AFICIONES
+####################
+Acrobacias, Camuflaje, Conocimiento de la Fauna
+Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Arrojadizas, Armas·Contundentes
+-Ballesta Ligera, -Ballesta Pesada
+Desarrollo Físico, Forrajear, Predicción del Clima, Rastrear, Saltar, 
+Supervivencia (Tierras Alta), Trepar
+
+# IDIOMAS
+####################
+Habla Común	8/4
+Habla del Norte	6/2
+Habla del Sur	6/2
+Enano	4/0
+Murlogi	4/0
+
+# ADIESTAMIENTOS
+####################
+Amigo de las Bestias	75%
+Cazador	75%
+Explorador	75%
+
+### FIN CULTURA ###

@@ -1,0 +1,3 @@
+#Nombre	Características	Progresión	Habilidades {AñadirHabilidadDesbloqueada1; AñadirHabilidadDesbloqueada2;...} [Especialidad1; Especialidad2; ...]
+################################################################
+Hechizos Dirigidos(HecDir)	Ag/Ad/Ag	Estándar	Bola de Éter, Rayo de Éter, Rayo de Aire, Piedra, Rayo de Frío, Rayo de Fuerza, Bola de Vacío, Rayo de Vacío, Rayo de Vapor, Estallido Ciclónico

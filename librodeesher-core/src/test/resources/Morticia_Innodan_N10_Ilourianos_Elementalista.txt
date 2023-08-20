@@ -1,0 +1,194 @@
+Morticia Innodan	Nº 10
+Ilourianos (Silvana)
+Elementalista (Mago del Aire)
+
+
+Caract   Temp     Pot      Tot      Raza     Esp      Total   
+---------------------------------------------------------------------------------
+Ag       95       95       7        4        0        11      
+Co       92       92       6        -2       0        4       
+Me       99       99       9        0        0        9       
+Ra       99       99       9        0        0        9       
+Ad       96       96       8        0        0        8       
+Em       96       96       8        2        0        10      
+In       76       76       2        2        0        4       
+Pr       75       75       2        0        0        2       
+Rp       92       92       6        6        0        12      
+Fu       76       76       2        -4       0        -2      
+
+
+Modificación a las TR
+--------------------------------------------------
+Canalización    12      
+Esencia         80      
+Mentalismo      6       
+Psiónico        0       
+Veneno          12      
+Enfermedad      12      
+Miedo           24      
+Frío            0       
+Calor           0       
+
+
+Nombre                                                 Coste    Rangos   Bonus    Car      Otros    Total   
+-------------------------------------------------------------------------------------------------------------------------------
+Armadura·Ligera                                        9        0        -15      20       0        5       
+Armadura·Media                                         10       0        -15      7        0        -8      
+Armadura·Pesada                                        11       0        -15      7        0        -8      
+Armas·2manos                                           20       0        -15      7        -20(T)   -28     
+Armas·Arrojadizas                                      20       0        -15      20       -20(T)   -15     
+Armas·Artillería                                       20       0        -15      24       -20(T)   -11     
+Armas·Asta                                             20       0        -15      7        -20(T)   -28     
+Armas·Contundentes                                     20       0        -15      7        -20(T)   -28     
+Armas·Filo                                             20       1        2        7        -20(T)   -11     
+  *  Daga                                                       1        3        -11      0        -8      
+Armas·Proyectiles                                      9        3        6        20       0        26      
+  *  Arco Corto (c)                                             2        12       26       0        38      
+Artes Marciales·Barridos                               9        0        -15      7        -20(T)   -28     
+Artes Marciales·Golpes                                 9        0        -15      7        -20(T)   -28     
+Artes Marciales·Maniobras de Combate                   18       0        0        34       -20(T)   14      
+Arte·Activo                                            2/5      1        2        23       0        25      
+  *  Imitar Sonidos                                             3        9        25       0        34      
+  *  Mímica                                                     1        3        25       0        28      
+Arte·Pasivo                                            2/5      1        2        16       0        18      
+Ataques Especiales                                     15       0        0        17       0        17      
+Atletismo·Gimnasia                                     3        1        2        34       0        36      
+  *  Trepar                                                     2        6        36       0        42      
+  *  Volar/Planear (p)                                          4        34       36       0        70      
+Atletismo·Potencia                                     6        1        2        13       0        15      
+Atletismo·Resistencia                                  3        1        2        13       0        15      
+  *  Nadar                                                      3        9        15       0        24      
+Autocontrol                                            4        1        2        18       0        20      
+Ciencia/Analítica·Básica                               1/4      5        10       27       0        37      
+  *  Documentación                                              6        18       37       0        55      
+  *  Matemáticas Básicas                                        1        3        37       25(O)    40/65   
+Ciencia/Analítica·Especializada                        6/14     0        0        27       0        27      
+  *  Alquimia                                                   2        10       27       0        37      
+Comunicación                                           2/2/2    8        16       28       0        44      
+  *  Escribir Ilouriano                                         4        12       44       0        56      
+  *  Hablar Habla Común                                         10       30       44       0        74      
+  *  Hablar Ilouriano                                           8        24       44       0        68      
+  *  Hablar Élfico                                              2        6        44       0        50      
+  *  Idiomas Mágicos: Espiritus (r)                             6        9        44       0        53      
+  *  Idiomas Mágicos: Hechizos Elementales (r)                  8        12       44       0        56      
+Conocimiento·General                                   1/3      8        16       27       0        43      
+  *  Con. Cultural                                              3        9        43       0        52      
+  *  Con. Regional                                              3        9        43       0        52      
+  *  Religión                                                   1        3        43       0        46      
+Conocimiento·Mágico                                    1/4      9        18       27       10       55      
+  *  Con. de los Artefactos                                     6        18       55       0        73      
+  *  Con. de los Hechizos                                       2        6        55       0        61      
+  *  Con. de los No-Muertos                                     2        6        55       0        61      
+  *  Con. de los Planos (c)                                     4        24       55       0        79      
+Conocimiento·Oscuro                                    3/7      1        2        27       0        29      
+  *  Demonología                                                3        9        29       10(O)    38/48   
+Conocimiento·Técnico                                   2/6      4        8        27       0        35      
+  *  Con. de las Hierbas                                        3        9        35       0        44      
+Defensas Especiales                                    40       0        0        0        0        0       
+Desarrollo Físico                                      15       0        0        16       10       26      
+  *  Desarrollo Físico                                          1        6        26       10(H)    42      
+Desarrollo de Puntos de Poder                          4        0        0        10       5        15      
+  *  Desarrollo de Puntos de Poder                              10       60       15       40(T)    115     
+Exteriores·Animales                                    5        1        2        31       0        33      
+  *  Montar                                                     0        -15      33       20(O)    18/38   
+  *  Montar: Caballos                                           1        3        33       20(O)    36/56   
+  *  Montar: Montura Elemental                                  2        6        33       20(O)    39/59   
+Exteriores·Entorno                                     5        5        10       21       0        31      
+Hechizos Dirigidos                                     2/5      13       23       30       15(H)    68      
+  *  Estallido Ciclónico                                        10       30       68       0        98      
+  *  Rayo de Descarga                                           4        12       68       0        80      
+  *  Rayo de Fuerza                                             6        18       68       0        86      
+  *  Relámpago                                                  8        24       68       0        92      
+Influencia                                             2/6      4        8        16       20(T)    44      
+  *  Comerciar                                                  4        12       44       10(T*)   56/66   
+  *  Diplomacia                                                 0        -15      44       10(T*)   29/39   
+  *  Embaucar                                                   1        3        44       10(T*)   47/57   
+  *  Interrogar                                                 0        -15      44       10(T*)   29/39   
+  *  Liderazgo                                                  0        -15      44       10(T*)   29/39   
+  *  Seducción                                                  4        12       44       10(T*)   56/66   
+  *  Sobornar                                                   0        -15      44       10(T*)   29/39   
+Listas Abiertas Arcanas                                6/6      0        0        10       5        15      
+Listas Abiertas de Hechizos                            4/4/4    0        0        10       35(HT)   45      
+  *  Ilusiones Menores                                          10       10       45       0        55      
+  *  Maestría de las Runas                                      9        9        45       0        54      
+Listas Abiertas de Otros Reinos                        10/10    0        0        10       5        15      
+Listas Básicas Elementales Complementarias             8/8      0        0        10       30(T)    40      
+Listas Básicas de Hechizos                             3/3/3    0        0        10       35(HT)   45      
+  *  Control del Aire                                           30       25       45       0        70      
+  *  Invocaciones Elementales                                   12       12       45       0        57      
+  *  Ley del Viento                                             18       18       45       0        63      
+  *  Maestría del Viento                                        14       14       45       0        59      
+Listas Básicas de Otras Profesiones                    8/8      0        0        10       30(T)    40      
+  *  Renovación del Cuerpo                                      10       10       40       0        50      
+Listas Básicas de Otros Reinos                         50       0        0        10       5        15      
+Listas Básicas de la Tríada                            6/6/6    0        0        10       30(T)    40      
+  *  Ley de la Luz                                              10       10       40       0        50      
+Listas Cerradas de Hechizos                            4/4/4    0        0        10       35(HT)   45      
+  *  Bridas de los Hechizos                                     10       10       45       0        55      
+  *  Cambio Viviente                                            3        3        45       0        48      
+  *  Maestría de los Escudos                                    20       20       45       0        65      
+  *  Maestría de los Espíritus                                  13       13       45       0        58      
+  *  Maestría de los Portales                                   3        3        45       0        48      
+  *  Senda de la Anulación                                      9        9        45       0        54      
+  *  Senda de la Invisibilidad                                  4        4        45       0        49      
+  *  Sendas de la Rapidez                                       12       12       45       0        57      
+Listas Cerradas de Otros Reinos                        20       0        0        10       5        15      
+Listas Hechizos de Adiestramiento                      4/4/4    0        0        10       25(T)    35      
+Maniobras de Combate                                   18       0        0        31       0        31      
+Manipulación del Poder                                 3/9      0        0        22       5        27      
+  *  Maestría de los Hechizos: Control del Aire                 19       77       27       0        104     
+  *  Maestría de los Hechizos: Ley de la Luz                    7        35       27       0        62      
+  *  Maestría de los Hechizos: Maestría de los Espiritus        14       62       27       0        89      
+  *  Ocultación de Hechizos                                     5        25       27       0        52      
+  *  Trascender Armadura (r)                                    4        10       27       0        37      
+Oficios                                                4/10     0        0        28       0        28      
+Percepción de Poder                                    2/5      9        18       16       10(H)    44      
+  *  Adivinación                                                2        6        44       0        50      
+  *  Leer Runas                                                 5        15       44       25(T*)   59/84   
+  *  Sintonización                                              7        21       44       25(T*)   65/90   
+Percepción·Búsqueda                                    3        3        6        21       0        27      
+  *  Buscar                                                     1        3        27       0        30      
+  *  Detectar Mentiras                                          1        3        27       0        30      
+Percepción·Perspicacia                                 6        0        0        16       0        16      
+  *  Alerta                                                     8        8        16       0        24      
+Percepción·Sentidos                                    3/7      1        2        16       0        18      
+Subterfugio·Ataque                                     15       0        -15      23       0        8       
+Subterfugio·Mecánica                                   7        0        -15      24       0        9       
+Subterfugio·Sigilo                                     5        5        10       23       0        33      
+  *  Acechar (p)                                                6        46       33       -20(T)   59      
+  *  Esconderse                                                 4        12       33       0        45      
+Técnica/Comercio·General                               3/7      4        8        26       0        34      
+  *  Mendigar                                                   3        9        34       10(T*)   43/53   
+  *  Usar Hierbas                                               1        3        34       0        37      
+Técnica/Comercio·Profesional                           8        0        0        22       0        22      
+Técnica/Comercio·Vocacional                            5/12     0        0        22       0        22      
+Urbana                                                 2/5      0        -15      15       0        0       
+
+
+Talentos:
+--------------------------------------------------
+Aura:	 Te da +4 a cada rango de la habilidad de Desarrollo de Puntos de Poder. Consulta la página 62 del libro de personajes para más información.
+
+Zoquete:	 Artes Marciales·Barridos (-20), Artes Marciales·Golpes (-20), Artes Marciales·Maniobras de Combate (-20). Consulta la página 89 del libro de personajes para más información.
+
+Sin Equilibrio:	 Acechar (-20), Caminar con Zancos (-20), Caminar por la Cuerda Floja (-20). Consulta la página 89 del libro de personajes para más información.
+
+Maldición de las Armas:	 {Selección}. Consulta la página 94 del libro de personajes para más información.
+
+Capacidad Mágica:	 Listas Abiertas de Hechizos (25), Listas Básicas Elementales Complementarias (25), Listas Básicas de Hechizos (25), Listas Básicas de Otras Profesiones (25), Listas Básicas de la Tríada (25), Listas Cerradas de Hechizos (25), Listas Hechizos de Adiestramiento (25), Leer Runas (25*), Sintonización (25*). Solo afecta a los hechizos y objetos de tu propio reino. Consulta la página 62 del libro de personajes para más información.
+
+Experimentado (Cat) (Máximo):	 {Selección}. Solamente Categorías con progresión Estándar o Combinada. Consulta la página 54 del libro de personajes para más información.
+
+Mirada Intensa:	 Comerciar (10*), Diplomacia (10*), Embaucar (10*), Interrogar (10*), Liderazgo (10*), Mendigar (10*), Seducción (10*), Sobornar (10*). Siempre que los ojos sean visibles. Consulta la página 59 para más información.
+
+
+
+Equipo:
+--------------------------------------------------
+Libro de Demonología: 10 a Demonología
+
+Medallón de la Geometría: 25 a Matemáticas Básicas
+
+Silla de Montar: 20 a Montar: Caballos, 20 a Montar: Montura Elemental, 20 a Montar
+
+

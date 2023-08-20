@@ -1,0 +1,117 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	4
+Co	2
+Me	2
+Ra	0
+Ad	-5
+Em	2
+In	0
+Pr	2
+Rp	2
+Fu	2
+Ap	5
+
+# ESPERANZA DE VIDA
+####################################
+Inmortales
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	5
+Esencia	-10
+Mentalismo	10
+Veneno	30
+Enfermedad	100
+Psiónico	-10
+Frío	10
+Calor	10
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/6/5/2/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/7/6/5/4
+PP Mentalismo	0/6/5/4/3
+PP Psiónico	0/3/2/1/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+3
+
+#TIPO DE RAZA
+####################################
+3
+
+#TAMAÑO DE RAZA
+####################################
+Normal
+
+#RECUPERACIÓN
+####################################
+2
+
+#IDIOMAS
+####################################
+4
+
+#HISTORIAL
+####################################
+4
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Shuluri	8/4	10/8
+Idioma Regional	8/4	10/8
+Sirénido	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
+Sirénido	0/0	10/8
+Dyari	0/0	4/4
+Erlini	0/0	4/4
+Loari	0/0	4/4
+Orhan	0/0	6/4
+Saurkur	0/0	4/4
+
+#HABILIDADES COMUNES
+####################################
+Nadar, Orientación Celeste, Predicción del Clima
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Litoral
+
+#ESPECIALES
+####################################
++20	Vista
++20	Oído
++20	Detectar Emboscadas
+	Visión total a 10 m parcial a 20 en la oscuridad con una fuente de luz mínima.
+	Visión total a la luz de luna o de las estrellas
++10	Contra Frío y Calor (BD y TR)
+Anfíbios
+
+#NOMBRES MASCULINOS
+####################################
+Datak, Alak, Meh, Rahm, T’evgin, Sukar, Lemmy, Kaito, Lixto, Lanhua, Alala, Izul, Eriru
+
+#NOMBRES FEMENINOS
+####################################
+Ondine, Stahma, Irisa, Andina, Dirdre,Illiris, Phylla, Sonna, Desiryee, Lithia, Nissa 
+
+#APELLIDOS
+####################################
+Tarr, Yewll, Nyira, Tak, Lamb, Selkies
+
+#### FIN RAZA ####

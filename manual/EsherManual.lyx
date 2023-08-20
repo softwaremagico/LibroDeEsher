@@ -1,0 +1,3238 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass book
+\use_default_options false
+\maintain_unincluded_children false
+\language spanish
+\language_package auto
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement h
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle false
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Índice
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+EL LIBRO DE ESHER
+\begin_inset Newline newline
+\end_inset
+
+Generador de Personajes para Rolemaster
+\begin_inset Newline newline
+\end_inset
+
+
+\size scriptsize
+(http://librodeesher.sourceforge.net)
+\size default
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename ../librodeesher-gui/src/main/resources/images/librodeesher.svg
+	lyxscale 60
+	width 40col%
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+v2.5.2
+\end_layout
+
+\begin_layout Author
+Jorge Hortelano Otero
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Como generar personajes
+\end_layout
+
+\begin_layout Chapter
+Aplicación
+\end_layout
+
+\begin_layout Section
+Ventana principal
+\end_layout
+
+\begin_layout Standard
+Al ejecutar el programa, aparecerá inmediatamente la ventana principal del
+ mismo.
+ En dicha ventana se podrá observar un menú principal, con todas las opciones
+ de creación del personaje, unos campos que definen al personaje y dos cuadros
+ de texto que incluirán un resumen del mismo.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Imagenes/PantallaPrincipal-Rellena.png
+	lyxscale 50
+	width 80col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Ventana principal del programa.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A continuación se detallan las opciones visibles de la Ventana Principal.
+\end_layout
+
+\begin_layout Subsection
+Menú
+\end_layout
+
+\begin_layout Standard
+El menú que permite seleccionar las distintas opciones de la creación de
+ personaje.
+ No están disponibles todas las opciones en todo momento, ya que algunas
+ dependen de las opciones seleccionadas anteriormente.
+ Por tanto, se deberán realizar algunas acciones para que otras sean activas.
+ Además, las acciones ya confirmadas no podrán rehacerse una vez se inicie
+ el siguiente paso en la creación de personajes.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Archivo
+\end_layout
+
+\begin_layout Standard
+Esta opción del menú permite manejar las opciones básicas del programa.
+ Tales como:
+\end_layout
+
+\begin_layout Description
+Nuevo: Borra todos los datos del personaje y comienza la realización de
+ uno nuevo.
+ Se perderá toda la información que no haya sido guardada.
+ 
+\end_layout
+
+\begin_layout Description
+Cargar: Permite cargar los datos de un personaje guardado anteriormente.
+ No es compatible con otras versiones anteriores de El Libro de Esher, así
+ que cada vez que actualices el programa, deberás de generarlos de nuevo
+ con la opción Insertar (Ver Capítulo 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "cha:Inserción"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Description
+Salvar: Permite guardar el personaje para ser retomado en otro momento.
+\end_layout
+
+\begin_layout Description
+Exportar
+\begin_inset space ~
+\end_inset
+
+(Texto): Guarda los datos del personaje en un fichero de texto simple para
+ que pueda ser abierto en cualquier equipo sin necesidad de ningún software
+ especial.
+ Normalmente es el formato utilizado en los libros para describir PNJs.
+ 
+\end_layout
+
+\begin_layout Description
+Exportar
+\begin_inset space ~
+\end_inset
+
+(Texto
+\begin_inset space ~
+\end_inset
+
+abreviado): Guarda solamente los datos más importantes del personaje como
+ se hace normalmente en algunos libros de Rolemaster para los monstruos.
+ Las categorías utilizan una abreviatura previamente acordada en el documento
+ que las define.
+ Es útil para incluir personaje dentro de la descripción de aventuras sin
+ ocupar demasiado espacio.
+\end_layout
+
+\begin_layout Description
+Exportar
+\begin_inset space ~
+\end_inset
+
+(PDF): Genera un fichero en PDF que imita las fichas originales de Rolemaster.
+\end_layout
+
+\begin_layout Description
+Exportar
+\begin_inset space ~
+\end_inset
+
+(PDF
+\begin_inset space ~
+\end_inset
+
+Combinado): Genera un fichero en PDF que imita las fichas originales de
+ Rolemaster que agrupan las habilidades por Categorías.
+ 
+\end_layout
+
+\begin_layout Description
+Salir: Cierra el programa.
+\end_layout
+
+\begin_layout Subsubsection
+Generar Personaje
+\end_layout
+
+\begin_layout Standard
+Contiene las opciones para generar el personaje paso a paso, como se haría
+ respetando el reglamento del Rolemaster.
+ Por tanto, algunos pasos solo estarán disponibles si previamente se han
+ completado los anteriores.
+ Para más información consultar el Capítulo 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "cha:Generación-de-Personajes"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Insertar
+\end_layout
+
+\begin_layout Standard
+Permite insertar o modificar un personaje saltándose todas las reglas de
+ Rolemaster.
+ Aquí el programa no realiza ninguna comprobación.
+ También permite añadir categorías y habilidades inventadas.
+ Ver Capítulo 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "cha:Inserción"
+
+\end_inset
+
+ para más información.
+\end_layout
+
+\begin_layout Subsubsection
+Personaje Aleatorio
+\end_layout
+
+\begin_layout Standard
+Genera aleatoriamente personajes en unos pocos segundos.
+ Para más detalles ver Capítulo 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "cha:Generación-aleatoria"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Configuración
+\end_layout
+
+\begin_layout Standard
+Permite cambiar algunas opciones de la aplicación.
+ Se verá más adelante en el Capítulo 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "cha:Configuración"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Otros
+\end_layout
+
+\begin_layout Standard
+Permite generar una ficha de personaje en blanco para ser utilizada normalmente.
+ Resulta el equivalente de fotocopiar la hoja de personajes del reglamento.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Ayuda
+\end_layout
+
+\begin_layout Standard
+Muestra los datos del programa relativos al autor, las versiones del mismo
+ o la licencia.
+\end_layout
+
+\begin_layout Subsection
+Datos del personaje
+\end_layout
+
+\begin_layout Standard
+Esta sección está compuesta por un conjunto de campos, listas desplegables
+ y selecciones que indican el punto de partida para la generación de tu
+ personaje.
+ Estos datos son utilizados tanto si generas tu personaje de forma convencional
+ o de forma aleatoria.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Nombre
+\end_layout
+
+\begin_layout Standard
+En este campo se puede escribir el nombre del personaje.
+ Lo aquí escrito aparecerá después en la ficha del personaje.
+ Si el campo se deja en blanco, el programa seleccionará algún nombre al
+ azar del listado que exista en su ficha de raza dependiendo del sexo escogido.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Raza
+\end_layout
+
+\begin_layout Standard
+Aquí el usuario puede escoger la raza del personaje.
+ Esta elección será la primera que deberá de hacer ya que la disponibilidad
+ de numerosas opciones tales como la profesión o la cultura pueden depender
+ de la raza escogida.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Profesión
+\end_layout
+
+\begin_layout Standard
+La profesión del personaje.
+ El listado varía de acuerdo con la raza escogida y las profesiones definidas
+ en la aplicación.
+ Puedes cambiar la profesión hasta que se hayan seleccionado los valores
+ de las características.
+ Una vez se seleccionen las características, esta opción permanece bloqueada,
+ ya que un cambio afectaría a las características ya elegidas.
+ Se deberá crear un personaje nuevo para poder modificar esta opción.
+\end_layout
+
+\begin_layout Subsubsection
+Nivel
+\end_layout
+
+\begin_layout Standard
+El nivel actual del personaje.
+ Cuando generas un personaje nuevo, su valor es uno.
+\end_layout
+
+\begin_layout Subsubsection
+Subir Nivel
+\end_layout
+
+\begin_layout Standard
+Este botón permite incrementar en uno el nivel del personaje, calculando
+ los aumentos de características y el incremento de los puntos de desarrollo
+ automáticamente.
+ Solamente se puede subir un nivel cada vez, ya que los puntos de desarrollos
+ deben de ser gastados cada vez que se incrementa en uno el nivel.
+\end_layout
+
+\begin_layout Subsubsection
+Cultura
+\end_layout
+
+\begin_layout Standard
+Permite seleccionar la cultura del personaje.
+ El listado variará según la raza escogida y las culturas disponibles para
+ el programa.
+ Esta opción se bloqueará una vez se distribuyan los puntos de cultura en
+ el personaje, ya que obviamente dependen de la escogida.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Adiestramientos
+\end_layout
+
+\begin_layout Standard
+Aquí aparece el listado de los adiestramientos obtenidos por el personaje.
+ Este campo no se puede modificar, ya que los adiestramientos se eligen
+ en el menú de creación de personaje.
+ Solamente tiene efecto informativo.
+\end_layout
+
+\begin_layout Subsubsection
+Sexo
+\end_layout
+
+\begin_layout Standard
+Con escasa repercusión en la generación del personaje.
+ Indica al programa el listado de nombres entre los que puede seleccionar
+ el programa en el caso de que se genere el personaje aleatoriamente.
+\end_layout
+
+\begin_layout Subsubsection
+Reino
+\end_layout
+
+\begin_layout Standard
+Una vez seleccionada la profesión y las características del personaje, permite
+ seleccionar el reino de magia.
+ Las opciones disponibles dependerán de la profesión del personaje.
+ Una vez distribuidos los puntos de la cultura, se bloqueará esta opción,
+ ya que se considera inmutable en el desarrollo del personaje.
+\end_layout
+
+\begin_layout Subsubsection
+Puntos de Desarrollo
+\end_layout
+
+\begin_layout Standard
+Los puntos de desarrollo obtenidos con las características del personaje.
+ Este valor se autocalcula según se van gastando y no puede ser modificado
+ por el usuario.
+ 
+\end_layout
+
+\begin_layout Subsection
+Cuadros de texto
+\end_layout
+
+\begin_layout Standard
+Los cuadros de texto muestran un resumen del personaje según los pasos alcanzado
+s.
+ La información dada permite al usuario ver un esbozo del resultado final
+ del personaje según se modifican las cosas.
+ No pueden ser modificados, únicamente permiten consultar el estado del
+ personaje mientras se genera.
+\end_layout
+
+\begin_layout Subsubsection
+Cuadro de características
+\end_layout
+
+\begin_layout Standard
+Muestra únicamente el valor total de cada una de las características del
+ personaje, a modo de consulta.
+\end_layout
+
+\begin_layout Subsubsection
+Cuadro de habilidades
+\end_layout
+
+\begin_layout Standard
+Muestra el listado de categorías y habilidades que tienen algún rango en
+ el personaje o sean comunes o profesionales.
+ Utilizado únicamente a modo orientativo y por tanto no puede ser modificado
+ desde aquí.
+ Para cambiarlo hay que ir a la opción adecuada del menú.
+ 
+\end_layout
+
+\begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "cha:Generación-de-Personajes"
+
+\end_inset
+
+Generación de personajes
+\end_layout
+
+\begin_layout Section
+Seleccionar las características
+\end_layout
+
+\begin_layout Standard
+La Ventana de Características permite al usuario desarrollar las características
+ del personaje.
+ Es el primer paso a realizar en la generación del personaje, como así especific
+a el reglamento.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Imagenes/VentanaCaracteristicas.png
+	lyxscale 50
+	width 60col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Ejemplo de uso de la ventana de características.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Una vez seleccionadas las características, el usuario no podrá cambiar la
+ profesión del personaje, ya que el valor temporal de algunas características
+ dependen de esta.
+\end_layout
+
+\begin_layout Subsection
+Tabla de características
+\end_layout
+
+\begin_layout Subsubsection
+Valores Temporales
+\end_layout
+
+\begin_layout Standard
+El usuario puede incrementar los valores temporales de las características
+ de acuerdo con el coste en puntos de características especificado en el
+ reglamento del Rolemaster.
+ Además, esta herramienta tiene en cuenta algunas limitaciones, como que
+ las características principales de la profesión deben de valer un mínimo
+ de 90, o el mínimo valor posible para cualquier otra característica.
+\end_layout
+
+\begin_layout Subsubsection
+Valores Potenciales
+\end_layout
+
+\begin_layout Standard
+Los valores potenciales serán autocalculados una vez se presione el botón
+ 
+\emph on
+Confirmar
+\emph default
+ o el botón 
+\emph on
+Aleatorio
+\emph default
+.
+ Se calculan siguiendo las normas del Rolemaster especificadas en el reglamento
+ básico.
+\end_layout
+
+\begin_layout Subsubsection
+Otros Valores
+\end_layout
+
+\begin_layout Standard
+Los valores de Raza, Especial o Total son autocalculados.
+ Por tanto el usuario no puede cambiar nada de ellos.
+ Se muestran a efectos informativos.
+\end_layout
+
+\begin_layout Subsubsection
+Apariencia
+\end_layout
+
+\begin_layout Standard
+El programa calcula aleatoriamente la Apariencia final del personaje tal
+ como se describe en el reglamento de Rolemaster.
+ El valor se obtiene una vez las características son confirmadas dando al
+ botón correspondiente.
+\end_layout
+
+\begin_layout Subsection
+Puntos de características
+\end_layout
+
+\begin_layout Standard
+La aplicación permite al personaje distribuir 660 puntos de características.
+ Informa en todo momento de cuantos puntos dispone el usuario para repartir.
+ Para aceptar el valor final de las características, hay que presionar el
+ botón adecuado para ello.
+ Si se desea, este valor puede ser modificado.
+ 
+\end_layout
+
+\begin_layout Subsection
+Características aleatorias
+\end_layout
+
+\begin_layout Standard
+Si así se prefiere, se puede dejar al criterio del programa la distribución
+ de las características.
+ La probabilidad de aumentar una característica viene determinada por el
+ orden presentado en la plantilla de la profesión escogida.
+ Este orden puede ser modificado si se cambia la plantilla.
+ 
+\end_layout
+
+\begin_layout Section
+Selección de habilidades profesionales
+\end_layout
+
+\begin_layout Standard
+Muchas profesiones incluyen habilidades comunes o profesionales.
+ Normalmente están ya determinadas por la profesión, pero a veces pueden
+ ser escogidas por el usuario.
+ Una vez el personaje ha seleccionado la profesión y comienza a escoger
+ las características de la misma, aparecerá si fuera necesario, una ventana
+ que le permitirá escoger las habilidades adecuadas.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Imagenes/HabilidadesComunProfesion.png
+	width 40col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Selección-de-habilidades-Profesionales"
+
+\end_inset
+
+Selección de habilidades comunes para un alquimista.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Por ejemplo, en la Figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Selección-de-habilidades-Profesionales"
+
+\end_inset
+
+ muestra la ventana que aparecería, si un usuario desea hacer un personaje
+ alquimista.
+ Tal como describe la profesión, un alquimista tiene seis habilidades dentro
+ de oficios que son profesionales.
+ Hay que tener cuidado en la elección, ya que estas opciones no podrán ser
+ cambiadas posteriormente, por lo que si se cambia de opinión, se deberá
+ realizar de nuevo el personaje para poder cambiar los valores.
+\end_layout
+
+\begin_layout Section
+Seleccionar la cultura
+\end_layout
+
+\begin_layout Standard
+El siguiente paso en la creación de un personaje es la selección de su cultura.
+ Para seleccionar la cultura, se va a la opción correspondiente en el menú
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Generar Personaje
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Una vez seleccionado se abrirá una ventana como la mostrada en la Figura
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:VentanaCultura"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Imagenes/VentanaCultura.png
+	width 80col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:VentanaCultura"
+
+\end_inset
+
+Ejemplo de uso de la ventana de cultura.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La ventana de cultura está dividida en varias secciones:
+\end_layout
+
+\begin_layout Itemize
+Orden de las categorías de armas
+\end_layout
+
+\begin_layout Itemize
+Habilidades de Cultura
+\end_layout
+
+\begin_layout Itemize
+Aficiones
+\end_layout
+
+\begin_layout Itemize
+Idiomas
+\end_layout
+
+\begin_layout Itemize
+Hechizos
+\end_layout
+
+\begin_layout Standard
+Para algunas razas o culturas, existe la posibilidad de escoger un 
+\begin_inset Quotes eld
+\end_inset
+
+Idioma Racial
+\begin_inset Quotes erd
+\end_inset
+
+ o un 
+\begin_inset Quotes eld
+\end_inset
+
+Idioma Regional
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Si es el caso del personaje en creación, en el menú superior de la ventana,
+ aparecerá la opción para abrir una ventana y poder seleccionar el idioma
+ deseado.
+\end_layout
+
+\begin_layout Subsection
+Orden de las categorías de armas
+\end_layout
+
+\begin_layout Standard
+Esta opción representa una lista en la que las armas situadas en la parte
+ superior son aquellas en las que el PJ tiene prioridad sobre ella.
+ Es decir, el coste de los rangos irá por orden creciente de arriba a abajo.
+ 
+\end_layout
+
+\begin_layout Subsection
+Habilidades de cultura
+\end_layout
+
+\begin_layout Standard
+Cada cultura da unos rangos fijos a determinadas categorías y habilidades.
+ Además, en algunos casos, permite escoger a que habilidad se le asignan
+ los rangos, como por ejemplo en las categorías de armas.
+ Aquí el usuario puede plasmar sus deseos.
+ 
+\end_layout
+
+\begin_layout Standard
+El programa obtiene las habilidades disponibles según lo indicado en el
+ fichero categorías.txt.
+ Una excepción es el caso de las armas, que solamente aparecen aquellas
+ propias de la cultura, tal como se indica en el reglamento.
+ 
+\end_layout
+
+\begin_layout Subsection
+Puntos de idiomas
+\end_layout
+
+\begin_layout Standard
+Todas las culturas tienen puntos de idioma a distribuir en diferentes lenguas.
+ Aquí el usuario puede distribuir los puntos correspondientes en las distintas
+ culturas.
+ Nota: El programa no distingue entre desarrollo permitido de la adolescencia
+ o lenguas obtenidas por raza.
+ Si se desea, se deberá tener en cuenta estos valores mentalmente.
+\end_layout
+
+\begin_layout Subsection
+Aficiones
+\end_layout
+
+\begin_layout Standard
+Una cultura otorga varios puntos de aficiones.
+ El usuario puede distribuirlos, teniendo en cuenta que no puede indicar
+ más puntos que rangos posibles en un nivel.
+ 
+\end_layout
+
+\begin_layout Subsection
+Listas de hechizos
+\end_layout
+
+\begin_layout Standard
+Algunas culturas permiten asignar rangos a algunas listas abiertas.
+ Esta opción incluye los rangos indicados en la lista seleccionada.
+ 
+\end_layout
+
+\begin_layout Subsection
+Cultura aleatoria
+\end_layout
+
+\begin_layout Standard
+Puedes seleccionar este botón y el programa escoge aleatoriamente todos
+ los valores descritos anteriormente.
+ 
+\end_layout
+
+\begin_layout Section
+Seleccionar los adiestramientos deseados
+\end_layout
+
+\begin_layout Standard
+Una de las muchas opciones a la hora de generar el personaje es obtener
+ uno o más adiestramientos.
+ El Libro de Esher lo refleja con esta opción.
+ 
+\end_layout
+
+\begin_layout Subsection
+Listado de adiestramientos
+\end_layout
+
+\begin_layout Standard
+El usuario tiene la opción de escoger uno o más adiestramientos para su
+ personaje.
+ Para ello está esta opción en el menú.
+ Una vez seleccionada, aparecerá un listado con los adiestramientos permitidos
+ dependiendo de los que puede comprar, del coste y los Puntos de Desarrollo
+ restantes o de los adiestramientos particulares de la raza.
+ Si un adiestramiento no aparece aquí, es por que el personaje no podrá
+ escoger por alguna limitación de profesión o coste.
+ O simplemente que el fichero que lo define está corrupto o mal formado.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Imagenes/Adiestramiento.png
+	width 60col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Selección-de-Adiestramiento"
+
+\end_inset
+
+Selección de un adiestramiento.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Para escoger un adiestramiento, no tiene más que seleccionar uno de la lista
+ y dar al botón aceptar.
+ Aparecerá una ventana con las particularidades del adiestramiento seleccionado.
+\end_layout
+
+\begin_layout Subsubsection
+Categorías y habilidades
+\end_layout
+
+\begin_layout Standard
+Un adiestramiento otorga un conjunto de puntos para determinadas categorías
+ y habilidades.
+ Esta ventana permite repartirlo en aquellos casos que se den libertad al
+ personaje.
+ El campo 
+\begin_inset Quotes eld
+\end_inset
+
+Libres
+\begin_inset Quotes erd
+\end_inset
+
+ indica cuantos rangos no han sido seleccionados para esa Categoría, y por
+ tanto se pueden distribuir libremente entre las habilidades.
+ Hay que recordar que algunos adiestramientos obligan a repartir los rangos
+ entre un número determinado de habilidades y que este programa lo contempla,
+ por tanto no te extrañes si no puedes disminuir los rangos de alguna habilidad.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Mejora de características
+\end_layout
+
+\begin_layout Standard
+Algunos adiestramientos permiten realizar una tirada de mejora de característica
+s.
+ Esto se realiza automáticamente al aceptar el adiestramiento, excepto en
+ los casos que se pueda escoger una características de un conjunto.
+ Este botón permite escoger cuál entre un conjunto que características será
+ la que aumenta.
+\end_layout
+
+\begin_layout Subsubsection
+Aceptar, Cancelar y Aleatorio
+\end_layout
+
+\begin_layout Standard
+Una vez se da al botón Aceptar, el sistema almacena el adiestramiento y
+ los bonus indicados.
+ Si la opción escogida es Cancelar, el adiestramiento se elimina del personaje
+ y se le devuelven los Puntos de Desarrollo gastados.
+ 
+\end_layout
+
+\begin_layout Standard
+Como en otros casos, el sistema permite que todo estas elecciones se hagan
+ de forma aleatoria si se pulsa al botón adecuado.
+\end_layout
+
+\begin_layout Section
+Gastar los puntos de desarrollo en categorías y habilidades
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Imagenes/GastoPuntosDesarrollo.png
+	lyxscale 40
+	width 60col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Ejemplo de selección de categorías y habilidades.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El siguiente paso consiste en gastar los puntos de desarrollo para adquirir
+ los rangos en las categorías de habilidades y en las propias habilidades.
+\end_layout
+
+\begin_layout Subsection
+Selección de rangos en categorías y habilidades
+\end_layout
+
+\begin_layout Standard
+Una lista enumera todas las habilidades disponibles -según los módulos seleccion
+ados- en el que el usuario puede gastar rangos.
+ Además, aquí es dónde el usuario puede escoger el coste asociado a las
+ categorías de armas.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Gastar puntos de desarrollo para adquirir rangos
+\end_layout
+
+\begin_layout Standard
+El usuario puede comprar nuevos rangos tanto en habilidades como en categorías
+ simplemente seleccionando uno de los cuadrados que estén libres, y el coste
+ en puntos de desarrollo será descontado automáticamente del personaje.
+ Si más tarde el usuario cambia de opinión, puede deseleccionar uno de los
+ cuadrados y los puntos de desarrollo le serán restituidos.
+ 
+\end_layout
+
+\begin_layout Subsection
+Habilidades Favoritas
+\end_layout
+
+\begin_layout Standard
+En el menú de la ventana, se pueden seleccionar que habilidades son consideradas
+ favoritas.
+ Una habilidad favorita simplemente será incluida en la página principal
+ de la ficha del personaje cuando se genere el documento en PDF.
+ No tiene ningún otro efecto.
+ 
+\end_layout
+
+\begin_layout Standard
+Una lista de categorías permite seleccionar la adecuada, actualizando la
+ ventana con las habilidades de dicha categoría.
+ 
+\end_layout
+
+\begin_layout Standard
+Existe la opción de asignar las habilidades favoritas en modo automático.
+ Pulsando el botón correspondiente todas las habilidades que tengan rangos
+ serán añadidas al listado de favoritas.
+ Después, en la ficha, únicamente aquellas con valores más altos aparecerán.
+ 
+\end_layout
+
+\begin_layout Subsection
+Distribución aleatoria de los puntos de desarrollo
+\end_layout
+
+\begin_layout Standard
+Como en otras ventanas puedes dejar al programa decidir donde distribuir
+ los rangos.
+ Simplemente pulsa el botón 
+\emph on
+Aleatorio
+\emph default
+ y el programa gastará los puntos donde crea conveniente.
+ La inteligencia dotada al programa puede sorprendente al respecto.
+ 
+\end_layout
+
+\begin_layout Section
+Historial
+\end_layout
+
+\begin_layout Standard
+Una vez el personaje está ya definido, el programa permite asignar los puntos
+ de historial al mismo.
+ Únicamente se permiten gastar puntos de historial en aumento de características
+, mejora de categorías y habilidades, y objetos mágicos.
+ Para cualquier otra opción se deberá realizar fuera del programa.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Imagenes/VentanaHistorial.png
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Ventana-de-historial."
+
+\end_inset
+
+Ventana de historial.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Mejora de categorías y habilidades
+\end_layout
+
+\begin_layout Standard
+Se puede gastar un punto de historial para obtener un +5 a una categoría
+ o un +10 a una habilidad.
+ En esta ventana se puede seleccionar que habilidades o categorías pueden
+ disfrutar de esa bonificación.
+ Los puntos de historia son restados automáticamente.
+ 
+\end_layout
+
+\begin_layout Subsection
+Rangos en idiomas
+\end_layout
+
+\begin_layout Standard
+Existe la posibilidad de invertir puntos de historial en idiomas.
+ Simplemente asigna un rango a cualquier idioma deseado.
+ Un punto de historial será restado del total disponible y podrás asignar
+ hasta 20 rangos por punto de historial.
+\end_layout
+
+\begin_layout Standard
+Para algunas razas, existe la posibilidad de escoger un 
+\begin_inset Quotes eld
+\end_inset
+
+Idioma Racial
+\begin_inset Quotes erd
+\end_inset
+
+ o un 
+\begin_inset Quotes eld
+\end_inset
+
+Idioma Regional
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Si es el caso del personaje actual, en el menú superior de la ventana,
+ aparecerá la opción para abrir una ventana y poder seleccionar el idioma
+ deseado.
+\end_layout
+
+\begin_layout Subsection
+Aumento de características
+\end_layout
+
+\begin_layout Standard
+Permite realizar una nueva tirada de aumento de característica a la seleccionada.
+ La tirada se hace automáticamente una vez se selecciona una característica.
+ Una vez hecha no se puede recuperar el punto de historial.
+ 
+\end_layout
+
+\begin_layout Subsection
+Objetos mágicos
+\end_layout
+
+\begin_layout Standard
+Seleccionando este botón se abre una ventana que permite insertar objetos
+ mágicos y sus bonificaciones a las distintas habilidades o categorías.
+ Sin embargo, el programa no realiza tirada alguna, por lo que queda a discreció
+n del DJ los objetos permitidos.
+ Cada objeto mágico tienen como coste un punto de historial.
+\end_layout
+
+\begin_layout Section
+Talentos
+\end_layout
+
+\begin_layout Standard
+Aunque opcional, el último paso en la creación de personajes, es la selección
+ de talentos.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Imagenes/VentanaTalentos.png
+	width 75col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Ventana-de-Talentos."
+
+\end_inset
+
+Ventana de Talentos.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Listado de talentos
+\end_layout
+
+\begin_layout Standard
+Una lista por orden alfabético muestra todos los talentos disponibles en
+ el programa.
+ Seleccionando uno de ellos se muestra la información, el coste y un breve
+ resumen del mismo.
+ También se muestra los puntos de historial libres si se selecciona la opción
+ de incluir el coste en puntos de historial de los talentos.
+ 
+\end_layout
+
+\begin_layout Subsection
+Coste de talentos
+\end_layout
+
+\begin_layout Standard
+Seleccionar un talento tiene un coste de puntos de talentos.
+ Los defectos sin embargo dan puntos de talento.
+ Por tanto el usuario es libre de combinar todos los talentos y defectos
+ que crea necesario.
+ El programa no contempla reglas alternativas como que ciertos talentos
+ fuercen a coger defectos o que hayan limitaciones a algunos de ellos.
+ Por tanto será el DJ el que tenga la última palabra a la hora de permitir
+ la selección de uno de ellos.
+ 
+\end_layout
+
+\begin_layout Standard
+Para seleccionar y pagar uno de ellos, basta marcar la casilla 
+\emph on
+Seleccionar
+\emph default
+ cuando el talento está elegido.
+ 
+\end_layout
+
+\begin_layout Subsection
+Descripción
+\end_layout
+
+\begin_layout Standard
+Muestra un resumen de la descripción obtenida del Libro de Personajes de
+ Rolemaster.
+ Esta descripción también será impresa en la hoja de personaje a modo indicativo
+ para el jugador.
+ 
+\end_layout
+
+\begin_layout Subsection
+Listado de talentos escogidos
+\end_layout
+
+\begin_layout Standard
+Esta lista recoge todos los talentos por los que el jugador ya ha pagado,
+ así como su descripción.
+ No tiene utilidad salvo la de permitir al usuario conocer en todo momento
+ lo que ya ha seleccionado.
+ 
+\end_layout
+
+\begin_layout Subsection
+Talentos aleatorios
+\end_layout
+
+\begin_layout Standard
+Existe un menú que permite seleccionar un talento aleatorio para el personaje.
+ Esto refleja la regla del Manual de Personajes que permite reducir el coste
+ en puntos de historial de los talentos.
+ Dado que se selecciona al azar, esta acción no se puede deshacer.
+ 
+\end_layout
+
+\begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "cha:Inserción"
+
+\end_inset
+
+Inserción de datos nuevos
+\end_layout
+
+\begin_layout Section
+Insertar equipo
+\end_layout
+
+\begin_layout Standard
+Permite incluir equipo no mágico.
+ También permite editar el equipo obtenido mediante adiestramientos.
+ Por ejemplo, si ya no es útil para el personaje.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Imagenes/Equipo.png
+	width 70col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Pantalla de inserción de equipo.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Insertar objetos mágicos
+\end_layout
+
+\begin_layout Standard
+Permite incluir aquí objetos mágicos que den un bonus a una categoría o
+ habilidad.
+ De esta forma, el objeto será contabilizado para el total de dicha categoría
+ o habilidad.
+ 
+\end_layout
+
+\begin_layout Section
+Insertar trasfondo
+\end_layout
+
+\begin_layout Standard
+El texto aquí escrito aparecerá en la hoja de personaje.
+ Se pueden incluir notas del personaje o simplemente la historia del mismo.
+ 
+\end_layout
+
+\begin_layout Section
+Insertar rangos
+\end_layout
+
+\begin_layout Standard
+El programa también permite incluir detalles ignorando todas las reglas
+ de creación de los mismos.
+ Esta ventana permite añadir las características, rangos y habilidades sin
+ contemplar los límites normales.
+ La utilidad viene principalmente para reflejar cualquier cambio que no
+ sea posible hacerlo con las limitaciones del software (trasfondos, eventos
+ relacionados con la trama de una partida, etc.)
+\end_layout
+
+\begin_layout Section
+Insertar edad
+\end_layout
+
+\begin_layout Standard
+Con esta opción se permite calcular los cálculos de edad para un personaje.
+ Esta regla está inspirada en el Manual del Director de Juego, pero ha sido
+ generalizada para todas las razas.
+ Se resuelve como sigue:
+\end_layout
+
+\begin_layout Enumerate
+El cálculo de la fase de edad (joven, maduro, etc.) se hace mediante una
+ proporción según la esperanza de vida máxima de la raza.
+ Es por tanto la misma para razas con las misma esperanza de vida.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Solamente se hacen tiradas de edad si esta supera la mediana edad del personaje.
+ Es decir, solamente se hacen tiradas cuando el personaje es ya viejo.
+\end_layout
+
+\begin_layout Enumerate
+Se ignoran los modificadores de enfermedad, ya que el programa no puede
+ conocerlos.
+ 
+\end_layout
+
+\begin_layout Enumerate
+La pérdida de características se hace en función del tipo de raza.
+ Tipo 1: D5-1, Tipo 2: D5+1, Tipo 3: D10, Tipo 4: D10+1, Tipo 5: 2D10 -
+ 1.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Únicamente se resuelve los efectos de la edad cuando se hace una subida
+ de nivel.
+ 
+\end_layout
+
+\begin_layout Enumerate
+La pérdida de características se resuelve antes que la tirada de subida
+ de nivel para el aumento de las características temporales, lo que permite
+ paliar el efecto con la propia subida de nivel.
+ 
+\end_layout
+
+\begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "cha:Generación-aleatoria"
+
+\end_inset
+
+Generación aleatoria de personajes
+\end_layout
+
+\begin_layout Section
+Utilidad de la generación aleatoria de personajes
+\end_layout
+
+\begin_layout Standard
+Puede ser importante generar PNJs mientras la aventura sigue su curso.
+ No todos los PNJs pueden estar definidos a priori, ya que los jugadores
+ pueden seguir un rumbo no pensado previamente.
+ O puede que lo que simplemente era un PNJ con un nombre se una a los PJs
+ en sus aventuras y necesite características y habilidades de repente.
+ Esta opción permite al Director de Juego solucionar todos estos problemas
+ en unos pocos segundos.
+ 
+\end_layout
+
+\begin_layout Section
+Generar un personaje aleatorio
+\end_layout
+
+\begin_layout Standard
+Es tan simple como seleccionar la opción adecuada en el menú.
+ Seleccionar el nivel final que tendrá el personaje y tener en cuenta las
+ siguientes consideraciones.
+\end_layout
+
+\begin_layout Subsection
+Diferencias entre un personaje especializado y uno genérico
+\end_layout
+
+\begin_layout Standard
+Se puede hacer que un personaje esté especializado, es decir, que gaste
+ sus puntos de desarrollo en unas pocas habilidades o categorías para tener
+ un valor más alto, o se pueden hacer genéricos, es decir que tenga tendencia
+ a repartir sus puntos de desarrollo entre muchas habilidades.
+ Antes de la creación del personaje, se puede decidir que tipo de personaje
+ se desea.
+ En caso de duda, el valor por defecto es el adecuado en la mayoría de situacion
+es.
+ 
+\end_layout
+
+\begin_layout Subsection
+Aleatorio puro o con habilidades sugeridas
+\end_layout
+
+\begin_layout Standard
+Si no se selecciona nada más, el personaje se generará de forma totalmente
+ aleatoria siguiendo los patrones indicados.
+ Si bien a veces puede ser interesante que algunos PNJs tengan alguna habilidad
+ ya incluida, como por ejemplo un arma característica de la cultura o una
+ habilidad extendida en una región.
+ Para ello existe una opción en donde se pueden indicar el mínimo número
+ de rangos deseados en cualquier habilidad o categoría.
+ Estos rangos serán comprados de forma normal mientras se genera aleatoriamente
+ el personaje, por tanto no podrá tener más rangos que los que le permita
+ su nivel (Será imposible tener 20 rangos en una habilidad cuando el personaje
+ sea de Nº2, por ejemplo).
+ 
+\end_layout
+
+\begin_layout Subsection
+Aplicar inteligencia a la aleatorización
+\end_layout
+
+\begin_layout Standard
+La aleatorización esta bien, pero da lugar a personajes un poco extraños.
+ Por tanto he diseñado una opción que calcula los personajes de una forma
+ 
+\begin_inset Quotes eld
+\end_inset
+
+más inteligente
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Es decir, calcula los personajes de una forma más cercana a lo que haría
+ un jugador, o al menos como lo haría yo.
+ Por ejemplo asegura que los magos tengan algún punto de poder, que los
+ guerreros sepan luchar y cosas por el estilo.
+ Sugiero que esta opción esté siempre activada.
+\end_layout
+
+\begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "cha:Configuración"
+
+\end_inset
+
+Opciones de configuración
+\end_layout
+
+\begin_layout Section
+Ventana de configuración
+\end_layout
+
+\begin_layout Standard
+Permite cambiar la configuración del programa.
+ Esta configuración será almacenada en el disco y se usará en todos los
+ personajes que se generen a partir del momento de cambio.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Imagenes/Opciones.png
+	lyxscale 60
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Ventana de configuración.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Personaje actual
+\end_layout
+
+\begin_layout Standard
+Existen habilidades y reglas que cambian según los libros de Rolemaster
+ que se dispongan.
+ Seleccionando las distintas habilidades harán que estas cambien a la hora
+ de generar un personaje.
+ Por ejemplo, el tratamiento de los Golpes de Artes Marciales cambian con
+ el complementario de Artes Marciales.
+ También se pueden incluir Armas de Fuego si el nivel tecnológico del mundo
+ resulta adecuado, activando así todas las habilidades y maniobras relacionadas
+ con las Armas de Fuego.
+ En el caso de que se quiera jugar una aventura Pulp, se puede deshabilitar
+ la magia para que se oculten todas las características.
+\end_layout
+
+\begin_layout Subsection
+Personajes aleatorios
+\end_layout
+
+\begin_layout Standard
+Indica si se quiere que los personajes aleatorios también tengan talentos.
+ De esta forma el programa seleccionará talentos a los personajes y los
+ incluirá.
+ 
+\end_layout
+
+\begin_layout Subsection
+Fichas en PDF
+\end_layout
+
+\begin_layout Standard
+Permite seleccionar como se rellenarán las distintas habilidades en la hoja
+ de personajes, si por orden lexicográfico (como un diccionario) o por orden
+ de las categorías a las que pertenecen (modelo tradicional de Rolemaster).
+ De esta forma se imprimirán en la ficha y se facilitará la forma de búsqueda
+ de habilidades, que puede resultar una tarea un poco engorrosa.
+ 
+\end_layout
+
+\begin_layout Standard
+También permite elegir el tipo de fuente para el PDF.
+ Si se activa esta opción, la ficha PDF generada tendrá un efecto como si
+ hubiera sido rellenada a mano gracias al uso de una fuente que imita la
+ escritura humana.
+ 
+\end_layout
+
+\begin_layout Subsection
+Interfaz gráfica
+\end_layout
+
+\begin_layout Standard
+Permite ocultar aquellas categorías que por su coste, resultan inútiles
+ a un personaje.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Módulos"
+
+\end_inset
+
+Opciones Globales
+\end_layout
+
+\begin_layout Standard
+Hasta la versión 0.9.9, esta opción servía para habilitar los módulos disponibles.
+ Desde la versión 0.9.9.1 en adelante, todos los módulos están habilitados
+ por defecto y esta versión sirve para seleccionar aquellos que no se quieran
+ utilizar por cualquier motivo.
+ Para ello, basta con seleccionar el módulo deseado y después seleccionar
+ la opción 
+\begin_inset Quotes eld
+\end_inset
+
+Deshabilitar
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Para consultar si un módulo está o no deshabilitados, basta con seleccionarlos
+ de nuevo.
+\end_layout
+
+\begin_layout Standard
+Se recomienda reiniciar la aplicación una vez se añade o elimina un nuevo
+ módulo.
+ Asegurando así que toda la información se recarga en el sistema.
+ 
+\end_layout
+
+\begin_layout Part
+Subida de nivel remota
+\end_layout
+
+\begin_layout Chapter
+Subir el nivel de un personaje sin supervisión
+\end_layout
+
+\begin_layout Section
+Introducción
+\end_layout
+
+\begin_layout Standard
+El programa permite que cada uno de los jugadores se suba el nivel en su
+ propia casa en unos pocos minutos sin la necesidad de quedar en la casa
+ del Director de Juego.
+ De esta forma se ahorra tiempo y resulta mucho más cómodo, utilizando el
+ tiempo libre para jugar.
+ Para ello, la subida de nivel debe de ser segura, es decir, debe impedir
+ que los jugadores puedan hacer trampas y subir más rangos de los debidos.
+ 
+\end_layout
+
+\begin_layout Section
+Metodología
+\end_layout
+
+\begin_layout Standard
+La metodología a seguir para usar esta opción sería la siguiente.
+\end_layout
+
+\begin_layout Subsection
+Generar el personaje
+\end_layout
+
+\begin_layout Standard
+Primero el personaje se genera en presencia del Director de Juego que controla
+ la creación y aplica sus propias reglas de la campaña que tenga pensada
+ utilizar.
+ El personaje se guarda y también se imprime para su utilización.
+ 
+\end_layout
+
+\begin_layout Subsection
+Subir de nivel
+\end_layout
+
+\begin_layout Standard
+Con el tiempo y experiencia acumulada, el personaje sube un nivel.
+ Por tanto se debe modificar la ficha.
+ Para ello lo novedoso del sistema sería que el Director del Juego envíe
+ el archivo del personaje por email al jugador.
+ El jugador cómodamente en casa puede subir de nivel al personaje tomándose
+ el tiempo que crea conveniente.
+ 
+\end_layout
+
+\begin_layout Subsection
+Exportar el nivel
+\end_layout
+
+\begin_layout Standard
+Una vez subido de nivel, el jugador no devuelve el personaje al Director
+ de Juego, sino que lo que hace es exportar la subida de nivel.
+ Esto generará un fichero de subida de nivel que será enviado al Director
+ de Juego por email o el soporte digital que se crea oportuno.
+\end_layout
+
+\begin_layout Subsection
+Importar el nivel
+\end_layout
+
+\begin_layout Standard
+El Director de Juego importa el nivel del personaje utilizando para ello
+ el fichero de personaje original del que disponía en su casa y el fichero
+ de nivel que le ha enviado el jugador.
+ El programa le indicará los puntos de desarrollo gastados y si detecta
+ alguna anomalía.
+ Una vez hecho esto, el Director podrá imprimir la ficha del jugador.
+ 
+\end_layout
+
+\begin_layout Subsection
+Futuros niveles
+\end_layout
+
+\begin_layout Standard
+Cada vez que se suba de nivel, el Director de Juego debe enviar el personaje
+ con el nivel actual y debe recibir la subida de nivel del nivel próximo.
+ En el caso de que un personaje debiera subir dos niveles consecutivos por
+ algún motivo, debe repetir este ciclo dos veces.
+ No funcionará en el caso que el jugador suba los dos niveles consecutivos
+ a la vez.
+ 
+\end_layout
+
+\begin_layout Subsection
+Seguridad del sistema
+\end_layout
+
+\begin_layout Standard
+Este sistema es seguro ya que el director de juego mantiene en todo momento
+ la creación original del personaje.
+ De esta forma se evite que el jugador esté tentado de usar la opción de
+ insertar personaje y que altere sus rangos o modifique el personaje de
+ otra manera.
+ Al importar el nivel, el programa calcula los costes de los rangos de forma
+ normal, por lo que si el jugador se ha excedido en el coste, esto queda
+ plasmado.
+ Además las tiradas de características son precalculadas en la generación
+ del personaje, por lo que el resultado obtenido aunque aleatorio, será
+ siempre el mismo al subir de nivel, evitando la tentación del jugador de
+ repetir tiradas.
+\end_layout
+
+\begin_layout Part
+Añadir nuevas opciones a El Libro De Esher
+\end_layout
+
+\begin_layout Chapter
+Añadir nuevos módulos
+\end_layout
+
+\begin_layout Section
+Creación de módulos
+\end_layout
+
+\begin_layout Standard
+Se pueden crear nuevos módulos para El Libro de Esher de una forma sencilla
+ y sin saber nada sobre complejos lenguajes de programación.
+ Simplemente se necesita un editor de textos sin formato, como el Notepad,
+ el Notepad++ o el SciTE (este último lo recomiendo) y que acepte formato
+ UTF-8.
+ Se desaconseja utilizar programas de generación de documentos como Microsoft
+ Word ya que el texto enriquecido haría imposible al programa leer los campos.
+ 
+\end_layout
+
+\begin_layout Standard
+Para crear un módulo solamente se debe de crear una carpeta dentro de la
+ carpeta dónde esté instalado El Libro de Esher, y yendo a la carpeta rolemaster
+/módulos.
+ Allí se generará una carpeta con el nombre del módulo que queramos añadir.
+ Imita la estructura de los módulos ya presentes con el programa para evitar
+ problemas.
+ 
+\end_layout
+
+\begin_layout Section
+Plantilla de razas
+\end_layout
+
+\begin_layout Standard
+Las razas deben de estar incluidas en un fichero distinto por raza dentro
+ de la carpeta 
+\begin_inset Quotes eld
+\end_inset
+
+rolemaster/modulos/<nombre_modulo>/razas
+\begin_inset Quotes erd
+\end_inset
+
+ que deberán estar dentro de la carpeta que forma a El Libro de Esher.
+ Cada raza debe estar en un único fichero en el que el nombre de fichero
+ debe ser el nombre de la raza, ya que será el nombre final que aparecerá
+ en el programa al ejecutarlo.
+ 
+\end_layout
+
+\begin_layout Standard
+Para generar una nueva raza, hay que copiar la plantilla de cualquier otra
+ raza o utilizar la plantilla de ejemplo.
+ Hay que tener mucho cuidado al editar el fichero, pues el programa es sensible
+ a los espacios y tabulaciones entre nombres y valores, así como las comas
+ también son importantes.
+ De todas formas cualquier fallo será indicado por el programa una vez se
+ intente utilizar la raza, por lo que se puede utilizar este para comprobarla.
+ 
+\end_layout
+
+\begin_layout Subsection
+Modificación a las características
+\end_layout
+
+\begin_layout Standard
+Aquí se incluyen todos los penalizadores por raza a las características.
+ Tanto positivos como negativos.
+ Esto será lo que se podrá ver después en la ventana de características
+ en el apartado 
+\begin_inset Quotes eld
+\end_inset
+
+Bonus por Raza
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Modificación a la tirada de resistencia
+\end_layout
+
+\begin_layout Standard
+Existen cinco tiradas de resistencia básicas: Esencia, Mentalismo, Canalización,
+ Enfermedad y Venenos.
+ Además se incluye la resistencia a Psiónico por compatibilidad con otros
+ libros de la serie Rolemaster (como Spacemaster).
+ También aparece Frio, Calor y Miedo, que aunque no aparecen directamente
+ en los libros, muchas razas dan penalizadores o bonificaciones a dichas
+ tiradas.
+ 
+\end_layout
+
+\begin_layout Subsection
+Progresiones
+\end_layout
+
+\begin_layout Standard
+La raza escogida determina la progresión de Desarrollo Físico y de Puntos
+ de Poder en cada uno de los reinos de magia.
+ Por tanto, se deberá plasmar en esta sección aquello deseado para la raza.
+\end_layout
+
+\begin_layout Subsection
+Profesiones Restringidas
+\end_layout
+
+\begin_layout Standard
+Simplemente se debería de incluir un listado separado por comas de las profesion
+es que están restringidas para una raza.
+ Estas profesiones no aparecerán a la hora de generar el personaje.
+ La sintaxis permite:
+\end_layout
+
+\begin_layout Enumerate
+Sí una profesión empieza con el símbolo 
+\begin_inset Quotes eld
+\end_inset
+
+-
+\begin_inset Quotes erd
+\end_inset
+
+, significa que esta profesión es una excepción.
+ Por ejemplo, 
+\begin_inset Quotes eld
+\end_inset
+
+-Ladrón
+\begin_inset Quotes erd
+\end_inset
+
+ significará que la raza tiene como restringida todas las profesiones excepto
+ la de ladrón.
+ Es decir, la única profesión disponible será ladrón.
+ No se pueden mezclar excepciones con profesiones restringidas.
+ Si una de ellas es una excepción, todas ellas serán tratadas como excepciones.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Sí se incluye un reino de magia entre llaves, significará todas las profesiones
+ relativas a ese reino de magia.
+ Por ejemplo, 
+\begin_inset Quotes eld
+\end_inset
+
+{canalización}
+\begin_inset Quotes erd
+\end_inset
+
+ significará que tendrá como profesiones restringidas clérigo, montaraz,
+ sanador, etc.
+ incluyendo también cualquier hechicero híbrido de canalización.
+ Esta opción se puede combinar con las excepciones.
+ Por ejemplo, 
+\begin_inset Quotes eld
+\end_inset
+
+-{canalización}
+\begin_inset Quotes erd
+\end_inset
+
+ significará que únicamente tiene como profesiones disponibles todos los
+ hechiceros y semihechiceros de canalización.
+ 
+\end_layout
+
+\begin_layout Subsection
+Partida del alma
+\end_layout
+
+\begin_layout Standard
+Este valor solamente simple a la hora de completar la ficha de personaje,
+ ya que no se utiliza para nada durante la creación del mismo pues solo
+ tiene valor cuando el personaje muere.
+ 
+\end_layout
+
+\begin_layout Subsection
+Tipo de raza
+\end_layout
+
+\begin_layout Standard
+Este valor solamente sirve a la hora de completar la ficha de personaje,
+ ya que no se utiliza para nada durante la creación del mismo.
+ A fin de cuentas, solamente se utiliza a la hora de resucitar el personaje.
+ 
+\end_layout
+
+\begin_layout Subsection
+Tamaño de raza
+\end_layout
+
+\begin_layout Standard
+Este valor cambiará algunos datos si el personaje se imprime como se hace
+ en el Manual de Monstruos.
+ De esta forma determinará el grado de los ataques y la modificación de
+ los críticos recibidos.
+ Lo normal en estos casos es poner 
+\begin_inset Quotes eld
+\end_inset
+
+Medio
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Recuperación
+\end_layout
+
+\begin_layout Standard
+Otro campo que solamente servirá para completar la ficha de personaje y
+ que no repercute en la creación del mismo.
+ 
+\end_layout
+
+\begin_layout Subsection
+Idiomas
+\end_layout
+
+\begin_layout Standard
+Puntos de idiomas que la raza regala al personaje para la selección de acuerdo
+ con la raza y la cultura.
+ 
+\end_layout
+
+\begin_layout Subsection
+Historial
+\end_layout
+
+\begin_layout Standard
+Los puntos de historial que podrán luego ser invertidos en mejorar habilidades
+ o características.
+ 
+\end_layout
+
+\begin_layout Subsection
+Listado de idiomas
+\end_layout
+
+\begin_layout Standard
+Un listado de idiomas que engloban todos los idiomas que permite la raza,
+ tanto por raza, desarrollo de cultura y desarrollo en la adolescencia.
+ La primera columna equivale a los rangos iniciales, y la segunda al rango
+ máximo al que puede aspirar el personaje al invertir puntos de cultura.
+ 
+\end_layout
+
+\begin_layout Subsection
+Listado de idiomas historial
+\end_layout
+
+\begin_layout Standard
+El listado de idiomas disponibles para gastar puntos de historial.
+ A este listado siempre se le añadirá el listado anterior de idiomas de
+ desarrollo en la adolescencia.
+ 
+\end_layout
+
+\begin_layout Subsection
+Habilidades comunes
+\end_layout
+
+\begin_layout Standard
+Toda habilidad que este incluida aquí aparecerá como común.
+ Además si se incluye una categoría, entonces todas las habilidades de dicha
+ categoría aparecerán como comunes.
+\end_layout
+
+\begin_layout Subsection
+Habilidades restringidas
+\end_layout
+
+\begin_layout Standard
+Similar al caso anterior pero con habilidades restringidas.
+ 
+\end_layout
+
+\begin_layout Subsection
+Culturas
+\end_layout
+
+\begin_layout Standard
+Las culturas que esta raza permite.
+ Puedes hacer un listado de culturas y/o incluir también rasgos generales
+ como 
+\begin_inset Quotes eld
+\end_inset
+
+Urbana
+\begin_inset Quotes erd
+\end_inset
+
+ o 
+\begin_inset Quotes eld
+\end_inset
+
+Todas
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Acepta la siguiente sintaxis:
+\end_layout
+
+\begin_layout Enumerate
+Si se incluye como cultura una cultura general, como por ejemplo 
+\begin_inset Quotes eld
+\end_inset
+
+Acuática
+\begin_inset Quotes erd
+\end_inset
+
+, incluirá todas las culturas que empiecen por esta palabra.
+ En este ejemplo se incluirían las culturas 
+\begin_inset Quotes eld
+\end_inset
+
+Acuática
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+Acuática Nómada
+\begin_inset Quotes erd
+\end_inset
+
+, ...
+\end_layout
+
+\begin_layout Enumerate
+Sí una cultura empieza con el símbolo 
+\begin_inset Quotes eld
+\end_inset
+
+-
+\begin_inset Quotes erd
+\end_inset
+
+, significa que esta cultura es una excepción.
+ Por ejemplo, 
+\begin_inset Quotes eld
+\end_inset
+
+-Silvana
+\begin_inset Quotes erd
+\end_inset
+
+ significará que la raza tiene disponible todas las culturas del programa
+ a excepción de la 
+\begin_inset Quotes eld
+\end_inset
+
+Silvana
+\begin_inset Quotes erd
+\end_inset
+
+.
+ No es posible mezclar excepciones de culturas y definiciones de culturas.
+ Si una de ellas es una excepción, todas ellas serán tratadas como excepciones.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Si una palabra va entre llaves, se incluirán todas las culturas que contengan
+ la palabra.
+ Por ejemplo, la cultura 
+\begin_inset Quotes eld
+\end_inset
+
+{urbana}
+\begin_inset Quotes erd
+\end_inset
+
+ incluirá las culturas 
+\begin_inset Quotes eld
+\end_inset
+
+Litoral Urbana (Clase alta)
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+Litoral Urbana (Clase Media)
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+Llanuras Urbana (Clase Alta)
+\begin_inset Quotes erd
+\end_inset
+
+, etc.
+ Se pueden mezclar con las excepciones de culturas y escribir 
+\begin_inset Quotes eld
+\end_inset
+
+-{urbana}
+\begin_inset Quotes erd
+\end_inset
+
+ que significaría cualquier cultura que no sea del tipo 
+\begin_inset Quotes eld
+\end_inset
+
+urbana
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Especiales
+\end_layout
+
+\begin_layout Standard
+Todo listado de especiales será impreso en la cada trasera de la ficha de
+ personajes.
+ Además, para algunos casos se aplicarán modificadores al personaje:
+\end_layout
+
+\begin_layout Enumerate
+todos aquellos especiales que tengan que coincidan con el nombre de una
+ habilidad se incluirán en el bonus por raza del personaje para el cómputo
+ del total de dicha habilidad.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Si se incluye un nombre de una categoría, se dará el bonus a todas las habilidad
+es de dicha categoría.
+ 
+\end_layout
+
+\begin_layout Enumerate
+También pueden ser incluidos ciertos talentos aquí que serán escogidos obligator
+iamente al crear el personaje.
+ Se puede incluir el coste entre corchetes para así ajustar los puntos totales
+ de talentos disponibles para el personaje.
+ Por ejemplo 
+\begin_inset Quotes eld
+\end_inset
+
+Glotón: Pagina 93 del Manual de Personajes [-3]
+\begin_inset Quotes erd
+\end_inset
+
+ hará que toda la raza siempre tenga el rasgo de glotón y añadirán tres
+ puntos para la elección de talentos disponibles para la creación de un
+ personaje.
+ 
+\end_layout
+
+\begin_layout Subsection
+Nombres masculinos
+\end_layout
+
+\begin_layout Standard
+Un listado de nombres entre los que el programa seleccionará uno si el sexo
+ es varón, y si el personaje no ha elegido ya uno a la hora de crearlo.
+ 
+\end_layout
+
+\begin_layout Subsection
+Nombres femeninos
+\end_layout
+
+\begin_layout Standard
+Un listado de nombres entre los que el programa seleccionará uno si el sexo
+ es mujer, y si el personaje no lo ha elegido ya uno a la hora de crearlo.
+ 
+\end_layout
+
+\begin_layout Subsection
+Apellidos
+\end_layout
+
+\begin_layout Standard
+Un nombre estará compuesto por un nombre inicial y un apellido.
+ Por tanto el programa escoge un apellido para el personaje si está indicado
+ como aleatorio.
+ Obviamente no distingue si es personaje es masculino o femenino.
+\end_layout
+
+\begin_layout Section
+Plantilla de Culturas
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Armas-Típicas"
+
+\end_inset
+
+Armas Típicas
+\end_layout
+
+\begin_layout Standard
+Aquí se incluye un listado de armas de la cultura.
+ Estas armas estarán disponibles para el jugador a la hora de gastar aficiones
+ o distribuir rangos en las armas.
+ Las reglas aplicables aquí son:
+\end_layout
+
+\begin_layout Enumerate
+En el caso de escribir la palabra 
+\begin_inset Quotes eld
+\end_inset
+
+Todas
+\begin_inset Quotes erd
+\end_inset
+
+ se podrá escoger cualquier arma que no sea considerada rara, es decir,
+ cualquier arma que no tenga un asterisco en su definición.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Si se incluye el nombre de una categoría de armas, se podrá escoger cualquier
+ arma de dicha categoría (si no es considerada rara).
+\end_layout
+
+\begin_layout Enumerate
+Si se incluye una palabra entre llaves, como por ejemplo 
+\begin_inset Quotes eld
+\end_inset
+
+{Revólver}
+\begin_inset Quotes erd
+\end_inset
+
+, se incluirá todas las armas que tengan esa palabra como prefijo.
+\end_layout
+
+\begin_layout Subsection
+Rangos en la adolescencia
+\end_layout
+
+\begin_layout Standard
+Aquí se incluyen los rangos típicos por cultura.
+ Las reglas aplicables son:
+\end_layout
+
+\begin_layout Enumerate
+Si se incluye un conjunto de categorías entre llaves, se podrá elegir una
+ entre la lista.
+ 
+\emph on
+Nota: no se permite repartir rangos entre varias categorías debido a la
+ limitación de la versión actual del software
+\emph default
+.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Si se incluye un prefijo de una categoría entre llaves.
+ Se incluyen todas ellas.
+ Es decir, si se indica {Armas}, se generará una lista con todas las categorías
+ de armas.
+ 
+\end_layout
+
+\begin_layout Subsection
+Aficiones
+\end_layout
+
+\begin_layout Standard
+Todas las habilidades que se incluyan en esta lista podrán ser utilizadas
+ por el jugador para gastar sus puntos de aficiones.
+ Además, se permite la siguiente sintaxis:
+\end_layout
+
+\begin_layout Enumerate
+Si se incluye una categoría, todas las habilidades de dicha categoría estarán
+ disponibles para su elección.
+\end_layout
+
+\begin_layout Enumerate
+Si se incluye las palabras especiales 
+\begin_inset Quotes eld
+\end_inset
+
+arma
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+armadura
+\begin_inset Quotes erd
+\end_inset
+
+ o 
+\begin_inset Quotes eld
+\end_inset
+
+lista de hechizos
+\begin_inset Quotes erd
+\end_inset
+
+ se seleccionará para las aficiones un arma, armadura o hechizos propios
+ de la cultura, tal como han sido definidas en el punto 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Armas-Típicas"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Las habilidades de Conocimiento Regional, Conocimiento de la Flora, Supervivenci
+a y similares siempre se aplican al entorno propio de la cultura si no está
+ especificado.
+\end_layout
+
+\begin_layout Enumerate
+Si una habilidad tiene al inicio el símbolo 
+\begin_inset Quotes eld
+\end_inset
+
+-
+\begin_inset Quotes erd
+\end_inset
+
+, esta habilidad es una excepción que se eliminará de la lista de habilidades.
+ Por ejemplo, si se selecciona como aficiones 
+\begin_inset Quotes eld
+\end_inset
+
+Armas·Proyectiles
+\begin_inset Quotes erd
+\end_inset
+
+ y también 
+\begin_inset Quotes eld
+\end_inset
+
+-Ballesta Pesada
+\begin_inset Quotes erd
+\end_inset
+
+ significará tener como aficiones todas las armas de proyectiles excepto
+ la ballesta pesada.
+\end_layout
+
+\begin_layout Section
+Plantilla de Profesiones
+\end_layout
+
+\begin_layout Subsection
+Características
+\end_layout
+
+\begin_layout Standard
+Aquí se pone un listado de las abreviaturas de las características.
+ Las dos primeras deben ser las obligatorias por la profesión.
+ El resto únicamente indicará las preferencias a la hora de generar un personaje
+ aleatorio.
+\end_layout
+
+\begin_layout Subsection
+Reino de magia
+\end_layout
+
+\begin_layout Standard
+Los reinos de magia disponibles para la profesión.
+ Si es un no hechicero, puedes colocar los tres reinos de magia separados
+ por comas.
+ En el caso de un hechicero híbrido de dos reinos, separa los reinos con
+ una barra.
+ Por ejemplo, el sanador tiene el reino 
+\begin_inset Quotes eld
+\end_inset
+
+Canalización/Mentalismo
+\begin_inset Quotes erd
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Bonificación por profesión
+\end_layout
+
+\begin_layout Standard
+Un listado de categorías y habilidades que tienen un bonus especial por
+ la profesión escogida.
+\end_layout
+
+\begin_layout Subsection
+Habilidades y categorías de habilidades
+\end_layout
+
+\begin_layout Standard
+El coste de los rangos para cada categoría.
+ Tal como se muestran en los libros de Rolemaster.
+ 
+\end_layout
+
+\begin_layout Subsection
+Desarrollo de hechizos
+\end_layout
+
+\begin_layout Standard
+El coste de cada una de las listas de hechizos dependiendo del nivel de
+ esta.
+ 
+\end_layout
+
+\begin_layout Subsection
+Habilidades comunes, profesionales y restringidas
+\end_layout
+
+\begin_layout Standard
+Un listado de habilidades que serán comunes debido a la selección de esta
+ profesión.
+ En el caso de tener que elegir entre un grupo de habilidades, se puede
+ usar la siguiente sintaxis:
+\end_layout
+
+\begin_layout Enumerate
+Si es una elección de una o más habilidades entre todas las de una categoría,
+ se puede escribir la categoría junto con el número de habilidades a escoger.
+ Con el formato 
+\begin_inset Quotes eld
+\end_inset
+
+Categoría#1
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Por ejemplo 
+\begin_inset Quotes eld
+\end_inset
+
+Maniobras de Combate#1
+\begin_inset Quotes erd
+\end_inset
+
+ en la sección de habilidades comunes, significará escoge una habilidad
+ de maniobras de combate para que sea común.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Si es una selección entre un conjunto definido de habilidades, en vez de
+ la categoría se debe escribir las habilidades a elegir entre llaves y separadas
+ por puntos y comas.
+ Por ejemplo, para la profesión de Sanador está la opción de 
+\begin_inset Quotes eld
+\end_inset
+
+{Cirugía; Cuidados Médicos; Partería}#1
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Esto significa que el jugador debe escoger una entre estas tres habilidades.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Si es una selección entre un conjunto de habilidades con prefijo, se puede
+ seleccionar usando también las llaves, pero sin que aparezca ningún punto
+ y coma.
+ Por ejemplo, 
+\begin_inset Quotes eld
+\end_inset
+
+{Percepción del Entorno}#1
+\begin_inset Quotes erd
+\end_inset
+
+ permitirá seleccionar una habilidad cuyo nombre empiece así.
+ 
+\end_layout
+
+\begin_layout Subsection
+Adiestramientos
+\end_layout
+
+\begin_layout Standard
+Aquí puedes incluir el coste de puntos de desarrollo para adquirir un adiestrami
+ento.
+ La sintaxis especial es:
+\end_layout
+
+\begin_layout Enumerate
+Todos los adiestramientos que tengan un símbolo 
+\begin_inset Quotes eld
+\end_inset
+
++
+\begin_inset Quotes erd
+\end_inset
+
+ al inicio o al final, se considerarán como adiestramientos favoritos.
+ Esto únicamente tiene utilidad a la hora de generar personajes aleatorios.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Todos los adiestramientos que tengan un símbolo 
+\begin_inset Quotes eld
+\end_inset
+
+-
+\begin_inset Quotes erd
+\end_inset
+
+ al inicio o al final, se considerarán como adiestramientos no permitidos.
+ Estos adiestramientos no podrán ser escogidos por el usuario de la aplicación
+ ni los escogerá el programa al generar un personaje aleatorio.
+ 
+\end_layout
+
+\begin_layout Standard
+Si un adiestramiento no se incluye en esta lista, no podrá ser escogido.
+ Por ejemplo, los adiestramientos propios de la profesión elementalista
+ no podrán ser escogidos por un luchador ya que no tienen costes asociados
+ en la plantilla de luchador.
+ 
+\end_layout
+
+\begin_layout Section
+Plantilla de Adiestramientos
+\end_layout
+
+\begin_layout Subsection
+Tiempo
+\end_layout
+
+\begin_layout Standard
+El tiempo que necesitas entrenar para obtener el adiestramiento.
+ Sin apenas efecto en la aplicación.
+ 
+\end_layout
+
+\begin_layout Subsection
+Exclusivo raza
+\end_layout
+
+\begin_layout Standard
+El adiestramiento únicamente estará disponible para las razas listadas aquí
+ si existe alguna.
+ En otro caso estará disponible para cualquier raza.
+ 
+\end_layout
+
+\begin_layout Subsection
+Especial
+\end_layout
+
+\begin_layout Standard
+Listado de tiradas de se pueden obtener con este adiestramiento.
+ El primer campo es el nombre del objeto/especial, el segundo es la probabilidad.
+ El tercer y cuarto son opcionales y representan el bonus que da a una habilidad.
+ Si se indica 
+\begin_inset Quotes eld
+\end_inset
+
+Arma
+\begin_inset Quotes erd
+\end_inset
+
+ aquí, permitirá escoger entre cualquier arma del juego.
+ Para objetos más complejos se deberán crear manualmente en la sección 
+\begin_inset Quotes eld
+\end_inset
+
+Insertar Objeto Mágico
+\begin_inset Quotes erd
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Habilidades
+\end_layout
+
+\begin_layout Standard
+Aquí debes definir los rangos a repartir entre categorías y habilidades.
+ Teniendo en cuenta las siguientes normas:
+\end_layout
+
+\begin_layout Enumerate
+Si el adiestramiento permite escoger rangos en una categoría, debes indicar
+ la lista entre llaves y separadas por puntos y comas.
+ Por ejemplo, existen muchos adiestramientos que permiten escoger un rango
+ en una categoría de arma.
+ Deberás indicarlo así: {Armas·2manos; Armas·Arrojadizas; Armas·Artillería;
+ Armas·Contundentes; Armas·Asta; Armas·Filo; Armas·Fuego 1mano; Armas·Fuego
+ 2manos; Armas·Proyectiles}.
+\end_layout
+
+\begin_layout Enumerate
+Las habilidades deben ir precedidas con el prefijo 
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+*
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+ es decir, dos espacios, asterisco, dos espacios.
+ Deben ir justo después de la categoría que las incluye.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Las categorías deben definir el número mínimo de habilidades con rangos,
+ el número máximo de habilidades con rango, y el total de rangos para cada
+ habilidad.
+ Por ejemplo, en el adiestramiento de Asesino, puedes elegir hasta dos habilidad
+es de Subterfugio·Ataque con un total de 3 rangos.
+ Esto se representa como 
+\begin_inset Quotes eld
+\end_inset
+
+Subterfugio·Ataque 0 1 2 3
+\begin_inset Quotes erd
+\end_inset
+
+.
+ El 0 indica que la categoría no tiene rangos, el 1 indica que como mínimo
+ una habilidad se debe seleccionar, el 2 es que como máximo una habilidad
+ y el 3 es el total de rangos a repartir entre las habilidades.
+ Otro ejemplo sería 
+\begin_inset Quotes eld
+\end_inset
+
+Comunicación 3 1 1 3
+\begin_inset Quotes erd
+\end_inset
+
+ de Erudito Enclaustrado.
+ Aquí se indica que la categoría de comunicación tiene 3 rangos, y solo
+ se pueden dar 3 rangos a una única habilidad.
+ 
+\end_layout
+
+\begin_layout Enumerate
+En el caso de que una categoría tenga rangos asignados a una habilidad concreta,
+ se deberá incluir también en el cómputo total del paso anterior.
+ Por ejemplo, en el adiestramiento de Fanático Religioso vemos 
+\begin_inset Quotes eld
+\end_inset
+
+Conocimiento·General 4 2 2 4
+\begin_inset Quotes erd
+\end_inset
+
+ junto con 
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+*
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Religión 3 - - -
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Aquí la categoría indica que se deben escoger dos habilidades con 4 rangos
+ a repartir.
+ Como Religión ya tiene tres rangos asignados, esto significa que únicamente
+ se puede escoger una única habilidad adicional con un rango.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Existen dos palabras reservadas: 
+\begin_inset Quotes eld
+\end_inset
+
+Arma
+\begin_inset Quotes erd
+\end_inset
+
+ y 
+\begin_inset Quotes eld
+\end_inset
+
+Ataque
+\begin_inset Quotes erd
+\end_inset
+
+.
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Arma
+\begin_inset Quotes erd
+\end_inset
+
+ equivale a todas las categorías de armas.
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Ataque
+\begin_inset Quotes erd
+\end_inset
+
+ equivale a los ataques de artes marciales, ataques especiales, etc.
+ Se pueden combinar ambas indicándolo como 
+\begin_inset Quotes eld
+\end_inset
+
+Arma / Ataque
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Esto indica que puede ser una categoría que sea un arma o ataque de los
+ descritos anteriormente.
+ 
+\end_layout
+
+\begin_layout Subsection
+Aumentos de características
+\end_layout
+
+\begin_layout Standard
+Conjunto de características (en forma de abreviatura) a los que se aplicará
+ automáticamente una tirada de aumento si se escoge este adiestramiento.
+ Para escoger una característica entre un listado entre llaves las opciones.
+ Por ejemplo 
+\begin_inset Quotes eld
+\end_inset
+
+{Ag; Me; Ra; Ad; Em; In; Pr; Rp; Fu}
+\begin_inset Quotes erd
+\end_inset
+
+ indica que se puede escoger entre cualquier característica menos constitución.
+ En el caso de que haya que escoger dos veces debes indicar la lista dos
+ veces.
+ 
+\end_layout
+
+\begin_layout Subsection
+Requisitos profesionales
+\end_layout
+
+\begin_layout Standard
+Indica una reducción al coste si se cumplen unos requisitos determinados.
+ Los requisitos pueden ser:
+\end_layout
+
+\begin_layout Enumerate
+Una característica con un valor temporal mínimo.
+ Si se indica una característica con un valor temporal mínimo y el descuento
+ de coste.
+ Por ejemplo 
+\begin_inset Quotes eld
+\end_inset
+
+Co (90) (-1)
+\begin_inset Quotes erd
+\end_inset
+
+ indica que si se cumple un valor de constitución de al menos 90, el adiestramie
+nto costará un punto menos.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Una habilidad con un mínimo de rangos.
+ Se representa el nombre de la habilidad, los rangos necesarios y el descuento
+ al adiestramiento.
+ Por ejemplo 
+\begin_inset Quotes eld
+\end_inset
+
+Religión (10) (-3)
+\begin_inset Quotes erd
+\end_inset
+
+ indica que 10 rangos en religión permiten descontar tres puntos a este
+ adiestramiento.
+\end_layout
+
+\begin_layout Subsection
+Habilidades de estilo de vida, comunes, profesionales y restringidas
+\end_layout
+
+\begin_layout Standard
+Un listado de habilidades que se convierten en estilo de vida, comunes,
+ profesionales o restringidas.
+ La sintaxis permitida es:
+\end_layout
+
+\begin_layout Enumerate
+Para elegir una habilidad de un listado, al igual que en otras secciones,
+ se hace una lista de habilidades entre llaves 
+\begin_inset Quotes eld
+\end_inset
+
+{}
+\begin_inset Quotes erd
+\end_inset
+
+ y separadas por puntos y comas 
+\begin_inset Quotes eld
+\end_inset
+
+;
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Esto permitirá al jugador escoger una habilidad del listado.
+ 
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Añadir-Categorías"
+
+\end_inset
+
+Nuevas categorías y habilidades
+\end_layout
+
+\begin_layout Standard
+Puedes incluir nuevas categorías y habilidades sin necesidad de modificar
+ el fichero original.
+ Solamente tienes que crear un nuevo fichero dentro de la carpeta de tu
+ módulo incluyendo solamente las habilidades y categorías a las que pertenecen.
+ Si ya existen en algún otro módulo, el programa no las incluirá de nuevo.
+ 
+\end_layout
+
+\begin_layout Standard
+Cuando incluyas una nueva habilidad, ten en cuenta lo siguiente:
+\end_layout
+
+\begin_layout Enumerate
+Puedes incluir en el nombre de la habilidad las etiquetas (R) para hacerla
+ restringida, (C) para hacerla común, (P) para hacerla profesional.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Existen habilidades que únicamente pueden ser utilizadas si previamente
+ has incluido algún rango en otra.
+ Esto es claramente visible en el Manual de las Artes Marciales, en donde
+ los estilos de lucha habilitan ciertos poderes chi.
+ La sintaxis es indicar las habilidades ha habilitar entre llaves, separadas
+ por 
+\begin_inset Quotes eld
+\end_inset
+
+|
+\begin_inset Quotes erd
+\end_inset
+
+ si el usuario debe escoger una o 
+\begin_inset Quotes eld
+\end_inset
+
+&
+\begin_inset Quotes erd
+\end_inset
+
+ si habilita todas ellas.
+ Por ejemplo, en 
+\begin_inset Quotes eld
+\end_inset
+
+Estilo de la Grulla {Poderes Chi: Ataque Sin Sombra | Poderes Chi: Golpes
+ Continuos}
+\begin_inset Quotes erd
+\end_inset
+
+ el usuario podrá escoger uno de los dos poderes chi si aprende el Estilo
+ de la Grulla.
+ Pero en 
+\begin_inset Quotes eld
+\end_inset
+
+Estilo Tigre {Poderes Chi: Golpe en Salto & Poderes Chi: Golpes Continuos}
+\begin_inset Quotes erd
+\end_inset
+
+ el usuario ganará acceso a ambos poderes chi.
+ 
+\emph on
+Nota: incluir una habilidad para ser habilitada por otra automáticamente
+ la deshabilita.
+ Por lo que en el ejemplo anterior, al definir el Estilo de la Grulla junto
+ con sus dos poderes chi automáticamente ha deshabilitado ambos poderes
+ chi de poder ser escogidos de forma normal por un jugador.
+ 
+\end_layout
+
+\begin_layout Standard
+Tienes que tener en cuenta que añadir una categoría no hará que aparezca
+ automáticamente en el programa.
+ Esto es debido a que este filtra las categorías disponibles por coste por
+ profesión.
+ Es decir, si añades una categoría que sea 
+\begin_inset Quotes eld
+\end_inset
+
+Explosivos
+\begin_inset Quotes erd
+\end_inset
+
+, esta no aparecerá en ningún personaje salvo que este escoja una profesión
+ con un coste asociado a la categoría 
+\begin_inset Quotes eld
+\end_inset
+
+Explosivos
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Para usarlo, tendrías que crear una nueva profesión con coste en dicha
+ categoría o modificar las ya existentes y añadirle el coste oportuno.
+ 
+\end_layout
+
+\end_body
+\end_document

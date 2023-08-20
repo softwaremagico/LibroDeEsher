@@ -1,0 +1,113 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	12
+Co	-2
+Me	0
+Ra	0
+Ad	0
+Em	6
+In	-4
+Pr	0
+Rp	15
+Fu	-15
+Ap	20
+
+# ESPERANZA DE VIDA
+####################################
+Inmortales
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-5
+Esencia	-5
+Mentalismo	0
+Veneno	10
+Enfermedad	100
+Psiónico	-5
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/2/1/1/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/7/6/5/4
+PP Mentalismo	0/6/5/4/3
+PP Psiónico	0/3/2/1/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Luchador
+
+#PARTIDA DEL ALMA
+####################################
+1
+
+#TIPO DE RAZA
+####################################
+5
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Muy Pequeño
+
+#RECUPERACIÓN
+####################################
+1.5
+
+#IDIOMAS
+####################################
+3
+
+#HISTORIAL
+####################################
+4
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Habla de los Bosques	8/6	10/10
+Habla Común	0/0	6/4
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Común	0/0	8/8
+Élfico	0/0	8/6
+
+#HABILIDADES COMUNES
+####################################
+Esconderse
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Silvana
+
+#ESPECIALES
+####################################
+Ninguna
+
+#NOMBRES MASCULINOS
+####################################
+Yupik, Alidore, Anval, Arden,  Bando, Basy, Bene, Bened, Bruce, Brue, Bruk, Brun
+Calan, Cert, Chet,  Cian, Ciro, Dando, Dawn, Dunn, Nils, Nym, Okle, Pren, Puck, Puhl
+Ret, Rue, Sagic, Furl, Gall, Gayr, Gern,  Haiji, Kodi, Hon, Iden, Igs, Itu, Jarl
+
+#NOMBRES FEMENINOS
+####################################
+Rastina, Okinaga, Sulitna, Sumna, Aleta, Aliera, Amata, Ammaranza, Angelica
+Armilla, Argenta, Ayla, Bellamy, Bellanca, Cei, Corina, Deanna, Dima, Nana, Opal
+Qwyn, Rula, Samira, Fyoka, Grace, Gytha,  Idene, Illoa, Ita, Kala, Kara
+
+#APELLIDOS
+####################################
+Bizz, Bizzel, Dawnflower, Dawnstar, Dawnwind, Dawson, Moondancer, Morcan, Moyne
+Rustle, Seadreamer, Gistilevan, Hyn, Kirik, Kiril, Kirk, Kirlestoun, Stoneburner, Stonehand
+Stormbringer, Stormcloud, Sweetwood, Trotwood, Wildwood, Winewood, Wood-leg, Ringwood
+Yellowleaf, Newleaf, Silverleaf, Goldleaf, Riverfield, Riverwind
+
+#### FIN RAZA ####

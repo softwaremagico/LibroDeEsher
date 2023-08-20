@@ -1,0 +1,5 @@
+#Generalizaciones:  
+Katana *	ka
+Nunchaku *	nu
+Tetsubo *	te
+Vara de Tres Secciones *	v3

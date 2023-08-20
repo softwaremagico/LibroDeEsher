@@ -1,0 +1,61 @@
+Autocuración	Lista Abierta
+Detecciones	Lista Abierta
+Evasión de los Ataques	Lista Abierta
+Ilusiones	Lista Abierta
+Investigación	Lista Abierta
+Ocultación	Lista Abierta
+Presentimientos	Lista Abierta
+Resistencia a los Hechizos	Lista Abierta
+Resistencia al Daño	Lista Abierta
+Resplandor	Lista Abierta
+Cambio	Lista Cerrada
+Maestría de los Sentidos	Lista Cerrada
+Maestría Mental	Lista Cerrada
+Manipulación de los Gases	Lista Cerrada
+Manipulación de los Líquidos	Lista Cerrada
+Manipulación de los Sólidos	Lista Cerrada
+Movimiento	Lista Cerrada
+Puerta Mental	Lista Cerrada
+Telequinesis	Lista Cerrada
+Velocidad	Lista Cerrada
+Maestría de la Conmoción	Curandero
+Maestría de la Sangre	Curandero
+Maestría de los Huesos	Curandero
+Maestría de los Músculos	Curandero
+Maestría de los Órganos/Nervios	Curandero
+Prótesis	Curandero
+Ataque Mental	Mentalista
+Control de los Sentidos	Mentalista
+Control Mental	Mentalista
+Fusión Mental	Mentalista
+Presencia	Mentalista
+Telepatía	Mentalista
+Amplificación del Sonido	Bardo
+Canciones de Control	Bardo
+Conocimiento de los Objetos	Bardo
+Control del Sonido	Bardo
+Saberes	Bardo
+Sendas de la Diversión	Bardo
+Escabullirse	Magente
+Maestría de los Disfraces	Magente
+Maestría de los Venenos	Magente
+Maestría del Asesinato	Magente
+Recopilar Secretos	Magente
+Redirecciones	Magente
+Sendas de las Superficies	Sanador
+Sendas de los Músculos	Sanador
+Sendas de la Sangre	Sanador
+Sendas de los Huesos	Sanador
+Senda de los Órganos	Sanador
+Alteración de los Gases	Místico
+Alteración de los Líquidos	Místico
+Alteración de los Sólidos	Místico
+Cambio Místico	Místico
+Esconderse (Místico)	Místico
+Sendas de la Confusión	Místico
+Dominación de la Mente	Mentalismo Maligno
+Enfermedades Mentales	Mentalismo Maligno
+Erosión de la Mente	Mentalismo Maligno
+Ilusiones Mentales	Mentalismo Maligno
+Muerte de la Mente	Mentalismo Maligno
+Subversión de la Mente	Mentalismo Maligno

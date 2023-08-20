@@ -1,0 +1,19 @@
+#Generalizaciones: 
+Nagamaki *	ngk
+Naginata *	ngt
+Bardiche *	bdc
+Hacha Picuda *	hpi
+Bec de Corbin *	bco
+Fauchard *	fau
+Guja *	guj
+Bisarma *	bis
+Arpón	arp
+Lanza Pesada *	lap
+Martillo Lucerne *	luc
+Atrapa Hombres *	ath
+Horca	hor
+Partisan *	prt
+Pica	pi
+Ranscur *	ra
+Alabarda	alb
+Tridente	tri

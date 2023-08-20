@@ -1,0 +1,52 @@
+# TIEMPO (meses)
+####################################
+33
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Contacto en la admistración de una ciudad	40
+Una joya (recompensa, 10d10 mp)	50
+d100 gemas (recompensa, 10d10 mp en total)	50
+Objecto de arte (recompensa, d10 mp)	50
+Favor de una persona importante	30
+Contactos en los bajos fondos	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Influencia	1	1	1	1
+Percepción·Búsqueda	4	1	4	4
+Percepción·Perspicacia	0	1	1	4
+  *  Alerta	4	-	-	-
+Percepción·Sentidos	1	1	1	1
+Urbana	1	1	1	1
+
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Ninguna
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

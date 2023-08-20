@@ -1,0 +1,108 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	0
+Co	2
+Me	0
+Ra	0
+Ad	0
+Em	-2
+In	0
+Pr	-2
+Rp	0
+Fu	2
+Ap	-20
+
+# ESPERANZA DE VIDA
+####################################
+100
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	0
+Esencia	0
+Mentalismo	0
+Veneno	0
+Enfermedad	10
+Psiónico	-5
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/6/5/2/1
+PP Arcano	0/2/1/1/1
+PP Canalización	0/2/1/1/1
+PP Esencia	0/2/1/1/1
+PP Mentalismo	0/2/1/1/1
+PP Psiónico	0/5/2/2/2
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Mago, Ilusionista, Hechicero, Místico, Monje
+
+#PARTIDA DEL ALMA
+####################################
+5
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+2
+
+#HISTORIAL
+####################################
+5
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Habla de los Mares	8/6	10/10
+Habla del Norte	8/6	8/6
+Habla del Sur	8/6	8/6
+Habla Común	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Común	0/0	8/8
+Lengua Negra	0/0	6/6
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Litoral, Subterránea
+
+#ESPECIALES
+####################################
+Anfibio
+
+#NOMBRES MASCULINOS
+####################################
+Babs, Babouche, Bavary, Bellow, Benj, Boggs, Buto
+
+#NOMBRES FEMENINOS
+####################################
+Baisha, Barella, Bayla, Bibiche, Bina
+
+#APELLIDOS
+####################################
+Riffo, Ruffo, Reifs, Rotela, Rost
+
+#### FIN RAZA ####

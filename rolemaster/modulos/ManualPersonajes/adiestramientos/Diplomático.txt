@@ -1,0 +1,52 @@
+# TIEMPO (meses)
+####################################
+48
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Contacto en la admistración de una ciudad	50
+Contacto en la admistración de una ciudad	60
+Favor de una persona importante	40
+Favor de una persona importante	30
+Favor de una persona importante	20
+Poción (una dosis, hechizo de nivel 1)	20
+Objecto artesanal (regalo)	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Comunicación	6	2	6	6
+Conocimiento·General	4	4	4	4
+Influencia	2	2	2	2
+  *  Diplomacia	1	-	-	-
+  *  Sobornar	1	-	-	-
+Percepción·Búsqueda	1	1	1	1
+  *  Detectar Mentiras	1	-	-	-
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Ninguna
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

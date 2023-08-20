@@ -1,0 +1,59 @@
+# TIEMPO (meses)
+####################################
+26
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Arma cuerpo a cuerpo (no mágica)	30	10	Arma Cuerpo a Cuerpo
+Arma de proyectil (no mágica)	30	10	Arma Proyectiles
+Escudo (no mágico)	40	10	Armadura
+Yelmo (no mágico)	50	10	Armadura
+Armadura (no mágica)	10	10	Armadura
+Amigos con rango de oficial	20
+Promoción	20
+Promoción	20
+Promoción	20
+Promoción	20
+Promoción	20
+Arma de cuerpo a cuerpo (no mágica)	100	5	Arma Cuerpo a Cuerpo
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Armadura·Ligera	2	1	1	2
+{Armas·2manos; Armas·Contundentes; Armas·Asta; Armas·Filo}	2	1	1	2
+Conocimiento·General	1	1	1	1
+  *  Heráldica	1	0	0	0
+Desarrollo Físico	0	1	1	2
+  *  Desarrollo Físico	2	0	0	0
+Técnica/Comercio·Vocacional	0	1	1	1
+  *  Táctica	1	0	0	0
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Ninguno
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

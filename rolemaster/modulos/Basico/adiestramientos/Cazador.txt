@@ -1,0 +1,59 @@
+# TIEMPO (meses)
+####################################
+18
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+d10 Pieles de animales (10mp cada una)	50
+d10 Pieles de animales (10mp cada una)	50
+d10 Pieles de animales (10mp cada una)	50
+Trampas de calidad (no mágicas)	30	15	Construir Trampas
+Comprador de Pieles de fiar	30
+Trampas(no mágicas)	100	10	Construir Trampas
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Armas·Proyectiles	1	1	1	1
+Conocimiento·General	3	2	2	3
+  *  Conocimiento de la Fauna	2	0	0	0
+  *  Conocimiento de la Flora	1	0	0	0
+Exteriores·Entorno	4	2	3	4
+  *  Cazar	2	0	0	0
+Oficios	0	1	1	1
+  *  Trabajar el Cuero	1	0	0	0
+Percepción·Búsqueda	4	2	2	4
+  *  Leer Huellas	2	0	0	0
+  *  Rastrear	2	0	0	0
+Subterfugio·Sigilo	2	2	2	2
+  *  Acechar	1	0	0	0
+  *  Esconderse	1	0	0	0
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Co
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

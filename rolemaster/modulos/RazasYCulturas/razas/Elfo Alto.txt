@@ -1,0 +1,112 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	2
+Co	0
+Me	2
+Ra	0
+Ad	-5
+Em	2
+In	0
+Pr	6
+Rp	6
+Fu	0
+Ap	30
+
+# ESPERANZA DE VIDA
+####################################
+Inmortales
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-5
+Esencia	-5
+Mentalismo	-5
+Veneno	10
+Enfermedad	100
+Psiónico	-5
+Frío	20
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/7/3/2/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/7/6/5/4
+PP Mentalismo	0/6/5/4/3
+PP Psiónico	0/3/2/1/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+1
+
+#TIPO DE RAZA
+####################################
+5
+
+#TAMAÑO DE RAZA
+####################################
+Normal
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+5
+
+#HISTORIAL
+####################################
+2
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Élfico Alto	10/10	10/10
+Élfico Gris	8/6	10/10
+Habla Común	8/6	10/10
+
+#IDIOMAS HISTORIAL
+####################################
+Habla del Norte	0/0	8/8
+Élfico	0/0	6/6
+Habla de las Llanuras	0/0	6/6
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Todas
+
+#ESPECIALES
+####################################
++20	Sintonización
++10	Oído
+	Visión total a 15 m parcial a 30 en la oscuridad con una fuente de luz mínima.
+	Visión total a la luz de luna o de las estrellas
++20	Contra Frío (BD y TR)
+
+#NOMBRES MASCULINOS
+####################################
+Findaráto, Fëanáro, Galdor, Amras, Manwë, Enawat
+
+#NOMBRES FEMENINOS
+####################################
+Elbereth, Nessa, Tári, Nindë, Inwë, Lúthien, Eámanë, Celebriän, Astrea, Nammen, Nihal
+
+#APELLIDOS
+####################################
+Isilrá, Tasardur, Tulcakelumë, Yávëtil, Súrion, Fëfalas, Alcarin, Tasartir, Felagund
+
+#### FIN RAZA ####

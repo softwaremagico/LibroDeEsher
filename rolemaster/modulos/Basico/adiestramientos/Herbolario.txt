@@ -1,0 +1,60 @@
+# TIEMPO (meses)
+####################################
+33
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+3 Antídotos de Veneno	50
+4 Hierbas de Reparación de Huesos	50
+10 Hierbas de Alivio de quemaduras/congelaciones	50
+2 Hierbas de Reparación de Hemorragias	50
+10 Hierbas de Alivio de Conmociones	50
+1d10 Hierbas de efectos Generales	50
+5 Hierbas de Reparación de Tendones,Músculos y Cartilagos	50
+1 Hierba de Preservación de la Vida	50
+3 Hierbas de Reparacíon del sistema nervioso	50
+4 Hierbas de Reparación de Órganos	50
+1d10 Intoxicantes	30
+1d10 Venenos	30
+1d10 Hierbas de Alivio de Conmociones	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Conocimiento·General	2	1	1	2
+  *  Conocimiento de la Flora	2	0	0	0
+Exteriores·Entorno	4	1	2	4
+  *  Forrajear	3	0	0	0
+Oficios	0	1	1	2
+  *  Horticultura	2	0	0	0
+Técnica/Comercio·General	0	1	1	2
+  *  Usar Hierbas	2	0	0	0
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Ninguno
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

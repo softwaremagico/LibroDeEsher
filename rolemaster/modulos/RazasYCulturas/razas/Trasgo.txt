@@ -1,0 +1,125 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	0
+Co	2
+Me	-2
+Ra	0
+Ad	-2
+Em	-2
+In	-2
+Pr	-2
+Rp	-2
+Fu	2
+Ap	-60
+
+# ESPERANZA DE VIDA
+####################################
+80
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	0
+Esencia	0
+Mentalismo	0
+Veneno	5
+Enfermedad	0
+Psiónico	0
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/6/3/2/2
+PP Arcano	0/3/2/1/1
+PP Canalización	0/6/5/4/3
+PP Esencia	0/3/2/1/1
+PP Mentalismo	0/3/2/1/1
+PP Psiónico	0/3/2/1/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+###################################
+6
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+1
+
+#HISTORIAL
+####################################
+4
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Trasgo	8/6	10/8
+Habla Común	6/4	8/6
+Orco	0/0	4/4
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Negra	0/0	6/4
+Orco	0/0	6/6
+
+#HABILIDADES COMUNES
+####################################
+Minería, Trabajar el Metal
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Subterránea
+
+#ESPECIALES
+####################################
+Bajo luz muy tenue, ven perfectamente hasta 15 m y de forma razonable hasta 30 m
+-75	todas las actividades baja la luz directa del sol
+La luz del sol les ciega.
+
+#NOMBRES MASCULINOS
+####################################
+Gorbag, Grishnákh, Shagrat, Gar'mak, Yal, Eragdush, Vuk, Valg, Gridush
+Gaurk, Punk, Erirg, Igar, Prolg, Gridish, Hodush, Riol, Ba, Pok, Prulg, Pagor
+Triggbag, Lugorju, Rongo, Shark, Gorgra, Ahduf, Drabag, Bolggar, Grim
+Tuthurg, Duzdahk, Bolg'bei, Bubra, Vazock, Hrishug, Brukkilbu, Danthak
+Muzorkzum, Umau, Uggarbuz
+
+#NOMBRES FEMENINOS
+####################################
+Girbag , Vrishnak, Blg, Paol, Pogdish, Rirk, Pink, Pugar, Vriol, Grdash, Pagdish, Barg
+Alg, Horbag, Gadush, Prugdish, Grirg, Buk, Gort, Brk, Erirt, Mulush, Lubruk,
+Ghorza, Gorbash, Dusnikh, Lag-gul, Rumurkdu, Baagrokuskum, Nazzunbruk
+Gim'bur, Trigg'dakh, Cogolub, Gar'or, Gribolgda, Tebruurk, Mogbruthug
+Argdogurosh, Ongthurgzhul, Balorkdahk, Gorvanazg, Bolga, Lurzkamogkash
+Thosnazi, Krimdufgar, Gratnazgolg
+
+#APELLIDOS
+####################################
+Uruk-Hai, Mog-Hul, Kag-Yul, Hort, Bourk, Plg, Banak, Erugor
+Halg, Badush, Ping, Gorbag, oshnak, Rgdish, Part, Horg, Grunt-rendrum
+Krimbalgagimb, Tu'gash, Radronnazcro, Bruki'gor, Baldragarog
+Gratzuggrelordakh, Dorgsharkgrom, Zun-olgthrum, Zunburznaggrel
+Bugtuprukgor, Rosh-unaz, Dragzock'snarl, Graradgor, Gruntlúrtzzudra
+Gluktrigglugthurggrunt, Lagmau'nazg, Ahothurgbaag, Lurtzduzraddra
+Urkzunroshdorg
+
+
+#### FIN RAZA ####

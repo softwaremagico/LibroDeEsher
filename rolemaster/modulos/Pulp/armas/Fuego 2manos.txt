@@ -1,0 +1,47 @@
+#Generalizaciones: Escopeta, Rifle, Rifle de Francotirador, Rifle de Avancarga, Rifle Energético, Subfusil, Ametralladora
+Subfusil: Bergman MP35/1	sfMP351
+Subfusil: CZ 383	sfCZ383
+Subfusil: Erma MP38	sfMP38
+Subfusil: Erme MPE	sfMPE
+Subfusil: M30 Broomhandle	sfM30
+Subfusil: MAS M38	sfMM38
+Subfusil: MP 28/11	sfMP28/11
+Subfusil: Suomi M31	sfSM31
+Subfusil: Thompson M1928	sfTM1928
+Subfusil: Thompson M1	sfTM1
+Rifle: Ariasaka Type 99	rfAT99
+Rifle: Czech ZH29	rfZH29
+Rifle: Enfield M1917	rfE1917
+Rifle: French 1916 8mm	rfF1916
+Rifle: H&H BQ Mag Rifle	rfHHBQ
+Rifle: H&H #2 Hammerless	rfHH2H
+Rifle: H&H Royal DC 300	rfRDC300
+Rifle: Hungarian M35	rfHM35
+Rifle: Japanese Type 38	rfJT38
+Rifle: Lee-Enfield Mk I	rfLE1
+Rifle: Lee-Enfield SMLE Mk 3	rfLE3
+Rifle: M1 Garand	rfM1Ga
+Rifle: MAS 1936	rfMAS
+Rifle: Mauser Gewehr 98	rfMG98
+Rifle: Moshin-Nagant 1891	rfMN1981
+Rifle: Schmidt-Rubin 1931	rfSR1931
+Rifle: Simonov Model 36	rfSM36
+Rifle: Solothurn S-18/100 AT	rfS18
+Rifle: Springfield 1903A1	rfS1909
+Rifle: Tokarev SVT-38	rfTk38
+Ametralladora: Breda M30	amM30
+Ametralladora: Breda M37	amM37
+Ametralladora: Bren Mk I	amB1
+Ametralladora: Browning M2HB	amM2HB
+Ametralladora: Chatellerault 1924/29	amCha29
+Ametralladora: Degtyarev DP	amDDP
+Ametralladora: Hotchkiss Mk I	amH1
+Ametralladora: Hotchkiss 1922	amH1922
+Ametralladora: Japanese Type 11	amJa11
+Ametralladora: Japanese Type 92	amJa92
+Ametralladora: M26 Lahti Saloranta	amM26
+Ametralladora: MG34	amMG34
+Ametralladora: ZB26	amZB26
+Escopeta: Beretta 410 10-G mag.	escB410
+Escopeta: Browning Auto-5	escBA5
+Escopeta: Winchester M1911	escWM1911

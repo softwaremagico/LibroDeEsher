@@ -1,0 +1,127 @@
+﻿#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	0
+Co	0
+Me	0
+Ra	1
+Ad	1
+Em	0
+In	0
+Pr	0
+Rp	0
+Fu	2
+Ap	0
+
+# ESPERANZA DE VIDA
+####################################
+80
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	0
+Esencia	0
+Mentalismo	0
+Veneno	0
+Enfermedad	0
+Psiónico	0
+Frío	0
+Calor	0
+Miedo	0
+
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/6/4/2/1
+PP Arcano	0/2/1/1/1
+PP Canalización	0/2/1/1/1
+PP Esencia	0/2/1/1/1
+PP Mentalismo	0/2/1/1/1
+PP Psiónico	0/2/1/1/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+12
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA
+####################################
+Medio
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+2
+
+#HISTORIAL
+####################################
+6
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Ninguno
+
+#IDIOMAS HISTORIAL
+####################################
+Idioma Regional	0/0	10/10
+Idioma Regional	0/0	10/10
+Idioma Regional	0/0	10/10
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+{Industrializado}, {Tercer Mundo}
+
+#ESPECIALES
+####################################
+Ninguno
+
+#NOMBRES MASCULINOS
+####################################
+Alonso, Rodrigo, Florentino, Fred, Simon, Mauricio, Guillermo, Quintino, Federico, Edgardo, Beremundo
+Cleto, Quinciano, Gustavo, Fausto, Constantin, Alain, Armando, Alfred, Antón, Max, León, Acoidan, Aja, Ancor
+Atugio, Beyanor, Bentago, Himar, Tibiabin, Mahan, Adolfo, Abelardo, Ademar, Agapito, Ambrosio, Aniseto, Aparicio
+Apolinar, Arcadio, Artemio, Aurelio, Baldomero, Balvino, Berenguer, Braulio, Blas, Cancio, Canuto, Casio, Cecilio
+Clelio, Cenobio, Clodomiro, Conrado, Crescencio, Dalmiro, Delfo, Diaco, Donato, Eladio, Eleodoro, Eliodoro, Elvio
+Ercilio, Eusebio, Eustaquio, Evaristo, Fidencio, Filemón, Florencio, Froilán, Genaro, Gregorio, Gumersindo, Heraclio
+Higinio, Honorato, Ireneo, Lauro, Leoncio, Lisandro, Longino, Lidovico, Mamerto, Marcial, Marcindo, Melitón
+Modestino, Nemesio, Nicanor, Nolasco, Normando, Pascasio, Patrocinio, Pilaro, Pomposo, Prudencio, Raimundo, Rufino
+Ruperto, Sandalio, Segismundo, Serapio, Severo, Seveso, Sisebuto, Sofanor, Suplicio, Teobaldo, Toribicio, Trifón
+Tristán, Tubal, Ubaldo, Valeriano, Veneciando, Werino, Zacarías, Zenón
+
+#NOMBRES FEMENINOS
+####################################
+Aldagracia, Zoe, Pandora, Dara, Daza, Naira, Alba, Aniseta, Arcadia, Arminda, Artemia, Aurea, Brigida, Bartola, Cándida
+Ciriaca, Casilda, Cleotilde, Cleofe, Delfa, Diega, Domitilia, Dorila, Elegia, Emilse, Enriqueta, Emelinda, Esperanza
+Eufamia, Eutilia, Eufrocina, Feliciana, Fortunata, Florinda, Flora, Fructuosa, Genoveva, Gerturdes, Gregoria, Gumersinda
+Hercilia, Higinia, Honorata, Indalecia, Irina, Idinea, Isaura, Isidora, Italia, Jacinta, Jovita, Leonarda, Leopoldina, Livia, Liboria
+Librada, Ludovica, Lugarda, Macaria, Marcelina, Matiana, Mauricia, Melitona, Molinaria, Mucia, Minervina, Nefer, Nemesia
+Nicanora, Nigia, Octaviana, Ogaria, Oliva, Olivia, Pánfila, Peregrina, Petrona, Policarpa, Polonia, Primitiva, Prudencia, Refugia
+Restituta, Romidia, Serafina, Sinesia, Sinforosa, Sesebuta, Tecla, Teodolina, Tiburcia, Trinidad, Uberlinda, Ulpiana, Vitalia
+Zenobia, Zoila, Zoraida
+
+#APELLIDOS
+####################################
+Bravo, Colombo, Chaparro, Durán, Fragoso, Fuertes, Gobea, Hidalgo, Lázaro, Maese, Mendo, Moreno, Ortega
+Pacheco, Pardo, Perianes, Periañez, Rivas, Rosellón, Sandoval, Sousa, Vadillo, Viera, Villalobos, Ballesteros
+Baudelaire, Dalton, Defoe, Alquezar, Albiac, Balda, Bolado, Bort, Berna, Bastida, Capella, Cota, Duat, Guijarro
+Iñigo, Ivorra, Lacorte, Luna, Lloria, Monzos, Marsa, Marc, Noguera, Olmos, Palmer, Rubio, Saborido, Solaz, Sans
+Timor, Toro, Urrea, Beldevere, Ragnold, Lampiño, Audaz, con-Suerte
+
+#### FIN RAZA ####

@@ -1,0 +1,121 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	0
+Co	4
+Me	-2
+Ra	-2
+Ad	-2
+Em	-2
+In	-2
+Pr	-2
+Rp	0
+Fu	4
+Ap	-80
+
+# ESPERANZA DE VIDA
+####################################
+100
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	0
+Esencia	0
+Mentalismo	0
+Veneno	5
+Enfermedad	10
+Psiónico	0
+Frío	30
+Calor	30
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/7/3/2/1
+PP Arcano	0/2/1/1/1
+PP Canalización	0/2/1/1/1
+PP Esencia	0/2/1/1/1
+PP Mentalismo	0/2/1/1/1
+PP Psiónico	0/2/1/1/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Paladín, {Esencia}, {Mentalismo}
+
+#PARTIDA DEL ALMA
+####################################
+1
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN
+####################################
+0.5
+
+#IDIOMAS
+####################################
+1
+
+#HISTORIAL
+####################################
+4
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Habla Negra	8/2	10/10
+Orco	8/2	10/10
+Habla Común	4/0	8/8
+Habla de los Bosque	0/0	4/3
+
+#IDIOMAS HISTORIAL
+####################################
+Habla de los Bosque	0/0	5/5
+Habla de las Llanuras	0/0	8/6
+Habla Negra	0/0	8/8
+Habla Común	0/0	8/8
+
+#HABILIDADES COMUNES
+####################################
+Armas·2manos, Armas·Asta
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+-Silvana
+
+#ESPECIALES
+####################################
+	En absoluta oscurida (no mágica) pueden ver hasta 3 m
+	Bajo luz muy tenue, ven perfectamente hasta 10 m y de forma razonable hasta 25 m
+	Pueden viajar durante 2 dias seguidos sin dormiry reciben un +30 a sus puntos de cansancio
++30	Contra Frío y Calor (BD y TR)
+
+#NOMBRES MASCULINOS
+####################################
+Eragdush, Vuk, Valg, Gridush, Gaurk, Punk, Erirg, Igar, Prolg, Gridish, Hodush, Riol
+Ba, Pok, Prulg, Pagor, Girbag, Vrishnak, Blg, Paol, Pogdish, Rirk, Pink, Pugar, Vriol
+Grdash, Pagdish, Barg, alg, Horbag, Gadush, Prugdish, Grirg, Buk, Gort, Brk, Erirt
+Hort, Bourk, Plg, Banak, Erugor, Halg, Badush, Ping, Gorbag, oshnak, Rgdish, Part, Horg
+
+#NOMBRES FEMENINOS
+####################################
+Hairshooter, Hobbitcutter, Dragoncrawler, Footmangler, Facecrawler, Eyetorturer, Toothhammer
+Earthrower, Elfcutter, Deathslicer, Facejuggler, Dwarfpunsher, Balltorturer, Teethhammer
+Eyehater, Head, Gretchinkiller, Deamonsmasher, Motherdrinker, Hobbitkiller, Hairwalker, Lover
+Beastpoker, Motherhammer, Facecrawler, Ballcutter, Ballthrottler, Ghoulshooter, Gretchinlover
+
+#APELLIDOS
+####################################
+Manthrower, Manthrottler, Wraiththrower, Deathcutter, Manjuggler, Knifedrinker, Ballkiller
+Nailchewer, Goblincrawler, Enemylover, Fingerslicer, Teethhater, Deamondragger, Horsehater
+Teethhater, Nailpoker, Eareater, Hairstomper, Horsehammer, Deathripper, Moonthrottler
+
+#### FIN RAZA ####

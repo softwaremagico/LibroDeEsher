@@ -1,0 +1,53 @@
+# TIEMPO (meses)
+####################################
+49
+
+# EXCLUSIVO RAZA
+####################################
+Hombre Moderno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Joyería cara	50
+Contactos útiles en los bajos fondos	40
+Contactos útiles en la ciudad	40
+Favor de una persona de alto rango	30
+Pintalabios envenenado	30
+Vestidor caro	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Arte·Activo	1	1	1	1
+Arte·Pasivo	1	1	1	1
+Percepción·Búsqueda	2	1	2	2
+Influencia	4	2	3	6
+  *  Seducción	4
+Subterfugio·Mecánica	1	1	1	1
+Subterfugio·Sigilo	2	1	2	2
+Urbana	2	1	2	2
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Ninguno
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

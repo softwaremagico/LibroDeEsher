@@ -1,0 +1,123 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	2
+Co	2
+Me	0
+Ra	0
+Ad	-1
+Em	0
+In	0
+Pr	4
+Rp	4
+Fu	2
+Ap	10
+
+# ESPERANZA DE VIDA
+####################################
+Inmortales
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-5
+Esencia	-5
+Mentalismo	10
+Veneno	20
+Enfermedad	80
+Psiónico	0
+Frío	100
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/7/5/3/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/7/6/5/4
+PP Mentalismo	0/7/6/5/4
+PP Psiónico	0/6/4/3/2
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+6
+
+#TIPO DE RAZA
+####################################
+3
+
+#TAMAÑO DE RAZA
+####################################
+Normal
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+4
+
+#HISTORIAL
+####################################
+4
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Ky'taari	8/4	10/8
+Idioma Regional	8/4	10/8
+Syrkakar	0/0	6/4
+Umli	0/0	6/4
+
+#IDIOMAS HISTORIAL
+####################################
+Dyari	0/0	6/4
+Fustir	0/0	6/4
+Linaeri	0/0	6/4
+Loari	0/0	6/4
+Syrkakar	0/0	8/6
+Udahir	0/0	6/4
+Umli	0/0	8/6
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Ártica
+
+#ESPECIALES
+####################################
+	Visión total a 15 m parcial a 30 en la oscuridad con una fuente de luz mínima.
+	Visión total a la luz de luna o de las estrellas hasta 150 m
+	Son imunes al frio natural
+	Puede recuperar 1 PP por nivel por cada hora completa que pasen descansando directamente bajo los rayos solar
+
+#NOMBRES MASCULINOS
+####################################
+Anori, Nanuk, Sialuk, Mikisoq, Malik, Singajik, Kunuk, Aputsiaq, Innisaq, Alek
+Ilasiak, Akku, Suluk, Nukappi, Arkaluk, Nilak, Ivik, Qigiq, Neruana, Ituko, Aggu
+Adlartok, Intutsiaq, Nattoralik, Nuka, Ivaaq, Emeq, Nuiaq, Taatsiaq, Mala, Salik
+Koyuk, Saamik, Maliina, Akisooq, Katsuana, Napaatsiaq
+
+#NOMBRES FEMENINOS
+####################################
+Sialuk, Sakari, Nuiana, Nivi, Kunik, Taorana, Niviangua, Natuk, Ivaana, Niisa
+Tupaarnaq, Naaja, Angerla, Erinaq, Ujarak, Timmia, Ulloriak, Ivalu, Pipaluk, Naja
+Nukâka, Ukalliq, Anngilik, Serminngua, Naasoq, Aminnguaq, Ungâk, Pilu, Konángua
+Kajuinna, Panninguaq, Naasunnguaq
+
+
+#APELLIDOS
+####################################
+Isilrá, Tasardur, Tulcakelumë, Yávëtil, Súrion, Fëfalas, Alcarin, Tasartir, Felagund
+
+#### FIN RAZA ####

@@ -1,0 +1,82 @@
+# ARMAS TÍPICAS
+####################
+Daga, Machete, Espada Corta, Cayado, Cerbatana, Arco Largo, Arco Corto, Jabalina, Lanza, Hacha de Mano
+
+# ARMADURAS TÍPICAS
+####################
+Cuero Blando
+
+# RANGOS
+####################
+Armadura·Ligera	0
+  *  Cuero Blando	0
+  *  Cuero Endurecido	0
+Armadura·Media	0
+  *  Cota de Mallas	0
+Armas·Contundentes	0
+  *  Arma	0
+Armas·Filo	1
+  *  Arma	1
+Armas·2manos	0
+  *  Arma	0
+Armas·Proyectiles	3
+  *  Arma	3
+Armas·Asta	0
+  *  Arma	0
+Armas·Arrojadizas	0
+  *  Arma	0
+Atletismo·Gimnasia	1
+  *  Trepar	2
+Atletismo·Potencia	1
+Atletismo·Resistencia	1
+  *  Nadar	3
+Ciencia/Analítica·Básica	1
+Comunicación	2
+  *  Idiomas	10
+Conocimiento·General	3
+  *  Conocimiento Regional	3
+  *  Conocimiento Cultural	3
+Exteriores·Animales	1
+  *  Montar: Caballos	1
+Exteriores·Entorno	5
+Percepción de Poder	1
+Percepción·Búsqueda	1
+Percepción·Perspicacia	0
+  *  Alerta	6
+Subterfugio·Sigilo	4
+  *  Acechar	4
+  *  Esconderse	4
+Técnica/Comercio·General	1
+Urbana	0
+Desarrollo Físico	0
+  *  Desarrollo Físico	1
+Listas Abiertas de Hechizos	0
+  *  Lista de Hechizos	2
+
+# PUNTOS AFICIONES
+####################
+10
+
+# AFICIONES
+####################
+Acechar, Acrobacias, Armas·Filo, Armas·2manos, Armas·Proyectiles, Armas·Asta, Armas·Arrojadizas
+Armadura·Ligera, Bailar, Bordar, Caminar por la Cuerda Floja, Trabajar la Madera, Trepar
+Conocimiento de la Fauna, Conocimiento de la Flora, Conocimiento Regional, Desarrollo Físico
+Emboscar, Esconderse, Forrajear, Hacer Flechas, Leer Runas, Manejo de Cuerdas, Nadar
+Narrar Historias, Observación, Primeros Auxilios, Rappelling, Rastrear, Señales, Trabajar el Cuero
+
+# IDIOMAS
+####################
+Élfico	8/8
+Habla de los Bosques	10/10
+Élfico Alto	6/6
+Ninfa	4/4
+Erlini	6/6
+Fauno	6/6
+Linaeri	6/6
+
+# ADIESTAMIENTOS
+####################
+Ninguno
+
+### FIN CULTURA ###

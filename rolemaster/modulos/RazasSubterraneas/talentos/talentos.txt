@@ -1,0 +1,4 @@
+# Nombre	Coste	Permitido	Grado	Tipo	Categoria1 (bonus), Categoria2 (bonus), {listado a seleccionar una}...	Descripcion	
+#########	#########	#########	#########	#########	#########	
+Ansioso	20	Orco Gris	Mayor	Otros	Ninguno	Necesitas un turno menos para lanzar un hechizo. Si el hechizo es instantáneo, tienes un +5 al lanzamiento de hechizos. Consulta la página 99 de razas subterráneas par más información.
+Regalo Mortal	10	Orco Gris	Mayor	Otros	Conocimiento de los No-Muertos (5)	Además tus no-muertos son considerados de un nivel superior a efectos de dispersión. Consulta la página 99 de razas subterráneas par más información.

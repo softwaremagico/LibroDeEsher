@@ -1,0 +1,129 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	0
+Co	4
+Me	-2
+Ra	-2
+Ad	-2
+Em	-2
+In	-2
+Pr	-2
+Rp	0
+Fu	4
+Ap	-70
+
+# ESPERANZA DE VIDA
+####################################
+80
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	20
+Esencia	10
+Mentalismo	20
+Veneno	10
+Enfermedad	10
+Psiónico	10
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/7/4/2/1
+PP Arcano	0/3/2/1/1
+PP Canalización	0/6/5/4/3
+PP Esencia	0/3/2/1/1
+PP Mentalismo	0/3/2/1/1
+PP Psiónico	0/7/6/5/4
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+12
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN
+####################################
+0.5
+
+#IDIOMAS
+####################################
+1
+
+#HISTORIAL
+####################################
+6
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Trogli	8/4	10/8
+Idioma Regional	8/4	10/8
+Wôrim	0/0	4/4
+
+#IDIOMAS HISTORIAL
+####################################
+Enano	0/0	4/4
+Dyari	0/0	4/4
+Murlogi	0/0	6/4
+Wôrim	0/0	6/6
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Subterránea
+
+#ESPECIALES
+####################################
+Contorsionismo
++10	Armas·Arrojadizas
++10	Abrir Cerraduras
++10	Reparaciones
++10	Construcción de Objecto
++10	Equilibrio
++10	Caminar por la Cuerda Floja
++20	Contorsionismo
++10 a cualquier maniobra delicada en la que intervengan las manos o los pies. 
+Visión total bajo la luz de la luna o de las estrellas.
+Visión hasta 10 m en absoluta oscuridad.
+Temen la luz pero no sufren penalización.
+
+#NOMBRES MASCULINOS
+####################################
+Eragdush, Vuk, Valg, Gridush, Gaurk, Punk, Erirg, Igar, Prolg, Gridish, Hodush, Riol
+Ba, Pok, Prulg, Pagor, Girbag, Vrishnak, Blg, Paol, Pogdish, Rirk, Pink, Pugar, Vriol
+Grdash, Pagdish, Barg, alg, Horbag, Gadush, Prugdish, Grirg, Buk, Gort, Brk, Erirt
+Hort, Bourk, Plg, Banak, Erugor, Halg, Badush, Ping, Gorbag, oshnak, Rgdish, Part
+Horg
+
+#NOMBRES FEMENINOS
+####################################
+Hairshooter, Hobbitcutter, Dragoncrawler, Footmangler, Facecrawler, Eyetorturer, Toothhammer
+Earthrower, Elfcutter, Deathslicer, Facejuggler, Dwarfpunsher, Balltorturer, Teethhammer
+Eyehater, Head, Gretchinkiller, Deamonsmasher, Motherdrinker, Hobbitkiller, Hairwalker, Lover
+Beastpoker, Motherhammer, Facecrawler, Ballcutter, Ballthrottler, Ghoulshooter, Gretchinlover
+
+#APELLIDOS
+####################################
+Manthrower, Manthrottler, Wraiththrower, Deathcutter, Manjuggler, Knifedrinker, Ballkiller
+Nailchewer, Goblincrawler, Enemylover, Fingerslicer, Teethhater, Deamondragger, Horsehater
+Teethhater, Nailpoker, Eareater, Hairstomper, Horsehammer, Deathripper, Moonthrottler
+
+#### FIN RAZA ####

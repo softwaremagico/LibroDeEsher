@@ -1,0 +1,55 @@
+# TIEMPO (meses)
+####################################
+85
+
+# EXCLUSIVO RAZA
+####################################
+Hombre Moderno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Contacto en la administración de empresas en la ciudad	50
+Contacto en la administración de empresas en la ciudad	40
+Contacto en la administración de la ciudad	30
+Inversión ($1d10x100/año)	30
+Favor de un personaje importante	20
+Presidente de una compañía	20
+Favor de un personaje importante	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Percepción·Sentidos	2	2	2	3
+  *  Percepción del Entorno: Ciudades	2	-	-	-
+  *  Sentido del Tiempo	1	-	-	-
+Comunicación	3	2	2	6
+Oficios	0	1	1	2
+Influencia	4	1	4	4
+Conocimiento·Técnico	2	1	1	2
+Técnica/Comercio·Profesional	0	1	4	4
+Urbana	2	1	2	2
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Ninguno
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

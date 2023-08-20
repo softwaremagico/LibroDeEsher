@@ -1,0 +1,59 @@
+# TIEMPO (meses)
+####################################
+108
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Ropa del alta calidad y muy elegante	50
+Joyería (valor 10D10mp)	50
+Regalo del amante (valor 5D10mp)	50
+Contacto en alta sociedad (una región)	40
+Amistad con una persona importante	30
+Rival celoso (de igual o superior estatus)	30
+Ex-amante despechado (enemigo)	20
+Símbolo especial del amante 	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Arte·Activo	2	1	2	2
+Listas Hechizos de Adiestramiento	0	2	2	4
+  *  Besos del Houri	2
+  *  Engaños del Houri	2
+Influencia	3	2	2	4
+  *  Seducción	3
+Percepción·Búsqueda	1	1	1	1
+  *  Detectar Mentiras	1
+Subterfugio·Mecánica	1	1	1	3
+  *  Disfrazarse	3
+Urbana	1	1	1	1
+  *  Callejeo	1
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Pr
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

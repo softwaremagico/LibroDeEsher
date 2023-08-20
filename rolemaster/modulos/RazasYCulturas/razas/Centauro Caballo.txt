@@ -1,0 +1,112 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	-2
+Co	2
+Me	0
+Ra	0
+Ad	0
+Em	0
+In	4
+Pr	4
+Rp	-2
+Fu	4
+Ap	-5
+
+# ESPERANZA DE VIDA
+####################################
+150
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-5
+Esencia	-5
+Mentalismo	-5
+Veneno	10
+Enfermedad	15
+Psiónico	-5
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/8/6/4/2
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/6/5/4/3
+PP Mentalismo	0/7/6/5/4
+PP Psiónico	0/7/6/5/4
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+10
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+4
+
+#HISTORIAL
+####################################
+5
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Centauro	8/6	10/10
+Habla Común	0/0	6/6
+Habla de las Llanuras	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Común	0/0	8/8
+Habla Alta	0/0	6/6
+
+#HABILIDADES COMUNES
+####################################
+Acechar, Esconderse, Cazar, Forrajear
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Atletismo·Gimnasia, Combate Montado, Montar: Lobos, Montar: Caballos, Montar: Osos
+
+#CULTURAS
+####################################
+Tierras Altas, Llanuras, Rural, Silvana
+
+#ESPECIALES
+####################################
+Ninguno
+
+#NOMBRES MASCULINOS
+####################################
+Chirón, Neso, Nicos, Eurito, Bianor, Eurímonos, Agrios, Petraios
+Drialos, Oureios, Udaeus, Menelachos, Leodippos, Gyrtomon, Aegion
+Orsiphantes, Chrethon, Antarilfenton, Cadarlion, Caracatus, Carfergus
+Chiron, Khystrophenes, Palomides, Rolf, Rolo, Zalbar, Abante, Ixión, Agrio
+Antímaco, Dafnis, Euritión, Folo, Homados, Mimas, Neso, Quirón, Taumante
+
+#NOMBRES FEMENINOS
+####################################
+Nemeredes, Trephas, Udaeas, Calandria, Ophelie, Ortesale
+Yoshida, Yoshifumi, Zane, Zaneta
+
+#APELLIDOS
+####################################
+Correprisas, Grupablanca, Trespezuñas, Crinhervida, Pelonegro, Pelambre
+
+#### FIN RAZA ####

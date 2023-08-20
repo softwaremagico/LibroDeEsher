@@ -1,0 +1,52 @@
+# TIEMPO (meses)
+####################################
+18
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+2d10 hierbas de Alivio de Conmociones	50
+1d10 Antídotos de Venenos	30
+1d10 hierbas de Alivio de Quemaduras/Congelaciones	30
+1d10 hierbas de Reparación de Hemorragias	30
+1d10 hierbas Generales	30
+Equipo médico superior (no mágico)	30	15	Medicina
+Equipo médico (no mágico)	100	5	Medicina
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Técnica/Comercio·General	0	2	2	2
+  *  Primeros Auxilios	1
+  *  Usar Hierbas	1
+Técnica/Comercio·Profesional	0	2	2	6
+  *  Cuidados Médicos	3
+  *  Diagnosis	3
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Ninguno
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

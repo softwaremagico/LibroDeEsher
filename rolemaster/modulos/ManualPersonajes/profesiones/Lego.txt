@@ -1,0 +1,190 @@
+#CARACTERÍSTICAS POR ORDEN
+####################################
+Indiferente
+
+#REINOS DE MAGIA
+####################################
+Esencia
+Mentalismo
+Canalización
+
+#BONIFICACIÓN POR PROFESIÓN
+####################################
+Autocontrol	5
+Desarrollo Físico	5
+Armas·2manos	5
+Armas·Arrojadizas	5
+Armas·Artillería	5
+Armas·Contundentes	5
+Armas·Asta	5
+Armas·Filo	5
+Armas·Proyectiles	5
+Atletismo·Gimnasia	5
+Atletismo·Potencia	5
+Atletismo·Resistencia	5
+Exteriores·Animales	5
+Exteriores·Entorno	5
+Manipulación del Poder	5
+Oficios	5
+Percepción·Búsqueda	5
+Percepción·Perspicacia	5
+Percepción·Sentidos	5
+Percepción de Poder	5
+Técnica/Comercio·General	5
+Técnica/Comercio·Profesional	5
+Técnica/Comercio·Vocacional	5
+
+#HABILIDADES Y CATEGORÍAS DE HABILIDADES
+####################################
+Armadura·Ligera	2/2/2
+Armadura·Media	3/3/3
+Armadura·Pesada	4/4/4
+Armas·Categoría1	3/6
+Armas·Categoría2	3/6
+Armas·Categoría3	4
+Armas·Categoría4	5
+Armas·Categoría5	6
+Armas·Categoría6	7
+Armas·Categoría7	7
+Arte·Activo	2/5
+Arte·Pasivo	2/5
+Artes Marciales·Golpes	3
+Artes Marciales·Barridos	3
+Artes Marciales·Maniobras de Combate	6
+Ataques Especiales	5/11
+Atletismo·Gimnasia	2/6
+Atletismo·Potencia	3/6
+Atletismo·Resistencia	2/7
+Autocontrol	2/7
+Ciencia/Analítica·Básica	2/5
+Ciencia/Analítica·Especializada	8
+Comunicación	2/2/2
+Conocimiento·General	1/3
+Conocimiento·Mágico	3
+Conocimiento·Oscuro	3/7
+Conocimiento·Técnico	2/6
+Defensas Especiales	30
+Desarrollo de Puntos de Poder	10
+Desarrollo Físico	4/12
+Exteriores·Animales	2/5
+Exteriores·Entorno	2/5
+Hechizos Dirigidos	3/6
+Influencia	2/5
+Maniobras de Combate	4/12
+Manipulación del Poder	8
+Oficios	4/10
+Percepción·Búsqueda	2/6
+Percepción·Perspicacia	3/10
+Percepción·Sentidos	2/6
+Percepción de Poder	4/7
+Subterfugio·Ataque	6/12
+Subterfugio·Mecánica	3/6
+Subterfugio·Sigilo	2/6
+Técnica/Comercio·General	3/7
+Técnica/Comercio·Profesional	8
+Técnica/Comercio·Vocacional	5/2
+Urbana	2/5
+
+# HABILIDADES COMUNES
+####################################
+Oficios#1
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Canalización
+
+#DESARROLLO DE HECHIZOS
+####################################
+Lista Abierta (1-5)	10
+Lista Abierta (6-10)	20
+Lista Abierta (11-15)	30
+Lista Abierta (16-20)	40
+Lista Abierta (21+)	50
+Lista Cerrada (1-5)	15
+Lista Cerrada (6-10)	30
+Lista Cerrada (11-15)	45
+Lista Cerrada (16-20)	60
+Lista Cerrada (21+)	75
+Listas Básicas de Otras Profesiones (1-5)	30
+Listas Básicas de Otras Profesiones (6-10)	60
+Listas Básicas de Otras Profesiones (11-15)	90
+Listas Básicas de Otras Profesiones (16-20)	120
+Listas Básicas de Otras Profesiones (21+)	150
+Listas Abiertas de Otros Reinos (1-5)	40
+Listas Abiertas de Otros Reinos (6-10)	80
+Listas Abiertas de Otros Reinos (11-15)	120
+Listas Abiertas de Otros Reinos (16-20)	160
+Listas Abiertas de Otros Reinos (21+)	200
+Listas Cerradas de Otros Reinos (1-5)	80
+Listas Cerradas de Otros Reinos (6-10)	160
+Listas Cerradas de Otros Reinos (11-15)	240
+Listas Cerradas de Otros Reinos (16-20)	320
+Listas Cerradas de Otros Reinos (21+)	360
+Listas Básicas de Otros Reinos (1-5)	100
+Listas Básicas de Otros Reinos (6-10)	200
+Listas Básicas de Otros Reinos (11-15)	300
+Listas Básicas de Otros Reinos (16-20)	400
+Listas Básicas de Otros Reinos (21+)	500
+Listas Abiertas Arcanas (1-5)	15
+Listas Abiertas Arcanas (6-10)	30
+Listas Abiertas Arcanas (11-15)	45
+Listas Abiertas Arcanas (16-20)	60
+Listas Abiertas Arcanas (21+)	75
+Listas Hechizos de Adiestramiento (1-5)	8/8/8
+Listas Hechizos de Adiestramiento (6-10)	8/8/8
+Listas Hechizos de Adiestramiento (11-15)	8/8/8
+Listas Hechizos de Adiestramiento (16-20)	8/8/8
+Listas Hechizos de Adiestramiento (21+)	8/8/8
+Listas Hechizos de Adiestramientos de Otros Reinos (1-5)	16/16
+Listas Hechizos de Adiestramientos de Otros Reinos (6-10)	16/16
+Listas Hechizos de Adiestramientos de Otros Reinos (11-15)	16/16
+Listas Hechizos de Adiestramientos de Otros Reinos (16-20)	16/16
+Listas Hechizos de Adiestramientos de Otros Reinos (21+)	16/16
+
+#ADIESTRAMIENTO	//+ Preferida 	- Prohibida
+####################################
+Amigo de las Bestias	28
+Artesano	24
+Artista Marcial	30
+Artista	25
+Asesino	28
+Aventurero	29
+Berserker	28
+Caballero	31
+Cazador	30
+Cortabolsas	25
+Desvalijador	25
+Detective	24
+Diplomático	25
+Doctor	23
+Erudito+	20
+Erudito Aventurero	28
+Erudito Enclaustrado	29
+Espía	27
+Expedicionario	28
+Experto en Armas	36
+Explorador	25
+Fanático Religioso+	25
+Filósofo	29
+Guardia+	20
+Guardián	29
+Herbolario	23
+Houri	36
+Mago Principiante	32
+Marino+	20
+Mercader	21
+Mercenario	31
+Sacerdote Chamánico	30
+Salteador	22
+Soldado	23
+Timador	21
+Trotamundos	28
+Viajero	14
+
+Ninja	60
+
+### FIN PROFESION ###

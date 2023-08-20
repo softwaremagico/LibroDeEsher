@@ -1,0 +1,115 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	-2
+Co	4
+Me	0
+Ra	0
+Ad	2
+Em	0
+In	2
+Pr	2
+Rp	-2
+Fu	4
+Ap	-10
+
+# ESPERANZA DE VIDA
+####################################
+150
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-5
+Esencia	-5
+Mentalismo	-5
+Veneno	10
+Enfermedad	15
+Psiónico	-5
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/9/6/5/3
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/6/5/4/3
+PP Mentalismo	0/7/6/5/4
+PP Psiónico	0/7/6/5/4
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+10
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+4
+
+#HISTORIAL
+####################################
+5
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Centauro	8/6	10/10
+Habla Común	0/0	6/6
+Habla Acuática	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Común	0/0	8/8
+Habla Alta	0/0	6/6
+
+#HABILIDADES COMUNES
+####################################
+Acechar, Esconderse, Cazar, Forrajear, Rastrear
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Atletismo·Gimnasia, Combate Montado, Montar: Lobos, Montar: Caballos, Montar: Osos
+
+#CULTURAS
+####################################
+Litoral
+
+#ESPECIALES
+####################################
+Ninguno
+
+#NOMBRES MASCULINOS
+####################################
+Ataúlfo, Sigérico, Walia, Teodorico, Turismundo, Alarico, Gesaleico
+Amalarico, Theudis, Theudiselo, Agila, Atanagildo, Liuva, Leovigildo
+Recaredo, Liuva, Witérico, Gundemaro, Sisebuto, Recesvinto,
+Suínthila, Sisenando, Khíntila, Tulga, Khindasvinto, Wamba, Ervigio
+Egica, Witiza
+
+#NOMBRES FEMENINOS
+####################################
+Gala, Ragnahilda, Hilduara, Reciberga, Brunequilda, Ingunda, Gosvinta
+Braga, Liuva, Imelda, Hildegarda, Rosamunda
+
+#APELLIDOS
+####################################
+Chuckwalla, Escíncido, Gila, Komodo, Rastrero, Sphynx, Basiliscus, Vittatus
+Fasciatus, Cordylus, Elgaria, Anolis, Takydromus, Furcifer, Pardalis, Calumma
+Parsonii, Jacksonii, Cyclura
+
+
+#### FIN RAZA ####

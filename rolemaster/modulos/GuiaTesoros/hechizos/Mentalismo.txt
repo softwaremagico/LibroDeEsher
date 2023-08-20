@@ -1,0 +1,9 @@
+EsenciaHabilidades Inorgánicas	Alquimista de Mentalismo
+Habilidades Líquidas/Gaseosas	Alquimista de Mentalismo
+Imbuir Reino	Alquimista de Mentalismo
+Imbuir Otro Reino	Alquimista de Mentalismo
+Concentraciones Externas	Alquimista de Mentalismo
+Maestría de las Defensas	Alquimista de Mentalismo
+Maestría de los Ataques	Alquimista de Mentalismo
+Maestría del Entendimiento	Alquimista de Mentalismo
+Meditación Curativa	Alquimista de Mentalismo

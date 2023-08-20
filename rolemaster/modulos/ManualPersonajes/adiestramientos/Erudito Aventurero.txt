@@ -1,0 +1,49 @@
+# TIEMPO (meses)
+####################################
+110
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Arma (+10 no mágica)	30
+Libro (+10 no mágico a un conocimiento especifico)	20
+Libro (+10 no mágico a un conocimiento especifico)	20
+Un amuleto o señas reconocida por los estudiosos	50
+Bestia de monta o carga	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Arma/Ataque	1	1	1	1
+Comunicación	5	1	5	5
+Conocimiento·General	4	2	4	4
+Exteriores·Entorno	1	1	1	1
+Influencia	2	1	1	2
+  *  Oratoria	2	-	-	-
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+Ninguna
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

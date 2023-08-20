@@ -1,0 +1,121 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	4
+Co	-2
+Me	2
+Ra	2
+Ad	-5
+Em	4
+In	-2
+Pr	4
+Rp	4
+Fu	0
+Ap	10
+
+# ESPERANZA DE VIDA
+####################################
+Inmortales
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-20
+Esencia	-5
+Mentalismo	-5
+Veneno	10
+Enfermedad	150
+Psiónico	-5
+Frío	10
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/6/5/2/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/7/6/5/4
+PP Mentalismo	0/6/5/4/3
+PP Psiónico	0/3/2/1/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+1
+
+#TIPO DE RAZA
+####################################
+4
+
+#TAMAÑO DE RAZA
+####################################
+Normal
+
+#RECUPERACIÓN
+####################################
+2
+
+#IDIOMAS
+####################################
+4
+
+#HISTORIAL
+####################################
+3
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Dyari	8/4	10/8
+Idioma Regional	8/4	10/8
+
+#IDIOMAS HISTORIAL
+####################################
+Aldari	0/0	4/4
+Charon	0/0	6/4
+Erlini	0/0	4/4
+Jinteni	0/0	4/4
+Linaeri	0/0	8/6
+Murlogi	0/0	6/6
+Loari	0/0	8/6
+Shuluri	0/0	4/4
+
+#HABILIDADES COMUNES
+####################################
+Conocimiento·Técnico, Ciencia/Analítica·Básica, Ciencia/Analítica·Especializada, Maquinaria, Arquitectura, Ingeniería, Mecánica, Ingeniería de Asedio, Artimañas
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Silvana, Litoral
+
+#ESPECIALES
+####################################
+Visión Nocturna: Te permite ver en presencia de luz ténue. 
++20	Oído
++20	Vista
++20	Detectar Emboscadas
+
+#NOMBRES MASCULINOS
+####################################
+Adagrev, Aegseyr, Asnyar, Ferus, Dormen, Hierac, Theris,  Marbaden, Gainil
+Scaver, Ramlis, Mnarid,  Isegdir, Istadant, Isur, Eilbolath, Elbodal, Ursawee
+Nakanasatst, Erehwon, Ubekaneeszar
+
+#NOMBRES FEMENINOS
+####################################
+Aessaya, Darivia, Cilene, Issue, Rinia, Ganna, Fania, Rubira, Sylestra, Savta
+Zulime, Milesis, Nahtalne, Nahter, Enewra, Cansdora, Ethna, Minaforra
+Ysabeau, Maertisa
+
+#APELLIDOS
+####################################
+Engranaje, Pistón, Tuerca, Rueda, Tornillo, Polipasto, Torno, Cuña, Cremallera, Biela, Cigüeñal
+Cámara, Perno, Hélice, Barrena, Resorte, Interruptor, Deflector, Empalme, Listón, Broca, Arandela
+Buje, Pala, Hendedor
+
+#### FIN RAZA ####

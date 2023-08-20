@@ -1,0 +1,138 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	2
+Co	0
+Me	2
+Ra	0
+Ad	-5
+Em	2
+In	0
+Pr	4
+Rp	4
+Fu	0
+Ap	20
+
+# ESPERANZA DE VIDA
+####################################
+Inmortales
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-5
+Esencia	-5
+Mentalismo	-5
+Veneno	10
+Enfermedad	150
+Psiónico	-5
+Frío	10
+Calor	10
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/6/5/2/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/7/6/5/4
+PP Mentalismo	0/6/5/4/3
+PP Psiónico	0/3/2/1/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+2
+
+#TIPO DE RAZA
+####################################
+4
+
+#TAMAÑO DE RAZA
+####################################
+Normal
+
+#RECUPERACIÓN
+####################################
+2
+
+#IDIOMAS
+####################################
+4
+
+#HISTORIAL
+####################################
+3
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Loari	8/4	10/8
+Idioma regional	8/4	10/8
+Enano	0/0	4/4
+Dyari	0/0	6/4
+Linaeri	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
+Aldari	0/0	4/4
+Enano	0/0	6/6
+Dyari	0/0	8/6
+Erlini	0/0	4/4
+Jinteni	0/0	4/4
+Linaeri	0/0	8/6
+Orhan	0/0	6/4
+Shuluri	0/0	4/4
+
+#HABILIDADES COMUNES
+####################################
+Conocimiento·Técnico, Ciencia/Analítica·Básica, Ciencia/Analítica·Especializada
+Maquinaria, Arquitectura, Ingeniería, Mecánica
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Todas
+
+#ESPECIALES
+####################################
++20	Vista
++20	Oído
++20	Detectar Emboscadas
+	Visión total a 10 m parcial a 20 en la oscuridad con una fuente de luz mínima.
+	Visión total a la luz de luna o de las estrellas
++10	Contra Frío y Calor (BD y TR)
+
+#NOMBRES MASCULINOS
+####################################
+Angus, Ardid, Ariel, Dagowill, Dahel, Doomie
+Fachán, Groëg, Horned, Kelpie, Midhir, Puck, Pwill
+Ronnan, Stowny, Aster, Auro'po, Berg'inyon, Bidderdoo
+Dantrag, Devhir, Freithar, Jarlaxle, Kherion, Turion
+Larshar, Zenthrar, Zeerith, Zaknafein, Uthegental, Tyrash
+Tarik, Hino, Hwesto, Súlimo, Draugarquen, Armathar, Adanëaro
+Morion, Lairenossë, Airanosse, Arwë, Mahtaraquisto
+Varnewë, Quettaredhelnen, Eldarestalo, Ondollo
+Akwatiro, Astaldo, Erundur, Othar, Ilfirin, Ainu, Alcarinquallo 
+
+#NOMBRES FEMENINOS
+####################################
+Dagda, Caer, Anna, Badb, Macha, Beansith, Gwaena, Triel
+Lyann, Nimrodela, Adhara, K'yorl, Lhyr, Quentbel, Vendes
+Talya, Shyra, Soana, Sulana, Aranossë, Nossekallo
+Morie, Satultanar, Manisse, Lónie, Nárie, Ára, Nimie, Thenidiel
+Fairiel, Yakaryalymóta, Eruannë, Kwamelne, Erulissë, Erundilmë
+Valadhiel, Veawen, Astaldë, Adamenwen, Yanátirie, Aglarwen, Amaurea
+Aranissë, Fánie, Lossie, Alassantë, Ambatúrie, Eámanë, Vineruva
+Anwië, Taryanís, Halyare, Melmie, Seleratanië, Belwe
+
+#APELLIDOS
+####################################
+Dyrr, Baerne, Harpel, Baerne, Baerne, Oblondra, Q'Xorlarrin
+Barris Del'Armgol, Indilcastirivie, Beweglionië, Istararwennen
+Bellasvalainon, Aikanáro, Blanden'Kerst, Alanosawen, Yávelisse
+
+#### FIN RAZA ####

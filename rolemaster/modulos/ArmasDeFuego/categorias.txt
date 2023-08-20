@@ -1,0 +1,4 @@
+#Nombre	Características	Progresión	Habilidades {AñadirNuevaHabilidad1; AñadirNuevaHabilidad2;...} [Especialidad1; Especialidad2; ...]
+################################################################
+Maniobras de Combate(ManCom)	Ag/Rp/Ad	Combinada	Fuego de Supresión, Fuego Rápido
+Percepción·Sentidos(PerSen)	In/Ad/In	Estándar	Percepción del Entorno: Munición

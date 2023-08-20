@@ -1,0 +1,7 @@
+#Generalizaciones: 
+Shuriken *	sh
+Dardo con Cuerda *	dcu
+Boomerang	boo
+Dardo	drd
+Lazo	lzo
+Woomera *	woo

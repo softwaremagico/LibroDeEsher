@@ -1,0 +1,51 @@
+# TIEMPO (meses)
+####################################
+69
+
+# EXCLUSIVO RAZA
+####################################
+Ninguno
+
+#ESPECIAL	//Nombre, probabilidad, bonus
+####################################
+Compañero animal de gran tamaño	30
+Sumando de Hechizos (+1)	50
+Objeto Diario I (hechizo de nivel 2)	40
+Arma (no mágica)	40	10	Arma
+Armadura (no mágica)	40	10	Armadura
+Compañero animal pequeño	100
+
+#HABILIDADES		RANGOS	MIN	MAX	RANG  //Nombre de la categoria o habilidad, rangos otorgados, minimo de habilidades seleccionables para dicha categoria, maximo de habilidades para esa categoria, rangos a repartir entre las habilidades.
+####################################
+Comunicación	2	1	1	2
+Conocimiento·General	2	1	2	2
+Exteriores·Animales	3	1	3	3
+Listas Básicas de Hechizos	0	1	1	2
+Influencia	1	1	1	1
+
+
+#AUMENTOS CARACTERÍSTICAS
+####################################
+In, Pr
+
+#REQUISITOS PROFESIONALES
+####################################
+Ninguno
+
+#HABILIDADES DE ESTILO DE VIDA
+####################################
+Ninguna
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES PROFESIONALES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+### FIN ADIESTRAMIENTO  ###

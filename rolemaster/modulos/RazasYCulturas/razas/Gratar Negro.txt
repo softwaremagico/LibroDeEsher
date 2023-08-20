@@ -1,0 +1,110 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	-2
+Co	6
+Me	0
+Ra	0
+Ad	0
+Em	-2
+In	2
+Pr	0
+Rp	0
+Fu	6
+Ap	-20
+
+# ESPERANZA DE VIDA
+####################################
+120
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	0
+Esencia	0
+Mentalismo	0
+Veneno	10
+Enfermedad	10
+Psiónico	0
+Frío	0
+Calor	0
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/7/4/2/1
+PP Arcano	0/5/3/2/2
+PP Canalización	0/5/3/2/2
+PP Esencia	0/5/3/2/2
+PP Mentalismo	0/5/3/2/2
+PP Psiónico	0/5/3/2/2
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+9
+
+#TIPO DE RAZA
+####################################
+2
+
+#TAMAÑO DE RAZA  	{Muy Pequeño, Pequeño, Medio, Grande, Enorme}
+####################################
+Medio
+
+#RECUPERACIÓN
+####################################
+1
+
+#IDIOMAS
+####################################
+2
+
+#HISTORIAL
+####################################
+4
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Habla de los Mares	8/6	10/10
+Habla del Norte	8/6	8/6
+Habla del Sur	8/6	8/6
+Habla Común	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
+Habla Común	0/0	8/8
+Lengua Negra	0/0	6/6
+
+#HABILIDADES COMUNES
+####################################
+Ninguna
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Litoral, Subterránea
+
+#ESPECIALES
+####################################
+Anfibio
+
+#NOMBRES MASCULINOS
+####################################
+Vortigern, Veus, Vrozel, Voulcko, Vlop, Vinja, Vigos, Velten, Assher, Izass
+Mallubok, Baltrim
+
+#NOMBRES FEMENINOS
+####################################
+Vaelexa, Valeska, Vectra, Vranka, Vivia, Velka, Velda, Sassia, Nysau, Merys
+Keena
+
+#APELLIDOS
+####################################
+Verdugo, Viteri, Viera
+
+#### FIN RAZA ####

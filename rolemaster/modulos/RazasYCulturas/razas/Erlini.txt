@@ -1,0 +1,157 @@
+#MODIFICACIÓN A LAS CARACTERÍSTICAS
+####################################
+Ag	4
+Co	0
+Me	2
+Ra	0
+Ad	-5
+Em	2
+In	0
+Pr	2
+Rp	2
+Fu	0
+Ap	30
+
+# ESPERANZA DE VIDA
+####################################
+Inmortales
+
+#MODIFICACIÓN A LA TR
+####################################
+Canalización	-5
+Esencia	-5
+Mentalismo	-5
+Veneno	10
+Enfermedad	100
+Psiónico	-5
+Frío	10
+Calor	10
+Miedo	0
+
+#PROGRESIÓN
+####################################
+Desarrollo Físico	0/6/4/2/1
+PP Arcano	0/6/5/4/3
+PP Canalización	0/6/5/4/3
+PP Esencia	0/7/6/5/4
+PP Mentalismo	0/6/5/4/3
+PP Psiónico	0/3/2/1/1
+
+#PROFESIONES RESTRINGIDAS
+####################################
+Ninguna
+
+#PARTIDA DEL ALMA
+####################################
+3
+
+#TIPO DE RAZA
+####################################
+3
+
+#TAMAÑO DE RAZA
+####################################
+Normal
+
+#RECUPERACIÓN
+####################################
+1.5
+
+#IDIOMAS
+####################################
+3
+
+#HISTORIAL
+####################################
+3
+
+#IDIOMAS	Inicial	Max.Cultura
+####################################
+Erlini	8/4	10/10
+Idioma Regional	8/4	10/8
+Linaeri	0/0	6/6
+
+#IDIOMAS HISTORIAL
+####################################
+Centauro	0/0	4/4
+Dyari	0/0	6/4
+Loari	0/0	4/4
+Linaeri	0/0	8/6
+Orhan	0/0	6/4
+Shuluri	0/0	4/4
+Wôrin	0/0	4/4
+
+#HABILIDADES COMUNES
+####################################
+Juegos de Manos, Música, Tocar Instrumento, Trabajar la Madera
+
+#HABILIDADES RESTRINGIDAS
+####################################
+Ninguna
+
+#CULTURAS
+####################################
+Silvana
+
+#ESPECIALES
+####################################
++20	Vista
++20	Oído
++20	Detectar Emboscadas
+	Visión total a 15 m parcial a 30 en la oscuridad con una fuente de luz mínima.
+	Visión total a la luz de luna o de las estrellas
++10	Contra Frío y Calor (BD y TR)
+
+#NOMBRES MASCULINOS
+####################################
+Angus, Ardid, Ariel, Dagowill, Dahel, Doomie
+Fachán, Groëg, Horned, Kelpie, Midhir, Puck, Pwill
+Ronnan, Stowny, Aster, Auro'po, Berg'inyon, Bidderdoo
+Dantrag, Devhir, Freithar, Jarlaxle, Kherion, Turion
+Larshar, Zenthrar, Zeerith, Zaknafein, Uthegental, Tyrash
+Tarik, Hino, Hwesto, Súlimo, Draugarquen, Armathar, Adanëaro
+Morion, Lairenossë, Airanosse, Arwë, Mahtaraquisto
+Varnewë, Quettaredhelnen, Eldarestalo, Ondollo
+Akwatiro, Astaldo, Erundur, Othar, Ilfirin, Ainu, Alcarinquallo
+Aran, Arno, Antalmarnen, Amanadan, Fortion, Hyarion, Morkotaryo
+Liello, Varnion, Sandóre, Euguveo, Finwë, Laivehildo, Almandur
+Failon, Kolinderu, Turar, Meldon, Faileruvaro, Erunámo
+Handassero, Nólar, Áreharano, Úras, Írindo, Karmeleytos, Nacil
+Herenvarno, Eruvalyaiya, Aran, Roccondil, Handon, Indocar, Bercalion
+Nárwë, Tulmo, Khersiwë, Bartar, Cemendur, Arothir, Artaher
+Eruannaro, Manwë, Erufailon, Bewegliono, Beraayaro, Suiauthon
+Endamor, Manveru, Eraisuithon, Túrelio, Pityon, Sailon
+Kalicalwë, Tirentar 
+
+
+#NOMBRES FEMENINOS
+####################################
+Dagda, Caer, Anna, Badb, Macha, Beansith, Gwaena, Triel
+Lyann, Nimrodela, Adhara, K'yorl, Lhyr, Quentbel, Vendes
+Talya, Shyra, Soana, Sulana, Aranossë, Nossekallo
+Morie, Satultanar, Manisse, Lónie, Nárie, Ára, Nimie, Thenidiel
+Fairiel, Yakaryalymóta, Eruannë, Kwamelne, Erulissë, Erundilmë
+Valadhiel, Veawen, Astaldë, Adamenwen, Yanátirie, Aglarwen, Amaurea
+Aranissë, Fánie, Lossie, Alassantë, Ambatúrie, Eámanë, Vineruva
+Anwië, Taryanís, Halyare, Melmie, Seleratanië, Belwe
+Poicawen, Menelwie, Helliva, Vendilken, Erumáre, Lótewen
+Nimiel, Calime, Rácine, Tultien, Antasérewen, Taramarë
+Felyawen, Rondiel, Hilyartehtië, Laivinë, Mótarie, Telpelimperie
+Ilarmariel, Erunámë, Nísserunssanië, Arien, Eruwen, Valya, Nyére
+Kirië, Yulma, Úriel, Orohalatirie, Ardhoniel, Eliel, Ondolaika
+Erunalvórima, Giliel, Nartitta, Coiranna, Almarë, Eruwaedhiel
+Beriadhwen, Nimthîriel, Eruiel, Alassë, Eulalia, Nacilë, Indilwen
+Sidhlairiel, Aurehen, Meldië, Saerwen, Hostawen, Metethiel, Rodwen
+Annawen, Eärwen, Nostë, Nik-Wime, Cuinaë, Nostariel, Pityë, Tarma
+Erundurwen, Cirindé, Rossewen, Lossë, Sermë, Aranel, Varnewen
+
+
+#APELLIDOS
+####################################
+Dyrr, Baerne, Harpel, Baerne, Baerne, Oblondra, Q'Xorlarrin
+Barris Del'Armgol, Indilcastirivie, Beweglionië, Istararwennen
+Bellasvalainon, Aikanáro, Blanden'Kerst, Alanosawen, Yávelisse
+Thalidelothion, Calnerissen, Ecthelion, Sadronniel, Akla-Robalissë
+Tarellethiel, Ekwestaldo, Manalindalasso
+
+#### FIN RAZA ####
